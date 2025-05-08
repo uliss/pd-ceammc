@@ -35,10 +35,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>input string or symbol</xinfo>
+                <xinfo>
+                    <tr lang="en">input string or symbol</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>search suffix (string or symbol)</xinfo>
+                <xinfo>
+                    <tr lang="en">search suffix (string or symbol)</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

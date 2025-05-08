@@ -32,11 +32,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>set or list, other values are ignored.</xinfo>
+                <xinfo>
+                    <tr lang="en">set or list, other values are ignored.</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set right set elements</xinfo>
-                <xinfo on="data:set">set right set</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set right set elements</tr>
+                </xinfo>
+                <xinfo on="data:set">
+                    <tr lang="en">set right set</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -51,11 +51,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">check is list is contains specified atom or sequence</xinfo>
-                <xinfo on="data:mlist">as list</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">check is list is contains specified atom or sequence</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">as list</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set search atoms</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set search atoms</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

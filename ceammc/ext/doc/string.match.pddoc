@@ -47,10 +47,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>input string or symbol</xinfo>
+                <xinfo>
+                    <tr lang="en">input string or symbol</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>change regular expression</xinfo>
+                <xinfo>
+                    <tr lang="en">change regular expression</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

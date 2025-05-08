@@ -24,7 +24,9 @@
         </meta>
         <inlets>
             <inlet type="audio">
-                <xinfo>mixed stream</xinfo>
+                <xinfo>
+                    <tr lang="en">mixed stream</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

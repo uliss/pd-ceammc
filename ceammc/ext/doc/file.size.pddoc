@@ -34,8 +34,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">file path</xinfo>
-                <xinfo on="data:string">file path</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">file path</tr>
+                </xinfo>
+                <xinfo on="data:string">
+                    <tr lang="en">file path</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

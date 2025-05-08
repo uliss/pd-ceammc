@@ -94,8 +94,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">input float</xinfo>
-                <xinfo on="list">input list</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">input float</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

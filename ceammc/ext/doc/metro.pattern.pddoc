@@ -41,10 +41,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">starts (on 1) or stops (on 0) metro</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">starts (on 1) or stops (on 0) metro</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set new pattern</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set new pattern</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

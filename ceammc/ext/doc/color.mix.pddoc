@@ -36,13 +36,19 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float" minvalue="0" maxvalue="1">calculate color mix and output</xinfo>
+                <xinfo on="float" minvalue="0" maxvalue="1">
+                    <tr lang="en">calculate color mix and output</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="data:color">set color and output</xinfo>
+                <xinfo on="data:color">
+                    <tr lang="en">set color and output</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="data:color">set color without output</xinfo>
+                <xinfo on="data:color">
+                    <tr lang="en">set color without output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

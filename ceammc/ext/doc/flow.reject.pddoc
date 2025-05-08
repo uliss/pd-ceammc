@@ -38,14 +38,26 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">pass</xinfo>
-                <xinfo on="float">reject if float is in reject list</xinfo>
-                <xinfo on="symbol">reject if symbol is in reject list</xinfo>
-                <xinfo on="list">reject if first atom is in reject list</xinfo>
-                <xinfo on="any">reject if message selector is in reject list</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">pass</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">reject if float is in reject list</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">reject if symbol is in reject list</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">reject if first atom is in reject list</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">reject if message selector is in reject list</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set reject list</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set reject list</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

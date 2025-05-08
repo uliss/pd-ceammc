@@ -31,8 +31,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">perform search in current array</xinfo>
-                <xinfo on="symbol">set new array and perform search</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">perform search in current array</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set new array and perform search</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

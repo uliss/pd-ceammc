@@ -47,7 +47,9 @@
         <methods />
         <inlets>
             <inlet>
-                <xinfo on="float">glissando phase</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">glissando phase</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

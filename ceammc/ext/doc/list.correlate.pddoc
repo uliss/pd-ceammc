@@ -61,10 +61,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">calculate cross-correlation and output</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">calculate cross-correlation and output</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set second argument (@b property)</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set second argument (@b property)</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

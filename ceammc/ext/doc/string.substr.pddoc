@@ -46,13 +46,19 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>input string</xinfo>
+                <xinfo>
+                    <tr lang="en">input string</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>from</xinfo>
+                <xinfo>
+                    <tr lang="en">from</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>to</xinfo>
+                <xinfo>
+                    <tr lang="en">to</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

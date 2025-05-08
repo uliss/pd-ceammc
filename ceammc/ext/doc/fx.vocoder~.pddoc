@@ -47,10 +47,14 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>modulation signal</xinfo>
+                <xinfo>
+                    <tr lang="en">modulation signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>excitation/carrier signal</xinfo>
+                <xinfo>
+                    <tr lang="en">excitation/carrier signal</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

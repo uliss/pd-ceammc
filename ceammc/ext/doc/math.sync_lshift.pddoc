@@ -31,11 +31,17 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="int">set value, calculate and output result</xinfo>
-                <xinfo on="list">pair: set value and shift, calculate and output result</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">set value, calculate and output result</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">pair: set value and shift, calculate and output result</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">change shift, calculate and output result</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">change shift, calculate and output result</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

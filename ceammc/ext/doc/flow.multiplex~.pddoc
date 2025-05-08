@@ -38,13 +38,19 @@
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
-                <xinfo>first input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">first input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>last input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">last input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="control" number="n+1">
-                <xinfo>multiplexer control</xinfo>
+                <xinfo>
+                    <tr lang="en">multiplexer control</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

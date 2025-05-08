@@ -28,11 +28,17 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="list">input list</xinfo>
-                <xinfo on="data:mlist">input mlist</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">input mlist</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">value from predicate</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">value from predicate</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

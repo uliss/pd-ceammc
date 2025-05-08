@@ -30,15 +30,29 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="any">input messages</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">input messages</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset counter to init value (no output)</xinfo>
-                <xinfo on="int">set current value (no output)</xinfo>
-                <xinfo>@value X - set current value (no output)</xinfo>
-                <xinfo>@value? - output current value</xinfo>
-                <xinfo>+ X - add specified value (no output)</xinfo>
-                <xinfo>- X - subtract specified value (no output)</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset counter to init value (no output)</tr>
+                </xinfo>
+                <xinfo on="int">
+                    <tr lang="en">set current value (no output)</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">@value X - set current value (no output)</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">@value? - output current value</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">+ X - add specified value (no output)</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">- X - subtract specified value (no output)</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

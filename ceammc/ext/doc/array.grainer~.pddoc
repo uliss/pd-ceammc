@@ -346,8 +346,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>control inlet</xinfo>
-                <xinfo on="bang">if @sync = 'ext': starts finished grains playback</xinfo>
+                <xinfo>
+                    <tr lang="en">control inlet</tr>
+                </xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">if @sync = 'ext': starts finished grains playback</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

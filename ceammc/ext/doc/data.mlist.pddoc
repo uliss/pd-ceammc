@@ -190,9 +190,15 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output current list value</xinfo>
-                <xinfo on="symbol">set new list with single symbol element and output</xinfo>
-                <xinfo on="list">sets new list and output it</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current list value</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set new list with single symbol element and output</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">sets new list and output it</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

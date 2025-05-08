@@ -107,16 +107,24 @@
         </methods>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo>control input</xinfo>
+                <xinfo>
+                    <tr lang="en">control input</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="2">
-                <xinfo>first faust input</xinfo>
+                <xinfo>
+                    <tr lang="en">first faust input</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>... faust input</xinfo>
+                <xinfo>
+                    <tr lang="en">... faust input</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="n+1">
-                <xinfo>n-th faust input</xinfo>
+                <xinfo>
+                    <tr lang="en">n-th faust input</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

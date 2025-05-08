@@ -176,22 +176,34 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>1st source input</xinfo>
+                <xinfo>
+                    <tr lang="en">1st source input</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>2nd source input</xinfo>
+                <xinfo>
+                    <tr lang="en">2nd source input</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>3rd source input</xinfo>
+                <xinfo>
+                    <tr lang="en">3rd source input</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>4th source input</xinfo>
+                <xinfo>
+                    <tr lang="en">4th source input</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>5th source input</xinfo>
+                <xinfo>
+                    <tr lang="en">5th source input</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>6th source input</xinfo>
+                <xinfo>
+                    <tr lang="en">6th source input</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

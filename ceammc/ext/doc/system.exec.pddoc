@@ -63,8 +63,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="symbol">run specified program</xinfo>
-                <xinfo on="any">run specified program with arguments</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">run specified program</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">run specified program with arguments</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

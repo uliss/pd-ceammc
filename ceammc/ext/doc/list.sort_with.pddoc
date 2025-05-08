@@ -21,11 +21,17 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">input list</xinfo>
-                <xinfo on="data:mlist">input mlist</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">input mlist</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">output from compare object (1 or 0)</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">output from compare object (1 or 0)</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

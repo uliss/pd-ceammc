@@ -37,10 +37,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>incoming message</xinfo>
+                <xinfo>
+                    <tr lang="en">incoming message</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int" minvalue="0">set number of repeats</xinfo>
+                <xinfo on="int" minvalue="0">
+                    <tr lang="en">set number of repeats</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

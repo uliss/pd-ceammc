@@ -181,15 +181,22 @@
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">
-                <xinfo>first source input</xinfo>
-                <xinfo on="list">SRC_IDX polar RADIUS AZIMUTH ELEVATION or SRC_IDX mute
-                VALUE</xinfo>
+                <xinfo>
+                    <tr lang="en">first source input</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">SRC_IDX polar RADIUS AZIMUTH ELEVATION or SRC_IDX mute VALUE</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>... source input</xinfo>
+                <xinfo>
+                    <tr lang="en">... source input</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>n-th source input</xinfo>
+                <xinfo>
+                    <tr lang="en">n-th source input</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

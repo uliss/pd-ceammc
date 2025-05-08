@@ -34,11 +34,15 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo>input value</xinfo>
+                <xinfo>
+                    <tr lang="en">input value</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int" minvalue="0" maxvalue="1">conditional output from predicate object.
-                '1' means pass, '0' means reject</xinfo>
+                <xinfo on="int" minvalue="0" maxvalue="1">
+                    <tr lang="en">conditional output from predicate object. '1' means pass, '0'
+                    means reject</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

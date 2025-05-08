@@ -35,10 +35,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>input value</xinfo>
+                <xinfo>
+                    <tr lang="en">input value</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="symbol">change function name</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">change function name</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

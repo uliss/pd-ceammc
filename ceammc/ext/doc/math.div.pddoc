@@ -32,11 +32,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">divident</xinfo>
-                <xinfo on="list">list of divident (non float values are ignored)</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">divident</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list of divident (non float values are ignored)</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">change divisor</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">change divisor</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

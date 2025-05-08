@@ -166,15 +166,27 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output list content</xinfo>
-                <xinfo on="float">outputs list element at specified position. Negative indexes are
-                supported</xinfo>
-                <xinfo on="symbol">set new list with single symbol element and output</xinfo>
-                <xinfo on="list">set new list content and output</xinfo>
-                <xinfo on="data:mlist">same as list</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output list content</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">outputs list element at specified position. Negative indexes are
+                    supported</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set new list with single symbol element and output</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set new list content and output</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">same as list</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">sets new list without output</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">sets new list without output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

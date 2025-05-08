@@ -75,8 +75,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">raw midi input bytes</xinfo>
-                <xinfo on="list">raw midi input bytes</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">raw midi input bytes</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">raw midi input bytes</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

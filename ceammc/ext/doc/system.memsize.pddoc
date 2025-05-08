@@ -21,7 +21,9 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs memory size</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs memory size</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

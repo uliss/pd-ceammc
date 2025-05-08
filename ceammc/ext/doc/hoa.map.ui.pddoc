@@ -245,7 +245,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output group and source info</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output group and source info</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

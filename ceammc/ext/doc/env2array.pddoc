@@ -58,7 +58,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>*envelope* data</xinfo>
+                <xinfo>
+                    <tr lang="en">*envelope* data</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

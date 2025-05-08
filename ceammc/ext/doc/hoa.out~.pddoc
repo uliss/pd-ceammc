@@ -44,8 +44,10 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>output signal in the corresponding hoa.process~ object's signal
-                outlet</xinfo>
+                <xinfo>
+                    <tr lang="en">output signal in the corresponding hoa.process~ object's signal
+                    outlet</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <example>

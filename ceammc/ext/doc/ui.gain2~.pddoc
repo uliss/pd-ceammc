@@ -189,11 +189,17 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>left input signal</xinfo>
-                <xinfo on="bang">output current gain @db property</xinfo>
+                <xinfo>
+                    <tr lang="en">left input signal</tr>
+                </xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current gain @db property</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>right input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">right input signal</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

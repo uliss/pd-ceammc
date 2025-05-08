@@ -39,8 +39,12 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="float">input value</xinfo>
-                <xinfo on="list">apply to all numeric values</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">input value</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">apply to all numeric values</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

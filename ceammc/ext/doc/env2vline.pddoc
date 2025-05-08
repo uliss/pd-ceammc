@@ -57,11 +57,17 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output as envelope of fixed length (no stop-points are
-                encountered)</xinfo>
-                <xinfo on="float">output as attack (on 1) / release (on 0) envelope with one
-                stop-point</xinfo>
-                <xinfo on="data">output as fixed envelope* data</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output as envelope of fixed length (no stop-points are
+                    encountered)</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">output as attack (on 1) / release (on 0) envelope with one
+                    stop-point</tr>
+                </xinfo>
+                <xinfo on="data">
+                    <tr lang="en">output as fixed envelope* data</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

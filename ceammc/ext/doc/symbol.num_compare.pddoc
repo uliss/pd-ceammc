@@ -30,11 +30,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">first compare symbol. Unicode strings also supported</xinfo>
-                <xinfo on="list">compare first and second list elements</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">first compare symbol. Unicode strings also supported</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">compare first and second list elements</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="symbol">second compare symbol. Unicode strings also supported</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">second compare symbol. Unicode strings also supported</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

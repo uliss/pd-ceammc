@@ -91,7 +91,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="list">set preset value without output</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set preset value without output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -37,18 +37,26 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo on="any">1st queue input messages</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">1st queue input messages</tr>
+                </xinfo>
             </inlet>
             <inlet number="...">
-                <xinfo on="any">... queue input messages</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">... queue input messages</tr>
+                </xinfo>
             </inlet>
             <inlet number="n">
-                <xinfo on="any">n-th queue input messages</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">n-th queue input messages</tr>
+                </xinfo>
             </inlet>
             <inlet number="n+1">
-                <xinfo on="any">clear: remove all elements from all queues, output: output all
-                element from all queues, flush: output and clear all element from all queues, bang
-                or pop: output and remove first message in all queues</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">clear: remove all elements from all queues, output: output all
+                    element from all queues, flush: output and clear all element from all queues,
+                    bang or pop: output and remove first message in all queues</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

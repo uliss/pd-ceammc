@@ -40,12 +40,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">set divident, calculate and output result</xinfo>
-                <xinfo on="list">pair: set divident and divisor, calculate and output
-                result</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set divident, calculate and output result</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">pair: set divident and divisor, calculate and output result</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">change divisor, calculate and output result</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">change divisor, calculate and output result</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

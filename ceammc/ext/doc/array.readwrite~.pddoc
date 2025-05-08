@@ -55,13 +55,19 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>reading index</xinfo>
+                <xinfo>
+                    <tr lang="en">reading index</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>signal to write</xinfo>
+                <xinfo>
+                    <tr lang="en">signal to write</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>write index</xinfo>
+                <xinfo>
+                    <tr lang="en">write index</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

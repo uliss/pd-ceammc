@@ -34,12 +34,18 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">set multiplier, calculate and output result</xinfo>
-                <xinfo on="list">pair: set multipliers and multiplicand, calculate and output
-                result</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set multiplier, calculate and output result</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">pair: set multipliers and multiplicand, calculate and output
+                    result</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">change multiplicand, calculate and output result</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">change multiplicand, calculate and output result</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

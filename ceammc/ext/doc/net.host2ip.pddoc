@@ -44,8 +44,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">DNS name</xinfo>
-                <xinfo on="any">DNS name</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">DNS name</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">DNS name</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

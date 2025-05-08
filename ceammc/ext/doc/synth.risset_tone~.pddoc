@@ -52,7 +52,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">reset to start position</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset to start position</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

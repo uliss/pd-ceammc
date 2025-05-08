@@ -96,10 +96,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">1: starts output, 0: stop</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">1: starts output, 0: stop</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="any">reset phase to 0</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">reset phase to 0</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

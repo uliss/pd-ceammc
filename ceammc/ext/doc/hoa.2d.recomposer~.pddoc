@@ -108,14 +108,20 @@
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">
-                <xinfo>input harmonic</xinfo>
+                <xinfo>
+                    <tr lang="en">input harmonic</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>input harmonic</xinfo>
+                <xinfo>
+                    <tr lang="en">input harmonic</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>input harmonic. If @fisheye mode is used: fisheye factor [0-1] in last
-                inlet</xinfo>
+                <xinfo>
+                    <tr lang="en">input harmonic. If @fisheye mode is used: fisheye factor [0-1] in
+                    last inlet</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

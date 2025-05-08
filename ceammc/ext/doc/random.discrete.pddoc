@@ -49,9 +49,13 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">generates random number in interval [0, N), where N is number of
-                weights.</xinfo>
-                <xinfo on="list">set new weights</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">generates random number in interval [0, N), where N is number of
+                    weights.</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set new weights</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

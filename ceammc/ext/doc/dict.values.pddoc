@@ -23,7 +23,9 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="data">data.dict</xinfo>
+                <xinfo on="data">
+                    <tr lang="en">data.dict</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

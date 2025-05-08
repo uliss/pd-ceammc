@@ -75,7 +75,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>...</xinfo>
+                <xinfo>
+                    <tr lang="en">...</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

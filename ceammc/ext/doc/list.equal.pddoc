@@ -37,11 +37,17 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="list">First list</xinfo>
-                <xinfo on="data:mlist">First list</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">First list</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">First list</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">Second list</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">Second list</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

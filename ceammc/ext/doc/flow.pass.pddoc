@@ -37,14 +37,26 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">pass</xinfo>
-                <xinfo on="float">pass if float found in pass list</xinfo>
-                <xinfo on="symbol">pass if symbol found in pass list</xinfo>
-                <xinfo on="list">pass if first atom found in pass list</xinfo>
-                <xinfo on="any">pass if message selector found in pass list</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">pass</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">pass if float found in pass list</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">pass if symbol found in pass list</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">pass if first atom found in pass list</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">pass if message selector found in pass list</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set pass list</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set pass list</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

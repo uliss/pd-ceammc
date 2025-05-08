@@ -21,7 +21,9 @@
         </meta>
         <inlets>
             <inlet type="control">
-                <xinfo on="bang">output current patch tree as Dict</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current patch tree as Dict</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

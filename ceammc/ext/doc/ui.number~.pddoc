@@ -87,7 +87,9 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>input audio signal</xinfo>
+                <xinfo>
+                    <tr lang="en">input audio signal</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

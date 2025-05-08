@@ -41,7 +41,9 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo>note list</xinfo>
+                <xinfo>
+                    <tr lang="en">note list</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

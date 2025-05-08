@@ -36,10 +36,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="any">input flow</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">input flow</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset to opened state</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset to opened state</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

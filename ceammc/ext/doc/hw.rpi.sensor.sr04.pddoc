@@ -69,7 +69,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">single distance measure</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">single distance measure</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

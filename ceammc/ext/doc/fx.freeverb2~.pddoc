@@ -86,10 +86,14 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>left channel</xinfo>
+                <xinfo>
+                    <tr lang="en">left channel</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>right channel</xinfo>
+                <xinfo>
+                    <tr lang="en">right channel</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

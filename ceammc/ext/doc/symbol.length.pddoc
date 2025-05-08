@@ -19,7 +19,9 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="symbol">input symbol. Unicode strings also supported.</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">input symbol. Unicode strings also supported.</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

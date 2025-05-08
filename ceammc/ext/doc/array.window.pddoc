@@ -143,7 +143,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">fill array with window</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">fill array with window</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

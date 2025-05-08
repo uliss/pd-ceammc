@@ -81,12 +81,20 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output current value</xinfo>
-                <xinfo on="float">set current value and output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current value</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set current value and output</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset value to @init</xinfo>
-                <xinfo on="float">set current value without output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset value to @init</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set current value without output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

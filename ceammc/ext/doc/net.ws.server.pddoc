@@ -181,7 +181,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>message input</xinfo>
+                <xinfo>
+                    <tr lang="en">message input</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

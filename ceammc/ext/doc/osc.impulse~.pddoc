@@ -39,10 +39,14 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo minvalue="20" on="float">frequency in Hz</xinfo>
+                <xinfo minvalue="20" on="float">
+                    <tr lang="en">frequency in Hz</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset phase</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset phase</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

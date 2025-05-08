@@ -99,11 +99,17 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">reset counter and starts output</xinfo>
-                <xinfo on="float">sets number of bangs and starts output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset counter and starts output</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">sets number of bangs and starts output</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">set number of bangs</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set number of bangs</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

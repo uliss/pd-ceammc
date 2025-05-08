@@ -117,13 +117,19 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>left input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">left input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>right input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">right input signal</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">set expander strength</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set expander strength</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

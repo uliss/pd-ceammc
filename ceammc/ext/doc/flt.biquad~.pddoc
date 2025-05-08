@@ -46,22 +46,34 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>b0</xinfo>
+                <xinfo>
+                    <tr lang="en">b0</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>b1</xinfo>
+                <xinfo>
+                    <tr lang="en">b1</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>b2</xinfo>
+                <xinfo>
+                    <tr lang="en">b2</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>a1</xinfo>
+                <xinfo>
+                    <tr lang="en">a1</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>a2</xinfo>
+                <xinfo>
+                    <tr lang="en">a2</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

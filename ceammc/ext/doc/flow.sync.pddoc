@@ -43,13 +43,19 @@
         </properties>
         <inlets dynamic="true">
             <inlet>
-                <xinfo>first inlet</xinfo>
+                <xinfo>
+                    <tr lang="en">first inlet</tr>
+                </xinfo>
             </inlet>
             <inlet number="...">
-                <xinfo>...</xinfo>
+                <xinfo>
+                    <tr lang="en">...</tr>
+                </xinfo>
             </inlet>
             <inlet number="n">
-                <xinfo>Nth inlet</xinfo>
+                <xinfo>
+                    <tr lang="en">Nth inlet</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

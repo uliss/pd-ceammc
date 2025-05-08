@@ -32,11 +32,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list</xinfo>
-                <xinfo on="data">Input mlist</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">Input list</tr>
+                </xinfo>
+                <xinfo on="data">
+                    <tr lang="en">Input mlist</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>change pattern value</xinfo>
+                <xinfo>
+                    <tr lang="en">change pattern value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

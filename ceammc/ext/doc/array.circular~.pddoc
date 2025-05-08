@@ -59,14 +59,22 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>write delay</xinfo>
+                <xinfo>
+                    <tr lang="en">write delay</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>read delay</xinfo>
+                <xinfo>
+                    <tr lang="en">read delay</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset write position to zero</xinfo>
-                <xinfo on="float">set write position</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset write position to zero</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set write position</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

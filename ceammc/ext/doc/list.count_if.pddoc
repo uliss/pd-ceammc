@@ -23,12 +23,18 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">input list</xinfo>
-                <xinfo on="data">input mlist</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list</tr>
+                </xinfo>
+                <xinfo on="data">
+                    <tr lang="en">input mlist</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float" minvalue="0" maxvalue="1">input value from predicate. "1" means
-                accepted. "0" means reject</xinfo>
+                <xinfo on="float" minvalue="0" maxvalue="1">
+                    <tr lang="en">input value from predicate. "1" means accepted. "0" means
+                    reject</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

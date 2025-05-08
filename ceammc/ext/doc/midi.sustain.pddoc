@@ -41,10 +41,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">MIDI input: NOTE VEL</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">MIDI input: NOTE VEL</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">turn sustain on/off (1/0)</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">turn sustain on/off (1/0)</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

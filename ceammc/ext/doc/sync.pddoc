@@ -39,13 +39,19 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo>first synchronized input</xinfo>
+                <xinfo>
+                    <tr lang="en">first synchronized input</tr>
+                </xinfo>
             </inlet>
             <inlet number="...">
-                <xinfo>... synchronized input</xinfo>
+                <xinfo>
+                    <tr lang="en">... synchronized input</tr>
+                </xinfo>
             </inlet>
             <inlet number="n">
-                <xinfo>n-th synchronized input</xinfo>
+                <xinfo>
+                    <tr lang="en">n-th synchronized input</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

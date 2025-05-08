@@ -32,13 +32,23 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">input float</xinfo>
-                <xinfo on="symbol">input symbol</xinfo>
-                <xinfo on="list">input list</xinfo>
-                <xinfo on="data:mlist">input mlist</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">input float</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">input symbol</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">input mlist</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set passed values</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set passed values</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

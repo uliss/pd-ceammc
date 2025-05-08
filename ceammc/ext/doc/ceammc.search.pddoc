@@ -50,7 +50,9 @@
         </methods>
         <inlets>
             <inlet type="control">
-                <xinfo on="symbol">search in descriptions</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">search in descriptions</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

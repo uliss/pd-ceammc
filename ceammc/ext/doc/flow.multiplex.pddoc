@@ -39,13 +39,19 @@
         </properties>
         <inlets dynamic="true">
             <inlet>
-                <xinfo>multiplexer first inlet</xinfo>
+                <xinfo>
+                    <tr lang="en">multiplexer first inlet</tr>
+                </xinfo>
             </inlet>
             <inlet number="n">
-                <xinfo>multiplexer N-th inlet</xinfo>
+                <xinfo>
+                    <tr lang="en">multiplexer N-th inlet</tr>
+                </xinfo>
             </inlet>
             <inlet number="n+1">
-                <xinfo on="int">set input index</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">set input index</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

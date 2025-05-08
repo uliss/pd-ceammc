@@ -45,10 +45,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">start convolution process</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">start convolution process</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="symbol">set array name</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set array name</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

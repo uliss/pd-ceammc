@@ -30,11 +30,17 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="list">input list</xinfo>
-                <xinfo on="data:mlist">input mlist</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">input mlist</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set searched items</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set searched items</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -32,11 +32,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">multiplier</xinfo>
-                <xinfo on="list">list of multipliers (non float values are ignored)</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">multiplier</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list of multipliers (non float values are ignored)</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">change multiplicand</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">change multiplicand</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

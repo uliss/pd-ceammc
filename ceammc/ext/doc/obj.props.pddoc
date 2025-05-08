@@ -23,7 +23,9 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="bang">output extracted properties to first outlet</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output extracted properties to first outlet</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

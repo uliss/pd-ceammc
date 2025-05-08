@@ -80,7 +80,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">same as *flush* message</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">same as *flush* message</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

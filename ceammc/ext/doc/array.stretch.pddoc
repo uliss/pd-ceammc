@@ -147,7 +147,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">starts processing</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">starts processing</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

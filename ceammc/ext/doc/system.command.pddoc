@@ -81,8 +81,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">run the program</xinfo>
-                <xinfo on="any">change @args property and then run the program</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">run the program</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">change @args property and then run the program</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

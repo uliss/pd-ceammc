@@ -26,12 +26,18 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="int">sets first argument and outputs calculated GCD value</xinfo>
-                <xinfo on="list">sets first argument and second arguments, then output calculated
-                GCD value</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">sets first argument and outputs calculated GCD value</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">sets first argument and second arguments, then output calculated
+                    GCD value</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">sets second value</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">sets second value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

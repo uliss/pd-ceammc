@@ -313,8 +313,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output all cells. Same as [get cells(</xinfo>
-                <xinfo on="list">sets matrix state. Input format: 0 and 1, row by row</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output all cells. Same as [get cells(</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">sets matrix state. Input format: 0 and 1, row by row</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

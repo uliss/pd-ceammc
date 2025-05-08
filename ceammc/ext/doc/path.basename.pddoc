@@ -21,8 +21,12 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="symbol">outputs filename portion of pathname</xinfo>
-                <xinfo on="data:string">outputs directory portion of pathname</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">outputs filename portion of pathname</tr>
+                </xinfo>
+                <xinfo on="data:string">
+                    <tr lang="en">outputs directory portion of pathname</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

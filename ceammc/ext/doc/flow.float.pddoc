@@ -21,11 +21,21 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="float">passed float</xinfo>
-                <xinfo on="bang">ignored</xinfo>
-                <xinfo on="symbol">ignored</xinfo>
-                <xinfo on="list">ignored</xinfo>
-                <xinfo on="any">ignored</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">passed float</tr>
+                </xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">ignored</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">ignored</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">ignored</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">ignored</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

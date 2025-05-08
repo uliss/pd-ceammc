@@ -43,9 +43,15 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">float format argument</xinfo>
-                <xinfo on="symbol">float format argument</xinfo>
-                <xinfo on="list">format arguments (if many)</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">float format argument</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">float format argument</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">format arguments (if many)</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

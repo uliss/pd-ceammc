@@ -48,11 +48,17 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="control">
-                <xinfo on="bang">turn on effect for 3 periods</xinfo>
-                <xinfo on="float">1: turn on, 0: turn off</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">turn on effect for 3 periods</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">1: turn on, 0: turn off</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

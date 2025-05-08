@@ -189,8 +189,12 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>input signal</xinfo>
-                <xinfo on="bang">output current gain @db property</xinfo>
+                <xinfo>
+                    <tr lang="en">input signal</tr>
+                </xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current gain @db property</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

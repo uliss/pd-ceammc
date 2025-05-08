@@ -21,7 +21,9 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="bang">output current canvas name</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current canvas name</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

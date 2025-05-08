@@ -68,8 +68,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">output generated filename pattern</xinfo>
-                <xinfo on="symbol">set new pattern and generate filename pattern</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output generated filename pattern</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set new pattern and generate filename pattern</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

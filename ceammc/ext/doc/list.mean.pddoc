@@ -24,9 +24,13 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">input list of floats. Non float values are just ignored. No output
-                if no floats in list</xinfo>
-                <xinfo on="data:mlist">same as list</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list of floats. Non float values are just ignored. No
+                    output if no floats in list</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">same as list</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

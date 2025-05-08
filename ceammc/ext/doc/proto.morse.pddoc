@@ -50,10 +50,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="list">add words to encoder</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">add words to encoder</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">external clock</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">external clock</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

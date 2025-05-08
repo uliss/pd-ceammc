@@ -70,7 +70,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">calculates and outputs histogram</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">calculates and outputs histogram</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -111,8 +111,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">start playing from the beginning</xinfo>
-                <xinfo on="float">1 - play, 0 - stop</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">start playing from the beginning</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">1 - play, 0 - stop</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -29,8 +29,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">input value</xinfo>
-                <xinfo on="list">input values</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">input value</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input values</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

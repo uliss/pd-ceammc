@@ -87,8 +87,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>property request</xinfo>
-                <xinfo on="bang">output dict with all properties</xinfo>
+                <xinfo>
+                    <tr lang="en">property request</tr>
+                </xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output dict with all properties</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

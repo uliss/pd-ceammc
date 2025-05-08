@@ -39,11 +39,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">process each element of current array</xinfo>
-                <xinfo on="symbol">set the new array, then process each element</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">process each element of current array</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set the new array, then process each element</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">processed float value from side-chain</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">processed float value from side-chain</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

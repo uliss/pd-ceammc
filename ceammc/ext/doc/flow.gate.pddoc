@@ -43,10 +43,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="any">input flow</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">input flow</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">gate control inlet. Sending *1* opens gate, *0* - closes</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">gate control inlet. Sending *1* opens gate, *0* - closes</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

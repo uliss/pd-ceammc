@@ -49,7 +49,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">play</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">play</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

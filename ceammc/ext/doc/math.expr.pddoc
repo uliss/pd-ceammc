@@ -47,11 +47,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">input value (referenced as $f0 or $f in expression)</xinfo>
-                <xinfo on="list">input values (referenced as $f0 ... $f9 in expression)</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">input value (referenced as $f0 or $f in expression)</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input values (referenced as $f0 ... $f9 in expression)</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>change expression</xinfo>
+                <xinfo>
+                    <tr lang="en">change expression</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

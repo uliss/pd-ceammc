@@ -48,7 +48,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>duration list</xinfo>
+                <xinfo>
+                    <tr lang="en">duration list</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

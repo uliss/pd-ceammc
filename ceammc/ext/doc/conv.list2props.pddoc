@@ -24,8 +24,12 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">list of properties</xinfo>
-                <xinfo on="any">list of properties</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list of properties</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">list of properties</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

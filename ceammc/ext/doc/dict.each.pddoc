@@ -22,10 +22,14 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="data:dict">input dictionary</xinfo>
+                <xinfo on="data:dict">
+                    <tr lang="en">input dictionary</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>new key value from sidechain</xinfo>
+                <xinfo>
+                    <tr lang="en">new key value from sidechain</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

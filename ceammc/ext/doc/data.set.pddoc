@@ -82,11 +82,21 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output set content</xinfo>
-                <xinfo on="float">adds new element to set, no output</xinfo>
-                <xinfo on="symbol">adds new element to set, no output</xinfo>
-                <xinfo on="list">adds new elements to set, no output</xinfo>
-                <xinfo on="data:set">set new set content and output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output set content</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">adds new element to set, no output</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">adds new element to set, no output</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">adds new elements to set, no output</tr>
+                </xinfo>
+                <xinfo on="data:set">
+                    <tr lang="en">set new set content and output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

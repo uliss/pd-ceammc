@@ -43,14 +43,26 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">checks if given float is found the list</xinfo>
-                <xinfo on="symbol">checks if given symbol is found the list</xinfo>
-                <xinfo on="list">check is given list is subseqence of list</xinfo>
-                <xinfo on="data:mlist">as list</xinfo>
-                <xinfo on="data">checks if given data is found the list</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">checks if given float is found the list</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">checks if given symbol is found the list</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">check is given list is subseqence of list</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">as list</tr>
+                </xinfo>
+                <xinfo on="data">
+                    <tr lang="en">checks if given data is found the list</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set haystack list</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set haystack list</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

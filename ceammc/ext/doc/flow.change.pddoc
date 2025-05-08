@@ -36,11 +36,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">force output current value</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">force output current value</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>reset: reset state</xinfo>
-                <xinfo>set: sets current value without output</xinfo>
+                <xinfo>
+                    <tr lang="en">reset: reset state</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">set: sets current value without output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

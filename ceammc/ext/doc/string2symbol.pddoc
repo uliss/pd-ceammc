@@ -23,7 +23,9 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo>input string value</xinfo>
+                <xinfo>
+                    <tr lang="en">input string value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

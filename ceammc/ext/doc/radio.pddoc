@@ -46,7 +46,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">index</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">index</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

@@ -26,8 +26,9 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="symbol">outputs '1' if file exists and can be opened, otherwise
-                '0'</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">outputs '1' if file exists and can be opened, otherwise '0'</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

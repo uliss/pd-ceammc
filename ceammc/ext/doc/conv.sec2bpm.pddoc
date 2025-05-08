@@ -26,7 +26,9 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="float">period in seconds</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">period in seconds</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

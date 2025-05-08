@@ -34,7 +34,9 @@
         </info>
         <inlets>
             <inlet type="audio">
-                <xinfo on="any">input values and sound</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">input values and sound</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

@@ -198,9 +198,15 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs current value</xinfo>
-                <xinfo on="float">input value</xinfo>
-                <xinfo on="list">first element converted to float</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs current value</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">input value</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">first element converted to float</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

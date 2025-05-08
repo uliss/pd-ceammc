@@ -49,13 +49,23 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">output float index in searched list</xinfo>
-                <xinfo on="symbol">output symbol index in searched list</xinfo>
-                <xinfo on="list">output position of given list in searched list</xinfo>
-                <xinfo on="data">output data index in searched list</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">output float index in searched list</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">output symbol index in searched list</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">output position of given list in searched list</tr>
+                </xinfo>
+                <xinfo on="data">
+                    <tr lang="en">output data index in searched list</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set searched list</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set searched list</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -260,10 +260,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="data:color">set color and output</xinfo>
+                <xinfo on="data:color">
+                    <tr lang="en">set color and output</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="data:color">set color without output</xinfo>
+                <xinfo on="data:color">
+                    <tr lang="en">set color without output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

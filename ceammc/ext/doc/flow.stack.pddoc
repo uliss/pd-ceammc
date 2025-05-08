@@ -49,14 +49,26 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>input: push to stack</xinfo>
+                <xinfo>
+                    <tr lang="en">input: push to stack</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">output and remove top element</xinfo>
-                <xinfo>top: output top element</xinfo>
-                <xinfo>pop: remove top element (no output)</xinfo>
-                <xinfo>clear: remove all elements (no output)</xinfo>
-                <xinfo>flush: output and remove all elements</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output and remove top element</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">top: output top element</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">pop: remove top element (no output)</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">clear: remove all elements (no output)</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">flush: output and remove all elements</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

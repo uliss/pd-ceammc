@@ -27,10 +27,15 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo>first set or list (converted to set), other values are ignored</xinfo>
+                <xinfo>
+                    <tr lang="en">first set or list (converted to set), other values are
+                    ignored</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>second set or list (converted to set)</xinfo>
+                <xinfo>
+                    <tr lang="en">second set or list (converted to set)</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

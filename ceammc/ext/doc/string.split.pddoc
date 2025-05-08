@@ -48,11 +48,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">input symbol</xinfo>
-                <xinfo on="data:string">input symbol</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">input symbol</tr>
+                </xinfo>
+                <xinfo on="data:string">
+                    <tr lang="en">input symbol</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="symbol">set split symbol</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set split symbol</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

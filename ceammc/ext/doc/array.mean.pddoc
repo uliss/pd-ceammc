@@ -37,7 +37,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">calculates and outputs mean value</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">calculates and outputs mean value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

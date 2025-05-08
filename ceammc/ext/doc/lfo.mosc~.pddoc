@@ -76,11 +76,17 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>frequency in Hz</xinfo>
+                <xinfo>
+                    <tr lang="en">frequency in Hz</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset phase</xinfo>
-                <xinfo on="int">select waveform</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset phase</tr>
+                </xinfo>
+                <xinfo on="int">
+                    <tr lang="en">select waveform</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

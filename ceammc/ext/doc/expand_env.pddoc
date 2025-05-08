@@ -40,12 +40,22 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">passed</xinfo>
-                <xinfo on="float">passed</xinfo>
-                <xinfo on="symbol">expand variable inside symbol string</xinfo>
-                <xinfo on="list">expand variables inside each list symbol</xinfo>
-                <xinfo on="any">expand variables inside each list symbol, more over, if @any
-                argument was used - expand in message selector</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">passed</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">passed</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">expand variable inside symbol string</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">expand variables inside each list symbol</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">expand variables inside each list symbol, more over, if @any
+                    argument was used - expand in message selector</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

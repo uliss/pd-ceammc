@@ -78,8 +78,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">if *0* given, sets state to unchecked and outputs @off_value. On
-                any other number sets to checked state and outputs @on_value</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">if *0* given, sets state to unchecked and outputs @off_value. On
+                    any other number sets to checked state and outputs @on_value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

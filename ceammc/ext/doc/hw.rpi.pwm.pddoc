@@ -162,7 +162,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>input messages</xinfo>
+                <xinfo>
+                    <tr lang="en">input messages</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

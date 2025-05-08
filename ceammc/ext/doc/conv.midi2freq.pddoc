@@ -47,8 +47,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">input MIDI pitch</xinfo>
-                <xinfo on="list">input MIDI pitches</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">input MIDI pitch</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input MIDI pitches</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

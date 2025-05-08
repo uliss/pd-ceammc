@@ -250,8 +250,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs knob value</xinfo>
-                <xinfo on="float">sets knob value and output it</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs knob value</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">sets knob value and output it</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -50,14 +50,22 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">starts (on &gt; 0) or stops (on &lt;= 0) metro</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">starts (on &gt; 0) or stops (on &lt;= 0) metro</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">set @min property</xinfo>
-                <xinfo on="list">set random range. min max pair expected.</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set @min property</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set random range. min max pair expected.</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">set @max property</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set @max property</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

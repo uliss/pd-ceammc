@@ -44,9 +44,13 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">value between 0 and 1, where 0 maps to begin of array, 1 - to
-                end</xinfo>
-                <xinfo on="list">list of phases</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">value between 0 and 1, where 0 maps to begin of array, 1 - to
+                    end</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list of phases</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -106,7 +106,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>accepts any messages and displays it</xinfo>
+                <xinfo>
+                    <tr lang="en">accepts any messages and displays it</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <example>

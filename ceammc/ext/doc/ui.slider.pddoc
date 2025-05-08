@@ -253,8 +253,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs current slider state</xinfo>
-                <xinfo on="float">set slider value and output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs current slider state</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set slider value and output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

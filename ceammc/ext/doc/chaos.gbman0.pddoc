@@ -43,7 +43,9 @@
         <methods />
         <inlets>
             <inlet>
-                <xinfo on="bang">generates and outputs next x-value</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">generates and outputs next x-value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

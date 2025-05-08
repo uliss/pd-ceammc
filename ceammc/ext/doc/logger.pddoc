@@ -42,10 +42,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>log input</xinfo>
+                <xinfo>
+                    <tr lang="en">log input</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">1: enable logging, 0: disable logging</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">1: enable logging, 0: disable logging</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets />

@@ -202,10 +202,15 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs current menu state as list: INDEX ITEM_NAME</xinfo>
-                <xinfo on="float">change menu state and output list: INDEX ITEM_NAME</xinfo>
-                <xinfo on="any">selects item equal to given and output list: INDEX
-                ITEM_NAME</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs current menu state as list: INDEX ITEM_NAME</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">change menu state and output list: INDEX ITEM_NAME</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">selects item equal to given and output list: INDEX ITEM_NAME</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

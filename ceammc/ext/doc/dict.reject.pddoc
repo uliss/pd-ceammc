@@ -32,10 +32,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="data:dict">input dictionary</xinfo>
+                <xinfo on="data:dict">
+                    <tr lang="en">input dictionary</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>set rejected keys</xinfo>
+                <xinfo>
+                    <tr lang="en">set rejected keys</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

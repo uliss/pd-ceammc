@@ -34,9 +34,15 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">Time in format: "HH:MM::SS[.XXX]"</xinfo>
-                <xinfo on="data">String time in format: "HH:MM::SS[.XXX]"</xinfo>
-                <xinfo on="any">Time in format: "HH:MM::SS[.XXX]"</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">Time in format: "HH:MM::SS[.XXX]"</tr>
+                </xinfo>
+                <xinfo on="data">
+                    <tr lang="en">String time in format: "HH:MM::SS[.XXX]"</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">Time in format: "HH:MM::SS[.XXX]"</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

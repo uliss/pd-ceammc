@@ -60,11 +60,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">opens colorpanel</xinfo>
-                <xinfo on="symbol">opens colorpanel with selected color. The hex format #RRGGBB is
-                expected.</xinfo>
-                <xinfo on="list">opens colorpanel with selected color. RGB color triplet expected
-                in float (0-1) or int (0-255) range, depending from @mode</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">opens colorpanel</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">opens colorpanel with selected color. The hex format #RRGGBB is
+                    expected.</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">opens colorpanel with selected color. RGB color triplet expected
+                    in float (0-1) or int (0-255) range, depending from @mode</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

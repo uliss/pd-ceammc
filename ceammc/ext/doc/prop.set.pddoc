@@ -45,13 +45,19 @@
         </arguments>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo>first property value</xinfo>
+                <xinfo>
+                    <tr lang="en">first property value</tr>
+                </xinfo>
             </inlet>
             <inlet number="...">
-                <xinfo>... property value</xinfo>
+                <xinfo>
+                    <tr lang="en">... property value</tr>
+                </xinfo>
             </inlet>
             <inlet number="n">
-                <xinfo>n-th property value</xinfo>
+                <xinfo>
+                    <tr lang="en">n-th property value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -173,10 +173,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output current cursor positions: @cursor_samp, @cursor_phase,
-                @cursor_ms, @cursor_sec and selection (if selected): @select_samp, @select_phase,
-                @select_ms, @select_sec, @begin, @end</xinfo>
-                <xinfo on="float">move cursor to specified sample position</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current cursor positions: @cursor_samp, @cursor_phase,
+                    @cursor_ms, @cursor_sec and selection (if selected): @select_samp,
+                    @select_phase, @select_ms, @select_sec, @begin, @end</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">move cursor to specified sample position</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -34,14 +34,20 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list. If no element found by specified index - list passed
-                without changes</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">Input list. If no element found by specified index - list passed
+                    without changes</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set apply index(es)</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set apply index(es)</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>return value from applied object</xinfo>
+                <xinfo>
+                    <tr lang="en">return value from applied object</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

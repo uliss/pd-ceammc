@@ -52,13 +52,19 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">starts (on &gt;0) or stops (on &lt;=0) metro</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">starts (on &gt;0) or stops (on &lt;=0) metro</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set timeset</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set timeset</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set weights</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set weights</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

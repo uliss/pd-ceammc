@@ -116,8 +116,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>input</xinfo>
-                <xinfo on="bang">send packet</xinfo>
+                <xinfo>
+                    <tr lang="en">input</tr>
+                </xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">send packet</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

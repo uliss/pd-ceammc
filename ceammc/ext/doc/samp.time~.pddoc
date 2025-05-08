@@ -43,11 +43,17 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>on 0-&gt;1 change: start counter, on 1-&gt;0 stops.</xinfo>
+                <xinfo>
+                    <tr lang="en">on 0-&gt;1 change: start counter, on 1-&gt;0 stops.</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset sample counter</xinfo>
-                <xinfo on="float">set current value</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset sample counter</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set current value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

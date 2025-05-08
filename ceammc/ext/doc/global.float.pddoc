@@ -91,8 +91,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs variable</xinfo>
-                <xinfo on="float">set variable to given float and outputs new value</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs variable</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set variable to given float and outputs new value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

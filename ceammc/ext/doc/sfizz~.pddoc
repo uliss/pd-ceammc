@@ -357,7 +357,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="symbol">load mod file</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">load mod file</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

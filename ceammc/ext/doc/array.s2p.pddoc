@@ -45,8 +45,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">array sample number</xinfo>
-                <xinfo on="list">list of sample numbers</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">array sample number</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list of sample numbers</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

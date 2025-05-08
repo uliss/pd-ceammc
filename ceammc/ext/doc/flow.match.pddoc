@@ -47,18 +47,30 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo on="any">input message</xinfo>
-                <xinfo on="symbol">input symbol</xinfo>
-                <xinfo on="data:string">input symbol</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">input message</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">input symbol</tr>
+                </xinfo>
+                <xinfo on="data:string">
+                    <tr lang="en">input symbol</tr>
+                </xinfo>
             </inlet>
             <inlet number="2">
-                <xinfo on="symbol">set first regexp</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set first regexp</tr>
+                </xinfo>
             </inlet>
             <inlet number="...">
-                <xinfo on="symbol">set ... regexp</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set ... regexp</tr>
+                </xinfo>
             </inlet>
             <inlet number="n+1">
-                <xinfo on="symbol">set n-th regexp</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set n-th regexp</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

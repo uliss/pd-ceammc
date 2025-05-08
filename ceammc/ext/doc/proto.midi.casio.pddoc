@@ -128,7 +128,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>control messages</xinfo>
+                <xinfo>
+                    <tr lang="en">control messages</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

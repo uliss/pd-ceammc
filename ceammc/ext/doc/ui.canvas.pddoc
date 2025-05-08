@@ -651,7 +651,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>draw commands</xinfo>
+                <xinfo>
+                    <tr lang="en">draw commands</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

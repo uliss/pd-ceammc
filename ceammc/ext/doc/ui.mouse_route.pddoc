@@ -80,7 +80,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>input messages from ui object</xinfo>
+                <xinfo>
+                    <tr lang="en">input messages from ui object</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

@@ -89,9 +89,15 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">speak number</xinfo>
-                <xinfo on="symbol">speak symbol</xinfo>
-                <xinfo on="list">speak list of symbols</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">speak number</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">speak symbol</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">speak list of symbols</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

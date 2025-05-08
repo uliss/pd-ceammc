@@ -33,8 +33,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs variable value</xinfo>
-                <xinfo on="symbol">sets name of environment variable and outputs it value</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs variable value</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">sets name of environment variable and outputs it value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

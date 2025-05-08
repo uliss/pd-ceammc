@@ -92,8 +92,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output list content</xinfo>
-                <xinfo on="list">set new list content and output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output list content</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set new list content and output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

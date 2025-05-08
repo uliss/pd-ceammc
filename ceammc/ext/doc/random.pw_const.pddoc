@@ -63,8 +63,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">generates random number</xinfo>
-                <xinfo on="list">set new distribution values</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">generates random number</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set new distribution values</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

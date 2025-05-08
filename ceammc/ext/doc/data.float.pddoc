@@ -67,11 +67,17 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output value</xinfo>
-                <xinfo on="float">set new value and outputs</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output value</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set new value and outputs</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>set new value without output</xinfo>
+                <xinfo>
+                    <tr lang="en">set new value without output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

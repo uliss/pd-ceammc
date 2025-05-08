@@ -24,8 +24,12 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list</xinfo>
-                <xinfo on="data:mlist">Input mlist</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">Input list</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">Input mlist</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

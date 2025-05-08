@@ -41,12 +41,20 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>input flow</xinfo>
+                <xinfo>
+                    <tr lang="en">input flow</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset internal timer and goes to opened state</xinfo>
-                <xinfo on="float">set speed limit</xinfo>
-                <xinfo>reset: reset internal timer and goes to opened state</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset internal timer and goes to opened state</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set speed limit</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">reset: reset internal timer and goes to opened state</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

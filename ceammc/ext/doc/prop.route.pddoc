@@ -35,7 +35,9 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="any">input values</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">input values</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

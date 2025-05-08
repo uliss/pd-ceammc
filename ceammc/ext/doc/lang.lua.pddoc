@@ -87,13 +87,19 @@
         </methods>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo>first lua input</xinfo>
+                <xinfo>
+                    <tr lang="en">first lua input</tr>
+                </xinfo>
             </inlet>
             <inlet number="...">
-                <xinfo>... lua input</xinfo>
+                <xinfo>
+                    <tr lang="en">... lua input</tr>
+                </xinfo>
             </inlet>
             <inlet number="n">
-                <xinfo>n-th lua input</xinfo>
+                <xinfo>
+                    <tr lang="en">n-th lua input</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

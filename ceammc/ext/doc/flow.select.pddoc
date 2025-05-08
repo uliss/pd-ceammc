@@ -64,10 +64,18 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">check float for matches</xinfo>
-                <xinfo on="symbol">check symbol for matches</xinfo>
-                <xinfo on="list">check first list element for matches</xinfo>
-                <xinfo on="any">check message selector for matches</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">check float for matches</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">check symbol for matches</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">check first list element for matches</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">check message selector for matches</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

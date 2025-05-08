@@ -43,11 +43,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">input list</xinfo>
-                <xinfo on="data">input mlist</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list</tr>
+                </xinfo>
+                <xinfo on="data">
+                    <tr lang="en">input mlist</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">rotation step</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">rotation step</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

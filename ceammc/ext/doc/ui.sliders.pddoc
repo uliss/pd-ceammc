@@ -287,8 +287,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs sliders position</xinfo>
-                <xinfo on="list">sets slider values and output them</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs sliders position</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">sets slider values and output them</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

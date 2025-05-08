@@ -140,7 +140,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="int">1: turn on, 0: turn off pedal</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">1: turn on, 0: turn off pedal</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

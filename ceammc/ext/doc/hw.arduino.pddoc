@@ -122,9 +122,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">sends float value in byte range [0-255] to arduino device</xinfo>
-                <xinfo on="list">sends list of floats in byte range [0-255] to arduino
-                device</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">sends float value in byte range [0-255] to arduino device</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">sends list of floats in byte range [0-255] to arduino device</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -41,13 +41,23 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>messages</xinfo>
+                <xinfo>
+                    <tr lang="en">messages</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">set space interval (ms)</xinfo>
-                <xinfo>reset: cancel all scheduled outputs and clear message queue</xinfo>
-                <xinfo>@delay: set @delay property</xinfo>
-                <xinfo>@done: set @done property</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set space interval (ms)</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">reset: cancel all scheduled outputs and clear message queue</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">@delay: set @delay property</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">@done: set @done property</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

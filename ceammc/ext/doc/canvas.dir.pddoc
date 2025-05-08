@@ -37,7 +37,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">output current canvas directory</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current canvas directory</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -215,7 +215,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>command input</xinfo>
+                <xinfo>
+                    <tr lang="en">command input</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

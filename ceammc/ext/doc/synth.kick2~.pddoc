@@ -68,9 +68,15 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">play with default duration and full gain</xinfo>
-                <xinfo on="float">play with default duration and specified gain</xinfo>
-                <xinfo on="list">GAIN(0..1) DUR(ms) pair expected</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">play with default duration and full gain</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">play with default duration and specified gain</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">GAIN(0..1) DUR(ms) pair expected</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

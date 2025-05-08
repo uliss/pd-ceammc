@@ -32,13 +32,19 @@
         </info>
         <inlets dynamic="true">
             <inlet>
-                <xinfo>data stream</xinfo>
+                <xinfo>
+                    <tr lang="en">data stream</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>property value</xinfo>
+                <xinfo>
+                    <tr lang="en">property value</tr>
+                </xinfo>
             </inlet>
             <inlet number="...">
-                <xinfo>property value</xinfo>
+                <xinfo>
+                    <tr lang="en">property value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

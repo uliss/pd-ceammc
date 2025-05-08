@@ -50,9 +50,13 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output cursor position</xinfo>
-                <xinfo on="float">when 1 is received - turns on cursor polling (position and
-                buttons), when 0 is received - turns it off</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output cursor position</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">when 1 is received - turns on cursor polling (position and
+                    buttons), when 0 is received - turns it off</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

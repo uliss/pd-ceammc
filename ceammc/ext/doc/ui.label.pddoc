@@ -126,14 +126,22 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">[hidden inlet] set the label text to the given float without
-                changing @text property</xinfo>
-                <xinfo on="symbol">[hidden inlet] set the label text without changing @text
-                property</xinfo>
-                <xinfo on="list">[hidden inlet] set the label text to the given list separated by
-                spaces without changing @text property</xinfo>
-                <xinfo on="any">[hidden inlet] set the label text to the given message separated by
-                spaces without changing @text property</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">[hidden inlet] set the label text to the given float without
+                    changing @text property</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">[hidden inlet] set the label text without changing @text
+                    property</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">[hidden inlet] set the label text to the given list separated by
+                    spaces without changing @text property</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">[hidden inlet] set the label text to the given message separated
+                    by spaces without changing @text property</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <example>

@@ -55,13 +55,23 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">output bar and beat duration</xinfo>
-                <xinfo on="float">set tempo BPM (in quarters) and output</xinfo>
-                <xinfo on="symbol">set tempo BPM (like "120|8bpm") and output</xinfo>
-                <xinfo on="list">set tempo BPM and time signature, then output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output bar and beat duration</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set tempo BPM (in quarters) and output</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set tempo BPM (like "120|8bpm") and output</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set tempo BPM and time signature, then output</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="symbol">set time signature</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set time signature</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

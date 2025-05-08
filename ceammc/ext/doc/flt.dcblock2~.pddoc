@@ -31,10 +31,14 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>right input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">right input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>left input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">left input signal</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

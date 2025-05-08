@@ -52,10 +52,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">input list</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">set desired list size</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">set desired list size</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

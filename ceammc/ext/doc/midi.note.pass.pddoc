@@ -57,10 +57,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">NOTE VELOCITY [DUR] list</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">NOTE VELOCITY [DUR] list</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set new expression</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set new expression</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

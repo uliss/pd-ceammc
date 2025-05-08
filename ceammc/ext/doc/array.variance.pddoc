@@ -37,7 +37,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">calculates and outputs variance</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">calculates and outputs variance</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

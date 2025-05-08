@@ -37,10 +37,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>input values</xinfo>
+                <xinfo>
+                    <tr lang="en">input values</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>value from the side-chain</xinfo>
+                <xinfo>
+                    <tr lang="en">value from the side-chain</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

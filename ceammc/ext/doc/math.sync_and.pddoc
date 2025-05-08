@@ -37,12 +37,18 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="float">set first value, calculate and output result</xinfo>
-                <xinfo on="list">pair: set first and second values, calculate and output
-                result</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set first value, calculate and output result</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">pair: set first and second values, calculate and output
+                    result</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">change second value, calculate and output result</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">change second value, calculate and output result</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

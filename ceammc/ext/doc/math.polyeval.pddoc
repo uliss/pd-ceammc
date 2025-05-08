@@ -29,11 +29,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">evalute polynomial</xinfo>
-                <xinfo on="list">evalute each value in list</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">evalute polynomial</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">evalute each value in list</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">sets polynomial coefficients</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">sets polynomial coefficients</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

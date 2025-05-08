@@ -21,7 +21,9 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo>MidiEvent message</xinfo>
+                <xinfo>
+                    <tr lang="en">MidiEvent message</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

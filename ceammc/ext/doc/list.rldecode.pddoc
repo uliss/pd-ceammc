@@ -36,10 +36,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">First list - single elements</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">First list - single elements</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">Second list - count of each element</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">Second list - count of each element</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

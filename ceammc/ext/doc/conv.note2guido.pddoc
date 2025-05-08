@@ -39,8 +39,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">pitch</xinfo>
-                <xinfo on="list">list of pitches</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">pitch</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list of pitches</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

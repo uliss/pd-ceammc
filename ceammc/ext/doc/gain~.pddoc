@@ -114,13 +114,19 @@
         </methods>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
-                <xinfo>input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="control" number="n">
-                <xinfo on="float">set gain for all inputs</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set gain for all inputs</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

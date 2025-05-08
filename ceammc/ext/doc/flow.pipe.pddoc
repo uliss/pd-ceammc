@@ -50,13 +50,23 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>incoming message</xinfo>
+                <xinfo>
+                    <tr lang="en">incoming message</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">clear pipe</xinfo>
-                <xinfo>reset: clear pipe</xinfo>
-                <xinfo>flush: output and clear</xinfo>
-                <xinfo on="float" minvalue="0">set delay time</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">clear pipe</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">reset: clear pipe</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">flush: output and clear</tr>
+                </xinfo>
+                <xinfo on="float" minvalue="0">
+                    <tr lang="en">set delay time</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -152,7 +152,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">raw input of bytes from Arduino serial connection</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">raw input of bytes from Arduino serial connection</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

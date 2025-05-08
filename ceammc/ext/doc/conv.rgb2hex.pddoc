@@ -46,16 +46,28 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="int">red channel value in [0-255] range</xinfo>
-                <xinfo on="float">red channel value in [0-1] range</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">red channel value in [0-255] range</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">red channel value in [0-1] range</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">green channel value in [0-255] range</xinfo>
-                <xinfo on="float">green channel value in [0-1] range</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">green channel value in [0-255] range</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">green channel value in [0-1] range</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">blue channel value in [0-255] range</xinfo>
-                <xinfo on="float">blue channel value in [0-1] range</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">blue channel value in [0-255] range</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">blue channel value in [0-1] range</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

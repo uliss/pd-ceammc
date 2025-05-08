@@ -48,15 +48,25 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">output generated sequence</xinfo>
-                <xinfo on="int">set number of beats in the sequence</xinfo>
-                <xinfo on="list">list: BEATS LENGTH OFFSET?</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output generated sequence</tr>
+                </xinfo>
+                <xinfo on="int">
+                    <tr lang="en">set number of beats in the sequence</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list: BEATS LENGTH OFFSET?</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">set sequence lenghth</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">set sequence lenghth</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">set sequence offset</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">set sequence offset</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

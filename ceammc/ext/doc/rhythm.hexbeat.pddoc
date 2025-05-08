@@ -33,12 +33,20 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">output last pattern</xinfo>
-                <xinfo on="symbol">set new pattern and output</xinfo>
-                <xinfo on="list">output enumerated patterns for each list argument</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output last pattern</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set new pattern and output</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">output enumerated patterns for each list argument</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="symbol">set new pattern</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set new pattern</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -39,7 +39,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">single character</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">single character</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

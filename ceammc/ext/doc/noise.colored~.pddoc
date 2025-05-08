@@ -76,7 +76,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">set roll-off frequency</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set roll-off frequency</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

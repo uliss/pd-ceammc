@@ -63,10 +63,14 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>carrier</xinfo>
+                <xinfo>
+                    <tr lang="en">carrier</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>modulator</xinfo>
+                <xinfo>
+                    <tr lang="en">modulator</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

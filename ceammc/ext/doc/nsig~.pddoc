@@ -43,14 +43,22 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo on="float">set first output value</xinfo>
-                <xinfo on="list">set list of output values</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set first output value</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set list of output values</tr>
+                </xinfo>
             </inlet>
             <inlet number="...">
-                <xinfo on="float">set ... output value</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set ... output value</tr>
+                </xinfo>
             </inlet>
             <inlet number="n">
-                <xinfo on="float">set n-th output value</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set n-th output value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

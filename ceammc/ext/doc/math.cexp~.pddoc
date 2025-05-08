@@ -39,10 +39,14 @@
         </info>
         <inlets>
             <inlet type="audio">
-                <xinfo>real part of input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">real part of input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>imag part of input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">imag part of input signal</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

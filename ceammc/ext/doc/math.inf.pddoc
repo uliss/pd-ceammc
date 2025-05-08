@@ -28,7 +28,9 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs *inf* value</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs *inf* value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

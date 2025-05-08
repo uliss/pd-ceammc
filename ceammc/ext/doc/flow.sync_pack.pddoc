@@ -45,23 +45,49 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo on="bang">output current value</xinfo>
-                <xinfo on="float">change first packed value and output</xinfo>
-                <xinfo on="symbol">change first packed value and output</xinfo>
-                <xinfo on="list">propagate list values to other inlets and output</xinfo>
-                <xinfo on="any">propagate message values to other inlets and output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current value</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">change first packed value and output</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">change first packed value and output</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">propagate list values to other inlets and output</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">propagate message values to other inlets and output</tr>
+                </xinfo>
             </inlet>
             <inlet number="...">
-                <xinfo on="bang">output current value</xinfo>
-                <xinfo on="float">change ... packed value and output</xinfo>
-                <xinfo on="symbol">change ... packed value and output</xinfo>
-                <xinfo on="list">propagate ... list values among rest inlets and output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current value</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">change ... packed value and output</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">change ... packed value and output</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">propagate ... list values among rest inlets and output</tr>
+                </xinfo>
             </inlet>
             <inlet number="n">
-                <xinfo on="bang">output current value and output</xinfo>
-                <xinfo on="float">change n-th packed value and output</xinfo>
-                <xinfo on="symbol">change n-th packed value and output</xinfo>
-                <xinfo on="list">propagate n-th list values among rest inlets and output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current value and output</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">change n-th packed value and output</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">change n-th packed value and output</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">propagate n-th list values among rest inlets and output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -85,10 +85,18 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs bang</xinfo>
-                <xinfo on="float">outputs bang</xinfo>
-                <xinfo on="symbol">outputs bang</xinfo>
-                <xinfo on="list">outputs bang</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs bang</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">outputs bang</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">outputs bang</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">outputs bang</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -52,16 +52,22 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">output current value</xinfo>
-                <xinfo on="float" minvalue="0" maxvalue="360">set color Hue and output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current value</tr>
+                </xinfo>
+                <xinfo on="float" minvalue="0" maxvalue="360">
+                    <tr lang="en">set color Hue and output</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float" minvalue="0" maxvalue="1">set color saturation without
-                output</xinfo>
+                <xinfo on="float" minvalue="0" maxvalue="1">
+                    <tr lang="en">set color saturation without output</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float" minvalue="0" maxvalue="1">set color lightness without
-                output</xinfo>
+                <xinfo on="float" minvalue="0" maxvalue="1">
+                    <tr lang="en">set color lightness without output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

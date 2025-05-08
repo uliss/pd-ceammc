@@ -90,8 +90,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>property request</xinfo>
-                <xinfo on="bang">output as dict</xinfo>
+                <xinfo>
+                    <tr lang="en">property request</tr>
+                </xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output as dict</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

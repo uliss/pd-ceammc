@@ -34,7 +34,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs current motion sensor information</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs current motion sensor information</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

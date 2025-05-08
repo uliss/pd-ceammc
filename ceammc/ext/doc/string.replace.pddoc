@@ -58,13 +58,19 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>input string or symbol</xinfo>
+                <xinfo>
+                    <tr lang="en">input string or symbol</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>from</xinfo>
+                <xinfo>
+                    <tr lang="en">from</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>to</xinfo>
+                <xinfo>
+                    <tr lang="en">to</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

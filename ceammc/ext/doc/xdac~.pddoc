@@ -66,13 +66,19 @@
         </methods>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
-                <xinfo>first specified channel</xinfo>
+                <xinfo>
+                    <tr lang="en">first specified channel</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>... specified channel</xinfo>
+                <xinfo>
+                    <tr lang="en">... specified channel</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>n-th specified channel</xinfo>
+                <xinfo>
+                    <tr lang="en">n-th specified channel</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets />

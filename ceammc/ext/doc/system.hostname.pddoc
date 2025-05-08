@@ -18,7 +18,9 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs hostname</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs hostname</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

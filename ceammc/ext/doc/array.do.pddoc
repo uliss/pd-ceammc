@@ -39,11 +39,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">starts iteration</xinfo>
-                <xinfo on="symbol">set array name</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">starts iteration</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set array name</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">sample value from side-chain</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">sample value from side-chain</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

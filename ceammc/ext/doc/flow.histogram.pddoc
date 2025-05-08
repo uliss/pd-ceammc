@@ -52,9 +52,13 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">calculates histogram and output current bin values</xinfo>
-                <xinfo on="float">add value to the histogram and output it's value if @sync
-                property is true</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">calculates histogram and output current bin values</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">add value to the histogram and output it's value if @sync
+                    property is true</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

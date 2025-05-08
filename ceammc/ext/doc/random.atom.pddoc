@@ -68,11 +68,15 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">output random atom</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output random atom</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set list of elements to choose from. Note: clear all
-                weights.</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set list of elements to choose from. Note: clear all
+                    weights.</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

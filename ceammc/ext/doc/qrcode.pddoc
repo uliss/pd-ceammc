@@ -52,8 +52,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">output encoded data</xinfo>
-                <xinfo on="symbol">set new value and output encoded data</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output encoded data</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set new value and output encoded data</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

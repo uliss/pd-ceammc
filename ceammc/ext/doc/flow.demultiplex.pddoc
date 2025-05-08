@@ -46,10 +46,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="any">input flow inlet</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">input flow inlet</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">output selector</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">output selector</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

@@ -183,9 +183,13 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">resets play position and starts playback</xinfo>
-                <xinfo on="float">starts playback from the specified sample. Negative offsets are
-                also supported: -10 means play last 10 samples of array till the end</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">resets play position and starts playback</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">starts playback from the specified sample. Negative offsets are
+                    also supported: -10 means play last 10 samples of array till the end</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

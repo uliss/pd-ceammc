@@ -200,7 +200,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>list: amp values</xinfo>
+                <xinfo>
+                    <tr lang="en">list: amp values</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

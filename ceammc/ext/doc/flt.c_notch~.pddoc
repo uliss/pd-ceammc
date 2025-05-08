@@ -52,7 +52,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>control signal</xinfo>
+                <xinfo>
+                    <tr lang="en">control signal</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

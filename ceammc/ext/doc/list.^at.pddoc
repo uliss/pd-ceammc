@@ -62,11 +62,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="int">element index</xinfo>
-                <xinfo on="list">list of indexes</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">element index</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list of indexes</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set list content</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set list content</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

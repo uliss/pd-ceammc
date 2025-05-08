@@ -36,11 +36,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">input list.</xinfo>
-                <xinfo on="data:mlist">input mlist</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list.</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">input mlist</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>new length of output list</xinfo>
+                <xinfo>
+                    <tr lang="en">new length of output list</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

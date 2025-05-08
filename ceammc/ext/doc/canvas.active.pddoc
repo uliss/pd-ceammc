@@ -33,7 +33,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">output canvas active state</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output canvas active state</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

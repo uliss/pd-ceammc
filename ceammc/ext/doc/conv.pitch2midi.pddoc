@@ -29,10 +29,18 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="symbol">Scientific Pitch Notation value</xinfo>
-                <xinfo on="list">list of SPN values</xinfo>
-                <xinfo on="data:string">SPN value</xinfo>
-                <xinfo on="data:mlist">list SPN values</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">Scientific Pitch Notation value</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list of SPN values</tr>
+                </xinfo>
+                <xinfo on="data:string">
+                    <tr lang="en">SPN value</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">list SPN values</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

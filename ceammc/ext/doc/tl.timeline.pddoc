@@ -180,8 +180,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">control inlet. Non-zero value starts timeline, zero -
-                stops.</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">control inlet. Non-zero value starts timeline, zero - stops.</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

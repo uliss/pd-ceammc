@@ -48,12 +48,17 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">starts list generation</xinfo>
-                <xinfo on="int" minvalue="0" maxvalue="1024">changes length of generated list and
-                starts generation</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">starts list generation</tr>
+                </xinfo>
+                <xinfo on="int" minvalue="0" maxvalue="1024">
+                    <tr lang="en">changes length of generated list and starts generation</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="any">input for generated values</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">input for generated values</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

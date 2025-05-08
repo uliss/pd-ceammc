@@ -37,15 +37,29 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">treated as empty input list</xinfo>
-                <xinfo on="float">input float</xinfo>
-                <xinfo on="symbol">input symbol</xinfo>
-                <xinfo on="list">input list</xinfo>
-                <xinfo on="data:mlist">input mlist</xinfo>
-                <xinfo on="data">input data</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">treated as empty input list</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">input float</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">input symbol</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">input mlist</tr>
+                </xinfo>
+                <xinfo on="data">
+                    <tr lang="en">input data</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set prepended atom or list</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set prepended atom or list</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

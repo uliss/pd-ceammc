@@ -435,10 +435,14 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>left in channel</xinfo>
+                <xinfo>
+                    <tr lang="en">left in channel</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>right in channel</xinfo>
+                <xinfo>
+                    <tr lang="en">right in channel</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -179,11 +179,21 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output list content</xinfo>
-                <xinfo on="data:mlist">same as list</xinfo>
-                <xinfo on="float">set new mlist content and output</xinfo>
-                <xinfo on="symbol">set new mlist content and output</xinfo>
-                <xinfo on="list">set new mlist content and output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output list content</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">same as list</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set new mlist content and output</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set new mlist content and output</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set new mlist content and output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

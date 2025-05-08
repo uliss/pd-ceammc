@@ -57,8 +57,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">play</xinfo>
-                <xinfo on="float">play with specified amp</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">play</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">play with specified amp</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

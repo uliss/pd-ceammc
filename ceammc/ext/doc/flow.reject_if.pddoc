@@ -37,11 +37,15 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo>input value</xinfo>
+                <xinfo>
+                    <tr lang="en">input value</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">value from predicate (0 or 1). If *1* reject value, if *0* -
-                pass.</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">value from predicate (0 or 1). If *1* reject value, if *0* -
+                    pass.</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

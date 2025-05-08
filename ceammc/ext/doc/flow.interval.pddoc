@@ -21,7 +21,9 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="any">input flow</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">input flow</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

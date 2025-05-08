@@ -77,7 +77,9 @@
         </properties>
         <inlets dynamic="true">
             <inlet>
-                <xinfo on="list">input list</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

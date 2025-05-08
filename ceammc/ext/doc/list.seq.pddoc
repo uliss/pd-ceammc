@@ -51,12 +51,18 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs generated list</xinfo>
-                <xinfo on="float">sets @from=0, @to=X and outputs generated sequence</xinfo>
-                <xinfo on="list">if 3 arguments are given: they are set to @from, @to and @step
-                accordingly. If 2 args are given: they are set to @from, @to and @step is set to
-                *1*. If 1 arg given, @from is set to 0, @to sets to given value and @step is set to
-                *1*</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs generated list</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">sets @from=0, @to=X and outputs generated sequence</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">if 3 arguments are given: they are set to @from, @to and @step
+                    accordingly. If 2 args are given: they are set to @from, @to and @step is set
+                    to *1*. If 1 arg given, @from is set to 0, @to sets to given value and @step is
+                    set to *1*</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -27,8 +27,12 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="float">time in milliseconds</xinfo>
-                <xinfo on="list">list of times in milliseconds</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">time in milliseconds</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list of times in milliseconds</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

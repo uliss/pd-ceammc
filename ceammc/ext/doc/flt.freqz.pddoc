@@ -75,7 +75,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">calculate and output frequency responses</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">calculate and output frequency responses</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

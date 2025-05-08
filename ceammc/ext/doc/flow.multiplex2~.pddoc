@@ -38,25 +38,39 @@
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
-                <xinfo>first left input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">first left input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="2">
-                <xinfo>first right input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">first right input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>... left input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">... left input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>... right input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">... right input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>last left input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">last left input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>last right input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">last right input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="control" number="n+1">
-                <xinfo>multiplexer control</xinfo>
+                <xinfo>
+                    <tr lang="en">multiplexer control</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

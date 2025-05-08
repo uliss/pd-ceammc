@@ -82,10 +82,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">NOTE VELOCITY</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">NOTE VELOCITY</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">play next note in chord, if @external = 1</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">play next note in chord, if @external = 1</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

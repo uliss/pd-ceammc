@@ -150,11 +150,17 @@
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">
-                <xinfo>input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">input signal</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">plot default number of samples</xinfo>
-                <xinfo on="float">plot specified number of samples</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">plot default number of samples</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">plot specified number of samples</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets />

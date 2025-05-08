@@ -74,9 +74,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">starts output</xinfo>
-                <xinfo on="float">output specified number of values, change @n property
-                valuue</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">starts output</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">output specified number of values, change @n property valuue</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

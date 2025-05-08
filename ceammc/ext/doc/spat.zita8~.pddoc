@@ -74,7 +74,9 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>input</xinfo>
+                <xinfo>
+                    <tr lang="en">input</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

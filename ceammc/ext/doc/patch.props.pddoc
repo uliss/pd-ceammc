@@ -41,8 +41,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output all properties in [prop] objects</xinfo>
-                <xinfo on="any">get/set property value and output it</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output all properties in [prop] objects</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">get/set property value and output it</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

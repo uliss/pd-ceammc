@@ -27,8 +27,12 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="symbol">symbol</xinfo>
-                <xinfo on="data:string">string</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">symbol</tr>
+                </xinfo>
+                <xinfo on="data:string">
+                    <tr lang="en">string</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -62,7 +62,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">filter frequency</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">filter frequency</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

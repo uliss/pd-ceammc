@@ -83,7 +83,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>control inlet</xinfo>
+                <xinfo>
+                    <tr lang="en">control inlet</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

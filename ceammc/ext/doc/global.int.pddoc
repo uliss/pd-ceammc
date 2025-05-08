@@ -72,8 +72,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs variable</xinfo>
-                <xinfo on="float">set truncated integer and outputs</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs variable</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set truncated integer and outputs</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

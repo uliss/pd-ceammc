@@ -49,10 +49,18 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">output</xinfo>
-                <xinfo on="float">set @dur and output</xinfo>
-                <xinfo on="data:mlist">set @rtree, no output</xinfo>
-                <xinfo on="any">parse message and set @rtree, no output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set @dur and output</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">set @rtree, no output</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">parse message and set @rtree, no output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

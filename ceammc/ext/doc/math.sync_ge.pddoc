@@ -31,12 +31,18 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="float">set first number, calculate and output result</xinfo>
-                <xinfo on="list">pair: set first and second numbers, calculate and output
-                result</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set first number, calculate and output result</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">pair: set first and second numbers, calculate and output
+                    result</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">change second number, calculate and output result</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">change second number, calculate and output result</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

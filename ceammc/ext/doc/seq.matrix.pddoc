@@ -110,12 +110,20 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">reset all counters and start sequencer</xinfo>
-                <xinfo on="float">if 1 reset then start, if 0 - stop</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset all counters and start sequencer</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">if 1 reset then start, if 0 - stop</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset</xinfo>
-                <xinfo on="float">set number of steps</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set number of steps</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

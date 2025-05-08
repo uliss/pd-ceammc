@@ -88,7 +88,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">play one note in sequence (same as [on( message)</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">play one note in sequence (same as [on( message)</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

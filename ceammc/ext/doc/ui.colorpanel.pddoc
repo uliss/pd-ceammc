@@ -147,7 +147,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs current widget value</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs current widget value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

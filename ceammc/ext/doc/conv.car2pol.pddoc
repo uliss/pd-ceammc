@@ -34,7 +34,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">x, y coord pair</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">x, y coord pair</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

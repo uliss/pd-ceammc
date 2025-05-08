@@ -45,17 +45,27 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo>input: store in 1st memory cell</xinfo>
+                <xinfo>
+                    <tr lang="en">input: store in 1st memory cell</tr>
+                </xinfo>
             </inlet>
             <inlet number="...">
-                <xinfo>input: store in ... memory cell</xinfo>
+                <xinfo>
+                    <tr lang="en">input: store in ... memory cell</tr>
+                </xinfo>
             </inlet>
             <inlet number="n">
-                <xinfo>input: store in n-th memory cell</xinfo>
+                <xinfo>
+                    <tr lang="en">input: store in n-th memory cell</tr>
+                </xinfo>
             </inlet>
             <inlet number="n+1">
-                <xinfo on="bang">output all cells</xinfo>
-                <xinfo on="int">output specified cell</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output all cells</tr>
+                </xinfo>
+                <xinfo on="int">
+                    <tr lang="en">output specified cell</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

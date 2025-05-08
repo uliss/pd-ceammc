@@ -35,12 +35,20 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="data:string">do compare</xinfo>
-                <xinfo on="symbol">do compare</xinfo>
+                <xinfo on="data:string">
+                    <tr lang="en">do compare</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">do compare</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="data:string">set compare subject</xinfo>
-                <xinfo on="symbol">set compare subject</xinfo>
+                <xinfo on="data:string">
+                    <tr lang="en">set compare subject</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set compare subject</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

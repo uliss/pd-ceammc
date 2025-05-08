@@ -50,12 +50,20 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">render number to array</xinfo>
-                <xinfo on="symbol">render text to array</xinfo>
-                <xinfo on="list">render text to array</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">render number to array</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">render text to array</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">render text to array</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="symbol">set target array name</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set target array name</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

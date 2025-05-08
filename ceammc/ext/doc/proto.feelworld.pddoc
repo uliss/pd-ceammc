@@ -30,7 +30,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>commands</xinfo>
+                <xinfo>
+                    <tr lang="en">commands</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

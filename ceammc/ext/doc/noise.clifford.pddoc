@@ -111,7 +111,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output value</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

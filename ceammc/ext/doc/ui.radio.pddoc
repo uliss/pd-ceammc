@@ -223,9 +223,15 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs current radio state</xinfo>
-                <xinfo on="float">set radio and output</xinfo>
-                <xinfo on="list">set radio and output (only in checklist mode)</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs current radio state</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set radio and output</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set radio and output (only in checklist mode)</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

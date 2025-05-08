@@ -63,12 +63,18 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>incoming message</xinfo>
+                <xinfo>
+                    <tr lang="en">incoming message</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set delay times</xinfo>
-                <xinfo on="any">'reset' - reset all scheduled delays, '@t' - set @t property,
-                '@block' - set @block property, 'dump' - dump object info to Pd window.</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set delay times</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">'reset' - reset all scheduled delays, '@t' - set @t property,
+                    '@block' - set @block property, 'dump' - dump object info to Pd window.</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

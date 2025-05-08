@@ -107,16 +107,24 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="atom">try to find left key in the map and output the right value on
-                success</xinfo>
-                <xinfo on="list">try to find each left key of the list in the map and output the
-                result list of right values</xinfo>
+                <xinfo on="atom">
+                    <tr lang="en">try to find left key in the map and output the right value on
+                    success</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">try to find each left key of the list in the map and output the
+                    result list of right values</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="atom">try to find right key in the map and output the left value on
-                success</xinfo>
-                <xinfo on="list">try to find each right key of the list in the map and output the
-                result list of left values</xinfo>
+                <xinfo on="atom">
+                    <tr lang="en">try to find right key in the map and output the left value on
+                    success</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">try to find each right key of the list in the map and output the
+                    result list of left values</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

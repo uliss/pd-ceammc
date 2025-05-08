@@ -48,13 +48,19 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>input data stream</xinfo>
+                <xinfo>
+                    <tr lang="en">input data stream</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>@from property inlet</xinfo>
+                <xinfo>
+                    <tr lang="en">@from property inlet</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo>@to property inlet</xinfo>
+                <xinfo>
+                    <tr lang="en">@to property inlet</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

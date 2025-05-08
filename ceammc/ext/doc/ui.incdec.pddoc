@@ -143,8 +143,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs current widget value</xinfo>
-                <xinfo on="float">change widget value and output it</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs current widget value</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">change widget value and output it</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

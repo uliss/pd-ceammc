@@ -55,10 +55,14 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>frequency in Hz (can be zero or negative)</xinfo>
+                <xinfo>
+                    <tr lang="en">frequency in Hz (can be zero or negative)</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset phase</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset phase</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

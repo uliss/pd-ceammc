@@ -26,8 +26,12 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="int">number of samples</xinfo>
-                <xinfo on="list">list of number of samples</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">number of samples</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list of number of samples</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

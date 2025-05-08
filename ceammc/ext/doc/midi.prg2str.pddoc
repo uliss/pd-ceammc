@@ -31,7 +31,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">General MIDI instrument number [1-128]</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">General MIDI instrument number [1-128]</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

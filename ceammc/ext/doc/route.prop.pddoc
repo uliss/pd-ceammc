@@ -22,12 +22,22 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="any">property to *first* outlet, any other messages to second
-                outlet</xinfo>
-                <xinfo on="bang">bang to second outlet</xinfo>
-                <xinfo on="float">float to first outlet</xinfo>
-                <xinfo on="list">list to second outlet</xinfo>
-                <xinfo on="symbol">symbol to second outlet</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">property to *first* outlet, any other messages to second
+                    outlet</tr>
+                </xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">bang to second outlet</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">float to first outlet</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list to second outlet</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">symbol to second outlet</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

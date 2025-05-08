@@ -46,7 +46,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">input value</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">input value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

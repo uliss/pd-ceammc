@@ -98,7 +98,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>control input</xinfo>
+                <xinfo>
+                    <tr lang="en">control input</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

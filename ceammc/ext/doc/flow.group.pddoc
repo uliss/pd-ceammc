@@ -51,13 +51,23 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">add float to group and flush if group is full packed</xinfo>
-                <xinfo on="symbol">add symbol to group and flush if group is full packed</xinfo>
-                <xinfo on="list">add list atoms to group and flush if needed</xinfo>
-                <xinfo on="data">add data to group and flush if needed</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">add float to group and flush if group is full packed</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">add symbol to group and flush if group is full packed</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">add list atoms to group and flush if needed</tr>
+                </xinfo>
+                <xinfo on="data">
+                    <tr lang="en">add data to group and flush if needed</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int">set group size</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">set group size</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

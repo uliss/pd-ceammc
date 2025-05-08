@@ -139,7 +139,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>(hidden inlet!) see @mode property</xinfo>
+                <xinfo>
+                    <tr lang="en">(hidden inlet!) see @mode property</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -18,8 +18,12 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="symbol">checks if given path exists</xinfo>
-                <xinfo on="data">If string given - checks if path exists</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">checks if given path exists</tr>
+                </xinfo>
+                <xinfo on="data">
+                    <tr lang="en">If string given - checks if path exists</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -56,12 +56,20 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>incoming message</xinfo>
+                <xinfo>
+                    <tr lang="en">incoming message</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset (stop) current delay</xinfo>
-                <xinfo on="float" minvalue="0">set delay time</xinfo>
-                <xinfo>[reset( - resets delay</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset (stop) current delay</tr>
+                </xinfo>
+                <xinfo on="float" minvalue="0">
+                    <tr lang="en">set delay time</tr>
+                </xinfo>
+                <xinfo>
+                    <tr lang="en">[reset( - resets delay</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

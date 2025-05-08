@@ -45,14 +45,22 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">input value</xinfo>
-                <xinfo on="list">list values are spreaded among three inlets</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">input value</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list values are spreaded among three inlets</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">pattern value</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">pattern value</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">epsilon</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">epsilon</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

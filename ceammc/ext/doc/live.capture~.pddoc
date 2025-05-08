@@ -77,10 +77,14 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>source signal</xinfo>
+                <xinfo>
+                    <tr lang="en">source signal</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">1/0 toggle signal</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">1/0 toggle signal</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

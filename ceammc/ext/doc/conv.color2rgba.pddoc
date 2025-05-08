@@ -51,10 +51,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">color name or hex value in full (#RRGGBB or #RRGGBBAA) or short
-                (#RGB or #RGBA) format</xinfo>
-                <xinfo on="any">use message selector as color name</xinfo>
-                <xinfo on="data:color">Color data</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">color name or hex value in full (#RRGGBB or #RRGGBBAA) or short
+                    (#RGB or #RGBA) format</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">use message selector as color name</tr>
+                </xinfo>
+                <xinfo on="data:color">
+                    <tr lang="en">Color data</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

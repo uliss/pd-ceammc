@@ -58,14 +58,26 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="any">any to current outlet, then move to next</xinfo>
-                <xinfo on="bang">bang to current outlet, then move to next</xinfo>
-                <xinfo on="float">float to current outlet, then move to next</xinfo>
-                <xinfo on="list">list to to current outlet, then move to next</xinfo>
-                <xinfo on="symbol">symbol to current outlet, then move to next</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">any to current outlet, then move to next</tr>
+                </xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">bang to current outlet, then move to next</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">float to current outlet, then move to next</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">list to to current outlet, then move to next</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">symbol to current outlet, then move to next</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset to initial outlet index</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset to initial outlet index</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

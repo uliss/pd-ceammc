@@ -117,7 +117,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="list">FROM TO - copy data from the one array to another</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">FROM TO - copy data from the one array to another</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

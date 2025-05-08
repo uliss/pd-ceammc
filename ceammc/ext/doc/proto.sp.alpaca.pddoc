@@ -141,7 +141,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">input byte value from arduino</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">input byte value from arduino</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

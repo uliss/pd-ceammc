@@ -30,10 +30,14 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo minvalue="-10000" maxvalue="10000">frequency shift in Hertz</xinfo>
+                <xinfo minvalue="-10000" maxvalue="10000">
+                    <tr lang="en">frequency shift in Hertz</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

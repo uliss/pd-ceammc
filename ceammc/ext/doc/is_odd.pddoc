@@ -21,10 +21,14 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="int">outputs '1' if number is not a multiple of two, otherwise outputs
-                '0'.</xinfo>
-                <xinfo on="float">first value converted to integer, then the check is
-                performed</xinfo>
+                <xinfo on="int">
+                    <tr lang="en">outputs '1' if number is not a multiple of two, otherwise outputs
+                    '0'.</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">first value converted to integer, then the check is
+                    performed</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

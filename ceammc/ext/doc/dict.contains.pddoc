@@ -33,10 +33,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="data">Data.dict expected</xinfo>
+                <xinfo on="data">
+                    <tr lang="en">Data.dict expected</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set searched keys</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set searched keys</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

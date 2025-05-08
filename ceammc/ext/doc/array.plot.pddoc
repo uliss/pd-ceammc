@@ -62,12 +62,20 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">single input sample</xinfo>
-                <xinfo on="list">resizes array to list size and plot all list values</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">single input sample</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">resizes array to list size and plot all list values</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">plot all samples fitted to specified array</xinfo>
-                <xinfo on="float">plot specified number of samples, resizes array</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">plot all samples fitted to specified array</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">plot specified number of samples, resizes array</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -57,10 +57,14 @@
         <methods />
         <inlets>
             <inlet>
-                <xinfo>message input</xinfo>
+                <xinfo>
+                    <tr lang="en">message input</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="symbol">set OSC listen path</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set OSC listen path</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

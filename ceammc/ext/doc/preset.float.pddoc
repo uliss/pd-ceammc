@@ -92,7 +92,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">set preset value without output</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set preset value without output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

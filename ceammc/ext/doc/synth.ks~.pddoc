@@ -73,7 +73,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="list">NOTE VEL</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">NOTE VEL</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

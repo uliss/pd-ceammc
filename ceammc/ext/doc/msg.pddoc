@@ -33,14 +33,26 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="any">appends all atoms to message content and outputs it</xinfo>
-                <xinfo on="list">appends input list to message content and outputs it</xinfo>
-                <xinfo on="float">appends float to message content and outputs it</xinfo>
-                <xinfo on="symbol">appends symbol to message content and outputs it</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">appends all atoms to message content and outputs it</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">appends input list to message content and outputs it</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">appends float to message content and outputs it</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">appends symbol to message content and outputs it</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="symbol">change message selector</xinfo>
-                <xinfo on="list">change message selector and first atoms</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">change message selector</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">change message selector and first atoms</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

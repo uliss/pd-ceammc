@@ -77,7 +77,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs current x/y values and generates new one</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs current x/y values and generates new one</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -70,13 +70,23 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output current path</xinfo>
-                <xinfo on="symbol">set current path and output</xinfo>
-                <xinfo on="data">set current path and output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current path</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set current path and output</tr>
+                </xinfo>
+                <xinfo on="data">
+                    <tr lang="en">set current path and output</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="symbol">set current path and without output</xinfo>
-                <xinfo on="data">set current path and without output</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set current path and without output</tr>
+                </xinfo>
+                <xinfo on="data">
+                    <tr lang="en">set current path and without output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

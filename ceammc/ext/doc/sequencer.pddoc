@@ -113,11 +113,17 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">reset all counters and start</xinfo>
-                <xinfo on="float">reset al counter and start (on 1) or stop(on 0)</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset all counters and start</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">reset al counter and start (on 1) or stop(on 0)</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set sequence</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set sequence</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

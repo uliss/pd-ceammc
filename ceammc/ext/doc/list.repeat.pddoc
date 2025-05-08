@@ -29,18 +29,29 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">input float. Example: input 10 outputs list - 10 x n
-                times</xinfo>
-                <xinfo on="symbol">input symbol. Example: input "A" outputs list - "A" x n
-                times</xinfo>
-                <xinfo on="list">input list. Example: input 1 2 3 outputs list - (1 2 3) x n
-                times</xinfo>
-                <xinfo on="data">input data. Output list of data repeated @times</xinfo>
-                <xinfo on="data:mlist">same as list. Example: (1 2 3) results mlist (1 2 3 1 2 3
-                ...)</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">input float. Example: input 10 outputs list - 10 x n times</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">input symbol. Example: input "A" outputs list - "A" x n
+                    times</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list. Example: input 1 2 3 outputs list - (1 2 3) x n
+                    times</tr>
+                </xinfo>
+                <xinfo on="data">
+                    <tr lang="en">input data. Output list of data repeated @times</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">same as list. Example: (1 2 3) results mlist (1 2 3 1 2 3
+                    ...)</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="int" minvalue="0" maxvalue="10000">repeat count</xinfo>
+                <xinfo on="int" minvalue="0" maxvalue="10000">
+                    <tr lang="en">repeat count</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -69,10 +69,14 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>input Left signal</xinfo>
+                <xinfo>
+                    <tr lang="en">input Left signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>input Right signal</xinfo>
+                <xinfo>
+                    <tr lang="en">input Right signal</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

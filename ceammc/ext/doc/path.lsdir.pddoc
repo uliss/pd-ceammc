@@ -36,12 +36,18 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">output directory content</xinfo>
-                <xinfo on="symbol">set directory path (symbol or string) and output it content. If
-                not absolute path is given list current patch directory</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output directory content</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set directory path (symbol or string) and output it content. If
+                    not absolute path is given list current patch directory</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="symbol">set @match property</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set @match property</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

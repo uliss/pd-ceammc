@@ -177,7 +177,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">flush pixels to the strip</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">flush pixels to the strip</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -49,8 +49,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">resizes array and sets its content</xinfo>
-                <xinfo on="symbol">set array name</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">resizes array and sets its content</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">set array name</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <example>

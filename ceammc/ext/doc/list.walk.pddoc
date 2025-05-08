@@ -116,9 +116,15 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs current element and moves to next</xinfo>
-                <xinfo on="float">outputs current element and moves by specified position</xinfo>
-                <xinfo on="list">set new list and reset current position. (no output)</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs current element and moves to next</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">outputs current element and moves by specified position</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set new list and reset current position. (no output)</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

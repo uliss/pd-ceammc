@@ -153,7 +153,9 @@
         </methods>
         <inlets>
             <inlet type="control">
-                <xinfo on="float">1: start playing, 0: stop</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">1: start playing, 0: stop</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

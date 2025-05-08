@@ -47,10 +47,14 @@
         <methods />
         <inlets>
             <inlet type="audio">
-                <xinfo>generation frequency, minimal value 0.001Hz</xinfo>
+                <xinfo>
+                    <tr lang="en">generation frequency, minimal value 0.001Hz</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio">
-                <xinfo>k-value</xinfo>
+                <xinfo>
+                    <tr lang="en">k-value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

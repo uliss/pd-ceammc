@@ -44,12 +44,18 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">set modulo divident, calculate and output remainder</xinfo>
-                <xinfo on="list">pair: set modulo divident and divisor, calculate and output
-                remainder</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set modulo divident, calculate and output remainder</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">pair: set modulo divident and divisor, calculate and output
+                    remainder</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">change divisor, calculate and output result</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">change divisor, calculate and output result</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

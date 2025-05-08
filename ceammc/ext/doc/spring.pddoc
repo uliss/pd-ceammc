@@ -62,10 +62,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">set current value</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set current value</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">set @value</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set @value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

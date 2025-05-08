@@ -32,7 +32,9 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="float">frequency in BPM</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">frequency in BPM</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

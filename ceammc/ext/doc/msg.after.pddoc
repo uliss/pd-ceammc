@@ -37,10 +37,14 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo>any input message</xinfo>
+                <xinfo>
+                    <tr lang="en">any input message</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">change message delay</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">change message delay</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

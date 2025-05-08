@@ -118,7 +118,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">generate and output new value</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">generate and output new value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

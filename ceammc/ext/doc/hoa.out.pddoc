@@ -44,16 +44,26 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">output bang message in the corresponding hoa.process~ object's
-                message outlet</xinfo>
-                <xinfo on="float">output float message in the corresponding hoa.process~ object's
-                message outlet</xinfo>
-                <xinfo on="symbol">output symbol message in the corresponding hoa.process~ object's
-                message outlet</xinfo>
-                <xinfo on="list">output list message in the corresponding hoa.process~ object's
-                message outlet</xinfo>
-                <xinfo on="any">output any message in the corresponding hoa.process~ object's
-                message outlet</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output bang message in the corresponding hoa.process~ object's
+                    message outlet</tr>
+                </xinfo>
+                <xinfo on="float">
+                    <tr lang="en">output float message in the corresponding hoa.process~ object's
+                    message outlet</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">output symbol message in the corresponding hoa.process~ object's
+                    message outlet</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">output list message in the corresponding hoa.process~ object's
+                    message outlet</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">output any message in the corresponding hoa.process~ object's
+                    message outlet</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <example>

@@ -26,8 +26,12 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="symbol">filename</xinfo>
-                <xinfo on="data:string">filename</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">filename</tr>
+                </xinfo>
+                <xinfo on="data:string">
+                    <tr lang="en">filename</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

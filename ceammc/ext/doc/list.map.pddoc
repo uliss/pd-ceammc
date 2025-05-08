@@ -38,13 +38,23 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">input float, no output if not in dict</xinfo>
-                <xinfo on="symbol">input symbol, no output if not in dict</xinfo>
-                <xinfo on="list">input list, output always at least empty list</xinfo>
-                <xinfo on="data:mlist">input list, output always at least empty list</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">input float, no output if not in dict</tr>
+                </xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">input symbol, no output if not in dict</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list, output always at least empty list</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">input list, output always at least empty list</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="data:dict">set mapping dictionary</xinfo>
+                <xinfo on="data:dict">
+                    <tr lang="en">set mapping dictionary</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

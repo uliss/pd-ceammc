@@ -45,13 +45,19 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo>first atom</xinfo>
+                <xinfo>
+                    <tr lang="en">first atom</tr>
+                </xinfo>
             </inlet>
             <inlet number="...">
-                <xinfo>... atom</xinfo>
+                <xinfo>
+                    <tr lang="en">... atom</tr>
+                </xinfo>
             </inlet>
             <inlet number="n">
-                <xinfo>n-th atom</xinfo>
+                <xinfo>
+                    <tr lang="en">n-th atom</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

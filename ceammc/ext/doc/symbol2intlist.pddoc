@@ -24,7 +24,9 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="symbol">first symbol</xinfo>
+                <xinfo on="symbol">
+                    <tr lang="en">first symbol</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

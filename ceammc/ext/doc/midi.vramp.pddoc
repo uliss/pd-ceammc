@@ -56,9 +56,13 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">if VALUE &gt;0, treat as (VALUE 127) list, otherwise as (-VALUE,
-                0)</xinfo>
-                <xinfo on="list">NOTE [VELOCITY] list expected</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">if VALUE &gt;0, treat as (VALUE 127) list, otherwise as (-VALUE,
+                    0)</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">NOTE [VELOCITY] list expected</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -69,7 +69,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output MidiFile data type</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output MidiFile data type</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

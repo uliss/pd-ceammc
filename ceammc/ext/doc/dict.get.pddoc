@@ -44,7 +44,9 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="data:dict">input dictionary</xinfo>
+                <xinfo on="data:dict">
+                    <tr lang="en">input dictionary</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

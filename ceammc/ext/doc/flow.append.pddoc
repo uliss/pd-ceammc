@@ -43,10 +43,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="any">input message</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">input message</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="any">set append value</xinfo>
+                <xinfo on="any">
+                    <tr lang="en">set append value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

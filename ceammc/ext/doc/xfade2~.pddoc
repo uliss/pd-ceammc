@@ -66,25 +66,39 @@
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
-                <xinfo>left input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">left input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="2">
-                <xinfo>right input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">right input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>left input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">left input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>right input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">right input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="n-1">
-                <xinfo>left input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">left input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>right input signal</xinfo>
+                <xinfo>
+                    <tr lang="en">right input signal</tr>
+                </xinfo>
             </inlet>
             <inlet type="control" number="n+1">
-                <xinfo on="float">set crossfade value</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set crossfade value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -24,7 +24,9 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="data">input data</xinfo>
+                <xinfo on="data">
+                    <tr lang="en">input data</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

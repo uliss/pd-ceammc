@@ -166,8 +166,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs current slider state</xinfo>
-                <xinfo on="list">set range value without output</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs current slider state</tr>
+                </xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set range value without output</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

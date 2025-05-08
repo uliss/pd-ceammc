@@ -95,10 +95,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output current value then increment counter</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output current value then increment counter</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset counter to start value</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset counter to start value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

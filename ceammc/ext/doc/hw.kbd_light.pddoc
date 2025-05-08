@@ -24,9 +24,12 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="float" minvalue="0" maxvalue="1">sets current keyboards light level (no
-                output)</xinfo>
-                <xinfo on="bang">outputs current keyboard light level</xinfo>
+                <xinfo on="float" minvalue="0" maxvalue="1">
+                    <tr lang="en">sets current keyboards light level (no output)</tr>
+                </xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">outputs current keyboard light level</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

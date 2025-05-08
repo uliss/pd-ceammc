@@ -125,10 +125,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">reset all counters and start sequencer</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">reset all counters and start sequencer</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="list">set new pattern value</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">set new pattern value</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

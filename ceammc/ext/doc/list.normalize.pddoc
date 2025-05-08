@@ -45,8 +45,12 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">input list of floats. Non float values are rejected</xinfo>
-                <xinfo on="data:mlist">same as list</xinfo>
+                <xinfo on="list">
+                    <tr lang="en">input list of floats. Non float values are rejected</tr>
+                </xinfo>
+                <xinfo on="data:mlist">
+                    <tr lang="en">same as list</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -45,8 +45,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output property value</xinfo>
-                <xinfo on="any">set property value and output it</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">output property value</tr>
+                </xinfo>
+                <xinfo on="any">
+                    <tr lang="en">set property value and output it</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -73,13 +73,19 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">generate new number</xinfo>
+                <xinfo on="bang">
+                    <tr lang="en">generate new number</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">set @min property</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set @min property</tr>
+                </xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">set @max property</xinfo>
+                <xinfo on="float">
+                    <tr lang="en">set @max property</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>

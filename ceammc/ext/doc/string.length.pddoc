@@ -22,7 +22,9 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo>input string or symbol. Unicode strings also supported.</xinfo>
+                <xinfo>
+                    <tr lang="en">input string or symbol. Unicode strings also supported.</tr>
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>
