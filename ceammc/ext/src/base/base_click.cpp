@@ -34,11 +34,17 @@ void Click::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
+void Click::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/, t_floatarg /*shift*/, t_floatarg /*ctrl*/, t_floatarg /*alt*/)
+{
+    onBang();
+}
+
 void click_tilde_setup()
 {
     SoundExternalFactory<Click> obj("click~", OBJECT_FACTORY_DEFAULT);
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdListFn();
+    obj.useClick();
 
     obj.setDescription("Output single impulse on bang");
     obj.addAuthor("Serge Poltavsky");
