@@ -131,10 +131,13 @@ angle values \, if 'car': as X and Y coordinates. Тип: symbol. Значени
 #X obj 20 2010 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2011 1\.;
+#X text 150 2011 ~;
 #X text 245 2011 first harmonic output.;
 #X text 110 2031 ....;
+#X text 150 2031 ~;
 #X text 245 2031 ... harmonic output.;
 #X text 110 2051 n.;
+#X text 150 2051 ~;
 #X text 245 2051 n-th harmonic output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

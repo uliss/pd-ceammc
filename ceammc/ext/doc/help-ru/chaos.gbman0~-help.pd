@@ -59,8 +59,10 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 20 710 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 711 1\.;
+#X text 150 711 ~;
 #X text 245 711 outputs x value.;
 #X text 110 731 2\.;
+#X text 150 731 ~;
 #X text 245 731 outputs y value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -56,6 +56,7 @@ int. Значение по умолчанию: 512\. Диапазон: 8\...3276
 #X obj 20 828 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 829 1\.;
+#X text 150 829 ~;
 #X text 245 829 signal output.;
 #X text 110 849 2\.;
 #X text 245 849 output to [array.plot~] or [ui.plot~].;

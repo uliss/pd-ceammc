@@ -160,10 +160,13 @@ mute VALUE.;
 #X obj 20 2193 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2194 1\.;
+#X text 150 2194 ~;
 #X text 245 2194 first harmonic output.;
 #X text 110 2214 ....;
+#X text 150 2214 ~;
 #X text 245 2214 ... harmonic output.;
 #X text 110 2234 n.;
+#X text 150 2234 ~;
 #X text 245 2234 n-th harmonic output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

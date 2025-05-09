@@ -99,8 +99,10 @@ value: 0.5\. Range: 0\...1\.;
 #X obj 20 1490 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1491 1\.;
+#X text 150 1491 ~;
 #X text 245 1491 left output.;
 #X text 110 1511 2\.;
+#X text 150 1511 ~;
 #X text 245 1511 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

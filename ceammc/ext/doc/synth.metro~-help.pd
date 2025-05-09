@@ -124,6 +124,7 @@ like: |1/4+15/16| etc. Type: symbol. Default value: |4/4|.;
 #X obj 20 1482 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1483 1\.;
+#X text 150 1483 ~;
 #X text 245 1483 synth output.;
 #X text 110 1503 2\.;
 #X text 245 1503 current beat: 1: downbeat \, 2: onbeat \, 3: offbeat

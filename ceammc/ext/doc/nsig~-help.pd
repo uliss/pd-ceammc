@@ -56,10 +56,13 @@ int. Default value: 1\. Range: 1\...12\.;
 #X obj 20 625 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 626 1\.;
+#X text 150 626 ~;
 #X text 245 626 first value output.;
 #X text 110 646 ....;
+#X text 150 646 ~;
 #X text 245 646 ... value output.;
 #X text 110 666 n.;
+#X text 150 666 ~;
 #X text 245 666 n-th value output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

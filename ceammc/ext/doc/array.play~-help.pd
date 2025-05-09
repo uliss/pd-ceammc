@@ -135,6 +135,7 @@ till the end.;
 #X obj 20 1776 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1777 1\.;
+#X text 150 1777 ~;
 #X text 245 1777 played signal.;
 #X text 110 1797 2\.;
 #X text 245 1797 output current playing position according to @cfmt

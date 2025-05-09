@@ -343,8 +343,10 @@ program). Тип: int. Диапазон: 1…256\.;
 #X obj 20 4294 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 4295 1\.;
+#X text 150 4295 ~;
 #X text 245 4295 left channel and property output.;
 #X text 110 4315 2\.;
+#X text 150 4315 ~;
 #X text 245 4315 right channel.;
 #X text 110 4335 3\.;
 #X text 245 4335 int: number of active voices (output only on change).;

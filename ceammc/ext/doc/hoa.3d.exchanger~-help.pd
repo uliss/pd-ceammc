@@ -68,10 +68,13 @@ ACN. Allowed values: ACN \, fromFurseMalham \, fromSID \, toFurseMalham
 #X obj 20 797 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 798 1\.;
+#X text 150 798 ~;
 #X text 245 798 first loudspeaker output.;
 #X text 110 818 ....;
+#X text 150 818 ~;
 #X text 245 818 ... loudspeaker output.;
 #X text 110 838 n.;
+#X text 150 838 ~;
 #X text 245 838 n-th loudspeaker output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

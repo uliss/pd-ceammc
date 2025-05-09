@@ -139,8 +139,10 @@ kicks in (100 dB = max level). Тип: float. Единицы: 'db'. Значен
 #X obj 20 1754 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1755 1\.;
+#X text 150 1755 ~;
 #X text 245 1755 left output compressed signal.;
 #X text 110 1775 2\.;
+#X text 150 1775 ~;
 #X text 245 1775 right output compressed signal.;
 #X text 110 1795 3\.;
 #X text 245 1795 list: output current compression amount in db.;

@@ -37,8 +37,10 @@
 #X obj 20 443 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 444 1\.;
+#X text 150 444 ~;
 #X text 245 444 real part of result.;
 #X text 110 464 2\.;
+#X text 150 464 ~;
 #X text 245 464 imag part of result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

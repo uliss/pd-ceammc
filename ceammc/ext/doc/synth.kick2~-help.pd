@@ -80,6 +80,7 @@ value: 100\. Range: 5\...4000\.;
 #X obj 20 1017 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1018 1\.;
+#X text 150 1018 ~;
 #X text 245 1018 synth output.;
 #X text 110 1038 2\.;
 #X text 245 1038 bang after release finished.;

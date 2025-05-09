@@ -185,8 +185,10 @@ bool. Значение по умолчанию: 0\.;
 #X obj 20 2413 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2414 1\.;
+#X text 150 2414 ~;
 #X text 245 2414 left output signal.;
 #X text 110 2434 2\.;
+#X text 150 2434 ~;
 #X text 245 2434 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

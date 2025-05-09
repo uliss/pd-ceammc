@@ -66,6 +66,7 @@ valuue.;
 #X obj 20 921 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 922 1\.;
+#X text 150 922 ~;
 #X text 245 922 signal output.;
 #X text 110 942 2\.;
 #X text 245 942 output to [array.plot~] or [ui.plot~].;

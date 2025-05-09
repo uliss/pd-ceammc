@@ -68,10 +68,13 @@ outputs. Тип: int. Значение по умолчанию: 2\. Диапаз
 #X obj 20 781 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 782 1\.;
+#X text 150 782 ~;
 #X text 245 782 first output signal.;
 #X text 110 802 ....;
+#X text 150 802 ~;
 #X text 245 802 ... output signal.;
 #X text 110 822 n.;
+#X text 150 822 ~;
 #X text 245 822 n-th output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

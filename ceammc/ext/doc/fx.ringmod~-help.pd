@@ -78,6 +78,7 @@ noise. Type: int. Default value: 0\. Range: 0\...2\.;
 #X obj 20 1054 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1055 1\.;
+#X text 150 1055 ~;
 #X text 245 1055 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

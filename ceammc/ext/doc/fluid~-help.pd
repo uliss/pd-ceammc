@@ -338,8 +338,10 @@ program). Type: int. Range: 1\...256\.;
 #X obj 20 4270 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 4271 1\.;
+#X text 150 4271 ~;
 #X text 245 4271 left channel and property output.;
 #X text 110 4291 2\.;
+#X text 150 4291 ~;
 #X text 245 4291 right channel.;
 #X text 110 4311 3\.;
 #X text 245 4311 int: number of active voices (output only on change).;

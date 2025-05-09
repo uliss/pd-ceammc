@@ -68,10 +68,13 @@ Arguments are:;
 #X obj 20 751 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 752 1\.;
+#X text 150 752 ~;
 #X text 245 752 first output signal.;
 #X text 110 772 ....;
+#X text 150 772 ~;
 #X text 245 772 ... output signal.;
 #X text 110 792 n.;
+#X text 150 792 ~;
 #X text 245 792 n-th output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

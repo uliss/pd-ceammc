@@ -61,10 +61,13 @@ Default value: 1\. Range: 1\...64\.;
 #X obj 20 613 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 614 1\.;
+#X text 150 614 ~;
 #X text 245 614 first output signal.;
 #X text 110 634 ....;
+#X text 150 634 ~;
 #X text 245 634 ... output signal.;
 #X text 110 654 n.;
+#X text 150 654 ~;
 #X text 245 654 n-th output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

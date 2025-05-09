@@ -72,6 +72,7 @@ Units: 'Hz'. Default value: 3500\. Range: 400\...3500\.;
 #X obj 20 933 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 934 1\.;
+#X text 150 934 ~;
 #X text 245 934 synth output.;
 #X text 110 954 2\.;
 #X text 245 954 bang after release finished.;

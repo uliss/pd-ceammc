@@ -38,8 +38,10 @@ complex plane and has no branch cuts;
 #X obj 20 756 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 757 1\.;
+#X text 150 757 ~;
 #X text 245 757 real part of result.;
 #X text 110 777 2\.;
+#X text 150 777 ~;
 #X text 245 777 imag part of result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

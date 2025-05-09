@@ -32,6 +32,7 @@ light with this power spectrum.;
 #X obj 20 635 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 636 1\.;
+#X text 150 636 ~;
 #X text 245 636 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

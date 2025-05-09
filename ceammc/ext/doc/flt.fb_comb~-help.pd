@@ -73,6 +73,7 @@ value: 1\.;
 #X obj 20 1125 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1126 1\.;
+#X text 150 1126 ~;
 #X text 245 1126 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

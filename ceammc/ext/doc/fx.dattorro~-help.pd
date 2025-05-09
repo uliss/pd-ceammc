@@ -105,8 +105,10 @@ values will provide the impression of a larger room. Type: float. Units:
 #X obj 20 1398 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1399 1\.;
+#X text 150 1399 ~;
 #X text 245 1399 output left.;
 #X text 110 1419 2\.;
+#X text 150 1419 ~;
 #X text 245 1419 output right.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

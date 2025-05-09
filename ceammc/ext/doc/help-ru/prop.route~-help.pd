@@ -35,6 +35,7 @@ Non property values are passed untouched.;
 #X obj 20 493 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 494 1\.;
+#X text 150 494 ~;
 #X text 245 494 passed values and sound.;
 #X text 110 514 2\.;
 #X text 245 514 first matched property output.;

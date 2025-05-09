@@ -108,10 +108,13 @@ the soundfield and 1 is the front of the soundfield. Тип: list. Единиц�
 #X obj 20 1530 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1531 1\.;
+#X text 150 1531 ~;
 #X text 245 1531 first loudspeaker output.;
 #X text 110 1551 ....;
+#X text 150 1551 ~;
 #X text 245 1551 ... loudspeaker output.;
 #X text 110 1571 n.;
+#X text 150 1571 ~;
 #X text 245 1571 n-th loudspeaker output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -145,10 +145,13 @@ the beginning. Type: atom.;
 #X obj 20 1998 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1999 1\.;
+#X text 150 1999 ~;
 #X text 245 1999 first output channel.;
 #X text 110 2019 ....;
+#X text 150 2019 ~;
 #X text 245 2019 ... output channel.;
 #X text 110 2039 n.;
+#X text 150 2039 ~;
 #X text 245 2039 n-th output channel.;
 #X text 110 2059 n+1\.;
 #X text 245 2059 control output.;

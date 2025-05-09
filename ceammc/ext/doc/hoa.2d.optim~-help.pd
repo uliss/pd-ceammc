@@ -77,10 +77,13 @@ basic. Allowed values: basic \, maxre \, inphase.;
 #X obj 20 1181 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1182 1\.;
+#X text 150 1182 ~;
 #X text 245 1182 first harmonic output.;
 #X text 110 1202 ....;
+#X text 150 1202 ~;
 #X text 245 1202 ... harmonic output.;
 #X text 110 1222 n.;
+#X text 150 1222 ~;
 #X text 245 1222 n-th harmonic output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

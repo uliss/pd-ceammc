@@ -56,6 +56,7 @@ awb.;
 #X obj 20 778 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 779 1\.;
+#X text 150 779 ~;
 #X text 245 779 output signal.;
 #X text 110 799 2\.;
 #X text 245 799 float: number of sentences left to speak.;

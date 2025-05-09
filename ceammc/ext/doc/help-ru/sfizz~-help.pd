@@ -253,8 +253,10 @@ program). Тип: int. Диапазон: 1…256\.;
 #X obj 20 3007 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 3008 1\.;
+#X text 150 3008 ~;
 #X text 245 3008 left channel and property output.;
 #X text 110 3028 2\.;
+#X text 150 3028 ~;
 #X text 245 3028 right channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -122,10 +122,13 @@ instance.;
 #X obj 20 1899 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1900 1\.;
+#X text 150 1900 ~;
 #X text 245 1900 first harmonic/planewave output.;
 #X text 110 1920 ....;
+#X text 150 1920 ~;
 #X text 245 1920 ... harmonic/planewave output.;
 #X text 110 1940 n.;
+#X text 150 1940 ~;
 #X text 245 1940 n-th harmonic/planewave output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

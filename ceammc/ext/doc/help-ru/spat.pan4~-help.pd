@@ -67,12 +67,16 @@ float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
 #X obj 20 927 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 928 1\.;
+#X text 150 928 ~;
 #X text 245 928 1st output channel.;
 #X text 110 948 2\.;
+#X text 150 948 ~;
 #X text 245 948 2nd output channel.;
 #X text 110 968 3\.;
+#X text 150 968 ~;
 #X text 245 968 3rd output channel.;
 #X text 110 988 4\.;
+#X text 150 988 ~;
 #X text 245 988 4th output channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

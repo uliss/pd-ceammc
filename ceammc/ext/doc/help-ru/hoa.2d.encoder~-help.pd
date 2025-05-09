@@ -48,10 +48,13 @@ decomposition. Тип: int. Значение по умолчанию: 1\. Диа
 #X obj 20 762 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 763 1\.;
+#X text 150 763 ~;
 #X text 245 763 first circular harmonics output.;
 #X text 110 783 ....;
+#X text 150 783 ~;
 #X text 245 783 ... circular harmonics output.;
 #X text 110 803 n.;
+#X text 150 803 ~;
 #X text 245 803 n-th circular harmonics output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -106,6 +106,7 @@ on delay change. Type: float. Units: 'ms'. Default value: 50\. Range:
 #X obj 20 1415 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1416 1\.;
+#X text 150 1416 ~;
 #X text 245 1416 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

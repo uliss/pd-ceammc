@@ -49,8 +49,10 @@ in [0\..SR/2] instead of [0\..pi]. Тип: bool. Значение по умол�
 #X obj 20 836 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 837 1\.;
+#X text 150 837 ~;
 #X text 245 837 frequency response.;
 #X text 110 857 2\.;
+#X text 150 857 ~;
 #X text 245 857 phase response.;
 #X text 110 877 3\.;
 #X text 245 877 output to [array.plot~] or [ui.plot~].;

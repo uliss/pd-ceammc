@@ -249,8 +249,10 @@ program). Type: int. Range: 1\...256\.;
 #X obj 20 2977 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2978 1\.;
+#X text 150 2978 ~;
 #X text 245 2978 left channel and property output.;
 #X text 110 2998 2\.;
+#X text 150 2998 ~;
 #X text 245 2998 right channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

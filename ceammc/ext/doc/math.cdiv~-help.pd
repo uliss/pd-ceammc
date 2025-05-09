@@ -38,8 +38,10 @@
 #X obj 20 468 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 469 1\.;
+#X text 150 469 ~;
 #X text 245 469 real part of result.;
 #X text 110 489 2\.;
+#X text 150 489 ~;
 #X text 245 489 imag part of result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

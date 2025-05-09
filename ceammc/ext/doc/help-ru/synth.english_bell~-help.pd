@@ -76,6 +76,7 @@ from the bottom to the top of the bell;
 #X obj 20 1475 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1476 1\.;
+#X text 150 1476 ~;
 #X text 245 1476 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

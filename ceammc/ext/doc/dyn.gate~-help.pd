@@ -88,6 +88,7 @@ Type: float. Units: 'db'. Default value: -60\. Range: -90\...0\.;
 #X obj 20 1104 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1105 1\.;
+#X text 150 1105 ~;
 #X text 245 1105 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

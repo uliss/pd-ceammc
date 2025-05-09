@@ -102,10 +102,13 @@ Type: symbol.;
 #X obj 20 1317 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1318 1\.;
+#X text 150 1318 ~;
 #X text 245 1318 first faust output.;
 #X text 110 1338 ....;
+#X text 150 1338 ~;
 #X text 245 1338 ... faust output.;
 #X text 110 1358 n.;
+#X text 150 1358 ~;
 #X text 245 1358 n-th faust output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

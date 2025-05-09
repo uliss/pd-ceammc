@@ -69,12 +69,16 @@ Default value: 0.4\. Range: 0\...1\.;
 #X obj 20 943 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 944 1\.;
+#X text 150 944 ~;
 #X text 245 944 first output signal.;
 #X text 110 964 2\.;
+#X text 150 964 ~;
 #X text 245 964 second output signal.;
 #X text 110 984 3\.;
+#X text 150 984 ~;
 #X text 245 984 third output signal.;
 #X text 110 1004 4\.;
+#X text 150 1004 ~;
 #X text 245 1004 fourth output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

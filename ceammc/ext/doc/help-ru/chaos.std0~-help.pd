@@ -59,8 +59,10 @@ by Boris Chirikov in 1969;
 #X obj 20 784 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 785 1\.;
+#X text 150 785 ~;
 #X text 245 785 outputs x-value mapped to [-1\..1] range.;
 #X text 110 805 2\.;
+#X text 150 805 ~;
 #X text 245 805 outputs y-value mapped to [-1\..1] range.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

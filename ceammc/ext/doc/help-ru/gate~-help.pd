@@ -62,10 +62,13 @@ for all slots. If true: all slots are open. Тип: bool. Значение по
 #X obj 20 658 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 659 1\.;
+#X text 150 659 ~;
 #X text 245 659 first output signal.;
 #X text 110 679 ....;
+#X text 150 679 ~;
 #X text 245 679 ... output signal.;
 #X text 110 699 n.;
+#X text 150 699 ~;
 #X text 245 699 n-th output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

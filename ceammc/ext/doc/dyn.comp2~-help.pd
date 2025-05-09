@@ -118,8 +118,10 @@ float. Default value: 0\. Range: 0\...1\.;
 #X obj 20 1480 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1481 1\.;
+#X text 150 1481 ~;
 #X text 245 1481 left output signal.;
 #X text 110 1501 2\.;
+#X text 150 1501 ~;
 #X text 245 1501 right output signal.;
 #X text 110 1521 3\.;
 #X text 245 1521 float: output current compression level in [0\..1].;

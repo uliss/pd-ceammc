@@ -62,10 +62,13 @@ int. Default value: 1\. Range: 1\...63\.;
 #X obj 20 843 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 844 1\.;
+#X text 150 844 ~;
 #X text 245 844 first plane wave output.;
 #X text 110 864 ....;
+#X text 150 864 ~;
 #X text 245 864 ... plane wave output.;
 #X text 110 884 n.;
+#X text 150 884 ~;
 #X text 245 884 n-th plane wave output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

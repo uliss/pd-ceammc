@@ -64,6 +64,7 @@ to the array. Type: bool.;
 #X obj 20 783 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 784 1\.;
+#X text 150 784 ~;
 #X text 245 784 read signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

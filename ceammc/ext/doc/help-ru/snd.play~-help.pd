@@ -146,10 +146,13 @@ the beginning. Тип: atom.;
 #X obj 20 2070 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2071 1\.;
+#X text 150 2071 ~;
 #X text 245 2071 first output channel.;
 #X text 110 2091 ....;
+#X text 150 2091 ~;
 #X text 245 2091 ... output channel.;
 #X text 110 2111 n.;
+#X text 150 2111 ~;
 #X text 245 2111 n-th output channel.;
 #X text 110 2131 n+1\.;
 #X text 245 2131 control output.;

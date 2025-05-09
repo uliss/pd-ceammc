@@ -86,8 +86,10 @@ structure. Type: float. Default value: 2\. Range: 0\...10\.;
 #X obj 20 1361 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1362 1\.;
+#X text 150 1362 ~;
 #X text 245 1362 output signal.;
 #X text 110 1382 2\.;
+#X text 150 1382 ~;
 #X text 245 1382 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

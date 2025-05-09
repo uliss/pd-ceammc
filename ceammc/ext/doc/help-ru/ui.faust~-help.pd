@@ -103,10 +103,13 @@ include directories. Тип: symbol.;
 #X obj 20 1353 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1354 1\.;
+#X text 150 1354 ~;
 #X text 245 1354 first faust output.;
 #X text 110 1374 ....;
+#X text 150 1374 ~;
 #X text 245 1374 ... faust output.;
 #X text 110 1394 n.;
+#X text 150 1394 ~;
 #X text 245 1394 n-th faust output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

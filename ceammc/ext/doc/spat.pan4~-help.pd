@@ -65,12 +65,16 @@ value: 1\. Range: 0\...1\.;
 #X obj 20 885 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 886 1\.;
+#X text 150 886 ~;
 #X text 245 886 1st output channel.;
 #X text 110 906 2\.;
+#X text 150 906 ~;
 #X text 245 906 2nd output channel.;
 #X text 110 926 3\.;
+#X text 150 926 ~;
 #X text 245 926 3rd output channel.;
 #X text 110 946 4\.;
+#X text 150 946 ~;
 #X text 245 946 4th output channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

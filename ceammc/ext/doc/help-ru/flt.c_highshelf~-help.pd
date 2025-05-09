@@ -66,14 +66,19 @@
 #X obj 20 992 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 993 1\.;
+#X text 150 993 ~;
 #X text 245 993 b0\.;
 #X text 110 1013 2\.;
+#X text 150 1013 ~;
 #X text 245 1013 b1\.;
 #X text 110 1033 3\.;
+#X text 150 1033 ~;
 #X text 245 1033 b2\.;
 #X text 110 1053 4\.;
+#X text 150 1053 ~;
 #X text 245 1053 a1\.;
 #X text 110 1073 5\.;
+#X text 150 1073 ~;
 #X text 245 1073 a2\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

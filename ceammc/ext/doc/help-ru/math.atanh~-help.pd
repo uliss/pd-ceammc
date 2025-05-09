@@ -27,6 +27,7 @@ https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions;
 #X obj 20 594 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 595 1\.;
+#X text 150 595 ~;
 #X text 245 595 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

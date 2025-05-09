@@ -63,8 +63,10 @@ playing is finished. Тип: symbol.;
 #X obj 20 806 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 807 1\.;
+#X text 150 807 ~;
 #X text 245 807 left channel and property output.;
 #X text 110 827 2\.;
+#X text 150 827 ~;
 #X text 245 827 right channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

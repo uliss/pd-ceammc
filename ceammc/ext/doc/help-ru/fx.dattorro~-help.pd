@@ -106,8 +106,10 @@ signal. Large values will provide the impression of a larger room.
 #X obj 20 1485 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1486 1\.;
+#X text 150 1486 ~;
 #X text 245 1486 output left.;
 #X text 110 1506 2\.;
+#X text 150 1506 ~;
 #X text 245 1506 output right.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

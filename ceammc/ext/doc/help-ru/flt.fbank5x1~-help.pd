@@ -104,14 +104,19 @@ at 500Hz. Тип: float. Единицы: 'db'. Значение по умолч�
 #X obj 20 1523 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1524 1\.;
+#X text 150 1524 ~;
 #X text 245 1524 lpf: 250Hz.;
 #X text 110 1544 2\.;
+#X text 150 1544 ~;
 #X text 245 1544 bpf: 500Hz.;
 #X text 110 1564 3\.;
+#X text 150 1564 ~;
 #X text 245 1564 bpf: 1000Hz.;
 #X text 110 1584 4\.;
+#X text 150 1584 ~;
 #X text 245 1584 bpf: 2000Hz.;
 #X text 110 1604 5\.;
+#X text 150 1604 ~;
 #X text 245 1604 hpf: 4000Hz.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

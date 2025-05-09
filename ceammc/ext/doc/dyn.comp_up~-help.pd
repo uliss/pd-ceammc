@@ -117,6 +117,7 @@ float. Units: 'db'. Default value: 0\. Range: 0\...90\.;
 #X obj 20 1557 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1558 1\.;
+#X text 150 1558 ~;
 #X text 245 1558 output compressed signal.;
 #X text 110 1578 2\.;
 #X text 245 1578 float: output current compression level in [0\..1].;

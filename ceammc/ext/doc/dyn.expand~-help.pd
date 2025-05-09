@@ -114,6 +114,7 @@ Units: 'db'. Default value: 0\. Range: 0\...90\.;
 #X obj 20 1512 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1513 1\.;
+#X text 150 1513 ~;
 #X text 245 1513 output expanded signal.;
 #X text 110 1533 2\.;
 #X text 245 1533 float: output current expander level in db.;

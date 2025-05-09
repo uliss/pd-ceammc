@@ -66,6 +66,7 @@ valuue.;
 #X obj 20 905 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 906 1\.;
+#X text 150 906 ~;
 #X text 245 906 signal output.;
 #X text 110 926 2\.;
 #X text 245 926 output to [array.plot~] or [ui.plot~].;

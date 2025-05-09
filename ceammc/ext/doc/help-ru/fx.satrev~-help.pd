@@ -68,8 +68,10 @@ float. Значение по умолчанию: 0.25\. Диапазон: 0\...1
 #X obj 20 928 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 929 1\.;
+#X text 150 929 ~;
 #X text 245 929 left output signal.;
 #X text 110 949 2\.;
+#X text 150 949 ~;
 #X text 245 949 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

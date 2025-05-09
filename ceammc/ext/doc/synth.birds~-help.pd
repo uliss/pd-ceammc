@@ -62,8 +62,10 @@ Type: float. Default value: 240\. Range: 120\...480\.;
 #X obj 20 866 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 867 1\.;
+#X text 150 867 ~;
 #X text 245 867 synth left channel.;
 #X text 110 887 2\.;
+#X text 150 887 ~;
 #X text 245 887 synth right channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

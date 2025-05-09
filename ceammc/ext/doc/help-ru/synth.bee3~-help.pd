@@ -69,6 +69,7 @@ float. Единицы: 'Hz'. Значение по умолчанию: 220\. Д�
 #X obj 20 1019 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1020 1\.;
+#X text 150 1020 ~;
 #X text 245 1020 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
