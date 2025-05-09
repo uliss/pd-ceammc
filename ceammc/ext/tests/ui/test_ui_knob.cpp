@@ -585,25 +585,25 @@ TEST_CASE("ui.knob", "[ui.knob]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 5);
 
         t.call("@midi_channel", LA("+", 32));
-        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 16);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 37);
 
         t.call("@midi_channel", LA("-", 4));
-        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 12);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 33);
 
         t.call("@midi_channel", LA("-", 44));
-        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 12);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 33);
 
         t.call("@midi_channel", LA("/", 3));
-        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 4);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 11);
 
         t.call("@midi_channel", LA("/", 0.));
-        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 4);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 11);
 
         t.call("@midi_channel", LA("*", 2));
-        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 8);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 22);
 
         t.call("@midi_channel", LA("*", 200));
-        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 16);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 255);
     }
 
     SECTION("prop math @max")
