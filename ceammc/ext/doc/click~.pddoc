@@ -19,11 +19,14 @@
                 <alias>ceammc/click~</alias>
             </aliases>
         </meta>
+        <mouse>
+            <event type="left-click" editmode="false">outputs single positive impulse</event>
+        </mouse>
         <inlets>
             <inlet>
                 <in on="bang">
                     <tr lang="en">outputs single positive impulse</tr>
-                    <tr lang="ru" finished="false">Единый положительный импульс</tr>
+                    <tr lang="ru">выводит единичный положительный импульс</tr>
                 </in>
             </inlet>
         </inlets>
@@ -31,7 +34,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
+                    <tr lang="ru">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>
