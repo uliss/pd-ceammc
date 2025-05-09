@@ -50,8 +50,8 @@ static inline void add_digit(std::uint8_t& v, char ch) { (v *= 10) += (ch - '0')
     key_mod     = '[' mod_list ']';
     keycode_val = uint >{ opts.key_code = 0; } $on_key_code;
     keycode = ('keycode' key_mod? '=' keycode_val)
-                                            %{ opts.type = UI_BIND_KEY_CODE; opts.cmp = UI_BIND_CMP_EQ; };
-    keyname = 'key' key_mod? '=' "'" name "'"   %on_key_name;
+                                                %{ opts.type = UI_BIND_KEY_CODE; opts.cmp = UI_BIND_CMP_EQ; };
+    keyname = 'key' key_mod? '=' '<' name '>'   %on_key_name;
     key = keycode | keyname;
 
     main := (midi | key);

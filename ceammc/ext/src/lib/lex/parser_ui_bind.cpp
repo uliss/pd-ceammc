@@ -391,7 +391,7 @@ st21:
 	if ( ++p == pe )
 		goto _test_eof21;
 case 21:
-	if ( (*p) == 39 )
+	if ( (*p) == 60 )
 		goto st22;
 	goto st0;
 st22:
@@ -415,7 +415,7 @@ tr35:
 #line 25 "lex/parser_ui_bind.rl"
 	{ opts.key_name_hash = crc32_append_char(opts.key_name_hash, std::tolower(*p)); }
 	goto st23;
-tr37:
+tr36:
 #line 25 "lex/parser_ui_bind.rl"
 	{ opts.key_name_hash = crc32_append_char(opts.key_name_hash, std::tolower(*p)); }
 	goto st23;
@@ -425,17 +425,17 @@ st23:
 case 23:
 #line 427 "lex/parser_ui_bind.cpp"
 	switch( (*p) ) {
-		case 39: goto st88;
-		case 95: goto tr37;
+		case 62: goto st88;
+		case 95: goto tr36;
 	}
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
-			goto tr37;
+			goto tr36;
 	} else if ( (*p) > 90 ) {
 		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr37;
+			goto tr36;
 	} else
-		goto tr37;
+		goto tr36;
 	goto st0;
 st88:
 	if ( ++p == pe )
