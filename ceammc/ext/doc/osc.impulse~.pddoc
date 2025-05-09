@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="osc.impulse~">
         <title>osc.impulse~</title>
         <meta>
@@ -29,12 +29,11 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
+            <xi:include href="props_osc.xml"/>
+            <xi:include href="props_id.xml"/>
+            <xi:include href="props_active.xml"/>
             <!-- @freq -->
-            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050"
-            units="hertz">
+            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050" units="hertz">
                 <tr lang="en">frequency</tr>
                 <tr lang="ru" finished="false">частота</tr>
             </property>

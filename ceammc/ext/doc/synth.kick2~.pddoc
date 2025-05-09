@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="synth.kick2~">
         <title>synth.kick2~</title>
         <meta>
@@ -20,18 +20,16 @@
             </also>
         </meta>
         <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
+            <xi:include href="props_osc.xml"/>
+            <xi:include href="props_id.xml"/>
+            <xi:include href="props_active.xml"/>
             <!-- @attack -->
-            <property name="@attack" type="float" minvalue="5" maxvalue="400" default="20"
-            units="millisecond">
+            <property name="@attack" type="float" minvalue="5" maxvalue="400" default="20" units="millisecond">
                 <tr lang="en">attack time</tr>
                 <tr lang="ru" finished="false">Время атаки</tr>
             </property>
             <!-- @click -->
-            <property name="@click" type="float" default="20" minvalue="5" maxvalue="1000"
-            units="millisecond">
+            <property name="@click" type="float" default="20" minvalue="5" maxvalue="1000" units="millisecond">
                 <tr lang="en">speed of the pitch envelope</tr>
                 <tr lang="ru" finished="false">Скорость движения конверта</tr>
             </property>
@@ -48,8 +46,7 @@
                 нота не закончит время выпуска.</tr>
             </property>
             <!-- @freq -->
-            <property name="@freq" type="float" default="44" minvalue="10" maxvalue="5000"
-            units="hertz">
+            <property name="@freq" type="float" default="44" minvalue="10" maxvalue="5000" units="hertz">
                 <tr lang="en">base frequency</tr>
                 <tr lang="ru" finished="false">базовая частота</tr>
             </property>
@@ -61,8 +58,7 @@
                 выходной коэффициент усиления до 0,5, вы можете 0,5 как триггерное значение.</tr>
             </property>
             <!-- @release -->
-            <property name="@release" type="float" minvalue="5" maxvalue="4000" default="100"
-            units="millisecond">
+            <property name="@release" type="float" minvalue="5" maxvalue="4000" default="100" units="millisecond">
                 <tr lang="en">release time</tr>
                 <tr lang="ru" finished="false">Время освобождения</tr>
             </property>

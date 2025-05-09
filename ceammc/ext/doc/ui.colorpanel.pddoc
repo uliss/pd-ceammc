@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="ui.colorpanel" type="gui">
         <title>ui.colorpanel</title>
         <meta>
@@ -30,16 +30,16 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_preset.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
+            <xi:include href="props_background_color.xml"/>
+            <xi:include href="props_border_color.xml"/>
+            <xi:include href="props_fontname.xml"/>
+            <xi:include href="props_fontsize.xml"/>
+            <xi:include href="props_fontslant.xml"/>
+            <xi:include href="props_fontweight.xml"/>
+            <xi:include href="props_pinned.xml"/>
+            <xi:include href="props_preset.xml"/>
+            <xi:include href="props_ui_receive.xml"/>
+            <xi:include href="props_ui_send.xml"/>
             <!-- @hex -->
             <property name="@hex" type="symbol" access="readonly" default="">
                 <tr lang="en">HEX value in format #RRGGBB</tr>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="tl.cue" type="gui">
         <title>tl.cue</title>
         <meta>
@@ -44,8 +44,7 @@
                 значений в диапазоне 0-1)</tr>
             </property>
             <!-- @fontname -->
-            <property name="@fontname" type="symbol" default="Helvetica"
-            enum="Courier DejaVu Helvetica Monaco Times">
+            <property name="@fontname" type="symbol" default="Helvetica" enum="Courier DejaVu Helvetica Monaco Times">
                 <tr lang="en">fontname</tr>
                 <tr lang="ru" finished="false">название шрифта</tr>
             </property>
@@ -88,8 +87,8 @@
                 </param>
             </method>
         </methods>
-        <inlets />
-        <outlets />
+        <inlets/>
+        <outlets/>
         <example>
             <pdascii>
 <![CDATA[

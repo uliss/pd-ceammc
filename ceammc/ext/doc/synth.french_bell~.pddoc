@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="synth.french_bell~">
         <title>synth.french_bell~</title>
         <meta>
@@ -37,12 +37,11 @@
             </par>
         </info>
         <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
+            <xi:include href="props_osc.xml"/>
+            <xi:include href="props_id.xml"/>
+            <xi:include href="props_active.xml"/>
             <!-- @cutoff -->
-            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="4000"
-            units="hertz">
+            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="4000" units="hertz">
                 <tr lang="en">strike cutoff frequency</tr>
                 <tr lang="ru" finished="false">частота остановки забастовки</tr>
             </property>
@@ -77,8 +76,7 @@
                 <tr lang="ru" finished="false">резкость удара</tr>
             </property>
             <!-- @t60 -->
-            <property name="@t60" type="float" minvalue="0.1" maxvalue="30" default="20"
-            units="second">
+            <property name="@t60" type="float" minvalue="0.1" maxvalue="30" default="20" units="second">
                 <tr lang="en">time to decay to -60db level</tr>
                 <tr lang="ru" finished="false">Время распада до уровня -60 дБ</tr>
             </property>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="ui.gain~" type="gui">
         <title>ui.gain~</title>
         <meta>
@@ -41,17 +41,17 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
-            <xi:include href="props_midi_channel.xml" />
-            <xi:include href="props_preset.xml" />
+            <xi:include href="props_background_color.xml"/>
+            <xi:include href="props_border_color.xml"/>
+            <xi:include href="props_fontname.xml"/>
+            <xi:include href="props_fontsize.xml"/>
+            <xi:include href="props_fontslant.xml"/>
+            <xi:include href="props_fontweight.xml"/>
+            <xi:include href="props_pinned.xml"/>
+            <xi:include href="props_ui_receive.xml"/>
+            <xi:include href="props_ui_send.xml"/>
+            <xi:include href="props_midi_channel.xml"/>
+            <xi:include href="props_preset.xml"/>
             <!-- @amp -->
             <property name="@amp" type="float" default="0">
                 <tr lang="en">gain as amplitude ratio</tr>
@@ -69,8 +69,7 @@
                 в диапазоне 0-1)</tr>
             </property>
             <!-- @max -->
-            <property name="@max" type="int" minvalue="-12" maxvalue="12" default="0"
-            units="decibel">
+            <property name="@max" type="int" minvalue="-12" maxvalue="12" default="0" units="decibel">
                 <tr lang="en">maximum gain value</tr>
                 <tr lang="ru" finished="false">Максимальная прибыль</tr>
             </property>
@@ -92,8 +91,7 @@
                 управления.</tr>
             </property>
             <!-- @min -->
-            <property name="@min" type="int" minvalue="-90" maxvalue="-15" default="-60"
-            units="decibel">
+            <property name="@min" type="int" minvalue="-90" maxvalue="-15" default="-60" units="decibel">
                 <tr lang="en">minimal gain value</tr>
                 <tr lang="ru" finished="false">Минимальная стоимость прироста</tr>
             </property>

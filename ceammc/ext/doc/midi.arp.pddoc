@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="midi.arp">
         <title>midi.arp</title>
         <meta>
@@ -84,8 +84,7 @@
                 арпеджио</tr>
             </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" default="up"
-            enum="up down tri up1 down1 tri1 random random1">
+            <property name="@mode" type="symbol" default="up" enum="up down tri up1 down1 tri1 random random1">
                 <tr lang="en">argpeggiator mode</tr>
                 <tr lang="ru" finished="false">режим argpeggiator</tr>
             </property>
@@ -108,8 +107,7 @@
                 воспроизводимых случайных рядов)</tr>
             </property>
             <!-- @t -->
-            <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000"
-            units="millisecond">
+            <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000" units="millisecond">
                 <tr lang="en">time between arpeggio</tr>
                 <tr lang="ru" finished="false">Время между арпеджио</tr>
             </property>

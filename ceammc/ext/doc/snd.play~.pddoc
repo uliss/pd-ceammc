@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="snd.play~">
         <title>snd.play~</title>
         <meta>
@@ -52,8 +52,7 @@
                 <tr lang="ru" finished="false">играть в петле</tr>
             </property>
             <!-- @n -->
-            <property name="@n" type="int" access="initonly" default="2" minvalue="1"
-            maxvalue="32">
+            <property name="@n" type="int" access="initonly" default="2" minvalue="1" maxvalue="32">
                 <tr lang="en">number of output channels</tr>
                 <tr lang="ru" finished="false">Количество выходных каналов</tr>
             </property>

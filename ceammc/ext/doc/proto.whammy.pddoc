@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="proto.whammy">
         <title>proto.whammy</title>
         <meta>
@@ -134,9 +134,7 @@
                     <tr lang="en">set preset by name</tr>
                     <tr lang="ru" finished="false">Предустановлено по имени</tr>
                 </info>
-                <param name="NAME" type="symbol"
-                enum="+2oct +1oct +5th +4th -2nd -4th -5th -1oct -2oct bomb deep shallow +2+3 +3b+3 +3+4 +4+5 +5+6 +5+7 -4-3 -5-4 -8+8"
-                minvalue="0" maxvalue="20" required="true">
+                <param name="NAME" type="symbol" enum="+2oct +1oct +5th +4th -2nd -4th -5th -1oct -2oct bomb deep shallow +2+3 +3b+3 +3+4 +4+5 +5+6 +5+7 -4-3 -5-4 -8+8" minvalue="0" maxvalue="20" required="true">
                     <tr lang="en">preset name</tr>
                     <tr lang="ru" finished="false">предустановленное имя</tr>
                 </param>

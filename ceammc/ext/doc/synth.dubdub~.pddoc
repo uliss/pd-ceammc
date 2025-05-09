@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="synth.dubdub~">
         <title>synth.dubdub~</title>
         <meta>
@@ -19,9 +19,9 @@
             <since>0.6</since>
         </meta>
         <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
+            <xi:include href="props_osc.xml"/>
+            <xi:include href="props_id.xml"/>
+            <xi:include href="props_active.xml"/>
             <!-- @cutoff -->
             <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="3000">
                 <tr lang="en">cutoff frequency</tr>
@@ -68,7 +68,7 @@
         <outlets>
             <outlet type="audio">
                 <out type="any">
-                    <tr lang="en" />
+                    <tr lang="en"/>
                 </out>
             </outlet>
         </outlets>

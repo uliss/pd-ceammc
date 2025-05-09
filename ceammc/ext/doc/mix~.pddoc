@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="mix~">
         <title>mix~</title>
         <meta>
@@ -53,8 +53,7 @@
                 <tr lang="ru" finished="false">значения линейной амплитуды</tr>
             </property>
             <!-- @xfade_time -->
-            <property name="@xfade_time" type="float" minvalue="1" default="20"
-            units="millisecond">
+            <property name="@xfade_time" type="float" minvalue="1" default="20" units="millisecond">
                 <tr lang="en">smooth time</tr>
                 <tr lang="ru" finished="false">гладкое время</tr>
             </property>

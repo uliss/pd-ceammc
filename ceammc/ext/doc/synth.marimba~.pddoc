@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="synth.marimba~">
         <title>synth.marimba~</title>
         <meta>
@@ -19,9 +19,9 @@
             <since>0.6</since>
         </meta>
         <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
+            <xi:include href="props_osc.xml"/>
+            <xi:include href="props_id.xml"/>
+            <xi:include href="props_active.xml"/>
             <!-- @cutoff -->
             <property name="@cutoff" type="float" minvalue="1000" maxvalue="10000" default="7000">
                 <tr lang="en">cuttoff frequency of the strike generator</tr>
@@ -75,7 +75,7 @@
         <outlets>
             <outlet type="audio">
                 <out type="any">
-                    <tr lang="en" />
+                    <tr lang="en"/>
                 </out>
             </outlet>
         </outlets>

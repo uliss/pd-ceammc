@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="route.random">
         <title>route.random</title>
         <meta>
@@ -27,8 +27,7 @@
         </arguments>
         <properties>
             <!-- @n -->
-            <property name="@n" type="int" default="2" minvalue="2" maxvalue="64"
-            access="initonly">
+            <property name="@n" type="int" default="2" minvalue="2" maxvalue="64" access="initonly">
                 <tr lang="en">number of outlets</tr>
                 <tr lang="ru" finished="false">количество торговых точек</tr>
             </property>

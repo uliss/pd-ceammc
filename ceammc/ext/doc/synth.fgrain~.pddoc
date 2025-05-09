@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="synth.fgrain~">
         <title>synth.fgrain~</title>
         <meta>
@@ -36,8 +36,7 @@
                 grain segments.</tr>
             </property>
             <!-- @gramp -->
-            <property name="@gramp" type="int" minvalue="1" maxvalue="100" default="50"
-            units="percent">
+            <property name="@gramp" type="int" minvalue="1" maxvalue="100" default="50" units="percent">
                 <tr lang="en">grain ramp. For values of @gramp greater than zero, a linear envelope
                 will be applied to each grain. If @gramp = 100, the resultant grain "window" is
                 triangular while @gramp = 50 produces a trapezoidal window.</tr>
@@ -91,7 +90,7 @@
         <outlets>
             <outlet type="audio">
                 <out type="any">
-                    <tr lang="en" />
+                    <tr lang="en"/>
                 </out>
             </outlet>
         </outlets>

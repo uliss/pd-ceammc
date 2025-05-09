@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="proto.ltc.out~">
         <title>proto.ltc.out~</title>
         <meta>
@@ -47,8 +47,7 @@
                 <tr lang="ru" finished="false">скорость игры</tr>
             </property>
             <!-- @volume -->
-            <property name="@volume" type="float" default="-3" minvalue="-42" maxvalue="0"
-            units="decibel">
+            <property name="@volume" type="float" default="-3" minvalue="-42" maxvalue="0" units="decibel">
                 <tr lang="en">output signal level</tr>
                 <tr lang="ru" finished="false">выходной сигнал</tr>
             </property>

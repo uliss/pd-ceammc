@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="proto.sp.alpaca">
         <title>proto.sp.alpaca</title>
         <meta>
@@ -97,8 +97,7 @@
                     <tr lang="en">left (0) or right (1) device side</tr>
                     <tr lang="ru" finished="false">левая (0) или правая (1) сторона устройства</tr>
                 </param>
-                <param name="MODE" type="symbol" required="true"
-                enum="digital1 digital2 digital analog analog_raw none">
+                <param name="MODE" type="symbol" required="true" enum="digital1 digital2 digital analog analog_raw none">
                     <tr lang="en">output mode: none - no output, digital1 - send only first button
                     press, digital2 - send only second button press, digital - send both buttons
                     press, analog - send analog value (from pedal), analog_row - send raw analog

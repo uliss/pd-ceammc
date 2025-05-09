@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="snd.file">
         <title>snd.file</title>
         <meta>
@@ -37,8 +37,7 @@
                 <tr lang="ru" finished="false">имя файла</tr>
             </property>
             <!-- @formats -->
-            <property name="@formats" type="list" access="readonly"
-            default="AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX WVE XI">
+            <property name="@formats" type="list" access="readonly" default="AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX WVE XI">
 
                 <tr lang="en">list of supported formats</tr>
                 <tr lang="ru" finished="false">Список поддерживаемых форматов</tr>

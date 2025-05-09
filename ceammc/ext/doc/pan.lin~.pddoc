@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="pan.lin~">
         <title>pan.lin~</title>
         <meta>
@@ -80,8 +80,7 @@
                 центр, +1 - правый</tr>
             </property>
             <!-- @smooth -->
-            <property name="@smooth" type="int" minvalue="0" maxvalue="100" default="20"
-            access="initonly">
+            <property name="@smooth" type="int" minvalue="0" maxvalue="100" default="20" access="initonly">
                 <tr lang="en">smooth control signal to avoid zipping-noise</tr>
                 <tr lang="ru" finished="false">плавный сигнал управления, чтобы избежать шума</tr>
             </property>

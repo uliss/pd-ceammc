@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="ui.faust~" type="gui">
         <title>ui.faust~</title>
         <meta>
@@ -20,7 +20,7 @@
             <a href="https://faust.grame.fr/">https://faust.grame.fr/</a>
         </info>
         <mouse>
-            <event type="move" editmode="false" empty="true" />
+            <event type="move" editmode="false" empty="true"/>
             <event type="left-click" editmode="false" keys="Alt">open the Faust source code
             editor</event>
             <event type="drop-file" editmode="false">read Faust code from the dropped file</event>

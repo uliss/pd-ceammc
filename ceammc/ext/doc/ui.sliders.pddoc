@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="ui.sliders" type="gui">
         <title>ui.sliders</title>
         <meta>
@@ -49,22 +49,22 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_label.xml" />
-            <xi:include href="props_label_align.xml" />
-            <xi:include href="props_label_inner.xml" />
-            <xi:include href="props_label_margins.xml" />
-            <xi:include href="props_label_side.xml" />
-            <xi:include href="props_label_valign.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
-            <xi:include href="props_preset.xml" />
+            <xi:include href="props_background_color.xml"/>
+            <xi:include href="props_border_color.xml"/>
+            <xi:include href="props_fontname.xml"/>
+            <xi:include href="props_fontsize.xml"/>
+            <xi:include href="props_fontslant.xml"/>
+            <xi:include href="props_fontweight.xml"/>
+            <xi:include href="props_label.xml"/>
+            <xi:include href="props_label_align.xml"/>
+            <xi:include href="props_label_inner.xml"/>
+            <xi:include href="props_label_margins.xml"/>
+            <xi:include href="props_label_side.xml"/>
+            <xi:include href="props_label_valign.xml"/>
+            <xi:include href="props_pinned.xml"/>
+            <xi:include href="props_ui_receive.xml"/>
+            <xi:include href="props_ui_send.xml"/>
+            <xi:include href="props_preset.xml"/>
             <!-- @auto_count -->
             <property name="@auto_count" type="bool" default="0">
                 <tr lang="en">if set numbers of sliders equal to input list length</tr>
@@ -72,8 +72,7 @@
                 данных</tr>
             </property>
             <!-- @auto_range_mode -->
-            <property name="@auto_range_mode" type="symbol" enum="none both min max"
-            default="none">
+            <property name="@auto_range_mode" type="symbol" enum="none both min max" default="none">
                 <tr lang="en">if calculate @min/@max values automatically</tr>
                 <tr lang="ru" finished="false">если вычислять значения @min/@max автоматически</tr>
             </property>

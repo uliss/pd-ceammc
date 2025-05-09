@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="math.pi~">
         <title>math.pi~</title>
         <meta>
@@ -46,7 +46,7 @@
                 <tr lang="ru" finished="false">умножитель</tr>
             </property>
         </properties>
-        <inlets />
+        <inlets/>
         <outlets>
             <outlet type="audio">
                 <out type="any">

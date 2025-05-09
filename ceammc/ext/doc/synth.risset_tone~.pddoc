@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="synth.risset_tone~">
         <title>synth.risset_tone~</title>
         <meta>
@@ -28,9 +28,9 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
+            <xi:include href="props_osc.xml"/>
+            <xi:include href="props_id.xml"/>
+            <xi:include href="props_active.xml"/>
             <!-- @centroid -->
             <property name="@centroid" type="float" minvalue="20" maxvalue="120" default="60">
                 <tr lang="en">main frequency. Units: MIDI note</tr>

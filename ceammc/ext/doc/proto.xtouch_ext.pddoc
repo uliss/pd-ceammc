@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="proto.xtouch_ext">
         <title>proto.xtouch_ext</title>
         <meta>
@@ -30,8 +30,7 @@
         </arguments>
         <properties>
             <!-- @n -->
-            <property name="@n" type="int" access="initonly" minvalue="1" maxvalue="32"
-            default="2">
+            <property name="@n" type="int" access="initonly" minvalue="1" maxvalue="32" default="2">
                 <tr lang="en">number of scenes</tr>
                 <tr lang="ru" finished="false">Количество сцен</tr>
             </property>

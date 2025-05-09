@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="ui.aview" type="gui">
         <title>ui.aview</title>
         <meta>
@@ -17,7 +17,7 @@
             <since>0.6</since>
         </meta>
         <mouse>
-            <event type="move" editmode="false" empty="true" />
+            <event type="move" editmode="false" empty="true"/>
             <event type="left-click" editmode="false">move view cursor under mouse pointer</event>
             <event type="left-click" editmode="false" keys="Ctrl">starts range selection</event>
             <event type="left-click" editmode="false" keys="Alt">edit selection nearest
@@ -33,15 +33,15 @@
             <event type="right-click" editmode="true">opens Pd popup menu</event>
         </mouse>
         <properties>
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
+            <xi:include href="props_background_color.xml"/>
+            <xi:include href="props_border_color.xml"/>
+            <xi:include href="props_fontname.xml"/>
+            <xi:include href="props_fontsize.xml"/>
+            <xi:include href="props_fontslant.xml"/>
+            <xi:include href="props_fontweight.xml"/>
+            <xi:include href="props_pinned.xml"/>
+            <xi:include href="props_ui_receive.xml"/>
+            <xi:include href="props_ui_send.xml"/>
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
@@ -139,18 +139,15 @@
                 <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @size_ms -->
-            <property name="@size_ms" type="float" minvalue="0" access="readonly"
-            units="millisecond" default="0">
+            <property name="@size_ms" type="float" minvalue="0" access="readonly" units="millisecond" default="0">
                 <tr lang="en">array size in milliseconds</tr>
             </property>
             <!-- @size_samp -->
-            <property name="@size_samp" type="int" minvalue="0" access="readonly" units="sample"
-            default="0">
+            <property name="@size_samp" type="int" minvalue="0" access="readonly" units="sample" default="0">
                 <tr lang="en">array size in samples</tr>
             </property>
             <!-- @size_sec -->
-            <property name="@size_sec" type="float" minvalue="0" access="readonly" units="second"
-            default="0">
+            <property name="@size_sec" type="float" minvalue="0" access="readonly" units="second" default="0">
                 <tr lang="en">array size in seconds</tr>
             </property>
             <!-- @wave_color -->

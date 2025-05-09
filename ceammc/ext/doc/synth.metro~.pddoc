@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="synth.metro~">
         <title>synth.metro~</title>
         <meta>
@@ -27,18 +27,16 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
+            <xi:include href="props_osc.xml"/>
+            <xi:include href="props_id.xml"/>
+            <xi:include href="props_active.xml"/>
             <!-- @down.freq -->
-            <property name="@down.freq" type="float" default="1500" minvalue="100" maxvalue="5000"
-            units="hertz">
+            <property name="@down.freq" type="float" default="1500" minvalue="100" maxvalue="5000" units="hertz">
                 <tr lang="en">downbeat frequency</tr>
                 <tr lang="ru" finished="false">понижательная частота</tr>
             </property>
             <!-- @down.gain -->
-            <property name="@down.gain" type="float" default="6" minvalue="-12" maxvalue="12"
-            units="decibel">
+            <property name="@down.gain" type="float" default="6" minvalue="-12" maxvalue="12" units="decibel">
                 <tr lang="en">downbeat gain</tr>
                 <tr lang="ru" finished="false">нисходящий выигрыш</tr>
             </property>
@@ -48,20 +46,17 @@
                 <tr lang="ru" finished="false">нисходящее резонансное значение (Q)</tr>
             </property>
             <!-- @gain -->
-            <property name="@gain" type="float" default="0" minvalue="-12" maxvalue="12"
-            units="decibel">
+            <property name="@gain" type="float" default="0" minvalue="-12" maxvalue="12" units="decibel">
                 <tr lang="en">common synth gain</tr>
                 <tr lang="ru" finished="false">Обычный синтезатор</tr>
             </property>
             <!-- @mark.freq -->
-            <property name="@mark.freq" type="float" default="2000" minvalue="100" maxvalue="5000"
-            units="hertz">
+            <property name="@mark.freq" type="float" default="2000" minvalue="100" maxvalue="5000" units="hertz">
                 <tr lang="en">mark sound frequency</tr>
                 <tr lang="ru" finished="false">Маркировка звуковой частоты</tr>
             </property>
             <!-- @mark.gain -->
-            <property name="@mark.gain" type="float" default="6" minvalue="-12" maxvalue="12"
-            units="decibel">
+            <property name="@mark.gain" type="float" default="6" minvalue="-12" maxvalue="12" units="decibel">
                 <tr lang="en">mark sound gain</tr>
                 <tr lang="ru" finished="false">Звуковая марка</tr>
             </property>
@@ -71,14 +66,12 @@
                 <tr lang="ru" finished="false">Звуковое резонансное значение (Q)</tr>
             </property>
             <!-- @off.freq -->
-            <property name="@off.freq" type="float" default="500" minvalue="100" maxvalue="5000"
-            units="hertz">
+            <property name="@off.freq" type="float" default="500" minvalue="100" maxvalue="5000" units="hertz">
                 <tr lang="en">off-beat frequency</tr>
                 <tr lang="ru" finished="false">частота off-beat</tr>
             </property>
             <!-- @off.gain -->
-            <property name="@off.gain" type="float" default="6" minvalue="-12" maxvalue="12"
-            units="decibel">
+            <property name="@off.gain" type="float" default="6" minvalue="-12" maxvalue="12" units="decibel">
                 <tr lang="en">off-beat gain</tr>
                 <tr lang="ru" finished="false">непобедимый выигрыш</tr>
             </property>
@@ -88,14 +81,12 @@
                 <tr lang="ru" finished="false">Резонансное значение off-beat (Q)</tr>
             </property>
             <!-- @on.freq -->
-            <property name="@on.freq" type="float" default="1000" minvalue="100" maxvalue="5000"
-            units="hertz">
+            <property name="@on.freq" type="float" default="1000" minvalue="100" maxvalue="5000" units="hertz">
                 <tr lang="en">on-beat frequency</tr>
                 <tr lang="ru" finished="false">частота на ударе</tr>
             </property>
             <!-- @on.gain -->
-            <property name="@on.gain" type="float" default="6" minvalue="-12" maxvalue="12"
-            units="decibel">
+            <property name="@on.gain" type="float" default="6" minvalue="-12" maxvalue="12" units="decibel">
                 <tr lang="en">on-beat gain</tr>
                 <tr lang="ru" finished="false">выигрыш на бите</tr>
             </property>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="synth.voice_fofs~">
         <title>synth.voice_fofs~</title>
         <meta>
@@ -49,18 +49,16 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
+            <xi:include href="props_osc.xml"/>
+            <xi:include href="props_id.xml"/>
+            <xi:include href="props_active.xml"/>
             <!-- @attack -->
-            <property name="@attack" type="float" default="30" minvalue="0" maxvalue="1000"
-            units="millisecond">
+            <property name="@attack" type="float" default="30" minvalue="0" maxvalue="1000" units="millisecond">
                 <tr lang="en">attack time</tr>
                 <tr lang="ru" finished="false">Время атаки</tr>
             </property>
             <!-- @freq -->
-            <property name="@freq" type="float" minvalue="20" maxvalue="20000.0" default="440"
-            units="hertz">
+            <property name="@freq" type="float" minvalue="20" maxvalue="20000.0" default="440" units="hertz">
                 <tr lang="en">frequency</tr>
                 <tr lang="ru" finished="false">частота</tr>
             </property>
@@ -77,20 +75,17 @@
                 <tr lang="ru" finished="false">Synth Gate (&gt;0 - игра)</tr>
             </property>
             <!-- @portamento -->
-            <property name="@portamento" type="float" default="0" minvalue="0" maxvalue="4000"
-            units="millisecond">
+            <property name="@portamento" type="float" default="0" minvalue="0" maxvalue="4000" units="millisecond">
                 <tr lang="en">portamento time</tr>
                 <tr lang="ru" finished="false">время портаменто</tr>
             </property>
             <!-- @release -->
-            <property name="@release" type="float" default="50" minvalue="0" maxvalue="1000"
-            units="millisecond">
+            <property name="@release" type="float" default="50" minvalue="0" maxvalue="1000" units="millisecond">
                 <tr lang="en">release time</tr>
                 <tr lang="ru" finished="false">Время освобождения</tr>
             </property>
             <!-- @vibr_freq -->
-            <property name="@vibr_freq" type="float" minvalue="1" maxvalue="10" default="6"
-            units="hertz">
+            <property name="@vibr_freq" type="float" minvalue="1" maxvalue="10" default="6" units="hertz">
                 <tr lang="en">vibrato frequency</tr>
                 <tr lang="ru" finished="false">частота вибраций</tr>
             </property>
@@ -100,8 +95,7 @@
                 <tr lang="ru" finished="false">частота вибраций</tr>
             </property>
             <!-- @voice -->
-            <property name="@voice" type="symbol" default="alto"
-            enum="alto bass countertenor soprano tenor">
+            <property name="@voice" type="symbol" default="alto" enum="alto bass countertenor soprano tenor">
                 <tr lang="en">voice type. Note: can be set by corresponding index.</tr>
                 <tr lang="ru" finished="false">Голосовой тип. Примечание: может быть установлен
                 соответствующий индекс.</tr>
@@ -113,8 +107,7 @@
                 соответствующий индекс.</tr>
             </property>
             <!-- @wsmooth -->
-            <property name="@wsmooth" type="float" default="10" minvalue="0" maxvalue="1000"
-            units="millisecond">
+            <property name="@wsmooth" type="float" default="10" minvalue="0" maxvalue="1000" units="millisecond">
                 <tr lang="en">vowel smoothing time</tr>
                 <tr lang="ru" finished="false">время сглаживания гласных</tr>
             </property>

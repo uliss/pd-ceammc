@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="ui.link" type="gui">
         <title>ui.link</title>
         <meta>
@@ -46,11 +46,11 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_pinned.xml" />
+            <xi:include href="props_fontname.xml"/>
+            <xi:include href="props_fontsize.xml"/>
+            <xi:include href="props_fontslant.xml"/>
+            <xi:include href="props_fontweight.xml"/>
+            <xi:include href="props_pinned.xml"/>
             <!-- @hover_color -->
             <property name="@hover_color" type="list" default="1 0 0.5 1">
                 <tr lang="en">color when mouse pointer is over element (list of red, green, blue

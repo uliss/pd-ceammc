@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="midi.vrand">
         <title>midi.vrand</title>
         <meta>
@@ -38,8 +38,7 @@
                 <tr lang="ru" finished="false">Оригинальное название: @mode assign</tr>
             </property>
             <!-- @dist -->
-            <property name="@dist" type="symbol" default="uniform"
-            enum="uniform gauss linup lindown cmin cmax cmean">
+            <property name="@dist" type="symbol" default="uniform" enum="uniform gauss linup lindown cmin cmax cmean">
                 <tr lang="en">random distribution. *uniform* - generate uniformly distributed
                 value, *gauss* - mean=(@max+@min)/2, sigma=(@max-@max)/3, *linup* - linear
                 distribution with prob=0 at @min and prob=1 at @max, *lindown* - linear

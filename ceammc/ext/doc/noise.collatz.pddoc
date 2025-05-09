@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.15">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
     <object name="noise.collatz">
         <title>noise.collatz</title>
         <meta>
@@ -22,7 +22,7 @@
                 <tr lang="ru" finished="false">Вывод гипотезы Коллаца</tr>
             </par>
         </info>
-        <arguments />
+        <arguments/>
         <methods>
             <!-- mode -->
             <method name="mode">
