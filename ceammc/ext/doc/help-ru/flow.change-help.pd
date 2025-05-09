@@ -5,52 +5,58 @@
 #X obj 1 1 cnv 5 765 40 empty empty flow.change 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 flow.change;
-#X obj 205 78 cnv 1 560 75 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 The object passes input values only when it's changed.
-You can "set" the current value \, or bang to force output.;
-#X text 215 123 Note: [list a b c( and [a b c( are different values!;
-#X msg 50 201 1;
-#X msg 126 201 list a b;
-#X msg 290 201 @prop 123;
-#X obj 78 230 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Объект пропускает входное сообщение \, только если оно
+отличается от текущего. После пропуска сообщения текущее сообщение
+обновляется;
+#X text 215 138 Примечание: [list a b c( и [a b c( - это разные сообщения!;
+#X msg 50 216 1;
+#X msg 126 216 list a b;
+#X msg 290 216 @prop 123;
+#X obj 78 245 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 126 230 symbol ABC;
-#X msg 290 230 reset;
-#X obj 50 259 flow.change;
-#X obj 50 288 ui.dt;
-#X obj 50 317 flow.change-repeats;
-#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 372 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X msg 126 245 symbol ABC;
+#X msg 290 245 reset;
+#X obj 50 274 flow.change;
+#X obj 50 303 ui.dt;
+#X obj 50 332 flow.change-repeats;
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 387 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 375 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 407 @onrepeat;
-#X text 245 407 Получить/Установить function called when repeat occurs.
-Тип: symbol.;
-#X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 464 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 422 @onrepeat;
+#X text 245 422 Получить/Установить функция \, вызываемая при повторении
+входного значения. Тип: symbol.;
+#X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 479 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 465 1\.;
-#X text 150 465 bang:;
-#X text 245 465 force output current value.;
-#X text 110 485 2\.;
-#X text 245 485 reset: reset state.;
-#X text 245 510 set: sets current value without output.;
-#X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 545 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 480 1\.;
+#X text 150 480 bang:;
+#X text 245 480 выводит текущее значение.;
+#X text 150 505 any:;
+#X text 245 505 входное сообщение любого типа.;
+#X text 110 530 2\.;
+#X msg 150 530 reset;
+#X text 245 530 сбрасывает в начальное состояние.;
+#X msg 150 555 set;
+#X text 245 555 устанавливает текущее значение без его вывода.;
+#X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 598 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 546 1\.;
-#X text 245 546 output only if input changed.;
+#X text 110 599 1\.;
+#X text 245 599 выводит только в том случае \, если входное значение
+отличается от предыдущего.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 596 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 599 библиотека: ceammc v0.9.8;
-#X text 575 611 смотрите также:;
-#X obj 696 611 change;
-#N canvas 10 618 400 290 info 0;
+#X obj 1 664 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 667 библиотека: ceammc v0.9.8;
+#X text 575 679 смотрите также:;
+#X obj 696 679 change;
+#N canvas 10 686 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -74,7 +80,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 618 pd info;
+#X restore 10 686 pd info;
 #X connect 10 0 13 0;
 #X connect 13 0 14 0;
 #X connect 7 0 13 0;
