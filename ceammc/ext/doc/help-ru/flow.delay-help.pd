@@ -59,34 +59,36 @@ incoming messages until scheduled message will output \, after that
 is ready to accept the new one. Otherwise acts like vanilla [del] object.
 Тип: bool. Значение по умолчанию: 0\.;
 #X msg 110 995 @delay;
-#X text 245 995 Получить/Установить delay time. Тип: float. Единицы:
+#X text 245 995 Получить/Установить время задержки. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
 #X obj 20 1047 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1052 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1053 1\.;
-#X text 245 1053 incoming message.;
-#X text 110 1073 2\.;
-#X text 150 1073 bang:;
-#X text 245 1073 reset (stop) current delay.;
-#X text 150 1098 float:;
-#X text 245 1098 set delay time. Минимальное значение: 0\.;
-#X text 245 1123 [reset( - resets delay.;
-#X obj 20 1153 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1158 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 150 1053 any:;
+#X text 245 1053 входящее сообщение.;
+#X text 110 1078 2\.;
+#X text 150 1078 bang:;
+#X text 245 1078 отменяет текущую задержку если она была запланирована.;
+#X text 150 1103 float:;
+#X text 245 1103 установить время задержки. Минимальное значение: 0\.;
+#X msg 150 1128 reset;
+#X text 245 1128 отменяет текущую задержку если она запланирована.;
+#X obj 20 1166 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1171 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1159 1\.;
-#X text 245 1159 delayed output.;
+#X text 110 1172 1\.;
+#X text 245 1172 выводит сообщения с задержкой.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1209 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1212 библиотека: ceammc v0.9.8;
-#X text 582 1224 смотрите также:;
-#X obj 703 1224 delay;
-#N canvas 10 1231 400 290 info 0;
+#X obj 1 1222 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1225 библиотека: ceammc v0.9.8;
+#X text 582 1237 смотрите также:;
+#X obj 703 1237 delay;
+#N canvas 10 1244 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -110,7 +112,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1231 pd info;
+#X restore 10 1244 pd info;
 #X connect 9 0 11 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;
