@@ -24,6 +24,8 @@
             <par>
                 <tr lang="en">Defines local scope mlist variable, accessed by ID name and available
                 only within its patch (canvas).</tr>
+                <!-- old: Определяет локальную объемную млистую переменную,
+                доступную по имени ID и доступную только в ее патче (канве). -->
                 <tr lang="ru" finished="false">Определяет локальную объемную млистую переменную,
                 доступную по имени ID и доступную только в ее патче (канве).</tr>
             </par>
@@ -82,6 +84,8 @@
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">position (negative indexes are supported: -1 means last
                     element)</tr>
+                    <!-- old: позиция (поддерживаются отрицательные индексы:
+                    -1 означает последний элемент) -->
                     <tr lang="ru" finished="false">позиция (поддерживаются отрицательные индексы:
                     -1 означает последний элемент)</tr>
                 </param>
@@ -97,6 +101,8 @@
             <method name="choose">
                 <info>
                     <tr lang="en">choose random element in list and output it</tr>
+                    <!-- old: Выберите случайный элемент в списке и выведите
+                    его -->
                     <tr lang="ru" finished="false">Выберите случайный элемент в списке и выведите
                     его</tr>
                 </info>
@@ -238,6 +244,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">mlist output</tr>
+                    <tr lang="ru" finished="false">объем производства</tr>
                 </out>
             </outlet>
         </outlets>

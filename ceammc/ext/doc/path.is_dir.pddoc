@@ -21,6 +21,8 @@
                 <xinfo on="symbol">
                     <tr lang="en">output 1 if given path is found and is directory, otherwise
                     false</tr>
+                    <!-- old: выход 1 если данный путь найден и является
+                    каталогом, в противном случае ложным -->
                     <tr lang="ru" finished="false">выход 1 если данный путь найден и является
                     каталогом, в противном случае ложным</tr>
                 </xinfo>
@@ -34,11 +36,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">1 or 0</tr>
+                    <tr lang="ru" finished="false">1 или 0</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">output path if it's directory</tr>
+                    <tr lang="ru" finished="false">Путь вывода, если это каталог</tr>
                 </out>
             </outlet>
         </outlets>

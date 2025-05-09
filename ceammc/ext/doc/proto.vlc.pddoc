@@ -19,26 +19,31 @@
         <info>
             <par>
                 <tr lang="en">VLC video player control</tr>
+                <tr lang="ru" finished="false">Управление видеоплеером VLC</tr>
             </par>
             <a href="https://www.videolan.org/vlc">videolan.org</a>
         </info>
         <arguments>
             <argument name="HOST" type="symbol">
                 <tr lang="en">hostname on that VLC player is running on</tr>
+                <tr lang="ru" finished="false">Имя хоста на этом плеере VLC работает</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @host -->
             <property name="@host" type="symbol" default="localhost">
                 <tr lang="en">hostname on that VLC player is running on</tr>
+                <tr lang="ru" finished="false">Имя хоста на этом плеере VLC работает</tr>
             </property>
             <!-- @pass -->
             <property name="@pass" type="atom" default="">
                 <tr lang="en">VLC http password</tr>
+                <tr lang="ru" finished="false">VLC http пароль</tr>
             </property>
             <!-- @port -->
             <property name="@port" type="int" default="8080" minvalue="1" maxvalue="32768">
                 <tr lang="en">hostname on that VLC player is running on</tr>
+                <tr lang="ru" finished="false">Имя хоста на этом плеере VLC работает</tr>
             </property>
         </properties>
         <methods>
@@ -46,109 +51,135 @@
             <method name="add">
                 <info>
                     <tr lang="en">add URI to playlist</tr>
+                    <tr lang="ru" finished="false">Добавить URI в плейлист</tr>
                 </info>
                 <param name="URI" type="symbol" required="true">
                     <tr lang="en">resource URI (file:// or http:// or camera://)</tr>
+                    <tr lang="ru" finished="false">ресурс URI (файл:// или http:// или
+                    камера://)</tr>
                 </param>
             </method>
             <!-- browse -->
             <method name="browse">
                 <info>
                     <tr lang="en">browse resource</tr>
+                    <tr lang="ru" finished="false">Просмотреть ресурс</tr>
                 </info>
                 <param name="URI" type="symbol" required="true">
                     <tr lang="en">resource URI (file:///path)</tr>
+                    <tr lang="ru" finished="false">ресурс URI (файл:///path)</tr>
                 </param>
             </method>
             <!-- clear -->
             <method name="clear">
                 <info>
                     <tr lang="en">clear playlist</tr>
+                    <tr lang="ru" finished="false">четкий плейлист</tr>
                 </info>
             </method>
             <!-- delete -->
             <method name="delete">
                 <info>
                     <tr lang="en">delete item from playlist</tr>
+                    <tr lang="ru" finished="false">удалить элемент из плейлиста</tr>
                 </info>
                 <param name="ID" type="int">
                     <tr lang="en">playlist entry id</tr>
+                    <tr lang="ru" finished="false">playlist entry id</tr>
                 </param>
             </method>
             <!-- fs -->
             <method name="fs">
                 <info>
                     <tr lang="en">toggle VLC fullscreen mode</tr>
+                    <tr lang="ru" finished="false">VLC Fullscreen Mode</tr>
                 </info>
             </method>
             <!-- loop -->
             <method name="loop">
                 <info>
                     <tr lang="en">toggle loop</tr>
+                    <tr lang="ru" finished="false">петля переключения</tr>
                 </info>
             </method>
             <!-- next -->
             <method name="next">
                 <info>
                     <tr lang="en">go to the next entry on the playlist</tr>
+                    <tr lang="ru" finished="false">перейти к следующей записи в плейлисте</tr>
                 </info>
             </method>
             <!-- pause -->
             <method name="pause">
                 <info>
                     <tr lang="en">pause/resume playback</tr>
+                    <tr lang="ru" finished="false">пауза/возобновление воспроизведения</tr>
                 </info>
                 <param name="VAL" type="int" enum="0 1">
                     <tr lang="en">1 or omitted: pause, 0: resume</tr>
+                    <tr lang="ru" finished="false">1 или опущено: пауза, 0: резюме</tr>
                 </param>
             </method>
             <!-- play -->
             <method name="play">
                 <info>
                     <tr lang="en">start playback</tr>
+                    <tr lang="ru" finished="false">Начать играть</tr>
                 </info>
             </method>
             <!-- playlist -->
             <method name="playlist">
                 <info>
                     <tr lang="en">request playlist. Output as dict to second outlet</tr>
+                    <tr lang="ru" finished="false">Запросить плейлист. Выход как диктовка второму
+                    выходу</tr>
                 </info>
             </method>
             <!-- prev -->
             <method name="prev">
                 <info>
                     <tr lang="en">go to the previous entry on the playlist</tr>
+                    <tr lang="ru" finished="false">перейти к предыдущей записи в плейлисте</tr>
                 </info>
             </method>
             <!-- seek -->
             <method name="seek">
                 <info>
                     <tr lang="en">seek playback position</tr>
+                    <tr lang="ru" finished="false">Посмотреть Playback</tr>
                 </info>
                 <param name="TIME" type="atom" required="true">
                     <tr lang="en">absolute time position (int value in seconds or 00h:00m:00s) or
                     relative offset (+val, -val)</tr>
+                    <tr lang="ru" finished="false">абсолютная временная позиция (int value in
+                    seconds или 00h:00m:00s) или относительное смещение (+val, -val)</tr>
                 </param>
             </method>
             <!-- status -->
             <method name="status">
                 <info>
                     <tr lang="en">request playback status. Output as dict to second outlet</tr>
+                    <tr lang="ru" finished="false">запросить статус воспроизведения. Выход как
+                    диктовка второму выходу</tr>
                 </info>
             </method>
             <!-- stop -->
             <method name="stop">
                 <info>
                     <tr lang="en">stop playback</tr>
+                    <tr lang="ru" finished="false">остановить воспроизведение</tr>
                 </info>
             </method>
             <!-- volume -->
             <method name="volume">
                 <info>
                     <tr lang="en">set playing volume</tr>
+                    <tr lang="ru" finished="false">игровой объем</tr>
                 </info>
                 <param name="VAL" type="atom" required="true">
                     <tr lang="en">absolute value in percent or relative change +VOL or -VOL</tr>
+                    <tr lang="ru" finished="false">абсолютное значение в процентах или
+                    относительное изменение +VOL или -VOL</tr>
                 </param>
             </method>
         </methods>
@@ -156,6 +187,7 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">commands</tr>
+                    <tr lang="ru" finished="false">командовать</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -163,11 +195,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">int: 1 on success, 0 on error</tr>
+                    <tr lang="ru" finished="false">Инт: 1 об успехе, 0 об ошибке</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">dict: response data</tr>
+                    <tr lang="ru" finished="false">ct: данные ответа</tr>
                 </out>
             </outlet>
         </outlets>

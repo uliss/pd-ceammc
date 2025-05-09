@@ -57,6 +57,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">new modified list</tr>
+                    <tr lang="ru" finished="false">Новый модифицированный список</tr>
                 </out>
             </outlet>
         </outlets>

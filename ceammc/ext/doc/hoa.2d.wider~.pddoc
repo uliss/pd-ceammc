@@ -27,6 +27,9 @@
                 <tr lang="en">hoa.2d.wider~ can be used to wide the diffusion of a localised sound.
                 The order depending signals are weighted and appear in a logarithmic way to have
                 linear changes.</tr>
+                <!-- old: hoa.2d.wider~ может использоваться для широкого
+                распространения локализованного звука. Сигналы, зависящие от порядка, взвешиваются
+                и выглядят логарифмическим образом, чтобы иметь линейные изменения. -->
                 <tr lang="ru" finished="false">hoa.2d.wider~ может использоваться для широкого
                 распространения локализованного звука. Сигналы, зависящие от порядка, взвешиваются
                 и выглядят логарифмическим образом, чтобы иметь линейные изменения.</tr>
@@ -77,16 +80,19 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">first circular harmonics output</tr>
+                    <tr lang="ru" finished="false">Первая круговая гармоника выход</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">... circular harmonics output</tr>
+                    <tr lang="ru" finished="false">... круглые гармоники выход</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n">
                 <out type="any">
                     <tr lang="en">n-th circular harmonics output</tr>
+                    <tr lang="ru" finished="false">n-я круговая гармоника выход</tr>
                 </out>
             </outlet>
         </outlets>

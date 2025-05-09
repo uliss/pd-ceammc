@@ -48,6 +48,8 @@
             <method name="cell">
                 <info>
                     <tr lang="en">on/off matrix cell. Note argument order: row, cols.</tr>
+                    <!-- old: Матричная ячейка in/off. Порядок аргументации:
+                    ряд, cols. -->
                     <tr lang="ru" finished="false">Матричная ячейка in/off. Порядок аргументации:
                     ряд, cols.</tr>
                 </info>
@@ -85,16 +87,19 @@
             <outlet type="audio" number="1">
                 <out type="any">
                     <tr lang="en">first output signal</tr>
+                    <tr lang="ru" finished="false">Первый выходной сигнал</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">... output signal</tr>
+                    <tr lang="ru" finished="false">... выходной сигнал</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n">
                 <out type="any">
                     <tr lang="en">n-th output signal</tr>
+                    <tr lang="ru" finished="false">n-й выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

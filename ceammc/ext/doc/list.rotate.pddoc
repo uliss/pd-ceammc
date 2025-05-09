@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">[list.rotate] and [list.&lt;&lt;] rotate list left. [list.&gt;&gt;
                 rotates right.</tr>
+                <!-- old: [list.rotate] и [list. Перевернуть список влево.
+                [список.] Повернуть вправо. -->
                 <tr lang="ru" finished="false">[list.rotate] и [list. Перевернуть список влево.
                 [список.] Повернуть вправо.</tr>
             </par>
@@ -34,6 +36,8 @@
         <arguments>
             <argument name="STEP" type="int">
                 <tr lang="en">rotate step. Negative step changes rotation direction</tr>
+                <!-- old: Поворотный шаг. Отрицательный шаг меняет направление
+                вращения -->
                 <tr lang="ru" finished="false">Поворотный шаг. Отрицательный шаг меняет направление
                 вращения</tr>
             </argument>
@@ -43,6 +47,8 @@
             <property name="@step" type="int" default="1">
                 <tr lang="en">rotate step. Negative value change rotation direction to
                 opposite</tr>
+                <!-- old: Поворотный шаг. Отрицательное значение изменяет
+                направление вращения на противоположное -->
                 <tr lang="ru" finished="false">Поворотный шаг. Отрицательное значение изменяет
                 направление вращения на противоположное</tr>
             </property>
@@ -69,6 +75,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">rotated list</tr>
+                    <tr lang="ru" finished="false">ротационный список</tr>
                 </out>
             </outlet>
         </outlets>

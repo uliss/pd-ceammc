@@ -20,6 +20,8 @@
             <par>
                 <tr lang="en">Reverberator based on the Dattorro reverb topology with default
                 reverb parameters from the original paper</tr>
+                <!-- old: Ревербератор на основе топологии реверберации
+                Dattorro с параметрами реверберации по умолчанию из оригинальной бумаги -->
                 <tr lang="ru" finished="false">Ревербератор на основе топологии реверберации
                 Dattorro с параметрами реверберации по умолчанию из оригинальной бумаги</tr>
             </par>
@@ -34,6 +36,8 @@
             <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals</tr>
+                <!-- old: Пропорция смеси между исходными (сухими) и
+                «вредными» (мокрыми) сигналами -->
                 <tr lang="ru" finished="false">Пропорция смеси между исходными (сухими) и
                 «вредными» (мокрыми) сигналами</tr>
             </argument>
@@ -50,12 +54,16 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
             <!-- @damp -->
             <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0.0005">
                 <tr lang="en">high-frequency damping. No damping = 0.0</tr>
+                <!-- old: высокочастотное демпфирование. Нет демпфирования =
+                0,0 -->
                 <tr lang="ru" finished="false">высокочастотное демпфирование. Нет демпфирования =
                 0,0</tr>
             </property>
@@ -78,6 +86,8 @@
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.33">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <!-- old: пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
                 <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
                 "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
@@ -96,6 +106,8 @@
             units="millisecond">
                 <tr lang="en">a delay operating on the 'wet' signal. Large values will provide the
                 impression of a larger room</tr>
+                <!-- old: Задержка работы по сигналу «мокрый». Большие
+                значения обеспечат впечатление большой комнаты -->
                 <tr lang="ru" finished="false">Задержка работы по сигналу «мокрый». Большие
                 значения обеспечат впечатление большой комнаты</tr>
             </property>
@@ -127,11 +139,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output left</tr>
+                    <tr lang="ru" finished="false">выходной остаток</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output right</tr>
+                    <tr lang="ru" finished="false">выходное право</tr>
                 </out>
             </outlet>
         </outlets>

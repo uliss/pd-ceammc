@@ -23,6 +23,8 @@
             <par>
                 <tr lang="en">It is approximately equal to 2.71828, and is the limit of (1 + 1/n)^n
                 as n approaches infinity.</tr>
+                <!-- old: Она приблизительно равна 2,71828 и является пределом
+                (1 + 1/n)^n по мере приближения n к бесконечности. -->
                 <tr lang="ru" finished="false">Она приблизительно равна 2,71828 и является пределом
                 (1 + 1/n)^n по мере приближения n к бесконечности.</tr>
             </par>
@@ -39,6 +41,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </out>
             </outlet>
         </outlets>

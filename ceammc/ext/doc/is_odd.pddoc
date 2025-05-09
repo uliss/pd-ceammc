@@ -24,12 +24,16 @@
                 <xinfo on="int">
                     <tr lang="en">outputs '1' if number is not a multiple of two, otherwise outputs
                     '0'.</tr>
+                    <!-- old: выходы '1', если число не кратно двум, иначе
+                    выводит '0'. -->
                     <tr lang="ru" finished="false">выходы '1', если число не кратно двум, иначе
                     выводит '0'.</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">first value converted to integer, then the check is
                     performed</tr>
+                    <!-- old: сначала значение преобразуется в целое число,
+                    затем выполняется проверка -->
                     <tr lang="ru" finished="false">сначала значение преобразуется в целое число,
                     затем выполняется проверка</tr>
                 </xinfo>
@@ -39,11 +43,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">0 or 1</tr>
+                    <tr lang="ru" finished="false">0 или 1</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">passed odd numbers</tr>
+                    <tr lang="ru" finished="false">Пропущенные нечетные числа</tr>
                 </out>
             </outlet>
         </outlets>

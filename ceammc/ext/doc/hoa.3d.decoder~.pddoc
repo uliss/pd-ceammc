@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">Decodes an ambisonics soundfield for several loudspeakers
                 configuration or for headphones.</tr>
+                <!-- old: Декодирует звуковое поле амбисоники для нескольких
+                конфигураций громкоговорителей или для наушников. -->
                 <tr lang="ru" finished="false">Декодирует звуковое поле амбисоники для нескольких
                 конфигураций громкоговорителей или для наушников.</tr>
             </par>
@@ -77,6 +79,8 @@
             <property name="@offset" type="list" units="degree" default="0 0 0">
                 <tr lang="en">rotation of loudspeakers. Only available for @regular and @irregular
                 mode.</tr>
+                <!-- old: Вращение громкоговорителей. Доступен только для
+                @regular и @irregular. -->
                 <tr lang="ru" finished="false">Вращение громкоговорителей. Доступен только для
                 @regular и @irregular.</tr>
             </property>
@@ -92,6 +96,9 @@
                 <tr lang="en">list of plain wave x-coordinates (abscissas). -1 is the left of the
                 soundfield, 0 is the center of the soundfield and 1 is the right of the
                 soundfield.</tr>
+                <!-- old: Список простых волновых x-координатов (абсцисса). -1
+                находится слева от звукового поля, 0 - в центре звукового поля и 1 - справа от
+                звукового поля. -->
                 <tr lang="ru" finished="false">Список простых волновых x-координатов (абсцисса). -1
                 находится слева от звукового поля, 0 - в центре звукового поля и 1 - справа от
                 звукового поля.</tr>
@@ -102,6 +109,9 @@
                 <tr lang="en">list of plain wave y-coordinates (ordinatas). -1 is the back of the
                 soundfield, 0 is the center of the soundfield and 1 is the front of the
                 soundfield.</tr>
+                <!-- old: Список простых волновых Y-координатов (ординат). -1
+                - задняя часть звукового поля, 0 - центр звукового поля и 1 - передняя часть
+                звукового поля. -->
                 <tr lang="ru" finished="false">Список простых волновых Y-координатов (ординат). -1
                 - задняя часть звукового поля, 0 - центр звукового поля и 1 - передняя часть
                 звукового поля.</tr>
@@ -112,6 +122,9 @@
                 <tr lang="en">list of plain wave z-coordinates (heights). -1 is the bottom of the
                 soundfield, 0 is the center of the soundfield and 1 is the top of the
                 soundfield.</tr>
+                <!-- old: Список простых волн z-координатов (высот). -1 -
+                нижняя часть звукового поля, 0 - центр звукового поля и 1 - верхняя часть звукового
+                поля. -->
                 <tr lang="ru" finished="false">Список простых волн z-координатов (высот). -1 -
                 нижняя часть звукового поля, 0 - центр звукового поля и 1 - верхняя часть звукового
                 поля.</tr>
@@ -146,16 +159,19 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">first loudspeaker output</tr>
+                    <tr lang="ru" finished="false">первый громкоговоритель выходной</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">... loudspeaker output</tr>
+                    <tr lang="ru" finished="false">... громкоговоритель выход</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n">
                 <out type="any">
                     <tr lang="en">n-th loudspeaker output</tr>
+                    <tr lang="ru" finished="false">n-й выход громкоговорителя</tr>
                 </out>
             </outlet>
         </outlets>

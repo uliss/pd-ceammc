@@ -19,6 +19,8 @@
         <info>
             <par>
                 <tr lang="en">The sqrt() function compute the non-negative square root of x.</tr>
+                <!-- old: Функция sqrt() вычисляет неотрицательный квадратный
+                корень x. -->
                 <tr lang="ru" finished="false">Функция sqrt() вычисляет неотрицательный квадратный
                 корень x.</tr>
             </par>
@@ -32,6 +34,8 @@
             </par>
             <par>
                 <tr lang="en">sqrt(x) returns a NaN and generates a domain error for x &lt; 0.</tr>
+                <!-- old: sqrt(x) возвращает NaN и генерирует ошибку домена
+                для x < 0. -->
                 <tr lang="ru" finished="false">sqrt(x) возвращает NaN и генерирует ошибку домена
                 для x &lt; 0.</tr>
             </par>
@@ -52,6 +56,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

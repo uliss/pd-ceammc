@@ -27,6 +27,8 @@
             <property name="@value" type="int" minvalue="0" default="0">
                 <tr lang="en">current counter state. Can be set via message to second(!) inlet or
                 [prop.set] object.</tr>
+                <!-- old: Текущее противостоящее государство. Можно установить
+                через сообщение на второй (!) входной или [prop.set] объект. -->
                 <tr lang="ru" finished="false">Текущее противостоящее государство. Можно установить
                 через сообщение на второй (!) входной или [prop.set] объект.</tr>
             </property>
@@ -41,6 +43,8 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">reset counter to init value (no output)</tr>
+                    <!-- old: Reset Counter to Init Value (без выходных
+                    данных) -->
                     <tr lang="ru" finished="false">Reset Counter to Init Value (без выходных
                     данных)</tr>
                 </xinfo>
@@ -50,6 +54,8 @@
                 </xinfo>
                 <xinfo>
                     <tr lang="en">@value X - set current value (no output)</tr>
+                    <!-- old: @value X - заданное текущее значение (без
+                    выхода) -->
                     <tr lang="ru" finished="false">@value X - заданное текущее значение (без
                     выхода)</tr>
                 </xinfo>
@@ -59,11 +65,15 @@
                 </xinfo>
                 <xinfo>
                     <tr lang="en">+ X - add specified value (no output)</tr>
+                    <!-- old: + X - добавить заданное значение (без
+                    выхода) -->
                     <tr lang="ru" finished="false">+ X - добавить заданное значение (без
                     выхода)</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">- X - subtract specified value (no output)</tr>
+                    <!-- old: - X - вычесть заданное значение (без
+                    выхода) -->
                     <tr lang="ru" finished="false">- X - вычесть заданное значение (без
                     выхода)</tr>
                 </xinfo>
@@ -73,6 +83,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs event number</tr>
+                    <tr lang="ru" finished="false">выходной номер события</tr>
                 </out>
             </outlet>
         </outlets>

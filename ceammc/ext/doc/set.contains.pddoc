@@ -24,23 +24,28 @@
         <arguments>
             <argument name="SUBJ" type="atom">
                 <tr lang="en">searched element</tr>
+                <tr lang="ru" finished="false">Поисковый элемент</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @subj -->
             <property name="@subj" type="atom" default="null">
                 <tr lang="en">searched element</tr>
+                <tr lang="ru" finished="false">Поисковый элемент</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input set. Other values are ignored</tr>
+                    <tr lang="ru" finished="false">Набор входных данных. Другие ценности
+                    игнорируются</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="atom">
                     <tr lang="en">set searched element</tr>
+                    <tr lang="ru" finished="false">Поисковый элемент</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -48,6 +53,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">1 if element exists in set, otherwise 0</tr>
+                    <tr lang="ru" finished="false">1 если элемент существует в наборе, в противном
+                    случае 0</tr>
                 </out>
             </outlet>
         </outlets>

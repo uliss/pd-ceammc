@@ -44,6 +44,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">sum value</tr>
+                    <tr lang="ru" finished="false">суммарная стоимость</tr>
                 </out>
             </outlet>
         </outlets>

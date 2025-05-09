@@ -20,9 +20,12 @@
         <arguments>
             <argument name="SPEED" type="float" minvalue="120" maxvalue="480">
                 <tr lang="en">maximum speed of whistles if @auto enabled</tr>
+                <tr lang="ru" finished="false">Максимальная скорость свистка при включении
+                @auto</tr>
             </argument>
             <argument name="PROBABILITY" type="float" minvalue="25" maxvalue="100" units="percent">
                 <tr lang="en">whistles probability if @auto enabled</tr>
+                <tr lang="ru" finished="false">Вероятность свистка, если @auto включен</tr>
             </argument>
         </arguments>
         <properties>
@@ -32,25 +35,31 @@
             <!-- @auto -->
             <property name="@auto" type="bool" default="0">
                 <tr lang="en">auto playing mode</tr>
+                <tr lang="ru" finished="false">режим автоматической игры</tr>
             </property>
             <!-- @gate -->
             <property name="@gate" type="bool" default="0">
                 <tr lang="en">play trigger. Starts playing on release</tr>
+                <tr lang="ru" finished="false">играть в триггер. Начал играть на релизе</tr>
             </property>
             <!-- @probability -->
             <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50"
             units="percent">
                 <tr lang="en">whistles probability if @auto enabled</tr>
+                <tr lang="ru" finished="false">Вероятность свистка, если @auto включен</tr>
             </property>
             <!-- @speed -->
             <property name="@speed" type="float" minvalue="120" maxvalue="480" default="240">
                 <tr lang="en">maximum speed of whistles if @auto enabled</tr>
+                <tr lang="ru" finished="false">Максимальная скорость свистка при включении
+                @auto</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">play</tr>
+                    <tr lang="ru" finished="false">играть</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -58,11 +67,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">synth left channel</tr>
+                    <tr lang="ru" finished="false">Синт левый канал</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">synth right channel</tr>
+                    <tr lang="ru" finished="false">Синтез правого канала</tr>
                 </out>
             </outlet>
         </outlets>

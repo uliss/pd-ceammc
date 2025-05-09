@@ -45,6 +45,8 @@
             <property name="@mode" type="symbol" enum="fit resize raw" default="fit">
                 <tr lang="en">rendering mode: *fit* to array size, *resize* array to envelope
                 length or *raw* render while enough space in array</tr>
+                <!-- old: Режим рендеринга: *fit* to array size, *resize*
+                array to envelope length или *raw* render while enough space in array -->
                 <tr lang="ru" finished="false">Режим рендеринга: *fit* to array size, *resize*
                 array to envelope length или *raw* render while enough space in array</tr>
             </property>
@@ -77,6 +79,8 @@
                 <out type="any">
                     <tr lang="en">output number of samples in destination array. If array was
                     resized - output this new size</tr>
+                    <tr lang="ru" finished="false">выходное число образцов в массиве назначения.
+                    Если массив был изменен - выведите этот новый размер</tr>
                 </out>
             </outlet>
         </outlets>

@@ -27,12 +27,17 @@
             <par>
                 <tr lang="en">conditional value pass according to *predicate* side-chain.
                 *predicate* should accept value and ouput 0 or 1, for value passing.</tr>
+                <!-- old: Условное значение проходит в соответствии с
+                *predicate* side-chain. *предикат* должен принимать значение и выдавать 0 или 1,
+                для прохождения значения. -->
                 <tr lang="ru" finished="false">Условное значение проходит в соответствии с
                 *predicate* side-chain. *предикат* должен принимать значение и выдавать 0 или 1,
                 для прохождения значения.</tr>
             </par>
             <par>
                 <tr lang="en">[&gt;=] [is_even] [is_list] - examples of predicates.</tr>
+                <!-- old: [>=] [is_even] [is_list] — примеры
+                предикатов. -->
                 <tr lang="ru" finished="false">[&gt;=] [is_even] [is_list] — примеры
                 предикатов.</tr>
             </par>
@@ -48,6 +53,8 @@
                 <xinfo on="int" minvalue="0" maxvalue="1">
                     <tr lang="en">conditional output from predicate object. '1' means pass, '0'
                     means reject</tr>
+                    <!-- old: Условный выход из объекта предиката. «1»
+                    означает проход, «0» означает отказ -->
                     <tr lang="ru" finished="false">Условный выход из объекта предиката. «1»
                     означает проход, «0» означает отказ</tr>
                 </xinfo>
@@ -57,11 +64,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">passed values</tr>
+                    <tr lang="ru" finished="false">переданные значения</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">output to predicate side-chain</tr>
+                    <tr lang="ru" finished="false">Производитель: Predicate Side Chain</tr>
                 </out>
             </outlet>
         </outlets>

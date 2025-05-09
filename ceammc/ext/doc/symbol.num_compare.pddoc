@@ -20,26 +20,34 @@
         <arguments>
             <argument name="WITH" type="symbol">
                 <tr lang="en">symbol to compare</tr>
+                <tr lang="ru" finished="false">Символ для сравнения</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @with -->
             <property name="@with" type="symbol" default="">
                 <tr lang="en">symbol to compare</tr>
+                <tr lang="ru" finished="false">Символ для сравнения</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">first compare symbol. Unicode strings also supported</tr>
+                    <tr lang="ru" finished="false">Сначала сравните символ. Поддерживаются также
+                    строки Unicode</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">compare first and second list elements</tr>
+                    <tr lang="ru" finished="false">Сравнение элементов первого и второго
+                    списка</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">second compare symbol. Unicode strings also supported</tr>
+                    <tr lang="ru" finished="false">Второй символ сравнения. Поддерживаются также
+                    строки Unicode</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -47,6 +55,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">1 if first symbol less then second, otherwise 0</tr>
+                    <tr lang="ru" finished="false">1 если первый символ меньше второго, то в
+                    противном случае 0</tr>
                 </out>
             </outlet>
         </outlets>

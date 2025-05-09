@@ -28,6 +28,9 @@
                 <tr lang="en">Convertion depends on property @step, which means a length of
                 key/value pair. First element of the pair becames a key, and other elements becames
                 value.</tr>
+                <!-- old: Конвертация зависит от свойства @step, что означает
+                длину пары ключ/значение. Первый элемент пары становится ключом, а другие элементы
+                — ценностью. -->
                 <tr lang="ru" finished="false">Конвертация зависит от свойства @step, что означает
                 длину пары ключ/значение. Первый элемент пары становится ключом, а другие элементы
                 — ценностью.</tr>
@@ -58,6 +61,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">dict output</tr>
+                    <tr lang="ru" finished="false">выход диктовки</tr>
                 </out>
             </outlet>
         </outlets>

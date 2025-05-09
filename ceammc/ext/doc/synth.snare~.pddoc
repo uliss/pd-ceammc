@@ -24,26 +24,33 @@
             <property name="@attack" type="float" minvalue="0.3" maxvalue="100" default="0.5"
             units="millisecond">
                 <tr lang="en">attack time</tr>
+                <tr lang="ru" finished="false">Время атаки</tr>
             </property>
             <!-- @decay -->
             <property name="@decay" type="float" minvalue="1" maxvalue="100" default="1"
             units="millisecond">
                 <tr lang="en">decay time</tr>
+                <tr lang="ru" finished="false">время распада</tr>
             </property>
             <!-- @envwait -->
             <property name="@envwait" type="bool" default="0">
                 <tr lang="en">ignore new notes until previous note is not finished release
                 time</tr>
+                <tr lang="ru" finished="false">игнорировать новые ноты до тех пор, пока предыдущая
+                нота не закончит время выпуска.</tr>
             </property>
             <!-- @gate -->
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">play trigger &gt;0: on, 0: off. To set output gain to 0.5 you can 0.5
                 as trigger value</tr>
+                <tr lang="ru" finished="false">играть триггер &gt;0: on, 0: off. Чтобы установить
+                выходной коэффициент усиления до 0,5, вы можете 0,5 как триггерное значение.</tr>
             </property>
             <!-- @release -->
             <property name="@release" type="float" minvalue="10" maxvalue="1000" default="200"
             units="millisecond">
                 <tr lang="en">release time</tr>
+                <tr lang="ru" finished="false">Время освобождения</tr>
             </property>
         </properties>
         <methods>
@@ -51,6 +58,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset synth</tr>
+                    <tr lang="ru" finished="false">Сбросить синтезатор</tr>
                 </info>
             </method>
         </methods>
@@ -58,12 +66,17 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">play with default duration and full gain</tr>
+                    <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и
+                    полным выигрышем</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">play with default duration and specified gain</tr>
+                    <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и
+                    определенным выигрышем</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">GAIN(0..1) DUR(ms) pair expected</tr>
+                    <tr lang="ru" finished="false">ГАИН(0) ..1) Ожидаемая пара DUR(ms)</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -71,11 +84,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">synth output</tr>
+                    <tr lang="ru" finished="false">синтетический выход</tr>
                 </out>
             </outlet>
             <outlet type="control">
                 <out type="any">
                     <tr lang="en">bang after release finished</tr>
+                    <tr lang="ru" finished="false">Альбом: After Release Complete</tr>
                 </out>
             </outlet>
         </outlets>

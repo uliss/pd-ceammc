@@ -29,6 +29,8 @@
             <property name="@enumerate" type="bool" default="0">
                 <tr lang="en">enumeration mode. If enumeration is active output pairs: INDEX ATOM,
                 otherwise single atoms</tr>
+                <!-- old: Режим перечисления. Если перечисление является парой
+                активного выхода: INDEX ATOM, в противном случае одиночные атомы -->
                 <tr lang="ru" finished="false">Режим перечисления. Если перечисление является парой
                 активного выхода: INDEX ATOM, в противном случае одиночные атомы</tr>
             </property>
@@ -55,11 +57,14 @@
                 <out type="any">
                     <tr lang="en">outlet for single atoms (or pair: IDX ATOM in enumeration
                     mode)</tr>
+                    <tr lang="ru" finished="false">выход для одиночных атомов (или пары: IDX ATOM в
+                    режиме перечисления)</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs bang after last element in the list</tr>
+                    <tr lang="ru" finished="false">Взрывы после последнего элемента в списке</tr>
                 </out>
             </outlet>
         </outlets>

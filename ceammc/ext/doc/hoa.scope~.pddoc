@@ -25,6 +25,8 @@
         <info>
             <par>
                 <tr lang="en">displays the circular harmonics of an ambisonic sound field</tr>
+                <!-- old: отображает круговые гармоники амбисонического
+                звукового поля -->
                 <tr lang="ru" finished="false">отображает круговые гармоники амбисонического
                 звукового поля</tr>
             </par>
@@ -49,12 +51,16 @@
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
                 <tr lang="en">element background color (list of red, green, blue values in 0-1
                 range)</tr>
+                <!-- old: цвет фона элемента (список красных, зеленых, синих
+                значений в диапазоне 0-1) -->
                 <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих
                 значений в диапазоне 0-1)</tr>
             </property>
             <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">
                 <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
+                <!-- old: пограничный цвет (список красных, зеленых, синих
+                значений в диапазоне 0-1) -->
                 <tr lang="ru" finished="false">пограничный цвет (список красных, зеленых, синих
                 значений в диапазоне 0-1)</tr>
             </property>
@@ -98,6 +104,8 @@
             <property name="@label_color" type="list" default="0 0 0 1">
                 <tr lang="en">label color in RGB format within 0-1 range, for example: 0.2 0.4
                 0.1</tr>
+                <!-- old: цвет этикетки в формате RGB в диапазоне 0-1,
+                например: 0.2 0.4 0.1 -->
                 <tr lang="ru" finished="false">цвет этикетки в формате RGB в диапазоне 0-1,
                 например: 0.2 0.4 0.1</tr>
             </property>
@@ -139,6 +147,8 @@
             <!-- @pinned -->
             <property name="@pinned" type="bool" default="0">
                 <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
+                <!-- old: Режим пин. если 1 - поставить элемент на самый
+                низкий уровень -->
                 <tr lang="ru" finished="false">Режим пин. если 1 - поставить элемент на самый
                 низкий уровень</tr>
             </property>
@@ -164,6 +174,8 @@
             <method name="dump">
                 <info>
                     <tr lang="en">dumps all object info to Pd console window.</tr>
+                    <!-- old: Сбрасывает всю информацию об объекте в окно
+                    консоли Pd. -->
                     <tr lang="ru" finished="false">Сбрасывает всю информацию об объекте в окно
                     консоли Pd.</tr>
                 </info>

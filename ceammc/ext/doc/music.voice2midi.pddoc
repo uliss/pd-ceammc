@@ -57,6 +57,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">MIDI values</tr>
+                    <tr lang="ru" finished="false">Значения MIDI</tr>
                 </out>
             </outlet>
         </outlets>

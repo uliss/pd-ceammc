@@ -19,6 +19,8 @@
         <info>
             <par>
                 <tr lang="en">Split midi note messages at specified pitch values</tr>
+                <!-- old: Сплит-сообщения Midi Notes с заданными значениями
+                шага -->
                 <tr lang="ru" finished="false">Сплит-сообщения Midi Notes с заданными значениями
                 шага</tr>
             </par>
@@ -48,22 +50,29 @@
             <outlet number="1">
                 <out type="any">
                     <tr lang="en">midi pitches that are less than first split point</tr>
+                    <tr lang="ru" finished="false">Миди-точки, которые меньше первой точки
+                    разделения</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">...</tr>
+                    <tr lang="ru" finished="false">...</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">midi pitches that are greater or equal than N-th split point and
                     less then N+1</tr>
+                    <tr lang="ru" finished="false">миди-точки, которые больше или равны N-й точке
+                    сплита и меньше N+1</tr>
                 </out>
             </outlet>
             <outlet number="n+1">
                 <out type="any">
                     <tr lang="en">notes that are greater or equal last split point</tr>
+                    <tr lang="ru" finished="false">ноты, которые больше или равны последней точке
+                    разделения</tr>
                 </out>
             </outlet>
         </outlets>

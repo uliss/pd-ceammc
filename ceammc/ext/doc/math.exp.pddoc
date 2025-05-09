@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">The exp() function computes e**x, the base-e exponential of x.</tr>
+                <!-- old: Функция exp() вычисляет e**x, экспоненциальное
+                основание e x. -->
                 <tr lang="ru" finished="false">Функция exp() вычисляет e**x, экспоненциальное
                 основание e x.</tr>
             </par>
@@ -30,6 +32,9 @@
                 <tr lang="en">If x is nearly zero, then the common expression exp(x) - 1.0 will
                 suffer from catastrophic cancellation and the result will have little or no
                 precision.</tr>
+                <!-- old: Если x почти равен нулю, то общее выражение exp(x) -
+                1.0 будет страдать от катастрофической отмены и результат будет иметь небольшую
+                точность или вообще не будет. -->
                 <tr lang="ru" finished="false">Если x почти равен нулю, то общее выражение exp(x) -
                 1.0 будет страдать от катастрофической отмены и результат будет иметь небольшую
                 точность или вообще не будет.</tr>
@@ -53,6 +58,8 @@
             <par>
                 <tr lang="en">For all these functions, a range error occurs if the magnitude of x
                 is too large.</tr>
+                <!-- old: Для всех этих функций возникает ошибка диапазона,
+                если величина x слишком велика. -->
                 <tr lang="ru" finished="false">Для всех этих функций возникает ошибка диапазона,
                 если величина x слишком велика.</tr>
             </par>
@@ -73,6 +80,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

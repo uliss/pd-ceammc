@@ -64,6 +64,8 @@
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">sets @from=0, @to=X and outputs generated sequence</tr>
+                    <!-- old: Устанавливает @from=0, @to=X и выводит
+                    генерируемую последовательность -->
                     <tr lang="ru" finished="false">Устанавливает @from=0, @to=X и выводит
                     генерируемую последовательность</tr>
                 </xinfo>
@@ -72,6 +74,10 @@
                     accordingly. If 2 args are given: they are set to @from, @to and @step is set
                     to *1*. If 1 arg given, @from is set to 0, @to sets to given value and @step is
                     set to *1*</tr>
+                    <!-- old: Если дано 3 аргумента: они установлены на @from,
+                    @to и @step соответственно. Если дано 2 args: они установлены на @from, @to и
+                    @step установлены на *1*. Если дано 1 arg, @from установлен на 0, @to
+                    установлен на заданное значение и @step установлен на *1* -->
                     <tr lang="ru" finished="false">Если дано 3 аргумента: они установлены на @from,
                     @to и @step соответственно. Если дано 2 args: они установлены на @from, @to и
                     @step установлены на *1*. Если дано 1 arg, @from установлен на 0, @to
@@ -83,6 +89,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">generated sequence</tr>
+                    <tr lang="ru" finished="false">генерируемая последовательность</tr>
                 </out>
             </outlet>
         </outlets>

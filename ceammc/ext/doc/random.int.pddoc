@@ -26,15 +26,22 @@
         <info>
             <par>
                 <tr lang="en">Generates pseudo-random number in specified closed interval.</tr>
+                <tr lang="ru" finished="false">Генерирует псевдослучайное число в заданном
+                замкнутом интервале.</tr>
             </par>
             <par>
                 <tr lang="en">Use @seed property to get reproducible sequences. If @seed property
                 was not explicitly set or specified, uses generator initialized with current
                 time.</tr>
+                <tr lang="ru" finished="false">Используйте свойство @seed для получения
+                воспроизводимых последовательностей. Если свойство @seed не было явно установлено
+                или указано, используется генератор, инициализированный с текущим временем.</tr>
             </par>
             <par>
                 <tr lang="en">Algorithm: 32-bit Mersenne Twister by Matsumoto and Nishimura,
                 1998</tr>
+                <tr lang="ru" finished="false">Алгоритм: 32-битный Мерсенн Твистер Мацумото и
+                Нисимура, 1998</tr>
             </par>
             <a href="https://en.wikipedia.org/wiki/Mersenne_Twister">wiki: Mersenne Twister</a>
         </info>
@@ -42,20 +49,25 @@
             <argument name="ARG" type="list">
                 <tr lang="en">@min=ARG[0], @max=ARG[1], in case of signle arg: @min=0,
                 @max=ARG[0]</tr>
+                <tr lang="ru" finished="false">@min=ARG[0], @max=ARG[1], в случае знакового arg:
+                @min=0, @max=ARG[0]</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @max -->
             <property name="@max" type="int" default="255">
                 <tr lang="en">random range upper bound</tr>
+                <tr lang="ru" finished="false">верхняя граница случайного диапазона</tr>
             </property>
             <!-- @min -->
             <property name="@min" type="int" default="0">
                 <tr lang="en">random range lower bound</tr>
+                <tr lang="ru" finished="false">нижняя граница случайного диапазона</tr>
             </property>
             <!-- @seed -->
             <property name="@seed" type="int" minvalue="0" default="0">
                 <tr lang="en">generator seed</tr>
+                <tr lang="ru" finished="false">генератор</tr>
             </property>
         </properties>
         <methods>
@@ -63,9 +75,12 @@
             <method name="gen">
                 <info>
                     <tr lang="en">generate list of random integers with specified length</tr>
+                    <tr lang="ru" finished="false">генерировать список случайных целых чисел с
+                    заданной длиной</tr>
                 </info>
                 <param name="N" type="int" required="true" minvalue="1">
                     <tr lang="en">list length</tr>
+                    <tr lang="ru" finished="false">длинный список</tr>
                 </param>
             </method>
         </methods>
@@ -73,16 +88,19 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">generate new number</tr>
+                    <tr lang="ru" finished="false">генерировать новое число</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">set @min property</tr>
+                    <tr lang="ru" finished="false">@min Недвижимость</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">set @max property</tr>
+                    <tr lang="ru" finished="false">Обсуждение @max Property</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -90,6 +108,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">int or list: generated value</tr>
+                    <tr lang="ru" finished="false">Инт или список: генерируемая стоимость</tr>
                 </out>
             </outlet>
         </outlets>

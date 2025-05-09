@@ -33,6 +33,8 @@
             <par>
                 <tr lang="en">The solution to the Duffing equations is often used as an example of
                 a classic chaotic system.</tr>
+                <!-- old: Решение уравнений Даффинга часто используется в
+                качестве примера классической хаотической системы. -->
                 <tr lang="ru" finished="false">Решение уравнений Даффинга часто используется в
                 качестве примера классической хаотической системы.</tr>
             </par>
@@ -54,6 +56,8 @@
             </par>
             <par>
                 <tr lang="en">===================================</tr>
+                <!-- old: = = = = = = = = = = = = = = = = = = = = = = = = = =
+                = = = = = = = = = -->
                 <tr lang="ru" finished="false">= = = = = = = = = = = = = = = = = = = = = = = = = =
                 = = = = = = = = =</tr>
             </par>
@@ -110,6 +114,8 @@
             <method name="om">
                 <param name="OM" type="int" required="true">
                     <tr lang="en">enables output when cut or fold value is changed</tr>
+                    <!-- old: позволяет вывод при изменении значения разреза
+                    или сгиба -->
                     <tr lang="ru" finished="false">позволяет вывод при изменении значения разреза
                     или сгиба</tr>
                 </param>
@@ -148,11 +154,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">dx output</tr>
+                    <tr lang="ru" finished="false">выход dx</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">dy output</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

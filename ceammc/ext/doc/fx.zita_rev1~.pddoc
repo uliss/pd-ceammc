@@ -19,16 +19,22 @@
         <arguments>
             <argument name="DECAY_LOW" type="float" minvalue="1" maxvalue="60" units="second">
                 <tr lang="en">time (in seconds) to decay 60dB in low-frequency band</tr>
+                <!-- old: время (в секундах) распада 60dB в низкочастотном
+                диапазоне -->
                 <tr lang="ru" finished="false">время (в секундах) распада 60dB в низкочастотном
                 диапазоне</tr>
             </argument>
             <argument name="DECAY_MID" type="float" minvalue="1" maxvalue="60" units="second">
                 <tr lang="en">time (in seconds) to decay 60dB in mid-frequency band</tr>
+                <!-- old: время (в секундах) распада 60dB в диапазоне средних
+                частот -->
                 <tr lang="ru" finished="false">время (в секундах) распада 60dB в диапазоне средних
                 частот</tr>
             </argument>
             <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">ratio between source signal (dry) and processed signal (wet)</tr>
+                <!-- old: Соотношение между исходным сигналом (сухим) и
+                обработанным сигналом (мокрым) -->
                 <tr lang="ru" finished="false">Соотношение между исходным сигналом (сухим) и
                 обработанным сигналом (мокрым)</tr>
             </argument>
@@ -40,6 +46,8 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
@@ -48,6 +56,8 @@
             units="hertz">
                 <tr lang="en">Frequency (Hz) at which the high-frequency T60 is half the
                 middle-band's T60</tr>
+                <!-- old: Частота (Гц), при которой высокочастотный T60
+                составляет половину T60 среднего диапазона -->
                 <tr lang="ru" finished="false">Частота (Гц), при которой высокочастотный T60
                 составляет половину T60 среднего диапазона</tr>
             </property>
@@ -55,6 +65,8 @@
             <property name="@decay_low" type="float" minvalue="1" maxvalue="60" default="3"
             units="second">
                 <tr lang="en">time (in seconds) to decay 60dB in low-frequency band</tr>
+                <!-- old: время (в секундах) распада 60dB в низкочастотном
+                диапазоне -->
                 <tr lang="ru" finished="false">время (в секундах) распада 60dB в низкочастотном
                 диапазоне</tr>
             </property>
@@ -62,12 +74,16 @@
             <property name="@decay_mid" type="float" minvalue="1" maxvalue="60" default="2"
             units="second">
                 <tr lang="en">time (in seconds) to decay 60dB in mid-frequency band</tr>
+                <!-- old: время (в секундах) распада 60dB в диапазоне средних
+                частот -->
                 <tr lang="ru" finished="false">время (в секундах) распада 60dB в диапазоне средних
                 частот</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">Ratio between source signal (dry) and processed signal (wet)</tr>
+                <!-- old: Соотношение между исходным сигналом (сухим) и
+                обработанным сигналом (мокрым) -->
                 <tr lang="ru" finished="false">Соотношение между исходным сигналом (сухим) и
                 обработанным сигналом (мокрым)</tr>
             </property>
@@ -75,6 +91,8 @@
             <property name="@fr_ldecay" type="float" minvalue="0" maxvalue="60" default="40"
             units="second">
                 <tr lang="en">time (in seconds) to decay 60dB in low-frequency band</tr>
+                <!-- old: время (в секундах) распада 60dB в низкочастотном
+                диапазоне -->
                 <tr lang="ru" finished="false">время (в секундах) распада 60dB в низкочастотном
                 диапазоне</tr>
             </property>
@@ -82,6 +100,8 @@
             <property name="@fr_mdecay" type="float" minvalue="0" maxvalue="60" default="40"
             units="second">
                 <tr lang="en">time (in seconds) to decay 60dB in mid-frequency band</tr>
+                <!-- old: время (в секундах) распада 60dB в диапазоне средних
+                частот -->
                 <tr lang="ru" finished="false">время (в секундах) распада 60dB в диапазоне средних
                 частот</tr>
             </property>
@@ -100,6 +120,8 @@
             <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
             units="hertz">
                 <tr lang="en">Crossover frequency (Hz) separating low and middle frequencies</tr>
+                <!-- old: Перекрестная частота (Гц), разделяющая низкие и
+                средние частоты -->
                 <tr lang="ru" finished="false">Перекрестная частота (Гц), разделяющая низкие и
                 средние частоты</tr>
             </property>
@@ -108,6 +130,8 @@
             units="millisecond">
                 <tr lang="en">a delay operating on the 'wet' signal. Large values will provide the
                 impression of a larger room</tr>
+                <!-- old: Задержка работы по сигналу «мокрый». Большие
+                значения обеспечат впечатление большой комнаты -->
                 <tr lang="ru" finished="false">Задержка работы по сигналу «мокрый». Большие
                 значения обеспечат впечатление большой комнаты</tr>
             </property>
@@ -139,11 +163,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output left</tr>
+                    <tr lang="ru" finished="false">выходной остаток</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output right</tr>
+                    <tr lang="ru" finished="false">выходное право</tr>
                 </out>
             </outlet>
         </outlets>

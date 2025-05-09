@@ -34,11 +34,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">audio stream</tr>
+                    <tr lang="ru" finished="false">аудио поток</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">control stream</tr>
+                    <tr lang="ru" finished="false">поток управления</tr>
                 </out>
             </outlet>
         </outlets>

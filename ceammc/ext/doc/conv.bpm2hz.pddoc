@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">Converts frequency from BPM (beats per minute) to hertz. It's simple
                 as /60, but more readable</tr>
+                <!-- old: Преобразует частоту от BPM (бит в минуту) в герц.
+                Простой как /60, но более читаемый -->
                 <tr lang="ru" finished="false">Преобразует частоту от BPM (бит в минуту) в герц.
                 Простой как /60, но более читаемый</tr>
             </par>
@@ -43,6 +45,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">frequency in hertz</tr>
+                    <tr lang="ru" finished="false">частота в герце</tr>
                 </out>
             </outlet>
         </outlets>

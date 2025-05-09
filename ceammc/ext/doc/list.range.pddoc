@@ -26,6 +26,8 @@
         <info>
             <par>
                 <tr lang="en">Note: if @type = any, numbers are smaller then symbols</tr>
+                <!-- old: Примечание: если @type = любой, числа меньше, чем
+                символы -->
                 <tr lang="ru" finished="false">Примечание: если @type = любой, числа меньше, чем
                 символы</tr>
             </par>
@@ -39,6 +41,8 @@
             <!-- @f -->
             <property name="@f" type="alias">
                 <tr lang="en">alias to @type float, accept only floats</tr>
+                <!-- old: alias to @type float, accept only floats
+                (недоступная ссылка) -->
                 <tr lang="ru" finished="false">alias to @type float, accept only floats
                 (недоступная ссылка)</tr>
             </property>
@@ -70,6 +74,8 @@
                 <out type="any">
                     <tr lang="en">list of two elements: first is a smallest value, second -
                     largest</tr>
+                    <tr lang="ru" finished="false">список из двух элементов: первый — наименьшее
+                    значение, второй — наибольшее</tr>
                 </out>
             </outlet>
         </outlets>

@@ -28,36 +28,46 @@
             <par>
                 <tr lang="en">Note: by default string or symbol splitted to list of data:String, to
                 get list of Pd symbols use @sym flag or use alias [symbol.split]</tr>
+                <tr lang="ru" finished="false">Примечание: по умолчанию строка или символ разделены
+                на список данных: строка, чтобы получить список символов Pd использовать @sym flag
+                или использовать псевдоним [symbol.split]</tr>
             </par>
         </info>
         <arguments>
             <argument name="SEP" type="symbol">
                 <tr lang="en">separator. If nonspecified - separate by every char. To separate by
                 space - use " " argument</tr>
+                <tr lang="ru" finished="false">Разделитель. Если не указано - раздельно по каждому
+                шару. Разделить по пространству - использовать аргумент</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @sep -->
             <property name="@sep" type="symbol" default="">
                 <tr lang="en">separator</tr>
+                <tr lang="ru" finished="false">разделитель</tr>
             </property>
             <!-- @sym -->
             <property name="@sym" type="flag" access="initonly">
                 <tr lang="en">flag to output as list of Pd symbols</tr>
+                <tr lang="ru" finished="false">Флаг для вывода в виде списка символов Pd</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">input symbol</tr>
+                    <tr lang="ru" finished="false">входной символ</tr>
                 </xinfo>
                 <xinfo on="data:string">
                     <tr lang="en">input symbol</tr>
+                    <tr lang="ru" finished="false">входной символ</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">set split symbol</tr>
+                    <tr lang="ru" finished="false">Установить раздельный символ</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -65,6 +75,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list of data:Strings or symbols</tr>
+                    <tr lang="ru" finished="false">Список данных: строки или символы</tr>
                 </out>
             </outlet>
         </outlets>

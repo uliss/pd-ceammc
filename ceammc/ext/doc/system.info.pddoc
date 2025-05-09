@@ -21,6 +21,7 @@
             <method name="cpu">
                 <info>
                     <tr lang="en">request information about system cpus</tr>
+                    <tr lang="ru" finished="false">Запрос информации о системе cpus</tr>
                 </info>
             </method>
             <!-- temp -->
@@ -28,6 +29,8 @@
                 <info>
                     <tr lang="en">request system temperature information. Output in format: temp
                     SENSOR_NAME VALUE</tr>
+                    <tr lang="ru" finished="false">запросить информацию о температуре системы.
+                    Выход в формате: temp SENSOR_NAME VALUE</tr>
                 </info>
             </method>
         </methods>
@@ -35,6 +38,7 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">control input</tr>
+                    <tr lang="ru" finished="false">контрольный вход</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -42,6 +46,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output [temp SENSOR_NAME VALUE( or [cpu INFO_DICT(</tr>
+                    <tr lang="ru" finished="false">[temp SENSOR_NAME VALUE (или [cpu
+                    INFO_DICT]]</tr>
                 </out>
             </outlet>
         </outlets>

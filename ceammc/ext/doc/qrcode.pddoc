@@ -22,41 +22,51 @@
         <arguments>
             <argument name="VALUE" type="symbol">
                 <tr lang="en">initial string value</tr>
+                <tr lang="ru" finished="false">начальное значение строки</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @high -->
             <property name="@high" type="alias">
                 <tr lang="en">alias to @quality high</tr>
+                <tr lang="ru" finished="false">Исполнитель: @quality high</tr>
             </property>
             <!-- @low -->
             <property name="@low" type="alias">
                 <tr lang="en">alias to @quality low</tr>
+                <tr lang="ru" finished="false">Оригинальное название: Quality Low</tr>
             </property>
             <!-- @medium -->
             <property name="@medium" type="alias">
                 <tr lang="en">alias to @quality medium</tr>
+                <tr lang="ru" finished="false">Источник: @quality medium</tr>
             </property>
             <!-- @quality -->
             <property name="@quality" type="symbol" enum="low medium quartile high" default="low">
                 <tr lang="en">encoding quality</tr>
+                <tr lang="ru" finished="false">качество кодирования</tr>
             </property>
             <!-- @quartile -->
             <property name="@quartile" type="alias">
                 <tr lang="en">alias to @quality quartile</tr>
+                <tr lang="ru" finished="false">Исполнитель: @quality quartile</tr>
             </property>
             <!-- @value -->
             <property name="@value" type="symbol" default="">
                 <tr lang="en">string value</tr>
+                <tr lang="ru" finished="false">струнное значение</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output encoded data</tr>
+                    <tr lang="ru" finished="false">выходные кодированные данные</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">set new value and output encoded data</tr>
+                    <tr lang="ru" finished="false">установить новое значение и вывести
+                    закодированные данные</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -64,11 +74,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list of 1 and 0</tr>
+                    <tr lang="ru" finished="false">Список 1 и 0</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">int: qr code size</tr>
+                    <tr lang="ru" finished="false">Int: размер кода qr</tr>
                 </out>
             </outlet>
         </outlets>

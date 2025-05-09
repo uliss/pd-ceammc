@@ -25,6 +25,8 @@
             <par>
                 <tr lang="en">The asinh() function computes the inverse hyperbolic sine of the real
                 argument</tr>
+                <!-- old: Функция asinh() вычисляет обратный гиперболический
+                синус реального аргумента. -->
                 <tr lang="ru" finished="false">Функция asinh() вычисляет обратный гиперболический
                 синус реального аргумента.</tr>
             </par>
@@ -38,6 +40,8 @@
             </par>
             <par>
                 <tr lang="en">asinh(+-infinity) returns +-infinity.</tr>
+                <!-- old: Асинх (+-бесконечность) возвращает
+                +-бесконечность. -->
                 <tr lang="ru" finished="false">Асинх (+-бесконечность) возвращает
                 +-бесконечность.</tr>
             </par>
@@ -58,6 +62,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

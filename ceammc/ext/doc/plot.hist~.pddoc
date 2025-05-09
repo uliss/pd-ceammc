@@ -35,6 +35,8 @@
             <!-- @clip -->
             <property name="@clip" type="bool" default="1">
                 <tr lang="en">clip input values into input range, otherwise just ignore them</tr>
+                <!-- old: Значения ввода клипа в диапазон ввода, иначе просто
+                игнорируйте их -->
                 <tr lang="ru" finished="false">Значения ввода клипа в диапазон ввода, иначе просто
                 игнорируйте их</tr>
             </property>
@@ -71,11 +73,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">signal output</tr>
+                    <tr lang="ru" finished="false">выход сигнала</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">output to [array.plot~] or [ui.plot~]</tr>
+                    <tr lang="ru" finished="false">[array.plot~] или [ui.plot~]</tr>
                 </out>
             </outlet>
         </outlets>

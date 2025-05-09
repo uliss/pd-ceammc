@@ -43,42 +43,52 @@
             <!-- @hex -->
             <property name="@hex" type="symbol" access="readonly" default="">
                 <tr lang="en">HEX value in format #RRGGBB</tr>
+                <tr lang="ru" finished="false">HEX значение в формате #RRGGBB</tr>
             </property>
             <!-- @hsl -->
             <property name="@hsl" type="list" access="readonly" default="">
                 <tr lang="en">HSL value triplet on 0-1 range</tr>
+                <tr lang="ru" finished="false">Значение HSL тройное в диапазоне 0-1</tr>
             </property>
             <!-- @hue -->
             <property name="@hue" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">first hue</tr>
+                <tr lang="ru" finished="false">первый оттенок</tr>
             </property>
             <!-- @index -->
             <property name="@index" type="list" default="">
                 <tr lang="en">color position in panel</tr>
+                <tr lang="ru" finished="false">Положение цвета в панели</tr>
             </property>
             <!-- @lightness -->
             <property name="@lightness" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">first lightness</tr>
+                <tr lang="ru" finished="false">Первая легкость</tr>
             </property>
             <!-- @matrix -->
             <property name="@matrix" type="list" default="24 13">
                 <tr lang="en">matrix size</tr>
+                <tr lang="ru" finished="false">размер матрицы</tr>
             </property>
             <!-- @pd -->
             <property name="@pd" type="int" access="readonly" default="0">
                 <tr lang="en">pd color value</tr>
+                <tr lang="ru" finished="false">значение цвета pd</tr>
             </property>
             <!-- @reverse -->
             <property name="@reverse" type="bool" default="0">
                 <tr lang="en">matrix reversed</tr>
+                <tr lang="ru" finished="false">Перевернутая матрица</tr>
             </property>
             <!-- @rgb -->
             <property name="@rgb" type="list" access="readonly" default="">
                 <tr lang="en">RGB value triplet on 0-1 range</tr>
+                <tr lang="ru" finished="false">RGB значение триплет в диапазоне 0-1</tr>
             </property>
             <!-- @saturation -->
             <property name="@saturation" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">saturation</tr>
+                <tr lang="ru" finished="false">насыщение</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="181 105">
@@ -91,57 +101,71 @@
             <method name="clear">
                 <info>
                     <tr lang="en">clears specified preset</tr>
+                    <tr lang="ru" finished="false">заданный заранее</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
             <!-- interp -->
             <method name="interp">
                 <info>
                     <tr lang="en">for this object acts as *load*, no interpolation performed</tr>
+                    <tr lang="ru" finished="false">для этого объекта действует как *load*,
+                    интерполяция не выполняется</tr>
                 </info>
             </method>
             <!-- load -->
             <method name="load">
                 <info>
                     <tr lang="en">loads specified preset</tr>
+                    <tr lang="ru" finished="false">заданный заранее заданный</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
             <!-- pos -->
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
             <!-- set -->
             <method name="set">
                 <info>
                     <tr lang="en">set widget value with no output</tr>
+                    <tr lang="ru" finished="false">значение виджета без выхода</tr>
                 </info>
                 <param name="COL" type="int" required="true">
                     <tr lang="en">column index</tr>
+                    <tr lang="ru" finished="false">колоночный индекс</tr>
                 </param>
                 <param name="ROW" type="int" required="true">
                     <tr lang="en">row index</tr>
+                    <tr lang="ru" finished="false">строковый индекс</tr>
                 </param>
             </method>
             <!-- store -->
             <method name="store">
                 <info>
                     <tr lang="en">stores specified preset</tr>
+                    <tr lang="ru" finished="false">магазины, указанные Preset</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
         </methods>
@@ -149,6 +173,7 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs current widget value</tr>
+                    <tr lang="ru" finished="false">значение текущего виджета</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -157,6 +182,8 @@
                 <out type="any">
                     <tr lang="en">output values: @pd COLOR, @rgb in range [0-1], @hsl in range
                     [0-1], @hex</tr>
+                    <tr lang="ru" finished="false">выходные значения: @pd COLOR, @rgb в диапазоне
+                    [0-1], @hsl в диапазоне [0-1], @hex</tr>
                 </out>
             </outlet>
         </outlets>

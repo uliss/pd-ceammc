@@ -19,53 +19,67 @@
         <info>
             <par>
                 <tr lang="en">Note: fast Bresenham algorithm is used</tr>
+                <tr lang="ru" finished="false">Примечание: используется быстрый алгоритм
+                Брезенхэма</tr>
             </par>
         </info>
         <arguments>
             <argument name="BEATS" type="int" minvalue="0" maxvalue="8192">
                 <tr lang="en">number of beats inside the sequence</tr>
+                <tr lang="ru" finished="false">Количество ударов внутри последовательности</tr>
             </argument>
             <argument name="N" type="int" minvalue="1" maxvalue="8192">
                 <tr lang="en">the whole sequence length</tr>
+                <tr lang="ru" finished="false">Вся длина последовательности</tr>
             </argument>
             <argument name="OFFSET" type="int">
                 <tr lang="en">sequence offset</tr>
+                <tr lang="ru" finished="false">последовательность смещения</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @beats -->
             <property name="@beats" type="int" default="3" minvalue="0" maxvalue="8192">
                 <tr lang="en">number of beats inside the sequence</tr>
+                <tr lang="ru" finished="false">Количество ударов внутри последовательности</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" default="8" minvalue="1" maxvalue="8192">
                 <tr lang="en">the whole sequence length</tr>
+                <tr lang="ru" finished="false">Вся длина последовательности</tr>
             </property>
             <!-- @offset -->
             <property name="@offset" type="int" default="0">
                 <tr lang="en">sequence offset</tr>
+                <tr lang="ru" finished="false">последовательность смещения</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output generated sequence</tr>
+                    <tr lang="ru" finished="false">генерируемая последовательность</tr>
                 </xinfo>
                 <xinfo on="int">
                     <tr lang="en">set number of beats in the sequence</tr>
+                    <tr lang="ru" finished="false">установленное количество ударов в
+                    последовательности</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list: BEATS LENGTH OFFSET?</tr>
+                    <tr lang="ru" finished="false">Оригинальное название: Beats Length Offset?</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">set sequence lenghth</tr>
+                    <tr lang="ru" finished="false">установленная последовательность</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">set sequence offset</tr>
+                    <tr lang="ru" finished="false">Смещение последовательности</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -73,6 +87,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">converted value</tr>
+                    <tr lang="ru" finished="false">преобразованная стоимость</tr>
                 </out>
             </outlet>
         </outlets>

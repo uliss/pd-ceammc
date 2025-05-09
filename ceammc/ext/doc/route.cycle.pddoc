@@ -24,59 +24,80 @@
             <par>
                 <tr lang="en">NOTICE: to get properties use [prop.get] object, cause all messages
                 (including property requests) are passed thru</tr>
+                <tr lang="ru" finished="false">ПРИМЕЧАНИЕ: чтобы получить свойства использовать
+                [prop.get] объект, причина все сообщения (включая запросы собственности) передаются
+                через</tr>
             </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="1" maxvalue="64">
                 <tr lang="en">number of outlets</tr>
+                <tr lang="ru" finished="false">количество торговых точек</tr>
             </argument>
             <argument name="OFFSET" type="int" minvalue="-64" maxvalue="64">
                 <tr lang="en">start position</tr>
+                <tr lang="ru" finished="false">стартовая позиция</tr>
             </argument>
             <argument name="STEP" type="int">
                 <tr lang="en">cycle step</tr>
+                <tr lang="ru" finished="false">этап цикла</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @index -->
             <property name="@index" type="int" default="0">
                 <tr lang="en">current outlet index</tr>
+                <tr lang="ru" finished="false">Текущий индекс выхода</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" default="2" minvalue="1" maxvalue="64"
             access="initonly">
                 <tr lang="en">number of outlets</tr>
+                <tr lang="ru" finished="false">количество торговых точек</tr>
             </property>
             <!-- @offset -->
             <property name="@offset" type="int" default="0" minvalue="-64" maxvalue="64">
                 <tr lang="en">init cycle offset</tr>
+                <tr lang="ru" finished="false">Смещение цикла init</tr>
             </property>
             <!-- @step -->
             <property name="@step" type="int" default="1">
                 <tr lang="en">cycle step</tr>
+                <tr lang="ru" finished="false">этап цикла</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">any to current outlet, then move to next</tr>
+                    <tr lang="ru" finished="false">любой к текущему выходу, затем перейти к
+                    следующему</tr>
                 </xinfo>
                 <xinfo on="bang">
                     <tr lang="en">bang to current outlet, then move to next</tr>
+                    <tr lang="ru" finished="false">Bang to current outlet, затем перейти к
+                    следующему</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">float to current outlet, then move to next</tr>
+                    <tr lang="ru" finished="false">Поплавать к текущей розетке, затем перейти к
+                    следующей</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list to to current outlet, then move to next</tr>
+                    <tr lang="ru" finished="false">Перечислите текущий выход, затем перейдите к
+                    следующему</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">symbol to current outlet, then move to next</tr>
+                    <tr lang="ru" finished="false">символ к текущей розетке, затем перейти к
+                    следующей</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">reset to initial outlet index</tr>
+                    <tr lang="ru" finished="false">Сброс начального индекса выхода</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -84,16 +105,19 @@
             <outlet number="1">
                 <out type="any">
                     <tr lang="en">first output</tr>
+                    <tr lang="ru" finished="false">первый выход</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">... output</tr>
+                    <tr lang="ru" finished="false">... выход</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">nth output</tr>
+                    <tr lang="ru" finished="false">выходной</tr>
                 </out>
             </outlet>
         </outlets>

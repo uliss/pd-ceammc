@@ -20,23 +20,27 @@
         <arguments>
             <argument name="CMP" type="symbol">
                 <tr lang="en">compare symbol</tr>
+                <tr lang="ru" finished="false">Сравнительный символ</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @cmp -->
             <property name="@cmp" type="symbol" default="">
                 <tr lang="en">symbol to compare with</tr>
+                <tr lang="ru" finished="false">Символ для сравнения с</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">first symbol</tr>
+                    <tr lang="ru" finished="false">Первый символ</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">second symbol</tr>
+                    <tr lang="ru" finished="false">Второй символ</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -44,6 +48,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs 1 if symbols are equal, otherwise 0</tr>
+                    <tr lang="ru" finished="false">1 если символы равны, в противном случае 0</tr>
                 </out>
             </outlet>
         </outlets>

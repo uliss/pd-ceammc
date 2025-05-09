@@ -23,34 +23,44 @@
             <par>
                 <tr lang="en">This format modifiers are supported: %d, %u, %i, %o, %x, %X, %s, %e,
                 %E.</tr>
+                <tr lang="ru" finished="false">Поддерживаются модификаторы формата: %d, %u, %i, %o,
+                %x, %X, %s, %e, %E.</tr>
             </par>
         </info>
         <arguments>
             <argument name="FORMAT" type="list">
                 <tr lang="en">format string</tr>
+                <tr lang="ru" finished="false">Форматная строка</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @format -->
             <property name="@format" type="list" default="">
                 <tr lang="en">format string</tr>
+                <tr lang="ru" finished="false">Форматная строка</tr>
             </property>
             <!-- @int -->
             <property name="@int" type="flag" default="0" access="initonly">
                 <tr lang="en">flag for integer mode. If specified all floats are converted to
                 integers. This usefull for hex and octal formatting</tr>
+                <tr lang="ru" finished="false">Флаг для целочисленного режима. Если указано, все
+                поплавки преобразуются в целые числа. Это полезно для шестнадцатеричного и
+                октального форматирования</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">float format argument</tr>
+                    <tr lang="ru" finished="false">Аргументация формата Float</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">float format argument</tr>
+                    <tr lang="ru" finished="false">Аргументация формата Float</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">format arguments (if many)</tr>
+                    <tr lang="ru" finished="false">Аргументы формата (если их много)</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -58,6 +68,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output string</tr>
+                    <tr lang="ru" finished="false">выходная строка</tr>
                 </out>
             </outlet>
         </outlets>

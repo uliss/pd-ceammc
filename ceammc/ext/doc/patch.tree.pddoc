@@ -31,6 +31,7 @@
             <outlet type="control">
                 <out type="any">
                     <tr lang="en">patch tree as Dict</tr>
+                    <tr lang="ru" finished="false">Повязка дерева Dict</tr>
                 </out>
             </outlet>
         </outlets>

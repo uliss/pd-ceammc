@@ -20,6 +20,8 @@
             <argument name="INDEX" type="int">
                 <tr lang="en">element position. Negative indexes are supported. -1 means last
                 element</tr>
+                <!-- old: Элементная позиция. Поддерживаются отрицательные
+                индексы. 1 означает последний элемент -->
                 <tr lang="ru" finished="false">Элементная позиция. Поддерживаются отрицательные
                 индексы. 1 означает последний элемент</tr>
             </argument>
@@ -68,6 +70,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result list</tr>
+                    <tr lang="ru" finished="false">список результатов</tr>
                 </out>
             </outlet>
         </outlets>

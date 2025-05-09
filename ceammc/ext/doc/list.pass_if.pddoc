@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">Predicate object should accept atom and output 0 (remove element) or
                 1 (leave element)</tr>
+                <!-- old: Предикатный объект должен принимать атом и выводить
+                0 (удалить элемент) или 1 (уйти элемент) -->
                 <tr lang="ru" finished="false">Предикатный объект должен принимать атом и выводить
                 0 (удалить элемент) или 1 (уйти элемент)</tr>
             </par>
@@ -53,11 +55,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output list with accepted elements</tr>
+                    <tr lang="ru" finished="false">Список результатов с принятыми элементами</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">atom to predicate</tr>
+                    <tr lang="ru" finished="false">Атом предсказывает</tr>
                 </out>
             </outlet>
         </outlets>

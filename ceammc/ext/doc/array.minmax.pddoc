@@ -45,11 +45,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list with two elements: minimal and maximum value</tr>
+                    <tr lang="ru" finished="false">Список из двух элементов: минимальное и
+                    максимальное значение</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">indexes of found values</tr>
+                    <tr lang="ru" finished="false">Индексы найденных значений</tr>
                 </out>
             </outlet>
         </outlets>

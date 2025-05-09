@@ -30,33 +30,45 @@
                 should accept any incoming messages. The object should be connected to destination,
                 but it not sends pd messages to change props, but using internal pd method
                 calls</tr>
+                <tr lang="ru" finished="false">Объект добавляет возможность изменять свойства
+                потоковых объектов, которые должны принимать любые входящие сообщения. Объект
+                должен быть подключен к пункту назначения, но он не посылает сообщения pd для
+                изменения реквизита, а использует внутренние вызовы pd-метода.</tr>
             </par>
             <par>
                 <tr lang="en">Object can be used with patch declared user properties</tr>
+                <tr lang="ru" finished="false">Объект может быть использован с патчем объявленных
+                свойств пользователя</tr>
             </par>
             <par>
                 <tr lang="en">Note: you can connect to *any* destination inlet</tr>
+                <tr lang="ru" finished="false">Примечание: Вы можете подключиться к *любому* входу
+                назначения</tr>
             </par>
         </info>
         <arguments>
             <argument name="PROPS" type="list">
                 <tr lang="en">property names</tr>
+                <tr lang="ru" finished="false">Имена собственности</tr>
             </argument>
         </arguments>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo>
                     <tr lang="en">first property value</tr>
+                    <tr lang="ru" finished="false">Первая стоимость недвижимости</tr>
                 </xinfo>
             </inlet>
             <inlet number="...">
                 <xinfo>
                     <tr lang="en">... property value</tr>
+                    <tr lang="ru" finished="false">стоимость имущества</tr>
                 </xinfo>
             </inlet>
             <inlet number="n">
                 <xinfo>
                     <tr lang="en">n-th property value</tr>
+                    <tr lang="ru" finished="false">n-я стоимость имущества</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -64,6 +76,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs nothing. connect to destination object(s)</tr>
+                    <tr lang="ru" finished="false">ничего не выводит. подключиться к объекту(ам)
+                    назначения</tr>
                 </out>
             </outlet>
         </outlets>

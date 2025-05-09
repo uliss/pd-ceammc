@@ -42,11 +42,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output processed list</tr>
+                    <tr lang="ru" finished="false">Перечень обработанных данных</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">output per each list element: ATOM INDEX TOTAL</tr>
+                    <tr lang="ru" finished="false">выход для каждого элемента списка: ATOM INDEX
+                    TOTAL</tr>
                 </out>
             </outlet>
         </outlets>

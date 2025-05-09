@@ -32,6 +32,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list of dict keys</tr>
+                    <tr lang="ru" finished="false">Список клавиш dict</tr>
                 </out>
             </outlet>
         </outlets>

@@ -32,11 +32,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output pair: controller number, value</tr>
+                    <tr lang="ru" finished="false">выходная пара: номер контроллера, значение</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">track number</tr>
+                    <tr lang="ru" finished="false">номер трека</tr>
                 </out>
             </outlet>
         </outlets>

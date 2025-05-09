@@ -52,6 +52,8 @@
                 <out type="any">
                     <tr lang="en">output list of 1 and 0. One means dict contains key, zero -
                     not</tr>
+                    <tr lang="ru" finished="false">Список результатов 1 и 0. Одно означает, что
+                    дикт содержит ключ, ноль - нет</tr>
                 </out>
             </outlet>
         </outlets>

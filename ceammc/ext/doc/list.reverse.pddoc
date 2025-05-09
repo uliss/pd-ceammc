@@ -36,6 +36,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">reversed list</tr>
+                    <tr lang="ru" finished="false">обратный список</tr>
                 </out>
             </outlet>
         </outlets>

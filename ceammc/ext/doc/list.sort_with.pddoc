@@ -41,11 +41,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">sorted list (or mlist)</tr>
+                    <tr lang="ru" finished="false">Сортированный список (или млист)</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">output list with two element to compare side-chain</tr>
+                    <tr lang="ru" finished="false">Список вывода с двумя элементами для сравнения
+                    боковой цепи</tr>
                 </out>
             </outlet>
         </outlets>

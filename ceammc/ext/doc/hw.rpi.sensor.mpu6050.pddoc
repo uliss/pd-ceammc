@@ -20,6 +20,8 @@
             <par>
                 <tr lang="en">The MPU-6050 is a 6-axis (combines 3-axis Gyroscope, 3-axis
                 Accelerometer) motion tracking device.</tr>
+                <!-- old: MPU-6050 представляет собой 6-осевое (комбинирует
+                3-осевой гироскоп, 3-осевой акселерометр) устройство отслеживания движения. -->
                 <tr lang="ru" finished="false">MPU-6050 представляет собой 6-осевое (комбинирует
                 3-осевой гироскоп, 3-осевой акселерометр) устройство отслеживания движения.</tr>
             </par>
@@ -47,6 +49,8 @@
                 <info>
                     <tr lang="en">calibrate the sensor. Place it still so that the Z axis is
                     pointing down.</tr>
+                    <!-- old: калибровать датчик. Поместите его так, чтобы ось
+                    Z указывала вниз. -->
                     <tr lang="ru" finished="false">калибровать датчик. Поместите его так, чтобы ось
                     Z указывала вниз.</tr>
                 </info>
@@ -76,6 +80,8 @@
                 <out type="any">
                     <tr lang="en">messages: [ypr YAW PITCH ROLL(, [time CELSIUS(, [gyro X Y Z( and
                     [accel X Y Z(</tr>
+                    <tr lang="ru" finished="false">[ypr YAW PITCH ROLL, [time CELSIUS, [gyro X Y
+                    Z() и [accel X Y Z()]]</tr>
                 </out>
             </outlet>
         </outlets>

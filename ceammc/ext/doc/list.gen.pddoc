@@ -25,6 +25,8 @@
         <info>
             <par>
                 <tr lang="en">Note, that maximum length limited to 1024 elements.</tr>
+                <!-- old: Максимальная длина ограничивается 1024
+                элементами. -->
                 <tr lang="ru" finished="false">Максимальная длина ограничивается 1024
                 элементами.</tr>
             </par>
@@ -47,6 +49,8 @@
             <method name="dump">
                 <info>
                     <tr lang="en">dump internal object state to Pd console window</tr>
+                    <!-- old: Сбросить внутреннее состояние объекта в окно
+                    консоли Pd -->
                     <tr lang="ru" finished="false">Сбросить внутреннее состояние объекта в окно
                     консоли Pd</tr>
                 </info>
@@ -60,6 +64,8 @@
                 </xinfo>
                 <xinfo on="int" minvalue="0" maxvalue="1024">
                     <tr lang="en">changes length of generated list and starts generation</tr>
+                    <!-- old: Изменение длины сгенерированного списка и начало
+                    генерации -->
                     <tr lang="ru" finished="false">Изменение длины сгенерированного списка и начало
                     генерации</tr>
                 </xinfo>
@@ -75,11 +81,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">generated list</tr>
+                    <tr lang="ru" finished="false">сгенерированный список</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">bang output for generator object</tr>
+                    <tr lang="ru" finished="false">Взрывной выход для генераторного объекта</tr>
                 </out>
             </outlet>
         </outlets>

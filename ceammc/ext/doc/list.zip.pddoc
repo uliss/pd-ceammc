@@ -26,11 +26,15 @@
         <info>
             <par>
                 <tr lang="en">takes X lists of length M and outputs them as a single list:</tr>
+                <!-- old: принимает X списков длины M и выводит их в виде
+                единого списка: -->
                 <tr lang="ru" finished="false">принимает X списков длины M и выводит их в виде
                 единого списка:</tr>
             </par>
             <par>
                 <tr lang="en">l₀[0], l₁[0], ..., lₓ[0], ..., l₀[M-1] l₁[M-1] ... lₓ[M-1]</tr>
+                <!-- old: l0[0], l1[0], ..., lx[0], ..., l0[M-1] l1[M-1]...
+                lx[M-1] -->
                 <tr lang="ru" finished="false">l0[0], l1[0], ..., lx[0], ..., l0[M-1] l1[M-1]...
                 lx[M-1]</tr>
             </par>
@@ -46,6 +50,8 @@
             <property name="@clip" type="alias">
                 <tr lang="en">alias for "@oversize clip" property. Pad shortest list with last
                 element to conform longest list</tr>
+                <!-- old: alias for "@oversize clip" property. Самый короткий
+                список с последним элементом, чтобы соответствовать самому длинному списку -->
                 <tr lang="ru" finished="false">alias for "@oversize clip" property. Самый короткий
                 список с последним элементом, чтобы соответствовать самому длинному списку</tr>
             </property>
@@ -53,6 +59,9 @@
             <property name="@fold" type="alias">
                 <tr lang="en">alias for "@oversize fold" property. Pad shortest list with repeated
                 values from the end to the beginning, then back and so on.</tr>
+                <!-- old: alias for "@oversize fold" property. Самый короткий
+                список с повторяющимися значениями от конца до начала, затем назад и так
+                далее. -->
                 <tr lang="ru" finished="false">alias for "@oversize fold" property. Самый короткий
                 список с повторяющимися значениями от конца до начала, затем назад и так
                 далее.</tr>
@@ -71,6 +80,8 @@
             <property name="@min" type="alias">
                 <tr lang="en">alias for "@oversize min" property. Truncates lists to minimal common
                 size</tr>
+                <!-- old: alias for "@oversize min" property. Усеченные списки
+                до минимального общего размера -->
                 <tr lang="ru" finished="false">alias for "@oversize min" property. Усеченные списки
                 до минимального общего размера</tr>
             </property>
@@ -89,6 +100,8 @@
             <property name="@wrap" type="alias">
                 <tr lang="en">alias for "@oversize wrap" property. Pad shortest list with repeated
                 values from the beginning.</tr>
+                <!-- old: alias for "@oversize wrap" property. Самый короткий
+                список с повторяющимися значениями с самого начала. -->
                 <tr lang="ru" finished="false">alias for "@oversize wrap" property. Самый короткий
                 список с повторяющимися значениями с самого начала.</tr>
             </property>
@@ -105,6 +118,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">interleaved list</tr>
+                    <tr lang="ru" finished="false">переплетенный список</tr>
                 </out>
             </outlet>
         </outlets>

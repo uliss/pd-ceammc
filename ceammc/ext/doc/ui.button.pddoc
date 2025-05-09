@@ -45,10 +45,12 @@
             <!-- @off_value -->
             <property name="@off_value" type="float" default="0">
                 <tr lang="en">off value</tr>
+                <tr lang="ru" finished="false">вне стоимости</tr>
             </property>
             <!-- @on_value -->
             <property name="@on_value" type="float" default="1">
                 <tr lang="en">on value</tr>
+                <tr lang="ru" finished="false">на стоимость</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="15 15">
@@ -61,18 +63,23 @@
             <method name="dump">
                 <info>
                     <tr lang="en">dumps all object info to Pd console window</tr>
+                    <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно
+                    консоли Pd</tr>
                 </info>
             </method>
             <!-- pos -->
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
         </methods>
@@ -81,6 +88,9 @@
                 <xinfo on="float">
                     <tr lang="en">if *0* given, sets state to unchecked and outputs @off_value. On
                     any other number sets to checked state and outputs @on_value</tr>
+                    <tr lang="ru" finished="false">Если дано *0*, задает состояние без проверки и
+                    выводит @off_value. На любых других наборах чисел для проверенного состояния и
+                    выходов @on_value</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -89,6 +99,8 @@
                 <out type="any">
                     <tr lang="en">outputs @on_value on mouse down and @off_value on mouse up
                     (default 1 and 0)</tr>
+                    <tr lang="ru" finished="false">выводит @on_value на мышь вниз и @off_value на
+                    мышь вверх (по умолчанию 1 и 0)</tr>
                 </out>
             </outlet>
         </outlets>

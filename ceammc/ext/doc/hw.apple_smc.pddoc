@@ -54,6 +54,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output key value</tr>
+                    <tr lang="ru" finished="false">выходное ключевое значение</tr>
                 </out>
             </outlet>
         </outlets>

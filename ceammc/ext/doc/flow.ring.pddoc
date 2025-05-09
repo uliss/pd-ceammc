@@ -47,11 +47,15 @@
                 </xinfo>
                 <xinfo>
                     <tr lang="en">get IDX: output buffer value at specified index</tr>
+                    <!-- old: Получить IDX: значение буфера вывода при
+                    заданном индексе -->
                     <tr lang="ru" finished="false">Получить IDX: значение буфера вывода при
                     заданном индексе</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">fill ARGS...: fill buffer with specified values (no output)</tr>
+                    <!-- old: заполнить ARGS...: заполнить буфер с заданными
+                    значениями (без выхода) -->
                     <tr lang="ru" finished="false">заполнить ARGS...: заполнить буфер с заданными
                     значениями (без выхода)</tr>
                 </xinfo>
@@ -61,16 +65,19 @@
             <outlet number="1">
                 <out type="any">
                     <tr lang="en">first output</tr>
+                    <tr lang="ru" finished="false">первый выход</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">... output</tr>
+                    <tr lang="ru" finished="false">... выход</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">n-th output</tr>
+                    <tr lang="ru" finished="false">n-й выход</tr>
                 </out>
             </outlet>
         </outlets>

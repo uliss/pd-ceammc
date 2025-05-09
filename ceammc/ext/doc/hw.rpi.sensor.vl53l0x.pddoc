@@ -31,6 +31,8 @@
                 (0x29)</tr>
                 <!-- old: Адрес I²C. Значение «default» означает адрес I²C
                 устройства по умолчанию (0x29) -->
+                <!-- old: Адрес I2C. Значение «по умолчанию» означает адрес
+                I2C устройства по умолчанию (0x29) -->
                 <tr lang="ru" finished="false">Адрес I2C. Значение «по умолчанию» означает адрес
                 I2C устройства по умолчанию (0x29)</tr>
             </property>
@@ -47,6 +49,8 @@
                 <info>
                     <tr lang="en">set sensor i2c address. Note that the address resets when the
                     device is powered off</tr>
+                    <!-- old: Настройка датчика i2c адреса. Обратите внимание,
+                    что адрес сбрасывается, когда устройство выключено -->
                     <tr lang="ru" finished="false">Настройка датчика i2c адреса. Обратите внимание,
                     что адрес сбрасывается, когда устройство выключено</tr>
                 </info>
@@ -79,6 +83,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float: distance in mm</tr>
+                    <tr lang="ru" finished="false">Поплавок: расстояние в мм</tr>
                 </out>
             </outlet>
         </outlets>

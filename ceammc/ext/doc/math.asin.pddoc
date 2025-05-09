@@ -25,6 +25,8 @@
             <par>
                 <tr lang="en">The asin() function computes the principal value of the arc sine of
                 input value. The result is in the range [-pi/2, +pi/2].</tr>
+                <!-- old: Функция asin() вычисляет основное значение синуса
+                дуги входного значения. Результат находится в диапазоне [-pi/2, +pi/2]. -->
                 <tr lang="ru" finished="false">Функция asin() вычисляет основное значение синуса
                 дуги входного значения. Результат находится в диапазоне [-pi/2, +pi/2].</tr>
             </par>
@@ -39,6 +41,8 @@
             <par>
                 <tr lang="en">asin(x) returns a NAN and raises the "invalid" floating-point
                 exception for |x| &gt; 1.</tr>
+                <!-- old: asin(x) возвращает NAN и поднимает
+                «недействительное» исключение с плавающей точкой для |x | > 1. -->
                 <tr lang="ru" finished="false">asin(x) возвращает NAN и поднимает
                 «недействительное» исключение с плавающей точкой для |x | &gt; 1.</tr>
             </par>
@@ -59,6 +63,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

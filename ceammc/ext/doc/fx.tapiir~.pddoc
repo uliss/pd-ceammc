@@ -166,12 +166,16 @@
             <!-- @outs0 -->
             <property name="@outs0" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
                 <tr lang="en">list of all tap output levels to left channel</tr>
+                <!-- old: Список всех уровней выходного крана в левый
+                канал -->
                 <tr lang="ru" finished="false">Список всех уровней выходного крана в левый
                 канал</tr>
             </property>
             <!-- @outs1 -->
             <property name="@outs1" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
                 <tr lang="en">list of all tap output levels to right channel</tr>
+                <!-- old: Список всех уровней выходного крана в правильный
+                канал -->
                 <tr lang="ru" finished="false">Список всех уровней выходного крана в правильный
                 канал</tr>
             </property>
@@ -514,6 +518,8 @@
                 required="true">
                     <tr lang="en">group name. If 'delays' - randomize @delays properties, if 'fb' -
                     randomize @fb* properties.</tr>
+                    <!-- old: название группы. Если «задержки» —
+                    рандомизируйте свойства @delays, если «fb» — рандомизируйте свойства @fb*. -->
                     <tr lang="ru" finished="false">название группы. Если «задержки» —
                     рандомизируйте свойства @delays, если «fb» — рандомизируйте свойства @fb*.</tr>
                 </param>
@@ -552,11 +558,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">left out channel</tr>
+                    <tr lang="ru" finished="false">Выброшенный канал</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">right out channel</tr>
+                    <tr lang="ru" finished="false">Прямой канал</tr>
                 </out>
             </outlet>
         </outlets>

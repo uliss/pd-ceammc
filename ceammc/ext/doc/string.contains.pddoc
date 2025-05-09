@@ -25,23 +25,27 @@
         <arguments>
             <argument name="SUBJ" type="symbol">
                 <tr lang="en">searched substring</tr>
+                <tr lang="ru" finished="false">Поисковая строка</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @subj -->
             <property name="@subj" type="symbol" default="">
                 <tr lang="en">searched substring</tr>
+                <tr lang="ru" finished="false">Поисковая строка</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input string or symbol</tr>
+                    <tr lang="ru" finished="false">входная строка или символ</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">search substring (string or symbol)</tr>
+                    <tr lang="ru" finished="false">Поисковая строка (строка или символ)</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -50,6 +54,8 @@
                 <out type="any">
                     <tr lang="en">output 1 if input string contains specified substring, otherwise
                     0</tr>
+                    <tr lang="ru" finished="false">выход 1 если входная строка содержит указанную
+                    подстроку, иначе 0</tr>
                 </out>
             </outlet>
         </outlets>

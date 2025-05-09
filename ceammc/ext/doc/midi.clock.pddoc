@@ -20,6 +20,8 @@
             <par>
                 <tr lang="en">Note: cause in Pd messages are processed between DSP blocks -
                 measured bpm is not exact</tr>
+                <!-- old: Примечание: причина в сообщениях Pd обрабатывается
+                между блоками DSP - измеренный bpm не точен -->
                 <tr lang="ru" finished="false">Примечание: причина в сообщениях Pd обрабатывается
                 между блоками DSP - измеренный bpm не точен</tr>
             </par>
@@ -35,6 +37,9 @@
             <property name="@div" type="int" enum="0 4 8 16 32" default="0">
                 <tr lang="en">clock subdivision. If 0: bang each incoming midi clock message, if 4:
                 output every quoter note, 8: every eight note etc.</tr>
+                <!-- old: Часовое подразделение. Если 0: ударить каждое
+                входящее сообщение миди-часа, если 4: вывести каждую заметку цитатора, 8: каждую
+                восьмую заметку и т.д. -->
                 <tr lang="ru" finished="false">Часовое подразделение. Если 0: ударить каждое
                 входящее сообщение миди-часа, если 4: вывести каждую заметку цитатора, 8: каждую
                 восьмую заметку и т.д.</tr>
@@ -61,11 +66,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bang: on specified beat</tr>
+                    <tr lang="ru" finished="false">Взрыв: определенный удар</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">float: measured bpm (output every beat)</tr>
+                    <tr lang="ru" finished="false">Поплавок: измеренный bpm (выход каждого
+                    удара)</tr>
                 </out>
             </outlet>
         </outlets>

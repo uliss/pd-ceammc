@@ -26,6 +26,8 @@
         <info>
             <par>
                 <tr lang="en">Shows one sample from input block via specified interval</tr>
+                <tr lang="ru" finished="false">Показывает один образец из блока ввода через
+                заданный интервал</tr>
             </par>
         </info>
         <mouse>
@@ -47,19 +49,25 @@
             <property name="@background_color" type="list" default="0.3 0.3 0.3 1">
                 <tr lang="en">element background color (list of red, green, blue values in 0-1
                 range)</tr>
+                <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @border_color -->
             <property name="@border_color" type="list" default="0 0 0 1">
                 <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">пограничный цвет (список красных, зеленых, синих
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @interval -->
             <property name="@interval" type="int" default="50" minvalue="20" maxvalue="1000"
             units="millisecond">
                 <tr lang="en">refresh interval</tr>
+                <tr lang="ru" finished="false">интервал обновления</tr>
             </property>
             <!-- @precision -->
             <property name="@precision" type="int" minvalue="0" maxvalue="16" default="6">
                 <tr lang="en">float precision</tr>
+                <tr lang="ru" finished="false">точность плавания</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="80 15">
@@ -76,12 +84,15 @@
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
         </methods>
@@ -89,6 +100,7 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input audio signal</tr>
+                    <tr lang="ru" finished="false">входной звуковой сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -96,6 +108,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">signal pass thru</tr>
+                    <tr lang="ru" finished="false">сигнал проходит через</tr>
                 </out>
             </outlet>
         </outlets>

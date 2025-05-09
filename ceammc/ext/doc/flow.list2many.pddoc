@@ -24,6 +24,8 @@
             <par>
                 <tr lang="en">On incoming list (l⁰ l¹ ...) outputs to corresponding outlet message:
                 [s⁰ l⁰(, [s¹ l¹( etc...</tr>
+                <!-- old: В входящем списке (l0 l1 ...) выводит
+                соответствующее выходное сообщение: [s0 l0(, [s1 l1( и т.д.)] -->
                 <tr lang="ru" finished="false">В входящем списке (l0 l1 ...) выводит
                 соответствующее выходное сообщение: [s0 l0(, [s1 l1( и т.д.)]</tr>
             </par>
@@ -46,16 +48,19 @@
             <outlet number="1">
                 <out type="any">
                     <tr lang="en">first element with first selector</tr>
+                    <tr lang="ru" finished="false">Первый элемент с первым селектором</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">... element with ... selector</tr>
+                    <tr lang="ru" finished="false">Элемент с ... селектором</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">nth element with nth selector</tr>
+                    <tr lang="ru" finished="false">n-й элемент с n-ым селектором</tr>
                 </out>
             </outlet>
         </outlets>

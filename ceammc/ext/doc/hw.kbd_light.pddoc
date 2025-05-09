@@ -20,6 +20,8 @@
         <info>
             <par>
                 <tr lang="en">Only Apple keyboards are supported at this moment</tr>
+                <!-- old: На данный момент поддерживаются только клавиатуры
+                Apple -->
                 <tr lang="ru" finished="false">На данный момент поддерживаются только клавиатуры
                 Apple</tr>
             </par>
@@ -28,6 +30,8 @@
             <inlet>
                 <xinfo on="float" minvalue="0" maxvalue="1">
                     <tr lang="en">sets current keyboards light level (no output)</tr>
+                    <!-- old: устанавливает текущий уровень освещенности
+                    клавиатуры (без выхода) -->
                     <tr lang="ru" finished="false">устанавливает текущий уровень освещенности
                     клавиатуры (без выхода)</tr>
                 </xinfo>
@@ -41,6 +45,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">keyboard light level in range 0...1</tr>
+                    <tr lang="ru" finished="false">Уровень освещения клавиатуры в диапазоне
+                    0...1</tr>
                 </out>
             </outlet>
         </outlets>

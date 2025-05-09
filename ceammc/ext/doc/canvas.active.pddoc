@@ -43,6 +43,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">int: 1 or 0</tr>
+                    <tr lang="ru" finished="false">Инт: 1 или 0</tr>
                 </out>
             </outlet>
         </outlets>

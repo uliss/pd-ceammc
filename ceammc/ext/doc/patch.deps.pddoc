@@ -34,6 +34,10 @@
                     <tr lang="en">output patch dependencies as Dict. Keys are library external
                     paths or abstraction full paths, values are external or abstraction names.
                     PureData core objects listed under "_core" key.</tr>
+                    <!-- old: Выходные патчи зависимостей как Дикт. Ключи —
+                    это внешние пути библиотеки или полные пути абстракции, значения — внешние или
+                    абстракционные имена. Объекты ядра PureData, перечисленные под ключом
+                    «_core». -->
                     <tr lang="ru" finished="false">Выходные патчи зависимостей как Дикт. Ключи —
                     это внешние пути библиотеки или полные пути абстракции, значения — внешние или
                     абстракционные имена. Объекты ядра PureData, перечисленные под ключом
@@ -45,6 +49,7 @@
             <outlet type="control">
                 <out type="any">
                     <tr lang="en">patch dependency</tr>
+                    <tr lang="ru" finished="false">патч-зависимость</tr>
                 </out>
             </outlet>
         </outlets>

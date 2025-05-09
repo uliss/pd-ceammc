@@ -48,6 +48,8 @@
             <property name="@sustain" type="float" units="percent" minvalue="0" maxvalue="100"
             default="100">
                 <tr lang="en">rec envelope sustain level - percent from trigger signal</tr>
+                <!-- old: Рекомендуемый уровень поддержки - % от триггерного
+                сигнала -->
                 <tr lang="ru" finished="false">Рекомендуемый уровень поддержки - % от триггерного
                 сигнала</tr>
             </property>
@@ -104,6 +106,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">recorded signal</tr>
+                    <tr lang="ru" finished="false">регистрируемый сигнал</tr>
                 </out>
             </outlet>
         </outlets>

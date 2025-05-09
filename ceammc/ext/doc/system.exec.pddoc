@@ -20,19 +20,25 @@
             <!-- @is_running -->
             <property name="@is_running" type="bool" access="readonly" default="0">
                 <tr lang="en">is process is running</tr>
+                <tr lang="ru" finished="false">Процесс запущен</tr>
             </property>
             <!-- @low -->
             <property name="@low" type="alias">
                 <tr lang="en">alias to @priority low</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @priority Low</tr>
             </property>
             <!-- @priority -->
             <property name="@priority" type="symbol" enum="normal low" default="normal">
                 <tr lang="en">subprocess priority (not all platforms are supported)</tr>
+                <tr lang="ru" finished="false">Приоритет субпроцессов (поддерживаются не все
+                платформы)</tr>
             </property>
             <!-- @state -->
             <property name="@state" type="int" default="-1" access="readonly">
                 <tr lang="en">running process state: -1 (no process), 0 (not started), 1 (running),
                 2 (finished)</tr>
+                <tr lang="ru" finished="false">Состояние запущенного процесса: -1 (без процесса), 0
+                (не запущен), 1 (бег), 2 (завершен)</tr>
             </property>
         </properties>
         <methods>
@@ -40,24 +46,28 @@
             <method name="eof">
                 <info>
                     <tr lang="en">send EOF to running processes</tr>
+                    <tr lang="ru" finished="false">Отправить EOF в запущенные процессы</tr>
                 </info>
             </method>
             <!-- stop -->
             <method name="stop">
                 <info>
                     <tr lang="en">stop running process</tr>
+                    <tr lang="ru" finished="false">Прекратить процесс запуска</tr>
                 </info>
             </method>
             <!-- terminate -->
             <method name="terminate">
                 <info>
                     <tr lang="en">terminate running process</tr>
+                    <tr lang="ru" finished="false">Окончание рабочего процесса</tr>
                 </info>
             </method>
             <!-- write -->
             <method name="write">
                 <info>
                     <tr lang="en">write data to process stdin</tr>
+                    <tr lang="ru" finished="false">записывать данные для обработки stdin</tr>
                 </info>
             </method>
         </methods>
@@ -65,9 +75,11 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">run specified program</tr>
+                    <tr lang="ru" finished="false">Запуск определенной программы</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">run specified program with arguments</tr>
+                    <tr lang="ru" finished="false">Запуск определенной программы с аргументами</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -75,11 +87,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output process exit code</tr>
+                    <tr lang="ru" finished="false">Выходной код выходного процесса</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">output list of strings</tr>
+                    <tr lang="ru" finished="false">выходной список строк</tr>
                 </out>
             </outlet>
         </outlets>

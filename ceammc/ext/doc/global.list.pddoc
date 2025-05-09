@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">Defines global scope list variable, accessed by ID name.</tr>
+                <!-- old: Определяет глобальную переменную списка охвата,
+                доступную по имени ID. -->
                 <tr lang="ru" finished="false">Определяет глобальную переменную списка охвата,
                 доступную по имени ID.</tr>
             </par>
@@ -83,6 +85,8 @@
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">position (negative indexes are supported: -1 means last
                     element)</tr>
+                    <!-- old: позиция (поддерживаются отрицательные индексы:
+                    -1 означает последний элемент) -->
                     <tr lang="ru" finished="false">позиция (поддерживаются отрицательные индексы:
                     -1 означает последний элемент)</tr>
                 </param>
@@ -98,6 +102,8 @@
             <method name="choose">
                 <info>
                     <tr lang="en">choose random element in list and output it</tr>
+                    <!-- old: Выберите случайный элемент в списке и выведите
+                    его -->
                     <tr lang="ru" finished="false">Выберите случайный элемент в списке и выведите
                     его</tr>
                 </info>
@@ -220,11 +226,15 @@
                 <xinfo on="float">
                     <tr lang="en">outputs list element at specified position. Negative indexes are
                     supported</tr>
+                    <!-- old: элемент списка выходов в указанном положении.
+                    Поддерживаются отрицательные индексы -->
                     <tr lang="ru" finished="false">элемент списка выходов в указанном положении.
                     Поддерживаются отрицательные индексы</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">set new list with single symbol element and output</tr>
+                    <!-- old: установить новый список с одним элементом
+                    символа и выходом -->
                     <tr lang="ru" finished="false">установить новый список с одним элементом
                     символа и выходом</tr>
                 </xinfo>
@@ -242,6 +252,7 @@
             <outlet type="control">
                 <out type="any">
                     <tr lang="en">list output</tr>
+                    <tr lang="ru" finished="false">перечень мероприятий</tr>
                 </out>
             </outlet>
         </outlets>

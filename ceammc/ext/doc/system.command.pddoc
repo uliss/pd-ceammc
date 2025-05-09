@@ -24,42 +24,57 @@
                 <tr lang="en">Note: this is simplest unix shell simulation, do not expect too much
                 from it, if you need powerfull shell capabilities - write shell script and run
                 it.</tr>
+                <tr lang="ru" finished="false">Примечание: это простейшая симуляция оболочки unix,
+                не ждите от нее слишком многого, если вам нужны мощные возможности оболочки —
+                напишите сценарий оболочки и запустите его.</tr>
             </par>
             <par>
                 <tr lang="en">The pipe symbol should be separated by whitespaces.</tr>
+                <tr lang="ru" finished="false">Символ трубы должен быть разделен белыми
+                пробелами.</tr>
             </par>
         </info>
         <arguments>
             <argument name="ARGS" type="list">
                 <tr lang="en">execution program chain</tr>
+                <tr lang="ru" finished="false">Цепочка исполнения программы</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @args -->
             <property name="@args" type="list" default="">
                 <tr lang="en">execution program chain</tr>
+                <tr lang="ru" finished="false">Цепочка исполнения программы</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" default="pd" enum="pd str lines bytes">
                 <tr lang="en">output processing mode. 'pd': output each output line as Pd atom
                 list, 'str': output whole as data:string, 'lines': output each output line as
                 data:string, 'bytes': output as byte stream</tr>
+                <tr lang="ru" finished="false">Режим обработки выходных данных. «pd»: вывод каждой
+                выходной линии в виде списка атомов Pd, «str»: вывод целых как данные: строка,
+                «линии»: вывод каждой выходной линии как данные: строка, «байты»: вывод как
+                байтовый поток</tr>
             </property>
             <!-- @pwd -->
             <property name="@pwd" type="symbol" default="">
                 <tr lang="en">process working directory</tr>
+                <tr lang="ru" finished="false">процесс рабочего каталога</tr>
             </property>
             <!-- @stderr -->
             <property name="@stderr" type="bool" default="1">
                 <tr lang="en">capture stderr</tr>
+                <tr lang="ru" finished="false">Поймать Stderr</tr>
             </property>
             <!-- @stdout -->
             <property name="@stdout" type="bool" default="1">
                 <tr lang="en">capture stdout</tr>
+                <tr lang="ru" finished="false">захватывать стад</tr>
             </property>
             <!-- @t -->
             <property name="@t" type="int" units="msec" minvalue="5" maxvalue="500" default="100">
                 <tr lang="en">period to check program output</tr>
+                <tr lang="ru" finished="false">период для проверки результатов программы</tr>
             </property>
         </properties>
         <methods>
@@ -67,15 +82,19 @@
             <method name="stdin">
                 <info>
                     <tr lang="en">run the program with given input values</tr>
+                    <tr lang="ru" finished="false">запускать программу с заданными входными
+                    значениями</tr>
                 </info>
                 <param name="ARGS" type="list" required="false">
                     <tr lang="en">the input values</tr>
+                    <tr lang="ru" finished="false">Входные значения</tr>
                 </param>
             </method>
             <!-- terminate -->
             <method name="terminate">
                 <info>
                     <tr lang="en">terminate the running process</tr>
+                    <tr lang="ru" finished="false">Прекратить запущенный процесс</tr>
                 </info>
             </method>
         </methods>
@@ -83,9 +102,12 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">run the program</tr>
+                    <tr lang="ru" finished="false">запустить программу</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">change @args property and then run the program</tr>
+                    <tr lang="ru" finished="false">изменить свойство @args и запустить
+                    программу</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -93,11 +115,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">int: output process exit code</tr>
+                    <tr lang="ru" finished="false">Int: выходной код процесса вывода</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">stdout output, format depends from @mode</tr>
+                    <tr lang="ru" finished="false">Формат зависит от @mode</tr>
                 </out>
             </outlet>
         </outlets>

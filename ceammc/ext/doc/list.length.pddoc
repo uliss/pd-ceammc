@@ -38,6 +38,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">the number of elements in the list</tr>
+                    <tr lang="ru" finished="false">Количество элементов в списке</tr>
                 </out>
             </outlet>
         </outlets>

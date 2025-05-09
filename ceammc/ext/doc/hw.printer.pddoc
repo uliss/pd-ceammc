@@ -19,6 +19,8 @@
         <info>
             <par>
                 <tr lang="en">MacOs: supports only text, PDF and images files.</tr>
+                <!-- old: MacO: поддерживает только текст, PDF и файлы
+                изображений. -->
                 <tr lang="ru" finished="false">MacO: поддерживает только текст, PDF и файлы
                 изображений.</tr>
             </par>
@@ -39,6 +41,8 @@
             <!-- @name -->
             <property name="@name" type="symbol" default="">
                 <tr lang="en">printer name, if empty - use default system printer</tr>
+                <!-- old: Имя принтера, если пусто - используйте системный
+                принтер по умолчанию -->
                 <!-- old: Имя принтера, если пусто - используйте системный
                 принтер по умолчанию -->
                 <tr lang="ru" finished="false">Имя принтера, если пусто - используйте системный
@@ -92,6 +96,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">dict: printer info output</tr>
+                    <tr lang="ru" finished="false">dict: Printer info output (недоступная
+                    ссылка)</tr>
                 </out>
             </outlet>
         </outlets>

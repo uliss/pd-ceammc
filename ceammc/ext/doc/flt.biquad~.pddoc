@@ -25,12 +25,16 @@
             <par>
                 <tr lang="en">Digital biquad filter is a second-order recursive linear filter,
                 containing two poles and two zeros.</tr>
+                <!-- old: Цифровой биквад-фильтр представляет собой
+                рекурсивный линейный фильтр второго порядка, содержащий два полюса и два нуля. -->
                 <tr lang="ru" finished="false">Цифровой биквад-фильтр представляет собой
                 рекурсивный линейный фильтр второго порядка, содержащий два полюса и два нуля.</tr>
             </par>
             <par>
                 <tr lang="en">transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1 + a1*z⁻¹ +
                 a2*z⁻²)</tr>
+                <!-- old: передаточная функция: H(z)=(b0 + b1*z−1 + b2*z−2)/(1
+                + a1*z−1 + a2*z−2) -->
                 <tr lang="ru" finished="false">передаточная функция: H(z)=(b0 + b1*z−1 + b2*z−2)/(1
                 + a1*z−1 + a2*z−2)</tr>
             </par>
@@ -91,6 +95,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">filtered signal</tr>
+                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

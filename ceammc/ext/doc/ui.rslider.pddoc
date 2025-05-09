@@ -28,10 +28,14 @@
             <par>
                 <tr lang="en">By default outputs messages on mouse click, mouse up and
                 dragging</tr>
+                <tr lang="ru" finished="false">По умолчанию выводит сообщения на щелчок мыши, мышь
+                вверх и перетаскивание</tr>
             </par>
             <par>
                 <tr lang="en">To output messages only on specified event use: @mouse_events=1 and
                 [ui.mouse_filter]</tr>
+                <tr lang="ru" finished="false">Для вывода сообщений только при указанном
+                использовании события: @mouse_events=1 и [ui.mouse_filter]</tr>
             </par>
         </info>
         <mouse>
@@ -69,31 +73,40 @@
             <!-- @high -->
             <property name="@high" type="float" default="0.6">
                 <tr lang="en">max (right) selection value</tr>
+                <tr lang="ru" finished="false">max (справа) значение выбора</tr>
             </property>
             <!-- @knob_color -->
             <property name="@knob_color" type="list" default="0 0.75 1 1">
                 <tr lang="en">knob color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">цвет ручки (список красных, зеленых, синих значений
+                в диапазоне 0-1)</tr>
             </property>
             <!-- @low -->
             <property name="@low" type="float" default="0.4">
                 <tr lang="en">low (left) selection value</tr>
+                <tr lang="ru" finished="false">Низкое (слева) значение выбора</tr>
             </property>
             <!-- @max -->
             <property name="@max" type="float" default="1">
                 <tr lang="en">maximum allowed slider value</tr>
+                <tr lang="ru" finished="false">максимально допустимое значение скольжения</tr>
             </property>
             <!-- @min -->
             <property name="@min" type="float" default="0">
                 <tr lang="en">minimum allowed slider value</tr>
+                <tr lang="ru" finished="false">Минимальное допустимое значение слайдера</tr>
             </property>
             <!-- @mouse_events -->
             <property name="@mouse_events" type="bool" default="0">
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
                 @mouse_drag events</tr>
+                <tr lang="ru" finished="false">Режим вывода событий мыши. Если на выходе
+                @mouse_down, @mouse_up и @mouse_drag события</tr>
             </property>
             <!-- @range -->
             <property name="@range" type="float" minvalue="0" default="0.2" access="readonly">
                 <tr lang="en">selected slider value</tr>
+                <tr lang="ru" finished="false">выбранное значение слайдера</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="120 15">
@@ -110,57 +123,71 @@
             <method name="clear">
                 <info>
                     <tr lang="en">clears specified preset</tr>
+                    <tr lang="ru" finished="false">заданный заранее</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
             <!-- interp -->
             <method name="interp">
                 <info>
                     <tr lang="en">interplolates between presets</tr>
+                    <tr lang="ru" finished="false">Интерплолаты между предустановленными</tr>
                 </info>
                 <param name="IDX" type="float" required="true">
                     <tr lang="en">preset fraction index</tr>
+                    <tr lang="ru" finished="false">предустановленный дробный индекс</tr>
                 </param>
             </method>
             <!-- load -->
             <method name="load">
                 <info>
                     <tr lang="en">loads specified preset</tr>
+                    <tr lang="ru" finished="false">заданный заранее заданный</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
             <!-- pos -->
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
             <!-- set -->
             <method name="set">
                 <info>
                     <tr lang="en">sets slider value without output</tr>
+                    <tr lang="ru" finished="false">устанавливает значение скольжения без
+                    вывода</tr>
                 </info>
                 <param name="V" type="float" required="true">
                     <tr lang="en">new value</tr>
+                    <tr lang="ru" finished="false">Новая стоимость</tr>
                 </param>
             </method>
             <!-- store -->
             <method name="store">
                 <info>
                     <tr lang="en">stores specified preset</tr>
+                    <tr lang="ru" finished="false">магазины, указанные Preset</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
         </methods>
@@ -168,9 +195,11 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs current slider state</tr>
+                    <tr lang="ru" finished="false">выходы текущего состояния слайдера</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">set range value without output</tr>
+                    <tr lang="ru" finished="false">значение диапазона без выхода</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -178,6 +207,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output slider range as pair of values</tr>
+                    <tr lang="ru" finished="false">Диапазон выходных слайдеров как пара
+                    значений</tr>
                 </out>
             </outlet>
         </outlets>

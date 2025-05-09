@@ -27,21 +27,31 @@
             <par>
                 <tr lang="en">With timeline you can schedule your events and start/pause/stop/move
                 time</tr>
+                <tr lang="ru" finished="false">С помощью временной шкалы вы можете запланировать
+                свои события и начать/остановить/переместить время.</tr>
             </par>
             <par>
                 <tr lang="en">This time formats for event are supported: *clock format* -
                 HH:MM:SS.MS, or values like NUMBER UNIT: 10 ms, 10 msec, 20 sec, 30.5s. Note:
                 spaces are ignored.</tr>
+                <tr lang="ru" finished="false">Поддерживаются форматы времени для мероприятия:
+                *clock format* - HH:MM:SS.MS, или значения типа NUMBER UNIT: 10 мс, 10 мс, 20 сек,
+                30,5с. Примечание: Пространства игнорируются.</tr>
             </par>
             <par>
                 <tr lang="en">Empty timeline always contains "end" event, that can't be removed.
                 Events are referred by name or by index. Negative indexes are supported: -1 means
                 last event (not "end" event, but last user event)</tr>
+                <tr lang="ru" finished="false">Пустая временная шкала всегда содержит «конец»
+                события, который нельзя удалить. События называются по имени или по индексу.
+                Поддерживаются отрицательные индексы: -1 означает последнее событие (не «конец»
+                события, а последнее событие пользователя).</tr>
             </par>
         </info>
         <arguments>
             <argument name="LENGTH" type="float" minvalue="0" units="second">
                 <tr lang="en">timeline length</tr>
+                <tr lang="ru" finished="false">продолжительность</tr>
             </argument>
         </arguments>
         <properties>
@@ -49,43 +59,56 @@
             <property name="@current" type="float" access="readonly" units="millisecond"
             default="0">
                 <tr lang="en">current time</tr>
+                <tr lang="ru" finished="false">Текущее время</tr>
             </property>
             <!-- @current_sec -->
             <property name="@current_sec" type="float" access="readonly" units="second"
             default="0">
                 <tr lang="en">current time</tr>
+                <tr lang="ru" finished="false">Текущее время</tr>
             </property>
             <!-- @events -->
             <property name="@events" type="list" access="readonly" default="end">
                 <tr lang="en">list of event names in chronological order</tr>
+                <tr lang="ru" finished="false">Список названий событий в хронологическом
+                порядке</tr>
             </property>
             <!-- @is_running -->
             <property name="@is_running" type="bool" access="readonly" default="0">
                 <tr lang="en">if timeline is running</tr>
+                <tr lang="ru" finished="false">Если временная шкала работает</tr>
             </property>
             <!-- @length -->
             <property name="@length" type="float" minvalue="0" access="initonly" default="60"
             units="second">
                 <tr lang="en">timeline length</tr>
+                <tr lang="ru" finished="false">продолжительность</tr>
             </property>
             <!-- @loop -->
             <property name="@loop" type="bool" default="0">
                 <tr lang="en">loop mode</tr>
+                <tr lang="ru" finished="false">режим петли</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="fixed inf" default="fixed">
                 <tr lang="en">timeline mode. If timeline is fixed, when reached, it outputs *end*
                 event and stops after that. Infinite timeline never stops by itself. Fixed timeline
                 can have @loop property for repeats</tr>
+                <tr lang="ru" finished="false">Режим временной шкалы. Если временная шкала
+                фиксирована, когда она достигнута, она выводит событие *end* и останавливается
+                после этого. Бесконечная временная линия никогда не останавливается сама по себе.
+                Фиксированная временная шкала может иметь свойство @loop для повторов</tr>
             </property>
             <!-- @phase -->
             <property name="@phase" type="float" access="readonly" minvalue="0" maxvalue="1"
             default="0">
                 <tr lang="en">current phase in [0-1) range</tr>
+                <tr lang="ru" finished="false">Текущая фаза в диапазоне [0-1]</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="int" access="readonly" default="1" minvalue="0">
                 <tr lang="en">number of events in timeline</tr>
+                <tr lang="ru" finished="false">Количество событий в временной шкале</tr>
             </property>
         </properties>
         <methods>
@@ -95,31 +118,44 @@
                     <tr lang="en">add event to timeline. You can use simple syntax like [add 10.1
                     sec( to create event with default name, or use advanced: [add myEvent 510ms
                     before end(</tr>
+                    <tr lang="ru" finished="false">Добавьте событие в график. Вы можете
+                    использовать простой синтаксис, например [добавить 10.1 сек (для создания
+                    события с именем по умолчанию или использовать расширенное: [добавить myEvent
+                    510ms до конца)]</tr>
                 </info>
                 <param name="NAME" type="symbol" default="eventN" required="false">
                     <tr lang="en">event name (if ommitted, autogenerated name is used: event1,
                     event2 etc.)</tr>
+                    <tr lang="ru" finished="false">название события (если оно опущено, используется
+                    автогенерированное имя: событие1, событие2 и т.д.)</tr>
                 </param>
                 <param name="TIME" type="list">
                     <tr lang="en">event time: see *info* section</tr>
+                    <tr lang="ru" finished="false">Время проведения мероприятия: см. раздел
+                    *info*</tr>
                 </param>
                 <param name="relative" type="symbol" enum="before after" required="false">
                     <tr lang="en">create relative event before or after target event</tr>
+                    <tr lang="ru" finished="false">создать относительное событие до или после
+                    целевого события;</tr>
                 </param>
                 <param name="REL_EVENT" type="symbol" required="false">
                     <tr lang="en">relative event name</tr>
+                    <tr lang="ru" finished="false">относительное событие</tr>
                 </param>
             </method>
             <!-- clear -->
             <method name="clear">
                 <info>
                     <tr lang="en">remove all timeline events</tr>
+                    <tr lang="ru" finished="false">Удалить все временные события</tr>
                 </info>
             </method>
             <!-- pause -->
             <method name="pause">
                 <info>
                     <tr lang="en">stops timeline at current position</tr>
+                    <tr lang="ru" finished="false">Хронология остановки в текущем положении</tr>
                 </info>
             </method>
             <!-- remove -->
@@ -127,54 +163,70 @@
                 <info>
                     <tr lang="en">remove event by given index or name. [remove event1( or [remove
                     3(</tr>
+                    <tr lang="ru" finished="false">Удалить событие по данному индексу или названию.
+                    [удалить событие 1(или [удалить 3())</tr>
                 </info>
                 <param name="NAME|IDX" type="atom">
                     <tr lang="en">event name or index</tr>
+                    <tr lang="ru" finished="false">название события или индекс</tr>
                 </param>
             </method>
             <!-- remove_at -->
             <method name="remove_at">
                 <info>
                     <tr lang="en">remove event at specified time</tr>
+                    <tr lang="ru" finished="false">Удаление события в указанное время</tr>
                 </info>
                 <param name="TIME" type="list">
                     <tr lang="en">time in supported format. See *info* section</tr>
+                    <tr lang="ru" finished="false">Время в поддерживаемом формате. См. раздел
+                    *Info*</tr>
                 </param>
             </method>
             <!-- reset -->
             <method name="reset">
                 <info>
                     <tr lang="en">reset timeline (call only when stopped)</tr>
+                    <tr lang="ru" finished="false">Сброс времени (звонок только после
+                    остановки)</tr>
                 </info>
             </method>
             <!-- start -->
             <method name="start">
                 <info>
                     <tr lang="en">start timeline from current position</tr>
+                    <tr lang="ru" finished="false">начало временной шкалы с текущей позиции</tr>
                 </info>
             </method>
             <!-- stop -->
             <method name="stop">
                 <info>
                     <tr lang="en">stops timeline and reset current position to the beginning</tr>
+                    <tr lang="ru" finished="false">останавливает временную шкалу и сбрасывает
+                    текущую позицию к началу</tr>
                 </info>
             </method>
             <!-- to_event -->
             <method name="to_event">
                 <info>
                     <tr lang="en">move time to specified event</tr>
+                    <tr lang="ru" finished="false">Время перехода к заданному событию</tr>
                 </info>
                 <param name="NAME|IDX" type="atom">
                     <tr lang="en">event or index</tr>
+                    <tr lang="ru" finished="false">событие или индекс</tr>
                 </param>
             </method>
             <!-- to_time -->
             <method name="to_time">
                 <info>
                     <tr lang="en">move time to time</tr>
+                    <tr lang="ru" finished="false">Переместить время в время</tr>
                 </info>
                 <param name="TIME" type="list">
                     <tr lang="en">time in supported format. See *info* section</tr>
+                    <tr lang="ru" finished="false">Время в поддерживаемом формате. См. раздел
+                    *Info*</tr>
                 </param>
             </method>
         </methods>
@@ -182,6 +234,8 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">control inlet. Non-zero value starts timeline, zero - stops.</tr>
+                    <tr lang="ru" finished="false">контрольный вход. не -нулевое значение начинает
+                    временную линию, ноль - останавливается.</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -189,6 +243,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list: event index, event name, current event time</tr>
+                    <tr lang="ru" finished="false">Список: индекс события, название события,
+                    текущее время события</tr>
                 </out>
             </outlet>
         </outlets>

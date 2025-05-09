@@ -68,31 +68,37 @@
             <outlet type="audio" number="1">
                 <out type="any">
                     <tr lang="en">first left output</tr>
+                    <tr lang="ru" finished="false">Первый левый выход</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="2">
                 <out type="any">
                     <tr lang="en">first right output</tr>
+                    <tr lang="ru" finished="false">Первый правильный результат</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">... left output</tr>
+                    <tr lang="ru" finished="false">Левый выход</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">... right output</tr>
+                    <tr lang="ru" finished="false">Правильный выход</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n-1">
                 <out type="any">
                     <tr lang="en">last left output</tr>
+                    <tr lang="ru" finished="false">Последний левый выход</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n">
                 <out type="any">
                     <tr lang="en">last right output</tr>
+                    <tr lang="ru" finished="false">Последний правильный результат</tr>
                 </out>
             </outlet>
         </outlets>

@@ -23,6 +23,7 @@
         <arguments>
             <argument name="ARGS" type="any">
                 <tr lang="en">right set elements</tr>
+                <tr lang="ru" finished="false">Правильный набор элементов</tr>
             </argument>
         </arguments>
         <inlets>
@@ -30,11 +31,15 @@
                 <xinfo>
                     <tr lang="en">first set or list (converted to set), other values are
                     ignored</tr>
+                    <tr lang="ru" finished="false">первый набор или список (преобразуется в набор),
+                    другие значения игнорируются;</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">second set or list (converted to set)</tr>
+                    <tr lang="ru" finished="false">Второй набор или список (преобразуется в
+                    набор)</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -43,6 +48,8 @@
                 <out type="any">
                     <tr lang="en">output set with elements from first set, that are not in second
                     set</tr>
+                    <tr lang="ru" finished="false">выходной набор с элементами из первого набора,
+                    которые не находятся во втором наборе</tr>
                 </out>
             </outlet>
         </outlets>

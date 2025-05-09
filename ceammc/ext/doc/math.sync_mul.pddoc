@@ -43,6 +43,8 @@
                 <xinfo on="list">
                     <tr lang="en">pair: set multipliers and multiplicand, calculate and output
                     result</tr>
+                    <!-- old: пара: множество множителей и множитель,
+                    вычисление и выходной результат -->
                     <tr lang="ru" finished="false">пара: множество множителей и множитель,
                     вычисление и выходной результат</tr>
                 </xinfo>
@@ -50,6 +52,8 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">change multiplicand, calculate and output result</tr>
+                    <!-- old: изменение мультипликатора, вычисление и
+                    результат -->
                     <tr lang="ru" finished="false">изменение мультипликатора, вычисление и
                     результат</tr>
                 </xinfo>
@@ -59,6 +63,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">multiplication result</tr>
+                    <tr lang="ru" finished="false">результат умножения</tr>
                 </out>
             </outlet>
         </outlets>

@@ -73,6 +73,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">OSC output</tr>
+                    <tr lang="ru" finished="false">выпуск ОСК</tr>
                 </out>
             </outlet>
         </outlets>

@@ -28,6 +28,8 @@
             <par>
                 <tr lang="en">Apply function of two arguments cumulatively to the list, from left
                 to right, so as to reduce the list to a single value.</tr>
+                <!-- old: Применять функцию двух аргументов к списку, слева
+                направо, чтобы свести список к одному значению. -->
                 <tr lang="ru" finished="false">Применять функцию двух аргументов к списку, слева
                 направо, чтобы свести список к одному значению.</tr>
             </par>
@@ -35,6 +37,9 @@
                 <tr lang="en">You can imagine this process as a space replacement between elements
                 with binary function, for example: 1 2 3 4 5 becames ((((1+2)+3)+4)+5) after
                 reducing with "+".</tr>
+                <!-- old: Можно представить этот процесс как замену
+                пространства между элементами с двоичной функцией, например: 1 2 3 4 5 стал
+                (((1+2)+3)+4)+5) после уменьшения с «+». -->
                 <tr lang="ru" finished="false">Можно представить этот процесс как замену
                 пространства между элементами с двоичной функцией, например: 1 2 3 4 5 стал
                 (((1+2)+3)+4)+5) после уменьшения с «+».</tr>
@@ -62,11 +67,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">pair value to binary function</tr>
+                    <tr lang="ru" finished="false">значение пары для бинарной функции</tr>
                 </out>
             </outlet>
         </outlets>

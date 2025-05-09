@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">to get properties use *prop.get* object, cause all messages
                 (including property requests) are passed thru</tr>
+                <tr lang="ru" finished="false">Чтобы получить свойства использовать *prop.get*
+                объект, все сообщения (включая запросы на собственность) передаются через</tr>
             </par>
         </info>
         <properties>
@@ -34,24 +36,32 @@
             <property name="@strict" type="bool" default="0">
                 <tr lang="en">strict mode. By default empty list treated as bang. Set to true to
                 disable this behavior</tr>
+                <tr lang="ru" finished="false">Строгий режим. По умолчанию пустой список
+                рассматривается как взрыв. Настроен на то, чтобы отключить это поведение</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">any to second outlet</tr>
+                    <tr lang="ru" finished="false">любой второй выход</tr>
                 </xinfo>
                 <xinfo on="bang">
                     <tr lang="en">bang to *first* outlet</tr>
+                    <tr lang="ru" finished="false">bang to *first* outlet (недоступная ссылка)</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">float to second outlet</tr>
+                    <tr lang="ru" finished="false">Поплавать на второй выход</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list to second outlet. See @strict property for more info.</tr>
+                    <tr lang="ru" finished="false">Список для второго выхода. См. @strict Property
+                    для получения дополнительной информации.</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">symbol to second outlet</tr>
+                    <tr lang="ru" finished="false">Символ для второго выхода</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -59,11 +69,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bang output</tr>
+                    <tr lang="ru" finished="false">взрывной выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">other messages</tr>
+                    <tr lang="ru" finished="false">Другие сообщения</tr>
                 </out>
             </outlet>
         </outlets>

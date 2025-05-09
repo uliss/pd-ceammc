@@ -22,6 +22,8 @@
         <arguments>
             <argument name="INDEXES" type="list">
                 <tr lang="en">list of indexes to remove. Negative indexes are also supported</tr>
+                <!-- old: Список индексов для удаления. Негативные индексы
+                также поддерживаются. -->
                 <tr lang="ru" finished="false">Список индексов для удаления. Негативные индексы
                 также поддерживаются.</tr>
             </argument>
@@ -55,6 +57,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output list</tr>
+                    <tr lang="ru" finished="false">перечень мероприятий</tr>
                 </out>
             </outlet>
         </outlets>

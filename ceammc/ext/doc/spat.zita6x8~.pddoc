@@ -24,146 +24,182 @@
             <!-- @a0 -->
             <property name="@a0" type="float" minvalue="0" default="0" maxvalue="1">
                 <tr lang="en">1st source panning position</tr>
+                <tr lang="ru" finished="false">1-я позиция источника панорамирования</tr>
             </property>
             <!-- @a1 -->
             <property name="@a1" type="float" minvalue="0" default="0" maxvalue="1">
                 <tr lang="en">2nd source panning position</tr>
+                <tr lang="ru" finished="false">2-е положение источника</tr>
             </property>
             <!-- @a2 -->
             <property name="@a2" type="float" minvalue="0" default="0" maxvalue="1">
                 <tr lang="en">3rd source panning position</tr>
+                <tr lang="ru" finished="false">3-я позиция источника панорамирования</tr>
             </property>
             <!-- @a3 -->
             <property name="@a3" type="float" minvalue="0" default="0" maxvalue="1">
                 <tr lang="en">4th source panning position</tr>
+                <tr lang="ru" finished="false">4-я позиция панорамирования источника</tr>
             </property>
             <!-- @a4 -->
             <property name="@a4" type="float" minvalue="0" default="0" maxvalue="1">
                 <tr lang="en">5th source panning position</tr>
+                <tr lang="ru" finished="false">5-я позиция панорамирования источника</tr>
             </property>
             <!-- @a5 -->
             <property name="@a5" type="float" minvalue="0" default="0" maxvalue="1">
                 <tr lang="en">6th source panning position</tr>
+                <tr lang="ru" finished="false">6-я позиция панорамирования источника</tr>
             </property>
             <!-- @dry0 -->
             <property name="@dry0" type="float" minvalue="-60" maxvalue="0" default="-3"
             units="decibel">
                 <tr lang="en">1st source direct sound level</tr>
+                <tr lang="ru" finished="false">1-й источник прямого звука</tr>
             </property>
             <!-- @dry1 -->
             <property name="@dry1" type="float" minvalue="-60" maxvalue="0" default="-3"
             units="decibel">
                 <tr lang="en">2nd source direct sound level</tr>
+                <tr lang="ru" finished="false">2-й источник прямого звука</tr>
             </property>
             <!-- @dry2 -->
             <property name="@dry2" type="float" minvalue="-60" maxvalue="0" default="-3"
             units="decibel">
                 <tr lang="en">3rd source direct sound level</tr>
+                <tr lang="ru" finished="false">3-й источник прямого звука</tr>
             </property>
             <!-- @dry3 -->
             <property name="@dry3" type="float" minvalue="-60" maxvalue="0" default="-3"
             units="decibel">
                 <tr lang="en">4th source direct sound level</tr>
+                <tr lang="ru" finished="false">4-й уровень прямого звука источника</tr>
             </property>
             <!-- @dry4 -->
             <property name="@dry4" type="float" minvalue="-60" maxvalue="0" default="-3"
             units="decibel">
                 <tr lang="en">5th source direct sound level</tr>
+                <tr lang="ru" finished="false">5-й уровень прямого звука</tr>
             </property>
             <!-- @dry5 -->
             <property name="@dry5" type="float" minvalue="-60" maxvalue="0" default="-3"
             units="decibel">
                 <tr lang="en">6th source direct sound level</tr>
+                <tr lang="ru" finished="false">6-й уровень прямого звука</tr>
             </property>
             <!-- @r0 -->
             <property name="@r0" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">1st source distance from circle center</tr>
+                <tr lang="ru" finished="false">1-е расстояние от источника до центра круга</tr>
             </property>
             <!-- @r1 -->
             <property name="@r1" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">2nd source distance from circle center</tr>
+                <tr lang="ru" finished="false">2-е расстояние от центра круга</tr>
             </property>
             <!-- @r2 -->
             <property name="@r2" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">3rd source distance from circle center</tr>
+                <tr lang="ru" finished="false">3-е расстояние от центра круга</tr>
             </property>
             <!-- @r3 -->
             <property name="@r3" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">4th source distance from circle center</tr>
+                <tr lang="ru" finished="false">4-е расстояние от центра круга</tr>
             </property>
             <!-- @r4 -->
             <property name="@r4" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">5th source distance from circle center</tr>
+                <tr lang="ru" finished="false">5-е расстояние от центра круга</tr>
             </property>
             <!-- @r5 -->
             <property name="@r5" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">6th source distance from circle center</tr>
+                <tr lang="ru" finished="false">6-е расстояние от центра круга</tr>
             </property>
             <!-- @t0 -->
             <property name="@t0" type="float" minvalue="0" maxvalue="90" default="2"
             units="second">
                 <tr lang="en">1st source reverb time (in seconds) to decay 60dB in low and
                 mid-frequency band</tr>
+                <tr lang="ru" finished="false">1-е время реверберации источника (в секундах) для
+                распада 60dB в диапазоне низких и средних частот</tr>
             </property>
             <!-- @t1 -->
             <property name="@t1" type="float" minvalue="0" maxvalue="90" default="2"
             units="second">
                 <tr lang="en">2nd source reverb time (in seconds) to decay 60dB in low and
                 mid-frequency band</tr>
+                <tr lang="ru" finished="false">2-е время реверберации источника (в секундах) для
+                распада 60dB в диапазоне низких и средних частот</tr>
             </property>
             <!-- @t2 -->
             <property name="@t2" type="float" minvalue="0" maxvalue="90" default="2"
             units="second">
                 <tr lang="en">3rd source reverb time (in seconds) to decay 60dB in low and
                 mid-frequency band</tr>
+                <tr lang="ru" finished="false">3-е время реверберации источника (в секундах) для
+                распада 60dB в диапазоне низких и средних частот</tr>
             </property>
             <!-- @t3 -->
             <property name="@t3" type="float" minvalue="0" maxvalue="90" default="2"
             units="second">
                 <tr lang="en">4th source reverb time (in seconds) to decay 60dB in low and
                 mid-frequency band</tr>
+                <tr lang="ru" finished="false">4-е время реверберации источника (в секундах) для
+                распада 60dB в диапазоне низких и средних частот</tr>
             </property>
             <!-- @t4 -->
             <property name="@t4" type="float" minvalue="0" maxvalue="90" default="2"
             units="second">
                 <tr lang="en">5th source reverb time (in seconds) to decay 60dB in low and
                 mid-frequency band</tr>
+                <tr lang="ru" finished="false">5-е время реверберации источника (в секундах) для
+                распада 60dB в диапазоне низких и средних частот</tr>
             </property>
             <!-- @t5 -->
             <property name="@t5" type="float" minvalue="0" maxvalue="90" default="2"
             units="second">
                 <tr lang="en">6th source reverb time (in seconds) to decay 60dB in low and
                 mid-frequency band</tr>
+                <tr lang="ru" finished="false">6-е время реверберации источника (в секундах) для
+                распада 60dB в диапазоне низких и средних частот</tr>
             </property>
             <!-- @wet0 -->
             <property name="@wet0" type="float" minvalue="-60" maxvalue="0" default="-8"
             units="decibel">
                 <tr lang="en">1st source reverb sound level</tr>
+                <tr lang="ru" finished="false">1-й уровень звука реверберации источника</tr>
             </property>
             <!-- @wet1 -->
             <property name="@wet1" type="float" minvalue="-60" maxvalue="0" default="-8"
             units="decibel">
                 <tr lang="en">2nd source reverb sound level</tr>
+                <tr lang="ru" finished="false">2-й уровень звука реверберации источника</tr>
             </property>
             <!-- @wet2 -->
             <property name="@wet2" type="float" minvalue="-60" maxvalue="0" default="-8"
             units="decibel">
                 <tr lang="en">3rd source reverb sound level</tr>
+                <tr lang="ru" finished="false">3-й уровень звука реверберации источника</tr>
             </property>
             <!-- @wet3 -->
             <property name="@wet3" type="float" minvalue="-60" maxvalue="0" default="-8"
             units="decibel">
                 <tr lang="en">4th source reverb sound level</tr>
+                <tr lang="ru" finished="false">4-й уровень звука реверберации источника</tr>
             </property>
             <!-- @wet4 -->
             <property name="@wet4" type="float" minvalue="-60" maxvalue="0" default="-8"
             units="decibel">
                 <tr lang="en">5th source reverb sound level</tr>
+                <tr lang="ru" finished="false">5-й уровень звука реверберации источника</tr>
             </property>
             <!-- @wet5 -->
             <property name="@wet5" type="float" minvalue="-60" maxvalue="0" default="-8"
             units="decibel">
                 <tr lang="en">6th source reverb sound level</tr>
+                <tr lang="ru" finished="false">6-й уровень звука реверберации источника</tr>
             </property>
         </properties>
         <methods>
@@ -171,6 +207,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset reverb</tr>
+                    <tr lang="ru" finished="false">реверберация</tr>
                 </info>
             </method>
         </methods>
@@ -178,31 +215,37 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">1st source input</tr>
+                    <tr lang="ru" finished="false">1-й источник ввода</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">2nd source input</tr>
+                    <tr lang="ru" finished="false">2-й источник ввода</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">3rd source input</tr>
+                    <tr lang="ru" finished="false">3-й источник ввода</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">4th source input</tr>
+                    <tr lang="ru" finished="false">4-й источник ввода</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">5th source input</tr>
+                    <tr lang="ru" finished="false">5-й источник ввода</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">6th source input</tr>
+                    <tr lang="ru" finished="false">6-й источник ввода</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -210,41 +253,49 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">1st output</tr>
+                    <tr lang="ru" finished="false">1-й выход</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">2dn output</tr>
+                    <tr lang="ru" finished="false">2dn выход</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">3rd output</tr>
+                    <tr lang="ru" finished="false">3-й выход</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">4th output</tr>
+                    <tr lang="ru" finished="false">4-й выпуск</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">5th output</tr>
+                    <tr lang="ru" finished="false">5-й выпуск</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">6th output</tr>
+                    <tr lang="ru" finished="false">6-й выпуск</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">7th output</tr>
+                    <tr lang="ru" finished="false">7-й выпуск</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">8th output</tr>
+                    <tr lang="ru" finished="false">8-й выпуск</tr>
                 </out>
             </outlet>
         </outlets>

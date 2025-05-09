@@ -34,12 +34,16 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
             <!-- @control -->
             <property name="@control" type="float" minvalue="0" maxvalue="1" default="0.5">
                 <tr lang="en">envelope follower to pitch shifter influence coefficient</tr>
+                <!-- old: Последователь конверта с коэффициентом влияния
+                сдвига -->
                 <tr lang="ru" finished="false">Последователь конверта с коэффициентом влияния
                 сдвига</tr>
             </property>
@@ -48,6 +52,8 @@
             units="hertz">
                 <tr lang="en">Frequency (Hz) at which the high-frequency T60 is half the
                 middle-band's T60</tr>
+                <!-- old: Частота (Гц), при которой высокочастотный T60
+                составляет половину T60 среднего диапазона -->
                 <tr lang="ru" finished="false">Частота (Гц), при которой высокочастотный T60
                 составляет половину T60 среднего диапазона</tr>
             </property>
@@ -55,6 +61,8 @@
             <property name="@decay_low" type="float" minvalue="1" maxvalue="8" default="3"
             units="second">
                 <tr lang="en">time (in seconds) to decay 60dB in low-frequency band</tr>
+                <!-- old: время (в секундах) распада 60dB в низкочастотном
+                диапазоне -->
                 <tr lang="ru" finished="false">время (в секундах) распада 60dB в низкочастотном
                 диапазоне</tr>
             </property>
@@ -62,6 +70,8 @@
             <property name="@decay_mid" type="float" minvalue="1" maxvalue="8" default="2"
             units="second">
                 <tr lang="en">time (in seconds) to decay 60dB in mid-frequency band</tr>
+                <!-- old: время (в секундах) распада 60dB в диапазоне средних
+                частот -->
                 <tr lang="ru" finished="false">время (в секундах) распада 60dB в диапазоне средних
                 частот</tr>
             </property>
@@ -74,6 +84,8 @@
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <!-- old: пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
                 <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
                 "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
@@ -87,6 +99,8 @@
             <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
             units="hertz">
                 <tr lang="en">Crossover frequency (Hz) separating low and middle frequencies</tr>
+                <!-- old: Перекрестная частота (Гц), разделяющая низкие и
+                средние частоты -->
                 <tr lang="ru" finished="false">Перекрестная частота (Гц), разделяющая низкие и
                 средние частоты</tr>
             </property>
@@ -99,6 +113,8 @@
             <property name="@ps_drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
                 <tr lang="en">proportion of mix between original and pitchshift signal in shimmer
                 feedback</tr>
+                <!-- old: Пропорция смеси между оригинальным и сдвига сигнала
+                в мерцание обратной связи -->
                 <tr lang="ru" finished="false">Пропорция смеси между оригинальным и сдвига сигнала
                 в мерцание обратной связи</tr>
             </property>
@@ -142,11 +158,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

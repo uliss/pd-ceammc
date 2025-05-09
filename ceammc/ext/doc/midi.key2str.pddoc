@@ -49,6 +49,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output key name</tr>
+                    <tr lang="ru" finished="false">Выходное ключевое имя</tr>
                 </out>
             </outlet>
         </outlets>

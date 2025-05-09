@@ -36,6 +36,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bpm frequency</tr>
+                    <tr lang="ru" finished="false">частота bpm</tr>
                 </out>
             </outlet>
         </outlets>

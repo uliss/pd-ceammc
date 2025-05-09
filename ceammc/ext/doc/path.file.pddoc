@@ -48,6 +48,13 @@
                     reading and writing. 'w+': truncate to 0 length, if existent, or create text
                     file for reading and writing. 'a+': append, open or create text file for
                     reading and writing, writing at end of file</tr>
+                    <!-- old: open mode, 'r': открытый текстовый файл для
+                    чтения. 'w': усечение до 0 длины, если существует, или создание текстового
+                    файла только для записи. «a»: добавить, открыть или создать текстовый файл
+                    только для записи в конце файла. r+: открытый текстовый файл для чтения и
+                    записи. W+: усечение до 0 длины, если существует, или создание текстового файла
+                    для чтения и записи. «a+»: добавление, открытие или создание текстового файла
+                    для чтения и записи, написание в конце файла -->
                     <tr lang="ru" finished="false">open mode, 'r': открытый текстовый файл для
                     чтения. 'w': усечение до 0 длины, если существует, или создание текстового
                     файла только для записи. «a»: добавить, открыть или создать текстовый файл
@@ -61,11 +68,15 @@
             <method name="read_bytes">
                 <info>
                     <tr lang="en">read bytes from file, output as list of integers</tr>
+                    <!-- old: читать байты из файла, выводимые как список
+                    целых чисел -->
                     <tr lang="ru" finished="false">читать байты из файла, выводимые как список
                     целых чисел</tr>
                 </info>
                 <param name="N" type="int" required="false">
                     <tr lang="en">number of bytes to read, if omitted read all content</tr>
+                    <!-- old: количество байтов для чтения, если не прочитано
+                    весь контент -->
                     <tr lang="ru" finished="false">количество байтов для чтения, если не прочитано
                     весь контент</tr>
                 </param>
@@ -74,6 +85,8 @@
             <method name="read_line">
                 <info>
                     <tr lang="en">read line from file, output as list as atoms</tr>
+                    <!-- old: читать строку из файла, выводить список как
+                    атомы -->
                     <tr lang="ru" finished="false">читать строку из файла, выводить список как
                     атомы</tr>
                 </info>
@@ -116,6 +129,8 @@
                 </param>
                 <param name="ORIG" type="symbol" required="false" enum="beg|cur|end">
                     <tr lang="en">offset origin, if omitted offset from the beginning</tr>
+                    <!-- old: Смещение происхождения, если опущено смещение с
+                    начала -->
                     <tr lang="ru" finished="false">Смещение происхождения, если опущено смещение с
                     начала</tr>
                 </param>
@@ -132,6 +147,8 @@
                 </param>
                 <param name="ORIG" type="symbol" required="false" enum="beg|cur|end">
                     <tr lang="en">offset origin, if omitted offset from the beginning</tr>
+                    <!-- old: Смещение происхождения, если опущено смещение с
+                    начала -->
                     <tr lang="ru" finished="false">Смещение происхождения, если опущено смещение с
                     начала</tr>
                 </param>
@@ -140,6 +157,8 @@
             <method name="write">
                 <info>
                     <tr lang="en">write space separated atoms to file, no newline added</tr>
+                    <!-- old: записывать разделенные атомы в файл без
+                    добавления новой строки -->
                     <tr lang="ru" finished="false">записывать разделенные атомы в файл без
                     добавления новой строки</tr>
                 </info>
@@ -157,6 +176,8 @@
                 <param name="ARGS" type="list" required="true">
                     <tr lang="en">list of bytes: integers in 0-255 or symbols with '0x' prefix:
                     0x11, 0xFF etc..</tr>
+                    <!-- old: список байтов: целые числа в 0-255 или символы с
+                    префиксом 0x: 0x11, 0xFF и т.д. -->
                     <tr lang="ru" finished="false">список байтов: целые числа в 0-255 или символы с
                     префиксом 0x: 0x11, 0xFF и т.д.</tr>
                 </param>
@@ -165,6 +186,8 @@
             <method name="write_line">
                 <info>
                     <tr lang="en">write space separated atoms to file, newline added</tr>
+                    <!-- old: записывать разделенные атомы в файл, добавила
+                    Newline -->
                     <tr lang="ru" finished="false">записывать разделенные атомы в файл, добавила
                     Newline</tr>
                 </info>
@@ -186,11 +209,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list: read output</tr>
+                    <tr lang="ru" finished="false">Список: читать выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">bang on EOF reached</tr>
+                    <tr lang="ru" finished="false">Взрыв на EOF достиг</tr>
                 </out>
             </outlet>
         </outlets>

@@ -25,14 +25,22 @@
                 <tr lang="en">Produces random floating-point numbers, which are distributed
                 according to a linear probability density function within each of the several
                 subintervals [b0, b1)</tr>
+                <tr lang="ru" finished="false">Производит случайные числа с плавающей точкой,
+                которые распределены в соответствии с линейной функцией плотности вероятности в
+                каждом из нескольких субинтервалов [b0, b1).</tr>
             </par>
             <par>
                 <tr lang="en">Linear segments specified as: bound0, prob0, bound1, prob1, etc</tr>
+                <tr lang="ru" finished="false">Линейные сегменты, указанные как: bound0, prob0,
+                bound1, prob1 и т.д.</tr>
             </par>
             <par>
                 <tr lang="en">Use @seed property to get reproducible sequences. If @seed property
                 was not explicitly set or specified, uses generator initialized with current
                 time.</tr>
+                <tr lang="ru" finished="false">Используйте свойство @seed для получения
+                воспроизводимых последовательностей. Если свойство @seed не было явно установлено
+                или указано, используется генератор, инициализированный с текущим временем.</tr>
             </par>
         </info>
         <arguments>
@@ -40,34 +48,45 @@
                 <tr lang="en">interleaved interval boundaries and boundary propabilities. Note:
                 number of arguments should be even and &gt;=4. Boundaries should be in strictly
                 increasing order and weights should be non-negative</tr>
+                <tr lang="ru" finished="false">Переплетенные интервальные границы и граничные
+                возможности. Примечание: количество аргументов должно быть четным и &gt;= 4.Границы
+                должны быть в строго возрастающем порядке, а веса должны быть
+                неотрицательными.</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @bounds -->
             <property name="@bounds" type="list" access="readonly" default="">
                 <tr lang="en">list of boundaries</tr>
+                <tr lang="ru" finished="false">Перечень границ</tr>
             </property>
             <!-- @seed -->
             <property name="@seed" type="int" minvalue="0" default="0">
                 <tr lang="en">generator seed</tr>
+                <tr lang="ru" finished="false">генератор</tr>
             </property>
             <!-- @v -->
             <property name="@v" type="list" default="">
                 <tr lang="en">interleaved interval boundaries and boundary propabilities. For
                 example: values 0 0 0.5 0 1 0 produce triangle distribution</tr>
+                <tr lang="ru" finished="false">Переплетенные интервальные границы и граничные
+                возможности. Например: значения 0 0.5 0 1 0 дают распределение треугольников</tr>
             </property>
             <!-- @weights -->
             <property name="@weights" type="list" access="readonly" default="">
                 <tr lang="en">list of weights</tr>
+                <tr lang="ru" finished="false">Список весов</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">generates random number</tr>
+                    <tr lang="ru" finished="false">генерирует случайное число</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">set new distribution values</tr>
+                    <tr lang="ru" finished="false">Новые значения распределения</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -75,6 +94,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

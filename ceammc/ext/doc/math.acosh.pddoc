@@ -25,6 +25,9 @@
             <par>
                 <tr lang="en">The acosh() function computes the principle value of the inverse
                 hyperbolic cosine of input value. The result is in the range [0, +infinity].</tr>
+                <!-- old: Функция acosh() вычисляет основное значение
+                обратного гиперболического косинуса входного значения. Результат находится в
+                диапазоне [0, + бесконечность]. -->
                 <tr lang="ru" finished="false">Функция acosh() вычисляет основное значение
                 обратного гиперболического косинуса входного значения. Результат находится в
                 диапазоне [0, + бесконечность].</tr>
@@ -62,6 +65,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

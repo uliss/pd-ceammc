@@ -30,6 +30,9 @@
                 <tr lang="en">Allpass filter is a signal processing filter that passes all
                 frequencies equally in gain, but changes the phase relationship among various
                 frequencies.</tr>
+                <!-- old: Фильтр Allpass представляет собой фильтр обработки
+                сигналов, который проходит все частоты одинаково, но изменяет фазовое соотношение
+                между различными частотами. -->
                 <tr lang="ru" finished="false">Фильтр Allpass представляет собой фильтр обработки
                 сигналов, который проходит все частоты одинаково, но изменяет фазовое соотношение
                 между различными частотами.</tr>
@@ -38,6 +41,9 @@
                 <tr lang="en">Most types of filter reduce the amplitude (i.e. the magnitude) of the
                 signal applied to it for some values of frequency, whereas the all-pass filter
                 allows all frequencies through without changes in level.</tr>
+                <!-- old: Большинство типов фильтров уменьшают амплитуду (т.е.
+                величину) сигнала, приложенного к нему, для некоторых значений частоты, тогда как
+                фильтр полного прохода позволяет всем частотам проходить без изменений уровня. -->
                 <tr lang="ru" finished="false">Большинство типов фильтров уменьшают амплитуду (т.е.
                 величину) сигнала, приложенного к нему, для некоторых значений частоты, тогда как
                 фильтр полного прохода позволяет всем частотам проходить без изменений уровня.</tr>
@@ -45,6 +51,8 @@
             <par>
                 <tr lang="en">Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ +
                 b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²)</tr>
+                <!-- old: Расчет коэффициентов для функции переноса: H(z)=(b0
+                + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2) -->
                 <tr lang="ru" finished="false">Расчет коэффициентов для функции переноса: H(z)=(b0
                 + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2)</tr>
             </par>
@@ -99,6 +107,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list: b0 b1 b2 a1 a2</tr>
+                    <tr lang="ru" finished="false">Список: b0 b1 b2 a1 a2</tr>
                 </out>
             </outlet>
         </outlets>

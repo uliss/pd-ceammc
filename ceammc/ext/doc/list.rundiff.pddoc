@@ -58,6 +58,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result list</tr>
+                    <tr lang="ru" finished="false">список результатов</tr>
                 </out>
             </outlet>
         </outlets>

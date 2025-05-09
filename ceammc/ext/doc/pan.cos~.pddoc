@@ -25,6 +25,9 @@
                 <tr lang="en">Two channel equal power panner. The center pan position is boosted by
                 3 dB compared to linear panning, and the total power at every pan position is 0
                 dB.</tr>
+                <!-- old: Два канала равны мощности паннера. Положение
+                центральной панели увеличивается на 3 дБ по сравнению с линейным панорамированием,
+                а общая мощность в каждой позиции панели составляет 0 дБ. -->
                 <tr lang="ru" finished="false">Два канала равны мощности паннера. Положение
                 центральной панели увеличивается на 3 дБ по сравнению с линейным панорамированием,
                 а общая мощность в каждой позиции панели составляет 0 дБ.</tr>
@@ -33,6 +36,8 @@
         <arguments>
             <argument name="POS" type="float" minvalue="-1" maxvalue="1">
                 <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
+                <!-- old: Позиция панорамирования. -1 означает левый, 0 -
+                центр, +1 - правый -->
                 <tr lang="ru" finished="false">Позиция панорамирования. -1 означает левый, 0 -
                 центр, +1 - правый</tr>
             </argument>
@@ -41,6 +46,8 @@
             <!-- @pos -->
             <property name="@pos" type="float" minvalue="-1" maxvalue="1" default="0">
                 <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
+                <!-- old: Позиция панорамирования. -1 означает левый, 0 -
+                центр, +1 - правый -->
                 <tr lang="ru" finished="false">Позиция панорамирования. -1 означает левый, 0 -
                 центр, +1 - правый</tr>
             </property>
@@ -69,11 +76,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">left output channel</tr>
+                    <tr lang="ru" finished="false">левый выходной канал</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">right output channel</tr>
+                    <tr lang="ru" finished="false">правильный выходной канал</tr>
                 </out>
             </outlet>
         </outlets>

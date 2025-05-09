@@ -24,6 +24,9 @@
                 <tr lang="en">filter that passes most frequencies unaltered, but attenuates those
                 in a specific range to very low levels. It is the opposite of a band-pass
                 filter.</tr>
+                <!-- old: фильтр, который передает большинство частот без
+                изменений, но ослабляет их в определенном диапазоне до очень низких уровней. Это
+                противоположность полосового фильтра. -->
                 <tr lang="ru" finished="false">фильтр, который передает большинство частот без
                 изменений, но ослабляет их в определенном диапазоне до очень низких уровней. Это
                 противоположность полосового фильтра.</tr>
@@ -74,6 +77,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">filtered signal</tr>
+                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

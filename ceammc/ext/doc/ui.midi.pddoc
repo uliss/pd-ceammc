@@ -38,26 +38,33 @@
             <!-- @active_color -->
             <property name="@active_color" type="list" default="0.63 0.88 0 1">
                 <tr lang="en">active color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">активный цвет (список красных, зеленых, синих
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @cc -->
             <property name="@cc" type="bool" default="1">
                 <tr lang="en">if show control change events</tr>
+                <tr lang="ru" finished="false">Если контроль изменяет события</tr>
             </property>
             <!-- @hex -->
             <property name="@hex" type="bool" default="0">
                 <tr lang="en">if show values in hex</tr>
+                <tr lang="ru" finished="false">Если показать значения в Hex</tr>
             </property>
             <!-- @notes -->
             <property name="@notes" type="bool" default="1">
                 <tr lang="en">if show note on/off events</tr>
+                <tr lang="ru" finished="false">Примечания к событиям / Off</tr>
             </property>
             <!-- @pitchwheel -->
             <property name="@pitchwheel" type="bool" default="1">
                 <tr lang="en">if show pitch wheel events</tr>
+                <tr lang="ru" finished="false">Если вы показываете движение колеса</tr>
             </property>
             <!-- @program -->
             <property name="@program" type="bool" default="1">
                 <tr lang="en">if show program change events</tr>
+                <tr lang="ru" finished="false">Если программа меняет события</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="180 15">
@@ -82,12 +89,15 @@
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
         </methods>
@@ -95,6 +105,7 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">control input</tr>
+                    <tr lang="ru" finished="false">контрольный вход</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -102,6 +113,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">MIDI output</tr>
+                    <tr lang="ru" finished="false">MIDI выход</tr>
                 </out>
             </outlet>
         </outlets>

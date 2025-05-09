@@ -34,6 +34,8 @@
             </par>
             <par>
                 <tr lang="en">cbrt(+-infinity) returns +-infinity.</tr>
+                <!-- old: cbrt (+-бесконечность) возвращает
+                +-бесконечность. -->
                 <tr lang="ru" finished="false">cbrt (+-бесконечность) возвращает
                 +-бесконечность.</tr>
             </par>
@@ -50,6 +52,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">result signal</tr>
+                    <tr lang="ru" finished="false">результат сигнала</tr>
                 </out>
             </outlet>
         </outlets>

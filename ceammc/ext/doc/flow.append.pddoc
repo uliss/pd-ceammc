@@ -23,6 +23,8 @@
             <par>
                 <tr lang="en">Note: if you want to specify property message in the init argument,
                 you have to quote it with double-quotes</tr>
+                <!-- old: Примечание: если вы хотите указать сообщение свойств
+                в аргументе init, вы должны процитировать его двойными цитатами -->
                 <tr lang="ru" finished="false">Примечание: если вы хотите указать сообщение свойств
                 в аргументе init, вы должны процитировать его двойными цитатами</tr>
             </par>
@@ -38,6 +40,8 @@
             <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">
                 <tr lang="en">append delay. If &lt;0 append immediately at the same logical time,
                 if equal zero - output after next DSP block.</tr>
+                <!-- old: Добавить задержку. Если <0 приложить сразу в одно
+                и то же логическое время, если равно нулю - вывод после следующего блока DSP. -->
                 <tr lang="ru" finished="false">Добавить задержку. Если &lt;0 приложить сразу в одно
                 и то же логическое время, если равно нулю - вывод после следующего блока DSP.</tr>
             </property>
@@ -65,6 +69,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output message</tr>
+                    <tr lang="ru" finished="false">выходное сообщение</tr>
                 </out>
             </outlet>
         </outlets>

@@ -28,11 +28,17 @@
                 <tr lang="en">Display mode: keys '-'(Down) and '+'(Up) increment value. Mouse drag
                 changes value. Default step is 1/pixel. Holding SHIFT divide step by 100. Holding
                 CTRL multiply by 10.</tr>
+                <tr lang="ru" finished="false">Режим отображения: клавиши '-'(Down) и '+'(Up)
+                приращения значения. Мышь перетаскивает значение. Шаг по умолчанию 1/пиксель.
+                Проведение SHIFT делит шаг на 100. Хранение CTRL умножается на 10.</tr>
             </par>
             <par>
                 <tr lang="en">Input mode: Double click to enter new value. Accepted keys:
                 -.0123456789. Press ENTER or TAB key to finish. ESCAPE undo input, BACKSPACE
                 removes last character.</tr>
+                <tr lang="ru" finished="false">Режим ввода: Двойной клик для ввода нового значения.
+                Принятые ключи: -.0123456789. Нажмите клавишу ENTER или TAB, чтобы закончить.
+                ESCAPE undo input, BACKSPACE удаляет последний символ.</tr>
             </par>
         </info>
         <mouse>
@@ -63,19 +69,26 @@
             <!-- @digits -->
             <property name="@digits" type="int" default="-1" minvalue="-1" maxvalue="9">
                 <tr lang="en">number of digits. If -1 - no fixed digits used</tr>
+                <tr lang="ru" finished="false">количество цифр. Если -1 - не используются
+                фиксированные цифры</tr>
             </property>
             <!-- @display_only -->
             <property name="@display_only" type="bool" default="0">
                 <tr lang="en">interaction mode. If true: react only to received Pd messages, but do
                 not react to mouse/keyboard events. If false: react to all supported events.</tr>
+                <tr lang="ru" finished="false">Режим взаимодействия. Если это правда: реагируйте
+                только на полученные сообщения Pd, но не реагируйте на события мыши / клавиатуры.
+                Если ложно: реагируйте на все поддерживаемые события.</tr>
             </property>
             <!-- @max -->
             <property name="@max" type="float" default="+inf">
                 <tr lang="en">maximum value</tr>
+                <tr lang="ru" finished="false">максимальное значение</tr>
             </property>
             <!-- @min -->
             <property name="@min" type="float" default="-inf">
                 <tr lang="en">minimum value</tr>
+                <tr lang="ru" finished="false">Минимальная стоимость</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="53 15">
@@ -96,103 +109,127 @@
             <method name="*">
                 <info>
                     <tr lang="en">multiply slider value without output</tr>
+                    <tr lang="ru" finished="false">Умножить значение слайдера без вывода</tr>
                 </info>
                 <param name="V" type="float" required="true">
                     <tr lang="en">multiplied value</tr>
+                    <tr lang="ru" finished="false">умноженная стоимость</tr>
                 </param>
             </method>
             <!-- + -->
             <method name="+">
                 <info>
                     <tr lang="en">add value to slider without output</tr>
+                    <tr lang="ru" finished="false">Добавить значение слайдеру без вывода</tr>
                 </info>
                 <param name="V" type="float" required="true">
                     <tr lang="en">added value</tr>
+                    <tr lang="ru" finished="false">добавленная стоимость</tr>
                 </param>
             </method>
             <!-- ++ -->
             <method name="++">
                 <info>
                     <tr lang="en">increment slider value without output</tr>
+                    <tr lang="ru" finished="false">значение скольжения без вывода</tr>
                 </info>
             </method>
             <method name="-">
                 <info>
                     <tr lang="en">subtract value from slider without output</tr>
+                    <tr lang="ru" finished="false">вычитать значение из слайдера без вывода</tr>
                 </info>
                 <param name="V" type="float" required="true">
                     <tr lang="en">subtracted value</tr>
+                    <tr lang="ru" finished="false">вычитаемая стоимость</tr>
                 </param>
             </method>
             <method name="--">
                 <info>
                     <tr lang="en">decrement slider value without output</tr>
+                    <tr lang="ru" finished="false">значение скольжения декремента без вывода</tr>
                 </info>
             </method>
             <!-- / -->
             <method name="/">
                 <info>
                     <tr lang="en">divide slider value without output</tr>
+                    <tr lang="ru" finished="false">делить значение слайдера без вывода</tr>
                 </info>
                 <param name="V" type="float" required="true">
                     <tr lang="en">denominator value</tr>
+                    <tr lang="ru" finished="false">Значение знаменателя</tr>
                 </param>
             </method>
             <!-- clear -->
             <method name="clear">
                 <info>
                     <tr lang="en">clears specified preset</tr>
+                    <tr lang="ru" finished="false">заданный заранее</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
             <!-- interp -->
             <method name="interp">
                 <info>
                     <tr lang="en">interplolates between presets</tr>
+                    <tr lang="ru" finished="false">Интерплолаты между предустановленными</tr>
                 </info>
                 <param name="IDX" type="float" required="true">
                     <tr lang="en">preset fraction index</tr>
+                    <tr lang="ru" finished="false">предустановленный дробный индекс</tr>
                 </param>
             </method>
             <!-- load -->
             <method name="load">
                 <info>
                     <tr lang="en">loads specified preset</tr>
+                    <tr lang="ru" finished="false">заданный заранее заданный</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
             <!-- pos -->
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
             <!-- set -->
             <method name="set">
                 <info>
                     <tr lang="en">sets slider value without output</tr>
+                    <tr lang="ru" finished="false">устанавливает значение скольжения без
+                    вывода</tr>
                 </info>
                 <param name="V" type="float" required="true">
                     <tr lang="en">new value</tr>
+                    <tr lang="ru" finished="false">Новая стоимость</tr>
                 </param>
             </method>
             <!-- store -->
             <method name="store">
                 <info>
                     <tr lang="en">stores specified preset</tr>
+                    <tr lang="ru" finished="false">магазины, указанные Preset</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
         </methods>
@@ -200,12 +237,15 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs current value</tr>
+                    <tr lang="ru" finished="false">выходы текущая стоимость</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">first element converted to float</tr>
+                    <tr lang="ru" finished="false">Первый элемент, преобразованный в плавающий</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -213,6 +253,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">number value</tr>
+                    <tr lang="ru" finished="false">значение числа</tr>
                 </out>
             </outlet>
         </outlets>

@@ -35,6 +35,8 @@
             <property name="@auto" type="bool" default="0">
                 <tr lang="en">auto reset mode. If true: reset to @start value after ramp is
                 finished</tr>
+                <!-- old: Режим автоматического сброса. Если это правда:
+                перезагрузка до @start после завершения рампы -->
                 <tr lang="ru" finished="false">Режим автоматического сброса. Если это правда:
                 перезагрузка до @start после завершения рампы</tr>
             </property>
@@ -68,6 +70,8 @@
                 <xinfo on="float">
                     <tr lang="en">if VALUE &gt;0, treat as (VALUE 127) list, otherwise as (-VALUE,
                     0)</tr>
+                    <!-- old: Если значение >0, относитесь к списку (VALUE
+                    127), в противном случае (-VALUE, 0) -->
                     <tr lang="ru" finished="false">Если значение &gt;0, относитесь к списку (VALUE
                     127), в противном случае (-VALUE, 0)</tr>
                 </xinfo>
@@ -81,11 +85,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs NOTE VELOCITY pair</tr>
+                    <tr lang="ru" finished="false">Отметить пару VELOCITY</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">bang when destination value is reached</tr>
+                    <tr lang="ru" finished="false">Bang, когда достигается значение назначения</tr>
                 </out>
             </outlet>
         </outlets>

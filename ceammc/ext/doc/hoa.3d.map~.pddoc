@@ -24,12 +24,16 @@
             <par>
                 <tr lang="en">Encodes several sources in the circular harmonics domain with
                 distance compensation and muting system</tr>
+                <!-- old: Кодирует несколько источников в области круговых
+                гармоник с компенсацией расстояния и системой приглушения -->
                 <tr lang="ru" finished="false">Кодирует несколько источников в области круговых
                 гармоник с компенсацией расстояния и системой приглушения</tr>
             </par>
             <par>
                 <tr lang="en">If @nsrc 1: radius, azimuth and elevation are controlled with signal
                 values</tr>
+                <!-- old: Если @nsrc 1: радиус, азимут и высота контролируются
+                с помощью значений сигнала -->
                 <tr lang="ru" finished="false">Если @nsrc 1: радиус, азимут и высота контролируются
                 с помощью значений сигнала</tr>
             </par>
@@ -58,6 +62,8 @@
             <property name="@mode" type="symbol" enum="car pol" default="pol">
                 <tr lang="en">coordinates mode in signal control mode (with @nsrc 1), polar or
                 cartesian</tr>
+                <!-- old: режим координат в режиме управления сигналом (с
+                @nsrc 1), полярный или картезианский -->
                 <tr lang="ru" finished="false">режим координат в режиме управления сигналом (с
                 @nsrc 1), полярный или картезианский</tr>
             </property>
@@ -90,6 +96,8 @@
             <method name="cartesian">
                 <info>
                     <tr lang="en">set source mapping in cartesian coordinates</tr>
+                    <!-- old: картографирование источника в картезианских
+                    координатах -->
                     <tr lang="ru" finished="false">картографирование источника в картезианских
                     координатах</tr>
                 </info>
@@ -136,6 +144,8 @@
             <method name="polar">
                 <info>
                     <tr lang="en">set source mapping in polar coordinates</tr>
+                    <!-- old: картирование источника в полярных
+                    координатах -->
                     <tr lang="ru" finished="false">картирование источника в полярных
                     координатах</tr>
                 </info>
@@ -167,6 +177,8 @@
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">SRC_IDX polar RADIUS AZIMUTH ELEVATION or SRC_IDX mute VALUE</tr>
+                    <!-- old: SRC_IDX Polar RADIUS AZIMUTH ELEVATION или
+                    SRC_IDX mute VALUE -->
                     <tr lang="ru" finished="false">SRC_IDX Polar RADIUS AZIMUTH ELEVATION или
                     SRC_IDX mute VALUE</tr>
                 </xinfo>
@@ -188,16 +200,19 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">first harmonic output</tr>
+                    <tr lang="ru" finished="false">Первый гармонический выход</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">... harmonic output</tr>
+                    <tr lang="ru" finished="false">Гармонический выход</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n">
                 <out type="any">
                     <tr lang="en">n-th harmonic output</tr>
+                    <tr lang="ru" finished="false">n-й гармонический выход</tr>
                 </out>
             </outlet>
         </outlets>

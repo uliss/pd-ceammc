@@ -26,6 +26,8 @@
             <par>
                 <tr lang="en">Histogram outputted as list of probabilities in specified number of
                 bins</tr>
+                <!-- old: Гистограмма, выведенная в виде списка вероятностей в
+                заданном количестве бункеров -->
                 <tr lang="ru" finished="false">Гистограмма, выведенная в виде списка вероятностей в
                 заданном количестве бункеров</tr>
             </par>
@@ -65,6 +67,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output list - length of @bins</tr>
+                    <tr lang="ru" finished="false">Выходной список - длина @bins</tr>
                 </out>
             </outlet>
         </outlets>

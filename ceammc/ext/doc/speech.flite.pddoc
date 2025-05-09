@@ -20,49 +20,61 @@
             <par>
                 <tr lang="en">Renders floats, symbols and list to wavetables using flite TTS
                 engine.</tr>
+                <tr lang="ru" finished="false">Отображает поплавки, символы и список для волновых
+                таблиц с использованием движка flite TTS.</tr>
             </par>
             <par>
                 <tr lang="en">Rendering is performed in separate thread.</tr>
+                <tr lang="ru" finished="false">Рендеринг выполняется в отдельной нити.</tr>
             </par>
         </info>
         <arguments>
             <argument name="ARRAY" type="symbol">
                 <tr lang="en">destination array name render to</tr>
+                <tr lang="ru" finished="false">Имя адресата рендерить</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">destination array name</tr>
+                <tr lang="ru" finished="false">Имя адресата</tr>
             </property>
             <!-- @pitch -->
             <property name="@pitch" type="float" default="-1">
                 <tr lang="en">voice pitch (-1 - default value)</tr>
+                <tr lang="ru" finished="false">голосовой шаг (-1 - значение по умолчанию)</tr>
             </property>
             <!-- @speed -->
             <property name="@speed" type="float" minvalue="1" maxvalue="4" default="1">
                 <tr lang="en">speaking speed</tr>
+                <tr lang="ru" finished="false">Скорость речи</tr>
             </property>
             <!-- @voice -->
             <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">
                 <tr lang="en">default voice</tr>
+                <tr lang="ru" finished="false">Голос по умолчанию</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">render number to array</tr>
+                    <tr lang="ru" finished="false">Отображение числа в массив</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">render text to array</tr>
+                    <tr lang="ru" finished="false">Отображение текста в массив</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">render text to array</tr>
+                    <tr lang="ru" finished="false">Отображение текста в массив</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">set target array name</tr>
+                    <tr lang="ru" finished="false">имя целевого массива</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -70,6 +82,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bang on done</tr>
+                    <tr lang="ru" finished="false">бахвальство</tr>
                 </out>
             </outlet>
         </outlets>

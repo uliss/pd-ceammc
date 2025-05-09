@@ -83,6 +83,8 @@
             <!-- @middle_h_drive -->
             <property name="@middle_h_drive" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">distortion amount on middle high frequencies</tr>
+                <!-- old: Количество искажений на средних высоких
+                частотах -->
                 <tr lang="ru" finished="false">Количество искажений на средних высоких
                 частотах</tr>
             </property>
@@ -175,6 +177,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

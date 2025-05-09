@@ -89,6 +89,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">number of samples written</tr>
+                    <tr lang="ru" finished="false">Количество образцов, написанных</tr>
                 </out>
             </outlet>
         </outlets>

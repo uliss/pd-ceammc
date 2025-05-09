@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">Property should be declared with [prop.declare]</tr>
+                <!-- old: Имущество должно быть объявлено с
+                [prop.declare] -->
                 <tr lang="ru" finished="false">Имущество должно быть объявлено с
                 [prop.declare]</tr>
             </par>
@@ -39,6 +41,8 @@
             <method name="default">
                 <info>
                     <tr lang="en">reset all props to default value and output</tr>
+                    <!-- old: Сбросить все реквизиты до значения по умолчанию
+                    и выхода -->
                     <tr lang="ru" finished="false">Сбросить все реквизиты до значения по умолчанию
                     и выхода</tr>
                 </info>
@@ -52,6 +56,8 @@
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">get/set property value and output it</tr>
+                    <!-- old: получить/установить стоимость имущества и
+                    выпустить его -->
                     <tr lang="ru" finished="false">получить/установить стоимость имущества и
                     выпустить его</tr>
                 </xinfo>
@@ -61,6 +67,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </out>
             </outlet>
         </outlets>

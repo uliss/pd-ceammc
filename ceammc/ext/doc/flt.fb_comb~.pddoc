@@ -23,6 +23,8 @@
             <par>
                 <tr lang="en">Frequency response of a comb filter consists of a series of regularly
                 spaced notches, giving the appearance of a comb</tr>
+                <!-- old: Частотный отклик гребневого фильтра состоит из серии
+                регулярно расположенных выемок, придающих вид гребневому фильтру -->
                 <tr lang="ru" finished="false">Частотный отклик гребневого фильтра состоит из серии
                 регулярно расположенных выемок, придающих вид гребневому фильтру</tr>
             </par>
@@ -30,6 +32,10 @@
                 <tr lang="en">Structure of a feedforward comb filter may be described by the
                 following difference equation: y[n]=x[n]+αy[n-K]} where K is the delay length
                 (measured in samples), and α is a scaling factor applied to the delayed sum</tr>
+                <!-- old: Структура фильтра для расчесывания вперед может быть
+                описана следующим дифференциальным уравнением: y[n]=x[n]+αy[n-K], где K — длина
+                задержки (измеряется в образцах), а α — коэффициент масштабирования, применяемый к
+                отложенной сумме -->
                 <tr lang="ru" finished="false">Структура фильтра для расчесывания вперед может быть
                 описана следующим дифференциальным уравнением: y[n]=x[n]+αy[n-K], где K — длина
                 задержки (измеряется в образцах), а α — коэффициент масштабирования, применяемый к
@@ -50,6 +56,8 @@
             <!-- @a -->
             <property name="@a" type="float" minvalue="-1" maxvalue="1" default="0.75">
                 <tr lang="en">scaling factor of delayed signal sum</tr>
+                <!-- old: Коэффициент масштабирования отсроченной суммы
+                сигнала -->
                 <tr lang="ru" finished="false">Коэффициент масштабирования отсроченной суммы
                 сигнала</tr>
             </property>
@@ -81,6 +89,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">filtered signal</tr>
+                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

@@ -29,16 +29,22 @@
             <par>
                 <tr lang="en">Syntax: values are separated by spaces: (1 2 3) - list of 1, 2 and
                 3</tr>
+                <!-- old: Синтаксис: значения разделены пространствами: (1 2
+                3) - список 1, 2 и 3 -->
                 <tr lang="ru" finished="false">Синтаксис: значения разделены пространствами: (1 2
                 3) - список 1, 2 и 3</tr>
             </par>
             <par>
                 <tr lang="en">Nested lists: (1 2 3 (nested list values))</tr>
+                <!-- old: Вложенные списки: (1 2 3 (значения вложенного
+                списка)) -->
                 <tr lang="ru" finished="false">Вложенные списки: (1 2 3 (значения вложенного
                 списка))</tr>
             </par>
             <par>
                 <tr lang="en">Symbols with spaces: ("single item list")</tr>
+                <!-- old: Символы с пробелами: («список отдельных
+                пунктов») -->
                 <tr lang="ru" finished="false">Символы с пробелами: («список отдельных
                 пунктов»)</tr>
             </par>
@@ -49,6 +55,8 @@
         <arguments>
             <argument name="VALUE" type="atom">
                 <tr lang="en">initial list values in (). For example: (1 2 3 (1 2) 4)</tr>
+                <!-- old: Начальные значения списка в (). Например: (1 2 3 (1
+                2) 4) -->
                 <tr lang="ru" finished="false">Начальные значения списка в (). Например: (1 2 3 (1
                 2) 4)</tr>
             </argument>
@@ -98,6 +106,8 @@
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">position (negative indexes are supported: -1 means last
                     element)</tr>
+                    <!-- old: позиция (поддерживаются отрицательные индексы:
+                    -1 означает последний элемент) -->
                     <tr lang="ru" finished="false">позиция (поддерживаются отрицательные индексы:
                     -1 означает последний элемент)</tr>
                 </param>
@@ -113,6 +123,8 @@
             <method name="choose">
                 <info>
                     <tr lang="en">choose random element in list and output it</tr>
+                    <!-- old: Выберите случайный элемент в списке и выведите
+                    его -->
                     <tr lang="ru" finished="false">Выберите случайный элемент в списке и выведите
                     его</tr>
                 </info>
@@ -234,6 +246,8 @@
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">set new list with single symbol element and output</tr>
+                    <!-- old: установить новый список с одним элементом
+                    символа и выходом -->
                     <tr lang="ru" finished="false">установить новый список с одним элементом
                     символа и выходом</tr>
                 </xinfo>
@@ -247,6 +261,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output list or list elements</tr>
+                    <tr lang="ru" finished="false">выходной список или элементы списка</tr>
                 </out>
             </outlet>
         </outlets>

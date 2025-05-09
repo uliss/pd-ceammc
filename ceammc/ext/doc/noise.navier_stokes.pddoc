@@ -21,6 +21,8 @@
             <par>
                 <tr lang="en">A model obtained by a suitable five-mode truncation of the
                 Navier-Stokes equations for a two-dimensional incompressible fluid on a torus:</tr>
+                <!-- old: Модель, полученная подходящим пятирежимным усечением
+                уравнений Навье-Стокса для двумерной несжимаемой жидкости на торе: -->
                 <tr lang="ru" finished="false">Модель, полученная подходящим пятирежимным усечением
                 уравнений Навье-Стокса для двумерной несжимаемой жидкости на торе:</tr>
             </par>
@@ -54,6 +56,11 @@
                 critical values of &lt;reyn&gt;, the most interesting feature is the stochastic
                 behavior observed when R1 &lt; &lt;reyn&gt; &lt; R2. With 28.73 &lt; R1 &gt; 29.0
                 and R2 ± = 33.43.</tr>
+                <!-- old: Где <reyn> — это число Рейнольдса, и выделяют
+                интересное разнообразие различных поведений для разных диапазонов <reyn>. Для
+                критических значений <reyn> наиболее интересной особенностью является
+                стохастическое поведение, наблюдаемое при R1 < <reyn> < R2. С 28,73
+                < R1 > 29,0 и R2 ± = 33,43. -->
                 <tr lang="ru" finished="false">Где &lt;reyn&gt; — это число Рейнольдса, и выделяют
                 интересное разнообразие различных поведений для разных диапазонов &lt;reyn&gt;. Для
                 критических значений &lt;reyn&gt; наиболее интересной особенностью является
@@ -127,6 +134,8 @@
             <method name="om">
                 <param name="OM" type="int" required="true">
                     <tr lang="en">enables output when cut or fold value is changed</tr>
+                    <!-- old: позволяет вывод при изменении значения разреза
+                    или сгиба -->
                     <tr lang="ru" finished="false">позволяет вывод при изменении значения разреза
                     или сгиба</tr>
                 </param>
@@ -165,26 +174,31 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">a outlet</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">b outlet</tr>
+                    <tr lang="ru" finished="false">б выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">c outlet</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">d outlet</tr>
+                    <tr lang="ru" finished="false">d выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">e outlet</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

@@ -72,6 +72,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output result list or mlist</tr>
+                    <tr lang="ru" finished="false">Список конечных результатов или млист</tr>
                 </out>
             </outlet>
         </outlets>

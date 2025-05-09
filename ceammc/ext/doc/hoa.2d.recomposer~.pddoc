@@ -29,6 +29,8 @@
             <par>
                 <tr lang="en">Recomposes a plane wave decomposition into circular harmonics.
                 There's three modes, fixe (default), fisheye and free.</tr>
+                <!-- old: Разложение плоской волны в круговые гармоники. Есть
+                три режима: фиксированный (по умолчанию), Fisheye и бесплатный. -->
                 <tr lang="ru" finished="false">Разложение плоской волны в круговые гармоники. Есть
                 три режима: фиксированный (по умолчанию), Fisheye и бесплатный.</tr>
             </par>
@@ -41,6 +43,8 @@
             </argument>
             <argument name="N" type="int" minvalue="0" maxvalue="128">
                 <tr lang="en">number of channels. '0' means auto-calculation.</tr>
+                <!-- old: Количество каналов. 0 означает автоматический
+                расчет. -->
                 <tr lang="ru" finished="false">Количество каналов. 0 означает автоматический
                 расчет.</tr>
             </argument>
@@ -50,6 +54,11 @@
                 perform an operation similar to the visual "fisheye" effect by distorsion of the
                 sound field perspective to the front of the scene. *free* - allows you to change
                 the angles and the widening value for each channels.</tr>
+                <!-- old: Режим рекомпозиции. Существует три режима: *fixe* —
+                просто перекомпоновывает разложение плоской волны в круговые гармоники. *fisheye* —
+                позволяет выполнить операцию, аналогичную эффекту визуального «рыбий глаз», путем
+                искажения перспективы звукового поля к передней части сцены. *free* - позволяет
+                изменять углы и расширяющееся значение для каждого канала. -->
                 <tr lang="ru" finished="false">Режим рекомпозиции. Существует три режима: *fixe* —
                 просто перекомпоновывает разложение плоской волны в круговые гармоники. *fisheye* —
                 позволяет выполнить операцию, аналогичную эффекту визуального «рыбий глаз», путем
@@ -81,6 +90,11 @@
                 perform an operation similar to the visual "fisheye" effect by distorsion of the
                 sound field perspective to the front of the scene. *free* - allows you to change
                 the angles and the widening value for each channels.</tr>
+                <!-- old: Режим рекомпозиции. Существует три режима: *fixe* —
+                просто перекомпоновывает разложение плоской волны в круговые гармоники. *fisheye* —
+                позволяет выполнить операцию, аналогичную эффекту визуального «рыбий глаз», путем
+                искажения перспективы звукового поля к передней части сцены. *free* - позволяет
+                изменять углы и расширяющееся значение для каждого канала. -->
                 <tr lang="ru" finished="false">Режим рекомпозиции. Существует три режима: *fixe* —
                 просто перекомпоновывает разложение плоской волны в круговые гармоники. *fisheye* —
                 позволяет выполнить операцию, аналогичную эффекту визуального «рыбий глаз», путем
@@ -91,6 +105,8 @@
             <property name="@n" type="int" minvalue="0" maxvalue="128" default="0"
             access="initonly">
                 <tr lang="en">number of channels (planewaves). '0' means auto-calculation.</tr>
+                <!-- old: Количество каналов (плановых волн). 0 означает
+                автоматический расчет. -->
                 <tr lang="ru" finished="false">Количество каналов (плановых волн). 0 означает
                 автоматический расчет.</tr>
             </property>
@@ -112,6 +128,8 @@
                 <info>
                     <tr lang="en">set the angles of channels. Angles are in radians, wrapped
                     between 0 and 2π</tr>
+                    <!-- old: Установите углы каналов. Углы находятся в
+                    радианах, завернутых между 0 и 2π -->
                     <tr lang="ru" finished="false">Установите углы каналов. Углы находятся в
                     радианах, завернутых между 0 и 2π</tr>
                 </info>
@@ -125,6 +143,8 @@
                 <info>
                     <tr lang="en">set the widening value of channels. Widening value is clipped
                     between 0. (omnidirectional) and 1. (directional)</tr>
+                    <!-- old: Расширение значения каналов. Расширяющееся
+                    значение обрезается между 0. (всенаправленный) и 1. (направленный) -->
                     <tr lang="ru" finished="false">Расширение значения каналов. Расширяющееся
                     значение обрезается между 0. (всенаправленный) и 1. (направленный)</tr>
                 </info>
@@ -151,6 +171,8 @@
                 <xinfo>
                     <tr lang="en">input harmonic. If @fisheye mode is used: fisheye factor [0-1] in
                     last inlet</tr>
+                    <!-- old: Входная гармоника. Если используется режим
+                    @fisheye: фактор Fisheye [0-1] в последнем входе -->
                     <tr lang="ru" finished="false">Входная гармоника. Если используется режим
                     @fisheye: фактор Fisheye [0-1] в последнем входе</tr>
                 </xinfo>
@@ -160,16 +182,19 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">first planewave output</tr>
+                    <tr lang="ru" finished="false">Первая волна самолёта</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">... planewave output</tr>
+                    <tr lang="ru" finished="false">Производитель: planewave output</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n">
                 <out type="any">
                     <tr lang="en">n-th planewave output</tr>
+                    <tr lang="ru" finished="false">n-я плоскостная волна</tr>
                 </out>
             </outlet>
         </outlets>

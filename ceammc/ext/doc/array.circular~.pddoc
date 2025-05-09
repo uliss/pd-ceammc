@@ -85,6 +85,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">read signal</tr>
+                    <tr lang="ru" finished="false">читать сигнал</tr>
                 </out>
             </outlet>
         </outlets>

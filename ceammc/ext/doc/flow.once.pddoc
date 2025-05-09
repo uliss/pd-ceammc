@@ -54,6 +54,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output flow</tr>
+                    <tr lang="ru" finished="false">выходной поток</tr>
                 </out>
             </outlet>
         </outlets>

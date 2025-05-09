@@ -47,6 +47,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">variance</tr>
+                    <tr lang="ru" finished="false">дисперсия</tr>
                 </out>
             </outlet>
         </outlets>

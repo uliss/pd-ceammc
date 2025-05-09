@@ -24,6 +24,10 @@
                 <tr lang="en">IEEE 754 floating point numbers can represent positive or negative
                 infinity, and NaN (not a number). These three values arise from calculations whose
                 result is undefined or cannot be represented accurately.</tr>
+                <!-- old: Номера с плавающей точкой IEEE 754 могут
+                представлять положительную или отрицательную бесконечность и NaN (не число). Эти
+                три значения возникают из вычислений, результат которых не определен или не может
+                быть представлен точно. -->
                 <tr lang="ru" finished="false">Номера с плавающей точкой IEEE 754 могут
                 представлять положительную или отрицательную бесконечность и NaN (не число). Эти
                 три значения возникают из вычислений, результат которых не определен или не может
@@ -42,6 +46,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </out>
             </outlet>
         </outlets>

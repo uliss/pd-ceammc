@@ -41,6 +41,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">signal magnitude</tr>
+                    <tr lang="ru" finished="false">величина сигнала</tr>
                 </out>
             </outlet>
         </outlets>

@@ -29,12 +29,16 @@
                 <tr lang="en">alias to @mode float. Output float values in [0-1] range</tr>
                 <!-- old: Оригинальное название: Mode Float. Значения
                 выходного поплавка в [0-1] диапазоне -->
+                <!-- old: Оригинальное название: Mode Float. Значения
+                выходного поплавка в [0-1] диапазоне -->
                 <tr lang="ru" finished="false">Оригинальное название: Mode Float. Значения
                 выходного поплавка в [0-1] диапазоне</tr>
             </property>
             <!-- @int -->
             <property name="@int" type="alias">
                 <tr lang="en">alias to @mode int. Output integer values in [0-255] range</tr>
+                <!-- old: @mode int. Вывод целых чисел в диапазоне
+                [0-255] -->
                 <!-- old: @mode int. Вывод целых чисел в диапазоне
                 [0-255] -->
                 <tr lang="ru" finished="false">@mode int. Вывод целых чисел в диапазоне
@@ -48,6 +52,8 @@
             <!-- @pack -->
             <property name="@pack" type="flag" access="initonly">
                 <tr lang="en">output as list (creates single outlet object)</tr>
+                <!-- old: вывод в виде списка (создает единый выходной
+                объект) -->
                 <!-- old: вывод в виде списка (создает единый выходной
                 объект) -->
                 <tr lang="ru" finished="false">вывод в виде списка (создает единый выходной
@@ -87,16 +93,22 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list: R G B or red channel value (int[0-255] or float[0-1])</tr>
+                    <tr lang="ru" finished="false">R G B или значение красного канала (int[0-255]
+                    или float[0-1])</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">int[0-255] or float[0-1]: green channel value</tr>
+                    <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение зеленого
+                    канала</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">int[0-255] or float[0-1]: blue channel value</tr>
+                    <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение синего
+                    канала</tr>
                 </out>
             </outlet>
         </outlets>

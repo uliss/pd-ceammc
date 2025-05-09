@@ -37,6 +37,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result</tr>
+                    <tr lang="ru" finished="false">результат</tr>
                 </out>
             </outlet>
         </outlets>

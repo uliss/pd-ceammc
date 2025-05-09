@@ -66,11 +66,15 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">plot all samples fitted to specified array</tr>
+                    <!-- old: Все образцы, установленные на заданный
+                    массив -->
                     <tr lang="ru" finished="false">Все образцы, установленные на заданный
                     массив</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">plot specified number of samples, resizes array</tr>
+                    <!-- old: участок заданное количество образцов, размеры
+                    массива -->
                     <tr lang="ru" finished="false">участок заданное количество образцов, размеры
                     массива</tr>
                 </xinfo>

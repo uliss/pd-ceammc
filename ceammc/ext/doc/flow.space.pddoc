@@ -23,6 +23,8 @@
             </argument>
             <argument name="DONE" type="int" minvalue="0">
                 <tr lang="en">time space = N*space after last outputted message</tr>
+                <!-- old: Пространство времени = N* Пространство после
+                последнего выведенного сообщения -->
                 <tr lang="ru" finished="false">Пространство времени = N* Пространство после
                 последнего выведенного сообщения</tr>
             </argument>
@@ -42,6 +44,9 @@
             <property name="@done" type="int" default="1" minvalue="0">
                 <tr lang="en">time space (=@done*@delay) after last outputted message. After that
                 delay output bang to second outlet</tr>
+                <!-- old: Пространство времени (=@done*@delay) после
+                последнего отправленного сообщения. После этого отсрочка выхода Bang на вторую
+                розетку -->
                 <tr lang="ru" finished="false">Пространство времени (=@done*@delay) после
                 последнего отправленного сообщения. После этого отсрочка выхода Bang на вторую
                 розетку</tr>
@@ -61,6 +66,8 @@
                 </xinfo>
                 <xinfo>
                     <tr lang="en">reset: cancel all scheduled outputs and clear message queue</tr>
+                    <!-- old: Сброс: отменить все запланированные выходы и
+                    четкую очередь сообщений -->
                     <tr lang="ru" finished="false">Сброс: отменить все запланированные выходы и
                     четкую очередь сообщений</tr>
                 </xinfo>
@@ -78,12 +85,15 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">bang on finish (after @delay*@done ms after last outputted
                     message)</tr>
+                    <tr lang="ru" finished="false">bang on finish (после @delay*@done ms после
+                    последнего отправленного сообщения)</tr>
                 </out>
             </outlet>
         </outlets>

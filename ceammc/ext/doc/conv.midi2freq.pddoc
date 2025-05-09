@@ -61,6 +61,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">converted value</tr>
+                    <tr lang="ru" finished="false">преобразованная стоимость</tr>
                 </out>
             </outlet>
         </outlets>

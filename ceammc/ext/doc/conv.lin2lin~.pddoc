@@ -50,6 +50,8 @@
                 both).</tr>
                 <!-- old: noclip (Don't Clip) max (clip ceiling) min (clip
                 floor) minmax (clip both). -->
+                <!-- old: noclip (Don't Clip) max (clip ceiling) min (clip
+                floor) minmax (clip both). -->
                 <tr lang="ru" finished="false">noclip (Don't Clip) max (clip ceiling) min (clip
                 floor) minmax (clip both).</tr>
             </property>
@@ -106,6 +108,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">converted signal</tr>
+                    <tr lang="ru" finished="false">преобразованный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

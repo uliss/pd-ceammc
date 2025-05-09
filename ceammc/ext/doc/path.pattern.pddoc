@@ -20,6 +20,8 @@
             <par>
                 <tr lang="en">Note: generate NEW filename (checks that generated filename not
                 exists)</tr>
+                <!-- old: Примечание: генерировать новое имя файла (проверки,
+                что генерируемое имя файла не существует) -->
                 <tr lang="ru" finished="false">Примечание: генерировать новое имя файла (проверки,
                 что генерируемое имя файла не существует)</tr>
             </par>
@@ -89,6 +91,8 @@
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">set new pattern and generate filename pattern</tr>
+                    <!-- old: установить новый шаблон и создать шаблон имени
+                    файла -->
                     <tr lang="ru" finished="false">установить новый шаблон и создать шаблон имени
                     файла</tr>
                 </xinfo>
@@ -98,6 +102,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">symbol: filename</tr>
+                    <tr lang="ru" finished="false">Символ: Filename</tr>
                 </out>
             </outlet>
         </outlets>

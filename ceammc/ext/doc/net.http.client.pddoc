@@ -32,6 +32,8 @@
                 </param>
                 <param name="FILE" type="symbol" required="false">
                     <tr lang="en">save filename. If not specified, use HTTP document filename</tr>
+                    <!-- old: Сохранить имя файла. Если не указано,
+                    используйте имя файла HTTP -->
                     <tr lang="ru" finished="false">Сохранить имя файла. Если не указано,
                     используйте имя файла HTTP</tr>
                 </param>
@@ -52,17 +54,23 @@
                 </param>
                 <param name="@header" type="list" required="false">
                     <tr lang="en">additional http header: @header NAME VALUE</tr>
+                    <!-- old: Дополнительный заголовок http: @header NAME
+                    VALUE -->
                     <tr lang="ru" finished="false">Дополнительный заголовок http: @header NAME
                     VALUE</tr>
                 </param>
                 <param name="@form" type="list" required="false">
                     <tr lang="en">form key-value pair: @form KEY VALUE. For
                     application/x-www-form-urlencoded MIME type.</tr>
+                    <!-- old: @form Ключевая ценность. Для
+                    приложения/x-www-form-urlen-coded MIME type. -->
                     <tr lang="ru" finished="false">@form Ключевая ценность. Для
                     приложения/x-www-form-urlen-coded MIME type.</tr>
                 </param>
                 <param name="@auth" type="list" required="false">
                     <tr lang="en">basic auth username/password: @auth USER PASS</tr>
+                    <!-- old: Основное имя пользователя / пароль auth: @auth
+                    USER PASS -->
                     <tr lang="ru" finished="false">Основное имя пользователя / пароль auth: @auth
                     USER PASS</tr>
                 </param>
@@ -73,6 +81,12 @@
                     without element surrounding tags, 'text' returns element text without tags,
                     'href' - return href attribute of selected element, 'none' - returns empty
                     string</tr>
+                    <!-- old: @css SEL OUTPUT_TYPE, где OUTPUT_TYPE является
+                    одним из: "html", "внутренний", "текст", "фреф", "нет". «html» — возвращает
+                    выбранный эленентный HTML-контент, «внутренний» — возвращает внутренний
+                    HTML-контент, без элементов, окружающих теги, «текст» возвращает текст элемента
+                    без тегов, «href» — возвращает атрибут href выбранного элемента, «none» —
+                    возвращает пустую строку -->
                     <tr lang="ru" finished="false">@css SEL OUTPUT_TYPE, где OUTPUT_TYPE является
                     одним из: "html", "внутренний", "текст", "фреф", "нет". «html» — возвращает
                     выбранный эленентный HTML-контент, «внутренний» — возвращает внутренний
@@ -82,11 +96,15 @@
                 </param>
                 <param name="@strip_ws" type="symbol" required="false">
                     <tr lang="en">replace multiple whitespaces/newlines/tabs with single space</tr>
+                    <!-- old: Замените несколько белых пространств / новых
+                    линий / вкладок одним пространством -->
                     <tr lang="ru" finished="false">Замените несколько белых пространств / новых
                     линий / вкладок одним пространством</tr>
                 </param>
                 <param name="@json" type="symbol" required="false">
                     <tr lang="en">parse result as Json and output it as data:Dict()</tr>
+                    <!-- old: Результат разбора как Json и вывод его как
+                    данные: -->
                     <tr lang="ru" finished="false">Результат разбора как Json и вывод его как
                     данные:</tr>
                 </param>
@@ -142,11 +160,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">int: HTTP status code</tr>
+                    <tr lang="ru" finished="false">Оригинальное название: HTTP Status Code</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">data:String: HTTP body or content of selected element</tr>
+                    <tr lang="ru" finished="false">String: HTTP-тело или содержимое выбранного
+                    элемента</tr>
                 </out>
             </outlet>
         </outlets>

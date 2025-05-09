@@ -45,68 +45,93 @@
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
+                <tr lang="ru" finished="false">имя массива</tr>
             </property>
             <!-- @cursor_color -->
             <property name="@cursor_color" type="list" default="0 0.75 1 1">
                 <tr lang="en">cursor color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">цвет курсора (список красных, зеленых, синих
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @cursor_ms -->
             <property name="@cursor_ms" type="float" units="millisecond" default="0">
                 <tr lang="en">cursor position in milliseconds</tr>
+                <tr lang="ru" finished="false">Положение курсора в миллисекундах</tr>
             </property>
             <!-- @cursor_phase -->
             <property name="@cursor_phase" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">cursor position in 0-1 range</tr>
+                <tr lang="ru" finished="false">Положение курсора в диапазоне 0-1</tr>
             </property>
             <!-- @cursor_samp -->
             <property name="@cursor_samp" type="int" default="0" units="sample">
                 <tr lang="en">cursor position in samples</tr>
+                <tr lang="ru" finished="false">Положение курсора в образцах</tr>
             </property>
             <!-- @cursor_sec -->
             <property name="@cursor_sec" type="float" units="second" default="0">
                 <tr lang="en">cursor position in seconds</tr>
+                <tr lang="ru" finished="false">Положение курсора в секундах</tr>
             </property>
             <!-- @label_bottom -->
             <property name="@label_bottom" type="symbol" default="">
                 <tr lang="en">bottom right label if @show_labels is on</tr>
+                <tr lang="ru" finished="false">нижняя правая этикетка, если @show_labels
+                включен</tr>
             </property>
             <!-- @label_top -->
             <property name="@label_top" type="symbol" default="">
                 <tr lang="en">top right label if @show_labels is on</tr>
+                <tr lang="ru" finished="false">Верхняя правая этикетка, если @show_labels
+                включена</tr>
             </property>
             <!-- @mouse_events -->
             <property name="@mouse_events" type="bool" default="1">
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
                 @mouse_drag events</tr>
+                <tr lang="ru" finished="false">Режим вывода событий мыши. Если на выходе
+                @mouse_down, @mouse_up и @mouse_drag события</tr>
             </property>
             <!-- @select_ms -->
             <property name="@select_ms" type="list" units="millisecond" default="">
                 <tr lang="en">selection range in milliseconds, pair of values: begin, end</tr>
+                <tr lang="ru" finished="false">диапазон выбора в миллисекундах, пара значений:
+                начало, конец</tr>
             </property>
             <!-- @select_phase -->
             <property name="@select_phase" type="list" default="">
                 <tr lang="en">selection range noramlized to 0-1 range, pair of values: begin,
                 end</tr>
+                <tr lang="ru" finished="false">диапазон выбора, норамлированный до диапазона 0-1,
+                пара значений: начало, конец</tr>
             </property>
             <!-- @select_samp -->
             <property name="@select_samp" type="list" units="sample" default="">
                 <tr lang="en">selection range in samples, pair of values: begin, end</tr>
+                <tr lang="ru" finished="false">диапазон выбора в образцах, пара значений: начало,
+                конец</tr>
             </property>
             <!-- @select_sec -->
             <property name="@select_sec" type="list" units="second" default="">
                 <tr lang="en">selection range in seconds, pair of values: begin, end</tr>
+                <tr lang="ru" finished="false">диапазон выбора в секундах, пара значений: начало,
+                конец</tr>
             </property>
             <!-- @selection_color -->
             <property name="@selection_color" type="list" default="0 0.75 1 1">
                 <tr lang="en">selection color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">цвет выбора (список красных, зеленых, синих значений
+                в диапазоне 0-1)</tr>
             </property>
             <!-- @show_labels -->
             <property name="@show_labels" type="bool" default="0">
                 <tr lang="en">if show corner labels</tr>
+                <tr lang="ru" finished="false">Если показать угловые этикетки</tr>
             </property>
             <!-- @show_rms -->
             <property name="@show_rms" type="bool" default="0">
                 <tr lang="en">show RMS graph</tr>
+                <tr lang="ru" finished="false">Показать график RMS</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="300 100">
@@ -138,36 +163,45 @@
             <method name="dump">
                 <info>
                     <tr lang="en">dumps all object info to Pd console window.</tr>
+                    <tr lang="ru" finished="false">Сбрасывает всю информацию об объекте в окно
+                    консоли Pd.</tr>
                 </info>
             </method>
             <!-- pos -->
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
             <!-- select -->
             <method name="select">
                 <info>
                     <tr lang="en">set selection</tr>
+                    <tr lang="ru" finished="false">выбор</tr>
                 </info>
                 <param name="BEGIN" type="int" required="true">
                     <tr lang="en">selection start in samples</tr>
+                    <tr lang="ru" finished="false">Начало отбора проб</tr>
                 </param>
                 <param name="END" type="int" required="true">
                     <tr lang="en">selection end in samples</tr>
+                    <tr lang="ru" finished="false">Конец отбора в образцах</tr>
                 </param>
             </method>
             <!-- update -->
             <method name="update">
                 <info>
                     <tr lang="en">redraws view</tr>
+                    <tr lang="ru" finished="false">перерисовывать взгляд</tr>
                 </info>
             </method>
         </methods>
@@ -177,9 +211,14 @@
                     <tr lang="en">output current cursor positions: @cursor_samp, @cursor_phase,
                     @cursor_ms, @cursor_sec and selection (if selected): @select_samp,
                     @select_phase, @select_ms, @select_sec, @begin, @end</tr>
+                    <tr lang="ru" finished="false">@cursor_samp, @cursor_phase, @cursor_ms,
+                    @cursor_sec и selection (если выбрано): @select_samp, @select_phase,
+                    @select_ms, @select_sec, @begin, @end</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">move cursor to specified sample position</tr>
+                    <tr lang="ru" finished="false">перемещать курсор в указанное положение
+                    образца</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -187,6 +226,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

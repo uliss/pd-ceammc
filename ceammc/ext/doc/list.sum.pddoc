@@ -24,6 +24,8 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list. Non float values are ignored</tr>
+                    <!-- old: Список входов. Неподвижные значения
+                    игнорируются -->
                     <tr lang="ru" finished="false">Список входов. Неподвижные значения
                     игнорируются</tr>
                 </xinfo>
@@ -37,6 +39,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float list sum</tr>
+                    <tr lang="ru" finished="false">сумма листа</tr>
                 </out>
             </outlet>
         </outlets>

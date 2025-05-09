@@ -19,15 +19,21 @@
         <info>
             <par>
                 <tr lang="en">Outputs saw signal in [0..1] or [0..1) range.</tr>
+                <tr lang="ru" finished="false">Выходы видели сигнал в [0,1] или [0,1]
+                диапазоне.</tr>
             </par>
             <par>
                 <tr lang="en">Note: control rate in PureData depends on block size and samplerate.
                 Do not rely on strict timing for this object, especially at high frequencies!</tr>
+                <tr lang="ru" finished="false">Примечание: скорость управления в PureData зависит
+                от размера блока и выборки. Не полагайтесь на строгое время для этого объекта,
+                особенно на высоких частотах!</tr>
             </par>
         </info>
         <arguments>
             <argument name="FREQ" type="float" minvalue="0" maxvalue="100" units="hertz">
                 <tr lang="en">frequency</tr>
+                <tr lang="ru" finished="false">частота</tr>
             </argument>
         </arguments>
         <properties>
@@ -35,22 +41,29 @@
             <property name="@freq" type="float" minvalue="0" default="0" maxvalue="100"
             units="hertz">
                 <tr lang="en">frequency</tr>
+                <tr lang="ru" finished="false">частота</tr>
             </property>
             <!-- @invert -->
             <property name="@invert" type="bool" default="0">
                 <tr lang="en">saw inversion mode. If true, outputs descreasing waveform</tr>
+                <tr lang="ru" finished="false">Видел режим инверсии. Если это правда, выходы
+                уменьшают форму волны</tr>
             </property>
             <!-- @on -->
             <property name="@on" type="bool" default="0">
                 <tr lang="en">on/off state</tr>
+                <tr lang="ru" finished="false">в/вне состояния</tr>
             </property>
             <!-- @open -->
             <property name="@open" type="bool" default="0">
                 <tr lang="en">output in open [0..1) range, otherwise output range is [0..1]</tr>
+                <tr lang="ru" finished="false">выход в открытом диапазоне [0..1), в противном
+                случае выходной диапазон составляет [0..1]</tr>
             </property>
             <!-- @steps -->
             <property name="@steps" type="int" default="128" minvalue="3">
                 <tr lang="en">numbers of steps</tr>
+                <tr lang="ru" finished="false">Количество шагов</tr>
             </property>
         </properties>
         <methods>
@@ -58,39 +71,47 @@
             <method name="phase">
                 <info>
                     <tr lang="en">set current phase</tr>
+                    <tr lang="ru" finished="false">Установить текущий этап</tr>
                 </info>
                 <param name="VALUE" type="float">
                     <tr lang="en">new phase value</tr>
+                    <tr lang="ru" finished="false">Новая фазовая стоимость</tr>
                 </param>
             </method>
             <!-- reset -->
             <method name="reset">
                 <info>
                     <tr lang="en">reset phase and stop</tr>
+                    <tr lang="ru" finished="false">Фаза сброса и остановка</tr>
                 </info>
             </method>
             <!-- rewind -->
             <method name="rewind">
                 <info>
                     <tr lang="en">reset phase without stopping</tr>
+                    <tr lang="ru" finished="false">Фаза сброса без остановки</tr>
                 </info>
             </method>
             <!-- start -->
             <method name="start">
                 <info>
                     <tr lang="en">start from current position</tr>
+                    <tr lang="ru" finished="false">Начните с текущей позиции</tr>
                 </info>
             </method>
             <!-- stop -->
             <method name="stop">
                 <info>
                     <tr lang="en">stop</tr>
+                    <tr lang="ru" finished="false">останавливаться</tr>
                 </info>
             </method>
             <!-- tick -->
             <method name="tick">
                 <info>
                     <tr lang="en">output current value and move to next</tr>
+                    <tr lang="ru" finished="false">вывести текущее значение и перейти к
+                    следующему</tr>
                 </info>
             </method>
         </methods>
@@ -98,11 +119,13 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">1: starts output, 0: stop</tr>
+                    <tr lang="ru" finished="false">1: начало вывода, 0: остановка</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">reset phase to 0</tr>
+                    <tr lang="ru" finished="false">Фаза сброса до 0</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -110,11 +133,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float value in 0..1 range</tr>
+                    <tr lang="ru" finished="false">значение поплавка в диапазоне 0,1</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">bang after full cycle</tr>
+                    <tr lang="ru" finished="false">Взрыв после полного цикла</tr>
                 </out>
             </outlet>
         </outlets>

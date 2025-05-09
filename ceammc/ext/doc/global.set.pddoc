@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">Defines global scope set variable, accessed by ID name</tr>
+                <!-- old: Определяет глобальную переменную, доступную по имени
+                ID -->
                 <tr lang="ru" finished="false">Определяет глобальную переменную, доступную по имени
                 ID</tr>
             </par>
@@ -110,16 +112,22 @@
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">adds new element to set, no output</tr>
+                    <!-- old: Добавление нового элемента в набор, отсутствие
+                    выхода -->
                     <tr lang="ru" finished="false">Добавление нового элемента в набор, отсутствие
                     выхода</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">adds new element to set, no output</tr>
+                    <!-- old: Добавление нового элемента в набор, отсутствие
+                    выхода -->
                     <tr lang="ru" finished="false">Добавление нового элемента в набор, отсутствие
                     выхода</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">adds new elements to set, no output</tr>
+                    <!-- old: Добавление новых элементов в набор, отсутствие
+                    выхода -->
                     <tr lang="ru" finished="false">Добавление новых элементов в набор, отсутствие
                     выхода</tr>
                 </xinfo>
@@ -133,6 +141,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">set output</tr>
+                    <tr lang="ru" finished="false">заданный выход</tr>
                 </out>
             </outlet>
         </outlets>

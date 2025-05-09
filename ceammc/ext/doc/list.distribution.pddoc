@@ -40,6 +40,9 @@
                 <out type="any">
                     <tr lang="en">list of pairs: first element - value, second - number of repeats
                     in list (by default normalized to have sum 1)</tr>
+                    <tr lang="ru" finished="false">список пар: первый элемент - значение, второй -
+                    количество повторов в списке (по умолчанию нормализовано, чтобы иметь сумму
+                    1)</tr>
                 </out>
             </outlet>
         </outlets>

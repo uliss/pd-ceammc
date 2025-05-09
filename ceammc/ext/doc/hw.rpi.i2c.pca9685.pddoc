@@ -33,6 +33,9 @@
             <par>
                 <tr lang="en">Many digital servos run on a 20ms pulse width (50Hz update frequency)
                 based duty cycle, and do not utilize the entire pulse width for their control</tr>
+                <!-- old: Многие цифровые сервоприводы работают на основе
+                рабочего цикла шириной импульса 20 мс (частота обновления 50 Гц) и не используют
+                всю ширину импульса для своего управления. -->
                 <tr lang="ru" finished="false">Многие цифровые сервоприводы работают на основе
                 рабочего цикла шириной импульса 20 мс (частота обновления 50 Гц) и не используют
                 всю ширину импульса для своего управления.</tr>
@@ -40,6 +43,9 @@
             <par>
                 <tr lang="en">Typically, 2.5% of the 20ms pulse width (0.5ms) represents -90°
                 offset, and 12.5% of the 20ms pulse width (2.5ms) represents +90° offset</tr>
+                <!-- old: Как правило, 2,5% ширины импульса 20 мс (0,5 мс)
+                представляет собой смещение -90°, а 12,5% ширины импульса 20 мс (2,5 мс)
+                представляет собой смещение +90°. -->
                 <tr lang="ru" finished="false">Как правило, 2,5% ширины импульса 20 мс (0,5 мс)
                 представляет собой смещение -90°, а 12,5% ширины импульса 20 мс (2,5 мс)
                 представляет собой смещение +90°.</tr>
@@ -49,6 +55,11 @@
                 operational range can cause a little plastic limiter pin to break off and get stuck
                 inside of the servo's gearing, which could potentially cause the servo to become
                 jammed and no longer function</tr>
+                <!-- old: Имейте в виду, что вождение около 180° сервоприводов
+                слишком далеко за пределы их рабочего диапазона -90° / + 90° может привести к тому,
+                что небольшой пластиковый штифт ограничителя отломится и застрянет внутри зубчатой
+                передачи сервопривода, что потенциально может привести к тому, что сервопривод
+                застрянет и больше не будет функционировать. -->
                 <tr lang="ru" finished="false">Имейте в виду, что вождение около 180° сервоприводов
                 слишком далеко за пределы их рабочего диапазона -90° / + 90° может привести к тому,
                 что небольшой пластиковый штифт ограничителя отломится и застрянет внутри зубчатой
@@ -60,6 +71,11 @@
                 but instead of the 2.5%/12.5% pulse width controlling a -90°/+90° offset it
                 controls a -1x/+1x speed multiplier, with 0x being parked/no-movement and -1x/+1x
                 being maximum speed in either direction.</tr>
+                <!-- old: Непрерывные сервоприводы работают во многом так же,
+                как сервоприводы 180°, но вместо 2,5%/12,5% ширины импульса, контролирующего
+                смещение -90°/+90°, он управляет множителем скорости -1x/+1x, при этом 0x
+                припаркован/не движется и -1x/+1x является максимальной скоростью в любом
+                направлении. -->
                 <tr lang="ru" finished="false">Непрерывные сервоприводы работают во многом так же,
                 как сервоприводы 180°, но вместо 2,5%/12,5% ширины импульса, контролирующего
                 смещение -90°/+90°, он управляет множителем скорости -1x/+1x, при этом 0x
@@ -80,6 +96,8 @@
                 <tr lang="en">I²C address. Also 'default' value is accepted (for addr 0x40)</tr>
                 <!-- old: Адрес I²C. Также принимается значение «default» (для
                 адреса 0x40) -->
+                <!-- old: Адрес I2C. Также принимается значение «по умолчанию»
+                (для добавления 0x40) -->
                 <tr lang="ru" finished="false">Адрес I2C. Также принимается значение «по умолчанию»
                 (для добавления 0x40)</tr>
             </property>
@@ -100,6 +118,8 @@
                 </info>
                 <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">
                     <tr lang="en">device PWM channel. If equals to 16 means all channels</tr>
+                    <!-- old: Устройство PWM-канала. 16 означает все
+                    каналы -->
                     <tr lang="ru" finished="false">Устройство PWM-канала. 16 означает все
                     каналы</tr>
                 </param>
@@ -109,6 +129,8 @@
                 </param>
                 <param name="DELAY" type="float" required="false" minvalue="0" maxvalue="1">
                     <tr lang="en">the setting is delayed by the given phase value.</tr>
+                    <!-- old: Установка задерживается заданным значением
+                    фазы. -->
                     <tr lang="ru" finished="false">Установка задерживается заданным значением
                     фазы.</tr>
                 </param>
@@ -117,6 +139,8 @@
             <method name="disable_prog_addr">
                 <info>
                     <tr lang="en">disable of using programmable address</tr>
+                    <!-- old: Отключение использования программируемого
+                    адреса -->
                     <tr lang="ru" finished="false">Отключение использования программируемого
                     адреса</tr>
                 </info>
@@ -133,6 +157,8 @@
                 </info>
                 <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">
                     <tr lang="en">device PWM channel. If equals to 16 means all channels</tr>
+                    <!-- old: Устройство PWM-канала. 16 означает все
+                    каналы -->
                     <tr lang="ru" finished="false">Устройство PWM-канала. 16 означает все
                     каналы</tr>
                 </param>
@@ -151,6 +177,9 @@
                     <tr lang="en">enable/disable the device. The disabled state is equal to sleep,
                     the device is keeping all current PWM setting, but just not responds to the new
                     settings.</tr>
+                    <!-- old: Включить/отключить устройство. Отключенное
+                    состояние равно сну, устройство поддерживает все текущие настройки PWM, но
+                    просто не реагирует на новые настройки. -->
                     <tr lang="ru" finished="false">Включить/отключить устройство. Отключенное
                     состояние равно сну, устройство поддерживает все текущие настройки PWM, но
                     просто не реагирует на новые настройки.</tr>
@@ -165,6 +194,8 @@
                 <info>
                     <tr lang="en">put the controller to sleep while keeping the PWM register
                     contents in preparation for a future restart</tr>
+                    <!-- old: Поставьте контроллер спать, сохраняя содержимое
+                    регистра PWM в процессе подготовки к будущему перезапуску. -->
                     <tr lang="ru" finished="false">Поставьте контроллер спать, сохраняя содержимое
                     регистра PWM в процессе подготовки к будущему перезапуску.</tr>
                 </info>
@@ -197,11 +228,15 @@
             <method name="polarity">
                 <info>
                     <tr lang="en">set PWM inversed polarity. Applicable when OE = 0.</tr>
+                    <!-- old: PWM перевернутая полярность. Применяется при OE
+                    = 0. -->
                     <tr lang="ru" finished="false">PWM перевернутая полярность. Применяется при OE
                     = 0.</tr>
                 </info>
                 <param name="POLARITY" type="bool" required="true">
                     <tr lang="en">polarity value: 0 - direct, 1 - inversed</tr>
+                    <!-- old: Значение полярности: 0 - прямое, 1 -
+                    обратное -->
                     <tr lang="ru" finished="false">Значение полярности: 0 - прямое, 1 -
                     обратное</tr>
                 </param>
@@ -214,6 +249,8 @@
                 </info>
                 <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">
                     <tr lang="en">device PWM channel. If equals to 16 means all channels</tr>
+                    <!-- old: Устройство PWM-канала. 16 означает все
+                    каналы -->
                     <tr lang="ru" finished="false">Устройство PWM-канала. 16 означает все
                     каналы</tr>
                 </param>
@@ -232,6 +269,9 @@
                 <info>
                     <tr lang="en">re-enable the controller after a sleep with restart enabled so
                     that previously active PWM channels are restarted</tr>
+                    <!-- old: повторно включить контроллер после сна с
+                    включенным перезапуском таким образом, чтобы были перезапущены ранее активные
+                    каналы PWM -->
                     <tr lang="ru" finished="false">повторно включить контроллер после сна с
                     включенным перезапуском таким образом, чтобы были перезапущены ранее активные
                     каналы PWM</tr>
@@ -245,6 +285,8 @@
                 </info>
                 <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">
                     <tr lang="en">device PWM channel. If equals to 16 means all channels</tr>
+                    <!-- old: Устройство PWM-канала. 16 означает все
+                    каналы -->
                     <tr lang="ru" finished="false">Устройство PWM-канала. 16 означает все
                     каналы</tr>
                 </param>
@@ -261,6 +303,8 @@
             <method name="use_prog_addr">
                 <info>
                     <tr lang="en">set and use programmable address</tr>
+                    <!-- old: установить и использовать программируемый
+                    адрес -->
                     <tr lang="ru" finished="false">установить и использовать программируемый
                     адрес</tr>
                 </info>
@@ -286,6 +330,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">control output</tr>
+                    <tr lang="ru" finished="false">контрольный выход</tr>
                 </out>
             </outlet>
         </outlets>

@@ -26,6 +26,8 @@
             <par>
                 <tr lang="en">The ceil() function return the smallest integral value greater than
                 or equal to input value.</tr>
+                <!-- old: Функция ceil() возвращает наименьшее интегральное
+                значение, большее или равное входному значению. -->
                 <tr lang="ru" finished="false">Функция ceil() возвращает наименьшее интегральное
                 значение, большее или равное входному значению.</tr>
             </par>
@@ -39,6 +41,8 @@
             </par>
             <par>
                 <tr lang="en">ceil(+-infinity) returns +-infinity.</tr>
+                <!-- old: Потолок (+-бесконечность) возвращает
+                +-бесконечность. -->
                 <tr lang="ru" finished="false">Потолок (+-бесконечность) возвращает
                 +-бесконечность.</tr>
             </par>
@@ -59,6 +63,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

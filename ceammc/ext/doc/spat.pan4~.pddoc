@@ -26,9 +26,11 @@
         <arguments>
             <argument name="RADIUS" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">panning radius</tr>
+                <tr lang="ru" finished="false">радиус панорамирования</tr>
             </argument>
             <argument name="ANGLE" type="float" minvalue="0" units="radian" maxvalue="2π">
                 <tr lang="en">circle panning position in radians</tr>
+                <tr lang="ru" finished="false">положение кругового панорамирования в радианах</tr>
             </argument>
         </arguments>
         <properties>
@@ -39,19 +41,23 @@
             <property name="@angle" type="float" minvalue="0" default="0" maxvalue="2π"
             units="radian">
                 <tr lang="en">panning position in radians</tr>
+                <tr lang="ru" finished="false">положение в радианах</tr>
             </property>
             <!-- @radius -->
             <property name="@radius" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">distance from circle center</tr>
+                <tr lang="ru" finished="false">Расстояние до центра круга</tr>
             </property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">set radius and angle</tr>
+                    <tr lang="ru" finished="false">установленный радиус и угол</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -59,21 +65,25 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">1st output channel</tr>
+                    <tr lang="ru" finished="false">1-й выходной канал</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">2nd output channel</tr>
+                    <tr lang="ru" finished="false">2-й выходной канал</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">3rd output channel</tr>
+                    <tr lang="ru" finished="false">3-й выходной канал</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">4th output channel</tr>
+                    <tr lang="ru" finished="false">4-й выходной канал</tr>
                 </out>
             </outlet>
         </outlets>

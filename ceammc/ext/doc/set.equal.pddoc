@@ -22,26 +22,32 @@
         <arguments>
             <argument name="SUBJ" type="list">
                 <tr lang="en">right set elements</tr>
+                <tr lang="ru" finished="false">Правильный набор элементов</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @subj -->
             <property name="@subj" type="list" default="Set()">
                 <tr lang="en">right set elements of data:Set</tr>
+                <tr lang="ru" finished="false">Правильный набор элементов данных:Set</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">set or list, other values are ignored.</tr>
+                    <tr lang="ru" finished="false">Набор или список, другие ценности
+                    игнорируются.</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set right set elements</tr>
+                    <tr lang="ru" finished="false">Настройка правильного набора элементов</tr>
                 </xinfo>
                 <xinfo on="data:set">
                     <tr lang="en">set right set</tr>
+                    <tr lang="ru" finished="false">Установить правильно</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -49,6 +55,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output 1 if sets are equal, 0 otherwise</tr>
+                    <tr lang="ru" finished="false">выход 1 если множества равны, 0 иначе</tr>
                 </out>
             </outlet>
         </outlets>

@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">Computes the value of the natural logarithm of argument x.</tr>
+                <!-- old: Вычисляет значение натурального логарифма аргумента
+                x. -->
                 <tr lang="ru" finished="false">Вычисляет значение натурального логарифма аргумента
                 x.</tr>
             </par>
@@ -62,6 +64,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

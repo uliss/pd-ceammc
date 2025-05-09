@@ -27,12 +27,16 @@
                 <xinfo on="float">
                     <tr lang="en">calc all coefficients for given order and output them as
                     list</tr>
+                    <!-- old: вычислить все коэффициенты для данного порядка и
+                    вывести их в виде списка -->
                     <tr lang="ru" finished="false">вычислить все коэффициенты для данного порядка и
                     вывести их в виде списка</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">N K pair expected. Calc and output only specified
                     coefficient.</tr>
+                    <!-- old: Ожидалась пара Н.К. Кальк и выход только
+                    заданный коэффициент. -->
                     <tr lang="ru" finished="false">Ожидалась пара Н.К. Кальк и выход только
                     заданный коэффициент.</tr>
                 </xinfo>
@@ -42,6 +46,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

@@ -56,12 +56,16 @@
             <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
             maxvalue="100">
                 <tr lang="en">time constant when level &amp; compression going up</tr>
+                <!-- old: Постоянная времени, когда уровень и сжатие
+                растут -->
                 <tr lang="ru" finished="false">Постоянная времени, когда уровень и сжатие
                 растут</tr>
             </property>
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
@@ -70,6 +74,8 @@
             maxvalue="18">
                 <tr lang="en">make up gain: applied to the signal after the compression takes
                 place</tr>
+                <!-- old: прирост макияжа: применяется к сигналу после
+                сжатия -->
                 <tr lang="ru" finished="false">прирост макияжа: применяется к сигналу после
                 сжатия</tr>
             </property>
@@ -82,6 +88,8 @@
             <!-- @ratio -->
             <property name="@ratio" type="float" default="1" minvalue="1" maxvalue="16">
                 <tr lang="en">compression ratio (1 = no compression, &gt;1 means compression)</tr>
+                <!-- old: Соотношение сжатия (1 = не сжатие, >1 означает
+                сжатие) -->
                 <tr lang="ru" finished="false">Соотношение сжатия (1 = не сжатие, &gt;1 означает
                 сжатие)</tr>
             </property>
@@ -89,6 +97,8 @@
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
             units="millisecond">
                 <tr lang="en">compression level output time interval. If 0 - no output</tr>
+                <!-- old: выходной интервал уровня сжатия. Если 0 - выход
+                отсутствует -->
                 <tr lang="ru" finished="false">выходной интервал уровня сжатия. Если 0 - выход
                 отсутствует</tr>
             </property>
@@ -96,6 +106,8 @@
             <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
             maxvalue="500">
                 <tr lang="en">release time = time constant coming out of compression</tr>
+                <!-- old: Время высвобождения = постоянная времени, выходящая
+                из сжатия -->
                 <tr lang="ru" finished="false">Время высвобождения = постоянная времени, выходящая
                 из сжатия</tr>
             </property>
@@ -104,6 +116,8 @@
             maxvalue="0">
                 <tr lang="en">level threshold above which compression kicks in (100 dB = max
                 level)</tr>
+                <!-- old: порог уровня, выше которого начинается сжатие (100
+                дБ = максимальный уровень) -->
                 <tr lang="ru" finished="false">порог уровня, выше которого начинается сжатие (100
                 дБ = максимальный уровень)</tr>
             </property>
@@ -140,11 +154,14 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output compressed signal</tr>
+                    <tr lang="ru" finished="false">выходной сжатый сигнал</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">float: output current compression level in [0..1]</tr>
+                    <tr lang="ru" finished="false">Поплавок: уровень сжатия выходного тока в
+                    [0,1]</tr>
                 </out>
             </outlet>
         </outlets>

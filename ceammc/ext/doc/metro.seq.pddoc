@@ -35,6 +35,8 @@
             </argument>
             <argument name="PATTERN" type="list">
                 <tr lang="en">list of 1 and 0. Where 1 means output bang on this beat</tr>
+                <!-- old: Список 1 и 0. Где 1 означает выходной удар по этому
+                биту -->
                 <tr lang="ru" finished="false">Список 1 и 0. Где 1 означает выходной удар по этому
                 биту</tr>
             </argument>
@@ -53,6 +55,8 @@
             <!-- @pattern -->
             <property name="@pattern" type="list" default="">
                 <tr lang="en">list of 1 and 0. Where 1 means output bang on this beat</tr>
+                <!-- old: Список 1 и 0. Где 1 означает выходной удар по этому
+                биту -->
                 <tr lang="ru" finished="false">Список 1 и 0. Где 1 означает выходной удар по этому
                 биту</tr>
             </property>
@@ -81,6 +85,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs *bang*</tr>
+                    <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
                 </out>
             </outlet>
         </outlets>

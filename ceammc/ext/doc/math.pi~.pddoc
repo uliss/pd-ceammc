@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">The number PI is a mathematical constant, the ratio of a circle's
                 circumference to its diameter, commonly approximated as 3.14159.</tr>
+                <!-- old: Число PI — математическая константа, отношение
+                окружности круга к его диаметру, обычно аппроксимируемое как 3.14159. -->
                 <tr lang="ru" finished="false">Число PI — математическая константа, отношение
                 окружности круга к его диаметру, обычно аппроксимируемое как 3.14159.</tr>
             </par>
@@ -49,6 +51,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </out>
             </outlet>
         </outlets>

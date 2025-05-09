@@ -49,6 +49,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float: popped front element</tr>
+                    <tr lang="ru" finished="false">Поплавок: лопнувший передний элемент</tr>
                 </out>
             </outlet>
         </outlets>

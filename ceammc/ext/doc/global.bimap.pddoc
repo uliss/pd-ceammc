@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">NOTE: all object inlets are 'hot'</tr>
+                <!-- old: ПРИМЕЧАНИЕ: все входы объекта являются
+                «горячими» -->
                 <tr lang="ru" finished="false">ПРИМЕЧАНИЕ: все входы объекта являются
                 «горячими»</tr>
             </par>
@@ -66,6 +68,8 @@
             <property name="@value" type="list" default="">
                 <tr lang="en">value, list of pairs: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2
                 etc.</tr>
+                <!-- old: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 и
+                т.д. -->
                 <tr lang="ru" finished="false">LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 и
                 т.д.</tr>
             </property>
@@ -93,6 +97,8 @@
             <method name="read">
                 <info>
                     <tr lang="en">read bimap from JSON file. Array of array pairs expected.</tr>
+                    <!-- old: Читать карту из файла JSON. Ожидалось множество
+                    пар массивов. -->
                     <tr lang="ru" finished="false">Читать карту из файла JSON. Ожидалось множество
                     пар массивов.</tr>
                 </info>
@@ -117,6 +123,8 @@
                 <info>
                     <tr lang="en">write to JSON file, to overwrite existing file use @force
                     flag</tr>
+                    <!-- old: писать в файл JSON, перезаписывать существующий
+                    файл с помощью флага @force -->
                     <tr lang="ru" finished="false">писать в файл JSON, перезаписывать существующий
                     файл с помощью флага @force</tr>
                 </info>
@@ -126,6 +134,8 @@
                 </param>
                 <param name="@force" type="symbol" required="false">
                     <tr lang="en">force flag to overwrite existing files</tr>
+                    <!-- old: Заставить флаг перезаписывать существующие
+                    файлы -->
                     <tr lang="ru" finished="false">Заставить флаг перезаписывать существующие
                     файлы</tr>
                 </param>
@@ -136,12 +146,16 @@
                 <xinfo on="atom">
                     <tr lang="en">try to find left key in the map and output the right value on
                     success</tr>
+                    <!-- old: Попробуйте найти левый ключ на карте и вывести
+                    правильное значение успеха. -->
                     <tr lang="ru" finished="false">Попробуйте найти левый ключ на карте и вывести
                     правильное значение успеха.</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">try to find each left key of the list in the map and output the
                     result list of right values</tr>
+                    <!-- old: Попробуйте найти каждый левый ключ списка на
+                    карте и выведите список результатов правильных значений. -->
                     <tr lang="ru" finished="false">Попробуйте найти каждый левый ключ списка на
                     карте и выведите список результатов правильных значений.</tr>
                 </xinfo>
@@ -150,12 +164,16 @@
                 <xinfo on="atom">
                     <tr lang="en">try to find right key in the map and output the left value on
                     success</tr>
+                    <!-- old: Попробуйте найти правильный ключ на карте и
+                    вывести левое значение успеха. -->
                     <tr lang="ru" finished="false">Попробуйте найти правильный ключ на карте и
                     вывести левое значение успеха.</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">try to find each right key of the list in the map and output the
                     result list of left values</tr>
+                    <!-- old: Попробуйте найти каждый правый ключ списка на
+                    карте и выведите список результатов левых значений. -->
                     <tr lang="ru" finished="false">Попробуйте найти каждый правый ключ списка на
                     карте и выведите список результатов левых значений.</tr>
                 </xinfo>
@@ -165,11 +183,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">atom or list: right value output</tr>
+                    <tr lang="ru" finished="false">Атом или список: выход правильного значения</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">atom or list: left value output</tr>
+                    <tr lang="ru" finished="false">Атом или список: выходное значение слева</tr>
                 </out>
             </outlet>
         </outlets>

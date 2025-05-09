@@ -25,6 +25,9 @@
             <par>
                 <tr lang="en">In linear space, the sequence starts at base^start (base to the power
                 of start) and ends with base^stop (see @endpoint).</tr>
+                <!-- old: В линейном пространстве последовательность
+                начинается от base^start (база к мощности старта) и заканчивается base^stop (см.
+                @endpoint). -->
                 <tr lang="ru" finished="false">В линейном пространстве последовательность
                 начинается от base^start (база к мощности старта) и заканчивается base^stop (см.
                 @endpoint).</tr>
@@ -82,6 +85,8 @@
             <!-- @start -->
             <property name="@start" type="float" default="0">
                 <tr lang="en">starting value of the sequence: base^start</tr>
+                <!-- old: Начальное значение последовательности:
+                base^start -->
                 <tr lang="ru" finished="false">Начальное значение последовательности:
                 base^start</tr>
             </property>
@@ -90,6 +95,10 @@
                 <tr lang="en">the final value (base^stop) of the sequence, unless @endpoint is
                 false. In that case, @n + 1 values are spaced over the interval in log-space, of
                 which all but the last (a sequence of length @n) are returned.</tr>
+                <!-- old: конечное значение (base^stop) последовательности,
+                если только @endpoint не является ложным. В этом случае значения @n + 1 размещаются
+                через интервал в пространстве журнала, из которого возвращаются все, кроме
+                последнего (последовательность длины @n). -->
                 <tr lang="ru" finished="false">конечное значение (base^stop) последовательности,
                 если только @endpoint не является ложным. В этом случае значения @n + 1 размещаются
                 через интервал в пространстве журнала, из которого возвращаются все, кроме
@@ -104,6 +113,8 @@
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">output specified number of values, change @n property valuue</tr>
+                    <!-- old: выход заданного количества значений, изменение
+                    @n стоимости имущества -->
                     <tr lang="ru" finished="false">выход заданного количества значений, изменение
                     @n стоимости имущества</tr>
                 </xinfo>
@@ -113,11 +124,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">signal output</tr>
+                    <tr lang="ru" finished="false">выход сигнала</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">output to [array.plot~] or [ui.plot~]</tr>
+                    <tr lang="ru" finished="false">[array.plot~] или [ui.plot~]</tr>
                 </out>
             </outlet>
         </outlets>

@@ -30,6 +30,8 @@
             <par>
                 <tr lang="en">[ui.hrd] alias for horizontal radio, [ui.vrd] alias for vertical
                 radio, [ui.hrd*] alias for horizontal radio checklist.</tr>
+                <tr lang="ru" finished="false">[ui.hrd] alias for horizontal radio, [ui.vrd] alias
+                for vertical radio, [ui.hrd*] alias for horizontal radio checklist.</tr>
             </par>
         </info>
         <mouse>
@@ -43,6 +45,7 @@
         <arguments>
             <argument name="NCELLS" type="float" minvalue="2" maxvalue="128">
                 <tr lang="en">number of cells</tr>
+                <tr lang="ru" finished="false">Количество клеток</tr>
             </argument>
         </arguments>
         <properties>
@@ -60,15 +63,20 @@
             <!-- @mode -->
             <property name="@mode" type="bool" default="0">
                 <tr lang="en">check list mode. If true acts as checklist</tr>
+                <tr lang="ru" finished="false">Режим контрольного списка. Если правда действует как
+                контрольный список</tr>
             </property>
             <!-- @mouse_events -->
             <property name="@mouse_events" type="bool" default="0">
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down and @mouse_drag
                 events</tr>
+                <tr lang="ru" finished="false">Режим вывода событий мыши. Если на выходе
+                @mouse_down и @mouse_drag события</tr>
             </property>
             <!-- @nitems -->
             <property name="@nitems" type="int" default="8" minvalue="2" maxvalue="128">
                 <tr lang="en">number of items</tr>
+                <tr lang="ru" finished="false">количество пунктов</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="120 15">
@@ -85,73 +93,95 @@
             <method name="+ STEP">
                 <info>
                     <tr lang="en">moves several steps forward on a loop (single mode only)</tr>
+                    <tr lang="ru" finished="false">перемещается на несколько шагов вперед по петле
+                    (только в одном режиме)</tr>
                 </info>
             </method>
             <!-- - STEP -->
             <method name="- STEP">
                 <info>
                     <tr lang="en">moves several step backwards on a loop (single mode only)</tr>
+                    <tr lang="ru" finished="false">перемещается на несколько шагов назад по петле
+                    (только в одном режиме)</tr>
                 </info>
             </method>
             <!-- cellsize -->
             <method name="cellsize">
                 <info>
                     <tr lang="en">set cell size (resize widget)</tr>
+                    <tr lang="ru" finished="false">Размер ячейки (resize widget)</tr>
                 </info>
                 <param name="X" type="int" required="true">
                     <tr lang="en">cell size in pixels</tr>
+                    <tr lang="ru" finished="false">Размер ячейки в пикселях</tr>
                 </param>
             </method>
             <!-- clear -->
             <method name="clear">
                 <info>
                     <tr lang="en">clears specified preset</tr>
+                    <tr lang="ru" finished="false">заданный заранее</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
             <!-- euclid -->
             <method name="euclid">
                 <info>
                     <tr lang="en">set euclid pattern (checklist mode only)</tr>
+                    <tr lang="ru" finished="false">Установить шаблон Euclid (только режим
+                    контрольного списка)</tr>
                 </info>
                 <param name="BEATS" type="int" required="true">
                     <tr lang="en">requested number of beats</tr>
+                    <tr lang="ru" finished="false">Запрошенное количество ударов</tr>
                 </param>
                 <param name="OFFSET" type="int" required="false">
                     <tr lang="en">pattern offset (rotation to the right)</tr>
+                    <tr lang="ru" finished="false">смещение рисунка (поворот вправо)</tr>
                 </param>
             </method>
             <!-- flip -->
             <method name="flip">
                 <info>
                     <tr lang="en">flips radio (only in checklist mode)</tr>
+                    <tr lang="ru" finished="false">flips radio (только в режиме контрольного
+                    списка)</tr>
                 </info>
             </method>
             <!-- hexbeat -->
             <method name="hexbeat">
                 <info>
                     <tr lang="en">set hexbeat pattern (checklist mode only)</tr>
+                    <tr lang="ru" finished="false">Установить шаблон hexbeat (только режим
+                    контрольного списка)</tr>
                 </info>
                 <param name="HEXSTR" type="symbol" required="true">
                     <tr lang="en">hex string. For example, 0xF1 will set 1 1 1 1 0 0 0 1
                     pattern</tr>
+                    <tr lang="ru" finished="false">Хекс-струна. Например, 0xF1 установит шаблон 1 1
+                    1 1 0 0 0 1</tr>
                 </param>
             </method>
             <!-- interp -->
             <method name="interp">
                 <info>
                     <tr lang="en">for this object acts as *load*, no interpolation performed</tr>
+                    <tr lang="ru" finished="false">для этого объекта действует как *load*,
+                    интерполяция не выполняется</tr>
                 </info>
             </method>
             <!-- load -->
             <method name="load">
                 <info>
                     <tr lang="en">loads specified preset</tr>
+                    <tr lang="ru" finished="false">заданный заранее заданный</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
             <!-- next -->
@@ -159,18 +189,23 @@
                 <info>
                     <tr lang="en">moves to next position until last cell is reached (single mode
                     only)</tr>
+                    <tr lang="ru" finished="false">перемещается в следующую позицию до достижения
+                    последней ячейки (только в одном режиме)</tr>
                 </info>
             </method>
             <!-- pos -->
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
             <!-- prev -->
@@ -178,6 +213,8 @@
                 <info>
                     <tr lang="en">moves to previous position until first cell is reached (single
                     mode only)</tr>
+                    <tr lang="ru" finished="false">перемещается в предыдущее положение до
+                    достижения первой ячейки (только в одном режиме)</tr>
                 </info>
             </method>
             <!-- random -->
@@ -185,39 +222,50 @@
                 <info>
                     <tr lang="en">select random cells. If called as [random move( moves to another
                     random cell (excluding the current one)</tr>
+                    <tr lang="ru" finished="false">Выберите случайные клетки. Если называется
+                    [случайный ход (переходит в другую случайную ячейку (исключая текущую))</tr>
                 </info>
             </method>
             <!-- reset -->
             <method name="reset">
                 <info>
                     <tr lang="en">reset radio (only in checklist mode)</tr>
+                    <tr lang="ru" finished="false">Reset Radio (только в режиме контрольного
+                    списка)</tr>
                 </info>
             </method>
             <!-- rotate -->
             <method name="rotate">
                 <info>
                     <tr lang="en">left rotate (checklist mode only)</tr>
+                    <tr lang="ru" finished="false">левый поворот (только режим контрольного
+                    списка)</tr>
                 </info>
                 <param name="STEPS" type="int" required="true">
                     <tr lang="en">number of steps</tr>
+                    <tr lang="ru" finished="false">Количество шагов</tr>
                 </param>
             </method>
             <!-- set -->
             <method name="set">
                 <info>
                     <tr lang="en">sets radio without output</tr>
+                    <tr lang="ru" finished="false">Радио без выходных сигналов</tr>
                 </info>
                 <param name="V" type="float" required="true">
                     <tr lang="en">new value</tr>
+                    <tr lang="ru" finished="false">Новая стоимость</tr>
                 </param>
             </method>
             <!-- store -->
             <method name="store">
                 <info>
                     <tr lang="en">stores specified preset</tr>
+                    <tr lang="ru" finished="false">магазины, указанные Preset</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
         </methods>
@@ -225,12 +273,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs current radio state</tr>
+                    <tr lang="ru" finished="false">Текущее состояние радио</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">set radio and output</tr>
+                    <tr lang="ru" finished="false">установить радио и выход</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">set radio and output (only in checklist mode)</tr>
+                    <tr lang="ru" finished="false">установить радио и выход (только в режиме
+                    контрольного списка)</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -238,6 +290,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </out>
             </outlet>
         </outlets>

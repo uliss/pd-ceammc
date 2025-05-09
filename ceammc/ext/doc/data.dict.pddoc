@@ -28,6 +28,8 @@
             <par>
                 <tr lang="en">Syntax: [key1: value key2 : "with space"]. Nested dictionaries are
                 supported: [a: [A:1 B:2]]).</tr>
+                <!-- old: Синтаксис: [key1: value key2: "с пространством"].
+                Поддерживаются вложенные словари: [a: [A:1 B:2]]. -->
                 <tr lang="ru" finished="false">Синтаксис: [key1: value key2: "с пространством"].
                 Поддерживаются вложенные словари: [a: [A:1 B:2]].</tr>
             </par>
@@ -133,6 +135,8 @@
             <method name="set_key">
                 <info>
                     <tr lang="en">change entry in dictionary. If it's not exists, do nothing.</tr>
+                    <!-- old: изменить запись в словаре. Если его нет, ничего
+                    не делай. -->
                     <tr lang="ru" finished="false">изменить запись в словаре. Если его нет, ничего
                     не делай.</tr>
                 </info>
@@ -166,6 +170,9 @@
                 <xinfo on="list">
                     <tr lang="en">set dict from list. Key-value pairs are expected. [1 2 3 4(
                     becames dict with keys: 1 and 3, values: 2 and 4. No output</tr>
+                    <!-- old: Установить диктовку из списка. Ключ Ожидаются
+                    пары значений. [1 2 3 4(стали диктовать ключами: 1 и 3, значения: 2 и 4). Нет
+                    выхода -->
                     <tr lang="ru" finished="false">Установить диктовку из списка. Ключ Ожидаются
                     пары значений. [1 2 3 4(стали диктовать ключами: 1 и 3, значения: 2 и 4). Нет
                     выхода</tr>
@@ -180,6 +187,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output dictionary</tr>
+                    <tr lang="ru" finished="false">выходной словарь</tr>
                 </out>
             </outlet>
         </outlets>

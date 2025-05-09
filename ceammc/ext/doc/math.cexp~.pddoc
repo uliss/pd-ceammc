@@ -27,18 +27,24 @@
             <par>
                 <tr lang="en">Base-e exponential of complex signal, that is e (Euler's number,
                 2.7182818) raised to the complex signal power</tr>
+                <!-- old: База e экспоненциальна сложному сигналу, то есть e
+                (число Эйлера, 2.7182818) повышена до мощности сложного сигнала -->
                 <tr lang="ru" finished="false">База e экспоненциальна сложному сигналу, то есть e
                 (число Эйлера, 2.7182818) повышена до мощности сложного сигнала</tr>
             </par>
             <par>
                 <tr lang="en">The complex exponential function e^z for z = x+jy equals e^x (cos(y)
                 + j sin(y))</tr>
+                <!-- old: Сложная экспоненциальная функция e^z для z = x+jy
+                равна e^x (cos(y) + j sin(y)) -->
                 <tr lang="ru" finished="false">Сложная экспоненциальная функция e^z для z = x+jy
                 равна e^x (cos(y) + j sin(y))</tr>
             </par>
             <par>
                 <tr lang="en">The exponential function is an entire function in the complex plane
                 and has no branch cuts</tr>
+                <!-- old: Экспоненциальная функция является целой функцией в
+                комплексной плоскости и не имеет разрезов ветвей. -->
                 <tr lang="ru" finished="false">Экспоненциальная функция является целой функцией в
                 комплексной плоскости и не имеет разрезов ветвей.</tr>
             </par>
@@ -61,11 +67,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">real part of result</tr>
+                    <tr lang="ru" finished="false">Реальная часть результата</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">imag part of result</tr>
+                    <tr lang="ru" finished="false">Имаг часть результата</tr>
                 </out>
             </outlet>
         </outlets>

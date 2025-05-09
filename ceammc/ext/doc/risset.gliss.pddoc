@@ -19,29 +19,35 @@
         <arguments>
             <argument name="BASE" type="float" units="semitone" minvalue="10" maxvalue="100">
                 <tr lang="en">base pitch</tr>
+                <tr lang="ru" finished="false">базовый уровень</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @ampexp -->
             <property name="@ampexp" type="float" default="2">
                 <tr lang="en">amplitude exponent</tr>
+                <tr lang="ru" finished="false">показатель амплитуды</tr>
             </property>
             <!-- @base -->
             <property name="@base" type="float" default="60" minvalue="10" maxvalue="100"
             units="semitone">
                 <tr lang="en">base pitch</tr>
+                <tr lang="ru" finished="false">базовый уровень</tr>
             </property>
             <!-- @interval -->
             <property name="@interval" type="float" default="12" units="semitone">
                 <tr lang="en">interval between bands</tr>
+                <tr lang="ru" finished="false">интервал между полосами</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" default="5" access="initonly">
                 <tr lang="en">number of bands</tr>
+                <tr lang="ru" finished="false">Количество полос</tr>
             </property>
             <!-- @shift -->
             <property name="@shift" type="float" default="0">
                 <tr lang="en">band shift in octaves</tr>
+                <tr lang="ru" finished="false">Сдвиг группы в октавах</tr>
             </property>
         </properties>
         <methods />
@@ -49,6 +55,7 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">glissando phase</tr>
+                    <tr lang="ru" finished="false">фаза глиссандо</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -56,11 +63,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list of midi pitches</tr>
+                    <tr lang="ru" finished="false">Список игр Midi</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">list of amplitudes</tr>
+                    <tr lang="ru" finished="false">Список амплитуд</tr>
                 </out>
             </outlet>
         </outlets>

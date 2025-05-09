@@ -36,6 +36,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">new shuffled list</tr>
+                    <tr lang="ru" finished="false">Новый перетасованный список</tr>
                 </out>
             </outlet>
         </outlets>

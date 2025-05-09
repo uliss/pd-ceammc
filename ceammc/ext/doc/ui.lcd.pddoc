@@ -42,18 +42,23 @@
             <property name="@background_color" type="list" default="1 1 1 1">
                 <tr lang="en">element background color (list of red, green, blue values in 0-1
                 range)</tr>
+                <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @cols -->
             <property name="@cols" type="int" minvalue="2" maxvalue="128" default="8">
                 <tr lang="en">number of columns</tr>
+                <tr lang="ru" finished="false">Количество колонок</tr>
             </property>
             <!-- @pixels -->
             <property name="@pixels" type="int" default="64" access="readonly">
                 <tr lang="en">number of pixels</tr>
+                <tr lang="ru" finished="false">Количество пикселей</tr>
             </property>
             <!-- @rows -->
             <property name="@rows" type="int" minvalue="2" maxvalue="128" default="8">
                 <tr lang="en">number of rows</tr>
+                <tr lang="ru" finished="false">количество строк</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="64 64">
@@ -66,150 +71,190 @@
             <method name="clear">
                 <info>
                     <tr lang="en">clear display</tr>
+                    <tr lang="ru" finished="false">четкий дисплей</tr>
                 </info>
             </method>
             <!-- draw down -->
             <method name="draw down">
                 <info>
                     <tr lang="en">moves draw cursor down along y-asis ans draw single pixel</tr>
+                    <tr lang="ru" finished="false">ходы рисуют курсор вниз по y-asis ans рисуют
+                    один пиксель</tr>
                 </info>
                 <param name="YOFF" type="int" required="false">
                     <tr lang="en">y-offset. If omitted: 1</tr>
+                    <tr lang="ru" finished="false">И-оффсет. Если опущено: 1</tr>
                 </param>
             </method>
             <!-- draw left -->
             <method name="draw left">
                 <info>
                     <tr lang="en">moves draw cursor left along x-asis ans draw single pixel</tr>
+                    <tr lang="ru" finished="false">ходы рисовать курсор слева вдоль x-asis рисовать
+                    один пиксель</tr>
                 </info>
                 <param name="XOFF" type="int" required="false">
                     <tr lang="en">x-offset. If omitted: 1</tr>
+                    <tr lang="ru" finished="false">Х-оффсет. Если опущено: 1</tr>
                 </param>
             </method>
             <!-- draw right -->
             <method name="draw right">
                 <info>
                     <tr lang="en">moves cursor right along x-asis ans draw single pixel</tr>
+                    <tr lang="ru" finished="false">перемещает курсор вдоль одного пикселя x-asis
+                    ans</tr>
                 </info>
                 <param name="XOFF" type="int" required="false">
                     <tr lang="en">x-offset. If omitted: 1</tr>
+                    <tr lang="ru" finished="false">Х-оффсет. Если опущено: 1</tr>
                 </param>
             </method>
             <!-- draw set -->
             <method name="draw set">
                 <info>
                     <tr lang="en">set drawing value</tr>
+                    <tr lang="ru" finished="false">заданная величина</tr>
                 </info>
                 <param name="VALUE" type="bool" required="true">
                     <tr lang="en">draw pixel value (1: black, 0: white)</tr>
+                    <tr lang="ru" finished="false">значение пикселя (1: черный, 0: белый)</tr>
                 </param>
             </method>
             <!-- draw up -->
             <method name="draw up">
                 <info>
                     <tr lang="en">moves draw cursor up along y-asis ans draw single pixel</tr>
+                    <tr lang="ru" finished="false">ходы рисуют курсор вверх по y-asis ans рисуют
+                    один пиксель</tr>
                 </info>
                 <param name="YOFF" type="int" required="false">
                     <tr lang="en">y-offset. If omitted: 1</tr>
+                    <tr lang="ru" finished="false">И-оффсет. Если опущено: 1</tr>
                 </param>
             </method>
             <!-- dump -->
             <method name="dump">
                 <info>
                     <tr lang="en">dumps all object info to Pd console window.</tr>
+                    <tr lang="ru" finished="false">Сбрасывает всю информацию об объекте в окно
+                    консоли Pd.</tr>
                 </info>
             </method>
             <!-- invert -->
             <method name="invert">
                 <info>
                     <tr lang="en">invert display</tr>
+                    <tr lang="ru" finished="false">инвертированный дисплей</tr>
                 </info>
             </method>
             <!-- pos -->
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
             <!-- set -->
             <method name="set">
                 <info>
                     <tr lang="en">set display content</tr>
+                    <tr lang="ru" finished="false">Настройка отображения контента</tr>
                 </info>
                 <param name="PIXELS" type="list" required="true">
                     <tr lang="en">pixel values</tr>
+                    <tr lang="ru" finished="false">значения пикселей</tr>
                 </param>
             </method>
             <!-- set col -->
             <method name="set col">
                 <info>
                     <tr lang="en">set column content</tr>
+                    <tr lang="ru" finished="false">Настройка столбца</tr>
                 </info>
                 <param name="N" type="int" required="true">
                     <tr lang="en">column index</tr>
+                    <tr lang="ru" finished="false">колоночный индекс</tr>
                 </param>
                 <param name="PIXELS" type="list" required="true">
                     <tr lang="en">column pixel values</tr>
+                    <tr lang="ru" finished="false">значения пикселей столбца</tr>
                 </param>
             </method>
             <!-- set cursor -->
             <method name="set cursor">
                 <info>
                     <tr lang="en">set draw cursor point</tr>
+                    <tr lang="ru" finished="false">Настройка draw cursor point</tr>
                 </info>
                 <param name="X" type="int" required="true">
                     <tr lang="en">X-position (from left)</tr>
+                    <tr lang="ru" finished="false">XX - положение (слева)</tr>
                 </param>
                 <param name="Y" type="int" required="true">
                     <tr lang="en">Y-position (from top)</tr>
+                    <tr lang="ru" finished="false">Y - положение (сверху)</tr>
                 </param>
             </method>
             <!-- set matrix -->
             <method name="set matrix">
                 <info>
                     <tr lang="en">set matrix data</tr>
+                    <tr lang="ru" finished="false">заданные матрицы данных</tr>
                 </info>
                 <param name="NROWS" type="int" required="true">
                     <tr lang="en">matrix row number</tr>
+                    <tr lang="ru" finished="false">Число строк матрицы</tr>
                 </param>
                 <param name="NCOLS" type="int" required="true">
                     <tr lang="en">matrix column numbers</tr>
+                    <tr lang="ru" finished="false">Число столбцов матрицы</tr>
                 </param>
                 <param name="VALUES" type="list" required="true">
                     <tr lang="en">pixel values</tr>
+                    <tr lang="ru" finished="false">значения пикселей</tr>
                 </param>
             </method>
             <!-- set pixel -->
             <method name="set pixel">
                 <info>
                     <tr lang="en">set single pixel</tr>
+                    <tr lang="ru" finished="false">установленный один пиксель</tr>
                 </info>
                 <param name="X" type="int" required="true">
                     <tr lang="en">X-position (from left)</tr>
+                    <tr lang="ru" finished="false">XX - положение (слева)</tr>
                 </param>
                 <param name="Y" type="int" required="true">
                     <tr lang="en">Y-position (from top)</tr>
+                    <tr lang="ru" finished="false">Y - положение (сверху)</tr>
                 </param>
                 <param name="VALUE" type="bool" required="true">
                     <tr lang="en">pixel value</tr>
+                    <tr lang="ru" finished="false">значение пикселя</tr>
                 </param>
             </method>
             <!-- set row -->
             <method name="set row">
                 <info>
                     <tr lang="en">set row content</tr>
+                    <tr lang="ru" finished="false">Установить строку</tr>
                 </info>
                 <param name="N" type="int" required="true">
                     <tr lang="en">row index</tr>
+                    <tr lang="ru" finished="false">строковый индекс</tr>
                 </param>
                 <param name="PIXELS" type="list" required="true">
                     <tr lang="en">row pixel values</tr>
+                    <tr lang="ru" finished="false">значения пикселей строки</tr>
                 </param>
             </method>
         </methods>
@@ -217,6 +262,7 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">command input</tr>
+                    <tr lang="ru" finished="false">командный вход</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -224,6 +270,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">...</tr>
+                    <tr lang="ru" finished="false">...</tr>
                 </out>
             </outlet>
         </outlets>

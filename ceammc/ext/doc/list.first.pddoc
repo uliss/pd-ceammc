@@ -36,6 +36,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">first list element</tr>
+                    <tr lang="ru" finished="false">Элемент первого списка</tr>
                 </out>
             </outlet>
         </outlets>

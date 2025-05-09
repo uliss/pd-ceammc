@@ -24,12 +24,16 @@
             <par>
                 <tr lang="en">in default mode if bit is on - sends bang to corresponding
                 outlet</tr>
+                <!-- old: в режиме по умолчанию, если бит включен - отправляет
+                удар в соответствующую розетку -->
                 <tr lang="ru" finished="false">в режиме по умолчанию, если бит включен - отправляет
                 удар в соответствующую розетку</tr>
             </par>
             <par>
                 <tr lang="en">in @poly mode if bit is on - send list (BIT_IDX bang) to single
                 outlet</tr>
+                <!-- old: в режиме @poly, если бит включен - отправьте список
+                (BIT_IDX bang) в одну точку -->
                 <tr lang="ru" finished="false">в режиме @poly, если бит включен - отправьте список
                 (BIT_IDX bang) в одну точку</tr>
             </par>
@@ -70,6 +74,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

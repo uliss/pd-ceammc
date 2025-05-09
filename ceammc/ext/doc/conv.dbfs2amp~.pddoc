@@ -27,6 +27,8 @@
         <info>
             <par>
                 <tr lang="en">Note: db values &lt;= -144 are converted to 0</tr>
+                <!-- old: Примечание: значения db <= -144 преобразуются в
+                0 -->
                 <tr lang="ru" finished="false">Примечание: значения db &lt;= -144 преобразуются в
                 0</tr>
             </par>
@@ -43,6 +45,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">converted signal</tr>
+                    <tr lang="ru" finished="false">преобразованный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

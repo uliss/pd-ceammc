@@ -27,6 +27,8 @@
                 <xinfo on="list">
                     <tr lang="en">input list of floats. Non float values are just ignored. No
                     output if no floats in list</tr>
+                    <!-- old: Список входных поплавков. Неподвижные ценности
+                    просто игнорируются. Нет выхода, если нет поплавков в списке -->
                     <tr lang="ru" finished="false">Список входных поплавков. Неподвижные ценности
                     просто игнорируются. Нет выхода, если нет поплавков в списке</tr>
                 </xinfo>
@@ -40,6 +42,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">average (float)</tr>
+                    <tr lang="ru" finished="false">Средний (плавающий)</tr>
                 </out>
             </outlet>
         </outlets>

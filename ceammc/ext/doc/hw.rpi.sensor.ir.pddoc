@@ -62,6 +62,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">pressed infrared remote keys accoring to protocol</tr>
+                    <tr lang="ru" finished="false">нажатые инфракрасные пульты, аккумулирующие
+                    протокол</tr>
                 </out>
             </outlet>
         </outlets>

@@ -65,6 +65,7 @@
             <outlet type="control">
                 <out type="any">
                     <tr lang="en">list of matched object names</tr>
+                    <tr lang="ru" finished="false">Список совпадающих названий объектов</tr>
                 </out>
             </outlet>
         </outlets>

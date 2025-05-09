@@ -36,6 +36,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

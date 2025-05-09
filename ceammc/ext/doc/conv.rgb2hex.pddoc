@@ -26,12 +26,16 @@
                 <tr lang="en">alias to @mode float. Expected input values are in [0-1] range</tr>
                 <!-- old: Оригинальное название: Mode Float. Ожидаемые входные
                 значения находятся в диапазоне [0-1] -->
+                <!-- old: Оригинальное название: Mode Float. Ожидаемые входные
+                значения находятся в диапазоне [0-1] -->
                 <tr lang="ru" finished="false">Оригинальное название: Mode Float. Ожидаемые входные
                 значения находятся в диапазоне [0-1]</tr>
             </property>
             <!-- @int -->
             <property name="@int" type="alias">
                 <tr lang="en">alias to @mode int. Expected input values are in [0-255] range</tr>
+                <!-- old: Название: @mode int Ожидаемые входные значения
+                находятся в диапазоне [0-255] -->
                 <!-- old: Название: @mode int Ожидаемые входные значения
                 находятся в диапазоне [0-255] -->
                 <tr lang="ru" finished="false">Название: @mode int Ожидаемые входные значения
@@ -52,6 +56,8 @@
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">red channel value in [0-255] range</tr>
+                    <!-- old: значение красного канала в диапазоне
+                    [0-255] -->
                     <tr lang="ru" finished="false">значение красного канала в диапазоне
                     [0-255]</tr>
                 </xinfo>
@@ -63,6 +69,8 @@
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">green channel value in [0-255] range</tr>
+                    <!-- old: Значение зеленого канала в диапазоне
+                    [0-255] -->
                     <tr lang="ru" finished="false">Значение зеленого канала в диапазоне
                     [0-255]</tr>
                 </xinfo>
@@ -86,6 +94,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">symbol: #RRGGBB color value</tr>
+                    <tr lang="ru" finished="false">Символ #RRGGBB цветовое значение</tr>
                 </out>
             </outlet>
         </outlets>

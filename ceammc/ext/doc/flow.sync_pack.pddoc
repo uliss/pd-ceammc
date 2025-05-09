@@ -31,6 +31,8 @@
             <argument name="INIT" type="list">
                 <tr lang="en">default values for all inlets. If not enough default values given it
                 sets to 0</tr>
+                <!-- old: Значения по умолчанию для всех входов. Если не
+                достаточно значений по умолчанию, при условии, что он устанавливает 0 -->
                 <tr lang="ru" finished="false">Значения по умолчанию для всех входов. Если не
                 достаточно значений по умолчанию, при условии, что он устанавливает 0</tr>
             </argument>
@@ -56,21 +58,29 @@
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">change first packed value and output</tr>
+                    <!-- old: изменение первого упакованного значения и
+                    выхода -->
                     <tr lang="ru" finished="false">изменение первого упакованного значения и
                     выхода</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">change first packed value and output</tr>
+                    <!-- old: изменение первого упакованного значения и
+                    выхода -->
                     <tr lang="ru" finished="false">изменение первого упакованного значения и
                     выхода</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">propagate list values to other inlets and output</tr>
+                    <!-- old: распространять значения списка на другие входы и
+                    выход -->
                     <tr lang="ru" finished="false">распространять значения списка на другие входы и
                     выход</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">propagate message values to other inlets and output</tr>
+                    <!-- old: распространять значения сообщений на другие
+                    входы и выход -->
                     <tr lang="ru" finished="false">распространять значения сообщений на другие
                     входы и выход</tr>
                 </xinfo>
@@ -90,6 +100,8 @@
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">propagate ... list values among rest inlets and output</tr>
+                    <!-- old: распространять ... списки значений среди входов
+                    и выходов отдыха -->
                     <tr lang="ru" finished="false">распространять ... списки значений среди входов
                     и выходов отдыха</tr>
                 </xinfo>
@@ -101,16 +113,22 @@
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">change n-th packed value and output</tr>
+                    <!-- old: изменение n-го упакованного значения и
+                    выхода -->
                     <tr lang="ru" finished="false">изменение n-го упакованного значения и
                     выхода</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">change n-th packed value and output</tr>
+                    <!-- old: изменение n-го упакованного значения и
+                    выхода -->
                     <tr lang="ru" finished="false">изменение n-го упакованного значения и
                     выхода</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">propagate n-th list values among rest inlets and output</tr>
+                    <!-- old: распространять значения n-го списка среди входов
+                    и выходов для отдыха -->
                     <tr lang="ru" finished="false">распространять значения n-го списка среди входов
                     и выходов для отдыха</tr>
                 </xinfo>
@@ -120,6 +138,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">packed list or message (if message input)</tr>
+                    <tr lang="ru" finished="false">упакованный список или сообщение (если вводится
+                    сообщение)</tr>
                 </out>
             </outlet>
         </outlets>

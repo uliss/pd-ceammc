@@ -26,62 +26,77 @@
         <info>
             <par>
                 <tr lang="en">pass only specified mouse events from ui.* objects</tr>
+                <tr lang="ru" finished="false">передавать только определенные события мыши из
+                объектов ui.*</tr>
             </par>
         </info>
         <properties>
             <!-- @down -->
             <property name="@down" type="alias" default="0">
                 <tr lang="en">alias to @mouse_down 1 property</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @mouse_down 1 Property</tr>
             </property>
             <!-- @drag -->
             <property name="@drag" type="alias" default="0">
                 <tr lang="en">alias to @mouse_drag 1 property</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @mouse_drag 1 Property</tr>
             </property>
             <!-- @enter -->
             <property name="@enter" type="alias" default="0">
                 <tr lang="en">alias to @mouse_enter 1 property</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @mouse_enter 1 Property</tr>
             </property>
             <!-- @leave -->
             <property name="@leave" type="alias" default="0">
                 <tr lang="en">alias to @mouse_leave 1 property</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @mouse_leave 1 Property</tr>
             </property>
             <!-- @mouse_down -->
             <property name="@mouse_down" type="bool" default="0">
                 <tr lang="en">passing a @mouse_down events</tr>
+                <tr lang="ru" finished="false">Прохождение @mouse_down</tr>
             </property>
             <!-- @mouse_drag -->
             <property name="@mouse_drag" type="bool" default="0">
                 <tr lang="en">passing a @mouse_drag events</tr>
+                <tr lang="ru" finished="false">Обсуждение @mouse_drag</tr>
             </property>
             <!-- @mouse_enter -->
             <property name="@mouse_enter" type="bool" default="0">
                 <tr lang="en">passing a @mouse_enter events</tr>
+                <tr lang="ru" finished="false">Прохождение @mouse_enter</tr>
             </property>
             <!-- @mouse_leave -->
             <property name="@mouse_leave" type="bool" default="0">
                 <tr lang="en">passing a @mouse_leave events</tr>
+                <tr lang="ru" finished="false">Обсуждение @mouse_leave</tr>
             </property>
             <!-- @mouse_move -->
             <property name="@mouse_move" type="bool" default="0">
                 <tr lang="en">passing a @mouse_move events</tr>
+                <tr lang="ru" finished="false">Обсуждение @mouse_move</tr>
             </property>
             <!-- @mouse_up -->
             <property name="@mouse_up" type="bool" default="0">
                 <tr lang="en">passing a @mouse_up events</tr>
+                <tr lang="ru" finished="false">Прохождение @mouse_up</tr>
             </property>
             <!-- @move -->
             <property name="@move" type="alias" default="0">
                 <tr lang="en">alias to @mouse_move 1 property</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @mouse_move 1 Property</tr>
             </property>
             <!-- @up -->
             <property name="@up" type="alias" default="0">
                 <tr lang="en">alias to @mouse_up 1 property</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @mouse_up 1 Property</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input messages from ui object</tr>
+                    <tr lang="ru" finished="false">Входные сообщения от ui object</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -89,6 +104,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">passed messages from ui object</tr>
+                    <tr lang="ru" finished="false">Переданные сообщения от объекта ui</tr>
                 </out>
             </outlet>
         </outlets>

@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">It uses a strength parameter instead of the traditional ratio</tr>
+                <!-- old: Он использует параметр силы вместо традиционного
+                соотношения. -->
                 <tr lang="ru" finished="false">Он использует параметр силы вместо традиционного
                 соотношения.</tr>
             </par>
@@ -59,6 +61,8 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
@@ -75,6 +79,10 @@
                 thresh-(knee/2) there is no gain reduction, above thresh+(knee/2) there is the same
                 gain reduction as without a knee, and in between there is a gradual increase in
                 gain reduction</tr>
+                <!-- old: постепенное увеличение снижения прироста вокруг
+                порога: ниже треш-(knee/2) нет снижения прироста, выше треш+(knee/2) есть такое же
+                снижение прироста, как и без колена, и между ними есть постепенное увеличение
+                снижения прироста -->
                 <tr lang="ru" finished="false">постепенное увеличение снижения прироста вокруг
                 порога: ниже треш-(knee/2) нет снижения прироста, выше треш+(knee/2) есть такое же
                 снижение прироста, как и без колена, и между ними есть постепенное увеличение
@@ -96,6 +104,8 @@
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
             units="millisecond">
                 <tr lang="en">expander level output time interval. If 0 - no output</tr>
+                <!-- old: Расширитель уровня выходного интервала. Если 0 -
+                выход отсутствует -->
                 <tr lang="ru" finished="false">Расширитель уровня выходного интервала. Если 0 -
                 выход отсутствует</tr>
             </property>
@@ -103,6 +113,8 @@
             <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
             maxvalue="500">
                 <tr lang="en">release time = time constant coming out of expanding</tr>
+                <!-- old: Время высвобождения = постоянная времени, выходящая
+                из расширения -->
                 <tr lang="ru" finished="false">Время высвобождения = постоянная времени, выходящая
                 из расширения</tr>
             </property>
@@ -110,6 +122,8 @@
             <property name="@strength" type="float" default="0" minvalue="0" maxvalue="10">
                 <tr lang="en">expander strength (0: no expanding, 1: increase level by @range
                 db.)</tr>
+                <!-- old: Прочность экспандера (0: без расширения, 1:
+                повышение уровня на @range db.) -->
                 <tr lang="ru" finished="false">Прочность экспандера (0: без расширения, 1:
                 повышение уровня на @range db.)</tr>
             </property>
@@ -118,6 +132,8 @@
             maxvalue="0">
                 <tr lang="en">level threshold above which compression kicks in (100 dB = max
                 level)</tr>
+                <!-- old: порог уровня, выше которого начинается сжатие (100
+                дБ = максимальный уровень) -->
                 <tr lang="ru" finished="false">порог уровня, выше которого начинается сжатие (100
                 дБ = максимальный уровень)</tr>
             </property>
@@ -149,11 +165,14 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output expanded signal</tr>
+                    <tr lang="ru" finished="false">выходной расширенный сигнал</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">float: output current expander level in db</tr>
+                    <tr lang="ru" finished="false">Float: уровень экспандера выходного тока в
+                    db</tr>
                 </out>
             </outlet>
         </outlets>

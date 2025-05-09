@@ -27,6 +27,9 @@
                 <tr lang="en">Sync data flow. All inlets are 'hot'. When float, symbol or list
                 arrives to inlet, it's value stored. Then output all stored values from all inlets
                 from rightmost to leftmost</tr>
+                <!-- old: Синхронизация потока данных. Все входы «горячие».
+                Когда поплавок, символ или список поступает на вход, это значение сохраняется.
+                Затем выведите все сохраненные значения из всех входов справа налево. -->
                 <tr lang="ru" finished="false">Синхронизация потока данных. Все входы «горячие».
                 Когда поплавок, символ или список поступает на вход, это значение сохраняется.
                 Затем выведите все сохраненные значения из всех входов справа налево.</tr>
@@ -70,16 +73,19 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">first outlet</tr>
+                    <tr lang="ru" finished="false">первый выход</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">... outlet</tr>
+                    <tr lang="ru" finished="false">... выход</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">Nth outlet</tr>
+                    <tr lang="ru" finished="false">N-й выход</tr>
                 </out>
             </outlet>
         </outlets>

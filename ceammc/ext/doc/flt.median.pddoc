@@ -20,12 +20,17 @@
             <par>
                 <tr lang="en">The main idea of the median filter is to run through the signal entry
                 by entry, replacing each entry with the median of neighboring entries.</tr>
+                <!-- old: Основная идея медианного фильтра состоит в том,
+                чтобы проходить через вход сигнала, заменяя каждую запись медианой соседних
+                записей. -->
                 <tr lang="ru" finished="false">Основная идея медианного фильтра состоит в том,
                 чтобы проходить через вход сигнала, заменяя каждую запись медианой соседних
                 записей.</tr>
             </par>
             <par>
                 <tr lang="en">If window size is even: mean between center elements outputed</tr>
+                <!-- old: Если размер окна четный: среднее между выводимыми
+                центральными элементами -->
                 <tr lang="ru" finished="false">Если размер окна четный: среднее между выводимыми
                 центральными элементами</tr>
             </par>
@@ -50,6 +55,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">filtered control stream</tr>
+                    <tr lang="ru" finished="false">фильтрованный поток управления</tr>
                 </out>
             </outlet>
         </outlets>

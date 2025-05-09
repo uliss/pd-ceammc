@@ -22,6 +22,8 @@
         <arguments>
             <argument name="STATE" type="int" enum="0 1">
                 <tr lang="en">initial counter state: on or off</tr>
+                <tr lang="ru" finished="false">Начальное встречное состояние: включено или
+                выключено</tr>
             </argument>
         </arguments>
         <methods>
@@ -29,15 +31,18 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset sample counter to 0</tr>
+                    <tr lang="ru" finished="false">сбрасывать счетчик выборки 0</tr>
                 </info>
             </method>
             <!-- set -->
             <method name="set">
                 <info>
                     <tr lang="en">set current value</tr>
+                    <tr lang="ru" finished="false">Установить текущую стоимость</tr>
                 </info>
                 <param name="VAL" type="float" default="0">
                     <tr lang="en">new counter value</tr>
+                    <tr lang="ru" finished="false">Новая встречная стоимость</tr>
                 </param>
             </method>
         </methods>
@@ -45,14 +50,18 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">on 0-&gt;1 change: start counter, on 1-&gt;0 stops.</tr>
+                    <tr lang="ru" finished="false">на 0-&gt;1 изменение: стартовый счетчик, на
+                    1-&gt;0 остановки.</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">reset sample counter</tr>
+                    <tr lang="ru" finished="false">сбрасывать счетчик образцов</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">set current value</tr>
+                    <tr lang="ru" finished="false">Установить текущую стоимость</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -60,6 +69,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">current sample number</tr>
+                    <tr lang="ru" finished="false">Текущий номер выборки</tr>
                 </out>
             </outlet>
         </outlets>

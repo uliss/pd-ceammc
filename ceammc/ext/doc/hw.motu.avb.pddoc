@@ -50,6 +50,8 @@
             <method name="comp_input_name">
                 <info>
                     <tr lang="en">set input from computer channel name</tr>
+                    <!-- old: Набор входных данных из имени компьютерного
+                    канала -->
                     <tr lang="ru" finished="false">Набор входных данных из имени компьютерного
                     канала</tr>
                 </info>
@@ -66,6 +68,8 @@
             <method name="guitar-&gt;comp">
                 <info>
                     <tr lang="en">set guitar input to computer routing</tr>
+                    <!-- old: Настройка гитарного ввода в компьютерную
+                    маршрутизацию -->
                     <tr lang="ru" finished="false">Настройка гитарного ввода в компьютерную
                     маршрутизацию</tr>
                 </info>
@@ -86,6 +90,8 @@
             <method name="guitar-&gt;mix">
                 <info>
                     <tr lang="en">set guitar input to mixer routing</tr>
+                    <!-- old: Настройка гитарного ввода для микшерной
+                    маршрутизации -->
                     <tr lang="ru" finished="false">Настройка гитарного ввода для микшерной
                     маршрутизации</tr>
                 </info>
@@ -106,6 +112,8 @@
             <method name="guitar-&gt;output">
                 <info>
                     <tr lang="en">set guitar input to analogue output routing</tr>
+                    <!-- old: установить вход гитары в аналоговую выходную
+                    маршрутизацию -->
                     <tr lang="ru" finished="false">установить вход гитары в аналоговую выходную
                     маршрутизацию</tr>
                 </info>
@@ -172,6 +180,8 @@
             <method name="input-&gt;comp">
                 <info>
                     <tr lang="en">set analogue input to computer routing</tr>
+                    <!-- old: установить аналоговый вход в компьютерную
+                    маршрутизацию -->
                     <tr lang="ru" finished="false">установить аналоговый вход в компьютерную
                     маршрутизацию</tr>
                 </info>
@@ -192,6 +202,8 @@
             <method name="input-&gt;mix">
                 <info>
                     <tr lang="en">set analogue input to mixer routing</tr>
+                    <!-- old: установить аналоговый вход для маршрутизации
+                    микшера -->
                     <tr lang="ru" finished="false">установить аналоговый вход для маршрутизации
                     микшера</tr>
                 </info>
@@ -212,6 +224,8 @@
             <method name="input-&gt;output">
                 <info>
                     <tr lang="en">set analogue input to analog output routing</tr>
+                    <!-- old: установить аналоговый вход в маршрутизацию
+                    аналогового выхода -->
                     <tr lang="ru" finished="false">установить аналоговый вход в маршрутизацию
                     аналогового выхода</tr>
                 </info>
@@ -274,6 +288,8 @@
             <method name="mic-&gt;comp">
                 <info>
                     <tr lang="en">set microphone input to computer routing</tr>
+                    <!-- old: установить вход микрофона в компьютерную
+                    маршрутизацию -->
                     <tr lang="ru" finished="false">установить вход микрофона в компьютерную
                     маршрутизацию</tr>
                 </info>
@@ -294,6 +310,8 @@
             <method name="mic-&gt;mix">
                 <info>
                     <tr lang="en">set microphone input to mixer routing</tr>
+                    <!-- old: установить вход микрофона для маршрутизации
+                    микшера -->
                     <tr lang="ru" finished="false">установить вход микрофона для маршрутизации
                     микшера</tr>
                 </info>
@@ -314,6 +332,8 @@
             <method name="mic-&gt;output">
                 <info>
                     <tr lang="en">set microphone input to analog output routing</tr>
+                    <!-- old: установить вход микрофона в аналоговую выходную
+                    маршрутизацию -->
                     <tr lang="ru" finished="false">установить вход микрофона в аналоговую выходную
                     маршрутизацию</tr>
                 </info>
@@ -446,6 +466,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">properties output</tr>
+                    <tr lang="ru" finished="false">Свойства вывода</tr>
                 </out>
             </outlet>
         </outlets>

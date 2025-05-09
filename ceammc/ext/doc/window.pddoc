@@ -25,19 +25,24 @@
             <argument name="TYPE" type="symbol">
                 <tr lang="en">window name: blackman, blackman-harris, flattop, gauss, hamming,
                 hann, nuttall, rect, sine, tri, welch</tr>
+                <tr lang="ru" finished="false">название окна: blackman, blackman-harris, flattop,
+                gauss, hamming, hann,nuttall, rect, sine, tri, welch</tr>
             </argument>
             <argument name="SIZE" type="int" minvalue="16" units="sample">
                 <tr lang="en">window size</tr>
+                <tr lang="ru" finished="false">размер окна</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @size -->
             <property name="@size" type="int" minvalue="16" default="512" units="sample">
                 <tr lang="en">window size</tr>
+                <tr lang="ru" finished="false">размер окна</tr>
             </property>
             <!-- @type -->
             <property name="@type" type="symbol" default="hann">
                 <tr lang="en">window type. See argument description</tr>
+                <tr lang="ru" finished="false">Тип окна. См. описание аргумента</tr>
             </property>
         </properties>
         <methods>
@@ -45,66 +50,77 @@
             <method name="blackman">
                 <info>
                     <tr lang="en">Sets Blackman window type</tr>
+                    <tr lang="ru" finished="false">Тип окна Blackman</tr>
                 </info>
             </method>
             <!-- blackman-harris -->
             <method name="blackman-harris">
                 <info>
                     <tr lang="en">Sets Blackman-Harris window type</tr>
+                    <tr lang="ru" finished="false">Тип окна Blackman-Harris</tr>
                 </info>
             </method>
             <!-- flattop -->
             <method name="flattop">
                 <info>
                     <tr lang="en">Sets Flattop window type</tr>
+                    <tr lang="ru" finished="false">Тип окна Flattop</tr>
                 </info>
             </method>
             <!-- gauss -->
             <method name="gauss">
                 <info>
                     <tr lang="en">Sets Gauss window type</tr>
+                    <tr lang="ru" finished="false">Тип окна Gauss</tr>
                 </info>
             </method>
             <!-- hamming -->
             <method name="hamming">
                 <info>
                     <tr lang="en">Sets Hamming window type</tr>
+                    <tr lang="ru" finished="false">Тип окна Hamming</tr>
                 </info>
             </method>
             <!-- hann -->
             <method name="hann">
                 <info>
                     <tr lang="en">Sets Hann window type</tr>
+                    <tr lang="ru" finished="false">Тип окна Hann</tr>
                 </info>
             </method>
             <!-- nuttall -->
             <method name="nuttall">
                 <info>
                     <tr lang="en">Sets Nuttall window type</tr>
+                    <tr lang="ru" finished="false">Тип окна Nuttall</tr>
                 </info>
             </method>
             <!-- rect -->
             <method name="rect">
                 <info>
                     <tr lang="en">Sets Rectangle window type</tr>
+                    <tr lang="ru" finished="false">Тип окна прямоугольника</tr>
                 </info>
             </method>
             <!-- sine -->
             <method name="sine">
                 <info>
                     <tr lang="en">Sets Sine window type</tr>
+                    <tr lang="ru" finished="false">Тип окна Sine</tr>
                 </info>
             </method>
             <!-- tri -->
             <method name="tri">
                 <info>
                     <tr lang="en">Sets Triangle window type</tr>
+                    <tr lang="ru" finished="false">Тип окна треугольника</tr>
                 </info>
             </method>
             <!-- welch -->
             <method name="welch">
                 <info>
                     <tr lang="en">Sets Welch window type</tr>
+                    <tr lang="ru" finished="false">Тип окна Welch</tr>
                 </info>
             </method>
         </methods>
@@ -112,14 +128,19 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output all window values as list</tr>
+                    <tr lang="ru" finished="false">выводить все значения окна в виде списка</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">window index position: from 0 to SIZE-1. Output 0 if invalid
                     index given</tr>
+                    <tr lang="ru" finished="false">Положение оконного индекса: от 0 до SIZE-1.
+                    Результат 0, если приведен недействительный индекс</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pair INDEX SIZE expected. Sets windows size to SIZE. Output
                     window value at given index</tr>
+                    <tr lang="ru" finished="false">Пара INDEX SIZE ожидаема. Устанавливает размер
+                    окна на размер. Значение окна выхода в заданном индексе</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -127,6 +148,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">sample number</tr>
+                    <tr lang="ru" finished="false">номер выборки</tr>
                 </out>
             </outlet>
         </outlets>

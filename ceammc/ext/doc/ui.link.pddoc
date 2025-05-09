@@ -21,6 +21,10 @@
                 <tr lang="en">Link allows to open external URLs, not only Pd patches but all kind
                 of URL supported by your OS. If relative file path is given, it searched in current
                 directory, then Pd doc directory and Pd external directories</tr>
+                <tr lang="ru" finished="false">Ссылка позволяет открывать внешние URL-адреса, а не
+                только Pd-патчи, но и все виды URL-адресов, поддерживаемых вашей ОС. Если дан
+                относительный путь файла, он выполняет поиск в текущем каталоге, затем в каталоге
+                Pd doc и внешних каталогах Pd.</tr>
             </par>
         </info>
         <mouse>
@@ -34,9 +38,11 @@
         <arguments>
             <argument name="URL" type="symbol">
                 <tr lang="en">@url property value</tr>
+                <tr lang="ru" finished="false">@url стоимость недвижимости</tr>
             </argument>
             <argument name="TITLE" type="symbol">
                 <tr lang="en">@title property value</tr>
+                <tr lang="ru" finished="false">@title стоимость недвижимости</tr>
             </argument>
         </arguments>
         <properties>
@@ -49,18 +55,24 @@
             <property name="@hover_color" type="list" default="1 0 0.5 1">
                 <tr lang="en">color when mouse pointer is over element (list of red, green, blue
                 values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">цвет, когда указатель мыши над элементом (список
+                красных, зеленых, синих значений в диапазоне 0-1)</tr>
             </property>
             <!-- @link_color -->
             <property name="@link_color" type="list" default="0 0.625 0.75 1">
                 <tr lang="en">link color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">цвет ссылки (список красных, зеленых, синих значений
+                в диапазоне 0-1)</tr>
             </property>
             <!-- @title -->
             <property name="@title" type="symbol" default="&lt;no title&gt;">
                 <tr lang="en">link title</tr>
+                <tr lang="ru" finished="false">название ссылки</tr>
             </property>
             <!-- @url -->
             <property name="@url" type="symbol" default="&lt;no url&gt;">
                 <tr lang="en">destination url</tr>
+                <tr lang="ru" finished="false">пункт назначения url</tr>
             </property>
         </properties>
         <methods>
@@ -68,12 +80,15 @@
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
         </methods>

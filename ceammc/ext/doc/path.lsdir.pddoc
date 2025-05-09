@@ -46,6 +46,9 @@
                 <xinfo on="symbol">
                     <tr lang="en">set directory path (symbol or string) and output it content. If
                     not absolute path is given list current patch directory</tr>
+                    <!-- old: установить путь каталога (символ или строка) и
+                    вывести его содержимое. Если не абсолютный путь дан список текущий каталог
+                    патчей -->
                     <tr lang="ru" finished="false">установить путь каталога (символ или строка) и
                     вывести его содержимое. Если не абсолютный путь дан список текущий каталог
                     патчей</tr>
@@ -62,6 +65,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list of strings</tr>
+                    <tr lang="ru" finished="false">Список строк</tr>
                 </out>
             </outlet>
         </outlets>

@@ -39,6 +39,8 @@
             <!-- @method -->
             <property name="@method" type="symbol" enum="pad clip wrap fold" default="pad">
                 <tr lang="en">method of resizing, if new size is longer then current</tr>
+                <!-- old: метод изменения размера, если новый размер длиннее
+                текущего -->
                 <tr lang="ru" finished="false">метод изменения размера, если новый размер длиннее
                 текущего</tr>
             </property>
@@ -76,6 +78,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">resized list</tr>
+                    <tr lang="ru" finished="false">сокращенный список</tr>
                 </out>
             </outlet>
         </outlets>

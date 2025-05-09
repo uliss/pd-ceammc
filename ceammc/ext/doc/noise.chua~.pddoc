@@ -44,6 +44,8 @@
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">play trigger &gt;0: on, 0: off. To set output gain to 0.5 you can 0.5
                 as trigger value</tr>
+                <!-- old: играть триггер >0: on, 0: off. Чтобы установить
+                выходной коэффициент усиления до 0,5, вы можете 0,5 как триггерное значение. -->
                 <tr lang="ru" finished="false">играть триггер &gt;0: on, 0: off. Чтобы установить
                 выходной коэффициент усиления до 0,5, вы можете 0,5 как триггерное значение.</tr>
             </property>
@@ -68,11 +70,15 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">play with default duration and full gain</tr>
+                    <!-- old: Играйте с продолжительностью по умолчанию и
+                    полным выигрышем -->
                     <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и
                     полным выигрышем</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">play with default duration and specified gain</tr>
+                    <!-- old: Играйте с продолжительностью по умолчанию и
+                    определенным выигрышем -->
                     <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и
                     определенным выигрышем</tr>
                 </xinfo>
@@ -86,11 +92,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">X output (C1 Vout)</tr>
+                    <tr lang="ru" finished="false">X выход (C1 Vout)</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">Y output (C2 Vout)</tr>
+                    <tr lang="ru" finished="false">Y выход (C2 Vout)</tr>
                 </out>
             </outlet>
         </outlets>

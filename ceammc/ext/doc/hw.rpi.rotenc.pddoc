@@ -109,11 +109,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float: current encoder value</tr>
+                    <tr lang="ru" finished="false">Float: текущее значение кодера</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">[dir -1|1( or [btn 1|0( messages</tr>
+                    <tr lang="ru" finished="false">[dir -1 | 1 (или [btn 1 | 0) сообщения]</tr>
                 </out>
             </outlet>
         </outlets>

@@ -26,11 +26,15 @@
         <info>
             <par>
                 <tr lang="en">Example tempo values: 60, 120bpm, 90|4bpm, 80|3/8bpm</tr>
+                <!-- old: Примеры значений темпа: 60, 120bpm, 90 | 4bpm, 80 |
+                3 / 8bpm -->
                 <tr lang="ru" finished="false">Примеры значений темпа: 60, 120bpm, 90 | 4bpm, 80 |
                 3 / 8bpm</tr>
             </par>
             <par>
                 <tr lang="en">Example time signature values: |3/8|, |1/4+3/16|</tr>
+                <!-- old: Примерные значения времени подписи: |3/8 |,
+                |1/4+3/16 | -->
                 <tr lang="ru" finished="false">Примерные значения времени подписи: |3/8 |,
                 |1/4+3/16 |</tr>
             </par>
@@ -65,16 +69,22 @@
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">set tempo BPM (in quarters) and output</tr>
+                    <!-- old: установленный темп BPM (в кварталах) и
+                    выход -->
                     <tr lang="ru" finished="false">установленный темп BPM (в кварталах) и
                     выход</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">set tempo BPM (like "120|8bpm") and output</tr>
+                    <!-- old: установить темп BPM (например, «120 | 8bpm») и
+                    выход -->
                     <tr lang="ru" finished="false">установить темп BPM (например, «120 | 8bpm») и
                     выход</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">set tempo BPM and time signature, then output</tr>
+                    <!-- old: установить темп BPM и время подписи, затем
+                    выход -->
                     <tr lang="ru" finished="false">установить темп BPM и время подписи, затем
                     выход</tr>
                 </xinfo>
@@ -90,11 +100,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bar period in milliseconds</tr>
+                    <tr lang="ru" finished="false">барный период в миллисекундах</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">beat period in milliseconds</tr>
+                    <tr lang="ru" finished="false">период удара в миллисекундах</tr>
                 </out>
             </outlet>
         </outlets>

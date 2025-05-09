@@ -19,6 +19,8 @@
         <info>
             <par>
                 <tr lang="en">inspired by Paul Bourke, implementation by André Sier</tr>
+                <!-- old: Вдохновленный Полом Бурком, реализация Андре
+                Сиером -->
                 <tr lang="ru" finished="false">Вдохновленный Полом Бурком, реализация Андре
                 Сиером</tr>
             </par>
@@ -37,6 +39,8 @@
             <par>
                 <tr lang="en">Paul Bourke's words
                 http://astronomy.swin.edu.au/%7Epbourke/fractals/lyapunov/</tr>
+                <!-- old: Слова Пола Бурка
+                http://astronomy.swin.edu.au/%7Epbourke/fractals/lyapunov/ -->
                 <tr lang="ru" finished="false">Слова Пола Бурка
                 http://astronomy.swin.edu.au/%7Epbourke/fractals/lyapunov/</tr>
             </par>
@@ -47,6 +51,8 @@
             <par>
                 <tr lang="en">On average 98% of the random selections of (an, bn) result in an
                 infinite series.</tr>
+                <!-- old: В среднем 98% случайных отборов (an, bn) приводят к
+                бесконечному ряду. -->
                 <tr lang="ru" finished="false">В среднем 98% случайных отборов (an, bn) приводят к
                 бесконечному ряду.</tr>
             </par>
@@ -54,6 +60,9 @@
                 <tr lang="en">This is so common because of the range (-2&lt;=a, b&lt;=2) for each
                 of the parameters a and b, the number of infinite cases will reduce greatly with a
                 smaller range.</tr>
+                <!-- old: Это так распространено из-за диапазона (-2<=a,
+                b<=2) для каждого из параметров a и b, количество бесконечных случаев
+                значительно уменьшится с меньшим диапазоном. -->
                 <tr lang="ru" finished="false">Это так распространено из-за диапазона (-2&lt;=a,
                 b&lt;=2) для каждого из параметров a и b, количество бесконечных случаев
                 значительно уменьшится с меньшим диапазоном.</tr>
@@ -61,6 +70,8 @@
             <par>
                 <tr lang="en">About 1% were point attractors, and about 0.5% were periodic basins
                 of attraction.</tr>
+                <!-- old: Около 1% были точечными аттракторами, и около 0,5%
+                были периодическими бассейнами притяжения. -->
                 <tr lang="ru" finished="false">Около 1% были точечными аттракторами, и около 0,5%
                 были периодическими бассейнами притяжения.</tr>
             </par>
@@ -71,12 +82,16 @@
             <par>
                 <tr lang="en">x[n+1] = a[0] + a[1]*x[n] + a[2]*x[n]^2 + a[3]*x[n]*y[n] + a[4]*y[n]
                 + a[5]*y[n]^2</tr>
+                <!-- old: x[n+1] = a[0] + a[1]*x[n] + a[2]*x[n]^2 +
+                a[3]*x[n]*y[n] + a[4]*y[n] + a[5]*y[n]^2 -->
                 <tr lang="ru" finished="false">x[n+1] = a[0] + a[1]*x[n] + a[2]*x[n]^2 +
                 a[3]*x[n]*y[n] + a[4]*y[n] + a[5]*y[n]^2</tr>
             </par>
             <par>
                 <tr lang="en">y[n+1] = b[0] + b[1]*x[n] + b[2]*x[n]^2 + b[3]*x[n]*y[n] + b[4]*y[n]
                 + b[5]*y[n]^2</tr>
+                <!-- old: y[n+1] ] = b[0] + b[1]*x[n] + b[2]*x[n]^2 +
+                b[3]*x[n]*y[n] + b[4]*y[n] + b[5]*y[n]^2 -->
                 <tr lang="ru" finished="false">y[n+1] ] = b[0] + b[1]*x[n] + b[2]*x[n]^2 +
                 b[3]*x[n]*y[n] + b[4]*y[n] + b[5]*y[n]^2</tr>
             </par>
@@ -162,6 +177,8 @@
             <method name="om">
                 <param name="OM" type="int" required="true">
                     <tr lang="en">enables output when cut or fold value is changed</tr>
+                    <!-- old: позволяет вывод при изменении значения разреза
+                    или сгиба -->
                     <tr lang="ru" finished="false">позволяет вывод при изменении значения разреза
                     или сгиба</tr>
                 </param>
@@ -207,11 +224,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">x outlet</tr>
+                    <tr lang="ru" finished="false">х выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">y outlet</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

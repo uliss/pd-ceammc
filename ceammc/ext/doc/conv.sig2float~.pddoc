@@ -28,6 +28,8 @@
         <info>
             <par>
                 <tr lang="en">convert signal to float via specified time intervals</tr>
+                <!-- old: Преобразовать сигнал в плавающий через заданные
+                интервалы времени -->
                 <tr lang="ru" finished="false">Преобразовать сигнал в плавающий через заданные
                 интервалы времени</tr>
             </par>
@@ -76,6 +78,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float: sample</tr>
+                    <tr lang="ru" finished="false">Поплавок: образец</tr>
                 </out>
             </outlet>
         </outlets>

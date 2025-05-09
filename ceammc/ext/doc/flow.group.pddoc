@@ -58,21 +58,29 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">add float to group and flush if group is full packed</tr>
+                    <!-- old: Добавить поплавок в группу и смыть, если группа
+                    заполнена -->
                     <tr lang="ru" finished="false">Добавить поплавок в группу и смыть, если группа
                     заполнена</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">add symbol to group and flush if group is full packed</tr>
+                    <!-- old: Добавить символ в группу и смыть, если группа
+                    заполнена -->
                     <tr lang="ru" finished="false">Добавить символ в группу и смыть, если группа
                     заполнена</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">add list atoms to group and flush if needed</tr>
+                    <!-- old: Добавить атомы списка в группу и смыть, если это
+                    необходимо. -->
                     <tr lang="ru" finished="false">Добавить атомы списка в группу и смыть, если это
                     необходимо.</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">add data to group and flush if needed</tr>
+                    <!-- old: Добавление данных в группу и смыв при
+                    необходимости -->
                     <tr lang="ru" finished="false">Добавление данных в группу и смыв при
                     необходимости</tr>
                 </xinfo>
@@ -88,6 +96,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output list of grouped atoms</tr>
+                    <tr lang="ru" finished="false">Список выходных группированных атомов</tr>
                 </out>
             </outlet>
         </outlets>

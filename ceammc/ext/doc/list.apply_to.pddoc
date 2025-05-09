@@ -24,6 +24,9 @@
             <argument name="INDEXES" type="list">
                 <tr lang="en">apply index(es) (starting from 0). Negative value means position from
                 end of the list. For example: '-1' means last element.</tr>
+                <!-- old: Применять индекс(ы) (начиная с 0). Отрицательное
+                значение означает позицию в конце списка. Например, «-1» означает последний
+                элемент. -->
                 <tr lang="ru" finished="false">Применять индекс(ы) (начиная с 0). Отрицательное
                 значение означает позицию в конце списка. Например, «-1» означает последний
                 элемент.</tr>
@@ -41,6 +44,8 @@
                 <xinfo on="list">
                     <tr lang="en">Input list. If no element found by specified index - list passed
                     without changes</tr>
+                    <!-- old: Список входов. Если элемент не найден указанным
+                    индексом - список прошел без изменений -->
                     <tr lang="ru" finished="false">Список входов. Если элемент не найден указанным
                     индексом - список прошел без изменений</tr>
                 </xinfo>
@@ -62,11 +67,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">new modified list</tr>
+                    <tr lang="ru" finished="false">Новый модифицированный список</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">element at given index. Should be passed to applied object</tr>
+                    <tr lang="ru" finished="false">элемент в данном индексе. должны быть переданы
+                    приложенному объекту</tr>
                 </out>
             </outlet>
         </outlets>

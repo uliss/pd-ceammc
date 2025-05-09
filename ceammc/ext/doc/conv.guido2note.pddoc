@@ -55,11 +55,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">int: MIDI pitch</tr>
+                    <tr lang="ru" finished="false">Оригинальное название: MIDI pitch</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">float: note duration in milliseconds</tr>
+                    <tr lang="ru" finished="false">Поплавок: продолжительность ноты в
+                    миллисекундах</tr>
                 </out>
             </outlet>
         </outlets>

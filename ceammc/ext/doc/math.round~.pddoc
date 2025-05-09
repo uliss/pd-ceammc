@@ -35,6 +35,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output rounded signal</tr>
+                    <tr lang="ru" finished="false">выходной округленный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

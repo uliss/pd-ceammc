@@ -23,63 +23,80 @@
             <par>
                 <tr lang="en">control float value in range [0-1) controls xfade between first and
                 second signals, [1-2) between second and third etc.</tr>
+                <tr lang="ru" finished="false">Управление значением поплавка в диапазоне [0-1]
+                управляет xfade между первым и вторым сигналами, [1-2) между вторым и третьим и
+                т.д.</tr>
             </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="16">
                 <tr lang="en">number of inputs</tr>
+                <tr lang="ru" finished="false">Количество входов</tr>
             </argument>
             <argument name="X" type="float">
                 <tr lang="en">crossfade init value. Valid value in [0..N-1] range. See @x
                 property</tr>
+                <tr lang="ru" finished="false">Crossfade init значение. Действительное значение в
+                диапазоне [0..N-1]. См. @x Property</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @lin -->
             <property name="@lin" type="alias">
                 <tr lang="en">alias to @type lin</tr>
+                <tr lang="ru" finished="false">Исполнитель: @type lin</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" default="2" access="initonly" minvalue="2"
             maxvalue="16">
                 <tr lang="en">number of xfade inputs</tr>
+                <tr lang="ru" finished="false">Количество вводов xfade</tr>
             </property>
             <!-- @pow -->
             <property name="@pow" type="alias">
                 <tr lang="en">alias to @type pow</tr>
+                <tr lang="ru" finished="false">Исполнитель: @type Pow</tr>
             </property>
             <!-- @smooth -->
             <property name="@smooth" type="float" minvalue="1" default="20" units="millisecond">
                 <tr lang="en">signal change smooth time</tr>
+                <tr lang="ru" finished="false">Изменение сигнала плавное время</tr>
             </property>
             <!-- @type -->
             <property name="@type" type="symbol" enum="lin pow" default="pow">
                 <tr lang="en">fade curve type: linear or power</tr>
+                <tr lang="ru" finished="false">Тип кривой выцветания: линейный или силовой</tr>
             </property>
             <!-- @x -->
             <property name="@x" type="float" default="0">
                 <tr lang="en">crossfade property. Valid value in [0..N-1] range.</tr>
+                <tr lang="ru" finished="false">Кроссфейд собственность. Действительное значение в
+                диапазоне [0..N-1].</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="...">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="n">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="control">
                 <xinfo on="float">
                     <tr lang="en">set crossfade value</tr>
+                    <tr lang="ru" finished="false">значение crossfade</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -87,6 +104,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

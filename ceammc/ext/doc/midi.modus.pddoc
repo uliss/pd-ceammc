@@ -65,11 +65,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">accepted note or NOTE VELOCITY [DUR] list</tr>
+                    <tr lang="ru" finished="false">Принятое примечание или ПРИМЕЧАНИЕ ПРИМЕЧАНИЕ
+                    ПРИМЕЧАНИЕ [DUR]</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">discarded message</tr>
+                    <tr lang="ru" finished="false">Отброшенное сообщение</tr>
                 </out>
             </outlet>
         </outlets>

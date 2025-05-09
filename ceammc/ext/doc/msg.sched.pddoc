@@ -23,11 +23,15 @@
             <par>
                 <tr lang="en">First element of input list considered as delay time in
                 milliseconds.</tr>
+                <!-- old: Первый элемент входного списка рассматривается как
+                время задержки в миллисекундах. -->
                 <tr lang="ru" finished="false">Первый элемент входного списка рассматривается как
                 время задержки в миллисекундах.</tr>
             </par>
             <par>
                 <tr lang="en">Other messages passed 'as is' immediately.</tr>
+                <!-- old: Другие сообщения были переданы «как есть»
+                немедленно. -->
                 <tr lang="ru" finished="false">Другие сообщения были переданы «как есть»
                 немедленно.</tr>
             </par>
@@ -52,6 +56,13 @@
                     time. If delay time is &lt;0, output left elements immediately. If delay time
                     is ==0, output left elements with shortest possible delay (on next scheduler
                     block). If first element not a float, output whole list immediately.</tr>
+                    <!-- old: Если первый элемент является поплавком, он
+                    считается временем задержки в миллисекунде. Если это время задержки > 0:
+                    выход оставил элементы после этого времени задержки. Если время задержки <0,
+                    то выход сразу же оставляет элементы. Если время задержки ==0, на выходе
+                    остаются элементы с наименьшей возможной задержкой (на следующем блоке
+                    планировщика). Если первый элемент не плавает, немедленно выведите весь
+                    список. -->
                     <tr lang="ru" finished="false">Если первый элемент является поплавком, он
                     считается временем задержки в миллисекунде. Если это время задержки &gt; 0:
                     выход оставил элементы после этого времени задержки. Если время задержки &lt;0,
@@ -72,6 +83,8 @@
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">reset: clear scheduled messages, flush: output and clear</tr>
+                    <!-- old: Сброс: четкие запланированные сообщения, смыв:
+                    вывод и ясность -->
                     <tr lang="ru" finished="false">Сброс: четкие запланированные сообщения, смыв:
                     вывод и ясность</tr>
                 </xinfo>
@@ -81,6 +94,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">message output</tr>
+                    <tr lang="ru" finished="false">сообщение</tr>
                 </out>
             </outlet>
         </outlets>

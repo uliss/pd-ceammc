@@ -20,6 +20,8 @@
             <par>
                 <tr lang="en">Random impulses in the amplitude range -1 to 1 are generated at an
                 average rate of @freq impulses per second</tr>
+                <!-- old: Случайные импульсы в амплитуде от -1 до 1
+                генерируются со средней скоростью импульсов @freq в секунду. -->
                 <tr lang="ru" finished="false">Случайные импульсы в амплитуде от -1 до 1
                 генерируются со средней скоростью импульсов @freq в секунду.</tr>
             </par>
@@ -53,6 +55,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

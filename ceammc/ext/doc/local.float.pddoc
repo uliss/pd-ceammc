@@ -24,6 +24,9 @@
             <par>
                 <tr lang="en">Defines named local float variable, accessed by name and available
                 only within its patch (canvas). Note: it is not accessible even from subpatch.</tr>
+                <!-- old: Определяет названную локальную поплавковую
+                переменную, доступную по имени и доступную только в пределах ее патча (канваса).
+                Примечание: он недоступен даже из субпатча. -->
                 <tr lang="ru" finished="false">Определяет названную локальную поплавковую
                 переменную, доступную по имени и доступную только в пределах ее патча (канваса).
                 Примечание: он недоступен даже из субпатча.</tr>
@@ -91,6 +94,8 @@
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">sets new value and outputs it ONLY at current object outlet</tr>
+                    <!-- old: устанавливает новое значение и выводит его
+                    ТОЛЬКО при текущем выходе объекта -->
                     <tr lang="ru" finished="false">устанавливает новое значение и выводит его
                     ТОЛЬКО при текущем выходе объекта</tr>
                 </xinfo>
@@ -100,6 +105,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float output</tr>
+                    <tr lang="ru" finished="false">выпуск поплавков</tr>
                 </out>
             </outlet>
         </outlets>

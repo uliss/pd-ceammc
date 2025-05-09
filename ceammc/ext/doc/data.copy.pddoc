@@ -20,6 +20,8 @@
             <par>
                 <tr lang="en">Data types, such as MList, are passed by reference, not by
                 value.</tr>
+                <!-- old: Типы данных, такие как MList, передаются по ссылке,
+                а не по значению. -->
                 <tr lang="ru" finished="false">Типы данных, такие как MList, передаются по ссылке,
                 а не по значению.</tr>
             </par>
@@ -36,6 +38,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">data copy</tr>
+                    <tr lang="ru" finished="false">копия данных</tr>
                 </out>
             </outlet>
         </outlets>

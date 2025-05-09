@@ -23,6 +23,8 @@
             <par>
                 <tr lang="en">Outputs the principle value of the arc cosine of input signal. The
                 result is in the range [0, pi]</tr>
+                <!-- old: Выходит принципиальное значение дугового косинуса
+                входного сигнала. Результат находится в диапазоне [0, pi]. -->
                 <tr lang="ru" finished="false">Выходит принципиальное значение дугового косинуса
                 входного сигнала. Результат находится в диапазоне [0, pi].</tr>
             </par>
@@ -39,6 +41,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">result signal</tr>
+                    <tr lang="ru" finished="false">результат сигнала</tr>
                 </out>
             </outlet>
         </outlets>

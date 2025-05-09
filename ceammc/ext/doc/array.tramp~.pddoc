@@ -65,11 +65,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">ramp signal</tr>
+                    <tr lang="ru" finished="false">сигнальный сигнал</tr>
                 </out>
             </outlet>
             <outlet type="control">
                 <out type="any">
                     <tr lang="en">bang on done</tr>
+                    <tr lang="ru" finished="false">бахвальство</tr>
                 </out>
             </outlet>
         </outlets>

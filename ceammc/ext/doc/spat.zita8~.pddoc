@@ -19,9 +19,11 @@
         <arguments>
             <argument name="RADIUS" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">@radius property</tr>
+                <tr lang="ru" finished="false">@radius property</tr>
             </argument>
             <argument name="ANGLE" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">@angle property</tr>
+                <tr lang="ru" finished="false">@angle Недвижимость</tr>
             </argument>
         </arguments>
         <properties>
@@ -31,37 +33,49 @@
             <!-- @angle -->
             <property name="@angle" type="float" minvalue="0" default="0" maxvalue="1">
                 <tr lang="en">source panning position</tr>
+                <tr lang="ru" finished="false">положение источника</tr>
             </property>
             <!-- @decay_low -->
             <property name="@decay_low" type="float" minvalue="1" maxvalue="60" default="3"
             units="second">
                 <tr lang="en">time (in seconds) to decay 60dB in low-frequency band</tr>
+                <tr lang="ru" finished="false">время (в секундах) распада 60dB в низкочастотном
+                диапазоне</tr>
             </property>
             <!-- @decay_mid -->
             <property name="@decay_mid" type="float" minvalue="1" maxvalue="60" default="2"
             units="second">
                 <tr lang="en">time (in seconds) to decay 60dB in mid-frequency band</tr>
+                <tr lang="ru" finished="false">время (в секундах) распада 60dB в диапазоне средних
+                частот</tr>
             </property>
             <!-- @delay -->
             <property name="@delay" type="float" minvalue="20" maxvalue="100" default="60"
             units="millisecond">
                 <tr lang="en">a delay of 20 to 100 ms operating on the 'wet' signal. Large values
                 will provide the impression of a larger room</tr>
+                <tr lang="ru" finished="false">задержка от 20 до 100 мс, работающая по «мокрому»
+                сигналу. Большие значения обеспечат впечатление большой комнаты</tr>
             </property>
             <!-- @dump_hf -->
             <property name="@dump_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
             units="hertz">
                 <tr lang="en">Frequency (Hz) at which the high-frequency T60 is half the
                 middle-band's T60</tr>
+                <tr lang="ru" finished="false">Частота (Гц), при которой высокочастотный T60
+                составляет половину T60 среднего диапазона</tr>
             </property>
             <!-- @freq_low -->
             <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
             units="hertz">
                 <tr lang="en">Crossover frequency (Hz) separating low and middle frequencies</tr>
+                <tr lang="ru" finished="false">Перекрестная частота (Гц), разделяющая низкие и
+                средние частоты</tr>
             </property>
             <!-- @radius -->
             <property name="@radius" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">source distance from circle center</tr>
+                <tr lang="ru" finished="false">Расстояние от источника до центра круга</tr>
             </property>
         </properties>
         <methods>
@@ -69,6 +83,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset spat and reverb</tr>
+                    <tr lang="ru" finished="false">Сброс брызг и реверберации</tr>
                 </info>
             </method>
         </methods>
@@ -76,6 +91,7 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input</tr>
+                    <tr lang="ru" finished="false">ввод</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -83,41 +99,49 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">1st output</tr>
+                    <tr lang="ru" finished="false">1-й выход</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">2dn output</tr>
+                    <tr lang="ru" finished="false">2dn выход</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">3rd output</tr>
+                    <tr lang="ru" finished="false">3-й выход</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">4th output</tr>
+                    <tr lang="ru" finished="false">4-й выпуск</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">5th output</tr>
+                    <tr lang="ru" finished="false">5-й выпуск</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">6th output</tr>
+                    <tr lang="ru" finished="false">6-й выпуск</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">7th output</tr>
+                    <tr lang="ru" finished="false">7-й выпуск</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">8th output</tr>
+                    <tr lang="ru" finished="false">8-й выпуск</tr>
                 </out>
             </outlet>
         </outlets>

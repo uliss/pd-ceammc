@@ -25,6 +25,8 @@
             <par>
                 <tr lang="en">Outputs the integral value nearest to but no larger in magnitude than
                 x</tr>
+                <!-- old: Выходит интегральное значение, близкое, но не
+                большее по величине, чем x -->
                 <tr lang="ru" finished="false">Выходит интегральное значение, близкое, но не
                 большее по величине, чем x</tr>
             </par>
@@ -43,6 +45,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">result signal</tr>
+                    <tr lang="ru" finished="false">результат сигнала</tr>
                 </out>
             </outlet>
         </outlets>

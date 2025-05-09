@@ -48,12 +48,16 @@
             <property name="@attack" type="float" units="millisecond" minvalue="0" maxvalue="500"
             default="0.1">
                 <tr lang="en">attack time = time constant (ms) for gate to open</tr>
+                <!-- old: Время атаки = постоянная времени (ms) для открытия
+                ворот -->
                 <tr lang="ru" finished="false">Время атаки = постоянная времени (ms) для открытия
                 ворот</tr>
             </property>
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
@@ -62,6 +66,8 @@
             default="100">
                 <tr lang="en">hold time = time (ms) gate stays open after signal level &lt;
                 threshold</tr>
+                <!-- old: время ожидания = время (ms) ворот остается открытым
+                после уровня сигнала < порог -->
                 <tr lang="ru" finished="false">время ожидания = время (ms) ворот остается открытым
                 после уровня сигнала &lt; порог</tr>
             </property>
@@ -69,6 +75,8 @@
             <property name="@release" type="float" units="millisecond" default="20" minvalue="1"
             maxvalue="500">
                 <tr lang="en">release time = time constant (ms) for gate to close</tr>
+                <!-- old: Время выпуска = постоянная времени (ms) для закрытия
+                ворот -->
                 <tr lang="ru" finished="false">Время выпуска = постоянная времени (ms) для закрытия
                 ворот</tr>
             </property>
@@ -76,6 +84,8 @@
             <property name="@threshold" type="float" units="decibel" minvalue="-90" maxvalue="0"
             default="-60">
                 <tr lang="en">dB level threshold above which gate opens</tr>
+                <!-- old: порог уровня дБ, выше которого открывается
+                затвор -->
                 <tr lang="ru" finished="false">порог уровня дБ, выше которого открывается
                 затвор</tr>
             </property>
@@ -107,6 +117,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

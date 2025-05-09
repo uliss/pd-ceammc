@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">The cbrt() function computes the cube root of input value.</tr>
+                <!-- old: Функция cbrt() вычисляет кубический корень входного
+                значения. -->
                 <tr lang="ru" finished="false">Функция cbrt() вычисляет кубический корень входного
                 значения.</tr>
             </par>
@@ -35,6 +37,8 @@
             </par>
             <par>
                 <tr lang="en">cbrt(+-infinity) returns +-infinity.</tr>
+                <!-- old: cbrt (+-бесконечность) возвращает
+                +-бесконечность. -->
                 <tr lang="ru" finished="false">cbrt (+-бесконечность) возвращает
                 +-бесконечность.</tr>
             </par>
@@ -55,6 +59,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

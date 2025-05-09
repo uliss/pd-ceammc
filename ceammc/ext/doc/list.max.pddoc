@@ -23,12 +23,16 @@
             <par>
                 <tr lang="en">By default returns largest float in list, this equal to using @float
                 property.</tr>
+                <!-- old: По умолчанию возвращает самый большой поплавок в
+                списке, это равно использованию свойства @float. -->
                 <tr lang="ru" finished="false">По умолчанию возвращает самый большой поплавок в
                 списке, это равно использованию свойства @float.</tr>
             </par>
             <par>
                 <tr lang="en">Also you can choose largest symbol from list, using @symbol
                 property.</tr>
+                <!-- old: Также можно выбрать самый большой символ из списка,
+                используя свойство @symbol. -->
                 <tr lang="ru" finished="false">Также можно выбрать самый большой символ из списка,
                 используя свойство @symbol.</tr>
             </par>
@@ -38,18 +42,24 @@
             <property name="@any" type="alias">
                 <tr lang="en">alias for @type any. Find greatest atom of any type. Note: symbols
                 are greater then numbers</tr>
+                <!-- old: Фамилия для @type any. Найдите самый большой атом
+                любого типа. Примечание: символы больше, чем числа -->
                 <tr lang="ru" finished="false">Фамилия для @type any. Найдите самый большой атом
                 любого типа. Примечание: символы больше, чем числа</tr>
             </property>
             <!-- @float -->
             <property name="@float" type="alias">
                 <tr lang="en">alias for @type float. Find max float element in list</tr>
+                <!-- old: Оригинальное название: @type float. Найти элемент
+                max float в списке -->
                 <tr lang="ru" finished="false">Оригинальное название: @type float. Найти элемент
                 max float в списке</tr>
             </property>
             <!-- @symbol -->
             <property name="@symbol" type="alias">
                 <tr lang="en">alias for @type symbol. Find greatest symbol element</tr>
+                <!-- old: Фамилия для символа @type. Найдите самый большой
+                элемент символа -->
                 <tr lang="ru" finished="false">Фамилия для символа @type. Найдите самый большой
                 элемент символа</tr>
             </property>
@@ -83,6 +93,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">largest element</tr>
+                    <tr lang="ru" finished="false">Самый большой элемент</tr>
                 </out>
             </outlet>
         </outlets>

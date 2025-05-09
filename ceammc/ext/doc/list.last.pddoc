@@ -36,6 +36,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">last list element</tr>
+                    <tr lang="ru" finished="false">элемент последнего списка</tr>
                 </out>
             </outlet>
         </outlets>

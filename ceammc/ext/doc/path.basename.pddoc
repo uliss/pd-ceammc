@@ -35,6 +35,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">filename</tr>
+                    <tr lang="ru" finished="false">имя файла</tr>
                 </out>
             </outlet>
         </outlets>

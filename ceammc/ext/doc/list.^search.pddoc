@@ -39,6 +39,8 @@
             <!-- @end -->
             <property name="@end" type="int" minvalue="-1" default="-1">
                 <tr lang="en">search end index position (-1 means end of list)</tr>
+                <!-- old: Положение индекса конца поиска (-1 означает конец
+                списка) -->
                 <tr lang="ru" finished="false">Положение индекса конца поиска (-1 означает конец
                 списка)</tr>
             </property>
@@ -65,6 +67,8 @@
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">output position of given list in searched list</tr>
+                    <!-- old: выходная позиция данного списка в списке
+                    поиска -->
                     <tr lang="ru" finished="false">выходная позиция данного списка в списке
                     поиска</tr>
                 </xinfo>
@@ -84,6 +88,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">1 on success, otherwise 0</tr>
+                    <tr lang="ru" finished="false">1 на успех, в противном случае 0</tr>
                 </out>
             </outlet>
         </outlets>

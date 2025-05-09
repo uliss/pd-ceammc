@@ -46,16 +46,19 @@
             <outlet number="1">
                 <out type="any">
                     <tr lang="en">symbol: message selector</tr>
+                    <tr lang="ru" finished="false">символ: селектор сообщений</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">atom: message args</tr>
+                    <tr lang="ru" finished="false">Атом: сообщение args</tr>
                 </out>
             </outlet>
             <outlet number="n+1">
                 <out type="any">
                     <tr lang="en">list: last message args</tr>
+                    <tr lang="ru" finished="false">Оригинальное название: Last Message Args</tr>
                 </out>
             </outlet>
         </outlets>

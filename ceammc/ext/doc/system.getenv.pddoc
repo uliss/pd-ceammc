@@ -23,21 +23,26 @@
         <arguments>
             <argument name="NAME" type="symbol">
                 <tr lang="en">environment variable name</tr>
+                <tr lang="ru" finished="false">переменное имя окружающей среды</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @name -->
             <property name="@name" type="symbol" default="">
                 <tr lang="en">environment variable name</tr>
+                <tr lang="ru" finished="false">переменное имя окружающей среды</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs variable value</tr>
+                    <tr lang="ru" finished="false">выходы переменная величина</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">sets name of environment variable and outputs it value</tr>
+                    <tr lang="ru" finished="false">устанавливает имя переменной среды и выводит ее
+                    значение</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -45,6 +50,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">symbol: env-variable value</tr>
+                    <tr lang="ru" finished="false">символ: переменное значение энв</tr>
                 </out>
             </outlet>
         </outlets>

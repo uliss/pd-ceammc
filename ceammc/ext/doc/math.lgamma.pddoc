@@ -36,6 +36,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value or list</tr>
+                    <tr lang="ru" finished="false">значение результата или список</tr>
                 </out>
             </outlet>
         </outlets>

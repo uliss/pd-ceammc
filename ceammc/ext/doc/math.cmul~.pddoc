@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">Calculates for signals (a + bi) * (c + di) = (ac - bd) + (ad +
                 bc)i</tr>
+                <!-- old: Расчеты для сигналов (a + bi) * (c + di) = (ac - bd)
+                + (ad + bc)i -->
                 <tr lang="ru" finished="false">Расчеты для сигналов (a + bi) * (c + di) = (ac - bd)
                 + (ad + bc)i</tr>
             </par>
@@ -61,11 +63,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">real part of result</tr>
+                    <tr lang="ru" finished="false">Реальная часть результата</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">imag part of result</tr>
+                    <tr lang="ru" finished="false">Имаг часть результата</tr>
                 </out>
             </outlet>
         </outlets>

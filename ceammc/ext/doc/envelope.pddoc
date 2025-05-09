@@ -30,6 +30,10 @@
                 <tr lang="en">Data type for sound envelope. Contains points specified by time and
                 value. Points could have stop property - to execute oly part of envelope and stop
                 on this point. So multisegment envelopes could be created</tr>
+                <!-- old: Тип данных для звукового конверта. Содержит точки,
+                определенные временем и стоимостью. Точки могли иметь останавливающее свойство —
+                выполнять оли часть конверта и останавливаться на этой точке. Можно создать
+                многосегментные конверты -->
                 <tr lang="ru" finished="false">Тип данных для звукового конверта. Содержит точки,
                 определенные временем и стоимостью. Точки могли иметь останавливающее свойство —
                 выполнять оли часть конверта и останавливаться на этой точке. Можно создать
@@ -38,6 +42,9 @@
             <par>
                 <tr lang="en">Point also has segment type property, that defines following segment
                 curve - it could be *step*, *line* (default) or *exp* (exponential)</tr>
+                <!-- old: Точка также имеет свойство типа сегмента, которое
+                определяет следующую кривую сегмента - это может быть *step*, *line* (по умолчанию)
+                или *exp* (экспоненциально). -->
                 <tr lang="ru" finished="false">Точка также имеет свойство типа сегмента, которое
                 определяет следующую кривую сегмента - это может быть *step*, *line* (по умолчанию)
                 или *exp* (экспоненциально).</tr>
@@ -45,6 +52,9 @@
             <par>
                 <tr lang="en">Exponential segment also has curve property: if 0 - (linear) &lt;0
                 (concave, negatively curved) &gt;0 (convex, positively curved)</tr>
+                <!-- old: Экспоненциальный сегмент также имеет кривое
+                свойство: если 0 - (линейный) <0 (вогнутый, отрицательно изогнутый) >0
+                (выпуклый, положительно изогнутый) -->
                 <tr lang="ru" finished="false">Экспоненциальный сегмент также имеет кривое
                 свойство: если 0 - (линейный) &lt;0 (вогнутый, отрицательно изогнутый) &gt;0
                 (выпуклый, положительно изогнутый)</tr>
@@ -53,11 +63,15 @@
         <arguments>
             <argument name="adsr" type="list">
                 <tr lang="en">ADSR envelope: attack(ms), decay(ms), sustain(%), release(ms)</tr>
+                <!-- old: Оболочка ADSR: атака (ms), распад (ms), поддержка
+                (%), высвобождение (ms) -->
                 <tr lang="ru" finished="false">Оболочка ADSR: атака (ms), распад (ms), поддержка
                 (%), высвобождение (ms)</tr>
             </argument>
             <argument name="asr" type="list">
                 <tr lang="en">ASR envelope: attack(ms), release(ms) - with sustain stop point</tr>
+                <!-- old: Оболочка ASR: атака (ms), высвобождение (ms) - с
+                устойчивой точкой остановки -->
                 <tr lang="ru" finished="false">Оболочка ASR: атака (ms), высвобождение (ms) - с
                 устойчивой точкой остановки</tr>
             </argument>
@@ -68,18 +82,24 @@
             <argument name="eadsr" type="list">
                 <tr lang="en">exponential ADSR envelope: attack(ms), attack_curve, decay(ms),
                 decay_curve, sustain(%), release(ms), release_curve</tr>
+                <!-- old: Экспоненциальная оболочка ADSR: attack(ms),
+                attack_curve, decay(ms), decay_curve, sustain(%), release(ms), release_curve -->
                 <tr lang="ru" finished="false">Экспоненциальная оболочка ADSR: attack(ms),
                 attack_curve, decay(ms), decay_curve, sustain(%), release(ms), release_curve</tr>
             </argument>
             <argument name="easr" type="list">
                 <tr lang="en">exponential ASR envelope: attack(ms), attack_curve, release(ms),
                 release_curve - with sustain stop point</tr>
+                <!-- old: Экспоненциальный конверт ASR: attack(ms),
+                attack_curve, release(ms), release_curve - с точкой остановки -->
                 <tr lang="ru" finished="false">Экспоненциальный конверт ASR: attack(ms),
                 attack_curve, release(ms), release_curve - с точкой остановки</tr>
             </argument>
             <argument name="ear" type="list">
                 <tr lang="en">exponential ASR envelope: attack(ms), attack_curve, release(ms),
                 release_curve - no sustain point</tr>
+                <!-- old: Экспоненциальная оболочка ASR: attack(ms),
+                attack_curve, release(ms), release_curve - нет точки опоры -->
                 <tr lang="ru" finished="false">Экспоненциальная оболочка ASR: attack(ms),
                 attack_curve, release(ms), release_curve - нет точки опоры</tr>
             </argument>
@@ -117,6 +137,8 @@
             <method name="*">
                 <info>
                     <tr lang="en">multiply all envelope points to specified value</tr>
+                    <!-- old: Умножьте все точки конверта на заданное
+                    значение -->
                     <tr lang="ru" finished="false">Умножьте все точки конверта на заданное
                     значение</tr>
                 </info>
@@ -129,6 +151,8 @@
             <method name="+">
                 <info>
                     <tr lang="en">add specified value to all envelope points</tr>
+                    <!-- old: добавить указанное значение для всех точек
+                    конверта -->
                     <tr lang="ru" finished="false">добавить указанное значение для всех точек
                     конверта</tr>
                 </info>
@@ -141,6 +165,8 @@
             <method name="&gt;&gt;">
                 <info>
                     <tr lang="en">shift all envelope point by specified time in milliseconds</tr>
+                    <!-- old: переместить всю точку конверта по заданному
+                    времени в миллисекундах -->
                     <tr lang="ru" finished="false">переместить всю точку конверта по заданному
                     времени в миллисекундах</tr>
                 </info>
@@ -170,12 +196,17 @@
                 <param name="TYPE" type="symbol" enum="step line exp sin2 sigmoid" default="line">
                     <tr lang="en">segment type: step, linear, exponential, sin^2 or sigmoid
                     curve</tr>
+                    <!-- old: тип сегмента: шаг, линейная, экспоненциальная,
+                    sin2 или сигмоидная кривая -->
                     <tr lang="ru" finished="false">тип сегмента: шаг, линейная, экспоненциальная,
                     sin2 или сигмоидная кривая</tr>
                 </param>
                 <param name="CURVE" type="float" default="1">
                     <tr lang="en">exponential curve degree: 0 (linear) &lt;0 (concave, negatively
                     curved) &gt;0 (convex, positively curved)</tr>
+                    <!-- old: Степень экспоненциальной кривой: 0 (линейная)
+                    <0 (вогнутая, отрицательно изогнутая) >0 (выпуклая, положительно
+                    изогнутая) -->
                     <tr lang="ru" finished="false">Степень экспоненциальной кривой: 0 (линейная)
                     &lt;0 (вогнутая, отрицательно изогнутая) &gt;0 (выпуклая, положительно
                     изогнутая)</tr>
@@ -186,6 +217,8 @@
                 <info>
                     <tr lang="en">add segment to the end of envelope. On empty envelope adds start
                     point at 0ms and 0 value</tr>
+                    <!-- old: Добавьте сегмент в конец конверта. На пустом
+                    конверте добавляется начальная точка 0ms и 0 значение -->
                     <tr lang="ru" finished="false">Добавьте сегмент в конец конверта. На пустом
                     конверте добавляется начальная точка 0ms и 0 значение</tr>
                 </info>
@@ -210,6 +243,8 @@
             <method name="adsr">
                 <info>
                     <tr lang="en">creates ADSR envelope with one stop point</tr>
+                    <!-- old: Создание конверта ADSR с одной точкой
+                    остановки -->
                     <tr lang="ru" finished="false">Создание конверта ADSR с одной точкой
                     остановки</tr>
                 </info>
@@ -252,6 +287,8 @@
             <method name="asr">
                 <info>
                     <tr lang="en">creates ASR envelope with one stop point</tr>
+                    <!-- old: Создание конверта ASR с одной точкой
+                    остановки -->
                     <tr lang="ru" finished="false">Создание конверта ASR с одной точкой
                     остановки</tr>
                 </info>
@@ -276,6 +313,8 @@
             <method name="eadsr">
                 <info>
                     <tr lang="en">creates exponential ADSR envelope with one stop point</tr>
+                    <!-- old: создает экспоненциальный конверт ADSR с одной
+                    точкой остановки -->
                     <tr lang="ru" finished="false">создает экспоненциальный конверт ADSR с одной
                     точкой остановки</tr>
                 </info>
@@ -314,6 +353,8 @@
             <method name="ear">
                 <info>
                     <tr lang="en">creates exponential AR envelope without stop points</tr>
+                    <!-- old: Создает экспоненциальный конверт AR без точек
+                    остановки -->
                     <tr lang="ru" finished="false">Создает экспоненциальный конверт AR без точек
                     остановки</tr>
                 </info>
@@ -338,6 +379,8 @@
             <method name="easr">
                 <info>
                     <tr lang="en">creates exponential AR envelope with one stop point</tr>
+                    <!-- old: Создает экспоненциальный конверт AR с одной
+                    точкой остановки -->
                     <tr lang="ru" finished="false">Создает экспоненциальный конверт AR с одной
                     точкой остановки</tr>
                 </info>
@@ -364,6 +407,8 @@
                 <info>
                     <tr lang="en">creates exponential-segmented envelope with arbitrary number of
                     segments</tr>
+                    <!-- old: создает экспоненциально-сегментированную
+                    оболочку с произвольным количеством сегментов -->
                     <tr lang="ru" finished="false">создает экспоненциально-сегментированную
                     оболочку с произвольным количеством сегментов</tr>
                 </info>
@@ -401,6 +446,8 @@
                 <info>
                     <tr lang="en">creates line-segmented envelope with arbitrary number of
                     segments</tr>
+                    <!-- old: создает линейно-сегментированный конверт с
+                    произвольным количеством сегментов -->
                     <tr lang="ru" finished="false">создает линейно-сегментированный конверт с
                     произвольным количеством сегментов</tr>
                 </info>
@@ -429,6 +476,8 @@
             <method name="remove_point">
                 <info>
                     <tr lang="en">remove envelope point by specified time</tr>
+                    <!-- old: Удалить точку конверта по указанному
+                    времени -->
                     <tr lang="ru" finished="false">Удалить точку конверта по указанному
                     времени</tr>
                 </info>
@@ -525,6 +574,8 @@
                 <info>
                     <tr lang="en">creates sigmoid-segmented envelope with arbitrary number of
                     segments</tr>
+                    <!-- old: создает сигмоид-сегментированную оболочку с
+                    произвольным количеством сегментов -->
                     <tr lang="ru" finished="false">создает сигмоид-сегментированную оболочку с
                     произвольным количеством сегментов</tr>
                 </info>
@@ -562,6 +613,8 @@
                 <info>
                     <tr lang="en">creates quadratic sine-segmented envelope with arbitrary number
                     of segments</tr>
+                    <!-- old: создает квадратичную синесегментированную
+                    оболочку с произвольным числом сегментов -->
                     <tr lang="ru" finished="false">создает квадратичную синесегментированную
                     оболочку с произвольным числом сегментов</tr>
                 </info>
@@ -591,6 +644,8 @@
                 <info>
                     <tr lang="en">creates step-segmented envelope with arbitrary number of
                     segments</tr>
+                    <!-- old: создает пошаговый сегментированный конверт с
+                    произвольным количеством сегментов -->
                     <tr lang="ru" finished="false">создает пошаговый сегментированный конверт с
                     произвольным количеством сегментов</tr>
                 </info>
@@ -632,6 +687,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">data output</tr>
+                    <tr lang="ru" finished="false">выход данных</tr>
                 </out>
             </outlet>
         </outlets>

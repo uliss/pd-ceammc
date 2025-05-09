@@ -85,6 +85,8 @@
             <method name="pull_down">
                 <info>
                     <tr lang="en">pull internal pin resistors to low level</tr>
+                    <!-- old: тянуть внутренние резисторы штифта на низкий
+                    уровень -->
                     <tr lang="ru" finished="false">тянуть внутренние резисторы штифта на низкий
                     уровень</tr>
                 </info>
@@ -97,6 +99,8 @@
             <method name="pull_up">
                 <info>
                     <tr lang="en">pull internal pin resistors to high level</tr>
+                    <!-- old: тянуть внутренние резисторы штифта на высокий
+                    уровень -->
                     <tr lang="ru" finished="false">тянуть внутренние резисторы штифта на высокий
                     уровень</tr>
                 </info>
@@ -131,6 +135,8 @@
             <method name="soft_pwm">
                 <info>
                     <tr lang="en">set software PWM for pin</tr>
+                    <!-- old: установить программное обеспечение PWM для
+                    pin -->
                     <tr lang="ru" finished="false">установить программное обеспечение PWM для
                     pin</tr>
                 </info>
@@ -170,6 +176,8 @@
             <method name="toggle">
                 <info>
                     <tr lang="en">toggle output pin current value</tr>
+                    <!-- old: Переключатель выходного штифта текущего
+                    значения -->
                     <tr lang="ru" finished="false">Переключатель выходного штифта текущего
                     значения</tr>
                 </info>
@@ -182,6 +190,8 @@
             <method name="used_pins">
                 <info>
                     <tr lang="en">list used GPIO pins. Outputs [pins PIN...( message</tr>
+                    <!-- old: Список использованных значков GPIO. Выходы [pins
+                    PIN...(сообщение)] -->
                     <tr lang="ru" finished="false">Список использованных значков GPIO. Выходы [pins
                     PIN...(сообщение)]</tr>
                 </info>
@@ -214,6 +224,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">messages: [pin PIN STATE(, [pins PIN PIN...(</tr>
+                    <tr lang="ru" finished="false">[pin PIN STATE, [pins PIN PIN...]]</tr>
                 </out>
             </outlet>
         </outlets>

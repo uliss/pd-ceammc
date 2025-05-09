@@ -26,6 +26,8 @@
             <par>
                 <tr lang="en">Polynomial Transition Regions (PTR) used for aliasing suppression.
                 2nd order interpolation.</tr>
+                <!-- old: Полиномиальные переходные области (ПТР),
+                используемые для псевдонима подавления. Интерполяция 2-го порядка. -->
                 <tr lang="ru" finished="false">Полиномиальные переходные области (ПТР),
                 используемые для псевдонима подавления. Интерполяция 2-го порядка.</tr>
             </par>
@@ -65,6 +67,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

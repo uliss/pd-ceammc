@@ -70,6 +70,8 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">frequency in Hz (can be negative and zero)</tr>
+                    <!-- old: частота в Гц (может быть отрицательной и
+                    нулевой) -->
                     <tr lang="ru" finished="false">частота в Гц (может быть отрицательной и
                     нулевой)</tr>
                 </xinfo>
@@ -85,6 +87,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">sawtooth wave in [0-1) range</tr>
+                    <tr lang="ru" finished="false">Зенитная волна в [0-1] диапазоне</tr>
                 </out>
             </outlet>
         </outlets>

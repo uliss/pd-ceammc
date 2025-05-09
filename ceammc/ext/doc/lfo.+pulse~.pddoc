@@ -85,6 +85,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">pulsetrain wave in [0-1] range</tr>
+                    <tr lang="ru" finished="false">импульсная волна в диапазоне [0-1]</tr>
                 </out>
             </outlet>
         </outlets>

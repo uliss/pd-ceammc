@@ -20,6 +20,8 @@
             <par>
                 <tr lang="en">Default keyboard layout is QWERTY, but you can specify custom
                 one</tr>
+                <!-- old: Компоновка клавиатуры по умолчанию QWERTY, но вы
+                можете указать пользовательский -->
                 <tr lang="ru" finished="false">Компоновка клавиатуры по умолчанию QWERTY, но вы
                 можете указать пользовательский</tr>
             </par>
@@ -92,6 +94,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">MIDI output: NOTE VEL</tr>
+                    <tr lang="ru" finished="false">Вывод MIDI: Примечание VEL</tr>
                 </out>
             </outlet>
         </outlets>

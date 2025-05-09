@@ -26,6 +26,8 @@
             <par>
                 <tr lang="en">The cos() function computes the cosine of input value (measured in
                 radians).</tr>
+                <!-- old: Функция cos() вычисляет косинус входного значения
+                (измеряется в радианах). -->
                 <tr lang="ru" finished="false">Функция cos() вычисляет косинус входного значения
                 (измеряется в радианах).</tr>
             </par>
@@ -40,6 +42,8 @@
             <par>
                 <tr lang="en">cos(+-infinity) returns a NaN and raises the "invalid" floating-point
                 exception.</tr>
+                <!-- old: cos(+-infinity) возвращает NaN и поднимает
+                «недействительное» исключение из плавающей точки. -->
                 <tr lang="ru" finished="false">cos(+-infinity) возвращает NaN и поднимает
                 «недействительное» исключение из плавающей точки.</tr>
             </par>
@@ -60,6 +64,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

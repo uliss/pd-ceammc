@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">delay that doesn't click and doesn't transpose when the delay time is
                 changed</tr>
+                <!-- old: задержка, которая не нажимает и не переносится при
+                изменении времени задержки -->
                 <tr lang="ru" finished="false">задержка, которая не нажимает и не переносится при
                 изменении времени задержки</tr>
             </par>
@@ -48,6 +50,8 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
@@ -73,6 +77,8 @@
             <property name="@compress" type="float" minvalue="0" maxvalue="1" default="0.5">
                 <tr lang="en">feedback compression factor. 0: means no compression, 1: limit
                 feedback level.</tr>
+                <!-- old: Фактор сжатия обратной связи. 0: означает отсутствие
+                сжатия, 1: предельный уровень обратной связи. -->
                 <tr lang="ru" finished="false">Фактор сжатия обратной связи. 0: означает отсутствие
                 сжатия, 1: предельный уровень обратной связи.</tr>
             </property>
@@ -86,6 +92,8 @@
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet.</tr>
+                <!-- old: пропорция смеси между исходным (сухим) и «влажным»
+                сигналами. 0 - сухой сигнал, 1 - влажный. -->
                 <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
                 сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
             </property>
@@ -109,6 +117,8 @@
             <!-- @filter -->
             <property name="@filter" type="bool" default="0">
                 <tr lang="en">if true - apply filter to feedback signal</tr>
+                <!-- old: Если это правда - нанесите фильтр на сигнал обратной
+                связи -->
                 <tr lang="ru" finished="false">Если это правда - нанесите фильтр на сигнал обратной
                 связи</tr>
             </property>
@@ -117,6 +127,9 @@
             units="millisecond">
                 <tr lang="en">interpolation time on delay time change, that prevents click and
                 transpose, if equal to 0 produces artifacts on delay change</tr>
+                <!-- old: время интерполяции при изменении времени задержки,
+                которое предотвращает щелчок и транспонирование, если равно 0 производит артефакты
+                при изменении задержки -->
                 <tr lang="ru" finished="false">время интерполяции при изменении времени задержки,
                 которое предотвращает щелчок и транспонирование, если равно 0 производит артефакты
                 при изменении задержки</tr>
@@ -149,6 +162,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

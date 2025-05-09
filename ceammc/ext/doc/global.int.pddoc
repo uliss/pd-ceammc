@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">Defines global scope integer variable, accessed by ID name.</tr>
+                <!-- old: Определяет глобальную целочисленную переменную
+                объема, доступную по имени ID. -->
                 <tr lang="ru" finished="false">Определяет глобальную целочисленную переменную
                 объема, доступную по имени ID.</tr>
             </par>
@@ -96,6 +98,7 @@
             <outlet type="control">
                 <out type="any">
                     <tr lang="en">int output</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

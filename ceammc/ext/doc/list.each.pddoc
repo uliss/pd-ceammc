@@ -26,6 +26,10 @@
                 <tr lang="en">Each @step elements are passed via righmost outlet to extenal object,
                 that suppose to return it back to rightmost inlet. So various mapping and filtering
                 are possible.</tr>
+                <!-- old: Каждый элемент @step передается через самую высокую
+                розетку на экстенальный объект, который, как предполагается, возвращает его обратно
+                в самую правую розетку. Таким образом, возможны различные картографирование и
+                фильтрация. -->
                 <tr lang="ru" finished="false">Каждый элемент @step передается через самую высокую
                 розетку на экстенальный объект, который, как предполагается, возвращает его обратно
                 в самую правую розетку. Таким образом, возможны различные картографирование и
@@ -43,6 +47,8 @@
             <property name="@step" type="int" minvalue="1" maxvalue="1024" default="1">
                 <tr lang="en">number of elements outputted to rightmost outlet on each
                 iteration</tr>
+                <!-- old: количество элементов, выводимых в самую правильную
+                точку на каждой итерации -->
                 <tr lang="ru" finished="false">количество элементов, выводимых в самую правильную
                 точку на каждой итерации</tr>
             </property>
@@ -61,6 +67,8 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">New modified value from applied object.</tr>
+                    <!-- old: Новое модифицированное значение от прикладного
+                    объекта. -->
                     <tr lang="ru" finished="false">Новое модифицированное значение от прикладного
                     объекта.</tr>
                 </xinfo>
@@ -70,11 +78,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">New modified list (or mlist)</tr>
+                    <tr lang="ru" finished="false">Новый измененный список (или млист)</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">single element or list of values (if @step property &gt; 1)</tr>
+                    <tr lang="ru" finished="false">один элемент или список значений (если @step
+                    свойство &gt; 1)</tr>
                 </out>
             </outlet>
         </outlets>

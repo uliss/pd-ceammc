@@ -28,6 +28,10 @@
                 lower than a certain cutoff frequency and attenuates signals with frequencies
                 higher than the cutoff frequency. A low-pass filter is the complement of a
                 high-pass filter.</tr>
+                <!-- old: Низкочастотный фильтр представляет собой фильтр,
+                который передает сигналы с частотой ниже определенной частоты отсечки и ослабляет
+                сигналы с частотами выше частоты отсечки. Фильтр с низким проходом является
+                дополнением фильтра с высоким проходом. -->
                 <tr lang="ru" finished="false">Низкочастотный фильтр представляет собой фильтр,
                 который передает сигналы с частотой ниже определенной частоты отсечки и ослабляет
                 сигналы с частотами выше частоты отсечки. Фильтр с низким проходом является
@@ -36,6 +40,9 @@
             <par>
                 <tr lang="en">Butterworth filter is a type of filter designed to have a frequency
                 response as flat as possible in the passband.</tr>
+                <!-- old: Фильтр Баттерворта — это тип фильтра,
+                предназначенный для того, чтобы иметь как можно более плоскую частотную реакцию в
+                полосе пропускания. -->
                 <tr lang="ru" finished="false">Фильтр Баттерворта — это тип фильтра,
                 предназначенный для того, чтобы иметь как можно более плоскую частотную реакцию в
                 полосе пропускания.</tr>
@@ -86,6 +93,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">filtered signal</tr>
+                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

@@ -58,6 +58,8 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">starts (on &gt; 0) or stops (on &lt;= 0) metro</tr>
+                    <!-- old: старты (на > 0) или остановки (на <= 0)
+                    метро -->
                     <tr lang="ru" finished="false">старты (на &gt; 0) или остановки (на &lt;= 0)
                     метро</tr>
                 </xinfo>
@@ -69,6 +71,8 @@
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">set random range. min max pair expected.</tr>
+                    <!-- old: Установите случайный диапазон. Ожидаемая пара
+                    min max. -->
                     <tr lang="ru" finished="false">Установите случайный диапазон. Ожидаемая пара
                     min max.</tr>
                 </xinfo>
@@ -84,6 +88,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs *bang*</tr>
+                    <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
                 </out>
             </outlet>
         </outlets>

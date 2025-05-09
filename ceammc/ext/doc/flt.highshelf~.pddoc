@@ -28,6 +28,8 @@
             </argument>
             <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">
                 <tr lang="en">amount of boost or cut apply to the signal</tr>
+                <!-- old: величина наддува или разреза применяется к
+                сигналу -->
                 <tr lang="ru" finished="false">величина наддува или разреза применяется к
                 сигналу</tr>
             </argument>
@@ -46,6 +48,8 @@
             <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
             default="0">
                 <tr lang="en">amount of boost or cut apply to the signal</tr>
+                <!-- old: величина наддува или разреза применяется к
+                сигналу -->
                 <tr lang="ru" finished="false">величина наддува или разреза применяется к
                 сигналу</tr>
             </property>
@@ -62,6 +66,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">filtered signal</tr>
+                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

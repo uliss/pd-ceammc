@@ -28,22 +28,29 @@
                 passed unchanged and named property values added to stream. Note: all property
                 inlets are *hot*, i.e. if object receives new value on inlet it immediately outputs
                 it.</tr>
+                <tr lang="ru" finished="false">Вводим свойства в поток данных. Значения от первого
+                входа передаются без изменений и называются значениями свойств, добавленными в
+                поток. Примечание: все входы свойств являются горячими, то есть, если объект
+                получает новое значение на входе, он немедленно выводит его.</tr>
             </par>
         </info>
         <inlets dynamic="true">
             <inlet>
                 <xinfo>
                     <tr lang="en">data stream</tr>
+                    <tr lang="ru" finished="false">поток данных</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">property value</tr>
+                    <tr lang="ru" finished="false">стоимость имущества</tr>
                 </xinfo>
             </inlet>
             <inlet number="...">
                 <xinfo>
                     <tr lang="en">property value</tr>
+                    <tr lang="ru" finished="false">стоимость имущества</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -51,6 +58,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output values</tr>
+                    <tr lang="ru" finished="false">выходные значения</tr>
                 </out>
             </outlet>
         </outlets>

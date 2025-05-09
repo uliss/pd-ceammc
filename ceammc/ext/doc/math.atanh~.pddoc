@@ -24,6 +24,8 @@
             <par>
                 <tr lang="en">Outputs the principle value of the hyperbolic arc tangent of input
                 signal</tr>
+                <!-- old: Выходит принципиальное значение тангенса
+                гиперболической дуги входного сигнала -->
                 <tr lang="ru" finished="false">Выходит принципиальное значение тангенса
                 гиперболической дуги входного сигнала</tr>
             </par>
@@ -42,6 +44,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">result signal</tr>
+                    <tr lang="ru" finished="false">результат сигнала</tr>
                 </out>
             </outlet>
         </outlets>

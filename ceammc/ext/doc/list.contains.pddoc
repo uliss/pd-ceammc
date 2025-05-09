@@ -33,6 +33,8 @@
             <property name="@all_of" type="list" default="">
                 <tr lang="en">all_of mode, output 1 is input list contains all of this property
                 values</tr>
+                <!-- old: all_of mode, выход 1 - список входов содержит все
+                эти значения свойств -->
                 <tr lang="ru" finished="false">all_of mode, выход 1 - список входов содержит все
                 эти значения свойств</tr>
             </property>
@@ -40,6 +42,8 @@
             <property name="@any_of" type="list" default="">
                 <tr lang="en">any_of mode, output 1 is input list contains any (al least one) of
                 this property values</tr>
+                <!-- old: любой_режим, выход 1 - список входов содержит любые
+                (по меньшей мере один) значения этого свойства -->
                 <tr lang="ru" finished="false">любой_режим, выход 1 - список входов содержит любые
                 (по меньшей мере один) значения этого свойства</tr>
             </property>
@@ -47,6 +51,8 @@
             <property name="@none_of" type="list" default="">
                 <tr lang="en">none_of mode, output 1 is input list contains none of this property
                 values</tr>
+                <!-- old: no_of mode, выход 1 является входным списком и не
+                содержит значений этого свойства -->
                 <tr lang="ru" finished="false">no_of mode, выход 1 является входным списком и не
                 содержит значений этого свойства</tr>
             </property>
@@ -54,6 +60,8 @@
             <property name="@sublist" type="list" default="">
                 <tr lang="en">sublist mode, output 1 if input list contains this property value as
                 sublist, otherwise 0</tr>
+                <!-- old: режим подсписка, выход 1 если список ввода содержит
+                это значение свойства в качестве подсписка, иначе 0 -->
                 <tr lang="ru" finished="false">режим подсписка, выход 1 если список ввода содержит
                 это значение свойства в качестве подсписка, иначе 0</tr>
             </property>
@@ -62,6 +70,8 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">check is list is contains specified atom or sequence</tr>
+                    <!-- old: Контрольный список содержит указанный атом или
+                    последовательность -->
                     <tr lang="ru" finished="false">Контрольный список содержит указанный атом или
                     последовательность</tr>
                 </xinfo>
@@ -81,6 +91,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">1 on success, otherwise 0</tr>
+                    <tr lang="ru" finished="false">1 на успех, в противном случае 0</tr>
                 </out>
             </outlet>
         </outlets>

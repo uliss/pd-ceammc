@@ -27,18 +27,23 @@
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">any to *first* outlet</tr>
+                    <tr lang="ru" finished="false">Любой *первый* выход</tr>
                 </xinfo>
                 <xinfo on="bang">
                     <tr lang="en">bang to second outlet</tr>
+                    <tr lang="ru" finished="false">Bang to Second Outlet (альбом)</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">float to second outlet</tr>
+                    <tr lang="ru" finished="false">Поплавать на второй выход</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list to second outlet</tr>
+                    <tr lang="ru" finished="false">Список для второго выхода</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">symbol to second outlet</tr>
+                    <tr lang="ru" finished="false">Символ для второго выхода</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -46,11 +51,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">any output</tr>
+                    <tr lang="ru" finished="false">любой выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">bangs, floats, symbols and lists</tr>
+                    <tr lang="ru" finished="false">Банги, поплавки, символы и списки</tr>
                 </out>
             </outlet>
         </outlets>

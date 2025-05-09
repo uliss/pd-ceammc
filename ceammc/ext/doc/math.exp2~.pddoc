@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">The exp2() function computes 2**x, the base-2 exponential of x.</tr>
+                <!-- old: Функция exp2() вычисляет 2**x, основание-2
+                экспоненциально x. -->
                 <tr lang="ru" finished="false">Функция exp2() вычисляет 2**x, основание-2
                 экспоненциально x.</tr>
             </par>
@@ -54,6 +56,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

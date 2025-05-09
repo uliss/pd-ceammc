@@ -31,16 +31,19 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">pair: note, velocity</tr>
+                    <tr lang="ru" finished="false">пара: примечание, скорость</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">note duration in milliseconds</tr>
+                    <tr lang="ru" finished="false">Продолжительность записи в миллисекундах</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">note track</tr>
+                    <tr lang="ru" finished="false">примечание</tr>
                 </out>
             </outlet>
         </outlets>

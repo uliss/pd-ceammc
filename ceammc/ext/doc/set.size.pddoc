@@ -23,6 +23,8 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">input set. Other values are ignored</tr>
+                    <tr lang="ru" finished="false">Набор входных данных. Другие ценности
+                    игнорируются</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -30,6 +32,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">number of element in set</tr>
+                    <tr lang="ru" finished="false">Количество элементов в наборе</tr>
                 </out>
             </outlet>
         </outlets>

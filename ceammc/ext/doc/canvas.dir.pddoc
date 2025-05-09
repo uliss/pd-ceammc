@@ -47,11 +47,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">symbol: current canvas directory</tr>
+                    <tr lang="ru" finished="false">Символ: текущий каталог canvas</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">int: nesting level</tr>
+                    <tr lang="ru" finished="false">Int: уровень гнездования</tr>
                 </out>
             </outlet>
         </outlets>

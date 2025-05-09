@@ -26,6 +26,7 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">first symbol</tr>
+                    <tr lang="ru" finished="false">Первый символ</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -33,6 +34,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list of codes</tr>
+                    <tr lang="ru" finished="false">Список кодов</tr>
                 </out>
             </outlet>
         </outlets>

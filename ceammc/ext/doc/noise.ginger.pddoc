@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
+                <!-- old: Неинтерполирующий генератор, основанный на
+                разностных уравнениях: -->
                 <tr lang="ru" finished="false">Неинтерполирующий генератор, основанный на
                 разностных уравнениях:</tr>
             </par>
@@ -55,6 +57,8 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset seed, x and y values to defaults</tr>
+                    <!-- old: сбрасывать значения семян, x и y по
+                    умолчанию -->
                     <tr lang="ru" finished="false">сбрасывать значения семян, x и y по
                     умолчанию</tr>
                 </info>
@@ -63,6 +67,8 @@
             <method name="seed">
                 <info>
                     <tr lang="en">set seed value and update default</tr>
+                    <!-- old: установить начальное значение и обновить по
+                    умолчанию -->
                     <tr lang="ru" finished="false">установить начальное значение и обновить по
                     умолчанию</tr>
                 </info>
@@ -71,6 +77,8 @@
             <method name="set">
                 <info>
                     <tr lang="en">set seed, x and y values, updates defaults</tr>
+                    <!-- old: установить значения семени, x и y, обновить по
+                    умолчанию -->
                     <tr lang="ru" finished="false">установить значения семени, x и y, обновить по
                     умолчанию</tr>
                 </info>
@@ -79,6 +87,8 @@
             <method name="x">
                 <info>
                     <tr lang="en">set x value and update default</tr>
+                    <!-- old: установить значение x и обновить по
+                    умолчанию -->
                     <tr lang="ru" finished="false">установить значение x и обновить по
                     умолчанию</tr>
                 </info>
@@ -87,6 +97,8 @@
             <method name="y">
                 <info>
                     <tr lang="en">set y value and update default</tr>
+                    <!-- old: установить значение y и обновить по
+                    умолчанию -->
                     <tr lang="ru" finished="false">установить значение y и обновить по
                     умолчанию</tr>
                 </info>
@@ -96,6 +108,8 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs current x/y values and generates new one</tr>
+                    <!-- old: выводит текущие значения x/y и генерирует
+                    новые -->
                     <tr lang="ru" finished="false">выводит текущие значения x/y и генерирует
                     новые</tr>
                 </xinfo>
@@ -105,11 +119,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs x-value</tr>
+                    <tr lang="ru" finished="false">выходы x-значения</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs y-value</tr>
+                    <tr lang="ru" finished="false">выход y-значения</tr>
                 </out>
             </outlet>
         </outlets>

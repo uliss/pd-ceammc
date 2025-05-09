@@ -24,6 +24,9 @@
             <par>
                 <tr lang="en">Outputs the principle value of the hyperbolic arc cosine of input
                 signal. Input signal expected to be &gt;= 1, otherwise output will be NAN</tr>
+                <!-- old: Выходит принципиальное значение косинуса
+                гиперболической дуги входного сигнала. Входной сигнал должен быть >= 1, иначе
+                выход будет NAN -->
                 <tr lang="ru" finished="false">Выходит принципиальное значение косинуса
                 гиперболической дуги входного сигнала. Входной сигнал должен быть &gt;= 1, иначе
                 выход будет NAN</tr>
@@ -43,6 +46,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">result signal</tr>
+                    <tr lang="ru" finished="false">результат сигнала</tr>
                 </out>
             </outlet>
         </outlets>

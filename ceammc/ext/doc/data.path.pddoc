@@ -44,6 +44,8 @@
             <method name="exists">
                 <info>
                     <tr lang="en">checks if path exists. Output [exists VALUE( message</tr>
+                    <!-- old: Проверить, существует ли путь. Результат
+                    [существует Ценность] -->
                     <tr lang="ru" finished="false">Проверить, существует ли путь. Результат
                     [существует Ценность]</tr>
                 </info>
@@ -52,6 +54,8 @@
             <method name="info">
                 <info>
                     <tr lang="en">request path information. Output [info DICT(</tr>
+                    <!-- old: запросить информацию о пути. Выход [информация
+                    DICT() -->
                     <tr lang="ru" finished="false">запросить информацию о пути. Выход [информация
                     DICT()</tr>
                 </info>
@@ -60,6 +64,8 @@
             <method name="permissions">
                 <info>
                     <tr lang="en">request path permissions. Output [permissions VALUE(</tr>
+                    <!-- old: Запросить разрешения пути. Результат [разрешение
+                    Ценность() -->
                     <tr lang="ru" finished="false">Запросить разрешения пути. Результат [разрешение
                     Ценность()</tr>
                 </info>
@@ -68,6 +74,8 @@
             <method name="size">
                 <info>
                     <tr lang="en">request file size in bytes. Output [size BYTES(</tr>
+                    <!-- old: Запрос размера файла в байтах. Выход [размер
+                    BYTES() -->
                     <tr lang="ru" finished="false">Запрос размера файла в байтах. Выход [размер
                     BYTES()</tr>
                 </info>
@@ -77,6 +85,8 @@
                 <info>
                     <tr lang="en">request path type. Output [type TYPE( message, where type is one
                     of: regular, dir, symlink, char, block, fifo, socket</tr>
+                    <!-- old: Тип пути запроса. Выход [тип TYPE(сообщение, где
+                    тип один из: обычный, dir, symlink, char, block, fifo, socket) -->
                     <tr lang="ru" finished="false">Тип пути запроса. Выход [тип TYPE(сообщение, где
                     тип один из: обычный, dir, symlink, char, block, fifo, socket)</tr>
                 </info>
@@ -112,6 +122,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">data output</tr>
+                    <tr lang="ru" finished="false">выход данных</tr>
                 </out>
             </outlet>
         </outlets>

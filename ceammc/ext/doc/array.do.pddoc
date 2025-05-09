@@ -59,12 +59,15 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bang on finish</tr>
+                    <tr lang="ru" finished="false">Взрыв на финише</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">for each array sample outputs list: SAMPLE_VALUE, SAMPLE_POS,
                     TOTAL_SAMPLES</tr>
+                    <tr lang="ru" finished="false">Для каждого массива выборка выводов:
+                    SAMPLE_VALUE, SAMPLE_POS, TOTAL_SAMPLES</tr>
                 </out>
             </outlet>
         </outlets>

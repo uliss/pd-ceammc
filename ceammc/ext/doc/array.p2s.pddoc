@@ -47,6 +47,8 @@
                 <xinfo on="float">
                     <tr lang="en">value between 0 and 1, where 0 maps to begin of array, 1 - to
                     end</tr>
+                    <!-- old: значение между 0 и 1, где 0 карт для начала
+                    массива, 1 - для конца -->
                     <tr lang="ru" finished="false">значение между 0 и 1, где 0 карт для начала
                     массива, 1 - для конца</tr>
                 </xinfo>
@@ -60,6 +62,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">sample number</tr>
+                    <tr lang="ru" finished="false">номер выборки</tr>
                 </out>
             </outlet>
         </outlets>

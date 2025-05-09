@@ -125,11 +125,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">message to vline~ object</tr>
+                    <tr lang="ru" finished="false">Обсуждение Vline~ Object</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">bang after playing finished</tr>
+                    <tr lang="ru" finished="false">Взрыв после завершения игры</tr>
                 </out>
             </outlet>
         </outlets>

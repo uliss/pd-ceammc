@@ -22,6 +22,8 @@
         <arguments>
             <argument name="MSG" type="list">
                 <tr lang="en">init value for prepended message</tr>
+                <!-- old: значение init для заранее подготовленного
+                сообщения -->
                 <tr lang="ru" finished="false">значение init для заранее подготовленного
                 сообщения</tr>
             </argument>
@@ -51,6 +53,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output message</tr>
+                    <tr lang="ru" finished="false">выходное сообщение</tr>
                 </out>
             </outlet>
         </outlets>

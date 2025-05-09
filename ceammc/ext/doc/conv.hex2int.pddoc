@@ -43,6 +43,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">converted value: int</tr>
+                    <tr lang="ru" finished="false">Преобразованная стоимость: int</tr>
                 </out>
             </outlet>
         </outlets>

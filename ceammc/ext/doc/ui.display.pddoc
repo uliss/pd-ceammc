@@ -27,6 +27,8 @@
         <info>
             <par>
                 <tr lang="en">[ui.dt] is the alias for [ui.display @display_type 1]</tr>
+                <tr lang="ru" finished="false">[ui.dt] является псевдонимом для [ui.display
+                @display_type 1]</tr>
             </par>
         </info>
         <mouse>
@@ -53,32 +55,42 @@
             <!-- @auto_size -->
             <property name="@auto_size" type="bool" default="1">
                 <tr lang="en">flag if automatically resize contents to feet incoming message</tr>
+                <tr lang="ru" finished="false">флаг, если автоматически изменить размер содержимого
+                для ног входящего сообщения</tr>
             </property>
             <!-- @background_color -->
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
                 <tr lang="en">element background color (list of red, green, blue values in 0-1
                 range)</tr>
+                <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @display_events -->
             <property name="@display_events" type="bool" default="1">
                 <tr lang="en">flag for blinking on incoming messages</tr>
+                <tr lang="ru" finished="false">Флаг для мигания на входящих сообщениях</tr>
             </property>
             <!-- @display_type -->
             <property name="@display_type" type="bool" default="0">
                 <tr lang="en">flag for displaying incoming message type</tr>
+                <tr lang="ru" finished="false">Флаг для отображения входящего типа сообщения</tr>
             </property>
             <!-- @float_width -->
             <property name="@float_width" type="int" default="-1" minvalue="-1" maxvalue="17">
                 <tr lang="en">number of digits after floating point. If -1: skip trailing zeroes,
                 if 0 - output as integers</tr>
+                <tr lang="ru" finished="false">Количество цифр после плавающей точки. Если -1:
+                пропустить нулевые значения, если 0 - выход в виде целых чисел</tr>
             </property>
             <!-- @hex -->
             <property name="@hex" type="bool" default="0">
                 <tr lang="en">output integers in hex format</tr>
+                <tr lang="ru" finished="false">выходные целые числа в формате hex</tr>
             </property>
             <!-- @hex_width -->
             <property name="@hex_width" type="int" default="2" minvalue="0" maxvalue="16">
                 <tr lang="en">hex output format width</tr>
+                <tr lang="ru" finished="false">Ширина выходного формата</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="80 18">
@@ -95,12 +107,15 @@
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
         </methods>
@@ -108,6 +123,7 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">accepts any messages and displays it</tr>
+                    <tr lang="ru" finished="false">принимает любые сообщения и отображает их</tr>
                 </xinfo>
             </inlet>
         </inlets>

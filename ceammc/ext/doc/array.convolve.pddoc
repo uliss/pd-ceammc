@@ -61,6 +61,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bang: on done</tr>
+                    <tr lang="ru" finished="false">Исполнитель: The Done</tr>
                 </out>
             </outlet>
         </outlets>

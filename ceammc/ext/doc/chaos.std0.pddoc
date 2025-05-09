@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
+                <!-- old: Неинтерполирующий генератор, основанный на
+                разностных уравнениях: -->
                 <tr lang="ru" finished="false">Неинтерполирующий генератор, основанный на
                 разностных уравнениях:</tr>
             </par>
@@ -37,6 +39,8 @@
             <par>
                 <tr lang="en">The properties of chaos of the standard map were established by Boris
                 Chirikov in 1969</tr>
+                <!-- old: Свойства хаоса стандартной карты были установлены
+                Борисом Чириковым в 1969 году. -->
                 <tr lang="ru" finished="false">Свойства хаоса стандартной карты были установлены
                 Борисом Чириковым в 1969 году.</tr>
             </par>
@@ -75,11 +79,15 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs x-value mapped to [-1..1] range</tr>
+                    <tr lang="ru" finished="false">выходы x-значения, отображаемые в [-1..1]
+                    диапазоне</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs y-value mapped to [-1..1] range</tr>
+                    <tr lang="ru" finished="false">выходы y-значения, отображаемые в [-1..1]
+                    диапазоне</tr>
                 </out>
             </outlet>
         </outlets>

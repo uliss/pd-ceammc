@@ -53,6 +53,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">function result</tr>
+                    <tr lang="ru" finished="false">Функция Результат</tr>
                 </out>
             </outlet>
         </outlets>

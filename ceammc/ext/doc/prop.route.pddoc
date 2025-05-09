@@ -31,12 +31,15 @@
             <par>
                 <tr lang="en">Extracts properties from data stream with matching. Non property
                 values are passed untouched</tr>
+                <tr lang="ru" finished="false">Извлекает свойства из потока данных с помощью
+                сопоставления. Неимущественные ценности передаются нетронутым</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">input values</tr>
+                    <tr lang="ru" finished="false">входные значения</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -44,21 +47,27 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">passed values</tr>
+                    <tr lang="ru" finished="false">переданные значения</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">first matched property value (without property selector)</tr>
+                    <tr lang="ru" finished="false">первая соответствующая стоимость недвижимости
+                    (без выбора недвижимости)</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">others matched property value</tr>
+                    <tr lang="ru" finished="false">Другие соответствуют стоимости недвижимости</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">unmatched property output (with selector)</tr>
+                    <tr lang="ru" finished="false">непревзойденный выход свойств (с
+                    селектором)</tr>
                 </out>
             </outlet>
         </outlets>

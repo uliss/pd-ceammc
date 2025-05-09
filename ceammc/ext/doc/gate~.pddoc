@@ -33,6 +33,8 @@
             <!-- @init -->
             <property name="@init" type="bool" access="initonly" default="true">
                 <tr lang="en">init state for all slots. If true: all slots are open.</tr>
+                <!-- old: Состояние init для всех слотов. Если это правда, все
+                слоты открыты. -->
                 <tr lang="ru" finished="false">Состояние init для всех слотов. Если это правда, все
                 слоты открыты.</tr>
             </property>
@@ -83,16 +85,19 @@
             <outlet type="audio" number="1">
                 <out type="any">
                     <tr lang="en">first output signal</tr>
+                    <tr lang="ru" finished="false">Первый выходной сигнал</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">... output signal</tr>
+                    <tr lang="ru" finished="false">... выходной сигнал</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n">
                 <out type="any">
                     <tr lang="en">n-th output signal</tr>
+                    <tr lang="ru" finished="false">n-й выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

@@ -27,6 +27,9 @@
             <par>
                 <tr lang="en">Note: output list is not sorted by default. You can use @sort flag to
                 get sorted output</tr>
+                <!-- old: Примечание: список вывода не сортируется по
+                умолчанию. Вы можете использовать флаг @sort для получения отсортированного
+                вывода -->
                 <tr lang="ru" finished="false">Примечание: список вывода не сортируется по
                 умолчанию. Вы можете использовать флаг @sort для получения отсортированного
                 вывода</tr>
@@ -51,6 +54,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output list</tr>
+                    <tr lang="ru" finished="false">перечень мероприятий</tr>
                 </out>
             </outlet>
         </outlets>

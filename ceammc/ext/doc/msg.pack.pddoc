@@ -34,6 +34,8 @@
             <!-- @msg -->
             <property name="@msg" type="list" default="">
                 <tr lang="en">message prefix. Change value via [prop.set] object</tr>
+                <!-- old: Префикс сообщения. Изменение значения через
+                [prop.set] объект -->
                 <tr lang="ru" finished="false">Префикс сообщения. Изменение значения через
                 [prop.set] объект</tr>
             </property>
@@ -46,6 +48,8 @@
             <!-- @sync -->
             <property name="@sync" type="bool" default="0">
                 <tr lang="en">sync mode. If true: output value on each inlet value change</tr>
+                <!-- old: режим синхронизации. Если верно: выходное значение
+                для каждого изменения входного значения -->
                 <tr lang="ru" finished="false">режим синхронизации. Если верно: выходное значение
                 для каждого изменения входного значения</tr>
             </property>
@@ -74,6 +78,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">message output</tr>
+                    <tr lang="ru" finished="false">сообщение</tr>
                 </out>
             </outlet>
         </outlets>

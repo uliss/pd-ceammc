@@ -20,6 +20,7 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs hostname</tr>
+                    <tr lang="ru" finished="false">Имя хоста / hostname</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -27,6 +28,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">symbol: hostname</tr>
+                    <tr lang="ru" finished="false">Символ: hostname</tr>
                 </out>
             </outlet>
         </outlets>

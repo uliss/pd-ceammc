@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">switching between waveforms is interpolated and takes 50ms.</tr>
+                <!-- old: Переключение между формами волн интерполируется и
+                занимает 50 мс. -->
                 <tr lang="ru" finished="false">Переключение между формами волн интерполируется и
                 занимает 50 мс.</tr>
             </par>
@@ -73,6 +75,8 @@
             <property name="@windex" type="int" minvalue="0" maxvalue="9" default="0">
                 <tr lang="en">waveform index (counting from 0): sin, saw, tri, sqr, pulse, +sin,
                 +saw, +tri, +sqr, +pulse.</tr>
+                <!-- old: Индекс формы волны (счет от 0): sin, saw, tri, sqr,
+                пульс, +sin, +saw, +tri, +sqr, +pulse. -->
                 <tr lang="ru" finished="false">Индекс формы волны (счет от 0): sin, saw, tri, sqr,
                 пульс, +sin, +saw, +tri, +sqr, +pulse.</tr>
             </property>
@@ -108,6 +112,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">oscillator output</tr>
+                    <tr lang="ru" finished="false">выход осциллятора</tr>
                 </out>
             </outlet>
         </outlets>

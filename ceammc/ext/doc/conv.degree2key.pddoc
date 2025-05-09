@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">Note: some scales are not for eq12 temperament</tr>
+                <!-- old: Примечание: некоторые весы не для темперамента
+                eq12 -->
                 <tr lang="ru" finished="false">Примечание: некоторые весы не для темперамента
                 eq12</tr>
             </par>
@@ -57,6 +59,8 @@
                 <info>
                     <tr lang="en">choose random degree from current scale and convert it to
                     key</tr>
+                    <!-- old: выбрать случайную степень из текущей шкалы и
+                    преобразовать ее в ключевую -->
                     <tr lang="ru" finished="false">выбрать случайную степень из текущей шкалы и
                     преобразовать ее в ключевую</tr>
                 </info>
@@ -78,6 +82,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float or float list: converted value(s)</tr>
+                    <tr lang="ru" finished="false">float или float list: конвертируемые
+                    значения</tr>
                 </out>
             </outlet>
         </outlets>

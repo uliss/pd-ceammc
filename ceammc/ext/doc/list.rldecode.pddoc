@@ -55,6 +55,8 @@
                 <out type="any">
                     <tr lang="en">result - elements repeated n times specified by corresponding
                     values in second list</tr>
+                    <tr lang="ru" finished="false">результат - элементы, повторяемые n раз,
+                    заданные соответствующими значениями во втором списке</tr>
                 </out>
             </outlet>
         </outlets>

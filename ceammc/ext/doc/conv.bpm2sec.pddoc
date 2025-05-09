@@ -28,6 +28,8 @@
             <par>
                 <tr lang="en">Convert frequency from BPM (beats per minute) to period in seconds.
                 It's simple as 60/f, but more readable.</tr>
+                <!-- old: Преобразуйте частоту от BPM (бит в минуту) в период
+                в секундах. Это просто как 60/f, но более читаемо. -->
                 <tr lang="ru" finished="false">Преобразуйте частоту от BPM (бит в минуту) в период
                 в секундах. Это просто как 60/f, но более читаемо.</tr>
             </par>
@@ -44,6 +46,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">period in seconds</tr>
+                    <tr lang="ru" finished="false">период в секундах</tr>
                 </out>
             </outlet>
         </outlets>

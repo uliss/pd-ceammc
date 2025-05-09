@@ -25,23 +25,27 @@
         <arguments>
             <argument name="PREFIX" type="symbol">
                 <tr lang="en">prefix</tr>
+                <tr lang="ru" finished="false">префикс</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @prefix -->
             <property name="@prefix" type="symbol" default="">
                 <tr lang="en">prefix</tr>
+                <tr lang="ru" finished="false">префикс</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input string or symbol</tr>
+                    <tr lang="ru" finished="false">входная строка или символ</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">search prefix (string or symbol)</tr>
+                    <tr lang="ru" finished="false">Префикс поиска (строка или символ)</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -49,6 +53,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output 1 if input string starts with prefix, otherwise 0</tr>
+                    <tr lang="ru" finished="false">выход 1 если строка ввода начинается с префикса,
+                    в противном случае 0</tr>
                 </out>
             </outlet>
         </outlets>

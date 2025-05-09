@@ -36,11 +36,14 @@
                 <out type="any">
                     <tr lang="en">First list: list entries without repetitions. For example 1 1 2 2
                     2 1 1 becomes 1 2 1</tr>
+                    <tr lang="ru" finished="false">Первый список: список записей без повторений.
+                    Например, 1 1 2 2 2 1 1 становится 1 2 1</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">Second list: count of entries</tr>
+                    <tr lang="ru" finished="false">Второй список: количество записей</tr>
                 </out>
             </outlet>
         </outlets>

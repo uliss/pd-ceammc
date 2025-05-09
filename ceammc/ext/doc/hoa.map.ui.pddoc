@@ -24,6 +24,10 @@
                 <tr lang="en">[hoa.map.ui] allows you to spatialize several sources on a plane to
                 control [hoa.2d.map~] or [hoa.3d.map]. You can add and remove sources, change
                 coordinates, add description and create groups.</tr>
+                <!-- old: [hoa.map.ui] позволяет расположить несколько
+                источников на плоскости для управления [hoa.2d.map~] или [hoa.3d.map]. Можно
+                добавлять и удалять источники, изменять координаты, добавлять описание и создавать
+                группы. -->
                 <tr lang="ru" finished="false">[hoa.map.ui] позволяет расположить несколько
                 источников на плоскости для управления [hoa.2d.map~] или [hoa.3d.map]. Можно
                 добавлять и удалять источники, изменять координаты, добавлять описание и создавать
@@ -50,12 +54,16 @@
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
                 <tr lang="en">element background color (list of red, green, blue values in 0-1
                 range)</tr>
+                <!-- old: цвет фона элемента (список красных, зеленых, синих
+                значений в диапазоне 0-1) -->
                 <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих
                 значений в диапазоне 0-1)</tr>
             </property>
             <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">
                 <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
+                <!-- old: пограничный цвет (список красных, зеленых, синих
+                значений в диапазоне 0-1) -->
                 <tr lang="ru" finished="false">пограничный цвет (список красных, зеленых, синих
                 значений в диапазоне 0-1)</tr>
             </property>
@@ -94,6 +102,8 @@
             <property name="@label_color" type="list" default="0 0 0 1">
                 <tr lang="en">label color in RGB format within 0-1 range, for example: 0.2 0.4
                 0.1</tr>
+                <!-- old: цвет этикетки в формате RGB в диапазоне 0-1,
+                например: 0.2 0.4 0.1 -->
                 <tr lang="ru" finished="false">цвет этикетки в формате RGB в диапазоне 0-1,
                 например: 0.2 0.4 0.1</tr>
             </property>
@@ -130,12 +140,16 @@
             <!-- @pinned -->
             <property name="@pinned" type="bool" default="0">
                 <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
+                <!-- old: Режим пин. если 1 - поставить элемент на самый
+                низкий уровень -->
                 <tr lang="ru" finished="false">Режим пин. если 1 - поставить элемент на самый
                 низкий уровень</tr>
             </property>
             <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
+                <!-- old: Предустановленное имя для использования с
+                [ui.preset] -->
                 <tr lang="ru" finished="false">Предустановленное имя для использования с
                 [ui.preset]</tr>
             </property>
@@ -147,6 +161,8 @@
             <!-- @selection_color -->
             <property name="@selection_color" type="list" default="0 0.75 1 1">
                 <tr lang="en">selection color (list of red, green, blue values in 0-1 range)</tr>
+                <!-- old: цвет выбора (список красных, зеленых, синих значений
+                в диапазоне 0-1) -->
                 <tr lang="ru" finished="false">цвет выбора (список красных, зеленых, синих значений
                 в диапазоне 0-1)</tr>
             </property>
@@ -194,6 +210,8 @@
             <method name="dump">
                 <info>
                     <tr lang="en">dumps all object info to Pd console window</tr>
+                    <!-- old: сбрасывает всю информацию об объекте в окно
+                    консоли Pd -->
                     <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно
                     консоли Pd</tr>
                 </info>
@@ -230,6 +248,8 @@
             <method name="interp">
                 <info>
                     <tr lang="en">for this object acts as *load*, no interpolation performed</tr>
+                    <!-- old: для этого объекта действует как *load*,
+                    интерполяция не выполняется -->
                     <tr lang="ru" finished="false">для этого объекта действует как *load*,
                     интерполяция не выполняется</tr>
                 </info>
@@ -264,6 +284,8 @@
             <method name="set">
                 <info>
                     <tr lang="en">sets toggle state without output</tr>
+                    <!-- old: Устанавливает состояние переключения без
+                    выхода -->
                     <tr lang="ru" finished="false">Устанавливает состояние переключения без
                     выхода</tr>
                 </info>
@@ -313,16 +335,19 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">source output</tr>
+                    <tr lang="ru" finished="false">источник выхода</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">group output</tr>
+                    <tr lang="ru" finished="false">групповой выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">info output</tr>
+                    <tr lang="ru" finished="false">выход информации</tr>
                 </out>
             </outlet>
         </outlets>

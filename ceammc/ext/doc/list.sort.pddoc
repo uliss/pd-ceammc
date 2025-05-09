@@ -33,6 +33,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">new sorted list</tr>
+                    <tr lang="ru" finished="false">Новый сортированный список</tr>
                 </out>
             </outlet>
         </outlets>

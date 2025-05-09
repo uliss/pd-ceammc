@@ -31,11 +31,15 @@
             </par>
             <par>
                 <tr lang="en">'up1' - play top note, then from bottom to up</tr>
+                <!-- old: «up1» — играйте на верхней ноте, затем снизу
+                вверх -->
                 <tr lang="ru" finished="false">«up1» — играйте на верхней ноте, затем снизу
                 вверх</tr>
             </par>
             <par>
                 <tr lang="en">'down1' - play bottom note, then from top to bottom</tr>
+                <!-- old: «down1» — играйте на нижней ноте, затем сверху
+                вниз -->
                 <tr lang="ru" finished="false">«down1» — играйте на нижней ноте, затем сверху
                 вниз</tr>
             </par>
@@ -46,11 +50,15 @@
             <par>
                 <tr lang="en">'random' - play random note, excluding the current one (no
                 repeats)</tr>
+                <!-- old: «случайный» — играйте случайную ноту, исключая
+                текущую (не повторяется) -->
                 <tr lang="ru" finished="false">«случайный» — играйте случайную ноту, исключая
                 текущую (не повторяется)</tr>
             </par>
             <par>
                 <tr lang="en">'random1' - play random note (there can be repeats)</tr>
+                <!-- old: «random1» — играйте случайную ноту (можно
+                повторить) -->
                 <tr lang="ru" finished="false">«random1» — играйте случайную ноту (можно
                 повторить)</tr>
             </par>
@@ -70,6 +78,8 @@
             <!-- @min_notes -->
             <property name="@min_notes" type="int" default="1" minvalue="1">
                 <tr lang="en">number of minimal notes to perform arpeggio</tr>
+                <!-- old: Количество минимальных нот для выполнения
+                арпеджио -->
                 <tr lang="ru" finished="false">Количество минимальных нот для выполнения
                 арпеджио</tr>
             </property>
@@ -92,6 +102,8 @@
             <!-- @seed -->
             <property name="@seed" type="int" default="0" minvalue="0">
                 <tr lang="en">random seed value (to get reproducible random series)</tr>
+                <!-- old: случайное значение семян (для получения
+                воспроизводимых случайных рядов) -->
                 <tr lang="ru" finished="false">случайное значение семян (для получения
                 воспроизводимых случайных рядов)</tr>
             </property>
@@ -112,6 +124,8 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">play next note in chord, if @external = 1</tr>
+                    <!-- old: играть следующую ноту аккордом, если @external =
+                    1 -->
                     <tr lang="ru" finished="false">играть следующую ноту аккордом, если @external =
                     1</tr>
                 </xinfo>
@@ -121,11 +135,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list: NOTE VELOCITY</tr>
+                    <tr lang="ru" finished="false">Список: ПРИМЕЧАНИЕ ВЕЛИЧНОСТЬ</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">int: note index in chord</tr>
+                    <tr lang="ru" finished="false">Int: Note Index в аккорде</tr>
                 </out>
             </outlet>
         </outlets>

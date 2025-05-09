@@ -31,6 +31,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs flow with realized dollar atoms</tr>
+                    <tr lang="ru" finished="false">Выходы текут с реализованными атомами
+                    доллара</tr>
                 </out>
             </outlet>
         </outlets>

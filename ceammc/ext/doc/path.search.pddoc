@@ -23,6 +23,8 @@
             <par>
                 <tr lang="en">Searches file by name in user specified or PureData system
                 paths.</tr>
+                <!-- old: Поиск файла по имени в заданных пользователем или
+                Пути системы PureData. -->
                 <tr lang="ru" finished="false">Поиск файла по имени в заданных пользователем или
                 Пути системы PureData.</tr>
             </par>
@@ -33,23 +35,32 @@
             <par>
                 <tr lang="en">Search order: 1. user defined paths (@path property), 2. current
                 patch directory, 3. PureData system path, 4. home directory.</tr>
+                <!-- old: Порядок поиска: 1. пути, определенные пользователем
+                (@path property), 2. текущий каталог патчей, 3. Путь системы PureData, 4. домашний
+                каталог. -->
                 <tr lang="ru" finished="false">Порядок поиска: 1. пути, определенные пользователем
                 (@path property), 2. текущий каталог патчей, 3. Путь системы PureData, 4. домашний
                 каталог.</tr>
             </par>
             <par>
                 <tr lang="en">Absolute paths processed before relative.</tr>
+                <!-- old: Абсолютные пути обрабатываются перед
+                относительными. -->
                 <tr lang="ru" finished="false">Абсолютные пути обрабатываются перед
                 относительными.</tr>
             </par>
             <par>
                 <tr lang="en">Home directory can be specified with '~' symbol.</tr>
+                <!-- old: Домашний каталог может быть указан символом
+                «~». -->
                 <tr lang="ru" finished="false">Домашний каталог может быть указан символом
                 «~».</tr>
             </par>
             <par>
                 <tr lang="en">Note: by default search request is performed asynchronously, so a
                 delay will occured between input and output.</tr>
+                <!-- old: Примечание: по умолчанию поисковый запрос
+                выполняется асинхронно, поэтому между входом и выходом возникает задержка. -->
                 <tr lang="ru" finished="false">Примечание: по умолчанию поисковый запрос
                 выполняется асинхронно, поэтому между входом и выходом возникает задержка.</tr>
             </par>
@@ -57,6 +68,8 @@
         <arguments>
             <argument name="PATHS" type="list">
                 <tr lang="en">list of paths, can be quoted to handle whitespace.</tr>
+                <!-- old: Список путей можно процитировать для обработки
+                белого пространства. -->
                 <tr lang="ru" finished="false">Список путей можно процитировать для обработки
                 белого пространства.</tr>
             </argument>
@@ -85,6 +98,8 @@
             <!-- @nostd -->
             <property name="@nostd" type="alias">
                 <tr lang="en">alias to @std 0, do not search in standard dirs</tr>
+                <!-- old: alias to @std 0, не ищите в стандартных
+                закладках -->
                 <tr lang="ru" finished="false">alias to @std 0, не ищите в стандартных
                 закладках</tr>
             </property>
@@ -129,11 +144,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">symbol: full filename</tr>
+                    <tr lang="ru" finished="false">Символ: полное имя файла</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">bang: if not found</tr>
+                    <tr lang="ru" finished="false">Bang: Если не найдено</tr>
                 </out>
             </outlet>
         </outlets>

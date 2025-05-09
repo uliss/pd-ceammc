@@ -80,6 +80,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list of histogram value (length=@bins)</tr>
+                    <tr lang="ru" finished="false">Список значения гистограммы (длина = @bins)</tr>
                 </out>
             </outlet>
         </outlets>

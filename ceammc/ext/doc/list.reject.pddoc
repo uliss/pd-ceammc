@@ -59,6 +59,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list without rejected elements</tr>
+                    <tr lang="ru" finished="false">Список без отклоненных элементов</tr>
                 </out>
             </outlet>
         </outlets>

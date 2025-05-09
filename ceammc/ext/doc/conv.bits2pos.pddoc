@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">Note: byte default the least significant bit is the rightmost, this
                 can be changed with @rev property</tr>
+                <!-- old: Примечание: по умолчанию байт наименее значимый бит
+                является самым правильным, это может быть изменено свойством @rev -->
                 <tr lang="ru" finished="false">Примечание: по умолчанию байт наименее значимый бит
                 является самым правильным, это может быть изменено свойством @rev</tr>
             </par>
@@ -50,6 +52,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list of bit positions</tr>
+                    <tr lang="ru" finished="false">Список битовых позиций</tr>
                 </out>
             </outlet>
         </outlets>

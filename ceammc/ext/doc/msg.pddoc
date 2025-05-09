@@ -37,21 +37,29 @@
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">appends all atoms to message content and outputs it</tr>
+                    <!-- old: Добавляет все атомы к содержанию сообщения и
+                    выводит его -->
                     <tr lang="ru" finished="false">Добавляет все атомы к содержанию сообщения и
                     выводит его</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">appends input list to message content and outputs it</tr>
+                    <!-- old: Добавляет список ввода к содержанию сообщения и
+                    выводит его -->
                     <tr lang="ru" finished="false">Добавляет список ввода к содержанию сообщения и
                     выводит его</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">appends float to message content and outputs it</tr>
+                    <!-- old: Добавляет поплавок к контенту сообщения и
+                    выводит его -->
                     <tr lang="ru" finished="false">Добавляет поплавок к контенту сообщения и
                     выводит его</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">appends symbol to message content and outputs it</tr>
+                    <!-- old: Добавляет символ к содержанию сообщения и
+                    выводит его -->
                     <tr lang="ru" finished="false">Добавляет символ к содержанию сообщения и
                     выводит его</tr>
                 </xinfo>
@@ -71,6 +79,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">message output</tr>
+                    <tr lang="ru" finished="false">сообщение</tr>
                 </out>
             </outlet>
         </outlets>

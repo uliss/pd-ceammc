@@ -23,17 +23,23 @@
             <par>
                 <tr lang="en">Low-frequency speaker model = +12 dB/octave slope breaking to flat
                 near @f1.</tr>
+                <!-- old: низкий - частотная динамиковая модель = +12
+                дБ/октава наклона, разбивающегося на плоскость около @f1. -->
                 <tr lang="ru" finished="false">низкий - частотная динамиковая модель = +12
                 дБ/октава наклона, разбивающегося на плоскость около @f1.</tr>
             </par>
             <par>
                 <tr lang="en">Implemented using two dc blockers in series.</tr>
+                <!-- old: Реализуется с использованием двух блокировщиков dc
+                последовательно. -->
                 <tr lang="ru" finished="false">Реализуется с использованием двух блокировщиков dc
                 последовательно.</tr>
             </par>
             <par>
                 <tr lang="en">High-frequency model = -24 dB/octave slope implemented using a
                 fourth-order Butterworth lowpass.</tr>
+                <!-- old: высокий - частотная модель = -24 дБ/октава наклона,
+                реализованная с использованием четвертого порядка Butterworth lowpass. -->
                 <tr lang="ru" finished="false">высокий - частотная модель = -24 дБ/октава наклона,
                 реализованная с использованием четвертого порядка Butterworth lowpass.</tr>
             </par>
@@ -55,6 +61,8 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
@@ -62,6 +70,8 @@
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <!-- old: пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
                 <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
                 "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
@@ -117,6 +127,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">filtered signal</tr>
+                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

@@ -62,6 +62,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output list with passed elements</tr>
+                    <tr lang="ru" finished="false">Список результатов с пропущенными
+                    элементами</tr>
                 </out>
             </outlet>
         </outlets>

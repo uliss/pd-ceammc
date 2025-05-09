@@ -20,6 +20,8 @@
             <par>
                 <tr lang="en">Split the input signal into a bank of parallel signals, one for each
                 spectral band</tr>
+                <!-- old: Разделите входной сигнал на банк параллельных
+                сигналов, по одному для каждой спектральной полосы. -->
                 <tr lang="ru" finished="false">Разделите входной сигнал на банк параллельных
                 сигналов, по одному для каждой спектральной полосы.</tr>
             </par>
@@ -32,6 +34,10 @@
                 summing its output signals gives an allpass-filtered version of the filter-bank
                 input signal. A more conventional term for this is an "allpass-complementary filter
                 bank"</tr>
+                <!-- old: Фильтр-банк - это полоса сигнала, обладающая
+                свойством, которое суммирование его выходных сигналов дает фильтрованную версию
+                входного сигнала фильтр-банка. Более традиционным термином для этого является «банк
+                фильтров с комплексным комплементарным фильтром». -->
                 <tr lang="ru" finished="false">Фильтр-банк - это полоса сигнала, обладающая
                 свойством, которое суммирование его выходных сигналов дает фильтрованную версию
                 входного сигнала фильтр-банка. Более традиционным термином для этого является «банк
@@ -74,6 +80,8 @@
             <property name="@f2000" type="float" minvalue="-6" maxvalue="6" default="0"
             units="decibel">
                 <tr lang="en">fourth filter (bandpass) gain at 2000Hz</tr>
+                <!-- old: Четвертый фильтр (диапазон пропускания) на частоте
+                2000 Гц -->
                 <tr lang="ru" finished="false">Четвертый фильтр (диапазон пропускания) на частоте
                 2000 Гц</tr>
             </property>
@@ -121,26 +129,31 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">lpf: 250Hz</tr>
+                    <tr lang="ru" finished="false">lpf: 250 Гц</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">bpf: 500Hz</tr>
+                    <tr lang="ru" finished="false">bpf: 500 Гц</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">bpf: 1000Hz</tr>
+                    <tr lang="ru" finished="false">bpf: 1000 Гц</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">bpf: 2000Hz</tr>
+                    <tr lang="ru" finished="false">bpf: 2000Hz</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">hpf: 4000Hz</tr>
+                    <tr lang="ru" finished="false">hpf: 4000 Гц</tr>
                 </out>
             </outlet>
         </outlets>

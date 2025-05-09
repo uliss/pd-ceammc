@@ -29,11 +29,15 @@
         <arguments>
             <argument name="W" type="int" minvalue="1" maxvalue="256">
                 <tr lang="en">bitmap width in pixels, see @w</tr>
+                <!-- old: ширина растрового изображения в пикселях, см.
+                @w -->
                 <tr lang="ru" finished="false">ширина растрового изображения в пикселях, см.
                 @w</tr>
             </argument>
             <argument name="H" type="int" minvalue="1" maxvalue="256">
                 <tr lang="en">bitmap height in pixels, see @h</tr>
+                <!-- old: высота растрового изображения в пикселях, см.
+                @h -->
                 <tr lang="ru" finished="false">высота растрового изображения в пикселях, см.
                 @h</tr>
             </argument>
@@ -82,6 +86,8 @@
                 <param name="CENTER" type="bool" required="false" default="0">
                     <tr lang="en">if 1: set coordinate of the arc center, not the top-left
                     corner</tr>
+                    <!-- old: если 1: установить координату центра дуги, а не
+                    верхнего левого угла -->
                     <tr lang="ru" finished="false">если 1: установить координату центра дуги, а не
                     верхнего левого угла</tr>
                 </param>
@@ -107,6 +113,8 @@
                 <param name="CENTER" type="bool" required="false" default="0">
                     <tr lang="en">if 1: set coordinate of the circle center, not the top-left
                     corner</tr>
+                    <!-- old: если 1: установить координату центра круга, а не
+                    верхнего левого угла -->
                     <tr lang="ru" finished="false">если 1: установить координату центра круга, а не
                     верхнего левого угла</tr>
                 </param>
@@ -115,6 +123,8 @@
             <method name="clear">
                 <info>
                     <tr lang="en">clear bitmap (set all pixels to 0)</tr>
+                    <!-- old: четкая растровая карта (установите все пиксели
+                    до 0) -->
                     <tr lang="ru" finished="false">четкая растровая карта (установите все пиксели
                     до 0)</tr>
                 </info>
@@ -132,6 +142,8 @@
                 <param name="H" type="int" required="true">
                     <tr lang="en">column height, can be negative(!), to draw in opposite
                     direction</tr>
+                    <!-- old: высота колонны, может быть отрицательной (!),
+                    рисовать в противоположном направлении -->
                     <tr lang="ru" finished="false">высота колонны, может быть отрицательной (!),
                     рисовать в противоположном направлении</tr>
                 </param>
@@ -165,6 +177,8 @@
                 <param name="CENTER" type="bool" required="false" default="0">
                     <tr lang="en">if 1: set coordinate of the ellipse center, not the top-left
                     corner</tr>
+                    <!-- old: если 1: установить координату центра эллипса, а
+                    не верхнего левого угла -->
                     <tr lang="ru" finished="false">если 1: установить координату центра эллипса, а
                     не верхнего левого угла</tr>
                 </param>
@@ -188,6 +202,8 @@
                 </info>
                 <param name="COLOR" type="int">
                     <tr lang="en">fill color (0, 1 or -1 if no color)</tr>
+                    <!-- old: цвет заполнения (0, 1 или -1, если нет
+                    цвета) -->
                     <tr lang="ru" finished="false">цвет заполнения (0, 1 или -1, если нет
                     цвета)</tr>
                 </param>
@@ -216,6 +232,8 @@
                 <info>
                     <tr lang="en">output bitmap content as: [matrix NROWS NCOLS DATA...(
                     message</tr>
+                    <!-- old: выходное растровое содержимое как [матрица NROWS
+                    NCOLS DATA...] -->
                     <tr lang="ru" finished="false">выходное растровое содержимое как [матрица NROWS
                     NCOLS DATA...]</tr>
                 </info>
@@ -225,6 +243,8 @@
                 <info>
                     <tr lang="en">output submatrix bitmap content as: [matrix NROWS NCOLS DATA...(
                     message</tr>
+                    <!-- old: вывод субматричного растрового содержимого в
+                    виде [матрицы NROWS NCOLS DATA...] -->
                     <tr lang="ru" finished="false">вывод субматричного растрового содержимого в
                     виде [матрицы NROWS NCOLS DATA...]</tr>
                 </info>
@@ -294,6 +314,8 @@
                 </info>
                 <param name="FILE" type="symbol" required="true">
                     <tr lang="en">image path, relative, or absolute</tr>
+                    <!-- old: Путь изображения, относительный или
+                    абсолютный -->
                     <tr lang="ru" finished="false">Путь изображения, относительный или
                     абсолютный</tr>
                 </param>
@@ -357,6 +379,8 @@
                 <param name="CENTER" type="bool" required="false" default="0">
                     <tr lang="en">if 1: set coordinate of the rect center, not the top-left
                     corner</tr>
+                    <!-- old: если 1: установить координату центра прямой, а
+                    не верхнего левого угла -->
                     <tr lang="ru" finished="false">если 1: установить координату центра прямой, а
                     не верхнего левого угла</tr>
                 </param>
@@ -374,6 +398,8 @@
                 <param name="W" type="int" required="true">
                     <tr lang="en">row width, can be negative(!), to draw in opposite right to
                     left</tr>
+                    <!-- old: Ширина строки, может быть отрицательной (!),
+                    рисовать в противоположном правом налево -->
                     <tr lang="ru" finished="false">Ширина строки, может быть отрицательной (!),
                     рисовать в противоположном правом налево</tr>
                 </param>
@@ -422,6 +448,8 @@
                 <param name="CENTER" type="bool" required="false" default="0">
                     <tr lang="en">if 1: set coordinate of the sector center, not the top-left
                     corner</tr>
+                    <!-- old: если 1: установить координату центра сектора, а
+                    не верхнего левого угла -->
                     <tr lang="ru" finished="false">если 1: установить координату центра сектора, а
                     не верхнего левого угла</tr>
                 </param>
@@ -460,6 +488,8 @@
             <method name="set matrix_at">
                 <info>
                     <tr lang="en">set matrix data at specified position</tr>
+                    <!-- old: заданные данные матрицы в заданном
+                    положении -->
                     <tr lang="ru" finished="false">заданные данные матрицы в заданном
                     положении</tr>
                 </info>
@@ -533,6 +563,8 @@
                 </info>
                 <param name="COLOR" type="int">
                     <tr lang="en">fill color (0, 1 or -1 if no color)</tr>
+                    <!-- old: цвет заполнения (0, 1 или -1, если нет
+                    цвета) -->
                     <tr lang="ru" finished="false">цвет заполнения (0, 1 или -1, если нет
                     цвета)</tr>
                 </param>
@@ -599,6 +631,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

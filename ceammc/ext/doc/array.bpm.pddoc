@@ -48,6 +48,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float value - BPM</tr>
+                    <tr lang="ru" finished="false">Поплавковая стоимость - BPM</tr>
                 </out>
             </outlet>
         </outlets>

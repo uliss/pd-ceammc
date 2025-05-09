@@ -20,6 +20,8 @@
         <info>
             <par>
                 <tr lang="en">a port of Richard's chaos-henon-heilles from chaos collection</tr>
+                <!-- old: Порт Ричарда Хаос-Хенон-Хейллес из коллекции
+                хаоса -->
                 <tr lang="ru" finished="false">Порт Ричарда Хаос-Хенон-Хейллес из коллекции
                 хаоса</tr>
             </par>
@@ -109,21 +111,25 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">x outlet</tr>
+                    <tr lang="ru" finished="false">х выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">y outlet</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">xdot outlet</tr>
+                    <tr lang="ru" finished="false">розетка xdot</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">ydot outlet</tr>
+                    <tr lang="ru" finished="false">выход ydot</tr>
                 </out>
             </outlet>
         </outlets>

@@ -19,6 +19,8 @@
         <info>
             <par>
                 <tr lang="en">extract properties from object, connected to second outlet</tr>
+                <!-- old: извлекать свойства из объекта, подключенного ко
+                второй розетке -->
                 <tr lang="ru" finished="false">извлекать свойства из объекта, подключенного ко
                 второй розетке</tr>
             </par>
@@ -35,11 +37,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">property output (data:dict)</tr>
+                    <tr lang="ru" finished="false">Свойства вывода (data:dict)</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">connect to examined object</tr>
+                    <tr lang="ru" finished="false">Подключение к исследуемому объекту</tr>
                 </out>
             </outlet>
         </outlets>

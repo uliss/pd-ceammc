@@ -30,6 +30,8 @@
             <property name="@def" type="list" default="">
                 <tr lang="en">default value to replace missing keys. If empty (by default), missing
                 keys are ignored.</tr>
+                <!-- old: значение по умолчанию для замены отсутствующих
+                ключей. Если пустые (по умолчанию), пропущенные ключи игнорируются. -->
                 <tr lang="ru" finished="false">значение по умолчанию для замены отсутствующих
                 ключей. Если пустые (по умолчанию), пропущенные ключи игнорируются.</tr>
             </property>
@@ -37,6 +39,8 @@
             <property name="@dict" type="list" default="[]">
                 <tr lang="en">mapping dictionary, the syntax is [KEY: VALUES...], for example: [1:
                 "one" 2: "two" k: "map values"]</tr>
+                <!-- old: Словарь отображения, синтаксис [KEY: VALUES...],
+                например: [1: «один» 2: «два» k: «значения карты»] -->
                 <tr lang="ru" finished="false">Словарь отображения, синтаксис [KEY: VALUES...],
                 например: [1: «один» 2: «два» k: «значения карты»]</tr>
             </property>
@@ -45,6 +49,8 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input float, no output if not in dict</tr>
+                    <!-- old: Входной поплавок, нет выхода, если не в
+                    дикте -->
                     <tr lang="ru" finished="false">Входной поплавок, нет выхода, если не в
                     дикте</tr>
                 </xinfo>
@@ -54,11 +60,15 @@
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">input list, output always at least empty list</tr>
+                    <!-- old: Список входов, выход всегда, по крайней мере,
+                    пустой список -->
                     <tr lang="ru" finished="false">Список входов, выход всегда, по крайней мере,
                     пустой список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input list, output always at least empty list</tr>
+                    <!-- old: Список входов, выход всегда, по крайней мере,
+                    пустой список -->
                     <tr lang="ru" finished="false">Список входов, выход всегда, по крайней мере,
                     пустой список</tr>
                 </xinfo>
@@ -74,11 +84,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list or data:mlist mapped list</tr>
+                    <tr lang="ru" finished="false">Список или данные: список карт</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">atom: missing keys</tr>
+                    <tr lang="ru" finished="false">Атом: недостающие ключи</tr>
                 </out>
             </outlet>
         </outlets>

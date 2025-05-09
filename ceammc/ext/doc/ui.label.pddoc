@@ -20,6 +20,8 @@
             <par>
                 <tr lang="en">Label object with spaces, text-align, font customization and
                 word-wrap</tr>
+                <tr lang="ru" finished="false">Ярлык объекта с пробелами, текстовым выравниванием,
+                настройкой шрифта и оберткой слов</tr>
             </par>
         </info>
         <mouse>
@@ -32,6 +34,7 @@
         <arguments>
             <argument name="TEXT" type="list">
                 <tr lang="en">label text</tr>
+                <tr lang="ru" finished="false">текст этикетки</tr>
             </argument>
         </arguments>
         <properties>
@@ -44,11 +47,14 @@
             <!-- @align -->
             <property name="@align" type="symbol" default="left" enum="left center right">
                 <tr lang="en">text align</tr>
+                <tr lang="ru" finished="false">текст выравнивать</tr>
             </property>
             <!-- @background_color -->
             <property name="@background_color" type="list" default="1 1 1 1">
                 <tr lang="en">element background color (list of red, green, blue values in 0-1
                 range)</tr>
+                <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @fontsize -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="32">
@@ -97,30 +103,37 @@
             <method name="append">
                 <info>
                     <tr lang="en">appends to @text end</tr>
+                    <tr lang="ru" finished="false">Добавить в @text end</tr>
                 </info>
             </method>
             <!-- clear -->
             <method name="clear">
                 <info>
                     <tr lang="en">clear label text and clear @text property</tr>
+                    <tr lang="ru" finished="false">Чистый текст этикетки и чистое свойство
+                    @text</tr>
                 </info>
             </method>
             <!-- pos -->
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
             <!-- prepend -->
             <method name="prepend">
                 <info>
                     <tr lang="en">insert into beginning of @text</tr>
+                    <tr lang="ru" finished="false">Вставить в начало @text</tr>
                 </info>
             </method>
         </methods>
@@ -129,18 +142,27 @@
                 <xinfo on="float">
                     <tr lang="en">[hidden inlet] set the label text to the given float without
                     changing @text property</tr>
+                    <tr lang="ru" finished="false">[скрытый вход] установить текст этикетки на
+                    данный поплавок без изменения свойств @text</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">[hidden inlet] set the label text without changing @text
                     property</tr>
+                    <tr lang="ru" finished="false">[скрытый вход] установить текст этикетки без
+                    изменения свойств @text</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">[hidden inlet] set the label text to the given list separated by
                     spaces without changing @text property</tr>
+                    <tr lang="ru" finished="false">[скрытый вход] установит текст этикетки в
+                    заданный список, разделенный пробелами без изменения свойства @text</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">[hidden inlet] set the label text to the given message separated
                     by spaces without changing @text property</tr>
+                    <tr lang="ru" finished="false">[скрытый вход] установит текст ярлыка на
+                    заданное сообщение, разделенное пространствами, без изменения свойства
+                    @text</tr>
                 </xinfo>
             </inlet>
         </inlets>

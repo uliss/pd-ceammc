@@ -25,6 +25,8 @@
         <info>
             <par>
                 <tr lang="en">Bang on steroids: bind to MIDI and keyboard</tr>
+                <tr lang="ru" finished="false">Взрыв на стероидах: связываются с MIDI и
+                клавиатурой</tr>
             </par>
         </info>
         <mouse>
@@ -56,6 +58,7 @@
             <!-- @bind -->
             <property name="@bind" type="list" default="">
                 <tr lang="en">MIDI/keyboard bind expression</tr>
+                <tr lang="ru" finished="false">MIDI/клавиатура связывает экспрессию</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="15 15">
@@ -68,18 +71,23 @@
             <method name="dump">
                 <info>
                     <tr lang="en">dumps all object info to Pd console window.</tr>
+                    <tr lang="ru" finished="false">Сбрасывает всю информацию об объекте в окно
+                    консоли Pd.</tr>
                 </info>
             </method>
             <!-- pos -->
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
         </methods>
@@ -87,15 +95,19 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs bang</tr>
+                    <tr lang="ru" finished="false">выходной бах</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">outputs bang</tr>
+                    <tr lang="ru" finished="false">выходной бах</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">outputs bang</tr>
+                    <tr lang="ru" finished="false">выходной бах</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">outputs bang</tr>
+                    <tr lang="ru" finished="false">выходной бах</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -103,6 +115,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bang output</tr>
+                    <tr lang="ru" finished="false">взрывной выход</tr>
                 </out>
             </outlet>
         </outlets>

@@ -54,6 +54,9 @@
                 <info>
                     <tr lang="en">load IR from specified file (resamples if required from file
                     samplerate to runtime samplerate)</tr>
+                    <!-- old: Загрузить IR из заданного файла (при
+                    необходимости образцы из выборочного файла в выборочный файл во время
+                    выполнения) -->
                     <tr lang="ru" finished="false">Загрузить IR из заданного файла (при
                     необходимости образцы из выборочного файла в выборочный файл во время
                     выполнения)</tr>
@@ -87,6 +90,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

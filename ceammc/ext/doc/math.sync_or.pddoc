@@ -28,6 +28,8 @@
             <par>
                 <tr lang="en">Only 1 and 0 values are accepted. Any other number treat as 1, but
                 print error to console.</tr>
+                <!-- old: Принимаются только значения 1 и 0. Любое другое
+                число рассматривается как 1, но ошибка печати для консоли. -->
                 <tr lang="ru" finished="false">Принимаются только значения 1 и 0. Любое другое
                 число рассматривается как 1, но ошибка печати для консоли.</tr>
             </par>
@@ -42,12 +44,16 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set first value, calculate and output result</tr>
+                    <!-- old: установить первое значение, вычислить и получить
+                    результат -->
                     <tr lang="ru" finished="false">установить первое значение, вычислить и получить
                     результат</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pair: set first and second values, calculate and output
                     result</tr>
+                    <!-- old: пара: установить первое и второе значения,
+                    вычислить и вывести результат -->
                     <tr lang="ru" finished="false">пара: установить первое и второе значения,
                     вычислить и вывести результат</tr>
                 </xinfo>
@@ -55,6 +61,8 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">change second value, calculate and output result</tr>
+                    <!-- old: изменение второго значения, вычисление и
+                    выходной результат -->
                     <tr lang="ru" finished="false">изменение второго значения, вычисление и
                     выходной результат</tr>
                 </xinfo>
@@ -64,6 +72,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output 1 or 0, according logical OR operation</tr>
+                    <tr lang="ru" finished="false">выход 1 или 0 согласно логической операции
+                    ИЛИ</tr>
                 </out>
             </outlet>
         </outlets>

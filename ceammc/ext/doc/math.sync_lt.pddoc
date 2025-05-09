@@ -34,12 +34,16 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set first number, calculate and output result</tr>
+                    <!-- old: установить первое число, вычислить и получить
+                    результат -->
                     <tr lang="ru" finished="false">установить первое число, вычислить и получить
                     результат</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pair: set first and second numbers, calculate and output
                     result</tr>
+                    <!-- old: пара: установить первое и второе числа,
+                    вычислить и вывести результат -->
                     <tr lang="ru" finished="false">пара: установить первое и второе числа,
                     вычислить и вывести результат</tr>
                 </xinfo>
@@ -47,6 +51,8 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">change second number, calculate and output result</tr>
+                    <!-- old: изменить второе число, вычислить и получить
+                    результат -->
                     <tr lang="ru" finished="false">изменить второе число, вычислить и получить
                     результат</tr>
                 </xinfo>
@@ -57,6 +63,8 @@
                 <out type="any">
                     <tr lang="en">result output: 1 if first number is less then second, otherwise
                     0</tr>
+                    <tr lang="ru" finished="false">выходной результат: 1 если первое число меньше
+                    второго, то 0</tr>
                 </out>
             </outlet>
         </outlets>

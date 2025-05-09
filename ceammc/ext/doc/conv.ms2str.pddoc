@@ -35,6 +35,8 @@
                 string.</tr>
                 <!-- old: Если указано - выходное отформатированное время как
                 символ, иначе как строка. -->
+                <!-- old: Если указано - выходное отформатированное время как
+                символ, иначе как строка. -->
                 <tr lang="ru" finished="false">Если указано - выходное отформатированное время как
                 символ, иначе как строка.</tr>
             </property>
@@ -43,6 +45,8 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">converts float value in milliseconds to formatted symbol</tr>
+                    <!-- old: Преобразует значение плавания в миллисекундах в
+                    отформатированный символ -->
                     <tr lang="ru" finished="false">Преобразует значение плавания в миллисекундах в
                     отформатированный символ</tr>
                 </xinfo>
@@ -52,6 +56,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">time in format "HH:MM::SS" or "HH:MM:SS.XXX"</tr>
+                    <tr lang="ru" finished="false">время в формате «HH:MM::SS» или
+                    «HH:MM:SS.XXX»</tr>
                 </out>
             </outlet>
         </outlets>

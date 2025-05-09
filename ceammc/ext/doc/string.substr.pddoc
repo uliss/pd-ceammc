@@ -27,10 +27,14 @@
             <argument name="FROM" type="int">
                 <tr lang="en">substring position. May be relative: -1 means one character from the
                 end of stirng</tr>
+                <tr lang="ru" finished="false">Положение подставки. Может быть относительным: -1
+                означает один персонаж от конца перемешивания</tr>
             </argument>
             <argument name="LEN" type="int" minvalue="-1">
                 <tr lang="en">substring length. If -1 given (by default), means 'till string
                 end'.</tr>
+                <tr lang="ru" finished="false">Длина подструн. Если -1 задан (по умолчанию),
+                означает «до конца строки».</tr>
             </argument>
         </arguments>
         <properties>
@@ -38,26 +42,33 @@
             <property name="@from" type="int" default="0">
                 <tr lang="en">substring position. Can be negative - to address string from the
                 end</tr>
+                <tr lang="ru" finished="false">Положение подставки. Может быть отрицательным -
+                адресовать строку с конца</tr>
             </property>
             <!-- @len -->
             <property name="@len" type="int" default="-1" minvalue="-1">
                 <tr lang="en">substring length. If equal to -1, substring to the end of string</tr>
+                <tr lang="ru" finished="false">Длина подструн. Если равно -1, подстроку до конца
+                строки</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input string</tr>
+                    <tr lang="ru" finished="false">входная строка</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">from</tr>
+                    <tr lang="ru" finished="false">из</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">to</tr>
+                    <tr lang="ru" finished="false">то</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -65,6 +76,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output substring</tr>
+                    <tr lang="ru" finished="false">выходная строка</tr>
                 </out>
             </outlet>
         </outlets>

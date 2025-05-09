@@ -24,6 +24,8 @@
             <par>
                 <tr lang="en">Outputs the principle value of the arc sine of input signal. The
                 result is in the range [-pi/2, +pi/2]</tr>
+                <!-- old: Выходит принципиальное значение дугового синуса
+                входного сигнала. Результат находится в диапазоне [-pi/2, +pi/2] -->
                 <tr lang="ru" finished="false">Выходит принципиальное значение дугового синуса
                 входного сигнала. Результат находится в диапазоне [-pi/2, +pi/2]</tr>
             </par>
@@ -40,6 +42,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">result signal</tr>
+                    <tr lang="ru" finished="false">результат сигнала</tr>
                 </out>
             </outlet>
         </outlets>

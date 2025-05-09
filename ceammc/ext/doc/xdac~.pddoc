@@ -27,12 +27,16 @@
                 <tr lang="en">list of output channels: single channel number or X:Y range, that
                 means from X channel to Y (including last one). If not specified - using 1 and 2
                 out channels</tr>
+                <tr lang="ru" finished="false">Список выходных каналов: одноканальный номер канала
+                или диапазон X:Y, что означает от канала X до Y (включая последний). Если не
+                указано - использование 1 и 2 каналов</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @channels -->
             <property name="@channels" type="list" default="1 2">
                 <tr lang="en">list of mapped channels</tr>
+                <tr lang="ru" finished="false">Список картографических каналов</tr>
             </property>
         </properties>
         <methods>
@@ -40,27 +44,35 @@
             <method name="reverse">
                 <info>
                     <tr lang="en">reverse output channels order</tr>
+                    <tr lang="ru" finished="false">обратный выходной канал</tr>
                 </info>
             </method>
             <!-- rotate -->
             <method name="rotate">
                 <info>
                     <tr lang="en">rotate output channels counter clockwise</tr>
+                    <tr lang="ru" finished="false">вращающиеся выходные каналы против часовой
+                    стрелки</tr>
                 </info>
                 <param name="N" type="int" required="true">
                     <tr lang="en">number of rotation steps, can be negative</tr>
+                    <tr lang="ru" finished="false">Число шагов вращения может быть
+                    отрицательным</tr>
                 </param>
             </method>
             <!-- shuffle -->
             <method name="shuffle">
                 <info>
                     <tr lang="en">shuffle output channels order</tr>
+                    <tr lang="ru" finished="false">Перетасовка выходных каналов заказа</tr>
                 </info>
             </method>
             <!-- side2circle -->
             <method name="side2circle">
                 <info>
                     <tr lang="en">map left/right side pairs to counter clockwise layout</tr>
+                    <tr lang="ru" finished="false">карта левой / правой стороны пары, чтобы
+                    противостоять по часовой стрелке макет</tr>
                 </info>
             </method>
         </methods>
@@ -68,16 +80,19 @@
             <inlet type="audio" number="1">
                 <xinfo>
                     <tr lang="en">first specified channel</tr>
+                    <tr lang="ru" finished="false">Первый указанный канал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="...">
                 <xinfo>
                     <tr lang="en">... specified channel</tr>
+                    <tr lang="ru" finished="false">Указанный канал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="n">
                 <xinfo>
                     <tr lang="en">n-th specified channel</tr>
+                    <tr lang="ru" finished="false">n-й указанный канал</tr>
                 </xinfo>
             </inlet>
         </inlets>

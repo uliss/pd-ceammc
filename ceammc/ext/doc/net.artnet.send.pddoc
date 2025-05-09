@@ -39,6 +39,8 @@
                 interface.</tr>
                 <!-- old: Связать IP-адрес интерфейса. Если пуст - используйте
                 первый доступный интерфейс. -->
+                <!-- old: Связать IP-адрес интерфейса. Если пуст - используйте
+                первый доступный интерфейс. -->
                 <tr lang="ru" finished="false">Связать IP-адрес интерфейса. Если пуст - используйте
                 первый доступный интерфейс.</tr>
             </property>
@@ -62,6 +64,9 @@
             <property name="@sync" type="bool" default="0">
                 <tr lang="en">send mode. If true: send frame only when bang is received, otherwise
                 send frames with @rate speed with internal clock</tr>
+                <!-- old: Отправь сигнал. Если верно: отправляйте кадр только
+                тогда, когда получен взрыв, в противном случае отправляйте кадры со скоростью @rate
+                с внутренними часами. -->
                 <!-- old: Отправь сигнал. Если верно: отправляйте кадр только
                 тогда, когда получен взрыв, в противном случае отправляйте кадры со скоростью @rate
                 с внутренними часами. -->
@@ -91,6 +96,8 @@
                 </info>
                 <param name="VALUES" type="list" required="true">
                     <tr lang="en">list of DMX values, first element sets first channel etc.</tr>
+                    <!-- old: список значений DMX, первый элемент
+                    устанавливает первый канал и т.д. -->
                     <tr lang="ru" finished="false">список значений DMX, первый элемент
                     устанавливает первый канал и т.д.</tr>
                 </param>
@@ -99,6 +106,8 @@
             <method name="dmx_fill">
                 <info>
                     <tr lang="en">set all DMX channels to given value</tr>
+                    <!-- old: Настройка всех каналов DMX на заданное
+                    значение -->
                     <tr lang="ru" finished="false">Настройка всех каналов DMX на заданное
                     значение</tr>
                 </info>
@@ -126,6 +135,8 @@
             <method name="poll">
                 <info>
                     <tr lang="en">send poll request, dump response to Pd window</tr>
+                    <!-- old: Отправьте запрос на опрос, ответ на сброс в окно
+                    Pd -->
                     <tr lang="ru" finished="false">Отправьте запрос на опрос, ответ на сброс в окно
                     Pd</tr>
                 </info>
@@ -147,6 +158,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

@@ -25,51 +25,65 @@
         <arguments>
             <argument name="FROM" type="symbol">
                 <tr lang="en">substring for replace</tr>
+                <tr lang="ru" finished="false">подстроки для замены</tr>
             </argument>
             <argument name="TO" type="symbol">
                 <tr lang="en">substring to replace</tr>
+                <tr lang="ru" finished="false">Подстроки для замены</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @all -->
             <property name="@all" type="alias">
                 <tr lang="en">alias to @mode all - replace all occurences in input string</tr>
+                <tr lang="ru" finished="false">alias to @mode all - заменить все события в строке
+                ввода</tr>
             </property>
             <!-- @first -->
             <property name="@first" type="alias">
                 <tr lang="en">alias to @mode first - replace first occurence in input string</tr>
+                <tr lang="ru" finished="false">alias to @mode first - замена первого появления во
+                входной строке</tr>
             </property>
             <!-- @from -->
             <property name="@from" type="symbol" default="">
                 <tr lang="en">replace from</tr>
+                <tr lang="ru" finished="false">заменить</tr>
             </property>
             <!-- @last -->
             <property name="@last" type="alias">
                 <tr lang="en">alias to @mode last - replace last occurence in input string</tr>
+                <tr lang="ru" finished="false">alias to @mode last - замена последнего события в
+                строке ввода</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="all first last" default="all">
                 <tr lang="en">replace mode</tr>
+                <tr lang="ru" finished="false">режим замены</tr>
             </property>
             <!-- @to -->
             <property name="@to" type="symbol" default="">
                 <tr lang="en">replace to</tr>
+                <tr lang="ru" finished="false">заменить на</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input string or symbol</tr>
+                    <tr lang="ru" finished="false">входная строка или символ</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">from</tr>
+                    <tr lang="ru" finished="false">из</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">to</tr>
+                    <tr lang="ru" finished="false">то</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -77,6 +91,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output string</tr>
+                    <tr lang="ru" finished="false">выходная строка</tr>
                 </out>
             </outlet>
         </outlets>

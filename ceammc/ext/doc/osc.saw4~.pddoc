@@ -26,6 +26,8 @@
             <par>
                 <tr lang="en">Differentiated Polynomial Waves (DPW) used for aliasing suppression.
                 4nd order interpolation.</tr>
+                <!-- old: Дифференцированные полиномиальные волны (DPW),
+                используемые для псевдонима подавления. 4-й порядок интерполяции. -->
                 <tr lang="ru" finished="false">Дифференцированные полиномиальные волны (DPW),
                 используемые для псевдонима подавления. 4-й порядок интерполяции.</tr>
             </par>
@@ -70,6 +72,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

@@ -26,28 +26,38 @@
             <par>
                 <tr lang="en">Passes midi notes (list of PITCH VELOCITY DUR?) for which expression
                 returns true.</tr>
+                <!-- old: Пропускает миди-заметки (список PITCH VELOCITY
+                DUR?), для которых выражение возвращается истинным. -->
                 <tr lang="ru" finished="false">Пропускает миди-заметки (список PITCH VELOCITY
                 DUR?), для которых выражение возвращается истинным.</tr>
             </par>
             <par>
                 <tr lang="en">Available variables: $N - MIDI note, $V - MIDI velocity</tr>
+                <!-- old: Доступные переменные: $N - MIDI примечание, $V -
+                MIDI скорость -->
                 <tr lang="ru" finished="false">Доступные переменные: $N - MIDI примечание, $V -
                 MIDI скорость</tr>
             </par>
             <par>
                 <tr lang="en">Available functions: white(NOTE), black(NOTE), oct(NOTE), abs(X),
                 sqrt(X)</tr>
+                <!-- old: Доступные функции: белый (NOTE), черный (NOTE), окт
+                (NOTE), abs (X), sqrt (X) -->
                 <tr lang="ru" finished="false">Доступные функции: белый (NOTE), черный (NOTE), окт
                 (NOTE), abs (X), sqrt (X)</tr>
             </par>
             <par>
                 <tr lang="en">Available math operations: +,-,*,/,%,^,==,!=,&gt;,&gt;=,&lt;,&lt;=,
                 &amp;&amp;,||</tr>
+                <!-- old: Доступные математические операции:
+                +,-,*,/,%,^,==,!=,>,>=,<,<=, &&, | | -->
                 <tr lang="ru" finished="false">Доступные математические операции:
                 +,-,*,/,%,^,==,!=,&gt;,&gt;=,&lt;,&lt;=, &amp;&amp;, | |</tr>
             </par>
             <par>
                 <tr lang="en">see for more information:</tr>
+                <!-- old: Смотрите для получения дополнительной
+                информации: -->
                 <tr lang="ru" finished="false">Смотрите для получения дополнительной
                 информации:</tr>
             </par>
@@ -85,6 +95,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">passed NOTE VELOCITY [DUR] list</tr>
+                    <tr lang="ru" finished="false">Перечислить [список]</tr>
                 </out>
             </outlet>
         </outlets>

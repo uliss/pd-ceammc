@@ -21,6 +21,10 @@
                 <tr lang="en">if symbol - set named temperament deviations, valid names are: "eq",
                 "just", "ganassi", "meantone", "kirnberger3", "pythagorean", "rameau", "valotti" or
                 "zarlino". If list: set deviation in cents per pitch</tr>
+                <!-- old: если символ - набор названных отклонений
+                темперамента, то действительными названиями являются: "экв", "просто", "ганасси",
+                "меантоне", "кирнбергер3", "пифагореан", "рамео", "валотти" или "зарлино". Если
+                список: установленное отклонение в центах за шаг -->
                 <tr lang="ru" finished="false">если символ - набор названных отклонений
                 темперамента, то действительными названиями являются: "экв", "просто", "ганасси",
                 "меантоне", "кирнбергер3", "пифагореан", "рамео", "валотти" или "зарлино". Если
@@ -51,6 +55,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">note velocity pair</tr>
+                    <tr lang="ru" finished="false">пара скоростей</tr>
                 </out>
             </outlet>
         </outlets>

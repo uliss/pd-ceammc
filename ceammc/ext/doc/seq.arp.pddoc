@@ -23,12 +23,14 @@
         <arguments>
             <argument name="CHORD" type="list">
                 <tr lang="en">list of pitches to arpeggiate</tr>
+                <tr lang="ru" finished="false">Список полей для арпеджиата</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @chord -->
             <property name="@chord" type="list" default="">
                 <tr lang="en">list of pitches to arpeggiate</tr>
+                <tr lang="ru" finished="false">Список полей для арпеджиата</tr>
             </property>
         </properties>
         <methods>
@@ -36,53 +38,70 @@
             <method name="asr">
                 <info>
                     <tr lang="en">set arpeggiate mode and run</tr>
+                    <tr lang="ru" finished="false">установить режим arpeggiate и запустить</tr>
                 </info>
                 <param name="STEP" type="float" minvalue="0" units="millisecond" required="true">
                     <tr lang="en">step duration</tr>
+                    <tr lang="ru" finished="false">продолжительность этапа</tr>
                 </param>
                 <param name="ON_MODE" type="symbol" enum="all first last random" required="true">
                     <tr lang="en">on mode</tr>
+                    <tr lang="ru" finished="false">в режиме</tr>
                 </param>
                 <param name="HOLD" type="int" minvalue="1" required="true">
                     <tr lang="en">number of steps to hold value</tr>
+                    <tr lang="ru" finished="false">Количество шагов для сохранения ценности</tr>
                 </param>
                 <param name="OFF_MODE" type="symbol" enum="all first last random" required="true">
                     <tr lang="en">off mode</tr>
+                    <tr lang="ru" finished="false">выключать режим</tr>
                 </param>
             </method>
             <!-- off -->
             <method name="off">
                 <info>
                     <tr lang="en">turn off active notes.</tr>
+                    <tr lang="ru" finished="false">Выключите активные ноты.</tr>
                 </info>
                 <param name="MODE" type="symbol" enum="first last all random">
                     <tr lang="en">if =first turn off first active note in chord list, if =last turn
                     off last inactive note in chord list, if =all turn off all active notes</tr>
+                    <tr lang="ru" finished="false">Если =первый выключите первую активную ноту в
+                    списке аккордов, если =последний выключите последнюю неактивную ноту в списке
+                    аккордов, если =все выключите все активные ноты</tr>
                 </param>
                 <param name="NUM" type="int" minvalue="1" default="1">
                     <tr lang="en">number of notes to turn on</tr>
+                    <tr lang="ru" finished="false">Количество нот для включения</tr>
                 </param>
             </method>
             <!-- on -->
             <method name="on">
                 <info>
                     <tr lang="en">turn on inactive notes</tr>
+                    <tr lang="ru" finished="false">Включить неактивные ноты</tr>
                 </info>
                 <param name="MODE" type="symbol" enum="first last all random">
                     <tr lang="en">if =first play first inactive note in chord list, if =last play
                     last inactive note in chord list, if =all play all inactive notes</tr>
+                    <tr lang="ru" finished="false">if = first play first inactive note in chord
+                    list, if =last play last inactive note in chord list, if =all play all inactive
+                    notes</tr>
                 </param>
                 <param name="VEL" type="float" minvalue="1" maxvalue="127" default="127">
                     <tr lang="en">note velocity</tr>
+                    <tr lang="ru" finished="false">скорость ноты</tr>
                 </param>
                 <param name="NUM" type="int" minvalue="1" default="1">
                     <tr lang="en">number of notes to turn on</tr>
+                    <tr lang="ru" finished="false">Количество нот для включения</tr>
                 </param>
             </method>
             <!-- reset -->
             <method name="reset">
                 <info>
                     <tr lang="en">reset all notes to off without output</tr>
+                    <tr lang="ru" finished="false">Сбросить все ноты без вывода</tr>
                 </info>
             </method>
         </methods>
@@ -90,6 +109,8 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">play one note in sequence (same as [on( message)</tr>
+                    <tr lang="ru" finished="false">Играть одну ноту в последовательности (так же,
+                    как [в сообщении])</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -97,11 +118,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list: pitch vel</tr>
+                    <tr lang="ru" finished="false">Исполнитель: pitch vel</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">float: number of active notes</tr>
+                    <tr lang="ru" finished="false">Поплавок: количество активных нот</tr>
                 </out>
             </outlet>
         </outlets>

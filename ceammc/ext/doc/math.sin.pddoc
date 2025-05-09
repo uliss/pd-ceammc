@@ -25,6 +25,8 @@
             <par>
                 <tr lang="en">The sin() function computes the sine of input value (measured in
                 radians).</tr>
+                <!-- old: Функция sin() вычисляет синус входного значения
+                (измеряется в радианах). -->
                 <tr lang="ru" finished="false">Функция sin() вычисляет синус входного значения
                 (измеряется в радианах).</tr>
             </par>
@@ -57,6 +59,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

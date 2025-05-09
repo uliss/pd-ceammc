@@ -28,11 +28,14 @@
             <par>
                 <tr lang="en">The property should be declared with [prop.declare]. Min/max limits
                 can be set to the property</tr>
+                <tr lang="ru" finished="false">Имущество должно быть объявлено с [prop.declare].
+                Мин/макс лимиты могут быть установлены на имущество</tr>
             </par>
         </info>
         <arguments>
             <argument name="@NAME" type="symbol">
                 <tr lang="en">property name</tr>
+                <tr lang="ru" finished="false">Имя собственности</tr>
             </argument>
         </arguments>
         <methods>
@@ -40,6 +43,7 @@
             <method name="default">
                 <info>
                     <tr lang="en">reset to default value and output</tr>
+                    <tr lang="ru" finished="false">Сброс значения по умолчанию и выход</tr>
                 </info>
             </method>
         </methods>
@@ -47,9 +51,12 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output property value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость имущества</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">set property value and output it</tr>
+                    <tr lang="ru" finished="false">установить стоимость имущества и произвести
+                    его</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -57,6 +64,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </out>
             </outlet>
         </outlets>

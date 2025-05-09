@@ -26,6 +26,9 @@
             <par>
                 <tr lang="en">With [hoa.@process] you can get [hoa.process~] instance properties
                 and get/set properties declared via [prop.declare]</tr>
+                <!-- old: С [hoa.@process] вы можете получить свойства
+                экземпляра [hoa.process~] и получить / установить свойства, объявленные через
+                [prop.declare] -->
                 <tr lang="ru" finished="false">С [hoa.@process] вы можете получить свойства
                 экземпляра [hoa.process~] и получить / установить свойства, объявленные через
                 [prop.declare]</tr>
@@ -36,6 +39,8 @@
             <property name="@hdegree" type="int" access="readonly" default="0">
                 <tr lang="en">current harmonic degree in hoa.process~ instance (only in harmonics
                 mode)</tr>
+                <!-- old: текущая степень гармоники в hoa.process~ example
+                (только в режиме гармоники) -->
                 <tr lang="ru" finished="false">текущая степень гармоники в hoa.process~ example
                 (только в режиме гармоники)</tr>
             </property>
@@ -43,6 +48,8 @@
             <property name="@horder" type="int" access="readonly" default="0">
                 <tr lang="en">current harmonic order in hoa.process~ instance (only in harmonics
                 mode)</tr>
+                <!-- old: текущий гармонический порядок в hoa.process~
+                instance (только в режиме гармоник) -->
                 <tr lang="ru" finished="false">текущий гармонический порядок в hoa.process~
                 instance (только в режиме гармоник)</tr>
             </property>
@@ -82,6 +89,8 @@
                 <xinfo on="bang">
                     <tr lang="en">if harmonics mode output list: @order @hdegree @horder, in
                     planewaves: @order @index @index</tr>
+                    <!-- old: если гармоники режим вывода список: @order
+                    @hdegree @horder, в плоских волнах: @order @index @index -->
                     <tr lang="ru" finished="false">если гармоники режим вывода список: @order
                     @hdegree @horder, в плоских волнах: @order @index @index</tr>
                 </xinfo>
@@ -103,6 +112,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs properties</tr>
+                    <tr lang="ru" finished="false">выводимые свойства</tr>
                 </out>
             </outlet>
         </outlets>

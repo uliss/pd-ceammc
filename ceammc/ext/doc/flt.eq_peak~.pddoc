@@ -29,6 +29,8 @@
             </argument>
             <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">
                 <tr lang="en">level at fx (boost if &gt;0 or cut if &lt;0)</tr>
+                <!-- old: уровень в fx (буст если >0 или вырезать если
+                <0) -->
                 <tr lang="ru" finished="false">уровень в fx (буст если &gt;0 или вырезать если
                 &lt;0)</tr>
             </argument>
@@ -57,6 +59,8 @@
             <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
             default="0">
                 <tr lang="en">level at fx (boost if &gt;0 or cut if &lt;0)</tr>
+                <!-- old: уровень в fx (буст если >0 или вырезать если
+                <0) -->
                 <tr lang="ru" finished="false">уровень в fx (буст если &gt;0 или вырезать если
                 &lt;0)</tr>
             </property>
@@ -73,6 +77,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">filtered signal</tr>
+                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

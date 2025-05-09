@@ -26,6 +26,8 @@
         <info>
             <par>
                 <tr lang="en">Note: cyrillic utf-8 characters are also supported.</tr>
+                <!-- old: Примечание: также поддерживаются кириллические
+                символы utf-8. -->
                 <tr lang="ru" finished="false">Примечание: также поддерживаются кириллические
                 символы utf-8.</tr>
             </par>
@@ -51,6 +53,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list of 0 and 1 (or dots and dashes)</tr>
+                    <tr lang="ru" finished="false">Список 0 и 1 (или точек и тире)</tr>
                 </out>
             </outlet>
         </outlets>

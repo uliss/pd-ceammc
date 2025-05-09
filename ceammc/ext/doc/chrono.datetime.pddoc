@@ -32,6 +32,8 @@
                 <xinfo on="bang">
                     <tr lang="en">output HOUR MIN SEC to second outlet and YEAR MONTH DAY to first
                     outlet</tr>
+                    <!-- old: выход в течение часа до второго выхода и в
+                    течение месяца до первого выхода -->
                     <tr lang="ru" finished="false">выход в течение часа до второго выхода и в
                     течение месяца до первого выхода</tr>
                 </xinfo>
@@ -41,11 +43,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list: YEAR MONTH DAY</tr>
+                    <tr lang="ru" finished="false">Название: YEAR MONTH DAY</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">list: HOUR MIN SEC</tr>
+                    <tr lang="ru" finished="false">Оригинальное название: Hour Min SEC</tr>
                 </out>
             </outlet>
         </outlets>

@@ -26,6 +26,8 @@
             <par>
                 <tr lang="en">The floor() functions return the largest integral value less than or
                 equal to x.</tr>
+                <!-- old: Функции пола возвращают наибольшее интегральное
+                значение меньше или равно x. -->
                 <tr lang="ru" finished="false">Функции пола возвращают наибольшее интегральное
                 значение меньше или равно x.</tr>
             </par>
@@ -39,6 +41,8 @@
             </par>
             <par>
                 <tr lang="en">floor(+-infinity) returns +-infinity.</tr>
+                <!-- old: Пол (+-бесконечность) возвращается
+                +-бесконечность. -->
                 <tr lang="ru" finished="false">Пол (+-бесконечность) возвращается
                 +-бесконечность.</tr>
             </par>
@@ -59,6 +63,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

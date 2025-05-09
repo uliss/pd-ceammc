@@ -25,6 +25,8 @@
             <par>
                 <tr lang="en">Computes the partial sums of the elements in the subranges of the
                 input list</tr>
+                <!-- old: Вычисляет частичные суммы элементов в поддиапазонах
+                входного списка -->
                 <tr lang="ru" finished="false">Вычисляет частичные суммы элементов в поддиапазонах
                 входного списка</tr>
             </par>
@@ -61,6 +63,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result list</tr>
+                    <tr lang="ru" finished="false">список результатов</tr>
                 </out>
             </outlet>
         </outlets>

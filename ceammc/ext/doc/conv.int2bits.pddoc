@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">Note: negative numbers converted using machine architecture, commonly
                 two's complement</tr>
+                <!-- old: Примечание: отрицательные числа, преобразованные с
+                использованием машинной архитектуры, обычно два дополнения -->
                 <tr lang="ru" finished="false">Примечание: отрицательные числа, преобразованные с
                 использованием машинной архитектуры, обычно два дополнения</tr>
             </par>
@@ -62,6 +64,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list of bits</tr>
+                    <tr lang="ru" finished="false">Список битов</tr>
                 </out>
             </outlet>
         </outlets>

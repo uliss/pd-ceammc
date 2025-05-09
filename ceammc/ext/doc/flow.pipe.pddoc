@@ -23,12 +23,16 @@
             <par>
                 <tr lang="en">Acts like vanilla [pipe] but for any messages: bangs, floats, symbols
                 etc.</tr>
+                <!-- old: Действует как ваниль, но для любых сообщений: удары,
+                поплавки, символы и т. Д. -->
                 <tr lang="ru" finished="false">Действует как ваниль, но для любых сообщений: удары,
                 поплавки, символы и т. Д.</tr>
             </par>
             <par>
                 <tr lang="en">Note: @delay property can be set only via right inlet or [prop.set]
                 object</tr>
+                <!-- old: Примечание: свойство @delay может быть установлено
+                только через правый вход или объект [prop.set] -->
                 <tr lang="ru" finished="false">Примечание: свойство @delay может быть установлено
                 только через правый вход или объект [prop.set]</tr>
             </par>
@@ -86,6 +90,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">pipe output</tr>
+                    <tr lang="ru" finished="false">выход трубы</tr>
                 </out>
             </outlet>
         </outlets>

@@ -25,12 +25,17 @@
             <par>
                 <tr lang="en">Band-pass filter passes frequencies within a certain range and
                 rejects frequencies outside that range.</tr>
+                <!-- old: оркестр Пропускной фильтр проходит частоты в
+                определенном диапазоне и отклоняет частоты за пределами этого диапазона. -->
                 <tr lang="ru" finished="false">оркестр Пропускной фильтр проходит частоты в
                 определенном диапазоне и отклоняет частоты за пределами этого диапазона.</tr>
             </par>
             <par>
                 <tr lang="en">Butterworth filter is a type of filter designed to have a frequency
                 response as flat as possible in the passband.</tr>
+                <!-- old: Фильтр Баттерворта — это тип фильтра,
+                предназначенный для того, чтобы иметь как можно более плоскую частотную реакцию в
+                полосе пропускания. -->
                 <tr lang="ru" finished="false">Фильтр Баттерворта — это тип фильтра,
                 предназначенный для того, чтобы иметь как можно более плоскую частотную реакцию в
                 полосе пропускания.</tr>
@@ -96,6 +101,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">filtered signal</tr>
+                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

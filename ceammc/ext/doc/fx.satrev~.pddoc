@@ -29,6 +29,8 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
@@ -36,6 +38,8 @@
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.25">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <!-- old: пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
                 <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
                 "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
@@ -67,11 +71,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">left output signal</tr>
+                    <tr lang="ru" finished="false">левый выходной сигнал</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">right output signal</tr>
+                    <tr lang="ru" finished="false">правильный выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

@@ -46,6 +46,8 @@
             <!-- @state -->
             <property name="@state" type="int" access="readonly" default="0" enum="0 1 2">
                 <tr lang="en">current state. 0: stopped, 1: playing, 2: paused</tr>
+                <!-- old: текущего состояния. 0: остановился, 1: играл, 2:
+                остановился -->
                 <tr lang="ru" finished="false">текущего состояния. 0: остановился, 1: играл, 2:
                 остановился</tr>
             </property>
@@ -65,6 +67,8 @@
             <method name="next">
                 <info>
                     <tr lang="en">moves playing position to next event. No output</tr>
+                    <!-- old: Переносит игровую позицию на следующее событие.
+                    Нет выхода -->
                     <tr lang="ru" finished="false">Переносит игровую позицию на следующее событие.
                     Нет выхода</tr>
                 </info>
@@ -87,6 +91,8 @@
             <method name="reset">
                 <info>
                     <tr lang="en">set current event index to zero and send All Notes Off event</tr>
+                    <!-- old: Установите текущий индекс событий до нуля и
+                    отправьте все заметки -->
                     <tr lang="ru" finished="false">Установите текущий индекс событий до нуля и
                     отправьте все заметки</tr>
                 </info>
@@ -114,6 +120,8 @@
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">MidiStream object: set new mifi file</tr>
+                    <!-- old: Объект MidiStream: установлен новый файл
+                    mifi -->
                     <tr lang="ru" finished="false">Объект MidiStream: установлен новый файл
                     mifi</tr>
                 </xinfo>
@@ -123,11 +131,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">MidiEvent message</tr>
+                    <tr lang="ru" finished="false">Сообщение MidiEvent</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">time in milliseconds until next MIDI event</tr>
+                    <tr lang="ru" finished="false">Время в миллисекундах до следующего события
+                    MIDI</tr>
                 </out>
             </outlet>
         </outlets>

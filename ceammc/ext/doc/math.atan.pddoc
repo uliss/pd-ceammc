@@ -25,6 +25,8 @@
             <par>
                 <tr lang="en">Outputs the principal value of the arc tangent of input value. The
                 result is in the range [-π/2, +π/2].</tr>
+                <!-- old: Выходит основное значение дугового касания входного
+                значения. Результат находится в диапазоне [-π/2, +π/2]. -->
                 <tr lang="ru" finished="false">Выходит основное значение дугового касания входного
                 значения. Результат находится в диапазоне [-π/2, +π/2].</tr>
             </par>
@@ -57,6 +59,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

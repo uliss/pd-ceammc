@@ -45,6 +45,8 @@
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">pass if float found in pass list</tr>
+                    <!-- old: Пройти, если поплавок найден в списке
+                    пропусков -->
                     <tr lang="ru" finished="false">Пройти, если поплавок найден в списке
                     пропусков</tr>
                 </xinfo>
@@ -58,6 +60,8 @@
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">pass if message selector found in pass list</tr>
+                    <!-- old: Pass, если селектор сообщений найден в списке
+                    пропусков -->
                     <tr lang="ru" finished="false">Pass, если селектор сообщений найден в списке
                     пропусков</tr>
                 </xinfo>
@@ -73,6 +77,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">passed values</tr>
+                    <tr lang="ru" finished="false">переданные значения</tr>
                 </out>
             </outlet>
         </outlets>

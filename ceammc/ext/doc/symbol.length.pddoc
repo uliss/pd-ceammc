@@ -21,6 +21,8 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">input symbol. Unicode strings also supported.</tr>
+                    <tr lang="ru" finished="false">Входной символ. Поддерживаются также строки
+                    Unicode.</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -28,6 +30,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">length of symbol: number of character</tr>
+                    <tr lang="ru" finished="false">Длина символа: количество символов</tr>
                 </out>
             </outlet>
         </outlets>

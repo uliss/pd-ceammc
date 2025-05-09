@@ -24,31 +24,37 @@
         <arguments>
             <argument name="SEED" type="int">
                 <tr lang="en">init random seed</tr>
+                <tr lang="ru" finished="false">случайное семя</tr>
             </argument>
             <argument name="PROPS" type="list">
                 <tr lang="en">properties names</tr>
+                <tr lang="ru" finished="false">Имена свойств</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @seed -->
             <property name="@seed" type="int" default="0">
                 <tr lang="en">random seed</tr>
+                <tr lang="ru" finished="false">случайное семя</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo>
                     <tr lang="en">first specified property</tr>
+                    <tr lang="ru" finished="false">первое указанное имущество</tr>
                 </xinfo>
             </inlet>
             <inlet number="...">
                 <xinfo>
                     <tr lang="en">... specified property</tr>
+                    <tr lang="ru" finished="false">... определенного имущества</tr>
                 </xinfo>
             </inlet>
             <inlet number="n">
                 <xinfo>
                     <tr lang="en">n-th specified property</tr>
+                    <tr lang="ru" finished="false">n-е указанное имущество</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -56,11 +62,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">connect to target object</tr>
+                    <tr lang="ru" finished="false">Подключение к целевому объекту</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">atom: new random value</tr>
+                    <tr lang="ru" finished="false">Атом: новое случайное значение</tr>
                 </out>
             </outlet>
         </outlets>

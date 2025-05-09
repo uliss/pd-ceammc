@@ -36,6 +36,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float or list: frequency ratio(s)</tr>
+                    <tr lang="ru" finished="false">Поплавок или список: частотное
+                    соотношение(я)</tr>
                 </out>
             </outlet>
         </outlets>

@@ -47,6 +47,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">passed float</tr>
+                    <tr lang="ru" finished="false">пропущенный</tr>
                 </out>
             </outlet>
         </outlets>

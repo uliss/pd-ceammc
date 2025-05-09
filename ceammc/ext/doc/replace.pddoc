@@ -26,40 +26,49 @@
             <par>
                 <tr lang="en">From/to values can be specified both as @from/@to properties or first
                 and second arguments.</tr>
+                <tr lang="ru" finished="false">Значения от/к значениям могут быть указаны как
+                @from/@to свойства, так и первый и второй аргументы.</tr>
             </par>
         </info>
         <arguments>
             <argument name="FROM" type="atom">
                 <tr lang="en">replace subject</tr>
+                <tr lang="ru" finished="false">Замена предмета</tr>
             </argument>
             <argument name="TO" type="atom">
                 <tr lang="en">replace value</tr>
+                <tr lang="ru" finished="false">заменить стоимость</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @from -->
             <property name="@from" type="atom" default="None">
                 <tr lang="en">replace subject</tr>
+                <tr lang="ru" finished="false">Замена предмета</tr>
             </property>
             <!-- @to -->
             <property name="@to" type="atom" default="None">
                 <tr lang="en">replace value</tr>
+                <tr lang="ru" finished="false">заменить стоимость</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input data stream</tr>
+                    <tr lang="ru" finished="false">поток входных данных</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">@from property inlet</tr>
+                    <tr lang="ru" finished="false">@ from Property Inlet</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">@to property inlet</tr>
+                    <tr lang="ru" finished="false">@to Property Inlet</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -67,6 +76,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output data stream</tr>
+                    <tr lang="ru" finished="false">выходной поток данных</tr>
                 </out>
             </outlet>
         </outlets>

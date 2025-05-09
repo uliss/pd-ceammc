@@ -47,6 +47,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">standard deviation value</tr>
+                    <tr lang="ru" finished="false">значение стандартного отклонения</tr>
                 </out>
             </outlet>
         </outlets>

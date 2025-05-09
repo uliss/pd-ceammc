@@ -25,6 +25,8 @@
             <par>
                 <tr lang="en">Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ +
                 b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²)</tr>
+                <!-- old: Расчет коэффициентов для функции переноса: H(z)=(b0
+                + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2) -->
                 <tr lang="ru" finished="false">Расчет коэффициентов для функции переноса: H(z)=(b0
                 + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2)</tr>
             </par>
@@ -67,26 +69,31 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">b0</tr>
+                    <tr lang="ru" finished="false">b0</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">b1</tr>
+                    <tr lang="ru" finished="false">b1</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">b2</tr>
+                    <tr lang="ru" finished="false">b2</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">a1</tr>
+                    <tr lang="ru" finished="false">а1</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">a2</tr>
+                    <tr lang="ru" finished="false">а2</tr>
                 </out>
             </outlet>
         </outlets>

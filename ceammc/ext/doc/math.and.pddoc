@@ -80,6 +80,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">1 - if all input values are true (1), 0 - otherwise</tr>
+                    <tr lang="ru" finished="false">1 - если все входные значения верны (1), 0 -
+                    иначе</tr>
                 </out>
             </outlet>
         </outlets>

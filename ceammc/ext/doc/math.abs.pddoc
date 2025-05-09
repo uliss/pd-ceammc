@@ -23,6 +23,8 @@
             <par>
                 <tr lang="en">The abs() function computes the absolute value of the float
                 input.</tr>
+                <!-- old: Функция abs() вычисляет абсолютное значение
+                поплавкового входа. -->
                 <tr lang="ru" finished="false">Функция abs() вычисляет абсолютное значение
                 поплавкового входа.</tr>
             </par>
@@ -43,6 +45,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

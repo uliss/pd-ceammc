@@ -60,6 +60,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">"1" if lists are equal, "0" otherwise</tr>
+                    <tr lang="ru" finished="false">"1", если списки равны, "0" в противном
+                    случае</tr>
                 </out>
             </outlet>
         </outlets>

@@ -21,6 +21,9 @@
                 <tr lang="en">Given the M-order numerator b and N-order denominator a of a digital
                 filter, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(eʲʷ) =
                 (b⁰+b¹e⁻ʲʷ+...+bᴹe⁻ʲʷᴹ)/(1+a¹e⁻ʲʷ+...+aᴺe⁻ʲʷᴺ)</tr>
+                <!-- old: Учитывая числитель M-порядка b и знаменатель
+                N-порядка a цифрового фильтра, вычислите его частотный отклик: H(ejw) =
+                B(ejw)/A(ejw) = (b0+b1e−jw+...+bMe−jwM)/(1+a1e−jw+...+aNe−jwN) -->
                 <tr lang="ru" finished="false">Учитывая числитель M-порядка b и знаменатель
                 N-порядка a цифрового фильтра, вычислите его частотный отклик: H(ejw) =
                 B(ejw)/A(ejw) = (b0+b1e−jw+...+bMe−jwM)/(1+a1e−jw+...+aNe−jwN)</tr>
@@ -31,6 +34,8 @@
             <property name="@a" type="list" default="">
                 <tr lang="en">denominator (poles) coefficients. 'a0' always implicitly set to 1,
                 property value set a1...an coefficients</tr>
+                <!-- old: Коэффициенты знаменателя (полюса). a0 всегда неявно
+                устанавливается на 1, значение свойства устанавливается a1 ... коэффициенты -->
                 <tr lang="ru" finished="false">Коэффициенты знаменателя (полюса). a0 всегда неявно
                 устанавливается на 1, значение свойства устанавливается a1 ... коэффициенты</tr>
             </property>
@@ -55,6 +60,8 @@
                 <xinfo>
                     <tr lang="en">input frequency in radians [0, π] or in hertz [0 sr/2] if @sr
                     property is true</tr>
+                    <!-- old: входная частота в радианах [0, π] или в герцах
+                    [0 sr/2], если свойство @sr истинно -->
                     <tr lang="ru" finished="false">входная частота в радианах [0, π] или в герцах
                     [0 sr/2], если свойство @sr истинно</tr>
                 </xinfo>
@@ -64,11 +71,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">amplitude frequency response signal</tr>
+                    <tr lang="ru" finished="false">амплитудный частотный ответный сигнал</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">phase frequency response signal</tr>
+                    <tr lang="ru" finished="false">фазовый частотный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

@@ -43,6 +43,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output General MIDI instrument name (string or symbol)</tr>
+                    <tr lang="ru" finished="false">на выходе общее название инструмента MIDI
+                    (струна или символ)</tr>
                 </out>
             </outlet>
         </outlets>

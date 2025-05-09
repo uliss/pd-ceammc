@@ -47,11 +47,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal (freq + shift)</tr>
+                    <tr lang="ru" finished="false">выходной сигнал (freq + shift)</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal (freq - shift)</tr>
+                    <tr lang="ru" finished="false">выходной сигнал (freq - shift)</tr>
                 </out>
             </outlet>
         </outlets>

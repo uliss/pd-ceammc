@@ -29,6 +29,9 @@
             <par>
                 <tr lang="en">The round() functions return the integral value nearest to x rounding
                 half-way cases away from zero, regardless of the current rounding direction.</tr>
+                <!-- old: Функции раунда () возвращают интегральное значение,
+                ближайшее к x округляющим полушариям, от нуля, независимо от текущего направления
+                округления. -->
                 <tr lang="ru" finished="false">Функции раунда () возвращают интегральное значение,
                 ближайшее к x округляющим полушариям, от нуля, независимо от текущего направления
                 округления.</tr>
@@ -43,6 +46,8 @@
             </par>
             <par>
                 <tr lang="en">round(+-infinity) returns +-infinity.</tr>
+                <!-- old: Круг (+-бесконечность) возвращает
+                +-бесконечность. -->
                 <tr lang="ru" finished="false">Круг (+-бесконечность) возвращает
                 +-бесконечность.</tr>
             </par>
@@ -63,6 +68,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

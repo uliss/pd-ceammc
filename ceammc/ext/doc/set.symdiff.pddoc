@@ -24,11 +24,14 @@
             <par>
                 <tr lang="en">Symmetric difference, of two sets is the set of elements which are in
                 either of the sets and not in their intersection</tr>
+                <tr lang="ru" finished="false">Симметричное различие двух множеств — это множество
+                элементов, которые находятся в любом из множеств, а не в их пересечении.</tr>
             </par>
         </info>
         <arguments>
             <argument name="ARGS" type="any">
                 <tr lang="en">right set elements</tr>
+                <tr lang="ru" finished="false">Правильный набор элементов</tr>
             </argument>
         </arguments>
         <inlets>
@@ -36,11 +39,15 @@
                 <xinfo>
                     <tr lang="en">first set or list (converted to set), other values are
                     ignored</tr>
+                    <tr lang="ru" finished="false">первый набор или список (преобразуется в набор),
+                    другие значения игнорируются;</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">second set or list (converted to set)</tr>
+                    <tr lang="ru" finished="false">Второй набор или список (преобразуется в
+                    набор)</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -48,6 +55,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output symmetric set difference</tr>
+                    <tr lang="ru" finished="false">выходная симметричная разность</tr>
                 </out>
             </outlet>
         </outlets>

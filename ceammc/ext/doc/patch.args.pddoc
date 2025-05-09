@@ -46,6 +46,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list of arguments</tr>
+                    <tr lang="ru" finished="false">Список аргументов</tr>
                 </out>
             </outlet>
         </outlets>

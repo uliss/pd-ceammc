@@ -41,12 +41,16 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set minuend, calculate and output result</tr>
+                    <!-- old: установить minuend, рассчитать и выходной
+                    результат -->
                     <tr lang="ru" finished="false">установить minuend, рассчитать и выходной
                     результат</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pair: set minuend and subtrahend, calculate and output
                     result</tr>
+                    <!-- old: пара: заданный минуэнд и вычитание, вычисление и
+                    выходной результат -->
                     <tr lang="ru" finished="false">пара: заданный минуэнд и вычитание, вычисление и
                     выходной результат</tr>
                 </xinfo>
@@ -54,6 +58,8 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">change subtrahend, calculate and output result</tr>
+                    <!-- old: изменить субпойм, вычислить и вывести
+                    результат -->
                     <tr lang="ru" finished="false">изменить субпойм, вычислить и вывести
                     результат</tr>
                 </xinfo>
@@ -63,6 +69,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">difference output</tr>
+                    <tr lang="ru" finished="false">Разница в выходе</tr>
                 </out>
             </outlet>
         </outlets>

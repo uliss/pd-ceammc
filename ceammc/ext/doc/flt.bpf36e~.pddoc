@@ -24,6 +24,8 @@
             <par>
                 <tr lang="en">Band-pass filter passes frequencies within a certain range and
                 rejects frequencies outside that range.</tr>
+                <!-- old: оркестр Пропускной фильтр проходит частоты в
+                определенном диапазоне и отклоняет частоты за пределами этого диапазона. -->
                 <tr lang="ru" finished="false">оркестр Пропускной фильтр проходит частоты в
                 определенном диапазоне и отклоняет частоты за пределами этого диапазона.</tr>
             </par>
@@ -77,6 +79,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">filtered signal</tr>
+                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

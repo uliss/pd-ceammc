@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">Outputs hyperbolic tangent of input signal</tr>
+                <!-- old: Выходы гиперболического касательного входного
+                сигнала -->
                 <tr lang="ru" finished="false">Выходы гиперболического касательного входного
                 сигнала</tr>
             </par>
@@ -41,6 +43,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">result signal</tr>
+                    <tr lang="ru" finished="false">результат сигнала</tr>
                 </out>
             </outlet>
         </outlets>

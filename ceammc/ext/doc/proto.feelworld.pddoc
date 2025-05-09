@@ -22,9 +22,11 @@
             <method name="input">
                 <info>
                     <tr lang="en">select HDMI input</tr>
+                    <tr lang="ru" finished="false">Выберите HDMI вход</tr>
                 </info>
                 <param name="N" type="int" required="true" minvalue="0" maxvalue="3">
                     <tr lang="en">input index</tr>
+                    <tr lang="ru" finished="false">входной индекс</tr>
                 </param>
             </method>
         </methods>
@@ -32,6 +34,7 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">commands</tr>
+                    <tr lang="ru" finished="false">командовать</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -39,6 +42,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list: bytes to send to UDP port 1000</tr>
+                    <tr lang="ru" finished="false">Байты для отправки в порт UDP 1000</tr>
                 </out>
             </outlet>
         </outlets>

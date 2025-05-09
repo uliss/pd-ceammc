@@ -23,38 +23,50 @@
             <!-- @cutoff -->
             <property name="@cutoff" type="float" minvalue="0.1" maxvalue="1" default="1">
                 <tr lang="en">cutoff coefficent (for low pass filter)</tr>
+                <tr lang="ru" finished="false">эффективность отсечки (для фильтра низкого
+                пропуска)</tr>
             </property>
             <!-- @freq -->
             <property name="@freq" type="float" units="hertz" default="130.8128">
                 <tr lang="en">frequency</tr>
+                <tr lang="ru" finished="false">частота</tr>
             </property>
             <!-- @gain -->
             <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">pluck gain</tr>
+                <tr lang="ru" finished="false">pluck gain</tr>
             </property>
             <!-- @gate -->
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">play trigger - 1: on, 0: off</tr>
+                <tr lang="ru" finished="false">играть триггер - 1: on, 0: off</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="int" minvalue="0" maxvalue="2" default="1">
                 <tr lang="en">excitation mode: 0 - impulse, 1 - pluck, 2 - strike</tr>
+                <tr lang="ru" finished="false">режим возбуждения: 0 - импульс, 1 - плак, 2 -
+                удар</tr>
             </property>
             <!-- @mute -->
             <property name="@mute" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">mute coefficient (0 for no mute and 1 for instant mute)</tr>
+                <tr lang="ru" finished="false">коэффициент немого (0 для немого без немого и 1 для
+                мгновенного немого)</tr>
             </property>
             <!-- @pitch -->
             <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="48">
                 <tr lang="en">midi pitch</tr>
+                <tr lang="ru" finished="false">миди-питч</tr>
             </property>
             <!-- @pos -->
             <property name="@pos" type="float" minvalue="0" maxvalue="1" default="0.7">
                 <tr lang="en">pluck position (1 is on the bridge)</tr>
+                <tr lang="ru" finished="false">плак-позиция (1 находится на мосту)</tr>
             </property>
             <!-- @sharp -->
             <property name="@sharp" type="float" minvalue="0.01" maxvalue="1" default="0.25">
                 <tr lang="en">pluck sharpness</tr>
+                <tr lang="ru" finished="false">острота щипков</tr>
             </property>
         </properties>
         <methods>
@@ -62,12 +74,15 @@
             <method name="note">
                 <info>
                     <tr lang="en">note on/off message</tr>
+                    <tr lang="ru" finished="false">примечание/выключение сообщения</tr>
                 </info>
                 <param name="NOTE" type="float" required="true">
                     <tr lang="en">midi note</tr>
+                    <tr lang="ru" finished="false">нота миди</tr>
                 </param>
                 <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">velocity</tr>
+                    <tr lang="ru" finished="false">скорость</tr>
                 </param>
             </method>
         </methods>
@@ -75,6 +90,7 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">NOTE VEL</tr>
+                    <tr lang="ru" finished="false">Примечание VEL</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -82,6 +98,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">synth output</tr>
+                    <tr lang="ru" finished="false">синтетический выход</tr>
                 </out>
             </outlet>
         </outlets>

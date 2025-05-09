@@ -22,55 +22,74 @@
         <arguments>
             <argument name="P" type="list">
                 <tr lang="en">sequencer pattern in beat duration units</tr>
+                <tr lang="ru" finished="false">шаблон секвенсора в битовых единицах
+                продолжительности</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @div -->
             <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">
                 <tr lang="en">beat subdivision</tr>
+                <tr lang="ru" finished="false">Победить подразделение</tr>
             </property>
             <!-- @dur -->
             <property name="@dur" type="float" default="0" minvalue="0" units="millisecond">
                 <tr lang="en">whole sequence duration. (Recalculates @t property accordingly)</tr>
+                <tr lang="ru" finished="false">Продолжительность всей последовательности.
+                (Соответственно пересчитывает имущество @t)</tr>
             </property>
             <!-- @i -->
             <property name="@i" type="int" access="readonly" default="0">
                 <tr lang="en">current sequence iteration</tr>
+                <tr lang="ru" finished="false">итерация текущей последовательности</tr>
             </property>
             <!-- @inf -->
             <property name="@inf" type="alias">
                 <tr lang="en">alias to @r -1, repeats infinitely</tr>
+                <tr lang="ru" finished="false">alias to @r-1, повторяется бесконечно</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">
                 <tr lang="en">sequencer mode. 'inc': from first to last, 'dec': from last to first,
                 'tri': from first to last, then back</tr>
+                <tr lang="ru" finished="false">"inc": от первого до последнего, "dec": от
+                последнего до первого, "tri": от первого до последнего, затем обратно</tr>
             </property>
             <!-- @once -->
             <property name="@once" type="alias">
                 <tr lang="en">alias to @r 1, play once</tr>
+                <tr lang="ru" finished="false">alias to @r 1, играть один раз</tr>
             </property>
             <!-- @p -->
             <property name="@p" type="list" default="">
                 <tr lang="en">sequencer pattern in beat duration units</tr>
+                <tr lang="ru" finished="false">шаблон секвенсора в битовых единицах
+                продолжительности</tr>
             </property>
             <!-- @r -->
             <property name="@r" type="int" minvalue="-1" default="1">
                 <tr lang="en">number of whole sequence repeats. If -1: repeat infinitely</tr>
+                <tr lang="ru" finished="false">Количество повторений целой последовательности. Если
+                -1: повторять бесконечно</tr>
             </property>
             <!-- @ri -->
             <property name="@ri" type="int" access="readonly" default="0">
                 <tr lang="en">current repeat iteration</tr>
+                <tr lang="ru" finished="false">Текущая повторная итерация</tr>
             </property>
             <!-- @t -->
             <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"
             units="millisecond">
                 <tr lang="en">time between beats. Unit values like 100ms or 240bpm also can be
                 used</tr>
+                <tr lang="ru" finished="false">Время между ударами. Значения единицы, такие как 100
+                мс или 240bpm, также могут использоваться.</tr>
             </property>
             <!-- @upbeat -->
             <property name="@upbeat" type="float" default="0" minvalue="0">
                 <tr lang="en">wait specified number of beats before sequence start</tr>
+                <tr lang="ru" finished="false">ожидание определенного количества ударов перед
+                началом последовательности</tr>
             </property>
         </properties>
         <methods>
@@ -78,48 +97,58 @@
             <method name="hexbeat">
                 <info>
                     <tr lang="en">set hexbeat bang pattern</tr>
+                    <tr lang="ru" finished="false">Установить паттерн удара шести ударов</tr>
                 </info>
                 <param name="PATTERN" type="symbol" required="true">
                     <tr lang="en">hex-string beat pattern</tr>
+                    <tr lang="ru" finished="false">шестиструнный ритм</tr>
                 </param>
             </method>
             <!-- reset -->
             <method name="reset">
                 <info>
                     <tr lang="en">reset all counters and stop</tr>
+                    <tr lang="ru" finished="false">Сбросить все счетчики и остановиться</tr>
                 </info>
             </method>
             <!-- rewind -->
             <method name="rewind">
                 <info>
                     <tr lang="en">reset all counters without stopping</tr>
+                    <tr lang="ru" finished="false">Сбросить все счетчики без остановки</tr>
                 </info>
             </method>
             <!-- skip -->
             <method name="skip">
                 <info>
                     <tr lang="en">skip specified number of steps</tr>
+                    <tr lang="ru" finished="false">Пропустить указанное количество шагов</tr>
                 </info>
                 <param name="N" type="int" required="true">
                     <tr lang="en">number of steps to skip</tr>
+                    <tr lang="ru" finished="false">Количество шагов, чтобы пропустить</tr>
                 </param>
             </method>
             <!-- start -->
             <method name="start">
                 <info>
                     <tr lang="en">start sequencer from current position</tr>
+                    <tr lang="ru" finished="false">стартовый секвенсор с текущей позиции</tr>
                 </info>
             </method>
             <!-- stop -->
             <method name="stop">
                 <info>
                     <tr lang="en">stop sequencer</tr>
+                    <tr lang="ru" finished="false">остановить секвенсор</tr>
                 </info>
             </method>
             <!-- tick -->
             <method name="tick">
                 <info>
                     <tr lang="en">output current sequence element and move to next</tr>
+                    <tr lang="ru" finished="false">вывести элемент текущей последовательности и
+                    перейти к следующему</tr>
                 </info>
             </method>
         </methods>
@@ -127,11 +156,13 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">reset all counters and start sequencer</tr>
+                    <tr lang="ru" finished="false">Сбросить все счетчики и запустить секвенсор</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set new pattern value</tr>
+                    <tr lang="ru" finished="false">Устанавливает новое значение шаблона</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -139,12 +170,16 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bang</tr>
+                    <tr lang="ru" finished="false">удар</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration,
                     [ed MS( - event duration or [done( when done</tr>
+                    <tr lang="ru" finished="false">[i IDX N( - итерация последовательностей, [ri
+                    IDX N( - повторная итерация), [ed MS( - продолжительность события или [сделано,
+                    когда сделано)]</tr>
                 </out>
             </outlet>
         </outlets>

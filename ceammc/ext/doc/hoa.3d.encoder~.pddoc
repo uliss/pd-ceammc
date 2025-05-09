@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">Creates the circular harmonics of a signal depending of a given
                 order, position on a circle in radians (θ) and elevation</tr>
+                <!-- old: Создает круговые гармоники сигнала в зависимости от
+                заданного порядка, положения на окружности в радианах (θ) и возвышения -->
                 <tr lang="ru" finished="false">Создает круговые гармоники сигнала в зависимости от
                 заданного порядка, положения на окружности в радианах (θ) и возвышения</tr>
             </par>
@@ -70,16 +72,19 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">first circular harmonics output</tr>
+                    <tr lang="ru" finished="false">Первая круговая гармоника выход</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">... circular harmonics output</tr>
+                    <tr lang="ru" finished="false">... круглые гармоники выход</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n">
                 <out type="any">
                     <tr lang="en">n-th circular harmonics output</tr>
+                    <tr lang="ru" finished="false">n-я круговая гармоника выход</tr>
                 </out>
             </outlet>
         </outlets>

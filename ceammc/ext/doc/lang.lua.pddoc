@@ -19,11 +19,15 @@
         <info>
             <par>
                 <tr lang="en">Lua code is executed in separated thread in async mode.</tr>
+                <!-- old: Код Lua выполняется в разделенном потоке в режиме
+                асинхронизации. -->
                 <tr lang="ru" finished="false">Код Lua выполняется в разделенном потоке в режиме
                 асинхронизации.</tr>
             </par>
             <par>
                 <tr lang="en">Each lang.lua object has own independent context.</tr>
+                <!-- old: Каждый объект lang.lua имеет свой независимый
+                контекст. -->
                 <tr lang="ru" finished="false">Каждый объект lang.lua имеет свой независимый
                 контекст.</tr>
             </par>
@@ -125,16 +129,19 @@
             <outlet number="1">
                 <out type="any">
                     <tr lang="en">first lua output</tr>
+                    <tr lang="ru" finished="false">Первый выпуск луа</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">... lua output</tr>
+                    <tr lang="ru" finished="false">... ua выход</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">n-th lua output</tr>
+                    <tr lang="ru" finished="false">n-й выпуск луа</tr>
                 </out>
             </outlet>
         </outlets>

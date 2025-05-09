@@ -53,6 +53,8 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">1: enable logging, 0: disable logging</tr>
+                    <!-- old: 1: включить лесозаготовку, 0: отключить
+                    лесозаготовку -->
                     <tr lang="ru" finished="false">1: включить лесозаготовку, 0: отключить
                     лесозаготовку</tr>
                 </xinfo>

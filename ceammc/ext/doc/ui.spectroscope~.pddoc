@@ -46,15 +46,19 @@
             <!-- @log_scale -->
             <property name="@log_scale" type="bool" default="0">
                 <tr lang="en">display in log scale</tr>
+                <tr lang="ru" finished="false">отображение в бревенчатом масштабе</tr>
             </property>
             <!-- @refresh -->
             <property name="@refresh" type="int" minvalue="20" maxvalue="1000" default="100"
             units="millisecond">
                 <tr lang="en">approximate refresh rate</tr>
+                <tr lang="ru" finished="false">приблизительная частота обновления</tr>
             </property>
             <!-- @scale_color -->
             <property name="@scale_color" type="list" default="0.6 0.6 0.6 1">
                 <tr lang="en">scale color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">цвет шкалы (список красных, зеленых, синих значений
+                в диапазоне 0-1)</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="150 100">
@@ -67,12 +71,15 @@
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
         </methods>
@@ -80,6 +87,7 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">signal input</tr>
+                    <tr lang="ru" finished="false">ввод сигнала</tr>
                 </xinfo>
             </inlet>
         </inlets>

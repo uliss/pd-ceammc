@@ -57,6 +57,8 @@
             <method name="om">
                 <param name="OM" type="int" required="true">
                     <tr lang="en">enables output when cut or fold value is changed</tr>
+                    <!-- old: позволяет вывод при изменении значения разреза
+                    или сгиба -->
                     <tr lang="ru" finished="false">позволяет вывод при изменении значения разреза
                     или сгиба</tr>
                 </param>
@@ -102,11 +104,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">x value</tr>
+                    <tr lang="ru" finished="false">x значение</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">y value</tr>
+                    <tr lang="ru" finished="false">y значение</tr>
                 </out>
             </outlet>
         </outlets>

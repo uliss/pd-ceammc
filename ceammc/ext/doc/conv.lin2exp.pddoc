@@ -28,6 +28,8 @@
             <par>
                 <tr lang="en">The output range must not include zero. If the input exceeds the
                 input range, by default clip is applied.</tr>
+                <!-- old: Диапазон выхода не должен включать ноль. Если вход
+                превышает диапазон ввода, по умолчанию применяется клип. -->
                 <tr lang="ru" finished="false">Диапазон выхода не должен включать ноль. Если вход
                 превышает диапазон ввода, по умолчанию применяется клип.</tr>
             </par>
@@ -55,6 +57,8 @@
             <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
                 <tr lang="en">noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip
                 both).</tr>
+                <!-- old: noclip (Don't Clip) max (clip ceiling) min (clip
+                floor) minmax (clip both). -->
                 <!-- old: noclip (Don't Clip) max (clip ceiling) min (clip
                 floor) minmax (clip both). -->
                 <tr lang="ru" finished="false">noclip (Don't Clip) max (clip ceiling) min (clip
@@ -117,6 +121,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">converted value</tr>
+                    <tr lang="ru" finished="false">преобразованная стоимость</tr>
                 </out>
             </outlet>
         </outlets>

@@ -38,6 +38,8 @@
             <property name="@from" type="int" default="0">
                 <tr lang="en">start slice position. You can use negative index to address elements
                 from the end</tr>
+                <!-- old: Начните резать позицию. Вы можете использовать
+                отрицательный индекс для адресации элементов с конца. -->
                 <tr lang="ru" finished="false">Начните резать позицию. Вы можете использовать
                 отрицательный индекс для адресации элементов с конца.</tr>
             </property>
@@ -50,6 +52,8 @@
             <property name="@to" type="int" default="-1">
                 <tr lang="en">end slice position. You can use negative index to address elements
                 from the end</tr>
+                <!-- old: Положение конца среза. Вы можете использовать
+                отрицательный индекс для адресации элементов с конца. -->
                 <tr lang="ru" finished="false">Положение конца среза. Вы можете использовать
                 отрицательный индекс для адресации элементов с конца.</tr>
             </property>
@@ -66,6 +70,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output sublist</tr>
+                    <tr lang="ru" finished="false">выходной подсписок</tr>
                 </out>
             </outlet>
         </outlets>

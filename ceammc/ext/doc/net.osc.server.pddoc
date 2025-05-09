@@ -28,6 +28,8 @@
                 <tr lang="en">OSC server name (for using with other objects)</tr>
                 <!-- old: Название сервера OSC (для использования с другими
                 объектами) -->
+                <!-- old: Название сервера OSC (для использования с другими
+                объектами) -->
                 <tr lang="ru" finished="false">Название сервера OSC (для использования с другими
                 объектами)</tr>
             </argument>
@@ -78,6 +80,8 @@
                 osc.PROTO://:PORT (for ex. osc.tcp://:9001)</tr>
                 <!-- old: URL сервера OSC по форме: PROTO:PORT (udp:12345) или
                 просто PORT, или osc.PROTO://:PORT (для ex. osc.tcp://:9001) -->
+                <!-- old: URL сервера OSC по форме: PROTO:PORT (udp:12345) или
+                просто PORT, или osc.PROTO://:PORT (для ex. osc.tcp://:9001) -->
                 <tr lang="ru" finished="false">URL сервера OSC по форме: PROTO:PORT (udp:12345) или
                 просто PORT, или osc.PROTO://:PORT (для ex. osc.tcp://:9001)</tr>
             </property>
@@ -118,6 +122,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">...</tr>
+                    <tr lang="ru" finished="false">...</tr>
                 </out>
             </outlet>
         </outlets>

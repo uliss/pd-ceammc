@@ -28,6 +28,8 @@
                 <tr lang="en">OSC server url (like osc.udp://localhost:12345)</tr>
                 <!-- old: URL сервера OSC (например,
                 osc.udp://localhost:12345) -->
+                <!-- old: URL сервера OSC (например,
+                osc.udp://localhost:12345) -->
                 <tr lang="ru" finished="false">URL сервера OSC (например,
                 osc.udp://localhost:12345)</tr>
             </argument>
@@ -41,6 +43,8 @@
             <!-- @path -->
             <property name="@path" type="symbol" default="" access="readonly">
                 <tr lang="en">socket filesystem path (if using unix proto)</tr>
+                <!-- old: путь файловой системы сокет (при использовании UNIX
+                Proto) -->
                 <!-- old: путь файловой системы сокет (при использовании UNIX
                 Proto) -->
                 <tr lang="ru" finished="false">путь файловой системы сокет (при использовании UNIX
@@ -206,6 +210,8 @@
                 </param>
                 <param name="VAL" type="list" required="true">
                     <tr lang="en">hex symbol (0xAAFF1122) or list of 4 bytes</tr>
+                    <!-- old: шестнадцатеричный символ (0xAAFF1122) или список
+                    из 4 байтов -->
                     <tr lang="ru" finished="false">шестнадцатеричный символ (0xAAFF1122) или список
                     из 4 байтов</tr>
                 </param>
@@ -250,6 +256,10 @@
                     <tr lang="en">type string, 'i': int32, 'f': 32-bit float, 's': string, 'h':
                     int64, 'd': 64-bit float, 'T': #true value, 'F': #false value, 'N': #null
                     value, 'I': #inf value</tr>
+                    <!-- old: строка типа, 'i': int32, 'f': 32-разрядный
+                    поплавок, 's': строка, 'h': int64, 'd': 64-разрядный поплавок, 'T': # истинное
+                    значение, 'F': # ложное значение, 'N': #нулевое значение, 'I': #inf
+                    значение -->
                     <tr lang="ru" finished="false">строка типа, 'i': int32, 'f': 32-разрядный
                     поплавок, 's': строка, 'h': int64, 'd': 64-разрядный поплавок, 'T': # истинное
                     значение, 'F': # ложное значение, 'N': #нулевое значение, 'I': #inf
@@ -273,6 +283,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">none</tr>
+                    <tr lang="ru" finished="false">ни одного</tr>
                 </out>
             </outlet>
         </outlets>

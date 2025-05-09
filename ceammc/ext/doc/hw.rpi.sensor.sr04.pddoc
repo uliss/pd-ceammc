@@ -20,12 +20,16 @@
             <par>
                 <tr lang="en">**Note:** The HC-SR04 ultrasonic sensor requires a 5V power supply,
                 but the Raspberry Pi's GPIO inputs operate at 3.3V.</tr>
+                <!-- old: * *Примечание:** Ультразвуковой датчик HC-SR04
+                требует питания 5 В, но входы GPIO Raspberry Pi работают при 3,3 В. -->
                 <tr lang="ru" finished="false">* *Примечание:** Ультразвуковой датчик HC-SR04
                 требует питания 5 В, но входы GPIO Raspberry Pi работают при 3,3 В.</tr>
             </par>
             <par>
                 <tr lang="en">Therefore, you **must** use a level converter from 5V to 3.3V,
                 otherwise, you could damage your Raspberry Pi!</tr>
+                <!-- old: Поэтому вы должны использовать конвертер уровня от 5
+                В до 3,3 В, иначе вы можете повредить свой Raspberry Pi! -->
                 <tr lang="ru" finished="false">Поэтому вы должны использовать конвертер уровня от 5
                 В до 3,3 В, иначе вы можете повредить свой Raspberry Pi!</tr>
             </par>
@@ -85,11 +89,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float: distance in cm</tr>
+                    <tr lang="ru" finished="false">Поплавок: расстояние в см</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">bang: if distance can not be measured</tr>
+                    <tr lang="ru" finished="false">Взрыв: если расстояние невозможно измерить</tr>
                 </out>
             </outlet>
         </outlets>

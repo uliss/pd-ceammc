@@ -105,6 +105,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">dict/property output</tr>
+                    <tr lang="ru" finished="false">дикт / вывод собственности</tr>
                 </out>
             </outlet>
         </outlets>

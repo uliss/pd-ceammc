@@ -23,11 +23,15 @@
         <info>
             <par>
                 <tr lang="en">Extension of factorial function to real numbers</tr>
+                <!-- old: Расширение факториальной функции на реальные
+                числа -->
                 <tr lang="ru" finished="false">Расширение факториальной функции на реальные
                 числа</tr>
             </par>
             <par>
                 <tr lang="en">For any positive integer n, Γ(n) = (n−1)!</tr>
+                <!-- old: Для любого положительного целого числа n, Γ(n) =
+                (n−1)! -->
                 <tr lang="ru" finished="false">Для любого положительного целого числа n, Γ(n) =
                 (n−1)!</tr>
             </par>
@@ -48,6 +52,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value or list</tr>
+                    <tr lang="ru" finished="false">значение результата или список</tr>
                 </out>
             </outlet>
         </outlets>

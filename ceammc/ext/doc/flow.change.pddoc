@@ -23,12 +23,17 @@
             <par>
                 <tr lang="en">The object passes input values only when it's changed. You can "set"
                 the current value, or bang to force output.</tr>
+                <!-- old: Объект передает входные значения только при
+                изменении. Вы можете «установить» текущее значение или ударить, чтобы заставить
+                выход. -->
                 <tr lang="ru" finished="false">Объект передает входные значения только при
                 изменении. Вы можете «установить» текущее значение или ударить, чтобы заставить
                 выход.</tr>
             </par>
             <par>
                 <tr lang="en">Note: [list a b c( and [a b c( are different values!</tr>
+                <!-- old: Примечание: [перечислить a b c() и a b c() - разные
+                значения! -->
                 <tr lang="ru" finished="false">Примечание: [перечислить a b c() и a b c() - разные
                 значения!</tr>
             </par>
@@ -62,6 +67,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output only if input changed</tr>
+                    <tr lang="ru" finished="false">выход только в том случае, если ввод
+                    изменился</tr>
                 </out>
             </outlet>
         </outlets>

@@ -34,6 +34,10 @@
                 «fudi» — интерпретировать данные как Pd-сообщения, если «sym» — всегда
                 интерпретировать как символы, «data» — разбирать данные ceammc, «json» —
                 преобразовывать значения json в данные ceammc. -->
+                <!-- old: Режим разбора входящих/выходных сообщений. Если
+                «fudi» — интерпретировать данные как Pd-сообщения, если «sym» — всегда
+                интерпретировать как символы, «data» — разбирать данные ceammc, «json» —
+                преобразовывать значения json в данные ceammc. -->
                 <tr lang="ru" finished="false">Режим разбора входящих/выходных сообщений. Если
                 «fudi» — интерпретировать данные как Pd-сообщения, если «sym» — всегда
                 интерпретировать как символы, «data» — разбирать данные ceammc, «json» —
@@ -67,6 +71,8 @@
                 <param name="URL" type="symbol" required="true">
                     <tr lang="en">mqtt server url, for ex.: mqtt://127.0.0.1:9000,
                     tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1 etc.</tr>
+                    <!-- old: mqtt server url, for ex.: mqtt://127.0.0.1:9000,
+                    tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1 и т.д. -->
                     <tr lang="ru" finished="false">mqtt server url, for ex.: mqtt://127.0.0.1:9000,
                     tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1 и т.д.</tr>
                 </param>
@@ -121,11 +127,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output messages: topic data</tr>
+                    <tr lang="ru" finished="false">выходные сообщения: тематические данные</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">bang: on ping message</tr>
+                    <tr lang="ru" finished="false">Исполнитель: On Ping Message</tr>
                 </out>
             </outlet>
         </outlets>

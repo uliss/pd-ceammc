@@ -86,11 +86,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">int: HTTP status code</tr>
+                    <tr lang="ru" finished="false">Оригинальное название: HTTP Status Code</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">data:String: HTTP body</tr>
+                    <tr lang="ru" finished="false">Источник: HTTP body</tr>
                 </out>
             </outlet>
         </outlets>

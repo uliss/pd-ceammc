@@ -24,6 +24,8 @@
             <par>
                 <tr lang="en">Outputs arc tangent of input signal. The result is in the range
                 [-π/2, +π/2]</tr>
+                <!-- old: Выходы дугового касания входного сигнала. Результат
+                находится в диапазоне [-π/2, +π/2] -->
                 <tr lang="ru" finished="false">Выходы дугового касания входного сигнала. Результат
                 находится в диапазоне [-π/2, +π/2]</tr>
             </par>
@@ -40,6 +42,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">result signal</tr>
+                    <tr lang="ru" finished="false">результат сигнала</tr>
                 </out>
             </outlet>
         </outlets>

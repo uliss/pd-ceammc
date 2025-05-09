@@ -26,6 +26,9 @@
             <par>
                 <tr lang="en">It uses a strength parameter instead of the traditional ratio, in
                 order to be able to function as a hard limiter or overcompressor</tr>
+                <!-- old: Он использует параметр прочности вместо
+                традиционного соотношения, чтобы функционировать как жесткий ограничитель или
+                сверхкомпрессор. -->
                 <tr lang="ru" finished="false">Он использует параметр прочности вместо
                 традиционного соотношения, чтобы функционировать как жесткий ограничитель или
                 сверхкомпрессор.</tr>
@@ -64,12 +67,16 @@
             <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
             maxvalue="100">
                 <tr lang="en">time constant when level &amp; compression going up</tr>
+                <!-- old: Постоянная времени, когда уровень и сжатие
+                растут -->
                 <tr lang="ru" finished="false">Постоянная времени, когда уровень и сжатие
                 растут</tr>
             </property>
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
@@ -86,6 +93,10 @@
                 thresh-(knee/2) there is no gain reduction, above thresh+(knee/2) there is the same
                 gain reduction as without a knee, and in between there is a gradual increase in
                 gain reduction</tr>
+                <!-- old: постепенное увеличение снижения прироста вокруг
+                порога: ниже треш-(knee/2) нет снижения прироста, выше треш+(knee/2) есть такое же
+                снижение прироста, как и без колена, и между ними есть постепенное увеличение
+                снижения прироста -->
                 <tr lang="ru" finished="false">постепенное увеличение снижения прироста вокруг
                 порога: ниже треш-(knee/2) нет снижения прироста, выше треш+(knee/2) есть такое же
                 снижение прироста, как и без колена, и между ними есть постепенное увеличение
@@ -107,6 +118,8 @@
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
             units="millisecond">
                 <tr lang="en">compression level output time interval. If 0 - no output</tr>
+                <!-- old: выходной интервал уровня сжатия. Если 0 - выход
+                отсутствует -->
                 <tr lang="ru" finished="false">выходной интервал уровня сжатия. Если 0 - выход
                 отсутствует</tr>
             </property>
@@ -114,6 +127,8 @@
             <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
             maxvalue="500">
                 <tr lang="en">release time = time constant coming out of compression</tr>
+                <!-- old: Время высвобождения = постоянная времени, выходящая
+                из сжатия -->
                 <tr lang="ru" finished="false">Время высвобождения = постоянная времени, выходящая
                 из сжатия</tr>
             </property>
@@ -121,6 +136,8 @@
             <property name="@strength" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">compression strength (0: no compression, 1: increase level by @range
                 db.)</tr>
+                <!-- old: Прочность сжатия (0: без сжатия, 1: повышение уровня
+                на @range db.) -->
                 <tr lang="ru" finished="false">Прочность сжатия (0: без сжатия, 1: повышение уровня
                 на @range db.)</tr>
             </property>
@@ -129,6 +146,8 @@
             maxvalue="0">
                 <tr lang="en">level threshold above which compression kicks in (100 dB = max
                 level)</tr>
+                <!-- old: порог уровня, выше которого начинается сжатие (100
+                дБ = максимальный уровень) -->
                 <tr lang="ru" finished="false">порог уровня, выше которого начинается сжатие (100
                 дБ = максимальный уровень)</tr>
             </property>
@@ -160,11 +179,14 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output compressed signal</tr>
+                    <tr lang="ru" finished="false">выходной сжатый сигнал</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">float: output current compression level in [0..1]</tr>
+                    <tr lang="ru" finished="false">Поплавок: уровень сжатия выходного тока в
+                    [0,1]</tr>
                 </out>
             </outlet>
         </outlets>

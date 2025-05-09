@@ -35,6 +35,8 @@
             </par>
             <par>
                 <tr lang="en">where a, b, c, d are variables that define each attractor.</tr>
+                <!-- old: где a, b, c, d - переменные, определяющие каждый
+                аттрактор. -->
                 <tr lang="ru" finished="false">где a, b, c, d - переменные, определяющие каждый
                 аттрактор.</tr>
             </par>
@@ -98,6 +100,8 @@
             <method name="om">
                 <param name="OM" type="int" required="true">
                     <tr lang="en">enables output when cut or fold value is changed</tr>
+                    <!-- old: позволяет вывод при изменении значения разреза
+                    или сгиба -->
                     <tr lang="ru" finished="false">позволяет вывод при изменении значения разреза
                     или сгиба</tr>
                 </param>
@@ -143,11 +147,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">x output</tr>
+                    <tr lang="ru" finished="false">x выходной выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">y output</tr>
+                    <tr lang="ru" finished="false">y выход</tr>
                 </out>
             </outlet>
         </outlets>

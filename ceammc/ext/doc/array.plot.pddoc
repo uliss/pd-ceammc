@@ -68,6 +68,8 @@
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">resizes array to list size and plot all list values</tr>
+                    <!-- old: Resizes array to list size и нарисуйте все
+                    значения списка -->
                     <tr lang="ru" finished="false">Resizes array to list size и нарисуйте все
                     значения списка</tr>
                 </xinfo>
@@ -75,11 +77,15 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">plot all samples fitted to specified array</tr>
+                    <!-- old: Все образцы, установленные на заданный
+                    массив -->
                     <tr lang="ru" finished="false">Все образцы, установленные на заданный
                     массив</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">plot specified number of samples, resizes array</tr>
+                    <!-- old: участок заданное количество образцов, размеры
+                    массива -->
                     <tr lang="ru" finished="false">участок заданное количество образцов, размеры
                     массива</tr>
                 </xinfo>
@@ -89,6 +95,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bang on done</tr>
+                    <tr lang="ru" finished="false">бахвальство</tr>
                 </out>
             </outlet>
         </outlets>

@@ -27,24 +27,34 @@
             <par>
                 <tr lang="en">Choose random atom from specified list (with weights) and output
                 it.</tr>
+                <tr lang="ru" finished="false">Выберите случайный атом из указанного списка (с
+                весами) и выведите его.</tr>
             </par>
             <par>
                 <tr lang="en">If no weights specified, choose elements with random uniform
                 distribution.</tr>
+                <tr lang="ru" finished="false">Если вес не указан, выберите элементы со случайным
+                однородным распределением.</tr>
             </par>
             <par>
                 <tr lang="en">Use @seed property to get reproducible sequences. If @seed property
                 was not explicitly set or specified, uses generator initialized with current
                 time.</tr>
+                <tr lang="ru" finished="false">Используйте свойство @seed для получения
+                воспроизводимых последовательностей. Если свойство @seed не было явно установлено
+                или указано, используется генератор, инициализированный с текущим временем.</tr>
             </par>
             <par>
                 <tr lang="en">Note: when @nonrep property is set, distribution is not uniform or
                 weighted.</tr>
+                <tr lang="ru" finished="false">Примечание: когда свойство @nonrep установлено,
+                распределение не является однородным или взвешенным.</tr>
             </par>
         </info>
         <arguments>
             <argument name="VALUE" type="list">
                 <tr lang="en">list of atoms</tr>
+                <tr lang="ru" finished="false">Список атомов</tr>
             </argument>
         </arguments>
         <properties>
@@ -52,30 +62,38 @@
             <property name="@nonrep" type="bool" default="0">
                 <tr lang="en">generate non-repeated adjacent values (note: distribution will
                 changed!)</tr>
+                <tr lang="ru" finished="false">генерировать неповторяющиеся смежные значения
+                (примечание: распределение изменится!)</tr>
             </property>
             <!-- @seed -->
             <property name="@seed" type="int" minvalue="0" default="0">
                 <tr lang="en">generator seed</tr>
+                <tr lang="ru" finished="false">генератор</tr>
             </property>
             <!-- @value -->
             <property name="@value" type="list" default="">
                 <tr lang="en">list of atoms</tr>
+                <tr lang="ru" finished="false">Список атомов</tr>
             </property>
             <!-- @w -->
             <property name="@w" type="list" default="">
                 <tr lang="en">list of atom weights</tr>
+                <tr lang="ru" finished="false">Список атомных весов</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output random atom</tr>
+                    <tr lang="ru" finished="false">выход случайного атома</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set list of elements to choose from. Note: clear all
                     weights.</tr>
+                    <tr lang="ru" finished="false">Список элементов на выбор. Примечание: очистить
+                    все веса.</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -83,6 +101,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">random atom value</tr>
+                    <tr lang="ru" finished="false">случайное значение атома</tr>
                 </out>
             </outlet>
         </outlets>

@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">Defines global scope float variable, accessed by ID name.</tr>
+                <!-- old: Определяет глобальную переменную масштаба, доступную
+                по имени ID. -->
                 <tr lang="ru" finished="false">Определяет глобальную переменную масштаба, доступную
                 по имени ID.</tr>
             </par>
@@ -82,6 +84,8 @@
                 <info>
                     <tr lang="en">get the value of global float variable (not only for connected
                     object)</tr>
+                    <!-- old: получить значение глобальной поплавковой
+                    переменной (не только для подключенного объекта) -->
                     <tr lang="ru" finished="false">получить значение глобальной поплавковой
                     переменной (не только для подключенного объекта)</tr>
                 </info>
@@ -89,6 +93,9 @@
                     <tr lang="en">requested variable name. If ommitted: request the value from the
                     current connected object, if specified: output value from found global
                     variable</tr>
+                    <!-- old: Запрашиваемое переменное имя. Если опущено:
+                    запросить значение от текущего подключенного объекта, если указано: выходное
+                    значение от найденной глобальной переменной -->
                     <tr lang="ru" finished="false">Запрашиваемое переменное имя. Если опущено:
                     запросить значение от текущего подключенного объекта, если указано: выходное
                     значение от найденной глобальной переменной</tr>
@@ -114,6 +121,8 @@
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">set variable to given float and outputs new value</tr>
+                    <!-- old: установить переменную для данного поплавка и
+                    вывести новое значение -->
                     <tr lang="ru" finished="false">установить переменную для данного поплавка и
                     вывести новое значение</tr>
                 </xinfo>
@@ -123,6 +132,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float output</tr>
+                    <tr lang="ru" finished="false">выпуск поплавков</tr>
                 </out>
             </outlet>
         </outlets>

@@ -25,6 +25,8 @@
             <par>
                 <tr lang="en">on division by zero outputs nothing: just put error message into
                 console</tr>
+                <!-- old: на деление на ноль ничего не выводит: просто
+                поместите сообщение об ошибке в консоль -->
                 <tr lang="ru" finished="false">на деление на ноль ничего не выводит: просто
                 поместите сообщение об ошибке в консоль</tr>
             </par>
@@ -46,11 +48,15 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set divident, calculate and output result</tr>
+                    <!-- old: установить делитель, вычислить и получить
+                    результат -->
                     <tr lang="ru" finished="false">установить делитель, вычислить и получить
                     результат</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pair: set divident and divisor, calculate and output result</tr>
+                    <!-- old: пара: установленный делитель и делитель,
+                    вычисление и выходной результат -->
                     <tr lang="ru" finished="false">пара: установленный делитель и делитель,
                     вычисление и выходной результат</tr>
                 </xinfo>
@@ -58,6 +64,8 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">change divisor, calculate and output result</tr>
+                    <!-- old: изменение делителя, вычисление и выходной
+                    результат -->
                     <tr lang="ru" finished="false">изменение делителя, вычисление и выходной
                     результат</tr>
                 </xinfo>
@@ -67,6 +75,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">division result</tr>
+                    <tr lang="ru" finished="false">Результат деления</tr>
                 </out>
             </outlet>
         </outlets>

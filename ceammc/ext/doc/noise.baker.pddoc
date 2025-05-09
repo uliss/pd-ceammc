@@ -47,6 +47,8 @@
             <method name="fold_cut">
                 <param name="FOLD_CUT" type="int" required="true">
                     <tr lang="en">enable fold / cut value action</tr>
+                    <!-- old: Позволяет сгибать / сокращать значение
+                    действия -->
                     <tr lang="ru" finished="false">Позволяет сгибать / сокращать значение
                     действия</tr>
                 </param>
@@ -55,6 +57,8 @@
             <method name="om">
                 <param name="OM" type="int" required="true">
                     <tr lang="en">enables output when cut or fold value is changed</tr>
+                    <!-- old: позволяет вывод при изменении значения разреза
+                    или сгиба -->
                     <tr lang="ru" finished="false">позволяет вывод при изменении значения разреза
                     или сгиба</tr>
                 </param>
@@ -93,6 +97,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">main outlet</tr>
+                    <tr lang="ru" finished="false">главный выход</tr>
                 </out>
             </outlet>
         </outlets>

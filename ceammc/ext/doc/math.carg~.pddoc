@@ -47,6 +47,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">signal phase angle in radians</tr>
+                    <tr lang="ru" finished="false">фазовый угол сигнала в радианах</tr>
                 </out>
             </outlet>
         </outlets>

@@ -26,6 +26,8 @@
             <par>
                 <tr lang="en">Note: you can get/set object properties only via prop.set/prop.get
                 objects</tr>
+                <!-- old: Примечание: Вы можете получить/установить свойства
+                объекта только через prop.set/prop.get объекты -->
                 <tr lang="ru" finished="false">Примечание: Вы можете получить/установить свойства
                 объекта только через prop.set/prop.get объекты</tr>
             </par>
@@ -67,11 +69,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">demultiplexer first output</tr>
+                    <tr lang="ru" finished="false">демультиплексор первый выход</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">demultiplexer N-th output</tr>
+                    <tr lang="ru" finished="false">демультиплексор N-й выход</tr>
                 </out>
             </outlet>
         </outlets>

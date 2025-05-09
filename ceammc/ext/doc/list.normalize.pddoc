@@ -25,11 +25,15 @@
             <par>
                 <tr lang="en">1. by sum - multiply all elements to such number to get total sum =
                 1.0</tr>
+                <!-- old: 1. по сумме - умножьте все элементы на такое число,
+                чтобы получить общую сумму = 1,0 -->
                 <tr lang="ru" finished="false">1. по сумме - умножьте все элементы на такое число,
                 чтобы получить общую сумму = 1,0</tr>
             </par>
             <par>
                 <tr lang="en">2. by value range - maps all values to range 0..1 lineary</tr>
+                <!-- old: 2. по диапазону значений - отображает все значения в
+                диапазоне 0,1 -->
                 <tr lang="ru" finished="false">2. по диапазону значений - отображает все значения в
                 диапазоне 0,1</tr>
             </par>
@@ -55,6 +59,8 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list of floats. Non float values are rejected</tr>
+                    <!-- old: Список входных поплавков. Неподвижные значения
+                    отклонены -->
                     <tr lang="ru" finished="false">Список входных поплавков. Неподвижные значения
                     отклонены</tr>
                 </xinfo>
@@ -68,6 +74,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output list</tr>
+                    <tr lang="ru" finished="false">перечень мероприятий</tr>
                 </out>
             </outlet>
         </outlets>

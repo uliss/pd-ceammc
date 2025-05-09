@@ -19,12 +19,17 @@
         <info>
             <par>
                 <tr lang="en">Operators: +, -, *, /, %, &lt;, &lt;=, &gt;=, &gt;, ==, !=</tr>
+                <!-- old: Операторы: +, -, *, /, %, <, <=, >=, >,
+                ==, != -->
                 <tr lang="ru" finished="false">Операторы: +, -, *, /, %, &lt;, &lt;=, &gt;=, &gt;,
                 ==, !=</tr>
             </par>
             <par>
                 <tr lang="en">Functions: sin(), cos(), tan(), atan(), sqrt(), ln(), log2(),
                 log10(), exp(), round(), ceil(), float(), fact(), min(), max(), sign(), abs()</tr>
+                <!-- old: Функции: sin(), cos(), tan(), atan(), sqrt(), ln(),
+                log2(), log10(), exp(), round(), ceil(), float(), fact(), min(), max(), sign(),
+                abs() -->
                 <tr lang="ru" finished="false">Функции: sin(), cos(), tan(), atan(), sqrt(), ln(),
                 log2(), log10(), exp(), round(), ceil(), float(), fact(), min(), max(), sign(),
                 abs()</tr>
@@ -63,6 +68,8 @@
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">input values (referenced as $f0 ... $f9 in expression)</tr>
+                    <!-- old: Входные значения (ссылка на $f0 ...) $9 в
+                    выражении -->
                     <tr lang="ru" finished="false">Входные значения (ссылка на $f0 ...) $9 в
                     выражении</tr>
                 </xinfo>
@@ -78,6 +85,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">calculated expression</tr>
+                    <tr lang="ru" finished="false">расчетное выражение</tr>
                 </out>
             </outlet>
         </outlets>

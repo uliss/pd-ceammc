@@ -45,6 +45,12 @@
                 distribution with prob=0 at @min and prob=1 at @max, *lindown* - linear
                 distribution with prob=1 at @min and prob=0 at @max, *cmin* - constant @min value,
                 *cmax* - constant @max value, *cmean* - constant (@max+@min)/2 value</tr>
+                <!-- old: случайное распределение. *uniform* - генерировать
+                равномерно распределенное значение, *gauss* - среднее=(@max+@min)/2,
+                sigma=(@max-@max)/3, *linup* - линейное распределение с prob=0 по @min и prob=1 по
+                @max, *lindown* - линейное распределение с prob=1 по @min и prob=0 по @max, *cmin*
+                - постоянное значение @min, *cmax* - постоянное значение @max, *cmean* - постоянное
+                (@max+@min)/2 значение -->
                 <tr lang="ru" finished="false">случайное распределение. *uniform* - генерировать
                 равномерно распределенное значение, *gauss* - среднее=(@max+@min)/2,
                 sigma=(@max-@max)/3, *linup* - линейное распределение с prob=0 по @min и prob=1 по
@@ -67,6 +73,10 @@
                 <tr lang="en">assign mode. If *assign* - replace origin velocity with random new
                 one (default), if *add* - adds random value to origin velocity, if *sub* - subtract
                 random value from origin velocity.</tr>
+                <!-- old: Установить режим. Если *назначить* - заменить
+                скорость начала на случайную новую (по умолчанию), если *добавить* - добавить
+                случайное значение к скорости начала, если *sub* - вычесть случайное значение из
+                скорости начала. -->
                 <tr lang="ru" finished="false">Установить режим. Если *назначить* - заменить
                 скорость начала на случайную новую (по умолчанию), если *добавить* - добавить
                 случайное значение к скорости начала, если *sub* - вычесть случайное значение из
@@ -100,6 +110,8 @@
                 <out type="any">
                     <tr lang="en">outputs NOTE VELOCITY [DUR] list with randomized VELOCITY
                     value</tr>
+                    <tr lang="ru" finished="false">ВЫВОДЫ ПРИМЕЧАНИЕ ВЕЛИЧНОСТЬ [DUR] список с
+                    рандомизированным значением ВЕЛИЧНОСТИ</tr>
                 </out>
             </outlet>
         </outlets>

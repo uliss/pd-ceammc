@@ -21,6 +21,10 @@
                 <tr lang="en">Arduino serial port that supports reconnect and hotplug. If no
                 properties are given tries to connect to the first available and not opened device.
                 If @reconnect flag is given, waits for device hotplug and reconnects to it.</tr>
+                <!-- old: Серийный порт Arduino, поддерживающий повторное
+                подключение и горячее подключение. При отсутствии свойств дается попытка
+                подключения к первому доступному и не открытому устройству. Если @reconnect флаг
+                дан, ждет хот-плаг устройства и повторно подключается к нему. -->
                 <tr lang="ru" finished="false">Серийный порт Arduino, поддерживающий повторное
                 подключение и горячее подключение. При отсутствии свойств дается попытка
                 подключения к первому доступному и не открытому устройству. Если @reconnect флаг
@@ -31,6 +35,8 @@
             <argument name="PORT" type="symbol">
                 <tr lang="en">serial port name, eg.: COM3 on Windows, /dev/ttyACM0 on Linux and
                 /dev/cu.usbmodem411 on MacOSX</tr>
+                <!-- old: последовательное название порта, например: COM3 на
+                Windows, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX -->
                 <!-- old: последовательное название порта, например: COM3 на
                 Windows, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX -->
                 <tr lang="ru" finished="false">последовательное название порта, например: COM3 на
@@ -132,11 +138,15 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">sends float value in byte range [0-255] to arduino device</tr>
+                    <!-- old: посылает поплавковое значение в байтовом
+                    диапазоне [0-255] в устройство Arduino -->
                     <tr lang="ru" finished="false">посылает поплавковое значение в байтовом
                     диапазоне [0-255] в устройство Arduino</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">sends list of floats in byte range [0-255] to arduino device</tr>
+                    <!-- old: отправляет список поплавков в байтовом диапазоне
+                    [0-255] на устройство Arduino -->
                     <tr lang="ru" finished="false">отправляет список поплавков в байтовом диапазоне
                     [0-255] на устройство Arduino</tr>
                 </xinfo>
@@ -146,6 +156,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs received byte from arduino</tr>
+                    <tr lang="ru" finished="false">выходы, полученные байтом из ардуино</tr>
                 </out>
             </outlet>
         </outlets>

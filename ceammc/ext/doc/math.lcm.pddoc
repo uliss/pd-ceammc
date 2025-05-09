@@ -29,12 +29,16 @@
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">sets first argument and outputs calculated LCM value</tr>
+                    <!-- old: устанавливает первый аргумент и вычисляет
+                    значение LCM -->
                     <tr lang="ru" finished="false">устанавливает первый аргумент и вычисляет
                     значение LCM</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">sets first argument and second arguments, then output calculated
                     LCM value</tr>
+                    <!-- old: устанавливает первый аргумент и второй аргумент,
+                    затем вывод вычисляется значением LCM -->
                     <tr lang="ru" finished="false">устанавливает первый аргумент и второй аргумент,
                     затем вывод вычисляется значением LCM</tr>
                 </xinfo>
@@ -50,6 +54,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">LCM value</tr>
+                    <tr lang="ru" finished="false">Значение LCM</tr>
                 </out>
             </outlet>
         </outlets>

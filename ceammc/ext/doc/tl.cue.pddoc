@@ -34,31 +34,41 @@
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
                 <tr lang="en">element background color (list of red, green, blue values in 0-1
                 range)</tr>
+                <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @border_color -->
             <property name="@border_color" type="list" default="0 0.75 1 1">
                 <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">пограничный цвет (список красных, зеленых, синих
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">
                 <tr lang="en">fontname</tr>
+                <tr lang="ru" finished="false">название шрифта</tr>
             </property>
             <!-- @fontsize -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
                 <tr lang="en">fontsize</tr>
+                <tr lang="ru" finished="false">шрифт</tr>
             </property>
             <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
                 <tr lang="en">font slant</tr>
+                <tr lang="ru" finished="false">наклон шрифта</tr>
             </property>
             <!-- @fontweight -->
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
                 <tr lang="en">font weight</tr>
+                <tr lang="ru" finished="false">вес шрифта</tr>
             </property>
             <!-- @pinned -->
             <property name="@pinned" type="bool" default="0">
                 <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
+                <tr lang="ru" finished="false">Режим пин. если 1 - поставить элемент на самый
+                низкий уровень</tr>
             </property>
         </properties>
         <methods>
@@ -66,12 +76,15 @@
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
         </methods>

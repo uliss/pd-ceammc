@@ -25,6 +25,9 @@
             <par>
                 <tr lang="en">Supported named colors are: black blue cyan gold gray green lime
                 magenta navy olive orange pink purple red white yellow</tr>
+                <!-- old: Поддерживаются названные цвета: черный синий голубой
+                серо-зеленый лайм magenta Navy оливковый оранжево-розовый фиолетовый красный белый
+                желтый -->
                 <tr lang="ru" finished="false">Поддерживаются названные цвета: черный синий голубой
                 серо-зеленый лайм magenta Navy оливковый оранжево-розовый фиолетовый красный белый
                 желтый</tr>
@@ -57,11 +60,15 @@
                 <xinfo on="symbol">
                     <tr lang="en">color name or hex value in full (#RRGGBB or #RRGGBBAA) or short
                     (#RGB or #RGBA) format</tr>
+                    <!-- old: Цветовое имя или шестнадцатеричное значение в
+                    полном (#RRGGBB или #RRGGBBAA) или коротком (#RGB или #RGBA) формате -->
                     <tr lang="ru" finished="false">Цветовое имя или шестнадцатеричное значение в
                     полном (#RRGGBB или #RRGGBBAA) или коротком (#RGB или #RGBA) формате</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">use message selector as color name</tr>
+                    <!-- old: Используйте селектор сообщений в качестве
+                    цветового имени -->
                     <tr lang="ru" finished="false">Используйте селектор сообщений в качестве
                     цветового имени</tr>
                 </xinfo>
@@ -76,21 +83,29 @@
                 <out type="any">
                     <tr lang="en">list if @pack flag specified or int[0-255] or float[0-1]: red
                     channel value</tr>
+                    <tr lang="ru" finished="false">Список, если @pack флаг указан или int [0-255]
+                    или плавать [0-1]: значение красного канала</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">int[0-255] or float[0-1]: green channel value</tr>
+                    <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение зеленого
+                    канала</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">int[0-255] or float[0-1]: blue channel value</tr>
+                    <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение синего
+                    канала</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">int[0-255] or float[0-1]: alpha channel value</tr>
+                    <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение
+                    альфа-канала</tr>
                 </out>
             </outlet>
         </outlets>

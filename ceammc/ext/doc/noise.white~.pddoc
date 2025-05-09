@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">outputs random numbers between -1 and 1 at signal rate.</tr>
+                <!-- old: выдает случайные числа между -1 и 1 со скоростью
+                сигнала. -->
                 <tr lang="ru" finished="false">выдает случайные числа между -1 и 1 со скоростью
                 сигнала.</tr>
             </par>
@@ -33,6 +35,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

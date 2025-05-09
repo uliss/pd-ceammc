@@ -28,6 +28,8 @@
             <par>
                 <tr lang="en">hoa.in defines a message inlet for a patcher loaded by a hoa.process~
                 object.</tr>
+                <!-- old: hoa.in определяет вход сообщения для патчера,
+                загруженного hoa.process~ объектом. -->
                 <tr lang="ru" finished="false">hoa.in определяет вход сообщения для патчера,
                 загруженного hoa.process~ объектом.</tr>
             </par>
@@ -49,6 +51,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output messages received from a hoa.process~ input.</tr>
+                    <tr lang="ru" finished="false">выходные сообщения, полученные от hoa.process~
+                    input.</tr>
                 </out>
             </outlet>
         </outlets>

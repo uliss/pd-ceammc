@@ -41,6 +41,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">properties output</tr>
+                    <tr lang="ru" finished="false">Свойства вывода</tr>
                 </out>
             </outlet>
         </outlets>

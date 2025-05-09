@@ -38,6 +38,9 @@
             <property name="@mode" type="symbol" enum="fwd back tri" default="fwd">
                 <tr lang="en">stutter mode. If 'fwd': play loop fragment forwards, 'back': play
                 loop fragment backwards, 'tri': play loop fragment in both directions</tr>
+                <!-- old: режим заикания. Если «fwd»: фрагмент петли игры
+                вперед, «back»: фрагмент петли игры назад, «tri»: фрагмент петли игры в обоих
+                направлениях -->
                 <tr lang="ru" finished="false">режим заикания. Если «fwd»: фрагмент петли игры
                 вперед, «back»: фрагмент петли игры назад, «tri»: фрагмент петли игры в обоих
                 направлениях</tr>
@@ -76,6 +79,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

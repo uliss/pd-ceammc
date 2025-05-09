@@ -29,6 +29,8 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
@@ -41,6 +43,8 @@
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <!-- old: пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
                 <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
                 "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
@@ -59,6 +63,8 @@
             <property name="@src" type="int" default="0" minvalue="0" maxvalue="2">
                 <tr lang="en">modulator source. 0: modulator from second inlet, 1: internal
                 sinusoid oscilallator, 2: internal low freq noise.</tr>
+                <!-- old: Источник модулятора. 0: модулятор от второго входа,
+                1: внутренний синусоидальный осциллятор, 2: внутренний низкий уровень шума. -->
                 <tr lang="ru" finished="false">Источник модулятора. 0: модулятор от второго входа,
                 1: внутренний синусоидальный осциллятор, 2: внутренний низкий уровень шума.</tr>
             </property>
@@ -90,6 +96,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

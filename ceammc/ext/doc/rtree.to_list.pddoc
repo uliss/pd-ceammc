@@ -24,42 +24,54 @@
         <info>
             <par>
                 <tr lang="en">rhythm tree is structure to define complex rhythmic patterns</tr>
+                <tr lang="ru" finished="false">Ритмовое дерево — это структура, определяющая
+                сложные ритмические паттерны.</tr>
             </par>
             <par>
                 <tr lang="en">Examples: (1 1 1) - triplet, (2 1) - swing</tr>
+                <tr lang="ru" finished="false">Примеры: (1 1 1) - триплет, (2 1) - качели</tr>
             </par>
         </info>
         <arguments>
             <argument name="DUR" type="float">
                 <tr lang="en">total pattern duration</tr>
+                <tr lang="ru" finished="false">общая продолжительность картины</tr>
             </argument>
             <argument name="RTREE" type="atom">
                 <tr lang="en">rhythm tree</tr>
+                <tr lang="ru" finished="false">ритмическое дерево</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @dur -->
             <property name="@dur" type="float" default="1">
                 <tr lang="en">total pattern duration</tr>
+                <tr lang="ru" finished="false">общая продолжительность картины</tr>
             </property>
             <!-- @rtree -->
             <property name="@rtree" type="atom" default="()">
                 <tr lang="en">rhythm tree. (MList)</tr>
+                <tr lang="ru" finished="false">Ритмовое дерево. (Список)</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">set @dur and output</tr>
+                    <tr lang="ru" finished="false">Set @dur и выход</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">set @rtree, no output</tr>
+                    <tr lang="ru" finished="false">Set @rtree, нет выхода</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">parse message and set @rtree, no output</tr>
+                    <tr lang="ru" finished="false">parse message and set @rtree, no output
+                    (недоступная ссылка)</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -67,6 +79,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list output</tr>
+                    <tr lang="ru" finished="false">перечень мероприятий</tr>
                 </out>
             </outlet>
         </outlets>

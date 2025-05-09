@@ -29,6 +29,8 @@
             <par>
                 <tr lang="en">Decodes an ambisonics soundfield for several loudspeakers
                 configuration or for headphones.</tr>
+                <!-- old: Декодирует звуковое поле амбисоники для нескольких
+                конфигураций громкоговорителей или для наушников. -->
                 <tr lang="ru" finished="false">Декодирует звуковое поле амбисоники для нескольких
                 конфигураций громкоговорителей или для наушников.</tr>
             </par>
@@ -38,12 +40,16 @@
             </par>
             <par indent="1">
                 <tr lang="en">• regular for a regular loudspeakers repartition over a circle.</tr>
+                <!-- old: • регулярное перераспределение громкоговорителей по
+                кругу. -->
                 <tr lang="ru" finished="false">• регулярное перераспределение громкоговорителей по
                 кругу.</tr>
             </par>
             <par indent="1">
                 <tr lang="en">• irregular if the loudspeakers are not equally spaced on a
                 circle.</tr>
+                <!-- old: • нерегулярные, если громкоговорители не расположены
+                одинаково на окружности. -->
                 <tr lang="ru" finished="false">• нерегулярные, если громкоговорители не расположены
                 одинаково на окружности.</tr>
             </par>
@@ -55,6 +61,9 @@
                 <tr lang="en">The default mode is regular for an array of 2 * order + 2
                 loudspeakers. The default irregular configuration is 5.1 standard multichannel
                 configuration.</tr>
+                <!-- old: Режим по умолчанию является регулярным для массива
+                громкоговорителей 2 * заказ + 2. Неправильная конфигурация по умолчанию является
+                5.1 стандартной многоканальной конфигурацией. -->
                 <tr lang="ru" finished="false">Режим по умолчанию является регулярным для массива
                 громкоговорителей 2 * заказ + 2. Неправильная конфигурация по умолчанию является
                 5.1 стандартной многоканальной конфигурацией.</tr>
@@ -72,6 +81,8 @@
             </argument>
             <argument name="NCH" type="int">
                 <tr lang="en">number of loud speakers (minimum 2*ORDER+1 for ambisonic mode)</tr>
+                <!-- old: Количество громкоговорителей (минимум 2*ORDER+1 для
+                амбисонического режима) -->
                 <tr lang="ru" finished="false">Количество громкоговорителей (минимум 2*ORDER+1 для
                 амбисонического режима)</tr>
             </argument>
@@ -80,6 +91,8 @@
             <!-- @angles -->
             <property name="@angles" type="list" units="degree" default="0 90 180 270">
                 <tr lang="en">angles of loudspeakers. Only available for @irregular mode.</tr>
+                <!-- old: Углы громкоговорителей. Доступен только для
+                @irregular mode. -->
                 <tr lang="ru" finished="false">Углы громкоговорителей. Доступен только для
                 @irregular mode.</tr>
             </property>
@@ -119,6 +132,8 @@
             <property name="@offset" type="float" units="degree" default="0">
                 <tr lang="en">rotation of loudspeakers. Only available for @regular and @irregular
                 mode.</tr>
+                <!-- old: Вращение громкоговорителей. Доступен только для
+                @regular и @irregular. -->
                 <tr lang="ru" finished="false">Вращение громкоговорителей. Доступен только для
                 @regular и @irregular.</tr>
             </property>
@@ -134,6 +149,9 @@
                 <tr lang="en">list of plain wave x-coordinates (abscissas). -1 is the left of the
                 soundfield, 0 is the center of the soundfield and 1 is the right of the
                 soundfield.</tr>
+                <!-- old: Список простых волновых x-координатов (абсцисса). -1
+                находится слева от звукового поля, 0 - в центре звукового поля и 1 - справа от
+                звукового поля. -->
                 <tr lang="ru" finished="false">Список простых волновых x-координатов (абсцисса). -1
                 находится слева от звукового поля, 0 - в центре звукового поля и 1 - справа от
                 звукового поля.</tr>
@@ -144,6 +162,9 @@
                 <tr lang="en">list of plain wave y-coordinates (ordinatas). -1 is the back of the
                 soundfield, 0 is the center of the soundfield and 1 is the front of the
                 soundfield.</tr>
+                <!-- old: Список простых волновых Y-координатов (ординат). -1
+                - задняя часть звукового поля, 0 - центр звукового поля и 1 - передняя часть
+                звукового поля. -->
                 <tr lang="ru" finished="false">Список простых волновых Y-координатов (ординат). -1
                 - задняя часть звукового поля, 0 - центр звукового поля и 1 - передняя часть
                 звукового поля.</tr>
@@ -178,16 +199,19 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">first loudspeaker output</tr>
+                    <tr lang="ru" finished="false">первый громкоговоритель выходной</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">... loudspeaker output</tr>
+                    <tr lang="ru" finished="false">... громкоговоритель выход</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n">
                 <out type="any">
                     <tr lang="en">n-th loudspeaker output</tr>
+                    <tr lang="ru" finished="false">n-й выход громкоговорителя</tr>
                 </out>
             </outlet>
         </outlets>

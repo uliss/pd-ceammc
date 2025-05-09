@@ -21,6 +21,8 @@
         <info>
             <par>
                 <tr lang="en">Lorenz chaos by Heuns method - extra accuracy</tr>
+                <!-- old: Lorenz chaos by Heuns method - дополнительная
+                точность -->
                 <tr lang="ru" finished="false">Lorenz chaos by Heuns method - дополнительная
                 точность</tr>
             </par>
@@ -90,6 +92,8 @@
             <method name="om">
                 <param name="OM" type="int" required="true">
                     <tr lang="en">enables output when cut or fold value is changed</tr>
+                    <!-- old: позволяет вывод при изменении значения разреза
+                    или сгиба -->
                     <tr lang="ru" finished="false">позволяет вывод при изменении значения разреза
                     или сгиба</tr>
                 </param>
@@ -149,16 +153,19 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">x outlet</tr>
+                    <tr lang="ru" finished="false">х выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">y outlet</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">z outlet</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

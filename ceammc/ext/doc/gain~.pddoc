@@ -59,6 +59,8 @@
             <method name="+all">
                 <info>
                     <tr lang="en">increase gain amplitude for all inputs</tr>
+                    <!-- old: увеличение амплитуды усиления для всех
+                    входов -->
                     <tr lang="ru" finished="false">увеличение амплитуды усиления для всех
                     входов</tr>
                 </info>
@@ -92,6 +94,8 @@
             <method name="-all">
                 <info>
                     <tr lang="en">decrease gain amplitude for all inputs</tr>
+                    <!-- old: Уменьшение амплитуды усиления для всех
+                    входов -->
                     <tr lang="ru" finished="false">Уменьшение амплитуды усиления для всех
                     входов</tr>
                 </info>
@@ -158,16 +162,19 @@
             <outlet type="audio" number="1">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

@@ -51,6 +51,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">calculated value</tr>
+                    <tr lang="ru" finished="false">расчетная величина</tr>
                 </out>
             </outlet>
         </outlets>

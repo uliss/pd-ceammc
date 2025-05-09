@@ -38,6 +38,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output Standart MIDI controller name (string or symbol)</tr>
+                    <tr lang="ru" finished="false">имя контроллера Standart MIDI (струна или
+                    символ)</tr>
                 </out>
             </outlet>
         </outlets>

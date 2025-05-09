@@ -19,6 +19,8 @@
         <arguments>
             <argument name="PATH" type="symbol">
                 <tr lang="en">directory to monitor filesystem events</tr>
+                <!-- old: каталог для мониторинга событий файловой
+                системы -->
                 <tr lang="ru" finished="false">каталог для мониторинга событий файловой
                 системы</tr>
             </argument>
@@ -27,6 +29,8 @@
             <!-- @path -->
             <property name="@path" type="symbol" default="">
                 <tr lang="en">directory to monitor filesystem events</tr>
+                <!-- old: каталог для мониторинга событий файловой
+                системы -->
                 <tr lang="ru" finished="false">каталог для мониторинга событий файловой
                 системы</tr>
             </property>
@@ -44,6 +48,8 @@
                 <out type="any">
                     <tr lang="en">messages: [create fname(, [update fname(, [move fname(, [remove
                     fname(</tr>
+                    <tr lang="ru" finished="false">[править] [править] [править] [править]
+                    [править]</tr>
                 </out>
             </outlet>
         </outlets>

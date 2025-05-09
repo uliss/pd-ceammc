@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">If no soundfont specified: default soundfont is loaded</tr>
+                <!-- old: Если звуковой шрифт не указан: по умолчанию загружен
+                звуковой шрифт -->
                 <tr lang="ru" finished="false">Если звуковой шрифт не указан: по умолчанию загружен
                 звуковой шрифт</tr>
             </par>
@@ -75,6 +77,8 @@
             <!-- @presets -->
             <property name="@presets" type="list" default="" access="readonly">
                 <tr lang="en">presets name for current soundfont</tr>
+                <!-- old: Предустановленное имя для текущего звукового
+                шрифта -->
                 <tr lang="ru" finished="false">Предустановленное имя для текущего звукового
                 шрифта</tr>
             </property>
@@ -102,6 +106,8 @@
             <property name="@sf" type="symbol" default="default">
                 <tr lang="en">soundfont path, you can use **default** value to load default
                 soundfont</tr>
+                <!-- old: Путь звукового шрифта вы можете использовать
+                значение **default** для загрузки звукового шрифта по умолчанию -->
                 <tr lang="ru" finished="false">Путь звукового шрифта вы можете использовать
                 значение **default** для загрузки звукового шрифта по умолчанию</tr>
             </property>
@@ -144,6 +150,9 @@
                 <info>
                     <tr lang="en">select instrument bank number on a MIDI channel, but doesn't
                     change instrument, it should be done with after that with *prog* message.</tr>
+                    <!-- old: Выберите номер банка инструментов на канале
+                    MIDI, но не меняйте инструмент, это должно быть сделано с сообщением
+                    *prog*. -->
                     <tr lang="ru" finished="false">Выберите номер банка инструментов на канале
                     MIDI, но не меняйте инструмент, это должно быть сделано с сообщением
                     *prog*.</tr>
@@ -151,6 +160,8 @@
                 <param name="CHAN" type="int" required="false" default="0" minvalue="0"
                 maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                    <!-- old: Канал MIDI, если ноль или опущенный набор для
+                    всех каналов -->
                     <tr lang="ru" finished="false">Канал MIDI, если ноль или опущенный набор для
                     всех каналов</tr>
                 </param>
@@ -168,11 +179,15 @@
                 <param name="CHAN" type="int" required="false" default="0" minvalue="0"
                 maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                    <!-- old: Канал MIDI, если ноль или опущенный набор для
+                    всех каналов -->
                     <tr lang="ru" finished="false">Канал MIDI, если ноль или опущенный набор для
                     всех каналов</tr>
                 </param>
                 <param name="VALUE" type="int" required="true" minvalue="0" maxvalue="16383">
                     <tr lang="en">value in 0..0x3fff range, with 0x2000 center.</tr>
+                    <!-- old: значение в диапазоне 0..0x3fff, с центром
+                    0x2000. -->
                     <tr lang="ru" finished="false">значение в диапазоне 0..0x3fff, с центром
                     0x2000.</tr>
                 </param>
@@ -186,6 +201,8 @@
                 <param name="CHAN" type="int" required="false" default="0" minvalue="0"
                 maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                    <!-- old: Канал MIDI, если ноль или опущенный набор для
+                    всех каналов -->
                     <tr lang="ru" finished="false">Канал MIDI, если ноль или опущенный набор для
                     всех каналов</tr>
                 </param>
@@ -203,11 +220,15 @@
                 <param name="CHAN" type="int" required="false" default="0" minvalue="0"
                 maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                    <!-- old: Канал MIDI, если ноль или опущенный набор для
+                    всех каналов -->
                     <tr lang="ru" finished="false">Канал MIDI, если ноль или опущенный набор для
                     всех каналов</tr>
                 </param>
                 <param name="VALUE" type="int" required="true" minvalue="-8192" maxvalue="8191">
                     <tr lang="en">value in -0x2000..0x1fff range, with 0 center.</tr>
+                    <!-- old: значение в диапазоне -0x2000..0x1fff, с центром
+                    0. -->
                     <tr lang="ru" finished="false">значение в диапазоне -0x2000..0x1fff, с центром
                     0.</tr>
                 </param>
@@ -221,6 +242,8 @@
                 <param name="CHAN" type="int" required="false" default="0" minvalue="0"
                 maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                    <!-- old: Канал MIDI, если ноль или опущенный набор для
+                    всех каналов -->
                     <tr lang="ru" finished="false">Канал MIDI, если ноль или опущенный набор для
                     всех каналов</tr>
                 </param>
@@ -239,6 +262,8 @@
                 <param name="CHAN" type="int" required="false" default="0" minvalue="0"
                 maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or omitted set on all channel</tr>
+                    <!-- old: MIDI канал, если ноль или опущенный установлен
+                    на всех каналах -->
                     <tr lang="ru" finished="false">MIDI канал, если ноль или опущенный установлен
                     на всех каналах</tr>
                 </param>
@@ -256,6 +281,9 @@
                 <info>
                     <tr lang="en">set a SoundFont generator (effect) value on the MIDI channel in
                     real-time (CHANNEL, PARAM, VALUE or PARAM, VALUE expected)</tr>
+                    <!-- old: установить значение генератора SoundFont
+                    (эффекта) на канале MIDI в режиме реального времени (CHANNEL, PARAM, VALUE или
+                    PARAM, VALUE ожидаемое) -->
                     <tr lang="ru" finished="false">установить значение генератора SoundFont
                     (эффекта) на канале MIDI в режиме реального времени (CHANNEL, PARAM, VALUE или
                     PARAM, VALUE ожидаемое)</tr>
@@ -266,6 +294,9 @@
                 <info>
                     <tr lang="en">hold (sustain, right) pedal, ignore note release when active,
                     release all notes when set to off.</tr>
+                    <!-- old: удерживайте (поддерживайте, правильно) педаль,
+                    игнорируйте выпуск заметок при активации, выпускайте все заметки при
+                    запуске. -->
                     <tr lang="ru" finished="false">удерживайте (поддерживайте, правильно) педаль,
                     игнорируйте выпуск заметок при активации, выпускайте все заметки при
                     запуске.</tr>
@@ -273,6 +304,8 @@
                 <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0"
                 required="true">
                     <tr lang="en">MIDI channel, if zero or omitted sustain all channels</tr>
+                    <!-- old: Канал MIDI, если он нулевой или пропущенный,
+                    поддерживает все каналы -->
                     <tr lang="ru" finished="false">Канал MIDI, если он нулевой или пропущенный,
                     поддерживает все каналы</tr>
                 </param>
@@ -286,11 +319,15 @@
                 <info>
                     <tr lang="en">enable or disable legato/smooth transitions between consecutive
                     notes</tr>
+                    <!-- old: включить или отключить легато/гладкий переход
+                    между последовательными нотами; -->
                     <tr lang="ru" finished="false">включить или отключить легато/гладкий переход
                     между последовательными нотами;</tr>
                 </info>
                 <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
                     <tr lang="en">MIDI channel, if zero or omitted apply to all channels</tr>
+                    <!-- old: MIDI-канал, если он нулевой или опущенный,
+                    применяется ко всем каналам -->
                     <tr lang="ru" finished="false">MIDI-канал, если он нулевой или опущенный,
                     применяется ко всем каналам</tr>
                 </param>
@@ -319,6 +356,8 @@
                 <param name="CHAN" type="int" required="false" default="0" minvalue="0"
                 maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or omitted play on first(!) channel</tr>
+                    <!-- old: MIDI канал, если ноль или пропущена игра на
+                    первом (!) канале -->
                     <tr lang="ru" finished="false">MIDI канал, если ноль или пропущена игра на
                     первом (!) канале</tr>
                 </param>
@@ -336,6 +375,8 @@
                 <info>
                     <tr lang="en">turn off all notes on a MIDI channel (put them into release
                     phase)</tr>
+                    <!-- old: выключите все записи на канале MIDI (поместите
+                    их в фазу выпуска) -->
                     <tr lang="ru" finished="false">выключите все записи на канале MIDI (поместите
                     их в фазу выпуска)</tr>
                 </info>
@@ -343,6 +384,8 @@
                 maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or not specified turn notes on all
                     channels</tr>
+                    <!-- old: MIDI-канал, если ноль или не указаны заметки
+                    поворота на всех каналах -->
                     <tr lang="ru" finished="false">MIDI-канал, если ноль или не указаны заметки
                     поворота на всех каналах</tr>
                 </param>
@@ -356,12 +399,16 @@
                 <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0"
                 required="false">
                     <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                    <!-- old: Канал MIDI, если ноль или опущенный набор для
+                    всех каналов -->
                     <tr lang="ru" finished="false">Канал MIDI, если ноль или опущенный набор для
                     всех каналов</tr>
                 </param>
                 <param name="PAN" type="float" minvalue="0" maxvalue="16383" required="true">
                     <tr lang="en">pan value, 0: left, 8192(0x2000): center, 16383(0x3fff):
                     right</tr>
+                    <!-- old: Пановое значение, 0: слева, 8192(0x2000): центр,
+                    16383(0x3fff): справа -->
                     <tr lang="ru" finished="false">Пановое значение, 0: слева, 8192(0x2000): центр,
                     16383(0x3fff): справа</tr>
                 </param>
@@ -375,11 +422,15 @@
                 <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0"
                 required="false">
                     <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                    <!-- old: Канал MIDI, если ноль или опущенный набор для
+                    всех каналов -->
                     <tr lang="ru" finished="false">Канал MIDI, если ноль или опущенный набор для
                     всех каналов</tr>
                 </param>
                 <param name="PAN" type="float" minvalue="-1" maxvalue="1" required="true">
                     <tr lang="en">pan value, -1: left, 0: center, 1): right</tr>
+                    <!-- old: Пановое значение, -1: слева, 0: по центру, 1):
+                    справа -->
                     <tr lang="ru" finished="false">Пановое значение, -1: слева, 0: по центру, 1):
                     справа</tr>
                 </param>
@@ -393,12 +444,16 @@
                 <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0"
                 required="false">
                     <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                    <!-- old: Канал MIDI, если ноль или опущенный набор для
+                    всех каналов -->
                     <tr lang="ru" finished="false">Канал MIDI, если ноль или опущенный набор для
                     всех каналов</tr>
                 </param>
                 <param name="PAN" type="float" minvalue="-8192" maxvalue="8191" required="true">
                     <tr lang="en">pan value, -8192(-0x2000): left, 0: center, 8191(0x1fff):
                     right</tr>
+                    <!-- old: Пановое значение, -8192(-0x2000): слева, 0: в
+                    центре, 8191(0x1fff): справа -->
                     <tr lang="ru" finished="false">Пановое значение, -8192(-0x2000): слева, 0: в
                     центре, 8191(0x1fff): справа</tr>
                 </param>
@@ -409,6 +464,9 @@
                     <tr lang="en">send MIDI system reset command (big red 'panic' button), turns
                     off notes, resets controllers and restores initial basic channel
                     configuration</tr>
+                    <!-- old: Отправьте команду сброса системы MIDI (большая
+                    красная кнопка «panic»), отключите заметки, сбросите контроллеры и восстановите
+                    начальную базовую конфигурацию канала -->
                     <tr lang="ru" finished="false">Отправьте команду сброса системы MIDI (большая
                     красная кнопка «panic»), отключите заметки, сбросите контроллеры и восстановите
                     начальную базовую конфигурацию канала</tr>
@@ -443,6 +501,8 @@
                 <param name="CHAN" type="int" required="false" default="0" minvalue="0"
                 maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                    <!-- old: Канал MIDI, если ноль или опущенный набор для
+                    всех каналов -->
                     <tr lang="ru" finished="false">Канал MIDI, если ноль или опущенный набор для
                     всех каналов</tr>
                 </param>
@@ -460,6 +520,8 @@
                 <param name="CHAN" type="int" required="false" default="0" minvalue="0"
                 maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or not specified reset all channels</tr>
+                    <!-- old: Канал MIDI, если ноль или не указан, сбрасывает
+                    все каналы -->
                     <tr lang="ru" finished="false">Канал MIDI, если ноль или не указан, сбрасывает
                     все каналы</tr>
                 </param>
@@ -480,6 +542,8 @@
                 </param>
                 <param name="SFONT" type="int" minvalue="1" required="false">
                     <tr lang="en">soundfont index. See @soundfonts property.</tr>
+                    <!-- old: Индекс звукового шрифта. См. @soundfonts
+                    property. -->
                     <tr lang="ru" finished="false">Индекс звукового шрифта. См. @soundfonts
                     property.</tr>
                 </param>
@@ -488,11 +552,15 @@
             <method name="soft">
                 <info>
                     <tr lang="en">soft (left) pedal, activate the soft strike effect</tr>
+                    <!-- old: мягкая (слева) педаль, активация эффекта мягкого
+                    удара -->
                     <tr lang="ru" finished="false">мягкая (слева) педаль, активация эффекта мягкого
                     удара</tr>
                 </info>
                 <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
                     <tr lang="en">MIDI channel, if zero or omitted apply to all channels</tr>
+                    <!-- old: MIDI-канал, если он нулевой или опущенный,
+                    применяется ко всем каналам -->
                     <tr lang="ru" finished="false">MIDI-канал, если он нулевой или опущенный,
                     применяется ко всем каналам</tr>
                 </param>
@@ -507,12 +575,17 @@
                     <tr lang="en">sostenuto (middle) pedal, hold notes pressed before pedal
                     activation, new notes are passed untouched. Release holded notes when set to
                     off</tr>
+                    <!-- old: состенуто (средняя) педаль, удерживайте ноты,
+                    нажатые перед активацией педали, новые ноты передаются нетронутыми. Отпуск
+                    удерживаемых заметок при запуске -->
                     <tr lang="ru" finished="false">состенуто (средняя) педаль, удерживайте ноты,
                     нажатые перед активацией педали, новые ноты передаются нетронутыми. Отпуск
                     удерживаемых заметок при запуске</tr>
                 </info>
                 <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
                     <tr lang="en">MIDI channel, if zero or omitted apply to all channels</tr>
+                    <!-- old: MIDI-канал, если он нулевой или опущенный,
+                    применяется ко всем каналам -->
                     <tr lang="ru" finished="false">MIDI-канал, если он нулевой или опущенный,
                     применяется ко всем каналам</tr>
                 </param>
@@ -525,6 +598,8 @@
             <method name="sound_off">
                 <info>
                     <tr lang="en">immediately stop all notes (skips release phase).</tr>
+                    <!-- old: Немедленно прекратите все записи (фаза выпуска
+                    промахов). -->
                     <tr lang="ru" finished="false">Немедленно прекратите все записи (фаза выпуска
                     промахов).</tr>
                 </info>
@@ -532,6 +607,8 @@
                 maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or not specified stop notes on all
                     channels</tr>
+                    <!-- old: Канал MIDI, если ноль или не указаны стоп-ноты
+                    на всех каналах -->
                     <tr lang="ru" finished="false">Канал MIDI, если ноль или не указаны стоп-ноты
                     на всех каналах</tr>
                 </param>
@@ -551,6 +628,8 @@
             <method name="tune.">
                 <info>
                     <tr lang="en">set fine tuning in cents, see tune:s</tr>
+                    <!-- old: установить тонкую настройку в центах, см.
+                    тюнинг: -->
                     <tr lang="ru" finished="false">установить тонкую настройку в центах, см.
                     тюнинг:</tr>
                 </info>
@@ -559,16 +638,22 @@
             <method name="tune:12">
                 <info>
                     <tr lang="en">set and activate octave tuning program in cents deviations</tr>
+                    <!-- old: установить и активировать программу настройки
+                    октавы в отклонениях центов -->
                     <tr lang="ru" finished="false">установить и активировать программу настройки
                     октавы в отклонениях центов</tr>
                 </info>
                 <param name="BANK" type="int" required="true" minvalue="1" maxvalue="256">
                     <tr lang="en">tuning bank (not related to MIDI instrument bank)</tr>
+                    <!-- old: тюнинг-банк (не связанный с банком инструментов
+                    MIDI) -->
                     <tr lang="ru" finished="false">тюнинг-банк (не связанный с банком инструментов
                     MIDI)</tr>
                 </param>
                 <param name="PRESET" type="int" required="true" minvalue="1" maxvalue="256">
                     <tr lang="en">tuning preset (not related to MIDI instrument program)</tr>
+                    <!-- old: предустановленная настройка (не связанная с
+                    программой инструментов MIDI) -->
                     <tr lang="ru" finished="false">предустановленная настройка (не связанная с
                     программой инструментов MIDI)</tr>
                 </param>
@@ -587,6 +672,8 @@
                 maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or not specified apply tuning to all
                     channels</tr>
+                    <!-- old: Канал MIDI, если он нулевой или неопределенный,
+                    настраивается на все каналы. -->
                     <tr lang="ru" finished="false">Канал MIDI, если он нулевой или неопределенный,
                     настраивается на все каналы.</tr>
                 </param>
@@ -605,6 +692,8 @@
                 maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or not specified apply tuning to all
                     channels</tr>
+                    <!-- old: Канал MIDI, если он нулевой или неопределенный,
+                    настраивается на все каналы. -->
                     <tr lang="ru" finished="false">Канал MIDI, если он нулевой или неопределенный,
                     настраивается на все каналы.</tr>
                 </param>
@@ -621,11 +710,15 @@
                 </info>
                 <param name="BANK" type="int" required="true" minvalue="1" maxvalue="256">
                     <tr lang="en">tuning bank (not related to MIDI instrument bank)</tr>
+                    <!-- old: тюнинг-банк (не связанный с банком инструментов
+                    MIDI) -->
                     <tr lang="ru" finished="false">тюнинг-банк (не связанный с банком инструментов
                     MIDI)</tr>
                 </param>
                 <param name="PRESET" type="int" required="true" minvalue="1" maxvalue="256">
                     <tr lang="en">tuning preset (not related to MIDI instrument program)</tr>
+                    <!-- old: предустановленная настройка (не связанная с
+                    программой инструментов MIDI) -->
                     <tr lang="ru" finished="false">предустановленная настройка (не связанная с
                     программой инструментов MIDI)</tr>
                 </param>
@@ -643,16 +736,20 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">left channel and property output</tr>
+                    <tr lang="ru" finished="false">Левый канал и выход собственности</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">right channel</tr>
+                    <tr lang="ru" finished="false">Правый канал</tr>
                 </out>
             </outlet>
             <outlet type="control">
                 <out type="any">
                     <tr lang="en">int: number of active voices (output only on change)</tr>
+                    <tr lang="ru" finished="false">Int: количество активных голосов (выход только
+                    на изменение)</tr>
                 </out>
             </outlet>
         </outlets>

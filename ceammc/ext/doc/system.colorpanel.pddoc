@@ -24,52 +24,73 @@
             <!-- @color -->
             <property name="@color" type="atom">
                 <tr lang="en">current color</tr>
+                <tr lang="ru" finished="false">Текущий цвет</tr>
             </property>
             <!-- @d -->
             <property name="@d" type="alias">
                 <tr lang="en">alias for @mode data. Output value Color datatype.</tr>
+                <tr lang="ru" finished="false">Источник: @mode data. Выходное значение Цветовой тип
+                данных.</tr>
             </property>
             <!-- @f -->
             <property name="@f" type="alias">
                 <tr lang="en">alias for @mode float. Output values as RGB list in 0-1 range.</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @mode float Значения выхода в
+                виде списка RGB в диапазоне 0-1.</tr>
             </property>
             <!-- @float -->
             <property name="@float" type="list" default="1 1 1">
                 <tr lang="en">RGB color value in float range (0-1)</tr>
+                <tr lang="ru" finished="false">Цветовое значение RGB в поплавковом диапазоне
+                (0-1)</tr>
             </property>
             <!-- @h -->
             <property name="@h" type="alias">
                 <tr lang="en">alias for @mode hex. Output value as #RRGGBB symbol.</tr>
+                <tr lang="ru" finished="false">Оригинальное название: Mode Hex. Значение вывода как
+                символ #RRGGBB.</tr>
             </property>
             <!-- @hex -->
             <property name="@hex" type="symbol" default="#FFFFFF">
                 <tr lang="en">color value as #RRGGBB symbol</tr>
+                <tr lang="ru" finished="false">Цветовое значение символа #RRGGBB</tr>
             </property>
             <!-- @i -->
             <property name="@i" type="alias">
                 <tr lang="en">alias for @mode int. Output values as RGB list in 0-255 range.</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @mode int Значения выхода в
+                виде списка RGB в диапазоне 0-255.</tr>
             </property>
             <!-- @int -->
             <property name="@int" type="list" default="255 255 255">
                 <tr lang="en">RGB color value in int range (0-255)</tr>
+                <tr lang="ru" finished="false">Значение цвета RGB во внутреннем диапазоне
+                (0-255)</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="float int hex data" default="float">
                 <tr lang="en">output mode</tr>
+                <tr lang="ru" finished="false">выходной режим</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">opens colorpanel</tr>
+                    <tr lang="ru" finished="false">Открытие Colorpanel</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">opens colorpanel with selected color. The hex format #RRGGBB is
                     expected.</tr>
+                    <tr lang="ru" finished="false">Открывает цветовую гамму с выбранным цветом.
+                    Ожидается шестиформатный #RRGGBB.</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">opens colorpanel with selected color. RGB color triplet expected
                     in float (0-1) or int (0-255) range, depending from @mode</tr>
+                    <tr lang="ru" finished="false">Открывает цветовую гамму с выбранным цветом.
+                    Цветовой триплет RGB, ожидаемый в диапазоне поплавков (0-1) или int (0-255), в
+                    зависимости от режима @mode</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -78,6 +99,9 @@
                 <out type="any">
                     <tr lang="en">messages: hex color symbol in format #RRGGBB or RGB color triplet
                     in float (0-1) or int (0-255) range depending from @mode</tr>
+                    <tr lang="ru" finished="false">сообщения: символ цвета hex в формате #RRGGBB
+                    или триплет цвета RGB в поплавке (0-1) или в инте (0-255) диапазоне в
+                    зависимости от @mode</tr>
                 </out>
             </outlet>
         </outlets>

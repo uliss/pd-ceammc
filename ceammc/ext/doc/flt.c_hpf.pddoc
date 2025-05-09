@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ +
                 b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²)</tr>
+                <!-- old: Расчет коэффициентов для функции переноса: H(z)=(b0
+                + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2) -->
                 <tr lang="ru" finished="false">Расчет коэффициентов для функции переноса: H(z)=(b0
                 + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2)</tr>
             </par>
@@ -80,6 +82,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list: b0 b1 b2 a1 a2</tr>
+                    <tr lang="ru" finished="false">Список: b0 b1 b2 a1 a2</tr>
                 </out>
             </outlet>
         </outlets>

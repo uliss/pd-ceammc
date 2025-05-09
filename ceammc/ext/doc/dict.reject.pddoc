@@ -50,6 +50,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">new dict with filtered keys</tr>
+                    <tr lang="ru" finished="false">Новый дикт с фильтрованными ключами</tr>
                 </out>
             </outlet>
         </outlets>

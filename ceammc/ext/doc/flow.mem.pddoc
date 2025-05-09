@@ -31,6 +31,8 @@
             <property name="@free" type="bool" default="1">
                 <tr lang="en">clear cell mode. If on - clear cell counter after zero was
                 reached.</tr>
+                <!-- old: Чистый сотовый режим. Если включено - чистый счетчик
+                ячеек после достижения нуля. -->
                 <tr lang="ru" finished="false">Чистый сотовый режим. Если включено - чистый счетчик
                 ячеек после достижения нуля.</tr>
             </property>
@@ -46,6 +48,11 @@
                 ttl counter (not this property!) is decremented until zero reached. After that if
                 @free property is on memory cell is cleared. If this property equals zero memory
                 cell never expires.</tr>
+                <!-- old: Время жить на контратаках. Каждый раз, когда вы
+                устанавливаете новое значение, счетчик ячеек памяти устанавливается на это. Каждый
+                раз, когда ячейка памяти выводится, счетчик ttl отдельных ячеек памяти (не это
+                свойство!) уменьшается до нуля. После этого, если @free свойство на ячейке памяти
+                очищается. Если это свойство равно нулю, ячейка памяти никогда не истекает. -->
                 <tr lang="ru" finished="false">Время жить на контратаках. Каждый раз, когда вы
                 устанавливаете новое значение, счетчик ячеек памяти устанавливается на это. Каждый
                 раз, когда ячейка памяти выводится, счетчик ttl отдельных ячеек памяти (не это
@@ -87,16 +94,19 @@
             <outlet number="1">
                 <out type="any">
                     <tr lang="en">output 1st cell</tr>
+                    <tr lang="ru" finished="false">вывод 1-й ячейки</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">output ... cell</tr>
+                    <tr lang="ru" finished="false">Производитель: Cell</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">output n-th cell</tr>
+                    <tr lang="ru" finished="false">вывод n-й ячейки</tr>
                 </out>
             </outlet>
         </outlets>

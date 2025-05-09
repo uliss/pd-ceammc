@@ -23,6 +23,8 @@
             </par>
             <par>
                 <tr lang="en">z[n+1] = a + b*z[n]*exp(kj - pj/(1+|z[n]^2|))</tr>
+                <!-- old: z[n+1] ] = a + b*z[n]*exp(kj - pj/(1+ |z[n]^2
+                |)) -->
                 <tr lang="ru" finished="false">z[n+1] ] = a + b*z[n]*exp(kj - pj/(1+ |z[n]^2
                 |))</tr>
             </par>
@@ -109,6 +111,8 @@
             <method name="c">
                 <param name="K" type="float" required="true">
                     <tr lang="en">k value (note the "c" method in original a-chaos library)</tr>
+                    <!-- old: k значение (обратите внимание на метод "c" в
+                    оригинальной библиотеке a-chaos) -->
                     <tr lang="ru" finished="false">k значение (обратите внимание на метод "c" в
                     оригинальной библиотеке a-chaos)</tr>
                 </param>
@@ -117,6 +121,8 @@
             <method name="om">
                 <param name="OM" type="int" required="true">
                     <tr lang="en">enables output when cut or fold value is changed</tr>
+                    <!-- old: позволяет вывод при изменении значения разреза
+                    или сгиба -->
                     <tr lang="ru" finished="false">позволяет вывод при изменении значения разреза
                     или сгиба</tr>
                 </param>
@@ -169,11 +175,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">x outlet</tr>
+                    <tr lang="ru" finished="false">х выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">y outlet</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

@@ -33,6 +33,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">mlist of values</tr>
+                    <tr lang="ru" finished="false">Миллист ценностей</tr>
                 </out>
             </outlet>
         </outlets>

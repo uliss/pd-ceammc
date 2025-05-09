@@ -24,6 +24,7 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs memory use</tr>
+                    <tr lang="ru" finished="false">Использование памяти</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -32,12 +33,18 @@
                 <out type="any">
                     <tr lang="en">current physical memory use measured in bytes, or zero if the
                     value cannot be determined on this OS.</tr>
+                    <tr lang="ru" finished="false">текущее использование физической памяти,
+                    измеренное в байтах, или ноль, если значение не может быть определено на этой
+                    ОС.</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">peak (maximum so far) physical memory use measured in bytes, or
                     zero if the value cannot be determined on this OS.</tr>
+                    <tr lang="ru" finished="false">Пик (максимум до сих пор) использования
+                    физической памяти измеряется в байтах, или ноль, если значение не может быть
+                    определено на этой ОС.</tr>
                 </out>
             </outlet>
         </outlets>

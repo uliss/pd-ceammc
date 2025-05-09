@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">The exp2() function computes 2**x, the base-2 exponential of x.</tr>
+                <!-- old: Функция exp2() вычисляет 2**x, основание-2
+                экспоненциально x. -->
                 <tr lang="ru" finished="false">Функция exp2() вычисляет 2**x, основание-2
                 экспоненциально x.</tr>
             </par>
@@ -45,6 +47,8 @@
             <par>
                 <tr lang="en">For all these functions, a range error occurs if the magnitude of x
                 is too large.</tr>
+                <!-- old: Для всех этих функций возникает ошибка диапазона,
+                если величина x слишком велика. -->
                 <tr lang="ru" finished="false">Для всех этих функций возникает ошибка диапазона,
                 если величина x слишком велика.</tr>
             </par>
@@ -65,6 +69,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

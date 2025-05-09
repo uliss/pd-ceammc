@@ -31,6 +31,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">current canvas name</tr>
+                    <tr lang="ru" finished="false">Текущее имя Canvas</tr>
                 </out>
             </outlet>
         </outlets>

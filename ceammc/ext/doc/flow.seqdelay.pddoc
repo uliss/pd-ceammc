@@ -27,6 +27,10 @@
                 <tr lang="en">Delay any route incoming message by specified relative time list. If
                 @block=0 if new message has arrived while delay time is not expired, old message is
                 discarded and new delay time is set from current moment.</tr>
+                <!-- old: Задержка любого входящего сообщения маршрута по
+                указанному относительному списку времени. Если @block = 0, если новое сообщение
+                пришло, а время задержки не истекло, старое сообщение отбрасывается и новое время
+                задержки устанавливается с текущего момента. -->
                 <tr lang="ru" finished="false">Задержка любого входящего сообщения маршрута по
                 указанному относительному списку времени. Если @block = 0, если новое сообщение
                 пришло, а время задержки не истекло, старое сообщение отбрасывается и новое время
@@ -35,12 +39,16 @@
             <par>
                 <tr lang="en">Zero delay time means output message on next Pd runloop iteration (as
                 soon as possible)</tr>
+                <!-- old: Нулевое время задержки означает выходное сообщение
+                на следующей итерации рулона Pd (как можно скорее). -->
                 <tr lang="ru" finished="false">Нулевое время задержки означает выходное сообщение
                 на следующей итерации рулона Pd (как можно скорее).</tr>
             </par>
             <par>
                 <tr lang="en">Note: @t and @block property can be set only via right inlet or with
                 [prop.set] object</tr>
+                <!-- old: Примечание: свойство @t и @block может быть
+                установлено только через правый вход или с объектом [prop.set] -->
                 <tr lang="ru" finished="false">Примечание: свойство @t и @block может быть
                 установлено только через правый вход или с объектом [prop.set]</tr>
             </par>
@@ -56,6 +64,9 @@
             <property name="@block" type="bool" default="0">
                 <tr lang="en">blocking mode. If true, discards incoming messages until scheduled
                 message will output, after that is ready to accept the new one.</tr>
+                <!-- old: Режим блокировки. Если это правда, отбрасывает
+                входящие сообщения до выхода запланированного сообщения, после чего готов принять
+                новое. -->
                 <tr lang="ru" finished="false">Режим блокировки. Если это правда, отбрасывает
                 входящие сообщения до выхода запланированного сообщения, после чего готов принять
                 новое.</tr>
@@ -90,6 +101,9 @@
                 <xinfo on="any">
                     <tr lang="en">'reset' - reset all scheduled delays, '@t' - set @t property,
                     '@block' - set @block property, 'dump' - dump object info to Pd window.</tr>
+                    <!-- old: "reset" - сброс всех запланированных задержек,
+                    "@t" - set @t property, "@block" - set @block property, "dump" - dump object
+                    info to Pd window. -->
                     <tr lang="ru" finished="false">"reset" - сброс всех запланированных задержек,
                     "@t" - set @t property, "@block" - set @block property, "dump" - dump object
                     info to Pd window.</tr>
@@ -100,16 +114,19 @@
             <outlet number="1">
                 <out type="any">
                     <tr lang="en">first delayed output</tr>
+                    <tr lang="ru" finished="false">Первый отсроченный выпуск</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">...-th delayed output</tr>
+                    <tr lang="ru" finished="false">... отсроченного выпуска</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">n-th delayed output</tr>
+                    <tr lang="ru" finished="false">n-е замедленное производство</tr>
                 </out>
             </outlet>
         </outlets>

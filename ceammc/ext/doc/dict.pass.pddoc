@@ -50,6 +50,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">dict with passed keys</tr>
+                    <tr lang="ru" finished="false">диктовка с пропущенными ключами</tr>
                 </out>
             </outlet>
         </outlets>

@@ -26,9 +26,11 @@
         <arguments>
             <argument name="N" type="int" minvalue="0">
                 <tr lang="en">number of bangs</tr>
+                <tr lang="ru" finished="false">количество взрывов</tr>
             </argument>
             <argument name="T" type="float" minvalue="1" maxvalue="20000" units="millisecond">
                 <tr lang="en">time interval between bangs</tr>
+                <tr lang="ru" finished="false">интервал времени между ударами</tr>
             </argument>
         </arguments>
         <properties>
@@ -36,30 +38,41 @@
             <property name="@accel" type="float" minvalue="0.25" default="1" maxvalue="4">
                 <tr lang="en">tempo acceleration. 1 - no acceleration, &gt;1 - speed up, &lt;1 -
                 slow down</tr>
+                <tr lang="ru" finished="false">ускорение темпа. 1 - нет ускорения, &gt;1 -
+                скорость, &lt;1 - замедление</tr>
             </property>
             <!-- @curve -->
             <property name="@curve" type="float" minvalue="-8" default="1" maxvalue="8">
                 <tr lang="en">acceleration curve. Values &gt;&gt;0 - slow changes, then fast
                 encrease. Values &lt;0 - fast changes, then slower</tr>
+                <tr lang="ru" finished="false">Кривая ускорения. Значения &gt;0 - медленные
+                изменения, затем быстрое увеличение. Значения &lt;0 - быстро меняется, затем
+                медленнее</tr>
             </property>
             <!-- @div -->
             <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">
                 <tr lang="en">beat subdivision</tr>
+                <tr lang="ru" finished="false">Победить подразделение</tr>
             </property>
             <!-- @dur -->
             <property name="@dur" type="float" minvalue="0" default="0">
                 <tr lang="en">sequence duration. Changing this property also changes @t interval
                 between bangs.</tr>
+                <tr lang="ru" finished="false">продолжительность последовательности. Изменение
+                этого свойства также изменяет интервал @t между ударами.</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="0" default="0">
                 <tr lang="en">number of bangs</tr>
+                <tr lang="ru" finished="false">количество взрывов</tr>
             </property>
             <!-- @t -->
             <property name="@t" type="float" default="0" minvalue="1" maxvalue="20000"
             units="millisecond">
                 <tr lang="en">time interval between bangs. You could also use units values like
                 100ms or 120bpm.</tr>
+                <tr lang="ru" finished="false">временной интервал между взрывами. Вы также можете
+                использовать значения единиц, такие как 100 мс или 120bpm.</tr>
             </property>
         </properties>
         <methods>
@@ -67,33 +80,41 @@
             <method name="reset">
                 <info>
                     <tr lang="en">stop bang output and reset bang counter</tr>
+                    <tr lang="ru" finished="false">Stop bang output и Bang counter скачать</tr>
                 </info>
             </method>
             <!-- rewind -->
             <method name="rewind">
                 <info>
                     <tr lang="en">reset all counters without stopping</tr>
+                    <tr lang="ru" finished="false">Сбросить все счетчики без остановки</tr>
                 </info>
             </method>
             <!-- start -->
             <method name="start">
                 <info>
                     <tr lang="en">start/stop</tr>
+                    <tr lang="ru" finished="false">старт/стоп</tr>
                 </info>
                 <param name="on" type="int" enum="0 1" default="1" required="false">
                     <tr lang="en">if true - starts bang sequence, otherwise stops</tr>
+                    <tr lang="ru" finished="false">если это правда - начинается последовательность
+                    взрыва, в противном случае останавливается</tr>
                 </param>
             </method>
             <!-- stop -->
             <method name="stop">
                 <info>
                     <tr lang="en">stop bang output</tr>
+                    <tr lang="ru" finished="false">Остановить взрывной выход</tr>
                 </info>
             </method>
             <!-- tick -->
             <method name="tick">
                 <info>
                     <tr lang="en">manually output current sequence element and move to next</tr>
+                    <tr lang="ru" finished="false">вручную вывести элемент текущей
+                    последовательности и перейти к следующему</tr>
                 </info>
             </method>
         </methods>
@@ -101,14 +122,18 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">reset counter and starts output</tr>
+                    <tr lang="ru" finished="false">Сбросить счетчик и начать вывод</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">sets number of bangs and starts output</tr>
+                    <tr lang="ru" finished="false">устанавливает количество ударов и начинает
+                    выход</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set number of bangs</tr>
+                    <tr lang="ru" finished="false">установленное количество чел.</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -116,11 +141,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bang output</tr>
+                    <tr lang="ru" finished="false">взрывной выход</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">[i IDX N( - bang index or [done( when done</tr>
+                    <tr lang="ru" finished="false">[i IDX N( - индекс взрыва или [сделано (когда
+                    сделано)]</tr>
                 </out>
             </outlet>
         </outlets>

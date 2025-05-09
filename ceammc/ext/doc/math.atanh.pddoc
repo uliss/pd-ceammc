@@ -25,6 +25,8 @@
             <par>
                 <tr lang="en">The atanh() function computes the inverse hyperbolic tangent of the
                 real argument input value.</tr>
+                <!-- old: Функция Atanh() вычисляет обратный гиперболический
+                тангенс реального входного значения аргумента. -->
                 <tr lang="ru" finished="false">Функция Atanh() вычисляет обратный гиперболический
                 тангенс реального входного значения аргумента.</tr>
             </par>
@@ -39,12 +41,16 @@
             <par>
                 <tr lang="en">atanh(+-1) returns +-infinity and raises the "divide-by-zero"
                 floating- point exception.</tr>
+                <!-- old: Atanh(+-1) возвращает +-бесконечность и поднимает
+                «раздел на ноль» исключение из плавающей точки. -->
                 <tr lang="ru" finished="false">Atanh(+-1) возвращает +-бесконечность и поднимает
                 «раздел на ноль» исключение из плавающей точки.</tr>
             </par>
             <par>
                 <tr lang="en">atanh(x) returns a NaN and raises the "invalid" floating-point
                 exception for |x| &gt; 1.</tr>
+                <!-- old: Atanh(x) возвращает NaN и поднимает
+                «недействительное» исключение с плавающей точкой для |x | > 1. -->
                 <tr lang="ru" finished="false">Atanh(x) возвращает NaN и поднимает
                 «недействительное» исключение с плавающей точкой для |x | &gt; 1.</tr>
             </par>
@@ -65,6 +71,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

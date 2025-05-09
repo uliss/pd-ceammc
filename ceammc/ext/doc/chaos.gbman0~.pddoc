@@ -23,6 +23,8 @@
             <par>
                 <tr lang="en">A non-interpolating sound generator based on the difference
                 equations:</tr>
+                <!-- old: Неинтерполирующий звуковой генератор, основанный на
+                разностных уравнениях: -->
                 <tr lang="ru" finished="false">Неинтерполирующий звуковой генератор, основанный на
                 разностных уравнениях:</tr>
             </par>
@@ -52,6 +54,8 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">generation frequency, minimal value 0.001Hz</tr>
+                    <!-- old: частота генерации, минимальное значение 0,001
+                    Гц -->
                     <tr lang="ru" finished="false">частота генерации, минимальное значение 0,001
                     Гц</tr>
                 </xinfo>
@@ -61,11 +65,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">outputs x value</tr>
+                    <tr lang="ru" finished="false">выходы x значение</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">outputs y value</tr>
+                    <tr lang="ru" finished="false">выходы y значение</tr>
                 </out>
             </outlet>
         </outlets>

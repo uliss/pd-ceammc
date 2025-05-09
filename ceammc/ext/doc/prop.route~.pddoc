@@ -30,12 +30,15 @@
             <par>
                 <tr lang="en">Extracts properties from audio stream with matching. Non property
                 values are passed untouched.</tr>
+                <tr lang="ru" finished="false">Извлекает свойства из аудиопотока с сопоставлением.
+                Неимущественные ценности передаются нетронутыми.</tr>
             </par>
         </info>
         <inlets>
             <inlet type="audio">
                 <xinfo on="any">
                     <tr lang="en">input values and sound</tr>
+                    <tr lang="ru" finished="false">входные значения и звук</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -43,21 +46,25 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">passed values and sound</tr>
+                    <tr lang="ru" finished="false">Прошедшие значения и звук</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">first matched property output</tr>
+                    <tr lang="ru" finished="false">Первый сопоставимый вывод собственности</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">others matched property output</tr>
+                    <tr lang="ru" finished="false">Другие соответствуют выходу собственности</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">unmatched property output</tr>
+                    <tr lang="ru" finished="false">Непревзойденная собственность</tr>
                 </out>
             </outlet>
         </outlets>

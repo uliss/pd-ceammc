@@ -28,6 +28,8 @@
         <info>
             <par>
                 <tr lang="en">[ui.hsl] is alias for horizontal slider, [ui.vsl] - for vertical</tr>
+                <tr lang="ru" finished="false">[ui.hsl] - псевдоним для горизонтального слайдера,
+                [ui.vsl] - для вертикального</tr>
             </par>
         </info>
         <mouse>
@@ -51,9 +53,11 @@
         <arguments>
             <argument name="MIN" type="float">
                 <tr lang="en">min value</tr>
+                <tr lang="ru" finished="false">минимальная стоимость</tr>
             </argument>
             <argument name="MAX" type="float">
                 <tr lang="en">max value</tr>
+                <tr lang="ru" finished="false">максимальное значение</tr>
             </argument>
         </arguments>
         <properties>
@@ -77,46 +81,64 @@
             <!-- @active_scale -->
             <property name="@active_scale" type="bool" default="0">
                 <tr lang="en">if should draw active scale</tr>
+                <tr lang="ru" finished="false">Если нарисовать активную шкалу</tr>
             </property>
             <!-- @knob_color -->
             <property name="@knob_color" type="list" default="0 0.75 1 1">
                 <tr lang="en">knob color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">цвет ручки (список красных, зеленых, синих значений
+                в диапазоне 0-1)</tr>
             </property>
             <!-- @max -->
             <property name="@max" type="float" default="1">
                 <tr lang="en">maximum slider value</tr>
+                <tr lang="ru" finished="false">Максимальное значение скольжения</tr>
             </property>
             <!-- @midi_control -->
             <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
                 <tr lang="en">binded MIDI controller number. -1 means not binded to any
                 controller.</tr>
+                <tr lang="ru" finished="false">Связанный номер контроллера MIDI. -1 означает, что
+                он не связан с каким-либо контроллером.</tr>
             </property>
             <!-- @midi_pickup -->
             <property name="@midi_pickup" type="bool" default="1">
                 <tr lang="en">pickup current value. If slider is binded to value, first time you
                 should pass over this value to make binding. It prevents from sudden value change
                 on first control change</tr>
+                <tr lang="ru" finished="false">Текущая стоимость пикапа. Если слайдер привязывается
+                к значению, сначала вы должны пройти через это значение, чтобы сделать связывание.
+                Это предотвращает внезапное изменение стоимости при первом изменении
+                управления.</tr>
             </property>
             <!-- @min -->
             <property name="@min" type="float" default="0">
                 <tr lang="en">minimum slider value</tr>
+                <tr lang="ru" finished="false">Минимальное значение слайдера</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="bool" default="0">
                 <tr lang="en">relative mode. Do not jump on click to value</tr>
+                <tr lang="ru" finished="false">относительный режим. Не прыгайте на клик, чтобы
+                оценить</tr>
             </property>
             <!-- @mouse_events -->
             <property name="@mouse_events" type="bool" default="0">
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
                 @mouse_drag events</tr>
+                <tr lang="ru" finished="false">Режим вывода событий мыши. Если на выходе
+                @mouse_down, @mouse_up и @mouse_drag события</tr>
             </property>
             <!-- @scale -->
             <property name="@scale" type="symbol" default="linear" enum="linear log">
                 <tr lang="en">scale mode. Linear or logarithmic.</tr>
+                <tr lang="ru" finished="false">Режим масштаба. Линейный или логарифмический.</tr>
             </property>
             <!-- @show_value -->
             <property name="@show_value" type="bool" default="0">
                 <tr lang="en">show value (in horizontal mode only)</tr>
+                <tr lang="ru" finished="false">показательное значение (только в горизонтальном
+                режиме)</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="15 120">
@@ -145,109 +167,136 @@
             <method name="*">
                 <info>
                     <tr lang="en">multiply slider value without output</tr>
+                    <tr lang="ru" finished="false">Умножить значение слайдера без вывода</tr>
                 </info>
                 <param name="V" type="float" required="true">
                     <tr lang="en">multiplied value</tr>
+                    <tr lang="ru" finished="false">умноженная стоимость</tr>
                 </param>
             </method>
             <!-- + -->
             <method name="+">
                 <info>
                     <tr lang="en">add value to slider without output</tr>
+                    <tr lang="ru" finished="false">Добавить значение слайдеру без вывода</tr>
                 </info>
                 <param name="V" type="float" required="true">
                     <tr lang="en">added value</tr>
+                    <tr lang="ru" finished="false">добавленная стоимость</tr>
                 </param>
             </method>
             <!-- ++ -->
             <method name="++">
                 <info>
                     <tr lang="en">increment slider value without output</tr>
+                    <tr lang="ru" finished="false">значение скольжения без вывода</tr>
                 </info>
             </method>
             <method name="-">
                 <info>
                     <tr lang="en">subtract value from slider without output</tr>
+                    <tr lang="ru" finished="false">вычитать значение из слайдера без вывода</tr>
                 </info>
                 <param name="V" type="float" required="true">
                     <tr lang="en">subtracted value</tr>
+                    <tr lang="ru" finished="false">вычитаемая стоимость</tr>
                 </param>
             </method>
             <method name="--">
                 <info>
                     <tr lang="en">decrement slider value without output</tr>
+                    <tr lang="ru" finished="false">значение скольжения декремента без вывода</tr>
                 </info>
             </method>
             <!-- / -->
             <method name="/">
                 <info>
                     <tr lang="en">divide slider value without output</tr>
+                    <tr lang="ru" finished="false">делить значение слайдера без вывода</tr>
                 </info>
                 <param name="V" type="float" required="true">
                     <tr lang="en">denominator value</tr>
+                    <tr lang="ru" finished="false">Значение знаменателя</tr>
                 </param>
             </method>
             <!-- clear -->
             <method name="clear">
                 <info>
                     <tr lang="en">clears specified preset</tr>
+                    <tr lang="ru" finished="false">заданный заранее</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
             <!-- interp -->
             <method name="interp">
                 <info>
                     <tr lang="en">interplolates between presets</tr>
+                    <tr lang="ru" finished="false">Интерплолаты между предустановленными</tr>
                 </info>
                 <param name="IDX" type="float" required="true">
                     <tr lang="en">preset fraction index</tr>
+                    <tr lang="ru" finished="false">предустановленный дробный индекс</tr>
                 </param>
             </method>
             <!-- load -->
             <method name="load">
                 <info>
                     <tr lang="en">loads specified preset</tr>
+                    <tr lang="ru" finished="false">заданный заранее заданный</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
             <!-- pos -->
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
             <!-- random -->
             <method name="random">
                 <info>
                     <tr lang="en">set slider to random value and output</tr>
+                    <tr lang="ru" finished="false">установить слайдер на случайное значение и
+                    выход</tr>
                 </info>
             </method>
             <!-- set -->
             <method name="set">
                 <info>
                     <tr lang="en">sets slider value without output</tr>
+                    <tr lang="ru" finished="false">устанавливает значение скольжения без
+                    вывода</tr>
                 </info>
                 <param name="V" type="atom" required="true">
                     <tr lang="en">new float value or 'random'</tr>
+                    <tr lang="ru" finished="false">Новая поплавковая стоимость или
+                    «случайность»</tr>
                 </param>
             </method>
             <!-- store -->
             <method name="store">
                 <info>
                     <tr lang="en">stores specified preset</tr>
+                    <tr lang="ru" finished="false">магазины, указанные Preset</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
         </methods>
@@ -255,9 +304,11 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs current slider state</tr>
+                    <tr lang="ru" finished="false">выходы текущего состояния слайдера</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">set slider value and output</tr>
+                    <tr lang="ru" finished="false">установить значение слайдера и выход</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -265,6 +316,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </out>
             </outlet>
         </outlets>

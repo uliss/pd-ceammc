@@ -26,21 +26,25 @@
             <!-- @fps -->
             <property name="@fps" type="int" default="25" access="readonly">
                 <tr lang="en">current fpt rate</tr>
+                <tr lang="ru" finished="false">Текущая ставка PTP</tr>
             </property>
             <!-- @use_date -->
             <property name="@use_date" type="bool" default="1">
                 <tr lang="en">decode date</tr>
+                <tr lang="ru" finished="false">декодировать дату</tr>
             </property>
             <!-- @volume -->
             <property name="@volume" type="float" default="0" minvalue="-60" maxvalue="0"
             units="decibel" access="readonly">
                 <tr lang="en">input signal level</tr>
+                <tr lang="ru" finished="false">Уровень входного сигнала</tr>
             </property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -48,11 +52,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list: HOUR MINUTE SECOND FRAME</tr>
+                    <tr lang="ru" finished="false">Оригинальное название: Hour Minute Second
+                    Frame</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">list: YEAR MONTH DAY</tr>
+                    <tr lang="ru" finished="false">Название: YEAR MONTH DAY</tr>
                 </out>
             </outlet>
         </outlets>

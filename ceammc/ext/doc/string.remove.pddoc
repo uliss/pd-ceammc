@@ -22,39 +22,50 @@
         <arguments>
             <argument name="STR" type="symbol">
                 <tr lang="en">substring to remove</tr>
+                <tr lang="ru" finished="false">подстроки для удаления</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @all -->
             <property name="@all" type="alias">
                 <tr lang="en">alias to @mode all - remove all occurences in input string</tr>
+                <tr lang="ru" finished="false">alias to @mode all - удалить все события в строке
+                ввода</tr>
             </property>
             <!-- @first -->
             <property name="@first" type="alias">
                 <tr lang="en">alias to @mode first - remove first occurence in input string</tr>
+                <tr lang="ru" finished="false">alias to @mode first - удалите первое появление в
+                строке ввода</tr>
             </property>
             <!-- @last -->
             <property name="@last" type="alias">
                 <tr lang="en">alias to @mode last - remove last occurence in input string</tr>
+                <tr lang="ru" finished="false">alias to @mode last - удалите последнюю возможность
+                во входной строке</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="all first last" default="all">
                 <tr lang="en">remove mode</tr>
+                <tr lang="ru" finished="false">режим удаления</tr>
             </property>
             <!-- @str -->
             <property name="@str" type="symbol" default="">
                 <tr lang="en">removed string</tr>
+                <tr lang="ru" finished="false">снятая струна</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input string or symbol</tr>
+                    <tr lang="ru" finished="false">входная строка или символ</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">set removed string or symbol</tr>
+                    <tr lang="ru" finished="false">Удаленная строка или символ</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -62,6 +73,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output string</tr>
+                    <tr lang="ru" finished="false">выходная строка</tr>
                 </out>
             </outlet>
         </outlets>

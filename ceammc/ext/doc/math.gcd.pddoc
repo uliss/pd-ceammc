@@ -29,12 +29,16 @@
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">sets first argument and outputs calculated GCD value</tr>
+                    <!-- old: устанавливает первый аргумент и вычисляет
+                    значение GCD -->
                     <tr lang="ru" finished="false">устанавливает первый аргумент и вычисляет
                     значение GCD</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">sets first argument and second arguments, then output calculated
                     GCD value</tr>
+                    <!-- old: устанавливает первый аргумент и второй аргумент,
+                    а затем вывод рассчитывает значение GCD -->
                     <tr lang="ru" finished="false">устанавливает первый аргумент и второй аргумент,
                     а затем вывод рассчитывает значение GCD</tr>
                 </xinfo>
@@ -50,6 +54,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">GCD value</tr>
+                    <tr lang="ru" finished="false">Значение ГКД</tr>
                 </out>
             </outlet>
         </outlets>

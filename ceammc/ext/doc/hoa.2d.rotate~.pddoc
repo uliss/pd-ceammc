@@ -65,6 +65,8 @@
                 <xinfo>
                     <tr lang="en">Set the angle of the rotation of the soundfield in radian. The
                     rotation angle is anti-clockwise and wrapped between 0 and 2π.</tr>
+                    <!-- old: Установите угол вращения звукового поля в
+                    радиане. Угол вращения против часовой стрелки и обернут между 0 и 2π. -->
                     <tr lang="ru" finished="false">Установите угол вращения звукового поля в
                     радиане. Угол вращения против часовой стрелки и обернут между 0 и 2π.</tr>
                 </xinfo>
@@ -74,16 +76,19 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">first output harmonic</tr>
+                    <tr lang="ru" finished="false">первый выход гармоник</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">... output harmonic</tr>
+                    <tr lang="ru" finished="false">Производить гармонику</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n">
                 <out type="any">
                     <tr lang="en">n-th output harmonic</tr>
+                    <tr lang="ru" finished="false">n-й выходной гармоник</tr>
                 </out>
             </outlet>
         </outlets>

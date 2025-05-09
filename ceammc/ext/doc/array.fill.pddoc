@@ -183,6 +183,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bang on finish</tr>
+                    <tr lang="ru" finished="false">Взрыв на финише</tr>
                 </out>
             </outlet>
         </outlets>

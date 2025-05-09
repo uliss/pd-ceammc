@@ -54,11 +54,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">left output signal</tr>
+                    <tr lang="ru" finished="false">левый выходной сигнал</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">right output signal</tr>
+                    <tr lang="ru" finished="false">правильный выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

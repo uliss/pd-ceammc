@@ -41,6 +41,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">converted value (float or list)</tr>
+                    <tr lang="ru" finished="false">конвертируемое значение (флот или список)</tr>
                 </out>
             </outlet>
         </outlets>

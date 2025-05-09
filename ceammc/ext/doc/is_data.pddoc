@@ -28,6 +28,8 @@
             <!-- @in_list -->
             <property name="@in_list" type="flag" default="0" access="initonly">
                 <tr lang="en">output '1' if list contains at least one data atom</tr>
+                <!-- old: выход «1», если список содержит по меньшей мере один
+                атом данных -->
                 <tr lang="ru" finished="false">выход «1», если список содержит по меньшей мере один
                 атом данных</tr>
             </property>
@@ -44,11 +46,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">0 or 1</tr>
+                    <tr lang="ru" finished="false">0 или 1</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">passes *data* message</tr>
+                    <tr lang="ru" finished="false">Передает *данные* сообщение</tr>
                 </out>
             </outlet>
         </outlets>

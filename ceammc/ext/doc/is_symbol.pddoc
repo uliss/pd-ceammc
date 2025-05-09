@@ -34,11 +34,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">0 or 1</tr>
+                    <tr lang="ru" finished="false">0 или 1</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">passes *symbol* message</tr>
+                    <tr lang="ru" finished="false">Прохождение *символ* сообщение</tr>
                 </out>
             </outlet>
         </outlets>

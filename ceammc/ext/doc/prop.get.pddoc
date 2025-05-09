@@ -27,6 +27,8 @@
         <info>
             <par>
                 <tr lang="en">Get properties from connected object/subpatch/abstraction</tr>
+                <tr lang="ru" finished="false">Получите свойства от подключенного объекта /
+                подпатчи / абстракции</tr>
             </par>
         </info>
         <mouse>
@@ -35,15 +37,19 @@
         <arguments>
             <argument name="PROPS" type="list">
                 <tr lang="en">property names</tr>
+                <tr lang="ru" finished="false">Имена собственности</tr>
             </argument>
         </arguments>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output specified properites to corresponding outlets</tr>
+                    <tr lang="ru" finished="false">выдача указанных свойств в соответствующие
+                    выходы</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">output specified property to second outlet</tr>
+                    <tr lang="ru" finished="false">выводить указанное свойство на второй выход</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -51,21 +57,25 @@
             <outlet number="1">
                 <out type="any">
                     <tr lang="en">connected to destination object</tr>
+                    <tr lang="ru" finished="false">подключенный к объекту назначения</tr>
                 </out>
             </outlet>
             <outlet number="2">
                 <out type="any">
                     <tr lang="en">output of first requested property</tr>
+                    <tr lang="ru" finished="false">выход первого запрашиваемого имущества</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">output of ... requested property</tr>
+                    <tr lang="ru" finished="false">... запрашиваемой собственности</tr>
                 </out>
             </outlet>
             <outlet number="n+1">
                 <out type="any">
                     <tr lang="en">output of n-th requested property</tr>
+                    <tr lang="ru" finished="false">n-го запрашиваемого имущества</tr>
                 </out>
             </outlet>
         </outlets>

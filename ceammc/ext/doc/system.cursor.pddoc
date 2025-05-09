@@ -24,16 +24,23 @@
                 <tr lang="en">clip mode. If true clip a cursor XY values to the [0..1] range in
                 normalized mode, to the window width/height relative mode, otherwise to the screen
                 width/height</tr>
+                <tr lang="ru" finished="false">Режим клипа. Если истинный клип курсора XY значения
+                в диапазоне [0..1] в нормализованном режиме, к ширине окна/высота относительный
+                режим, в противном случае к ширине экрана/высота</tr>
             </property>
             <!-- @norm -->
             <property name="@norm" type="bool" default="0">
                 <tr lang="en">cursor x/y coordinates normalization by screen (or window)
                 width/height</tr>
+                <tr lang="ru" finished="false">Курсор x/y координирует нормализацию по
+                ширине/высоте экрана (или окна)</tr>
             </property>
             <!-- @relative -->
             <property name="@relative" type="bool" default="0">
                 <tr lang="en">relative output mode: if on output coords relative to the root
                 window, otherwise output screen coordinates</tr>
+                <tr lang="ru" finished="false">относительный режим вывода: если на выходе коорды
+                относительно корневого окна, в противном случае на выходе экрана координаты</tr>
             </property>
         </properties>
         <methods>
@@ -41,10 +48,13 @@
             <method name="polltime">
                 <info>
                     <tr lang="en">sets global cursor polling time</tr>
+                    <tr lang="ru" finished="false">устанавливает глобальное время опроса
+                    курсора</tr>
                 </info>
                 <param name="T" type="float" units="millisecond" minvalue="10" maxvalue="1000"
                 required="true">
                     <tr lang="en">polling time</tr>
+                    <tr lang="ru" finished="false">время опроса</tr>
                 </param>
             </method>
         </methods>
@@ -52,10 +62,13 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output cursor position</tr>
+                    <tr lang="ru" finished="false">выходное положение курсора</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">when 1 is received - turns on cursor polling (position and
                     buttons), when 0 is received - turns it off</tr>
+                    <tr lang="ru" finished="false">когда получено 1 - включается опрос курсора
+                    (позиция и кнопки), когда получено 0 - выключает его</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -63,6 +76,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">messages: motion X Y, mousewheel DELTA, button IDX STATE</tr>
+                    <tr lang="ru" finished="false">сообщения: движение X Y, колесо мыши DELTA,
+                    кнопка IDX STATE</tr>
                 </out>
             </outlet>
         </outlets>

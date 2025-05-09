@@ -71,6 +71,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">transposed NOTE VELOCITY [DUR] list</tr>
+                    <tr lang="ru" finished="false">Перечень ПРИМЕЧАНИЯ ВЕЛИЧНОСТИ [ДУР]</tr>
                 </out>
             </outlet>
         </outlets>

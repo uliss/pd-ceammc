@@ -25,6 +25,8 @@
         <info>
             <par>
                 <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
+                <!-- old: Неинтерполирующий генератор, основанный на
+                разностных уравнениях: -->
                 <tr lang="ru" finished="false">Неинтерполирующий генератор, основанный на
                 разностных уравнениях:</tr>
             </par>
@@ -70,6 +72,8 @@
             <method name="a">
                 <info>
                     <tr lang="en">set a-value, does not not change init state value</tr>
+                    <!-- old: Устанавливает a-значение, не изменяет его
+                    состояние -->
                     <tr lang="ru" finished="false">Устанавливает a-значение, не изменяет его
                     состояние</tr>
                 </info>
@@ -78,6 +82,8 @@
             <method name="b">
                 <info>
                     <tr lang="en">set b-value, does not not change init state value</tr>
+                    <!-- old: Устанавливает b-значение, не изменяет его
+                    состояние -->
                     <tr lang="ru" finished="false">Устанавливает b-значение, не изменяет его
                     состояние</tr>
                 </info>
@@ -86,6 +92,8 @@
             <method name="c">
                 <info>
                     <tr lang="en">set c-value, does not not change init state value</tr>
+                    <!-- old: Устанавливается c-значение, не изменяется его
+                    состояние -->
                     <tr lang="ru" finished="false">Устанавливается c-значение, не изменяется его
                     состояние</tr>
                 </info>
@@ -94,6 +102,8 @@
             <method name="d">
                 <info>
                     <tr lang="en">set d-value, does not not change init state value</tr>
+                    <!-- old: заданная d-значение, не меняющая значения
+                    состояния -->
                     <tr lang="ru" finished="false">заданная d-значение, не меняющая значения
                     состояния</tr>
                 </info>
@@ -104,6 +114,9 @@
                     <tr lang="en">turn on/off method output mode. If true (1) outputs new generated
                     value after each a,b,d,e,x,y method call, if 0 - change values without output.
                     Default is 0.</tr>
+                    <!-- old: режим вывода метода включения/выключения. Если
+                    истинное (1) выводит новое сгенерированное значение после каждого вызова метода
+                    a,b,d,e,x,y, если 0 - изменяет значения без вывода. По умолчанию 0. -->
                     <tr lang="ru" finished="false">режим вывода метода включения/выключения. Если
                     истинное (1) выводит новое сгенерированное значение после каждого вызова метода
                     a,b,d,e,x,y, если 0 - изменяет значения без вывода. По умолчанию 0.</tr>
@@ -124,6 +137,8 @@
             <method name="set">
                 <info>
                     <tr lang="en">set A B C D E X Y values. Also updates init state vars.</tr>
+                    <!-- old: установить значения A B C D E X Y. Обновление
+                    init state vars. -->
                     <tr lang="ru" finished="false">установить значения A B C D E X Y. Обновление
                     init state vars.</tr>
                 </info>
@@ -132,6 +147,8 @@
             <method name="x">
                 <info>
                     <tr lang="en">set current x-value, does not not change init state value</tr>
+                    <!-- old: Устанавливает текущее x-значение, не изменяет
+                    его состояние -->
                     <tr lang="ru" finished="false">Устанавливает текущее x-значение, не изменяет
                     его состояние</tr>
                 </info>
@@ -140,6 +157,8 @@
             <method name="y">
                 <info>
                     <tr lang="en">set current y-value, does not not change init state value</tr>
+                    <!-- old: Устанавливает текущее значение y, не изменяет
+                    его состояние -->
                     <tr lang="ru" finished="false">Устанавливает текущее значение y, не изменяет
                     его состояние</tr>
                 </info>
@@ -157,11 +176,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">new generated x-value</tr>
+                    <tr lang="ru" finished="false">Новое генерируемое значение x</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">new generated y-value</tr>
+                    <tr lang="ru" finished="false">Новая генерируемая y-значение</tr>
                 </out>
             </outlet>
         </outlets>

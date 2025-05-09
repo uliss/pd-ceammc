@@ -45,6 +45,9 @@
             <property name="@curve" type="float" default="0">
                 <tr lang="en">output curve. If @curve&lt;0: fast begin, slow end, else if
                 @curve&gt;0: slow begin, fast end, if @curve==0: linear speed</tr>
+                <!-- old: выходная кривая. Если @curve<0: быстрый старт,
+                медленный конец, если @curve>0: медленный старт, быстрый конец, если @curve==0:
+                линейная скорость -->
                 <tr lang="ru" finished="false">выходная кривая. Если @curve&lt;0: быстрый старт,
                 медленный конец, если @curve&gt;0: медленный старт, быстрый конец, если @curve==0:
                 линейная скорость</tr>
@@ -72,6 +75,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float value</tr>
+                    <tr lang="ru" finished="false">плавающая стоимость</tr>
                 </out>
             </outlet>
         </outlets>

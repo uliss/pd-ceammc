@@ -48,30 +48,36 @@
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
             <!-- settings -->
             <method name="settings">
                 <info>
                     <tr lang="en">opens audio settings dialog</tr>
+                    <tr lang="ru" finished="false">Открывает диалог настроек аудио</tr>
                 </info>
             </method>
             <!-- start -->
             <method name="start">
                 <info>
                     <tr lang="en">starts audio processing</tr>
+                    <tr lang="ru" finished="false">Начинается обработка аудио</tr>
                 </info>
             </method>
             <!-- stop -->
             <method name="stop">
                 <info>
                     <tr lang="en">stops audio processing</tr>
+                    <tr lang="ru" finished="false">Прекратить обработку аудио</tr>
                 </info>
             </method>
         </methods>

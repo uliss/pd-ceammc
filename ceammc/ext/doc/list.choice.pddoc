@@ -24,6 +24,9 @@
             <property name="@norepeat" type="bool" default="0">
                 <tr lang="en">norepeat property. If 1 is given: every time output value at new list
                 position, do not repeat choosed position twice at adjacent events.</tr>
+                <!-- old: Неповторное имущество. Если дано 1: каждый раз,
+                когда выходное значение на новой позиции списка, не повторяйте выбранную позицию
+                дважды на смежных событиях. -->
                 <tr lang="ru" finished="false">Неповторное имущество. Если дано 1: каждый раз,
                 когда выходное значение на новой позиции списка, не повторяйте выбранную позицию
                 дважды на смежных событиях.</tr>
@@ -45,6 +48,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">random list element</tr>
+                    <tr lang="ru" finished="false">элемент случайного списка</tr>
                 </out>
             </outlet>
         </outlets>

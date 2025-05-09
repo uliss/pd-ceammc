@@ -34,6 +34,8 @@
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">on list input outputs a list of reciprocal values</tr>
+                    <!-- old: в списке входных выходов список взаимных
+                    значений -->
                     <tr lang="ru" finished="false">в списке входных выходов список взаимных
                     значений</tr>
                 </xinfo>
@@ -43,6 +45,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

@@ -24,6 +24,8 @@
         <info>
             <par>
                 <tr lang="en">The sinh() function computes the hyperbolic sine of x.</tr>
+                <!-- old: Функция sinh() вычисляет гиперболический синус
+                x. -->
                 <tr lang="ru" finished="false">Функция sinh() вычисляет гиперболический синус
                 x.</tr>
             </par>
@@ -37,6 +39,8 @@
             </par>
             <par>
                 <tr lang="en">sinh(+-infinity) returns +-infinity.</tr>
+                <!-- old: Синх (+-бесконечность) возвращается
+                +-бесконечность. -->
                 <tr lang="ru" finished="false">Синх (+-бесконечность) возвращается
                 +-бесконечность.</tr>
             </par>
@@ -57,6 +61,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

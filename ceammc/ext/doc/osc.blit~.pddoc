@@ -28,6 +28,8 @@
             <argument name="HARMONICS" type="int" minvalue="0">
                 <tr lang="en">number of harmonics. Missing or 0 means all available harmonics until
                 SR/2</tr>
+                <!-- old: Количество гармоник. Отсутствие или 0 означает все
+                доступные гармоники до SR/2. -->
                 <tr lang="ru" finished="false">Количество гармоник. Отсутствие или 0 означает все
                 доступные гармоники до SR/2.</tr>
             </argument>
@@ -57,6 +59,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

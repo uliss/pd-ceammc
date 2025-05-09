@@ -54,6 +54,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">count of found elements</tr>
+                    <tr lang="ru" finished="false">Количество найденных элементов</tr>
                 </out>
             </outlet>
         </outlets>

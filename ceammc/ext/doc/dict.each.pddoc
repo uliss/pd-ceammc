@@ -38,11 +38,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">processed dict</tr>
+                    <tr lang="ru" finished="false">обработанный дикт</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">send value to sidechain</tr>
+                    <tr lang="ru" finished="false">Отправить ценность в Sidechain</tr>
                 </out>
             </outlet>
         </outlets>

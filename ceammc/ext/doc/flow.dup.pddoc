@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">Output incoming message specified number of times</tr>
+                <!-- old: Выходное входящее сообщение указанное количество
+                раз -->
                 <tr lang="ru" finished="false">Выходное входящее сообщение указанное количество
                 раз</tr>
             </par>
@@ -57,6 +59,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

@@ -30,6 +30,8 @@
             <par>
                 <tr lang="en">hoa.process~ helps the modularization of patches for ambisonic or
                 plane waves processing.</tr>
+                <!-- old: hoa.process помогает модуляризации патчей для
+                обработки амбисонических или плоских волн. -->
                 <tr lang="ru" finished="false">hoa.process помогает модуляризации патчей для
                 обработки амбисонических или плоских волн.</tr>
             </par>
@@ -37,6 +39,9 @@
                 <tr lang="en">hoa.process~ is a kind of poly~ object particulary suitable for
                 multichannel ambisonic or plane wave processing. Create a patch/effect/operator,
                 then parallelize it with the hoa.process~</tr>
+                <!-- old: hoa.process - это тип поли-объекта, подходящий для
+                многоканальной амбисонической или плосковолновой обработки. Создайте
+                патч/эффект/оператор, затем параллелизируйте его с hoa.process -->
                 <tr lang="ru" finished="false">hoa.process - это тип поли-объекта, подходящий для
                 многоканальной амбисонической или плосковолновой обработки. Создайте
                 патч/эффект/оператор, затем параллелизируйте его с hoa.process</tr>
@@ -52,11 +57,15 @@
             <par>
                 <tr lang="en">#: send list values spreaded amoung all instances, one value per
                 instance</tr>
+                <!-- old: # : отправьте значения списка, распределенные по
+                всем экземплярам, по одному значению на экземпляр -->
                 <tr lang="ru" finished="false"># : отправьте значения списка, распределенные по
                 всем экземплярам, по одному значению на экземпляр</tr>
             </par>
             <par>
                 <tr lang="en">#:2 send list values spreaded amoung instances with id&gt;=2</tr>
+                <!-- old: # :2 отправить список значений, распределенных
+                amoung экземпляров с id>=2 -->
                 <tr lang="ru" finished="false"># :2 отправить список значений, распределенных
                 amoung экземпляров с id&gt;=2</tr>
             </par>
@@ -74,6 +83,8 @@
             </par>
             <par>
                 <tr lang="en">#2-4 send to instances with id in [2, 4] range</tr>
+                <!-- old: #2-4 отправьте в экземпляры с идентификатором в [2,
+                4] диапазоне -->
                 <tr lang="ru" finished="false">#2-4 отправьте в экземпляры с идентификатором в [2,
                 4] диапазоне</tr>
             </par>
@@ -129,6 +140,8 @@
             <method name="dump">
                 <info>
                     <tr lang="en">dumps all object info to Pd console window.</tr>
+                    <!-- old: Сбрасывает всю информацию об объекте в окно
+                    консоли Pd. -->
                     <tr lang="ru" finished="false">Сбрасывает всю информацию об объекте в окно
                     консоли Pd.</tr>
                 </info>
@@ -138,6 +151,9 @@
                 <info>
                     <tr lang="en">switch on/off DSP instance processing. Usage: on all 0|1 - turn
                     on/off all instances, on IDX 0|1 - turn on/off specified instance.</tr>
+                    <!-- old: Включить/выключить обработку экземпляров DSP.
+                    Использование: на всех 0 | 1 - включить / выключить все экземпляры, на IDX 0 |
+                    1 - включить / выключить указанный экземпляр. -->
                     <tr lang="ru" finished="false">Включить/выключить обработку экземпляров DSP.
                     Использование: на всех 0 | 1 - включить / выключить все экземпляры, на IDX 0 |
                     1 - включить / выключить указанный экземпляр.</tr>
@@ -179,16 +195,19 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">first harmonic/planewave output</tr>
+                    <tr lang="ru" finished="false">Первый выход гармоники/плосковолновки</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">... harmonic/planewave output</tr>
+                    <tr lang="ru" finished="false">... гармонический/плосковолновый выход</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n">
                 <out type="any">
                     <tr lang="en">n-th harmonic/planewave output</tr>
+                    <tr lang="ru" finished="false">n-й гармонический/плосковолновый выход</tr>
                 </out>
             </outlet>
         </outlets>

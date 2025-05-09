@@ -24,6 +24,8 @@
             <par>
                 <tr lang="en">Infinity is a MatrixVerb specifically designed to sustain and layer
                 sounds forever.</tr>
+                <!-- old: Infinity - это MatrixVerb, специально разработанный
+                для поддержания и сложения звуков навсегда. -->
                 <tr lang="ru" finished="false">Infinity - это MatrixVerb, специально разработанный
                 для поддержания и сложения звуков навсегда.</tr>
             </par>
@@ -37,6 +39,8 @@
             <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals</tr>
+                <!-- old: Пропорция смеси между исходными (сухими) и
+                «вредными» (мокрыми) сигналами -->
                 <tr lang="ru" finished="false">Пропорция смеси между исходными (сухими) и
                 «вредными» (мокрыми) сигналами</tr>
             </argument>
@@ -45,12 +49,16 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
             <!-- @damp -->
             <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">damping of the lowpass comb filter</tr>
+                <!-- old: демпфирование низкопроходного гребенчатого
+                фильтра -->
                 <tr lang="ru" finished="false">демпфирование низкопроходного гребенчатого
                 фильтра</tr>
             </property>
@@ -58,6 +66,8 @@
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <!-- old: пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
                 <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
                 "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
@@ -99,11 +109,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output Left signal</tr>
+                    <tr lang="ru" finished="false">Выходной левый сигнал</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output Right signal</tr>
+                    <tr lang="ru" finished="false">Выходной сигнал Right</tr>
                 </out>
             </outlet>
         </outlets>

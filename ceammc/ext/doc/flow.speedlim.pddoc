@@ -26,6 +26,11 @@
                 be used for button debouncing. In initial state is opened, on first message pass it
                 and then became closed within specified time interval. All incoming messages in
                 that time are dropped. After this interval expiried goes to opened state</tr>
+                <!-- old: Все контрольные данные не часто затем указывают
+                предел в мс. Может использоваться для отстегивания кнопок. В начальном состоянии
+                открывается, по первому сообщению проходит его и затем становится закрытым в
+                течение заданного временного интервала. Все входящие сообщения за это время
+                удаляются. После истечения этого интервала переходит в открытое состояние -->
                 <tr lang="ru" finished="false">Все контрольные данные не часто затем указывают
                 предел в мс. Может использоваться для отстегивания кнопок. В начальном состоянии
                 открывается, по первому сообщению проходит его и затем становится закрытым в
@@ -43,6 +48,8 @@
             <!-- @limit -->
             <property name="@limit" type="int" minvalue="0" units="millisecond" default="0">
                 <tr lang="en">speed limit. If set to zero there is no flow limitations</tr>
+                <!-- old: ограничение скорости. При нулевом значении нет
+                ограничений потока -->
                 <tr lang="ru" finished="false">ограничение скорости. При нулевом значении нет
                 ограничений потока</tr>
             </property>
@@ -57,6 +64,8 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">reset internal timer and goes to opened state</tr>
+                    <!-- old: сбросить внутренний таймер и перейти в открытое
+                    состояние -->
                     <tr lang="ru" finished="false">сбросить внутренний таймер и перейти в открытое
                     состояние</tr>
                 </xinfo>
@@ -66,6 +75,8 @@
                 </xinfo>
                 <xinfo>
                     <tr lang="en">reset: reset internal timer and goes to opened state</tr>
+                    <!-- old: Reset: сброс внутреннего таймера и переходит в
+                    открытое состояние -->
                     <tr lang="ru" finished="false">Reset: сброс внутреннего таймера и переходит в
                     открытое состояние</tr>
                 </xinfo>
@@ -75,6 +86,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output flow</tr>
+                    <tr lang="ru" finished="false">выходной поток</tr>
                 </out>
             </outlet>
         </outlets>

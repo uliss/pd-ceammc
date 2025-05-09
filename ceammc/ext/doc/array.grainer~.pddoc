@@ -352,6 +352,8 @@
                 </xinfo>
                 <xinfo on="bang">
                     <tr lang="en">if @sync = 'ext': starts finished grains playback</tr>
+                    <!-- old: если @sync = 'ext': начинается воспроизведение
+                    готовых зерен -->
                     <tr lang="ru" finished="false">если @sync = 'ext': начинается воспроизведение
                     готовых зерен</tr>
                 </xinfo>
@@ -361,11 +363,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">left output</tr>
+                    <tr lang="ru" finished="false">левый выход</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">right output</tr>
+                    <tr lang="ru" finished="false">правильный выход</tr>
                 </out>
             </outlet>
         </outlets>

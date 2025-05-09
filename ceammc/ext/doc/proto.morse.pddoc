@@ -19,6 +19,7 @@
         <arguments>
             <argument name="DOT" type="float" units="millisecond" minvalue="5" maxvalue="1000">
                 <tr lang="en">dot length</tr>
+                <tr lang="ru" finished="false">длина точки</tr>
             </argument>
         </arguments>
         <properties>
@@ -26,18 +27,22 @@
             <property name="@dot" type="float" default="100" minvalue="5" maxvalue="1000"
             units="millisecond">
                 <tr lang="en">dot length</tr>
+                <tr lang="ru" finished="false">длина точки</tr>
             </property>
             <!-- @external -->
             <property name="@external" type="bool" default="0">
                 <tr lang="en">use external clock</tr>
+                <tr lang="ru" finished="false">Использование внешних часов</tr>
             </property>
             <!-- @letter -->
             <property name="@letter" type="int" default="3" minvalue="2" maxvalue="20">
                 <tr lang="en">space between letters in dot units</tr>
+                <tr lang="ru" finished="false">Пространство между буквами в точках</tr>
             </property>
             <!-- @word -->
             <property name="@word" type="int" default="5" minvalue="2" maxvalue="20">
                 <tr lang="en">space between words in dot units</tr>
+                <tr lang="ru" finished="false">Пространство между словами в точках</tr>
             </property>
         </properties>
         <methods>
@@ -45,6 +50,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset encoder</tr>
+                    <tr lang="ru" finished="false">кодировщик сброса</tr>
                 </info>
             </method>
         </methods>
@@ -52,11 +58,13 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">add words to encoder</tr>
+                    <tr lang="ru" finished="false">Добавить слова в кодировку</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">external clock</tr>
+                    <tr lang="ru" finished="false">Внешние часы</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -64,6 +72,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float: 1 or 0</tr>
+                    <tr lang="ru" finished="false">Поплавок: 1 или 0</tr>
                 </out>
             </outlet>
         </outlets>

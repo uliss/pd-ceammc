@@ -28,6 +28,8 @@
             <par>
                 <tr lang="en">Named symbol preset entry. Can store/load up to 256 various symbol
                 values</tr>
+                <!-- old: Назван символ предустановленной записи. Может
+                хранить/загружать до 256 различных значений символов -->
                 <tr lang="ru" finished="false">Назван символ предустановленной записи. Может
                 хранить/загружать до 256 различных значений символов</tr>
             </par>
@@ -38,6 +40,8 @@
         <arguments>
             <argument name="ID" type="symbol">
                 <tr lang="en">preset id (should be unique in most use cases)</tr>
+                <!-- old: предустановленный идентификатор (должен быть
+                уникальным в большинстве случаев использования) -->
                 <tr lang="ru" finished="false">предустановленный идентификатор (должен быть
                 уникальным в большинстве случаев использования)</tr>
             </argument>
@@ -66,6 +70,9 @@
             <property name="@path" type="symbol" access="readonly" default="">
                 <tr lang="en">property OSC-like path that includes id, abstraction name and may be
                 subpatch name separated by slashes.</tr>
+                <!-- old: свойство OSC-подобного пути, которое включает в себя
+                идентификатор, имя абстракции и может быть именем подпатча, разделенным
+                слэшами. -->
                 <tr lang="ru" finished="false">свойство OSC-подобного пути, которое включает в себя
                 идентификатор, имя абстракции и может быть именем подпатча, разделенным
                 слэшами.</tr>
@@ -95,6 +102,8 @@
             <method name="load">
                 <info>
                     <tr lang="en">load preset value by specified index and output it</tr>
+                    <!-- old: заданное значение нагрузки по заданному индексу
+                    и вывести его -->
                     <tr lang="ru" finished="false">заданное значение нагрузки по заданному индексу
                     и вывести его</tr>
                 </info>
@@ -103,6 +112,8 @@
             <method name="store">
                 <info>
                     <tr lang="en">stores preset value at specified index</tr>
+                    <!-- old: предустановленная стоимость в указанном
+                    индексе -->
                     <tr lang="ru" finished="false">предустановленная стоимость в указанном
                     индексе</tr>
                 </info>
@@ -120,6 +131,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">preset symbol value</tr>
+                    <tr lang="ru" finished="false">предварительно заданное значение символа</tr>
                 </out>
             </outlet>
         </outlets>

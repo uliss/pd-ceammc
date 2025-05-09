@@ -38,11 +38,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">sequence of @prop messages</tr>
+                    <tr lang="ru" finished="false">Последовательность сообщений @prop</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">list of non prop arguments</tr>
+                    <tr lang="ru" finished="false">Список аргументов non prop</tr>
                 </out>
             </outlet>
         </outlets>

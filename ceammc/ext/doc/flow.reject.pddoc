@@ -54,11 +54,15 @@
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">reject if first atom is in reject list</tr>
+                    <!-- old: Если первый атом находится в списке
+                    отклонений -->
                     <tr lang="ru" finished="false">Если первый атом находится в списке
                     отклонений</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">reject if message selector is in reject list</tr>
+                    <!-- old: Отклонить, если селектор сообщения находится в
+                    списке отклонений -->
                     <tr lang="ru" finished="false">Отклонить, если селектор сообщения находится в
                     списке отклонений</tr>
                 </xinfo>
@@ -74,6 +78,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">passed values</tr>
+                    <tr lang="ru" finished="false">переданные значения</tr>
                 </out>
             </outlet>
         </outlets>

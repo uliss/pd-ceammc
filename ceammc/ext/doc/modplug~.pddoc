@@ -23,6 +23,8 @@
             <!-- @done -->
             <property name="@done" type="symbol" default="">
                 <tr lang="en">function called with bang when playing is finished</tr>
+                <!-- old: Функция, называемая челкой, когда игра
+                закончена -->
                 <tr lang="ru" finished="false">Функция, называемая челкой, когда игра
                 закончена</tr>
             </property>
@@ -71,6 +73,8 @@
             <method name="stop">
                 <info>
                     <tr lang="en">stop playing and move play position to the end of file</tr>
+                    <!-- old: Прекратите играть и переместите игровую позицию
+                    в конец файла -->
                     <tr lang="ru" finished="false">Прекратите играть и переместите игровую позицию
                     в конец файла</tr>
                 </info>
@@ -88,11 +92,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">left channel and property output</tr>
+                    <tr lang="ru" finished="false">Левый канал и выход собственности</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">right channel</tr>
+                    <tr lang="ru" finished="false">Правый канал</tr>
                 </out>
             </outlet>
         </outlets>

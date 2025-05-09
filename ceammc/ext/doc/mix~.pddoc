@@ -34,12 +34,16 @@
             <!-- @mute -->
             <property name="@mute" type="list" default="0 0">
                 <tr lang="en">mute channel list, allowed values: 0, 1</tr>
+                <!-- old: список немых каналов, разрешенные значения: 0,
+                1 -->
                 <tr lang="ru" finished="false">список немых каналов, разрешенные значения: 0,
                 1</tr>
             </property>
             <!-- @solo -->
             <property name="@solo" type="list" default="0 0">
                 <tr lang="en">solo channel list, allowed values: 0, 1</tr>
+                <!-- old: сольный список каналов, разрешенные значения: 0,
+                1 -->
                 <tr lang="ru" finished="false">сольный список каналов, разрешенные значения: 0,
                 1</tr>
             </property>
@@ -75,6 +79,8 @@
             <method name="solo">
                 <info>
                     <tr lang="en">solo (mute all others that not solo) specified channel</tr>
+                    <!-- old: соло (сметь все остальные, которые не соло)
+                    указанный канал -->
                     <tr lang="ru" finished="false">соло (сметь все остальные, которые не соло)
                     указанный канал</tr>
                 </info>
@@ -112,6 +118,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output mixed signal</tr>
+                    <tr lang="ru" finished="false">выходной смешанный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

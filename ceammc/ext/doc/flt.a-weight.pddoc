@@ -32,6 +32,8 @@
                 <xinfo on="list">
                     <tr lang="en">list of input frequencies in Herz, non float types are
                     ignored</tr>
+                    <!-- old: Список входных частот в Герце, непоплавковые
+                    типы игнорируются. -->
                     <tr lang="ru" finished="false">Список входных частот в Герце, непоплавковые
                     типы игнорируются.</tr>
                 </xinfo>
@@ -41,6 +43,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float or list A-weight amplitudes or decibel values</tr>
+                    <tr lang="ru" finished="false">Поплавать или перечислить А-весовые амплитуды
+                    или децибелы</tr>
                 </out>
             </outlet>
         </outlets>

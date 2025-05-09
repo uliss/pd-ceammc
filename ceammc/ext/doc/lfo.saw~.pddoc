@@ -70,6 +70,8 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">frequency in Hz (can be zero or negative)</tr>
+                    <!-- old: частота в Гц (может быть нулевой или
+                    отрицательной) -->
                     <tr lang="ru" finished="false">частота в Гц (может быть нулевой или
                     отрицательной)</tr>
                 </xinfo>
@@ -85,6 +87,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">saw wave in [-1, +1] range</tr>
+                    <tr lang="ru" finished="false">волна в [-1, +1] диапазоне</tr>
                 </out>
             </outlet>
         </outlets>

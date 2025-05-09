@@ -20,41 +20,51 @@
             <par>
                 <tr lang="en">This class implements two simple FM Pairs summed together, also
                 referred to as algorithm 5 of the TX81Z</tr>
+                <tr lang="ru" finished="false">Этот класс реализует две простые FM-пары,
+                суммированные вместе, также называемые алгоритмом 5 TX81Z.</tr>
             </par>
         </info>
         <properties>
             <!-- @adsr -->
             <property name="@adsr" type="int" minvalue="0" maxvalue="127" default="0">
                 <tr lang="en">ADSR 2 &amp; 4 Target</tr>
+                <tr lang="ru" finished="false">ADSR 2 и 4 Target</tr>
             </property>
             <!-- @freq -->
             <property name="@freq" type="float" minvalue="0" maxvalue="480" default="220"
             units="hertz">
                 <tr lang="en">maximum speed of whistles</tr>
+                <tr lang="ru" finished="false">Максимальная скорость свистка</tr>
             </property>
             <!-- @gate -->
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">synth gate (&gt;0 - play)</tr>
+                <tr lang="ru" finished="false">Synth Gate (&gt;0 - игра)</tr>
             </property>
             <!-- @lfo_depth -->
             <property name="@lfo_depth" type="int" minvalue="0" maxvalue="127" default="0">
                 <tr lang="en">LFO Speed (cc1)</tr>
+                <tr lang="ru" finished="false">Скорость LFO (cc1)</tr>
             </property>
             <!-- @lfo_speed -->
             <property name="@lfo_speed" type="int" minvalue="0" maxvalue="127" default="0">
                 <tr lang="en">LFO Speed (cc11)</tr>
+                <tr lang="ru" finished="false">Скорость LFO (cc11)</tr>
             </property>
             <!-- @mod -->
             <property name="@mod" type="int" minvalue="0" maxvalue="127" default="0">
                 <tr lang="en">modulator index one (cc2)</tr>
+                <tr lang="ru" finished="false">Индекс модулятора один (cc2)</tr>
             </property>
             <!-- @pitch -->
             <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="57">
                 <tr lang="en">midi pitch</tr>
+                <tr lang="ru" finished="false">миди-питч</tr>
             </property>
             <!-- @xfade -->
             <property name="@xfade" type="int" minvalue="0" maxvalue="127" default="0">
                 <tr lang="en">crossfade of outputs (cc4)</tr>
+                <tr lang="ru" finished="false">кроссфайд выходов (cc4)</tr>
             </property>
         </properties>
         <methods>
@@ -62,24 +72,30 @@
             <method name="cc">
                 <info>
                     <tr lang="en">Control change</tr>
+                    <tr lang="ru" finished="false">Изменение контроля</tr>
                 </info>
                 <param name="CTL" type="int" required="true">
                     <tr lang="en">control number</tr>
+                    <tr lang="ru" finished="false">контрольный номер</tr>
                 </param>
                 <param name="VAL" type="float" required="true">
                     <tr lang="en">value</tr>
+                    <tr lang="ru" finished="false">ценность</tr>
                 </param>
             </method>
             <!-- note -->
             <method name="note">
                 <info>
                     <tr lang="en">note on/off message</tr>
+                    <tr lang="ru" finished="false">примечание/выключение сообщения</tr>
                 </info>
                 <param name="NOTE" type="float" required="true">
                     <tr lang="en">midi note</tr>
+                    <tr lang="ru" finished="false">нота миди</tr>
                 </param>
                 <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">velocity</tr>
+                    <tr lang="ru" finished="false">скорость</tr>
                 </param>
             </method>
         </methods>
@@ -87,6 +103,7 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">NOTE VEL</tr>
+                    <tr lang="ru" finished="false">Примечание VEL</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -94,6 +111,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">synth output</tr>
+                    <tr lang="ru" finished="false">синтетический выход</tr>
                 </out>
             </outlet>
         </outlets>

@@ -26,6 +26,8 @@
             <par>
                 <tr lang="en">Numbers thar are *less* then last argument are passed to N+1
                 inlet</tr>
+                <!-- old: Номера thar *less*, затем последний аргумент
+                передается на вход N+1. -->
                 <tr lang="ru" finished="false">Номера thar *less*, затем последний аргумент
                 передается на вход N+1.</tr>
             </par>
@@ -33,6 +35,8 @@
         <arguments>
             <argument name="VALUES" type="list">
                 <tr lang="en">compare values: list of floats in descending order</tr>
+                <!-- old: Сравнительные значения: список поплавков в
+                нисходящем порядке -->
                 <tr lang="ru" finished="false">Сравнительные значения: список поплавков в
                 нисходящем порядке</tr>
             </argument>
@@ -41,6 +45,8 @@
             <!-- @values -->
             <property name="@values" type="list" access="initonly" default="">
                 <tr lang="en">compare values: list of floats in descending order</tr>
+                <!-- old: Сравнительные значения: список поплавков в
+                нисходящем порядке -->
                 <tr lang="ru" finished="false">Сравнительные значения: список поплавков в
                 нисходящем порядке</tr>
             </property>
@@ -57,21 +63,28 @@
             <outlet number="1">
                 <out type="any">
                     <tr lang="en">numbers that are greater or equal then 1st argument</tr>
+                    <tr lang="ru" finished="false">Число, которое больше или равно 1-му
+                    аргументу</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">numbers that are greater or equal than ... argument</tr>
+                    <tr lang="ru" finished="false">Цифры, которые больше или равны, чем
+                    аргументы</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">numbers that are greater or equal than last argument</tr>
+                    <tr lang="ru" finished="false">Число, которое больше или равно последнему
+                    аргументу</tr>
                 </out>
             </outlet>
             <outlet number="n+1">
                 <out type="any">
                     <tr lang="en">numbers that are less than last argument</tr>
+                    <tr lang="ru" finished="false">Цифры, которые меньше последнего аргумента</tr>
                 </out>
             </outlet>
         </outlets>

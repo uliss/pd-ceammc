@@ -23,12 +23,16 @@
         <info>
             <par>
                 <tr lang="en">Use backtick ` instead of backslash in regexp syntax</tr>
+                <!-- old: Используйте backtick вместо backslash в синтаксисе
+                regexp -->
                 <tr lang="ru" finished="false">Используйте backtick вместо backslash в синтаксисе
                 regexp</tr>
             </par>
             <par>
                 <tr lang="en">if you want to match property - use double quotes in arg list:
                 "@prop+"</tr>
+                <!-- old: если вы хотите сопоставить недвижимость -
+                используйте двойные котировки в списке arg: "@prop+" -->
                 <tr lang="ru" finished="false">если вы хотите сопоставить недвижимость -
                 используйте двойные котировки в списке arg: "@prop+"</tr>
             </par>
@@ -90,21 +94,25 @@
             <outlet number="1">
                 <out type="any">
                     <tr lang="en">output match to first regexp</tr>
+                    <tr lang="ru" finished="false">Выходной матч для первого regexp</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">output match to ... regexp</tr>
+                    <tr lang="ru" finished="false">Производитель: Regexp</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">output match to n-th regexp</tr>
+                    <tr lang="ru" finished="false">выходной матч для n-го regexp</tr>
                 </out>
             </outlet>
             <outlet number="n+1">
                 <out type="any">
                     <tr lang="en">unmatched output</tr>
+                    <tr lang="ru" finished="false">непревзойденный выход</tr>
                 </out>
             </outlet>
         </outlets>

@@ -26,6 +26,8 @@
             <!-- @append -->
             <property name="@append" type="flag" default="0" access="initonly">
                 <tr lang="en">put element index after element value</tr>
+                <!-- old: поставить индекс элемента после значения
+                элемента -->
                 <tr lang="ru" finished="false">поставить индекс элемента после значения
                 элемента</tr>
             </property>
@@ -51,6 +53,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output list</tr>
+                    <tr lang="ru" finished="false">перечень мероприятий</tr>
                 </out>
             </outlet>
         </outlets>

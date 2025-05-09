@@ -29,9 +29,11 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">symbol</tr>
+                    <tr lang="ru" finished="false">символ</tr>
                 </xinfo>
                 <xinfo on="data:string">
                     <tr lang="en">string</tr>
+                    <tr lang="ru" finished="false">струна</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -39,6 +41,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output message</tr>
+                    <tr lang="ru" finished="false">выходное сообщение</tr>
                 </out>
             </outlet>
         </outlets>

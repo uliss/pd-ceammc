@@ -55,11 +55,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">value to the side-chain</tr>
+                    <tr lang="ru" finished="false">значение для боковой цепи</tr>
                 </out>
             </outlet>
         </outlets>

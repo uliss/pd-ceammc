@@ -45,6 +45,8 @@
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">set the new array, then process each element</tr>
+                    <!-- old: установить новый массив, затем обработать каждый
+                    элемент -->
                     <tr lang="ru" finished="false">установить новый массив, затем обработать каждый
                     элемент</tr>
                 </xinfo>
@@ -52,6 +54,8 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">processed float value from side-chain</tr>
+                    <!-- old: Обработанная поплавковая стоимость из боковой
+                    цепи -->
                     <tr lang="ru" finished="false">Обработанная поплавковая стоимость из боковой
                     цепи</tr>
                 </xinfo>
@@ -61,11 +65,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bang on finish</tr>
+                    <tr lang="ru" finished="false">Взрыв на финише</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">float value</tr>
+                    <tr lang="ru" finished="false">плавающая стоимость</tr>
                 </out>
             </outlet>
         </outlets>

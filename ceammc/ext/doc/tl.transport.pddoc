@@ -25,9 +25,11 @@
             <method name="cue">
                 <info>
                     <tr lang="en">sets cue index</tr>
+                    <tr lang="ru" finished="false">Устанавливает индекс Cue</tr>
                 </info>
                 <param name="N" type="int" minvalue="0">
                     <tr lang="en">cue index</tr>
+                    <tr lang="ru" finished="false">индекс сигнала</tr>
                 </param>
             </method>
         </methods>
@@ -35,6 +37,7 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">control input</tr>
+                    <tr lang="ru" finished="false">контрольный вход</tr>
                 </xinfo>
             </inlet>
         </inlets>

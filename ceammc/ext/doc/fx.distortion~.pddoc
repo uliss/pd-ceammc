@@ -23,6 +23,8 @@
             </argument>
             <argument name="OFFSET" type="float" minvalue="0" maxvalue="0.5">
                 <tr lang="en">constant added before nonlinearity to give even harmonics</tr>
+                <!-- old: константа, добавляемая перед нелинейностью для
+                придания четной гармоники -->
                 <tr lang="ru" finished="false">константа, добавляемая перед нелинейностью для
                 придания четной гармоники</tr>
             </argument>
@@ -34,6 +36,8 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
@@ -46,12 +50,16 @@
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet.</tr>
+                <!-- old: пропорция смеси между исходным (сухим) и «влажным»
+                сигналами. 0 - сухой сигнал, 1 - влажный. -->
                 <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
                 сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
             </property>
             <!-- @offset -->
             <property name="@offset" type="float" minvalue="0" maxvalue="0.5" default="0">
                 <tr lang="en">constant added before nonlinearity to give even harmonics</tr>
+                <!-- old: константа, добавляемая перед нелинейностью для
+                придания четной гармоники -->
                 <tr lang="ru" finished="false">константа, добавляемая перед нелинейностью для
                 придания четной гармоники</tr>
             </property>
@@ -77,6 +85,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

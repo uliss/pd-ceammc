@@ -56,6 +56,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal in [1, -1] range</tr>
+                    <tr lang="ru" finished="false">выходной сигнал в [1, -1] диапазоне</tr>
                 </out>
             </outlet>
         </outlets>

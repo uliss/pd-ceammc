@@ -26,6 +26,8 @@
             <par>
                 <tr lang="en">mostly syntax sugar for clear schemes, but can be used in dynamic
                 pathing</tr>
+                <!-- old: В основном синтаксический сахар для четких схем, но
+                может использоваться в динамических дорожках. -->
                 <tr lang="ru" finished="false">В основном синтаксический сахар для четких схем, но
                 может использоваться в динамических дорожках.</tr>
             </par>
@@ -68,6 +70,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

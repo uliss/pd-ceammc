@@ -24,6 +24,9 @@
                 <tr lang="en">The object can be in bang, button and toggle modes. The button mode
                 is default: outputs 1 on mouse down, 0 on mouse up. See @mode property for more
                 information.</tr>
+                <tr lang="ru" finished="false">Объект может находиться в режимах bang, button и
+                toggle. Режим кнопки по умолчанию: выводит 1 на мышь вниз, 0 на мышь вверх. См.
+                @mode Property для получения дополнительной информации.</tr>
             </par>
         </info>
         <mouse>
@@ -42,6 +45,7 @@
             enum="add add_circle add_circle_outline add_to_queue alarm alarm_off alarm_on album arrow_down arrow_left arrow_right arrow_up audio backspace block bluetooth blur_on bookmark bookmark_border build cached capslock ceammc check_circle clear clock computer content_cut copy copyright delete delete_forever done eject equalizer exit fast_forward fast_rewind favorite favorite_border fingerprint flag folder folder_open functions gamepad get_app grade grain group hdmi headset headset_mic hearing help help_outline history home hourglass info info_outline input keyboard label label_outline levels lightbulb_outline linear_scale list lock lock_open loop mic mic_none mic_off midi mouse movie notifications open_with pause pause_circle_filled pause_circle_outline play play_circle_filled play_circle_filled_white play_circle_outline power radio record redo refresh remove remove_circle remove_circle_outline repeat repeat_one report_problem save search select_all settings settings2 settings_voice shuffle skip_next skip_previous speaker speaker_group stars stop tape timeline touch_app trending_flat undo videocam visibility visibility_off volume_down volume_mute volume_off volume_up zoom_in zoom_out">
 
                 <tr lang="en">icon name from the list</tr>
+                <tr lang="ru" finished="false">Имя иконы из списка</tr>
             </argument>
         </arguments>
         <properties>
@@ -58,30 +62,40 @@
             <property name="@background_color" type="list" default="1 1 1 1">
                 <tr lang="en">element background color (list of red, green, blue values in 0-1
                 range)</tr>
+                <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @border_color -->
             <property name="@border_color" type="list" default="1 1 1 1">
                 <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">пограничный цвет (список красных, зеленых, синих
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @enabled -->
             <property name="@enabled" type="bool" default="1">
                 <tr lang="en">enabled property</tr>
+                <tr lang="ru" finished="false">разрешенная собственность</tr>
             </property>
             <!-- @icon -->
             <property name="@icon" type="symbol" default="help"
             enum="add add_circle add_circle_outline add_to_queue alarm alarm_off alarm_on album arrow_down arrow_left arrow_right arrow_up audio backspace block bluetooth blur_on bookmark bookmark_border build cached capslock check_circle ceammc clear clock computer content_cut copy copyright delete delete_forever done eject equalizer exit fast_forward fast_rewind favorite favorite_border fingerprint flag folder folder_open functions gamepad get_app grade grain group hdmi headset headset_mic hearing help help_outline history home hourglass info info_outline input keyboard label label_outline levels lightbulb_outline linear_scale list lock lock_open loop mic mic_none mic_off midi mouse movie notifications open_with pause pause_circle_filled pause_circle_outline play play_circle_filled play_circle_filled_white play_circle_outline power radio record redo refresh remove remove_circle remove_circle_outline repeat repeat_one report_problem save search select_all settings settings2 settings_voice shuffle skip_next skip_previous speaker speaker_group stars stop tape timeline touch_app trending_flat undo videocam visibility visibility_off volume_down volume_mute volume_off volume_up zoom_in zoom_out">
 
                 <tr lang="en">icon name</tr>
+                <tr lang="ru" finished="false">имя иконы</tr>
             </property>
             <!-- @icon_size -->
             <property name="@icon_size" type="int" default="24" enum="18 24 36 48">
                 <tr lang="en">icons size</tr>
+                <tr lang="ru" finished="false">размер иконки</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="toggle button bang" default="button">
                 <tr lang="en">the output mode. In the bang mode - outputs the bang on mouse down.
                 In the button mode outputs 1 on mouse down and 0 on mouse up. In the toggle mode
                 outputs 1/0 on mouse down, like vanilla toggle object.</tr>
+                <tr lang="ru" finished="false">Режим выхода. В режиме bang — выводит bang на мышь
+                вниз. В режиме кнопки выводит 1 на мышь вниз и 0 на мышь вверх. В режиме
+                переключения выводит 1/0 на мышь вниз, как объект переключения ванили.</tr>
             </property>
         </properties>
         <methods>
@@ -89,51 +103,63 @@
             <method name="clear">
                 <info>
                     <tr lang="en">clears specified preset</tr>
+                    <tr lang="ru" finished="false">заданный заранее</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
             <!-- interp -->
             <method name="interp">
                 <info>
                     <tr lang="en">for this object acts as *load*, no interpolation performed</tr>
+                    <tr lang="ru" finished="false">для этого объекта действует как *load*,
+                    интерполяция не выполняется</tr>
                 </info>
             </method>
             <!-- load -->
             <method name="load">
                 <info>
                     <tr lang="en">loads specified preset</tr>
+                    <tr lang="ru" finished="false">заданный заранее заданный</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
             <!-- pos -->
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
             <!-- set -->
             <method name="set">
                 <info>
                     <tr lang="en">sets icon name</tr>
+                    <tr lang="ru" finished="false">Имя иконы</tr>
                 </info>
             </method>
             <!-- store -->
             <method name="store">
                 <info>
                     <tr lang="en">stores specified preset</tr>
+                    <tr lang="ru" finished="false">магазины, указанные Preset</tr>
                 </info>
                 <param name="IDX" type="int" required="true">
                     <tr lang="en">preset index</tr>
+                    <tr lang="ru" finished="false">предустановленный индекс</tr>
                 </param>
             </method>
         </methods>
@@ -141,6 +167,7 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">(hidden inlet!) see @mode property</tr>
+                    <tr lang="ru" finished="false">(скрытый вход!) см. @mode property</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -148,6 +175,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">(hidden outlet!) see @mode property</tr>
+                    <tr lang="ru" finished="false">(скрытый выход!) см. @mode property</tr>
                 </out>
             </outlet>
         </outlets>

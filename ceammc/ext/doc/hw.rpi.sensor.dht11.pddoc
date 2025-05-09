@@ -29,6 +29,9 @@
                 <tr lang="en">When using a 3.5V voltage supply cable length shall not be greater
                 than 20cm. Otherwise, the line voltage drop will cause the sensor power supply
                 shortage, caused by measurement error</tr>
+                <!-- old: При использовании кабеля питания напряжением 3,5 В
+                длина не должна превышать 20 см. В противном случае падение напряжения линии
+                вызовет дефицит питания датчика, вызванный ошибкой измерения. -->
                 <tr lang="ru" finished="false">При использовании кабеля питания напряжением 3,5 В
                 длина не должна превышать 20 см. В противном случае падение напряжения линии
                 вызовет дефицит питания датчика, вызванный ошибкой измерения.</tr>
@@ -73,6 +76,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list: TEMPERATURE(in Celsius) HUMIDITY</tr>
+                    <tr lang="ru" finished="false">Список: ТЕМПЕРАТУРА (в Цельсиях)</tr>
                 </out>
             </outlet>
         </outlets>

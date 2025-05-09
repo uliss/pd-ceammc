@@ -28,27 +28,34 @@
             <par>
                 <tr lang="en">Bang only when nearest left tl.cue was activated. If other cue is
                 activated and bang was scheduled by @delay property - it canceled</tr>
+                <tr lang="ru" finished="false">Взрыв произошел только при активации ближайшего
+                левого tl.cue. Если активирован другой сигнал и взрыв был запланирован
+                собственностью @delay - он отменен</tr>
             </par>
         </info>
         <arguments>
             <argument name="DELAY" type="float" minvalue="0" units="millisecond">
                 <tr lang="en">timeline length</tr>
+                <tr lang="ru" finished="false">продолжительность</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @cue -->
             <property name="@cue" type="symbol" access="readonly" default="">
                 <tr lang="en">related cue</tr>
+                <tr lang="ru" finished="false">связанный сигнал</tr>
             </property>
             <!-- @delay -->
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
                 <tr lang="en">bang delay after cue activation</tr>
+                <tr lang="ru" finished="false">задержка взрыва после активации сигнала</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">control inlet</tr>
+                    <tr lang="ru" finished="false">контрольный вход</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -56,6 +63,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bang output</tr>
+                    <tr lang="ru" finished="false">взрывной выход</tr>
                 </out>
             </outlet>
         </outlets>

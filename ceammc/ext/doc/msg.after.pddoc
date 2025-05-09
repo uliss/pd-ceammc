@@ -25,6 +25,8 @@
             <par>
                 <tr lang="en">if new input message received, while delayed message is not send, the
                 delayed message is resetted</tr>
+                <!-- old: если получено новое входное сообщение, а отложенное
+                сообщение не отправлено, то отложенное сообщение сбрасывается -->
                 <tr lang="ru" finished="false">если получено новое входное сообщение, а отложенное
                 сообщение не отправлено, то отложенное сообщение сбрасывается</tr>
             </par>
@@ -57,6 +59,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">message output</tr>
+                    <tr lang="ru" finished="false">сообщение</tr>
                 </out>
             </outlet>
         </outlets>

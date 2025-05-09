@@ -23,6 +23,7 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs memory size</tr>
+                    <tr lang="ru" finished="false">выходной размер памяти</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -30,6 +31,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">physical memory (RAM) size in bytes</tr>
+                    <tr lang="ru" finished="false">Размер физической памяти (RAM) в байтах</tr>
                 </out>
             </outlet>
         </outlets>

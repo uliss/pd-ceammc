@@ -32,6 +32,8 @@
                 <out type="any">
                     <tr lang="en">output time between the current and the previous message in
                     milliseconds</tr>
+                    <tr lang="ru" finished="false">время вывода между текущим и предыдущим
+                    сообщением в миллисекундах</tr>
                 </out>
             </outlet>
         </outlets>

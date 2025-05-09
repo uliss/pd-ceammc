@@ -23,6 +23,8 @@
             <par>
                 <tr lang="en">The log2() function computes the value of the logarithm of argument x
                 to base 2.</tr>
+                <!-- old: Функция log2() вычисляет значение логарифма
+                аргумента x к основанию 2. -->
                 <tr lang="ru" finished="false">Функция log2() вычисляет значение логарифма
                 аргумента x к основанию 2.</tr>
             </par>
@@ -55,6 +57,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result value</tr>
+                    <tr lang="ru" finished="false">значение результата</tr>
                 </out>
             </outlet>
         </outlets>

@@ -23,6 +23,8 @@
             </par>
             <par>
                 <tr lang="en">when pedal is off: output all sustained notes off</tr>
+                <!-- old: когда педаль выключена: выведите все устойчивые
+                ноты -->
                 <tr lang="ru" finished="false">когда педаль выключена: выведите все устойчивые
                 ноты</tr>
             </par>
@@ -63,6 +65,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">MIDI output: NOTE VEL</tr>
+                    <tr lang="ru" finished="false">Вывод MIDI: Примечание VEL</tr>
                 </out>
             </outlet>
         </outlets>

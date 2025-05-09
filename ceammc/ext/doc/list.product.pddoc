@@ -23,6 +23,8 @@
             <par>
                 <tr lang="en">Note: symbol values are treated as 0. So if list contains at least
                 one symbol, product will be always equal to zero</tr>
+                <!-- old: Примечание: значения символов рассматриваются как 0.
+                Если список содержит хотя бы один символ, продукт всегда будет равен нулю. -->
                 <tr lang="ru" finished="false">Примечание: значения символов рассматриваются как 0.
                 Если список содержит хотя бы один символ, продукт всегда будет равен нулю.</tr>
             </par>
@@ -43,6 +45,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float list product</tr>
+                    <tr lang="ru" finished="false">листовой продукт</tr>
                 </out>
             </outlet>
         </outlets>

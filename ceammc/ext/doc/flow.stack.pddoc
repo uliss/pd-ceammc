@@ -38,6 +38,10 @@
                 <tr lang="en">message send to destination address when stack becomes empty. First
                 list element is address to send, other additional elements treated as message or
                 bang if not specified.</tr>
+                <!-- old: Сообщение отправляется на адрес назначения, когда
+                стек становится пустым. Первый элемент списка - это адрес для отправки, другие
+                дополнительные элементы, рассматриваемые как сообщение или взрыв, если не
+                указано. -->
                 <tr lang="ru" finished="false">Сообщение отправляется на адрес назначения, когда
                 стек становится пустым. Первый элемент списка - это адрес для отправки, другие
                 дополнительные элементы, рассматриваемые как сообщение или взрыв, если не
@@ -48,6 +52,10 @@
                 <tr lang="en">message send to destination address when stack becomes full. First
                 list element is address to send, other additional elements treated as message or
                 bang if not specified.</tr>
+                <!-- old: Сообщение отправляется на адрес назначения, когда
+                стек становится полным. Первый элемент списка - это адрес для отправки, другие
+                дополнительные элементы, рассматриваемые как сообщение или взрыв, если не
+                указано. -->
                 <tr lang="ru" finished="false">Сообщение отправляется на адрес назначения, когда
                 стек становится полным. Первый элемент списка - это адрес для отправки, другие
                 дополнительные элементы, рассматриваемые как сообщение или взрыв, если не
@@ -93,6 +101,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output</tr>
+                    <tr lang="ru" finished="false">выход</tr>
                 </out>
             </outlet>
         </outlets>

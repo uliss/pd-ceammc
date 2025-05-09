@@ -41,26 +41,36 @@
             <!-- @mode -->
             <property name="@mode" type="symbol" default="lines" enum="lines bars">
                 <tr lang="en">draw mode</tr>
+                <tr lang="ru" finished="false">режим рисования</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="1" maxvalue="4" default="1">
                 <tr lang="en">number of inputs</tr>
+                <tr lang="ru" finished="false">Количество входов</tr>
             </property>
             <!-- @plot_color0 -->
             <property name="@plot_color0" type="list" default="0 0.75 1 1">
                 <tr lang="en">first plot color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">первый цвет участка (список красных, зеленых, синих
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @plot_color1 -->
             <property name="@plot_color1" type="list" default="0.75 0 1 1">
                 <tr lang="en">second color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">второй цвет (список красного, зеленого, синего
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @plot_color2 -->
             <property name="@plot_color2" type="list" default="1 0 0.75 1">
                 <tr lang="en">third color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">третий цвет (список красных, зеленых, синих значений
+                в диапазоне 0-1)</tr>
             </property>
             <!-- @plot_color3 -->
             <property name="@plot_color3" type="list" default="1 0.75 0 1">
                 <tr lang="en">fourth color (list of red, green, blue values in 0-1 range)</tr>
+                <tr lang="ru" finished="false">четвертый цвет (лист красного, зеленого, синего
+                значений в диапазоне 0-1)</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="200 200">
@@ -133,18 +143,23 @@
             <method name="plot">
                 <info>
                     <tr lang="en">Same as bang: plot default number of samples</tr>
+                    <tr lang="ru" finished="false">То же, что и Bang: количество образцов по
+                    умолчанию</tr>
                 </info>
             </method>
             <!-- pos -->
             <method name="pos">
                 <info>
                     <tr lang="en">set UI element position</tr>
+                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
                 </info>
                 <param name="X" type="float" required="true">
                     <tr lang="en">top left x-coord</tr>
+                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">top right y-coord</tr>
+                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
                 </param>
             </method>
         </methods>
@@ -152,14 +167,17 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">plot default number of samples</tr>
+                    <tr lang="ru" finished="false">План по умолчанию Количество образцов</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">plot specified number of samples</tr>
+                    <tr lang="ru" finished="false">участок заданное количество образцов</tr>
                 </xinfo>
             </inlet>
         </inlets>

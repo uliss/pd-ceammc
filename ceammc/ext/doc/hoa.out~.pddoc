@@ -28,6 +28,8 @@
             <par>
                 <tr lang="en">defines a signal outlet for a patcher loaded by a hoa.process~
                 object</tr>
+                <!-- old: определяет выход сигнала для пластыря, загруженного
+                объектом hoa.process~ -->
                 <tr lang="ru" finished="false">определяет выход сигнала для пластыря, загруженного
                 объектом hoa.process~</tr>
             </par>
@@ -43,6 +45,9 @@
             <property name="@extra" type="int" minvalue="0" default="0">
                 <tr lang="en">extra inlet. Extra inlet are added to the "normal" instance inlet and
                 can be used to send signal to all instances</tr>
+                <!-- old: дополнительный вход. Дополнительный вход добавляется
+                к входу «нормального» экземпляра и может использоваться для отправки сигнала во все
+                экземпляры. -->
                 <tr lang="ru" finished="false">дополнительный вход. Дополнительный вход добавляется
                 к входу «нормального» экземпляра и может использоваться для отправки сигнала во все
                 экземпляры.</tr>
@@ -53,6 +58,8 @@
                 <xinfo>
                     <tr lang="en">output signal in the corresponding hoa.process~ object's signal
                     outlet</tr>
+                    <!-- old: выходной сигнал в соответствующем hoa.process~
+                    выходной сигнал объекта -->
                     <tr lang="ru" finished="false">выходной сигнал в соответствующем hoa.process~
                     выходной сигнал объекта</tr>
                 </xinfo>

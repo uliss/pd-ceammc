@@ -40,6 +40,8 @@
             <!-- @sync -->
             <property name="@sync" type="bool" default="0">
                 <tr lang="en">sync mode - change pattern after full cycle</tr>
+                <!-- old: Режим синхронизации - изменение шаблона после
+                полного цикла -->
                 <tr lang="ru" finished="false">Режим синхронизации - изменение шаблона после
                 полного цикла</tr>
             </property>
@@ -62,11 +64,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs *bang*</tr>
+                    <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs current pattern index and bang on each cycle</tr>
+                    <tr lang="ru" finished="false">выводит текущий индекс шаблона и удар по каждому
+                    циклу</tr>
                 </out>
             </outlet>
         </outlets>

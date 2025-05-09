@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">Outputs the value of the logarithm of argument x to base 2</tr>
+                <!-- old: Выводит значение логарифма аргумента x к основанию
+                2 -->
                 <tr lang="ru" finished="false">Выводит значение логарифма аргумента x к основанию
                 2</tr>
             </par>
@@ -51,6 +53,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">result signal</tr>
+                    <tr lang="ru" finished="false">результат сигнала</tr>
                 </out>
             </outlet>
         </outlets>

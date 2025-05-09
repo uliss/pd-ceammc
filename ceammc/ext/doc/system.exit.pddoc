@@ -19,20 +19,25 @@
         <arguments>
             <argument name="DELAY" type="float" minvalue="0" units="millisecond">
                 <tr lang="en">exit delay time</tr>
+                <tr lang="ru" finished="false">Время задержки выхода</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @auto -->
             <property name="@auto" type="bool" default="0">
                 <tr lang="en">close automatically, without incoming call</tr>
+                <tr lang="ru" finished="false">Закрыть автоматически, без входящего вызова</tr>
             </property>
             <!-- @delay -->
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
                 <tr lang="en">exit PureData after specified delay time</tr>
+                <tr lang="ru" finished="false">выход из PureData после определенного времени
+                задержки</tr>
             </property>
             <!-- @rc -->
             <property name="@rc" type="int" default="0">
                 <tr lang="en">exit code</tr>
+                <tr lang="ru" finished="false">код выхода</tr>
             </property>
         </properties>
         <methods>
@@ -40,9 +45,11 @@
             <method name="exit">
                 <info>
                     <tr lang="en">exit PureData</tr>
+                    <tr lang="ru" finished="false">Выход PureData</tr>
                 </info>
                 <param name="RC" type="int">
                     <tr lang="en">exit code, if not specified @rc property used</tr>
+                    <tr lang="ru" finished="false">код выхода, если не указано свойство @rc</tr>
                 </param>
             </method>
         </methods>
@@ -50,6 +57,7 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">control input</tr>
+                    <tr lang="ru" finished="false">контрольный вход</tr>
                 </xinfo>
             </inlet>
         </inlets>

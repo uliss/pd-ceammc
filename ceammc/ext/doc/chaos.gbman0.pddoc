@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
+                <!-- old: Неинтерполирующий генератор, основанный на
+                разностных уравнениях: -->
                 <tr lang="ru" finished="false">Неинтерполирующий генератор, основанный на
                 разностных уравнениях:</tr>
             </par>
@@ -59,11 +61,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs x-value</tr>
+                    <tr lang="ru" finished="false">выходы x-значения</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">outputs y-value</tr>
+                    <tr lang="ru" finished="false">выход y-значения</tr>
                 </out>
             </outlet>
         </outlets>

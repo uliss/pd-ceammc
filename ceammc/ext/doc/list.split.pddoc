@@ -24,6 +24,8 @@
             <argument name="AT" type="int" minvalue="0">
                 <tr lang="en">size of first list. The size of the list on the second output is the
                 size of input list - this value</tr>
+                <!-- old: Размер первого списка. Размер списка на втором
+                выходе - это размер входного списка - это значение -->
                 <tr lang="ru" finished="false">Размер первого списка. Размер списка на втором
                 выходе - это размер входного списка - это значение</tr>
             </argument>
@@ -51,11 +53,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">first sub-list of given size</tr>
+                    <tr lang="ru" finished="false">Первый подсписок заданных размеров</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">second sub-list</tr>
+                    <tr lang="ru" finished="false">второй подсписок</tr>
                 </out>
             </outlet>
         </outlets>

@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">If relative path is given file searched under patch directory</tr>
+                <!-- old: Если относительный путь задан, файл ищется в
+                каталоге патчей -->
                 <tr lang="ru" finished="false">Если относительный путь задан, файл ищется в
                 каталоге патчей</tr>
             </par>
@@ -30,6 +32,8 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">outputs '1' if file exists and can be opened, otherwise '0'</tr>
+                    <!-- old: выходы 1 если файл существует и может быть
+                    открыт, в противном случае 0 -->
                     <tr lang="ru" finished="false">выходы 1 если файл существует и может быть
                     открыт, в противном случае 0</tr>
                 </xinfo>
@@ -39,11 +43,14 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">0 or 1</tr>
+                    <tr lang="ru" finished="false">0 или 1</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">symbol os String: pass filename if file exists</tr>
+                    <tr lang="ru" finished="false">Символ os String: передайте имя файла, если файл
+                    существует</tr>
                 </out>
             </outlet>
         </outlets>

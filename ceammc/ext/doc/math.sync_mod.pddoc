@@ -29,6 +29,8 @@
             <par>
                 <tr lang="en">on division by zero outputs nothing: just put error message into
                 console</tr>
+                <!-- old: на деление на ноль ничего не выводит: просто
+                поместите сообщение об ошибке в консоль -->
                 <tr lang="ru" finished="false">на деление на ноль ничего не выводит: просто
                 поместите сообщение об ошибке в консоль</tr>
             </par>
@@ -50,12 +52,16 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set modulo divident, calculate and output remainder</tr>
+                    <!-- old: установить модульный делитель, рассчитать и
+                    вывести остаток -->
                     <tr lang="ru" finished="false">установить модульный делитель, рассчитать и
                     вывести остаток</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pair: set modulo divident and divisor, calculate and output
                     remainder</tr>
+                    <!-- old: пара: установить модульный делитель и делитель,
+                    рассчитать и вывести остаток -->
                     <tr lang="ru" finished="false">пара: установить модульный делитель и делитель,
                     рассчитать и вывести остаток</tr>
                 </xinfo>
@@ -63,6 +69,8 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">change divisor, calculate and output result</tr>
+                    <!-- old: изменение делителя, вычисление и выходной
+                    результат -->
                     <tr lang="ru" finished="false">изменение делителя, вычисление и выходной
                     результат</tr>
                 </xinfo>
@@ -72,6 +80,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">remainder signed as first number</tr>
+                    <tr lang="ru" finished="false">Остаток подписан первым номером</tr>
                 </out>
             </outlet>
         </outlets>

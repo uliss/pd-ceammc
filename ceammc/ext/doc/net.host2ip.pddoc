@@ -58,6 +58,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list of resolved IP's</tr>
+                    <tr lang="ru" finished="false">Список разрешенных IP</tr>
                 </out>
             </outlet>
         </outlets>

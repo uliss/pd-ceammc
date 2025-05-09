@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">One band per octave. 5th-order Butterworth filters</tr>
+                <!-- old: Одна полоса на октаву. 5-я Заказать фильтры
+                Butterworth -->
                 <tr lang="ru" finished="false">Одна полоса на октаву. 5-я Заказать фильтры
                 Butterworth</tr>
             </par>
@@ -116,6 +118,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

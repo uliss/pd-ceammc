@@ -21,211 +21,270 @@
             <method name="activesense">
                 <info>
                     <tr lang="en">send Active Sense realtime message (0xFE)</tr>
+                    <tr lang="ru" finished="false">Сообщение Active Sense в реальном времени
+                    (0xFE)</tr>
                 </info>
             </method>
             <!-- aftertouch -->
             <method name="aftertouch">
                 <info>
                     <tr lang="en">send After Touch (Mono) message</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение After Touch (Mono)</tr>
                 </info>
                 <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
                     <tr lang="en">midi channel</tr>
+                    <tr lang="ru" finished="false">канал Midi</tr>
                 </param>
                 <param name="VEL" type="int" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">velocity</tr>
+                    <tr lang="ru" finished="false">скорость</tr>
                 </param>
             </method>
             <!-- cc -->
             <method name="cc">
                 <info>
                     <tr lang="en">send Control Change message</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение Control Change</tr>
                 </info>
                 <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
                     <tr lang="en">midi channel</tr>
+                    <tr lang="ru" finished="false">канал Midi</tr>
                 </param>
                 <param name="CTL" type="int" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">control number</tr>
+                    <tr lang="ru" finished="false">контрольный номер</tr>
                 </param>
                 <param name="VAL" type="int" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">control value</tr>
+                    <tr lang="ru" finished="false">контрольная величина</tr>
                 </param>
             </method>
             <!-- clock -->
             <method name="clock">
                 <info>
                     <tr lang="en">send Timing Clock realtime message (0xF8)</tr>
+                    <tr lang="ru" finished="false">Сообщение в режиме реального времени (0xF8)</tr>
                 </info>
             </method>
             <!-- continue -->
             <method name="continue">
                 <info>
                     <tr lang="en">send Continue realtime message (0xFB)</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение в реальном времени
+                    (0xFB)</tr>
                 </info>
             </method>
             <!-- note -->
             <method name="note">
                 <info>
                     <tr lang="en">alias to [noteon(</tr>
+                    <tr lang="ru" finished="false">псевдоним [noteon()</tr>
                 </info>
             </method>
             <!-- noteoff -->
             <method name="noteoff">
                 <info>
                     <tr lang="en">send Note Off message</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение Note Off</tr>
                 </info>
                 <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
                     <tr lang="en">midi channel</tr>
+                    <tr lang="ru" finished="false">канал Midi</tr>
                 </param>
                 <param name="NOTE" type="int" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">midi note</tr>
+                    <tr lang="ru" finished="false">нота миди</tr>
                 </param>
                 <param name="VEL" type="int" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">velocity</tr>
+                    <tr lang="ru" finished="false">скорость</tr>
                 </param>
             </method>
             <!-- noteon -->
             <method name="noteon">
                 <info>
                     <tr lang="en">send Note On message</tr>
+                    <tr lang="ru" finished="false">Отправить записку на сообщение</tr>
                 </info>
                 <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
                     <tr lang="en">midi channel</tr>
+                    <tr lang="ru" finished="false">канал Midi</tr>
                 </param>
                 <param name="NOTE" type="int" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">midi note</tr>
+                    <tr lang="ru" finished="false">нота миди</tr>
                 </param>
                 <param name="VEL" type="int" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">velocity</tr>
+                    <tr lang="ru" finished="false">скорость</tr>
                 </param>
             </method>
             <!-- notes_off -->
             <method name="notes_off">
                 <info>
                     <tr lang="en">send All Notes Off message</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение All Notes Off</tr>
                 </info>
                 <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
                     <tr lang="en">midi channel. if missing or -1: send to all channels</tr>
+                    <tr lang="ru" finished="false">Midi-канал, если отсутствует или -1: отправляйте
+                    на все каналы</tr>
                 </param>
             </method>
             <!-- panic -->
             <method name="panic">
                 <info>
                     <tr lang="en">send All Notes Off message</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение All Notes Off</tr>
                 </info>
                 <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
                     <tr lang="en">midi channel. if missing or -1: send to all channels</tr>
+                    <tr lang="ru" finished="false">Midi-канал, если отсутствует или -1: отправляйте
+                    на все каналы</tr>
                 </param>
             </method>
             <!-- pitchwheel -->
             <method name="pitchwheel">
                 <info>
                     <tr lang="en">send Pitch Wheel message</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение Pitch Wheel</tr>
                 </info>
                 <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
                     <tr lang="en">midi channel</tr>
+                    <tr lang="ru" finished="false">канал Midi</tr>
                 </param>
                 <param name="VAL" type="int" minvalue="-8192" maxvalue="8191" required="true">
                     <tr lang="en">value</tr>
+                    <tr lang="ru" finished="false">ценность</tr>
                 </param>
             </method>
             <!-- polytouch -->
             <method name="polytouch">
                 <info>
                     <tr lang="en">send After Touch (Poly) message</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение After Touch (Poly)</tr>
                 </info>
                 <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
                     <tr lang="en">midi channel</tr>
+                    <tr lang="ru" finished="false">канал Midi</tr>
                 </param>
                 <param name="NOTE" type="int" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">midi note</tr>
+                    <tr lang="ru" finished="false">нота миди</tr>
                 </param>
                 <param name="VEL" type="int" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">velocity</tr>
+                    <tr lang="ru" finished="false">скорость</tr>
                 </param>
             </method>
             <!-- program -->
             <method name="program">
                 <info>
                     <tr lang="en">send Program Change message</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение Program Change</tr>
                 </info>
                 <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
                     <tr lang="en">midi channel</tr>
+                    <tr lang="ru" finished="false">канал Midi</tr>
                 </param>
                 <param name="N" type="int" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">program number</tr>
+                    <tr lang="ru" finished="false">номер программы</tr>
                 </param>
             </method>
             <!-- raw -->
             <method name="raw">
                 <info>
                     <tr lang="en">send raw midi bytes</tr>
+                    <tr lang="ru" finished="false">Отправьте миди-байт</tr>
                 </info>
                 <param name="DATA" type="list" required="true">
                     <tr lang="en">raw midi data: integers in [0-127] range or hex values: Ox3F
                     etc.</tr>
+                    <tr lang="ru" finished="false">необработанные данные миди: целые числа в
+                    диапазоне [0-127] или шестизначные значения: Ox3F и т.д.</tr>
                 </param>
             </method>
             <!-- songpos -->
             <method name="songpos">
                 <info>
                     <tr lang="en">send Song Position Pointer message (0xF2)</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение Song Position Pointer
+                    (0xF2)</tr>
                 </info>
                 <param name="IDX" type="int" minvalue="0" required="true">
                     <tr lang="en">position</tr>
+                    <tr lang="ru" finished="false">положение</tr>
                 </param>
                 <param name="DUR" type="int" enum="1 2 4 8 16" default="16" required="false">
                     <tr lang="en">position duration. By default is sixteen note.</tr>
+                    <tr lang="ru" finished="false">Продолжительность позиции. По умолчанию
+                    шестнадцать нот.</tr>
                 </param>
             </method>
             <!-- songsel -->
             <method name="songsel">
                 <info>
                     <tr lang="en">send Song Select message (0xF3)</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение Song Select (0xF3)</tr>
                 </info>
                 <param name="IDX" type="int" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">song index</tr>
+                    <tr lang="ru" finished="false">Индекс песен</tr>
                 </param>
             </method>
             <!-- sound_off -->
             <method name="sound_off">
                 <info>
                     <tr lang="en">send All Sound Off message</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение All Sound Off</tr>
                 </info>
                 <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
                     <tr lang="en">midi channel. if missing or -1: send to all channels</tr>
+                    <tr lang="ru" finished="false">Midi-канал, если отсутствует или -1: отправляйте
+                    на все каналы</tr>
                 </param>
             </method>
             <!-- start -->
             <method name="start">
                 <info>
                     <tr lang="en">send Start realtime message (0xFA)</tr>
+                    <tr lang="ru" finished="false">Отправьте сообщение в реальном времени
+                    (0xFA)</tr>
                 </info>
             </method>
             <!-- stop -->
             <method name="stop">
                 <info>
                     <tr lang="en">send Stop realtime message (0xFC)</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение Stop Realtime (0xFC)</tr>
                 </info>
             </method>
             <!-- sysex -->
             <method name="sysex">
                 <info>
                     <tr lang="en">send SysEx message (0xF0)</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение SysEx (0xF0)</tr>
                 </info>
                 <param name="BYTES" type="list" minvalue="0" maxvalue="127" required="true">
                     <tr lang="en">sysex message body</tr>
+                    <tr lang="ru" finished="false">тело сисекс сообщения</tr>
                 </param>
             </method>
             <!-- sysreset -->
             <method name="sysreset">
                 <info>
                     <tr lang="en">send System Reset realtime message (0xFF)</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение System Reset в реальном
+                    времени (0xFF)</tr>
                 </info>
             </method>
             <!-- tick -->
             <method name="tick">
                 <info>
                     <tr lang="en">send Timing Tick realtime message (0xF9)</tr>
+                    <tr lang="ru" finished="false">Отправьте сообщение Timing Tick в реальном
+                    времени (0xF9)</tr>
                 </info>
             </method>
             <!-- timecode -->
@@ -233,19 +292,25 @@
                 <info>
                     <tr lang="en">send midi timecode as series of MTC quarter frame messages
                     (0xF1)</tr>
+                    <tr lang="ru" finished="false">Отправка среднего тайм-кода в виде серии
+                    сообщений MTC Quarter Frame (0xF1)</tr>
                 </info>
                 <param name="TIME" type="atom" required="true">
                     <tr lang="en">time value. Various formats can be used: 100sec, 1h, 20.5min or
                     01:12:34.11.</tr>
+                    <tr lang="ru" finished="false">временная стоимость. Можно использовать
+                    различные форматы: 100sec, 1h, 20.5min или 01:12:34.11.</tr>
                 </param>
                 <param name="FPS" type="float" enum="24 25 29.97 30" required="true">
                     <tr lang="en">framerate</tr>
+                    <tr lang="ru" finished="false">рамка</tr>
                 </param>
             </method>
             <!-- tunerequest -->
             <method name="tunerequest">
                 <info>
                     <tr lang="en">send Tune Request message (0xF6)</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение Tune request (0xF6)</tr>
                 </info>
             </method>
         </methods>
@@ -253,9 +318,11 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">raw midi input bytes</tr>
+                    <tr lang="ru" finished="false">необработанные промежуточные входные байты</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">raw midi input bytes</tr>
+                    <tr lang="ru" finished="false">необработанные промежуточные входные байты</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -263,12 +330,15 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float: raw midi bytes</tr>
+                    <tr lang="ru" finished="false">Поплавок: сырые миди байты</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">parsed messages with selector (output format same as for
                     corresponding methods)</tr>
+                    <tr lang="ru" finished="false">парсинг сообщений с помощью селектора (формат
+                    вывода такой же, как и для соответствующих методов)</tr>
                 </out>
             </outlet>
         </outlets>

@@ -26,29 +26,36 @@
         <arguments>
             <argument name="SEP" type="list">
                 <tr lang="en">separator. For space use quotes.</tr>
+                <tr lang="ru" finished="false">Разделитель. Для использования пространства
+                цитаты.</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @sep -->
             <property name="@sep" type="list" default="">
                 <tr lang="en">separator</tr>
+                <tr lang="ru" finished="false">разделитель</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">symbol passed untouched</tr>
+                    <tr lang="ru" finished="false">Символ, переданный нетронутым</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list to join</tr>
+                    <tr lang="ru" finished="false">Список присоединиться</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">list to join</tr>
+                    <tr lang="ru" finished="false">Список присоединиться</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">change separator to new</tr>
+                    <tr lang="ru" finished="false">Смена разделителя на новый</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -56,6 +63,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result String</tr>
+                    <tr lang="ru" finished="false">Результат Струна</tr>
                 </out>
             </outlet>
         </outlets>

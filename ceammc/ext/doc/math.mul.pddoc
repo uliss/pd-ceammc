@@ -40,6 +40,8 @@
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list of multipliers (non float values are ignored)</tr>
+                    <!-- old: список мультипликаторов (не поплавковые значения
+                    игнорируются) -->
                     <tr lang="ru" finished="false">список мультипликаторов (не поплавковые значения
                     игнорируются)</tr>
                 </xinfo>
@@ -55,6 +57,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float or list</tr>
+                    <tr lang="ru" finished="false">Поплавок или список</tr>
                 </out>
             </outlet>
         </outlets>

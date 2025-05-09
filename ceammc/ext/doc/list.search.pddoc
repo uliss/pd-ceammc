@@ -23,11 +23,15 @@
         <info>
             <par>
                 <tr lang="en">Returns item position in list or -1 if not found.</tr>
+                <!-- old: Возвращает пункт позиции в списке или -1, если не
+                найден. -->
                 <tr lang="ru" finished="false">Возвращает пункт позиции в списке или -1, если не
                 найден.</tr>
             </par>
             <par>
                 <tr lang="en">If several items are specified returns list of positions.</tr>
+                <!-- old: Если указано несколько пунктов, возвращается список
+                позиций. -->
                 <tr lang="ru" finished="false">Если указано несколько пунктов, возвращается список
                 позиций.</tr>
             </par>
@@ -54,6 +58,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">position of search item or list of such positions</tr>
+                    <tr lang="ru" finished="false">позиция пункта поиска или список таких
+                    позиций</tr>
                 </out>
             </outlet>
         </outlets>

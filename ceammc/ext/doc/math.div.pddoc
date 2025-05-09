@@ -40,6 +40,8 @@
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list of divident (non float values are ignored)</tr>
+                    <!-- old: Список делителей (не плавающие значения
+                    игнорируются) -->
                     <tr lang="ru" finished="false">Список делителей (не плавающие значения
                     игнорируются)</tr>
                 </xinfo>
@@ -55,6 +57,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float or list</tr>
+                    <tr lang="ru" finished="false">Поплавок или список</tr>
                 </out>
             </outlet>
         </outlets>

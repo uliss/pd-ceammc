@@ -34,11 +34,15 @@
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">set value, calculate and output result</tr>
+                    <!-- old: заданное значение, вычисление и выходной
+                    результат -->
                     <tr lang="ru" finished="false">заданное значение, вычисление и выходной
                     результат</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pair: set value and shift, calculate and output result</tr>
+                    <!-- old: пара: заданное значение и сдвиг, вычисление и
+                    выходной результат -->
                     <tr lang="ru" finished="false">пара: заданное значение и сдвиг, вычисление и
                     выходной результат</tr>
                 </xinfo>
@@ -54,6 +58,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result output</tr>
+                    <tr lang="ru" finished="false">результативность</tr>
                 </out>
             </outlet>
         </outlets>

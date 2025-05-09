@@ -44,6 +44,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">radius and angle (in radians) pair</tr>
+                    <tr lang="ru" finished="false">радиус и угол (в радианах)</tr>
                 </out>
             </outlet>
         </outlets>

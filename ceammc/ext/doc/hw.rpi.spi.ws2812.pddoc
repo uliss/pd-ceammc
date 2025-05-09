@@ -20,6 +20,8 @@
             <par>
                 <tr lang="en">Note: you should **flush** (with bang or [flush( message) after
                 almost all pixel/color operations</tr>
+                <!-- old: Примечание: вы должны **flush** (с челкой или
+                [flush(сообщение) после почти всех операций с пикселями/цветом) -->
                 <tr lang="ru" finished="false">Примечание: вы должны **flush** (с челкой или
                 [flush(сообщение) после почти всех операций с пикселями/цветом)</tr>
             </par>
@@ -124,6 +126,8 @@
             <method name="rotate">
                 <info>
                     <tr lang="en">shift all pixel by specified amount</tr>
+                    <!-- old: смещение всех пикселей по заданному
+                    количеству -->
                     <tr lang="ru" finished="false">смещение всех пикселей по заданному
                     количеству</tr>
                 </info>
@@ -155,6 +159,8 @@
             <method name="set_range">
                 <info>
                     <tr lang="en">set pixel range to the specified color</tr>
+                    <!-- old: установленный диапазон пикселей до указанного
+                    цвета -->
                     <tr lang="ru" finished="false">установленный диапазон пикселей до указанного
                     цвета</tr>
                 </info>
@@ -183,6 +189,8 @@
             <method name="set_slice">
                 <info>
                     <tr lang="en">set pixel slice to the specified color</tr>
+                    <!-- old: установленный пиксель среза на указанный
+                    цвет -->
                     <tr lang="ru" finished="false">установленный пиксель среза на указанный
                     цвет</tr>
                 </info>
@@ -224,6 +232,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">no output</tr>
+                    <tr lang="ru" finished="false">нет выхода</tr>
                 </out>
             </outlet>
         </outlets>

@@ -76,6 +76,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output concatenated list</tr>
+                    <tr lang="ru" finished="false">выходной сцепленный список</tr>
                 </out>
             </outlet>
         </outlets>

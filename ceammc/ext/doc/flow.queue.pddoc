@@ -31,6 +31,8 @@
             <property name="@auto_pop" type="bool" default="0">
                 <tr lang="en">auto pop mode. If true automatically pops oldest elements when queue
                 is full</tr>
+                <!-- old: Автопоп режим. Если правда автоматически выскакивает
+                самые старые элементы, когда очередь заполнена -->
                 <tr lang="ru" finished="false">Автопоп режим. Если правда автоматически выскакивает
                 самые старые элементы, когда очередь заполнена</tr>
             </property>
@@ -64,6 +66,10 @@
                     <tr lang="en">clear: remove all elements from all queues, output: output all
                     element from all queues, flush: output and clear all element from all queues,
                     bang or pop: output and remove first message in all queues</tr>
+                    <!-- old: Clear: удалите все элементы из всех очередей,
+                    output: удалите все элементы из всех очередей, flush: удалите и удалите все
+                    элементы из всех очередей, bang или pop: удалите первое сообщение во всех
+                    очередях -->
                     <tr lang="ru" finished="false">Clear: удалите все элементы из всех очередей,
                     output: удалите все элементы из всех очередей, flush: удалите и удалите все
                     элементы из всех очередей, bang или pop: удалите первое сообщение во всех
@@ -75,16 +81,19 @@
             <outlet number="1">
                 <out type="any">
                     <tr lang="en">1st queue output</tr>
+                    <tr lang="ru" finished="false">1-я очередь выхода</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">... queue output</tr>
+                    <tr lang="ru" finished="false">... очередь выхода</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">n-th queue output</tr>
+                    <tr lang="ru" finished="false">n-ый выход из очереди</tr>
                 </out>
             </outlet>
         </outlets>

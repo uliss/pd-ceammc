@@ -37,6 +37,8 @@
             <property name="@compensate" type="bool" default="0">
                 <tr lang="en">compensate output level: divide amplitude to number of input
                 channels</tr>
+                <!-- old: компенсировать выходной уровень: разделить амплитуду
+                на количество входных каналов -->
                 <tr lang="ru" finished="false">компенсировать выходной уровень: разделить амплитуду
                 на количество входных каналов</tr>
             </property>
@@ -50,6 +52,8 @@
             <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">for @spread = 0, all channels are in the centre, for 1, they have
                 maximum distribution</tr>
+                <!-- old: для @spread = 0, все каналы находятся в центре, для
+                1, они имеют максимальное распределение -->
                 <tr lang="ru" finished="false">для @spread = 0, все каналы находятся в центре, для
                 1, они имеют максимальное распределение</tr>
             </property>
@@ -78,11 +82,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">left output channel</tr>
+                    <tr lang="ru" finished="false">левый выходной канал</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">right output channel</tr>
+                    <tr lang="ru" finished="false">правильный выходной канал</tr>
                 </out>
             </outlet>
         </outlets>

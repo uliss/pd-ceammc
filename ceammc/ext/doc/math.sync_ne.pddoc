@@ -35,6 +35,8 @@
             <property name="@epsilon" type="float" default="0" minvalue="0">
                 <tr lang="en">compare epsilon. If not zero calculates expession: !(-epsilon &lt;
                 abs(A-B) &lt; +epsilon)</tr>
+                <!-- old: Сравните эпсилон. Если не ноль вычисляет эксцессию:
+                !(-epsilon < abs(A-B) < +epsilon) -->
                 <tr lang="ru" finished="false">Сравните эпсилон. Если не ноль вычисляет эксцессию:
                 !(-epsilon &lt; abs(A-B) &lt; +epsilon)</tr>
             </property>
@@ -43,12 +45,16 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set first number, calculate and output result</tr>
+                    <!-- old: установить первое число, вычислить и получить
+                    результат -->
                     <tr lang="ru" finished="false">установить первое число, вычислить и получить
                     результат</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pair: set first and second numbers, calculate and output
                     result</tr>
+                    <!-- old: пара: установить первое и второе числа,
+                    вычислить и вывести результат -->
                     <tr lang="ru" finished="false">пара: установить первое и второе числа,
                     вычислить и вывести результат</tr>
                 </xinfo>
@@ -56,6 +62,8 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">change second number, calculate and output result</tr>
+                    <!-- old: изменить второе число, вычислить и получить
+                    результат -->
                     <tr lang="ru" finished="false">изменить второе число, вычислить и получить
                     результат</tr>
                 </xinfo>
@@ -65,6 +73,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">result output: 1 if numbers are not equal otherwise 0</tr>
+                    <tr lang="ru" finished="false">выходной результат: 1 если числа не равны иначе
+                    0</tr>
                 </out>
             </outlet>
         </outlets>

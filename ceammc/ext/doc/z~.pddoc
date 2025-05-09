@@ -22,23 +22,27 @@
         <arguments>
             <argument name="Z" type="int" minvalue="0" maxvalue="512" units="sample">
                 <tr lang="en">delay length</tr>
+                <tr lang="ru" finished="false">длительность задержки</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @z -->
             <property name="@z" type="int" minvalue="0" default="1" maxvalue="512" units="sample">
                 <tr lang="en">delay length</tr>
+                <tr lang="ru" finished="false">длительность задержки</tr>
             </property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="control">
                 <xinfo on="int">
                     <tr lang="en">set delay length</tr>
+                    <tr lang="ru" finished="false">установленная длительность задержки</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -46,6 +50,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

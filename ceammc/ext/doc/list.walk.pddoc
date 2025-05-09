@@ -25,6 +25,10 @@
                 <tr lang="en">Universal list walker. If you want to output current element and when
                 move to next - use [1( message, Otherwise - use [next( if you want first move to
                 next position and then output it.</tr>
+                <!-- old: Универсальный список ходячих. Если вы хотите вывести
+                текущий элемент и при переходе на следующий - используйте [1(сообщение, В противном
+                случае - используйте [следующий(если вы хотите сначала перейти на следующую
+                позицию, а затем вывести ее). -->
                 <tr lang="ru" finished="false">Универсальный список ходячих. Если вы хотите вывести
                 текущий элемент и при переходе на следующий - используйте [1(сообщение, В противном
                 случае - используйте [следующий(если вы хотите сначала перейти на следующую
@@ -42,6 +46,8 @@
             <property name="@clip" type="alias">
                 <tr lang="en">clipped pass mode. When the list bounds are reached - min/max value
                 repeats perpetually.</tr>
+                <!-- old: Обрезанный режим пропуска. Когда границы списка
+                достигнуты - значение min/max повторяется постоянно. -->
                 <tr lang="ru" finished="false">Обрезанный режим пропуска. Когда границы списка
                 достигнуты - значение min/max повторяется постоянно.</tr>
             </property>
@@ -53,6 +59,8 @@
             <!-- @fold -->
             <property name="@fold" type="alias">
                 <tr lang="en">fold pass mode. List values are repeated in a loop with folding</tr>
+                <!-- old: Режим сгиба. Значения списка повторяются в петле с
+                складыванием -->
                 <tr lang="ru" finished="false">Режим сгиба. Значения списка повторяются в петле с
                 складыванием</tr>
             </property>
@@ -74,6 +82,8 @@
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="single clip wrap fold" default="single">
                 <tr lang="en">pass mode. See properties below for detailed information.</tr>
+                <!-- old: Пройдите режим. См. свойства ниже для получения
+                подробной информации. -->
                 <tr lang="ru" finished="false">Пройдите режим. См. свойства ниже для получения
                 подробной информации.</tr>
             </property>
@@ -81,6 +91,8 @@
             <property name="@single" type="alias">
                 <tr lang="en">single pass mode. When the list bounds are reached - no output any
                 more until reset.</tr>
+                <!-- old: режим одиночного прохода. При достижении пределов
+                перечня - никакого вывода больше до сброса. -->
                 <tr lang="ru" finished="false">режим одиночного прохода. При достижении пределов
                 перечня - никакого вывода больше до сброса.</tr>
             </property>
@@ -97,6 +109,8 @@
             <!-- @wrap -->
             <property name="@wrap" type="alias">
                 <tr lang="en">wrap pass mode. List values are repeated in a loop</tr>
+                <!-- old: Режим обертывания. Значения списка повторяются в
+                цикле -->
                 <tr lang="ru" finished="false">Режим обертывания. Значения списка повторяются в
                 цикле</tr>
             </property>
@@ -113,6 +127,8 @@
             <method name="dump">
                 <info>
                     <tr lang="en">dump internal object state to Pd console window</tr>
+                    <!-- old: Сбросить внутреннее состояние объекта в окно
+                    консоли Pd -->
                     <tr lang="ru" finished="false">Сбросить внутреннее состояние объекта в окно
                     консоли Pd</tr>
                 </info>
@@ -122,6 +138,8 @@
                 <param name="STEP" type="int" default="1">
                     <tr lang="en">moves to next element with optional given step and outputs
                     it</tr>
+                    <!-- old: переходит к следующему элементу с необязательным
+                    заданным шагом и выводит его -->
                     <tr lang="ru" finished="false">переходит к следующему элементу с необязательным
                     заданным шагом и выводит его</tr>
                 </param>
@@ -131,6 +149,8 @@
                 <param name="STEP" type="int" default="1">
                     <tr lang="en">moves to previous element with optional given step and outputs
                     it</tr>
+                    <!-- old: переходит к предыдущему элементу с
+                    необязательным заданным шагом и выводит его -->
                     <tr lang="ru" finished="false">переходит к предыдущему элементу с
                     необязательным заданным шагом и выводит его</tr>
                 </param>
@@ -147,16 +167,22 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs current element and moves to next</tr>
+                    <!-- old: выводит текущий элемент и переходит к
+                    следующему -->
                     <tr lang="ru" finished="false">выводит текущий элемент и переходит к
                     следующему</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">outputs current element and moves by specified position</tr>
+                    <!-- old: выводит текущий элемент и перемещается по
+                    заданному положению -->
                     <tr lang="ru" finished="false">выводит текущий элемент и перемещается по
                     заданному положению</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">set new list and reset current position. (no output)</tr>
+                    <!-- old: установить новый список и сбросить текущую
+                    позицию. (нет выхода) -->
                     <tr lang="ru" finished="false">установить новый список и сбросить текущую
                     позицию. (нет выхода)</tr>
                 </xinfo>
@@ -166,11 +192,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">list element</tr>
+                    <tr lang="ru" finished="false">элемент списка</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">bang: when last element reached</tr>
+                    <tr lang="ru" finished="false">когда достигается последний элемент</tr>
                 </out>
             </outlet>
         </outlets>

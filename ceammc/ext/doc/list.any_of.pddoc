@@ -43,6 +43,8 @@
                 <xinfo on="float" minvalue="0" maxvalue="1">
                     <tr lang="en">input value from predicate. "1" means accepted. "0" means
                     reject.</tr>
+                    <!-- old: Входные значения из предиката. «1» означает
+                    принятый. «0» означает отказ. -->
                     <tr lang="ru" finished="false">Входные значения из предиката. «1» означает
                     принятый. «0» означает отказ.</tr>
                 </xinfo>
@@ -53,11 +55,14 @@
                 <out type="any">
                     <tr lang="en">1 - if predicate object returns true for all the elements or list
                     is empty or 0 otherwise.</tr>
+                    <tr lang="ru" finished="false">1 - если объект предиката возвращается истинным
+                    для всех элементов или список пуст или 0 иначе.</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">atom to predicate</tr>
+                    <tr lang="ru" finished="false">Атом предсказывает</tr>
                 </out>
             </outlet>
         </outlets>

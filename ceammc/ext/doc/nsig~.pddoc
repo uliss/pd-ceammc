@@ -73,16 +73,19 @@
             <outlet type="audio" number="1">
                 <out type="any">
                     <tr lang="en">first value output</tr>
+                    <tr lang="ru" finished="false">Первая стоимость</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="...">
                 <out type="any">
                     <tr lang="en">... value output</tr>
+                    <tr lang="ru" finished="false">... стоимостного выпуска</tr>
                 </out>
             </outlet>
             <outlet type="audio" number="n">
                 <out type="any">
                     <tr lang="en">n-th value output</tr>
+                    <tr lang="ru" finished="false">n-я выходная величина</tr>
                 </out>
             </outlet>
         </outlets>

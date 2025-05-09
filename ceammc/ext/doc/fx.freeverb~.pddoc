@@ -25,6 +25,11 @@
                 Dreampoint" that is extensively used in the free-software world. It uses four
                 Schroeder allpasses in series and eight parallel Schroeder-Moorer filtered-feedback
                 comb-filters for each audio channel, and is said to be especially well tuned.</tr>
+                <!-- old: Простой ревербератор Шредера, разработанный в
+                основном компанией «Jezar at Dreampoint», широко используется в мире свободного
+                программного обеспечения. Он использует четыре последовательных компаса Шредера и
+                восемь параллельных фильтрованных гребневых фильтров Шредера-Мурера для каждого
+                аудиоканала и, как говорят, особенно хорошо настроен. -->
                 <tr lang="ru" finished="false">Простой ревербератор Шредера, разработанный в
                 основном компанией «Jezar at Dreampoint», широко используется в мире свободного
                 программного обеспечения. Он использует четыре последовательных компаса Шредера и
@@ -40,6 +45,8 @@
             <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals</tr>
+                <!-- old: Пропорция смеси между исходными (сухими) и
+                «вредными» (мокрыми) сигналами -->
                 <tr lang="ru" finished="false">Пропорция смеси между исходными (сухими) и
                 «вредными» (мокрыми) сигналами</tr>
             </argument>
@@ -51,12 +58,16 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <!-- old: Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал. -->
                 <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал.</tr>
             </property>
             <!-- @damp -->
             <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0.5">
                 <tr lang="en">damping of the lowpass comb filter</tr>
+                <!-- old: демпфирование низкопроходного гребенчатого
+                фильтра -->
                 <tr lang="ru" finished="false">демпфирование низкопроходного гребенчатого
                 фильтра</tr>
             </property>
@@ -64,6 +75,8 @@
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.33">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <!-- old: пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
                 <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
                 "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
@@ -115,6 +128,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
+                    <tr lang="ru" finished="false">выходной сигнал</tr>
                 </out>
             </outlet>
         </outlets>

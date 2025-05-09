@@ -31,6 +31,8 @@
             <par>
                 <tr lang="en">Note: amplitude value &lt;=0 is converted to -144 db (24-bit
                 range)</tr>
+                <!-- old: Примечание: значение амплитуды <=0 преобразуется
+                в -144 дБ (24-битный диапазон) -->
                 <tr lang="ru" finished="false">Примечание: значение амплитуды &lt;=0 преобразуется
                 в -144 дБ (24-битный диапазон)</tr>
             </par>
@@ -47,6 +49,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">converted signal</tr>
+                    <tr lang="ru" finished="false">преобразованный сигнал</tr>
                 </out>
             </outlet>
         </outlets>

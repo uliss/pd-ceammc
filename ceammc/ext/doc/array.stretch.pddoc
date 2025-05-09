@@ -157,6 +157,8 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">float value - number of result samples</tr>
+                    <tr lang="ru" finished="false">Поплавковое значение - количество образцов
+                    результата</tr>
                 </out>
             </outlet>
         </outlets>

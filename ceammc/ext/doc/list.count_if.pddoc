@@ -36,6 +36,8 @@
                 <xinfo on="float" minvalue="0" maxvalue="1">
                     <tr lang="en">input value from predicate. "1" means accepted. "0" means
                     reject</tr>
+                    <!-- old: Входные значения из предиката. «1» означает
+                    принятый. "0" означает отказ -->
                     <tr lang="ru" finished="false">Входные значения из предиката. «1» означает
                     принятый. "0" означает отказ</tr>
                 </xinfo>
@@ -45,11 +47,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">count of elements</tr>
+                    <tr lang="ru" finished="false">подсчет элементов</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">element output to predicate</tr>
+                    <tr lang="ru" finished="false">выходной элемент для предиката</tr>
                 </out>
             </outlet>
         </outlets>

@@ -31,11 +31,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">int: MIDI program change value</tr>
+                    <tr lang="ru" finished="false">Инт: программа MIDI меняет значение</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">int: MIDI track</tr>
+                    <tr lang="ru" finished="false">Оригинальное название: MIDI Track</tr>
                 </out>
             </outlet>
         </outlets>
