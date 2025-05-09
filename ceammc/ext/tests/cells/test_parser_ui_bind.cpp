@@ -122,7 +122,9 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
 
     SECTION("keyname")
     {
-        REQUIRE(parse_ui_bind("key=Space", opts));
+        REQUIRE_FALSE(parse_ui_bind("key=32", opts));
+
+        REQUIRE(parse_ui_bind("key='Space'", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 0);
         REQUIRE(opts.midi_value == 0);
@@ -133,7 +135,7 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
         REQUIRE(opts.type == UI_BIND_KEY_NAME);
         REQUIRE(opts.checkKeyName(A("space"), 0));
 
-        REQUIRE(parse_ui_bind("key[alt]=Space", opts));
+        REQUIRE(parse_ui_bind("key[alt]='Space'", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 0);
         REQUIRE(opts.midi_value == 0);
