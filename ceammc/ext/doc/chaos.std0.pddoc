@@ -63,16 +63,16 @@
         <methods />
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">generates and outputs next x-value</tr>
                     <tr lang="ru" finished="false">генерирует и выводит следующее x-значение</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set k value</tr>
                     <tr lang="ru" finished="false">значение k</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

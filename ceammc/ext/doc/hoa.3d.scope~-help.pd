@@ -117,10 +117,13 @@ list. Default value: 120 120\.;
 #X obj 20 1642 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1643 1\.;
+#X text 150 1643 ~;
 #X text 245 1643 first input harmonic.;
-#X text 110 1663 ....;
+#X text 110 1663 ...;
+#X text 150 1663 ~;
 #X text 245 1663 ... input harmonic.;
 #X text 110 1683 n.;
+#X text 150 1683 ~;
 #X text 245 1683 n-th input harmonic.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -55,22 +55,22 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">reading index</tr>
                     <tr lang="ru" finished="false">Индекс чтения</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">signal to write</tr>
                     <tr lang="ru" finished="false">Сигнал писать</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">write index</tr>
                     <tr lang="ru" finished="false">писать индекс</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

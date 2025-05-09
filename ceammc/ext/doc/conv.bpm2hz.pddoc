@@ -35,10 +35,10 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">frequency in BPM</tr>
                     <tr lang="ru" finished="false">Частота в BPM</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

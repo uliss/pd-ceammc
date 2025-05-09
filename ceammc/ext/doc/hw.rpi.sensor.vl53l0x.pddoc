@@ -73,10 +73,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">single distance measure</tr>
                     <tr lang="ru" finished="false">одномерное расстояние</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

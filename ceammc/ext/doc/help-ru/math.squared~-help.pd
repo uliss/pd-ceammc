@@ -18,6 +18,7 @@
 #X obj 20 476 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 477 1\.;
+#X text 150 477 ~;
 #X text 245 477 input signal.;
 #X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 512 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

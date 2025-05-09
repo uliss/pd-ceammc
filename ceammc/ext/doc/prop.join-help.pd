@@ -29,7 +29,7 @@ value on inlet it immediately outputs it.;
 #X text 245 421 data stream.;
 #X text 110 441 2\.;
 #X text 245 441 property value.;
-#X text 110 461 ....;
+#X text 110 461 ...;
 #X text 245 461 property value.;
 #X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 496 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

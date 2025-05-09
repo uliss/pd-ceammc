@@ -145,16 +145,22 @@ to decay 60dB in low and mid-frequency band. Тип: float. Единицы: 'sec
 #X obj 20 2413 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 2414 1\.;
+#X text 150 2414 ~;
 #X text 245 2414 1st source input.;
 #X text 110 2434 2\.;
+#X text 150 2434 ~;
 #X text 245 2434 2nd source input.;
 #X text 110 2454 3\.;
+#X text 150 2454 ~;
 #X text 245 2454 3rd source input.;
 #X text 110 2474 4\.;
+#X text 150 2474 ~;
 #X text 245 2474 4th source input.;
 #X text 110 2494 5\.;
+#X text 150 2494 ~;
 #X text 245 2494 5th source input.;
 #X text 110 2514 6\.;
+#X text 150 2514 ~;
 #X text 245 2514 6th source input.;
 #X obj 20 2544 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2549 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144

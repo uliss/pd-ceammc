@@ -188,25 +188,25 @@ float. Единицы: 'sec'. Значение по умолчанию: 0\. Ми
 #X obj 20 2693 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 2694 1\.;
-#X text 150 2694 *bang*;
+#X text 150 2694 bang:;
 #X text 245 2694 output current cursor positions: @cursor_samp \, @cursor_phase
 \, @cursor_ms \, @cursor_sec and selection (if selected): @select_samp
 \, @select_phase \, @select_ms \, @select_sec \, @begin \, @end.;
-#X text 150 2774 *float*;
-#X text 245 2774 move cursor to specified sample position.;
-#X obj 20 2804 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2809 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 150 2779 float:;
+#X text 245 2779 move cursor to specified sample position.;
+#X obj 20 2809 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2814 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2810 1\.;
-#X text 245 2810 output.;
+#X text 110 2815 1\.;
+#X text 245 2815 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2860 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2863 библиотека: ceammc v0.9.8;
-#N canvas 10 2882 400 290 info 0;
+#X obj 1 2865 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2868 библиотека: ceammc v0.9.8;
+#N canvas 10 2887 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -230,7 +230,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2882 pd info;
+#X restore 10 2887 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;

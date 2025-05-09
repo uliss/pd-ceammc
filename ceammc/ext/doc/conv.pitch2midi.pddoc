@@ -35,22 +35,22 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">Scientific Pitch Notation value</tr>
                     <tr lang="ru" finished="false">Научная нотация значение</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list of SPN values</tr>
                     <tr lang="ru" finished="false">Список значений SPN</tr>
-                </xinfo>
-                <xinfo on="data:string">
+                </in>
+                <in on="data:string">
                     <tr lang="en">SPN value</tr>
                     <tr lang="ru" finished="false">Значение SPN</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">list SPN values</tr>
                     <tr lang="ru" finished="false">Список значений SPN</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

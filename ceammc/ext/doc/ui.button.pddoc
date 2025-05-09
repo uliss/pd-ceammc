@@ -85,13 +85,13 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">if *0* given, sets state to unchecked and outputs @off_value. On
                     any other number sets to checked state and outputs @on_value</tr>
                     <tr lang="ru" finished="false">Если дано *0*, задает состояние без проверки и
                     выводит @off_value. На любых других наборах чисел для проверенного состояния и
                     выходов @on_value</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -56,31 +56,31 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output generated sequence</tr>
                     <tr lang="ru" finished="false">генерируемая последовательность</tr>
-                </xinfo>
-                <xinfo on="int">
+                </in>
+                <in on="int">
                     <tr lang="en">set number of beats in the sequence</tr>
                     <tr lang="ru" finished="false">установленное количество ударов в
                     последовательности</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list: BEATS LENGTH OFFSET?</tr>
                     <tr lang="ru" finished="false">Оригинальное название: Beats Length Offset?</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">set sequence lenghth</tr>
                     <tr lang="ru" finished="false">установленная последовательность</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">set sequence offset</tr>
                     <tr lang="ru" finished="false">Смещение последовательности</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -240,21 +240,21 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output current list value</tr>
                     <tr lang="ru" finished="false">выходной текущий список</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">set new list with single symbol element and output</tr>
                     <!-- old: установить новый список с одним элементом
                     символа и выходом -->
                     <tr lang="ru" finished="false">установить новый список с одним элементом
                     символа и выходом</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">sets new list and output it</tr>
                     <tr lang="ru" finished="false">Устанавливает новый список и выводит его</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -53,16 +53,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">input message</tr>
                     <tr lang="ru" finished="false">вводное сообщение</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">set append value</tr>
                     <tr lang="ru" finished="false">установленная добавленная стоимость</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

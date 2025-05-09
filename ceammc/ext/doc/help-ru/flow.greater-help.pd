@@ -37,14 +37,14 @@ list of floats in descending order. Тип: list.;
 #X obj 20 477 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 478 1\.;
-#X text 150 478 *float*;
+#X text 150 478 float:;
 #X text 245 478 input flow.;
 #X obj 20 508 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 513 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 514 1\.;
 #X text 245 514 numbers that are greater then 1st argument.;
-#X text 110 534 ....;
+#X text 110 534 ...;
 #X text 245 534 numbers that are greater than ... argument.;
 #X text 110 554 n.;
 #X text 245 554 numbers that are greater than last argument.;

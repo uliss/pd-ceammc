@@ -37,24 +37,24 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="data:string">
+                <in on="data:string">
                     <tr lang="en">do compare</tr>
                     <tr lang="ru" finished="false">сравнивать</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">do compare</tr>
                     <tr lang="ru" finished="false">сравнивать</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="data:string">
+                <in on="data:string">
                     <tr lang="en">set compare subject</tr>
                     <tr lang="ru" finished="false">Сравнительная тема</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">set compare subject</tr>
                     <tr lang="ru" finished="false">Сравнительная тема</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

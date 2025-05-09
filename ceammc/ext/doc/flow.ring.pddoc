@@ -35,30 +35,30 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input</tr>
                     <tr lang="ru" finished="false">ввод</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output all buffer values</tr>
                     <tr lang="ru" finished="false">вывод всех буферных значений</tr>
-                </xinfo>
-                <xinfo>
+                </in>
+                <in>
                     <tr lang="en">get IDX: output buffer value at specified index</tr>
                     <!-- old: Получить IDX: значение буфера вывода при
                     заданном индексе -->
                     <tr lang="ru" finished="false">Получить IDX: значение буфера вывода при
                     заданном индексе</tr>
-                </xinfo>
-                <xinfo>
+                </in>
+                <in>
                     <tr lang="en">fill ARGS...: fill buffer with specified values (no output)</tr>
                     <!-- old: заполнить ARGS...: заполнить буфер с заданными
                     значениями (без выхода) -->
                     <tr lang="ru" finished="false">заполнить ARGS...: заполнить буфер с заданными
                     значениями (без выхода)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

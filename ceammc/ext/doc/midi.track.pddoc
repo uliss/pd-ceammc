@@ -114,17 +114,17 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output current event</tr>
                     <tr lang="ru" finished="false">выход текущего события</tr>
-                </xinfo>
-                <xinfo on="data">
+                </in>
+                <in on="data">
                     <tr lang="en">MidiStream object: set new mifi file</tr>
                     <!-- old: Объект MidiStream: установлен новый файл
                     mifi -->
                     <tr lang="ru" finished="false">Объект MidiStream: установлен новый файл
                     mifi</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -38,16 +38,16 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">left input signal</tr>
                     <tr lang="ru" finished="false">левый входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">right input signal</tr>
                     <tr lang="ru" finished="false">правильный входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

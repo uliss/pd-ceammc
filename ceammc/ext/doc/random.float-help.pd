@@ -60,13 +60,13 @@ Arguments are:;
 #X obj 20 811 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 812 1\.;
-#X text 150 812 *bang*;
+#X text 150 812 bang:;
 #X text 245 812 generate new number.;
 #X text 110 832 2\.;
-#X text 150 832 *float*;
+#X text 150 832 float:;
 #X text 245 832 set @min property.;
 #X text 110 852 3\.;
-#X text 150 852 *float*;
+#X text 150 852 float:;
 #X text 245 852 set @max property.;
 #X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 887 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

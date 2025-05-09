@@ -93,7 +93,7 @@ bool. Значение по умолчанию: 0\.;
 #X obj 20 1203 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1204 1\.;
-#X text 150 1204 *float*;
+#X text 150 1204 float:;
 #X text 245 1204 if *0* given \, sets state to unchecked and outputs
 @off_value. On any other number sets to checked state and outputs @on_value.;
 #X obj 20 1264 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -285,7 +285,7 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">in single mode outputs tab state as list: INDEX TAB_NAME. In
                     toggle mode outputs current state like: @selected 0 1 0 1 0 etc. and list of
                     two values: [CHANGED_IDX CHANGED_VALUE]</tr>
@@ -293,18 +293,18 @@
                     списка: INDEX TAB_NAME. В режиме переключения выводит текущее состояние,
                     например: @selected 0 1 0 1 0 и т.д. и список из двух значений: [CHANGED_IDX
                     CHANGED_VALUE]</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">only in single mode: change tab by index and output list: INDEX
                     TAB_NAME</tr>
                     <tr lang="ru" finished="false">только в одном режиме: изменить вкладку по
                     индексу и выходному списку: INDEX TAB_NAME</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">selects item equal to given and output list: INDEX TAB_NAME</tr>
                     <tr lang="ru" finished="false">Выберите пункт, равный данному и выходному
                     списку: INDEX TAB_NAME</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

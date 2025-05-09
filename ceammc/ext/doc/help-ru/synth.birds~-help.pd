@@ -57,7 +57,7 @@ enabled. Тип: float. Значение по умолчанию: 240\. Диап
 #X obj 20 914 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 915 1\.;
-#X text 150 915 *bang*;
+#X text 150 915 bang:;
 #X text 245 915 play.;
 #X obj 20 945 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 950 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

@@ -106,35 +106,35 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output set content</tr>
                     <tr lang="ru" finished="false">выходные значения</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">adds new element to set, no output</tr>
                     <!-- old: Добавление нового элемента в набор, отсутствие
                     выхода -->
                     <tr lang="ru" finished="false">Добавление нового элемента в набор, отсутствие
                     выхода</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">adds new element to set, no output</tr>
                     <!-- old: Добавление нового элемента в набор, отсутствие
                     выхода -->
                     <tr lang="ru" finished="false">Добавление нового элемента в набор, отсутствие
                     выхода</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">adds new elements to set, no output</tr>
                     <!-- old: Добавление новых элементов в набор, отсутствие
                     выхода -->
                     <tr lang="ru" finished="false">Добавление новых элементов в набор, отсутствие
                     выхода</tr>
-                </xinfo>
-                <xinfo on="data:set">
+                </in>
+                <in on="data:set">
                     <tr lang="en">set new set content and output</tr>
                     <tr lang="ru" finished="false">установить новый контент и выход</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -51,16 +51,16 @@
         </info>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">real part of input signal</tr>
                     <tr lang="ru" finished="false">Реальная часть входного сигнала</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">imag part of input signal</tr>
                     <tr lang="ru" finished="false">Имаг часть входного сигнала</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

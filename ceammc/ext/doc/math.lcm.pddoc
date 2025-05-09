@@ -27,27 +27,27 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">sets first argument and outputs calculated LCM value</tr>
                     <!-- old: устанавливает первый аргумент и вычисляет
                     значение LCM -->
                     <tr lang="ru" finished="false">устанавливает первый аргумент и вычисляет
                     значение LCM</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">sets first argument and second arguments, then output calculated
                     LCM value</tr>
                     <!-- old: устанавливает первый аргумент и второй аргумент,
                     затем вывод вычисляется значением LCM -->
                     <tr lang="ru" finished="false">устанавливает первый аргумент и второй аргумент,
                     затем вывод вычисляется значением LCM</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">sets second value</tr>
                     <tr lang="ru" finished="false">Устанавливает второе значение</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

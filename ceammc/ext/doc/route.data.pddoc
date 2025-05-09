@@ -41,30 +41,30 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="data">
+                <in on="data">
                     <tr lang="en">data to *first* outlet</tr>
                     <tr lang="ru" finished="false">Данные для *First* Outlet</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">any to second outlet</tr>
                     <tr lang="ru" finished="false">любой второй выход</tr>
-                </xinfo>
-                <xinfo on="bang">
+                </in>
+                <in on="bang">
                     <tr lang="en">bang to second outlet</tr>
                     <tr lang="ru" finished="false">Bang to Second Outlet (альбом)</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">float to second outlet</tr>
                     <tr lang="ru" finished="false">Поплавать на второй выход</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list to second outlet</tr>
                     <tr lang="ru" finished="false">Список для второго выхода</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">symbol to second outlet</tr>
                     <tr lang="ru" finished="false">Символ для второго выхода</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

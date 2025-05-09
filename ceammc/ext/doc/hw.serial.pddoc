@@ -69,20 +69,20 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">sends float value in byte range [0-255] to serial port</tr>
                     <!-- old: посылает значение плавания в байтовом диапазоне
                     [0-255] в последовательный порт -->
                     <tr lang="ru" finished="false">посылает значение плавания в байтовом диапазоне
                     [0-255] в последовательный порт</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">sends list of floats in byte range [0-255] to serial port</tr>
                     <!-- old: Отправляет список поплавков в байтовом диапазоне
                     [0-255] в последовательный порт -->
                     <tr lang="ru" finished="false">Отправляет список поплавков в байтовом диапазоне
                     [0-255] в последовательный порт</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

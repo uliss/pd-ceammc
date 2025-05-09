@@ -88,17 +88,17 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output value</tr>
                     <tr lang="ru" finished="false">выходная стоимость</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">sets new value and outputs it ONLY at current object outlet</tr>
                     <!-- old: устанавливает новое значение и выводит его
                     ТОЛЬКО при текущем выходе объекта -->
                     <tr lang="ru" finished="false">устанавливает новое значение и выводит его
                     ТОЛЬКО при текущем выходе объекта</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

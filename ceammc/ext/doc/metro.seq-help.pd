@@ -53,13 +53,13 @@ on this beat. Type: list.;
 #X obj 20 743 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 744 1\.;
-#X text 150 744 *float*;
+#X text 150 744 float:;
 #X text 245 744 starts (on 1) or stops (on 0) metro.;
 #X text 110 764 2\.;
-#X text 150 764 *float*;
+#X text 150 764 float:;
 #X text 245 764 set new step interval.;
 #X text 110 784 3\.;
-#X text 150 784 *list*;
+#X text 150 784 list:;
 #X text 245 784 set new pattern.;
 #X obj 20 814 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 819 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

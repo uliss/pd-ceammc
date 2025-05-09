@@ -40,26 +40,26 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">bang to random outlet</tr>
                     <tr lang="ru" finished="false">bang to random outlet скачать</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">float to random outlet</tr>
                     <tr lang="ru" finished="false">плавать в случайном выходе</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">symbol to random outlet</tr>
                     <tr lang="ru" finished="false">Символ для случайного выхода</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list to random outlet</tr>
                     <tr lang="ru" finished="false">Список случайных выходов</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">any to random outlet</tr>
                     <tr lang="ru" finished="false">Любой случайный выход</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

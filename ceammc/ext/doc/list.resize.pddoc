@@ -62,16 +62,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">input list</tr>
                     <tr lang="ru" finished="false">вводный список</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">set desired list size</tr>
                     <tr lang="ru" finished="false">желаемый размер списка</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

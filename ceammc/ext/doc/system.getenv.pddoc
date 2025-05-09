@@ -35,15 +35,15 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs variable value</tr>
                     <tr lang="ru" finished="false">выходы переменная величина</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">sets name of environment variable and outputs it value</tr>
                     <tr lang="ru" finished="false">устанавливает имя переменной среды и выводит ее
                     значение</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

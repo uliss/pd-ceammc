@@ -34,20 +34,20 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">Input list</tr>
                     <tr lang="ru" finished="false">Список вводимых данных</tr>
-                </xinfo>
-                <xinfo on="data">
+                </in>
+                <in on="data">
                     <tr lang="en">Input mlist</tr>
                     <tr lang="ru" finished="false">Входной млист</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">change pattern value</tr>
                     <tr lang="ru" finished="false">значение изменения шаблона</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -232,11 +232,11 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">control inlet. Non-zero value starts timeline, zero - stops.</tr>
                     <tr lang="ru" finished="false">контрольный вход. не -нулевое значение начинает
                     временную линию, ноль - останавливается.</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

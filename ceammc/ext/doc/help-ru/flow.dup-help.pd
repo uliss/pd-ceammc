@@ -40,7 +40,7 @@
 #X text 110 495 1\.;
 #X text 245 495 incoming message.;
 #X text 110 515 2\.;
-#X text 150 515 *int*;
+#X text 150 515 int:;
 #X text 245 515 set number of repeats. Минимальное значение: 0\.;
 #X obj 20 545 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 550 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

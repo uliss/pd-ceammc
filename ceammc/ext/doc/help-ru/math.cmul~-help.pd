@@ -26,12 +26,16 @@
 #X obj 20 347 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 348 1\.;
+#X text 150 348 ~;
 #X text 245 348 real part of input signal1\.;
 #X text 110 368 2\.;
+#X text 150 368 ~;
 #X text 245 368 imag part of input signal1\.;
 #X text 110 388 3\.;
+#X text 150 388 ~;
 #X text 245 388 real part of input signal2\.;
 #X text 110 408 4\.;
+#X text 150 408 ~;
 #X text 245 408 imag part of input signal2\.;
 #X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 443 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

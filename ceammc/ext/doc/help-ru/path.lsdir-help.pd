@@ -38,27 +38,27 @@ all wav files. Тип: symbol.;
 #X obj 20 452 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 453 1\.;
-#X text 150 453 *bang*;
+#X text 150 453 bang:;
 #X text 245 453 output directory content.;
-#X text 150 473 *symbol*;
-#X text 245 473 set directory path (symbol or string) and output it
+#X text 150 478 symbol:;
+#X text 245 478 set directory path (symbol or string) and output it
 content. If not absolute path is given list current patch directory.;
-#X text 110 508 2\.;
-#X text 150 508 *symbol*;
-#X text 245 508 set @match property.;
-#X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 543 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 513 2\.;
+#X text 150 513 symbol:;
+#X text 245 513 set @match property.;
+#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 548 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 544 1\.;
-#X text 245 544 list of strings.;
+#X text 110 549 1\.;
+#X text 245 549 list of strings.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title path @url ceammc.path-help.pd;
-#X obj 1 594 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 597 библиотека: ceammc v0.9.8;
-#N canvas 10 616 400 290 info 0;
+#X obj 1 599 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 602 библиотека: ceammc v0.9.8;
+#N canvas 10 621 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -82,7 +82,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 616 pd info;
+#X restore 10 621 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 9 1;
 #X connect 5 0 10 0;

@@ -78,16 +78,16 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">control input</tr>
                     <tr lang="ru" finished="false">контрольный вход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">1 or 0: turn on/off</tr>
                     <tr lang="ru" finished="false">1 или 0: включить/выключить</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

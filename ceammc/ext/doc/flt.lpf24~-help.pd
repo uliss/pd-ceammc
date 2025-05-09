@@ -61,9 +61,10 @@ Default value: 1000\. Range: 20\...20000\.;
 #X obj 20 1013 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1014 1\.;
+#X text 150 1014 ~;
 #X text 245 1014 input signal.;
 #X text 110 1034 2\.;
-#X text 150 1034 *float*;
+#X text 150 1034 float:;
 #X text 245 1034 set frequency.;
 #X obj 20 1064 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1069 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

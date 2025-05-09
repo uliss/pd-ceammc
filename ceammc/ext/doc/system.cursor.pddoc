@@ -60,16 +60,16 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output cursor position</tr>
                     <tr lang="ru" finished="false">выходное положение курсора</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">when 1 is received - turns on cursor polling (position and
                     buttons), when 0 is received - turns it off</tr>
                     <tr lang="ru" finished="false">когда получено 1 - включается опрос курсора
                     (позиция и кнопки), когда получено 0 - выключает его</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

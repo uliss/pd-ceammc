@@ -41,10 +41,10 @@ Default value: 0\. Range: 0\...1000\.;
 #X obj 20 637 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 638 1\.;
-#X text 150 638 *float*;
+#X text 150 638 float:;
 #X text 245 638 frequency in Hz.;
 #X text 110 658 2\.;
-#X text 150 658 *bang*;
+#X text 150 658 bang:;
 #X text 245 658 reset phase.;
 #X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 693 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

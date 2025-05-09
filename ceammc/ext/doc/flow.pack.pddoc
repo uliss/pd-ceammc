@@ -50,72 +50,72 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output current value</tr>
                     <tr lang="ru" finished="false">текущая стоимость выпуска</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">change first packed value and output</tr>
                     <!-- old: изменение первого упакованного значения и
                     выхода -->
                     <tr lang="ru" finished="false">изменение первого упакованного значения и
                     выхода</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">change first packed value and output</tr>
                     <!-- old: изменение первого упакованного значения и
                     выхода -->
                     <tr lang="ru" finished="false">изменение первого упакованного значения и
                     выхода</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">propagate list values to other inlets and output</tr>
                     <!-- old: распространять значения списка на другие входы и
                     выход -->
                     <tr lang="ru" finished="false">распространять значения списка на другие входы и
                     выход</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">propagate message values to other inlets and output</tr>
                     <!-- old: распространять значения сообщений на другие
                     входы и выход -->
                     <tr lang="ru" finished="false">распространять значения сообщений на другие
                     входы и выход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="...">
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">change ... packed value</tr>
                     <tr lang="ru" finished="false">Изменение... упакованная стоимость</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">change ... packed value</tr>
                     <tr lang="ru" finished="false">Изменение... упакованная стоимость</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">propagate ... list values among rest inlets</tr>
                     <!-- old: Распространение ... списки значений среди входов
                     отдыха -->
                     <tr lang="ru" finished="false">Распространение ... списки значений среди входов
                     отдыха</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n">
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">change n-th packed value</tr>
                     <tr lang="ru" finished="false">изменение n-го упакованного значения</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">change n-th packed value</tr>
                     <tr lang="ru" finished="false">изменение n-го упакованного значения</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">propagate n-th list values among rest inlets</tr>
                     <!-- old: распространять значения n-го списка среди входов
                     для отдыха -->
                     <tr lang="ru" finished="false">распространять значения n-го списка среди входов
                     для отдыха</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

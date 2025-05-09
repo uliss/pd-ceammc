@@ -79,46 +79,46 @@
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
-                <xinfo>
+                <in>
                     <tr lang="en">left input signal</tr>
                     <tr lang="ru" finished="false">левый входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="2">
-                <xinfo>
+                <in>
                     <tr lang="en">right input signal</tr>
                     <tr lang="ru" finished="false">правильный входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">left input signal</tr>
                     <tr lang="ru" finished="false">левый входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">right input signal</tr>
                     <tr lang="ru" finished="false">правильный входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n-1">
-                <xinfo>
+                <in>
                     <tr lang="en">left input signal</tr>
                     <tr lang="ru" finished="false">левый входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">right input signal</tr>
                     <tr lang="ru" finished="false">правильный входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="control" number="n+1">
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set crossfade value</tr>
                     <tr lang="ru" finished="false">значение crossfade</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

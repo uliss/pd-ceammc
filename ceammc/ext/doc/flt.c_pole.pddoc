@@ -69,10 +69,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">filter frequency</tr>
                     <tr lang="ru" finished="false">частота фильтров</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

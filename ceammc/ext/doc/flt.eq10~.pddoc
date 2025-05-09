@@ -104,14 +104,14 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">sets equalizer coefficients</tr>
                     <tr lang="ru" finished="false">устанавливает коэффициенты эквалайзера</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

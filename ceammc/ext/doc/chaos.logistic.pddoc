@@ -194,17 +194,17 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">generate and output new value</tr>
                     <tr lang="ru" finished="false">генерировать и производить новую стоимость</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">set x-value and if output mode is 1 outputs new value</tr>
                     <!-- old: x-значение и если выходной режим равен 1 выводит
                     новое значение -->
                     <tr lang="ru" finished="false">x-значение и если выходной режим равен 1 выводит
                     новое значение</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

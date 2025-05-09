@@ -40,22 +40,22 @@
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
-                <xinfo>
+                <in>
                     <tr lang="en">first input signal</tr>
                     <tr lang="ru" finished="false">Первый входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">last input signal</tr>
                     <tr lang="ru" finished="false">Последний входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="control" number="n+1">
-                <xinfo>
+                <in>
                     <tr lang="en">multiplexer control</tr>
                     <tr lang="ru" finished="false">управление мультиплексором</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

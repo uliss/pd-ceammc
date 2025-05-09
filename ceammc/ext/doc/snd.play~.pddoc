@@ -206,10 +206,10 @@
         </methods>
         <inlets>
             <inlet type="control">
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">1: start playing, 0: stop</tr>
                     <tr lang="ru" finished="false">1: начать играть, 0: остановиться</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

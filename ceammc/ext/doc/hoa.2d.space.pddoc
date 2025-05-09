@@ -258,10 +258,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">list: amp values</tr>
                     <tr lang="ru" finished="false">Список: значения amp</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -27,14 +27,14 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">time in milliseconds</tr>
                     <tr lang="ru" finished="false">Время в миллисекундах</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list of times in milliseconds</tr>
                     <tr lang="ru" finished="false">Список раз в миллисекундах</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

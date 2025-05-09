@@ -195,10 +195,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">control input</tr>
                     <tr lang="ru" finished="false">контрольный вход</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -54,40 +54,40 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">red channel value in [0-255] range</tr>
                     <!-- old: значение красного канала в диапазоне
                     [0-255] -->
                     <tr lang="ru" finished="false">значение красного канала в диапазоне
                     [0-255]</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">red channel value in [0-1] range</tr>
                     <tr lang="ru" finished="false">значение красного канала в диапазоне [0-1]</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">green channel value in [0-255] range</tr>
                     <!-- old: Значение зеленого канала в диапазоне
                     [0-255] -->
                     <tr lang="ru" finished="false">Значение зеленого канала в диапазоне
                     [0-255]</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">green channel value in [0-1] range</tr>
                     <tr lang="ru" finished="false">Значение зеленого канала в диапазоне [0-1]</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">blue channel value in [0-255] range</tr>
                     <tr lang="ru" finished="false">Значение синего канала в диапазоне [0-255]</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">blue channel value in [0-1] range</tr>
                     <tr lang="ru" finished="false">Значение синего канала в диапазоне [0-1]</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

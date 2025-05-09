@@ -94,10 +94,13 @@ is clipped between 0\. (omnidirectional) and 1\. (directional). Аргумент
 #X obj 20 1584 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1585 1\.;
+#X text 150 1585 ~;
 #X text 245 1585 input harmonic.;
-#X text 110 1605 ....;
+#X text 110 1605 ...;
+#X text 150 1605 ~;
 #X text 245 1605 input harmonic.;
 #X text 110 1625 n.;
+#X text 150 1625 ~;
 #X text 245 1625 input harmonic. If @fisheye mode is used: fisheye
 factor [0-1] in last inlet.;
 #X obj 20 1670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -106,7 +109,7 @@ factor [0-1] in last inlet.;
 #X text 110 1676 1\.;
 #X text 150 1676 ~;
 #X text 245 1676 first planewave output.;
-#X text 110 1696 ....;
+#X text 110 1696 ...;
 #X text 150 1696 ~;
 #X text 245 1696 ... planewave output.;
 #X text 110 1716 n.;

@@ -673,14 +673,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs current envelope</tr>
                     <tr lang="ru" finished="false">выходы текущего конверта</tr>
-                </xinfo>
-                <xinfo on="data">
+                </in>
+                <in on="data">
                     <tr lang="en">set new envelope and output it</tr>
                     <tr lang="ru" finished="false">установить новый конверт и вывести его</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

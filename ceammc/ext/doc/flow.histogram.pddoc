@@ -61,21 +61,21 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">calculates histogram and output current bin values</tr>
                     <!-- old: вычисляет гистограмму и выходные значения тока
                     бин -->
                     <tr lang="ru" finished="false">вычисляет гистограмму и выходные значения тока
                     бин</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">add value to the histogram and output it's value if @sync
                     property is true</tr>
                     <!-- old: добавить значение гистограмме и вывести его
                     значение, если свойство @sync истинно -->
                     <tr lang="ru" finished="false">добавить значение гистограмме и вывести его
                     значение, если свойство @sync истинно</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

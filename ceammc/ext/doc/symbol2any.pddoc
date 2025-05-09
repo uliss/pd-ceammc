@@ -27,14 +27,14 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">symbol</tr>
                     <tr lang="ru" finished="false">символ</tr>
-                </xinfo>
-                <xinfo on="data:string">
+                </in>
+                <in on="data:string">
                     <tr lang="en">string</tr>
                     <tr lang="ru" finished="false">струна</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

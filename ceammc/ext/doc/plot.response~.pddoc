@@ -53,16 +53,16 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">starts response calculation</tr>
                     <tr lang="ru" finished="false">Начинается расчет ответа</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

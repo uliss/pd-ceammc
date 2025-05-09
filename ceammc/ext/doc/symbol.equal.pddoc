@@ -32,16 +32,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">first symbol</tr>
                     <tr lang="ru" finished="false">Первый символ</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">second symbol</tr>
                     <tr lang="ru" finished="false">Второй символ</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

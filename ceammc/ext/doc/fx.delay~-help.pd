@@ -98,9 +98,10 @@ on delay change. Type: float. Units: 'ms'. Default value: 50\. Range:
 #X obj 20 1359 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1360 1\.;
+#X text 150 1360 ~;
 #X text 245 1360 input signal.;
 #X text 110 1380 2\.;
-#X text 150 1380 *float*;
+#X text 150 1380 float:;
 #X text 245 1380 set delay time.;
 #X obj 20 1410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1415 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

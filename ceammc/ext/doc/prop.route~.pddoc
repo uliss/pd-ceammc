@@ -36,10 +36,10 @@
         </info>
         <inlets>
             <inlet type="audio">
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">input values and sound</tr>
                     <tr lang="ru" finished="false">входные значения и звук</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

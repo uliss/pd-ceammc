@@ -166,10 +166,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">generate and output new value</tr>
                     <tr lang="ru" finished="false">генерировать и производить новую стоимость</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -78,22 +78,22 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">set frequency</tr>
                     <tr lang="ru" finished="false">установленная частота</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">set Q-factor</tr>
                     <tr lang="ru" finished="false">Настройка Q-фактора</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -193,32 +193,31 @@ only) \, output newly selected item.;
 #X obj 20 2400 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 2401 1\.;
-#X text 150 2401 *bang*;
+#X text 150 2401 bang:;
 #X text 245 2401 in single mode outputs tab state as list: INDEX TAB_NAME.
 In toggle mode outputs current state like: @selected 0 1 0 1 0 etc.
 and list of two values: [CHANGED_IDX CHANGED_VALUE].;
-#X text 150 2451 *float*;
-#X text 245 2451 only in single mode: change tab by index and output
+#X text 150 2456 float:;
+#X text 245 2456 only in single mode: change tab by index and output
 list: INDEX TAB_NAME.;
-#X text 150 2486 *any*;
-#X text 245 2486 selects item equal to given and output list: INDEX
+#X text 245 2496 selects item equal to given and output list: INDEX
 TAB_NAME.;
-#X obj 20 2516 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2521 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 2526 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2531 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2522 1\.;
-#X text 245 2522 output.;
+#X text 110 2532 1\.;
+#X text 245 2532 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2572 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2575 библиотека: ceammc v0.9.8;
-#X text 565 2587 смотрите также:;
-#X obj 686 2590 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 2582 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2585 библиотека: ceammc v0.9.8;
+#X text 565 2597 смотрите также:;
+#X obj 686 2600 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.menu] @url ui.menu-help.pd;
-#N canvas 10 2594 400 290 info 0;
+#N canvas 10 2604 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -242,7 +241,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2594 pd info;
+#X restore 10 2604 pd info;
 #X connect 15 0 17 0;
 #X connect 4 0 19 0;
 #X connect 7 0 19 0;

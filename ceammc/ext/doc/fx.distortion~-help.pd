@@ -71,6 +71,7 @@ even harmonics. Type: float. Default value: 0\. Range: 0\...0.5\.;
 #X obj 20 963 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 964 1\.;
+#X text 150 964 ~;
 #X text 245 964 input signal.;
 #X obj 20 994 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 999 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

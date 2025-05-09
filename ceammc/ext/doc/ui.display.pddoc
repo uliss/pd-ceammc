@@ -121,10 +121,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">accepts any messages and displays it</tr>
                     <tr lang="ru" finished="false">принимает любые сообщения и отображает их</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <example>

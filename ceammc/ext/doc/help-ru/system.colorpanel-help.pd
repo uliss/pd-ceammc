@@ -49,28 +49,28 @@ range.;
 #X obj 20 737 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 738 1\.;
-#X text 150 738 *bang*;
+#X text 150 738 bang:;
 #X text 245 738 opens colorpanel.;
-#X text 150 758 *symbol*;
-#X text 245 758 opens colorpanel with selected color. The hex format
+#X text 150 763 symbol:;
+#X text 245 763 opens colorpanel with selected color. The hex format
 #RRGGBB is expected.;
-#X text 150 793 *list*;
-#X text 245 793 opens colorpanel with selected color. RGB color triplet
+#X text 150 803 list:;
+#X text 245 803 opens colorpanel with selected color. RGB color triplet
 expected in float (0-1) or int (0-255) range \, depending from @mode.;
-#X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 858 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 868 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 859 1\.;
-#X text 245 859 messages: hex color symbol in format #RRGGBB or RGB
+#X text 110 869 1\.;
+#X text 245 869 messages: hex color symbol in format #RRGGBB or RGB
 color triplet in float (0-1) or int (0-255) range depending from @mode.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 939 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 942 библиотека: ceammc v0.9.8;
-#N canvas 10 961 400 290 info 0;
+#X obj 1 949 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 952 библиотека: ceammc v0.9.8;
+#N canvas 10 971 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -94,7 +94,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 961 pd info;
+#X restore 10 971 pd info;
 #X connect 5 0 7 0;
 #X connect 4 0 8 0;
 #X connect 6 0 8 0;

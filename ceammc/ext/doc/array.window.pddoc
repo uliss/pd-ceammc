@@ -143,10 +143,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">fill array with window</tr>
                     <tr lang="ru" finished="false">Заполните массив окном</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

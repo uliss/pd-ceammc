@@ -34,7 +34,7 @@
 #X text 110 413 1\.;
 #X text 245 413 input value.;
 #X text 110 433 2\.;
-#X text 150 433 *int*;
+#X text 150 433 int:;
 #X text 245 433 conditional output from predicate object. '1' means
 pass \, '0' means reject. Диапазон: 0…1\.;
 #X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -31,50 +31,50 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">input float. Example: input 10 outputs list - 10 x n times</tr>
                     <!-- old: Входной поплавок. Пример: ввод 10 выходов список
                     - 10 x n раз -->
                     <tr lang="ru" finished="false">Входной поплавок. Пример: ввод 10 выходов список
                     - 10 x n раз</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">input symbol. Example: input "A" outputs list - "A" x n
                     times</tr>
                     <!-- old: Входной символ. Пример: входной "A" выходной
                     список - "A" x n раз -->
                     <tr lang="ru" finished="false">Входной символ. Пример: входной "A" выходной
                     список - "A" x n раз</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">input list. Example: input 1 2 3 outputs list - (1 2 3) x n
                     times</tr>
                     <!-- old: Список входов. Пример: ввод 1 2 3 вывода списка
                     - (1 2 3) x n раз -->
                     <tr lang="ru" finished="false">Список входов. Пример: ввод 1 2 3 вывода списка
                     - (1 2 3) x n раз</tr>
-                </xinfo>
-                <xinfo on="data">
+                </in>
+                <in on="data">
                     <tr lang="en">input data. Output list of data repeated @times</tr>
                     <!-- old: Входные данные. Список результатов повторения
                     данных @times -->
                     <tr lang="ru" finished="false">Входные данные. Список результатов повторения
                     данных @times</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">same as list. Example: (1 2 3) results mlist (1 2 3 1 2 3
                     ...)</tr>
                     <!-- old: То же, что и список. Пример: (1 2 3) результаты
                     млиста (1 2 3 1 2 3 ...) -->
                     <tr lang="ru" finished="false">То же, что и список. Пример: (1 2 3) результаты
                     млиста (1 2 3 1 2 3 ...)</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int" minvalue="0" maxvalue="10000">
+                <in on="int" minvalue="0" maxvalue="10000">
                     <tr lang="en">repeat count</tr>
                     <tr lang="ru" finished="false">повторный счет</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

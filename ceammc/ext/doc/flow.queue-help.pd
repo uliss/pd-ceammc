@@ -59,16 +59,12 @@ elements when queue is full. Type: bool. Default value: 0\.;
 #X obj 20 1016 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1017 1\.;
-#X text 150 1017 *any*;
 #X text 245 1017 1st queue input messages.;
-#X text 110 1037 ....;
-#X text 150 1037 *any*;
+#X text 110 1037 ...;
 #X text 245 1037 ... queue input messages.;
 #X text 110 1057 n.;
-#X text 150 1057 *any*;
 #X text 245 1057 n-th queue input messages.;
 #X text 110 1077 n+1\.;
-#X text 150 1077 *any*;
 #X text 245 1077 clear: remove all elements from all queues \, output:
 output all element from all queues \, flush: output and clear all element
 from all queues \, bang or pop: output and remove first message in
@@ -78,7 +74,7 @@ all queues.;
 -49933 0;
 #X text 110 1173 1\.;
 #X text 245 1173 1st queue output.;
-#X text 110 1193 ....;
+#X text 110 1193 ...;
 #X text 245 1193 ... queue output.;
 #X text 110 1213 n.;
 #X text 245 1213 n-th queue output.;

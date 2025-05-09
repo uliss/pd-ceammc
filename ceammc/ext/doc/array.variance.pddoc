@@ -37,10 +37,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">calculates and outputs variance</tr>
                     <tr lang="ru" finished="false">вычисления и отклонения результатов</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

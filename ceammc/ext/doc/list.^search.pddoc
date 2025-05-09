@@ -57,31 +57,31 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">output float index in searched list</tr>
                     <tr lang="ru" finished="false">Индекс Float в списке поиска</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">output symbol index in searched list</tr>
                     <tr lang="ru" finished="false">Индекс символов вывода в списке поиска</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">output position of given list in searched list</tr>
                     <!-- old: выходная позиция данного списка в списке
                     поиска -->
                     <tr lang="ru" finished="false">выходная позиция данного списка в списке
                     поиска</tr>
-                </xinfo>
-                <xinfo on="data">
+                </in>
+                <in on="data">
                     <tr lang="en">output data index in searched list</tr>
                     <tr lang="ru" finished="false">Индекс выходных данных в списке поиска</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set searched list</tr>
                     <tr lang="ru" finished="false">Настройка Searched List</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

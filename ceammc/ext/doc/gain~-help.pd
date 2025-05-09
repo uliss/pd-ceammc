@@ -82,11 +82,13 @@ value: 0\. Min value: 0\.;
 #X obj 20 1095 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1096 1\.;
+#X text 150 1096 ~;
 #X text 245 1096 input signal.;
-#X text 110 1116 ....;
+#X text 110 1116 ...;
+#X text 150 1116 ~;
 #X text 245 1116 input signal.;
 #X text 110 1136 n.;
-#X text 150 1136 *float*;
+#X text 150 1136 float:;
 #X text 245 1136 set gain for all inputs.;
 #X obj 20 1166 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1171 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
@@ -94,7 +96,7 @@ value: 0\. Min value: 0\.;
 #X text 110 1172 1\.;
 #X text 150 1172 ~;
 #X text 245 1172 output signal.;
-#X text 110 1192 ....;
+#X text 110 1192 ...;
 #X text 150 1192 ~;
 #X text 245 1192 output signal.;
 #X text 110 1212 n.;

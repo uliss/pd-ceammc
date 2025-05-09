@@ -53,10 +53,13 @@ decomposition. Тип: int. Значение по умолчанию: 1\. Диа
 #X obj 20 797 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 798 1\.;
+#X text 150 798 ~;
 #X text 245 798 input harmonic.;
-#X text 110 818 ....;
+#X text 110 818 ...;
+#X text 150 818 ~;
 #X text 245 818 ... input harmonic.;
 #X text 110 838 n.;
+#X text 150 838 ~;
 #X text 245 838 n-th input harmonic.;
 #X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 873 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
@@ -64,7 +67,7 @@ decomposition. Тип: int. Значение по умолчанию: 1\. Диа
 #X text 110 874 1\.;
 #X text 150 874 ~;
 #X text 245 874 first plane wave output.;
-#X text 110 894 ....;
+#X text 110 894 ...;
 #X text 150 894 ~;
 #X text 245 894 ... plane wave output.;
 #X text 110 914 n.;

@@ -173,22 +173,22 @@
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">first input harmonic/planewave</tr>
                     <tr lang="ru" finished="false">Первая входная гармоника/самоволновка</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... input harmonic/planewave</tr>
                     <tr lang="ru" finished="false">...входная гармоника /planewave</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">n-th input harmonic/planewave</tr>
                     <tr lang="ru" finished="false">n-я входная гармоника/плановая волна</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

@@ -106,13 +106,13 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs current x/y values and generates new one</tr>
                     <!-- old: выводит текущие значения x/y и генерирует
                     новые -->
                     <tr lang="ru" finished="false">выводит текущие значения x/y и генерирует
                     новые</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

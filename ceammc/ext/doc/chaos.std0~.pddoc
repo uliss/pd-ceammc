@@ -59,19 +59,19 @@
         <methods />
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">generation frequency, minimal value 0.001Hz</tr>
                     <!-- old: частота генерации, минимальное значение 0,001
                     Гц -->
                     <tr lang="ru" finished="false">частота генерации, минимальное значение 0,001
                     Гц</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">k-value</tr>
                     <tr lang="ru" finished="false">значение k</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

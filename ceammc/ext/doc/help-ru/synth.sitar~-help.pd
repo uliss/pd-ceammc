@@ -48,7 +48,7 @@ float. Единицы: 'Hz'. Значение по умолчанию: 220\. Д�
 #X obj 20 773 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 774 1\.;
-#X text 150 774 *list*;
+#X text 150 774 list:;
 #X text 245 774 NOTE VEL.;
 #X obj 20 804 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 809 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

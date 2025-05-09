@@ -44,10 +44,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input set</tr>
                     <tr lang="ru" finished="false">входной набор</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

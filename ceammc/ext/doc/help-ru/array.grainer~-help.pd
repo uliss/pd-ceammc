@@ -191,26 +191,26 @@ reverse grains with corresponding tag. Тип: symbol.;
 0;
 #X text 110 2869 1\.;
 #X text 245 2869 вход для управляющих сообщений.;
-#X text 150 2889 *bang*;
-#X text 245 2889 если @sync = 'ext': начинает воспроизведение завершенных
+#X text 150 2894 bang:;
+#X text 245 2894 если @sync = 'ext': начинает воспроизведение завершенных
 гранул.;
-#X obj 20 2934 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2939 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 2939 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2944 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2940 1\.;
-#X text 150 2940 ~;
-#X text 245 2940 левый канал.;
-#X text 110 2960 2\.;
-#X text 150 2960 ~;
-#X text 245 2960 правый канал.;
+#X text 110 2945 1\.;
+#X text 150 2945 ~;
+#X text 245 2945 левый канал.;
+#X text 110 2965 2\.;
+#X text 150 2965 ~;
+#X text 245 2965 правый канал.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 3010 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 3013 библиотека: ceammc v0.9.8;
-#N canvas 10 3032 400 290 info 0;
+#X obj 1 3015 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 3018 библиотека: ceammc v0.9.8;
+#N canvas 10 3037 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -234,7 +234,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 3032 pd info;
+#X restore 10 3037 pd info;
 #X connect 17 0 19 0;
 #X connect 16 0 20 0;
 #X connect 18 0 20 0;

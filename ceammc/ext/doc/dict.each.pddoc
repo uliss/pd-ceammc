@@ -22,16 +22,16 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="data:dict">
+                <in on="data:dict">
                     <tr lang="en">input dictionary</tr>
                     <tr lang="ru" finished="false">словарь входного словаря</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">new key value from sidechain</tr>
                     <tr lang="ru" finished="false">Новая ключевая ценность от Sidechain</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

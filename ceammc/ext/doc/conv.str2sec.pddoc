@@ -38,18 +38,18 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">Time in format: "HH:MM::SS[.XXX]"</tr>
                     <tr lang="ru" finished="false">Время в формате: «HH:MM::SS[.XXX]»</tr>
-                </xinfo>
-                <xinfo on="data">
+                </in>
+                <in on="data">
                     <tr lang="en">String time in format: "HH:MM::SS[.XXX]"</tr>
                     <tr lang="ru" finished="false">Время струн в формате: «HH:MM::SS[.XXX]»</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">Time in format: "HH:MM::SS[.XXX]"</tr>
                     <tr lang="ru" finished="false">Время в формате: «HH:MM::SS[.XXX]»</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

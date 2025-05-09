@@ -46,29 +46,29 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set divident, calculate and output result</tr>
                     <!-- old: установить делитель, вычислить и получить
                     результат -->
                     <tr lang="ru" finished="false">установить делитель, вычислить и получить
                     результат</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">pair: set divident and divisor, calculate and output result</tr>
                     <!-- old: пара: установленный делитель и делитель,
                     вычисление и выходной результат -->
                     <tr lang="ru" finished="false">пара: установленный делитель и делитель,
                     вычисление и выходной результат</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">change divisor, calculate and output result</tr>
                     <!-- old: изменение делителя, вычисление и выходной
                     результат -->
                     <tr lang="ru" finished="false">изменение делителя, вычисление и выходной
                     результат</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

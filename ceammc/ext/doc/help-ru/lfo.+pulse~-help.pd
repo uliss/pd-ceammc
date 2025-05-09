@@ -65,9 +65,10 @@
 #X obj 20 889 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 890 1\.;
+#X text 150 890 ~;
 #X text 245 890 frequency in Hz.;
 #X text 110 910 2\.;
-#X text 150 910 *bang*;
+#X text 150 910 bang:;
 #X text 245 910 reset phase.;
 #X obj 20 940 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 945 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

@@ -47,38 +47,38 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">checks if given float is found the list</tr>
                     <!-- old: Проверить, найден ли данный поплавок в
                     списке -->
                     <tr lang="ru" finished="false">Проверить, найден ли данный поплавок в
                     списке</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">checks if given symbol is found the list</tr>
                     <tr lang="ru" finished="false">Проверьте, найден ли данный символ в списке</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">check is given list is subseqence of list</tr>
                     <!-- old: Check is given list является подсеквенцией
                     списка -->
                     <tr lang="ru" finished="false">Check is given list является подсеквенцией
                     списка</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">as list</tr>
                     <tr lang="ru" finished="false">как список</tr>
-                </xinfo>
-                <xinfo on="data">
+                </in>
+                <in on="data">
                     <tr lang="en">checks if given data is found the list</tr>
                     <tr lang="ru" finished="false">Проверяет, найдены ли данные в списке</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set haystack list</tr>
                     <tr lang="ru" finished="false">Установить список стогов сена</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

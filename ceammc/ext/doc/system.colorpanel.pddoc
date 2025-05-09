@@ -75,23 +75,23 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">opens colorpanel</tr>
                     <tr lang="ru" finished="false">Открытие Colorpanel</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">opens colorpanel with selected color. The hex format #RRGGBB is
                     expected.</tr>
                     <tr lang="ru" finished="false">Открывает цветовую гамму с выбранным цветом.
                     Ожидается шестиформатный #RRGGBB.</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">opens colorpanel with selected color. RGB color triplet expected
                     in float (0-1) or int (0-255) range, depending from @mode</tr>
                     <tr lang="ru" finished="false">Открывает цветовую гамму с выбранным цветом.
                     Цветовой триплет RGB, ожидаемый в диапазоне поплавков (0-1) или int (0-255), в
                     зависимости от режима @mode</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

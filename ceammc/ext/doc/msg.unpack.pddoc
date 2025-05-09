@@ -36,10 +36,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">any messages</tr>
                     <tr lang="ru" finished="false">Любые сообщения</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

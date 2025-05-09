@@ -31,20 +31,20 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">evalute polynomial</tr>
                     <tr lang="ru" finished="false">эвалютный полином</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">evalute each value in list</tr>
                     <tr lang="ru" finished="false">Оценить каждое значение в списке</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">sets polynomial coefficients</tr>
                     <tr lang="ru" finished="false">устанавливает полиномиальные коэффициенты</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

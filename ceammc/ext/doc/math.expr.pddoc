@@ -62,23 +62,23 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">input value (referenced as $f0 or $f in expression)</tr>
                     <tr lang="ru" finished="false">входное значение (в выражении $f0 или $f)</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">input values (referenced as $f0 ... $f9 in expression)</tr>
                     <!-- old: Входные значения (ссылка на $f0 ...) $9 в
                     выражении -->
                     <tr lang="ru" finished="false">Входные значения (ссылка на $f0 ...) $9 в
                     выражении</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">change expression</tr>
                     <tr lang="ru" finished="false">изменение выражения</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

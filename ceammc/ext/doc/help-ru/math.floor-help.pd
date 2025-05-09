@@ -20,15 +20,15 @@ less than or equal to x.;
 #X obj 20 379 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 380 1\.;
-#X text 150 380 *float*;
+#X text 150 380 float:;
 #X text 245 380 input value.;
-#X text 150 400 *list*;
-#X text 245 400 apply to all numeric values.;
-#X obj 20 430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 435 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 150 405 list:;
+#X text 245 405 apply to all numeric values.;
+#X obj 20 435 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 440 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 436 1\.;
-#X text 245 436 result value.;
+#X text 110 441 1\.;
+#X text 245 441 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -392,15 +392,15 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output all cells. Same as [get cells(</tr>
                     <tr lang="ru" finished="false">вывести все ячейки. Как [получить клетки]</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">sets matrix state. Input format: 0 and 1, row by row</tr>
                     <tr lang="ru" finished="false">Устанавливает состояние матрицы. Формат ввода: 0
                     и 1, строка за строкой</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

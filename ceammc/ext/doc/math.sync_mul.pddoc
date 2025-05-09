@@ -36,27 +36,27 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set multiplier, calculate and output result</tr>
                     <tr lang="ru" finished="false">множитель, вычисление и выходной результат</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">pair: set multipliers and multiplicand, calculate and output
                     result</tr>
                     <!-- old: пара: множество множителей и множитель,
                     вычисление и выходной результат -->
                     <tr lang="ru" finished="false">пара: множество множителей и множитель,
                     вычисление и выходной результат</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">change multiplicand, calculate and output result</tr>
                     <!-- old: изменение мультипликатора, вычисление и
                     результат -->
                     <tr lang="ru" finished="false">изменение мультипликатора, вычисление и
                     результат</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

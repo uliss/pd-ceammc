@@ -117,10 +117,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">message input</tr>
                     <tr lang="ru" finished="false">ввод сообщения</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

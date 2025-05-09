@@ -47,13 +47,16 @@ value: 5\. Range: 0.1\...100\.;
 #X obj 20 729 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 730 1\.;
+#X text 150 730 ~;
 #X text 245 730 modulation signal.;
 #X text 110 750 2\.;
+#X text 150 750 ~;
 #X text 245 750 excitation/carrier signal.;
 #X obj 20 780 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 785 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 786 1\.;
+#X text 150 786 ~;
 #X text 245 786;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -58,7 +58,7 @@ value: 0\.;
 -49933 0;
 #X text 110 775 1\.;
 #X text 245 775 first mouse event type match output.;
-#X text 110 795 ....;
+#X text 110 795 ...;
 #X text 245 795 ... mouse event type match output.;
 #X text 110 815 n.;
 #X text 245 815 n-th mouse event type match output.;

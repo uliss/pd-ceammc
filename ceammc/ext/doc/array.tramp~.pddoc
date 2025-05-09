@@ -55,10 +55,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">start ramp for array</tr>
                     <tr lang="ru" finished="false">стартовый пандус для массива</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

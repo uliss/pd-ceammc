@@ -138,14 +138,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output list content</tr>
                     <tr lang="ru" finished="false">Содержание списка выходных данных</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">set new list content and output</tr>
                     <tr lang="ru" finished="false">установить новый контент списка и выход</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

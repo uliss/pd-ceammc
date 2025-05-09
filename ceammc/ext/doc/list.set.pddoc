@@ -44,26 +44,26 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">input list</tr>
                     <tr lang="ru" finished="false">вводный список</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">input mlist</tr>
                     <tr lang="ru" finished="false">входной млечный</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">element index</tr>
                     <tr lang="ru" finished="false">Элементный индекс</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="atom">
+                <in on="atom">
                     <tr lang="en">new element value</tr>
                     <tr lang="ru" finished="false">Новое значение элемента</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

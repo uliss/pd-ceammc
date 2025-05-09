@@ -57,10 +57,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">value in MIDI CC range [0..127]</tr>
                     <tr lang="ru" finished="false">значение в диапазоне MIDI CC [0,127]</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

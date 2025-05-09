@@ -42,7 +42,7 @@ https://en.wikipedia.org/wiki/Standard_deviation;
 #X obj 20 509 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 510 1\.;
-#X text 150 510 *bang*;
+#X text 150 510 bang:;
 #X text 245 510 calculates and outputs standard deviation.;
 #X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 545 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

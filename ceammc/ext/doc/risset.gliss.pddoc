@@ -53,10 +53,10 @@
         <methods />
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">glissando phase</tr>
                     <tr lang="ru" finished="false">фаза глиссандо</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

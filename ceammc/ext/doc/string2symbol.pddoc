@@ -23,10 +23,10 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input string value</tr>
                     <tr lang="ru" finished="false">значение входной строки</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

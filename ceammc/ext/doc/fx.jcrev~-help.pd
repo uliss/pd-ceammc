@@ -61,9 +61,10 @@ Default value: 0.4\. Range: 0\...1\.;
 #X obj 20 887 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 888 1\.;
+#X text 150 888 ~;
 #X text 245 888 input signal.;
 #X text 110 908 2\.;
-#X text 150 908 *float*;
+#X text 150 908 float:;
 #X text 245 908 set drywet.;
 #X obj 20 938 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 943 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

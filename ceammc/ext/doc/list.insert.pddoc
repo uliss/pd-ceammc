@@ -46,26 +46,26 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">input list</tr>
                     <tr lang="ru" finished="false">вводный список</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">input mlist</tr>
                     <tr lang="ru" finished="false">входной млечный</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set inserted atom or list</tr>
                     <tr lang="ru" finished="false">Вставленный атом или список</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set insert position</tr>
                     <tr lang="ru" finished="false">положение вставки</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -18,18 +18,18 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">output 1 if given path is found and is directory, otherwise
                     false</tr>
                     <!-- old: выход 1 если данный путь найден и является
                     каталогом, в противном случае ложным -->
                     <tr lang="ru" finished="false">выход 1 если данный путь найден и является
                     каталогом, в противном случае ложным</tr>
-                </xinfo>
-                <xinfo on="data:string">
+                </in>
+                <in on="data:string">
                     <tr lang="en">same as for symbol</tr>
                     <tr lang="ru" finished="false">То же, что и символ</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -54,25 +54,25 @@ coords relative to the root window \, otherwise output screen coordinates.
 #X obj 20 739 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 740 1\.;
-#X text 150 740 *bang*;
+#X text 150 740 bang:;
 #X text 245 740 output cursor position.;
-#X text 150 760 *float*;
-#X text 245 760 when 1 is received - turns on cursor polling (position
+#X text 150 765 float:;
+#X text 245 765 when 1 is received - turns on cursor polling (position
 and buttons) \, when 0 is received - turns it off.;
-#X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 810 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 815 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 811 1\.;
-#X text 245 811 messages: motion X Y \, mousewheel DELTA \, button
+#X text 110 816 1\.;
+#X text 245 816 messages: motion X Y \, mousewheel DELTA \, button
 IDX STATE.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 861 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 864 библиотека: ceammc v0.9.8;
-#N canvas 10 883 400 290 info 0;
+#X obj 1 866 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 869 библиотека: ceammc v0.9.8;
+#N canvas 10 888 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -96,7 +96,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 883 pd info;
+#X restore 10 888 pd info;
 #X connect 5 0 10 0;
 #X connect 6 0 11 0;
 #X connect 7 0 12 0;

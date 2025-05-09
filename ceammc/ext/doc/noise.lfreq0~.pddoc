@@ -50,10 +50,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set average frequency</tr>
                     <tr lang="ru" finished="false">Установить среднюю частоту</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

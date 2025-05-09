@@ -80,16 +80,16 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">carrier</tr>
                     <tr lang="ru" finished="false">перевозчик</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">modulator</tr>
                     <tr lang="ru" finished="false">модулятор</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

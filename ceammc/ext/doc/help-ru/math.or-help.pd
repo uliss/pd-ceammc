@@ -52,13 +52,13 @@ of 1 and 0\. Тип: list.;
 #X obj 20 652 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 653 1\.;
-#X text 150 653 *float*;
+#X text 150 653 float:;
 #X text 245 653 1 or 0\.;
-#X text 110 673 ....;
-#X text 150 673 *float*;
+#X text 110 673 ...;
+#X text 150 673 float:;
 #X text 245 673 1 or 0\.;
 #X text 110 693 n.;
-#X text 150 693 *float*;
+#X text 150 693 float:;
 #X text 245 693 1 or 0\.;
 #X obj 20 723 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 728 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

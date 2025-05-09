@@ -55,14 +55,14 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">output signal in the corresponding hoa.process~ object's signal
                     outlet</tr>
                     <!-- old: выходной сигнал в соответствующем hoa.process~
                     выходной сигнал объекта -->
                     <tr lang="ru" finished="false">выходной сигнал в соответствующем hoa.process~
                     выходной сигнал объекта</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <example>

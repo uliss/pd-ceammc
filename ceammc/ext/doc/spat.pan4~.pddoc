@@ -51,14 +51,14 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">set radius and angle</tr>
                     <tr lang="ru" finished="false">установленный радиус и угол</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

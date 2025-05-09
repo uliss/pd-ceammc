@@ -41,16 +41,22 @@ https://en.wikipedia.org/wiki/Digital_biquad_filter;
 #X obj 20 782 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 783 1\.;
+#X text 150 783 ~;
 #X text 245 783 input signal.;
 #X text 110 803 2\.;
+#X text 150 803 ~;
 #X text 245 803 b0\.;
 #X text 110 823 3\.;
+#X text 150 823 ~;
 #X text 245 823 b1\.;
 #X text 110 843 4\.;
+#X text 150 843 ~;
 #X text 245 843 b2\.;
 #X text 110 863 5\.;
+#X text 150 863 ~;
 #X text 245 863 a1\.;
 #X text 110 883 6\.;
+#X text 150 883 ~;
 #X text 245 883 a2\.;
 #X obj 20 913 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 918 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

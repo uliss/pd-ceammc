@@ -38,16 +38,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">First list - single elements</tr>
                     <tr lang="ru" finished="false">Первый список - одиночные элементы</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">Second list - count of each element</tr>
                     <tr lang="ru" finished="false">Второй список - подсчет каждого элемента</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -90,16 +90,16 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">source signal</tr>
                     <tr lang="ru" finished="false">источник сигнала</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">1/0 toggle signal</tr>
                     <tr lang="ru" finished="false">1/0 сигнал переключения</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

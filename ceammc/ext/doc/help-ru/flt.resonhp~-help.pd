@@ -58,12 +58,13 @@
 #X obj 20 885 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 886 1\.;
+#X text 150 886 ~;
 #X text 245 886 input signal.;
 #X text 110 906 2\.;
-#X text 150 906 *float*;
+#X text 150 906 float:;
 #X text 245 906 set frequency.;
 #X text 110 926 3\.;
-#X text 150 926 *float*;
+#X text 150 926 float:;
 #X text 245 926 set Q-factor.;
 #X obj 20 956 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 961 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

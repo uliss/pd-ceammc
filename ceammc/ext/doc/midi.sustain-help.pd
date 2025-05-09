@@ -37,10 +37,10 @@ bool. Default value: 0\.;
 #X obj 20 635 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 636 1\.;
-#X text 150 636 *list*;
+#X text 150 636 list:;
 #X text 245 636 MIDI input: NOTE VEL.;
 #X text 110 656 2\.;
-#X text 150 656 *float*;
+#X text 150 656 float:;
 #X text 245 656 turn sustain on/off (1/0).;
 #X obj 20 686 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 691 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

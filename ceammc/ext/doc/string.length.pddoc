@@ -22,11 +22,11 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input string or symbol. Unicode strings also supported.</tr>
                     <tr lang="ru" finished="false">входная строка или символ. Поддерживаются также
                     строки Unicode.</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

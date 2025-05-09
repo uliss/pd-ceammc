@@ -175,10 +175,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">input byte value from arduino</tr>
                     <tr lang="ru" finished="false">значение байта от Arduino</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

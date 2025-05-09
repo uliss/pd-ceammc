@@ -43,14 +43,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">pitch</tr>
                     <tr lang="ru" finished="false">высота</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list of pitches</tr>
                     <tr lang="ru" finished="false">Список полей</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

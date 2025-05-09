@@ -94,10 +94,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input messages from ui object</tr>
                     <tr lang="ru" finished="false">Входные сообщения от ui object</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

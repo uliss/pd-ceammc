@@ -34,10 +34,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">x, y coord pair</tr>
                     <tr lang="ru" finished="false">x, y coord pair</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

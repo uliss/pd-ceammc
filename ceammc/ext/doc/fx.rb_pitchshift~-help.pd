@@ -112,6 +112,7 @@ standard. Allowed values: standard \, short \, long.;
 #X obj 20 1838 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1839 1\.;
+#X text 150 1839 ~;
 #X text 245 1839 input signal.;
 #X text 110 1859 2\.;
 #X text 245 1859 pitch shift in semitones.;

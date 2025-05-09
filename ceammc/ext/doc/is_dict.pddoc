@@ -24,10 +24,10 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input</tr>
                     <tr lang="ru" finished="false">ввод</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

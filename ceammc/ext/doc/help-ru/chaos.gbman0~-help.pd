@@ -54,6 +54,7 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 20 674 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 675 1\.;
+#X text 150 675 ~;
 #X text 245 675 generation frequency \, minimal value 0.001Hz.;
 #X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 710 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

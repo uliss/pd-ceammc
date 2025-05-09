@@ -58,22 +58,22 @@
         </methods>
         <inlets dynamic="true">
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">1 or 0</tr>
                     <tr lang="ru" finished="false">1 или 0</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="...">
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">1 or 0</tr>
                     <tr lang="ru" finished="false">1 или 0</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n">
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">1 or 0</tr>
                     <tr lang="ru" finished="false">1 или 0</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

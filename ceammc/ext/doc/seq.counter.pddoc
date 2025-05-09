@@ -115,17 +115,17 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output current value then increment counter</tr>
                     <tr lang="ru" finished="false">значение выходного тока, затем счетчик
                     прироста</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset counter to start value</tr>
                     <tr lang="ru" finished="false">Reset Counter - стартовая стоимость</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

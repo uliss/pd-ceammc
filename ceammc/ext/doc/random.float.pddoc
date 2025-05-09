@@ -88,22 +88,22 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">generate new number</tr>
                     <tr lang="ru" finished="false">генерировать новое число</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set @min property</tr>
                     <tr lang="ru" finished="false">@min Недвижимость</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set @max property</tr>
                     <tr lang="ru" finished="false">Обсуждение @max Property</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

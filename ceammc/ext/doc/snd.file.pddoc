@@ -242,10 +242,10 @@
         </methods>
         <inlets>
             <inlet type="control">
-                <xinfo>
+                <in>
                     <tr lang="en">input inlet</tr>
                     <tr lang="ru" finished="false">входной вход</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

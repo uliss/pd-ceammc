@@ -73,10 +73,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">input bit list</tr>
                     <tr lang="ru" finished="false">Список входных бит</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

@@ -18,17 +18,17 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">checks if given path exists</tr>
                     <tr lang="ru" finished="false">Проверка наличия данного пути</tr>
-                </xinfo>
-                <xinfo on="data">
+                </in>
+                <in on="data">
                     <tr lang="en">If string given - checks if path exists</tr>
                     <!-- old: Если дана строка - проверяет, существует ли
                     путь -->
                     <tr lang="ru" finished="false">Если дана строка - проверяет, существует ли
                     путь</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

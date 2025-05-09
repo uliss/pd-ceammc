@@ -62,32 +62,32 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo>
+                <in>
                     <tr lang="en">input: store in 1st memory cell</tr>
                     <tr lang="ru" finished="false">Вход: хранение в 1-й ячейке памяти</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">input: store in ... memory cell</tr>
                     <tr lang="ru" finished="false">Вход: хранилище в... ячейке памяти</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">input: store in n-th memory cell</tr>
                     <tr lang="ru" finished="false">Вход: хранилище в n-й ячейке памяти</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n+1">
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output all cells</tr>
                     <tr lang="ru" finished="false">вывести все клетки</tr>
-                </xinfo>
-                <xinfo on="int">
+                </in>
+                <in on="int">
                     <tr lang="en">output specified cell</tr>
                     <tr lang="ru" finished="false">выход заданной ячейки</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

@@ -34,16 +34,16 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="control">
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">set delay length</tr>
                     <tr lang="ru" finished="false">установленная длительность задержки</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

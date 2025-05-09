@@ -43,10 +43,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">single character</tr>
                     <tr lang="ru" finished="false">одиночный персонаж</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

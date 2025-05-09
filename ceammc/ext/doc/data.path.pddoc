@@ -94,28 +94,28 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output current path</tr>
                     <tr lang="ru" finished="false">Выходной текущий путь</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">set current path and output</tr>
                     <tr lang="ru" finished="false">Установить текущий путь и выход</tr>
-                </xinfo>
-                <xinfo on="data">
+                </in>
+                <in on="data">
                     <tr lang="en">set current path and output</tr>
                     <tr lang="ru" finished="false">Установить текущий путь и выход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">set current path and without output</tr>
                     <tr lang="ru" finished="false">установить текущий путь и без выхода</tr>
-                </xinfo>
-                <xinfo on="data">
+                </in>
+                <in on="data">
                     <tr lang="en">set current path and without output</tr>
                     <tr lang="ru" finished="false">установить текущий путь и без выхода</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

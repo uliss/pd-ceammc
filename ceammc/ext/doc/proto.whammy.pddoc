@@ -175,10 +175,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">1: turn on, 0: turn off pedal</tr>
                     <tr lang="ru" finished="false">1: включить, 0: выключить педаль</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

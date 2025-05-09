@@ -68,10 +68,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">*envelope* data</tr>
                     <tr lang="ru" finished="false">*конвертные данные*</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

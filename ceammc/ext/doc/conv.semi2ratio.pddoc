@@ -22,14 +22,14 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">interval in semitones</tr>
                     <tr lang="ru" finished="false">интервал в полутонах</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list of intervals in semitones</tr>
                     <tr lang="ru" finished="false">Список интервалов в полутонах</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

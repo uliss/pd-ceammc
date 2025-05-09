@@ -66,10 +66,13 @@ Type: float. Default value: 0\. Range: 0\...1\.;
 #X obj 20 876 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 877 1\.;
+#X text 150 877 ~;
 #X text 245 877 reading index.;
 #X text 110 897 2\.;
+#X text 150 897 ~;
 #X text 245 897 signal to write.;
 #X text 110 917 3\.;
+#X text 150 917 ~;
 #X text 245 917 write index.;
 #X obj 20 947 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 952 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

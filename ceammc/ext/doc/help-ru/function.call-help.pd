@@ -37,7 +37,7 @@
 #X text 110 422 1\.;
 #X text 245 422 input value.;
 #X text 110 442 2\.;
-#X text 150 442 *symbol*;
+#X text 150 442 symbol:;
 #X text 245 442 change function name.;
 #X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 477 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

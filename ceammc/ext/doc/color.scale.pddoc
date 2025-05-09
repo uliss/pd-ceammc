@@ -62,10 +62,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float" minvalue="0" maxvalue="1">
+                <in on="float" minvalue="0" maxvalue="1">
                     <tr lang="en">calculate color scale hue and output</tr>
                     <tr lang="ru" finished="false">Вычислить цветовую шкалу оттенка и выхода</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

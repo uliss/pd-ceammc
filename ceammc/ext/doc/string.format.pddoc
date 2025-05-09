@@ -50,18 +50,18 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">float format argument</tr>
                     <tr lang="ru" finished="false">Аргументация формата Float</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">float format argument</tr>
                     <tr lang="ru" finished="false">Аргументация формата Float</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">format arguments (if many)</tr>
                     <tr lang="ru" finished="false">Аргументы формата (если их много)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -45,16 +45,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">start convolution process</tr>
                     <tr lang="ru">начинает процесс свертки</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">sets the array name</tr>
                     <tr lang="ru">устанавливает имя массива</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

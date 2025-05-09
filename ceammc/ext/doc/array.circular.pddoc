@@ -39,10 +39,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">push back new float</tr>
                     <tr lang="ru">добавляет новое число в конец массива</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -79,16 +79,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">NOTE VELOCITY [DUR] list</tr>
                     <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set new expression</tr>
                     <tr lang="ru" finished="false">Настройка нового выражения</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

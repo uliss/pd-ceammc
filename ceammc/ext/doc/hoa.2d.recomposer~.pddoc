@@ -156,26 +156,26 @@
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input harmonic</tr>
                     <tr lang="ru" finished="false">входная гармоника</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">input harmonic</tr>
                     <tr lang="ru" finished="false">входная гармоника</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">input harmonic. If @fisheye mode is used: fisheye factor [0-1] in
                     last inlet</tr>
                     <!-- old: Входная гармоника. Если используется режим
                     @fisheye: фактор Fisheye [0-1] в последнем входе -->
                     <tr lang="ru" finished="false">Входная гармоника. Если используется режим
                     @fisheye: фактор Fisheye [0-1] в последнем входе</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

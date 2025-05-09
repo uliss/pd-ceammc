@@ -64,9 +64,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">control inlet</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

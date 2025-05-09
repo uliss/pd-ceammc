@@ -37,16 +37,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input string or symbol</tr>
                     <tr lang="ru" finished="false">входная строка или символ</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">search prefix (string or symbol)</tr>
                     <tr lang="ru" finished="false">Префикс поиска (строка или символ)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

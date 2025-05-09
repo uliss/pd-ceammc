@@ -13,15 +13,15 @@
 #X obj 20 213 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 214 1\.;
-#X text 150 214 *list*;
+#X text 150 214 list:;
 #X text 245 214 input list. Non float values are ignored.;
-#X text 150 234 *data:mlist*;
-#X text 245 234 input mlist.;
-#X obj 20 264 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 269 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 150 239 data:mlist:;
+#X text 245 239 input mlist.;
+#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 274 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 270 1\.;
-#X text 245 270 float list sum.;
+#X text 110 275 1\.;
+#X text 245 275 float list sum.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

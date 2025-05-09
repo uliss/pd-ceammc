@@ -50,17 +50,17 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output all properties in [prop] objects</tr>
                     <tr lang="ru" finished="false">Вывод всех свойств в [prop] объектах</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">get/set property value and output it</tr>
                     <!-- old: получить/установить стоимость имущества и
                     выпустить его -->
                     <tr lang="ru" finished="false">получить/установить стоимость имущества и
                     выпустить его</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

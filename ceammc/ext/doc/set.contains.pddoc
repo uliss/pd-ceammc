@@ -36,17 +36,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input set. Other values are ignored</tr>
                     <tr lang="ru" finished="false">Набор входных данных. Другие ценности
                     игнорируются</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="atom">
+                <in on="atom">
                     <tr lang="en">set searched element</tr>
                     <tr lang="ru" finished="false">Поисковый элемент</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

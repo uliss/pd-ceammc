@@ -213,40 +213,40 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">1st source input</tr>
                     <tr lang="ru" finished="false">1-й источник ввода</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">2nd source input</tr>
                     <tr lang="ru" finished="false">2-й источник ввода</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">3rd source input</tr>
                     <tr lang="ru" finished="false">3-й источник ввода</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">4th source input</tr>
                     <tr lang="ru" finished="false">4-й источник ввода</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">5th source input</tr>
                     <tr lang="ru" finished="false">5-й источник ввода</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">6th source input</tr>
                     <tr lang="ru" finished="false">6-й источник ввода</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

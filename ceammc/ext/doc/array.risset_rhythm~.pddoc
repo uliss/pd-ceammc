@@ -26,10 +26,10 @@
         <methods />
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">change array name</tr>
                     <tr lang="ru" finished="false">изменить имя файла</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

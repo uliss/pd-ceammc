@@ -25,10 +25,10 @@
         </meta>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input value</tr>
                     <tr lang="ru" finished="false">входная стоимость</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

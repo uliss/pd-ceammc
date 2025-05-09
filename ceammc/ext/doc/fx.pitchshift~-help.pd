@@ -71,9 +71,10 @@ Default value: 200\. Range: 10\...2000\.;
 #X obj 20 956 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 957 1\.;
+#X text 150 957 ~;
 #X text 245 957 input signal.;
 #X text 110 977 2\.;
-#X text 150 977 *float*;
+#X text 150 977 float:;
 #X text 245 977 pitch shift in semitones. Range: -38\...60\.;
 #X obj 20 1007 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1012 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

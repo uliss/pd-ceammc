@@ -41,26 +41,26 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">Input list. If no element found by specified index - list passed
                     without changes</tr>
                     <!-- old: Список входов. Если элемент не найден указанным
                     индексом - список прошел без изменений -->
                     <tr lang="ru" finished="false">Список входов. Если элемент не найден указанным
                     индексом - список прошел без изменений</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set apply index(es)</tr>
                     <tr lang="ru" finished="false">Устанавливать индекс(ы)</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">return value from applied object</tr>
                     <tr lang="ru" finished="false">Возвратная стоимость приложенного объекта</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

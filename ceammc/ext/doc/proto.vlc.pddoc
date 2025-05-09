@@ -185,10 +185,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">commands</tr>
                     <tr lang="ru" finished="false">командовать</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

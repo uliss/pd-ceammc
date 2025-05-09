@@ -62,9 +62,10 @@ float. Значение по умолчанию: 0.4\. Диапазон: 0\...1\
 #X obj 20 929 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 930 1\.;
+#X text 150 930 ~;
 #X text 245 930 input signal.;
 #X text 110 950 2\.;
-#X text 150 950 *float*;
+#X text 150 950 float:;
 #X text 245 950 set drywet.;
 #X obj 20 980 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 985 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

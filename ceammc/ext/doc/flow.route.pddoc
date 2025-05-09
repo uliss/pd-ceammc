@@ -40,7 +40,7 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">match to first list element, output to corresponding outlet. If
                     route starts with * output list 'as is', otherwise output without first
                     element</tr>
@@ -50,8 +50,8 @@
                     <tr lang="ru" finished="false">соответствие первому элементу списка, вывод на
                     соответствующую розетку. Если маршрут начинается с * списка вывода "как есть",
                     в противном случае выход без первого элемента</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">match to message selector, output to corresponding outlet. On
                     success outputs message arguments to corresponding outlet</tr>
                     <!-- old: соответствие селектору сообщений, вывод на
@@ -60,12 +60,12 @@
                     <tr lang="ru" finished="false">соответствие селектору сообщений, вывод на
                     соответствующую розетку. Об успехе выводит аргументы сообщения в
                     соответствующий выпуск</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">same as list</tr>
                     <tr lang="ru" finished="false">Тот же список</tr>
-                </xinfo>
-                <xinfo on="data:dict">
+                </in>
+                <in on="data:dict">
                     <tr lang="en">match dict keys. On success outputs dict values to corresponding
                     outlets, if starts with * output with matched key</tr>
                     <!-- old: Ключи от диктовки. На выходе успеха диктуют
@@ -74,7 +74,7 @@
                     <tr lang="ru" finished="false">Ключи от диктовки. На выходе успеха диктуют
                     значения соответствующим выходам, если начинается с * выход с соответствующим
                     ключом</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

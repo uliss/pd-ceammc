@@ -238,21 +238,21 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs current menu state as list: INDEX ITEM_NAME</tr>
                     <tr lang="ru" finished="false">текущее состояние меню в виде списка: INDEX
                     ITEM_NAME</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">change menu state and output list: INDEX ITEM_NAME</tr>
                     <tr lang="ru" finished="false">изменить состояние меню и список выходов: INDEX
                     ITEM_NAME</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">selects item equal to given and output list: INDEX ITEM_NAME</tr>
                     <tr lang="ru" finished="false">Выберите пункт, равный данному и выходному
                     списку: INDEX ITEM_NAME</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -47,16 +47,16 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">frequency in Hz</tr>
                     <tr lang="ru" finished="false">частота в Гц</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset phase</tr>
                     <tr lang="ru" finished="false">фаза сброса</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

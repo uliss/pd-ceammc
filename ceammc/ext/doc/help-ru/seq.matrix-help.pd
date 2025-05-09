@@ -98,34 +98,34 @@ before sequence start. Тип: float. Значение по умолчанию: 
 #X obj 20 1407 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1408 1\.;
-#X text 150 1408 *bang*;
+#X text 150 1408 bang:;
 #X text 245 1408 reset all counters and start sequencer.;
-#X text 150 1428 *float*;
-#X text 245 1428 if 1 reset then start \, if 0 - stop.;
-#X text 110 1448 2\.;
-#X text 150 1448 *bang*;
-#X text 245 1448 reset.;
-#X text 150 1468 *float*;
-#X text 245 1468 set number of steps.;
-#X obj 20 1498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1503 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 150 1433 float:;
+#X text 245 1433 if 1 reset then start \, if 0 - stop.;
+#X text 110 1453 2\.;
+#X text 150 1453 bang:;
+#X text 245 1453 reset.;
+#X text 150 1478 float:;
+#X text 245 1478 set number of steps.;
+#X obj 20 1508 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1513 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1504 1\.;
-#X text 245 1504 output for ui.matrix.;
-#X text 110 1524 2\.;
-#X text 245 1524 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
+#X text 110 1514 1\.;
+#X text 245 1514 output for ui.matrix.;
+#X text 110 1534 2\.;
+#X text 245 1534 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
 iteration or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1589 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1592 библиотека: ceammc v0.9.8;
-#X text 551 1604 смотрите также:;
-#X obj 672 1607 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1599 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1602 библиотека: ceammc v0.9.8;
+#X text 551 1614 смотрите также:;
+#X obj 672 1617 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.matrix] @url ui.matrix-help.pd;
-#N canvas 10 1611 400 290 info 0;
+#N canvas 10 1621 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -149,7 +149,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1611 pd info;
+#X restore 10 1621 pd info;
 #X connect 6 0 8 0;
 #X connect 4 0 9 0;
 #X connect 5 0 9 0;

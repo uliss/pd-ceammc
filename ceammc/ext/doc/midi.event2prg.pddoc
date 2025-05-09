@@ -21,10 +21,10 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">MidiEvent message</tr>
                     <tr lang="ru" finished="false">Сообщение MidiEvent</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -138,21 +138,21 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset all counters and start</tr>
                     <tr lang="ru" finished="false">Сбросить все счетчики и начать</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">reset al counter and start (on 1) or stop(on 0)</tr>
                     <tr lang="ru" finished="false">Сбросить счетчик аль и начать (на 1) или
                     остановить (на 0)</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set sequence</tr>
                     <tr lang="ru" finished="false">установленная последовательность</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

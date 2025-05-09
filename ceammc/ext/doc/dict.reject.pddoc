@@ -34,16 +34,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="data:dict">
+                <in on="data:dict">
                     <tr lang="en">input dictionary</tr>
                     <tr lang="ru" finished="false">словарь входного словаря</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">set rejected keys</tr>
                     <tr lang="ru" finished="false">Набор отвергнутых ключей</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

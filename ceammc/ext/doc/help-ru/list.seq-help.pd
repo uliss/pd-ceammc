@@ -51,30 +51,30 @@
 #X obj 20 605 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 606 1\.;
-#X text 150 606 *bang*;
+#X text 150 606 bang:;
 #X text 245 606 outputs generated list.;
-#X text 150 626 *float*;
-#X text 245 626 sets @from=0 \, @to=X and outputs generated sequence.;
-#X text 150 646 *list*;
-#X text 245 646 if 3 arguments are given: they are set to @from \,
+#X text 150 631 float:;
+#X text 245 631 sets @from=0 \, @to=X and outputs generated sequence.;
+#X text 150 656 list:;
+#X text 245 656 if 3 arguments are given: they are set to @from \,
 @to and @step accordingly. If 2 args are given: they are set to @from
 \, @to and @step is set to *1*. If 1 arg given \, @from is set to 0
 \, @to sets to given value and @step is set to *1*.;
-#X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 741 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 751 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 742 1\.;
-#X text 245 742 generated sequence.;
+#X text 110 752 1\.;
+#X text 245 752 generated sequence.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 792 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 795 библиотека: ceammc v0.9.8;
-#X text 561 807 смотрите также:;
-#X obj 682 807 list.gen;
-#N canvas 10 814 400 290 info 0;
+#X obj 1 802 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 805 библиотека: ceammc v0.9.8;
+#X text 561 817 смотрите также:;
+#X obj 682 817 list.gen;
+#N canvas 10 824 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -98,7 +98,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 814 pd info;
+#X restore 10 824 pd info;
 #X connect 4 0 8 0;
 #X connect 7 0 8 0;
 #X connect 6 0 8 0;

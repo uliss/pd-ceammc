@@ -112,10 +112,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">...</tr>
                     <tr lang="ru" finished="false">...</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

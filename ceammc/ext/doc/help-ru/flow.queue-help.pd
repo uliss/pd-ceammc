@@ -61,16 +61,12 @@ pops oldest elements when queue is full. Тип: bool. Значение по у�
 #X obj 20 1031 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1032 1\.;
-#X text 150 1032 *any*;
 #X text 245 1032 1st queue input messages.;
-#X text 110 1052 ....;
-#X text 150 1052 *any*;
+#X text 110 1052 ...;
 #X text 245 1052 ... queue input messages.;
 #X text 110 1072 n.;
-#X text 150 1072 *any*;
 #X text 245 1072 n-th queue input messages.;
 #X text 110 1092 n+1\.;
-#X text 150 1092 *any*;
 #X text 245 1092 clear: remove all elements from all queues \, output:
 output all element from all queues \, flush: output and clear all element
 from all queues \, bang or pop: output and remove first message in
@@ -80,7 +76,7 @@ all queues.;
 -49933 0;
 #X text 110 1188 1\.;
 #X text 245 1188 1st queue output.;
-#X text 110 1208 ....;
+#X text 110 1208 ...;
 #X text 245 1208 ... queue output.;
 #X text 110 1228 n.;
 #X text 245 1228 n-th queue output.;

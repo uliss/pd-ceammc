@@ -51,8 +51,10 @@ stereo channels. Тип: int. Значение по умолчанию: 2\. Ди
 #X obj 20 590 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 591 1\.;
+#X text 150 591 ~;
 #X text 245 591 left input signal.;
 #X text 110 611 2\.;
+#X text 150 611 ~;
 #X text 245 611 right input signal.;
 #X text 110 631 3\.;
 #X text 245 631 demultiplexer control.;
@@ -65,10 +67,10 @@ stereo channels. Тип: int. Значение по умолчанию: 2\. Ди
 #X text 110 687 2\.;
 #X text 150 687 ~;
 #X text 245 687 first right output.;
-#X text 110 707 ....;
+#X text 110 707 ...;
 #X text 150 707 ~;
 #X text 245 707 ... left output.;
-#X text 110 727 ....;
+#X text 110 727 ...;
 #X text 150 727 ~;
 #X text 245 727 ... right output.;
 #X text 110 747 n-1\.;

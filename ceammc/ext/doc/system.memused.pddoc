@@ -22,10 +22,10 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs memory use</tr>
                     <tr lang="ru" finished="false">Использование памяти</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

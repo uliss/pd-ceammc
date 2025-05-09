@@ -28,17 +28,17 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="float" minvalue="0" maxvalue="1">
+                <in on="float" minvalue="0" maxvalue="1">
                     <tr lang="en">sets current keyboards light level (no output)</tr>
                     <!-- old: устанавливает текущий уровень освещенности
                     клавиатуры (без выхода) -->
                     <tr lang="ru" finished="false">устанавливает текущий уровень освещенности
                     клавиатуры (без выхода)</tr>
-                </xinfo>
-                <xinfo on="bang">
+                </in>
+                <in on="bang">
                     <tr lang="en">outputs current keyboard light level</tr>
                     <tr lang="ru" finished="false">выходы текущего уровня освещения клавиатуры</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

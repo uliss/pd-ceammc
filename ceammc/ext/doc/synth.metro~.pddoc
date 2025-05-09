@@ -155,23 +155,23 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">1: start, 0: stop metronome</tr>
                     <tr lang="ru" finished="false">1: начало, 0: остановка метронома</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">1: play downbeat, 2: play on-beat, 3: play off-beat</tr>
                     <tr lang="ru" finished="false">1: играть на понижение, 2: играть на удар, 3:
                     играть на поражение</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set tempo in 1/4 per minute</tr>
                     <tr lang="ru" finished="false">Установить темп в 1/4 в минуту</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

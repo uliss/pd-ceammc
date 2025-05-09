@@ -82,30 +82,30 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">set or request properties</tr>
                     <tr lang="ru" finished="false">устанавливать или запрашивать свойства</tr>
-                </xinfo>
-                <xinfo on="bang">
+                </in>
+                <in on="bang">
                     <tr lang="en">if harmonics mode output list: @order @hdegree @horder, in
                     planewaves: @order @index @index</tr>
                     <!-- old: если гармоники режим вывода список: @order
                     @hdegree @horder, в плоских волнах: @order @index @index -->
                     <tr lang="ru" finished="false">если гармоники режим вывода список: @order
                     @hdegree @horder, в плоских волнах: @order @index @index</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">pass float message thru</tr>
                     <tr lang="ru" finished="false">Отправить сообщение Float Message</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">pass symbol message thru</tr>
                     <tr lang="ru" finished="false">Передайте символьное сообщение через</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">pass list message thru</tr>
                     <tr lang="ru" finished="false">Обсуждение Pass List Message</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

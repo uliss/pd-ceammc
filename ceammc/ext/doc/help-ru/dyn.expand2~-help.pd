@@ -128,11 +128,13 @@ float. Единицы: 'db'. Значение по умолчанию: 0\. Ди�
 #X obj 20 1618 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1619 1\.;
+#X text 150 1619 ~;
 #X text 245 1619 left input signal.;
 #X text 110 1639 2\.;
+#X text 150 1639 ~;
 #X text 245 1639 right input signal.;
 #X text 110 1659 3\.;
-#X text 150 1659 *float*;
+#X text 150 1659 float:;
 #X text 245 1659 set expander strength.;
 #X obj 20 1689 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1694 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144

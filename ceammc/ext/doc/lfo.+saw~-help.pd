@@ -67,9 +67,10 @@ Default value: 0\.;
 #X obj 20 878 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 879 1\.;
+#X text 150 879 ~;
 #X text 245 879 frequency in Hz (can be negative and zero).;
 #X text 110 899 2\.;
-#X text 150 899 *bang*;
+#X text 150 899 bang:;
 #X text 245 899 reset phase to initial value (@phase).;
 #X obj 20 929 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 934 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

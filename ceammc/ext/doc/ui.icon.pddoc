@@ -165,10 +165,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">(hidden inlet!) see @mode property</tr>
                     <tr lang="ru" finished="false">(скрытый вход!) см. @mode property</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

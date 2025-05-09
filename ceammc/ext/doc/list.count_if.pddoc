@@ -23,24 +23,24 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">input list</tr>
                     <tr lang="ru" finished="false">вводный список</tr>
-                </xinfo>
-                <xinfo on="data">
+                </in>
+                <in on="data">
                     <tr lang="en">input mlist</tr>
                     <tr lang="ru" finished="false">входной млечный</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float" minvalue="0" maxvalue="1">
+                <in on="float" minvalue="0" maxvalue="1">
                     <tr lang="en">input value from predicate. "1" means accepted. "0" means
                     reject</tr>
                     <!-- old: Входные значения из предиката. «1» означает
                     принятый. "0" означает отказ -->
                     <tr lang="ru" finished="false">Входные значения из предиката. «1» означает
                     принятый. "0" означает отказ</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

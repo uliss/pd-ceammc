@@ -70,10 +70,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">calculates and outputs histogram</tr>
                     <tr lang="ru">вычисляет и выводит гистограмму</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

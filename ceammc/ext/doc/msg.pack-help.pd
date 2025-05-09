@@ -43,7 +43,7 @@ value change. Type: bool. Default value: 0\.;
 0;
 #X text 110 527 1\.;
 #X text 245 527 first atom.;
-#X text 110 547 ....;
+#X text 110 547 ...;
 #X text 245 547 ... atom.;
 #X text 110 567 n.;
 #X text 245 567 n-th atom.;

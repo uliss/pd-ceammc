@@ -55,18 +55,18 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">speak number</tr>
                     <tr lang="ru" finished="false">разговорный номер</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">speak text</tr>
                     <tr lang="ru" finished="false">говорить текст</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">speak text</tr>
                     <tr lang="ru" finished="false">говорить текст</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

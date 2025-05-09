@@ -46,9 +46,10 @@ signal to avoid zipping-noise. Тип: int. Значение по умолчан
 #X obj 20 621 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 622 1\.;
+#X text 150 622 ~;
 #X text 245 622 input signal.;
 #X text 110 642 2\.;
-#X text 150 642 *float*;
+#X text 150 642 float:;
 #X text 245 642 pan position. Диапазон: -1…1\.;
 #X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 677 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

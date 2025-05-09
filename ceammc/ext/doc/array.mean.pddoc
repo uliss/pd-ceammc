@@ -37,10 +37,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">calculates and outputs mean value</tr>
                     <tr lang="ru">начинает вычисление, а затем выводит среднее значение</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

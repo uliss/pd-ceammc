@@ -112,13 +112,13 @@ like: |1/4+15/16| etc. Type: symbol. Default value: |4/4|.;
 #X obj 20 1406 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1407 1\.;
-#X text 150 1407 *float*;
+#X text 150 1407 float:;
 #X text 245 1407 1: start \, 0: stop metronome.;
 #X text 110 1427 2\.;
-#X text 150 1427 *int*;
+#X text 150 1427 int:;
 #X text 245 1427 1: play downbeat \, 2: play on-beat \, 3: play off-beat.;
 #X text 110 1447 3\.;
-#X text 150 1447 *float*;
+#X text 150 1447 float:;
 #X text 245 1447 set tempo in 1/4 per minute.;
 #X obj 20 1477 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1482 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

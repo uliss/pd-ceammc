@@ -35,48 +35,48 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">input messages</tr>
                     <tr lang="ru" finished="false">входные сообщения</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset counter to init value (no output)</tr>
                     <!-- old: Reset Counter to Init Value (без выходных
                     данных) -->
                     <tr lang="ru" finished="false">Reset Counter to Init Value (без выходных
                     данных)</tr>
-                </xinfo>
-                <xinfo on="int">
+                </in>
+                <in on="int">
                     <tr lang="en">set current value (no output)</tr>
                     <tr lang="ru" finished="false">заданное текущее значение (без выхода)</tr>
-                </xinfo>
-                <xinfo>
+                </in>
+                <in>
                     <tr lang="en">@value X - set current value (no output)</tr>
                     <!-- old: @value X - заданное текущее значение (без
                     выхода) -->
                     <tr lang="ru" finished="false">@value X - заданное текущее значение (без
                     выхода)</tr>
-                </xinfo>
-                <xinfo>
+                </in>
+                <in>
                     <tr lang="en">@value? - output current value</tr>
                     <tr lang="ru" finished="false">@value? - текущее значение выхода</tr>
-                </xinfo>
-                <xinfo>
+                </in>
+                <in>
                     <tr lang="en">+ X - add specified value (no output)</tr>
                     <!-- old: + X - добавить заданное значение (без
                     выхода) -->
                     <tr lang="ru" finished="false">+ X - добавить заданное значение (без
                     выхода)</tr>
-                </xinfo>
-                <xinfo>
+                </in>
+                <in>
                     <tr lang="en">- X - subtract specified value (no output)</tr>
                     <!-- old: - X - вычесть заданное значение (без
                     выхода) -->
                     <tr lang="ru" finished="false">- X - вычесть заданное значение (без
                     выхода)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

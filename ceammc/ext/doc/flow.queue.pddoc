@@ -44,25 +44,25 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">1st queue input messages</tr>
                     <tr lang="ru" finished="false">1-я очередь Входные сообщения</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="...">
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">... queue input messages</tr>
                     <tr lang="ru" finished="false">Очередь входных сообщений</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n">
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">n-th queue input messages</tr>
                     <tr lang="ru" finished="false">n-я очередь входных сообщений</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n+1">
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">clear: remove all elements from all queues, output: output all
                     element from all queues, flush: output and clear all element from all queues,
                     bang or pop: output and remove first message in all queues</tr>
@@ -74,7 +74,7 @@
                     output: удалите все элементы из всех очередей, flush: удалите и удалите все
                     элементы из всех очередей, bang или pop: удалите первое сообщение во всех
                     очередях</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

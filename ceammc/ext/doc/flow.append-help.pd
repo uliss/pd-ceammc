@@ -38,10 +38,8 @@ float. Units: 'ms'. Default value: -1\. Min value: -1\.;
 #X obj 20 554 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 555 1\.;
-#X text 150 555 *any*;
 #X text 245 555 input message.;
 #X text 110 575 2\.;
-#X text 150 575 *any*;
 #X text 245 575 set append value.;
 #X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 610 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

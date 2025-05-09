@@ -165,20 +165,20 @@
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">plot default number of samples</tr>
                     <tr lang="ru" finished="false">План по умолчанию Количество образцов</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">plot specified number of samples</tr>
                     <tr lang="ru" finished="false">участок заданное количество образцов</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets />

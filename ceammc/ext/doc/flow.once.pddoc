@@ -38,16 +38,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">input flow</tr>
                     <tr lang="ru" finished="false">входной поток</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset to opened state</tr>
                     <tr lang="ru" finished="false">Перезагрузка в открытое государство</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

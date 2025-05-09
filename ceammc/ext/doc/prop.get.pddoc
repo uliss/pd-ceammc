@@ -42,15 +42,15 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output specified properites to corresponding outlets</tr>
                     <tr lang="ru" finished="false">выдача указанных свойств в соответствующие
                     выходы</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">output specified property to second outlet</tr>
                     <tr lang="ru" finished="false">выводить указанное свойство на второй выход</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

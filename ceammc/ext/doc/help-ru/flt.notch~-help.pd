@@ -58,9 +58,10 @@ float. Единицы: 'Hz'. Значение по умолчанию: 50\. Ди
 #X obj 20 873 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 874 1\.;
+#X text 150 874 ~;
 #X text 245 874 input signal.;
 #X text 110 894 2\.;
-#X text 150 894 *float*;
+#X text 150 894 float:;
 #X text 245 894 set frequency.;
 #X obj 20 924 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 929 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

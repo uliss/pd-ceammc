@@ -39,16 +39,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input values</tr>
                     <tr lang="ru" finished="false">входные значения</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">value from the side-chain</tr>
                     <tr lang="ru" finished="false">значение из боковой цепи</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

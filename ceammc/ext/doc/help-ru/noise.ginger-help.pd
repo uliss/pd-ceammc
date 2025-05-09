@@ -71,7 +71,7 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 20 954 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 955 1\.;
-#X text 150 955 *bang*;
+#X text 150 955 bang:;
 #X text 245 955 outputs current x/y values and generates new one.;
 #X obj 20 985 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 990 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

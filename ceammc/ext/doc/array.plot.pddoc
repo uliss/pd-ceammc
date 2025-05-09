@@ -62,33 +62,33 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">single input sample</tr>
                     <tr lang="ru" finished="false">единый входной образец</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">resizes array to list size and plot all list values</tr>
                     <!-- old: Resizes array to list size и нарисуйте все
                     значения списка -->
                     <tr lang="ru" finished="false">Resizes array to list size и нарисуйте все
                     значения списка</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">plot all samples fitted to specified array</tr>
                     <!-- old: Все образцы, установленные на заданный
                     массив -->
                     <tr lang="ru" finished="false">Все образцы, установленные на заданный
                     массив</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">plot specified number of samples, resizes array</tr>
                     <!-- old: участок заданное количество образцов, размеры
                     массива -->
                     <tr lang="ru" finished="false">участок заданное количество образцов, размеры
                     массива</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

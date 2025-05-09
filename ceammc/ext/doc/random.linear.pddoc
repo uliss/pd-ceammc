@@ -65,10 +65,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">generates random number</tr>
                     <tr lang="ru" finished="false">генерирует случайное число</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -193,14 +193,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs current slider state</tr>
                     <tr lang="ru" finished="false">выходы текущего состояния слайдера</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">set range value without output</tr>
                     <tr lang="ru" finished="false">значение диапазона без выхода</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -21,10 +21,10 @@
         </meta>
         <inlets>
             <inlet type="control">
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output current patch tree as Dict</tr>
                     <tr lang="ru" finished="false">Производить текущее патч-дерево Dict</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

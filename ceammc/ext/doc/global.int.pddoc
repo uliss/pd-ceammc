@@ -84,14 +84,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs variable</tr>
                     <tr lang="ru" finished="false">выходы переменные</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">set truncated integer and outputs</tr>
                     <tr lang="ru" finished="false">множество усеченных целых чисел и выходов</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

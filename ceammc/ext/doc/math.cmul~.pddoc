@@ -35,28 +35,28 @@
         </info>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">real part of input signal1</tr>
                     <tr lang="ru" finished="false">Реальная часть входного сигнала1</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">imag part of input signal1</tr>
                     <tr lang="ru" finished="false">Имаг часть входного сигнала1</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">real part of input signal2</tr>
                     <tr lang="ru" finished="false">Реальная часть входного сигнала2</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">imag part of input signal2</tr>
                     <tr lang="ru" finished="false">Имаг часть входного сигнала2</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

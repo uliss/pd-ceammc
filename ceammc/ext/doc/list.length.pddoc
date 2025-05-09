@@ -24,14 +24,14 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">Input list</tr>
                     <tr lang="ru" finished="false">Список вводимых данных</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">Input mlist</tr>
                     <tr lang="ru" finished="false">Входной млист</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

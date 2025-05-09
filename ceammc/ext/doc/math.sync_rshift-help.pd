@@ -31,18 +31,18 @@
 #X obj 20 312 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 313 1\.;
-#X text 150 313 *int*;
+#X text 150 313 int:;
 #X text 245 313 set value \, calculate and output result.;
-#X text 150 333 *list*;
-#X text 245 333 pair: set value and shift \, calculate and output result.;
-#X text 110 353 2\.;
-#X text 150 353 *int*;
-#X text 245 353 change shift \, calculate and output result.;
-#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 388 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 150 338 list:;
+#X text 245 338 pair: set value and shift \, calculate and output result.;
+#X text 110 358 2\.;
+#X text 150 358 int:;
+#X text 245 358 change shift \, calculate and output result.;
+#X obj 20 388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 393 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 389 1\.;
-#X text 245 389 result output.;
+#X text 110 394 1\.;
+#X text 245 394 result output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

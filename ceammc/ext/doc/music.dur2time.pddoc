@@ -60,10 +60,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">duration list</tr>
                     <tr lang="ru" finished="false">Список продолжительности</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

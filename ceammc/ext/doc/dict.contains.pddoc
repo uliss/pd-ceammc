@@ -35,16 +35,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="data">
+                <in on="data">
                     <tr lang="en">Data.dict expected</tr>
                     <tr lang="ru" finished="false">Data.dict ожидаемый</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set searched keys</tr>
                     <tr lang="ru" finished="false">Настройка поиска ключей</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

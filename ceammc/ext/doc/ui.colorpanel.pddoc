@@ -171,10 +171,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs current widget value</tr>
                     <tr lang="ru" finished="false">значение текущего виджета</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

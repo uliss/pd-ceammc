@@ -19,15 +19,15 @@
 #X obj 20 342 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 343 1\.;
-#X text 150 343 *float*;
+#X text 150 343 float:;
 #X text 245 343 input value.;
-#X text 150 363 *list*;
-#X text 245 363 input values.;
-#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 398 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 150 368 list:;
+#X text 245 368 input values.;
+#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 403 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 399 1\.;
-#X text 245 399 converted value.;
+#X text 110 404 1\.;
+#X text 245 404 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

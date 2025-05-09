@@ -51,10 +51,13 @@ int.;
 #X obj 20 646 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 647 1\.;
+#X text 150 647 ~;
 #X text 245 647 first specified channel.;
-#X text 110 667 ....;
+#X text 110 667 ...;
+#X text 150 667 ~;
 #X text 245 667 ... specified channel.;
 #X text 110 687 n.;
+#X text 150 687 ~;
 #X text 245 687 n-th specified channel.;
 #X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 722 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

@@ -23,10 +23,10 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">input list.</tr>
                     <tr lang="ru" finished="false">Список входов.</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

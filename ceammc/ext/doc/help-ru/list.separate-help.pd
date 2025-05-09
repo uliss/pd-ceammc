@@ -30,29 +30,29 @@ int. Значение по умолчанию: 0\.;
 #X obj 20 438 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 439 1\.;
-#X text 150 439 *list*;
+#X text 150 439 list:;
 #X text 245 439 input list.;
-#X text 150 459 *data:mlist*;
-#X text 245 459 input mlist.;
-#X obj 20 489 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 494 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 150 464 data:mlist:;
+#X text 245 464 input mlist.;
+#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 499 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 495 1\.;
-#X text 245 495 outlet for single atoms (or pair: IDX ATOM in enumeration
+#X text 110 500 1\.;
+#X text 245 500 outlet for single atoms (or pair: IDX ATOM in enumeration
 mode).;
-#X text 110 530 2\.;
-#X text 245 530 outputs bang after last element in the list.;
+#X text 110 535 2\.;
+#X text 245 535 outputs bang after last element in the list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 580 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 583 библиотека: ceammc v0.9.8;
-#X text 444 595 смотрите также:;
-#X obj 565 595 list.repack;
-#X obj 660 595 list.unpack;
-#N canvas 10 602 400 290 info 0;
+#X obj 1 585 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 588 библиотека: ceammc v0.9.8;
+#X text 444 600 смотрите также:;
+#X obj 565 600 list.repack;
+#X obj 660 600 list.unpack;
+#N canvas 10 607 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -76,7 +76,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 602 pd info;
+#X restore 10 607 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 9 0;
 #X connect 5 0 10 0;

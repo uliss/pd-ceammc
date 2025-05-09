@@ -135,9 +135,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en" />
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -68,37 +68,37 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">any to current outlet, then move to next</tr>
                     <tr lang="ru" finished="false">любой к текущему выходу, затем перейти к
                     следующему</tr>
-                </xinfo>
-                <xinfo on="bang">
+                </in>
+                <in on="bang">
                     <tr lang="en">bang to current outlet, then move to next</tr>
                     <tr lang="ru" finished="false">Bang to current outlet, затем перейти к
                     следующему</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">float to current outlet, then move to next</tr>
                     <tr lang="ru" finished="false">Поплавать к текущей розетке, затем перейти к
                     следующей</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list to to current outlet, then move to next</tr>
                     <tr lang="ru" finished="false">Перечислите текущий выход, затем перейдите к
                     следующему</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">symbol to current outlet, then move to next</tr>
                     <tr lang="ru" finished="false">символ к текущей розетке, затем перейти к
                     следующей</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset to initial outlet index</tr>
                     <tr lang="ru" finished="false">Сброс начального индекса выхода</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

@@ -60,19 +60,19 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">frequency in Hz (can be negative or zero)</tr>
                     <!-- old: частота в Гц (может быть отрицательной или
                     нулевой) -->
                     <tr lang="ru" finished="false">частота в Гц (может быть отрицательной или
                     нулевой)</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset phase</tr>
                     <tr lang="ru" finished="false">фаза сброса</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

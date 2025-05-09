@@ -112,7 +112,7 @@ https://en.wikipedia.org/wiki/R%C3%B6ssler_attractor;
 #X obj 20 1229 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1230 1\.;
-#X text 150 1230 *bang*;
+#X text 150 1230 bang:;
 #X text 245 1230 output value.;
 #X obj 20 1260 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1265 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144

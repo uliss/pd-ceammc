@@ -62,19 +62,25 @@ in [0\..N-1] range. Тип: float. Значение по умолчанию: 0\.
 #X obj 20 847 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 848 1\.;
+#X text 150 848 ~;
 #X text 245 848 left input signal.;
 #X text 110 868 2\.;
+#X text 150 868 ~;
 #X text 245 868 right input signal.;
-#X text 110 888 ....;
+#X text 110 888 ...;
+#X text 150 888 ~;
 #X text 245 888 left input signal.;
-#X text 110 908 ....;
+#X text 110 908 ...;
+#X text 150 908 ~;
 #X text 245 908 right input signal.;
 #X text 110 928 n-1\.;
+#X text 150 928 ~;
 #X text 245 928 left input signal.;
 #X text 110 948 n.;
+#X text 150 948 ~;
 #X text 245 948 right input signal.;
 #X text 110 968 n+1\.;
-#X text 150 968 *float*;
+#X text 150 968 float:;
 #X text 245 968 set crossfade value.;
 #X obj 20 998 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1003 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144

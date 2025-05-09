@@ -63,10 +63,10 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">starts histogram calculation</tr>
                     <tr lang="ru" finished="false">Начинается расчет гистограммы</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -134,26 +134,26 @@ messages (0xF1). Аргументы:;
 #X obj 20 1773 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1774 1\.;
-#X text 150 1774 *float*;
+#X text 150 1774 float:;
 #X text 245 1774 raw midi input bytes.;
-#X text 150 1794 *list*;
-#X text 245 1794 raw midi input bytes.;
-#X obj 20 1824 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1829 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 150 1799 list:;
+#X text 245 1799 raw midi input bytes.;
+#X obj 20 1829 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1834 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1830 1\.;
-#X text 245 1830 float: raw midi bytes.;
-#X text 110 1850 2\.;
-#X text 245 1850 parsed messages with selector (output format same
+#X text 110 1835 1\.;
+#X text 245 1835 float: raw midi bytes.;
+#X text 110 1855 2\.;
+#X text 245 1855 parsed messages with selector (output format same
 as for corresponding methods).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1915 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1918 библиотека: ceammc v0.9.8;
-#N canvas 10 1937 400 290 info 0;
+#X obj 1 1920 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1923 библиотека: ceammc v0.9.8;
+#N canvas 10 1942 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -177,7 +177,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1937 pd info;
+#X restore 10 1942 pd info;
 #X connect 5 0 8 0;
 #X connect 4 0 11 0;
 #X connect 8 0 11 0;

@@ -111,14 +111,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">start playing from the beginning</tr>
                     <tr lang="ru" finished="false">Начинайте играть с самого начала</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">1 - play, 0 - stop</tr>
                     <tr lang="ru" finished="false">1 - играть, 0 - останавливаться</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

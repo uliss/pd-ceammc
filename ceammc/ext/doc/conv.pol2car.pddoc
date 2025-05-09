@@ -25,10 +25,10 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">radius and angle (in radians) pair</tr>
                     <tr lang="ru" finished="false">радиус и угол (в радианах)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

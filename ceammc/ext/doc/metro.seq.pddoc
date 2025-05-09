@@ -63,22 +63,22 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">starts (on 1) or stops (on 0) metro</tr>
                     <tr lang="ru" finished="false">старты (на 1) или остановки (на 0) метро</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set new step interval</tr>
                     <tr lang="ru" finished="false">Новый интервал шагов</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set new pattern</tr>
                     <tr lang="ru" finished="false">Установить новый шаблон</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

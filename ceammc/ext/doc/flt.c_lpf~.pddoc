@@ -59,10 +59,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">control signal</tr>
                     <tr lang="ru" finished="false">управляющий сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

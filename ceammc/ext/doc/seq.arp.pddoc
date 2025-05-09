@@ -107,11 +107,11 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">play one note in sequence (same as [on( message)</tr>
                     <tr lang="ru" finished="false">Играть одну ноту в последовательности (так же,
                     как [в сообщении])</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

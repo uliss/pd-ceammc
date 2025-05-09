@@ -34,21 +34,21 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">set or list, other values are ignored.</tr>
                     <tr lang="ru" finished="false">Набор или список, другие ценности
                     игнорируются.</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set right set elements</tr>
                     <tr lang="ru" finished="false">Настройка правильного набора элементов</tr>
-                </xinfo>
-                <xinfo on="data:set">
+                </in>
+                <in on="data:set">
                     <tr lang="en">set right set</tr>
                     <tr lang="ru" finished="false">Установить правильно</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

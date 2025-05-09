@@ -72,22 +72,22 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">input list</tr>
                     <tr lang="ru" finished="false">вводный список</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">input mlist</tr>
                     <tr lang="ru" finished="false">входной млечный</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">passed thru in @float or @any mode</tr>
                     <tr lang="ru" finished="false">@float или любой режим</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">passed thru in @symbol or @any mode</tr>
                     <tr lang="ru" finished="false">@symbol или любой режим</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

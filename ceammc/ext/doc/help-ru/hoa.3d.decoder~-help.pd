@@ -88,10 +88,13 @@ the soundfield and 1 is the top of the soundfield. Тип: list. Единицы:
 #X obj 20 1255 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1256 1\.;
+#X text 150 1256 ~;
 #X text 245 1256 first input harmonic.;
-#X text 110 1276 ....;
+#X text 110 1276 ...;
+#X text 150 1276 ~;
 #X text 245 1276 ... input harmonic.;
 #X text 110 1296 n.;
+#X text 150 1296 ~;
 #X text 245 1296 n-th input harmonic.;
 #X obj 20 1326 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1331 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
@@ -99,7 +102,7 @@ the soundfield and 1 is the top of the soundfield. Тип: list. Единицы:
 #X text 110 1332 1\.;
 #X text 150 1332 ~;
 #X text 245 1332 first loudspeaker output.;
-#X text 110 1352 ....;
+#X text 110 1352 ...;
 #X text 150 1352 ~;
 #X text 245 1352 ... loudspeaker output.;
 #X text 110 1372 n.;

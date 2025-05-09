@@ -22,15 +22,15 @@
 #X obj 20 260 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 261 1\.;
-#X text 150 261 *symbol*;
+#X text 150 261 symbol:;
 #X text 245 261 symbol.;
-#X text 150 281 *data:string*;
-#X text 245 281 string.;
-#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 316 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 150 286 data:string:;
+#X text 245 286 string.;
+#X obj 20 316 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 321 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 317 1\.;
-#X text 245 317 output message.;
+#X text 110 322 1\.;
+#X text 245 322 output message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -25,20 +25,20 @@ element) or 1 (remove).;
 #X obj 20 347 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 348 1\.;
-#X text 150 348 *list*;
+#X text 150 348 list:;
 #X text 245 348 input list.;
-#X text 150 368 *data:mlist*;
-#X text 245 368 input mlist.;
-#X text 110 388 2\.;
-#X text 150 388 *float*;
-#X text 245 388 value from predicate.;
-#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 423 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 150 373 data:mlist:;
+#X text 245 373 input mlist.;
+#X text 110 393 2\.;
+#X text 150 393 float:;
+#X text 245 393 value from predicate.;
+#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 428 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 424 1\.;
-#X text 245 424 output list (or mlist) with some removed elements.;
-#X text 110 444 2\.;
-#X text 245 444 atom to predicate.;
+#X text 110 429 1\.;
+#X text 245 429 output list (or mlist) with some removed elements.;
+#X text 110 449 2\.;
+#X text 245 449 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

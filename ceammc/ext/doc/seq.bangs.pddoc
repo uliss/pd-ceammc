@@ -154,16 +154,16 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset all counters and start sequencer</tr>
                     <tr lang="ru" finished="false">Сбросить все счетчики и запустить секвенсор</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set new pattern value</tr>
                     <tr lang="ru" finished="false">Устанавливает новое значение шаблона</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -86,16 +86,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">calculate convolution and output</tr>
                     <tr lang="ru" finished="false">рассчитать свёртку и выход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set second argument (@b property)</tr>
                     <tr lang="ru" finished="false">Второй аргумент (@b)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -44,32 +44,32 @@
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">first input harmonic</tr>
                     <tr lang="ru" finished="false">Первый вход гармоничный</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... input harmonic</tr>
                     <tr lang="ru" finished="false">Входная гармоника</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">n-th input harmonic</tr>
                     <tr lang="ru" finished="false">n-я входная гармоника</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n+1">
-                <xinfo>
+                <in>
                     <tr lang="en">Set the angle of the rotation of the soundfield in radian. The
                     rotation angle is anti-clockwise and wrapped between 0 and 2π.</tr>
                     <!-- old: Установите угол вращения звукового поля в
                     радиане. Угол вращения против часовой стрелки и обернут между 0 и 2π. -->
                     <tr lang="ru" finished="false">Установите угол вращения звукового поля в
                     радиане. Угол вращения против часовой стрелки и обернут между 0 и 2π.</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

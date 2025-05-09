@@ -143,16 +143,22 @@ Units: 'db'. Default value: -8\. Range: -60\...0\.;
 #X obj 20 2011 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2012 1\.;
+#X text 150 2012 ~;
 #X text 245 2012 1st source input.;
 #X text 110 2032 2\.;
+#X text 150 2032 ~;
 #X text 245 2032 2nd source input.;
 #X text 110 2052 3\.;
+#X text 150 2052 ~;
 #X text 245 2052 3rd source input.;
 #X text 110 2072 4\.;
+#X text 150 2072 ~;
 #X text 245 2072 4th source input.;
 #X text 110 2092 5\.;
+#X text 150 2092 ~;
 #X text 245 2092 5th source input.;
 #X text 110 2112 6\.;
+#X text 150 2112 ~;
 #X text 245 2112 6th source input.;
 #X obj 20 2142 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2147 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

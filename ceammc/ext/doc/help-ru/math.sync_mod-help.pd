@@ -46,29 +46,29 @@ message into console;
 #X obj 20 565 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 566 1\.;
-#X text 150 566 *float*;
+#X text 150 566 float:;
 #X text 245 566 set modulo divident \, calculate and output remainder.;
-#X text 150 586 *list*;
-#X text 245 586 pair: set modulo divident and divisor \, calculate
+#X text 150 591 list:;
+#X text 245 591 pair: set modulo divident and divisor \, calculate
 and output remainder.;
-#X text 110 621 2\.;
-#X text 150 621 *float*;
-#X text 245 621 change divisor \, calculate and output result.;
-#X obj 20 651 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 656 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 626 2\.;
+#X text 150 626 float:;
+#X text 245 626 change divisor \, calculate and output result.;
+#X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 661 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 657 1\.;
-#X text 245 657 remainder signed as first number.;
+#X text 110 662 1\.;
+#X text 245 662 remainder signed as first number.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 707 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 710 библиотека: ceammc v0.9.8;
-#X text 524 722 смотрите также:;
-#X obj 645 722 math.sync_div;
-#N canvas 10 729 400 290 info 0;
+#X obj 1 712 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 715 библиотека: ceammc v0.9.8;
+#X text 524 727 смотрите также:;
+#X obj 645 727 math.sync_div;
+#N canvas 10 734 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -92,7 +92,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 729 pd info;
+#X restore 10 734 pd info;
 #X connect 13 0 14 0;
 #X connect 9 0 15 0;
 #X connect 10 0 15 1;

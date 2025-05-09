@@ -621,10 +621,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output as list</tr>
                     <tr lang="ru" finished="false">выход в виде списка</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

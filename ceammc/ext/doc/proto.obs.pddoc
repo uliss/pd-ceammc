@@ -223,10 +223,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">raw midi input bytes</tr>
                     <tr lang="ru" finished="false">необработанные промежуточные входные байты</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

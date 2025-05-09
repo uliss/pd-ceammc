@@ -27,27 +27,27 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">sets first argument and outputs calculated GCD value</tr>
                     <!-- old: устанавливает первый аргумент и вычисляет
                     значение GCD -->
                     <tr lang="ru" finished="false">устанавливает первый аргумент и вычисляет
                     значение GCD</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">sets first argument and second arguments, then output calculated
                     GCD value</tr>
                     <!-- old: устанавливает первый аргумент и второй аргумент,
                     а затем вывод рассчитывает значение GCD -->
                     <tr lang="ru" finished="false">устанавливает первый аргумент и второй аргумент,
                     а затем вывод рассчитывает значение GCD</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">sets second value</tr>
                     <tr lang="ru" finished="false">Устанавливает второе значение</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

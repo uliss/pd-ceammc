@@ -48,7 +48,7 @@ with [prop.set] object or via rightmost inlet. Тип: int. Значение п�
 #X text 110 517 n.;
 #X text 245 517 multiplexer N-th inlet.;
 #X text 110 537 n+1\.;
-#X text 150 537 *int*;
+#X text 150 537 int:;
 #X text 245 537 set input index.;
 #X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 572 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

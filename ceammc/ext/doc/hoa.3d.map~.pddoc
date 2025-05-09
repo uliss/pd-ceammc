@@ -171,29 +171,29 @@
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">first source input</tr>
                     <tr lang="ru" finished="false">Первый источник ввода</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">SRC_IDX polar RADIUS AZIMUTH ELEVATION or SRC_IDX mute VALUE</tr>
                     <!-- old: SRC_IDX Polar RADIUS AZIMUTH ELEVATION или
                     SRC_IDX mute VALUE -->
                     <tr lang="ru" finished="false">SRC_IDX Polar RADIUS AZIMUTH ELEVATION или
                     SRC_IDX mute VALUE</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... source input</tr>
                     <tr lang="ru" finished="false">Источник ввода</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">n-th source input</tr>
                     <tr lang="ru" finished="false">n-й исходный ввод</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

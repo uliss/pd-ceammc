@@ -173,11 +173,11 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output current dictionary value</tr>
                     <tr lang="ru" finished="false">выход текущей словарной стоимости</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">set dict from list. Key-value pairs are expected. [1 2 3 4(
                     becames dict with keys: 1 and 3, values: 2 and 4. No output</tr>
                     <!-- old: Установить диктовку из списка. Ключ Ожидаются
@@ -186,11 +186,11 @@
                     <tr lang="ru" finished="false">Установить диктовку из списка. Ключ Ожидаются
                     пары значений. [1 2 3 4(стали диктовать ключами: 1 и 3, значения: 2 и 4). Нет
                     выхода</tr>
-                </xinfo>
-                <xinfo on="data:dict">
+                </in>
+                <in on="data:dict">
                     <tr lang="en">set and output new dict</tr>
                     <tr lang="ru" finished="false">Установить и вывести новый дикт</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

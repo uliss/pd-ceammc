@@ -56,23 +56,23 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output</tr>
                     <tr lang="ru" finished="false">выход</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">set @dur and output</tr>
                     <tr lang="ru" finished="false">Set @dur и выход</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">set @rtree, no output</tr>
                     <tr lang="ru" finished="false">Set @rtree, нет выхода</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">parse message and set @rtree, no output</tr>
                     <tr lang="ru" finished="false">parse message and set @rtree, no output
                     (недоступная ссылка)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

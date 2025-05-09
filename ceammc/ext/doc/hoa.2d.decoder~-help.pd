@@ -97,10 +97,13 @@ value: 1 0 -1 0\. Range: -1\...1\.;
 #X obj 20 1347 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1348 1\.;
+#X text 150 1348 ~;
 #X text 245 1348 first input harmonic.;
-#X text 110 1368 ....;
+#X text 110 1368 ...;
+#X text 150 1368 ~;
 #X text 245 1368 ... input harmonic.;
 #X text 110 1388 n.;
+#X text 150 1388 ~;
 #X text 245 1388 n-th input harmonic.;
 #X obj 20 1418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1423 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
@@ -108,7 +111,7 @@ value: 1 0 -1 0\. Range: -1\...1\.;
 #X text 110 1424 1\.;
 #X text 150 1424 ~;
 #X text 245 1424 first loudspeaker output.;
-#X text 110 1444 ....;
+#X text 110 1444 ...;
 #X text 150 1444 ~;
 #X text 245 1444 ... loudspeaker output.;
 #X text 110 1464 n.;

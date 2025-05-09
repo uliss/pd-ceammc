@@ -219,33 +219,33 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output list content</tr>
                     <tr lang="ru" finished="false">Содержание списка выходных данных</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">outputs list element at specified position. Negative indexes are
                     supported</tr>
                     <!-- old: элемент списка выходов в указанном положении.
                     Поддерживаются отрицательные индексы -->
                     <tr lang="ru" finished="false">элемент списка выходов в указанном положении.
                     Поддерживаются отрицательные индексы</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">set new list with single symbol element and output</tr>
                     <!-- old: установить новый список с одним элементом
                     символа и выходом -->
                     <tr lang="ru" finished="false">установить новый список с одним элементом
                     символа и выходом</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">set new list content and output</tr>
                     <tr lang="ru" finished="false">установить новый контент списка и выход</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">same as list</tr>
                     <tr lang="ru" finished="false">Тот же список</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -28,10 +28,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">Standart MIDI controller number [0-127]</tr>
                     <tr lang="ru" finished="false">Стандартный контроллер MIDI [0-127]</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

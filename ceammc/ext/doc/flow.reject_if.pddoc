@@ -47,20 +47,20 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input value</tr>
                     <tr lang="ru" finished="false">входная стоимость</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">value from predicate (0 or 1). If *1* reject value, if *0* -
                     pass.</tr>
                     <!-- old: значение из предиката (0 или 1). Если *1*
                     отклонить значение, если *0* - пройти. -->
                     <tr lang="ru" finished="false">значение из предиката (0 или 1). Если *1*
                     отклонить значение, если *0* - пройти.</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

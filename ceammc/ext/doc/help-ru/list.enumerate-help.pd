@@ -36,23 +36,23 @@
 #X obj 20 493 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 494 1\.;
-#X text 150 494 *list*;
+#X text 150 494 list:;
 #X text 245 494 input list.;
-#X text 150 514 *data:mlist*;
-#X text 245 514 input mlist.;
-#X obj 20 544 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 549 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 150 519 data:mlist:;
+#X text 245 519 input mlist.;
+#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 554 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 550 1\.;
-#X text 245 550 output list.;
+#X text 110 555 1\.;
+#X text 245 555 output list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 600 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 603 библиотека: ceammc v0.9.8;
-#N canvas 10 622 400 290 info 0;
+#X obj 1 605 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 608 библиотека: ceammc v0.9.8;
+#N canvas 10 627 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -76,7 +76,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 622 pd info;
+#X restore 10 627 pd info;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;
 #X connect 4 0 9 0;

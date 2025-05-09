@@ -38,10 +38,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">calculates and outputs RMS value</tr>
                     <tr lang="ru" finished="false">вычисляет и выводит значение RMS</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

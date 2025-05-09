@@ -58,23 +58,23 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">starts list generation</tr>
                     <tr lang="ru" finished="false">Начало формирования списка</tr>
-                </xinfo>
-                <xinfo on="int" minvalue="0" maxvalue="1024">
+                </in>
+                <in on="int" minvalue="0" maxvalue="1024">
                     <tr lang="en">changes length of generated list and starts generation</tr>
                     <!-- old: Изменение длины сгенерированного списка и начало
                     генерации -->
                     <tr lang="ru" finished="false">Изменение длины сгенерированного списка и начало
                     генерации</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">input for generated values</tr>
                     <tr lang="ru" finished="false">вход для генерируемых значений</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

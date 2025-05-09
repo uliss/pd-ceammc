@@ -31,16 +31,16 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo minvalue="-10000" maxvalue="10000">
+                <in minvalue="-10000" maxvalue="10000">
                     <tr lang="en">frequency shift in Hertz</tr>
                     <tr lang="ru" finished="false">Сдвиг частоты в Герце</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -28,10 +28,10 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="data">
+                <in on="data">
                     <tr lang="en">input data</tr>
                     <tr lang="ru" finished="false">входные данные</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

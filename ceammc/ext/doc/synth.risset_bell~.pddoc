@@ -64,14 +64,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">play</tr>
                     <tr lang="ru" finished="false">играть</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">play with specified amp</tr>
                     <tr lang="ru" finished="false">играть с определенным усилителем</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

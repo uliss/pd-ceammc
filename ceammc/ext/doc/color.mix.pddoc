@@ -40,22 +40,22 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float" minvalue="0" maxvalue="1">
+                <in on="float" minvalue="0" maxvalue="1">
                     <tr lang="en">calculate color mix and output</tr>
                     <tr lang="ru" finished="false">Рассчитать цветовую смесь и выход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="data:color">
+                <in on="data:color">
                     <tr lang="en">set color and output</tr>
                     <tr lang="ru" finished="false">Установить цвет и выход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="data:color">
+                <in on="data:color">
                     <tr lang="en">set color without output</tr>
                     <tr lang="ru" finished="false">цвет без выхода</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

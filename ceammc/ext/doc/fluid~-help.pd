@@ -332,7 +332,7 @@ program). Type: int. Range: 1\...256\.;
 #X obj 20 4234 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 4235 1\.;
-#X text 150 4235 *symbol*;
+#X text 150 4235 symbol:;
 #X text 245 4235 load mod file.;
 #X obj 20 4265 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 4270 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

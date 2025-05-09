@@ -50,29 +50,29 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">input value</tr>
                     <tr lang="ru" finished="false">входная стоимость</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list values are spreaded among three inlets</tr>
                     <!-- old: значения списка распределены между тремя
                     входами -->
                     <tr lang="ru" finished="false">значения списка распределены между тремя
                     входами</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">pattern value</tr>
                     <tr lang="ru" finished="false">значение паттерна</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">epsilon</tr>
                     <tr lang="ru" finished="false">эпсилон</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

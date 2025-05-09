@@ -29,7 +29,6 @@ Non property values are passed untouched;
 #X obj 20 433 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 434 1\.;
-#X text 150 434 *any*;
 #X text 245 434 input values.;
 #X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 469 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
@@ -38,7 +37,7 @@ Non property values are passed untouched;
 #X text 245 470 passed values.;
 #X text 110 490 2\.;
 #X text 245 490 first matched property value (without property selector).;
-#X text 110 510 ....;
+#X text 110 510 ...;
 #X text 245 510 others matched property value.;
 #X text 110 530 n.;
 #X text 245 530 unmatched property output (with selector).;

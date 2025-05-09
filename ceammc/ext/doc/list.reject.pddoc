@@ -31,28 +31,28 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">input float</tr>
                     <tr lang="ru" finished="false">входной поплавок</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">input symbol</tr>
                     <tr lang="ru" finished="false">входной символ</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">input list</tr>
                     <tr lang="ru" finished="false">вводный список</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">input mlist</tr>
                     <tr lang="ru" finished="false">входной млечный</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set rejected values</tr>
                     <tr lang="ru" finished="false">Отвергнутые ценности</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

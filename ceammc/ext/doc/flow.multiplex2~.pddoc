@@ -40,46 +40,46 @@
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
-                <xinfo>
+                <in>
                     <tr lang="en">first left input signal</tr>
                     <tr lang="ru" finished="false">Первый левый входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="2">
-                <xinfo>
+                <in>
                     <tr lang="en">first right input signal</tr>
                     <tr lang="ru" finished="false">Первый правый входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... left input signal</tr>
                     <tr lang="ru" finished="false">левый входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... right input signal</tr>
                     <tr lang="ru" finished="false">Правильный входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">last left input signal</tr>
                     <tr lang="ru" finished="false">Последний левый входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">last right input signal</tr>
                     <tr lang="ru" finished="false">Последний правильный входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="control" number="n+1">
-                <xinfo>
+                <in>
                     <tr lang="en">multiplexer control</tr>
                     <tr lang="ru" finished="false">управление мультиплексором</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

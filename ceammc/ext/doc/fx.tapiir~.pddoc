@@ -542,16 +542,16 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">left in channel</tr>
                     <tr lang="ru" finished="false">Остаться в канале</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">right in channel</tr>
                     <tr lang="ru" finished="false">Прямо в канале</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

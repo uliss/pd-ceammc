@@ -230,10 +230,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input messages</tr>
                     <tr lang="ru" finished="false">входные сообщения</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

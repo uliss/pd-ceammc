@@ -300,14 +300,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs knob value</tr>
                     <tr lang="ru" finished="false">значение knob</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">sets knob value and output it</tr>
                     <tr lang="ru" finished="false">устанавливает значение ручки и выводит ее</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

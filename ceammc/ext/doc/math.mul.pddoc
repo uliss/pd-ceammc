@@ -34,23 +34,23 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">multiplier</tr>
                     <tr lang="ru" finished="false">умножитель</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list of multipliers (non float values are ignored)</tr>
                     <!-- old: список мультипликаторов (не поплавковые значения
                     игнорируются) -->
                     <tr lang="ru" finished="false">список мультипликаторов (не поплавковые значения
                     игнорируются)</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">change multiplicand</tr>
                     <tr lang="ru" finished="false">изменить мультипликатор</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

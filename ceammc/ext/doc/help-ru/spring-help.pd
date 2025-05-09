@@ -59,10 +59,10 @@ float. Единицы: 'ms'. Значение по умолчанию: 500\. Д�
 #X obj 20 751 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 752 1\.;
-#X text 150 752 *float*;
+#X text 150 752 float:;
 #X text 245 752 set current value.;
 #X text 110 772 2\.;
-#X text 150 772 *float*;
+#X text 150 772 float:;
 #X text 245 772 set @value.;
 #X obj 20 802 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 807 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

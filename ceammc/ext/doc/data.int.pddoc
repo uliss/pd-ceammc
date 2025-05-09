@@ -74,20 +74,20 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output value</tr>
                     <tr lang="ru" finished="false">выходная стоимость</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">set new value and outputs</tr>
                     <tr lang="ru" finished="false">установить новые значения и выходы</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">set new value without output</tr>
                     <tr lang="ru" finished="false">установить новую стоимость без выхода</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

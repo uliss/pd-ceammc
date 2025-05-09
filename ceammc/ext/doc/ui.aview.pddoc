@@ -207,19 +207,19 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output current cursor positions: @cursor_samp, @cursor_phase,
                     @cursor_ms, @cursor_sec and selection (if selected): @select_samp,
                     @select_phase, @select_ms, @select_sec, @begin, @end</tr>
                     <tr lang="ru" finished="false">@cursor_samp, @cursor_phase, @cursor_ms,
                     @cursor_sec и selection (если выбрано): @select_samp, @select_phase,
                     @select_ms, @select_sec, @begin, @end</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">move cursor to specified sample position</tr>
                     <tr lang="ru" finished="false">перемещать курсор в указанное положение
                     образца</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

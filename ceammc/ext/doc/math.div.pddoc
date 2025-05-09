@@ -34,23 +34,23 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">divident</tr>
                     <tr lang="ru" finished="false">разделительный</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list of divident (non float values are ignored)</tr>
                     <!-- old: Список делителей (не плавающие значения
                     игнорируются) -->
                     <tr lang="ru" finished="false">Список делителей (не плавающие значения
                     игнорируются)</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">change divisor</tr>
                     <tr lang="ru" finished="false">изменить делитель</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

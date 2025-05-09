@@ -55,40 +55,40 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">b0</tr>
                     <tr lang="ru" finished="false">b0</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">b1</tr>
                     <tr lang="ru" finished="false">b1</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">b2</tr>
                     <tr lang="ru" finished="false">b2</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">a1</tr>
                     <tr lang="ru" finished="false">а1</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">a2</tr>
                     <tr lang="ru" finished="false">а2</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

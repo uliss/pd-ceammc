@@ -21,11 +21,11 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input set. Other values are ignored</tr>
                     <tr lang="ru" finished="false">Набор входных данных. Другие ценности
                     игнорируются</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

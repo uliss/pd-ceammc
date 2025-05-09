@@ -198,22 +198,22 @@
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">first input harmonic</tr>
                     <tr lang="ru" finished="false">Первый вход гармоничный</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... input harmonic</tr>
                     <tr lang="ru" finished="false">Входная гармоника</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">n-th input harmonic</tr>
                     <tr lang="ru" finished="false">n-я входная гармоника</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <example>

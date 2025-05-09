@@ -21,20 +21,20 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">input list</tr>
                     <tr lang="ru" finished="false">вводный список</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">input mlist</tr>
                     <tr lang="ru" finished="false">входной млечный</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">output from compare object (1 or 0)</tr>
                     <tr lang="ru" finished="false">выход из объекта сравнения (1 или 0)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -83,18 +83,18 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output random atom</tr>
                     <tr lang="ru" finished="false">выход случайного атома</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set list of elements to choose from. Note: clear all
                     weights.</tr>
                     <tr lang="ru" finished="false">Список элементов на выбор. Примечание: очистить
                     все веса.</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

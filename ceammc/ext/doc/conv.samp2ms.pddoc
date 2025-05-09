@@ -26,14 +26,14 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">number of samples</tr>
                     <tr lang="ru" finished="false">количество образцов</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list of number of samples</tr>
                     <tr lang="ru" finished="false">Список количества образцов</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

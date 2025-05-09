@@ -19,15 +19,15 @@ exception for |x| > 1\.;
 #X obj 20 376 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 377 1\.;
-#X text 150 377 *float*;
+#X text 150 377 float:;
 #X text 245 377 input value.;
-#X text 150 397 *list*;
-#X text 245 397 apply to all numeric values.;
-#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 432 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 150 402 list:;
+#X text 245 402 apply to all numeric values.;
+#X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 437 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 433 1\.;
-#X text 245 433 result value.;
+#X text 110 438 1\.;
+#X text 245 438 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

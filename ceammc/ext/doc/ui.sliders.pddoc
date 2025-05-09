@@ -344,15 +344,15 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs sliders position</tr>
                     <tr lang="ru" finished="false">выходное положение слайдеров</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">sets slider values and output them</tr>
                     <tr lang="ru" finished="false">устанавливает значения слайдера и выводит
                     их</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

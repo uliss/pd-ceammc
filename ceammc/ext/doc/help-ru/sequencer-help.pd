@@ -98,30 +98,30 @@ before sequence start. Тип: float. Значение по умолчанию: 
 #X obj 20 1310 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1311 1\.;
-#X text 150 1311 *bang*;
+#X text 150 1311 bang:;
 #X text 245 1311 reset all counters and start.;
-#X text 150 1331 *float*;
-#X text 245 1331 reset al counter and start (on 1) or stop(on 0).;
-#X text 110 1351 2\.;
-#X text 150 1351 *list*;
-#X text 245 1351 set sequence.;
-#X obj 20 1381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1386 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 150 1336 float:;
+#X text 245 1336 reset al counter and start (on 1) or stop(on 0).;
+#X text 110 1356 2\.;
+#X text 150 1356 list:;
+#X text 245 1356 set sequence.;
+#X obj 20 1386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1391 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1387 1\.;
-#X text 245 1387 sequence element output \, in case of Mlist args -
+#X text 110 1392 1\.;
+#X text 245 1392 sequence element output \, in case of Mlist args -
 outputs play lists.;
-#X text 110 1422 2\.;
-#X text 245 1422 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
+#X text 110 1427 2\.;
+#X text 245 1427 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
 iteration or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1487 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1490 библиотека: ceammc v0.9.8;
-#N canvas 10 1509 400 290 info 0;
+#X obj 1 1492 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1495 библиотека: ceammc v0.9.8;
+#N canvas 10 1514 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -145,7 +145,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1509 pd info;
+#X restore 10 1514 pd info;
 #X connect 10 0 11 0;
 #X connect 7 0 12 0;
 #X connect 8 0 12 0;

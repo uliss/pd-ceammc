@@ -57,17 +57,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">input list of floats. Non float values are rejected</tr>
                     <!-- old: Список входных поплавков. Неподвижные значения
                     отклонены -->
                     <tr lang="ru" finished="false">Список входных поплавков. Неподвижные значения
                     отклонены</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">same as list</tr>
                     <tr lang="ru" finished="false">Тот же список</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

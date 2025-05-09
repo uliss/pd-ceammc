@@ -61,25 +61,25 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">starts (on &gt;0) or stops (on &lt;=0) metro</tr>
                     <!-- old: старты (на >0) или остановки (на <=0)
                     метро -->
                     <tr lang="ru" finished="false">старты (на &gt;0) или остановки (на &lt;=0)
                     метро</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set timeset</tr>
                     <tr lang="ru" finished="false">установленное время</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set weights</tr>
                     <tr lang="ru" finished="false">установленный вес</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

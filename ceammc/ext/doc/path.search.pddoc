@@ -130,14 +130,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">filename</tr>
                     <tr lang="ru" finished="false">имя файла</tr>
-                </xinfo>
-                <xinfo on="data:string">
+                </in>
+                <in on="data:string">
                     <tr lang="en">filename</tr>
                     <tr lang="ru" finished="false">имя файла</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

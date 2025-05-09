@@ -56,27 +56,27 @@ id. Тип: symbol. Значение по умолчанию: default.;
 #X obj 20 752 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 753 1\.;
-#X text 150 753 *bang*;
+#X text 150 753 bang:;
 #X text 245 753 output value.;
-#X text 150 773 *float*;
-#X text 245 773 sets new value and outputs it ONLY at current object
+#X text 150 778 float:;
+#X text 245 778 sets new value and outputs it ONLY at current object
 outlet.;
-#X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 808 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 813 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 809 1\.;
-#X text 245 809 float output.;
+#X text 110 814 1\.;
+#X text 245 814 float output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title local @url ceammc.local-help.pd;
-#X obj 1 859 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 862 библиотека: ceammc v0.9.8;
-#X text 466 874 смотрите также:;
-#X obj 587 874 local.int;
-#X obj 667 874 global.int;
-#N canvas 10 881 400 290 info 0;
+#X obj 1 864 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 867 библиотека: ceammc v0.9.8;
+#X text 466 879 смотрите также:;
+#X obj 587 879 local.int;
+#X obj 667 879 global.int;
+#N canvas 10 886 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -100,7 +100,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 881 pd info;
+#X restore 10 886 pd info;
 #X connect 6 0 12 0;
 #X connect 7 0 12 0;
 #X connect 10 0 12 0;

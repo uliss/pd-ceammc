@@ -260,10 +260,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">command input</tr>
                     <tr lang="ru" finished="false">командный вход</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

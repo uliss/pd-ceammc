@@ -25,18 +25,18 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">input frequency in Herz</tr>
                     <tr lang="ru" finished="false">Вводная частота в Герце</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list of input frequencies in Herz, non float types are
                     ignored</tr>
                     <!-- old: Список входных частот в Герце, непоплавковые
                     типы игнорируются. -->
                     <tr lang="ru" finished="false">Список входных частот в Герце, непоплавковые
                     типы игнорируются.</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

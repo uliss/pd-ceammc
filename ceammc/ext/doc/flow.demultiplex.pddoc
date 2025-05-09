@@ -53,16 +53,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">input flow inlet</tr>
                     <tr lang="ru" finished="false">входной входной поток</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">output selector</tr>
                     <tr lang="ru" finished="false">выходной селектор</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

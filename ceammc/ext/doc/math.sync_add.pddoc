@@ -39,30 +39,30 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set first addend, calculate and output result</tr>
                     <!-- old: установить первое добавление, вычислить и
                     получить результат -->
                     <tr lang="ru" finished="false">установить первое добавление, вычислить и
                     получить результат</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">pair: set first and second addends, calculate and output
                     result</tr>
                     <!-- old: пара: установить первое и второе добавления,
                     рассчитать и вывести результат -->
                     <tr lang="ru" finished="false">пара: установить первое и второе добавления,
                     рассчитать и вывести результат</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">change second addend, calculate and output result</tr>
                     <!-- old: изменить второе добавление, рассчитать и вывести
                     результат -->
                     <tr lang="ru" finished="false">изменить второе добавление, рассчитать и вывести
                     результат</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -55,19 +55,19 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">input flow</tr>
                     <tr lang="ru" finished="false">входной поток</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">gate control inlet. Sending *1* opens gate, *0* - closes</tr>
                     <!-- old: Впуск управления воротами. отправка *1*
                     открывает ворота, *0* - закрывает -->
                     <tr lang="ru" finished="false">Впуск управления воротами. отправка *1*
                     открывает ворота, *0* - закрывает</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

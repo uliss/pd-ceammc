@@ -51,22 +51,22 @@
         </properties>
         <inlets dynamic="true">
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">first inlet</tr>
                     <tr lang="ru" finished="false">первый вход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">...</tr>
                     <tr lang="ru" finished="false">...</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">Nth inlet</tr>
                     <tr lang="ru" finished="false">N-й вход</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

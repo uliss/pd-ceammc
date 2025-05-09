@@ -57,25 +57,25 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">color name or hex value in full (#RRGGBB or #RRGGBBAA) or short
                     (#RGB or #RGBA) format</tr>
                     <!-- old: Цветовое имя или шестнадцатеричное значение в
                     полном (#RRGGBB или #RRGGBBAA) или коротком (#RGB или #RGBA) формате -->
                     <tr lang="ru" finished="false">Цветовое имя или шестнадцатеричное значение в
                     полном (#RRGGBB или #RRGGBBAA) или коротком (#RGB или #RGBA) формате</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">use message selector as color name</tr>
                     <!-- old: Используйте селектор сообщений в качестве
                     цветового имени -->
                     <tr lang="ru" finished="false">Используйте селектор сообщений в качестве
                     цветового имени</tr>
-                </xinfo>
-                <xinfo on="data:color">
+                </in>
+                <in on="data:color">
                     <tr lang="en">Color data</tr>
                     <tr lang="ru" finished="false">Цветовые данные</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

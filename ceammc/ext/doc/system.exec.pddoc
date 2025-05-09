@@ -73,14 +73,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">run specified program</tr>
                     <tr lang="ru" finished="false">Запуск определенной программы</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">run specified program with arguments</tr>
                     <tr lang="ru" finished="false">Запуск определенной программы с аргументами</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

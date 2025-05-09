@@ -33,10 +33,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">General MIDI instrument number [1-128]</tr>
                     <tr lang="ru" finished="false">Общий номер прибора MIDI [1-128]</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

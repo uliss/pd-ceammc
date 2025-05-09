@@ -130,35 +130,35 @@ float. Значение по умолчанию: 1\. Минимальное зн
 #X obj 20 1855 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1856 1\.;
-#X text 150 1856 *bang*;
+#X text 150 1856 bang:;
 #X text 245 1856 сбрасывает текущую позицию в начало и начинает воспроизведение.;
-#X text 150 1891 *float*;
-#X text 245 1891 начинает воспроизведение с указанного семпла. Также
+#X text 150 1896 float:;
+#X text 245 1896 начинает воспроизведение с указанного семпла. Также
 поддерживаются отрицательные смещения: -10 означает воспроизвести последние
 10 семплов массива до конца.;
-#X obj 20 1951 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1956 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1956 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1961 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1957 1\.;
-#X text 150 1957 ~;
-#X text 245 1957 воспроизводимый сигнал.;
-#X text 110 1977 2\.;
-#X text 150 1977 float:;
-#X text 245 1977 выводит текущую позицию воспроизведения согласно свойству
+#X text 110 1962 1\.;
+#X text 150 1962 ~;
+#X text 245 1962 воспроизводимый сигнал.;
+#X text 110 1982 2\.;
+#X text 150 1982 float:;
+#X text 245 1982 выводит текущую позицию воспроизведения согласно свойству
 @cfmt. По умолчанию выводит секунды.;
-#X text 110 2012 3\.;
-#X text 150 2012 bang:;
-#X text 245 2012 после завершения воспроизведения.;
+#X text 110 2017 3\.;
+#X text 150 2017 bang:;
+#X text 245 2017 после завершения воспроизведения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 2062 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2065 библиотека: ceammc v0.9.8;
-#X text 560 2077 смотрите также:;
-#X obj 681 2077 tabplay~;
-#N canvas 10 2084 400 290 info 0;
+#X obj 1 2067 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2070 библиотека: ceammc v0.9.8;
+#X text 560 2082 смотрите также:;
+#X obj 681 2082 tabplay~;
+#N canvas 10 2089 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -182,7 +182,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2084 pd info;
+#X restore 10 2089 pd info;
 #X connect 5 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

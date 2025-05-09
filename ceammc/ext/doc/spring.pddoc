@@ -73,16 +73,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set current value</tr>
                     <tr lang="ru" finished="false">Установить текущую стоимость</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set @value</tr>
                     <tr lang="ru" finished="false">Установить @value</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

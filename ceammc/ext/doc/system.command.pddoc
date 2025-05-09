@@ -100,15 +100,15 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">run the program</tr>
                     <tr lang="ru" finished="false">запустить программу</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">change @args property and then run the program</tr>
                     <tr lang="ru" finished="false">изменить свойство @args и запустить
                     программу</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

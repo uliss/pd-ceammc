@@ -72,11 +72,13 @@ list. Единицы: 'db'. Значение по умолчанию: -144 -144\
 #X obj 20 1001 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1002 1\.;
+#X text 150 1002 ~;
 #X text 245 1002 input signal.;
-#X text 110 1022 ....;
+#X text 110 1022 ...;
+#X text 150 1022 ~;
 #X text 245 1022 input signal.;
 #X text 110 1042 n.;
-#X text 150 1042 *float*;
+#X text 150 1042 float:;
 #X text 245 1042 input signal.;
 #X obj 20 1072 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1077 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144

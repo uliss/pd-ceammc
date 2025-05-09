@@ -115,17 +115,17 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs variable</tr>
                     <tr lang="ru" finished="false">выходы переменные</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">set variable to given float and outputs new value</tr>
                     <!-- old: установить переменную для данного поплавка и
                     вывести новое значение -->
                     <tr lang="ru" finished="false">установить переменную для данного поплавка и
                     вывести новое значение</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

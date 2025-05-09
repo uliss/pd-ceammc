@@ -21,7 +21,7 @@
 #X text 110 312 1\.;
 #X text 245 312 input value.;
 #X text 110 332 2\.;
-#X text 150 332 *int*;
+#X text 150 332 int:;
 #X text 245 332 value from predicate (0 or 1). If *1* reject value
 \, if *0* - pass.;
 #X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -137,7 +137,7 @@ Type: list.;
 #X obj 20 1792 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1793 1\.;
-#X text 150 1793 *float*;
+#X text 150 1793 float:;
 #X text 245 1793 control inlet. Non-zero value starts timeline \, zero
 - stops.;
 #X obj 20 1823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -42,7 +42,7 @@
 0;
 #X text 110 546 1\.;
 #X text 245 546 first specified property.;
-#X text 110 566 ....;
+#X text 110 566 ...;
 #X text 245 566 ... specified property.;
 #X text 110 586 n.;
 #X text 245 586 n-th specified property.;

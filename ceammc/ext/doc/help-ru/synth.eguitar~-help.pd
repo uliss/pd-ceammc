@@ -69,12 +69,13 @@ and 1 for instant mute). Тип: float. Значение по умолчанию
 #X obj 20 1086 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1087 1\.;
-#X text 150 1087 *list*;
+#X text 150 1087 list:;
 #X text 245 1087 NOTE VEL.;
 #X obj 20 1117 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1122 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1123 1\.;
+#X text 150 1123 ~;
 #X text 245 1123;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

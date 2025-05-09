@@ -57,16 +57,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input string or symbol</tr>
                     <tr lang="ru" finished="false">входная строка или символ</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">set removed string or symbol</tr>
                     <tr lang="ru" finished="false">Удаленная строка или символ</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -36,6 +36,7 @@ value: 2\. Range: 2\...64\.;
 #X obj 20 509 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 510 1\.;
+#X text 150 510 ~;
 #X text 245 510 input signal.;
 #X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 545 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
@@ -43,7 +44,7 @@ value: 2\. Range: 2\...64\.;
 #X text 110 546 1\.;
 #X text 150 546 ~;
 #X text 245 546 first output signal.;
-#X text 110 566 ....;
+#X text 110 566 ...;
 #X text 150 566 ~;
 #X text 245 566 ... output signal.;
 #X text 110 586 n.;

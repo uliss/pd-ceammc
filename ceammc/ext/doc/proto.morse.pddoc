@@ -56,16 +56,16 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">add words to encoder</tr>
                     <tr lang="ru" finished="false">Добавить слова в кодировку</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">external clock</tr>
                     <tr lang="ru" finished="false">Внешние часы</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

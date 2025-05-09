@@ -16,15 +16,15 @@ float input.;
 #X obj 20 289 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 290 1\.;
-#X text 150 290 *float*;
+#X text 150 290 float:;
 #X text 245 290 input value.;
-#X text 150 310 *list*;
-#X text 245 310 apply to all numeric values.;
-#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 345 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 150 315 list:;
+#X text 245 315 apply to all numeric values.;
+#X obj 20 345 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 350 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 346 1\.;
-#X text 245 346 result value.;
+#X text 110 351 1\.;
+#X text 245 351 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

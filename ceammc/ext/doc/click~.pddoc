@@ -21,10 +21,10 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs single positive impulse</tr>
                     <tr lang="ru" finished="false">Единый положительный импульс</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

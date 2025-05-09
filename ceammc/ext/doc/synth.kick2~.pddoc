@@ -78,20 +78,20 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">play with default duration and full gain</tr>
                     <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и
                     полным выигрышем</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">play with default duration and specified gain</tr>
                     <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и
                     определенным выигрышем</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">GAIN(0..1) DUR(ms) pair expected</tr>
                     <tr lang="ru" finished="false">ГАИН(0) ..1) Ожидаемая пара DUR(ms)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

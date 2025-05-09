@@ -833,10 +833,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">draw commands</tr>
                     <tr lang="ru" finished="false">выполнять команды</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

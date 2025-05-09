@@ -43,16 +43,16 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">any input message</tr>
                     <tr lang="ru" finished="false">Любое входное сообщение</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">change message delay</tr>
                     <tr lang="ru" finished="false">Изменение сообщения задержка</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -95,10 +95,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">calculate and output frequency responses</tr>
                     <tr lang="ru" finished="false">вычисление и выходная частота ответов</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

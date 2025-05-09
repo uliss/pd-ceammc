@@ -45,14 +45,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">array sample number</tr>
                     <tr lang="ru" finished="false">образец массива</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list of sample numbers</tr>
                     <tr lang="ru" finished="false">Список выборочных номеров</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

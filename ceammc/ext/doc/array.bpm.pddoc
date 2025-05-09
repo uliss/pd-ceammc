@@ -38,10 +38,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">starts calculation</tr>
                     <tr lang="ru" finished="false">Начинается расчет</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

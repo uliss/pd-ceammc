@@ -39,20 +39,20 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">starts the array iteration</tr>
                     <tr lang="ru">начинает итерацию массива</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">set the array name</tr>
                     <tr lang="ru">установить имя массива</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">numeric value from the side-chain</tr>
                     <tr lang="ru">числовое значение из боковой цепи обработки</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>
@@ -66,7 +66,8 @@
                 <out type="list">
                     <tr lang="en">for each array sample outputs list: SAMPLE_VALUE, SAMPLE_POS,
                     TOTAL_SAMPLES</tr>
-                    <tr lang="ru">для каждого семпла массива выводит список: ЗНАЧЕНИЕ_СЕМПЛА, ИНДЕКС_СЕМПЛА, ВСЕГО_СЕМПЛОВ</tr>
+                    <tr lang="ru">для каждого семпла массива выводит список: ЗНАЧЕНИЕ_СЕМПЛА,
+                    ИНДЕКС_СЕМПЛА, ВСЕГО_СЕМПЛОВ</tr>
                 </out>
             </outlet>
         </outlets>

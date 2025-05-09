@@ -56,30 +56,30 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input flow</tr>
                     <tr lang="ru" finished="false">входной поток</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset internal timer and goes to opened state</tr>
                     <!-- old: сбросить внутренний таймер и перейти в открытое
                     состояние -->
                     <tr lang="ru" finished="false">сбросить внутренний таймер и перейти в открытое
                     состояние</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">set speed limit</tr>
                     <tr lang="ru" finished="false">установить ограничение скорости</tr>
-                </xinfo>
-                <xinfo>
+                </in>
+                <in>
                     <tr lang="en">reset: reset internal timer and goes to opened state</tr>
                     <!-- old: Reset: сброс внутреннего таймера и переходит в
                     открытое состояние -->
                     <tr lang="ru" finished="false">Reset: сброс внутреннего таймера и переходит в
                     открытое состояние</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

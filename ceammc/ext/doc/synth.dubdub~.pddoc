@@ -60,9 +60,9 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">NOTE VEL</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -118,10 +118,10 @@ before sequence start. Тип: float. Значение по умолчанию: 
 #X obj 20 1685 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1686 1\.;
-#X text 150 1686 *bang*;
+#X text 150 1686 bang:;
 #X text 245 1686 reset sequence and repeat counters and start sequencer.;
 #X text 110 1706 2\.;
-#X text 150 1706 *list*;
+#X text 150 1706 list:;
 #X text 245 1706 set new pattern value.;
 #X obj 20 1736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1741 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144

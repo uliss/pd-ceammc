@@ -27,10 +27,10 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output extracted properties to first outlet</tr>
                     <tr lang="ru" finished="false">вывод извлеченных свойств на первый выход</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

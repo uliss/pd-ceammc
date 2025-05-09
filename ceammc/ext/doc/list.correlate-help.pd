@@ -53,10 +53,10 @@ values: valid \, same \, full.;
 #X obj 20 892 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 893 1\.;
-#X text 150 893 *list*;
+#X text 150 893 list:;
 #X text 245 893 calculate cross-correlation and output.;
 #X text 110 913 2\.;
-#X text 150 913 *list*;
+#X text 150 913 list:;
 #X text 245 913 set second argument (@b property).;
 #X obj 20 943 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 948 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

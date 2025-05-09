@@ -55,19 +55,19 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output last pattern</tr>
                     <tr lang="ru" finished="false">выходной последний шаблон</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">set new pattern and output</tr>
                     <tr lang="ru" finished="false">установить новый шаблон и выход</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">output enumerated patterns for each list argument</tr>
                     <tr lang="ru" finished="false">Перечисленные шаблоны для каждого аргумента
                     списка</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

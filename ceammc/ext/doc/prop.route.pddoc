@@ -37,10 +37,10 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">input values</tr>
                     <tr lang="ru" finished="false">входные значения</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

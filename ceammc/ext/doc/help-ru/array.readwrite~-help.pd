@@ -66,10 +66,13 @@
 #X obj 20 891 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 892 1\.;
+#X text 150 892 ~;
 #X text 245 892 reading index.;
 #X text 110 912 2\.;
+#X text 150 912 ~;
 #X text 245 912 signal to write.;
 #X text 110 932 3\.;
+#X text 150 932 ~;
 #X text 245 932 write index.;
 #X obj 20 962 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 967 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

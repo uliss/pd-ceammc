@@ -79,8 +79,10 @@ structure. Type: float. Default value: 2\. Range: 0\...10\.;
 #X obj 20 1305 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1306 1\.;
+#X text 150 1306 ~;
 #X text 245 1306 left channel.;
 #X text 110 1326 2\.;
+#X text 150 1326 ~;
 #X text 245 1326 right channel.;
 #X obj 20 1356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1361 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

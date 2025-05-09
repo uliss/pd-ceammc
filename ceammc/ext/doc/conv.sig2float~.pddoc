@@ -58,20 +58,20 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
-                <xinfo on="bang">
+                </in>
+                <in on="bang">
                     <tr lang="en">sample immediately</tr>
                     <tr lang="ru" finished="false">образец немедленно</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="control">
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set sample interval</tr>
                     <tr lang="ru" finished="false">установленный интервал выборки</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

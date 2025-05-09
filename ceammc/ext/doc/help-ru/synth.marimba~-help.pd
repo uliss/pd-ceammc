@@ -78,6 +78,7 @@ generator. Тип: float. Значение по умолчанию: 7000\. Ди�
 #X obj 20 1193 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1194 1\.;
+#X text 150 1194 ~;
 #X text 245 1194;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

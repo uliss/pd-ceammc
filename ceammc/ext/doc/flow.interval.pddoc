@@ -21,10 +21,10 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">input flow</tr>
                     <tr lang="ru" finished="false">входной поток</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

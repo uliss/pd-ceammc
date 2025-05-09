@@ -113,6 +113,7 @@ short \, long.;
 #X obj 20 1883 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1884 1\.;
+#X text 150 1884 ~;
 #X text 245 1884 input signal.;
 #X text 110 1904 2\.;
 #X text 245 1904 pitch shift in semitones.;

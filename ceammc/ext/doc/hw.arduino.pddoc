@@ -136,20 +136,20 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">sends float value in byte range [0-255] to arduino device</tr>
                     <!-- old: посылает поплавковое значение в байтовом
                     диапазоне [0-255] в устройство Arduino -->
                     <tr lang="ru" finished="false">посылает поплавковое значение в байтовом
                     диапазоне [0-255] в устройство Arduino</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">sends list of floats in byte range [0-255] to arduino device</tr>
                     <!-- old: отправляет список поплавков в байтовом диапазоне
                     [0-255] на устройство Arduino -->
                     <tr lang="ru" finished="false">отправляет список поплавков в байтовом диапазоне
                     [0-255] на устройство Arduino</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

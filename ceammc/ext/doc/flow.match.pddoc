@@ -58,36 +58,36 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">input message</tr>
                     <tr lang="ru" finished="false">вводное сообщение</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">input symbol</tr>
                     <tr lang="ru" finished="false">входной символ</tr>
-                </xinfo>
-                <xinfo on="data:string">
+                </in>
+                <in on="data:string">
                     <tr lang="en">input symbol</tr>
                     <tr lang="ru" finished="false">входной символ</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="2">
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">set first regexp</tr>
                     <tr lang="ru" finished="false">Установить первый regexp</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="...">
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">set ... regexp</tr>
                     <tr lang="ru" finished="false">Исполнитель: Regexp</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n+1">
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">set n-th regexp</tr>
                     <tr lang="ru" finished="false">Настройка n-го regexp</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

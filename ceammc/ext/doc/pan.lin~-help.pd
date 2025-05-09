@@ -53,9 +53,10 @@ Type: int. Default value: 20\. Range: 0\...100\.;
 #X obj 20 747 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 748 1\.;
+#X text 150 748 ~;
 #X text 245 748 input signal.;
 #X text 110 768 2\.;
-#X text 150 768 *float*;
+#X text 150 768 float:;
 #X text 245 768 pan position. Range: -1\...1\.;
 #X obj 20 798 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 803 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

@@ -21,10 +21,10 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs memory size</tr>
                     <tr lang="ru" finished="false">выходной размер памяти</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -208,11 +208,11 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">raw input of bytes from Arduino serial connection</tr>
                     <tr lang="ru" finished="false">необработанный вход байтов из последовательного
                     соединения Arduino</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -104,10 +104,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">same as *flush* message</tr>
                     <tr lang="ru" finished="false">Сообщение *flush*</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

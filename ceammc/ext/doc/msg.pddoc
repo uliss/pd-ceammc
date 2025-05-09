@@ -35,44 +35,44 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">appends all atoms to message content and outputs it</tr>
                     <!-- old: Добавляет все атомы к содержанию сообщения и
                     выводит его -->
                     <tr lang="ru" finished="false">Добавляет все атомы к содержанию сообщения и
                     выводит его</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">appends input list to message content and outputs it</tr>
                     <!-- old: Добавляет список ввода к содержанию сообщения и
                     выводит его -->
                     <tr lang="ru" finished="false">Добавляет список ввода к содержанию сообщения и
                     выводит его</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">appends float to message content and outputs it</tr>
                     <!-- old: Добавляет поплавок к контенту сообщения и
                     выводит его -->
                     <tr lang="ru" finished="false">Добавляет поплавок к контенту сообщения и
                     выводит его</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">appends symbol to message content and outputs it</tr>
                     <!-- old: Добавляет символ к содержанию сообщения и
                     выводит его -->
                     <tr lang="ru" finished="false">Добавляет символ к содержанию сообщения и
                     выводит его</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">change message selector</tr>
                     <tr lang="ru" finished="false">Изменить селектор сообщений</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">change message selector and first atoms</tr>
                     <tr lang="ru" finished="false">Изменить селектор сообщений и первые атомы</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

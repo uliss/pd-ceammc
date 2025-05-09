@@ -91,14 +91,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">property request</tr>
                     <tr lang="ru" finished="false">имущественный запрос</tr>
-                </xinfo>
-                <xinfo on="bang">
+                </in>
+                <in on="bang">
                     <tr lang="en">output as dict</tr>
                     <tr lang="ru" finished="false">Выход как диктовка</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

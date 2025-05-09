@@ -47,14 +47,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">input MIDI pitch</tr>
                     <tr lang="ru" finished="false">Входной сигнал MIDI</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">input MIDI pitches</tr>
                     <tr lang="ru" finished="false">Входные MIDI-подачи</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

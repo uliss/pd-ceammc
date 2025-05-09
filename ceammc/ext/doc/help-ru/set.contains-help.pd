@@ -35,7 +35,7 @@
 #X text 110 434 1\.;
 #X text 245 434 input set. Other values are ignored.;
 #X text 110 454 2\.;
-#X text 150 454 *atom*;
+#X text 150 454 atom:;
 #X text 245 454 set searched element.;
 #X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 489 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

@@ -140,7 +140,7 @@ the beginning. Тип: atom.;
 #X obj 20 2034 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 2035 1\.;
-#X text 150 2035 *float*;
+#X text 150 2035 float:;
 #X text 245 2035 1: start playing \, 0: stop.;
 #X obj 20 2065 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2070 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
@@ -148,7 +148,7 @@ the beginning. Тип: atom.;
 #X text 110 2071 1\.;
 #X text 150 2071 ~;
 #X text 245 2071 first output channel.;
-#X text 110 2091 ....;
+#X text 110 2091 ...;
 #X text 150 2091 ~;
 #X text 245 2091 ... output channel.;
 #X text 110 2111 n.;

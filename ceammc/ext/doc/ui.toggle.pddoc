@@ -155,17 +155,17 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">change toggle state</tr>
                     <tr lang="ru" finished="false">Изменение состояния переключателя</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">if *0* given, sets state to unchecked and outputs @off_value. On
                     any other number sets to checked state and outputs @on_value</tr>
                     <tr lang="ru" finished="false">Если дано *0*, задает состояние без проверки и
                     выводит @off_value. На любых других наборах чисел для проверенного состояния и
                     выходов @on_value</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

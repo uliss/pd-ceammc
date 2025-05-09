@@ -48,10 +48,10 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal for analysis</tr>
                     <tr lang="ru">входной сигнал для анализа</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

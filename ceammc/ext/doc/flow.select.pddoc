@@ -85,22 +85,22 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">check float for matches</tr>
                     <tr lang="ru" finished="false">Проверить поплавок для матчей</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">check symbol for matches</tr>
                     <tr lang="ru" finished="false">Проверьте символ для матчей</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">check first list element for matches</tr>
                     <tr lang="ru" finished="false">Проверьте первый элемент списка для матчей</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">check message selector for matches</tr>
                     <tr lang="ru" finished="false">Проверить селектор сообщений для матчей</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

@@ -110,10 +110,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set roll-off frequency</tr>
                     <tr lang="ru" finished="false">установленная частота выкатывания</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

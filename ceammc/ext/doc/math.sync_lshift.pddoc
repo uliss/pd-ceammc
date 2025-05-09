@@ -32,26 +32,26 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">set value, calculate and output result</tr>
                     <!-- old: заданное значение, вычисление и выходной
                     результат -->
                     <tr lang="ru" finished="false">заданное значение, вычисление и выходной
                     результат</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">pair: set value and shift, calculate and output result</tr>
                     <!-- old: пара: заданное значение и сдвиг, вычисление и
                     выходной результат -->
                     <tr lang="ru" finished="false">пара: заданное значение и сдвиг, вычисление и
                     выходной результат</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">change shift, calculate and output result</tr>
                     <tr lang="ru" finished="false">изменение смещения, вычисления и результата</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

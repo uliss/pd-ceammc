@@ -87,14 +87,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">property request</tr>
                     <tr lang="ru" finished="false">имущественный запрос</tr>
-                </xinfo>
-                <xinfo on="bang">
+                </in>
+                <in on="bang">
                     <tr lang="en">output dict with all properties</tr>
                     <tr lang="ru" finished="false">выходной дикт со всеми свойствами</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

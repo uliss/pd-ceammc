@@ -344,8 +344,10 @@ properties \, if 'fb' - randomize @fb* properties. Тип: symbol. Разреш�
 #X obj 20 4869 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 4870 1\.;
+#X text 150 4870 ~;
 #X text 245 4870 left in channel.;
 #X text 110 4890 2\.;
+#X text 150 4890 ~;
 #X text 245 4890 right in channel.;
 #X obj 20 4920 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 4925 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144

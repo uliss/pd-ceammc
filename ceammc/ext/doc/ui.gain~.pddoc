@@ -224,14 +224,14 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
-                <xinfo on="bang">
+                </in>
+                <in on="bang">
                     <tr lang="en">output current gain @db property</tr>
                     <tr lang="ru" finished="false">выходной текущий прирост @db свойство</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

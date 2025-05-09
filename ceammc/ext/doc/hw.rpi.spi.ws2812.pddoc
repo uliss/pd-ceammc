@@ -222,10 +222,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">flush pixels to the strip</tr>
                     <tr lang="ru" finished="false">Pixels to the Strip скачать</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -115,10 +115,13 @@ instance.;
 #X obj 20 1877 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1878 1\.;
+#X text 150 1878 ~;
 #X text 245 1878 first input harmonic/planewave.;
-#X text 110 1898 ....;
+#X text 110 1898 ...;
+#X text 150 1898 ~;
 #X text 245 1898 ... input harmonic/planewave.;
 #X text 110 1918 n.;
+#X text 150 1918 ~;
 #X text 245 1918 n-th input harmonic/planewave.;
 #X obj 20 1948 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1953 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
@@ -126,7 +129,7 @@ instance.;
 #X text 110 1954 1\.;
 #X text 150 1954 ~;
 #X text 245 1954 first harmonic/planewave output.;
-#X text 110 1974 ....;
+#X text 110 1974 ...;
 #X text 150 1974 ~;
 #X text 245 1974 ... harmonic/planewave output.;
 #X text 110 1994 n.;

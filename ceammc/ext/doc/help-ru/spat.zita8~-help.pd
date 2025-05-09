@@ -83,6 +83,7 @@ low and middle frequencies. Тип: float. Единицы: 'Hz'. Значени�
 #X obj 20 1222 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1223 1\.;
+#X text 150 1223 ~;
 #X text 245 1223 input.;
 #X obj 20 1253 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1258 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144

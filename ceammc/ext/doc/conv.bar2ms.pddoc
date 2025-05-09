@@ -63,37 +63,37 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output bar and beat duration</tr>
                     <tr lang="ru" finished="false">выходной бар и продолжительность бита</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">set tempo BPM (in quarters) and output</tr>
                     <!-- old: установленный темп BPM (в кварталах) и
                     выход -->
                     <tr lang="ru" finished="false">установленный темп BPM (в кварталах) и
                     выход</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">set tempo BPM (like "120|8bpm") and output</tr>
                     <!-- old: установить темп BPM (например, «120 | 8bpm») и
                     выход -->
                     <tr lang="ru" finished="false">установить темп BPM (например, «120 | 8bpm») и
                     выход</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">set tempo BPM and time signature, then output</tr>
                     <!-- old: установить темп BPM и время подписи, затем
                     выход -->
                     <tr lang="ru" finished="false">установить темп BPM и время подписи, затем
                     выход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">set time signature</tr>
                     <tr lang="ru" finished="false">Время подписи</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

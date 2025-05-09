@@ -108,34 +108,37 @@ mode (with @nsrc 1) \, polar or cartesian. Тип: symbol. Значение по
 #X obj 20 1324 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1325 1\.;
+#X text 150 1325 ~;
 #X text 245 1325 first source input.;
-#X text 150 1345 *list*;
-#X text 245 1345 SRC_IDX polar RADIUS AZIMUTH ELEVATION or SRC_IDX
+#X text 150 1350 list:;
+#X text 245 1350 SRC_IDX polar RADIUS AZIMUTH ELEVATION or SRC_IDX
 mute VALUE.;
-#X text 110 1365 ....;
-#X text 245 1365 ... source input.;
-#X text 110 1385 n.;
-#X text 245 1385 n-th source input.;
-#X obj 20 1415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1420 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1370 ...;
+#X text 150 1370 ~;
+#X text 245 1370 ... source input.;
+#X text 110 1390 n.;
+#X text 150 1390 ~;
+#X text 245 1390 n-th source input.;
+#X obj 20 1420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1425 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1421 1\.;
-#X text 150 1421 ~;
-#X text 245 1421 first harmonic output.;
-#X text 110 1441 ....;
-#X text 150 1441 ~;
-#X text 245 1441 ... harmonic output.;
-#X text 110 1461 n.;
-#X text 150 1461 ~;
-#X text 245 1461 n-th harmonic output.;
+#X text 110 1426 1\.;
+#X text 150 1426 ~;
+#X text 245 1426 first harmonic output.;
+#X text 110 1446 ...;
+#X text 150 1446 ~;
+#X text 245 1446 ... harmonic output.;
+#X text 110 1466 n.;
+#X text 150 1466 ~;
+#X text 245 1466 n-th harmonic output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1511 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1514 библиотека: ceammc v0.9.8;
-#N canvas 10 1533 400 290 info 0;
+#X obj 1 1516 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1519 библиотека: ceammc v0.9.8;
+#N canvas 10 1538 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -160,7 +163,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1533 pd info;
+#X restore 10 1538 pd info;
 #X connect 14 0 19 0;
 #X connect 15 0 19 1;
 #X connect 16 0 19 2;

@@ -36,16 +36,16 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">LTC input signal</tr>
                     <tr lang="ru">входной сигнал LTC</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">set the source array</tr>
                     <tr lang="ru">установить исходный массив</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -56,10 +56,13 @@ decomposition. Тип: int. Значение по умолчанию: 1\. Диа
 #X obj 20 706 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 707 1\.;
+#X text 150 707 ~;
 #X text 245 707 first input harmonic.;
-#X text 110 727 ....;
+#X text 110 727 ...;
+#X text 150 727 ~;
 #X text 245 727 ... input harmonic.;
 #X text 110 747 n.;
+#X text 150 747 ~;
 #X text 245 747 n-th input harmonic.;
 #X obj 20 777 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 782 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
@@ -67,7 +70,7 @@ decomposition. Тип: int. Значение по умолчанию: 1\. Диа
 #X text 110 783 1\.;
 #X text 150 783 ~;
 #X text 245 783 first loudspeaker output.;
-#X text 110 803 ....;
+#X text 110 803 ...;
 #X text 150 803 ~;
 #X text 245 803 ... loudspeaker output.;
 #X text 110 823 n.;

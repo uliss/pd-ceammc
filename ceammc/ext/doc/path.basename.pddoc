@@ -21,14 +21,14 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">outputs filename portion of pathname</tr>
                     <tr lang="ru" finished="false">выводит часть имени файла Pathname</tr>
-                </xinfo>
-                <xinfo on="data:string">
+                </in>
+                <in on="data:string">
                     <tr lang="en">outputs directory portion of pathname</tr>
                     <tr lang="ru" finished="false">Выходит часть каталога Pathname</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

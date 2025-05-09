@@ -173,10 +173,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">set the array name</tr>
                     <tr lang="ru">установить имя массива</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

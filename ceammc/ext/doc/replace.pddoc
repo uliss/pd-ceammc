@@ -54,22 +54,22 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input data stream</tr>
                     <tr lang="ru" finished="false">поток входных данных</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">@from property inlet</tr>
                     <tr lang="ru" finished="false">@ from Property Inlet</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">@to property inlet</tr>
                     <tr lang="ru" finished="false">@to Property Inlet</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

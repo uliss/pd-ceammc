@@ -45,22 +45,22 @@
         </properties>
         <inlets dynamic="true">
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">multiplexer first inlet</tr>
                     <tr lang="ru" finished="false">мультиплексор первый вход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">multiplexer N-th inlet</tr>
                     <tr lang="ru" finished="false">мультиплексор N-й вход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n+1">
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">set input index</tr>
                     <tr lang="ru" finished="false">Установленный входной индекс</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

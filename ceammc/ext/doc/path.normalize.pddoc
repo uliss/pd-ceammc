@@ -36,14 +36,14 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">file path</tr>
                     <tr lang="ru" finished="false">Файловый путь</tr>
-                </xinfo>
-                <xinfo on="data:string">
+                </in>
+                <in on="data:string">
                     <tr lang="en">file path</tr>
                     <tr lang="ru" finished="false">Файловый путь</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

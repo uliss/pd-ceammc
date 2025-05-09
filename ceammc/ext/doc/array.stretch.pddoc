@@ -147,10 +147,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">starts processing</tr>
                     <tr lang="ru" finished="false">Начинается обработка</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -59,10 +59,13 @@ outputs. Тип: int. Значение по умолчанию: 2\. Диапаз
 #X obj 20 705 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 706 1\.;
+#X text 150 706 ~;
 #X text 245 706 first input signal.;
-#X text 110 726 ....;
+#X text 110 726 ...;
+#X text 150 726 ~;
 #X text 245 726 ... input signal.;
 #X text 110 746 n.;
+#X text 150 746 ~;
 #X text 245 746 n-th input signal.;
 #X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 781 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
@@ -70,7 +73,7 @@ outputs. Тип: int. Значение по умолчанию: 2\. Диапаз
 #X text 110 782 1\.;
 #X text 150 782 ~;
 #X text 245 782 first output signal.;
-#X text 110 802 ....;
+#X text 110 802 ...;
 #X text 150 802 ~;
 #X text 245 802 ... output signal.;
 #X text 110 822 n.;

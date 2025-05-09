@@ -83,37 +83,37 @@ symbol.;
 #X obj 20 1116 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1117 1\.;
-#X text 150 1117 *atom*;
+#X text 150 1117 atom:;
 #X text 245 1117 try to find left key in the map and output the right
 value on success.;
-#X text 150 1152 *list*;
-#X text 245 1152 try to find each left key of the list in the map and
+#X text 150 1157 list:;
+#X text 245 1157 try to find each left key of the list in the map and
 output the result list of right values.;
-#X text 110 1187 2\.;
-#X text 150 1187 *atom*;
-#X text 245 1187 try to find right key in the map and output the left
+#X text 110 1192 2\.;
+#X text 150 1192 atom:;
+#X text 245 1192 try to find right key in the map and output the left
 value on success.;
-#X text 150 1222 *list*;
-#X text 245 1222 try to find each right key of the list in the map
+#X text 150 1232 list:;
+#X text 245 1232 try to find each right key of the list in the map
 and output the result list of left values.;
-#X obj 20 1267 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1272 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1277 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1282 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1273 1\.;
-#X text 245 1273 atom or list: right value output.;
-#X text 110 1293 2\.;
-#X text 245 1293 atom or list: left value output.;
+#X text 110 1283 1\.;
+#X text 245 1283 atom or list: right value output.;
+#X text 110 1303 2\.;
+#X text 245 1303 atom or list: left value output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 1343 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1346 библиотека: ceammc v0.9.8;
-#X text 451 1358 смотрите также:;
-#X obj 572 1358 data.bimap;
-#X obj 660 1358 local.bimap;
-#N canvas 10 1365 400 290 info 0;
+#X obj 1 1353 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1356 библиотека: ceammc v0.9.8;
+#X text 451 1368 смотрите также:;
+#X obj 572 1368 data.bimap;
+#X obj 660 1368 local.bimap;
+#N canvas 10 1375 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -137,7 +137,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1365 pd info;
+#X restore 10 1375 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 10 0;

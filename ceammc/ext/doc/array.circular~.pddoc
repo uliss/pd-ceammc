@@ -59,26 +59,26 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">write delay</tr>
                     <tr lang="ru" finished="false">Писать задержки</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">read delay</tr>
                     <tr lang="ru" finished="false">читать задержки</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset write position to zero</tr>
                     <tr lang="ru" finished="false">Сброс позиции записи до нуля</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">set write position</tr>
                     <tr lang="ru" finished="false">Записать позицию</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

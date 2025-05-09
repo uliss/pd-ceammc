@@ -78,22 +78,22 @@
         </methods>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
-                <xinfo>
+                <in>
                     <tr lang="en">first specified channel</tr>
                     <tr lang="ru" finished="false">Первый указанный канал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... specified channel</tr>
                     <tr lang="ru" finished="false">Указанный канал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">n-th specified channel</tr>
                     <tr lang="ru" finished="false">n-й указанный канал</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets />

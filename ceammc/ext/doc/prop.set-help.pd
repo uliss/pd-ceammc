@@ -45,7 +45,7 @@ props \, but using internal pd method calls;
 0;
 #X text 110 715 1\.;
 #X text 245 715 first property value.;
-#X text 110 735 ....;
+#X text 110 735 ...;
 #X text 245 735 ... property value.;
 #X text 110 755 n.;
 #X text 245 755 n-th property value.;

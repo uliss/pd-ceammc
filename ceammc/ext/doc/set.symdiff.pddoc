@@ -36,19 +36,19 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">first set or list (converted to set), other values are
                     ignored</tr>
                     <tr lang="ru" finished="false">первый набор или список (преобразуется в набор),
                     другие значения игнорируются;</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">second set or list (converted to set)</tr>
                     <tr lang="ru" finished="false">Второй набор или список (преобразуется в
                     набор)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

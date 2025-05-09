@@ -29,14 +29,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">input value</tr>
                     <tr lang="ru" finished="false">входная стоимость</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">input values</tr>
                     <tr lang="ru" finished="false">входные значения</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

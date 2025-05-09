@@ -47,26 +47,26 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set first output value</tr>
                     <tr lang="ru" finished="false">Установить первую выходную величину</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">set list of output values</tr>
                     <tr lang="ru" finished="false">установленный список выходных значений</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="...">
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set ... output value</tr>
                     <tr lang="ru" finished="false">установленная ... выходная стоимость</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n">
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set n-th output value</tr>
                     <tr lang="ru" finished="false">установленная n-я выходная стоимость</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

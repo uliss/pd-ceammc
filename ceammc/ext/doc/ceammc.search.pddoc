@@ -55,10 +55,10 @@
         </methods>
         <inlets>
             <inlet type="control">
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">search in descriptions</tr>
                     <tr lang="ru" finished="false">Поиск в описаниях</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -346,15 +346,15 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">control messages</tr>
                     <tr lang="ru">вход для управляющих сообщений</tr>
-                </xinfo>
-                <xinfo on="bang">
+                </in>
+                <in on="bang">
                     <tr lang="en">if @sync = 'ext': starts finished grains playback</tr>
-                    <tr lang="ru">если @sync = 'ext': начинает воспроизведение
-                    завершенных гранул</tr>
-                </xinfo>
+                    <tr lang="ru">если @sync = 'ext': начинает воспроизведение завершенных
+                    гранул</tr>
+                </in>
             </inlet>
         </inlets>
         <outlets>

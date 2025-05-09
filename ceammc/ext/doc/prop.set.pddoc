@@ -54,22 +54,22 @@
         </arguments>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo>
+                <in>
                     <tr lang="en">first property value</tr>
                     <tr lang="ru" finished="false">Первая стоимость недвижимости</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... property value</tr>
                     <tr lang="ru" finished="false">стоимость имущества</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">n-th property value</tr>
                     <tr lang="ru" finished="false">n-я стоимость имущества</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

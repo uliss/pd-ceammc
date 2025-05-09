@@ -42,14 +42,14 @@ in dictionary. If not specified no output is performed. Тип: atom.
 #X obj 20 652 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 653 1\.;
-#X text 150 653 *data:dict*;
+#X text 150 653 data:dict:;
 #X text 245 653 input dictionary.;
 #X obj 20 683 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 688 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 689 1\.;
 #X text 245 689 first key output.;
-#X text 110 709 ....;
+#X text 110 709 ...;
 #X text 245 709 ... key output.;
 #X text 110 729 n.;
 #X text 245 729 n-th key output.;

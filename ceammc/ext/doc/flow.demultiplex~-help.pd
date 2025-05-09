@@ -46,6 +46,7 @@ value: 2\. Range: 2\...16\.;
 #X obj 20 520 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 521 1\.;
+#X text 150 521 ~;
 #X text 245 521 input signal.;
 #X text 110 541 2\.;
 #X text 245 541 demultiplexer control.;
@@ -55,7 +56,7 @@ value: 2\. Range: 2\...16\.;
 #X text 110 577 1\.;
 #X text 150 577 ~;
 #X text 245 577 first output.;
-#X text 110 597 ....;
+#X text 110 597 ...;
 #X text 150 597 ~;
 #X text 245 597 ... output.;
 #X text 110 617 n.;

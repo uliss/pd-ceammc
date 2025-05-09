@@ -165,14 +165,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs current widget value</tr>
                     <tr lang="ru" finished="false">значение текущего виджета</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">change widget value and output it</tr>
                     <tr lang="ru" finished="false">изменить значение виджета и вывести его</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -90,29 +90,29 @@ do nothing. Аргументы:;
 #X obj 20 1219 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1220 1\.;
-#X text 150 1220 *bang*;
+#X text 150 1220 bang:;
 #X text 245 1220 output current dictionary value.;
-#X text 150 1240 *list*;
-#X text 245 1240 set dict from list. Key-value pairs are expected.
+#X text 150 1245 list:;
+#X text 245 1245 set dict from list. Key-value pairs are expected.
 [1 2 3 4( becames dict with keys: 1 and 3 \, values: 2 and 4\. No output.;
-#X text 150 1275 *data:dict*;
-#X text 245 1275 set and output new dict.;
-#X obj 20 1305 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1310 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 150 1285 data:dict:;
+#X text 245 1285 set and output new dict.;
+#X obj 20 1315 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1320 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1311 1\.;
-#X text 245 1311 dict output.;
+#X text 110 1321 1\.;
+#X text 245 1321 dict output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title global @url ceammc.global-help.pd;
-#X obj 1 1361 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1364 библиотека: ceammc v0.9.8;
-#X text 458 1376 смотрите также:;
-#X obj 579 1376 data.dict;
-#X obj 660 1376 global.dict;
-#N canvas 10 1383 400 290 info 0;
+#X obj 1 1371 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1374 библиотека: ceammc v0.9.8;
+#X text 458 1386 смотрите также:;
+#X obj 579 1386 data.dict;
+#X obj 660 1386 global.dict;
+#N canvas 10 1393 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -136,7 +136,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1383 pd info;
+#X restore 10 1393 pd info;
 #X connect 8 0 9 0;
 #X connect 7 0 10 0;
 #X connect 9 0 11 0;

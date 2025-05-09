@@ -43,9 +43,10 @@ value: 0\. Range: 0\...22050\.;
 #X obj 20 594 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 595 1\.;
+#X text 150 595 ~;
 #X text 245 595 frequency in Hz.;
 #X text 110 615 2\.;
-#X text 150 615 *bang*;
+#X text 150 615 bang:;
 #X text 245 615 reset phase.;
 #X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 650 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

@@ -31,10 +31,9 @@
 #X obj 20 363 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 364 1\.;
-#X text 150 364 *any*;
 #X text 245 364 input flow.;
 #X text 110 384 2\.;
-#X text 150 384 *bang*;
+#X text 150 384 bang:;
 #X text 245 384 reset to opened state.;
 #X obj 20 414 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 419 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

@@ -109,9 +109,10 @@ float. Units: 'db'. Default value: 0\. Range: 0\...90\.;
 #X obj 20 1501 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1502 1\.;
+#X text 150 1502 ~;
 #X text 245 1502 input signal.;
 #X text 110 1522 2\.;
-#X text 150 1522 *float*;
+#X text 150 1522 float:;
 #X text 245 1522 set compression strength.;
 #X obj 20 1552 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1557 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

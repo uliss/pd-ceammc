@@ -114,7 +114,7 @@ pin. Arguments are:;
 #X obj 20 1735 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1736 1\.;
-#X text 150 1736 *float*;
+#X text 150 1736 float:;
 #X text 245 1736 raw input of bytes from Arduino serial connection.;
 #X obj 20 1766 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1771 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

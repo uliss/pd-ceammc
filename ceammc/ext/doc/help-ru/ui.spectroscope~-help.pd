@@ -108,6 +108,7 @@ bool. Значение по умолчанию: 0\.;
 #X obj 20 1510 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1511 1\.;
+#X text 150 1511 ~;
 #X text 245 1511 signal input.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -31,14 +31,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">perform search in current array</tr>
                     <tr lang="ru">ваполняет поиск в текущем массиве</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">set new array and perform search</tr>
                     <tr lang="ru">устанавливает новый массив, а затем выполняет поиск</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

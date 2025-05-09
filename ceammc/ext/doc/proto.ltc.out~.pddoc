@@ -118,14 +118,14 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output current time to second outlet</tr>
                     <tr lang="ru" finished="false">выходное время для второго выхода</tr>
-                </xinfo>
-                <xinfo on="bool">
+                </in>
+                <in on="bool">
                     <tr lang="en">switch on/off encoder process</tr>
                     <tr lang="ru" finished="false">Процесс включения/выключения кодера</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

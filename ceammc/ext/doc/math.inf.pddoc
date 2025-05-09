@@ -36,10 +36,10 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs *inf* value</tr>
                     <tr lang="ru" finished="false">значение *inf*</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -56,10 +56,13 @@ float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
 #X obj 20 897 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 898 1\.;
+#X text 150 898 ~;
 #X text 245 898 input signal.;
-#X text 110 918 ....;
+#X text 110 918 ...;
+#X text 150 918 ~;
 #X text 245 918 input signal.;
 #X text 110 938 n.;
+#X text 150 938 ~;
 #X text 245 938 input signal.;
 #X obj 20 968 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 973 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

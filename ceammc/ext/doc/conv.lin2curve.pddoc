@@ -127,14 +127,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">input value</tr>
                     <tr lang="ru" finished="false">входная стоимость</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">input list</tr>
                     <tr lang="ru" finished="false">вводный список</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

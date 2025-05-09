@@ -52,16 +52,16 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">modulation signal</tr>
                     <tr lang="ru" finished="false">сигнал модуляции</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">excitation/carrier signal</tr>
                     <tr lang="ru" finished="false">сигнал возбуждения/несущего</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

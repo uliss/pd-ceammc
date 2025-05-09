@@ -128,10 +128,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">NOTE VEL</tr>
                     <tr lang="ru" finished="false">Примечание VEL</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

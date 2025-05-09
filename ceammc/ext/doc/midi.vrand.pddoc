@@ -95,14 +95,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">note value</tr>
                     <tr lang="ru" finished="false">примечание</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">NOTE VELOCITY [DUR] list</tr>
                     <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

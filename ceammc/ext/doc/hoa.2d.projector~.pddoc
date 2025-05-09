@@ -62,22 +62,22 @@
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input harmonic</tr>
                     <tr lang="ru" finished="false">входная гармоника</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... input harmonic</tr>
                     <tr lang="ru" finished="false">Входная гармоника</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">n-th input harmonic</tr>
                     <tr lang="ru" finished="false">n-я входная гармоника</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

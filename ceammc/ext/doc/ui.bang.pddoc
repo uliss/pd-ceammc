@@ -93,22 +93,22 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs bang</tr>
                     <tr lang="ru" finished="false">выходной бах</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">outputs bang</tr>
                     <tr lang="ru" finished="false">выходной бах</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">outputs bang</tr>
                     <tr lang="ru" finished="false">выходной бах</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">outputs bang</tr>
                     <tr lang="ru" finished="false">выходной бах</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

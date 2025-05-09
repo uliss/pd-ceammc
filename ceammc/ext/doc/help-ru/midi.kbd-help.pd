@@ -65,7 +65,7 @@ names \, custom. Тип: symbol.;
 #X text 110 914 1\.;
 #X text 245 914 control input.;
 #X text 110 934 2\.;
-#X text 150 934 *int*;
+#X text 150 934 int:;
 #X text 245 934 1 or 0: turn on/off.;
 #X obj 20 964 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 969 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

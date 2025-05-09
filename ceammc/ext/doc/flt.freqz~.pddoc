@@ -57,14 +57,14 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input frequency in radians [0, π] or in hertz [0 sr/2] if @sr
                     property is true</tr>
                     <!-- old: входная частота в радианах [0, π] или в герцах
                     [0 sr/2], если свойство @sr истинно -->
                     <tr lang="ru" finished="false">входная частота в радианах [0, π] или в герцах
                     [0 sr/2], если свойство @sr истинно</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

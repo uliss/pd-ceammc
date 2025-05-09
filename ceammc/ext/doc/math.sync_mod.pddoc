@@ -50,30 +50,30 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set modulo divident, calculate and output remainder</tr>
                     <!-- old: установить модульный делитель, рассчитать и
                     вывести остаток -->
                     <tr lang="ru" finished="false">установить модульный делитель, рассчитать и
                     вывести остаток</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">pair: set modulo divident and divisor, calculate and output
                     remainder</tr>
                     <!-- old: пара: установить модульный делитель и делитель,
                     рассчитать и вывести остаток -->
                     <tr lang="ru" finished="false">пара: установить модульный делитель и делитель,
                     рассчитать и вывести остаток</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">change divisor, calculate and output result</tr>
                     <!-- old: изменение делителя, вычисление и выходной
                     результат -->
                     <tr lang="ru" finished="false">изменение делителя, вычисление и выходной
                     результат</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

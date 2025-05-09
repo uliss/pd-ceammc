@@ -62,10 +62,10 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">left channel</tr>
                     <tr lang="ru" finished="false">левый канал</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

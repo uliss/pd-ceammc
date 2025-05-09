@@ -23,10 +23,10 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="data">
+                <in on="data">
                     <tr lang="en">data.dict</tr>
                     <tr lang="ru" finished="false">data.dict.</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

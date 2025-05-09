@@ -94,20 +94,20 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">element index</tr>
                     <tr lang="ru" finished="false">Элементный индекс</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">list of indexes</tr>
                     <tr lang="ru" finished="false">Список индексов</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set list content</tr>
                     <tr lang="ru" finished="false">Содержание списка</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

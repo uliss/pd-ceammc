@@ -457,10 +457,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">load mod file</tr>
                     <tr lang="ru" finished="false">Скачать файл load mod</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

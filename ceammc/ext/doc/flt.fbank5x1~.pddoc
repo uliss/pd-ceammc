@@ -115,14 +115,14 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">5 element list of db gains</tr>
                     <tr lang="ru" finished="false">5 Элементный список прироста db</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

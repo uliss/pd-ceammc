@@ -93,17 +93,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">starts output</tr>
                     <tr lang="ru" finished="false">Начинается вывод</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">output specified number of values, change @n property valuue</tr>
                     <!-- old: выход заданного количества значений, изменение
                     @n стоимости имущества -->
                     <tr lang="ru" finished="false">выход заданного количества значений, изменение
                     @n стоимости имущества</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

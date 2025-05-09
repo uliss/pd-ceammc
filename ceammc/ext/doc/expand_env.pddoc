@@ -52,29 +52,29 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">passed</tr>
                     <tr lang="ru" finished="false">проходной</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">passed</tr>
                     <tr lang="ru" finished="false">проходной</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">expand variable inside symbol string</tr>
                     <!-- old: расширение переменной внутри символьной
                     строки -->
                     <tr lang="ru" finished="false">расширение переменной внутри символьной
                     строки</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">expand variables inside each list symbol</tr>
                     <!-- old: Расширение переменных внутри каждого символа
                     списка -->
                     <tr lang="ru" finished="false">Расширение переменных внутри каждого символа
                     списка</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">expand variables inside each list symbol, more over, if @any
                     argument was used - expand in message selector</tr>
                     <!-- old: Расширение переменных внутри каждого символа
@@ -83,7 +83,7 @@
                     <tr lang="ru" finished="false">Расширение переменных внутри каждого символа
                     списка, более того, если использовался аргумент @any - расширение в селекторе
                     сообщений</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

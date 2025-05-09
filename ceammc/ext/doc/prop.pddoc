@@ -49,15 +49,15 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output property value</tr>
                     <tr lang="ru" finished="false">выходная стоимость имущества</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">set property value and output it</tr>
                     <tr lang="ru" finished="false">установить стоимость имущества и произвести
                     его</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

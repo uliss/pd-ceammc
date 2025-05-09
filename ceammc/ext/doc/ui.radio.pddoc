@@ -271,19 +271,19 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs current radio state</tr>
                     <tr lang="ru" finished="false">Текущее состояние радио</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">set radio and output</tr>
                     <tr lang="ru" finished="false">установить радио и выход</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">set radio and output (only in checklist mode)</tr>
                     <tr lang="ru" finished="false">установить радио и выход (только в режиме
                     контрольного списка)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

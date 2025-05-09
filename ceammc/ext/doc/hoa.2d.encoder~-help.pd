@@ -41,8 +41,10 @@ int. Default value: 1\. Range: 1\...63\.;
 #X obj 20 691 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 692 1\.;
+#X text 150 692 ~;
 #X text 245 692 input signal.;
 #X text 110 712 2\.;
+#X text 150 712 ~;
 #X text 245 712 position on a circle in radians.;
 #X obj 20 742 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 747 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
@@ -50,7 +52,7 @@ int. Default value: 1\. Range: 1\...63\.;
 #X text 110 748 1\.;
 #X text 150 748 ~;
 #X text 245 748 first circular harmonics output.;
-#X text 110 768 ....;
+#X text 110 768 ...;
 #X text 150 768 ~;
 #X text 245 768 ... circular harmonics output.;
 #X text 110 788 n.;

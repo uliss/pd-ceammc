@@ -134,25 +134,25 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset all counters and start sequencer</tr>
                     <tr lang="ru" finished="false">Сбросить все счетчики и запустить секвенсор</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">if 1 reset then start, if 0 - stop</tr>
                     <tr lang="ru" finished="false">Если 1 сброс, то начинайте, если 0 -
                     остановитесь</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset</tr>
                     <tr lang="ru" finished="false">сброс</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">set number of steps</tr>
                     <tr lang="ru" finished="false">Установить количество шагов</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

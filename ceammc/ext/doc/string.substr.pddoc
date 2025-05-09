@@ -54,22 +54,22 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input string</tr>
                     <tr lang="ru" finished="false">входная строка</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">from</tr>
                     <tr lang="ru" finished="false">из</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">to</tr>
                     <tr lang="ru" finished="false">то</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

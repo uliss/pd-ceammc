@@ -49,10 +49,10 @@ Default value: 5\. Range: 2\...20\.;
 #X obj 20 700 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 701 1\.;
-#X text 150 701 *list*;
+#X text 150 701 list:;
 #X text 245 701 add words to encoder.;
 #X text 110 721 2\.;
-#X text 150 721 *bang*;
+#X text 150 721 bang:;
 #X text 245 721 external clock.;
 #X obj 20 751 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 756 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

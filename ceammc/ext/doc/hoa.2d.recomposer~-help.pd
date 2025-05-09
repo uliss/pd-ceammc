@@ -94,10 +94,13 @@ are:;
 #X obj 20 1569 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1570 1\.;
+#X text 150 1570 ~;
 #X text 245 1570 input harmonic.;
-#X text 110 1590 ....;
+#X text 110 1590 ...;
+#X text 150 1590 ~;
 #X text 245 1590 input harmonic.;
 #X text 110 1610 n.;
+#X text 150 1610 ~;
 #X text 245 1610 input harmonic. If @fisheye mode is used: fisheye
 factor [0-1] in last inlet.;
 #X obj 20 1655 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -106,7 +109,7 @@ factor [0-1] in last inlet.;
 #X text 110 1661 1\.;
 #X text 150 1661 ~;
 #X text 245 1661 first planewave output.;
-#X text 110 1681 ....;
+#X text 110 1681 ...;
 #X text 150 1681 ~;
 #X text 245 1681 ... planewave output.;
 #X text 110 1701 n.;

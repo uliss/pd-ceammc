@@ -139,31 +139,31 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">[hidden inlet] set the label text to the given float without
                     changing @text property</tr>
                     <tr lang="ru" finished="false">[скрытый вход] установить текст этикетки на
                     данный поплавок без изменения свойств @text</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">[hidden inlet] set the label text without changing @text
                     property</tr>
                     <tr lang="ru" finished="false">[скрытый вход] установить текст этикетки без
                     изменения свойств @text</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">[hidden inlet] set the label text to the given list separated by
                     spaces without changing @text property</tr>
                     <tr lang="ru" finished="false">[скрытый вход] установит текст этикетки в
                     заданный список, разделенный пробелами без изменения свойства @text</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">[hidden inlet] set the label text to the given message separated
                     by spaces without changing @text property</tr>
                     <tr lang="ru" finished="false">[скрытый вход] установит текст ярлыка на
                     заданное сообщение, разделенное пространствами, без изменения свойства
                     @text</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <example>

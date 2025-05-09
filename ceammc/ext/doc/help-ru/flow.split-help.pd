@@ -31,7 +31,7 @@ outlet. Otherwise to second outlet.;
 #X text 110 334 1\.;
 #X text 245 334 input value.;
 #X text 110 354 2\.;
-#X text 150 354 *float*;
+#X text 150 354 float:;
 #X text 245 354 input from predicate side chain. If 1 received - output
 for first outlet. If 0 - to second.;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

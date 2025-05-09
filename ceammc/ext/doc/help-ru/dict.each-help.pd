@@ -15,7 +15,7 @@
 #X obj 20 260 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 261 1\.;
-#X text 150 261 *data:dict*;
+#X text 150 261 data:dict:;
 #X text 245 261 input dictionary.;
 #X text 110 281 2\.;
 #X text 245 281 new key value from sidechain.;

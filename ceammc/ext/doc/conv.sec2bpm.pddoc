@@ -26,10 +26,10 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">period in seconds</tr>
                     <tr lang="ru" finished="false">период в секундах</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

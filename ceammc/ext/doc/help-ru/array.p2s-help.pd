@@ -42,30 +42,30 @@
 #X obj 20 568 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 569 1\.;
-#X text 150 569 *float*;
+#X text 150 569 float:;
 #X text 245 569 value between 0 and 1 \, where 0 maps to begin of array
 \, 1 - to end.;
-#X text 150 604 *list*;
-#X text 245 604 список фаз для массива.;
-#X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 639 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 150 609 list:;
+#X text 245 609 список фаз для массива.;
+#X obj 20 639 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 644 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 640 1\.;
-#X text 150 640 float:;
-#X text 245 640 индекс семпла \, когда входное значение - число.;
-#X text 150 665 list:;
-#X text 245 665 индексы семплов \, когда входное значение - список
+#X text 110 645 1\.;
+#X text 150 645 float:;
+#X text 245 645 индекс семпла \, когда входное значение - число.;
+#X text 150 670 list:;
+#X text 245 670 индексы семплов \, когда входное значение - список
 чисел.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 715 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 718 библиотека: ceammc v0.9.8;
-#X text 553 730 смотрите также:;
-#X obj 674 730 array.s2p;
-#N canvas 10 737 400 290 info 0;
+#X obj 1 720 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 723 библиотека: ceammc v0.9.8;
+#X text 553 735 смотрите также:;
+#X obj 674 735 array.s2p;
+#N canvas 10 742 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,7 +89,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 737 pd info;
+#X restore 10 742 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

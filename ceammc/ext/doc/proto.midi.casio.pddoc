@@ -158,10 +158,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">control messages</tr>
                     <tr lang="ru" finished="false">Контрольные сообщения</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

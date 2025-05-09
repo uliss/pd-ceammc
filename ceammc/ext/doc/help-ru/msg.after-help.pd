@@ -37,7 +37,7 @@ is not send \, the delayed message is resetted;
 #X text 110 496 1\.;
 #X text 245 496 any input message.;
 #X text 110 516 2\.;
-#X text 150 516 *float*;
+#X text 150 516 float:;
 #X text 245 516 change message delay.;
 #X obj 20 546 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 551 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

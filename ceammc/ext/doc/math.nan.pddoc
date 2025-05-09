@@ -82,10 +82,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs value</tr>
                     <tr lang="ru" finished="false">выходная стоимость</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

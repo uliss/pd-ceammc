@@ -64,7 +64,7 @@ Range: 0\...8\.;
 #X text 110 899 1\.;
 #X text 245 899 control input.;
 #X text 110 919 2\.;
-#X text 150 919 *int*;
+#X text 150 919 int:;
 #X text 245 919 1 or 0: turn on/off.;
 #X obj 20 949 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 954 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

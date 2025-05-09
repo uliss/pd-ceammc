@@ -30,7 +30,7 @@
         </methods>
         <inlets>
             <inlet type="control">
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output patch dependencies as Dict. Keys are library external
                     paths or abstraction full paths, values are external or abstraction names.
                     PureData core objects listed under "_core" key.</tr>
@@ -42,7 +42,7 @@
                     это внешние пути библиотеки или полные пути абстракции, значения — внешние или
                     абстракционные имена. Объекты ядра PureData, перечисленные под ключом
                     «_core».</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

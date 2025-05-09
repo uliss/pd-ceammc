@@ -120,10 +120,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set preset value without output</tr>
                     <tr lang="ru" finished="false">заданное значение без выхода</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

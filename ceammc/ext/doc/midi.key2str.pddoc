@@ -39,10 +39,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">standart MIDI key number [0-127]</tr>
                     <tr lang="ru" finished="false">Стандартный номер MIDI [0-127]</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

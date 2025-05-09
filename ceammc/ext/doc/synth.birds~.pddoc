@@ -57,10 +57,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">play</tr>
                     <tr lang="ru" finished="false">играть</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

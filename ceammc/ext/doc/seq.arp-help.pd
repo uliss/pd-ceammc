@@ -86,7 +86,7 @@ value: 1\.;
 #X obj 20 1224 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1225 1\.;
-#X text 150 1225 *bang*;
+#X text 150 1225 bang:;
 #X text 245 1225 play one note in sequence (same as [on( message).;
 #X obj 20 1255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1260 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

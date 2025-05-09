@@ -40,22 +40,22 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo>
+                <in>
                     <tr lang="en">first specified property</tr>
                     <tr lang="ru" finished="false">первое указанное имущество</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... specified property</tr>
                     <tr lang="ru" finished="false">... определенного имущества</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">n-th specified property</tr>
                     <tr lang="ru" finished="false">n-е указанное имущество</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

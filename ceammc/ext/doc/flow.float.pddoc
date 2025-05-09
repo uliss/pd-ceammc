@@ -21,26 +21,26 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">passed float</tr>
                     <tr lang="ru" finished="false">пропущенный</tr>
-                </xinfo>
-                <xinfo on="bang">
+                </in>
+                <in on="bang">
                     <tr lang="en">ignored</tr>
                     <tr lang="ru" finished="false">игнорируемый</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">ignored</tr>
                     <tr lang="ru" finished="false">игнорируемый</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">ignored</tr>
                     <tr lang="ru" finished="false">игнорируемый</tr>
-                </xinfo>
-                <xinfo on="any">
+                </in>
+                <in on="any">
                     <tr lang="en">ignored</tr>
                     <tr lang="ru" finished="false">игнорируемый</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

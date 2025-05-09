@@ -71,16 +71,16 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float" minvalue="-1" maxvalue="1">
+                <in on="float" minvalue="-1" maxvalue="1">
                     <tr lang="en">pan position</tr>
                     <tr lang="ru" finished="false">положение</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

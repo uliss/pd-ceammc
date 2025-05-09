@@ -32,11 +32,11 @@ last element. Тип: list.;
 #X obj 20 411 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 412 1\.;
-#X text 150 412 *list*;
+#X text 150 412 list:;
 #X text 245 412 Input list. If no element found by specified index
 - list passed without changes.;
 #X text 110 447 2\.;
-#X text 150 447 *list*;
+#X text 150 447 list:;
 #X text 245 447 set apply index(es).;
 #X text 110 467 3\.;
 #X text 245 467 return value from applied object.;

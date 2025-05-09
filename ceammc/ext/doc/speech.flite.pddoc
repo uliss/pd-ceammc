@@ -58,24 +58,24 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">render number to array</tr>
                     <tr lang="ru" finished="false">Отображение числа в массив</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">render text to array</tr>
                     <tr lang="ru" finished="false">Отображение текста в массив</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">render text to array</tr>
                     <tr lang="ru" finished="false">Отображение текста в массив</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">set target array name</tr>
                     <tr lang="ru" finished="false">имя целевого массива</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

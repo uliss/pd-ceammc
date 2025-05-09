@@ -142,40 +142,40 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="atom">
+                <in on="atom">
                     <tr lang="en">try to find left key in the map and output the right value on
                     success</tr>
                     <!-- old: Попробуйте найти левый ключ на карте и вывести
                     правильное значение успеха. -->
                     <tr lang="ru" finished="false">Попробуйте найти левый ключ на карте и вывести
                     правильное значение успеха.</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">try to find each left key of the list in the map and output the
                     result list of right values</tr>
                     <!-- old: Попробуйте найти каждый левый ключ списка на
                     карте и выведите список результатов правильных значений. -->
                     <tr lang="ru" finished="false">Попробуйте найти каждый левый ключ списка на
                     карте и выведите список результатов правильных значений.</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="atom">
+                <in on="atom">
                     <tr lang="en">try to find right key in the map and output the left value on
                     success</tr>
                     <!-- old: Попробуйте найти правильный ключ на карте и
                     вывести левое значение успеха. -->
                     <tr lang="ru" finished="false">Попробуйте найти правильный ключ на карте и
                     вывести левое значение успеха.</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">try to find each right key of the list in the map and output the
                     result list of left values</tr>
                     <!-- old: Попробуйте найти каждый правый ключ списка на
                     карте и выведите список результатов левых значений. -->
                     <tr lang="ru" finished="false">Попробуйте найти каждый правый ключ списка на
                     карте и выведите список результатов левых значений.</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

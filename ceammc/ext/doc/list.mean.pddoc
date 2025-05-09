@@ -24,18 +24,18 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">input list of floats. Non float values are just ignored. No
                     output if no floats in list</tr>
                     <!-- old: Список входных поплавков. Неподвижные ценности
                     просто игнорируются. Нет выхода, если нет поплавков в списке -->
                     <tr lang="ru" finished="false">Список входных поплавков. Неподвижные ценности
                     просто игнорируются. Нет выхода, если нет поплавков в списке</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">same as list</tr>
                     <tr lang="ru" finished="false">Тот же список</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

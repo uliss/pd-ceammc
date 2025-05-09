@@ -29,14 +29,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output HOUR MIN SEC to second outlet and YEAR MONTH DAY to first
                     outlet</tr>
                     <!-- old: выход в течение часа до второго выхода и в
                     течение месяца до первого выхода -->
                     <tr lang="ru" finished="false">выход в течение часа до второго выхода и в
                     течение месяца до первого выхода</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

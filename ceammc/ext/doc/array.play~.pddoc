@@ -183,17 +183,18 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">resets play position and starts playback</tr>
-                    <tr lang="ru">сбрасывает текущую позицию в начало и начинает воспроизведение</tr>
-                </xinfo>
-                <xinfo on="float">
+                    <tr lang="ru">сбрасывает текущую позицию в начало и начинает
+                    воспроизведение</tr>
+                </in>
+                <in on="float">
                     <tr lang="en">starts playback from the specified sample. Negative offsets are
                     also supported: -10 means play last 10 samples of array till the end</tr>
-                    <tr lang="ru">начинает воспроизведение с указанного
-                    семпла. Также поддерживаются отрицательные смещения: -10 означает воспроизвести
-                    последние 10 семплов массива до конца.</tr>
-                </xinfo>
+                    <tr lang="ru">начинает воспроизведение с указанного семпла. Также
+                    поддерживаются отрицательные смещения: -10 означает воспроизвести последние 10
+                    семплов массива до конца.</tr>
+                </in>
             </inlet>
         </inlets>
         <outlets>

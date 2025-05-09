@@ -43,13 +43,13 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">converts float value in milliseconds to formatted symbol</tr>
                     <!-- old: Преобразует значение плавания в миллисекундах в
                     отформатированный символ -->
                     <tr lang="ru" finished="false">Преобразует значение плавания в миллисекундах в
                     отформатированный символ</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

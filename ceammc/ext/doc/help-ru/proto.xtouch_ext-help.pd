@@ -262,27 +262,26 @@ is NUM_SCENES * 8\. Тип: atom.;
 #X obj 20 3239 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 3240 1\.;
-#X text 150 3240 *float*;
+#X text 150 3240 float:;
 #X text 245 3240 raw midi input.;
-#X text 150 3260 *any*;
-#X text 245 3260 recIDX VAL: set rec button \, muteIDX VAL: set mute
+#X text 245 3265 recIDX VAL: set rec button \, muteIDX VAL: set mute
 button \, soloIDX VAL: set solo button \, selectIDX VAL: set select
 button \, knobIDX VAL: set knob value \, faderIDX VAL: set fader value.;
-#X obj 20 3350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3355 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 3355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3360 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 3356 1\.;
-#X text 245 3356 raw midi output to behringer device.;
-#X text 110 3376 2\.;
-#X text 245 3376 control messages from device.;
+#X text 110 3361 1\.;
+#X text 245 3361 raw midi output to behringer device.;
+#X text 110 3381 2\.;
+#X text 245 3381 control messages from device.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 3426 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 3429 библиотека: ceammc v0.9.8;
-#N canvas 10 3448 400 290 info 0;
+#X obj 1 3431 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 3434 библиотека: ceammc v0.9.8;
+#N canvas 10 3453 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -306,7 +305,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 3448 pd info;
+#X restore 10 3453 pd info;
 #X connect 8 0 9 0;
 #X connect 7 0 11 0;
 #X connect 9 0 12 0;

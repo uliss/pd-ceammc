@@ -58,13 +58,13 @@ Arguments are:;
 #X obj 20 796 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 797 1\.;
-#X text 150 797 *bang*;
+#X text 150 797 bang:;
 #X text 245 797 generate new number.;
 #X text 110 817 2\.;
-#X text 150 817 *int*;
+#X text 150 817 int:;
 #X text 245 817 set @min property.;
 #X text 110 837 3\.;
-#X text 150 837 *int*;
+#X text 150 837 int:;
 #X text 245 837 set @max property.;
 #X obj 20 867 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 872 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

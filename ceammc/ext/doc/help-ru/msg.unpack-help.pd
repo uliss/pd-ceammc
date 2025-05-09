@@ -45,7 +45,7 @@
 0;
 #X text 110 574 1\.;
 #X text 245 574 symbol: message selector.;
-#X text 110 594 ....;
+#X text 110 594 ...;
 #X text 245 594 atom: message args.;
 #X text 110 614 n+1\.;
 #X text 245 614 list: last message args.;

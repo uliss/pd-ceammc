@@ -47,10 +47,10 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">note list</tr>
                     <tr lang="ru" finished="false">примечание</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

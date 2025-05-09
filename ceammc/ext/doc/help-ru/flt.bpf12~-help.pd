@@ -77,6 +77,7 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X obj 20 1158 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1159 1\.;
+#X text 150 1159 ~;
 #X text 245 1159 input signal.;
 #X text 110 1179 2\.;
 #X text 245 1179 set frequency.;

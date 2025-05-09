@@ -112,10 +112,10 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">signal input</tr>
                     <tr lang="ru" finished="false">ввод сигнала</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <example>

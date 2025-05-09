@@ -69,32 +69,32 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input: push to stack</tr>
                     <tr lang="ru" finished="false">Оригинальное название: push to stack</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output and remove top element</tr>
                     <tr lang="ru" finished="false">вывод и удаление верхнего элемента</tr>
-                </xinfo>
-                <xinfo>
-                    <tr lang="en">top: output top element</tr>
+                </in>
+                <in on="any" selector="top">
+                    <tr lang="en">output top element</tr>
                     <tr lang="ru" finished="false">Верхний элемент вывода</tr>
-                </xinfo>
-                <xinfo>
-                    <tr lang="en">pop: remove top element (no output)</tr>
+                </in>
+                <in on="any" selector="pop">
+                    <tr lang="en">remove top element (no output)</tr>
                     <tr lang="ru" finished="false">Pop: удалите верхний элемент (без вывода)</tr>
-                </xinfo>
-                <xinfo>
-                    <tr lang="en">clear: remove all elements (no output)</tr>
+                </in>
+                <in on="any" selector="clear">
+                    <tr lang="en">remove all elements (no output)</tr>
                     <tr lang="ru" finished="false">ясно: удалить все элементы (без вывода)</tr>
-                </xinfo>
-                <xinfo>
-                    <tr lang="en">flush: output and remove all elements</tr>
+                </in>
+                <in on="any" selector="flush">
+                    <tr lang="en">output and remove all elements</tr>
                     <tr lang="ru" finished="false">смыв: вывод и удаление всех элементов</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -79,10 +79,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">starts resampling</tr>
                     <tr lang="ru" finished="false">начинается повторная выборка</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

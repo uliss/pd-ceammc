@@ -126,22 +126,22 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output all window values as list</tr>
                     <tr lang="ru" finished="false">выводить все значения окна в виде списка</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">window index position: from 0 to SIZE-1. Output 0 if invalid
                     index given</tr>
                     <tr lang="ru" finished="false">Положение оконного индекса: от 0 до SIZE-1.
                     Результат 0, если приведен недействительный индекс</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">pair INDEX SIZE expected. Sets windows size to SIZE. Output
                     window value at given index</tr>
                     <tr lang="ru" finished="false">Пара INDEX SIZE ожидаема. Устанавливает размер
                     окна на размер. Значение окна выхода в заданном индексе</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -39,32 +39,31 @@ doc directory \, %CEAMMC% - path to ceammc library directory;
 #X obj 20 666 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 667 1\.;
-#X text 150 667 *bang*;
+#X text 150 667 bang:;
 #X text 245 667 passed.;
-#X text 150 687 *float*;
-#X text 245 687 passed.;
-#X text 150 707 *symbol*;
-#X text 245 707 expand variable inside symbol string.;
-#X text 150 727 *list*;
-#X text 245 727 expand variables inside each list symbol.;
-#X text 150 747 *any*;
-#X text 245 747 expand variables inside each list symbol \, more over
+#X text 150 692 float:;
+#X text 245 692 passed.;
+#X text 150 717 symbol:;
+#X text 245 717 expand variable inside symbol string.;
+#X text 150 742 list:;
+#X text 245 742 expand variables inside each list symbol.;
+#X text 245 767 expand variables inside each list symbol \, more over
 \, if @any argument was used - expand in message selector.;
-#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 797 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 817 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 798 1\.;
-#X text 245 798 output data stream.;
+#X text 110 818 1\.;
+#X text 245 818 output data stream.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 848 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 851 библиотека: ceammc v0.9.8;
-#X text 569 863 смотрите также:;
-#X obj 690 863 replace;
-#N canvas 10 870 400 290 info 0;
+#X obj 1 868 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 871 библиотека: ceammc v0.9.8;
+#X text 569 883 смотрите также:;
+#X obj 690 883 replace;
+#N canvas 10 890 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -88,7 +87,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 870 pd info;
+#X restore 10 890 pd info;
 #X connect 8 0 16 0;
 #X connect 9 0 16 0;
 #X connect 10 0 16 0;

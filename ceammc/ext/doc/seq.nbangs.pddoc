@@ -120,21 +120,21 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset counter and starts output</tr>
                     <tr lang="ru" finished="false">Сбросить счетчик и начать вывод</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">sets number of bangs and starts output</tr>
                     <tr lang="ru" finished="false">устанавливает количество ударов и начинает
                     выход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set number of bangs</tr>
                     <tr lang="ru" finished="false">установленное количество чел.</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

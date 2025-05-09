@@ -53,24 +53,24 @@
 #X obj 20 723 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 724 1\.;
-#X text 150 724 *float*;
+#X text 150 724 float:;
 #X text 245 724 sends float value in byte range [0-255] to serial port.;
-#X text 150 744 *list*;
-#X text 245 744 sends list of floats in byte range [0-255] to serial
+#X text 150 749 list:;
+#X text 245 749 sends list of floats in byte range [0-255] to serial
 port.;
-#X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 779 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 784 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 780 1\.;
-#X text 245 780 outputs received byte from serial port.;
+#X text 110 785 1\.;
+#X text 245 785 outputs received byte from serial port.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 830 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 833 библиотека: ceammc v0.9.8;
-#N canvas 10 852 400 290 info 0;
+#X obj 1 835 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 838 библиотека: ceammc v0.9.8;
+#N canvas 10 857 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -94,6 +94,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 852 pd info;
+#X restore 10 857 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;

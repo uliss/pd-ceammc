@@ -93,25 +93,25 @@ Arduino. Тип: list.;
 #X obj 20 1447 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1448 1\.;
-#X text 150 1448 *float*;
+#X text 150 1448 float:;
 #X text 245 1448 sends float value in byte range [0-255] to arduino
 device.;
-#X text 150 1468 *list*;
-#X text 245 1468 sends list of floats in byte range [0-255] to arduino
+#X text 150 1473 list:;
+#X text 245 1473 sends list of floats in byte range [0-255] to arduino
 device.;
-#X obj 20 1498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1503 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1503 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1508 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1504 1\.;
-#X text 245 1504 outputs received byte from arduino.;
+#X text 110 1509 1\.;
+#X text 245 1509 outputs received byte from arduino.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1554 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1557 библиотека: ceammc v0.9.8;
-#N canvas 10 1576 400 290 info 0;
+#X obj 1 1559 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1562 библиотека: ceammc v0.9.8;
+#N canvas 10 1581 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -135,7 +135,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1576 pd info;
+#X restore 10 1581 pd info;
 #X connect 6 0 11 0;
 #X connect 8 0 11 0;
 #X connect 10 0 11 0;

@@ -107,22 +107,22 @@
         </methods>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo>
+                <in>
                     <tr lang="en">first lua input</tr>
                     <tr lang="ru" finished="false">Первый ввод ua</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... lua input</tr>
                     <tr lang="ru" finished="false">Источник:ua input</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">n-th lua input</tr>
                     <tr lang="ru" finished="false">n-й ввод луа</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

@@ -54,10 +54,10 @@ full.;
 #X obj 20 907 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 908 1\.;
-#X text 150 908 *list*;
+#X text 150 908 list:;
 #X text 245 908 calculate cross-correlation and output.;
 #X text 110 928 2\.;
-#X text 150 928 *list*;
+#X text 150 928 list:;
 #X text 245 928 set second argument (@b property).;
 #X obj 20 958 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 963 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933

@@ -49,16 +49,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">MIDI input: NOTE VEL</tr>
                     <tr lang="ru" finished="false">Ввод MIDI: Примечание VEL</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">turn sustain on/off (1/0)</tr>
                     <tr lang="ru" finished="false">включение/выключение (1/0)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

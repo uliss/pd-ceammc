@@ -44,20 +44,20 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">input value</tr>
                     <tr lang="ru" finished="false">входная стоимость</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="int" minvalue="0" maxvalue="1">
+                <in on="int" minvalue="0" maxvalue="1">
                     <tr lang="en">conditional output from predicate object. '1' means pass, '0'
                     means reject</tr>
                     <!-- old: Условный выход из объекта предиката. «1»
                     означает проход, «0» означает отказ -->
                     <tr lang="ru" finished="false">Условный выход из объекта предиката. «1»
                     означает проход, «0» означает отказ</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -92,20 +92,20 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">frequency in Hz</tr>
                     <tr lang="ru" finished="false">частота в Гц</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset phase</tr>
                     <tr lang="ru" finished="false">фаза сброса</tr>
-                </xinfo>
-                <xinfo on="int">
+                </in>
+                <in on="int">
                     <tr lang="en">select waveform</tr>
                     <tr lang="ru" finished="false">выбрать волновую форму</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

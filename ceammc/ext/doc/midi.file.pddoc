@@ -79,10 +79,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output MidiFile data type</tr>
                     <tr lang="ru" finished="false">выходные данные типа MidiFile</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

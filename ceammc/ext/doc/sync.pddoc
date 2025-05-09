@@ -43,22 +43,22 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo>
+                <in>
                     <tr lang="en">first synchronized input</tr>
                     <tr lang="ru" finished="false">Первый синхронизированный вход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... synchronized input</tr>
                     <tr lang="ru" finished="false">Синхронизированный вход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">n-th synchronized input</tr>
                     <tr lang="ru" finished="false">n-й синхронизированный вход</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

@@ -39,20 +39,20 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">starts processing</tr>
                     <tr lang="ru">начинает обработку</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">set the new array, then process each element</tr>
                     <tr lang="ru">установить новый массив, затем обработать его</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">processed float value from side-chain</tr>
                     <tr lang="ru">обработанное значение из боковой цепи</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

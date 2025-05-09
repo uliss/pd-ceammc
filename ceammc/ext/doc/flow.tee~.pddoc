@@ -24,10 +24,10 @@
         </meta>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">mixed stream</tr>
                     <tr lang="ru" finished="false">смешанный поток</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -36,22 +36,22 @@
         </info>
         <inlets dynamic="true">
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">data stream</tr>
                     <tr lang="ru" finished="false">поток данных</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">property value</tr>
                     <tr lang="ru" finished="false">стоимость имущества</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">property value</tr>
                     <tr lang="ru" finished="false">стоимость имущества</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

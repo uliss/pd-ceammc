@@ -137,10 +137,13 @@ pair). Тип: list. Значение по умолчанию: 120 120\.;
 #X obj 20 1892 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 1893 1\.;
+#X text 150 1893 ~;
 #X text 245 1893 first input harmonic.;
-#X text 110 1913 ....;
+#X text 110 1913 ...;
+#X text 150 1913 ~;
 #X text 245 1913 ... input harmonic.;
 #X text 110 1933 n.;
+#X text 150 1933 ~;
 #X text 245 1933 n-th input harmonic.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

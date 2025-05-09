@@ -116,19 +116,19 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">NOTE VELOCITY</tr>
                     <tr lang="ru" finished="false">Примечание - Величина</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">play next note in chord, if @external = 1</tr>
                     <!-- old: играть следующую ноту аккордом, если @external =
                     1 -->
                     <tr lang="ru" finished="false">играть следующую ноту аккордом, если @external =
                     1</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -85,17 +85,17 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output generated filename pattern</tr>
                     <tr lang="ru" finished="false">сгенерированный шаблон имени файла</tr>
-                </xinfo>
-                <xinfo on="symbol">
+                </in>
+                <in on="symbol">
                     <tr lang="en">set new pattern and generate filename pattern</tr>
                     <!-- old: установить новый шаблон и создать шаблон имени
                     файла -->
                     <tr lang="ru" finished="false">установить новый шаблон и создать шаблон имени
                     файла</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -74,16 +74,16 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set frequency</tr>
                     <tr lang="ru" finished="false">установленная частота</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

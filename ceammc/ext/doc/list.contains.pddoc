@@ -68,23 +68,23 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">check is list is contains specified atom or sequence</tr>
                     <!-- old: Контрольный список содержит указанный атом или
                     последовательность -->
                     <tr lang="ru" finished="false">Контрольный список содержит указанный атом или
                     последовательность</tr>
-                </xinfo>
-                <xinfo on="data:mlist">
+                </in>
+                <in on="data:mlist">
                     <tr lang="en">as list</tr>
                     <tr lang="ru" finished="false">как список</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="list">
+                <in on="list">
                     <tr lang="en">set search atoms</tr>
                     <tr lang="ru" finished="false">Поиск атомов</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

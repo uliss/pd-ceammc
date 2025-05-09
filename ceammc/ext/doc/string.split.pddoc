@@ -55,20 +55,20 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">input symbol</tr>
                     <tr lang="ru" finished="false">входной символ</tr>
-                </xinfo>
-                <xinfo on="data:string">
+                </in>
+                <in on="data:string">
                     <tr lang="en">input symbol</tr>
                     <tr lang="ru" finished="false">входной символ</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">set split symbol</tr>
                     <tr lang="ru" finished="false">Установить раздельный символ</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

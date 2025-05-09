@@ -125,28 +125,28 @@
         </methods>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo>
+                <in>
                     <tr lang="en">control input</tr>
                     <tr lang="ru" finished="false">контрольный вход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="2">
-                <xinfo>
+                <in>
                     <tr lang="en">first faust input</tr>
                     <tr lang="ru" finished="false">Первый ввод фауста</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... faust input</tr>
                     <tr lang="ru" finished="false">Фаустный вход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="audio" number="n+1">
-                <xinfo>
+                <in>
                     <tr lang="en">n-th faust input</tr>
                     <tr lang="ru" finished="false">n-й фаустный вход</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">

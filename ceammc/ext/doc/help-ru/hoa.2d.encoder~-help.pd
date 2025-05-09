@@ -41,8 +41,10 @@ decomposition. Тип: int. Значение по умолчанию: 1\. Диа
 #X obj 20 706 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 707 1\.;
+#X text 150 707 ~;
 #X text 245 707 input signal.;
 #X text 110 727 2\.;
+#X text 150 727 ~;
 #X text 245 727 position on a circle in radians.;
 #X obj 20 757 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 762 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
@@ -50,7 +52,7 @@ decomposition. Тип: int. Значение по умолчанию: 1\. Диа
 #X text 110 763 1\.;
 #X text 150 763 ~;
 #X text 245 763 first circular harmonics output.;
-#X text 110 783 ....;
+#X text 110 783 ...;
 #X text 150 783 ~;
 #X text 245 783 ... circular harmonics output.;
 #X text 110 803 n.;

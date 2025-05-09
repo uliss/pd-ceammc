@@ -59,19 +59,25 @@ range. Type: float. Default value: 0\.;
 #X obj 20 802 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 803 1\.;
+#X text 150 803 ~;
 #X text 245 803 left input signal.;
 #X text 110 823 2\.;
+#X text 150 823 ~;
 #X text 245 823 right input signal.;
-#X text 110 843 ....;
+#X text 110 843 ...;
+#X text 150 843 ~;
 #X text 245 843 left input signal.;
-#X text 110 863 ....;
+#X text 110 863 ...;
+#X text 150 863 ~;
 #X text 245 863 right input signal.;
 #X text 110 883 n-1\.;
+#X text 150 883 ~;
 #X text 245 883 left input signal.;
 #X text 110 903 n.;
+#X text 150 903 ~;
 #X text 245 903 right input signal.;
 #X text 110 923 n+1\.;
-#X text 150 923 *float*;
+#X text 150 923 float:;
 #X text 245 923 set crossfade value.;
 #X obj 20 953 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 958 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

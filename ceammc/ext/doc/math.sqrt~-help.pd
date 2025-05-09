@@ -17,7 +17,7 @@
 #X obj 20 519 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 520 1\.;
-#X text 150 520 *float*;
+#X text 150 520 float:;
 #X text 245 520 input signal.;
 #X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 555 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

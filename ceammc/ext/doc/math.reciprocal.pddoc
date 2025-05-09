@@ -28,17 +28,17 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">input value</tr>
                     <tr lang="ru" finished="false">входная стоимость</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">on list input outputs a list of reciprocal values</tr>
                     <!-- old: в списке входных выходов список взаимных
                     значений -->
                     <tr lang="ru" finished="false">в списке входных выходов список взаимных
                     значений</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

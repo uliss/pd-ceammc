@@ -45,10 +45,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">
+                <in on="symbol">
                     <tr lang="en">Guido note</tr>
                     <tr lang="ru" finished="false">Нота Гвидо</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

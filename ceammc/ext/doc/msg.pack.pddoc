@@ -56,22 +56,22 @@
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
-                <xinfo>
+                <in>
                     <tr lang="en">first atom</tr>
                     <tr lang="ru" finished="false">Первый атом</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="...">
-                <xinfo>
+                <in>
                     <tr lang="en">... atom</tr>
                     <tr lang="ru" finished="false">... атом</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet number="n">
-                <xinfo>
+                <in>
                     <tr lang="en">n-th atom</tr>
                     <tr lang="ru" finished="false">n-й атом</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

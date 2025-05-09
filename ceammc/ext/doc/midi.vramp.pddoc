@@ -67,18 +67,18 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">if VALUE &gt;0, treat as (VALUE 127) list, otherwise as (-VALUE,
                     0)</tr>
                     <!-- old: Если значение >0, относитесь к списку (VALUE
                     127), в противном случае (-VALUE, 0) -->
                     <tr lang="ru" finished="false">Если значение &gt;0, относитесь к списку (VALUE
                     127), в противном случае (-VALUE, 0)</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">NOTE [VELOCITY] list expected</tr>
                     <tr lang="ru" finished="false">ПРИМЕЧАНИЕ (Список ожидаемых)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

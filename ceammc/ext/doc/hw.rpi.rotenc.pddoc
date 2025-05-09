@@ -85,24 +85,24 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output current value</tr>
                     <tr lang="ru" finished="false">текущая стоимость выпуска</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">set current value and output</tr>
                     <tr lang="ru" finished="false">установить текущую стоимость и выход</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">reset value to @init</tr>
                     <tr lang="ru" finished="false">Перезагрузить значение @init</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">set current value without output</tr>
                     <tr lang="ru" finished="false">Установить текущее значение без выхода</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

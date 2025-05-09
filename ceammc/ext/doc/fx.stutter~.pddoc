@@ -59,20 +59,20 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>
+                <in>
                     <tr lang="en">input signal</tr>
                     <tr lang="ru" finished="false">входной сигнал</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet type="control">
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">turn on effect for 3 periods</tr>
                     <tr lang="ru" finished="false">Включите эффект на 3 периода</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">1: turn on, 0: turn off</tr>
                     <tr lang="ru" finished="false">1: включить, 0: выключить</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

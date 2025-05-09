@@ -58,16 +58,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">generates random number in interval [0, N), where N is number of
                     weights.</tr>
                     <tr lang="ru" finished="false">генерирует случайное число в интервале [0, N],
                     где N — число весов.</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">set new weights</tr>
                     <tr lang="ru" finished="false">установить новые весы</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

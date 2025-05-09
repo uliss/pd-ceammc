@@ -165,27 +165,27 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs current element and moves to next</tr>
                     <!-- old: выводит текущий элемент и переходит к
                     следующему -->
                     <tr lang="ru" finished="false">выводит текущий элемент и переходит к
                     следующему</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">outputs current element and moves by specified position</tr>
                     <!-- old: выводит текущий элемент и перемещается по
                     заданному положению -->
                     <tr lang="ru" finished="false">выводит текущий элемент и перемещается по
                     заданному положению</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">set new list and reset current position. (no output)</tr>
                     <!-- old: установить новый список и сбросить текущую
                     позицию. (нет выхода) -->
                     <tr lang="ru" finished="false">установить новый список и сбросить текущую
                     позицию. (нет выхода)</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

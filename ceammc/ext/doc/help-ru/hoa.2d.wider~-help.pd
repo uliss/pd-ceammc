@@ -41,12 +41,16 @@ decomposition. Тип: int. Значение по умолчанию: 1\. Диа
 #X obj 20 750 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 751 1\.;
+#X text 150 751 ~;
 #X text 245 751 first input signal.;
-#X text 110 771 ....;
+#X text 110 771 ...;
+#X text 150 771 ~;
 #X text 245 771 ... input signal.;
 #X text 110 791 n.;
+#X text 150 791 ~;
 #X text 245 791 n-th input signal.;
 #X text 110 811 n+1\.;
+#X text 150 811 ~;
 #X text 245 811 widening signal in [0-1] range.;
 #X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 846 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
@@ -54,7 +58,7 @@ decomposition. Тип: int. Значение по умолчанию: 1\. Диа
 #X text 110 847 1\.;
 #X text 150 847 ~;
 #X text 245 847 first circular harmonics output.;
-#X text 110 867 ....;
+#X text 110 867 ...;
 #X text 150 867 ~;
 #X text 245 867 ... circular harmonics output.;
 #X text 110 887 n.;

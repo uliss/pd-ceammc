@@ -32,10 +32,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="data:dict">
+                <in on="data:dict">
                     <tr lang="en">input</tr>
                     <tr lang="ru" finished="false">ввод</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

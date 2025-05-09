@@ -21,22 +21,22 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="int">
+                <in on="int">
                     <tr lang="en">outputs '1' if number is not a multiple of two, otherwise outputs
                     '0'.</tr>
                     <!-- old: выходы '1', если число не кратно двум, иначе
                     выводит '0'. -->
                     <tr lang="ru" finished="false">выходы '1', если число не кратно двум, иначе
                     выводит '0'.</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">first value converted to integer, then the check is
                     performed</tr>
                     <!-- old: сначала значение преобразуется в целое число,
                     затем выполняется проверка -->
                     <tr lang="ru" finished="false">сначала значение преобразуется в целое число,
                     затем выполняется проверка</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

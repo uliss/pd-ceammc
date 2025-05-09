@@ -117,16 +117,16 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">1: starts output, 0: stop</tr>
                     <tr lang="ru" finished="false">1: начало вывода, 0: остановка</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="any">
+                <in on="any">
                     <tr lang="en">reset phase to 0</tr>
                     <tr lang="ru" finished="false">Фаза сброса до 0</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -41,7 +41,7 @@ values. Тип: int. Значение по умолчанию: 2\. Диапаз�
 0;
 #X text 110 540 1\.;
 #X text 245 540 first synchronized input.;
-#X text 110 560 ....;
+#X text 110 560 ...;
 #X text 245 560 ... synchronized input.;
 #X text 110 580 n.;
 #X text 245 580 n-th synchronized input.;
@@ -50,7 +50,7 @@ values. Тип: int. Значение по умолчанию: 2\. Диапаз�
 0;
 #X text 110 616 1\.;
 #X text 245 616 first synchronized output.;
-#X text 110 636 ....;
+#X text 110 636 ...;
 #X text 245 636 ... synchronized output.;
 #X text 110 656 n.;
 #X text 245 656 n-th synchronized output.;

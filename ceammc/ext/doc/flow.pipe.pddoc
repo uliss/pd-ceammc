@@ -62,28 +62,28 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>
+                <in>
                     <tr lang="en">incoming message</tr>
                     <tr lang="ru" finished="false">Входящее сообщение</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">clear pipe</tr>
                     <tr lang="ru" finished="false">прозрачная труба</tr>
-                </xinfo>
-                <xinfo>
+                </in>
+                <in>
                     <tr lang="en">reset: clear pipe</tr>
                     <tr lang="ru" finished="false">Сброс: прозрачная труба</tr>
-                </xinfo>
-                <xinfo>
+                </in>
+                <in>
                     <tr lang="en">flush: output and clear</tr>
                     <tr lang="ru" finished="false">смыв: выходной и прозрачный</tr>
-                </xinfo>
-                <xinfo on="float" minvalue="0">
+                </in>
+                <in on="float" minvalue="0">
                     <tr lang="en">set delay time</tr>
                     <tr lang="ru" finished="false">установить время задержки</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

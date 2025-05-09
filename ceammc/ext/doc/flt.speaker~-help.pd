@@ -74,12 +74,13 @@ value: 0\. Range: -30\...30\.;
 #X obj 20 1229 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1230 1\.;
+#X text 150 1230 ~;
 #X text 245 1230 input signal.;
 #X text 110 1250 2\.;
-#X text 150 1250 *float*;
+#X text 150 1250 float:;
 #X text 245 1250 set @f1 property.;
 #X text 110 1270 3\.;
-#X text 150 1270 *float*;
+#X text 150 1270 float:;
 #X text 245 1270 set @f2 property.;
 #X obj 20 1300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1305 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

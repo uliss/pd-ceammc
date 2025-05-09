@@ -33,10 +33,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">output canvas active state</tr>
                     <tr lang="ru" finished="false">выходной холст активное состояние</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

@@ -32,30 +32,30 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">set first number, calculate and output result</tr>
                     <!-- old: установить первое число, вычислить и получить
                     результат -->
                     <tr lang="ru" finished="false">установить первое число, вычислить и получить
                     результат</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">pair: set first and second numbers, calculate and output
                     result</tr>
                     <!-- old: пара: установить первое и второе числа,
                     вычислить и вывести результат -->
                     <tr lang="ru" finished="false">пара: установить первое и второе числа,
                     вычислить и вывести результат</tr>
-                </xinfo>
+                </in>
             </inlet>
             <inlet>
-                <xinfo on="float">
+                <in on="float">
                     <tr lang="en">change second number, calculate and output result</tr>
                     <!-- old: изменить второе число, вычислить и получить
                     результат -->
                     <tr lang="ru" finished="false">изменить второе число, вычислить и получить
                     результат</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

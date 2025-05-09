@@ -46,7 +46,7 @@ Default value: 1\.;
 #X text 110 453 1\.;
 #X text 245 453 log input.;
 #X text 110 473 2\.;
-#X text 150 473 *float*;
+#X text 150 473 float:;
 #X text 245 473 1: enable logging \, 0: disable logging.;
 #X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 508 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144

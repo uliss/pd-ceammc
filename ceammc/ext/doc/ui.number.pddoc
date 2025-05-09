@@ -235,18 +235,18 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">outputs current value</tr>
                     <tr lang="ru" finished="false">выходы текущая стоимость</tr>
-                </xinfo>
-                <xinfo on="float">
+                </in>
+                <in on="float">
                     <tr lang="en">input value</tr>
                     <tr lang="ru" finished="false">входная стоимость</tr>
-                </xinfo>
-                <xinfo on="list">
+                </in>
+                <in on="list">
                     <tr lang="en">first element converted to float</tr>
                     <tr lang="ru" finished="false">Первый элемент, преобразованный в плавающий</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>

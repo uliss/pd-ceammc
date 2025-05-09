@@ -161,10 +161,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">
+                <in on="bang">
                     <tr lang="en">analyze array</tr>
                     <tr lang="ru">анализировать массив</tr>
-                </xinfo>
+                </in>
             </inlet>
         </inlets>
         <outlets>
