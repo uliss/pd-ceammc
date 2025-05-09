@@ -12,7 +12,7 @@ public:
     void onBang() final;
     void processBlock(const t_sample** in, t_sample** out) final;
 
-    void click() final;
+    void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) final;
 };
 
 void click_tilde_setup();
