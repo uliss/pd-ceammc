@@ -67,13 +67,16 @@ int. Значение по умолчанию: 1\. Разрешённые зна
 #X obj 20 843 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 844 1\.;
-#X text 245 844 output signal.;
+#X text 150 844 ~;
+#X text 245 844 выходной сигнал.;
 #X text 110 864 2\.;
-#X text 245 864 output frequency in Hz.;
+#X text 150 864 float(Hz):;
+#X text 245 864 выходная частота.;
 #X text 110 884 3\.;
-#X text 245 884 track fidelity: a value between 0 and 1 \, indicating
-to which extent the input signal is periodic. A fidelity of ~0.95 can
-be considered to indicate a periodic signal.;
+#X text 150 884 float:;
+#X text 245 884 точность распознования: значение от 0 до 1 \, указывающее
+\, в какой степени входной сигнал является периодическим. Точность
+около 0.95 можно считать признаком периодического сигнала.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

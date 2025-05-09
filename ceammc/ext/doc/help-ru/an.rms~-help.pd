@@ -56,7 +56,8 @@
 #X obj 20 794 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 795 1\.;
-#X text 245 795 rms level.;
+#X text 150 795 ~;
+#X text 245 795 уровень rms.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

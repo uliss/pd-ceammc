@@ -83,23 +83,23 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
+                    <tr lang="ru">выходной сигнал</tr>
                 </out>
             </outlet>
             <outlet>
-                <out type="any">
-                    <tr lang="en">output frequency in Hz</tr>
-                    <tr lang="ru" finished="false">выходная частота в Гц</tr>
+                <out type="float" units="hertz">
+                    <tr lang="en">output frequency</tr>
+                    <tr lang="ru">выходная частота</tr>
                 </out>
             </outlet>
             <outlet>
-                <out type="any">
+                <out type="float">
                     <tr lang="en">track fidelity: a value between 0 and 1, indicating to which
                     extent the input signal is periodic. A fidelity of ~0.95 can be considered to
                     indicate a periodic signal.</tr>
-                    <tr lang="ru" finished="false">точность трека: значение от 0 до 1, указывающее,
-                    в какой степени входной сигнал является периодическим. Точность ~0,95 может
-                    быть рассмотрена для обозначения периодического сигнала.</tr>
+                    <tr lang="ru">точность распознования: значение от 0 до 1, указывающее,
+                    в какой степени входной сигнал является периодическим. Точность около 0.95
+                    можно считать признаком периодического сигнала.</tr>
                 </out>
             </outlet>
         </outlets>

@@ -121,9 +121,11 @@ detection function.;
 #X obj 20 1566 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1567 1\.;
-#X text 245 1567 bang if onset detected.;
+#X text 150 1567 bang:;
+#X text 245 1567 if onset detected.;
 #X text 110 1587 2\.;
-#X text 245 1587 float: time of the latest onset detected in milliseconds
+#X text 150 1587 float(ms):;
+#X text 245 1587 time of the latest onset detected in milliseconds
 from starting of measuring. You can reset start time with 'reset' message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

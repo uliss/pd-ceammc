@@ -125,10 +125,12 @@ detection function.;
 #X obj 20 1669 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1670 1\.;
-#X text 245 1670 bang if onset detected.;
+#X text 150 1670 bang:;
+#X text 245 1670 если обнаружена атака.;
 #X text 110 1690 2\.;
-#X text 245 1690 float: time of the latest onset detected in milliseconds
-from starting of measuring. You can reset start time with 'reset' message.;
+#X text 150 1690 float(ms):;
+#X text 245 1690 время последней атаки в миллисекундах от начала измерения.
+Вы можете сбросить время начала измерения отправкой сообщения «reset».;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

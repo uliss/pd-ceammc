@@ -172,18 +172,17 @@
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">bang if onset detected</tr>
-                    <tr lang="ru" finished="false">Bang, если обнаружено начало</tr>
+                <out type="bang">
+                    <tr lang="en">if onset detected</tr>
+                    <tr lang="ru">если обнаружена атака</tr>
                 </out>
             </outlet>
             <outlet>
-                <out type="any">
-                    <tr lang="en">float: time of the latest onset detected in milliseconds from
+                <out type="float" units="millisecond">
+                    <tr lang="en">time of the latest onset detected in milliseconds from
                     starting of measuring. You can reset start time with 'reset' message</tr>
-                    <tr lang="ru" finished="false">Поплавок: время последнего наступления,
-                    обнаруженное в миллисекундах от начала измерения. Вы можете перезагрузить время
-                    начала с сообщением «перезагрузить»</tr>
+                    <tr lang="ru">время последней атаки в миллисекундах от начала измерения.
+                    Вы можете сбросить время начала измерения отправкой сообщения «reset»</tr>
                 </out>
             </outlet>
         </outlets>

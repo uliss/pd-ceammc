@@ -141,15 +141,15 @@
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">float: BPM value</tr>
-                    <tr lang="ru" finished="false">Поплавок: значение BPM</tr>
+                <out type="float">
+                    <tr lang="en">BPM value</tr>
+                    <tr lang="ru">значение BPM</tr>
                 </out>
             </outlet>
             <outlet>
-                <out type="any">
-                    <tr lang="en">float: detection confidence</tr>
-                    <tr lang="ru" finished="false">Поплавок: уверенность в обнаружении</tr>
+                <out type="float">
+                    <tr lang="en">detection confidence</tr>
+                    <tr lang="ru">уверенность детектора</tr>
                 </out>
             </outlet>
         </outlets>

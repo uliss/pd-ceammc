@@ -169,9 +169,9 @@
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">output list of detected onsets</tr>
-                    <tr lang="ru" finished="false">выходной список обнаруженных начал</tr>
+                <out type="list">
+                    <tr lang="en">detected onsets</tr>
+                    <tr lang="ru">обнаруженные атаки</tr>
                 </out>
             </outlet>
         </outlets>

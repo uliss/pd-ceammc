@@ -119,9 +119,11 @@ specflux \, phase \, energy \, hfc \, kl \, complex \, default \, specdiff
 #X obj 20 1628 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1629 1\.;
-#X text 245 1629 float: BPM value.;
+#X text 150 1629 float:;
+#X text 245 1629 значение BPM.;
 #X text 110 1649 2\.;
-#X text 245 1649 float: detection confidence.;
+#X text 150 1649 float:;
+#X text 245 1649 уверенность детектора.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
