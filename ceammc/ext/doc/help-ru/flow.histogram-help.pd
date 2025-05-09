@@ -21,51 +21,53 @@
 #X text 110 453 1\.;
 #X text 150 453 list;
 #X obj 246 454 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 453 RANGE: FROM TO NUM_BINS?. Тип: list.;
+#X text 245 453 RANGE: МИН МАКС ЧИСЛО_ИНТЕРВАЛОВ?. Тип: list.;
 #X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 488 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 491 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 523 @bins;
-#X text 245 523 Получить/Установить bins border values. Тип: list.
-Значение по умолчанию: 0\.;
+#X text 245 523 Получить/Установить значения границ интервалов. Тип:
+list. Значение по умолчанию: 0\.;
 #X msg 110 565 @inner_bins;
-#X text 245 565 Получить/Установить output histogram inner bins only.
-Тип: bool. Значение по умолчанию: 1\.;
+#X text 245 565 Получить/Установить использовать только внутренние
+интервалы гистограммы. Тип: bool. Значение по умолчанию: 1\.;
 #X msg 110 607 @norm;
-#X text 245 607 Получить/Установить do the histogram normalization.
+#X text 245 607 Получить/Установить производить нормализацию гистограммы.
 Тип: bool. Значение по умолчанию: 1\.;
 #X msg 110 649 @sync;
-#X text 245 649 Получить/Установить calculate and output histogram
-on every input value. Тип: bool. Значение по умолчанию: 1\.;
-#X obj 20 701 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 706 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X text 245 649 Получить/Установить если истинно \, перевычислять и
+выводить гистограмму после каждого входного значения. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 721 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 707 clear;
-#X text 245 707 clear all histogram data.;
-#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 750 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 722 clear;
+#X text 245 722 очистить все данные гистограммы.;
+#X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 765 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 751 1\.;
-#X text 150 751 bang:;
-#X text 245 751 calculates histogram and output current bin values.;
-#X text 150 776 float:;
-#X text 245 776 add value to the histogram and output it's value if
-@sync property is true.;
-#X obj 20 826 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 831 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 766 1\.;
+#X text 150 766 bang:;
+#X text 245 766 вычисляет гистограмму и выводит текущие значения интервалов.;
+#X text 150 791 float:;
+#X text 245 791 добавить значение в гистограмму. Вычислить и вывести
+её новое значение \, если свойство @sync истинно.;
+#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 846 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 832 1\.;
-#X text 245 832 list: bin values.;
+#X text 110 847 1\.;
+#X text 150 847 list:;
+#X text 245 847 значения интервалов гистограммы.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 882 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 885 библиотека: ceammc v0.9.8;
-#N canvas 10 904 400 290 info 0;
+#X obj 1 897 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 900 библиотека: ceammc v0.9.8;
+#N canvas 10 919 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,7 +91,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 904 pd info;
+#X restore 10 919 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;

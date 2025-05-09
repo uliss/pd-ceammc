@@ -21,33 +21,30 @@
         </meta>
         <arguments>
             <argument name="RANGE" type="list">
-                <tr lang="en">FROM TO NUM_BINS?</tr>
-                <tr lang="ru" finished="false">От NUM_BINS?</tr>
+                <tr lang="en">MIN MAX NUM_BINS?</tr>
+                <tr lang="ru">МИН МАКС ЧИСЛО_ИНТЕРВАЛОВ?</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @bins -->
             <property name="@bins" type="list" default="0">
                 <tr lang="en">bins border values</tr>
-                <tr lang="ru" finished="false">пограничные значения</tr>
+                <tr lang="ru">значения границ интервалов</tr>
             </property>
             <!-- @inner_bins -->
             <property name="@inner_bins" type="bool" default="1">
-                <tr lang="en">output histogram inner bins only</tr>
-                <tr lang="ru" finished="false">выход гистограммы только внутренние бункеры</tr>
+                <tr lang="en">user only inner histogram bins</tr>
+                <tr lang="ru">использовать только внутренние интервалы гистограммы</tr>
             </property>
             <!-- @norm -->
             <property name="@norm" type="bool" default="1">
                 <tr lang="en">do the histogram normalization</tr>
-                <tr lang="ru" finished="false">сделать нормализацию гистограммы</tr>
+                <tr lang="ru">производить нормализацию гистограммы</tr>
             </property>
             <!-- @sync -->
             <property name="@sync" type="bool" default="1">
-                <tr lang="en">calculate and output histogram on every input value</tr>
-                <!-- old: вычислить и вывести гистограмму на каждое входное
-                значение -->
-                <tr lang="ru" finished="false">вычислить и вывести гистограмму на каждое входное
-                значение</tr>
+                <tr lang="en">if true, recalculate and output histogram on every input value</tr>
+                <tr lang="ru">если истинно, перевычислять и выводить гистограмму после каждого входного значения</tr>
             </property>
         </properties>
         <methods>
@@ -55,34 +52,29 @@
             <method name="clear">
                 <info>
                     <tr lang="en">clear all histogram data</tr>
-                    <tr lang="ru" finished="false">Очистить все данные гистограммы</tr>
+                    <tr lang="ru">очистить все данные гистограммы</tr>
                 </info>
             </method>
         </methods>
         <inlets>
             <inlet>
                 <in on="bang">
-                    <tr lang="en">calculates histogram and output current bin values</tr>
-                    <!-- old: вычисляет гистограмму и выходные значения тока
-                    бин -->
-                    <tr lang="ru" finished="false">вычисляет гистограмму и выходные значения тока
-                    бин</tr>
+                    <tr lang="en">calculates histogram and outputs current bin values</tr>
+                    <tr lang="ru">вычисляет гистограмму и выводит текущие значения интервалов</tr>
                 </in>
                 <in on="float">
-                    <tr lang="en">add value to the histogram and output it's value if @sync
+                    <tr lang="en">add value to the histogram. Calculate and output a new histogram value if @sync
                     property is true</tr>
-                    <!-- old: добавить значение гистограмме и вывести его
-                    значение, если свойство @sync истинно -->
-                    <tr lang="ru" finished="false">добавить значение гистограмме и вывести его
-                    значение, если свойство @sync истинно</tr>
+                    <tr lang="ru">добавить значение в гистограмму. Вычислить и вывести её новое значение,
+                    если свойство @sync истинно</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">list: bin values</tr>
-                    <tr lang="ru" finished="false">Список: значения бин</tr>
+                <out type="list">
+                    <tr lang="en">bin values</tr>
+                    <tr lang="ru">значения интервалов гистограммы</tr>
                 </out>
             </outlet>
         </outlets>

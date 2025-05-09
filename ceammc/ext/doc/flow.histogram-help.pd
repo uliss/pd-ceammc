@@ -21,7 +21,7 @@
 #X text 110 453 1\.;
 #X text 150 453 list;
 #X obj 246 454 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 453 RANGE: FROM TO NUM_BINS?. Type: list.;
+#X text 245 453 RANGE: MIN MAX NUM_BINS?. Type: list.;
 #X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 488 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
@@ -31,14 +31,14 @@
 #X text 245 523 Get/Set bins border values. Type: list. Default value:
 0\.;
 #X msg 110 553 @inner_bins;
-#X text 245 553 Get/Set output histogram inner bins only. Type: bool.
+#X text 245 553 Get/Set user only inner histogram bins. Type: bool.
 Default value: 1\.;
 #X msg 110 595 @norm;
 #X text 245 595 Get/Set do the histogram normalization. Type: bool.
 Default value: 1\.;
 #X msg 110 637 @sync;
-#X text 245 637 Get/Set calculate and output histogram on every input
-value. Type: bool. Default value: 1\.;
+#X text 245 637 Get/Set if true \, recalculate and output histogram
+on every input value. Type: bool. Default value: 1\.;
 #X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 694 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
@@ -49,15 +49,16 @@ value. Type: bool. Default value: 1\.;
 0;
 #X text 110 739 1\.;
 #X text 150 739 bang:;
-#X text 245 739 calculates histogram and output current bin values.;
+#X text 245 739 calculates histogram and outputs current bin values.;
 #X text 150 764 float:;
-#X text 245 764 add value to the histogram and output it's value if
-@sync property is true.;
+#X text 245 764 add value to the histogram. Calculate and output a
+new histogram value if @sync property is true.;
 #X obj 20 814 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 819 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 820 1\.;
-#X text 245 820 list: bin values.;
+#X text 150 820 list:;
+#X text 245 820 bin values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
