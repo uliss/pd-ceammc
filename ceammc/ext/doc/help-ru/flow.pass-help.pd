@@ -20,50 +20,50 @@
 -49933 0;
 #X obj 735 277 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 309 1\.;
-#X text 150 309 list;
-#X obj 246 310 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 309 VALUES: atoms to pass. Тип: list.;
-#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 344 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 275 1\.;
+#X text 170 275 list;
+#X obj 271 276 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 275 VALUES: atoms to pass. Тип: list.;
+#X obj 20 305 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 310 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 347 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 313 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 379 @values;
-#X text 245 379 Получить/Установить atoms to pass. Тип: list.;
-#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 424 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 311 @values;
+#X text 270 311 Получить/Установить atoms to pass. Тип: list.;
+#X obj 20 351 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 356 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 425 1\.;
-#X text 150 425 bang:;
-#X text 245 425 pass.;
-#X text 150 450 float:;
-#X text 245 450 pass if float found in pass list.;
-#X text 150 475 symbol:;
-#X text 245 475 pass if symbol found in pass list.;
-#X text 150 500 list:;
-#X text 245 500 pass if first atom found in pass list.;
-#X text 150 525 any:;
-#X text 245 525 pass if message selector found in pass list.;
-#X text 110 550 2\.;
-#X text 150 550 list:;
-#X text 245 550 set pass list.;
-#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 590 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 357 1\.;
+#X text 170 357 bang:;
+#X text 270 357 pass.;
+#X text 170 382 float:;
+#X text 270 382 pass if float found in pass list.;
+#X text 170 407 symbol:;
+#X text 270 407 pass if symbol found in pass list.;
+#X text 170 432 list:;
+#X text 270 432 pass if first atom found in pass list.;
+#X text 170 457 any:;
+#X text 270 457 pass if message selector found in pass list.;
+#X text 130 482 2\.;
+#X text 170 482 list:;
+#X text 270 482 set pass list.;
+#X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 522 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 591 1\.;
-#X text 245 591 passed values.;
+#X text 130 523 1\.;
+#X text 270 523 passed values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 641 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 644 библиотека: ceammc v0.9.8;
-#X text 437 656 смотрите также:;
-#X obj 558 656 flow.pass_if;
-#X obj 660 656 flow.reject;
-#N canvas 10 663 400 290 info 0;
+#X obj 1 573 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 576 библиотека: ceammc v0.9.8;
+#X text 437 588 смотрите также:;
+#X obj 558 588 flow.pass_if;
+#X obj 660 588 flow.reject;
+#N canvas 10 595 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -87,7 +87,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 663 pd info;
+#X restore 10 595 pd info;
 #X connect 6 0 11 0;
 #X connect 9 0 11 0;
 #X connect 7 0 11 0;

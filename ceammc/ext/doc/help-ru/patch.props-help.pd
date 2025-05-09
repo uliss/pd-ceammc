@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty patch.props 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 patch.props;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Property should be declared with [prop.declare];
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Property should be declared with [prop.declare];
 #X obj 50 161 prop.declare freq @min 20 @max 20000 @default 1000;
 #X obj 50 190 prop.declare gain @min -60 @max 12 @default -3;
 #X msg 50 219 @*?;
@@ -24,23 +24,23 @@
 #X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 400 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 401 default;
-#X text 245 401 reset all props to default value and output.;
-#X msg 110 429 @*?;
-#X text 245 429 output all patch properties as list.;
+#X msg 130 401 default;
+#X text 270 401 reset all props to default value and output.;
+#X msg 130 429 @*?;
+#X text 270 429 output all patch properties as list.;
 #X obj 20 467 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 472 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 473 1\.;
-#X text 150 473 bang:;
-#X text 245 473 output all properties in [prop] objects.;
-#X text 150 498 any:;
-#X text 245 498 get/set property value and output it.;
+#X text 130 473 1\.;
+#X text 170 473 bang:;
+#X text 270 473 output all properties in [prop] objects.;
+#X text 170 498 any:;
+#X text 270 498 get/set property value and output it.;
 #X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 538 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 539 1\.;
-#X text 245 539 output value.;
+#X text 130 539 1\.;
+#X text 270 539 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

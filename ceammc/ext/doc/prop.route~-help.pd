@@ -11,8 +11,8 @@
 #X obj 30 154 ceammc/@~>;
 #X restore 562 11 pd aliases;
 #X obj 659 11 prop.route~;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Extracts properties from audio stream with matching.
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Extracts properties from audio stream with matching.
 Non property values are passed untouched.;
 #X obj 50 176 osc~ 440;
 #X msg 155 176 @db?;
@@ -28,21 +28,21 @@ Non property values are passed untouched.;
 #X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 457 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 458 1\.;
-#X text 150 458 any:;
-#X text 245 458 input values and sound.;
+#X text 130 458 1\.;
+#X text 170 458 any:;
+#X text 270 458 input values and sound.;
 #X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 498 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 499 1\.;
-#X text 150 499 ~;
-#X text 245 499 passed values and sound.;
-#X text 110 519 2\.;
-#X text 245 519 first matched property output.;
-#X text 110 539 ...;
-#X text 245 539 others matched property output.;
-#X text 110 559 n.;
-#X text 245 559 unmatched property output.;
+#X text 130 499 1\.;
+#X text 170 499 ~;
+#X text 270 499 passed values and sound.;
+#X text 130 519 2\.;
+#X text 270 519 first matched property output.;
+#X text 130 539 ...;
+#X text 270 539 others matched property output.;
+#X text 130 559 n.;
+#X text 270 559 unmatched property output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

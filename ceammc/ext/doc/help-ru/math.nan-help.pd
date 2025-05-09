@@ -5,21 +5,21 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.nan 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 math.nan;
-#X obj 205 78 cnv 1 560 297 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 In computing \, NaN \, standing for not a number \,
+#X obj 230 78 cnv 1 535 297 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 In computing \, NaN \, standing for not a number \,
 is a numeric data type value representing an undefined or unrepresentable
 value \, especially in floating-point calculations. Systematic use
 of NaNs was introduced by the IEEE 754 floating-point standard in 1985
 \, along with the representation of other non-finite quantities like
 infinities.;
-#X text 215 199 When an operation results in a quiet NaN \, there is
+#X text 240 199 When an operation results in a quiet NaN \, there is
 no indication that anything is unusual until the program checks the
 result and sees a NaN. That is \, computation continues without any
 signal from the floating point unit (FPU) or library if floating-point
 is implemented in software. A signalling NaN will produce a signal
 \, usually in the form of exception from the FPU. Whether the exception
 is thrown depends on the state of the FPU.;
-#X text 215 345 Note: in Pd float point exceptions are disabled.;
+#X text 240 345 Note: in Pd float point exceptions are disabled.;
 #X obj 50 423 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 452 math.nan;
@@ -29,36 +29,36 @@ is thrown depends on the state of the FPU.;
 -49933 0;
 #X obj 735 521 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 553 @quiet;
-#X text 245 553 Alias to @type quiet.;
-#X msg 110 583 @signal;
-#X text 245 583 Alias to @type signal.;
-#X msg 110 613 @type;
-#X text 245 613 Получить/Установить type of outputed NaN: quiet or
+#X msg 130 519 @quiet;
+#X text 270 519 Alias to @type quiet.;
+#X msg 130 549 @signal;
+#X text 270 549 Alias to @type signal.;
+#X msg 130 579 @type;
+#X text 270 579 Получить/Установить type of outputed NaN: quiet or
 signal. Тип: symbol. Значение по умолчанию: quiet. Разрешённые значения:
 quiet \, signal.;
-#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 685 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 646 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 651 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 686 1\.;
-#X text 150 686 bang:;
-#X text 245 686 outputs value.;
-#X obj 20 721 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 726 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 652 1\.;
+#X text 170 652 bang:;
+#X text 270 652 outputs value.;
+#X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 692 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 727 1\.;
-#X text 245 727 output value.;
+#X text 130 693 1\.;
+#X text 270 693 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 777 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 780 библиотека: ceammc v0.9.8;
-#X text 478 792 смотрите также:;
-#X obj 599 792 math.nan~;
-#X obj 681 792 math.inf;
-#N canvas 10 799 400 290 info 0;
+#X obj 1 743 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 746 библиотека: ceammc v0.9.8;
+#X text 478 758 смотрите также:;
+#X obj 599 758 math.nan~;
+#X obj 681 758 math.inf;
+#N canvas 10 765 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -82,6 +82,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 799 pd info;
+#X restore 10 765 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;

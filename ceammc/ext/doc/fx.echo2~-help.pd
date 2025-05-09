@@ -19,83 +19,83 @@
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 381 1\.;
-#X text 150 381 float;
-#X obj 246 382 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 381 DELAY(ms): echo time. Type: float. Range: 10\...5000;
-#X text 110 401 2\.;
-#X text 150 401 float;
-#X obj 246 402 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 401 FEEDBACK: feedback coefficient. Type: float. Range:
+#X text 130 347 1\.;
+#X text 170 347 float;
+#X obj 271 348 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 347 DELAY(ms): echo time. Type: float. Range: 10\...5000;
+#X text 130 367 2\.;
+#X text 170 367 float;
+#X obj 271 368 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 367 FEEDBACK: feedback coefficient. Type: float. Range:
 0\...0.99;
-#X obj 20 431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 436 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 402 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 439 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 405 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 471 @id;
-#X text 245 471 (initonly) Get/Set OSC address id. If specified \,
+#X msg 130 403 @id;
+#X text 270 403 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_echo2/PROP_NAME osc address \, if empty
 bind to /fx_echo2/PROP_NAME. Type: symbol.;
-#X msg 110 528 @osc;
-#X text 245 528 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 130 460 @osc;
+#X text 270 460 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 558 @active;
-#X text 245 558 Turn on/off object dsp processing. Type: bool. Default
+#X msg 130 490 @active;
+#X text 270 490 Turn on/off object dsp processing. Type: bool. Default
 value: 1\.;
-#X msg 110 600 @bypass;
-#X text 245 600 Get/Set bypass flag. If true: bypass 'effected' signal.
+#X msg 130 532 @bypass;
+#X text 270 532 Get/Set bypass flag. If true: bypass 'effected' signal.
 Type: bool. Default value: 0\.;
-#X msg 110 642 @delay;
-#X text 245 642 Get/Set echo time. Type: float. Units: 'ms'. Default
+#X msg 130 574 @delay;
+#X text 270 574 Get/Set echo time. Type: float. Units: 'ms'. Default
 value: 500\. Range: 10\...5000\.;
-#X msg 110 684 @drywet;
-#X text 245 684 Get/Set proportion of mix between the original (dry)
+#X msg 130 616 @drywet;
+#X text 270 616 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Range: 0\...1\.;
-#X msg 110 741 @feedback;
-#X text 245 741 Get/Set feedback coefficient. Type: float. Default
+#X msg 130 673 @feedback;
+#X text 270 673 Get/Set feedback coefficient. Type: float. Default
 value: 0.3\. Range: 0\...0.99\.;
-#X msg 110 783 @stereo;
-#X text 245 783 Get/Set The stereo parameter controls the amount of
+#X msg 130 715 @stereo;
+#X text 270 715 Get/Set The stereo parameter controls the amount of
 stereo spread. For stereo=0 you get a plain delay \, without crosstalk
 between the channels. For stereo=1 you get a pure ping-pong delay where
 the echos from the left first appear on the right channel and vice
 versa. Type: float. Default value: 1\. Range: 0\...1\.;
-#X obj 20 911 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 916 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 843 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 848 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 917 reset;
-#X text 245 917 reset to initial state.;
-#X obj 20 955 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 960 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 849 reset;
+#X text 270 849 reset to initial state.;
+#X obj 20 887 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 892 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 961 1\.;
-#X text 150 961 ~;
-#X text 245 961 left input signal.;
-#X text 110 986 2\.;
-#X text 150 986 ~;
-#X text 245 986 right input signal.;
-#X obj 20 1021 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1026 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 893 1\.;
+#X text 170 893 ~;
+#X text 270 893 left input signal.;
+#X text 130 918 2\.;
+#X text 170 918 ~;
+#X text 270 918 right input signal.;
+#X obj 20 953 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 958 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1027 1\.;
-#X text 150 1027 ~;
-#X text 245 1027 left output signal.;
-#X text 110 1047 2\.;
-#X text 150 1047 ~;
-#X text 245 1047 right output signal.;
+#X text 130 959 1\.;
+#X text 170 959 ~;
+#X text 270 959 left output signal.;
+#X text 130 979 2\.;
+#X text 170 979 ~;
+#X text 270 979 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1097 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1100 library: ceammc v0.9.8;
-#X text 510 1112 see also:;
-#X obj 585 1112 fx.echo2~;
-#X obj 666 1112 fx.sdelay~;
-#N canvas 10 1119 400 290 info 0;
+#X obj 1 1029 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1032 library: ceammc v0.9.8;
+#X text 510 1044 see also:;
+#X obj 585 1044 fx.echo2~;
+#X obj 666 1044 fx.sdelay~;
+#N canvas 10 1051 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -119,7 +119,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1119 pd info;
+#X restore 10 1051 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 8 0;

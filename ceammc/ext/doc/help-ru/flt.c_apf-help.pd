@@ -8,18 +8,18 @@
 #X obj 415 11 ceammc/apf->biquad;
 #X obj 570 11 apf->biquad;
 #X obj 675 11 flt.c_apf;
-#X obj 205 93 cnv 1 560 214 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 278 Wiki:;
-#X text 215 98 Allpass filter is a signal processing filter that passes
+#X obj 230 93 cnv 1 535 214 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 278 Wiki:;
+#X text 240 98 Allpass filter is a signal processing filter that passes
 all frequencies equally in gain \, but changes the phase relationship
 among various frequencies.;
-#X text 215 153 Most types of filter reduce the amplitude (i.e. the
+#X text 240 153 Most types of filter reduce the amplitude (i.e. the
 magnitude) of the signal applied to it for some values of frequency
 \, whereas the all-pass filter allows all frequencies through without
 changes in level.;
-#X text 215 238 Calculates coefficients for transfer function: H(z)=(b0
+#X text 240 238 Calculates coefficients for transfer function: H(z)=(b0
 + b1*z⁻¹ + b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²);
-#X obj 255 280 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 280 280 ui.link @background_color 0.98039 0.98039 0.98039
 @title Allpass filter @url
 https://en.wikipedia.org/wiki/All-pass_filter;
 #X obj 50 355 ui.hsl;
@@ -38,52 +38,52 @@ https://en.wikipedia.org/wiki/All-pass_filter;
 -49933 0;
 #X obj 735 600 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 632 1\.;
-#X text 150 632 float;
-#X obj 246 633 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 632 FREQ(Hz): center frequency. Тип: float. Диапазон: 0…22050;
-#X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 667 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 598 1\.;
+#X text 170 598 float;
+#X obj 271 599 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 598 FREQ(Hz): center frequency. Тип: float. Диапазон: 0…22050;
+#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 633 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 670 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 636 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 702 @rad;
-#X text 245 702 use angular frequency.;
-#X msg 110 732 @freq;
-#X text 245 732 Получить/Установить center frequency. Тип: float. Единицы:
+#X msg 130 634 @rad;
+#X text 270 634 use angular frequency.;
+#X msg 130 664 @freq;
+#X text 270 664 Получить/Установить center frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 0\. Диапазон: 0\...22050\.;
-#X msg 110 774 @q;
-#X text 245 774 Получить/Установить quality factor: @freq/BANDWIDTH.
+#X msg 130 706 @q;
+#X text 270 706 Получить/Установить quality factor: @freq/BANDWIDTH.
 Тип: float. Значение по умолчанию: 0.7071\. Диапазон: 0.01\...100\.;
-#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 846 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 778 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 847 bw;
-#X text 245 847 set bandwidth in octaves. Аргументы:;
-#X obj 255 870 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 870 OCT: bandwidth. Тип: float.;
-#X obj 20 905 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 910 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 779 bw;
+#X text 270 779 set bandwidth in octaves. Аргументы:;
+#X obj 280 802 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 802 OCT: bandwidth. Тип: float.;
+#X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 842 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 911 1\.;
-#X text 150 911 float:;
-#X text 245 911 filter frequency.;
-#X obj 20 946 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 951 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 843 1\.;
+#X text 170 843 float:;
+#X text 270 843 filter frequency.;
+#X obj 20 878 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 883 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 952 1\.;
-#X text 245 952 list: b0 b1 b2 a1 a2\.;
+#X text 130 884 1\.;
+#X text 270 884 list: b0 b1 b2 a1 a2\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1002 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1005 библиотека: ceammc v0.9.8;
-#X text 480 1017 смотрите также:;
-#X obj 601 1017 flt.c_lpf;
-#X obj 681 1017 hilbert~;
-#N canvas 10 1024 400 290 info 0;
+#X obj 1 934 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 937 библиотека: ceammc v0.9.8;
+#X text 480 949 смотрите также:;
+#X obj 601 949 flt.c_lpf;
+#X obj 681 949 hilbert~;
+#N canvas 10 956 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1024 pd info;
+#X restore 10 956 pd info;
 #X connect 12 0 14 0;
 #X connect 13 0 15 0;
 #X connect 14 0 16 0;

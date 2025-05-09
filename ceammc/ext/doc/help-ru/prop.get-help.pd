@@ -7,8 +7,8 @@
 0;
 #X obj 621 11 p.get;
 #X obj 682 11 prop.get;
-#X obj 205 93 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Get properties from connected object/subpatch/abstraction;
+#X obj 230 93 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 98 Get properties from connected object/subpatch/abstraction;
 #X msg 50 176 bang;
 #X obj 50 205 prop.get @size @value;
 #X obj 222 234 ui.dt;
@@ -17,46 +17,46 @@
 #X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 318 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 353 Left-click;
-#X text 285 353 get properties.;
+#X text 130 353 Left-click;
+#X text 310 353 get properties.;
 #X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 388 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 391 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 423 1\.;
-#X text 150 423 list;
-#X obj 246 424 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 423 PROPS: property names. Тип: list.;
-#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 458 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 130 389 1\.;
+#X text 170 389 list;
+#X obj 271 390 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 389 PROPS: property names. Тип: list.;
+#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 424 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 459 1\.;
-#X text 150 459 bang:;
-#X text 245 459 output specified properites to corresponding outlets.;
-#X text 150 484 any:;
-#X text 245 484 output specified property to second outlet.;
-#X obj 20 519 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 524 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 425 1\.;
+#X text 170 425 bang:;
+#X text 270 425 output specified properites to corresponding outlets.;
+#X text 170 450 any:;
+#X text 270 450 output specified property to second outlet.;
+#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 490 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 525 1\.;
-#X text 245 525 connected to destination object.;
-#X text 110 545 2\.;
-#X text 245 545 output of first requested property.;
-#X text 110 565 ...;
-#X text 245 565 output of ... requested property.;
-#X text 110 585 n+1\.;
-#X text 245 585 output of n-th requested property.;
+#X text 130 491 1\.;
+#X text 270 491 connected to destination object.;
+#X text 130 511 2\.;
+#X text 270 511 output of first requested property.;
+#X text 130 531 ...;
+#X text 270 531 output of ... requested property.;
+#X text 130 551 n+1\.;
+#X text 270 551 output of n-th requested property.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
-#X obj 1 635 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 638 библиотека: ceammc v0.9.8;
-#X text 575 650 смотрите также:;
-#X obj 696 650 prop<-;
-#N canvas 10 657 400 290 info 0;
+#X obj 1 601 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 604 библиотека: ceammc v0.9.8;
+#X text 575 616 смотрите также:;
+#X obj 696 616 prop<-;
+#N canvas 10 623 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -80,7 +80,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 657 pd info;
+#X restore 10 623 pd info;
 #X connect 7 0 8 0;
 #X connect 8 2 9 0;
 #X connect 8 0 10 0;

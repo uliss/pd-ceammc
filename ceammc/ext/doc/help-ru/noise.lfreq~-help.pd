@@ -17,52 +17,52 @@
 -49933 0;
 #X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 453 1\.;
-#X text 150 453 float;
-#X obj 246 454 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 453 FREQ(Hz): noise generation freq. Тип: float. Диапазон:
+#X text 130 419 1\.;
+#X text 170 419 float;
+#X obj 271 420 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 419 FREQ(Hz): noise generation freq. Тип: float. Диапазон:
 5…22050;
-#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 503 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 469 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 506 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 472 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 538 @id;
-#X text 245 538 (при инициализации) Получить/Установить идентификатор
+#X msg 130 470 @id;
+#X text 270 470 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/noise_lfreq/ИМЯ_СВОЙСТВА \, в противном
 случае к /noise_lfreq/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 625 @osc;
-#X text 245 625 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 557 @osc;
+#X text 270 557 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 667 @active;
-#X text 245 667 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 599 @active;
+#X text 270 599 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 709 @freq;
-#X text 245 709 Получить/Установить noise generation freq. Тип: float.
+#X msg 130 641 @freq;
+#X text 270 641 Получить/Установить noise generation freq. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 1000\. Диапазон: 5\...22050\.;
-#X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 781 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 713 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 782 1\.;
-#X text 150 782 float:;
-#X text 245 782 set average frequency.;
-#X obj 20 817 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 822 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 714 1\.;
+#X text 170 714 float:;
+#X text 270 714 set average frequency.;
+#X obj 20 749 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 754 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 823 1\.;
-#X text 150 823 ~;
-#X text 245 823 output signal.;
+#X text 130 755 1\.;
+#X text 170 755 ~;
+#X text 270 755 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 873 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 876 библиотека: ceammc v0.9.8;
-#X text 524 888 смотрите также:;
-#X obj 645 888 noise.lfreq0~;
-#N canvas 10 895 400 290 info 0;
+#X obj 1 805 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 808 библиотека: ceammc v0.9.8;
+#X text 524 820 смотрите также:;
+#X obj 645 820 noise.lfreq0~;
+#N canvas 10 827 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -86,7 +86,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 895 pd info;
+#X restore 10 827 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

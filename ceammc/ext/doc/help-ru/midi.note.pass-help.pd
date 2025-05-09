@@ -6,16 +6,16 @@
 -4096 0;
 #X obj 548 11 note.pass;
 #X obj 638 11 midi.note.pass;
-#X obj 205 78 cnv 1 560 204 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Passes midi notes (list of PITCH VELOCITY DUR?) for
+#X obj 230 78 cnv 1 535 204 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Passes midi notes (list of PITCH VELOCITY DUR?) for
 which expression returns true.;
-#X text 215 123 Available variables: $N - MIDI note \, $V - MIDI velocity;
-#X text 215 148 Available functions: white(NOTE) \, black(NOTE) \,
+#X text 240 123 Available variables: $N - MIDI note \, $V - MIDI velocity;
+#X text 240 148 Available functions: white(NOTE) \, black(NOTE) \,
 oct(NOTE) \, abs(X) \, sqrt(X);
-#X text 215 188 Available math operations: + \, - \, * \, / \, % \,
+#X text 240 188 Available math operations: + \, - \, * \, / \, % \,
 ^ \, == \, != \, > \, >= \, < \, <= \, && \, ||;
-#X text 215 228 see for more information:;
-#X obj 215 253 ui.link @background_color 0.98039 0.98039 0.98039
+#X text 240 228 see for more information:;
+#X obj 240 253 ui.link @background_color 0.98039 0.98039 0.98039
 @title
 https://beltoforion.de/en/muparser/features.php#idDef1 @url
 https://beltoforion.de/en/muparser/features.php#idDef1;
@@ -37,41 +37,41 @@ https://beltoforion.de/en/muparser/features.php#idDef1;
 -49933 0;
 #X obj 735 648 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 680 1\.;
-#X text 150 680 list;
-#X obj 246 681 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 680 EXPR: init expression. Тип: list.;
-#X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 715 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 646 1\.;
+#X text 170 646 list;
+#X obj 271 647 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 646 EXPR: init expression. Тип: list.;
+#X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 681 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 718 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 684 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 750 @expr;
-#X text 245 750 Получить/Установить expression. Тип: list.;
-#X obj 20 790 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 795 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 682 @expr;
+#X text 270 682 Получить/Установить expression. Тип: list.;
+#X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 727 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 796 1\.;
-#X text 150 796 list:;
-#X text 245 796 NOTE VELOCITY [DUR] list.;
-#X text 110 821 2\.;
-#X text 150 821 list:;
-#X text 245 821 set new expression.;
-#X obj 20 856 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 861 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 728 1\.;
+#X text 170 728 list:;
+#X text 270 728 NOTE VELOCITY [DUR] list.;
+#X text 130 753 2\.;
+#X text 170 753 list:;
+#X text 270 753 set new expression.;
+#X obj 20 788 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 793 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 862 1\.;
-#X text 245 862 passed NOTE VELOCITY [DUR] list.;
+#X text 130 794 1\.;
+#X text 270 794 passed NOTE VELOCITY [DUR] list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 912 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 915 библиотека: ceammc v0.9.8;
-#X text 589 927 смотрите также:;
-#X obj 710 927 expr;
-#N canvas 10 934 400 290 info 0;
+#X obj 1 844 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 847 библиотека: ceammc v0.9.8;
+#X text 589 859 смотрите также:;
+#X obj 710 859 expr;
+#N canvas 10 866 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -95,7 +95,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 934 pd info;
+#X restore 10 866 pd info;
 #X connect 12 0 14 0;
 #X connect 14 0 15 0;
 #X connect 15 0 16 0;

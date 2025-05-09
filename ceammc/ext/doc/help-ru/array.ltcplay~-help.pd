@@ -29,44 +29,44 @@
 -49933 0;
 #X obj 735 479 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 511 1\.;
-#X text 150 511 symbol;
-#X obj 246 512 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 511 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 541 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 546 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 477 1\.;
+#X text 170 477 symbol;
+#X obj 271 478 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 477 ARRAY: имя массива. Тип: symbol.;
+#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 512 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 549 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 515 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 581 @array;
-#X text 245 581 Получить/Установить имя массива. Тип: symbol.;
-#X msg 110 611 @fps;
-#X text 245 611 Получить/Установить ожидаемая скорость потока кадров
+#X msg 130 513 @array;
+#X text 270 513 Получить/Установить имя массива. Тип: symbol.;
+#X msg 130 543 @fps;
+#X text 270 543 Получить/Установить ожидаемая скорость потока кадров
 LTC. Тип: atom. Значение по умолчанию: auto. Разрешённые значения:
 auto \, 24 \, 25 \, 29.97 \, 30\.;
-#X obj 20 678 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 683 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 615 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 684 1\.;
-#X text 150 684 ~;
-#X text 245 684 входной сигнал LTC.;
-#X text 110 709 2\.;
-#X text 150 709 symbol:;
-#X text 245 709 установить исходный массив.;
-#X obj 20 744 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 749 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 616 1\.;
+#X text 170 616 ~;
+#X text 270 616 входной сигнал LTC.;
+#X text 130 641 2\.;
+#X text 170 641 symbol:;
+#X text 270 641 установить исходный массив.;
+#X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 681 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 750 1\.;
-#X text 150 750 ~;
-#X text 245 750 выход воспроизведения.;
+#X text 130 682 1\.;
+#X text 170 682 ~;
+#X text 270 682 выход воспроизведения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 800 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 803 библиотека: ceammc v0.9.8;
-#N canvas 10 822 400 290 info 0;
+#X obj 1 732 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 735 библиотека: ceammc v0.9.8;
+#N canvas 10 754 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,7 +90,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 822 pd info;
+#X restore 10 754 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;

@@ -16,53 +16,53 @@
 -49933 0;
 #X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 295 1\.;
-#X text 150 295 int;
-#X obj 246 296 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 295 N: number of inputs. Тип: int. Диапазон: 1…32;
-#X text 110 315 2\.;
-#X text 150 315 list;
-#X obj 246 316 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 315 MSG: message prefix. Тип: list.;
-#X obj 20 345 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 350 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 261 1\.;
+#X text 170 261 int;
+#X obj 271 262 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 261 N: number of inputs. Тип: int. Диапазон: 1…32;
+#X text 130 281 2\.;
+#X text 170 281 list;
+#X obj 271 282 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 281 MSG: message prefix. Тип: list.;
+#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 353 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 319 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 385 @n;
-#X text 245 385 (при инициализации) Получить/Установить number of inlets.
+#X msg 130 317 @n;
+#X text 270 317 (при инициализации) Получить/Установить number of inlets.
 Тип: int. Значение по умолчанию: 2\. Диапазон: 1\...32\.;
-#X msg 110 427 @msg;
-#X text 245 427 Получить/Установить message prefix. Change value via
+#X msg 130 359 @msg;
+#X text 270 359 Получить/Установить message prefix. Change value via
 [prop.set] object. Тип: list.;
-#X msg 110 469 @sync;
-#X text 245 469 Получить/Установить sync mode. If true: output value
+#X msg 130 401 @sync;
+#X text 270 401 Получить/Установить sync mode. If true: output value
 on each inlet value change. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 20 521 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 526 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 458 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 527 1\.;
-#X text 245 527 first atom.;
-#X text 110 552 ...;
-#X text 245 552 ... atom.;
-#X text 110 577 n.;
-#X text 245 577 n-th atom.;
-#X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 617 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 459 1\.;
+#X text 270 459 first atom.;
+#X text 130 484 ...;
+#X text 270 484 ... atom.;
+#X text 130 509 n.;
+#X text 270 509 n-th atom.;
+#X obj 20 544 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 549 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 618 1\.;
-#X text 245 618 message output.;
+#X text 130 550 1\.;
+#X text 270 550 message output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title msg @url ceammc.msg-help.pd;
-#X obj 1 668 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 671 библиотека: ceammc v0.9.8;
-#X text 508 683 смотрите также:;
-#X obj 629 683 msg;
-#X obj 666 683 msg.unpack;
-#N canvas 10 690 400 290 info 0;
+#X obj 1 600 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 603 библиотека: ceammc v0.9.8;
+#X text 508 615 смотрите также:;
+#X obj 629 615 msg;
+#X obj 666 615 msg.unpack;
+#N canvas 10 622 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -86,7 +86,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 690 pd info;
+#X restore 10 622 pd info;
 #X connect 6 0 7 0;
 #X connect 4 0 8 0;
 #X connect 5 0 8 1;

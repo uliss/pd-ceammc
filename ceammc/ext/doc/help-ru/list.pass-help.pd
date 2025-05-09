@@ -16,47 +16,47 @@
 -49933 0;
 #X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 324 1\.;
-#X text 150 324 list;
-#X obj 246 325 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 324 ARGS: list of passed value. Тип: list.;
-#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 359 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 290 1\.;
+#X text 170 290 list;
+#X obj 271 291 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 290 ARGS: list of passed value. Тип: list.;
+#X obj 20 320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 325 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 362 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 328 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 394 @args;
-#X text 245 394 Получить/Установить list of passed value. Тип: list.;
-#X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 439 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 326 @args;
+#X text 270 326 Получить/Установить list of passed value. Тип: list.;
+#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 371 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 440 1\.;
-#X text 150 440 float:;
-#X text 245 440 input float.;
-#X text 150 465 symbol:;
-#X text 245 465 input symbol.;
-#X text 150 490 list:;
-#X text 245 490 input list.;
-#X text 150 515 data:mlist:;
-#X text 245 515 input mlist.;
-#X text 110 540 2\.;
-#X text 150 540 list:;
-#X text 245 540 set passed values.;
-#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 580 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 372 1\.;
+#X text 170 372 float:;
+#X text 270 372 input float.;
+#X text 170 397 symbol:;
+#X text 270 397 input symbol.;
+#X text 170 422 list:;
+#X text 270 422 input list.;
+#X text 170 447 data:mlist:;
+#X text 270 447 input mlist.;
+#X text 130 472 2\.;
+#X text 170 472 list:;
+#X text 270 472 set passed values.;
+#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 512 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 581 1\.;
-#X text 245 581 output list with passed elements.;
+#X text 130 513 1\.;
+#X text 270 513 output list with passed elements.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 631 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 634 библиотека: ceammc v0.9.8;
-#X text 532 646 смотрите также:;
-#X obj 653 646 list.pass_if;
-#N canvas 10 653 400 290 info 0;
+#X obj 1 563 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 566 библиотека: ceammc v0.9.8;
+#X text 532 578 смотрите также:;
+#X obj 653 578 list.pass_if;
+#N canvas 10 585 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -80,7 +80,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 653 pd info;
+#X restore 10 585 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
 #X connect 4 0 8 0;

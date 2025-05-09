@@ -27,118 +27,118 @@
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 352 1\.;
-#X text 150 352 atom;
-#X obj 246 353 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 352 TEMPO(bpm): tempo in beats per minute. Тип: atom.;
-#X text 110 372 2\.;
-#X text 150 372 symbol;
-#X obj 246 373 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 372 TSIG: time signature. Тип: symbol.;
-#X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 407 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 318 1\.;
+#X text 170 318 atom;
+#X obj 271 319 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 318 TEMPO(bpm): tempo in beats per minute. Тип: atom.;
+#X text 130 338 2\.;
+#X text 170 338 symbol;
+#X obj 271 339 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 338 TSIG: time signature. Тип: symbol.;
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 410 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 442 @id;
-#X text 245 442 (при инициализации) Получить/Установить идентификатор
+#X msg 130 374 @id;
+#X text 270 374 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_metro/ИМЯ_СВОЙСТВА \, в противном
 случае к /synth_metro/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 529 @osc;
-#X text 245 529 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 461 @osc;
+#X text 270 461 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 571 @active;
-#X text 245 571 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 503 @active;
+#X text 270 503 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 613 @down.freq;
-#X text 245 613 Получить/Установить downbeat frequency. Тип: float.
+#X msg 130 545 @down.freq;
+#X text 270 545 Получить/Установить downbeat frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 1500\. Диапазон: 100\...5000\.;
-#X msg 110 655 @down.gain;
-#X text 245 655 Получить/Установить downbeat gain. Тип: float. Единицы:
+#X msg 130 587 @down.gain;
+#X text 270 587 Получить/Установить downbeat gain. Тип: float. Единицы:
 'db'. Значение по умолчанию: 6\. Диапазон: -12\...12\.;
-#X msg 110 697 @down.reson;
-#X text 245 697 Получить/Установить downbeat resonance value (Q). Тип:
+#X msg 130 629 @down.reson;
+#X text 270 629 Получить/Установить downbeat resonance value (Q). Тип:
 float. Значение по умолчанию: 50\. Диапазон: 5\...100\.;
-#X msg 110 739 @gain;
-#X text 245 739 Получить/Установить common synth gain. Тип: float.
+#X msg 130 671 @gain;
+#X text 270 671 Получить/Установить common synth gain. Тип: float.
 Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -12\...12\.;
-#X msg 110 781 @mark.freq;
-#X text 245 781 Получить/Установить mark sound frequency. Тип: float.
+#X msg 130 713 @mark.freq;
+#X text 270 713 Получить/Установить mark sound frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 2000\. Диапазон: 100\...5000\.;
-#X msg 110 838 @mark.gain;
-#X text 245 838 Получить/Установить mark sound gain. Тип: float. Единицы:
+#X msg 130 770 @mark.gain;
+#X text 270 770 Получить/Установить mark sound gain. Тип: float. Единицы:
 'db'. Значение по умолчанию: 6\. Диапазон: -12\...12\.;
-#X msg 110 880 @mark.reson;
-#X text 245 880 Получить/Установить mark sound resonance value (Q).
+#X msg 130 812 @mark.reson;
+#X text 270 812 Получить/Установить mark sound resonance value (Q).
 Тип: float. Значение по умолчанию: 500\. Диапазон: 5\...500\.;
-#X msg 110 922 @off.freq;
-#X text 245 922 Получить/Установить off-beat frequency. Тип: float.
+#X msg 130 854 @off.freq;
+#X text 270 854 Получить/Установить off-beat frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 500\. Диапазон: 100\...5000\.;
-#X msg 110 964 @off.gain;
-#X text 245 964 Получить/Установить off-beat gain. Тип: float. Единицы:
+#X msg 130 896 @off.gain;
+#X text 270 896 Получить/Установить off-beat gain. Тип: float. Единицы:
 'db'. Значение по умолчанию: 6\. Диапазон: -12\...12\.;
-#X msg 110 1006 @off.reson;
-#X text 245 1006 Получить/Установить off-beat resonance value (Q).
-Тип: float. Значение по умолчанию: 10\. Диапазон: 5\...100\.;
-#X msg 110 1048 @on.freq;
-#X text 245 1048 Получить/Установить on-beat frequency. Тип: float.
+#X msg 130 938 @off.reson;
+#X text 270 938 Получить/Установить off-beat resonance value (Q). Тип:
+float. Значение по умолчанию: 10\. Диапазон: 5\...100\.;
+#X msg 130 980 @on.freq;
+#X text 270 980 Получить/Установить on-beat frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 1000\. Диапазон: 100\...5000\.;
-#X msg 110 1090 @on.gain;
-#X text 245 1090 Получить/Установить on-beat gain. Тип: float. Единицы:
+#X msg 130 1022 @on.gain;
+#X text 270 1022 Получить/Установить on-beat gain. Тип: float. Единицы:
 'db'. Значение по умолчанию: 6\. Диапазон: -12\...12\.;
-#X msg 110 1132 @on.reson;
-#X text 245 1132 Получить/Установить on-beat resonance value (Q). Тип:
+#X msg 130 1064 @on.reson;
+#X text 270 1064 Получить/Установить on-beat resonance value (Q). Тип:
 float. Значение по умолчанию: 30\. Диапазон: 5\...100\.;
-#X msg 110 1174 @tempo;
-#X text 245 1174 Получить/Установить tempo. If beat division is ommitted
+#X msg 130 1106 @tempo;
+#X text 270 1106 Получить/Установить tempo. If beat division is ommitted
 \, using 1/4\. Тип: atom. Единицы: 'bpm'. Значение по умолчанию: 60|4bpm.;
-#X msg 110 1231 @tsig;
-#X text 245 1231 Получить/Установить metronome time signature \, can
+#X msg 130 1163 @tsig;
+#X text 270 1163 Получить/Установить metronome time signature \, can
 be complex like: |1/4+15/16| etc. Тип: symbol. Значение по умолчанию:
 |4/4|.;
-#X obj 20 1298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1303 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1230 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1235 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1304 down;
-#X text 245 1304 manually play downbeat sound.;
-#X msg 110 1332 mark;
-#X text 245 1332 manually play mark sound.;
-#X msg 110 1360 off;
-#X text 245 1360 manually play offbeat sound.;
-#X msg 110 1388 on;
-#X text 245 1388 manually play onbeat sound.;
-#X msg 110 1416 reset;
-#X text 245 1416 reset metro to the beginning.;
-#X obj 20 1454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1459 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1236 down;
+#X text 270 1236 manually play downbeat sound.;
+#X msg 130 1264 mark;
+#X text 270 1264 manually play mark sound.;
+#X msg 130 1292 off;
+#X text 270 1292 manually play offbeat sound.;
+#X msg 130 1320 on;
+#X text 270 1320 manually play onbeat sound.;
+#X msg 130 1348 reset;
+#X text 270 1348 reset metro to the beginning.;
+#X obj 20 1386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1391 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1460 1\.;
-#X text 150 1460 float:;
-#X text 245 1460 1: start \, 0: stop metronome.;
-#X text 110 1485 2\.;
-#X text 150 1485 int:;
-#X text 245 1485 1: play downbeat \, 2: play on-beat \, 3: play off-beat.;
-#X text 110 1510 3\.;
-#X text 150 1510 float:;
-#X text 245 1510 set tempo in 1/4 per minute.;
-#X obj 20 1545 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1550 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1392 1\.;
+#X text 170 1392 float:;
+#X text 270 1392 1: start \, 0: stop metronome.;
+#X text 130 1417 2\.;
+#X text 170 1417 int:;
+#X text 270 1417 1: play downbeat \, 2: play on-beat \, 3: play off-beat.;
+#X text 130 1442 3\.;
+#X text 170 1442 float:;
+#X text 270 1442 set tempo in 1/4 per minute.;
+#X obj 20 1477 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1482 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1551 1\.;
-#X text 150 1551 ~;
-#X text 245 1551 synth output.;
-#X text 110 1571 2\.;
-#X text 245 1571 current beat: 1: downbeat \, 2: onbeat \, 3: offbeat
+#X text 130 1483 1\.;
+#X text 170 1483 ~;
+#X text 270 1483 synth output.;
+#X text 130 1503 2\.;
+#X text 270 1503 current beat: 1: downbeat \, 2: onbeat \, 3: offbeat
 \, 4: mark.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1621 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1624 библиотека: ceammc v0.9.8;
-#N canvas 10 1643 400 290 info 0;
+#X obj 1 1553 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1556 библиотека: ceammc v0.9.8;
+#N canvas 10 1575 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -162,7 +162,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1643 pd info;
+#X restore 10 1575 pd info;
 #X connect 9 0 10 0;
 #X connect 4 0 16 0;
 #X connect 10 0 16 0;

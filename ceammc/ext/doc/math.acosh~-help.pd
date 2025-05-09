@@ -5,11 +5,11 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.acosh~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 math.acosh~;
-#X obj 205 78 cnv 1 560 89 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Outputs the principle value of the hyperbolic arc cosine
+#X obj 230 78 cnv 1 535 89 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Outputs the principle value of the hyperbolic arc cosine
 of input signal. Input signal expected to be >= 1 \, otherwise output
 will be NAN;
-#X obj 215 138 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 138 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Inverse             hyperbolic functions @url
 https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions;
 #X obj 50 215 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -22,15 +22,15 @@ https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions;
 #X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 573 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 574 1\.;
-#X text 150 574 ~;
-#X text 245 574 input signal.;
+#X text 130 574 1\.;
+#X text 170 574 ~;
+#X text 270 574 input signal.;
 #X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 614 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 615 1\.;
-#X text 150 615 ~;
-#X text 245 615 result signal.;
+#X text 130 615 1\.;
+#X text 170 615 ~;
+#X text 270 615 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

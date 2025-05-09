@@ -8,8 +8,8 @@
 [ui.t] @url ui.toggle-help.pd;
 #X obj 672 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.toggle] @url ui.toggle-help.pd;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 This is the ceammc counterpart of the vanilla toggle;
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 This is the ceammc counterpart of the vanilla toggle;
 #X obj 222 161 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 190 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -25,136 +25,136 @@
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 346 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 110 381 Left-click;
-#X text 285 381 toggles state.;
-#X text 110 401 Double-click + ⇧;
-#X text 285 401 toggle MIDI-learn mode (red border displayed).;
-#X text 110 421 Right-click + ⇧;
-#X text 285 421 open object help.;
-#X text 110 441 Right-click + ⌥;
-#X text 285 441 open properties dialog.;
-#X text 110 461 Right-click;
-#X text 285 461 opens Pd popup menu.;
-#X text 61 461 [Edit];
-#X text 110 481 Right-click + ⇧;
-#X text 285 481 open object help.;
-#X text 61 481 [Edit];
-#X text 110 501 Right-click + ⌥;
-#X text 285 501 open properties dialog.;
-#X text 61 501 [Edit];
+#X text 130 381 Left-click;
+#X text 310 381 toggles state.;
+#X text 130 401 Double-click + ⇧;
+#X text 310 401 toggle MIDI-learn mode (red border displayed).;
+#X text 130 421 Right-click + ⇧;
+#X text 310 421 open object help.;
+#X text 130 441 Right-click + ⌥;
+#X text 310 441 open properties dialog.;
+#X text 130 461 Right-click;
+#X text 310 461 opens Pd popup menu.;
+#X text 81 461 [Edit];
+#X text 130 481 Right-click + ⇧;
+#X text 310 481 open object help.;
+#X text 81 481 [Edit];
+#X text 130 501 Right-click + ⌥;
+#X text 310 501 open properties dialog.;
+#X text 81 501 [Edit];
 #X obj 20 531 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 536 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 539 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 571 @off_value;
-#X text 245 571 Get/Set output off value. Type: float. Default value:
+#X msg 130 537 @off_value;
+#X text 270 537 Get/Set output off value. Type: float. Default value:
 0\.;
-#X msg 110 601 @on_value;
-#X text 245 601 Get/Set output on value. Type: float. Default value:
+#X msg 130 567 @on_value;
+#X text 270 567 Get/Set output on value. Type: float. Default value:
 1\.;
-#X msg 110 631 @receive;
-#X text 245 631 Get/Set source of message receive. Type: symbol. Default
+#X msg 130 597 @receive;
+#X text 270 597 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 673 @send;
-#X text 245 673 Get/Set address for sending messages. Type: symbol.
+#X msg 130 639 @send;
+#X text 270 639 Get/Set address for sending messages. Type: symbol.
 Default value: (null).;
-#X msg 110 715 @value;
-#X text 245 715 Get/Set widget logical value. Type: int. Default value:
+#X msg 130 681 @value;
+#X text 270 681 Get/Set widget logical value. Type: int. Default value:
 0\. Allowed values: 0 \, 1\.;
-#X msg 110 757 @midi_channel;
-#X text 245 757 Get/Set MIDI channel binding. If set to 0 \, it binds
+#X msg 130 723 @midi_channel;
+#X text 270 723 Get/Set MIDI channel binding. If set to 0 \, it binds
 to all channels. The values in the range [1\..16] are mapped to the
 channels of the first Pd MIDI device \, [17\..32] to the channels of
 the second \, and so on. Type: int. Default value: 0\. Range: 0\...255\.;
-#X msg 110 860 @midi_control;
-#X text 245 860 Get/Set binded MIDI controller number. -1 means not
+#X msg 130 826 @midi_control;
+#X text 270 826 Get/Set binded MIDI controller number. -1 means not
 binded to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
-#X msg 110 917 @active_color;
-#X text 245 917 Get/Set element active color (list of red \, green
+#X msg 130 883 @active_color;
+#X text 270 883 Get/Set element active color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 959 @background_color;
-#X text 245 959 Get/Set element background color (list of red \, green
+#X msg 130 925 @background_color;
+#X text 270 925 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 1016 @border_color;
-#X text 245 1016 Get/Set border color (list of red \, green \, blue
+#X msg 130 982 @border_color;
+#X text 270 982 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1058 @fontname;
-#X text 245 1058 Get/Set font name. Type: symbol. Default value: Helvetica.
+#X msg 130 1024 @fontname;
+#X text 270 1024 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1100 @fontsize;
-#X text 245 1100 Get/Set font size. Type: int. Default value: 11\.
+#X msg 130 1066 @fontsize;
+#X text 270 1066 Get/Set font size. Type: int. Default value: 11\.
 Range: 4\...100\.;
-#X msg 110 1142 @fontslant;
-#X text 245 1142 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 130 1108 @fontslant;
+#X text 270 1108 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1184 @fontweight;
-#X text 245 1184 Get/Set font weight. Type: symbol. Default value:
+#X msg 130 1150 @fontweight;
+#X text 270 1150 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1226 @pinned;
-#X text 245 1226 Get/Set pin mode. If set to 1 \, it places the element
+#X msg 130 1192 @pinned;
+#X text 270 1192 Get/Set pin mode. If set to 1 \, it places the element
 at the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
-#X msg 110 1283 @presetname;
-#X text 245 1283 Get/Set preset name for using with [ui.preset] or
+#X msg 130 1249 @presetname;
+#X text 270 1249 Get/Set preset name for using with [ui.preset] or
 [preset.storage] objects. Type: symbol. Default value: (null).;
-#X msg 110 1340 @size;
-#X text 245 1340 Get/Set object size (width \, height pair). Type:
+#X msg 130 1306 @size;
+#X text 270 1306 Get/Set object size (width \, height pair). Type:
 list. Default value: 15 15\.;
-#X obj 20 1392 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1397 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1358 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1363 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1398 clear;
-#X text 245 1398 clears specified preset. Arguments are:;
-#X obj 255 1421 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1421 IDX: preset index. Type: int.;
-#X msg 110 1446 interp;
-#X text 245 1446 for this object acts as *load* \, no interpolation
+#X msg 130 1364 clear;
+#X text 270 1364 clears specified preset. Arguments are:;
+#X obj 280 1387 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1387 IDX: preset index. Type: int.;
+#X msg 130 1412 interp;
+#X text 270 1412 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 1474 load;
-#X text 245 1474 loads specified preset. Arguments are:;
-#X obj 255 1497 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1497 IDX: preset index. Type: int.;
-#X msg 110 1522 pos;
-#X text 245 1522 set UI element position. Arguments are:;
-#X obj 255 1545 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1545 X: top left x-coord. Type: float.;
-#X obj 255 1568 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1568 Y: top right y-coord. Type: float.;
-#X msg 110 1593 set;
-#X text 245 1593 sets toggle state without output.;
-#X msg 110 1621 store;
-#X text 245 1621 stores specified preset. Arguments are:;
-#X obj 255 1644 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1644 IDX: preset index. Type: int.;
-#X msg 110 1669 dump;
-#X text 245 1669 dumps all object info to Pd console window.;
-#X obj 20 1707 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1712 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1440 load;
+#X text 270 1440 loads specified preset. Arguments are:;
+#X obj 280 1463 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1463 IDX: preset index. Type: int.;
+#X msg 130 1488 pos;
+#X text 270 1488 set UI element position. Arguments are:;
+#X obj 280 1511 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1511 X: top left x-coord. Type: float.;
+#X obj 280 1534 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1534 Y: top right y-coord. Type: float.;
+#X msg 130 1559 set;
+#X text 270 1559 sets toggle state without output.;
+#X msg 130 1587 store;
+#X text 270 1587 stores specified preset. Arguments are:;
+#X obj 280 1610 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1610 IDX: preset index. Type: int.;
+#X msg 130 1635 dump;
+#X text 270 1635 dumps all object info to Pd console window.;
+#X obj 20 1673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1678 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1713 1\.;
-#X text 150 1713 bang:;
-#X text 245 1713 change toggle state.;
-#X text 150 1738 float:;
-#X text 245 1738 if *0* given \, sets state to unchecked and outputs
+#X text 130 1679 1\.;
+#X text 170 1679 bang:;
+#X text 270 1679 change toggle state.;
+#X text 170 1704 float:;
+#X text 270 1704 if *0* given \, sets state to unchecked and outputs
 @off_value. On any other number sets to checked state and outputs @on_value.;
-#X obj 20 1803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1808 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1769 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1774 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1809 1\.;
-#X text 245 1809 outputs @on_value or @off_value (by default 0 or 1).;
+#X text 130 1775 1\.;
+#X text 270 1775 outputs @on_value or @off_value (by default 0 or 1).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1859 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1862 library: ceammc v0.9.8;
-#X text 611 1874 see also:;
-#X obj 686 1877 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1825 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1828 library: ceammc v0.9.8;
+#X text 611 1840 see also:;
+#X obj 686 1843 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.bang] @url ui.bang-help.pd;
-#N canvas 10 1881 400 290 info 0;
+#N canvas 10 1847 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -178,7 +178,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1881 pd info;
+#X restore 10 1847 pd info;
 #X connect 7 0 12 0;
 #X connect 8 0 13 0;
 #X connect 9 0 13 0;

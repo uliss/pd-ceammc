@@ -17,14 +17,14 @@
 #X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 415 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 416 1\.;
-#X text 150 416 list:;
-#X text 245 416 radius and angle (in radians) pair.;
+#X text 130 416 1\.;
+#X text 170 416 list:;
+#X text 270 416 radius and angle (in radians) pair.;
 #X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 456 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 457 1\.;
-#X text 245 457 x \, y coordinates pair.;
+#X text 130 457 1\.;
+#X text 270 457 x \, y coordinates pair.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

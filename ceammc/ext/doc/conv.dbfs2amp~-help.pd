@@ -7,8 +7,8 @@
 #X obj 390 11 ceammc/dbfs->amp~;
 #X obj 539 11 dbfs->amp~;
 #X obj 638 11 conv.dbfs2amp~;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Note: db values <= -144 are converted to 0;
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Note: db values <= -144 are converted to 0;
 #X obj 50 161 ui.hsl @min -144 @max 6;
 #X floatatom 50 190 8 0 0 0 - - -;
 #X obj 50 219 dbfs->amp~;
@@ -17,15 +17,15 @@
 #X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 303 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 304 1\.;
-#X text 150 304 ~;
-#X text 245 304 input signal.;
+#X text 130 304 1\.;
+#X text 170 304 ~;
+#X text 270 304 input signal.;
 #X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 344 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 345 1\.;
-#X text 150 345 ~;
-#X text 245 345 converted signal.;
+#X text 130 345 1\.;
+#X text 170 345 ~;
+#X text 270 345 converted signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -13,17 +13,17 @@
 #X obj 20 222 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 227 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 228 1\.;
-#X text 150 228 list:;
-#X text 245 228 input list of floats. Non float values are just ignored.
+#X text 130 228 1\.;
+#X text 170 228 list:;
+#X text 270 228 input list of floats. Non float values are just ignored.
 No output if no floats in list.;
-#X text 150 268 data:mlist:;
-#X text 245 268 same as list.;
+#X text 170 268 data:mlist:;
+#X text 270 268 same as list.;
 #X obj 20 303 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 308 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 309 1\.;
-#X text 245 309 average (float).;
+#X text 130 309 1\.;
+#X text 270 309 average (float).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

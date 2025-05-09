@@ -21,16 +21,16 @@
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 360 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 361 1\.;
-#X text 150 361 symbol:;
-#X text 245 361 outputs filename portion of pathname.;
-#X text 150 386 data:string:;
-#X text 245 386 outputs directory portion of pathname.;
+#X text 130 361 1\.;
+#X text 170 361 symbol:;
+#X text 270 361 outputs filename portion of pathname.;
+#X text 170 386 data:string:;
+#X text 270 386 outputs directory portion of pathname.;
 #X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 426 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 427 1\.;
-#X text 245 427 filename.;
+#X text 130 427 1\.;
+#X text 270 427 filename.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

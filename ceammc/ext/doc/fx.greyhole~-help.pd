@@ -5,13 +5,13 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.greyhole~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 fx.greyhole~;
-#X obj 205 78 cnv 1 560 136 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 A complex echo-like effect \, inspired by the classic
+#X obj 230 78 cnv 1 535 136 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 A complex echo-like effect \, inspired by the classic
 Eventide effect of a similar name. The effect consists of a diffuser
 (like a mini-reverb \, structurally similar to the one used in JPverb)
 connected in a feedback system with a long \, modulated delay-line.
 Excels at producing spacey washes of sound.;
-#X text 215 184 Developed as part of the DEIND project.;
+#X text 240 184 Developed as part of the DEIND project.;
 #X msg 50 262 1000 1000 0 \, 300 300 1000 \, 3000 500 1300 \, 0 100 1400;
 #X obj 50 291 vline~;
 #X obj 50 320 osc.saw~;
@@ -25,84 +25,84 @@ Excels at producing spacey washes of sound.;
 -49933 0;
 #X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 525 @id;
-#X text 245 525 (initonly) Get/Set OSC address id. If specified \,
+#X msg 130 491 @id;
+#X text 270 491 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_greyhole/PROP_NAME osc address \, if
 empty bind to /fx_greyhole/PROP_NAME. Type: symbol.;
-#X msg 110 582 @osc;
-#X text 245 582 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 130 548 @osc;
+#X text 270 548 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 612 @active;
-#X text 245 612 Turn on/off object dsp processing. Type: bool. Default
+#X msg 130 578 @active;
+#X text 270 578 Turn on/off object dsp processing. Type: bool. Default
 value: 1\.;
-#X msg 110 654 @bypass;
-#X text 245 654 Get/Set bypass flag. If true: bypass 'effected' signal.
+#X msg 130 620 @bypass;
+#X text 270 620 Get/Set bypass flag. If true: bypass 'effected' signal.
 Type: bool. Default value: 0\.;
-#X msg 110 696 @damping;
-#X text 245 696 Get/Set controls damping of high-frequencies as the
+#X msg 130 662 @damping;
+#X text 270 662 Get/Set controls damping of high-frequencies as the
 delay decays. 0 is no damping \, 1 is very strong damping. Type: float.
 Default value: 0\. Range: 0\...0.99\.;
-#X msg 110 753 @delaytime;
-#X text 245 753 Get/Set approximate delay time in seconds. Type: float.
+#X msg 130 719 @delaytime;
+#X text 270 719 Get/Set approximate delay time in seconds. Type: float.
 Units: 'sec'. Default value: 0.2\. Range: 0.001\...1.45\.;
-#X msg 110 795 @diffusion;
-#X text 245 795 Get/Set shape of the diffusion unit. Values greater
+#X msg 130 761 @diffusion;
+#X text 270 761 Get/Set shape of the diffusion unit. Values greater
 than 0.707 produce smooth exponential decay. Lower values produce a
 slower build-up of echoes. Type: float. Default value: 0.5\. Range:
 0\...0.99\.;
-#X msg 110 882 @drywet;
-#X text 245 882 Get/Set proportion of mix between the original (dry)
+#X msg 130 848 @drywet;
+#X text 270 848 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Range: 0\...1\.;
-#X msg 110 939 @feedback;
-#X text 245 939 Get/Set amount of feedback for the delay line. Type:
+#X msg 130 905 @feedback;
+#X text 270 905 Get/Set amount of feedback for the delay line. Type:
 float. Default value: 0.9\. Range: 0\...1\.;
-#X msg 110 981 @moddepth;
-#X text 245 981 Get/Set depth of delay-line modulation. Use in combination
+#X msg 130 947 @moddepth;
+#X text 270 947 Get/Set depth of delay-line modulation. Use in combination
 with *@modfreq* to set amount of chorusing within the structure. Type:
 float. Default value: 0.1\. Range: 0\...1\.;
-#X msg 110 1038 @modfreq;
-#X text 245 1038 Get/Set frequency of delay-line modulation. Use in
+#X msg 130 1004 @modfreq;
+#X text 270 1004 Get/Set frequency of delay-line modulation. Use in
 combination with *@moddepth* to set amount of chorusing within the
 structure. Type: float. Default value: 2\. Range: 0\...10\.;
-#X msg 110 1125 @size;
-#X text 245 1125 Get/Set size of delay-lines within the diffusion unit
+#X msg 130 1091 @size;
+#X text 270 1091 Get/Set size of delay-lines within the diffusion unit
 \, producing the impression of a larger or smaller space. Values below
 1 can sound quite metallic. Type: float. Default value: 1\. Range:
 0.5\...3\.;
-#X obj 20 1222 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1227 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1188 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1193 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1228 reset;
-#X text 245 1228 reset to initial state.;
-#X obj 20 1266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1271 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1194 reset;
+#X text 270 1194 reset to initial state.;
+#X obj 20 1232 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1237 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1272 1\.;
-#X text 150 1272 ~;
-#X text 245 1272 left channel.;
-#X text 110 1297 2\.;
-#X text 150 1297 ~;
-#X text 245 1297 right channel.;
-#X obj 20 1332 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1337 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1238 1\.;
+#X text 170 1238 ~;
+#X text 270 1238 left channel.;
+#X text 130 1263 2\.;
+#X text 170 1263 ~;
+#X text 270 1263 right channel.;
+#X obj 20 1298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1303 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1338 1\.;
-#X text 150 1338 ~;
-#X text 245 1338 output signal.;
-#X text 110 1358 2\.;
-#X text 150 1358 ~;
-#X text 245 1358 output signal.;
+#X text 130 1304 1\.;
+#X text 170 1304 ~;
+#X text 270 1304 output signal.;
+#X text 130 1324 2\.;
+#X text 170 1324 ~;
+#X text 270 1324 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1408 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1411 library: ceammc v0.9.8;
-#X text 570 1423 see also:;
-#X obj 645 1423 fx.freeverb2~;
-#N canvas 10 1430 400 290 info 0;
+#X obj 1 1374 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1377 library: ceammc v0.9.8;
+#X text 570 1389 see also:;
+#X obj 645 1389 fx.freeverb2~;
+#N canvas 10 1396 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -126,7 +126,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1430 pd info;
+#X restore 10 1396 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;

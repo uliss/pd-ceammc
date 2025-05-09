@@ -13,185 +13,185 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 352 Left-click;
-#X text 285 352 jump to coord under mouse pointer.;
-#X text 110 372 Right-click;
-#X text 285 372 opens popup menu for quick settings of position: center
+#X text 130 352 Left-click;
+#X text 310 352 jump to coord under mouse pointer.;
+#X text 130 372 Right-click;
+#X text 310 372 opens popup menu for quick settings of position: center
 \, left \, right \, top \, bottom.;
-#X text 110 407 Mouse-drag;
-#X text 285 407 change slider coords.;
-#X text 110 427 Mouse-drag + ⌥;
-#X text 285 427 change only angle coord.;
-#X text 110 447 Mouse-wheel;
-#X text 285 447 change only radius coord.;
-#X text 110 467 Mouse-wheel + ⇧;
-#X text 285 467 change precisely radius coord.;
+#X text 130 407 Mouse-drag;
+#X text 310 407 change slider coords.;
+#X text 130 427 Mouse-drag + ⌥;
+#X text 310 427 change only angle coord.;
+#X text 130 447 Mouse-wheel;
+#X text 310 447 change only radius coord.;
+#X text 130 467 Mouse-wheel + ⇧;
+#X text 310 467 change precisely radius coord.;
 #X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 502 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 505 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 537 @angle;
-#X text 245 537 Получить/Установить angle. Тип: float. Значение по
+#X msg 130 503 @angle;
+#X text 270 503 Получить/Установить angle. Тип: float. Значение по
 умолчанию: 0\.;
-#X msg 110 579 @clockwise;
-#X text 245 579 Получить/Установить clockwise positive direction. Тип:
+#X msg 130 545 @clockwise;
+#X text 270 545 Получить/Установить clockwise positive direction. Тип:
 bool. Значение по умолчанию: 1\.;
-#X msg 110 621 @direction;
-#X text 245 621 Получить/Установить zero-angle direction. Тип: symbol.
+#X msg 130 587 @direction;
+#X text 270 587 Получить/Установить zero-angle direction. Тип: symbol.
 Значение по умолчанию: N. Разрешённые значения: N \, W \, S \, E.;
-#X msg 110 663 @mouse_events;
-#X text 245 663 Получить/Установить mouse events output mode. If on
+#X msg 130 629 @mouse_events;
+#X text 270 629 Получить/Установить mouse events output mode. If on
 outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
 Значение по умолчанию: 0\.;
-#X msg 110 720 @positive;
-#X text 245 720 Получить/Установить use positive output angle range.
+#X msg 130 686 @positive;
+#X text 270 686 Получить/Установить use positive output angle range.
 For example: [0\..360) when using degrees \, otherwise using [-180\..180)
 range. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 777 @radians;
-#X text 245 777 Получить/Установить using radians instead of degrees.
+#X msg 130 743 @radians;
+#X text 270 743 Получить/Установить using radians instead of degrees.
 Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 819 @radius;
-#X text 245 819 Получить/Установить radius. Тип: float. Значение по
+#X msg 130 785 @radius;
+#X text 270 785 Получить/Установить radius. Тип: float. Значение по
 умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 861 @receive;
-#X text 245 861 Получить/Установить источник получения сообщений. Тип:
+#X msg 130 827 @receive;
+#X text 270 827 Получить/Установить источник получения сообщений. Тип:
 symbol. Значение по умолчанию: (null).;
-#X msg 110 903 @send;
-#X text 245 903 Получить/Установить адрес отправки сообщений. Тип:
+#X msg 130 869 @send;
+#X text 270 869 Получить/Установить адрес отправки сообщений. Тип:
 symbol. Значение по умолчанию: (null).;
-#X msg 110 945 @background_color;
-#X text 245 945 Получить/Установить цвета фона у объекта (список из
+#X msg 130 911 @background_color;
+#X text 270 911 Получить/Установить цвета фона у объекта (список из
 красного \, зеленого и синего значений в диапазоне [0\..1]). Тип: list.
 Значение по умолчанию: 0.93 0.93 0.93 1\.;
-#X msg 110 1002 @border_color;
-#X text 245 1002 Получить/Установить цвет границы объекта (список из
+#X msg 130 968 @border_color;
+#X text 270 968 Получить/Установить цвет границы объекта (список из
 красного \, зеленого и синего цветов в [0\..1] диапазоне). Тип: list.
 Значение по умолчанию: 0.6 0.6 0.6 1\.;
-#X msg 110 1059 @label;
-#X text 245 1059 Получить/Установить текст ярлыка. Тип: symbol. Значение
+#X msg 130 1025 @label;
+#X text 270 1025 Получить/Установить текст ярлыка. Тип: symbol. Значение
 по умолчанию: (null).;
-#X msg 110 1101 @label_align;
-#X text 245 1101 Получить/Установить горизонтальное выравнивание ярлыка.
+#X msg 130 1067 @label_align;
+#X text 270 1067 Получить/Установить горизонтальное выравнивание ярлыка.
 Тип: symbol. Значение по умолчанию: left. Разрешённые значения: left
 \, center \, right.;
-#X msg 110 1158 @label_inner;
-#X text 245 1158 Получить/Установить положение ярлыка (1 - внутри \,
+#X msg 130 1124 @label_inner;
+#X text 270 1124 Получить/Установить положение ярлыка (1 - внутри \,
 0 - снаружи объекта). Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1200 @label_margins;
-#X text 245 1200 Получить/Установить отступы ярлыка в пикселях по осям
+#X msg 130 1166 @label_margins;
+#X text 270 1166 Получить/Установить отступы ярлыка в пикселях по осям
 X и Y. Тип: list. Значение по умолчанию: 0 0\.;
-#X msg 110 1242 @label_side;
-#X text 245 1242 Получить/Установить сторона прикрепления ярлыка. Тип:
+#X msg 130 1208 @label_side;
+#X text 270 1208 Получить/Установить сторона прикрепления ярлыка. Тип:
 symbol. Значение по умолчанию: top. Разрешённые значения: left \, top
 \, right \, bottom.;
-#X msg 110 1299 @label_valign;
-#X text 245 1299 Получить/Установить вертикальное выравнивание ярлыка.
+#X msg 130 1265 @label_valign;
+#X text 270 1265 Получить/Установить вертикальное выравнивание ярлыка.
 Тип: symbol. Значение по умолчанию: top. Разрешённые значения: top
 \, center \, bottom.;
-#X msg 110 1356 @fontname;
-#X text 245 1356 Получить/Установить имя шрифта. Тип: symbol. Значение
+#X msg 130 1322 @fontname;
+#X text 270 1322 Получить/Установить имя шрифта. Тип: symbol. Значение
 по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
 Helvetica \, Monaco \, Times.;
-#X msg 110 1413 @fontsize;
-#X text 245 1413 Получить/Установить размер шрифта. Тип: int. Значение
+#X msg 130 1379 @fontsize;
+#X text 270 1379 Получить/Установить размер шрифта. Тип: int. Значение
 по умолчанию: 11\. Диапазон: 4\...100\.;
-#X msg 110 1455 @fontslant;
-#X text 245 1455 Получить/Установить наклон шрифта. Тип: symbol. Значение
+#X msg 130 1421 @fontslant;
+#X text 270 1421 Получить/Установить наклон шрифта. Тип: symbol. Значение
 по умолчанию: roman. Разрешённые значения: roman \, italic.;
-#X msg 110 1497 @fontweight;
-#X text 245 1497 Получить/Установить толщину шрифта. Тип: symbol. Значение
+#X msg 130 1463 @fontweight;
+#X text 270 1463 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
-#X msg 110 1539 @pinned;
-#X text 245 1539 Получить/Установить режим закрепления. Если 1 - помещает
+#X msg 130 1505 @pinned;
+#X text 270 1505 Получить/Установить режим закрепления. Если 1 - помещает
 элемент на самый дальний уровень на холсте за другими элементам. Тип:
 bool. Значение по умолчанию: 0\.;
-#X msg 110 1596 @presetname;
-#X text 245 1596 Получить/Установить имя пресета для использования
+#X msg 130 1562 @presetname;
+#X text 270 1562 Получить/Установить имя пресета для использования
 с объектами [ui.preset] или [preset.storage]. Тип: symbol. Значение
 по умолчанию: (null).;
-#X msg 110 1653 @size;
-#X text 245 1653 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
+#X msg 130 1619 @size;
+#X text 270 1619 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
 Тип: list. Значение по умолчанию: 100 100\.;
-#X obj 20 1705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1710 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1671 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1676 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1711 cartesian;
-#X text 245 1711 sets slider position in cartesian coords and output.
+#X msg 130 1677 cartesian;
+#X text 270 1677 sets slider position in cartesian coords and output.
 Аргументы:;
-#X obj 255 1749 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1749 X: x-coord. Тип: float. Диапазон: -1…1\.;
-#X obj 255 1772 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1772 Y: y-coord. Тип: float. Диапазон: -1…1\.;
-#X msg 110 1797 clear;
-#X text 245 1797 clears specified preset. Аргументы:;
-#X obj 255 1820 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1820 IDX: preset index. Тип: int.;
-#X msg 110 1845 interp;
-#X text 245 1845 interplolates between presets. Аргументы:;
-#X obj 255 1868 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1868 IDX: preset fraction index. Тип: float.;
-#X msg 110 1893 load;
-#X text 245 1893 loads specified preset. Аргументы:;
-#X obj 255 1916 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1916 IDX: preset index. Тип: int.;
-#X msg 110 1941 polar;
-#X text 245 1941 sets slider position in polar coords and output. Аргументы:;
-#X obj 255 1964 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1964 RAD: radius. Тип: float. Диапазон: 0…1\.;
-#X obj 255 1987 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1987 ANG: angle in degrees or radians (depends on @use_degrees
+#X obj 280 1715 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1715 X: x-coord. Тип: float. Диапазон: -1…1\.;
+#X obj 280 1738 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1738 Y: y-coord. Тип: float. Диапазон: -1…1\.;
+#X msg 130 1763 clear;
+#X text 270 1763 clears specified preset. Аргументы:;
+#X obj 280 1786 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1786 IDX: preset index. Тип: int.;
+#X msg 130 1811 interp;
+#X text 270 1811 interplolates between presets. Аргументы:;
+#X obj 280 1834 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1834 IDX: preset fraction index. Тип: float.;
+#X msg 130 1859 load;
+#X text 270 1859 loads specified preset. Аргументы:;
+#X obj 280 1882 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1882 IDX: preset index. Тип: int.;
+#X msg 130 1907 polar;
+#X text 270 1907 sets slider position in polar coords and output. Аргументы:;
+#X obj 280 1930 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1930 RAD: radius. Тип: float. Диапазон: 0…1\.;
+#X obj 280 1953 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1953 ANG: angle in degrees or radians (depends on @use_degrees
 property). Тип: float.;
-#X msg 110 2027 pos;
-#X text 245 2027 set UI element position. Аргументы:;
-#X obj 255 2050 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2050 X: top left x-coord. Тип: float.;
-#X obj 255 2073 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2073 Y: top right y-coord. Тип: float.;
-#X msg 110 2098 random;
-#X text 245 2098 set to random value and output.;
-#X msg 110 2126 rotate;
-#X text 245 2126 rotate slider by specified angle. Аргументы:;
-#X obj 255 2149 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2149 A: angle in degrees or radians (depends on @use_degrees
+#X msg 130 1993 pos;
+#X text 270 1993 set UI element position. Аргументы:;
+#X obj 280 2016 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2016 X: top left x-coord. Тип: float.;
+#X obj 280 2039 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2039 Y: top right y-coord. Тип: float.;
+#X msg 130 2064 random;
+#X text 270 2064 set to random value and output.;
+#X msg 130 2092 rotate;
+#X text 270 2092 rotate slider by specified angle. Аргументы:;
+#X obj 280 2115 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2115 A: angle in degrees or radians (depends on @use_degrees
 property). Тип: float.;
-#X msg 110 2189 set;
-#X text 245 2189 sets slider position without output. Аргументы:;
-#X obj 255 2212 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2212 RAD: radius. Тип: float. Диапазон: 0…1\.;
-#X obj 255 2235 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2235 ANG: angle in degrees or radians (depends on @use_degrees
+#X msg 130 2155 set;
+#X text 270 2155 sets slider position without output. Аргументы:;
+#X obj 280 2178 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2178 RAD: radius. Тип: float. Диапазон: 0…1\.;
+#X obj 280 2201 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2201 ANG: angle in degrees or radians (depends on @use_degrees
 property). Тип: float.;
-#X msg 110 2275 store;
-#X text 245 2275 stores specified preset. Аргументы:;
-#X obj 255 2298 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2298 IDX: preset index. Тип: int.;
-#X msg 110 2323 dump;
-#X text 245 2323 dumps all object info to Pd console window.;
-#X obj 20 2361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2366 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 2241 store;
+#X text 270 2241 stores specified preset. Аргументы:;
+#X obj 280 2264 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2264 IDX: preset index. Тип: int.;
+#X msg 130 2289 dump;
+#X text 270 2289 dumps all object info to Pd console window.;
+#X obj 20 2327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2332 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2367 1\.;
-#X text 150 2367 bang:;
-#X text 245 2367 outputs slider position.;
-#X text 150 2392 list:;
-#X text 245 2392 sets slider position and outputs it.;
-#X obj 20 2427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2432 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 2333 1\.;
+#X text 170 2333 bang:;
+#X text 270 2333 outputs slider position.;
+#X text 170 2358 list:;
+#X text 270 2358 sets slider position and outputs it.;
+#X obj 20 2393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2398 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2433 1\.;
-#X text 245 2433 list output of two values: RADIUS and ANGLE.;
+#X text 130 2399 1\.;
+#X text 270 2399 list output of two values: RADIUS and ANGLE.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2483 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2486 библиотека: ceammc v0.9.8;
-#X text 536 2498 смотрите также:;
-#X obj 657 2501 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 2449 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2452 библиотека: ceammc v0.9.8;
+#X text 536 2464 смотрите также:;
+#X obj 657 2467 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.slider2d] @url ui.slider2d-help.pd;
-#N canvas 10 2505 400 290 info 0;
+#N canvas 10 2471 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -215,7 +215,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2505 pd info;
+#X restore 10 2471 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

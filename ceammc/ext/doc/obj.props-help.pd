@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty obj.props 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 obj.props;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 extract properties from object \, connected to second
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 extract properties from object \, connected to second
 outlet;
 #X obj 50 161 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -17,16 +17,16 @@ outlet;
 #X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 343 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 344 1\.;
-#X text 150 344 bang:;
-#X text 245 344 output extracted properties to first outlet.;
+#X text 130 344 1\.;
+#X text 170 344 bang:;
+#X text 270 344 output extracted properties to first outlet.;
 #X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 384 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 385 1\.;
-#X text 245 385 property output (data:dict).;
-#X text 110 405 2\.;
-#X text 245 405 connect to examined object.;
+#X text 130 385 1\.;
+#X text 270 385 property output (data:dict).;
+#X text 130 405 2\.;
+#X text 270 405 connect to examined object.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

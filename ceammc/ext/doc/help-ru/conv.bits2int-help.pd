@@ -7,8 +7,8 @@
 #X obj 415 11 ceammc/bits->int;
 #X obj 556 11 bits->int;
 #X obj 646 11 conv.bits2int;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Note: byte default the least significant bit is the
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Note: byte default the least significant bit is the
 rightmost \, this can be changed with @rev property;
 #X msg 50 176 1 0 1 1;
 #X obj 50 205 bits->int;
@@ -18,20 +18,20 @@ rightmost \, this can be changed with @rev property;
 -49933 0;
 #X obj 735 274 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 306 @rev;
-#X text 245 306 Получить/Установить обратный порядок битов. Тип: bool.
+#X msg 130 272 @rev;
+#X text 270 272 Получить/Установить обратный порядок битов. Тип: bool.
 Значение по умолчанию: 0\.;
-#X obj 20 358 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 363 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 329 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 364 1\.;
-#X text 150 364 list:;
-#X text 245 364 input bit list.;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 330 1\.;
+#X text 170 330 list:;
+#X text 270 330 input bit list.;
+#X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 370 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 405 1\.;
-#X text 245 405 list of bits.;
+#X text 130 371 1\.;
+#X text 270 371 list of bits.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

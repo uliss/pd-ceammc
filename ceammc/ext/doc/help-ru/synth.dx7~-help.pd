@@ -23,326 +23,326 @@
 -49933 0;
 #X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 439 @id;
-#X text 245 439 (при инициализации) Получить/Установить идентификатор
+#X msg 130 405 @id;
+#X text 270 405 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_dx7/ИМЯ_СВОЙСТВА \, в противном
 случае к /synth_dx7/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 526 @osc;
-#X text 245 526 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 492 @osc;
+#X text 270 492 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 568 @active;
-#X text 245 568 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 534 @active;
+#X text 270 534 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 610 @algorithm;
-#X text 245 610 Получить/Установить FM algorithm number (0-based).
+#X msg 130 576 @algorithm;
+#X text 270 576 Получить/Установить FM algorithm number (0-based).
 Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...31\.;
-#X msg 110 652 @feedback;
-#X text 245 652 Получить/Установить @feedback. Тип: float. Значение
+#X msg 130 618 @feedback;
+#X text 270 618 Получить/Установить @feedback. Тип: float. Значение
 по умолчанию: 0.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 694 @freq;
-#X text 245 694 Получить/Установить synth frequency. Тип: float. Единицы:
+#X msg 130 660 @freq;
+#X text 270 660 Получить/Установить synth frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 130.8127899169922\.;
-#X msg 110 736 @gain;
-#X text 245 736 Получить/Установить output gain. Тип: float. Значение
+#X msg 130 702 @gain;
+#X text 270 702 Получить/Установить output gain. Тип: float. Значение
 по умолчанию: 0.800000011920929\. Диапазон: 0.0\...1.0\.;
-#X msg 110 778 @gate;
-#X text 245 778 Получить/Установить note on/off signal. Тип: float.
+#X msg 130 744 @gate;
+#X text 270 744 Получить/Установить note on/off signal. Тип: float.
 Значение по умолчанию: 0.0\. Диапазон: 0.0\...1.0\.;
-#X msg 110 820 @op0:L1;
-#X text 245 820 Получить/Установить op0: Envelope Generator Level 1\.
+#X msg 130 786 @op0:L1;
+#X text 270 786 Получить/Установить op0: Envelope Generator Level 1\.
 Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 862 @op0:L2;
-#X text 245 862 Получить/Установить op0: Envelope Generator Level 2\.
+#X msg 130 828 @op0:L2;
+#X text 270 828 Получить/Установить op0: Envelope Generator Level 2\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 904 @op0:L3;
-#X text 245 904 Получить/Установить op0: Envelope Generator Level 3\.
+#X msg 130 870 @op0:L3;
+#X text 270 870 Получить/Установить op0: Envelope Generator Level 3\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 946 @op0:L4;
-#X text 245 946 Получить/Установить op0: Envelope Generator Level 4\.
+#X msg 130 912 @op0:L4;
+#X text 270 912 Получить/Установить op0: Envelope Generator Level 4\.
 Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 988 @op0:R1;
-#X text 245 988 Получить/Установить op0: Envelope Generator Rate 1\.
+#X msg 130 954 @op0:R1;
+#X text 270 954 Получить/Установить op0: Envelope Generator Rate 1\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1030 @op0:R2;
-#X text 245 1030 Получить/Установить op0: Envelope Generator Rate 2\.
+#X msg 130 996 @op0:R2;
+#X text 270 996 Получить/Установить op0: Envelope Generator Rate 2\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1072 @op0:R3;
-#X text 245 1072 Получить/Установить op0: Envelope Generator Rate 3\.
+#X msg 130 1038 @op0:R3;
+#X text 270 1038 Получить/Установить op0: Envelope Generator Rate 3\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1114 @op0:R4;
-#X text 245 1114 Получить/Установить op0: Envelope Generator Rate 4\.
+#X msg 130 1080 @op0:R4;
+#X text 270 1080 Получить/Установить op0: Envelope Generator Rate 4\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1156 @op0:detune;
-#X text 245 1156 Получить/Установить op0: detune. Тип: float. Значение
+#X msg 130 1122 @op0:detune;
+#X text 270 1122 Получить/Установить op0: detune. Тип: float. Значение
 по умолчанию: 1.0\. Диапазон: -10.0\...10.0\.;
-#X msg 110 1198 @op0:freq;
-#X text 245 1198 Получить/Установить op0: frequency. Тип: float. Единицы:
+#X msg 130 1164 @op0:freq;
+#X text 270 1164 Получить/Установить op0: frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 1.0\. Диапазон: 0.0\...32.0\.;
-#X msg 110 1240 @op0:level;
-#X text 245 1240 Получить/Установить op0: output level. Тип: float.
+#X msg 130 1206 @op0:level;
+#X text 270 1206 Получить/Установить op0: output level. Тип: float.
 Значение по умолчанию: 95.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1282 @op0:opMode;
-#X text 245 1282 Получить/Установить op0: opMode. Тип: float. Значение
+#X msg 130 1248 @op0:opMode;
+#X text 270 1248 Получить/Установить op0: opMode. Тип: float. Значение
 по умолчанию: 0.0\. Диапазон: 0.0\...1.0\.;
-#X msg 110 1324 @op0:rate;
-#X text 245 1324 Получить/Установить op0: rate. Тип: float. Значение
+#X msg 130 1290 @op0:rate;
+#X text 270 1290 Получить/Установить op0: rate. Тип: float. Значение
 по умолчанию: 0.0\. Диапазон: 0.0\...10.0\.;
-#X msg 110 1366 @op0:vel;
-#X text 245 1366 Получить/Установить op0: keyboard velocity sensivity.
+#X msg 130 1332 @op0:vel;
+#X text 270 1332 Получить/Установить op0: keyboard velocity sensivity.
 Тип: float. Значение по умолчанию: 1.0\. Диапазон: 0.0\...8.0\.;
-#X msg 110 1408 @op1:L1;
-#X text 245 1408 Получить/Установить op1: Envelope Generator Level
+#X msg 130 1374 @op1:L1;
+#X text 270 1374 Получить/Установить op1: Envelope Generator Level
 1\. Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1450 @op1:L2;
-#X text 245 1450 Получить/Установить op1: Envelope Generator Level
+#X msg 130 1416 @op1:L2;
+#X text 270 1416 Получить/Установить op1: Envelope Generator Level
 2\. Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1492 @op1:L3;
-#X text 245 1492 Получить/Установить op1: Envelope Generator Level
+#X msg 130 1458 @op1:L3;
+#X text 270 1458 Получить/Установить op1: Envelope Generator Level
 3\. Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1534 @op1:L4;
-#X text 245 1534 Получить/Установить op1: Envelope Generator Level
+#X msg 130 1500 @op1:L4;
+#X text 270 1500 Получить/Установить op1: Envelope Generator Level
 4\. Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1576 @op1:R1;
-#X text 245 1576 Получить/Установить op1: Envelope Generator Rate 1\.
+#X msg 130 1542 @op1:R1;
+#X text 270 1542 Получить/Установить op1: Envelope Generator Rate 1\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1618 @op1:R2;
-#X text 245 1618 Получить/Установить op1: Envelope Generator Rate 2\.
+#X msg 130 1584 @op1:R2;
+#X text 270 1584 Получить/Установить op1: Envelope Generator Rate 2\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1660 @op1:R3;
-#X text 245 1660 Получить/Установить op1: Envelope Generator Rate 3\.
+#X msg 130 1626 @op1:R3;
+#X text 270 1626 Получить/Установить op1: Envelope Generator Rate 3\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1702 @op1:R4;
-#X text 245 1702 Получить/Установить op1: Envelope Generator Rate 4\.
+#X msg 130 1668 @op1:R4;
+#X text 270 1668 Получить/Установить op1: Envelope Generator Rate 4\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1744 @op1:detune;
-#X text 245 1744 Получить/Установить op1: detune. Тип: float. Значение
+#X msg 130 1710 @op1:detune;
+#X text 270 1710 Получить/Установить op1: detune. Тип: float. Значение
 по умолчанию: 1.0\. Диапазон: -10.0\...10.0\.;
-#X msg 110 1786 @op1:freq;
-#X text 245 1786 Получить/Установить op1: frequency. Тип: float. Единицы:
+#X msg 130 1752 @op1:freq;
+#X text 270 1752 Получить/Установить op1: frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 1.0\. Диапазон: 0.0\...32.0\.;
-#X msg 110 1828 @op1:level;
-#X text 245 1828 Получить/Установить op1: output level. Тип: float.
+#X msg 130 1794 @op1:level;
+#X text 270 1794 Получить/Установить op1: output level. Тип: float.
 Значение по умолчанию: 95.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 1870 @op1:opMode;
-#X text 245 1870 Получить/Установить op1: FreqRatio or FreqFixed mode.
+#X msg 130 1836 @op1:opMode;
+#X text 270 1836 Получить/Установить op1: FreqRatio or FreqFixed mode.
 Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...1.0\.;
-#X msg 110 1912 @op1:rate;
-#X text 245 1912 Получить/Установить op1:rate. Тип: float. Значение
+#X msg 130 1878 @op1:rate;
+#X text 270 1878 Получить/Установить op1:rate. Тип: float. Значение
 по умолчанию: 0.0\. Диапазон: 0.0\...10.0\.;
-#X msg 110 1954 @op1:vel;
-#X text 245 1954 Получить/Установить op1: keyboard velocity sensivity.
+#X msg 130 1920 @op1:vel;
+#X text 270 1920 Получить/Установить op1: keyboard velocity sensivity.
 Тип: float. Значение по умолчанию: 1.0\. Диапазон: 0.0\...8.0\.;
-#X msg 110 1996 @op2:L1;
-#X text 245 1996 Получить/Установить op2: Envelope Generator Level
+#X msg 130 1962 @op2:L1;
+#X text 270 1962 Получить/Установить op2: Envelope Generator Level
 1\. Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2038 @op2:L2;
-#X text 245 2038 Получить/Установить op2: Envelope Generator Level
+#X msg 130 2004 @op2:L2;
+#X text 270 2004 Получить/Установить op2: Envelope Generator Level
 2\. Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2080 @op2:L3;
-#X text 245 2080 Получить/Установить op2: Envelope Generator Level
+#X msg 130 2046 @op2:L3;
+#X text 270 2046 Получить/Установить op2: Envelope Generator Level
 3\. Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2122 @op2:L4;
-#X text 245 2122 Получить/Установить op2: Envelope Generator Level
+#X msg 130 2088 @op2:L4;
+#X text 270 2088 Получить/Установить op2: Envelope Generator Level
 4\. Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2164 @op2:R1;
-#X text 245 2164 Получить/Установить op2: Envelope Generator Rate 1\.
+#X msg 130 2130 @op2:R1;
+#X text 270 2130 Получить/Установить op2: Envelope Generator Rate 1\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2206 @op2:R2;
-#X text 245 2206 Получить/Установить op2: Envelope Generator Rate 2\.
+#X msg 130 2172 @op2:R2;
+#X text 270 2172 Получить/Установить op2: Envelope Generator Rate 2\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2248 @op2:R3;
-#X text 245 2248 Получить/Установить op2: Envelope Generator Rate 3\.
+#X msg 130 2214 @op2:R3;
+#X text 270 2214 Получить/Установить op2: Envelope Generator Rate 3\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2290 @op2:R4;
-#X text 245 2290 Получить/Установить op2: Envelope Generator Rate 4\.
+#X msg 130 2256 @op2:R4;
+#X text 270 2256 Получить/Установить op2: Envelope Generator Rate 4\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2332 @op2:detune;
-#X text 245 2332 Получить/Установить op2: detune. Тип: float. Значение
+#X msg 130 2298 @op2:detune;
+#X text 270 2298 Получить/Установить op2: detune. Тип: float. Значение
 по умолчанию: 1.0\. Диапазон: -10.0\...10.0\.;
-#X msg 110 2374 @op2:freq;
-#X text 245 2374 Получить/Установить op2: frequency. Тип: float. Единицы:
+#X msg 130 2340 @op2:freq;
+#X text 270 2340 Получить/Установить op2: frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 1.0\. Диапазон: 0.0\...32.0\.;
-#X msg 110 2416 @op2:level;
-#X text 245 2416 Получить/Установить op2: output level. Тип: float.
+#X msg 130 2382 @op2:level;
+#X text 270 2382 Получить/Установить op2: output level. Тип: float.
 Значение по умолчанию: 95.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2458 @op2:opMode;
-#X text 245 2458 Получить/Установить op2: FreqRatio or FreqFixed mode.
+#X msg 130 2424 @op2:opMode;
+#X text 270 2424 Получить/Установить op2: FreqRatio or FreqFixed mode.
 Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...1.0\.;
-#X msg 110 2500 @op2:rate;
-#X text 245 2500 Получить/Установить op2: rate. Тип: float. Значение
+#X msg 130 2466 @op2:rate;
+#X text 270 2466 Получить/Установить op2: rate. Тип: float. Значение
 по умолчанию: 0.0\. Диапазон: 0.0\...10.0\.;
-#X msg 110 2542 @op2:vel;
-#X text 245 2542 Получить/Установить op2: keyboard velocity sensivity.
+#X msg 130 2508 @op2:vel;
+#X text 270 2508 Получить/Установить op2: keyboard velocity sensivity.
 Тип: float. Значение по умолчанию: 1.0\. Диапазон: 0.0\...8.0\.;
-#X msg 110 2584 @op3:L1;
-#X text 245 2584 Получить/Установить op3: Envelope Generator Level
+#X msg 130 2550 @op3:L1;
+#X text 270 2550 Получить/Установить op3: Envelope Generator Level
 1\. Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2626 @op3:L2;
-#X text 245 2626 Получить/Установить op3: Envelope Generator Level
+#X msg 130 2592 @op3:L2;
+#X text 270 2592 Получить/Установить op3: Envelope Generator Level
 2\. Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2668 @op3:L3;
-#X text 245 2668 Получить/Установить op3: Envelope Generator Level
+#X msg 130 2634 @op3:L3;
+#X text 270 2634 Получить/Установить op3: Envelope Generator Level
 3\. Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2710 @op3:L4;
-#X text 245 2710 Получить/Установить op3: Envelope Generator Level
+#X msg 130 2676 @op3:L4;
+#X text 270 2676 Получить/Установить op3: Envelope Generator Level
 4\. Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2752 @op3:R1;
-#X text 245 2752 Получить/Установить op3: Envelope Generator Rate 1\.
+#X msg 130 2718 @op3:R1;
+#X text 270 2718 Получить/Установить op3: Envelope Generator Rate 1\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2794 @op3:R2;
-#X text 245 2794 Получить/Установить op3: Envelope Generator Rate 2\.
+#X msg 130 2760 @op3:R2;
+#X text 270 2760 Получить/Установить op3: Envelope Generator Rate 2\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2836 @op3:R3;
-#X text 245 2836 Получить/Установить op3: Envelope Generator Rate 3\.
+#X msg 130 2802 @op3:R3;
+#X text 270 2802 Получить/Установить op3: Envelope Generator Rate 3\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2878 @op3:R4;
-#X text 245 2878 Получить/Установить op3: Envelope Generator Rate 4\.
+#X msg 130 2844 @op3:R4;
+#X text 270 2844 Получить/Установить op3: Envelope Generator Rate 4\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 2920 @op3:detune;
-#X text 245 2920 Получить/Установить op3: detune. Тип: float. Значение
+#X msg 130 2886 @op3:detune;
+#X text 270 2886 Получить/Установить op3: detune. Тип: float. Значение
 по умолчанию: 1.0\. Диапазон: -10.0\...10.0\.;
-#X msg 110 2962 @op3:freq;
-#X text 245 2962 Получить/Установить op3: frequency. Тип: float. Единицы:
+#X msg 130 2928 @op3:freq;
+#X text 270 2928 Получить/Установить op3: frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 1.0\. Диапазон: 0.0\...32.0\.;
-#X msg 110 3004 @op3:level;
-#X text 245 3004 Получить/Установить op3: output level. Тип: float.
+#X msg 130 2970 @op3:level;
+#X text 270 2970 Получить/Установить op3: output level. Тип: float.
 Значение по умолчанию: 95.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3046 @op3:opMode;
-#X text 245 3046 Получить/Установить op3: FreqRatio or FreqFixed mode.
+#X msg 130 3012 @op3:opMode;
+#X text 270 3012 Получить/Установить op3: FreqRatio or FreqFixed mode.
 Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...1.0\.;
-#X msg 110 3088 @op3:rate;
-#X text 245 3088 Получить/Установить op3: rate. Тип: float. Значение
+#X msg 130 3054 @op3:rate;
+#X text 270 3054 Получить/Установить op3: rate. Тип: float. Значение
 по умолчанию: 0.0\. Диапазон: 0.0\...10.0\.;
-#X msg 110 3130 @op3:vel;
-#X text 245 3130 Получить/Установить op3: keyboard velocity sensivity.
+#X msg 130 3096 @op3:vel;
+#X text 270 3096 Получить/Установить op3: keyboard velocity sensivity.
 Тип: float. Значение по умолчанию: 1.0\. Диапазон: 0.0\...8.0\.;
-#X msg 110 3172 @op4:L1;
-#X text 245 3172 Получить/Установить op4: Envelope Generator Level
+#X msg 130 3138 @op4:L1;
+#X text 270 3138 Получить/Установить op4: Envelope Generator Level
 1\. Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3214 @op4:L2;
-#X text 245 3214 Получить/Установить op4: Envelope Generator Level
+#X msg 130 3180 @op4:L2;
+#X text 270 3180 Получить/Установить op4: Envelope Generator Level
 2\. Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3256 @op4:L3;
-#X text 245 3256 Получить/Установить op4: Envelope Generator Level
+#X msg 130 3222 @op4:L3;
+#X text 270 3222 Получить/Установить op4: Envelope Generator Level
 3\. Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3298 @op4:L4;
-#X text 245 3298 Получить/Установить op4: Envelope Generator Level
+#X msg 130 3264 @op4:L4;
+#X text 270 3264 Получить/Установить op4: Envelope Generator Level
 4\. Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3340 @op4:R1;
-#X text 245 3340 Получить/Установить op4: Envelope Generator Rate 1\.
+#X msg 130 3306 @op4:R1;
+#X text 270 3306 Получить/Установить op4: Envelope Generator Rate 1\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3382 @op4:R2;
-#X text 245 3382 Получить/Установить op4: Envelope Generator Rate 2\.
+#X msg 130 3348 @op4:R2;
+#X text 270 3348 Получить/Установить op4: Envelope Generator Rate 2\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3424 @op4:R3;
-#X text 245 3424 Получить/Установить op4: Envelope Generator Rate 3\.
+#X msg 130 3390 @op4:R3;
+#X text 270 3390 Получить/Установить op4: Envelope Generator Rate 3\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3466 @op4:R4;
-#X text 245 3466 Получить/Установить op4: Envelope Generator Rate 4\.
+#X msg 130 3432 @op4:R4;
+#X text 270 3432 Получить/Установить op4: Envelope Generator Rate 4\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3508 @op4:detune;
-#X text 245 3508 Получить/Установить op4: detune. Тип: float. Значение
+#X msg 130 3474 @op4:detune;
+#X text 270 3474 Получить/Установить op4: detune. Тип: float. Значение
 по умолчанию: 1.0\. Диапазон: -10.0\...10.0\.;
-#X msg 110 3550 @op4:freq;
-#X text 245 3550 Получить/Установить op4: frequency. Тип: float. Единицы:
+#X msg 130 3516 @op4:freq;
+#X text 270 3516 Получить/Установить op4: frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 1.0\. Диапазон: 0.0\...32.0\.;
-#X msg 110 3592 @op4:level;
-#X text 245 3592 Получить/Установить op4: output level. Тип: float.
+#X msg 130 3558 @op4:level;
+#X text 270 3558 Получить/Установить op4: output level. Тип: float.
 Значение по умолчанию: 95.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3634 @op4:opMode;
-#X text 245 3634 Получить/Установить op4: FreqRatio or FreqFixed mode.
+#X msg 130 3600 @op4:opMode;
+#X text 270 3600 Получить/Установить op4: FreqRatio or FreqFixed mode.
 Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...1.0\.;
-#X msg 110 3676 @op4:rate;
-#X text 245 3676 Получить/Установить op4: rate. Тип: float. Значение
+#X msg 130 3642 @op4:rate;
+#X text 270 3642 Получить/Установить op4: rate. Тип: float. Значение
 по умолчанию: 0.0\. Диапазон: 0.0\...10.0\.;
-#X msg 110 3718 @op4:vel;
-#X text 245 3718 Получить/Установить op4: keyboard velocity sensivity.
+#X msg 130 3684 @op4:vel;
+#X text 270 3684 Получить/Установить op4: keyboard velocity sensivity.
 Тип: float. Значение по умолчанию: 1.0\. Диапазон: 0.0\...8.0\.;
-#X msg 110 3760 @op5:L1;
-#X text 245 3760 Получить/Установить op5: Envelope Generator Level
+#X msg 130 3726 @op5:L1;
+#X text 270 3726 Получить/Установить op5: Envelope Generator Level
 1\. Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3802 @op5:L2;
-#X text 245 3802 Получить/Установить op5: Envelope Generator Level
+#X msg 130 3768 @op5:L2;
+#X text 270 3768 Получить/Установить op5: Envelope Generator Level
 2\. Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3844 @op5:L3;
-#X text 245 3844 Получить/Установить op5: Envelope Generator Level
+#X msg 130 3810 @op5:L3;
+#X text 270 3810 Получить/Установить op5: Envelope Generator Level
 3\. Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3886 @op5:L4;
-#X text 245 3886 Получить/Установить op5: Envelope Generator Level
+#X msg 130 3852 @op5:L4;
+#X text 270 3852 Получить/Установить op5: Envelope Generator Level
 4\. Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3928 @op5:R1;
-#X text 245 3928 Получить/Установить op5: Envelope Generator Rate 1\.
+#X msg 130 3894 @op5:R1;
+#X text 270 3894 Получить/Установить op5: Envelope Generator Rate 1\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 3970 @op5:R2;
-#X text 245 3970 Получить/Установить op5: Envelope Generator Rate 2\.
+#X msg 130 3936 @op5:R2;
+#X text 270 3936 Получить/Установить op5: Envelope Generator Rate 2\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 4012 @op5:R3;
-#X text 245 4012 Получить/Установить op5: Envelope Generator Rate 3\.
+#X msg 130 3978 @op5:R3;
+#X text 270 3978 Получить/Установить op5: Envelope Generator Rate 3\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 4054 @op5:R4;
-#X text 245 4054 Получить/Установить op5: Envelope Generator Rate 4\.
+#X msg 130 4020 @op5:R4;
+#X text 270 4020 Получить/Установить op5: Envelope Generator Rate 4\.
 Тип: float. Значение по умолчанию: 90.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 4096 @op5:detune;
-#X text 245 4096 Получить/Установить op5: detune. Тип: float. Значение
+#X msg 130 4062 @op5:detune;
+#X text 270 4062 Получить/Установить op5: detune. Тип: float. Значение
 по умолчанию: 1.0\. Диапазон: -10.0\...10.0\.;
-#X msg 110 4138 @op5:freq;
-#X text 245 4138 Получить/Установить op5: frequency. Тип: float. Единицы:
+#X msg 130 4104 @op5:freq;
+#X text 270 4104 Получить/Установить op5: frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 1.0\. Диапазон: 0.0\...32.0\.;
-#X msg 110 4180 @op5:level;
-#X text 245 4180 Получить/Установить op5: outut level. Тип: float.
+#X msg 130 4146 @op5:level;
+#X text 270 4146 Получить/Установить op5: outut level. Тип: float.
 Значение по умолчанию: 95.0\. Диапазон: 0.0\...99.0\.;
-#X msg 110 4222 @op5:opMode;
-#X text 245 4222 Получить/Установить op5: FreqRatio or FreqFixed mode.
+#X msg 130 4188 @op5:opMode;
+#X text 270 4188 Получить/Установить op5: FreqRatio or FreqFixed mode.
 Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...1.0\.;
-#X msg 110 4264 @op5:rate;
-#X text 245 4264 Получить/Установить op5: rate. Тип: float. Значение
+#X msg 130 4230 @op5:rate;
+#X text 270 4230 Получить/Установить op5: rate. Тип: float. Значение
 по умолчанию: 0.0\. Диапазон: 0.0\...10.0\.;
-#X msg 110 4306 @op5:vel;
-#X text 245 4306 Получить/Установить op5: keyboard velocity sensivity.
+#X msg 130 4272 @op5:vel;
+#X text 270 4272 Получить/Установить op5: keyboard velocity sensivity.
 Тип: float. Значение по умолчанию: 1.0\. Диапазон: 0.0\...8.0\.;
-#X msg 110 4348 @pitch;
-#X text 245 4348 Получить/Установить midi pitch. Тип: float. Значение
+#X msg 130 4314 @pitch;
+#X text 270 4314 Получить/Установить midi pitch. Тип: float. Значение
 по умолчанию: 48\. Диапазон: 24\...84\.;
-#X obj 20 4400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4405 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 4366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4371 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 4406 load;
-#X text 245 4406 load the preset from a previously loaded sysex file.
+#X msg 130 4372 load;
+#X text 270 4372 load the preset from a previously loaded sysex file.
 Аргументы:;
-#X obj 255 4444 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4444 [IDX]: preset index. Тип: int. Диапазон: 0…31\.;
-#X msg 110 4469 note;
-#X text 245 4469 note on/off message. Аргументы:;
-#X obj 255 4492 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4492 NOTE: midi note. Тип: float.;
-#X obj 255 4515 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4515 VEL: velocity. Тип: float. Диапазон: 0…127\.;
-#X msg 110 4540 read;
-#X text 245 4540 reads the DX7 sysex preset file. Аргументы:;
-#X obj 255 4563 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4563 [PATH]: relative or absolute path to the DX sysex
+#X obj 280 4410 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 4410 [IDX]: preset index. Тип: int. Диапазон: 0…31\.;
+#X msg 130 4435 note;
+#X text 270 4435 note on/off message. Аргументы:;
+#X obj 280 4458 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 4458 NOTE: midi note. Тип: float.;
+#X obj 280 4481 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 4481 VEL: velocity. Тип: float. Диапазон: 0…127\.;
+#X msg 130 4506 read;
+#X text 270 4506 reads the DX7 sysex preset file. Аргументы:;
+#X obj 280 4529 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 4529 [PATH]: relative or absolute path to the DX sysex
 preset file. Тип: symbol.;
-#X obj 20 4613 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4618 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 4579 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4584 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 4619 1\.;
-#X text 150 4619 list:;
-#X text 245 4619 NOTE VEL.;
-#X obj 20 4654 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4659 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 4585 1\.;
+#X text 170 4585 list:;
+#X text 270 4585 NOTE VEL.;
+#X obj 20 4620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4625 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 4660 1\.;
-#X text 150 4660 ~;
-#X text 245 4660 synth output.;
+#X text 130 4626 1\.;
+#X text 170 4626 ~;
+#X text 270 4626 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 4710 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 4713 библиотека: ceammc v0.9.8;
-#N canvas 10 4732 400 290 info 0;
+#X obj 1 4676 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4679 библиотека: ceammc v0.9.8;
+#N canvas 10 4698 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -366,7 +366,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 4732 pd info;
+#X restore 10 4698 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 7 0;
 #X connect 7 0 10 0;

@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty flt.eq10~ 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 flt.eq10~;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 One band per octave. 5th-order Butterworth filters;
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 One band per octave. 5th-order Butterworth filters;
 #X msg 50 161 fill 0.5 \, bang;
 #X obj 280 161 r~ ssc;
 #X obj 50 190 ui.sliders @count 10;
@@ -25,76 +25,76 @@
 -49933 0;
 #X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 554 @id;
-#X text 245 554 (при инициализации) Получить/Установить идентификатор
+#X msg 130 520 @id;
+#X text 270 520 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/flt_eq10/ИМЯ_СВОЙСТВА \, в противном
 случае к /flt_eq10/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 641 @osc;
-#X text 245 641 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 607 @osc;
+#X text 270 607 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 683 @active;
-#X text 245 683 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 649 @active;
+#X text 270 649 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 725 @f1000;
-#X text 245 725 Получить/Установить gain at 1000Hz. Тип: float. Единицы:
+#X msg 130 691 @f1000;
+#X text 270 691 Получить/Установить gain at 1000Hz. Тип: float. Единицы:
 'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
-#X msg 110 767 @f125;
-#X text 245 767 Получить/Установить gain at 125Hz. Тип: float. Единицы:
+#X msg 130 733 @f125;
+#X text 270 733 Получить/Установить gain at 125Hz. Тип: float. Единицы:
 'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
-#X msg 110 809 @f16000;
-#X text 245 809 Получить/Установить gain at 16000Hz. Тип: float. Единицы:
+#X msg 130 775 @f16000;
+#X text 270 775 Получить/Установить gain at 16000Hz. Тип: float. Единицы:
 'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
-#X msg 110 851 @f2000;
-#X text 245 851 Получить/Установить gain at 2000Hz. Тип: float. Единицы:
+#X msg 130 817 @f2000;
+#X text 270 817 Получить/Установить gain at 2000Hz. Тип: float. Единицы:
 'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
-#X msg 110 893 @f250;
-#X text 245 893 Получить/Установить gain at 250Hz. Тип: float. Единицы:
+#X msg 130 859 @f250;
+#X text 270 859 Получить/Установить gain at 250Hz. Тип: float. Единицы:
 'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
-#X msg 110 935 @f31;
-#X text 245 935 Получить/Установить gain at 31.25Hz. Тип: float. Единицы:
+#X msg 130 901 @f31;
+#X text 270 901 Получить/Установить gain at 31.25Hz. Тип: float. Единицы:
 'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
-#X msg 110 977 @f4000;
-#X text 245 977 Получить/Установить gain at 4000Hz. Тип: float. Единицы:
+#X msg 130 943 @f4000;
+#X text 270 943 Получить/Установить gain at 4000Hz. Тип: float. Единицы:
 'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
-#X msg 110 1019 @f500;
-#X text 245 1019 Получить/Установить gain at 500Hz. Тип: float. Единицы:
+#X msg 130 985 @f500;
+#X text 270 985 Получить/Установить gain at 500Hz. Тип: float. Единицы:
 'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
-#X msg 110 1061 @f62;
-#X text 245 1061 Получить/Установить gain at 62.5Hz. Тип: float. Единицы:
+#X msg 130 1027 @f62;
+#X text 270 1027 Получить/Установить gain at 62.5Hz. Тип: float. Единицы:
 'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
-#X msg 110 1103 @f8000;
-#X text 245 1103 Получить/Установить gain at 8000Hz. Тип: float. Единицы:
+#X msg 130 1069 @f8000;
+#X text 270 1069 Получить/Установить gain at 8000Hz. Тип: float. Единицы:
 'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
-#X obj 20 1155 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1160 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1121 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1126 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1161 reset;
-#X text 245 1161 reset filter state to default.;
-#X obj 20 1199 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1204 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1127 reset;
+#X text 270 1127 reset filter state to default.;
+#X obj 20 1165 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1170 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1205 1\.;
-#X text 150 1205 ~;
-#X text 245 1205 input signal.;
-#X text 150 1230 list:;
-#X text 245 1230 sets equalizer coefficients.;
-#X obj 20 1265 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1270 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1171 1\.;
+#X text 170 1171 ~;
+#X text 270 1171 input signal.;
+#X text 170 1196 list:;
+#X text 270 1196 sets equalizer coefficients.;
+#X obj 20 1231 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1236 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1271 1\.;
-#X text 150 1271 ~;
-#X text 245 1271 output signal.;
+#X text 130 1237 1\.;
+#X text 170 1237 ~;
+#X text 270 1237 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1321 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1324 библиотека: ceammc v0.9.8;
-#X text 531 1336 смотрите также:;
-#X obj 652 1336 flt.eq_peak~;
-#N canvas 10 1343 400 290 info 0;
+#X obj 1 1287 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1290 библиотека: ceammc v0.9.8;
+#X text 531 1302 смотрите также:;
+#X obj 652 1302 flt.eq_peak~;
+#N canvas 10 1309 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -118,7 +118,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1343 pd info;
+#X restore 10 1309 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;

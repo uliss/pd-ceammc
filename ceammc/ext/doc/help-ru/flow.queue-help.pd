@@ -36,62 +36,62 @@
 -49933 0;
 #X obj 735 795 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 827 1\.;
-#X text 150 827 int;
-#X obj 246 828 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 827 MAX_SIZE: max queue lane size. Тип: int. Диапазон:
+#X text 130 793 1\.;
+#X text 170 793 int;
+#X obj 271 794 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 793 MAX_SIZE: max queue lane size. Тип: int. Диапазон:
 1…1024;
-#X text 110 847 2\.;
-#X text 150 847 int;
-#X obj 246 848 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 847 N: number of lanes. Тип: int. Диапазон: 1…32;
-#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 882 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 813 2\.;
+#X text 170 813 int;
+#X obj 271 814 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 813 N: number of lanes. Тип: int. Диапазон: 1…32;
+#X obj 20 843 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 848 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 885 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 851 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 917 @auto_pop;
-#X text 245 917 Получить/Установить auto pop mode. If true automatically
+#X msg 130 849 @auto_pop;
+#X text 270 849 Получить/Установить auto pop mode. If true automatically
 pops oldest elements when queue is full. Тип: bool. Значение по умолчанию:
 0\.;
-#X msg 110 974 @max_size;
-#X text 245 974 Получить/Установить max queue lane size. Тип: int.
+#X msg 130 906 @max_size;
+#X text 270 906 Получить/Установить max queue lane size. Тип: int.
 Значение по умолчанию: 32\. Диапазон: 1\...1024\.;
-#X obj 20 1026 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1031 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 958 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 963 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1032 1\.;
-#X text 150 1032 any:;
-#X text 245 1032 1st queue input messages.;
-#X text 110 1057 ...;
-#X text 150 1057 any:;
-#X text 245 1057 ... queue input messages.;
-#X text 110 1082 n.;
-#X text 150 1082 any:;
-#X text 245 1082 n-th queue input messages.;
-#X text 110 1107 n+1\.;
-#X text 150 1107 any:;
-#X text 245 1107 clear: remove all elements from all queues \, output:
+#X text 130 964 1\.;
+#X text 170 964 any:;
+#X text 270 964 1st queue input messages.;
+#X text 130 989 ...;
+#X text 170 989 any:;
+#X text 270 989 ... queue input messages.;
+#X text 130 1014 n.;
+#X text 170 1014 any:;
+#X text 270 1014 n-th queue input messages.;
+#X text 130 1039 n+1\.;
+#X text 170 1039 any:;
+#X text 270 1039 clear: remove all elements from all queues \, output:
 output all element from all queues \, flush: output and clear all element
 from all queues \, bang or pop: output and remove first message in
 all queues.;
-#X obj 20 1202 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1207 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1134 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1139 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1208 1\.;
-#X text 245 1208 1st queue output.;
-#X text 110 1228 ...;
-#X text 245 1228 ... queue output.;
-#X text 110 1248 n.;
-#X text 245 1248 n-th queue output.;
+#X text 130 1140 1\.;
+#X text 270 1140 1st queue output.;
+#X text 130 1160 ...;
+#X text 270 1160 ... queue output.;
+#X text 130 1180 n.;
+#X text 270 1180 n-th queue output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1298 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1301 библиотека: ceammc v0.9.8;
-#N canvas 10 1320 400 290 info 0;
+#X obj 1 1230 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1233 библиотека: ceammc v0.9.8;
+#N canvas 10 1252 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -115,7 +115,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1320 pd info;
+#X restore 10 1252 pd info;
 #X connect 5 0 7 0;
 #X connect 7 0 8 0;
 #X connect 10 0 11 0;

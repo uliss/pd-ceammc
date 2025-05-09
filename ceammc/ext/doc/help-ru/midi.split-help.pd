@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty midi.split 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 midi.split;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Split midi note messages at specified pitch values;
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Split midi note messages at specified pitch values;
 #X obj 50 161 ui.keyboard;
 #X obj 50 233 midi.split 40 60 80;
 #X obj 50 262 ui.dt;
@@ -18,44 +18,44 @@
 -49933 0;
 #X obj 735 406 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 438 1\.;
-#X text 150 438 list;
-#X obj 246 439 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 438 NOTES: list of note values (split points). Тип: list.;
-#X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 473 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 404 1\.;
+#X text 170 404 list;
+#X obj 271 405 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 404 NOTES: list of note values (split points). Тип: list.;
+#X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 439 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 476 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 442 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 508 @points?;
-#X text 245 508 (только чтение) Получить split points. Should be in
+#X msg 130 440 @points?;
+#X text 270 440 (только чтение) Получить split points. Should be in
 strict ascending order. Тип: list.;
-#X obj 20 560 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 565 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 497 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 566 1\.;
-#X text 150 566 list:;
-#X text 245 566 NOTE VELOCITY [DUR] list.;
-#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 606 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 498 1\.;
+#X text 170 498 list:;
+#X text 270 498 NOTE VELOCITY [DUR] list.;
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 538 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 607 1\.;
-#X text 245 607 midi pitches that are less than first split point.;
-#X text 110 627 ...;
-#X text 245 627 ...;
-#X text 110 647 n.;
-#X text 245 647 midi pitches that are greater or equal than N-th split
+#X text 130 539 1\.;
+#X text 270 539 midi pitches that are less than first split point.;
+#X text 130 559 ...;
+#X text 270 559 ...;
+#X text 130 579 n.;
+#X text 270 579 midi pitches that are greater or equal than N-th split
 point and less then N+1\.;
-#X text 110 682 n+1\.;
-#X text 245 682 notes that are greater or equal last split point.;
+#X text 130 614 n+1\.;
+#X text 270 614 notes that are greater or equal last split point.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 732 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 735 библиотека: ceammc v0.9.8;
-#N canvas 10 754 400 290 info 0;
+#X obj 1 664 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 667 библиотека: ceammc v0.9.8;
+#N canvas 10 686 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -79,7 +79,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 754 pd info;
+#X restore 10 686 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 7 1 9 0;

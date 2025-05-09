@@ -16,61 +16,61 @@
 -49933 0;
 #X obj 735 277 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 309 1\.;
-#X text 150 309 symbol;
-#X obj 246 310 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 309 HOST: destination host. Тип: symbol.;
-#X text 110 329 2\.;
-#X text 150 329 int;
-#X obj 246 330 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 329 PORT: destination port. Тип: int. Диапазон: 1…32768;
-#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 364 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 275 1\.;
+#X text 170 275 symbol;
+#X obj 271 276 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 275 HOST: destination host. Тип: symbol.;
+#X text 130 295 2\.;
+#X text 170 295 int;
+#X obj 271 296 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 295 PORT: destination port. Тип: int. Диапазон: 1…32768;
+#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 367 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 333 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 399 @host;
-#X text 245 399 Получить/Установить destination host. Тип: symbol.
+#X msg 130 331 @host;
+#X text 270 331 Получить/Установить destination host. Тип: symbol.
 Значение по умолчанию: localhost.;
-#X msg 110 441 @pass;
-#X text 245 441 Получить/Установить Basic Auth password. Тип: atom.;
-#X msg 110 471 @port;
-#X text 245 471 Получить/Установить destination port. Тип: int. Значение
+#X msg 130 373 @pass;
+#X text 270 373 Получить/Установить Basic Auth password. Тип: atom.;
+#X msg 130 403 @port;
+#X text 270 403 Получить/Установить destination port. Тип: int. Значение
 по умолчанию: 80\. Диапазон: 1\...32768\.;
-#X msg 110 513 @timeout;
-#X text 245 513 Получить/Установить TCP connection timeout. Тип: int.
+#X msg 130 445 @timeout;
+#X text 270 445 Получить/Установить TCP connection timeout. Тип: int.
 Единицы: 'sec'. Значение по умолчанию: 1\. Диапазон: 1\...10\.;
-#X msg 110 570 @user;
-#X text 245 570 Получить/Установить Basic Auth user name. Тип: symbol.;
-#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 615 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 502 @user;
+#X text 270 502 Получить/Установить Basic Auth user name. Тип: symbol.;
+#X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 547 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 616 get;
-#X text 245 616 send GET request. Аргументы:;
-#X obj 255 639 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 639 PATH: request path. Тип: symbol.;
-#X obj 255 662 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 662 VALUES: list of query pairs. Тип: list.;
-#X obj 20 697 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 702 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 548 get;
+#X text 270 548 send GET request. Аргументы:;
+#X obj 280 571 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 571 PATH: request path. Тип: symbol.;
+#X obj 280 594 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 594 VALUES: list of query pairs. Тип: list.;
+#X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 634 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 703 1\.;
-#X text 245 703 input.;
-#X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 743 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 635 1\.;
+#X text 270 635 input.;
+#X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 675 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 744 1\.;
-#X text 245 744 int: HTTP status code.;
-#X text 110 764 2\.;
-#X text 245 764 data:String: HTTP body.;
+#X text 130 676 1\.;
+#X text 270 676 int: HTTP status code.;
+#X text 130 696 2\.;
+#X text 270 696 data:String: HTTP body.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 814 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 817 библиотека: ceammc v0.9.8;
-#N canvas 10 836 400 290 info 0;
+#X obj 1 746 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 749 библиотека: ceammc v0.9.8;
+#N canvas 10 768 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -94,7 +94,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 836 pd info;
+#X restore 10 768 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 8 0;
 #X connect 6 1 9 0;

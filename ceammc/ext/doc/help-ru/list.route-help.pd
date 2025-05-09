@@ -6,8 +6,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.route 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 list.route;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Outputs float \, symbol or list to matched outlet or
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Outputs float \, symbol or list to matched outlet or
 to last outlet if no match;
 #X msg 50 176 100;
 #X msg 136 176 symbol A;
@@ -42,57 +42,57 @@ to last outlet if no match;
 -49933 0;
 #X obj 735 565 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 597 1\.;
-#X text 150 597 list;
-#X obj 246 598 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 597 ARGS: list of matched atoms. Тип: list.;
-#X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 632 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 563 1\.;
+#X text 170 563 list;
+#X obj 271 564 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 563 ARGS: list of matched atoms. Тип: list.;
+#X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 598 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 635 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 601 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 667 @args;
-#X text 245 667 (при инициализации) Получить/Установить matching atoms.
+#X msg 130 599 @args;
+#X text 270 599 (при инициализации) Получить/Установить matching atoms.
 Тип: list.;
-#X msg 110 709 @as_any;
-#X text 245 709 trim list or symbol selector on output. Значение по
+#X msg 130 641 @as_any;
+#X text 270 641 trim list or symbol selector on output. Значение по
 умолчанию: 0\.;
-#X msg 110 751 @trim;
-#X text 245 751 cut first element from list \, transform float or symbol
+#X msg 130 683 @trim;
+#X text 270 683 cut first element from list \, transform float or symbol
 to bang. Значение по умолчанию: 0\.;
-#X msg 110 793 @simplify;
-#X text 245 793 Получить/Установить one element list simplification
+#X msg 130 725 @simplify;
+#X text 270 725 Получить/Установить one element list simplification
 - transform them to floats or symbols. Тип: bool. Значение по умолчанию:
 1\.;
-#X obj 20 860 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 865 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 797 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 866 1\.;
-#X text 150 866 list:;
-#X text 245 866 input list.;
-#X text 150 891 data:mlist:;
-#X text 245 891 input mlist.;
-#X obj 20 926 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 931 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 798 1\.;
+#X text 170 798 list:;
+#X text 270 798 input list.;
+#X text 170 823 data:mlist:;
+#X text 270 823 input mlist.;
+#X obj 20 858 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 863 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 932 0\.;
-#X text 245 932 first match.;
-#X text 110 952 1\.;
-#X text 245 952 second match.;
-#X text 110 972 ...;
-#X text 245 972 nth match.;
-#X text 110 992 n.;
-#X text 245 992 unmatched element (without changes).;
+#X text 130 864 0\.;
+#X text 270 864 first match.;
+#X text 130 884 1\.;
+#X text 270 884 second match.;
+#X text 130 904 ...;
+#X text 270 904 nth match.;
+#X text 130 924 n.;
+#X text 270 924 unmatched element (without changes).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 1042 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1045 библиотека: ceammc v0.9.8;
-#X text 583 1057 смотрите также:;
-#X obj 704 1057 route;
-#N canvas 10 1064 400 290 info 0;
+#X obj 1 974 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 977 библиотека: ceammc v0.9.8;
+#X text 583 989 смотрите также:;
+#X obj 704 989 route;
+#N canvas 10 996 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -116,7 +116,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1064 pd info;
+#X restore 10 996 pd info;
 #X connect 15 0 16 0;
 #X connect 15 1 17 0;
 #X connect 15 2 18 0;

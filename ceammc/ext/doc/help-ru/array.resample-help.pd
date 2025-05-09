@@ -27,59 +27,59 @@
 -49933 0;
 #X obj 735 331 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 363 1\.;
-#X text 150 363 symbol;
-#X obj 246 364 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 363 SRC: исходный массив. Тип: symbol.;
-#X text 110 383 2\.;
-#X text 150 383 symbol;
-#X obj 246 384 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 383 DEST: массив результата. Тип: symbol.;
-#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 418 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 329 1\.;
+#X text 170 329 symbol;
+#X obj 271 330 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 329 SRC: исходный массив. Тип: symbol.;
+#X text 130 349 2\.;
+#X text 170 349 symbol;
+#X obj 271 350 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 349 DEST: массив результата. Тип: symbol.;
+#X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 384 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 387 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 453 @best;
-#X text 245 453 Сокращение для @quality best.;
-#X msg 110 483 @dest;
-#X text 245 483 Получить/Установить массив назначения. Тип: symbol.;
-#X msg 110 513 @fast;
-#X text 245 513 Сокращение для @quality fast.;
-#X msg 110 543 @high;
-#X text 245 543 Сокращение для @quality high.;
-#X msg 110 573 @low;
-#X text 245 573 Сокращение для @quality low.;
-#X msg 110 603 @medium;
-#X text 245 603 Сокращение для @quality medium.;
-#X msg 110 633 @quality;
-#X text 245 633 Получить/Установить качество ресемплинга. Тип: symbol.
+#X msg 130 385 @best;
+#X text 270 385 Сокращение для @quality best.;
+#X msg 130 415 @dest;
+#X text 270 415 Получить/Установить массив назначения. Тип: symbol.;
+#X msg 130 445 @fast;
+#X text 270 445 Сокращение для @quality fast.;
+#X msg 130 475 @high;
+#X text 270 475 Сокращение для @quality high.;
+#X msg 130 505 @low;
+#X text 270 505 Сокращение для @quality low.;
+#X msg 130 535 @medium;
+#X text 270 535 Сокращение для @quality medium.;
+#X msg 130 565 @quality;
+#X text 270 565 Получить/Установить качество ресемплинга. Тип: symbol.
 Значение по умолчанию: high. Разрешённые значения: high \, fast \,
 low \, medium \, best.;
-#X msg 110 690 @ratio;
-#X text 245 690 Получить/Установить соотношение ресемплинга (src/dest).
+#X msg 130 622 @ratio;
+#X text 270 622 Получить/Установить соотношение ресемплинга (src/dest).
 Тип: float. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 110 732 @src;
-#X text 245 732 Получить/Установить исходный массив. Тип: symbol.;
-#X obj 20 772 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 777 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 664 @src;
+#X text 270 664 Получить/Установить исходный массив. Тип: symbol.;
+#X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 709 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 778 1\.;
-#X text 150 778 bang:;
-#X text 245 778 starts resampling.;
-#X obj 20 813 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 818 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 710 1\.;
+#X text 170 710 bang:;
+#X text 270 710 starts resampling.;
+#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 750 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 819 1\.;
-#X text 245 819 number of samples written.;
+#X text 130 751 1\.;
+#X text 270 751 number of samples written.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 869 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 872 библиотека: ceammc v0.9.8;
-#N canvas 10 891 400 290 info 0;
+#X obj 1 801 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 804 библиотека: ceammc v0.9.8;
+#N canvas 10 823 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -103,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 891 pd info;
+#X restore 10 823 pd info;
 #X connect 5 0 8 0;
 #X connect 8 0 9 0;
 #X connect 11 0 12 0;

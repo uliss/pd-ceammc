@@ -7,8 +7,8 @@
 #X obj 515 11 ceammc/dict;
 #X obj 620 11 dict;
 #X obj 674 11 data.dict;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Syntax: [key1: value key2 : "with space"]. Nested dictionaries
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Syntax: [key1: value key2 : "with space"]. Nested dictionaries
 are supported: [a: [A:1 B:2]]).;
 #X msg 50 176 bang;
 #X msg 117 176 [a: [K0: 1 2 3 K2: "a symbol"]] \, bang;
@@ -27,88 +27,88 @@ are supported: [a: [A:1 B:2]]).;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 404 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 439 Left-click;
-#X text 285 439 open data editor.;
+#X text 130 439 Left-click;
+#X text 310 439 open data editor.;
 #X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 474 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 509 @empty?;
-#X text 245 509 (только чтение) Получить 1 if dict is empty \, otherwise
+#X msg 130 475 @empty?;
+#X text 270 475 (только чтение) Получить 1 if dict is empty \, otherwise
 0\. Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 551 @keys?;
-#X text 245 551 (только чтение) Получить keys of dictionary. Тип: list.;
-#X msg 110 581 @size?;
-#X text 245 581 (только чтение) Получить number of entries in dictionary.
+#X msg 130 517 @keys?;
+#X text 270 517 (только чтение) Получить keys of dictionary. Тип: list.;
+#X msg 130 547 @size?;
+#X text 270 547 (только чтение) Получить number of entries in dictionary.
 Тип: int. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 653 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 619 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 654 add;
-#X text 245 654 adds entry to dictionary. Аргументы:;
-#X obj 255 677 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 677 KEY: entry key. Тип: symbol.;
-#X obj 255 700 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 700 VAL: single value or list. Тип: list.;
-#X msg 110 725 choose;
-#X text 245 725 choose random key and output it.;
-#X msg 110 753 clear;
-#X text 245 753 removes all dict values. No output.;
-#X msg 110 781 get_key;
-#X text 245 781 get entry from dictionary. Аргументы:;
-#X obj 255 804 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 804 KEY: entry key. Тип: symbol.;
-#X msg 110 829 read;
-#X text 245 829 read dict from JSON file. Аргументы:;
-#X obj 255 852 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 852 PATH: file path. Тип: symbol.;
-#X msg 110 877 remove;
-#X text 245 877 remove entry from dictionary. Аргументы:;
-#X obj 255 900 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 900 KEY: entry key. Тип: symbol.;
-#X msg 110 925 set;
-#X text 245 925 set dict content without output.;
-#X msg 110 953 set_key;
-#X text 245 953 change entry in dictionary. If it's not exists \, do
+#X msg 130 620 add;
+#X text 270 620 adds entry to dictionary. Аргументы:;
+#X obj 280 643 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 643 KEY: entry key. Тип: symbol.;
+#X obj 280 666 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 666 VAL: single value or list. Тип: list.;
+#X msg 130 691 choose;
+#X text 270 691 choose random key and output it.;
+#X msg 130 719 clear;
+#X text 270 719 removes all dict values. No output.;
+#X msg 130 747 get_key;
+#X text 270 747 get entry from dictionary. Аргументы:;
+#X obj 280 770 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 770 KEY: entry key. Тип: symbol.;
+#X msg 130 795 read;
+#X text 270 795 read dict from JSON file. Аргументы:;
+#X obj 280 818 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 818 PATH: file path. Тип: symbol.;
+#X msg 130 843 remove;
+#X text 270 843 remove entry from dictionary. Аргументы:;
+#X obj 280 866 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 866 KEY: entry key. Тип: symbol.;
+#X msg 130 891 set;
+#X text 270 891 set dict content without output.;
+#X msg 130 919 set_key;
+#X text 270 919 change entry in dictionary. If it's not exists \, do
 nothing. Аргументы:;
-#X obj 255 991 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 991 KEY: key. Тип: symbol.;
-#X obj 255 1014 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1014 VAL: single value or list. Тип: list.;
-#X msg 110 1039 write;
-#X text 245 1039 write dict as JSON file. Аргументы:;
-#X obj 255 1062 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1062 PATH: file path. Тип: symbol.;
-#X msg 110 1087 [....];
-#X text 245 1087 sets new content without output.;
-#X obj 20 1125 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1130 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 280 957 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 957 KEY: key. Тип: symbol.;
+#X obj 280 980 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 980 VAL: single value or list. Тип: list.;
+#X msg 130 1005 write;
+#X text 270 1005 write dict as JSON file. Аргументы:;
+#X obj 280 1028 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1028 PATH: file path. Тип: symbol.;
+#X msg 130 1053 [....];
+#X text 270 1053 sets new content without output.;
+#X obj 20 1091 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1096 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1131 1\.;
-#X text 150 1131 bang:;
-#X text 245 1131 output current dictionary value.;
-#X text 150 1156 list:;
-#X text 245 1156 set dict from list. Key-value pairs are expected.
+#X text 130 1097 1\.;
+#X text 170 1097 bang:;
+#X text 270 1097 output current dictionary value.;
+#X text 170 1122 list:;
+#X text 270 1122 set dict from list. Key-value pairs are expected.
 [1 2 3 4( becames dict with keys: 1 and 3 \, values: 2 and 4\. No output.;
-#X text 150 1196 data:dict:;
-#X text 245 1196 set and output new dict.;
-#X obj 20 1231 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1236 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 170 1162 data:dict:;
+#X text 270 1162 set and output new dict.;
+#X obj 20 1197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1202 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1237 1\.;
-#X text 245 1237 output dictionary.;
+#X text 130 1203 1\.;
+#X text 270 1203 output dictionary.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 1287 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1290 библиотека: ceammc v0.9.8;
-#X text 473 1302 смотрите также:;
-#X obj 594 1302 data.set;
-#X obj 667 1302 data.mlist;
-#N canvas 10 1309 400 290 info 0;
+#X obj 1 1253 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1256 библиотека: ceammc v0.9.8;
+#X text 473 1268 смотрите также:;
+#X obj 594 1268 data.set;
+#X obj 667 1268 data.mlist;
+#N canvas 10 1275 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -132,7 +132,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1309 pd info;
+#X restore 10 1275 pd info;
 #X connect 15 0 16 0;
 #X connect 16 0 18 0;
 #X connect 8 0 19 0;

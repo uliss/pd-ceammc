@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.freeverb2~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 fx.freeverb2~;
-#X obj 205 78 cnv 1 560 111 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 A simple Schroeder reverberator primarily developed
+#X obj 230 78 cnv 1 535 111 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 A simple Schroeder reverberator primarily developed
 by "Jezar at Dreampoint" that is extensively used in the free-software
 world. It uses four Schroeder allpasses in series and eight parallel
 Schroeder-Moorer filtered-feedback comb-filters for each audio channel
@@ -31,91 +31,91 @@ Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 -49933 0;
 #X obj 735 555 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 587 1\.;
-#X text 150 587 float;
-#X obj 246 588 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 587 ROOM: room size. Тип: float. Диапазон: 0…1;
-#X text 110 607 2\.;
-#X text 150 607 float;
-#X obj 246 608 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 607 DRYWET: proportion of mix between the original (dry)
+#X text 130 553 1\.;
+#X text 170 553 float;
+#X obj 271 554 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 553 ROOM: room size. Тип: float. Диапазон: 0…1;
+#X text 130 573 2\.;
+#X text 170 573 float;
+#X obj 271 574 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 573 DRYWET: proportion of mix between the original (dry)
 and 'effected' (wet) signals. Тип: float. Диапазон: 0…1;
-#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 657 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 623 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 660 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 626 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 692 @id;
-#X text 245 692 (при инициализации) Получить/Установить идентификатор
+#X msg 130 624 @id;
+#X text 270 624 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_freeverb2/ИМЯ_СВОЙСТВА \, в противном
 случае к /fx_freeverb2/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 779 @osc;
-#X text 245 779 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 711 @osc;
+#X text 270 711 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 821 @active;
-#X text 245 821 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 753 @active;
+#X text 270 753 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 863 @bypass;
-#X text 245 863 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 130 795 @bypass;
+#X text 270 795 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 905 @damp;
-#X text 245 905 Получить/Установить damping of the lowpass comb filter.
+#X msg 130 837 @damp;
+#X text 270 837 Получить/Установить damping of the lowpass comb filter.
 Тип: float. Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X msg 110 947 @drywet;
-#X text 245 947 Получить/Установить proportion of mix between the original
+#X msg 130 879 @drywet;
+#X text 270 879 Получить/Установить proportion of mix between the original
 (dry) and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Тип:
 float. Значение по умолчанию: 0.33\. Диапазон: 0\...1\.;
-#X msg 110 1004 @fr_damp;
-#X text 245 1004 Получить/Установить freeze room damp. Тип: float.
-Значение по умолчанию: 0.0001\. Диапазон: 0\...1\.;
-#X msg 110 1046 @fr_room;
-#X text 245 1046 Получить/Установить freeze room size. Тип: float.
-Значение по умолчанию: 0.999\. Диапазон: 0\...1\.;
-#X msg 110 1088 @fr_time;
-#X text 245 1088 Получить/Установить length of freeze tail. Тип: float.
+#X msg 130 936 @fr_damp;
+#X text 270 936 Получить/Установить freeze room damp. Тип: float. Значение
+по умолчанию: 0.0001\. Диапазон: 0\...1\.;
+#X msg 130 978 @fr_room;
+#X text 270 978 Получить/Установить freeze room size. Тип: float. Значение
+по умолчанию: 0.999\. Диапазон: 0\...1\.;
+#X msg 130 1020 @fr_time;
+#X text 270 1020 Получить/Установить length of freeze tail. Тип: float.
 Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон: 0\...1000\.;
-#X msg 110 1145 @freeze;
-#X text 245 1145 Получить/Установить freeze reverberation tail. Тип:
+#X msg 130 1077 @freeze;
+#X text 270 1077 Получить/Установить freeze reverberation tail. Тип:
 bool. Значение по умолчанию: 0\.;
-#X msg 110 1187 @room;
-#X text 245 1187 Получить/Установить room size. Тип: float. Значение
+#X msg 130 1119 @room;
+#X text 270 1119 Получить/Установить room size. Тип: float. Значение
 по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X msg 110 1229 @spread;
-#X text 245 1229 Получить/Установить spatial spread between 0 and 1
+#X msg 130 1161 @spread;
+#X text 270 1161 Получить/Установить spatial spread between 0 and 1
 with 1 for maximum spread. Тип: float. Значение по умолчанию: 0.5\.
 Диапазон: 0\...1\.;
-#X obj 20 1296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1301 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1228 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1233 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1302 reset;
-#X text 245 1302 reset reverb.;
-#X obj 20 1340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1345 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1234 reset;
+#X text 270 1234 reset reverb.;
+#X obj 20 1272 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1277 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1346 1\.;
-#X text 150 1346 ~;
-#X text 245 1346 left channel.;
-#X text 110 1371 2\.;
-#X text 150 1371 ~;
-#X text 245 1371 right channel.;
-#X obj 20 1406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1411 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1278 1\.;
+#X text 170 1278 ~;
+#X text 270 1278 left channel.;
+#X text 130 1303 2\.;
+#X text 170 1303 ~;
+#X text 270 1303 right channel.;
+#X obj 20 1338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1343 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1412 1\.;
-#X text 150 1412 ~;
-#X text 245 1412 output left.;
-#X text 110 1432 2\.;
-#X text 150 1432 ~;
-#X text 245 1432 output right.;
+#X text 130 1344 1\.;
+#X text 170 1344 ~;
+#X text 270 1344 output left.;
+#X text 130 1364 2\.;
+#X text 170 1364 ~;
+#X text 270 1364 output right.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1482 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1485 библиотека: ceammc v0.9.8;
-#N canvas 10 1504 400 290 info 0;
+#X obj 1 1414 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1417 библиотека: ceammc v0.9.8;
+#N canvas 10 1436 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -139,7 +139,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1504 pd info;
+#X restore 10 1436 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 11 0;
 #X connect 8 0 12 0;

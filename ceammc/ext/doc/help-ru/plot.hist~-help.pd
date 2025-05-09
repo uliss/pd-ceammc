@@ -22,56 +22,56 @@ bars @plot_color0 0.2 0.2 0.2;
 -49933 0;
 #X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 482 1\.;
-#X text 150 482 int;
-#X obj 246 483 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 482 NSAMP: @nsamp property. Тип: int. Диапазон: 8…32768;
-#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 517 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 448 1\.;
+#X text 170 448 int;
+#X obj 271 449 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 448 NSAMP: @nsamp property. Тип: int. Диапазон: 8…32768;
+#X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 483 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 520 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 486 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 552 @clip;
-#X text 245 552 Получить/Установить clip input values into input range
+#X msg 130 484 @clip;
+#X text 270 484 Получить/Установить clip input values into input range
 \, otherwise just ignore them. Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 609 @max;
-#X text 245 609 Получить/Установить maximum input value. Тип: float.
+#X msg 130 541 @max;
+#X text 270 541 Получить/Установить maximum input value. Тип: float.
 Значение по умолчанию: 1\.;
-#X msg 110 651 @min;
-#X text 245 651 Получить/Установить minimal input value. Тип: float.
+#X msg 130 583 @min;
+#X text 270 583 Получить/Установить minimal input value. Тип: float.
 Значение по умолчанию: -1\.;
-#X msg 110 693 @nbins;
-#X text 245 693 Получить/Установить number of histogram bins. Тип:
+#X msg 130 625 @nbins;
+#X text 270 625 Получить/Установить number of histogram bins. Тип:
 int. Значение по умолчанию: 63\. Диапазон: 8\...512\.;
-#X msg 110 735 @nsamp;
-#X text 245 735 Получить/Установить max number of input samples. Тип:
+#X msg 130 667 @nsamp;
+#X text 270 667 Получить/Установить max number of input samples. Тип:
 int. Значение по умолчанию: 512\. Диапазон: 8\...32768\.;
-#X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 792 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 719 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 724 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 793 1\.;
-#X text 150 793 bang:;
-#X text 245 793 starts histogram calculation.;
-#X obj 20 828 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 833 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 725 1\.;
+#X text 170 725 bang:;
+#X text 270 725 starts histogram calculation.;
+#X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 765 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 834 1\.;
-#X text 150 834 ~;
-#X text 245 834 signal output.;
-#X text 110 854 2\.;
-#X text 245 854 output to [array.plot~] or [ui.plot~].;
+#X text 130 766 1\.;
+#X text 170 766 ~;
+#X text 270 766 signal output.;
+#X text 130 786 2\.;
+#X text 270 786 output to [array.plot~] or [ui.plot~].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 904 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 907 библиотека: ceammc v0.9.8;
-#X text 275 919 смотрите также:;
-#X obj 396 919 plot.linspace~;
-#X obj 513 919 plot.geomspace~;
-#X obj 638 919 plot.response~;
-#N canvas 10 926 400 290 info 0;
+#X obj 1 836 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 839 библиотека: ceammc v0.9.8;
+#X text 275 851 смотрите также:;
+#X obj 396 851 plot.linspace~;
+#X obj 513 851 plot.geomspace~;
+#X obj 638 851 plot.response~;
+#N canvas 10 858 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -95,7 +95,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 926 pd info;
+#X restore 10 858 pd info;
 #X connect 6 0 9 0;
 #X connect 9 0 11 0;
 #X connect 10 0 11 0;

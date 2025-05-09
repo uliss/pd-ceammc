@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.walk 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 list.walk;
-#X obj 205 78 cnv 1 560 95 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Universal list walker. If you want to output current
+#X obj 230 78 cnv 1 535 95 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Universal list walker. If you want to output current
 element and when move to next - use [1( message \, Otherwise - use
 [next( if you want first move to next position and then output it.;
 #X obj 50 221 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -34,93 +34,93 @@ element and when move to next - use [1( message \, Otherwise - use
 -49933 0;
 #X obj 735 539 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 571 1\.;
-#X text 150 571 list;
-#X obj 246 572 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 571 VALUE: initial list. Type: list.;
-#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 606 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 537 1\.;
+#X text 170 537 list;
+#X obj 271 538 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 537 VALUE: initial list. Type: list.;
+#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 572 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 609 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 575 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 641 @clip;
-#X text 245 641 Clipped pass mode. When the list bounds are reached
+#X msg 130 573 @clip;
+#X text 270 573 Clipped pass mode. When the list bounds are reached
 - min/max value repeats perpetually.;
-#X msg 110 683 @direction;
-#X text 245 683 Get/Set walking direction. "1" - forwards \, "0" -
+#X msg 130 615 @direction;
+#X text 270 615 Get/Set walking direction. "1" - forwards \, "0" -
 backwards. Type: bool. Default value: 1\.;
-#X msg 110 725 @fold;
-#X text 245 725 Fold pass mode. List values are repeated in a loop
+#X msg 130 657 @fold;
+#X text 270 657 Fold pass mode. List values are repeated in a loop
 with folding.;
-#X msg 110 767 @index;
-#X text 245 767 Get/Set current position. Type: list. Default value:
+#X msg 130 699 @index;
+#X text 270 699 Get/Set current position. Type: list. Default value:
 0\. Min value: 0\.;
-#X msg 110 809 @length;
-#X text 245 809 Get/Set output list length. Type: int. Default value:
+#X msg 130 741 @length;
+#X text 270 741 Get/Set output list length. Type: int. Default value:
 1\. Min value: 1\.;
-#X msg 110 851 @loop;
-#X text 245 851 @wrap alias.;
-#X msg 110 881 @mode;
-#X text 245 881 Get/Set pass mode. See properties below for detailed
+#X msg 130 783 @loop;
+#X text 270 783 @wrap alias.;
+#X msg 130 813 @mode;
+#X text 270 813 Get/Set pass mode. See properties below for detailed
 information. Type: symbol. Default value: single. Allowed values: single
 \, clip \, wrap \, fold.;
-#X msg 110 938 @single;
-#X text 245 938 Single pass mode. When the list bounds are reached
+#X msg 130 870 @single;
+#X text 270 870 Single pass mode. When the list bounds are reached
 - no output any more until reset.;
-#X msg 110 980 @value;
-#X text 245 980 Get/Set current list. Type: list.;
-#X msg 110 1010 @wrap;
-#X text 245 1010 Wrap pass mode. List values are repeated in a loop.;
-#X msg 110 1040 @size?;
-#X text 245 1040 (readonly) Get current list size. Type: int. Default
+#X msg 130 912 @value;
+#X text 270 912 Get/Set current list. Type: list.;
+#X msg 130 942 @wrap;
+#X text 270 942 Wrap pass mode. List values are repeated in a loop.;
+#X msg 130 972 @size?;
+#X text 270 972 (readonly) Get current list size. Type: int. Default
 value: 0\. Min value: 0\.;
-#X obj 20 1092 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1097 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1024 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1029 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1098 current;
-#X text 245 1098 outputs current element.;
-#X msg 110 1126 next;
-#X text 245 1126 Arguments are:;
-#X obj 255 1149 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1149 [STEP=1]: moves to next element with optional given
+#X msg 130 1030 current;
+#X text 270 1030 outputs current element.;
+#X msg 130 1058 next;
+#X text 270 1058 Arguments are:;
+#X obj 280 1081 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1081 [STEP=1]: moves to next element with optional given
 step and outputs it. Type: int.;
-#X msg 110 1189 prev;
-#X text 245 1189 Arguments are:;
-#X obj 255 1212 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1212 [STEP=1]: moves to previous element with optional
+#X msg 130 1121 prev;
+#X text 270 1121 Arguments are:;
+#X obj 280 1144 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1144 [STEP=1]: moves to previous element with optional
 given step and outputs it. Type: int.;
-#X msg 110 1252 reset;
-#X text 245 1252 sets current position to 0\.;
-#X msg 110 1280 dump;
-#X text 245 1280 dump internal object state to Pd console window.;
-#X obj 20 1318 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1323 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1184 reset;
+#X text 270 1184 sets current position to 0\.;
+#X msg 130 1212 dump;
+#X text 270 1212 dump internal object state to Pd console window.;
+#X obj 20 1250 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1255 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1324 1\.;
-#X text 150 1324 bang:;
-#X text 245 1324 outputs current element and moves to next.;
-#X text 150 1349 float:;
-#X text 245 1349 outputs current element and moves by specified position.;
-#X text 150 1374 list:;
-#X text 245 1374 set new list and reset current position. (no output).;
-#X obj 20 1409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1414 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1256 1\.;
+#X text 170 1256 bang:;
+#X text 270 1256 outputs current element and moves to next.;
+#X text 170 1281 float:;
+#X text 270 1281 outputs current element and moves by specified position.;
+#X text 170 1306 list:;
+#X text 270 1306 set new list and reset current position. (no output).;
+#X obj 20 1341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1346 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1415 1\.;
-#X text 245 1415 list element.;
-#X text 110 1435 2\.;
-#X text 245 1435 bang: when last element reached.;
+#X text 130 1347 1\.;
+#X text 270 1347 list element.;
+#X text 130 1367 2\.;
+#X text 270 1367 bang: when last element reached.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 1485 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1488 library: ceammc v0.9.8;
-#X text 534 1500 see also:;
-#X obj 609 1500 list.gen;
-#X obj 682 1500 list.seq;
-#N canvas 10 1507 400 290 info 0;
+#X obj 1 1417 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1420 library: ceammc v0.9.8;
+#X text 534 1432 see also:;
+#X obj 609 1432 list.gen;
+#X obj 682 1432 list.seq;
+#N canvas 10 1439 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -144,7 +144,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1507 pd info;
+#X restore 10 1439 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 10 0;
 #X connect 8 0 19 0;

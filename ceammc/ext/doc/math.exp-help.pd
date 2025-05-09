@@ -5,17 +5,17 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.exp 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 math.exp;
-#X obj 205 78 cnv 1 560 245 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 The exp() function computes e**x \, the base-e exponential
+#X obj 230 78 cnv 1 535 245 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 The exp() function computes e**x \, the base-e exponential
 of x.;
-#X text 215 123 If x is nearly zero \, then the common expression exp(x)
+#X text 240 123 If x is nearly zero \, then the common expression exp(x)
 - 1.0 will suffer from catastrophic cancellation and the result will
 have little or no precision.;
-#X text 215 178 Special values:;
-#X text 215 203 exp(+-0) return 1\.;
-#X text 215 228 exp(-infinity) return +0\.;
-#X text 215 253 exp(+infinity) return +infinity.;
-#X text 215 278 For all these functions \, a range error occurs if
+#X text 240 178 Special values:;
+#X text 240 203 exp(+-0) return 1\.;
+#X text 240 228 exp(-infinity) return +0\.;
+#X text 240 253 exp(+infinity) return +infinity.;
+#X text 240 278 For all these functions \, a range error occurs if
 the magnitude of x is too large.;
 #X floatatom 50 371 5 0 0 0 - - -;
 #X obj 50 400 math.exp;
@@ -23,16 +23,16 @@ the magnitude of x is too large.;
 #X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 466 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 467 1\.;
-#X text 150 467 float:;
-#X text 245 467 input value.;
-#X text 150 492 list:;
-#X text 245 492 apply to all numeric values.;
+#X text 130 467 1\.;
+#X text 170 467 float:;
+#X text 270 467 input value.;
+#X text 170 492 list:;
+#X text 270 492 apply to all numeric values.;
 #X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 532 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 533 1\.;
-#X text 245 533 result value.;
+#X text 130 533 1\.;
+#X text 270 533 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

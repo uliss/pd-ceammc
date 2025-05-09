@@ -5,15 +5,15 @@
 #X obj 1 1 cnv 5 765 40 empty empty chaos.std0~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 chaos.std0~;
-#X obj 205 78 cnv 1 560 164 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 A non-interpolating generator based on the difference
+#X obj 230 78 cnv 1 535 164 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 A non-interpolating generator based on the difference
 equations:;
-#X text 215 123 y(n+1) = (y(n) + k * sin(x(n))) % 2pi;
-#X text 215 148 x(n+1) = (x(n) + y(n+1)) % 2pi;
-#X obj 215 173 ui.link @background_color 0.98039 0.98039 0.98039
+#X text 240 123 y(n+1) = (y(n) + k * sin(x(n))) % 2pi;
+#X text 240 148 x(n+1) = (x(n) + y(n+1)) % 2pi;
+#X obj 240 173 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Standard map @url
 https://en.wikipedia.org/wiki/Standard_map;
-#X text 215 197 The properties of chaos of the standard map were established
+#X text 240 197 The properties of chaos of the standard map were established
 by Boris Chirikov in 1969;
 #X msg 50 290 440;
 #X msg 107 290 15000;
@@ -32,50 +32,50 @@ by Boris Chirikov in 1969;
 -49933 0;
 #X obj 735 521 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 553 1\.;
-#X text 150 553 float;
-#X obj 246 554 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 553 X: initial x value \, default 0.5\. Тип: float.;
-#X text 110 573 2\.;
-#X text 150 573 float;
-#X obj 246 574 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 573 Y: initial y value \, default 0\. Тип: float.;
-#X obj 20 603 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 608 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 519 1\.;
+#X text 170 519 float;
+#X obj 271 520 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 519 X: initial x value \, default 0.5\. Тип: float.;
+#X text 130 539 2\.;
+#X text 170 539 float;
+#X obj 271 540 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 539 Y: initial y value \, default 0\. Тип: float.;
+#X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 574 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 611 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 577 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X obj 20 663 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 668 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 600 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 694 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 626 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 695 1\.;
-#X text 150 695 ~;
-#X text 245 695 generation frequency \, minimal value 0.001Hz.;
-#X text 110 720 2\.;
-#X text 150 720 ~;
-#X text 245 720 k-value.;
-#X obj 20 755 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 760 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 627 1\.;
+#X text 170 627 ~;
+#X text 270 627 generation frequency \, minimal value 0.001Hz.;
+#X text 130 652 2\.;
+#X text 170 652 ~;
+#X text 270 652 k-value.;
+#X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 692 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 761 1\.;
-#X text 150 761 ~;
-#X text 245 761 outputs x-value mapped to [-1\..1] range.;
-#X text 110 781 2\.;
-#X text 150 781 ~;
-#X text 245 781 outputs y-value mapped to [-1\..1] range.;
+#X text 130 693 1\.;
+#X text 170 693 ~;
+#X text 270 693 outputs x-value mapped to [-1\..1] range.;
+#X text 130 713 2\.;
+#X text 170 713 ~;
+#X text 270 713 outputs y-value mapped to [-1\..1] range.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 831 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 834 библиотека: ceammc v0.9.8;
-#X text 546 846 смотрите также:;
-#X obj 667 846 chaos.std0;
-#N canvas 10 853 400 290 info 0;
+#X obj 1 763 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 766 библиотека: ceammc v0.9.8;
+#X text 546 778 смотрите также:;
+#X obj 667 778 chaos.std0;
+#N canvas 10 785 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -99,7 +99,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 853 pd info;
+#X restore 10 785 pd info;
 #X connect 10 0 14 0;
 #X connect 11 0 14 0;
 #X connect 12 0 15 0;

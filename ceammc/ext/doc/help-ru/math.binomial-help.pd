@@ -6,9 +6,9 @@
 -4096 0;
 #X obj 561 11 math.nck;
 #X obj 645 11 math.binomial;
-#X obj 205 78 cnv 1 560 34 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Wiki:;
-#X obj 255 85 ui.link @background_color 0.98039 0.98039 0.98039 @title
+#X obj 230 78 cnv 1 535 34 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Wiki:;
+#X obj 280 85 ui.link @background_color 0.98039 0.98039 0.98039 @title
 Binomial coefficient @url
 https://en.wikipedia.org/wiki/Binomial_coefficient;
 #X msg 50 160 4 2;
@@ -26,17 +26,17 @@ https://en.wikipedia.org/wiki/Binomial_coefficient;
 #X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 489 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 490 1\.;
-#X text 150 490 float:;
-#X text 245 490 calc all coefficients for given order and output them
+#X text 130 490 1\.;
+#X text 170 490 float:;
+#X text 270 490 calc all coefficients for given order and output them
 as list.;
-#X text 150 530 list:;
-#X text 245 530 N K pair expected. Calc and output only specified coefficient.;
+#X text 170 530 list:;
+#X text 270 530 N K pair expected. Calc and output only specified coefficient.;
 #X obj 20 580 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 585 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 586 1\.;
-#X text 245 586 result value.;
+#X text 130 586 1\.;
+#X text 270 586 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

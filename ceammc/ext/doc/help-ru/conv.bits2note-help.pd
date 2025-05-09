@@ -8,10 +8,10 @@
 #X obj 391 11 ceammc/bits->note;
 #X obj 540 11 bits->note;
 #X obj 638 11 conv.bits2note;
-#X obj 205 78 cnv 1 560 75 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 In default mode: output NOTE VEL pair to corresponding
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 In default mode: output NOTE VEL pair to corresponding
 bit index outlet. If bit is on: velocity is @vel \, otherwise 0;
-#X text 215 123 In @poly mode: output VOICE NOTE VEL triplet to first
+#X text 240 123 In @poly mode: output VOICE NOTE VEL triplet to first
 outlet;
 #X msg 50 201 bang;
 #X obj 50 230 ui.hrd* 4;
@@ -33,49 +33,49 @@ outlet;
 -49933 0;
 #X obj 735 533 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 565 1\.;
-#X text 150 565 list;
-#X obj 246 566 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 565 KEYS: список нотных значений. Тип: list.;
-#X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 600 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 531 1\.;
+#X text 170 531 list;
+#X obj 271 532 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 531 KEYS: список нотных значений. Тип: list.;
+#X obj 20 561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 566 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 603 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 569 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 635 @keys;
-#X text 245 635 (при инициализации) Получить/Установить список нотных
+#X msg 130 567 @keys;
+#X text 270 567 (при инициализации) Получить/Установить список нотных
 значений. Тип: list.;
-#X msg 110 677 @poly;
-#X text 245 677 полифонический режим для использования с [clone] объектом.
+#X msg 130 609 @poly;
+#X text 270 609 полифонический режим для использования с [clone] объектом.
 Значение по умолчанию: 0\.;
-#X msg 110 719 @mode;
-#X text 245 719 Получить/Установить режим для повторяющихся нот. Если
+#X msg 130 651 @mode;
+#X text 270 651 Получить/Установить режим для повторяющихся нот. Если
 «off» — отсылает событие выключения ноты перед повторной нотой \, если
 «tie» — игнорирует повторяющиеся ноты \, если «raw» — всегда отправлять
 события включения/выключения. Тип: symbol. Значение по умолчанию: off.
 Разрешённые значения: off \, tie \, raw.;
-#X msg 110 837 @vel;
-#X text 245 837 Получить/Установить выходная сила нажатия ноты. Тип:
+#X msg 130 769 @vel;
+#X text 270 769 Получить/Установить выходная сила нажатия ноты. Тип:
 float. Значение по умолчанию: 90\. Диапазон: 0\...127\.;
-#X obj 20 889 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 894 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 826 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 895 1\.;
-#X text 150 895 list:;
-#X text 245 895 input bit list.;
-#X obj 20 930 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 935 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 827 1\.;
+#X text 170 827 list:;
+#X text 270 827 input bit list.;
+#X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 867 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 936 1\.;
-#X text 245 936 output.;
+#X text 130 868 1\.;
+#X text 270 868 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 986 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 989 библиотека: ceammc v0.9.8;
-#N canvas 10 1008 400 290 info 0;
+#X obj 1 918 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 921 библиотека: ceammc v0.9.8;
+#N canvas 10 940 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -99,7 +99,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1008 pd info;
+#X restore 10 940 pd info;
 #X connect 9 0 10 0;
 #X connect 11 0 12 0;
 #X connect 10 0 13 0;

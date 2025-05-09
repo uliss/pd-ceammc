@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.sqrt~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 math.sqrt~;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 outputs NAN if input signal <0;
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 outputs NAN if input signal <0;
 #X obj 50 161 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 190 plot.linspace~ -9 9;
@@ -16,15 +16,15 @@
 #X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 519 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 520 1\.;
-#X text 150 520 float:;
-#X text 245 520 input signal.;
+#X text 130 520 1\.;
+#X text 170 520 float:;
+#X text 270 520 input signal.;
 #X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 560 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 561 1\.;
-#X text 150 561 ~;
-#X text 245 561 output signal.;
+#X text 130 561 1\.;
+#X text 170 561 ~;
+#X text 270 561 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

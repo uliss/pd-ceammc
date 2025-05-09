@@ -15,23 +15,23 @@ side-chain;
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 242 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 243 1\.;
-#X text 150 243 list:;
-#X text 245 243 Input list.;
-#X text 150 268 data:mlist:;
-#X text 245 268 Input mlist.;
-#X text 110 293 2\.;
-#X text 150 293 float:;
-#X text 245 293 input value from predicate. "1" means accepted. "0"
+#X text 130 243 1\.;
+#X text 170 243 list:;
+#X text 270 243 Input list.;
+#X text 170 268 data:mlist:;
+#X text 270 268 Input mlist.;
+#X text 130 293 2\.;
+#X text 170 293 float:;
+#X text 270 293 input value from predicate. "1" means accepted. "0"
 means reject. Range: 0\...1\.;
 #X obj 20 343 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 348 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 349 1\.;
-#X text 245 349 1 - if predicate object returns true for all the elements
+#X text 130 349 1\.;
+#X text 270 349 1 - if predicate object returns true for all the elements
 or list is empty or 0 otherwise.;
-#X text 110 384 2\.;
-#X text 245 384 atom to predicate.;
+#X text 130 384 2\.;
+#X text 270 384 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -7,8 +7,8 @@
 #X obj 370 11 ceammc/char->morse;
 #X obj 526 11 char->morse;
 #X obj 631 11 conv.char2morse;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Note: cyrillic utf-8 characters are also supported.;
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Note: cyrillic utf-8 characters are also supported.;
 #X symbolatom 50 161 5 0 0 0 - - -;
 #X obj 174 161 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 174 190 @sym \$1;
@@ -19,21 +19,21 @@
 -49933 0;
 #X obj 735 306 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 338 @sym;
-#X text 245 338 Get/Set symbol output mode. If 1: output as list of
+#X msg 130 304 @sym;
+#X text 270 304 Get/Set symbol output mode. If 1: output as list of
 dots and dashes \, otherwise as list of 0 and 1\. Type: bool. Default
 value: 0\.;
-#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 410 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 371 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 376 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 411 1\.;
-#X text 150 411 symbol:;
-#X text 245 411 single character.;
-#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 451 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 377 1\.;
+#X text 170 377 symbol:;
+#X text 270 377 single character.;
+#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 417 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 452 1\.;
-#X text 245 452 list of 0 and 1 (or dots and dashes).;
+#X text 130 418 1\.;
+#X text 270 418 list of 0 and 1 (or dots and dashes).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

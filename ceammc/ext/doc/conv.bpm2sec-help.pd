@@ -7,8 +7,8 @@
 #X obj 436 11 ceammc/bpm->sec;
 #X obj 570 11 bpm->sec;
 #X obj 653 11 conv.bpm2sec;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Convert frequency from BPM (beats per minute) to period
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Convert frequency from BPM (beats per minute) to period
 in seconds. It's simple as 60/f \, but more readable.;
 #X msg 50 176 120;
 #X msg 117 176 60;
@@ -17,14 +17,14 @@ in seconds. It's simple as 60/f \, but more readable.;
 #X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 271 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 272 1\.;
-#X text 150 272 float:;
-#X text 245 272 frequency in BPM.;
+#X text 130 272 1\.;
+#X text 170 272 float:;
+#X text 270 272 frequency in BPM.;
 #X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 312 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 313 1\.;
-#X text 245 313 period in seconds.;
+#X text 130 313 1\.;
+#X text 270 313 period in seconds.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

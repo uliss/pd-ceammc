@@ -7,9 +7,9 @@
 #X obj 458 11 ceammc/bar->ms;
 #X obj 584 11 bar->ms;
 #X obj 660 11 conv.bar2ms;
-#X obj 205 78 cnv 1 560 60 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Example tempo values: 60 \, 120bpm \, 90|4bpm \, 80|3/8bpm;
-#X text 215 108 Example time signature values: |3/8| \, |1/4+3/16|;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Example tempo values: 60 \, 120bpm \, 90|4bpm \, 80|3/8bpm;
+#X text 240 108 Example time signature values: |3/8| \, |1/4+3/16|;
 #X floatatom 50 186 5 0 0 0 - - -;
 #X msg 290 186 symbol |7/8|;
 #X obj 69 215 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -24,57 +24,57 @@
 -49933 0;
 #X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 392 1\.;
-#X text 150 392 atom;
-#X obj 246 393 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 392 BPM(bpm): начальное значение темпа. Тип: atom.;
-#X text 110 412 2\.;
-#X text 150 412 symbol;
-#X obj 246 413 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 412 TSIG: начальное значение тактового размера. Тип: symbol.;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 447 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 358 1\.;
+#X text 170 358 atom;
+#X obj 271 359 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 358 BPM(bpm): начальное значение темпа. Тип: atom.;
+#X text 130 378 2\.;
+#X text 170 378 symbol;
+#X obj 271 379 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 378 TSIG: начальное значение тактового размера. Тип: symbol.;
+#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 413 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 416 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 482 @bpm;
-#X text 245 482 Получить/Установить значение темпа. Тип: atom. Единицы:
+#X msg 130 414 @bpm;
+#X text 270 414 Получить/Установить значение темпа. Тип: atom. Единицы:
 'bpm'. Значение по умолчанию: 60|4bpm.;
-#X msg 110 524 @tsig;
-#X text 245 524 Получить/Установить значение тактового размера. Тип:
+#X msg 130 456 @tsig;
+#X text 270 456 Получить/Установить значение тактового размера. Тип:
 symbol. Значение по умолчанию: |4/4|.;
-#X obj 20 576 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 581 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 508 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 513 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 582 1\.;
-#X text 150 582 bang:;
-#X text 245 582 output bar and beat duration.;
-#X text 150 607 float:;
-#X text 245 607 set tempo BPM (in quarters) and output.;
-#X text 150 632 symbol:;
-#X text 245 632 set tempo BPM (like "120|8bpm") and output.;
-#X text 150 657 list:;
-#X text 245 657 set tempo BPM and time signature \, then output.;
-#X text 110 682 2\.;
-#X text 150 682 symbol:;
-#X text 245 682 set time signature.;
-#X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 722 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 514 1\.;
+#X text 170 514 bang:;
+#X text 270 514 output bar and beat duration.;
+#X text 170 539 float:;
+#X text 270 539 set tempo BPM (in quarters) and output.;
+#X text 170 564 symbol:;
+#X text 270 564 set tempo BPM (like "120|8bpm") and output.;
+#X text 170 589 list:;
+#X text 270 589 set tempo BPM and time signature \, then output.;
+#X text 130 614 2\.;
+#X text 170 614 symbol:;
+#X text 270 614 set time signature.;
+#X obj 20 649 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 654 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 723 1\.;
-#X text 245 723 bar period in milliseconds.;
-#X text 110 743 2\.;
-#X text 245 743 beat period in milliseconds.;
+#X text 130 655 1\.;
+#X text 270 655 bar period in milliseconds.;
+#X text 130 675 2\.;
+#X text 270 675 beat period in milliseconds.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 793 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 796 библиотека: ceammc v0.9.8;
-#X text 539 808 смотрите также:;
-#X obj 660 808 conv.bpm2ms;
-#N canvas 10 815 400 290 info 0;
+#X obj 1 725 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 728 библиотека: ceammc v0.9.8;
+#X text 539 740 смотрите также:;
+#X obj 660 740 conv.bpm2ms;
+#N canvas 10 747 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -98,7 +98,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 815 pd info;
+#X restore 10 747 pd info;
 #X connect 10 0 13 0;
 #X connect 9 0 14 0;
 #X connect 11 0 14 0;

@@ -5,14 +5,14 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.acosh 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 math.acosh;
-#X obj 205 78 cnv 1 560 165 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 The acosh() function computes the principle value of
+#X obj 230 78 cnv 1 535 165 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 The acosh() function computes the principle value of
 the inverse hyperbolic cosine of input value. The result is in the
 range [0 \, +infinity].;
-#X text 215 138 Special values:;
-#X text 215 163 acosh(1) returns +0\.;
-#X text 215 188 acosh(x) returns a NAN.;
-#X text 215 213 acosh(+infinity) returns +infinity.;
+#X text 240 138 Special values:;
+#X text 240 163 acosh(1) returns +0\.;
+#X text 240 188 acosh(x) returns a NAN.;
+#X text 240 213 acosh(+infinity) returns +infinity.;
 #X floatatom 50 291 5 0 0 0 - - -;
 #X msg 117 291 1 2 d b;
 #X obj 50 320 math.acosh;
@@ -20,16 +20,16 @@ range [0 \, +infinity].;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 404 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 405 1\.;
-#X text 150 405 float:;
-#X text 245 405 input value.;
-#X text 150 430 list:;
-#X text 245 430 apply to all numeric values.;
+#X text 130 405 1\.;
+#X text 170 405 float:;
+#X text 270 405 input value.;
+#X text 170 430 list:;
+#X text 270 430 apply to all numeric values.;
 #X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 470 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 471 1\.;
-#X text 245 471 result value.;
+#X text 130 471 1\.;
+#X text 270 471 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

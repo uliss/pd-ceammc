@@ -6,8 +6,8 @@
 -4096 0;
 #X obj 577 11 preset.l;
 #X obj 660 11 preset.list;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Named list preset entry. Can store/load up to 256 various
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Named list preset entry. Can store/load up to 256 various
 lists;
 #X text 50 176 change the value;
 #X msg 155 205 store 0;
@@ -21,75 +21,75 @@ lists;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 404 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 439 Left-click;
-#X text 285 439 open preset editor.;
+#X text 130 439 Left-click;
+#X text 310 439 open preset editor.;
 #X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 474 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 509 1\.;
-#X text 150 509 symbol;
-#X obj 246 510 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 509 ID: preset id (should be unique in most use cases).
+#X text 130 475 1\.;
+#X text 170 475 symbol;
+#X obj 271 476 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 475 ID: preset id (should be unique in most use cases).
 Тип: symbol.;
-#X text 110 544 2\.;
-#X text 150 544 list;
-#X obj 246 545 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 544 INIT: preset initial value. Тип: list.;
-#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 579 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 510 2\.;
+#X text 170 510 list;
+#X obj 271 511 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 510 INIT: preset initial value. Тип: list.;
+#X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 545 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 582 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 548 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 614 @global;
-#X text 245 614 use global path like /ID. Значение по умолчанию: 0\.;
-#X msg 110 644 @id;
-#X text 245 644 (при инициализации) Получить/Установить preset id.
+#X msg 130 546 @global;
+#X text 270 546 use global path like /ID. Значение по умолчанию: 0\.;
+#X msg 130 576 @id;
+#X text 270 576 (при инициализации) Получить/Установить preset id.
 Тип: symbol.;
-#X msg 110 686 @subpatch;
-#X text 245 686 include subpatch name to path. Значение по умолчанию:
+#X msg 130 618 @subpatch;
+#X text 270 618 include subpatch name to path. Значение по умолчанию:
 0\.;
-#X msg 110 716 @init;
-#X text 245 716 Получить/Установить init list value. Тип: list.;
-#X msg 110 746 @path?;
-#X text 245 746 (только чтение) Получить property OSC-like path that
+#X msg 130 648 @init;
+#X text 270 648 Получить/Установить init list value. Тип: list.;
+#X msg 130 678 @path?;
+#X text 270 678 (только чтение) Получить property OSC-like path that
 includes id \, abstraction name and may be subpatch name separated
 by slashes. Тип: symbol.;
-#X obj 20 813 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 818 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 750 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 819 clear;
-#X text 245 819 clear preset at specified index.;
-#X msg 110 847 interp;
-#X text 245 847 do nothing.;
-#X msg 110 875 load;
-#X text 245 875 load preset value by specified index and output it.;
-#X msg 110 903 store;
-#X text 245 903 stores preset value at specified index.;
-#X obj 20 941 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 946 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 751 clear;
+#X text 270 751 clear preset at specified index.;
+#X msg 130 779 interp;
+#X text 270 779 do nothing.;
+#X msg 130 807 load;
+#X text 270 807 load preset value by specified index and output it.;
+#X msg 130 835 store;
+#X text 270 835 stores preset value at specified index.;
+#X obj 20 873 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 878 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 947 1\.;
-#X text 150 947 list:;
-#X text 245 947 set preset value without output.;
-#X obj 20 982 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 987 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 879 1\.;
+#X text 170 879 list:;
+#X text 270 879 set preset value without output.;
+#X obj 20 914 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 919 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 988 1\.;
-#X text 245 988 preset list value.;
+#X text 130 920 1\.;
+#X text 270 920 preset list value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title preset @url ceammc.preset-help.pd;
-#X obj 1 1038 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1041 библиотека: ceammc v0.9.8;
-#X text 305 1053 смотрите также:;
-#X obj 426 1053 preset.storage;
-#X obj 543 1053 preset.float;
-#X obj 645 1053 preset.symbol;
-#N canvas 10 1060 400 290 info 0;
+#X obj 1 970 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 973 библиотека: ceammc v0.9.8;
+#X text 305 985 смотрите также:;
+#X obj 426 985 preset.storage;
+#X obj 543 985 preset.float;
+#X obj 645 985 preset.symbol;
+#N canvas 10 992 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -113,7 +113,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1060 pd info;
+#X restore 10 992 pd info;
 #X connect 10 0 14 0;
 #X connect 12 0 14 0;
 #X connect 8 0 14 0;

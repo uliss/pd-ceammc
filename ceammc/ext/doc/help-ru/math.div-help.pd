@@ -16,42 +16,42 @@
 -49933 0;
 #X obj 735 248 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 280 1\.;
-#X text 150 280 float;
-#X obj 246 281 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 280 DIV: divisor. Тип: float.;
-#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 315 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 246 1\.;
+#X text 170 246 float;
+#X obj 271 247 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 246 DIV: divisor. Тип: float.;
+#X obj 20 276 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 281 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 318 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 284 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 350 @div;
-#X text 245 350 Получить/Установить divisor. Тип: float. Значение по
+#X msg 130 282 @div;
+#X text 270 282 Получить/Установить divisor. Тип: float. Значение по
 умолчанию: 1\.;
-#X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 407 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 339 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 408 1\.;
-#X text 150 408 float:;
-#X text 245 408 divident.;
-#X text 150 433 list:;
-#X text 245 433 list of divident (non float values are ignored).;
-#X text 110 458 2\.;
-#X text 150 458 float:;
-#X text 245 458 change divisor.;
-#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 498 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 340 1\.;
+#X text 170 340 float:;
+#X text 270 340 divident.;
+#X text 170 365 list:;
+#X text 270 365 list of divident (non float values are ignored).;
+#X text 130 390 2\.;
+#X text 170 390 float:;
+#X text 270 390 change divisor.;
+#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 430 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 499 1\.;
-#X text 245 499 float or list.;
+#X text 130 431 1\.;
+#X text 270 431 float or list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 549 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 552 библиотека: ceammc v0.9.8;
-#N canvas 10 571 400 290 info 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 библиотека: ceammc v0.9.8;
+#N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -75,7 +75,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 571 pd info;
+#X restore 10 527 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 8 0;
 #X connect 7 0 8 1;

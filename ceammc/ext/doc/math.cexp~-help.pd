@@ -7,12 +7,12 @@
 #X obj 491 11 ceammc/cexp~;
 #X obj 604 11 cexp~;
 #X obj 666 11 math.cexp~;
-#X obj 205 78 cnv 1 560 130 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Base-e exponential of complex signal \, that is e (Euler's
+#X obj 230 78 cnv 1 535 130 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Base-e exponential of complex signal \, that is e (Euler's
 number \, 2.7182818) raised to the complex signal power;
-#X text 215 123 The complex exponential function e^z for z = x+jy equals
+#X text 240 123 The complex exponential function e^z for z = x+jy equals
 e^x (cos(y) + j sin(y));
-#X text 215 163 The exponential function is an entire function in the
+#X text 240 163 The exponential function is an entire function in the
 complex plane and has no branch cuts;
 #X text 50 256 Plot FIR frequency response: |H(w)| = 0.5 + 0.5e^-jw;
 #X msg 50 285 bang;
@@ -30,21 +30,21 @@ complex plane and has no branch cuts;
 #X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 700 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 701 1\.;
-#X text 150 701 ~;
-#X text 245 701 real part of input signal.;
-#X text 110 726 2\.;
-#X text 150 726 ~;
-#X text 245 726 imag part of input signal.;
+#X text 130 701 1\.;
+#X text 170 701 ~;
+#X text 270 701 real part of input signal.;
+#X text 130 726 2\.;
+#X text 170 726 ~;
+#X text 270 726 imag part of input signal.;
 #X obj 20 761 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 766 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 767 1\.;
-#X text 150 767 ~;
-#X text 245 767 real part of result.;
-#X text 110 787 2\.;
-#X text 150 787 ~;
-#X text 245 787 imag part of result.;
+#X text 130 767 1\.;
+#X text 170 767 ~;
+#X text 270 767 real part of result.;
+#X text 130 787 2\.;
+#X text 170 787 ~;
+#X text 270 787 imag part of result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

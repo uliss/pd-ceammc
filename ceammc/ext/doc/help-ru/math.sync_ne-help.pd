@@ -28,47 +28,47 @@
 -49933 0;
 #X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 377 1\.;
-#X text 150 377 float;
-#X obj 246 378 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 377 F: second number. Тип: float.;
-#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 412 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 343 1\.;
+#X text 170 343 float;
+#X obj 271 344 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 343 F: second number. Тип: float.;
+#X obj 20 373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 378 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 415 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 381 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 447 @epsilon;
-#X text 245 447 Получить/Установить compare epsilon. If not zero calculates
+#X msg 130 379 @epsilon;
+#X text 270 379 Получить/Установить compare epsilon. If not zero calculates
 expession: !(-epsilon < abs(A-B) < +epsilon). Тип: float. Значение
 по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 519 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 451 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 520 1\.;
-#X text 150 520 float:;
-#X text 245 520 set first number \, calculate and output result.;
-#X text 150 545 list:;
-#X text 245 545 pair: set first and second numbers \, calculate and
+#X text 130 452 1\.;
+#X text 170 452 float:;
+#X text 270 452 set first number \, calculate and output result.;
+#X text 170 477 list:;
+#X text 270 477 pair: set first and second numbers \, calculate and
 output result.;
-#X text 110 585 2\.;
-#X text 150 585 float:;
-#X text 245 585 change second number \, calculate and output result.;
-#X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 625 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 517 2\.;
+#X text 170 517 float:;
+#X text 270 517 change second number \, calculate and output result.;
+#X obj 20 552 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 557 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 626 1\.;
-#X text 245 626 result output: 1 if numbers are not equal otherwise
+#X text 130 558 1\.;
+#X text 270 558 result output: 1 if numbers are not equal otherwise
 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 676 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 679 библиотека: ceammc v0.9.8;
-#X text 562 691 смотрите также:;
-#X obj 683 691 math.==';
-#N canvas 10 698 400 290 info 0;
+#X obj 1 608 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 611 библиотека: ceammc v0.9.8;
+#X text 562 623 смотрите также:;
+#X obj 683 623 math.==';
+#N canvas 10 630 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -92,7 +92,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 698 pd info;
+#X restore 10 630 pd info;
 #X connect 11 0 12 0;
 #X connect 7 0 13 0;
 #X connect 8 0 13 1;

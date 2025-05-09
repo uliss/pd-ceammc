@@ -23,325 +23,325 @@
 -49933 0;
 #X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 439 @id;
-#X text 245 439 (initonly) Get/Set OSC address id. If specified \,
+#X msg 130 405 @id;
+#X text 270 405 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_dx7/PROP_NAME osc address \, if empty
 bind to /synth_dx7/PROP_NAME. Type: symbol.;
-#X msg 110 496 @osc;
-#X text 245 496 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 130 462 @osc;
+#X text 270 462 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 526 @active;
-#X text 245 526 Turn on/off object dsp processing. Type: bool. Default
+#X msg 130 492 @active;
+#X text 270 492 Turn on/off object dsp processing. Type: bool. Default
 value: 1\.;
-#X msg 110 568 @algorithm;
-#X text 245 568 Get/Set FM algorithm number (0-based). Type: int. Default
+#X msg 130 534 @algorithm;
+#X text 270 534 Get/Set FM algorithm number (0-based). Type: int. Default
 value: 0\. Range: 0\...31\.;
-#X msg 110 610 @feedback;
-#X text 245 610 Get/Set @feedback. Type: float. Default value: 0.0\.
+#X msg 130 576 @feedback;
+#X text 270 576 Get/Set @feedback. Type: float. Default value: 0.0\.
 Range: 0.0\...99.0\.;
-#X msg 110 652 @freq;
-#X text 245 652 Get/Set synth frequency. Type: float. Units: 'Hz'.
+#X msg 130 618 @freq;
+#X text 270 618 Get/Set synth frequency. Type: float. Units: 'Hz'.
 Default value: 130.8127899169922\.;
-#X msg 110 694 @gain;
-#X text 245 694 Get/Set output gain. Type: float. Default value: 0.800000011920929\.
+#X msg 130 660 @gain;
+#X text 270 660 Get/Set output gain. Type: float. Default value: 0.800000011920929\.
 Range: 0.0\...1.0\.;
-#X msg 110 736 @gate;
-#X text 245 736 Get/Set note on/off signal. Type: float. Default value:
+#X msg 130 702 @gate;
+#X text 270 702 Get/Set note on/off signal. Type: float. Default value:
 0.0\. Range: 0.0\...1.0\.;
-#X msg 110 778 @op0:L1;
-#X text 245 778 Get/Set op0: Envelope Generator Level 1\. Type: float.
+#X msg 130 744 @op0:L1;
+#X text 270 744 Get/Set op0: Envelope Generator Level 1\. Type: float.
 Default value: 0.0\. Range: 0.0\...99.0\.;
-#X msg 110 820 @op0:L2;
-#X text 245 820 Get/Set op0: Envelope Generator Level 2\. Type: float.
+#X msg 130 786 @op0:L2;
+#X text 270 786 Get/Set op0: Envelope Generator Level 2\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 862 @op0:L3;
-#X text 245 862 Get/Set op0: Envelope Generator Level 3\. Type: float.
+#X msg 130 828 @op0:L3;
+#X text 270 828 Get/Set op0: Envelope Generator Level 3\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 904 @op0:L4;
-#X text 245 904 Get/Set op0: Envelope Generator Level 4\. Type: float.
+#X msg 130 870 @op0:L4;
+#X text 270 870 Get/Set op0: Envelope Generator Level 4\. Type: float.
 Default value: 0.0\. Range: 0.0\...99.0\.;
-#X msg 110 946 @op0:R1;
-#X text 245 946 Get/Set op0: Envelope Generator Rate 1\. Type: float.
+#X msg 130 912 @op0:R1;
+#X text 270 912 Get/Set op0: Envelope Generator Rate 1\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 988 @op0:R2;
-#X text 245 988 Get/Set op0: Envelope Generator Rate 2\. Type: float.
+#X msg 130 954 @op0:R2;
+#X text 270 954 Get/Set op0: Envelope Generator Rate 2\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 1030 @op0:R3;
-#X text 245 1030 Get/Set op0: Envelope Generator Rate 3\. Type: float.
+#X msg 130 996 @op0:R3;
+#X text 270 996 Get/Set op0: Envelope Generator Rate 3\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 1072 @op0:R4;
-#X text 245 1072 Get/Set op0: Envelope Generator Rate 4\. Type: float.
+#X msg 130 1038 @op0:R4;
+#X text 270 1038 Get/Set op0: Envelope Generator Rate 4\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 1114 @op0:detune;
-#X text 245 1114 Get/Set op0: detune. Type: float. Default value: 1.0\.
+#X msg 130 1080 @op0:detune;
+#X text 270 1080 Get/Set op0: detune. Type: float. Default value: 1.0\.
 Range: -10.0\...10.0\.;
-#X msg 110 1156 @op0:freq;
-#X text 245 1156 Get/Set op0: frequency. Type: float. Units: 'Hz'.
+#X msg 130 1122 @op0:freq;
+#X text 270 1122 Get/Set op0: frequency. Type: float. Units: 'Hz'.
 Default value: 1.0\. Range: 0.0\...32.0\.;
-#X msg 110 1198 @op0:level;
-#X text 245 1198 Get/Set op0: output level. Type: float. Default value:
+#X msg 130 1164 @op0:level;
+#X text 270 1164 Get/Set op0: output level. Type: float. Default value:
 95.0\. Range: 0.0\...99.0\.;
-#X msg 110 1240 @op0:opMode;
-#X text 245 1240 Get/Set op0: opMode. Type: float. Default value: 0.0\.
+#X msg 130 1206 @op0:opMode;
+#X text 270 1206 Get/Set op0: opMode. Type: float. Default value: 0.0\.
 Range: 0.0\...1.0\.;
-#X msg 110 1282 @op0:rate;
-#X text 245 1282 Get/Set op0: rate. Type: float. Default value: 0.0\.
+#X msg 130 1248 @op0:rate;
+#X text 270 1248 Get/Set op0: rate. Type: float. Default value: 0.0\.
 Range: 0.0\...10.0\.;
-#X msg 110 1324 @op0:vel;
-#X text 245 1324 Get/Set op0: keyboard velocity sensivity. Type: float.
+#X msg 130 1290 @op0:vel;
+#X text 270 1290 Get/Set op0: keyboard velocity sensivity. Type: float.
 Default value: 1.0\. Range: 0.0\...8.0\.;
-#X msg 110 1366 @op1:L1;
-#X text 245 1366 Get/Set op1: Envelope Generator Level 1\. Type: float.
+#X msg 130 1332 @op1:L1;
+#X text 270 1332 Get/Set op1: Envelope Generator Level 1\. Type: float.
 Default value: 0.0\. Range: 0.0\...99.0\.;
-#X msg 110 1408 @op1:L2;
-#X text 245 1408 Get/Set op1: Envelope Generator Level 2\. Type: float.
+#X msg 130 1374 @op1:L2;
+#X text 270 1374 Get/Set op1: Envelope Generator Level 2\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 1450 @op1:L3;
-#X text 245 1450 Get/Set op1: Envelope Generator Level 3\. Type: float.
+#X msg 130 1416 @op1:L3;
+#X text 270 1416 Get/Set op1: Envelope Generator Level 3\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 1492 @op1:L4;
-#X text 245 1492 Get/Set op1: Envelope Generator Level 4\. Type: float.
+#X msg 130 1458 @op1:L4;
+#X text 270 1458 Get/Set op1: Envelope Generator Level 4\. Type: float.
 Default value: 0.0\. Range: 0.0\...99.0\.;
-#X msg 110 1534 @op1:R1;
-#X text 245 1534 Get/Set op1: Envelope Generator Rate 1\. Type: float.
+#X msg 130 1500 @op1:R1;
+#X text 270 1500 Get/Set op1: Envelope Generator Rate 1\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 1576 @op1:R2;
-#X text 245 1576 Get/Set op1: Envelope Generator Rate 2\. Type: float.
+#X msg 130 1542 @op1:R2;
+#X text 270 1542 Get/Set op1: Envelope Generator Rate 2\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 1618 @op1:R3;
-#X text 245 1618 Get/Set op1: Envelope Generator Rate 3\. Type: float.
+#X msg 130 1584 @op1:R3;
+#X text 270 1584 Get/Set op1: Envelope Generator Rate 3\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 1660 @op1:R4;
-#X text 245 1660 Get/Set op1: Envelope Generator Rate 4\. Type: float.
+#X msg 130 1626 @op1:R4;
+#X text 270 1626 Get/Set op1: Envelope Generator Rate 4\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 1702 @op1:detune;
-#X text 245 1702 Get/Set op1: detune. Type: float. Default value: 1.0\.
+#X msg 130 1668 @op1:detune;
+#X text 270 1668 Get/Set op1: detune. Type: float. Default value: 1.0\.
 Range: -10.0\...10.0\.;
-#X msg 110 1744 @op1:freq;
-#X text 245 1744 Get/Set op1: frequency. Type: float. Units: 'Hz'.
+#X msg 130 1710 @op1:freq;
+#X text 270 1710 Get/Set op1: frequency. Type: float. Units: 'Hz'.
 Default value: 1.0\. Range: 0.0\...32.0\.;
-#X msg 110 1786 @op1:level;
-#X text 245 1786 Get/Set op1: output level. Type: float. Default value:
+#X msg 130 1752 @op1:level;
+#X text 270 1752 Get/Set op1: output level. Type: float. Default value:
 95.0\. Range: 0.0\...99.0\.;
-#X msg 110 1828 @op1:opMode;
-#X text 245 1828 Get/Set op1: FreqRatio or FreqFixed mode. Type: float.
+#X msg 130 1794 @op1:opMode;
+#X text 270 1794 Get/Set op1: FreqRatio or FreqFixed mode. Type: float.
 Default value: 0.0\. Range: 0.0\...1.0\.;
-#X msg 110 1870 @op1:rate;
-#X text 245 1870 Get/Set op1:rate. Type: float. Default value: 0.0\.
+#X msg 130 1836 @op1:rate;
+#X text 270 1836 Get/Set op1:rate. Type: float. Default value: 0.0\.
 Range: 0.0\...10.0\.;
-#X msg 110 1912 @op1:vel;
-#X text 245 1912 Get/Set op1: keyboard velocity sensivity. Type: float.
+#X msg 130 1878 @op1:vel;
+#X text 270 1878 Get/Set op1: keyboard velocity sensivity. Type: float.
 Default value: 1.0\. Range: 0.0\...8.0\.;
-#X msg 110 1954 @op2:L1;
-#X text 245 1954 Get/Set op2: Envelope Generator Level 1\. Type: float.
+#X msg 130 1920 @op2:L1;
+#X text 270 1920 Get/Set op2: Envelope Generator Level 1\. Type: float.
 Default value: 0.0\. Range: 0.0\...99.0\.;
-#X msg 110 1996 @op2:L2;
-#X text 245 1996 Get/Set op2: Envelope Generator Level 2\. Type: float.
+#X msg 130 1962 @op2:L2;
+#X text 270 1962 Get/Set op2: Envelope Generator Level 2\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 2038 @op2:L3;
-#X text 245 2038 Get/Set op2: Envelope Generator Level 3\. Type: float.
+#X msg 130 2004 @op2:L3;
+#X text 270 2004 Get/Set op2: Envelope Generator Level 3\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 2080 @op2:L4;
-#X text 245 2080 Get/Set op2: Envelope Generator Level 4\. Type: float.
+#X msg 130 2046 @op2:L4;
+#X text 270 2046 Get/Set op2: Envelope Generator Level 4\. Type: float.
 Default value: 0.0\. Range: 0.0\...99.0\.;
-#X msg 110 2122 @op2:R1;
-#X text 245 2122 Get/Set op2: Envelope Generator Rate 1\. Type: float.
+#X msg 130 2088 @op2:R1;
+#X text 270 2088 Get/Set op2: Envelope Generator Rate 1\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 2164 @op2:R2;
-#X text 245 2164 Get/Set op2: Envelope Generator Rate 2\. Type: float.
+#X msg 130 2130 @op2:R2;
+#X text 270 2130 Get/Set op2: Envelope Generator Rate 2\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 2206 @op2:R3;
-#X text 245 2206 Get/Set op2: Envelope Generator Rate 3\. Type: float.
+#X msg 130 2172 @op2:R3;
+#X text 270 2172 Get/Set op2: Envelope Generator Rate 3\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 2248 @op2:R4;
-#X text 245 2248 Get/Set op2: Envelope Generator Rate 4\. Type: float.
+#X msg 130 2214 @op2:R4;
+#X text 270 2214 Get/Set op2: Envelope Generator Rate 4\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 2290 @op2:detune;
-#X text 245 2290 Get/Set op2: detune. Type: float. Default value: 1.0\.
+#X msg 130 2256 @op2:detune;
+#X text 270 2256 Get/Set op2: detune. Type: float. Default value: 1.0\.
 Range: -10.0\...10.0\.;
-#X msg 110 2332 @op2:freq;
-#X text 245 2332 Get/Set op2: frequency. Type: float. Units: 'Hz'.
+#X msg 130 2298 @op2:freq;
+#X text 270 2298 Get/Set op2: frequency. Type: float. Units: 'Hz'.
 Default value: 1.0\. Range: 0.0\...32.0\.;
-#X msg 110 2374 @op2:level;
-#X text 245 2374 Get/Set op2: output level. Type: float. Default value:
+#X msg 130 2340 @op2:level;
+#X text 270 2340 Get/Set op2: output level. Type: float. Default value:
 95.0\. Range: 0.0\...99.0\.;
-#X msg 110 2416 @op2:opMode;
-#X text 245 2416 Get/Set op2: FreqRatio or FreqFixed mode. Type: float.
+#X msg 130 2382 @op2:opMode;
+#X text 270 2382 Get/Set op2: FreqRatio or FreqFixed mode. Type: float.
 Default value: 0.0\. Range: 0.0\...1.0\.;
-#X msg 110 2458 @op2:rate;
-#X text 245 2458 Get/Set op2: rate. Type: float. Default value: 0.0\.
+#X msg 130 2424 @op2:rate;
+#X text 270 2424 Get/Set op2: rate. Type: float. Default value: 0.0\.
 Range: 0.0\...10.0\.;
-#X msg 110 2500 @op2:vel;
-#X text 245 2500 Get/Set op2: keyboard velocity sensivity. Type: float.
+#X msg 130 2466 @op2:vel;
+#X text 270 2466 Get/Set op2: keyboard velocity sensivity. Type: float.
 Default value: 1.0\. Range: 0.0\...8.0\.;
-#X msg 110 2542 @op3:L1;
-#X text 245 2542 Get/Set op3: Envelope Generator Level 1\. Type: float.
+#X msg 130 2508 @op3:L1;
+#X text 270 2508 Get/Set op3: Envelope Generator Level 1\. Type: float.
 Default value: 0.0\. Range: 0.0\...99.0\.;
-#X msg 110 2584 @op3:L2;
-#X text 245 2584 Get/Set op3: Envelope Generator Level 2\. Type: float.
+#X msg 130 2550 @op3:L2;
+#X text 270 2550 Get/Set op3: Envelope Generator Level 2\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 2626 @op3:L3;
-#X text 245 2626 Get/Set op3: Envelope Generator Level 3\. Type: float.
+#X msg 130 2592 @op3:L3;
+#X text 270 2592 Get/Set op3: Envelope Generator Level 3\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 2668 @op3:L4;
-#X text 245 2668 Get/Set op3: Envelope Generator Level 4\. Type: float.
+#X msg 130 2634 @op3:L4;
+#X text 270 2634 Get/Set op3: Envelope Generator Level 4\. Type: float.
 Default value: 0.0\. Range: 0.0\...99.0\.;
-#X msg 110 2710 @op3:R1;
-#X text 245 2710 Get/Set op3: Envelope Generator Rate 1\. Type: float.
+#X msg 130 2676 @op3:R1;
+#X text 270 2676 Get/Set op3: Envelope Generator Rate 1\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 2752 @op3:R2;
-#X text 245 2752 Get/Set op3: Envelope Generator Rate 2\. Type: float.
+#X msg 130 2718 @op3:R2;
+#X text 270 2718 Get/Set op3: Envelope Generator Rate 2\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 2794 @op3:R3;
-#X text 245 2794 Get/Set op3: Envelope Generator Rate 3\. Type: float.
+#X msg 130 2760 @op3:R3;
+#X text 270 2760 Get/Set op3: Envelope Generator Rate 3\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 2836 @op3:R4;
-#X text 245 2836 Get/Set op3: Envelope Generator Rate 4\. Type: float.
+#X msg 130 2802 @op3:R4;
+#X text 270 2802 Get/Set op3: Envelope Generator Rate 4\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 2878 @op3:detune;
-#X text 245 2878 Get/Set op3: detune. Type: float. Default value: 1.0\.
+#X msg 130 2844 @op3:detune;
+#X text 270 2844 Get/Set op3: detune. Type: float. Default value: 1.0\.
 Range: -10.0\...10.0\.;
-#X msg 110 2920 @op3:freq;
-#X text 245 2920 Get/Set op3: frequency. Type: float. Units: 'Hz'.
+#X msg 130 2886 @op3:freq;
+#X text 270 2886 Get/Set op3: frequency. Type: float. Units: 'Hz'.
 Default value: 1.0\. Range: 0.0\...32.0\.;
-#X msg 110 2962 @op3:level;
-#X text 245 2962 Get/Set op3: output level. Type: float. Default value:
+#X msg 130 2928 @op3:level;
+#X text 270 2928 Get/Set op3: output level. Type: float. Default value:
 95.0\. Range: 0.0\...99.0\.;
-#X msg 110 3004 @op3:opMode;
-#X text 245 3004 Get/Set op3: FreqRatio or FreqFixed mode. Type: float.
+#X msg 130 2970 @op3:opMode;
+#X text 270 2970 Get/Set op3: FreqRatio or FreqFixed mode. Type: float.
 Default value: 0.0\. Range: 0.0\...1.0\.;
-#X msg 110 3046 @op3:rate;
-#X text 245 3046 Get/Set op3: rate. Type: float. Default value: 0.0\.
+#X msg 130 3012 @op3:rate;
+#X text 270 3012 Get/Set op3: rate. Type: float. Default value: 0.0\.
 Range: 0.0\...10.0\.;
-#X msg 110 3088 @op3:vel;
-#X text 245 3088 Get/Set op3: keyboard velocity sensivity. Type: float.
+#X msg 130 3054 @op3:vel;
+#X text 270 3054 Get/Set op3: keyboard velocity sensivity. Type: float.
 Default value: 1.0\. Range: 0.0\...8.0\.;
-#X msg 110 3130 @op4:L1;
-#X text 245 3130 Get/Set op4: Envelope Generator Level 1\. Type: float.
+#X msg 130 3096 @op4:L1;
+#X text 270 3096 Get/Set op4: Envelope Generator Level 1\. Type: float.
 Default value: 0.0\. Range: 0.0\...99.0\.;
-#X msg 110 3172 @op4:L2;
-#X text 245 3172 Get/Set op4: Envelope Generator Level 2\. Type: float.
+#X msg 130 3138 @op4:L2;
+#X text 270 3138 Get/Set op4: Envelope Generator Level 2\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 3214 @op4:L3;
-#X text 245 3214 Get/Set op4: Envelope Generator Level 3\. Type: float.
+#X msg 130 3180 @op4:L3;
+#X text 270 3180 Get/Set op4: Envelope Generator Level 3\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 3256 @op4:L4;
-#X text 245 3256 Get/Set op4: Envelope Generator Level 4\. Type: float.
+#X msg 130 3222 @op4:L4;
+#X text 270 3222 Get/Set op4: Envelope Generator Level 4\. Type: float.
 Default value: 0.0\. Range: 0.0\...99.0\.;
-#X msg 110 3298 @op4:R1;
-#X text 245 3298 Get/Set op4: Envelope Generator Rate 1\. Type: float.
+#X msg 130 3264 @op4:R1;
+#X text 270 3264 Get/Set op4: Envelope Generator Rate 1\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 3340 @op4:R2;
-#X text 245 3340 Get/Set op4: Envelope Generator Rate 2\. Type: float.
+#X msg 130 3306 @op4:R2;
+#X text 270 3306 Get/Set op4: Envelope Generator Rate 2\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 3382 @op4:R3;
-#X text 245 3382 Get/Set op4: Envelope Generator Rate 3\. Type: float.
+#X msg 130 3348 @op4:R3;
+#X text 270 3348 Get/Set op4: Envelope Generator Rate 3\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 3424 @op4:R4;
-#X text 245 3424 Get/Set op4: Envelope Generator Rate 4\. Type: float.
+#X msg 130 3390 @op4:R4;
+#X text 270 3390 Get/Set op4: Envelope Generator Rate 4\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 3466 @op4:detune;
-#X text 245 3466 Get/Set op4: detune. Type: float. Default value: 1.0\.
+#X msg 130 3432 @op4:detune;
+#X text 270 3432 Get/Set op4: detune. Type: float. Default value: 1.0\.
 Range: -10.0\...10.0\.;
-#X msg 110 3508 @op4:freq;
-#X text 245 3508 Get/Set op4: frequency. Type: float. Units: 'Hz'.
+#X msg 130 3474 @op4:freq;
+#X text 270 3474 Get/Set op4: frequency. Type: float. Units: 'Hz'.
 Default value: 1.0\. Range: 0.0\...32.0\.;
-#X msg 110 3550 @op4:level;
-#X text 245 3550 Get/Set op4: output level. Type: float. Default value:
+#X msg 130 3516 @op4:level;
+#X text 270 3516 Get/Set op4: output level. Type: float. Default value:
 95.0\. Range: 0.0\...99.0\.;
-#X msg 110 3592 @op4:opMode;
-#X text 245 3592 Get/Set op4: FreqRatio or FreqFixed mode. Type: float.
+#X msg 130 3558 @op4:opMode;
+#X text 270 3558 Get/Set op4: FreqRatio or FreqFixed mode. Type: float.
 Default value: 0.0\. Range: 0.0\...1.0\.;
-#X msg 110 3634 @op4:rate;
-#X text 245 3634 Get/Set op4: rate. Type: float. Default value: 0.0\.
+#X msg 130 3600 @op4:rate;
+#X text 270 3600 Get/Set op4: rate. Type: float. Default value: 0.0\.
 Range: 0.0\...10.0\.;
-#X msg 110 3676 @op4:vel;
-#X text 245 3676 Get/Set op4: keyboard velocity sensivity. Type: float.
+#X msg 130 3642 @op4:vel;
+#X text 270 3642 Get/Set op4: keyboard velocity sensivity. Type: float.
 Default value: 1.0\. Range: 0.0\...8.0\.;
-#X msg 110 3718 @op5:L1;
-#X text 245 3718 Get/Set op5: Envelope Generator Level 1\. Type: float.
+#X msg 130 3684 @op5:L1;
+#X text 270 3684 Get/Set op5: Envelope Generator Level 1\. Type: float.
 Default value: 0.0\. Range: 0.0\...99.0\.;
-#X msg 110 3760 @op5:L2;
-#X text 245 3760 Get/Set op5: Envelope Generator Level 2\. Type: float.
+#X msg 130 3726 @op5:L2;
+#X text 270 3726 Get/Set op5: Envelope Generator Level 2\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 3802 @op5:L3;
-#X text 245 3802 Get/Set op5: Envelope Generator Level 3\. Type: float.
+#X msg 130 3768 @op5:L3;
+#X text 270 3768 Get/Set op5: Envelope Generator Level 3\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 3844 @op5:L4;
-#X text 245 3844 Get/Set op5: Envelope Generator Level 4\. Type: float.
+#X msg 130 3810 @op5:L4;
+#X text 270 3810 Get/Set op5: Envelope Generator Level 4\. Type: float.
 Default value: 0.0\. Range: 0.0\...99.0\.;
-#X msg 110 3886 @op5:R1;
-#X text 245 3886 Get/Set op5: Envelope Generator Rate 1\. Type: float.
+#X msg 130 3852 @op5:R1;
+#X text 270 3852 Get/Set op5: Envelope Generator Rate 1\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 3928 @op5:R2;
-#X text 245 3928 Get/Set op5: Envelope Generator Rate 2\. Type: float.
+#X msg 130 3894 @op5:R2;
+#X text 270 3894 Get/Set op5: Envelope Generator Rate 2\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 3970 @op5:R3;
-#X text 245 3970 Get/Set op5: Envelope Generator Rate 3\. Type: float.
+#X msg 130 3936 @op5:R3;
+#X text 270 3936 Get/Set op5: Envelope Generator Rate 3\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 4012 @op5:R4;
-#X text 245 4012 Get/Set op5: Envelope Generator Rate 4\. Type: float.
+#X msg 130 3978 @op5:R4;
+#X text 270 3978 Get/Set op5: Envelope Generator Rate 4\. Type: float.
 Default value: 90.0\. Range: 0.0\...99.0\.;
-#X msg 110 4054 @op5:detune;
-#X text 245 4054 Get/Set op5: detune. Type: float. Default value: 1.0\.
+#X msg 130 4020 @op5:detune;
+#X text 270 4020 Get/Set op5: detune. Type: float. Default value: 1.0\.
 Range: -10.0\...10.0\.;
-#X msg 110 4096 @op5:freq;
-#X text 245 4096 Get/Set op5: frequency. Type: float. Units: 'Hz'.
+#X msg 130 4062 @op5:freq;
+#X text 270 4062 Get/Set op5: frequency. Type: float. Units: 'Hz'.
 Default value: 1.0\. Range: 0.0\...32.0\.;
-#X msg 110 4138 @op5:level;
-#X text 245 4138 Get/Set op5: outut level. Type: float. Default value:
+#X msg 130 4104 @op5:level;
+#X text 270 4104 Get/Set op5: outut level. Type: float. Default value:
 95.0\. Range: 0.0\...99.0\.;
-#X msg 110 4180 @op5:opMode;
-#X text 245 4180 Get/Set op5: FreqRatio or FreqFixed mode. Type: float.
+#X msg 130 4146 @op5:opMode;
+#X text 270 4146 Get/Set op5: FreqRatio or FreqFixed mode. Type: float.
 Default value: 0.0\. Range: 0.0\...1.0\.;
-#X msg 110 4222 @op5:rate;
-#X text 245 4222 Get/Set op5: rate. Type: float. Default value: 0.0\.
+#X msg 130 4188 @op5:rate;
+#X text 270 4188 Get/Set op5: rate. Type: float. Default value: 0.0\.
 Range: 0.0\...10.0\.;
-#X msg 110 4264 @op5:vel;
-#X text 245 4264 Get/Set op5: keyboard velocity sensivity. Type: float.
+#X msg 130 4230 @op5:vel;
+#X text 270 4230 Get/Set op5: keyboard velocity sensivity. Type: float.
 Default value: 1.0\. Range: 0.0\...8.0\.;
-#X msg 110 4306 @pitch;
-#X text 245 4306 Get/Set midi pitch. Type: float. Default value: 48\.
+#X msg 130 4272 @pitch;
+#X text 270 4272 Get/Set midi pitch. Type: float. Default value: 48\.
 Range: 24\...84\.;
-#X obj 20 4358 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4363 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 4324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4329 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 4364 load;
-#X text 245 4364 load the preset from a previously loaded sysex file.
+#X msg 130 4330 load;
+#X text 270 4330 load the preset from a previously loaded sysex file.
 Arguments are:;
-#X obj 255 4402 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4402 [IDX]: preset index. Type: int. Range: 0\...31\.;
-#X msg 110 4427 note;
-#X text 245 4427 note on/off message. Arguments are:;
-#X obj 255 4450 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4450 NOTE: midi note. Type: float.;
-#X obj 255 4473 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4473 VEL: velocity. Type: float. Range: 0\...127\.;
-#X msg 110 4498 read;
-#X text 245 4498 reads the DX7 sysex preset file. Arguments are:;
-#X obj 255 4521 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4521 [PATH]: relative or absolute path to the DX sysex
+#X obj 280 4368 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 4368 [IDX]: preset index. Type: int. Range: 0\...31\.;
+#X msg 130 4393 note;
+#X text 270 4393 note on/off message. Arguments are:;
+#X obj 280 4416 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 4416 NOTE: midi note. Type: float.;
+#X obj 280 4439 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 4439 VEL: velocity. Type: float. Range: 0\...127\.;
+#X msg 130 4464 read;
+#X text 270 4464 reads the DX7 sysex preset file. Arguments are:;
+#X obj 280 4487 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 4487 [PATH]: relative or absolute path to the DX sysex
 preset file. Type: symbol.;
-#X obj 20 4571 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4576 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 4537 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4542 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 4577 1\.;
-#X text 150 4577 list:;
-#X text 245 4577 NOTE VEL.;
-#X obj 20 4612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4617 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 4543 1\.;
+#X text 170 4543 list:;
+#X text 270 4543 NOTE VEL.;
+#X obj 20 4578 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4583 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 4618 1\.;
-#X text 150 4618 ~;
-#X text 245 4618 synth output.;
+#X text 130 4584 1\.;
+#X text 170 4584 ~;
+#X text 270 4584 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 4668 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 4671 library: ceammc v0.9.8;
-#N canvas 10 4690 400 290 info 0;
+#X obj 1 4634 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4637 library: ceammc v0.9.8;
+#N canvas 10 4656 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -365,7 +365,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 4690 pd info;
+#X restore 10 4656 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 7 0;
 #X connect 7 0 10 0;

@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.atan~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 math.atan~;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Outputs arc tangent of input signal. The result is in
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Outputs arc tangent of input signal. The result is in
 the range [-π/2 \, +π/2];
 #X obj 50 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -18,15 +18,15 @@ the range [-π/2 \, +π/2];
 #X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 534 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 535 1\.;
-#X text 150 535 ~;
-#X text 245 535 input signal.;
+#X text 130 535 1\.;
+#X text 170 535 ~;
+#X text 270 535 input signal.;
 #X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 575 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 576 1\.;
-#X text 150 576 ~;
-#X text 245 576 result signal.;
+#X text 130 576 1\.;
+#X text 170 576 ~;
+#X text 270 576 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

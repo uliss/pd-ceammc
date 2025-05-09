@@ -18,67 +18,67 @@
 -49933 0;
 #X obj 735 245 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 277 1\.;
-#X text 150 277 float;
-#X obj 246 278 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 277 VALUE: target value. Тип: float.;
-#X text 110 297 2\.;
-#X text 150 297 float;
-#X obj 246 298 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 297 TIME(ms): time to reach the target value. Тип: float.
+#X text 130 243 1\.;
+#X text 170 243 float;
+#X obj 271 244 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 243 VALUE: target value. Тип: float.;
+#X text 130 263 2\.;
+#X text 170 263 float;
+#X obj 271 264 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 263 TIME(ms): time to reach the target value. Тип: float.
 Диапазон: 50…5000;
-#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 347 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 308 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 313 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 350 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 316 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 382 @accel;
-#X text 245 382 Получить/Установить acceleration factor \, 0: means
+#X msg 130 314 @accel;
+#X text 270 314 Получить/Установить acceleration factor \, 0: means
 linear motion (no acceleration) \, >0: begin fast \, then slow down
 \, <0: begin slow \, then speed up. Тип: float. Значение по умолчанию:
 0\. Диапазон: -5\...5\.;
-#X msg 110 469 @mouse_down;
-#X text 245 469 Получить/Установить internal state. Тип: bool. Значение
+#X msg 130 401 @mouse_down;
+#X text 270 401 Получить/Установить internal state. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 511 @mouse_drag;
-#X text 245 511 Получить/Установить internal state. Тип: bool. Значение
+#X msg 130 443 @mouse_drag;
+#X text 270 443 Получить/Установить internal state. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 553 @mouse_move;
-#X text 245 553 Получить/Установить internal state. Тип: bool. Значение
+#X msg 130 485 @mouse_move;
+#X text 270 485 Получить/Установить internal state. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 595 @mouse_up;
-#X text 245 595 Получить/Установить internal state. Тип: bool. Значение
+#X msg 130 527 @mouse_up;
+#X text 270 527 Получить/Установить internal state. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 637 @time;
-#X text 245 637 Получить/Установить time to reach target value. Тип:
+#X msg 130 569 @time;
+#X text 270 569 Получить/Установить time to reach target value. Тип:
 float. Единицы: 'ms'. Значение по умолчанию: 500\. Диапазон: 50\...5000\.;
-#X msg 110 694 @value;
-#X text 245 694 Получить/Установить target value. Тип: float. Значение
+#X msg 130 626 @value;
+#X text 270 626 Получить/Установить target value. Тип: float. Значение
 по умолчанию: 0\.;
-#X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 751 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 678 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 683 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 752 1\.;
-#X text 150 752 float:;
-#X text 245 752 set current value.;
-#X text 110 777 2\.;
-#X text 150 777 float:;
-#X text 245 777 set @value.;
-#X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 817 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 684 1\.;
+#X text 170 684 float:;
+#X text 270 684 set current value.;
+#X text 130 709 2\.;
+#X text 170 709 float:;
+#X text 270 709 set @value.;
+#X obj 20 744 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 749 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 818 1\.;
-#X text 245 818 float: value.;
-#X text 110 838 2\.;
-#X text 245 838 bang: when target value is reached.;
+#X text 130 750 1\.;
+#X text 270 750 float: value.;
+#X text 130 770 2\.;
+#X text 270 770 bang: when target value is reached.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 888 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 891 библиотека: ceammc v0.9.8;
-#N canvas 10 910 400 290 info 0;
+#X obj 1 820 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 823 библиотека: ceammc v0.9.8;
+#N canvas 10 842 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -102,7 +102,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 910 pd info;
+#X restore 10 842 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 9 0;
 #X connect 8 1 10 0;

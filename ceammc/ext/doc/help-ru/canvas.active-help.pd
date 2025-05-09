@@ -19,20 +19,20 @@
 -49933 0;
 #X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 324 @abs;
-#X text 245 324 Получить/Установить проверка внутри абстракции. Тип:
+#X msg 130 290 @abs;
+#X text 270 290 Получить/Установить проверка внутри абстракции. Тип:
 bool. Значение по умолчанию: 0\.;
-#X obj 20 376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 381 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 347 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 382 1\.;
-#X text 150 382 bang:;
-#X text 245 382 output canvas active state.;
-#X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 422 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 348 1\.;
+#X text 170 348 bang:;
+#X text 270 348 output canvas active state.;
+#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 388 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 423 1\.;
-#X text 245 423 int: 1 or 0\.;
+#X text 130 389 1\.;
+#X text 270 389 int: 1 or 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

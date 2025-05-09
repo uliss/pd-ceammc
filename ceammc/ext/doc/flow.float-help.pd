@@ -18,23 +18,23 @@
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 260 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 261 1\.;
-#X text 150 261 float:;
-#X text 245 261 passes numerical values.;
-#X text 150 286 bang:;
-#X text 245 286 ignored.;
-#X text 150 311 symbol:;
-#X text 245 311 ignored.;
-#X text 150 336 list:;
-#X text 245 336 ignored.;
-#X text 150 361 any:;
-#X text 245 361 ignored.;
+#X text 130 261 1\.;
+#X text 170 261 float:;
+#X text 270 261 passes numerical values.;
+#X text 170 286 bang:;
+#X text 270 286 ignored.;
+#X text 170 311 symbol:;
+#X text 270 311 ignored.;
+#X text 170 336 list:;
+#X text 270 336 ignored.;
+#X text 170 361 any:;
+#X text 270 361 ignored.;
 #X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 401 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 402 1\.;
-#X text 150 402 float:;
-#X text 245 402 passed numerical values.;
+#X text 130 402 1\.;
+#X text 170 402 float:;
+#X text 270 402 passed numerical values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

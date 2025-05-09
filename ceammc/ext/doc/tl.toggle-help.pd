@@ -6,8 +6,8 @@
 0;
 #X obj 620 11 tl.t;
 #X obj 674 11 tl.toggle;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Output 1 when cue section activated \, 0 when switched
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Output 1 when cue section activated \, 0 when switched
 to other cue section;
 #X obj 165 176 tl.cue;
 #X obj 347 176 tl.cue;
@@ -24,18 +24,18 @@ to other cue section;
 -49933 0;
 #X obj 735 321 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 353 @cue?;
-#X text 245 353 (readonly) Get related cue. Type: symbol.;
-#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 398 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 319 @cue?;
+#X text 270 319 (readonly) Get related cue. Type: symbol.;
+#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 364 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 399 1\.;
-#X text 245 399 control inlet.;
-#X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 439 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 365 1\.;
+#X text 270 365 control inlet.;
+#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 405 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 440 1\.;
-#X text 245 440 1 on cue enter \, 0 on cue out.;
+#X text 130 406 1\.;
+#X text 270 406 1 on cue enter \, 0 on cue out.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -22,96 +22,96 @@
 -49933 0;
 #X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 482 @id;
-#X text 245 482 (initonly) Get/Set OSC address id. If specified \,
+#X msg 130 448 @id;
+#X text 270 448 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_glass_harm/PROP_NAME osc address \,
 if empty bind to /synth_glass_harm/PROP_NAME. Type: symbol.;
-#X msg 110 539 @osc;
-#X text 245 539 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 130 505 @osc;
+#X text 270 505 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 569 @active;
-#X text 245 569 Turn on/off object dsp processing. Type: bool. Default
+#X msg 130 535 @active;
+#X text 270 535 Turn on/off object dsp processing. Type: bool. Default
 value: 1\.;
-#X msg 110 611 @bow_press;
-#X text 245 611 Get/Set bow pressure on the instrument. Type: float.
+#X msg 130 577 @bow_press;
+#X text 270 577 Get/Set bow pressure on the instrument. Type: float.
 Default value: 0.2\. Range: 0\...1\.;
-#X msg 110 653 @freq;
-#X text 245 653 Get/Set frequency. Type: float. Units: 'Hz'. Default
+#X msg 130 619 @freq;
+#X text 270 619 Get/Set frequency. Type: float. Units: 'Hz'. Default
 value: 130.8128\.;
-#X msg 110 695 @gain;
-#X text 245 695 Get/Set base gain. Type: float. Default value: 1\.
+#X msg 130 661 @gain;
+#X text 270 661 Get/Set base gain. Type: float. Default value: 1\.
 Range: 0\...1\.;
-#X msg 110 737 @gate;
-#X text 245 737 Get/Set play trigger - 1: on \, 0: off. Type: float.
+#X msg 130 703 @gate;
+#X text 270 703 Get/Set play trigger - 1: on \, 0: off. Type: float.
 Default value: 0\. Range: 0\...1\.;
-#X msg 110 779 @integration;
-#X text 245 779 Get/Set integration constant. Type: float. Default
+#X msg 130 745 @integration;
+#X text 270 745 Get/Set integration constant. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 821 @modfreq;
-#X text 245 821 Get/Set frequency of the sine wave for the modulation
+#X msg 130 787 @modfreq;
+#X text 270 787 Get/Set frequency of the sine wave for the modulation
 of theta (works if @modetype=3). Type: float. Units: 'Hz'. Default
 value: 220\. Range: 20\...1000\.;
-#X msg 110 878 @modtype;
-#X text 245 878 Get/Set modulation type. 0=theta is modulated by the
+#X msg 130 844 @modtype;
+#X text 270 844 Get/Set modulation type. 0=theta is modulated by the
 incoming signal. 1=theta is modulated by the averaged incoming signal.
 2=theta is modulated by the squared incoming signal. 3=theta is modulated
 by a sine wave of frequency @modfreq. 4=theta is modulated by a sine
 wave of frequency @freq. Type: int. Default value: 0\. Range: 0\...4\.;
-#X msg 110 996 @nonlin;
-#X text 245 996 Get/Set nonlinearity factor. Type: float. Default value:
+#X msg 130 962 @nonlin;
+#X text 270 962 Get/Set nonlinearity factor. Type: float. Default value:
 0\. Range: 0\...1\.;
-#X msg 110 1038 @pan;
-#X text 245 1038 Get/Set pan angle. Type: float. Default value: 0.6\.
+#X msg 130 1004 @pan;
+#X text 270 1004 Get/Set pan angle. Type: float. Default value: 0.6\.
 Range: 0\...1\.;
-#X msg 110 1080 @pitch;
-#X text 245 1080 Get/Set midi pitch. Type: float. Default value: 48\.
+#X msg 130 1046 @pitch;
+#X text 270 1046 Get/Set midi pitch. Type: float. Default value: 48\.
 Range: 24\...96\.;
-#X msg 110 1122 @reverb_gain;
-#X text 245 1122 Get/Set reverb gain. Type: float. Default value: 0.137\.
+#X msg 130 1088 @reverb_gain;
+#X text 270 1088 Get/Set reverb gain. Type: float. Default value: 0.137\.
 Range: 0\...1\.;
-#X msg 110 1164 @room_size;
-#X text 245 1164 Get/Set reverb room size. Type: float. Default value:
+#X msg 130 1130 @room_size;
+#X text 270 1130 Get/Set reverb room size. Type: float. Default value:
 0.36\. Range: 0.005\...1\.;
-#X msg 110 1206 @strike;
-#X text 245 1206 Get/Set strike or bow. Type: int. Default value: 0\.
+#X msg 130 1172 @strike;
+#X text 270 1172 Get/Set strike or bow. Type: int. Default value: 0\.
 Range: 0\...1\.;
-#X msg 110 1248 @width;
-#X text 245 1248 Get/Set spatialization width. Type: float. Default
+#X msg 130 1214 @width;
+#X text 270 1214 Get/Set spatialization width. Type: float. Default
 value: 0.5\. Range: 0\...1\.;
-#X obj 20 1300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1305 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1271 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1306 note;
-#X text 245 1306 note on/off message. Arguments are:;
-#X obj 255 1329 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1329 NOTE: midi note. Type: float.;
-#X obj 255 1352 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1352 VEL: velocity. Type: float. Range: 0\...127\.;
-#X msg 110 1377 reset;
-#X text 245 1377 reset synth.;
-#X obj 20 1415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1420 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1272 note;
+#X text 270 1272 note on/off message. Arguments are:;
+#X obj 280 1295 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1295 NOTE: midi note. Type: float.;
+#X obj 280 1318 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1318 VEL: velocity. Type: float. Range: 0\...127\.;
+#X msg 130 1343 reset;
+#X text 270 1343 reset synth.;
+#X obj 20 1381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1386 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1421 1\.;
-#X text 150 1421 list:;
-#X text 245 1421 NOTE VEL.;
-#X obj 20 1456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1461 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1387 1\.;
+#X text 170 1387 list:;
+#X text 270 1387 NOTE VEL.;
+#X obj 20 1422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1427 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1462 1\.;
-#X text 150 1462 ~;
-#X text 245 1462 left output.;
-#X text 110 1482 2\.;
-#X text 150 1482 ~;
-#X text 245 1482 right output.;
+#X text 130 1428 1\.;
+#X text 170 1428 ~;
+#X text 270 1428 left output.;
+#X text 130 1448 2\.;
+#X text 170 1448 ~;
+#X text 270 1448 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1532 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1535 library: ceammc v0.9.8;
-#N canvas 10 1554 400 290 info 0;
+#X obj 1 1498 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1501 library: ceammc v0.9.8;
+#N canvas 10 1520 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -135,7 +135,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1554 pd info;
+#X restore 10 1520 pd info;
 #X connect 4 0 5 1;
 #X connect 5 0 6 0;
 #X connect 6 0 8 0;

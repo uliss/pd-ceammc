@@ -5,16 +5,16 @@
 #X obj 1 1 cnv 5 765 40 empty empty midi.arp 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 midi.arp;
-#X obj 205 78 cnv 1 560 225 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 'up' - play notes from bottom to up;
-#X text 215 108 'down' - play from top to bottom;
-#X text 215 133 'tri' - play from bottom to up and then back;
-#X text 215 158 'up1' - play top note \, then from bottom to up;
-#X text 215 183 'down1' - play bottom note \, then from top to bottom;
-#X text 215 208 'tri1' - play from up to bottom \, then back;
-#X text 215 233 'random' - play random note \, excluding the current
+#X obj 230 78 cnv 1 535 225 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 'up' - play notes from bottom to up;
+#X text 240 108 'down' - play from top to bottom;
+#X text 240 133 'tri' - play from bottom to up and then back;
+#X text 240 158 'up1' - play top note \, then from bottom to up;
+#X text 240 183 'down1' - play bottom note \, then from top to bottom;
+#X text 240 208 'tri1' - play from up to bottom \, then back;
+#X text 240 233 'random' - play random note \, excluding the current
 one (no repeats);
-#X text 215 273 'random1' - play random note (there can be repeats);
+#X text 240 273 'random1' - play random note (there can be repeats);
 #X obj 50 351 notein;
 #X obj 194 351 ui.dsp~;
 #X obj 50 380 pack f f;
@@ -41,61 +41,61 @@ one (no repeats);
 -49933 0;
 #X obj 735 740 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 772 1\.;
-#X text 150 772 float;
-#X obj 246 773 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 772 T(ms): time between arpeggio. Type: float. Range: 1\...1000;
-#X obj 20 802 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 807 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 738 1\.;
+#X text 170 738 float;
+#X obj 271 739 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 738 T(ms): time between arpeggio. Type: float. Range: 1\...1000;
+#X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 773 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 810 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 776 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 842 @external;
-#X text 245 842 Get/Set use external clock. Type: bool. Default value:
+#X msg 130 774 @external;
+#X text 270 774 Get/Set use external clock. Type: bool. Default value:
 0\.;
-#X msg 110 872 @min_notes;
-#X text 245 872 Get/Set number of minimal notes to perform arpeggio.
+#X msg 130 804 @min_notes;
+#X text 270 804 Get/Set number of minimal notes to perform arpeggio.
 Type: int. Default value: 1\. Min value: 1\.;
-#X msg 110 914 @mode;
-#X text 245 914 Get/Set argpeggiator mode. Type: symbol. Default value:
+#X msg 130 846 @mode;
+#X text 270 846 Get/Set argpeggiator mode. Type: symbol. Default value:
 up. Allowed values: up \, down \, tri \, up1 \, down1 \, tri1 \, random
 \, random1\.;
-#X msg 110 971 @on;
-#X text 245 971 Get/Set arpeggiator state: on/off. Type: bool. Default
+#X msg 130 903 @on;
+#X text 270 903 Get/Set arpeggiator state: on/off. Type: bool. Default
 value: 1\.;
-#X msg 110 1013 @pass;
-#X text 245 1013 Get/Set bypass arpeggiator. Type: bool. Default value:
+#X msg 130 945 @pass;
+#X text 270 945 Get/Set bypass arpeggiator. Type: bool. Default value:
 0\.;
-#X msg 110 1043 @seed;
-#X text 245 1043 Get/Set random seed value (to get reproducible random
+#X msg 130 975 @seed;
+#X text 270 975 Get/Set random seed value (to get reproducible random
 series). Type: int. Default value: 0\. Min value: 0\.;
-#X msg 110 1085 @t;
-#X text 245 1085 Get/Set time between arpeggio. Type: float. Units:
+#X msg 130 1017 @t;
+#X text 270 1017 Get/Set time between arpeggio. Type: float. Units:
 'ms'. Default value: 100\. Range: 1\...1000\.;
-#X obj 20 1137 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1142 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 1069 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1074 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1143 1\.;
-#X text 150 1143 list:;
-#X text 245 1143 NOTE VELOCITY.;
-#X text 110 1168 2\.;
-#X text 150 1168 bang:;
-#X text 245 1168 play next note in chord \, if @external = 1\.;
-#X obj 20 1203 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1208 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1075 1\.;
+#X text 170 1075 list:;
+#X text 270 1075 NOTE VELOCITY.;
+#X text 130 1100 2\.;
+#X text 170 1100 bang:;
+#X text 270 1100 play next note in chord \, if @external = 1\.;
+#X obj 20 1135 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1140 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1209 1\.;
-#X text 245 1209 list: NOTE VELOCITY.;
-#X text 110 1229 2\.;
-#X text 245 1229 int: note index in chord.;
+#X text 130 1141 1\.;
+#X text 270 1141 list: NOTE VELOCITY.;
+#X text 130 1161 2\.;
+#X text 270 1161 int: note index in chord.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 1279 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1282 library: ceammc v0.9.8;
-#N canvas 10 1301 400 290 info 0;
+#X obj 1 1211 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1214 library: ceammc v0.9.8;
+#N canvas 10 1233 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -119,7 +119,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1301 pd info;
+#X restore 10 1233 pd info;
 #X connect 13 0 15 0;
 #X connect 13 1 15 1;
 #X connect 15 0 16 0;

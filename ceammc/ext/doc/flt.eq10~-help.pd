@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty flt.eq10~ 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 flt.eq10~;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 One band per octave. 5th-order Butterworth filters;
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 One band per octave. 5th-order Butterworth filters;
 #X msg 50 161 fill 0.5 \, bang;
 #X obj 280 161 r~ ssc;
 #X obj 50 190 ui.sliders @count 10;
@@ -25,75 +25,75 @@
 -49933 0;
 #X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 554 @id;
-#X text 245 554 (initonly) Get/Set OSC address id. If specified \,
+#X msg 130 520 @id;
+#X text 270 520 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_eq10/PROP_NAME osc address \, if empty
 bind to /flt_eq10/PROP_NAME. Type: symbol.;
-#X msg 110 611 @osc;
-#X text 245 611 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 130 577 @osc;
+#X text 270 577 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 641 @active;
-#X text 245 641 Turn on/off object dsp processing. Type: bool. Default
+#X msg 130 607 @active;
+#X text 270 607 Turn on/off object dsp processing. Type: bool. Default
 value: 1\.;
-#X msg 110 683 @f1000;
-#X text 245 683 Get/Set gain at 1000Hz. Type: float. Units: 'db'. Default
+#X msg 130 649 @f1000;
+#X text 270 649 Get/Set gain at 1000Hz. Type: float. Units: 'db'. Default
 value: 0\. Range: -70\...10\.;
-#X msg 110 725 @f125;
-#X text 245 725 Get/Set gain at 125Hz. Type: float. Units: 'db'. Default
+#X msg 130 691 @f125;
+#X text 270 691 Get/Set gain at 125Hz. Type: float. Units: 'db'. Default
 value: 0\. Range: -70\...10\.;
-#X msg 110 767 @f16000;
-#X text 245 767 Get/Set gain at 16000Hz. Type: float. Units: 'db'.
+#X msg 130 733 @f16000;
+#X text 270 733 Get/Set gain at 16000Hz. Type: float. Units: 'db'.
 Default value: 0\. Range: -70\...10\.;
-#X msg 110 809 @f2000;
-#X text 245 809 Get/Set gain at 2000Hz. Type: float. Units: 'db'. Default
+#X msg 130 775 @f2000;
+#X text 270 775 Get/Set gain at 2000Hz. Type: float. Units: 'db'. Default
 value: 0\. Range: -70\...10\.;
-#X msg 110 851 @f250;
-#X text 245 851 Get/Set gain at 250Hz. Type: float. Units: 'db'. Default
+#X msg 130 817 @f250;
+#X text 270 817 Get/Set gain at 250Hz. Type: float. Units: 'db'. Default
 value: 0\. Range: -70\...10\.;
-#X msg 110 893 @f31;
-#X text 245 893 Get/Set gain at 31.25Hz. Type: float. Units: 'db'.
+#X msg 130 859 @f31;
+#X text 270 859 Get/Set gain at 31.25Hz. Type: float. Units: 'db'.
 Default value: 0\. Range: -70\...10\.;
-#X msg 110 935 @f4000;
-#X text 245 935 Get/Set gain at 4000Hz. Type: float. Units: 'db'. Default
+#X msg 130 901 @f4000;
+#X text 270 901 Get/Set gain at 4000Hz. Type: float. Units: 'db'. Default
 value: 0\. Range: -70\...10\.;
-#X msg 110 977 @f500;
-#X text 245 977 Get/Set gain at 500Hz. Type: float. Units: 'db'. Default
+#X msg 130 943 @f500;
+#X text 270 943 Get/Set gain at 500Hz. Type: float. Units: 'db'. Default
 value: 0\. Range: -70\...10\.;
-#X msg 110 1019 @f62;
-#X text 245 1019 Get/Set gain at 62.5Hz. Type: float. Units: 'db'.
+#X msg 130 985 @f62;
+#X text 270 985 Get/Set gain at 62.5Hz. Type: float. Units: 'db'. Default
+value: 0\. Range: -70\...10\.;
+#X msg 130 1027 @f8000;
+#X text 270 1027 Get/Set gain at 8000Hz. Type: float. Units: 'db'.
 Default value: 0\. Range: -70\...10\.;
-#X msg 110 1061 @f8000;
-#X text 245 1061 Get/Set gain at 8000Hz. Type: float. Units: 'db'.
-Default value: 0\. Range: -70\...10\.;
-#X obj 20 1113 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1118 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1079 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1084 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1119 reset;
-#X text 245 1119 reset filter state to default.;
-#X obj 20 1157 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1162 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1085 reset;
+#X text 270 1085 reset filter state to default.;
+#X obj 20 1123 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1128 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1163 1\.;
-#X text 150 1163 ~;
-#X text 245 1163 input signal.;
-#X text 150 1188 list:;
-#X text 245 1188 sets equalizer coefficients.;
-#X obj 20 1223 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1228 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1129 1\.;
+#X text 170 1129 ~;
+#X text 270 1129 input signal.;
+#X text 170 1154 list:;
+#X text 270 1154 sets equalizer coefficients.;
+#X obj 20 1189 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1194 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1229 1\.;
-#X text 150 1229 ~;
-#X text 245 1229 output signal.;
+#X text 130 1195 1\.;
+#X text 170 1195 ~;
+#X text 270 1195 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1279 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1282 library: ceammc v0.9.8;
-#X text 577 1294 see also:;
-#X obj 652 1294 flt.eq_peak~;
-#N canvas 10 1301 400 290 info 0;
+#X obj 1 1245 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1248 library: ceammc v0.9.8;
+#X text 577 1260 see also:;
+#X obj 652 1260 flt.eq_peak~;
+#N canvas 10 1267 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -117,7 +117,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1301 pd info;
+#X restore 10 1267 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;

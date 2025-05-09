@@ -36,289 +36,289 @@
 #X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 631 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 666 Left-click + ⇧;
-#X text 285 666 open bitmap viewer window.;
+#X text 130 666 Left-click + ⇧;
+#X text 310 666 open bitmap viewer window.;
 #X obj 20 696 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 701 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 704 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 736 1\.;
-#X text 150 736 int;
-#X obj 246 737 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 736 W: bitmap width in pixels \, see @w. Тип: int. Диапазон:
+#X text 130 702 1\.;
+#X text 170 702 int;
+#X obj 271 703 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 702 W: bitmap width in pixels \, see @w. Тип: int. Диапазон:
 1…256;
-#X text 110 756 2\.;
-#X text 150 756 int;
-#X obj 246 757 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 756 H: bitmap height in pixels \, see @h. Тип: int. Диапазон:
+#X text 130 722 2\.;
+#X text 170 722 int;
+#X obj 271 723 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 722 H: bitmap height in pixels \, see @h. Тип: int. Диапазон:
 1…256;
-#X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 791 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 752 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 757 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 794 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 760 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 826 @h;
-#X text 245 826 (при инициализации) Получить/Установить bitmap height
+#X msg 130 758 @h;
+#X text 270 758 (при инициализации) Получить/Установить bitmap height
 in pixels. Тип: int. Значение по умолчанию: 8\. Диапазон: 1\...256\.;
-#X msg 110 883 @w;
-#X text 245 883 (при инициализации) Получить/Установить bitmap width
+#X msg 130 815 @w;
+#X text 270 815 (при инициализации) Получить/Установить bitmap width
 in pixels. Тип: int. Значение по умолчанию: 8\. Диапазон: 1\...256\.;
-#X obj 20 950 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 955 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 887 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 956 arc;
-#X text 245 956 draw arc. Аргументы:;
-#X obj 255 979 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 979 X: x coord. Тип: int.;
-#X obj 255 1002 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1002 Y: y coord. Тип: int.;
-#X obj 255 1025 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1025 D: diameter. Тип: int.;
-#X obj 255 1048 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1048 START: start angle. 0 - top. Тип: int. Единицы: 'deg'.;
-#X obj 255 1071 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1071 LEN: arc length \, counter-clockwise. Тип: int. Единицы:
+#X msg 130 888 arc;
+#X text 270 888 draw arc. Аргументы:;
+#X obj 280 911 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 911 X: x coord. Тип: int.;
+#X obj 280 934 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 934 Y: y coord. Тип: int.;
+#X obj 280 957 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 957 D: diameter. Тип: int.;
+#X obj 280 980 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 980 START: start angle. 0 - top. Тип: int. Единицы: 'deg'.;
+#X obj 280 1003 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1003 LEN: arc length \, counter-clockwise. Тип: int. Единицы:
 'deg'.;
-#X obj 255 1094 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1094 [CENTER=0]: if 1: set coordinate of the arc center
+#X obj 280 1026 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1026 [CENTER=0]: if 1: set coordinate of the arc center
 \, not the top-left corner. Тип: bool.;
-#X msg 110 1134 circle;
-#X text 245 1134 draw circle. Аргументы:;
-#X obj 255 1157 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1157 X: x coord. Тип: int.;
-#X obj 255 1180 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1180 Y: y coord. Тип: int.;
-#X obj 255 1203 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1203 D: diameter. Тип: int.;
-#X obj 255 1226 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1226 [CENTER=0]: if 1: set coordinate of the circle center
+#X msg 130 1066 circle;
+#X text 270 1066 draw circle. Аргументы:;
+#X obj 280 1089 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1089 X: x coord. Тип: int.;
+#X obj 280 1112 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1112 Y: y coord. Тип: int.;
+#X obj 280 1135 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1135 D: diameter. Тип: int.;
+#X obj 280 1158 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1158 [CENTER=0]: if 1: set coordinate of the circle center
 \, not the top-left corner. Тип: bool.;
-#X msg 110 1266 clear;
-#X text 245 1266 clear bitmap (set all pixels to 0).;
-#X msg 110 1294 column;
-#X text 245 1294 draw column. Аргументы:;
-#X obj 255 1317 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1317 COL: column. Тип: int.;
-#X obj 255 1340 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1340 H: column height \, can be negative(!) \, to draw
+#X msg 130 1198 clear;
+#X text 270 1198 clear bitmap (set all pixels to 0).;
+#X msg 130 1226 column;
+#X text 270 1226 draw column. Аргументы:;
+#X obj 280 1249 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1249 COL: column. Тип: int.;
+#X obj 280 1272 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1272 H: column height \, can be negative(!) \, to draw
 in opposite direction. Тип: int.;
-#X obj 255 1378 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1378 DY: y offset. Тип: int.;
-#X msg 110 1403 ellipse;
-#X text 245 1403 draw ellipse. Аргументы:;
-#X obj 255 1426 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1426 X: x coord. Тип: int.;
-#X obj 255 1449 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1449 Y: y coord. Тип: int.;
-#X obj 255 1472 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1472 W: width. Тип: int.;
-#X obj 255 1495 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1495 H: height. Тип: int.;
-#X obj 255 1518 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1518 [CENTER=0]: if 1: set coordinate of the ellipse center
+#X obj 280 1310 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1310 DY: y offset. Тип: int.;
+#X msg 130 1335 ellipse;
+#X text 270 1335 draw ellipse. Аргументы:;
+#X obj 280 1358 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1358 X: x coord. Тип: int.;
+#X obj 280 1381 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1381 Y: y coord. Тип: int.;
+#X obj 280 1404 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1404 W: width. Тип: int.;
+#X obj 280 1427 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1427 H: height. Тип: int.;
+#X obj 280 1450 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1450 [CENTER=0]: if 1: set coordinate of the ellipse center
 \, not the top-left corner. Тип: bool.;
-#X msg 110 1558 fill;
-#X text 245 1558 set all pixels to value. Аргументы:;
-#X obj 255 1581 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1581 [V=0]: value. Тип: int.;
-#X msg 110 1606 fill_color;
-#X text 245 1606 set fill color. Аргументы:;
-#X obj 255 1629 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1629 [COLOR]: fill color (0 \, 1 or -1 if no color). Тип:
+#X msg 130 1490 fill;
+#X text 270 1490 set all pixels to value. Аргументы:;
+#X obj 280 1513 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1513 [V=0]: value. Тип: int.;
+#X msg 130 1538 fill_color;
+#X text 270 1538 set fill color. Аргументы:;
+#X obj 280 1561 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1561 [COLOR]: fill color (0 \, 1 or -1 if no color). Тип:
 int.;
-#X msg 110 1654 font;
-#X text 245 1654 set font. Аргументы:;
-#X obj 255 1677 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1677 NAME: font name. Тип: symbol. Разрешённые значения:
+#X msg 130 1586 font;
+#X text 270 1586 set font. Аргументы:;
+#X obj 280 1609 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1609 NAME: font name. Тип: symbol. Разрешённые значения:
 FONT_4X6 \, FONT_5X7 \, FONT_5X8 \, FONT_6X10 \, FONT_6X9\.;
-#X msg 110 1717 get list;
-#X text 245 1717 output content as list.;
-#X msg 110 1745 get matrix;
-#X text 245 1745 output bitmap content as: [matrix NROWS NCOLS DATA...(
+#X msg 130 1649 get list;
+#X text 270 1649 output content as list.;
+#X msg 130 1677 get matrix;
+#X text 270 1677 output bitmap content as: [matrix NROWS NCOLS DATA...(
 message.;
-#X msg 110 1785 get submatrix;
-#X text 245 1785 output submatrix bitmap content as: [matrix NROWS
+#X msg 130 1717 get submatrix;
+#X text 270 1717 output submatrix bitmap content as: [matrix NROWS
 NCOLS DATA...( message. Аргументы:;
-#X obj 255 1823 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1823 NROWS: matrix number of rows. Тип: int.;
-#X obj 255 1846 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1846 NCOLS: matrix number of columns. Тип: int.;
-#X obj 255 1869 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1869 AT_ROW: row position. Тип: int.;
-#X obj 255 1892 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1892 AT_COL: columns position. Тип: int.;
-#X msg 110 1917 hshift;
-#X text 245 1917 horizontal shift (rotate). Аргументы:;
-#X obj 255 1940 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1940 V: number of pixels to shift. Тип: int.;
-#X msg 110 1965 invert;
-#X text 245 1965 invert all pixel values.;
-#X msg 110 1993 line;
-#X text 245 1993 draw line. Аргументы:;
-#X obj 255 2016 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2016 X0: x0 coord. Тип: int.;
-#X obj 255 2039 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2039 Y0: y0 coord. Тип: int.;
-#X obj 255 2062 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2062 X1: x1 coord. Тип: int.;
-#X obj 255 2085 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2085 Y1: y1 coord. Тип: int.;
-#X msg 110 2110 load;
-#X text 245 2110 load image to bitmap. Аргументы:;
-#X obj 255 2133 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2133 FILE: image path \, relative \, or absolute. Тип:
+#X obj 280 1755 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1755 NROWS: matrix number of rows. Тип: int.;
+#X obj 280 1778 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1778 NCOLS: matrix number of columns. Тип: int.;
+#X obj 280 1801 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1801 AT_ROW: row position. Тип: int.;
+#X obj 280 1824 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1824 AT_COL: columns position. Тип: int.;
+#X msg 130 1849 hshift;
+#X text 270 1849 horizontal shift (rotate). Аргументы:;
+#X obj 280 1872 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1872 V: number of pixels to shift. Тип: int.;
+#X msg 130 1897 invert;
+#X text 270 1897 invert all pixel values.;
+#X msg 130 1925 line;
+#X text 270 1925 draw line. Аргументы:;
+#X obj 280 1948 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1948 X0: x0 coord. Тип: int.;
+#X obj 280 1971 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1971 Y0: y0 coord. Тип: int.;
+#X obj 280 1994 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1994 X1: x1 coord. Тип: int.;
+#X obj 280 2017 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2017 Y1: y1 coord. Тип: int.;
+#X msg 130 2042 load;
+#X text 270 2042 load image to bitmap. Аргументы:;
+#X obj 280 2065 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2065 FILE: image path \, relative \, or absolute. Тип:
 symbol.;
-#X obj 255 2156 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2156 [SCALE=1]: image scale. Тип: float. Минимальное значение:
+#X obj 280 2088 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2088 [SCALE=1]: image scale. Тип: float. Минимальное значение:
 0\.;
-#X msg 110 2181 mirror;
-#X text 245 2181 mirror bitmap. Аргументы:;
-#X obj 255 2204 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2204 AXIS: mirror axis. Тип: symbol. Разрешённые значения:
+#X msg 130 2113 mirror;
+#X text 270 2113 mirror bitmap. Аргументы:;
+#X obj 280 2136 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2136 AXIS: mirror axis. Тип: symbol. Разрешённые значения:
 x \, y.;
-#X msg 110 2229 pixel;
-#X text 245 2229 set pixel. Аргументы:;
-#X obj 255 2252 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2252 X: x coord. Тип: int.;
-#X obj 255 2275 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2275 Y: y coord. Тип: int.;
-#X obj 255 2298 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2298 [VAL=1]: new pixel value. Тип: bool.;
-#X msg 110 2323 rect;
-#X text 245 2323 draw rect. Аргументы:;
-#X obj 255 2346 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2346 X: x coord. Тип: int.;
-#X obj 255 2369 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2369 Y: y coord. Тип: int.;
-#X obj 255 2392 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2392 W: width. Тип: int.;
-#X obj 255 2415 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2415 H: height. Тип: int.;
-#X obj 255 2438 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2438 [CENTER=0]: if 1: set coordinate of the rect center
+#X msg 130 2161 pixel;
+#X text 270 2161 set pixel. Аргументы:;
+#X obj 280 2184 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2184 X: x coord. Тип: int.;
+#X obj 280 2207 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2207 Y: y coord. Тип: int.;
+#X obj 280 2230 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2230 [VAL=1]: new pixel value. Тип: bool.;
+#X msg 130 2255 rect;
+#X text 270 2255 draw rect. Аргументы:;
+#X obj 280 2278 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2278 X: x coord. Тип: int.;
+#X obj 280 2301 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2301 Y: y coord. Тип: int.;
+#X obj 280 2324 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2324 W: width. Тип: int.;
+#X obj 280 2347 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2347 H: height. Тип: int.;
+#X obj 280 2370 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2370 [CENTER=0]: if 1: set coordinate of the rect center
 \, not the top-left corner. Тип: bool.;
-#X msg 110 2478 row;
-#X text 245 2478 draw draw. Аргументы:;
-#X obj 255 2501 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2501 ROW: row. Тип: int.;
-#X obj 255 2524 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2524 W: row width \, can be negative(!) \, to draw in opposite
+#X msg 130 2410 row;
+#X text 270 2410 draw draw. Аргументы:;
+#X obj 280 2433 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2433 ROW: row. Тип: int.;
+#X obj 280 2456 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2456 W: row width \, can be negative(!) \, to draw in opposite
 right to left. Тип: int.;
-#X obj 255 2562 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2562 DX: x offset. Тип: int.;
-#X msg 110 2587 save;
-#X text 245 2587 save bitmap to PNG file. Аргументы:;
-#X obj 255 2610 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2610 [PATH]: file name \, absolute \, or relative. Тип:
+#X obj 280 2494 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2494 DX: x offset. Тип: int.;
+#X msg 130 2519 save;
+#X text 270 2519 save bitmap to PNG file. Аргументы:;
+#X obj 280 2542 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2542 [PATH]: file name \, absolute \, or relative. Тип:
 symbol.;
-#X msg 110 2635 sector;
-#X text 245 2635 draw sector. Аргументы:;
-#X obj 255 2658 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2658 X: x coord. Тип: int.;
-#X obj 255 2681 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2681 Y: y coord. Тип: int.;
-#X obj 255 2704 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2704 D: diameter. Тип: int.;
-#X obj 255 2727 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2727 START: start angle. 0 - top. Тип: int. Единицы: 'deg'.;
-#X obj 255 2750 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2750 LEN: arc length \, counter-clockwise. Тип: int. Единицы:
+#X msg 130 2567 sector;
+#X text 270 2567 draw sector. Аргументы:;
+#X obj 280 2590 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2590 X: x coord. Тип: int.;
+#X obj 280 2613 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2613 Y: y coord. Тип: int.;
+#X obj 280 2636 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2636 D: diameter. Тип: int.;
+#X obj 280 2659 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2659 START: start angle. 0 - top. Тип: int. Единицы: 'deg'.;
+#X obj 280 2682 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2682 LEN: arc length \, counter-clockwise. Тип: int. Единицы:
 'deg'.;
-#X obj 255 2773 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2773 [CENTER=0]: if 1: set coordinate of the sector center
+#X obj 280 2705 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2705 [CENTER=0]: if 1: set coordinate of the sector center
 \, not the top-left corner. Тип: bool.;
-#X msg 110 2813 set list;
-#X text 245 2813 set bitmap content from list. Аргументы:;
-#X obj 255 2836 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2836 DATA: list of 0 and 1\. Тип: list.;
-#X msg 110 2861 set matrix;
-#X text 245 2861 set matrix data. Аргументы:;
-#X obj 255 2884 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2884 NROWS: matrix number of rows. Тип: int. Минимальное
+#X msg 130 2745 set list;
+#X text 270 2745 set bitmap content from list. Аргументы:;
+#X obj 280 2768 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2768 DATA: list of 0 and 1\. Тип: list.;
+#X msg 130 2793 set matrix;
+#X text 270 2793 set matrix data. Аргументы:;
+#X obj 280 2816 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2816 NROWS: matrix number of rows. Тип: int. Минимальное
 значение: 1\.;
-#X obj 255 2922 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2922 NCOLS: matrix number of columns. Тип: int. Минимальное
+#X obj 280 2854 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2854 NCOLS: matrix number of columns. Тип: int. Минимальное
 значение: 1\.;
-#X obj 255 2960 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2960 DATA: data. Тип: list.;
-#X msg 110 2985 set matrix_at;
-#X text 245 2985 set matrix data at specified position. Аргументы:;
-#X obj 255 3008 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3008 NROWS: matrix number of rows. Тип: int. Минимальное
+#X obj 280 2892 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2892 DATA: data. Тип: list.;
+#X msg 130 2917 set matrix_at;
+#X text 270 2917 set matrix data at specified position. Аргументы:;
+#X obj 280 2940 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2940 NROWS: matrix number of rows. Тип: int. Минимальное
 значение: 1\.;
-#X obj 255 3046 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3046 NCOLS: matrix number of columns. Тип: int. Минимальное
+#X obj 280 2978 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2978 NCOLS: matrix number of columns. Тип: int. Минимальное
 значение: 1\.;
-#X obj 255 3084 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3084 AT_ROW: row position. Тип: int.;
-#X obj 255 3107 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3107 AT_COL: columns position. Тип: int.;
-#X obj 255 3130 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3130 DATA: data. Тип: list.;
-#X msg 110 3155 stroke_color;
-#X text 245 3155 set stroke color. Аргументы:;
-#X obj 255 3178 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3178 [COLOR]: stroke color (0 or 1). Тип: int.;
-#X msg 110 3203 stroke_width;
-#X text 245 3203 set stroke width. Аргументы:;
-#X obj 255 3226 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3226 W: new width. Тип: int. Минимальное значение: 0\.;
-#X msg 110 3251 text;
-#X text 245 3251 draw text. Аргументы:;
-#X obj 255 3274 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3274 X: left x-coord. Тип: int.;
-#X obj 255 3297 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3297 Y: bottom y-coord. Тип: int.;
-#X obj 255 3320 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3320 TXT: text. Тип: symbol.;
-#X msg 110 3345 text_color;
-#X text 245 3345 set text color. Аргументы:;
-#X obj 255 3368 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3368 [COLOR]: fill color (0 \, 1 or -1 if no color). Тип:
+#X obj 280 3016 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3016 AT_ROW: row position. Тип: int.;
+#X obj 280 3039 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3039 AT_COL: columns position. Тип: int.;
+#X obj 280 3062 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3062 DATA: data. Тип: list.;
+#X msg 130 3087 stroke_color;
+#X text 270 3087 set stroke color. Аргументы:;
+#X obj 280 3110 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3110 [COLOR]: stroke color (0 or 1). Тип: int.;
+#X msg 130 3135 stroke_width;
+#X text 270 3135 set stroke width. Аргументы:;
+#X obj 280 3158 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3158 W: new width. Тип: int. Минимальное значение: 0\.;
+#X msg 130 3183 text;
+#X text 270 3183 draw text. Аргументы:;
+#X obj 280 3206 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3206 X: left x-coord. Тип: int.;
+#X obj 280 3229 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3229 Y: bottom y-coord. Тип: int.;
+#X obj 280 3252 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3252 TXT: text. Тип: symbol.;
+#X msg 130 3277 text_color;
+#X text 270 3277 set text color. Аргументы:;
+#X obj 280 3300 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3300 [COLOR]: fill color (0 \, 1 or -1 if no color). Тип:
 int.;
-#X msg 110 3393 triangle;
-#X text 245 3393 draw triangle. Аргументы:;
-#X obj 255 3416 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3416 X0: x0 coord. Тип: int.;
-#X obj 255 3439 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3439 Y0: y0 coord. Тип: int.;
-#X obj 255 3462 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3462 X1: x1 coord. Тип: int.;
-#X obj 255 3485 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3485 Y1: y1 coord. Тип: int.;
-#X obj 255 3508 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3508 X2: x2 coord. Тип: int.;
-#X obj 255 3531 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3531 Y2: y2 coord. Тип: int.;
-#X msg 110 3556 view;
-#X text 245 3556 opens bitmap view window.;
-#X msg 110 3584 vshift;
-#X text 245 3584 vertical shift. Аргументы:;
-#X obj 255 3607 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3607 V: number of pixels to shift. Тип: int.;
-#X obj 20 3642 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3647 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 3325 triangle;
+#X text 270 3325 draw triangle. Аргументы:;
+#X obj 280 3348 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3348 X0: x0 coord. Тип: int.;
+#X obj 280 3371 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3371 Y0: y0 coord. Тип: int.;
+#X obj 280 3394 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3394 X1: x1 coord. Тип: int.;
+#X obj 280 3417 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3417 Y1: y1 coord. Тип: int.;
+#X obj 280 3440 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3440 X2: x2 coord. Тип: int.;
+#X obj 280 3463 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3463 Y2: y2 coord. Тип: int.;
+#X msg 130 3488 view;
+#X text 270 3488 opens bitmap view window.;
+#X msg 130 3516 vshift;
+#X text 270 3516 vertical shift. Аргументы:;
+#X obj 280 3539 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 3539 V: number of pixels to shift. Тип: int.;
+#X obj 20 3574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3579 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 3648 1\.;
-#X text 150 3648 bang:;
-#X text 245 3648 output as list.;
-#X obj 20 3683 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3688 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 3580 1\.;
+#X text 170 3580 bang:;
+#X text 270 3580 output as list.;
+#X obj 20 3615 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3620 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 3689 1\.;
-#X text 245 3689 output.;
+#X text 130 3621 1\.;
+#X text 270 3621 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 3739 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 3742 библиотека: ceammc v0.9.8;
-#X text 551 3754 смотрите также:;
-#X obj 672 3757 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 3671 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 3674 библиотека: ceammc v0.9.8;
+#X text 551 3686 смотрите также:;
+#X obj 672 3689 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.matrix] @url ui.matrix-help.pd;
-#N canvas 10 3761 400 290 info 0;
+#N canvas 10 3693 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -342,7 +342,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 3761 pd info;
+#X restore 10 3693 pd info;
 #X connect 29 0 30 0;
 #X connect 30 0 31 0;
 #X connect 5 0 29 0;

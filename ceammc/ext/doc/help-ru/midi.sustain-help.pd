@@ -5,9 +5,9 @@
 #X obj 1 1 cnv 5 765 40 empty empty midi.sustain 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 midi.sustain;
-#X obj 205 78 cnv 1 560 60 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 when pedal is on: ignore all note offs;
-#X text 215 108 when pedal is off: output all sustained notes off;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 when pedal is on: ignore all note offs;
+#X text 240 108 when pedal is off: output all sustained notes off;
 #X obj 50 186 ui.hk 24;
 #X obj 146 258 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 287 midi.sustain;
@@ -19,43 +19,43 @@
 -49933 0;
 #X obj 735 446 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 478 1\.;
-#X text 150 478 bool;
-#X obj 246 479 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 478 ON: initial state. Тип: bool.;
-#X obj 20 508 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 513 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 444 1\.;
+#X text 170 444 bool;
+#X obj 271 445 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 444 ON: initial state. Тип: bool.;
+#X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 479 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 516 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 482 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 548 @ctlin;
-#X text 245 548 Получить/Установить listen to CTL64 from MIDI controller.
+#X msg 130 480 @ctlin;
+#X text 270 480 Получить/Установить listen to CTL64 from MIDI controller.
 Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 590 @on;
-#X text 245 590 Получить/Установить pedal state. Тип: bool. Значение
+#X msg 130 522 @on;
+#X text 270 522 Получить/Установить pedal state. Тип: bool. Значение
 по умолчанию: 0\.;
-#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 647 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 579 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 648 1\.;
-#X text 150 648 list:;
-#X text 245 648 MIDI input: NOTE VEL.;
-#X text 110 673 2\.;
-#X text 150 673 float:;
-#X text 245 673 turn sustain on/off (1/0).;
-#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 713 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 580 1\.;
+#X text 170 580 list:;
+#X text 270 580 MIDI input: NOTE VEL.;
+#X text 130 605 2\.;
+#X text 170 605 float:;
+#X text 270 605 turn sustain on/off (1/0).;
+#X obj 20 640 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 645 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 714 1\.;
-#X text 245 714 MIDI output: NOTE VEL.;
+#X text 130 646 1\.;
+#X text 270 646 MIDI output: NOTE VEL.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 764 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 767 библиотека: ceammc v0.9.8;
-#N canvas 10 786 400 290 info 0;
+#X obj 1 696 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 699 библиотека: ceammc v0.9.8;
+#N canvas 10 718 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -79,7 +79,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 786 pd info;
+#X restore 10 718 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 9 1;
 #X connect 9 0 10 0;

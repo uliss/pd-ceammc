@@ -5,12 +5,12 @@
 #X obj 1 1 cnv 5 765 40 empty empty synth.standard_bell~ 20 20 0 20
 -104026 -4096 0;
 #X obj 594 11 synth.standard_bell~;
-#X obj 205 78 cnv 1 560 130 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Modeled after D. Bartocha and . Baron \, Influence of
+#X obj 230 78 cnv 1 535 130 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Modeled after D. Bartocha and . Baron \, Influence of
 Tin Bronze Melting and Pouring Parameters on Its Properties and Bell'
 Tone \, Archives of Foundry Engineering \, 2016;
-#X text 215 138 Model height is 1.8m;
-#X text 215 163 This model contains 7 excitation positions going linearly
+#X text 240 138 Model height is 1.8m;
+#X text 240 163 This model contains 7 excitation positions going linearly
 from the bottom to the top of the bell;
 #X obj 50 256 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 194 256 ui.dsp~;
@@ -26,66 +26,66 @@ from the bottom to the top of the bell;
 -49933 0;
 #X obj 735 761 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 793 @id;
-#X text 245 793 (при инициализации) Получить/Установить идентификатор
+#X msg 130 759 @id;
+#X text 270 759 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_standard_bell/ИМЯ_СВОЙСТВА
 \, в противном случае к /synth_standard_bell/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 896 @osc;
-#X text 245 896 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 862 @osc;
+#X text 270 862 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 938 @active;
-#X text 245 938 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 904 @active;
+#X text 270 904 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 980 @cutoff;
-#X text 245 980 Получить/Установить strike cutoff frequency. Тип: float.
+#X msg 130 946 @cutoff;
+#X text 270 946 Получить/Установить strike cutoff frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 4000\. Диапазон: 20\...20000\.;
-#X msg 110 1037 @decay_ratio;
-#X text 245 1037 Получить/Установить decay ratio. Тип: float. Значение
+#X msg 130 1003 @decay_ratio;
+#X text 270 1003 Получить/Установить decay ratio. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 1079 @decay_slope;
-#X text 245 1079 Получить/Установить decay slope. Тип: float. Значение
+#X msg 130 1045 @decay_slope;
+#X text 270 1045 Получить/Установить decay slope. Тип: float. Значение
 по умолчанию: 3\. Диапазон: 0\...10\.;
-#X msg 110 1121 @gain;
-#X text 245 1121 Получить/Установить strike gain. Тип: float. Значение
+#X msg 130 1087 @gain;
+#X text 270 1087 Получить/Установить strike gain. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 1163 @gate;
-#X text 245 1163 Получить/Установить play trigger - 1: on \, 0: off.
+#X msg 130 1129 @gate;
+#X text 270 1129 Получить/Установить play trigger - 1: on \, 0: off.
 Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 1205 @pos;
-#X text 245 1205 Получить/Установить strike position (0 is on the bottom).
+#X msg 130 1171 @pos;
+#X text 270 1171 Получить/Установить strike position (0 is on the bottom).
 Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...6\.;
-#X msg 110 1247 @sharp;
-#X text 245 1247 Получить/Установить strike sharpness. Тип: float.
+#X msg 130 1213 @sharp;
+#X text 270 1213 Получить/Установить strike sharpness. Тип: float.
 Значение по умолчанию: 0.25\. Диапазон: 0.01\...5\.;
-#X msg 110 1289 @t60;
-#X text 245 1289 Получить/Установить time to decay to -60db level.
+#X msg 130 1255 @t60;
+#X text 270 1255 Получить/Установить time to decay to -60db level.
 Тип: float. Единицы: 'sec'. Значение по умолчанию: 20\. Диапазон: 0.1\...30\.;
-#X obj 20 1356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1361 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1322 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1327 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1362 reset;
-#X text 245 1362 reset synth.;
-#X obj 20 1400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1405 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1328 reset;
+#X text 270 1328 reset synth.;
+#X obj 20 1366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1371 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1406 1\.;
-#X text 150 1406 bang:;
-#X text 245 1406 play.;
-#X obj 20 1441 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1446 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1372 1\.;
+#X text 170 1372 bang:;
+#X text 270 1372 play.;
+#X obj 20 1407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1412 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1447 1\.;
-#X text 150 1447 ~;
-#X text 245 1447 output signal.;
+#X text 130 1413 1\.;
+#X text 170 1413 ~;
+#X text 270 1413 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1497 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1500 библиотека: ceammc v0.9.8;
-#N canvas 10 1519 400 290 info 0;
+#X obj 1 1463 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1466 библиотека: ceammc v0.9.8;
+#N canvas 10 1485 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -109,7 +109,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1519 pd info;
+#X restore 10 1485 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

@@ -24,88 +24,88 @@
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 352 1\.;
-#X text 150 352 int;
-#X obj 246 353 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 352 FROM: start value. Тип: int.;
-#X text 110 372 2\.;
-#X text 150 372 int;
-#X obj 246 373 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 372 TO: end value. Тип: int.;
-#X text 110 392 3\.;
-#X text 150 392 int;
-#X obj 246 393 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 392 R: number of repeats. Тип: int. Минимальное значение:
+#X text 130 318 1\.;
+#X text 170 318 int;
+#X obj 271 319 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 318 FROM: start value. Тип: int.;
+#X text 130 338 2\.;
+#X text 170 338 int;
+#X obj 271 339 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 338 TO: end value. Тип: int.;
+#X text 130 358 3\.;
+#X text 170 358 int;
+#X obj 271 359 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 358 R: number of repeats. Тип: int. Минимальное значение:
 -1\.;
-#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 427 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 393 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 430 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 396 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 462 @fold;
-#X text 245 462 Alias to @mode fold.;
-#X msg 110 492 @from;
-#X text 245 492 Получить/Установить start value. Setting this property
+#X msg 130 394 @fold;
+#X text 270 394 Alias to @mode fold.;
+#X msg 130 424 @from;
+#X text 270 424 Получить/Установить start value. Setting this property
 resets @i to 0\. Тип: int. Значение по умолчанию: 0\.;
-#X msg 110 534 @i;
-#X text 245 534 Получить/Установить current iteration. Тип: int. Значение
+#X msg 130 466 @i;
+#X text 270 466 Получить/Установить current iteration. Тип: int. Значение
 по умолчанию: 0\.;
-#X msg 110 576 @inf;
-#X text 245 576 Alias to @r -1 \, repeats infinitely.;
-#X msg 110 606 @mode;
-#X text 245 606 Получить/Установить repeat counter mode. Тип: symbol.
+#X msg 130 508 @inf;
+#X text 270 508 Alias to @r -1 \, repeats infinitely.;
+#X msg 130 538 @mode;
+#X text 270 538 Получить/Установить repeat counter mode. Тип: symbol.
 Значение по умолчанию: wrap. Разрешённые значения: wrap \, fold.;
-#X msg 110 663 @once;
-#X text 245 663 Alias to @r 1 \, play once.;
-#X msg 110 693 @r;
-#X text 245 693 Получить/Установить number of repeats. If -1: repeat
+#X msg 130 595 @once;
+#X text 270 595 Alias to @r 1 \, play once.;
+#X msg 130 625 @r;
+#X text 270 625 Получить/Установить number of repeats. If -1: repeat
 infinitely. Тип: int. Значение по умолчанию: -1\. Минимальное значение:
 -1\.;
-#X msg 110 750 @to;
-#X text 245 750 Получить/Установить end value (inclusive). Тип: int.
+#X msg 130 682 @to;
+#X text 270 682 Получить/Установить end value (inclusive). Тип: int.
 Значение по умолчанию: 0\.;
-#X msg 110 792 @wrap;
-#X text 245 792 Alias to @mode wrap.;
-#X msg 110 822 @ri?;
-#X text 245 822 (только чтение) Получить current repeat iteration.
+#X msg 130 724 @wrap;
+#X text 270 724 Alias to @mode wrap.;
+#X msg 130 754 @ri?;
+#X text 270 754 (только чтение) Получить current repeat iteration.
 Тип: int. Значение по умолчанию: 0\.;
-#X msg 110 864 @value?;
-#X text 245 864 (только чтение) Получить current value. Тип: int. Значение
+#X msg 130 796 @value?;
+#X text 270 796 (только чтение) Получить current value. Тип: int. Значение
 по умолчанию: 0\.;
-#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 921 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 848 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 853 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 922 next;
-#X text 245 922 increment counter then output.;
-#X msg 110 950 prev;
-#X text 245 950 decrement counter then output.;
-#X msg 110 978 reset;
-#X text 245 978 reset counter to start value and repeat counter to
+#X msg 130 854 next;
+#X text 270 854 increment counter then output.;
+#X msg 130 882 prev;
+#X text 270 882 decrement counter then output.;
+#X msg 130 910 reset;
+#X text 270 910 reset counter to start value and repeat counter to
 0\.;
-#X obj 20 1016 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1021 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 948 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 953 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1022 1\.;
-#X text 150 1022 bang:;
-#X text 245 1022 output current value then increment counter.;
-#X text 110 1047 2\.;
-#X text 150 1047 bang:;
-#X text 245 1047 reset counter to start value.;
-#X obj 20 1082 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1087 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 954 1\.;
+#X text 170 954 bang:;
+#X text 270 954 output current value then increment counter.;
+#X text 130 979 2\.;
+#X text 170 979 bang:;
+#X text 270 979 reset counter to start value.;
+#X obj 20 1014 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1019 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1088 1\.;
-#X text 245 1088 int: counter value.;
-#X text 110 1108 2\.;
-#X text 245 1108 int: repeat counter \, done: when done.;
+#X text 130 1020 1\.;
+#X text 270 1020 int: counter value.;
+#X text 130 1040 2\.;
+#X text 270 1040 int: repeat counter \, done: when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1158 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1161 библиотека: ceammc v0.9.8;
-#N canvas 10 1180 400 290 info 0;
+#X obj 1 1090 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1093 библиотека: ceammc v0.9.8;
+#N canvas 10 1112 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -129,7 +129,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1180 pd info;
+#X restore 10 1112 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 7 0;
 #X connect 6 0 7 0;

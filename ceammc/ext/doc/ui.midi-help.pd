@@ -11,109 +11,109 @@
 #X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 202 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 110 237 Double-click + ⌥;
-#X text 285 237 open properties dialog.;
-#X text 110 257 Right-click + ⇧;
-#X text 285 257 open object help.;
-#X text 110 277 Right-click;
-#X text 285 277 open popup menu with MIDI settings item.;
-#X text 110 297 Right-click + ⌥;
-#X text 285 297 open properties dialog.;
-#X text 61 297 [Edit];
-#X text 110 317 Right-click + ⇧;
-#X text 285 317 open object help.;
-#X text 61 317 [Edit];
+#X text 130 237 Double-click + ⌥;
+#X text 310 237 open properties dialog.;
+#X text 130 257 Right-click + ⇧;
+#X text 310 257 open object help.;
+#X text 130 277 Right-click;
+#X text 310 277 open popup menu with MIDI settings item.;
+#X text 130 297 Right-click + ⌥;
+#X text 310 297 open properties dialog.;
+#X text 81 297 [Edit];
+#X text 130 317 Right-click + ⇧;
+#X text 310 317 open object help.;
+#X text 81 317 [Edit];
 #X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 352 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 355 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 387 @cc;
-#X text 245 387 Get/Set if show control change events. Type: bool.
+#X msg 130 353 @cc;
+#X text 270 353 Get/Set if show control change events. Type: bool.
 Default value: 1\.;
-#X msg 110 429 @hex;
-#X text 245 429 Get/Set if show values in hex. Type: bool. Default
+#X msg 130 395 @hex;
+#X text 270 395 Get/Set if show values in hex. Type: bool. Default
 value: 0\.;
-#X msg 110 459 @notes;
-#X text 245 459 Get/Set if show note on/off events. Type: bool. Default
+#X msg 130 425 @notes;
+#X text 270 425 Get/Set if show note on/off events. Type: bool. Default
 value: 1\.;
-#X msg 110 501 @pitchwheel;
-#X text 245 501 Get/Set if show pitch wheel events. Type: bool. Default
+#X msg 130 467 @pitchwheel;
+#X text 270 467 Get/Set if show pitch wheel events. Type: bool. Default
 value: 1\.;
-#X msg 110 543 @program;
-#X text 245 543 Get/Set if show program change events. Type: bool.
+#X msg 130 509 @program;
+#X text 270 509 Get/Set if show program change events. Type: bool.
 Default value: 1\.;
-#X msg 110 585 @receive;
-#X text 245 585 Get/Set source of message receive. Type: symbol. Default
+#X msg 130 551 @receive;
+#X text 270 551 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 627 @send;
-#X text 245 627 Get/Set address for sending messages. Type: symbol.
+#X msg 130 593 @send;
+#X text 270 593 Get/Set address for sending messages. Type: symbol.
 Default value: (null).;
-#X msg 110 669 @sysex;
-#X text 245 669 Get/Set if show sysex events. Type: bool. Default value:
+#X msg 130 635 @sysex;
+#X text 270 635 Get/Set if show sysex events. Type: bool. Default value:
 1\.;
-#X msg 110 699 @touch;
-#X text 245 699 Get/Set if show aftertouch (poly) events. Type: bool.
+#X msg 130 665 @touch;
+#X text 270 665 Get/Set if show aftertouch (poly) events. Type: bool.
 Default value: 1\.;
-#X msg 110 741 @active_color;
-#X text 245 741 Get/Set active color (list of red \, green \, blue
+#X msg 130 707 @active_color;
+#X text 270 707 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.63 0.88 0 1\.;
-#X msg 110 783 @background_color;
-#X text 245 783 Get/Set element background color (list of red \, green
+#X msg 130 749 @background_color;
+#X text 270 749 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 840 @border_color;
-#X text 245 840 Get/Set border color (list of red \, green \, blue
+#X msg 130 806 @border_color;
+#X text 270 806 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 882 @text_color;
-#X text 245 882 Get/Set text color (list of red \, green \, blue values
+#X msg 130 848 @text_color;
+#X text 270 848 Get/Set text color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0 0 1\.;
-#X msg 110 924 @fontname;
-#X text 245 924 Get/Set font name. Type: symbol. Default value: Helvetica.
+#X msg 130 890 @fontname;
+#X text 270 890 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 966 @fontsize;
-#X text 245 966 Get/Set font size. Type: int. Default value: 11\. Range:
+#X msg 130 932 @fontsize;
+#X text 270 932 Get/Set font size. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 1008 @fontslant;
-#X text 245 1008 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 130 974 @fontslant;
+#X text 270 974 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1050 @fontweight;
-#X text 245 1050 Get/Set font weight. Type: symbol. Default value:
+#X msg 130 1016 @fontweight;
+#X text 270 1016 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1092 @pinned;
-#X text 245 1092 Get/Set pin mode. If set to 1 \, it places the element
+#X msg 130 1058 @pinned;
+#X text 270 1058 Get/Set pin mode. If set to 1 \, it places the element
 at the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
-#X msg 110 1149 @size;
-#X text 245 1149 Get/Set object size (width \, height pair). Type:
+#X msg 130 1115 @size;
+#X text 270 1115 Get/Set object size (width \, height pair). Type:
 list. Default value: 180 15\.;
-#X obj 20 1201 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1206 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1167 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1172 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1207 pos;
-#X text 245 1207 set UI element position. Arguments are:;
-#X obj 255 1230 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1230 X: top left x-coord. Type: float.;
-#X obj 255 1253 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1253 Y: top right y-coord. Type: float.;
-#X obj 20 1288 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1293 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1173 pos;
+#X text 270 1173 set UI element position. Arguments are:;
+#X obj 280 1196 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1196 X: top left x-coord. Type: float.;
+#X obj 280 1219 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1219 Y: top right y-coord. Type: float.;
+#X obj 20 1254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1259 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1294 1\.;
-#X text 245 1294 control input.;
-#X obj 20 1329 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1334 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1260 1\.;
+#X text 270 1260 control input.;
+#X obj 20 1295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1300 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1335 1\.;
-#X text 245 1335 MIDI output.;
+#X text 130 1301 1\.;
+#X text 270 1301 MIDI output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1385 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1388 library: ceammc v0.9.8;
-#N canvas 10 1407 400 290 info 0;
+#X obj 1 1351 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1354 library: ceammc v0.9.8;
+#N canvas 10 1373 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -137,5 +137,5 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1407 pd info;
+#X restore 10 1373 pd info;
 #X connect 4 0 5 0;

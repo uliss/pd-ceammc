@@ -6,13 +6,13 @@
 -4096 0;
 #X obj 563 11 str.match;
 #X obj 653 11 string.match;
-#X obj 205 78 cnv 1 560 175 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Used syntax: re2 (like pcre). Some characters are non-supported
+#X obj 230 78 cnv 1 535 175 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Used syntax: re2 (like pcre). Some characters are non-supported
 in Pd. Use ` instead of backslash \, `` instead of ` \, (( instead
 of { \, )) instead of } \, .. instead of comma \, `: instead of semicolon;
-#X text 215 168 If you need spaces: you should quote the string \,
+#X text 240 168 If you need spaces: you should quote the string \,
 also note that in quoted string ` symbol should be escaped like ``.;
-#X text 215 208 For example \, all digits: `d+ \, two or three chars:
+#X text 240 208 For example \, all digits: `d+ \, two or three chars:
 [a-z]((2\..3)) etc.;
 #X msg 50 301 test.mp3;
 #X msg 155 301 test.mp4;
@@ -29,37 +29,37 @@ also note that in quoted string ` symbol should be escaped like ``.;
 -49933 0;
 #X obj 735 460 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 492 1\.;
-#X text 150 492 list;
-#X obj 246 493 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 492 RE: regular expression. Тип: list.;
-#X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 527 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 458 1\.;
+#X text 170 458 list;
+#X obj 271 459 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 458 RE: regular expression. Тип: list.;
+#X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 493 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 530 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 496 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 562 @re;
-#X text 245 562 Получить/Установить regular expression. Тип: list.;
-#X obj 20 602 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 607 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 494 @re;
+#X text 270 494 Получить/Установить regular expression. Тип: list.;
+#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 539 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 608 1\.;
-#X text 245 608 input string or symbol.;
-#X text 110 633 2\.;
-#X text 245 633 change regular expression.;
-#X obj 20 668 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 673 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 540 1\.;
+#X text 270 540 input string or symbol.;
+#X text 130 565 2\.;
+#X text 270 565 change regular expression.;
+#X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 605 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 674 1\.;
-#X text 245 674 output 1 on successfull match \, otherwise 0\.;
+#X text 130 606 1\.;
+#X text 270 606 output 1 on successfull match \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title string @url ceammc.string-help.pd;
-#X obj 1 724 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 727 библиотека: ceammc v0.9.8;
-#N canvas 10 746 400 290 info 0;
+#X obj 1 656 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 659 библиотека: ceammc v0.9.8;
+#N canvas 10 678 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -83,7 +83,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 746 pd info;
+#X restore 10 678 pd info;
 #X connect 9 0 15 0;
 #X connect 10 0 15 0;
 #X connect 11 0 15 0;

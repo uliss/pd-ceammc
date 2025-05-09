@@ -6,8 +6,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.each 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 list.each;
-#X obj 205 93 cnv 1 560 65 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Each @step elements are passed via righmost outlet to
+#X obj 230 93 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 98 Each @step elements are passed via righmost outlet to
 extenal object \, that suppose to return it back to rightmost inlet.
 So various mapping and filtering are possible.;
 #X msg 50 206 1 2 3 4 5 6 7 8 9;
@@ -32,48 +32,48 @@ So various mapping and filtering are possible.;
 -49933 0;
 #X obj 735 495 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 527 1\.;
-#X text 150 527 int;
-#X obj 246 528 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 527 STEP: see @step property. Тип: int. Диапазон: 1…1024;
-#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 562 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 493 1\.;
+#X text 170 493 int;
+#X obj 271 494 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 493 STEP: see @step property. Тип: int. Диапазон: 1…1024;
+#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 528 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 565 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 531 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 597 @step;
-#X text 245 597 Получить/Установить number of elements outputted to
+#X msg 130 529 @step;
+#X text 270 529 Получить/Установить number of elements outputted to
 rightmost outlet on each iteration. Тип: int. Значение по умолчанию:
 1\. Диапазон: 1\...1024\.;
-#X obj 20 664 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 669 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 601 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 670 1\.;
-#X text 150 670 list:;
-#X text 245 670 Input list.;
-#X text 150 695 data:mlist:;
-#X text 245 695 Input mlist.;
-#X text 110 720 2\.;
-#X text 245 720 New modified value from applied object.;
-#X obj 20 755 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 760 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 602 1\.;
+#X text 170 602 list:;
+#X text 270 602 Input list.;
+#X text 170 627 data:mlist:;
+#X text 270 627 Input mlist.;
+#X text 130 652 2\.;
+#X text 270 652 New modified value from applied object.;
+#X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 692 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 761 1\.;
-#X text 245 761 New modified list (or mlist).;
-#X text 110 781 2\.;
-#X text 245 781 single element or list of values (if @step property
+#X text 130 693 1\.;
+#X text 270 693 New modified list (or mlist).;
+#X text 130 713 2\.;
+#X text 270 713 single element or list of values (if @step property
 > 1).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 831 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 834 библиотека: ceammc v0.9.8;
-#X text 459 846 смотрите также:;
-#X obj 580 846 list.do;
-#X obj 646 846 list.apply_to;
-#N canvas 10 853 400 290 info 0;
+#X obj 1 763 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 766 библиотека: ceammc v0.9.8;
+#X text 459 778 смотрите также:;
+#X obj 580 778 list.do;
+#X obj 646 778 list.apply_to;
+#N canvas 10 785 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -97,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 853 pd info;
+#X restore 10 785 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 10 0;
 #X connect 8 0 12 0;

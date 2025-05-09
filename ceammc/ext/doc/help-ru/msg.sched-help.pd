@@ -5,10 +5,10 @@
 #X obj 1 1 cnv 5 765 40 empty empty msg.sched 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 msg.sched;
-#X obj 205 78 cnv 1 560 75 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 First element of input list considered as delay time
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 First element of input list considered as delay time
 in milliseconds.;
-#X text 215 123 Other messages passed 'as is' immediately.;
+#X text 240 123 Other messages passed 'as is' immediately.;
 #X msg 50 201 @freq 100 \, @gate 1 \, 400 @freq 800 \, 600 @freq 200 \, 750 @gate 0;
 #X obj 50 259 msg.sched;
 #X obj 50 288 synth.dubdub~;
@@ -18,33 +18,33 @@ in milliseconds.;
 #X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 400 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 401 1\.;
-#X text 150 401 bang:;
-#X text 245 401 immediately output bang.;
-#X text 150 426 float:;
-#X text 245 426 immediately output float.;
-#X text 150 451 symbol:;
-#X text 245 451 immediately output symbol.;
-#X text 150 476 list:;
-#X text 245 476 If first element is a float it considered as delay
+#X text 130 401 1\.;
+#X text 170 401 bang:;
+#X text 270 401 immediately output bang.;
+#X text 170 426 float:;
+#X text 270 426 immediately output float.;
+#X text 170 451 symbol:;
+#X text 270 451 immediately output symbol.;
+#X text 170 476 list:;
+#X text 270 476 If first element is a float it considered as delay
 time in millisecond. If this delay time is >0: output left elements
 after this delay time. If delay time is <0 \, output left elements
 immediately. If delay time is ==0 \, output left elements with shortest
 possible delay (on next scheduler block). If first element not a float
 \, output whole list immediately.;
-#X text 150 607 any:;
-#X text 245 607 immediately output any.;
-#X text 110 632 2\.;
-#X text 150 632 bang:;
-#X text 245 632 clear scheduled messages.;
-#X text 150 657 any:;
-#X text 245 657 reset: clear scheduled messages \, flush: output and
+#X text 170 607 any:;
+#X text 270 607 immediately output any.;
+#X text 130 632 2\.;
+#X text 170 632 bang:;
+#X text 270 632 clear scheduled messages.;
+#X text 170 657 any:;
+#X text 270 657 reset: clear scheduled messages \, flush: output and
 clear.;
 #X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 697 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 698 1\.;
-#X text 245 698 message output.;
+#X text 130 698 1\.;
+#X text 270 698 message output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

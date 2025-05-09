@@ -13,87 +13,87 @@
 #X obj 20 212 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 217 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 110 252 Left-click;
-#X text 285 252 toggle DSP processing.;
-#X text 110 272 Right-click;
-#X text 285 272 opens popup menu with items: Audio Settings.;
-#X text 110 292 Right-click + ⇧;
-#X text 285 292 open object help.;
-#X text 110 312 Right-click + ⌥;
-#X text 285 312 open properties dialog.;
-#X text 110 332 Right-click + ⇧;
-#X text 285 332 open object help.;
-#X text 61 332 [Edit];
-#X text 110 352 Right-click + ⌥;
-#X text 285 352 open properties dialog.;
-#X text 61 352 [Edit];
+#X text 130 252 Left-click;
+#X text 310 252 toggle DSP processing.;
+#X text 130 272 Right-click;
+#X text 310 272 opens popup menu with items: Audio Settings.;
+#X text 130 292 Right-click + ⇧;
+#X text 310 292 open object help.;
+#X text 130 312 Right-click + ⌥;
+#X text 310 312 open properties dialog.;
+#X text 130 332 Right-click + ⇧;
+#X text 310 332 open object help.;
+#X text 81 332 [Edit];
+#X text 130 352 Right-click + ⌥;
+#X text 310 352 open properties dialog.;
+#X text 81 352 [Edit];
 #X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 387 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 422 @receive;
-#X text 245 422 Get/Set source of message receive. Type: symbol. Default
+#X msg 130 388 @receive;
+#X text 270 388 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 464 @send;
-#X text 245 464 Get/Set address for sending messages. Type: symbol.
+#X msg 130 430 @send;
+#X text 270 430 Get/Set address for sending messages. Type: symbol.
 Default value: (null).;
-#X msg 110 506 @active_color;
-#X text 245 506 Get/Set element active color (list of red \, green
+#X msg 130 472 @active_color;
+#X text 270 472 Get/Set element active color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 548 @background_color;
-#X text 245 548 Get/Set element background color (list of red \, green
+#X msg 130 514 @background_color;
+#X text 270 514 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 605 @border_color;
-#X text 245 605 Get/Set border color (list of red \, green \, blue
+#X msg 130 571 @border_color;
+#X text 270 571 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 647 @fontname;
-#X text 245 647 Get/Set font name. Type: symbol. Default value: Helvetica.
+#X msg 130 613 @fontname;
+#X text 270 613 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 689 @fontsize;
-#X text 245 689 Get/Set font size. Type: int. Default value: 11\. Range:
+#X msg 130 655 @fontsize;
+#X text 270 655 Get/Set font size. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 731 @fontslant;
-#X text 245 731 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 130 697 @fontslant;
+#X text 270 697 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 773 @fontweight;
-#X text 245 773 Get/Set font weight. Type: symbol. Default value: normal.
+#X msg 130 739 @fontweight;
+#X text 270 739 Get/Set font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
-#X msg 110 815 @pinned;
-#X text 245 815 Get/Set pin mode. If set to 1 \, it places the element
+#X msg 130 781 @pinned;
+#X text 270 781 Get/Set pin mode. If set to 1 \, it places the element
 at the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
-#X msg 110 872 @size;
-#X text 245 872 Get/Set object size (width \, height pair). Type: list.
+#X msg 130 838 @size;
+#X text 270 838 Get/Set object size (width \, height pair). Type: list.
 Default value: 30 30\.;
-#X obj 20 924 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 929 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 890 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 895 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 930 pos;
-#X text 245 930 set UI element position. Arguments are:;
-#X obj 255 953 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 953 X: top left x-coord. Type: float.;
-#X obj 255 976 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 976 Y: top right y-coord. Type: float.;
-#X msg 110 1001 settings;
-#X text 245 1001 opens audio settings dialog.;
-#X msg 110 1029 start;
-#X text 245 1029 starts audio processing.;
-#X msg 110 1057 stop;
-#X text 245 1057 stops audio processing.;
-#X obj 20 1095 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1100 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 896 pos;
+#X text 270 896 set UI element position. Arguments are:;
+#X obj 280 919 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 919 X: top left x-coord. Type: float.;
+#X obj 280 942 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 942 Y: top right y-coord. Type: float.;
+#X msg 130 967 settings;
+#X text 270 967 opens audio settings dialog.;
+#X msg 130 995 start;
+#X text 270 995 starts audio processing.;
+#X msg 130 1023 stop;
+#X text 270 1023 stops audio processing.;
+#X obj 20 1061 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1066 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1101 1\.;
+#X text 130 1067 1\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1156 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1159 library: ceammc v0.9.8;
-#N canvas 10 1178 400 290 info 0;
+#X obj 1 1122 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1125 library: ceammc v0.9.8;
+#N canvas 10 1144 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -117,7 +117,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1178 pd info;
+#X restore 10 1144 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 7 0;
 #X connect 6 0 7 0;

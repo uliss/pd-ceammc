@@ -8,10 +8,10 @@
 #X obj 388 11 ceammc/rtree->list;
 #X obj 543 11 rtree->list;
 #X obj 647 11 rtree.to_list;
-#X obj 205 93 cnv 1 560 60 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 rhythm tree is structure to define complex rhythmic
+#X obj 230 93 cnv 1 535 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 98 rhythm tree is structure to define complex rhythmic
 patterns;
-#X text 215 123 Examples: (1 1 1) - triplet \, (2 1) - swing;
+#X text 240 123 Examples: (1 1 1) - triplet \, (2 1) - swing;
 #X msg 50 201 bang;
 #X floatatom 117 201 5 0 0 0 - - -;
 #X msg 165 201 (1 2 2 1) \, bang;
@@ -37,50 +37,50 @@ ceammc object instead of list arguments;
 -49933 0;
 #X obj 735 576 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 608 1\.;
-#X text 150 608 float;
-#X obj 246 609 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 608 DUR: total pattern duration. Тип: float.;
-#X text 110 628 2\.;
-#X text 150 628 atom;
-#X obj 246 629 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 628 RTREE: rhythm tree. Тип: atom.;
-#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 663 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 574 1\.;
+#X text 170 574 float;
+#X obj 271 575 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 574 DUR: total pattern duration. Тип: float.;
+#X text 130 594 2\.;
+#X text 170 594 atom;
+#X obj 271 595 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 594 RTREE: rhythm tree. Тип: atom.;
+#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 629 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 666 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 632 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 698 @dur;
-#X text 245 698 Получить/Установить total pattern duration. Тип: float.
+#X msg 130 630 @dur;
+#X text 270 630 Получить/Установить total pattern duration. Тип: float.
 Значение по умолчанию: 1\.;
-#X msg 110 740 @rtree;
-#X text 245 740 Получить/Установить rhythm tree. (MList). Тип: atom.
+#X msg 130 672 @rtree;
+#X text 270 672 Получить/Установить rhythm tree. (MList). Тип: atom.
 Значение по умолчанию: ().;
-#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 797 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 729 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 798 1\.;
-#X text 150 798 bang:;
-#X text 245 798 output.;
-#X text 150 823 float:;
-#X text 245 823 set @dur and output.;
-#X text 150 848 data:mlist:;
-#X text 245 848 set @rtree \, no output.;
-#X text 150 873 any:;
-#X text 245 873 parse message and set @rtree \, no output.;
-#X obj 20 908 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 913 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 730 1\.;
+#X text 170 730 bang:;
+#X text 270 730 output.;
+#X text 170 755 float:;
+#X text 270 755 set @dur and output.;
+#X text 170 780 data:mlist:;
+#X text 270 780 set @rtree \, no output.;
+#X text 170 805 any:;
+#X text 270 805 parse message and set @rtree \, no output.;
+#X obj 20 840 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 845 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 914 1\.;
-#X text 245 914 list output.;
+#X text 130 846 1\.;
+#X text 270 846 list output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 964 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 967 библиотека: ceammc v0.9.8;
-#N canvas 10 986 400 290 info 0;
+#X obj 1 896 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 899 библиотека: ceammc v0.9.8;
+#N canvas 10 918 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -104,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 986 pd info;
+#X restore 10 918 pd info;
 #X connect 9 0 14 0;
 #X connect 10 0 14 0;
 #X connect 11 0 14 0;

@@ -22,43 +22,43 @@
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 352 1\.;
-#X text 150 352 list;
-#X obj 246 353 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 352 SUBJ: right set elements. Тип: list.;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 318 1\.;
+#X text 170 318 list;
+#X obj 271 319 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 318 SUBJ: right set elements. Тип: list.;
+#X obj 20 348 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 353 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 356 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 422 @subj;
-#X text 245 422 Получить/Установить right set elements of data:Set.
+#X msg 130 354 @subj;
+#X text 270 354 Получить/Установить right set elements of data:Set.
 Тип: list. Значение по умолчанию: Set().;
-#X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 479 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 480 1\.;
-#X text 245 480 set or list \, other values are ignored.;
-#X text 110 505 2\.;
-#X text 150 505 list:;
-#X text 245 505 set right set elements.;
-#X text 150 530 data:set:;
-#X text 245 530 set right set.;
-#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 570 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 412 1\.;
+#X text 270 412 set or list \, other values are ignored.;
+#X text 130 437 2\.;
+#X text 170 437 list:;
+#X text 270 437 set right set elements.;
+#X text 170 462 data:set:;
+#X text 270 462 set right set.;
+#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 502 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 571 1\.;
-#X text 245 571 output 1 if sets are equal \, 0 otherwise.;
+#X text 130 503 1\.;
+#X text 270 503 output 1 if sets are equal \, 0 otherwise.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 621 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 624 библиотека: ceammc v0.9.8;
-#X text 561 636 смотрите также:;
-#X obj 682 636 data.set;
-#N canvas 10 643 400 290 info 0;
+#X obj 1 553 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 556 библиотека: ceammc v0.9.8;
+#X text 561 568 смотрите также:;
+#X obj 682 568 data.set;
+#N canvas 10 575 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -82,7 +82,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 643 pd info;
+#X restore 10 575 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 7 0;
 #X connect 6 0 10 0;

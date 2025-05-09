@@ -6,8 +6,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.remove_if 20 20 0 20 -104026
 -4096 0;
 #X obj 639 11 list.remove_if;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Predicate object should accept atom and output 0 (leave
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Predicate object should accept atom and output 0 (leave
 element) or 1 (remove).;
 #X msg 50 176 10;
 #X msg 299 176 10;
@@ -24,21 +24,21 @@ element) or 1 (remove).;
 #X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 347 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 348 1\.;
-#X text 150 348 list:;
-#X text 245 348 input list.;
-#X text 150 373 data:mlist:;
-#X text 245 373 input mlist.;
-#X text 110 398 2\.;
-#X text 150 398 float:;
-#X text 245 398 value from predicate.;
+#X text 130 348 1\.;
+#X text 170 348 list:;
+#X text 270 348 input list.;
+#X text 170 373 data:mlist:;
+#X text 270 373 input mlist.;
+#X text 130 398 2\.;
+#X text 170 398 float:;
+#X text 270 398 value from predicate.;
 #X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 438 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 439 1\.;
-#X text 245 439 output list (or mlist) with some removed elements.;
-#X text 110 459 2\.;
-#X text 245 459 atom to predicate.;
+#X text 130 439 1\.;
+#X text 270 439 output list (or mlist) with some removed elements.;
+#X text 130 459 2\.;
+#X text 270 459 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -7,13 +7,13 @@
 -104026 -4096 0;
 #X obj 524 11 music.v->m;
 #X obj 623 11 music.voice2midi;
-#X obj 205 93 cnv 1 560 160 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Basic syntax:;
-#X text 215 123 - pitch: C \, D \, E \, F \, G \, A \, B;
-#X text 215 148 - alteration: # \, ## \, b or bb;
-#X text 215 173 - octave: -1\..9 or ^ \, _;
-#X text 215 198 - deviation in cents: (+-NUMc);
-#X text 215 223 - duration: |8 \, |4\. or |3/8;
+#X obj 230 93 cnv 1 535 160 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 98 Basic syntax:;
+#X text 240 123 - pitch: C \, D \, E \, F \, G \, A \, B;
+#X text 240 148 - alteration: # \, ## \, b or bb;
+#X text 240 173 - octave: -1\..9 or ^ \, _;
+#X text 240 198 - deviation in cents: (+-NUMc);
+#X text 240 223 - duration: |8 \, |4\. or |3/8;
 #X msg 50 301 list C|4 D R Eb F# G(-25c) A|8;
 #X obj 50 359 music.v->m;
 #X obj 50 388 ui.dt;
@@ -25,13 +25,13 @@
 #X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 500 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 501 1\.;
-#X text 245 501 note list.;
+#X text 130 501 1\.;
+#X text 270 501 note list.;
 #X obj 20 536 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 541 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 542 1\.;
-#X text 245 542 MIDI values.;
+#X text 130 542 1\.;
+#X text 270 542 MIDI values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

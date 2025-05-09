@@ -5,16 +5,16 @@
 #X obj 1 1 cnv 5 765 40 empty empty path.search 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 path.search;
-#X obj 205 78 cnv 1 560 220 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Searches file by name in user specified or PureData
+#X obj 230 78 cnv 1 535 220 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Searches file by name in user specified or PureData
 system paths.;
-#X text 215 123 Outputs first found file.;
-#X text 215 148 Search order: 1\. user defined paths (@path property)
+#X text 240 123 Outputs first found file.;
+#X text 240 148 Search order: 1\. user defined paths (@path property)
 \, 2\. current patch directory \, 3\. PureData system path \, 4\. home
 directory.;
-#X text 215 203 Absolute paths processed before relative.;
-#X text 215 228 Home directory can be specified with '~' symbol.;
-#X text 215 253 Note: by default search request is performed asynchronously
+#X text 240 203 Absolute paths processed before relative.;
+#X text 240 228 Home directory can be specified with '~' symbol.;
+#X text 240 253 Note: by default search request is performed asynchronously
 \, so a delay will occured between input and output.;
 #X msg 50 346 symbol loop_breakbeat.flac;
 #X obj 472 346 path.search-std;
@@ -31,67 +31,67 @@ directory.;
 -49933 0;
 #X obj 735 577 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 609 1\.;
-#X text 150 609 list;
-#X obj 246 610 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 609 PATHS: list of paths \, can be quoted to handle whitespace.
+#X text 130 575 1\.;
+#X text 170 575 list;
+#X obj 271 576 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 575 PATHS: list of paths \, can be quoted to handle whitespace.
 Тип: list.;
-#X obj 20 654 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 659 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 625 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 662 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 628 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 694 @async;
-#X text 245 694 Получить/Установить perform async search in separate
+#X msg 130 626 @async;
+#X text 270 626 Получить/Установить perform async search in separate
 thread. Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 736 @depth;
-#X text 245 736 Получить/Установить search recursion depth (-1: infinite).
+#X msg 130 668 @depth;
+#X text 270 668 Получить/Установить search recursion depth (-1: infinite).
 Тип: int. Значение по умолчанию: 0\. Минимальное значение: -1\.;
-#X msg 110 793 @home;
-#X text 245 793 Получить/Установить search in home directory. Тип:
+#X msg 130 725 @home;
+#X text 270 725 Получить/Установить search in home directory. Тип:
 bool. Значение по умолчанию: 1\.;
-#X msg 110 835 @nohome;
-#X text 245 835 Alias to @home 0 \, do not search in home directory.;
-#X msg 110 865 @nostd;
-#X text 245 865 Alias to @std 0 \, do not search in standard dirs.;
-#X msg 110 895 @paths;
-#X text 245 895 Получить/Установить user defined search paths. Тип:
+#X msg 130 767 @nohome;
+#X text 270 767 Alias to @home 0 \, do not search in home directory.;
+#X msg 130 797 @nostd;
+#X text 270 797 Alias to @std 0 \, do not search in standard dirs.;
+#X msg 130 827 @paths;
+#X text 270 827 Получить/Установить user defined search paths. Тип:
 list.;
-#X msg 110 925 @std;
-#X text 245 925 Получить/Установить search in PureData standard directory.
+#X msg 130 857 @std;
+#X text 270 857 Получить/Установить search in PureData standard directory.
 Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 967 @sync;
-#X text 245 967 Alias to @async 0\.;
-#X obj 20 1007 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1012 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
--49933 0;
-#X msg 110 1013 cancel;
-#X text 245 1013 cancel search process.;
-#X obj 20 1051 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1056 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 899 @sync;
+#X text 270 899 Alias to @async 0\.;
+#X obj 20 939 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 944 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1057 1\.;
-#X text 150 1057 symbol:;
-#X text 245 1057 filename.;
-#X text 150 1082 data:string:;
-#X text 245 1082 filename.;
-#X obj 20 1117 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1122 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X msg 130 945 cancel;
+#X text 270 945 cancel search process.;
+#X obj 20 983 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 988 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 989 1\.;
+#X text 170 989 symbol:;
+#X text 270 989 filename.;
+#X text 170 1014 data:string:;
+#X text 270 1014 filename.;
+#X obj 20 1049 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1054 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1123 1\.;
-#X text 245 1123 symbol: full filename.;
-#X text 110 1143 2\.;
-#X text 245 1143 bang: if not found.;
+#X text 130 1055 1\.;
+#X text 270 1055 symbol: full filename.;
+#X text 130 1075 2\.;
+#X text 270 1075 bang: if not found.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title path @url ceammc.path-help.pd;
-#X obj 1 1193 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1196 библиотека: ceammc v0.9.8;
-#X text 553 1208 смотрите также:;
-#X obj 674 1208 file.size;
-#N canvas 10 1215 400 290 info 0;
+#X obj 1 1125 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1128 библиотека: ceammc v0.9.8;
+#X text 553 1140 смотрите также:;
+#X obj 674 1140 file.size;
+#N canvas 10 1147 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -115,7 +115,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1215 pd info;
+#X restore 10 1147 pd info;
 #X connect 13 0 18 0;
 #X connect 15 0 18 0;
 #X connect 16 0 18 0;

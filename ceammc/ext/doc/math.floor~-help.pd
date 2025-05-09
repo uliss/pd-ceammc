@@ -6,8 +6,8 @@ input value;
 #X obj 1 1 cnv 5 765 40 empty empty math.floor~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 math.floor~;
-#X obj 205 93 cnv 1 560 34 empty empty empty 17 7 0 10 -257983 -1 0;
-#X obj 215 98 ui.link @background_color 0.98039 0.98039 0.98039 @title
+#X obj 230 93 cnv 1 535 34 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 240 98 ui.link @background_color 0.98039 0.98039 0.98039 @title
 wiki: Floor and             ceiling functions @url
 https://en.wikipedia.org/wiki/Floor_and_ceiling_functions;
 #X msg 50 175 bang;
@@ -20,15 +20,15 @@ https://en.wikipedia.org/wiki/Floor_and_ceiling_functions;
 #X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 590 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 591 1\.;
-#X text 150 591 ~;
-#X text 245 591 input signal.;
+#X text 130 591 1\.;
+#X text 170 591 ~;
+#X text 270 591 input signal.;
 #X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 631 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 632 1\.;
-#X text 150 632 ~;
-#X text 245 632 result signal.;
+#X text 130 632 1\.;
+#X text 170 632 ~;
+#X text 270 632 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

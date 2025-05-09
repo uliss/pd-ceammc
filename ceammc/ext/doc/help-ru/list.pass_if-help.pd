@@ -7,8 +7,8 @@
 -4096 0;
 #X obj 548 11 list.filter;
 #X obj 653 11 list.pass_if;
-#X obj 205 93 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Predicate object should accept atom and output 0 (remove
+#X obj 230 93 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 98 Predicate object should accept atom and output 0 (remove
 element) or 1 (leave element);
 #X msg 50 191 10;
 #X msg 338 191 10;
@@ -31,21 +31,21 @@ element) or 1 (leave element);
 #X obj 20 501 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 506 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 507 1\.;
-#X text 150 507 list:;
-#X text 245 507 input list.;
-#X text 150 532 data:mlist:;
-#X text 245 532 input mlist.;
-#X text 110 557 2\.;
-#X text 150 557 float:;
-#X text 245 557 value from predicate.;
+#X text 130 507 1\.;
+#X text 170 507 list:;
+#X text 270 507 input list.;
+#X text 170 532 data:mlist:;
+#X text 270 532 input mlist.;
+#X text 130 557 2\.;
+#X text 170 557 float:;
+#X text 270 557 value from predicate.;
 #X obj 20 592 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 597 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 598 1\.;
-#X text 245 598 output list with accepted elements.;
-#X text 110 618 2\.;
-#X text 245 618 atom to predicate.;
+#X text 130 598 1\.;
+#X text 270 598 output list with accepted elements.;
+#X text 130 618 2\.;
+#X text 270 618 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

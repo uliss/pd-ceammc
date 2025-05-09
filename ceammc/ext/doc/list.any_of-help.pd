@@ -6,8 +6,8 @@ by the processing sidechain;
 #X obj 1 1 cnv 5 765 40 empty empty list.any_of 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 list.any_of;
-#X obj 205 93 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Note: also data.mlist;
+#X obj 230 93 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 98 Note: also data.mlist;
 #X msg 50 176 1 2;
 #X msg 107 176 1 2 3 4;
 #X msg 203 176 (1 2 3 5) \, bang;
@@ -18,23 +18,23 @@ by the processing sidechain;
 #X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 300 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 301 1\.;
-#X text 150 301 list:;
-#X text 245 301 Input list.;
-#X text 150 326 data:;
-#X text 245 326 Input mlist.;
-#X text 110 351 2\.;
-#X text 150 351 float:;
-#X text 245 351 input value from predicate. "1" means accepted. "0"
+#X text 130 301 1\.;
+#X text 170 301 list:;
+#X text 270 301 Input list.;
+#X text 170 326 data:;
+#X text 270 326 Input mlist.;
+#X text 130 351 2\.;
+#X text 170 351 float:;
+#X text 270 351 input value from predicate. "1" means accepted. "0"
 means reject. Range: 0\...1\.;
 #X obj 20 401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 406 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 407 1\.;
-#X text 245 407 1 - if predicate object returns true for all the elements
+#X text 130 407 1\.;
+#X text 270 407 1 - if predicate object returns true for all the elements
 or list is empty or 0 otherwise.;
-#X text 110 442 2\.;
-#X text 245 442 atom to predicate.;
+#X text 130 442 2\.;
+#X text 270 442 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

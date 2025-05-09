@@ -19,184 +19,184 @@
 #X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 371 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 406 Right-click + ⇧;
-#X text 285 406 open object help.;
-#X text 110 426 Right-click + ⌥;
-#X text 285 426 open properties dialog.;
-#X text 110 446 Right-click;
-#X text 285 446 opens Pd popup menu.;
-#X text 45 446 [Правка];
-#X text 110 466 Right-click + ⇧;
-#X text 285 466 open the object help.;
-#X text 45 466 [Правка];
-#X text 110 486 Right-click + ⌥;
-#X text 285 486 open properties dialog.;
-#X text 45 486 [Правка];
+#X text 130 406 Right-click + ⇧;
+#X text 310 406 open object help.;
+#X text 130 426 Right-click + ⌥;
+#X text 310 426 open properties dialog.;
+#X text 130 446 Right-click;
+#X text 310 446 opens Pd popup menu.;
+#X text 65 446 [Правка];
+#X text 130 466 Right-click + ⇧;
+#X text 310 466 open the object help.;
+#X text 65 466 [Правка];
+#X text 130 486 Right-click + ⌥;
+#X text 310 486 open properties dialog.;
+#X text 65 486 [Правка];
 #X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 521 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 524 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 556 @cols;
-#X text 245 556 Получить/Установить number of columns. Тип: int. Значение
+#X msg 130 522 @cols;
+#X text 270 522 Получить/Установить number of columns. Тип: int. Значение
 по умолчанию: 8\. Диапазон: 2\...128\.;
-#X msg 110 598 @receive;
-#X text 245 598 Получить/Установить источник получения сообщений. Тип:
+#X msg 130 564 @receive;
+#X text 270 564 Получить/Установить источник получения сообщений. Тип:
 symbol. Значение по умолчанию: (null).;
-#X msg 110 640 @rows;
-#X text 245 640 Получить/Установить number of rows. Тип: int. Значение
+#X msg 130 606 @rows;
+#X text 270 606 Получить/Установить number of rows. Тип: int. Значение
 по умолчанию: 8\. Диапазон: 2\...128\.;
-#X msg 110 682 @send;
-#X text 245 682 Получить/Установить адрес отправки сообщений. Тип:
+#X msg 130 648 @send;
+#X text 270 648 Получить/Установить адрес отправки сообщений. Тип:
 symbol. Значение по умолчанию: (null).;
-#X msg 110 724 @background_color;
-#X text 245 724 Получить/Установить element background color (list
+#X msg 130 690 @background_color;
+#X text 270 690 Получить/Установить element background color (list
 of red \, green \, blue values in 0-1 range). Тип: list. Значение по
 умолчанию: 1 1 1 1\.;
-#X msg 110 781 @border_color;
-#X text 245 781 Получить/Установить цвет границы объекта (список из
+#X msg 130 747 @border_color;
+#X text 270 747 Получить/Установить цвет границы объекта (список из
 красного \, зеленого и синего цветов в [0\..1] диапазоне). Тип: list.
 Значение по умолчанию: 0.6 0.6 0.6 1\.;
-#X msg 110 838 @label;
-#X text 245 838 Получить/Установить текст ярлыка. Тип: symbol. Значение
+#X msg 130 804 @label;
+#X text 270 804 Получить/Установить текст ярлыка. Тип: symbol. Значение
 по умолчанию: (null).;
-#X msg 110 880 @label_align;
-#X text 245 880 Получить/Установить горизонтальное выравнивание ярлыка.
+#X msg 130 846 @label_align;
+#X text 270 846 Получить/Установить горизонтальное выравнивание ярлыка.
 Тип: symbol. Значение по умолчанию: left. Разрешённые значения: left
 \, center \, right.;
-#X msg 110 937 @label_inner;
-#X text 245 937 Получить/Установить положение ярлыка (1 - внутри \,
+#X msg 130 903 @label_inner;
+#X text 270 903 Получить/Установить положение ярлыка (1 - внутри \,
 0 - снаружи объекта). Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 979 @label_margins;
-#X text 245 979 Получить/Установить отступы ярлыка в пикселях по осям
+#X msg 130 945 @label_margins;
+#X text 270 945 Получить/Установить отступы ярлыка в пикселях по осям
 X и Y. Тип: list. Значение по умолчанию: 0 0\.;
-#X msg 110 1021 @label_side;
-#X text 245 1021 Получить/Установить сторона прикрепления ярлыка. Тип:
+#X msg 130 987 @label_side;
+#X text 270 987 Получить/Установить сторона прикрепления ярлыка. Тип:
 symbol. Значение по умолчанию: top. Разрешённые значения: left \, top
 \, right \, bottom.;
-#X msg 110 1078 @label_valign;
-#X text 245 1078 Получить/Установить вертикальное выравнивание ярлыка.
+#X msg 130 1044 @label_valign;
+#X text 270 1044 Получить/Установить вертикальное выравнивание ярлыка.
 Тип: symbol. Значение по умолчанию: top. Разрешённые значения: top
 \, center \, bottom.;
-#X msg 110 1135 @fontname;
-#X text 245 1135 Получить/Установить имя шрифта. Тип: symbol. Значение
+#X msg 130 1101 @fontname;
+#X text 270 1101 Получить/Установить имя шрифта. Тип: symbol. Значение
 по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
 Helvetica \, Monaco \, Times.;
-#X msg 110 1192 @fontsize;
-#X text 245 1192 Получить/Установить размер шрифта. Тип: int. Значение
+#X msg 130 1158 @fontsize;
+#X text 270 1158 Получить/Установить размер шрифта. Тип: int. Значение
 по умолчанию: 11\. Диапазон: 4\...100\.;
-#X msg 110 1234 @fontslant;
-#X text 245 1234 Получить/Установить наклон шрифта. Тип: symbol. Значение
+#X msg 130 1200 @fontslant;
+#X text 270 1200 Получить/Установить наклон шрифта. Тип: symbol. Значение
 по умолчанию: roman. Разрешённые значения: roman \, italic.;
-#X msg 110 1276 @fontweight;
-#X text 245 1276 Получить/Установить толщину шрифта. Тип: symbol. Значение
+#X msg 130 1242 @fontweight;
+#X text 270 1242 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
-#X msg 110 1318 @pinned;
-#X text 245 1318 Получить/Установить режим закрепления. Если 1 - помещает
+#X msg 130 1284 @pinned;
+#X text 270 1284 Получить/Установить режим закрепления. Если 1 - помещает
 элемент на самый дальний уровень на холсте за другими элементам. Тип:
 bool. Значение по умолчанию: 0\.;
-#X msg 110 1375 @size;
-#X text 245 1375 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
+#X msg 130 1341 @size;
+#X text 270 1341 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
 Тип: list. Значение по умолчанию: 64 64\.;
-#X msg 110 1417 @pixels?;
-#X text 245 1417 (только чтение) Получить number of pixels. Тип: int.
+#X msg 130 1383 @pixels?;
+#X text 270 1383 (только чтение) Получить number of pixels. Тип: int.
 Значение по умолчанию: 64\.;
-#X obj 20 1469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1474 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1435 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1440 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1475 clear;
-#X text 245 1475 clear display.;
-#X msg 110 1503 draw down;
-#X text 245 1503 moves draw cursor down along y-asis ans draw single
+#X msg 130 1441 clear;
+#X text 270 1441 clear display.;
+#X msg 130 1469 draw down;
+#X text 270 1469 moves draw cursor down along y-asis ans draw single
 pixel. Аргументы:;
-#X obj 255 1541 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1541 [YOFF]: y-offset. If omitted: 1\. Тип: int.;
-#X msg 110 1566 draw left;
-#X text 245 1566 moves draw cursor left along x-asis ans draw single
+#X obj 280 1507 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1507 [YOFF]: y-offset. If omitted: 1\. Тип: int.;
+#X msg 130 1532 draw left;
+#X text 270 1532 moves draw cursor left along x-asis ans draw single
 pixel. Аргументы:;
-#X obj 255 1604 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1604 [XOFF]: x-offset. If omitted: 1\. Тип: int.;
-#X msg 110 1629 draw right;
-#X text 245 1629 moves cursor right along x-asis ans draw single pixel.
+#X obj 280 1570 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1570 [XOFF]: x-offset. If omitted: 1\. Тип: int.;
+#X msg 130 1595 draw right;
+#X text 270 1595 moves cursor right along x-asis ans draw single pixel.
 Аргументы:;
-#X obj 255 1667 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1667 [XOFF]: x-offset. If omitted: 1\. Тип: int.;
-#X msg 110 1692 draw set;
-#X text 245 1692 set drawing value. Аргументы:;
-#X obj 255 1715 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1715 VALUE: draw pixel value (1: black \, 0: white). Тип:
+#X obj 280 1633 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1633 [XOFF]: x-offset. If omitted: 1\. Тип: int.;
+#X msg 130 1658 draw set;
+#X text 270 1658 set drawing value. Аргументы:;
+#X obj 280 1681 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1681 VALUE: draw pixel value (1: black \, 0: white). Тип:
 bool.;
-#X msg 110 1740 draw up;
-#X text 245 1740 moves draw cursor up along y-asis ans draw single
+#X msg 130 1706 draw up;
+#X text 270 1706 moves draw cursor up along y-asis ans draw single
 pixel. Аргументы:;
-#X obj 255 1778 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1778 [YOFF]: y-offset. If omitted: 1\. Тип: int.;
-#X msg 110 1803 invert;
-#X text 245 1803 invert display.;
-#X msg 110 1831 pos;
-#X text 245 1831 set UI element position. Аргументы:;
-#X obj 255 1854 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1854 X: top left x-coord. Тип: float.;
-#X obj 255 1877 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1877 Y: top right y-coord. Тип: float.;
-#X msg 110 1902 set;
-#X text 245 1902 set display content. Аргументы:;
-#X obj 255 1925 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1925 PIXELS: pixel values. Тип: list.;
-#X msg 110 1950 set col;
-#X text 245 1950 set column content. Аргументы:;
-#X obj 255 1973 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1973 N: column index. Тип: int.;
-#X obj 255 1996 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1996 PIXELS: column pixel values. Тип: list.;
-#X msg 110 2021 set cursor;
-#X text 245 2021 set draw cursor point. Аргументы:;
-#X obj 255 2044 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2044 X: X-position (from left). Тип: int.;
-#X obj 255 2067 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2067 Y: Y-position (from top). Тип: int.;
-#X msg 110 2092 set matrix;
-#X text 245 2092 set matrix data. Аргументы:;
-#X obj 255 2115 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2115 NROWS: matrix row number. Тип: int.;
-#X obj 255 2138 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2138 NCOLS: matrix column numbers. Тип: int.;
-#X obj 255 2161 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2161 VALUES: pixel values. Тип: list.;
-#X msg 110 2186 set pixel;
-#X text 245 2186 set single pixel. Аргументы:;
-#X obj 255 2209 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2209 X: X-position (from left). Тип: int.;
-#X obj 255 2232 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2232 Y: Y-position (from top). Тип: int.;
-#X obj 255 2255 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2255 VALUE: pixel value. Тип: bool.;
-#X msg 110 2280 set row;
-#X text 245 2280 set row content. Аргументы:;
-#X obj 255 2303 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2303 N: row index. Тип: int.;
-#X obj 255 2326 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2326 PIXELS: row pixel values. Тип: list.;
-#X msg 110 2351 dump;
-#X text 245 2351 dumps all object info to Pd console window.;
-#X obj 20 2389 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2394 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 280 1744 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1744 [YOFF]: y-offset. If omitted: 1\. Тип: int.;
+#X msg 130 1769 invert;
+#X text 270 1769 invert display.;
+#X msg 130 1797 pos;
+#X text 270 1797 set UI element position. Аргументы:;
+#X obj 280 1820 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1820 X: top left x-coord. Тип: float.;
+#X obj 280 1843 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1843 Y: top right y-coord. Тип: float.;
+#X msg 130 1868 set;
+#X text 270 1868 set display content. Аргументы:;
+#X obj 280 1891 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1891 PIXELS: pixel values. Тип: list.;
+#X msg 130 1916 set col;
+#X text 270 1916 set column content. Аргументы:;
+#X obj 280 1939 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1939 N: column index. Тип: int.;
+#X obj 280 1962 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1962 PIXELS: column pixel values. Тип: list.;
+#X msg 130 1987 set cursor;
+#X text 270 1987 set draw cursor point. Аргументы:;
+#X obj 280 2010 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2010 X: X-position (from left). Тип: int.;
+#X obj 280 2033 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2033 Y: Y-position (from top). Тип: int.;
+#X msg 130 2058 set matrix;
+#X text 270 2058 set matrix data. Аргументы:;
+#X obj 280 2081 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2081 NROWS: matrix row number. Тип: int.;
+#X obj 280 2104 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2104 NCOLS: matrix column numbers. Тип: int.;
+#X obj 280 2127 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2127 VALUES: pixel values. Тип: list.;
+#X msg 130 2152 set pixel;
+#X text 270 2152 set single pixel. Аргументы:;
+#X obj 280 2175 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2175 X: X-position (from left). Тип: int.;
+#X obj 280 2198 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2198 Y: Y-position (from top). Тип: int.;
+#X obj 280 2221 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2221 VALUE: pixel value. Тип: bool.;
+#X msg 130 2246 set row;
+#X text 270 2246 set row content. Аргументы:;
+#X obj 280 2269 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2269 N: row index. Тип: int.;
+#X obj 280 2292 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2292 PIXELS: row pixel values. Тип: list.;
+#X msg 130 2317 dump;
+#X text 270 2317 dumps all object info to Pd console window.;
+#X obj 20 2355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2360 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2395 1\.;
-#X text 245 2395 command input.;
-#X obj 20 2430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2435 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 2361 1\.;
+#X text 270 2361 command input.;
+#X obj 20 2396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2401 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2436 1\.;
-#X text 245 2436 ...;
+#X text 130 2402 1\.;
+#X text 270 2402 ...;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2486 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2489 библиотека: ceammc v0.9.8;
-#N canvas 10 2508 400 290 info 0;
+#X obj 1 2452 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2455 библиотека: ceammc v0.9.8;
+#N canvas 10 2474 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -220,7 +220,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2508 pd info;
+#X restore 10 2474 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;

@@ -15,63 +15,63 @@
 -49933 0;
 #X obj 735 234 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 266 1\.;
-#X text 150 266 list;
-#X obj 246 267 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 266 VALUE: list contents. Тип: list.;
-#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 301 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 232 1\.;
+#X text 170 232 list;
+#X obj 271 233 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 232 VALUE: list contents. Тип: list.;
+#X obj 20 262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 267 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 304 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 270 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 336 @clip;
-#X text 245 336 Alias to @method clip. If index < 0 - return first
+#X msg 130 268 @clip;
+#X text 270 268 Alias to @method clip. If index < 0 - return first
 element. If index greater or equal list size - return last element.;
-#X msg 110 378 @default;
-#X text 245 378 Получить/Установить default output value if element
+#X msg 130 310 @default;
+#X text 270 310 Получить/Установить default output value if element
 was not found. Тип: atom. Значение по умолчанию: None.;
-#X msg 110 420 @fold;
-#X text 245 420 Alias to @method fold. In range [0 \, LIST_SIZE) ordinal
+#X msg 130 352 @fold;
+#X text 270 352 Alias to @method fold. In range [0 \, LIST_SIZE) ordinal
 elements are returned. [LIST_SIZE \, 2*LIST_SIZE) - returned in negative
 order etc.;
-#X msg 110 477 @method;
-#X text 245 477 Получить/Установить methods of processing of negative/invalid
+#X msg 130 409 @method;
+#X text 270 409 Получить/Установить methods of processing of negative/invalid
 indexes. Тип: symbol. Значение по умолчанию: rel. Разрешённые значения:
 rel \, clip \, fold \, wrap.;
-#X msg 110 534 @rel;
-#X text 245 534 Alias to @method rel. Negative index means position
+#X msg 130 466 @rel;
+#X text 270 466 Alias to @method rel. Negative index means position
 from the end of the list.;
-#X msg 110 576 @value;
-#X text 245 576 Получить/Установить list contents. Тип: list.;
-#X msg 110 606 @wrap;
-#X text 245 606 Alias to @method wrap. In range [0 \, LIST_SIZE) ordinal
+#X msg 130 508 @value;
+#X text 270 508 Получить/Установить list contents. Тип: list.;
+#X msg 130 538 @wrap;
+#X text 270 538 Alias to @method wrap. In range [0 \, LIST_SIZE) ordinal
 elements are returned. Other indexes are wrapped by modulo division.;
-#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 678 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 610 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 679 1\.;
-#X text 150 679 int:;
-#X text 245 679 element index.;
-#X text 150 704 list:;
-#X text 245 704 list of indexes.;
-#X text 110 729 2\.;
-#X text 150 729 list:;
-#X text 245 729 set list content.;
-#X obj 20 764 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 769 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 611 1\.;
+#X text 170 611 int:;
+#X text 270 611 element index.;
+#X text 170 636 list:;
+#X text 270 636 list of indexes.;
+#X text 130 661 2\.;
+#X text 170 661 list:;
+#X text 270 661 set list content.;
+#X obj 20 696 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 701 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 770 1\.;
-#X text 245 770 element(s) at the input index position(s).;
+#X text 130 702 1\.;
+#X text 270 702 element(s) at the input index position(s).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 820 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 823 библиотека: ceammc v0.9.8;
-#X text 569 835 смотрите также:;
-#X obj 690 835 list.at;
-#N canvas 10 842 400 290 info 0;
+#X obj 1 752 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 755 библиотека: ceammc v0.9.8;
+#X text 569 767 смотрите также:;
+#X obj 690 767 list.at;
+#N canvas 10 774 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -95,7 +95,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 842 pd info;
+#X restore 10 774 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

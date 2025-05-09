@@ -5,9 +5,9 @@
 #X obj 1 1 cnv 5 765 40 empty empty seq.phasor 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 seq.phasor;
-#X obj 205 78 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Outputs saw signal in [0\..1] or [0\..1) range.;
-#X text 215 108 Note: control rate in PureData depends on block size
+#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Outputs saw signal in [0\..1] or [0\..1) range.;
+#X text 240 108 Note: control rate in PureData depends on block size
 and samplerate. Do not rely on strict timing for this object \, especially
 at high frequencies!;
 #X obj 50 216 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -30,72 +30,72 @@ at high frequencies!;
 -49933 0;
 #X obj 735 461 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 493 1\.;
-#X text 150 493 float;
-#X obj 246 494 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 493 FREQ(Hz): frequency. Тип: float. Диапазон: 0…100;
-#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 528 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 459 1\.;
+#X text 170 459 float;
+#X obj 271 460 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 459 FREQ(Hz): frequency. Тип: float. Диапазон: 0…100;
+#X obj 20 489 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 494 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 531 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 497 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 563 @freq;
-#X text 245 563 Получить/Установить frequency. Тип: float. Единицы:
+#X msg 130 495 @freq;
+#X text 270 495 Получить/Установить frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 0\. Диапазон: 0\...100\.;
-#X msg 110 605 @invert;
-#X text 245 605 Получить/Установить saw inversion mode. If true \,
+#X msg 130 537 @invert;
+#X text 270 537 Получить/Установить saw inversion mode. If true \,
 outputs descreasing waveform. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 647 @on;
-#X text 245 647 Turn on/off state. Тип: bool. Значение по умолчанию:
+#X msg 130 579 @on;
+#X text 270 579 Turn on/off state. Тип: bool. Значение по умолчанию:
 0\.;
-#X msg 110 677 @open;
-#X text 245 677 Получить/Установить output in open [0\..1) range \,
+#X msg 130 609 @open;
+#X text 270 609 Получить/Установить output in open [0\..1) range \,
 otherwise output range is [0\..1]. Тип: bool. Значение по умолчанию:
 0\.;
-#X msg 110 734 @steps;
-#X text 245 734 Получить/Установить numbers of steps. Тип: int. Значение
+#X msg 130 666 @steps;
+#X text 270 666 Получить/Установить numbers of steps. Тип: int. Значение
 по умолчанию: 128\. Минимальное значение: 3\.;
-#X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 791 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 718 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 723 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 792 phase;
-#X text 245 792 set current phase. Аргументы:;
-#X obj 255 815 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 815 [VALUE]: new phase value. Тип: float.;
-#X msg 110 840 reset;
-#X text 245 840 reset phase and stop.;
-#X msg 110 868 rewind;
-#X text 245 868 reset phase without stopping.;
-#X msg 110 896 start;
-#X text 245 896 start from current position.;
-#X msg 110 924 stop;
-#X text 245 924 stop.;
-#X msg 110 952 tick;
-#X text 245 952 output current value and move to next.;
-#X obj 20 990 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 995 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 724 phase;
+#X text 270 724 set current phase. Аргументы:;
+#X obj 280 747 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 747 [VALUE]: new phase value. Тип: float.;
+#X msg 130 772 reset;
+#X text 270 772 reset phase and stop.;
+#X msg 130 800 rewind;
+#X text 270 800 reset phase without stopping.;
+#X msg 130 828 start;
+#X text 270 828 start from current position.;
+#X msg 130 856 stop;
+#X text 270 856 stop.;
+#X msg 130 884 tick;
+#X text 270 884 output current value and move to next.;
+#X obj 20 922 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 927 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 996 1\.;
-#X text 150 996 float:;
-#X text 245 996 1: starts output \, 0: stop.;
-#X text 110 1021 2\.;
-#X text 150 1021 any:;
-#X text 245 1021 reset phase to 0\.;
-#X obj 20 1056 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1061 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
--49933 0;
-#X text 110 1062 1\.;
-#X text 245 1062 float value in 0\..1 range.;
-#X text 110 1082 2\.;
-#X text 245 1082 bang after full cycle.;
+#X text 130 928 1\.;
+#X text 170 928 float:;
+#X text 270 928 1: starts output \, 0: stop.;
+#X text 130 953 2\.;
+#X text 170 953 any:;
+#X text 270 953 reset phase to 0\.;
+#X obj 20 988 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 993 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 994 1\.;
+#X text 270 994 float value in 0\..1 range.;
+#X text 130 1014 2\.;
+#X text 270 1014 bang after full cycle.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1132 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1135 библиотека: ceammc v0.9.8;
-#N canvas 10 1154 400 290 info 0;
+#X obj 1 1064 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1067 библиотека: ceammc v0.9.8;
+#N canvas 10 1086 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -119,7 +119,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1154 pd info;
+#X restore 10 1086 pd info;
 #X connect 7 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 14 0;

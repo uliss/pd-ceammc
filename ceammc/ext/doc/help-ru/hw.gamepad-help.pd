@@ -5,12 +5,12 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.gamepad 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 hw.gamepad;
-#X obj 205 78 cnv 1 560 115 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 button names: south \, east \, north \, west \, ltrig
+#X obj 230 78 cnv 1 535 115 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 button names: south \, east \, north \, west \, ltrig
 \, ltrig2 \, rtrig \, rtrig2 \, select \, start \, mode \, lthumb \,
 rthumb \, up \, down \, left \, right \, unknown.;
-#X text 215 138 button events: pressed \, released \, repeated \, changed;
-#X text 215 163 axis names: lstickx \, lsticky \, rstickx \, rsticky
+#X text 240 138 button events: pressed \, released \, repeated \, changed;
+#X text 240 163 axis names: lstickx \, lsticky \, rstickx \, rsticky
 \, leftz \, rightz;
 #X msg 50 241 devices;
 #X obj 50 270 hw.gamepad, f 20;
@@ -29,23 +29,23 @@ rthumb \, up \, down \, left \, right \, unknown.;
 #X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 596 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 597 devices;
-#X text 245 597 output devices info as data:Dict into third outlet.;
+#X msg 130 597 devices;
+#X text 270 597 output devices info as data:Dict into third outlet.;
 #X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 640 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 641 1\.;
-#X text 245 641 input.;
+#X text 130 641 1\.;
+#X text 270 641 input.;
 #X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 681 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 682 1\.;
-#X text 245 682 button output: list GAMEPAD_ID BUTTON_NAME BUTTON_EVENT
+#X text 130 682 1\.;
+#X text 270 682 button output: list GAMEPAD_ID BUTTON_NAME BUTTON_EVENT
 VALUE.;
-#X text 110 717 2\.;
-#X text 245 717 axis output: list GAMEPAD_ID AXIS_NAME VALUE.;
-#X text 110 737 3\.;
-#X text 245 737 [device DICT( - connected device information \, [connected
+#X text 130 717 2\.;
+#X text 270 717 axis output: list GAMEPAD_ID AXIS_NAME VALUE.;
+#X text 130 737 3\.;
+#X text 270 737 [device DICT( - connected device information \, [connected
 ID( - when device connected \, [disconnected ID( - when device disconnected.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

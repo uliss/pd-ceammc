@@ -5,10 +5,10 @@
 #X obj 1 1 cnv 5 765 40 empty empty speech.flite 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 speech.flite;
-#X obj 205 78 cnv 1 560 75 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Renders floats \, symbols and list to wavetables using
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Renders floats \, symbols and list to wavetables using
 flite TTS engine.;
-#X text 215 123 Rendering is performed in separate thread.;
+#X text 240 123 Rendering is performed in separate thread.;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array arr_flite 100 float 0;
 #X coords 0 1 100 -1 500 80 1;
@@ -33,53 +33,53 @@ flite TTS engine.;
 -49933 0;
 #X obj 735 576 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 608 1\.;
-#X text 150 608 symbol;
-#X obj 246 609 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 608 ARRAY: destination array name render to. Тип: symbol.;
-#X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 643 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 574 1\.;
+#X text 170 574 symbol;
+#X obj 271 575 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 574 ARRAY: destination array name render to. Тип: symbol.;
+#X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 609 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 646 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 612 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 678 @array;
-#X text 245 678 Получить/Установить destination array name. Тип: symbol.;
-#X msg 110 708 @pitch;
-#X text 245 708 Получить/Установить voice pitch (-1 - default value).
+#X msg 130 610 @array;
+#X text 270 610 Получить/Установить destination array name. Тип: symbol.;
+#X msg 130 640 @pitch;
+#X text 270 640 Получить/Установить voice pitch (-1 - default value).
 Тип: float. Значение по умолчанию: -1\.;
-#X msg 110 750 @speed;
-#X text 245 750 Получить/Установить speaking speed. Тип: float. Значение
+#X msg 130 682 @speed;
+#X text 270 682 Получить/Установить speaking speed. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 1\...4\.;
-#X msg 110 792 @voice;
-#X text 245 792 Получить/Установить default voice. Тип: symbol. Значение
+#X msg 130 724 @voice;
+#X text 270 724 Получить/Установить default voice. Тип: symbol. Значение
 по умолчанию: kal16\. Разрешённые значения: kal16 \, slt \, rms \,
 awb.;
-#X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 864 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 796 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 865 1\.;
-#X text 150 865 float:;
-#X text 245 865 render number to array.;
-#X text 150 890 symbol:;
-#X text 245 890 render text to array.;
-#X text 150 915 list:;
-#X text 245 915 render text to array.;
-#X text 110 940 2\.;
-#X text 150 940 symbol:;
-#X text 245 940 set target array name.;
-#X obj 20 975 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 980 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 797 1\.;
+#X text 170 797 float:;
+#X text 270 797 render number to array.;
+#X text 170 822 symbol:;
+#X text 270 822 render text to array.;
+#X text 170 847 list:;
+#X text 270 847 render text to array.;
+#X text 130 872 2\.;
+#X text 170 872 symbol:;
+#X text 270 872 set target array name.;
+#X obj 20 907 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 912 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 981 1\.;
-#X text 245 981 bang on done.;
+#X text 130 913 1\.;
+#X text 270 913 bang on done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 1031 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1034 библиотека: ceammc v0.9.8;
-#N canvas 10 1053 400 290 info 0;
+#X obj 1 963 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 966 библиотека: ceammc v0.9.8;
+#N canvas 10 985 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -103,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1053 pd info;
+#X restore 10 985 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 12 0;
 #X connect 10 0 13 0;

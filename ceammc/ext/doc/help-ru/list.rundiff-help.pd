@@ -6,13 +6,13 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.rundiff 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 list.rundiff;
-#X obj 205 78 cnv 1 560 160 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 calculation flow:;
-#X text 215 108 • y0 = x0;
-#X text 215 133 • y1 = x1 - x0;
-#X text 215 158 • y2 = x2 - x1;
-#X text 215 183 • y3 = x3 - x2;
-#X text 215 208 etc...;
+#X obj 230 78 cnv 1 535 160 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 calculation flow:;
+#X text 240 108 • y0 = x0;
+#X text 240 133 • y1 = x1 - x0;
+#X text 240 158 • y2 = x2 - x1;
+#X text 240 183 • y3 = x3 - x2;
+#X text 240 208 etc...;
 #X msg 50 286 1 1 1 1;
 #X msg 174 286 1 2 3 4;
 #X msg 299 286 1 3 5 7;
@@ -26,14 +26,14 @@
 #X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 626 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 627 1\.;
-#X text 150 627 list:;
-#X text 245 627 input list.;
+#X text 130 627 1\.;
+#X text 170 627 list:;
+#X text 270 627 input list.;
 #X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 667 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 668 1\.;
-#X text 245 668 result list.;
+#X text 130 668 1\.;
+#X text 270 668 result list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

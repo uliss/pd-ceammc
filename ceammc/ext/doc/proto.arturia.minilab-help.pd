@@ -19,59 +19,59 @@
 -49933 0;
 #X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X obj 20 344 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 349 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 315 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 350 backlight;
-#X text 245 350 turn on/off pad backlight. Arguments are:;
-#X obj 255 373 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 373 VALUE: on/off state. Type: bool.;
-#X msg 110 398 channel;
-#X text 245 398 set device MIDI channel. Arguments are:;
-#X obj 255 421 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 421 CH: MIDI channel. Type: int. Range: 0\...15\.;
-#X msg 110 446 knob;
-#X text 245 446 set knob value. Arguments are:;
-#X obj 255 469 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 469 N: knob index. Type: int. Range: 0\...17\.;
-#X obj 255 492 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 492 VAL: knob value. Type: float. Range: 0\...1\.;
-#X msg 110 517 knob?;
-#X text 245 517 request knob value. Arguments are:;
-#X obj 255 540 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 540 N: knob index. Type: int. Range: 0\...17\.;
-#X msg 110 565 knobs?;
-#X text 245 565 request all knob values.;
-#X msg 110 593 pad_color;
-#X text 245 593 set pad color. Arguments are:;
-#X obj 255 616 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 616 [N]: pad index. If not specified set color to all pads.
+#X msg 130 316 backlight;
+#X text 270 316 turn on/off pad backlight. Arguments are:;
+#X obj 280 339 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 339 VALUE: on/off state. Type: bool.;
+#X msg 130 364 channel;
+#X text 270 364 set device MIDI channel. Arguments are:;
+#X obj 280 387 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 387 CH: MIDI channel. Type: int. Range: 0\...15\.;
+#X msg 130 412 knob;
+#X text 270 412 set knob value. Arguments are:;
+#X obj 280 435 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 435 N: knob index. Type: int. Range: 0\...17\.;
+#X obj 280 458 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 458 VAL: knob value. Type: float. Range: 0\...1\.;
+#X msg 130 483 knob?;
+#X text 270 483 request knob value. Arguments are:;
+#X obj 280 506 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 506 N: knob index. Type: int. Range: 0\...17\.;
+#X msg 130 531 knobs?;
+#X text 270 531 request all knob values.;
+#X msg 130 559 pad_color;
+#X text 270 559 set pad color. Arguments are:;
+#X obj 280 582 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 582 [N]: pad index. If not specified set color to all pads.
 Type: int. Range: 0\...15\.;
-#X obj 255 654 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 654 COLOR: color. Type: atom. Allowed values: 0 \, 1 \,
+#X obj 280 620 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 620 COLOR: color. Type: atom. Allowed values: 0 \, 1 \,
 2 \, 3 \, 4 \, 5 \, 6 \, 7 \, black \, red \, green \, yellow \, blue
 \, magenta \, cyan \, white.;
-#X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 709 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 675 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 710 1\.;
-#X text 245 710 commands.;
-#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 750 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 676 1\.;
+#X text 270 676 commands.;
+#X obj 20 711 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 716 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 751 1\.;
-#X text 245 751 MIDI bytes.;
-#X text 110 771 2\.;
-#X text 245 771 parsed MIDI commands: noteon \, noteoff \, cc \, program
+#X text 130 717 1\.;
+#X text 270 717 MIDI bytes.;
+#X text 130 737 2\.;
+#X text 270 737 parsed MIDI commands: noteon \, noteoff \, cc \, program
 etc...;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 821 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 824 library: ceammc v0.9.8;
-#N canvas 10 843 400 290 info 0;
+#X obj 1 787 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 790 library: ceammc v0.9.8;
+#N canvas 10 809 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -95,7 +95,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 843 pd info;
+#X restore 10 809 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 8 0;
 #X connect 4 0 9 0;

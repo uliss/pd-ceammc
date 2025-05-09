@@ -25,77 +25,77 @@
 -49933 0;
 #X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 395 @filter;
-#X text 245 395 Get/Set output signal filtering. LTC should have a
+#X msg 130 361 @filter;
+#X text 270 361 Get/Set output signal filtering. LTC should have a
 rise time of 40us+/-10 us. If you want a perfect square wave \, set
 to 0\. Type: float. Default value: 0\. Range: 0\...500\.;
-#X msg 110 452 @fps;
-#X text 245 452 Get/Set frames per second rate. Supported values are:
+#X msg 130 418 @fps;
+#X text 270 418 Get/Set frames per second rate. Supported values are:
 24 \, 25 \, 29.97 \, 30\. Type: float. Default value: 25\.;
-#X msg 110 494 @on;
-#X text 245 494 Get/Set encoder state. Type: bool. Default value: 0\.;
-#X msg 110 524 @speed;
-#X text 245 524 Get/Set playing speed. Type: float. Default value:
+#X msg 130 460 @on;
+#X text 270 460 Get/Set encoder state. Type: bool. Default value: 0\.;
+#X msg 130 490 @speed;
+#X text 270 490 Get/Set playing speed. Type: float. Default value:
 1\.;
-#X msg 110 554 @volume;
-#X text 245 554 Get/Set output signal level. Type: float. Units: 'db'.
+#X msg 130 520 @volume;
+#X text 270 520 Get/Set output signal level. Type: float. Units: 'db'.
 Default value: -3\. Range: -42\...0\.;
-#X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 611 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 577 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 612 date;
-#X text 245 612 set current date. Arguments are:;
-#X obj 255 635 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 635 YEAR: year. Type: int. Range: 0\...3000\.;
-#X obj 255 658 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 658 MONTH: month. Type: int. Range: 1\...12\.;
-#X obj 255 681 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 681 DAY: day. Type: int. Range: 1\...31\.;
-#X obj 255 704 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 704 [TIMEZONE]: timezone in +HHMM format. Type: symbol.;
-#X msg 110 729 seek;
-#X text 245 729 time seek. Arguments are:;
-#X obj 255 752 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 752 UNIT: relative position seek. If float or int - seek
+#X msg 130 578 date;
+#X text 270 578 set current date. Arguments are:;
+#X obj 280 601 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 601 YEAR: year. Type: int. Range: 0\...3000\.;
+#X obj 280 624 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 624 MONTH: month. Type: int. Range: 1\...12\.;
+#X obj 280 647 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 647 DAY: day. Type: int. Range: 1\...31\.;
+#X obj 280 670 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 670 [TIMEZONE]: timezone in +HHMM format. Type: symbol.;
+#X msg 130 695 seek;
+#X text 270 695 time seek. Arguments are:;
+#X obj 280 718 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 718 UNIT: relative position seek. If float or int - seek
 in frames \, otherwise units are expected. Supported units are: day
 \, hour \, min \, sec. E.g.: 1day \, 3hour \, 5min \, 11sec etc. Type:
 atom.;
-#X msg 110 837 time;
-#X text 245 837 set current time. Arguments are:;
-#X obj 255 860 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 860 HOUR: hour. Type: int. Range: 0\...23\.;
-#X obj 255 883 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 883 MIN: minute. Type: int. Range: 0\...59\.;
-#X obj 255 906 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 906 SEC: second. Type: int. Range: 0\...59\.;
-#X obj 255 929 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 929 [FRAME]: frame number. Type: int. Range: 0\...30\.;
-#X obj 20 964 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 969 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 803 time;
+#X text 270 803 set current time. Arguments are:;
+#X obj 280 826 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 826 HOUR: hour. Type: int. Range: 0\...23\.;
+#X obj 280 849 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 849 MIN: minute. Type: int. Range: 0\...59\.;
+#X obj 280 872 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 872 SEC: second. Type: int. Range: 0\...59\.;
+#X obj 280 895 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 895 [FRAME]: frame number. Type: int. Range: 0\...30\.;
+#X obj 20 930 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 935 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 970 1\.;
-#X text 150 970 bang:;
-#X text 245 970 output current time to second outlet.;
-#X text 150 995 bool:;
-#X text 245 995 switch on/off encoder process.;
-#X obj 20 1030 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1035 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 936 1\.;
+#X text 170 936 bang:;
+#X text 270 936 output current time to second outlet.;
+#X text 170 961 bool:;
+#X text 270 961 switch on/off encoder process.;
+#X obj 20 996 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1001 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1036 1\.;
-#X text 150 1036 ~;
-#X text 245 1036 LTC signal.;
-#X text 110 1056 2\.;
-#X text 245 1056 list: HOUR MINUTE SECOND FRAME.;
+#X text 130 1002 1\.;
+#X text 170 1002 ~;
+#X text 270 1002 LTC signal.;
+#X text 130 1022 2\.;
+#X text 270 1022 list: HOUR MINUTE SECOND FRAME.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1106 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1109 library: ceammc v0.9.8;
-#X text 613 1121 see also:;
-#X obj 688 1121 ltc.in~;
-#N canvas 10 1128 400 290 info 0;
+#X obj 1 1072 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1075 library: ceammc v0.9.8;
+#X text 613 1087 see also:;
+#X obj 688 1087 ltc.in~;
+#N canvas 10 1094 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -119,7 +119,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1128 pd info;
+#X restore 10 1094 pd info;
 #X connect 7 0 9 0;
 #X connect 5 0 13 0;
 #X connect 11 0 13 0;

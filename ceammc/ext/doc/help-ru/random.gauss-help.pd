@@ -5,18 +5,18 @@
 #X obj 1 1 cnv 5 765 40 empty empty random.gauss 20 20 0 20 -104026
 -4096 0;
 #X obj 654 11 random.gauss;
-#X obj 205 78 cnv 1 560 276 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Generates random value that has gaussian distribution.
+#X obj 230 78 cnv 1 535 276 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Generates random value that has gaussian distribution.
 It has the shape of a bell curve and characterized by two parameters
 \, mu and sigma.;
-#X text 215 138 The center of the density function \, mu \, is the
+#X text 240 138 The center of the density function \, mu \, is the
 mean of the random variable. The spread of the density function is
 measured by a parameter called *standard deviation* or sigma. 68.26%
 of all results will occur in the interval with width +-SIGMA \, centered
 by the mean; the random variable is unbounded \, both as above and
 below the mean.;
-#X text 215 269 99.74% of all results fall within +-3 SIGMA.;
-#X text 215 294 Use @seed property to get reproducible sequences. If
+#X text 240 269 99.74% of all results fall within +-3 SIGMA.;
+#X text 240 294 Use @seed property to get reproducible sequences. If
 @seed property was not explicitly set or specified \, uses generator
 initialized with current time.;
 #X obj 50 402 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -41,51 +41,51 @@ initialized with current time.;
 -49933 0;
 #X obj 735 691 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 723 1\.;
-#X text 150 723 float;
-#X obj 246 724 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 723 MU: the mean. Тип: float.;
-#X text 110 743 2\.;
-#X text 150 743 float;
-#X obj 246 744 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 743 SIGMA: the standard deviation. Тип: float. Минимальное
+#X text 130 689 1\.;
+#X text 170 689 float;
+#X obj 271 690 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 689 MU: the mean. Тип: float.;
+#X text 130 709 2\.;
+#X text 170 709 float;
+#X obj 271 710 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 709 SIGMA: the standard deviation. Тип: float. Минимальное
 значение: 0\.;
-#X obj 20 788 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 793 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 754 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 759 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 796 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 762 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 828 @mu;
-#X text 245 828 Получить/Установить the mean. Тип: float. Значение
+#X msg 130 760 @mu;
+#X text 270 760 Получить/Установить the mean. Тип: float. Значение
 по умолчанию: 0\.;
-#X msg 110 870 @seed;
-#X text 245 870 Получить/Установить generator seed. Тип: int. Значение
+#X msg 130 802 @seed;
+#X text 270 802 Получить/Установить generator seed. Тип: int. Значение
 по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 110 912 @sigma;
-#X text 245 912 Получить/Установить the standard deviation. Тип: float.
+#X msg 130 844 @sigma;
+#X text 270 844 Получить/Установить the standard deviation. Тип: float.
 Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 964 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 969 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 896 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 901 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 970 1\.;
-#X text 150 970 bang:;
-#X text 245 970 generates random number.;
-#X obj 20 1005 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1010 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
--49933 0;
-#X text 110 1011 1\.;
-#X text 245 1011 result value.;
+#X text 130 902 1\.;
+#X text 170 902 bang:;
+#X text 270 902 generates random number.;
+#X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 942 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 943 1\.;
+#X text 270 943 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 1061 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1064 библиотека: ceammc v0.9.8;
-#X text 447 1076 смотрите также:;
-#X obj 568 1076 random.float;
-#X obj 669 1076 random.int;
-#N canvas 10 1083 400 290 info 0;
+#X obj 1 993 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 996 библиотека: ceammc v0.9.8;
+#X text 447 1008 смотрите также:;
+#X obj 568 1008 random.float;
+#X obj 669 1008 random.int;
+#N canvas 10 1015 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -109,7 +109,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1083 pd info;
+#X restore 10 1015 pd info;
 #X connect 9 0 10 0;
 #X connect 10 1 12 0;
 #X connect 12 0 13 0;

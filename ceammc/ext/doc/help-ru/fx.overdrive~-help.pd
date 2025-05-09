@@ -19,64 +19,64 @@
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 381 1\.;
-#X text 150 381 float;
-#X obj 246 382 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 381 GAIN: input gain. Тип: float. Диапазон: 1…5;
-#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 416 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 347 1\.;
+#X text 170 347 float;
+#X obj 271 348 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 347 GAIN: input gain. Тип: float. Диапазон: 1…5;
+#X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 382 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 419 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 385 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 451 @id;
-#X text 245 451 (при инициализации) Получить/Установить идентификатор
+#X msg 130 383 @id;
+#X text 270 383 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_overdrive/ИМЯ_СВОЙСТВА \, в противном
 случае к /fx_overdrive/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 538 @osc;
-#X text 245 538 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 470 @osc;
+#X text 270 470 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 580 @active;
-#X text 245 580 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 512 @active;
+#X text 270 512 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 622 @bypass;
-#X text 245 622 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 130 554 @bypass;
+#X text 270 554 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 664 @drywet;
-#X text 245 664 Получить/Установить Ratio between processed signal
+#X msg 130 596 @drywet;
+#X text 270 596 Получить/Установить Ratio between processed signal
 (wet) and source signal. Тип: float. Значение по умолчанию: 1\. Диапазон:
 0\...1\.;
-#X msg 110 721 @gain;
-#X text 245 721 Получить/Установить input gain. Тип: float. Значение
+#X msg 130 653 @gain;
+#X text 270 653 Получить/Установить input gain. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 1\...5\.;
-#X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 778 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 710 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 779 reset;
-#X text 245 779 reset object.;
-#X obj 20 817 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 822 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 711 reset;
+#X text 270 711 reset object.;
+#X obj 20 749 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 754 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 823 1\.;
-#X text 150 823 ~;
-#X text 245 823 input signal.;
-#X text 110 848 2\.;
-#X text 150 848 float:;
-#X text 245 848 gain value.;
-#X obj 20 883 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 888 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 755 1\.;
+#X text 170 755 ~;
+#X text 270 755 input signal.;
+#X text 130 780 2\.;
+#X text 170 780 float:;
+#X text 270 780 gain value.;
+#X obj 20 815 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 820 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 889 1\.;
-#X text 150 889 ~;
-#X text 245 889 output.;
+#X text 130 821 1\.;
+#X text 170 821 ~;
+#X text 270 821 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 939 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 942 библиотека: ceammc v0.9.8;
-#N canvas 10 961 400 290 info 0;
+#X obj 1 871 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 874 библиотека: ceammc v0.9.8;
+#N canvas 10 893 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -100,7 +100,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 961 pd info;
+#X restore 10 893 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 8 0;

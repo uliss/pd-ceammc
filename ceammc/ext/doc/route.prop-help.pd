@@ -19,25 +19,25 @@
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 346 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 347 1\.;
-#X text 150 347 any:;
-#X text 245 347 property to *first* outlet \, any other messages to
+#X text 130 347 1\.;
+#X text 170 347 any:;
+#X text 270 347 property to *first* outlet \, any other messages to
 second outlet.;
-#X text 150 387 bang:;
-#X text 245 387 bang to second outlet.;
-#X text 150 412 float:;
-#X text 245 412 float to first outlet.;
-#X text 150 437 list:;
-#X text 245 437 list to second outlet.;
-#X text 150 462 symbol:;
-#X text 245 462 symbol to second outlet.;
+#X text 170 387 bang:;
+#X text 270 387 bang to second outlet.;
+#X text 170 412 float:;
+#X text 270 412 float to first outlet.;
+#X text 170 437 list:;
+#X text 270 437 list to second outlet.;
+#X text 170 462 symbol:;
+#X text 270 462 symbol to second outlet.;
 #X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 502 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 503 1\.;
-#X text 245 503 property output.;
-#X text 110 523 2\.;
-#X text 245 523 other messages.;
+#X text 130 503 1\.;
+#X text 270 503 property output.;
+#X text 130 523 2\.;
+#X text 270 523 other messages.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

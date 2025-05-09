@@ -23,116 +23,116 @@
 -49933 0;
 #X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 453 @id;
-#X text 245 453 (при инициализации) Получить/Установить идентификатор
+#X msg 130 419 @id;
+#X text 270 419 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_distortion1/ИМЯ_СВОЙСТВА \, в
 противном случае к /fx_distortion1/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 556 @osc;
-#X text 245 556 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 522 @osc;
+#X text 270 522 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 598 @active;
-#X text 245 598 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 564 @active;
+#X text 270 564 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 640 @drive;
-#X text 245 640 Получить/Установить distortion amount. Тип: float.
+#X msg 130 606 @drive;
+#X text 270 606 Получить/Установить distortion amount. Тип: float.
 Значение по умолчанию: 0.64\. Диапазон: 0\...1\.;
-#X msg 110 682 @flt_on_off;
-#X text 245 682 Получить/Установить filter processing. Тип: bool. Значение
+#X msg 130 648 @flt_on_off;
+#X text 270 648 Получить/Установить filter processing. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 724 @gain;
-#X text 245 724 Получить/Установить total effect gain. Тип: float.
+#X msg 130 690 @gain;
+#X text 270 690 Получить/Установить total effect gain. Тип: float.
 Единицы: 'db'. Значение по умолчанию: 2\. Диапазон: -10\...10\.;
-#X msg 110 766 @high_drive;
-#X text 245 766 Получить/Установить distortion amount on high frequencies.
+#X msg 130 732 @high_drive;
+#X text 270 732 Получить/Установить distortion amount on high frequencies.
 Тип: float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 808 @high_gain;
-#X text 245 808 Получить/Установить gain on high frequencies. Тип:
+#X msg 130 774 @high_gain;
+#X text 270 774 Получить/Установить gain on high frequencies. Тип:
 float. Единицы: 'db'. Значение по умолчанию: 10\. Диапазон: -10\...20\.;
-#X msg 110 865 @hp_freq;
-#X text 245 865 Получить/Установить high pass frequency. Тип: float.
+#X msg 130 831 @hp_freq;
+#X text 270 831 Получить/Установить high pass frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 130\. Диапазон: 20\...7040\.;
-#X msg 110 907 @level;
-#X text 245 907 Получить/Установить effect level. Тип: float. Значение
+#X msg 130 873 @level;
+#X text 270 873 Получить/Установить effect level. Тип: float. Значение
 по умолчанию: 0.01\. Диапазон: 0\...0.5\.;
-#X msg 110 949 @low_drive;
-#X text 245 949 Получить/Установить distortion amount on low frequencies.
+#X msg 130 915 @low_drive;
+#X text 270 915 Получить/Установить distortion amount on low frequencies.
 Тип: float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 991 @low_gain;
-#X text 245 991 Получить/Установить gain on low frequencies. Тип: float.
+#X msg 130 957 @low_gain;
+#X text 270 957 Получить/Установить gain on low frequencies. Тип: float.
 Единицы: 'db'. Значение по умолчанию: 10\. Диапазон: -10\...20\.;
-#X msg 110 1048 @lp_freq;
-#X text 245 1048 Получить/Установить low pass frequency. Тип: float.
+#X msg 130 1014 @lp_freq;
+#X text 270 1014 Получить/Установить low pass frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 5000\. Диапазон: 20\...12000\.;
-#X msg 110 1090 @middle_h_drive;
-#X text 245 1090 Получить/Установить distortion amount on middle high
+#X msg 130 1056 @middle_h_drive;
+#X text 270 1056 Получить/Установить distortion amount on middle high
 frequencies. Тип: float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 1147 @middle_h_gain;
-#X text 245 1147 Получить/Установить gain on middle high frequencies.
+#X msg 130 1113 @middle_h_gain;
+#X text 270 1113 Получить/Установить gain on middle high frequencies.
 Тип: float. Единицы: 'db'. Значение по умолчанию: 10\. Диапазон: -10\...20\.;
-#X msg 110 1204 @middle_l_drive;
-#X text 245 1204 Получить/Установить distortion amount on middle low
+#X msg 130 1170 @middle_l_drive;
+#X text 270 1170 Получить/Установить distortion amount on middle low
 frequencies. Тип: float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 1261 @middle_l_gain;
-#X text 245 1261 Получить/Установить gain on middle low frequencies.
+#X msg 130 1227 @middle_l_gain;
+#X text 270 1227 Получить/Установить gain on middle low frequencies.
 Тип: float. Единицы: 'db'. Значение по умолчанию: 10\. Диапазон: -10\...20\.;
-#X msg 110 1318 @res_on_off;
-#X text 245 1318 Получить/Установить resonator. Тип: bool. Значение
+#X msg 130 1284 @res_on_off;
+#X text 270 1284 Получить/Установить resonator. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 1360 @sp_high_freq;
-#X text 245 1360 Получить/Установить speaker emulation high frequency.
+#X msg 130 1326 @sp_high_freq;
+#X text 270 1326 Получить/Установить speaker emulation high frequency.
 Тип: float. Единицы: 'Hz'. Значение по умолчанию: 5000\. Диапазон:
 1000\...12000\.;
-#X msg 110 1417 @sp_low_freq;
-#X text 245 1417 Получить/Установить speaker emulation low frequency.
+#X msg 130 1383 @sp_low_freq;
+#X text 270 1383 Получить/Установить speaker emulation low frequency.
 Тип: float. Единицы: 'Hz'. Значение по умолчанию: 130\. Диапазон: 20\...1000\.;
-#X msg 110 1474 @sp_on_off;
-#X text 245 1474 Получить/Установить speaker emulation turn on/off.
+#X msg 130 1440 @sp_on_off;
+#X text 270 1440 Получить/Установить speaker emulation turn on/off.
 Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1516 @split_high_freq;
-#X text 245 1516 Получить/Установить high split frequency. Тип: float.
+#X msg 130 1482 @split_high_freq;
+#X text 270 1482 Получить/Установить high split frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 1250\. Диапазон: 1250\...12000\.;
-#X msg 110 1573 @split_low_freq;
-#X text 245 1573 Получить/Установить low split frequency. Тип: float.
+#X msg 130 1539 @split_low_freq;
+#X text 270 1539 Получить/Установить low split frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 250\. Диапазон: 20\...600\.;
-#X msg 110 1615 @split_middle_freq;
-#X text 245 1615 Получить/Установить middle split frequency. Тип: float.
+#X msg 130 1581 @split_middle_freq;
+#X text 270 1581 Получить/Установить middle split frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 650\. Диапазон: 600\...1250\.;
-#X msg 110 1672 @trigger;
-#X text 245 1672 Получить/Установить resonator trigger. Тип: float.
+#X msg 130 1638 @trigger;
+#X text 270 1638 Получить/Установить resonator trigger. Тип: float.
 Значение по умолчанию: 0.12\. Диапазон: 0\...1\.;
-#X msg 110 1714 @vibrato;
-#X text 245 1714 Получить/Установить resonator vibration. Тип: float.
+#X msg 130 1680 @vibrato;
+#X text 270 1680 Получить/Установить resonator vibration. Тип: float.
 Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 20 1766 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1771 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1737 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1772 reset;
-#X text 245 1772 reset object.;
-#X obj 20 1810 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1815 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1738 reset;
+#X text 270 1738 reset object.;
+#X obj 20 1776 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1781 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1816 1\.;
-#X text 150 1816 ~;
-#X text 245 1816 input signal.;
-#X obj 20 1851 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1856 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1782 1\.;
+#X text 170 1782 ~;
+#X text 270 1782 input signal.;
+#X obj 20 1817 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1822 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1857 1\.;
-#X text 150 1857 ~;
-#X text 245 1857 output signal.;
+#X text 130 1823 1\.;
+#X text 170 1823 ~;
+#X text 270 1823 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1907 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1910 библиотека: ceammc v0.9.8;
-#X text 267 1922 смотрите также:;
-#X obj 388 1922 fx.distortion~;
-#X obj 505 1922 fx.distortion2~;
-#X obj 630 1922 fx.distortion3~;
-#N canvas 10 1929 400 290 info 0;
+#X obj 1 1873 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1876 библиотека: ceammc v0.9.8;
+#X text 267 1888 смотрите также:;
+#X obj 388 1888 fx.distortion~;
+#X obj 505 1888 fx.distortion2~;
+#X obj 630 1888 fx.distortion3~;
+#N canvas 10 1895 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -156,7 +156,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1929 pd info;
+#X restore 10 1895 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 10 0;

@@ -24,69 +24,69 @@
 -49933 0;
 #X obj 735 288 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 320 1\.;
-#X text 150 320 int;
-#X obj 246 321 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 320 INPUTS: number of matrix inputs (columns). Type: int.
+#X text 130 286 1\.;
+#X text 170 286 int;
+#X obj 271 287 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 286 INPUTS: number of matrix inputs (columns). Type: int.
 Range: 2\...16;
-#X text 110 355 2\.;
-#X text 150 355 int;
-#X obj 246 356 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 355 OUTPUTS: number of matrix outputs (rows). Type: int.
+#X text 130 321 2\.;
+#X text 170 321 int;
+#X obj 271 322 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 321 OUTPUTS: number of matrix outputs (rows). Type: int.
 Range: 2\...16;
-#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 405 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 371 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 408 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 374 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 440 @inputs;
-#X text 245 440 (initonly) Get/Set number of matrix inputs. Type: int.
+#X msg 130 372 @inputs;
+#X text 270 372 (initonly) Get/Set number of matrix inputs. Type: int.
 Default value: 2\. Range: 2\...16\.;
-#X msg 110 482 @outputs;
-#X text 245 482 (initonly) Get/Set number of matrix outputs. Type:
+#X msg 130 414 @outputs;
+#X text 270 414 (initonly) Get/Set number of matrix outputs. Type:
 int. Default value: 2\. Range: 2\...16\.;
-#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 539 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 471 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 540 cell;
-#X text 245 540 on/off matrix cell. Note argument order: row \, cols.
+#X msg 130 472 cell;
+#X text 270 472 on/off matrix cell. Note argument order: row \, cols.
 Arguments are:;
-#X obj 255 578 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 578 ROW: row (output) index. Type: int. Range: 0\...15\.;
-#X obj 255 601 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 601 COL: column (input) index. Type: int. Range: 0\...15\.;
-#X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 641 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 280 510 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 510 ROW: row (output) index. Type: int. Range: 0\...15\.;
+#X obj 280 533 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 533 COL: column (input) index. Type: int. Range: 0\...15\.;
+#X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 573 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 642 1\.;
-#X text 150 642 ~;
-#X text 245 642 first input signal.;
-#X text 110 667 ...;
-#X text 150 667 ~;
-#X text 245 667 ... input signal.;
-#X text 110 692 n.;
-#X text 150 692 ~;
-#X text 245 692 n-th input signal.;
-#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 732 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 574 1\.;
+#X text 170 574 ~;
+#X text 270 574 first input signal.;
+#X text 130 599 ...;
+#X text 170 599 ~;
+#X text 270 599 ... input signal.;
+#X text 130 624 n.;
+#X text 170 624 ~;
+#X text 270 624 n-th input signal.;
+#X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 664 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 733 1\.;
-#X text 150 733 ~;
-#X text 245 733 first output signal.;
-#X text 110 753 ...;
-#X text 150 753 ~;
-#X text 245 753 ... output signal.;
-#X text 110 773 n.;
-#X text 150 773 ~;
-#X text 245 773 n-th output signal.;
+#X text 130 665 1\.;
+#X text 170 665 ~;
+#X text 270 665 first output signal.;
+#X text 130 685 ...;
+#X text 170 685 ~;
+#X text 270 685 ... output signal.;
+#X text 130 705 n.;
+#X text 170 705 ~;
+#X text 270 705 n-th output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 823 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 826 library: ceammc v0.9.8;
-#N canvas 10 845 400 290 info 0;
+#X obj 1 755 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 758 library: ceammc v0.9.8;
+#N canvas 10 777 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -110,7 +110,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 845 pd info;
+#X restore 10 777 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 8 1;
 #X connect 7 0 8 0;

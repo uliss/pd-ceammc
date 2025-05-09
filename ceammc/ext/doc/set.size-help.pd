@@ -15,13 +15,13 @@
 #X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 271 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 272 1\.;
-#X text 245 272 input set. Other values are ignored.;
+#X text 130 272 1\.;
+#X text 270 272 input set. Other values are ignored.;
 #X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 312 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 313 1\.;
-#X text 245 313 number of element in set.;
+#X text 130 313 1\.;
+#X text 270 313 number of element in set.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

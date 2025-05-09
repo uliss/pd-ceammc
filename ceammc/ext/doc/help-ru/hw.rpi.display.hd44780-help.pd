@@ -10,8 +10,8 @@ Pi;
 #X obj 30 78 hw.rpi.display.lcd2004;
 #X restore 483 11 pd aliases;
 #X obj 580 11 hw.rpi.display.hd44780;
-#X obj 205 93 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Note: display can be configured in single line mode.;
+#X obj 230 93 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 98 Note: display can be configured in single line mode.;
 #X obj 50 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 232 176 clear;
 #X msg 50 205 backlight \$1;
@@ -34,89 +34,89 @@ ceammc://img/conn_ws2812.png;
 -49933 0;
 #X obj 735 486 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 518 @i2c_addr;
-#X text 245 518 (при инициализации) Получить/Установить I²C address.
+#X msg 130 484 @i2c_addr;
+#X text 270 484 (при инициализации) Получить/Установить I²C address.
 Values 'default' (for addr 0x27) \, 'alt' (for addr 0x3f) are also
 accepted. Тип: int. Значение по умолчанию: -1\. Диапазон: -4\...119\.;
-#X msg 110 605 @i2c_bus;
-#X text 245 605 (при инициализации) Получить/Установить шина I²C. Тип:
+#X msg 130 571 @i2c_bus;
+#X text 270 571 (при инициализации) Получить/Установить шина I²C. Тип:
 atom. Значение по умолчанию: none. Разрешённые значения: 1 \, 2 \,
 3 \, 4 \, 5 \, 6 \, default \, none.;
-#X msg 110 662 @rows;
-#X text 245 662 (при инициализации) Получить/Установить number of display
+#X msg 130 628 @rows;
+#X text 270 628 (при инициализации) Получить/Установить number of display
 rows. Тип: int. Значение по умолчанию: 1\. Разрешённые значения: 1
 \, 2 \, 4\.;
-#X obj 20 729 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 734 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 700 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 735 backlight;
-#X text 245 735 turn on/off the display backlight. Аргументы:;
-#X obj 255 758 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 758 STATE: new state. Тип: bool.;
-#X msg 110 783 char;
-#X text 245 783 write character to the display and move cursor to the
+#X msg 130 701 backlight;
+#X text 270 701 turn on/off the display backlight. Аргументы:;
+#X obj 280 724 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 724 STATE: new state. Тип: bool.;
+#X msg 130 749 char;
+#X text 270 749 write character to the display and move cursor to the
 next position. Аргументы:;
-#X obj 255 821 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 821 CHAR: char code. Тип: int. Диапазон: 0…255\.;
-#X msg 110 846 clear;
-#X text 245 846 clear all display data and set cursor position to 0
+#X obj 280 787 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 787 CHAR: char code. Тип: int. Диапазон: 0…255\.;
+#X msg 130 812 clear;
+#X text 270 812 clear all display data and set cursor position to 0
 \, 0\.;
-#X msg 110 874 clear_line;
-#X text 245 874 clear only specified line. Аргументы:;
-#X obj 255 897 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 897 LINE: line index. Тип: int. Диапазон: 0…3\.;
-#X msg 110 922 cursor_blink;
-#X text 245 922 turn on/off cursor blinking. Аргументы:;
-#X obj 255 945 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 945 STATE: new state. Тип: bool.;
-#X msg 110 970 cursor_on;
-#X text 245 970 turn on/off display cursor. Аргументы:;
-#X obj 255 993 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 993 STATE: new state. Тип: bool.;
-#X msg 110 1018 cursor_pos;
-#X text 245 1018 set cursor potision. Аргументы:;
-#X obj 255 1041 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1041 LINE: cursor line. Тип: int. Минимальное значение:
+#X msg 130 840 clear_line;
+#X text 270 840 clear only specified line. Аргументы:;
+#X obj 280 863 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 863 LINE: line index. Тип: int. Диапазон: 0…3\.;
+#X msg 130 888 cursor_blink;
+#X text 270 888 turn on/off cursor blinking. Аргументы:;
+#X obj 280 911 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 911 STATE: new state. Тип: bool.;
+#X msg 130 936 cursor_on;
+#X text 270 936 turn on/off display cursor. Аргументы:;
+#X obj 280 959 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 959 STATE: new state. Тип: bool.;
+#X msg 130 984 cursor_pos;
+#X text 270 984 set cursor potision. Аргументы:;
+#X obj 280 1007 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1007 LINE: cursor line. Тип: int. Минимальное значение:
 0\.;
-#X obj 255 1064 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1064 COL: cursor line character position. Тип: int. Диапазон:
+#X obj 280 1030 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1030 COL: cursor line character position. Тип: int. Диапазон:
 0…20\.;
-#X msg 110 1104 font;
-#X text 245 1104 choose font.;
-#X msg 110 1132 move_cursor;
-#X text 245 1132 move cursor horizontally. Аргументы:;
-#X obj 255 1155 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1155 SHIFT: relative cursor shift. Negative values move
+#X msg 130 1070 font;
+#X text 270 1070 choose font.;
+#X msg 130 1098 move_cursor;
+#X text 270 1098 move cursor horizontally. Аргументы:;
+#X obj 280 1121 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1121 SHIFT: relative cursor shift. Negative values move
 the cursor leftwards \, positive values - rightwards. Тип: int.;
-#X msg 110 1195 move_display;
-#X text 245 1195 move display content horizontally. Аргументы:;
-#X obj 255 1218 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1218 SHIFT: relative display move \, not altering the display
+#X msg 130 1161 move_display;
+#X text 270 1161 move display content horizontally. Аргументы:;
+#X obj 280 1184 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1184 SHIFT: relative display move \, not altering the display
 content. Тип: int.;
-#X msg 110 1258 write;
-#X text 245 1258 write the message at the current cursor position and
+#X msg 130 1224 write;
+#X text 270 1224 write the message at the current cursor position and
 then move the cursor to the next position after last written character.
 Аргументы:;
-#X obj 255 1311 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1311 MSG: value list. Тип: list.;
-#X obj 20 1346 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1351 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 280 1277 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1277 MSG: value list. Тип: list.;
+#X obj 20 1312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1317 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1352 1\.;
-#X text 245 1352 control input.;
-#X obj 20 1387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1392 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1318 1\.;
+#X text 270 1318 control input.;
+#X obj 20 1353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1358 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1393 1\.;
-#X text 245 1393 no output.;
+#X text 130 1359 1\.;
+#X text 270 1359 no output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1443 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1446 библиотека: ceammc v0.9.8;
-#N canvas 10 1465 400 290 info 0;
+#X obj 1 1409 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1412 библиотека: ceammc v0.9.8;
+#N canvas 10 1431 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -140,7 +140,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1465 pd info;
+#X restore 10 1431 pd info;
 #X connect 7 0 9 0;
 #X connect 11 0 13 0;
 #X connect 15 0 17 0;

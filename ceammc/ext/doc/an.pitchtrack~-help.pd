@@ -7,8 +7,8 @@
 #X obj 389 11 ceammc/helmholtz~;
 #X obj 538 11 helmholtz~;
 #X obj 637 11 an.pitchtrack~;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Period-length detector using Philip McLeod's Specially
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Period-length detector using Philip McLeod's Specially
 Normalized AutoCorrelation function (SNAC);
 #X obj 50 176 adc~ 1;
 #X obj 174 176 ui.dsp~;
@@ -27,50 +27,50 @@ Normalized AutoCorrelation function (SNAC);
 -49933 0;
 #X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 392 1\.;
-#X text 150 392 int;
-#X obj 246 393 cnv 1 123 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 392 FRAMESIZE(samp): frame size in samples. Allowed values:
+#X text 130 358 1\.;
+#X text 170 358 int;
+#X obj 271 359 cnv 1 123 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 358 FRAMESIZE(samp): frame size in samples. Allowed values:
 128 \, 256 \, 512 \, 1024 \, 2048\. Type: int.;
-#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 442 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 408 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 445 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 411 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 477 @bias;
-#X text 245 477 Get/Set bias which favours small lags over large lags
+#X msg 130 409 @bias;
+#X text 270 409 Get/Set bias which favours small lags over large lags
 in the period detection \, thereby avoiding low-octave jumps. Type:
 float. Default value: 0.2\. Range: 0\...1\.;
-#X msg 110 534 @fidthr;
-#X text 245 534 Get/Set minimal fidelity threshold to report the pitch.
+#X msg 130 466 @fidthr;
+#X text 270 466 Get/Set minimal fidelity threshold to report the pitch.
 Type: float. Default value: 0.95\. Range: 0\...1\.;
-#X msg 110 576 @framesize;
-#X text 245 576 Get/Set frame size. Type: int. Units: 'samp'. Default
+#X msg 130 508 @framesize;
+#X text 270 508 Get/Set frame size. Type: int. Units: 'samp'. Default
 value: 1024\. Allowed values: 128 \, 256 \, 512 \, 1024 \, 2048\.;
-#X msg 110 618 @maxfreq;
-#X text 245 618 Get/Set max tracked frequency. Type: float. Units:
+#X msg 130 550 @maxfreq;
+#X text 270 550 Get/Set max tracked frequency. Type: float. Units:
 'Hz'. Default value: 1500\. Range: 10\...10000\.;
-#X msg 110 660 @overlap;
-#X text 245 660 Get/Set overlap of analysis frames. Type: int. Default
+#X msg 130 592 @overlap;
+#X text 270 592 Get/Set overlap of analysis frames. Type: int. Default
 value: 1\. Allowed values: 1 \, 2 \, 4 \, 8\.;
-#X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 717 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 649 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 718 1\.;
-#X text 150 718 ~;
-#X text 245 718 input signal.;
-#X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 758 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 650 1\.;
+#X text 170 650 ~;
+#X text 270 650 input signal.;
+#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 690 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 759 1\.;
-#X text 150 759 ~;
-#X text 245 759 output signal.;
-#X text 110 779 2\.;
-#X text 150 779 float(Hz):;
-#X text 245 779 output frequency.;
-#X text 110 799 3\.;
-#X text 150 799 float:;
-#X text 245 799 track fidelity: a value between 0 and 1 \, indicating
+#X text 130 691 1\.;
+#X text 170 691 ~;
+#X text 270 691 output signal.;
+#X text 130 711 2\.;
+#X text 170 711 float(Hz):;
+#X text 270 711 output frequency.;
+#X text 130 731 3\.;
+#X text 170 731 float:;
+#X text 270 731 track fidelity: a value between 0 and 1 \, indicating
 to which extent the input signal is periodic. A fidelity of ~0.95 can
 be considered to indicate a periodic signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -78,12 +78,12 @@ be considered to indicate a periodic signal.;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 879 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 882 library: ceammc v0.9.8;
-#X text 539 894 see also:;
-#X obj 614 894 sigmund~;
-#X obj 688 894 fiddle~;
-#N canvas 10 901 400 290 info 0;
+#X obj 1 811 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 814 library: ceammc v0.9.8;
+#X text 539 826 see also:;
+#X obj 614 826 sigmund~;
+#X obj 688 826 fiddle~;
+#N canvas 10 833 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 901 pd info;
+#X restore 10 833 pd info;
 #X connect 8 0 12 0;
 #X connect 10 0 12 1;
 #X connect 11 0 13 0;

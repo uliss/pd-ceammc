@@ -31,53 +31,53 @@
 -49933 0;
 #X obj 735 724 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 756 @auto;
-#X text 245 756 Получить/Установить autostart record on first input
+#X msg 130 722 @auto;
+#X text 270 722 Получить/Установить autostart record on first input
 atom. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 798 @max;
-#X text 245 798 Получить/Установить max number of events \, if 0: no
+#X msg 130 764 @max;
+#X text 270 764 Получить/Установить max number of events \, if 0: no
 max size check. If @auto is set - starts playback when max size reached.
 Тип: int. Значение по умолчанию: 256\. Диапазон: 0\...65536\.;
-#X msg 110 885 @r;
-#X text 245 885 Получить/Установить number of repeats in play mode.
+#X msg 130 851 @r;
+#X text 270 851 Получить/Установить number of repeats in play mode.
 If -1: repeat infinitely. Тип: int. Значение по умолчанию: 1\. Минимальное
 значение: -1\.;
-#X msg 110 942 @speed;
-#X text 245 942 Получить/Установить play speed. Тип: float. Значение
+#X msg 130 908 @speed;
+#X text 270 908 Получить/Установить play speed. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 0.0156\...64\.;
-#X msg 110 984 @sync;
-#X text 245 984 Получить/Установить use external bang pulse to sync
+#X msg 130 950 @sync;
+#X text 270 950 Получить/Установить use external bang pulse to sync
 recorded events with. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 20 1036 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1041 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1002 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1007 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1042 1\.;
-#X text 150 1042 any:;
-#X text 245 1042 input message.;
-#X text 110 1067 2\.;
-#X text 150 1067 bang:;
-#X text 245 1067 sync tick (when @sync 1).;
-#X text 245 1092 [rec (1|0)?( - start (stop) flow record.;
-#X text 245 1117 [play (1|0)?( - play (stop) recorded flow.;
-#X text 245 1142 [stop (1|0)?( - stop (play) recording.;
-#X text 245 1167 [clear( - remove all recorded messages.;
-#X text 245 1192 [flush( - output and remove all recorded messages.;
-#X text 245 1217 [qlist( - output to qlist object.;
-#X text 245 1242 [length FLOAT|time( - resize recorded messages (remove
+#X text 130 1008 1\.;
+#X text 170 1008 any:;
+#X text 270 1008 input message.;
+#X text 130 1033 2\.;
+#X text 170 1033 bang:;
+#X text 270 1033 sync tick (when @sync 1).;
+#X text 270 1058 [rec (1|0)?( - start (stop) flow record.;
+#X text 270 1083 [play (1|0)?( - play (stop) recorded flow.;
+#X text 270 1108 [stop (1|0)?( - stop (play) recording.;
+#X text 270 1133 [clear( - remove all recorded messages.;
+#X text 270 1158 [flush( - output and remove all recorded messages.;
+#X text 270 1183 [qlist( - output to qlist object.;
+#X text 270 1208 [length FLOAT|time( - resize recorded messages (remove
 after specified length).;
-#X obj 20 1292 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1297 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1258 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1263 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1298 1\.;
-#X text 245 1298 output message.;
+#X text 130 1264 1\.;
+#X text 270 1264 output message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1348 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1351 библиотека: ceammc v0.9.8;
-#N canvas 10 1370 400 290 info 0;
+#X obj 1 1314 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1317 библиотека: ceammc v0.9.8;
+#N canvas 10 1336 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1370 pd info;
+#X restore 10 1336 pd info;
 #X connect 5 0 9 0;
 #X connect 6 0 9 1;
 #X connect 7 0 9 1;

@@ -19,54 +19,54 @@
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 381 1\.;
-#X text 150 381 float;
-#X obj 246 382 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 381 DOT(ms): dot length. Тип: float. Диапазон: 5…1000;
-#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 416 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 347 1\.;
+#X text 170 347 float;
+#X obj 271 348 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 347 DOT(ms): dot length. Тип: float. Диапазон: 5…1000;
+#X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 382 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 419 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 385 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 451 @dot;
-#X text 245 451 Получить/Установить dot length. Тип: float. Единицы:
+#X msg 130 383 @dot;
+#X text 270 383 Получить/Установить dot length. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 100\. Диапазон: 5\...1000\.;
-#X msg 110 493 @external;
-#X text 245 493 Получить/Установить use external clock. Тип: bool.
+#X msg 130 425 @external;
+#X text 270 425 Получить/Установить use external clock. Тип: bool.
 Значение по умолчанию: 0\.;
-#X msg 110 535 @letter;
-#X text 245 535 Получить/Установить space between letters in dot units.
+#X msg 130 467 @letter;
+#X text 270 467 Получить/Установить space between letters in dot units.
 Тип: int. Значение по умолчанию: 3\. Диапазон: 2\...20\.;
-#X msg 110 577 @word;
-#X text 245 577 Получить/Установить space between words in dot units.
+#X msg 130 509 @word;
+#X text 270 509 Получить/Установить space between words in dot units.
 Тип: int. Значение по умолчанию: 5\. Диапазон: 2\...20\.;
-#X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 634 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 566 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 635 reset;
-#X text 245 635 reset encoder.;
-#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 678 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 567 reset;
+#X text 270 567 reset encoder.;
+#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 610 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 679 1\.;
-#X text 150 679 list:;
-#X text 245 679 add words to encoder.;
-#X text 110 704 2\.;
-#X text 150 704 bang:;
-#X text 245 704 external clock.;
-#X obj 20 739 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 744 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 611 1\.;
+#X text 170 611 list:;
+#X text 270 611 add words to encoder.;
+#X text 130 636 2\.;
+#X text 170 636 bang:;
+#X text 270 636 external clock.;
+#X obj 20 671 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 676 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 745 1\.;
-#X text 245 745 float: 1 or 0\.;
+#X text 130 677 1\.;
+#X text 270 677 float: 1 or 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 795 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 798 библиотека: ceammc v0.9.8;
-#N canvas 10 817 400 290 info 0;
+#X obj 1 727 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 730 библиотека: ceammc v0.9.8;
+#N canvas 10 749 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,7 +90,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 817 pd info;
+#X restore 10 749 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

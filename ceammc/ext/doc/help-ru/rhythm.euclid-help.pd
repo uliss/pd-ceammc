@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty rhythm.euclid 20 20 0 20 -104026
 -4096 0;
 #X obj 647 11 rhythm.euclid;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Note: fast Bresenham algorithm is used;
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Note: fast Bresenham algorithm is used;
 #X obj 50 161 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X msg 88 161 3 5 1;
@@ -22,62 +22,62 @@
 -49933 0;
 #X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 424 1\.;
-#X text 150 424 int;
-#X obj 246 425 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 424 BEATS: number of beats inside the sequence. Тип: int.
+#X text 130 390 1\.;
+#X text 170 390 int;
+#X obj 271 391 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 390 BEATS: number of beats inside the sequence. Тип: int.
 Диапазон: 0…8192;
-#X text 110 459 2\.;
-#X text 150 459 int;
-#X obj 246 460 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 459 N: the whole sequence length. Тип: int. Диапазон: 1…8192;
-#X text 110 479 3\.;
-#X text 150 479 int;
-#X obj 246 480 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 479 OFFSET: sequence offset. Тип: int.;
-#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 514 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 425 2\.;
+#X text 170 425 int;
+#X obj 271 426 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 425 N: the whole sequence length. Тип: int. Диапазон: 1…8192;
+#X text 130 445 3\.;
+#X text 170 445 int;
+#X obj 271 446 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 445 OFFSET: sequence offset. Тип: int.;
+#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 480 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 517 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 483 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 549 @beats;
-#X text 245 549 Получить/Установить number of beats inside the sequence.
+#X msg 130 481 @beats;
+#X text 270 481 Получить/Установить number of beats inside the sequence.
 Тип: int. Значение по умолчанию: 3\. Диапазон: 0\...8192\.;
-#X msg 110 591 @n;
-#X text 245 591 Получить/Установить the whole sequence length. Тип:
+#X msg 130 523 @n;
+#X text 270 523 Получить/Установить the whole sequence length. Тип:
 int. Значение по умолчанию: 8\. Диапазон: 1\...8192\.;
-#X msg 110 633 @offset;
-#X text 245 633 Получить/Установить sequence offset. Тип: int. Значение
+#X msg 130 565 @offset;
+#X text 270 565 Получить/Установить sequence offset. Тип: int. Значение
 по умолчанию: 0\.;
-#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 690 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 617 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 622 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 691 1\.;
-#X text 150 691 bang:;
-#X text 245 691 output generated sequence.;
-#X text 150 716 int:;
-#X text 245 716 set number of beats in the sequence.;
-#X text 150 741 list:;
-#X text 245 741 list: BEATS LENGTH OFFSET?.;
-#X text 110 766 2\.;
-#X text 150 766 int:;
-#X text 245 766 set sequence lenghth.;
-#X text 110 791 3\.;
-#X text 150 791 int:;
-#X text 245 791 set sequence offset.;
-#X obj 20 826 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 831 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 623 1\.;
+#X text 170 623 bang:;
+#X text 270 623 output generated sequence.;
+#X text 170 648 int:;
+#X text 270 648 set number of beats in the sequence.;
+#X text 170 673 list:;
+#X text 270 673 list: BEATS LENGTH OFFSET?.;
+#X text 130 698 2\.;
+#X text 170 698 int:;
+#X text 270 698 set sequence lenghth.;
+#X text 130 723 3\.;
+#X text 170 723 int:;
+#X text 270 723 set sequence offset.;
+#X obj 20 758 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 763 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 832 1\.;
-#X text 245 832 converted value.;
+#X text 130 764 1\.;
+#X text 270 764 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title music @url ceammc.music-help.pd;
-#X obj 1 882 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 885 библиотека: ceammc v0.9.8;
-#N canvas 10 904 400 290 info 0;
+#X obj 1 814 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 817 библиотека: ceammc v0.9.8;
+#N canvas 10 836 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 904 pd info;
+#X restore 10 836 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 9 0;
 #X connect 6 0 10 0;

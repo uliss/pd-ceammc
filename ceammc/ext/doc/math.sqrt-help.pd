@@ -5,12 +5,12 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.sqrt 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 math.sqrt;
-#X obj 205 78 cnv 1 560 140 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 The sqrt() function compute the non-negative square
+#X obj 230 78 cnv 1 535 140 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 The sqrt() function compute the non-negative square
 root of x.;
-#X text 215 123 Special values:;
-#X text 215 148 sqrt(-0) returns -0\.;
-#X text 215 173 sqrt(x) returns a NaN and generates a domain error
+#X text 240 123 Special values:;
+#X text 240 148 sqrt(-0) returns -0\.;
+#X text 240 173 sqrt(x) returns a NaN and generates a domain error
 for x < 0\.;
 #X floatatom 50 266 5 0 0 0 - - -;
 #X obj 50 295 math.sqrt;
@@ -18,16 +18,16 @@ for x < 0\.;
 #X obj 20 356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 361 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 362 1\.;
-#X text 150 362 float:;
-#X text 245 362 input value.;
-#X text 150 387 list:;
-#X text 245 387 apply to all numeric values.;
+#X text 130 362 1\.;
+#X text 170 362 float:;
+#X text 270 362 input value.;
+#X text 170 387 list:;
+#X text 270 387 apply to all numeric values.;
 #X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 427 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 428 1\.;
-#X text 245 428 result value.;
+#X text 130 428 1\.;
+#X text 270 428 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

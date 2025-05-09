@@ -5,10 +5,10 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.sinh~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 math.sinh~;
-#X obj 205 78 cnv 1 560 84 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Outputs hyperbolic sine of input signal;
-#X text 215 108 sinh x = (ℯˣ - ℯ⁻ˣ)/2;
-#X obj 215 133 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 230 78 cnv 1 535 84 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Outputs hyperbolic sine of input signal;
+#X text 240 108 sinh x = (ℯˣ - ℯ⁻ˣ)/2;
+#X obj 240 133 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Hyperbolic             functions @url
 https://en.wikipedia.org/wiki/Hyperbolic_functions;
 #X obj 50 210 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -24,15 +24,15 @@ https://en.wikipedia.org/wiki/Hyperbolic_functions;
 #X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 596 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 597 1\.;
-#X text 150 597 ~;
-#X text 245 597 input signal.;
+#X text 130 597 1\.;
+#X text 170 597 ~;
+#X text 270 597 input signal.;
 #X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 637 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 638 1\.;
-#X text 150 638 ~;
-#X text 245 638 result signal.;
+#X text 130 638 1\.;
+#X text 170 638 ~;
+#X text 270 638 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

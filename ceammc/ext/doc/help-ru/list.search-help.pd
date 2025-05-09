@@ -6,9 +6,9 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.search 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 list.search;
-#X obj 205 93 cnv 1 560 60 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Returns item position in list or -1 if not found.;
-#X text 215 123 If several items are specified returns list of positions.;
+#X obj 230 93 cnv 1 535 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 98 Returns item position in list or -1 if not found.;
+#X text 240 123 If several items are specified returns list of positions.;
 #X msg 50 201 1 2 3 4;
 #X msg 146 201 list ABC BC A;
 #X floatatom 203 230 5 0 0 0 - - -;
@@ -18,19 +18,19 @@
 #X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 343 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 344 1\.;
-#X text 150 344 list:;
-#X text 245 344 input list.;
-#X text 150 369 data:mlist:;
-#X text 245 369 input mlist.;
-#X text 110 394 2\.;
-#X text 150 394 list:;
-#X text 245 394 set searched items.;
+#X text 130 344 1\.;
+#X text 170 344 list:;
+#X text 270 344 input list.;
+#X text 170 369 data:mlist:;
+#X text 270 369 input mlist.;
+#X text 130 394 2\.;
+#X text 170 394 list:;
+#X text 270 394 set searched items.;
 #X obj 20 429 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 434 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 435 1\.;
-#X text 245 435 position of search item or list of such positions.;
+#X text 130 435 1\.;
+#X text 270 435 position of search item or list of such positions.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

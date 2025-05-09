@@ -18,117 +18,117 @@
 #X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 485 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 520 Left-click + ⇧;
-#X text 285 520 Y-axis zoomin.;
-#X text 110 540 Left-click + ⌥;
-#X text 285 540 Y-axis zoomout.;
-#X text 110 560 Mouse-wheel;
-#X text 285 560 Y-axis zoom.;
-#X text 110 580 Mouse-wheel + ⇧;
-#X text 285 580 X-axis zoom.;
-#X text 110 600 Double-click;
-#X text 285 600 toggle freeze mode.;
-#X text 110 620 Right-click;
-#X text 285 620 open object popup menu with zoom options.;
-#X text 110 640 Right-click + ⇧;
-#X text 285 640 open object help.;
-#X text 110 660 Right-click + ⌥;
-#X text 285 660 open properties dialog.;
-#X text 110 680 Right-click + ⇧;
-#X text 285 680 open object help.;
-#X text 45 680 [Правка];
-#X text 110 700 Right-click + ⌥;
-#X text 285 700 open properties dialog.;
-#X text 45 700 [Правка];
+#X text 130 520 Left-click + ⇧;
+#X text 310 520 Y-axis zoomin.;
+#X text 130 540 Left-click + ⌥;
+#X text 310 540 Y-axis zoomout.;
+#X text 130 560 Mouse-wheel;
+#X text 310 560 Y-axis zoom.;
+#X text 130 580 Mouse-wheel + ⇧;
+#X text 310 580 X-axis zoom.;
+#X text 130 600 Double-click;
+#X text 310 600 toggle freeze mode.;
+#X text 130 620 Right-click;
+#X text 310 620 open object popup menu with zoom options.;
+#X text 130 640 Right-click + ⇧;
+#X text 310 640 open object help.;
+#X text 130 660 Right-click + ⌥;
+#X text 310 660 open properties dialog.;
+#X text 130 680 Right-click + ⇧;
+#X text 310 680 open object help.;
+#X text 65 680 [Правка];
+#X text 130 700 Right-click + ⌥;
+#X text 310 700 open properties dialog.;
+#X text 65 700 [Правка];
 #X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 735 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 738 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 770 @max;
-#X text 245 770 Получить/Установить maximum (top) graph value. Тип:
+#X msg 130 736 @max;
+#X text 270 736 Получить/Установить maximum (top) graph value. Тип:
 float. Значение по умолчанию: 1\.;
-#X msg 110 812 @min;
-#X text 245 812 Получить/Установить minimum (bottom) graph value. Тип:
+#X msg 130 778 @min;
+#X text 270 778 Получить/Установить minimum (bottom) graph value. Тип:
 float. Значение по умолчанию: -1\.;
-#X msg 110 854 @receive;
-#X text 245 854 Получить/Установить источник получения сообщений. Тип:
+#X msg 130 820 @receive;
+#X text 270 820 Получить/Установить источник получения сообщений. Тип:
 symbol. Значение по умолчанию: (null).;
-#X msg 110 896 @refresh;
-#X text 245 896 Получить/Установить approximate refresh rate. Тип:
+#X msg 130 862 @refresh;
+#X text 270 862 Получить/Установить approximate refresh rate. Тип:
 int. Единицы: 'ms'. Значение по умолчанию: 40\. Диапазон: 10\...1000\.;
-#X msg 110 953 @window;
-#X text 245 953 Получить/Установить window size. Тип: int. Значение
+#X msg 130 919 @window;
+#X text 270 919 Получить/Установить window size. Тип: int. Значение
 по умолчанию: 2048\. Диапазон: 512\...4096\.;
-#X msg 110 995 @active_color;
-#X text 245 995 Получить/Установить цвет активного элемента (список
+#X msg 130 961 @active_color;
+#X text 270 961 Получить/Установить цвет активного элемента (список
 из красного \, зеленого и синего цвета в [0\..1] диапазоне). Тип: list.
 Значение по умолчанию: 0 0.75 1 1\.;
-#X msg 110 1052 @background_color;
-#X text 245 1052 Получить/Установить цвета фона у объекта (список из
+#X msg 130 1018 @background_color;
+#X text 270 1018 Получить/Установить цвета фона у объекта (список из
 красного \, зеленого и синего значений в диапазоне [0\..1]). Тип: list.
 Значение по умолчанию: 0.93 0.93 0.93 1\.;
-#X msg 110 1109 @border_color;
-#X text 245 1109 Получить/Установить цвет границы объекта (список из
+#X msg 130 1075 @border_color;
+#X text 270 1075 Получить/Установить цвет границы объекта (список из
 красного \, зеленого и синего цветов в [0\..1] диапазоне). Тип: list.
 Значение по умолчанию: 0.6 0.6 0.6 1\.;
-#X msg 110 1166 @fontname;
-#X text 245 1166 Получить/Установить имя шрифта. Тип: symbol. Значение
+#X msg 130 1132 @fontname;
+#X text 270 1132 Получить/Установить имя шрифта. Тип: symbol. Значение
 по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
 Helvetica \, Monaco \, Times.;
-#X msg 110 1223 @fontsize;
-#X text 245 1223 Получить/Установить размер шрифта. Тип: int. Значение
+#X msg 130 1189 @fontsize;
+#X text 270 1189 Получить/Установить размер шрифта. Тип: int. Значение
 по умолчанию: 11\. Диапазон: 4\...100\.;
-#X msg 110 1265 @fontslant;
-#X text 245 1265 Получить/Установить наклон шрифта. Тип: symbol. Значение
+#X msg 130 1231 @fontslant;
+#X text 270 1231 Получить/Установить наклон шрифта. Тип: symbol. Значение
 по умолчанию: roman. Разрешённые значения: roman \, italic.;
-#X msg 110 1307 @fontweight;
-#X text 245 1307 Получить/Установить толщину шрифта. Тип: symbol. Значение
+#X msg 130 1273 @fontweight;
+#X text 270 1273 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
-#X msg 110 1349 @pinned;
-#X text 245 1349 Получить/Установить режим закрепления. Если 1 - помещает
+#X msg 130 1315 @pinned;
+#X text 270 1315 Получить/Установить режим закрепления. Если 1 - помещает
 элемент на самый дальний уровень на холсте за другими элементам. Тип:
 bool. Значение по умолчанию: 0\.;
-#X msg 110 1406 @size;
-#X text 245 1406 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
+#X msg 130 1372 @size;
+#X text 270 1372 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
 Тип: list. Значение по умолчанию: 150 100\.;
-#X obj 20 1458 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1463 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1429 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1464 freeze;
-#X text 245 1464 stop/start processing. Аргументы:;
-#X obj 255 1487 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1487 [V]: 1 - freeze \, 0 - unfreeze. Тип: int. Разрешённые
+#X msg 130 1430 freeze;
+#X text 270 1430 stop/start processing. Аргументы:;
+#X obj 280 1453 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1453 [V]: 1 - freeze \, 0 - unfreeze. Тип: int. Разрешённые
 значения: 0 \, 1\.;
-#X msg 110 1527 pos;
-#X text 245 1527 set UI element position. Аргументы:;
-#X obj 255 1550 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1550 X: top left x-coord. Тип: float.;
-#X obj 255 1573 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1573 Y: top right y-coord. Тип: float.;
-#X msg 110 1598 scale;
-#X text 245 1598 sets widget scale. Аргументы:;
-#X obj 255 1621 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1621 [N]: 1 - normal scale \, 2 - range from -2\..2 (zoomout)
+#X msg 130 1493 pos;
+#X text 270 1493 set UI element position. Аргументы:;
+#X obj 280 1516 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1516 X: top left x-coord. Тип: float.;
+#X obj 280 1539 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1539 Y: top right y-coord. Тип: float.;
+#X msg 130 1564 scale;
+#X text 270 1564 sets widget scale. Аргументы:;
+#X obj 280 1587 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1587 [N]: 1 - normal scale \, 2 - range from -2\..2 (zoomout)
 \, 0.1 - range from -0.1\..0.1 (zoomin). Тип: float. Минимальное значение:
 0\.;
-#X obj 20 1686 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1691 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1657 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1692 1\.;
-#X text 150 1692 ~;
-#X text 245 1692 signal input.;
+#X text 130 1658 1\.;
+#X text 170 1658 ~;
+#X text 270 1658 signal input.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1747 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1750 библиотека: ceammc v0.9.8;
-#X text 500 1762 смотрите также:;
-#X obj 621 1765 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1713 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1716 библиотека: ceammc v0.9.8;
+#X text 500 1728 смотрите также:;
+#X obj 621 1731 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.spectroscope~] @url ui.spectroscope~-help.pd;
-#N canvas 10 1769 400 290 info 0;
+#N canvas 10 1735 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -152,7 +152,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1769 pd info;
+#X restore 10 1735 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 8 0;
 #X connect 7 0 8 0;

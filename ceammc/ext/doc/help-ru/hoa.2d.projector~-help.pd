@@ -6,10 +6,10 @@
 -104026 -4096 0;
 #X obj 489 11 hoa.projector~;
 #X obj 616 11 hoa.2d.projector~;
-#X obj 205 78 cnv 1 560 74 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Discretizes the ambisonic sound field into the plane
+#X obj 230 78 cnv 1 535 74 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Discretizes the ambisonic sound field into the plane
 waves domain.;
-#X obj 215 123 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 123 ui.link @background_color 0.98039 0.98039 0.98039
 @title CICM documentation @url hoa/hoa.2d.projector~-help.pd;
 #X obj 50 200 sig~ 1;
 #X obj 261 200 lfo.saw~ 0.05;
@@ -29,60 +29,60 @@ waves domain.;
 -49933 0;
 #X obj 735 546 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 578 1\.;
-#X text 150 578 int;
-#X obj 246 579 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 578 ORDER: the order of decomposition. Тип: int. Диапазон:
+#X text 130 544 1\.;
+#X text 170 544 int;
+#X obj 271 545 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 544 ORDER: the order of decomposition. Тип: int. Диапазон:
 1…63;
-#X text 110 598 2\.;
-#X text 150 598 int;
-#X obj 246 599 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 598 N: number of channels. Тип: int. Диапазон: 1…63;
-#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 633 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 564 2\.;
+#X text 170 564 int;
+#X obj 271 565 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 564 N: number of channels. Тип: int. Диапазон: 1…63;
+#X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 599 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 636 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 602 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 668 @n;
-#X text 245 668 (при инициализации) Получить/Установить number of channels
+#X msg 130 600 @n;
+#X text 270 600 (при инициализации) Получить/Установить number of channels
 (planewaves). Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...63\.;
-#X msg 110 725 @order;
-#X text 245 725 (при инициализации) Получить/Установить the order of
+#X msg 130 657 @order;
+#X text 270 657 (при инициализации) Получить/Установить the order of
 decomposition. Тип: int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
-#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 797 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 729 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 798 1\.;
-#X text 150 798 ~;
-#X text 245 798 input harmonic.;
-#X text 110 823 ...;
-#X text 150 823 ~;
-#X text 245 823 ... input harmonic.;
-#X text 110 848 n.;
-#X text 150 848 ~;
-#X text 245 848 n-th input harmonic.;
-#X obj 20 883 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 888 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 730 1\.;
+#X text 170 730 ~;
+#X text 270 730 input harmonic.;
+#X text 130 755 ...;
+#X text 170 755 ~;
+#X text 270 755 ... input harmonic.;
+#X text 130 780 n.;
+#X text 170 780 ~;
+#X text 270 780 n-th input harmonic.;
+#X obj 20 815 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 820 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 889 1\.;
-#X text 150 889 ~;
-#X text 245 889 first plane wave output.;
-#X text 110 909 ...;
-#X text 150 909 ~;
-#X text 245 909 ... plane wave output.;
-#X text 110 929 n.;
-#X text 150 929 ~;
-#X text 245 929 n-th plane wave output.;
+#X text 130 821 1\.;
+#X text 170 821 ~;
+#X text 270 821 first plane wave output.;
+#X text 130 841 ...;
+#X text 170 841 ~;
+#X text 270 841 ... plane wave output.;
+#X text 130 861 n.;
+#X text 170 861 ~;
+#X text 270 861 n-th plane wave output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 979 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 982 библиотека: ceammc v0.9.8;
-#X text 488 994 смотрите также:;
-#X obj 609 994 hoa.2d.recomposer~;
-#N canvas 10 1001 400 290 info 0;
+#X obj 1 911 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 914 библиотека: ceammc v0.9.8;
+#X text 488 926 смотрите также:;
+#X obj 609 926 hoa.2d.recomposer~;
+#N canvas 10 933 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1001 pd info;
+#X restore 10 933 pd info;
 #X connect 9 0 10 0;
 #X connect 8 0 11 0;
 #X connect 10 0 11 1;

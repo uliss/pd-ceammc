@@ -7,15 +7,15 @@
 #X obj 412 11 ceammc/rhvoice~;
 #X obj 547 11 rhvoice~;
 #X obj 630 11 speech.rhvoice~;
-#X obj 205 78 cnv 1 560 138 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Note: voices are not distributed with PureData-ceammc
+#X obj 230 78 cnv 1 535 138 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Note: voices are not distributed with PureData-ceammc
 \, you have to install voice data manually;
-#X text 215 123 Download language and voice datafiles and put them
+#X text 240 123 Download language and voice datafiles and put them
 into ~/Documents/Pd/rhvoice directory;
-#X obj 215 163 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 163 ui.link @background_color 0.98039 0.98039 0.98039
 @title https://github.com/RHVoice/Russian @url
 https://github.com/RHVoice/Russian;
-#X obj 215 187 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 187 ui.link @background_color 0.98039 0.98039 0.98039
 @title https://github.com/RHVoice/anna-rus @url
 https://github.com/RHVoice/anna-rus;
 #X obj 50 264 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -39,53 +39,53 @@ https://github.com/RHVoice/anna-rus;
 -49933 0;
 #X obj 735 582 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 614 @pitch;
-#X text 245 614 Получить/Установить voice pitch. Тип: float. Значение
+#X msg 130 580 @pitch;
+#X text 270 580 Получить/Установить voice pitch. Тип: float. Значение
 по умолчанию: 0\. Диапазон: -1\...1\.;
-#X msg 110 656 @punct;
-#X text 245 656 Получить/Установить punctuation for pronunciation.
+#X msg 130 622 @punct;
+#X text 270 622 Получить/Установить punctuation for pronunciation.
 If 'all' - pronounce all \, otherwise pronounce only specified punctuation
 characters. Тип: symbol.;
-#X msg 110 713 @rate;
-#X text 245 713 Получить/Установить speaking rate. Тип: float. Значение
+#X msg 130 679 @rate;
+#X text 270 679 Получить/Установить speaking rate. Тип: float. Значение
 по умолчанию: 0\. Диапазон: -1\...1\.;
-#X msg 110 755 @voice;
-#X text 245 755 Получить/Установить voice. Тип: symbol. Значение по
+#X msg 130 721 @voice;
+#X text 270 721 Получить/Установить voice. Тип: symbol. Значение по
 умолчанию: Anna.;
-#X msg 110 797 @volume;
-#X text 245 797 Получить/Установить voice volume. Тип: float. Значение
+#X msg 130 763 @volume;
+#X text 270 763 Получить/Установить voice volume. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 20 849 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 854 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 815 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 820 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 855 clear;
-#X text 245 855 clear TTS queue.;
-#X msg 110 883 read;
-#X text 245 883 read TTS file (text or SSML). Аргументы:;
-#X obj 255 906 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 906 FILE: absolute or relative path to the file. Тип: symbol.;
-#X msg 110 931 ssml;
-#X text 245 931 speak SSML text markup.;
-#X msg 110 959 stop;
-#X text 245 959 stops speech and clear TTS queue.;
-#X obj 20 997 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1002 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 821 clear;
+#X text 270 821 clear TTS queue.;
+#X msg 130 849 read;
+#X text 270 849 read TTS file (text or SSML). Аргументы:;
+#X obj 280 872 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 872 FILE: absolute or relative path to the file. Тип: symbol.;
+#X msg 130 897 ssml;
+#X text 270 897 speak SSML text markup.;
+#X msg 130 925 stop;
+#X text 270 925 stops speech and clear TTS queue.;
+#X obj 20 963 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 968 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1003 1\.;
-#X text 150 1003 float:;
-#X text 245 1003 speak number.;
-#X text 150 1028 symbol:;
-#X text 245 1028 speak symbol.;
-#X text 150 1053 list:;
-#X text 245 1053 speak list of symbols.;
-#X obj 20 1088 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1093 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 969 1\.;
+#X text 170 969 float:;
+#X text 270 969 speak number.;
+#X text 170 994 symbol:;
+#X text 270 994 speak symbol.;
+#X text 170 1019 list:;
+#X text 270 1019 speak list of symbols.;
+#X obj 20 1054 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1059 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1094 1\.;
-#X text 150 1094 ~;
-#X text 245 1094 TTS output.;
-#X text 110 1114 2\.;
-#X text 245 1114 bang on done \, [word 1( on word start \, [word 0(
+#X text 130 1060 1\.;
+#X text 170 1060 ~;
+#X text 270 1060 TTS output.;
+#X text 130 1080 2\.;
+#X text 270 1080 bang on done \, [word 1( on word start \, [word 0(
 on word end \, [sentence 1( on sentence start \, [sentence 0( on sentence
 end.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -93,11 +93,11 @@ end.;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 1179 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1182 библиотека: ceammc v0.9.8;
-#X text 524 1194 смотрите также:;
-#X obj 645 1194 speech.flite~;
-#N canvas 10 1201 400 290 info 0;
+#X obj 1 1145 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1148 библиотека: ceammc v0.9.8;
+#X text 524 1160 смотрите также:;
+#X obj 645 1160 speech.flite~;
+#N canvas 10 1167 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -121,7 +121,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1201 pd info;
+#X restore 10 1167 pd info;
 #X connect 11 0 14 0;
 #X connect 14 0 15 0;
 #X connect 16 0 18 0;

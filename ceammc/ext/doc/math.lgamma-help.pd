@@ -24,16 +24,16 @@ function;
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 360 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 361 1\.;
-#X text 150 361 float:;
-#X text 245 361 input value.;
-#X text 150 386 list:;
-#X text 245 386 apply to all numeric values.;
+#X text 130 361 1\.;
+#X text 170 361 float:;
+#X text 270 361 input value.;
+#X text 170 386 list:;
+#X text 270 386 apply to all numeric values.;
 #X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 426 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 427 1\.;
-#X text 245 427 result value or list.;
+#X text 130 427 1\.;
+#X text 270 427 result value or list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -6,8 +6,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty metro.choice 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 metro.choice;
-#X obj 205 93 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Random distribution: uniform;
+#X obj 230 93 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 98 Random distribution: uniform;
 #X obj 50 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X listbox 232 176 20 0 0 0 - - -;
 #X obj 50 205 metro.choice 100 200;
@@ -21,46 +21,46 @@
 -49933 0;
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 410 1\.;
-#X text 150 410 list;
-#X obj 246 411 cnv 1 94 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 410 TIMESET(ms): timeset (>0). Тип: list.;
-#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 445 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 376 1\.;
+#X text 170 376 list;
+#X obj 271 377 cnv 1 94 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 376 TIMESET(ms): timeset (>0). Тип: list.;
+#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 448 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 414 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 480 @seed;
-#X text 245 480 Получить/Установить generator seed. Тип: int. Значение
+#X msg 130 412 @seed;
+#X text 270 412 Получить/Установить generator seed. Тип: int. Значение
 по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 110 522 @timeset;
-#X text 245 522 Получить/Установить timeset (>0). Тип: list. Единицы:
+#X msg 130 454 @timeset;
+#X text 270 454 Получить/Установить timeset (>0). Тип: list. Единицы:
 'ms'.;
-#X obj 20 562 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 567 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 499 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 568 1\.;
-#X text 150 568 float:;
-#X text 245 568 starts (on >0) or stops (on <=0) metro.;
-#X text 110 593 2\.;
-#X text 150 593 list:;
-#X text 245 593 set timeset.;
-#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 633 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 500 1\.;
+#X text 170 500 float:;
+#X text 270 500 starts (on >0) or stops (on <=0) metro.;
+#X text 130 525 2\.;
+#X text 170 525 list:;
+#X text 270 525 set timeset.;
+#X obj 20 560 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 565 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 634 1\.;
-#X text 245 634 outputs *bang*.;
+#X text 130 566 1\.;
+#X text 270 566 outputs *bang*.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 684 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 687 библиотека: ceammc v0.9.8;
-#X text 421 699 смотрите также:;
-#X obj 542 699 metro.random;
-#X obj 645 699 metro.pattern;
-#N canvas 10 706 400 290 info 0;
+#X obj 1 616 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 619 библиотека: ceammc v0.9.8;
+#X text 421 631 смотрите также:;
+#X obj 542 631 metro.random;
+#X obj 645 631 metro.pattern;
+#N canvas 10 638 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -84,7 +84,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 706 pd info;
+#X restore 10 638 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 8 1;
 #X connect 8 0 9 0;

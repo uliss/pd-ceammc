@@ -17,35 +17,35 @@
 -49933 0;
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 410 1\.;
-#X text 150 410 atom;
-#X obj 246 411 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 410 ROOT: root key. Разрешённые значения: A \, A# \, A##
+#X text 130 376 1\.;
+#X text 170 376 atom;
+#X obj 271 377 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 376 ROOT: root key. Разрешённые значения: A \, A# \, A##
 \, Ab \, Abb \, B \, B# \, B## \, Bb \, Bbb \, C \, C# \, C## \, Cb
 \, Cbb \, D \, D# \, D## \, Db \, Dbb \, E \, E# \, E## \, Eb \, Ebb
 \, F \, F# \, F## \, Fb \, Fbb \, G \, G# \, G## \, Gb \, Gbb. Тип:
 atom.;
-#X text 110 490 2\.;
-#X text 150 490 symbol;
-#X obj 246 491 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 490 SCALE: modus scale. Тип: symbol.;
-#X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 525 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 456 2\.;
+#X text 170 456 symbol;
+#X obj 271 457 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 456 SCALE: modus scale. Тип: symbol.;
+#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 491 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 528 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 494 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 560 @mode;
-#X text 245 560 Получить/Установить snap or skip incoming pitches.
+#X msg 130 492 @mode;
+#X text 270 492 Получить/Установить snap or skip incoming pitches.
 Тип: symbol. Значение по умолчанию: snap. Разрешённые значения: snap
 \, skip.;
-#X msg 110 617 @root;
-#X text 245 617 Получить/Установить root key. Тип: atom. Значение по
+#X msg 130 549 @root;
+#X text 270 549 Получить/Установить root key. Тип: atom. Значение по
 умолчанию: C. Разрешённые значения: Cbb \, Cb \, C \, C# \, C## \,
 Dbb \, Db \, D \, D# \, D## \, Ebb \, Eb \, E \, E# \, E## \, Fbb \,
 Fb \, F \, F# \, F## \, Gbb \, Gb \, G \, G# \, G## \, Abb \, Ab \,
 A \, A# \, A## \, Bbb \, Bb \, B \, B# \, B##.;
-#X msg 110 720 @scale;
-#X text 245 720 Получить/Установить modus scale. Тип: symbol. Значение
+#X msg 130 652 @scale;
+#X text 270 652 Получить/Установить modus scale. Тип: symbol. Значение
 по умолчанию: chromatic. Разрешённые значения: ahirbhairav \, indian
 \, kurd \, diminished2 \, partch_u6 \, gong \, partch_o4 \, rast_desc
 \, nairuz \, hirajoshi \, hex_major6 \, farahfaza \, minor \, pelog
@@ -66,29 +66,29 @@ iraq \, major_harmonic \, bartok \, zamzam \, super_locrian \, chromatic24
 \, iwato \, chromatic \, aeolian \, enigmatic \, hindu \, phrygian
 \, zanjaran \, karjighar \, spanish \, purvi \, minor_neapolitan \,
 bhairav \, hijaz_desc \, todi \, hex_major7\.;
-#X obj 20 1089 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1094 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1021 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1026 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1095 1\.;
-#X text 150 1095 float:;
-#X text 245 1095 note value.;
-#X text 150 1120 list:;
-#X text 245 1120 NOTE VELOCITY [DUR] list.;
-#X obj 20 1155 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1160 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1027 1\.;
+#X text 170 1027 float:;
+#X text 270 1027 note value.;
+#X text 170 1052 list:;
+#X text 270 1052 NOTE VELOCITY [DUR] list.;
+#X obj 20 1087 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1092 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1161 1\.;
-#X text 245 1161 accepted note or NOTE VELOCITY [DUR] list.;
-#X text 110 1181 2\.;
-#X text 245 1181 discarded message.;
+#X text 130 1093 1\.;
+#X text 270 1093 accepted note or NOTE VELOCITY [DUR] list.;
+#X text 130 1113 2\.;
+#X text 270 1113 discarded message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 1231 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1234 библиотека: ceammc v0.9.8;
-#N canvas 10 1253 400 290 info 0;
+#X obj 1 1163 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1166 библиотека: ceammc v0.9.8;
+#N canvas 10 1185 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -112,7 +112,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1253 pd info;
+#X restore 10 1185 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

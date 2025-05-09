@@ -18,26 +18,26 @@
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 346 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 347 note;
-#X text 245 347 Arguments are:;
-#X obj 255 370 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 370 PITCH: note pitch (pitch <0 treated as rest). Type:
+#X msg 130 347 note;
+#X text 270 347 Arguments are:;
+#X obj 280 370 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 370 PITCH: note pitch (pitch <0 treated as rest). Type:
 int.;
-#X obj 255 393 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 393 DUR: note duration. Type: float.;
+#X obj 280 393 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 393 DUR: note duration. Type: float.;
 #X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 433 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 434 1\.;
-#X text 150 434 float:;
-#X text 245 434 pitch.;
-#X text 150 459 list:;
-#X text 245 459 list of pitches.;
+#X text 130 434 1\.;
+#X text 170 434 float:;
+#X text 270 434 pitch.;
+#X text 170 459 list:;
+#X text 270 459 list of pitches.;
 #X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 499 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 500 1\.;
-#X text 245 500 symbol: converted value.;
+#X text 130 500 1\.;
+#X text 270 500 symbol: converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

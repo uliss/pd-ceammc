@@ -5,9 +5,9 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.sin~ 20 20 0 20 -104026 -4096
 0;
 #X obj 673 11 math.sin~;
-#X obj 205 78 cnv 1 560 59 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Computes the sine of input signal (in radians);
-#X obj 215 108 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 230 78 cnv 1 535 59 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Computes the sine of input signal (in radians);
+#X obj 240 108 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Sine @url https://en.wikipedia.org/wiki/Sine;
 #X msg 50 185 bang;
 #X obj 50 214 plot.linspace~ -7 7 @pi;
@@ -18,15 +18,15 @@
 #X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 528 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 529 1\.;
-#X text 150 529 ~;
-#X text 245 529 input signal.;
+#X text 130 529 1\.;
+#X text 170 529 ~;
+#X text 270 529 input signal.;
 #X obj 20 564 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 569 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 570 1\.;
-#X text 150 570 ~;
-#X text 245 570 result signal.;
+#X text 130 570 1\.;
+#X text 170 570 ~;
+#X text 270 570 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

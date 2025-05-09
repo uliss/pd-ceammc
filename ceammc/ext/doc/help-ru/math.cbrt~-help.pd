@@ -5,11 +5,11 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.cbrt~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 math.cbrt~;
-#X obj 205 78 cnv 1 560 110 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Outputs the cube root of input signal;
-#X text 215 108 Special values:;
-#X text 215 133 cbrt(+-0) returns +-0\.;
-#X text 215 158 cbrt(+-infinity) returns +-infinity.;
+#X obj 230 78 cnv 1 535 110 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Outputs the cube root of input signal;
+#X text 240 108 Special values:;
+#X text 240 133 cbrt(+-0) returns +-0\.;
+#X text 240 158 cbrt(+-infinity) returns +-infinity.;
 #X obj 50 236 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 265 plot.linspace~ -8 8;
@@ -19,15 +19,15 @@
 #X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 594 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 595 1\.;
-#X text 150 595 ~;
-#X text 245 595 input signal.;
+#X text 130 595 1\.;
+#X text 170 595 ~;
+#X text 270 595 input signal.;
 #X obj 20 630 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 635 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 636 1\.;
-#X text 150 636 ~;
-#X text 245 636 result signal.;
+#X text 130 636 1\.;
+#X text 170 636 ~;
+#X text 270 636 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

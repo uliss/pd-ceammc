@@ -16,55 +16,55 @@
 -49933 0;
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 410 1\.;
-#X text 150 410 list;
-#X obj 246 411 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 410 DICT: mapping dictionary \, see @dict property. Тип:
+#X text 130 376 1\.;
+#X text 170 376 list;
+#X obj 271 377 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 376 DICT: mapping dictionary \, see @dict property. Тип:
 list.;
-#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 445 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 448 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 414 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 480 @def;
-#X text 245 480 Получить/Установить default value to replace missing
+#X msg 130 412 @def;
+#X text 270 412 Получить/Установить default value to replace missing
 keys. If empty (by default) \, missing keys are ignored. Тип: list.;
-#X msg 110 522 @dict;
-#X text 245 522 Получить/Установить mapping dictionary \, the syntax
+#X msg 130 454 @dict;
+#X text 270 454 Получить/Установить mapping dictionary \, the syntax
 is [KEY: VALUES...] \, for example: [1: "one" 2: "two" k: "map values"].
 Тип: list. Значение по умолчанию: [].;
-#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 594 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 521 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 526 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 595 1\.;
-#X text 150 595 float:;
-#X text 245 595 input float \, no output if not in dict.;
-#X text 150 620 symbol:;
-#X text 245 620 input symbol \, no output if not in dict.;
-#X text 150 645 list:;
-#X text 245 645 input list \, output always at least empty list.;
-#X text 150 670 data:mlist:;
-#X text 245 670 input list \, output always at least empty list.;
-#X text 110 695 2\.;
-#X text 150 695 data:dict:;
-#X text 245 695 set mapping dictionary.;
-#X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 735 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 527 1\.;
+#X text 170 527 float:;
+#X text 270 527 input float \, no output if not in dict.;
+#X text 170 552 symbol:;
+#X text 270 552 input symbol \, no output if not in dict.;
+#X text 170 577 list:;
+#X text 270 577 input list \, output always at least empty list.;
+#X text 170 602 data:mlist:;
+#X text 270 602 input list \, output always at least empty list.;
+#X text 130 627 2\.;
+#X text 170 627 data:dict:;
+#X text 270 627 set mapping dictionary.;
+#X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 667 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 736 1\.;
-#X text 245 736 list or data:mlist mapped list.;
-#X text 110 756 2\.;
-#X text 245 756 atom: missing keys.;
+#X text 130 668 1\.;
+#X text 270 668 list or data:mlist mapped list.;
+#X text 130 688 2\.;
+#X text 270 688 atom: missing keys.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 806 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 809 библиотека: ceammc v0.9.8;
-#X text 553 821 смотрите также:;
-#X obj 674 821 data.dict;
-#N canvas 10 828 400 290 info 0;
+#X obj 1 738 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 741 библиотека: ceammc v0.9.8;
+#X text 553 753 смотрите также:;
+#X obj 674 753 data.dict;
+#N canvas 10 760 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -88,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 828 pd info;
+#X restore 10 760 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

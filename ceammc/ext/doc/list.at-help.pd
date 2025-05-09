@@ -6,15 +6,15 @@ list;
 #X obj 1 1 cnv 5 765 40 empty empty list.at 20 20 0 20 -104026 -4096
 0;
 #X obj 690 11 list.at;
-#X obj 205 78 cnv 1 560 185 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Returns the element at the given index position in the
+#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Returns the element at the given index position in the
 list.;
-#X text 215 108 @rel property allows to acess elements in range (-LIST_SIZE
+#X text 240 108 @rel property allows to acess elements in range (-LIST_SIZE
 \, LIST_SIZE). Negative index means position from the end of the list.
 For example: -1 returns last element.;
-#X text 215 163 @clip property: if element index < 0 - first element
+#X text 240 163 @clip property: if element index < 0 - first element
 returned. If element index >= LIST_SIZE last element returned.;
-#X text 215 218 @wrap property: in range [0 \, LIST_SIZE) ordinal elements
+#X text 240 218 @wrap property: in range [0 \, LIST_SIZE) ordinal elements
 are returned. Other indexes are wrapped by modulo division.;
 #X msg 50 311 1 2 3 4 5;
 #X floatatom 165 311 5 0 0 0 - - -;
@@ -40,54 +40,54 @@ are returned. Other indexes are wrapped by modulo division.;
 -49933 0;
 #X obj 735 614 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 646 1\.;
-#X text 150 646 list;
-#X obj 246 647 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 646 INDEX: single or multiple elements position. Type:
+#X text 130 612 1\.;
+#X text 170 612 list;
+#X obj 271 613 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 612 INDEX: single or multiple elements position. Type:
 list.;
-#X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 681 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 647 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 684 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 650 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 716 @clip;
-#X text 245 716 Alias to @method clip. If index < 0 - return first
+#X msg 130 648 @clip;
+#X text 270 648 Alias to @method clip. If index < 0 - return first
 element. If index greater or equal list size - return last element.;
-#X msg 110 758 @default;
-#X text 245 758 Get/Set default output value if not found. If not set
+#X msg 130 690 @default;
+#X text 270 690 Get/Set default output value if not found. If not set
 \, outputs error message to console. Type: atom. Default value: null.;
-#X msg 110 815 @fold;
-#X text 245 815 Alias to @method fold. In range [0 \, LIST_SIZE) ordinal
+#X msg 130 747 @fold;
+#X text 270 747 Alias to @method fold. In range [0 \, LIST_SIZE) ordinal
 elements are returned. [LIST_SIZE \, 2*LIST_SIZE) - returned in negative
 order etc.;
-#X msg 110 872 @index;
-#X text 245 872 Get/Set indexes. Type: list. Default value: 0\.;
-#X msg 110 902 @method;
-#X text 245 902 Get/Set methods of processing of negative/invalid indexes.
+#X msg 130 804 @index;
+#X text 270 804 Get/Set indexes. Type: list. Default value: 0\.;
+#X msg 130 834 @method;
+#X text 270 834 Get/Set methods of processing of negative/invalid indexes.
 Type: symbol. Default value: rel. Allowed values: rel \, clip \, fold
 \, wrap.;
-#X msg 110 959 @rel;
-#X text 245 959 Alias to @method rel. Negative index means position
+#X msg 130 891 @rel;
+#X text 270 891 Alias to @method rel. Negative index means position
 from the end of the list.;
-#X msg 110 1001 @wrap;
-#X text 245 1001 Alias to @method wrap. In range [0 \, LIST_SIZE) ordinal
+#X msg 130 933 @wrap;
+#X text 270 933 Alias to @method wrap. In range [0 \, LIST_SIZE) ordinal
 elements are returned. Other indexes are wrapped by modulo division.;
-#X obj 20 1068 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1073 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 1000 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1005 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1074 1\.;
-#X text 150 1074 list:;
-#X text 245 1074 input list.;
-#X text 150 1099 data:mlist:;
-#X text 245 1099 input mlist.;
-#X text 110 1124 2\.;
-#X text 150 1124 list:;
-#X text 245 1124 positions.;
-#X obj 20 1159 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1164 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1006 1\.;
+#X text 170 1006 list:;
+#X text 270 1006 input list.;
+#X text 170 1031 data:mlist:;
+#X text 270 1031 input mlist.;
+#X text 130 1056 2\.;
+#X text 170 1056 list:;
+#X text 270 1056 positions.;
+#X obj 20 1091 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1096 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1165 1\.;
-#X text 245 1165 element(s) at the given index position(s). If element
+#X text 130 1097 1\.;
+#X text 270 1097 element(s) at the given index position(s). If element
 not found at specified position and @default property is set \, output
 that default value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -95,12 +95,12 @@ that default value.;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 1245 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1248 library: ceammc v0.9.8;
-#X text 498 1260 see also:;
-#X obj 573 1260 list.^at;
-#X obj 646 1260 list.apply_to;
-#N canvas 10 1267 400 290 info 0;
+#X obj 1 1177 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1180 library: ceammc v0.9.8;
+#X text 498 1192 see also:;
+#X obj 573 1192 list.^at;
+#X obj 646 1192 list.apply_to;
+#N canvas 10 1199 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -124,7 +124,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1267 pd info;
+#X restore 10 1199 pd info;
 #X connect 9 0 13 0;
 #X connect 10 0 13 1;
 #X connect 11 0 14 0;

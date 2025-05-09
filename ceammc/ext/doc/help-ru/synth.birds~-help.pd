@@ -15,67 +15,67 @@
 -49933 0;
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 410 1\.;
-#X text 150 410 float;
-#X obj 246 411 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 410 SPEED: maximum speed of whistles if @auto enabled.
+#X text 130 376 1\.;
+#X text 170 376 float;
+#X obj 271 377 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 376 SPEED: maximum speed of whistles if @auto enabled.
 Тип: float. Диапазон: 120…480;
-#X text 110 445 2\.;
-#X text 150 445 float;
-#X obj 246 446 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 445 PROBABILITY(%): whistles probability if @auto enabled.
+#X text 130 411 2\.;
+#X text 170 411 float;
+#X obj 271 412 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 411 PROBABILITY(%): whistles probability if @auto enabled.
 Тип: float. Диапазон: 25…100;
-#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 495 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 461 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 498 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 530 @id;
-#X text 245 530 (при инициализации) Получить/Установить идентификатор
+#X msg 130 462 @id;
+#X text 270 462 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_birds/ИМЯ_СВОЙСТВА \, в противном
 случае к /synth_birds/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 617 @osc;
-#X text 245 617 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 549 @osc;
+#X text 270 549 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 659 @active;
-#X text 245 659 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 591 @active;
+#X text 270 591 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 701 @auto;
-#X text 245 701 Получить/Установить auto playing mode. Тип: bool. Значение
+#X msg 130 633 @auto;
+#X text 270 633 Получить/Установить auto playing mode. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 743 @gate;
-#X text 245 743 Получить/Установить play trigger. Starts playing on
+#X msg 130 675 @gate;
+#X text 270 675 Получить/Установить play trigger. Starts playing on
 release. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 785 @probability;
-#X text 245 785 Получить/Установить whistles probability if @auto enabled.
+#X msg 130 717 @probability;
+#X text 270 717 Получить/Установить whistles probability if @auto enabled.
 Тип: float. Единицы: '%'. Значение по умолчанию: 50\. Диапазон: 25\...100\.;
-#X msg 110 842 @speed;
-#X text 245 842 Получить/Установить maximum speed of whistles if @auto
+#X msg 130 774 @speed;
+#X text 270 774 Получить/Установить maximum speed of whistles if @auto
 enabled. Тип: float. Значение по умолчанию: 240\. Диапазон: 120\...480\.;
-#X obj 20 909 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 914 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 846 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 915 1\.;
-#X text 150 915 bang:;
-#X text 245 915 play.;
-#X obj 20 950 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 955 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 847 1\.;
+#X text 170 847 bang:;
+#X text 270 847 play.;
+#X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 887 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 956 1\.;
-#X text 150 956 ~;
-#X text 245 956 synth left channel.;
-#X text 110 976 2\.;
-#X text 150 976 ~;
-#X text 245 976 synth right channel.;
+#X text 130 888 1\.;
+#X text 170 888 ~;
+#X text 270 888 synth left channel.;
+#X text 130 908 2\.;
+#X text 170 908 ~;
+#X text 270 908 synth right channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1026 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1029 библиотека: ceammc v0.9.8;
-#N canvas 10 1048 400 290 info 0;
+#X obj 1 958 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 961 библиотека: ceammc v0.9.8;
+#N canvas 10 980 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -99,7 +99,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1048 pd info;
+#X restore 10 980 pd info;
 #X connect 4 0 5 0;
 #X connect 4 1 5 1;
 #X connect 5 0 7 0;

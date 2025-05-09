@@ -5,14 +5,14 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.log 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 math.log;
-#X obj 205 78 cnv 1 560 160 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Computes the value of the natural logarithm of argument
+#X obj 230 78 cnv 1 535 160 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Computes the value of the natural logarithm of argument
 x.;
-#X text 215 108 Special values:;
-#X text 215 133 log(+-0) return -infinity;
-#X text 215 158 log(1) return +0\.;
-#X text 215 183 log(x) return a NaN;
-#X text 215 208 log(+infinity) return +infinity.;
+#X text 240 108 Special values:;
+#X text 240 133 log(+-0) return -infinity;
+#X text 240 158 log(1) return +0\.;
+#X text 240 183 log(x) return a NaN;
+#X text 240 208 log(+infinity) return +infinity.;
 #X msg 50 286 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array LOG 100 float 0;
@@ -24,16 +24,16 @@ x.;
 #X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 463 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 464 1\.;
-#X text 150 464 float:;
-#X text 245 464 input value.;
-#X text 150 489 list:;
-#X text 245 489 apply to all numeric values.;
+#X text 130 464 1\.;
+#X text 170 464 float:;
+#X text 270 464 input value.;
+#X text 170 489 list:;
+#X text 270 489 apply to all numeric values.;
 #X obj 20 524 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 529 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 530 1\.;
-#X text 245 530 result value.;
+#X text 130 530 1\.;
+#X text 270 530 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

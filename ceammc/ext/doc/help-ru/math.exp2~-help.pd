@@ -5,13 +5,13 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.exp2~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 math.exp2~;
-#X obj 205 78 cnv 1 560 150 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 The exp2() function computes 2**x \, the base-2 exponential
+#X obj 230 78 cnv 1 535 150 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 The exp2() function computes 2**x \, the base-2 exponential
 of x.;
-#X text 215 123 Special values:;
-#X text 215 148 exp2(+-0) return 1\.;
-#X text 215 173 exp2(-infinity) return +0\.;
-#X text 215 198 exp2(+infinity) return +infinity.;
+#X text 240 123 Special values:;
+#X text 240 148 exp2(+-0) return 1\.;
+#X text 240 173 exp2(-infinity) return +0\.;
+#X text 240 198 exp2(+infinity) return +infinity.;
 #X obj 50 276 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 305 plot.linspace~ -2 4;
@@ -22,15 +22,15 @@ of x.;
 #X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 634 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 635 1\.;
-#X text 150 635 float:;
-#X text 245 635 input signal.;
+#X text 130 635 1\.;
+#X text 170 635 float:;
+#X text 270 635 input signal.;
 #X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 675 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 676 1\.;
-#X text 150 676 ~;
-#X text 245 676 output signal.;
+#X text 130 676 1\.;
+#X text 170 676 ~;
+#X text 270 676 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

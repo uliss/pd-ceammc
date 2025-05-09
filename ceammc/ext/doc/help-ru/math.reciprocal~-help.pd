@@ -16,15 +16,15 @@
 #X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 476 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 477 1\.;
-#X text 150 477 float:;
-#X text 245 477 input signal.;
+#X text 130 477 1\.;
+#X text 170 477 float:;
+#X text 270 477 input signal.;
 #X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 517 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 518 1\.;
-#X text 150 518 ~;
-#X text 245 518 output signal.;
+#X text 130 518 1\.;
+#X text 170 518 ~;
+#X text 270 518 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -7,11 +7,11 @@ processing;
 -4096 0;
 #X obj 562 11 list.foldl;
 #X obj 660 11 list.reduce;
-#X obj 205 93 cnv 1 560 120 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Apply function of two arguments cumulatively to the
+#X obj 230 93 cnv 1 535 120 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 98 Apply function of two arguments cumulatively to the
 list \, from left to right \, so as to reduce the list to a single
 value.;
-#X text 215 153 You can imagine this process as a space replacement
+#X text 240 153 You can imagine this process as a space replacement
 between elements with binary function \, for example: 1 2 3 4 5 becames
 ((((1+2)+3)+4)+5) after reducing with "+".;
 #X msg 50 261 1 2 3 4;
@@ -43,21 +43,21 @@ between elements with binary function \, for example: 1 2 3 4 5 becames
 #X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 601 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 602 1\.;
-#X text 150 602 list:;
-#X text 245 602 input list.;
-#X text 150 627 data:mlist:;
-#X text 245 627 input mlist.;
-#X text 110 652 2\.;
-#X text 150 652 any:;
-#X text 245 652 value from binary function.;
+#X text 130 602 1\.;
+#X text 170 602 list:;
+#X text 270 602 input list.;
+#X text 170 627 data:mlist:;
+#X text 270 627 input mlist.;
+#X text 130 652 2\.;
+#X text 170 652 any:;
+#X text 270 652 value from binary function.;
 #X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 692 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 693 1\.;
-#X text 245 693 output value.;
-#X text 110 713 2\.;
-#X text 245 713 pair value to binary function.;
+#X text 130 693 1\.;
+#X text 270 693 output value.;
+#X text 130 713 2\.;
+#X text 270 713 pair value to binary function.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

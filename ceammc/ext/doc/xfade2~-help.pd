@@ -6,8 +6,8 @@
 0;
 #X obj 560 11 ceammc/xfade2~;
 #X obj 687 11 xfade2~;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 control float value in range [0-1) controls xfade between
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 control float value in range [0-1) controls xfade between
 first and second signals \, [1-2) between second and third etc.;
 #X obj 50 176 osc~ 440;
 #X obj 184 176 osc~ 1000;
@@ -24,80 +24,80 @@ first and second signals \, [1-2) between second and third etc.;
 -49933 0;
 #X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 439 1\.;
-#X text 150 439 int;
-#X obj 246 440 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 439 N: number of signal inputs stereo pairs. Type: int.
+#X text 130 405 1\.;
+#X text 170 405 int;
+#X obj 271 406 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 405 N: number of signal inputs stereo pairs. Type: int.
 Range: 2\...16;
-#X text 110 474 2\.;
-#X text 150 474 float;
-#X obj 246 475 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 474 X: crossfade init value. Valid value in [0\..N-1] range.
+#X text 130 440 2\.;
+#X text 170 440 float;
+#X obj 271 441 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 440 X: crossfade init value. Valid value in [0\..N-1] range.
 See @x property. Type: float.;
-#X obj 20 519 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 524 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 490 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 527 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 559 @n;
-#X text 245 559 (initonly) Get/Set number of xfade inputs stereo pairs.
+#X msg 130 491 @n;
+#X text 270 491 (initonly) Get/Set number of xfade inputs stereo pairs.
 Type: int. Default value: 2\. Range: 2\...16\.;
-#X msg 110 601 @lin;
-#X text 245 601 Alias to @type lin.;
-#X msg 110 631 @pow;
-#X text 245 631 Alias to @type pow.;
-#X msg 110 661 @smooth;
-#X text 245 661 Get/Set signal change smooth time. Type: float. Units:
+#X msg 130 533 @lin;
+#X text 270 533 Alias to @type lin.;
+#X msg 130 563 @pow;
+#X text 270 563 Alias to @type pow.;
+#X msg 130 593 @smooth;
+#X text 270 593 Get/Set signal change smooth time. Type: float. Units:
 'ms'. Default value: 20\. Min value: 1\.;
-#X msg 110 703 @type;
-#X text 245 703 Get/Set fade curve type: linear or power. Type: symbol.
+#X msg 130 635 @type;
+#X text 270 635 Get/Set fade curve type: linear or power. Type: symbol.
 Default value: pow. Allowed values: lin \, pow.;
-#X msg 110 745 @x;
-#X text 245 745 Get/Set crossfade property. Valid value in [0\..N-1]
+#X msg 130 677 @x;
+#X text 270 677 Get/Set crossfade property. Valid value in [0\..N-1]
 range. Type: float. Default value: 0\.;
-#X obj 20 797 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 802 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 729 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 734 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 803 1\.;
-#X text 150 803 ~;
-#X text 245 803 left input signal.;
-#X text 110 828 2\.;
-#X text 150 828 ~;
-#X text 245 828 right input signal.;
-#X text 110 853 ...;
-#X text 150 853 ~;
-#X text 245 853 left input signal.;
-#X text 110 878 ...;
-#X text 150 878 ~;
-#X text 245 878 right input signal.;
-#X text 110 903 n-1\.;
-#X text 150 903 ~;
-#X text 245 903 left input signal.;
-#X text 110 928 n.;
-#X text 150 928 ~;
-#X text 245 928 right input signal.;
-#X text 110 953 n+1\.;
-#X text 150 953 float:;
-#X text 245 953 set crossfade value.;
-#X obj 20 988 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 993 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 735 1\.;
+#X text 170 735 ~;
+#X text 270 735 left input signal.;
+#X text 130 760 2\.;
+#X text 170 760 ~;
+#X text 270 760 right input signal.;
+#X text 130 785 ...;
+#X text 170 785 ~;
+#X text 270 785 left input signal.;
+#X text 130 810 ...;
+#X text 170 810 ~;
+#X text 270 810 right input signal.;
+#X text 130 835 n-1\.;
+#X text 170 835 ~;
+#X text 270 835 left input signal.;
+#X text 130 860 n.;
+#X text 170 860 ~;
+#X text 270 860 right input signal.;
+#X text 130 885 n+1\.;
+#X text 170 885 float:;
+#X text 270 885 set crossfade value.;
+#X obj 20 920 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 925 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 994 1\.;
-#X text 150 994 ~;
-#X text 245 994 left output signal.;
-#X text 110 1014 2\.;
-#X text 150 1014 ~;
-#X text 245 1014 right output signal.;
+#X text 130 926 1\.;
+#X text 170 926 ~;
+#X text 270 926 left output signal.;
+#X text 130 946 2\.;
+#X text 170 946 ~;
+#X text 270 946 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 1064 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1067 library: ceammc v0.9.8;
-#X text 620 1079 see also:;
-#X obj 695 1079 xfade~;
-#N canvas 10 1086 400 290 info 0;
+#X obj 1 996 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 999 library: ceammc v0.9.8;
+#X text 620 1011 see also:;
+#X obj 695 1011 xfade~;
+#N canvas 10 1018 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -121,7 +121,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1086 pd info;
+#X restore 10 1018 pd info;
 #X connect 9 0 12 0;
 #X connect 7 0 13 0;
 #X connect 10 0 13 1;

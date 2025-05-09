@@ -6,15 +6,15 @@
 -4096 0;
 #X obj 579 11 random.a;
 #X obj 661 11 random.atom;
-#X obj 205 78 cnv 1 560 185 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Choose random atom from specified list (with weights)
+#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Choose random atom from specified list (with weights)
 and output it.;
-#X text 215 123 If no weights specified \, choose elements with random
+#X text 240 123 If no weights specified \, choose elements with random
 uniform distribution.;
-#X text 215 163 Use @seed property to get reproducible sequences. If
+#X text 240 163 Use @seed property to get reproducible sequences. If
 @seed property was not explicitly set or specified \, uses generator
 initialized with current time.;
-#X text 215 218 Note: when @nonrep property is set \, distribution
+#X text 240 218 Note: when @nonrep property is set \, distribution
 is not uniform or weighted.;
 #X obj 50 311 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 184 311 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -34,52 +34,52 @@ is not uniform or weighted.;
 -49933 0;
 #X obj 735 600 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 632 1\.;
-#X text 150 632 list;
-#X obj 246 633 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 632 VALUE: list of atoms. Тип: list.;
-#X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 667 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 598 1\.;
+#X text 170 598 list;
+#X obj 271 599 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 598 VALUE: list of atoms. Тип: list.;
+#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 633 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 670 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 636 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 702 @nonrep;
-#X text 245 702 Получить/Установить generate non-repeated adjacent
+#X msg 130 634 @nonrep;
+#X text 270 634 Получить/Установить generate non-repeated adjacent
 values (note: distribution will changed!). Тип: bool. Значение по умолчанию:
 0\.;
-#X msg 110 759 @seed;
-#X text 245 759 Получить/Установить generator seed. Тип: int. Значение
+#X msg 130 691 @seed;
+#X text 270 691 Получить/Установить generator seed. Тип: int. Значение
 по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 110 801 @value;
-#X text 245 801 Получить/Установить list of atoms. Тип: list.;
-#X msg 110 831 @w;
-#X text 245 831 Получить/Установить list of atom weights. Тип: list.;
-#X obj 20 871 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 876 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 733 @value;
+#X text 270 733 Получить/Установить list of atoms. Тип: list.;
+#X msg 130 763 @w;
+#X text 270 763 Получить/Установить list of atom weights. Тип: list.;
+#X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 808 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 877 1\.;
-#X text 150 877 bang:;
-#X text 245 877 output random atom.;
-#X text 110 902 2\.;
-#X text 150 902 list:;
-#X text 245 902 set list of elements to choose from. Note: clear all
+#X text 130 809 1\.;
+#X text 170 809 bang:;
+#X text 270 809 output random atom.;
+#X text 130 834 2\.;
+#X text 170 834 list:;
+#X text 270 834 set list of elements to choose from. Note: clear all
 weights.;
-#X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 942 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 869 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 874 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 943 1\.;
-#X text 245 943 random atom value.;
+#X text 130 875 1\.;
+#X text 270 875 random atom value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 993 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 996 библиотека: ceammc v0.9.8;
-#X text 432 1008 смотрите также:;
-#X obj 553 1008 random.float;
-#X obj 654 1008 random.gauss;
-#N canvas 10 1015 400 290 info 0;
+#X obj 1 925 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 928 библиотека: ceammc v0.9.8;
+#X text 432 940 смотрите также:;
+#X obj 553 940 random.float;
+#X obj 654 940 random.gauss;
+#N canvas 10 947 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -103,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1015 pd info;
+#X restore 10 947 pd info;
 #X connect 10 0 12 0;
 #X connect 11 0 13 0;
 #X connect 12 0 14 0;

@@ -19,15 +19,15 @@
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 376 1\.;
-#X text 245 376 MidiEvent message.;
+#X text 130 376 1\.;
+#X text 270 376 MidiEvent message.;
 #X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 416 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 417 1\.;
-#X text 245 417 output pair: controller number \, value.;
-#X text 110 437 2\.;
-#X text 245 437 track number.;
+#X text 130 417 1\.;
+#X text 270 417 output pair: controller number \, value.;
+#X text 130 437 2\.;
+#X text 270 437 track number.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty snd.play~ 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 snd.play~;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Supports variable speed playing \, pausing \, seeking
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Supports variable speed playing \, pausing \, seeking
 \, time-stretching and resampling;
 #X obj 50 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -37,133 +37,133 @@
 -49933 0;
 #X obj 735 609 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 641 1\.;
-#X text 150 641 int;
-#X obj 246 642 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 641 N: number of output channels. Тип: int. Диапазон: 1…32;
-#X text 110 661 2\.;
-#X text 150 661 symbol;
-#X obj 246 662 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 661 NAME: absolute or relative to patch sound file name.
+#X text 130 607 1\.;
+#X text 170 607 int;
+#X obj 271 608 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 607 N: number of output channels. Тип: int. Диапазон: 1…32;
+#X text 130 627 2\.;
+#X text 170 627 symbol;
+#X obj 271 628 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 627 NAME: absolute or relative to patch sound file name.
 Тип: symbol.;
-#X obj 20 706 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 711 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 677 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 714 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 680 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 746 @n;
-#X text 245 746 (при инициализации) Получить/Установить number of output
+#X msg 130 678 @n;
+#X text 270 678 (при инициализации) Получить/Установить number of output
 channels. Тип: int. Значение по умолчанию: 2\. Диапазон: 1\...32\.;
-#X msg 110 803 @begin;
-#X text 245 803 Получить/Установить start playing position. Тип: atom.
+#X msg 130 735 @begin;
+#X text 270 735 Получить/Установить start playing position. Тип: atom.
 Единицы: 'samp' \, 'sec' \, 'ms' \, 'smpte'. Значение по умолчанию:
 0\.;
-#X msg 110 860 @end;
-#X text 245 860 Получить/Установить end playing position. Тип: atom.
+#X msg 130 792 @end;
+#X text 270 792 Получить/Установить end playing position. Тип: atom.
 Единицы: 'samp' \, 'sec' \, 'ms' \, 'smpte'. Значение по умолчанию:
 -1\.;
-#X msg 110 902 @loop;
-#X text 245 902 Получить/Установить play in the loop. Тип: bool. Значение
+#X msg 130 834 @loop;
+#X text 270 834 Получить/Установить play in the loop. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 944 @name;
-#X text 245 944 Получить/Установить absolute or relative to patch soundfile
+#X msg 130 876 @name;
+#X text 270 876 Получить/Установить absolute or relative to patch soundfile
 name. Тип: symbol.;
-#X msg 110 986 @on_err;
-#X text 245 986 Получить/Установить the error send destination. For
+#X msg 130 918 @on_err;
+#X text 270 918 Получить/Установить the error send destination. For
 example \, if soundfile was not found \, the message [not_found( will
 be send to this global name. Тип: symbol.;
-#X msg 110 1043 @pitch;
-#X text 245 1043 Получить/Установить pitch-shift correction. Used only
+#X msg 130 975 @pitch;
+#X text 270 975 Получить/Установить pitch-shift correction. Used only
 if @stretch mode enabled. Тип: float. Значение по умолчанию: 1\. Диапазон:
 0.25\...4\.;
-#X msg 110 1100 @speed;
-#X text 245 1100 Получить/Установить playing speed. If @stretch mode
+#X msg 130 1032 @speed;
+#X text 270 1032 Получить/Установить playing speed. If @stretch mode
 is disabled (default): changes playing speed (also with pitch change
 respectively) in real time. If @stretch mode is enabled: can only change
 speed (without pitch change) only on the next playing cycle. Тип: float.
 Значение по умолчанию: 1\. Диапазон: 0.25\...4\.;
-#X msg 110 1218 @stretch;
-#X text 245 1218 Получить/Установить stretch mode. If true: use timestretch
+#X msg 130 1150 @stretch;
+#X text 270 1150 Получить/Установить stretch mode. If true: use timestretch
 and pitch-shifting. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1260 @sync;
-#X text 245 1260 Получить/Установить sync mode. 'now': immediately
+#X msg 130 1192 @sync;
+#X text 270 1192 Получить/Установить sync mode. 'now': immediately
 starts playing (abort previous) after receiving start message. 'defer':
 wait until previous playing will be done \, that starts new. 'wait':
 do not playing until previous playing will not finished. Тип: symbol.
 Значение по умолчанию: now. Разрешённые значения: now \, defer \, wait.;
-#X obj 20 1388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1393 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1325 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1394 ff;
-#X text 245 1394 fast forward by specified amount of time. Аргументы:;
-#X obj 255 1417 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1417 [TIME]: time amount. Can't be in seconds \, milliseconds
+#X msg 130 1326 ff;
+#X text 270 1326 fast forward by specified amount of time. Аргументы:;
+#X obj 280 1349 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1349 [TIME]: time amount. Can't be in seconds \, milliseconds
 \, samples \, SMPTE. If the time unit is not specified treat float
 values as samples. If argument is not specified: jump one second forward.
 Тип: atom.;
-#X msg 110 1502 open;
-#X text 245 1502 sets @name property. Аргументы:;
-#X obj 255 1525 cnv 1 67 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1525 FILENAME: absolute or relative to patch soundfile
+#X msg 130 1434 open;
+#X text 270 1434 sets @name property. Аргументы:;
+#X obj 280 1457 cnv 1 67 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1457 FILENAME: absolute or relative to patch soundfile
 name. Тип: symbol.;
-#X msg 110 1565 pause;
-#X text 245 1565 pause. Аргументы:;
-#X obj 255 1588 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1588 [FLAG]: pause/resume flag. If true or omitted: pause
+#X msg 130 1497 pause;
+#X text 270 1497 pause. Аргументы:;
+#X obj 280 1520 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1520 [FLAG]: pause/resume flag. If true or omitted: pause
 \, if false: resume. Тип: bool.;
-#X msg 110 1628 rewind;
-#X text 245 1628 move backwards by specified amount of time (relative
+#X msg 130 1560 rewind;
+#X text 270 1560 move backwards by specified amount of time (relative
 value). Аргументы:;
-#X obj 255 1666 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1666 [TIME]: time amount. Can't be in seconds \, milliseconds
+#X obj 280 1598 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1598 [TIME]: time amount. Can't be in seconds \, milliseconds
 \, samples \, SMPTE. If the time unit is not specified treat float
 values as milliseconds. If arguments is not specified jump: one second
 backward. Тип: atom.;
-#X msg 110 1751 seek;
-#X text 245 1751 move to specified time (absolute value). Аргументы:;
-#X obj 255 1774 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1774 [TIME]: Time position. Can't be in seconds \, milliseconds
+#X msg 130 1683 seek;
+#X text 270 1683 move to specified time (absolute value). Аргументы:;
+#X obj 280 1706 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1706 [TIME]: Time position. Can't be in seconds \, milliseconds
 \, samples \, SMPTE. If the time unit is not specified treat float
 values as milliseconds. If arguments is not specified jump: seek to
 the beginning. Тип: atom.;
-#X msg 110 1859 start;
-#X text 245 1859 start playing. Аргументы:;
-#X obj 255 1882 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1882 [FLAG]: start/stop flag. If true or omitted: start
+#X msg 130 1791 start;
+#X text 270 1791 start playing. Аргументы:;
+#X obj 280 1814 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1814 [FLAG]: start/stop flag. If true or omitted: start
 \, if false: stop. Тип: bool.;
-#X msg 110 1922 stop;
-#X text 245 1922 stop playing. Аргументы:;
-#X obj 255 1945 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1945 [FLAG]: start/stop flag. If true or omitted: stop
+#X msg 130 1854 stop;
+#X text 270 1854 stop playing. Аргументы:;
+#X obj 280 1877 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1877 [FLAG]: start/stop flag. If true or omitted: stop
 \, if false: start. Тип: bool.;
-#X obj 20 1995 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2000 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1927 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1932 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2001 1\.;
-#X text 150 2001 float:;
-#X text 245 2001 1: start playing \, 0: stop.;
-#X obj 20 2036 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2041 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1933 1\.;
+#X text 170 1933 float:;
+#X text 270 1933 1: start playing \, 0: stop.;
+#X obj 20 1968 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1973 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2042 1\.;
-#X text 150 2042 ~;
-#X text 245 2042 first output channel.;
-#X text 110 2062 ...;
-#X text 150 2062 ~;
-#X text 245 2062 ... output channel.;
-#X text 110 2082 n.;
-#X text 150 2082 ~;
-#X text 245 2082 n-th output channel.;
-#X text 110 2102 n+1\.;
-#X text 245 2102 control output.;
+#X text 130 1974 1\.;
+#X text 170 1974 ~;
+#X text 270 1974 first output channel.;
+#X text 130 1994 ...;
+#X text 170 1994 ~;
+#X text 270 1994 ... output channel.;
+#X text 130 2014 n.;
+#X text 170 2014 ~;
+#X text 270 2014 n-th output channel.;
+#X text 130 2034 n+1\.;
+#X text 270 2034 control output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title snd @url ceammc.snd-help.pd;
-#X obj 1 2152 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2155 библиотека: ceammc v0.9.8;
-#N canvas 10 2174 400 290 info 0;
+#X obj 1 2084 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2087 библиотека: ceammc v0.9.8;
+#N canvas 10 2106 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -187,7 +187,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2174 pd info;
+#X restore 10 2106 pd info;
 #X connect 6 0 7 0;
 #X connect 9 0 11 0;
 #X connect 10 0 11 0;

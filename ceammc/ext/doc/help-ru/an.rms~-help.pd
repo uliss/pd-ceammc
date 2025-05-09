@@ -18,55 +18,55 @@
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 352 1\.;
-#X text 150 352 float;
-#X obj 246 353 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 352 PERIOD(ms): период окна усреднения. Тип: float. Диапазон:
+#X text 130 318 1\.;
+#X text 170 318 float;
+#X obj 271 319 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 318 PERIOD(ms): период окна усреднения. Тип: float. Диапазон:
 1…1000;
-#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 402 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 368 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 405 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 371 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 437 @id;
-#X text 245 437 (при инициализации) Получить/Установить идентификатор
+#X msg 130 369 @id;
+#X text 270 369 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/an_rms/ИМЯ_СВОЙСТВА \, в противном
 случае к /an_rms/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 524 @osc;
-#X text 245 524 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 456 @osc;
+#X text 270 456 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 566 @active;
-#X text 245 566 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 498 @active;
+#X text 270 498 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 608 @period;
-#X text 245 608 Получить/Установить период окна усреднения. Тип: float.
+#X msg 130 540 @period;
+#X text 270 540 Получить/Установить период окна усреднения. Тип: float.
 Единицы: 'ms'. Значение по умолчанию: 200\. Диапазон: 1\...1000\.;
-#X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 680 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 612 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 681 reset;
-#X text 245 681 сбросить средние данные.;
-#X obj 20 719 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 724 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 613 reset;
+#X text 270 613 сбросить средние данные.;
+#X obj 20 651 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 656 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 725 1\.;
-#X text 150 725 ~;
-#X text 245 725 входной сигнал.;
-#X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 765 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 657 1\.;
+#X text 170 657 ~;
+#X text 270 657 входной сигнал.;
+#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 697 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 766 1\.;
-#X text 150 766 ~;
-#X text 245 766 уровень rms.;
+#X text 130 698 1\.;
+#X text 170 698 ~;
+#X text 270 698 уровень rms.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 816 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 819 библиотека: ceammc v0.9.8;
-#N canvas 10 838 400 290 info 0;
+#X obj 1 748 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 751 библиотека: ceammc v0.9.8;
+#N canvas 10 770 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,7 +90,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 838 pd info;
+#X restore 10 770 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 7 1;
 #X connect 6 0 7 2;

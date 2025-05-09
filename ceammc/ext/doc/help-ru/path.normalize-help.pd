@@ -6,8 +6,8 @@
 -4096 0;
 #X obj 547 11 path.norm;
 #X obj 638 11 path.normalize;
-#X obj 205 78 cnv 1 560 65 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 These conversions are purely lexical. They do not check
+#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 These conversions are purely lexical. They do not check
 that the paths exist \, do not follow symlinks \, and do not access
 the filesystem at all;
 #X msg 50 191 symbol /path///./to/normalize/../file.txt;
@@ -16,16 +16,16 @@ the filesystem at all;
 #X obj 20 299 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 304 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 305 1\.;
-#X text 150 305 symbol:;
-#X text 245 305 file path.;
-#X text 150 330 data:string:;
-#X text 245 330 file path.;
+#X text 130 305 1\.;
+#X text 170 305 symbol:;
+#X text 270 305 file path.;
+#X text 170 330 data:string:;
+#X text 270 330 file path.;
 #X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 370 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 371 1\.;
-#X text 245 371 symbol or data:string: normalized path.;
+#X text 130 371 1\.;
+#X text 270 371 symbol or data:string: normalized path.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

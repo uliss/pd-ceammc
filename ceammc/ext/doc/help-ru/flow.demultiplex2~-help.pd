@@ -31,65 +31,65 @@
 -49933 0;
 #X obj 735 374 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 406 1\.;
-#X text 150 406 int;
-#X obj 246 407 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 406 N: number of output stereo-pairs. Тип: int. Диапазон:
+#X text 130 372 1\.;
+#X text 170 372 int;
+#X obj 271 373 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 372 N: number of output stereo-pairs. Тип: int. Диапазон:
 2…16;
-#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 441 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 407 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 444 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 410 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 476 @n;
-#X text 245 476 (при инициализации) Получить/Установить number of output
+#X msg 130 408 @n;
+#X text 270 408 (при инициализации) Получить/Установить number of output
 stereo channels. Тип: int. Значение по умолчанию: 2\. Диапазон: 2\...16\.;
-#X msg 110 533 @value;
-#X text 245 533 Получить/Установить gain coefficients per each output.
+#X msg 130 465 @value;
+#X text 270 465 Получить/Установить gain coefficients per each output.
 Тип: list.;
-#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 590 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 522 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 591 1\.;
-#X text 150 591 ~;
-#X text 245 591 left input signal.;
-#X text 110 616 2\.;
-#X text 150 616 ~;
-#X text 245 616 right input signal.;
-#X text 110 641 3\.;
-#X text 245 641 demultiplexer control.;
-#X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 681 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 523 1\.;
+#X text 170 523 ~;
+#X text 270 523 left input signal.;
+#X text 130 548 2\.;
+#X text 170 548 ~;
+#X text 270 548 right input signal.;
+#X text 130 573 3\.;
+#X text 270 573 demultiplexer control.;
+#X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 613 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 682 1\.;
-#X text 150 682 ~;
-#X text 245 682 first left output.;
-#X text 110 702 2\.;
-#X text 150 702 ~;
-#X text 245 702 first right output.;
-#X text 110 722 ...;
-#X text 150 722 ~;
-#X text 245 722 ... left output.;
-#X text 110 742 ...;
-#X text 150 742 ~;
-#X text 245 742 ... right output.;
-#X text 110 762 n-1\.;
-#X text 150 762 ~;
-#X text 245 762 last left output.;
-#X text 110 782 n.;
-#X text 150 782 ~;
-#X text 245 782 last right output.;
+#X text 130 614 1\.;
+#X text 170 614 ~;
+#X text 270 614 first left output.;
+#X text 130 634 2\.;
+#X text 170 634 ~;
+#X text 270 634 first right output.;
+#X text 130 654 ...;
+#X text 170 654 ~;
+#X text 270 654 ... left output.;
+#X text 130 674 ...;
+#X text 170 674 ~;
+#X text 270 674 ... right output.;
+#X text 130 694 n-1\.;
+#X text 170 694 ~;
+#X text 270 694 last left output.;
+#X text 130 714 n.;
+#X text 170 714 ~;
+#X text 270 714 last right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 832 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 835 библиотека: ceammc v0.9.8;
-#X text 363 847 смотрите также:;
-#X obj 484 847 flow.demultiplex~;
-#X obj 623 847 flow.demultiplex;
-#N canvas 10 854 400 290 info 0;
+#X obj 1 764 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 767 библиотека: ceammc v0.9.8;
+#X text 363 779 смотрите также:;
+#X obj 484 779 flow.demultiplex~;
+#X obj 623 779 flow.demultiplex;
+#N canvas 10 786 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -113,7 +113,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 854 pd info;
+#X restore 10 786 pd info;
 #X connect 5 0 10 0;
 #X connect 8 0 10 1;
 #X connect 6 0 10 2;

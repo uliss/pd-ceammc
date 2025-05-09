@@ -7,8 +7,8 @@
 #X obj 370 11 ceammc/pitch->midi;
 #X obj 526 11 pitch->midi;
 #X obj 631 11 conv.pitch2midi;
-#X obj 205 78 cnv 1 560 65 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Convert Scientific Pitch Notation to MIDI note numbers.
+#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Convert Scientific Pitch Notation to MIDI note numbers.
 SPN consist of pitch class (C \, C# \, D \, Eb etc.) and octave (0-9).
 C4 is middle C (MIDI: 60). The rest symbol is R (-1 output);
 #X obj 50 191 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -28,20 +28,20 @@ C4 is middle C (MIDI: 60). The rest symbol is R (-1 output);
 #X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 534 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 535 1\.;
-#X text 150 535 symbol:;
-#X text 245 535 Scientific Pitch Notation value.;
-#X text 150 560 list:;
-#X text 245 560 list of SPN values.;
-#X text 150 585 data:string:;
-#X text 245 585 SPN value.;
-#X text 150 610 data:mlist:;
-#X text 245 610 list SPN values.;
+#X text 130 535 1\.;
+#X text 170 535 symbol:;
+#X text 270 535 Scientific Pitch Notation value.;
+#X text 170 560 list:;
+#X text 270 560 list of SPN values.;
+#X text 170 585 data:string:;
+#X text 270 585 SPN value.;
+#X text 170 610 data:mlist:;
+#X text 270 610 list SPN values.;
 #X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 650 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 651 1\.;
-#X text 245 651 MIDI note number or -1 on Rest.;
+#X text 130 651 1\.;
+#X text 270 651 MIDI note number or -1 on Rest.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

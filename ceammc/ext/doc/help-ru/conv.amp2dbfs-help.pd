@@ -7,8 +7,8 @@
 #X obj 414 11 ceammc/amp->dbfs;
 #X obj 555 11 amp->dbfs;
 #X obj 646 11 conv.amp2dbfs;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Note: amplitude value 0 is converted to -144 db (24-bit
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Note: amplitude value 0 is converted to -144 db (24-bit
 range);
 #X obj 50 176 ui.hsl;
 #X floatatom 50 205 5 0 0 0 - - -;
@@ -20,16 +20,16 @@ range);
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 404 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 405 1\.;
-#X text 150 405 float:;
-#X text 245 405 input value.;
-#X text 150 430 list:;
-#X text 245 430 input values.;
+#X text 130 405 1\.;
+#X text 170 405 float:;
+#X text 270 405 input value.;
+#X text 170 430 list:;
+#X text 270 430 input values.;
 #X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 470 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 471 1\.;
-#X text 245 471 converted value.;
+#X text 130 471 1\.;
+#X text 270 471 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -23,67 +23,67 @@
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 352 @abstraction?;
-#X text 245 352 (только чтение) Получить 1 если холст является абстракцией.
+#X msg 130 318 @abstraction?;
+#X text 270 318 (только чтение) Получить 1 если холст является абстракцией.
 Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 394 @args?;
-#X text 245 394 (только чтение) Получить аргументы при создании холста.
+#X msg 130 360 @args?;
+#X text 270 360 (только чтение) Получить аргументы при создании холста.
 Тип: list.;
-#X msg 110 436 @dir?;
-#X text 245 436 (только чтение) Получить директория холста (только
+#X msg 130 402 @dir?;
+#X text 270 402 (только чтение) Получить директория холста (только
 если холст верхнего уровеня или абстракция). Тип: symbol. Значение
 по умолчанию: /.;
-#X msg 110 493 @height?;
-#X text 245 493 (только чтение) Получить высота холста (окна или GOP).
+#X msg 130 459 @height?;
+#X text 270 459 (только чтение) Получить высота холста (окна или GOP).
 Тип: int. Значение по умолчанию: 400\.;
-#X msg 110 535 @name?;
-#X text 245 535 (только чтение) Получить имя холста. Тип: symbol. Значение
+#X msg 130 501 @name?;
+#X text 270 501 (только чтение) Получить имя холста. Тип: symbol. Значение
 по умолчанию: test_canvas.;
-#X msg 110 577 @paths?;
-#X text 245 577 (только чтение) Получить поисковые пути у холста. Тип:
+#X msg 130 543 @paths?;
+#X text 270 543 (только чтение) Получить поисковые пути у холста. Тип:
 list.;
-#X msg 110 607 @root?;
-#X text 245 607 (только чтение) Получить 1 если холст верхнего уровня
+#X msg 130 573 @root?;
+#X text 270 573 (только чтение) Получить 1 если холст верхнего уровня
 (окно). Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 649 @width?;
-#X text 245 649 (только чтение) Получить ширина холста (окна или GOP).
+#X msg 130 615 @width?;
+#X text 270 615 (только чтение) Получить ширина холста (окна или GOP).
 Тип: int. Значение по умолчанию: 600\.;
-#X msg 110 691 @x?;
-#X text 245 691 (только чтение) Получить x-позиция холста (окна или
+#X msg 130 657 @x?;
+#X text 270 657 (только чтение) Получить x-позиция холста (окна или
 GOP). Тип: int. Значение по умолчанию: 0\.;
-#X msg 110 733 @y?;
-#X text 245 733 (только чтение) Получить y-позиция холста (окна или
+#X msg 130 699 @y?;
+#X text 270 699 (только чтение) Получить y-позиция холста (окна или
 GOP). Тип: int. Значение по умолчанию: 0\.;
-#X msg 110 775 @font?;
-#X text 245 775 (только чтение) Получить размер шрифта у холста. Тип:
+#X msg 130 741 @font?;
+#X text 270 741 (только чтение) Получить размер шрифта у холста. Тип:
 int. Значение по умолчанию: 10\.;
-#X msg 110 817 @size?;
-#X text 245 817 (только чтение) Получить размер холста. Если корневой
+#X msg 130 783 @size?;
+#X text 270 783 (только чтение) Получить размер холста. Если корневой
 холст (окно) возвращает размер окна \, если субпатч возвращает размер
 Graph on Parent. Тип: list. Значение по умолчанию: 600 400\.;
-#X obj 20 884 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 889 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 855 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 890 1\.;
-#X text 245 890 property request.;
-#X text 150 915 bang:;
-#X text 245 915 output dict with all properties.;
-#X obj 20 950 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 955 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 856 1\.;
+#X text 270 856 property request.;
+#X text 170 881 bang:;
+#X text 270 881 output dict with all properties.;
+#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 921 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 956 1\.;
-#X text 245 956 dict or property output.;
+#X text 130 922 1\.;
+#X text 270 922 dict or property output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
-#X obj 1 1006 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1009 библиотека: ceammc v0.9.8;
-#X text 459 1021 смотрите также:;
-#X obj 580 1021 patch.args;
-#X obj 667 1021 canvas.top;
-#N canvas 10 1028 400 290 info 0;
+#X obj 1 972 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 975 библиотека: ceammc v0.9.8;
+#X text 459 987 смотрите также:;
+#X obj 580 987 patch.args;
+#X obj 667 987 canvas.top;
+#N canvas 10 994 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1028 pd info;
+#X restore 10 994 pd info;
 #X connect 4 0 14 0;
 #X connect 7 0 14 0;
 #X connect 10 0 14 0;

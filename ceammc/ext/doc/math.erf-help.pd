@@ -5,10 +5,10 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.erf 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 math.erf;
-#X obj 205 78 cnv 1 560 105 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 In statistics \, for non-negative values of x \, the
+#X obj 230 78 cnv 1 535 105 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 In statistics \, for non-negative values of x \, the
 error function has the following interpretation:;
-#X text 215 123 for a random variable Y that is normally distributed
+#X text 240 123 for a random variable Y that is normally distributed
 with mean 0 and variance 1/2 \, erf x is the probability that Y falls
 in the range [−x \, x];
 #X msg 50 231 bang;
@@ -22,16 +22,16 @@ in the range [−x \, x];
 #X obj 20 403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 408 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 409 1\.;
-#X text 150 409 float:;
-#X text 245 409 input value.;
-#X text 150 434 list:;
-#X text 245 434 apply to all numeric values.;
+#X text 130 409 1\.;
+#X text 170 409 float:;
+#X text 270 409 input value.;
+#X text 170 434 list:;
+#X text 270 434 apply to all numeric values.;
 #X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 474 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 475 1\.;
-#X text 245 475 result value.;
+#X text 130 475 1\.;
+#X text 270 475 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

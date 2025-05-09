@@ -5,9 +5,9 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.tanh~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 math.tanh~;
-#X obj 205 78 cnv 1 560 59 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Outputs hyperbolic tangent of input signal;
-#X obj 215 108 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 230 78 cnv 1 535 59 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Outputs hyperbolic tangent of input signal;
+#X obj 240 108 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Hyperbolic             functions @url
 https://en.wikipedia.org/wiki/Hyperbolic_functions;
 #X obj 50 185 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -20,15 +20,15 @@ https://en.wikipedia.org/wiki/Hyperbolic_functions;
 #X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 543 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 544 1\.;
-#X text 150 544 ~;
-#X text 245 544 input signal.;
+#X text 130 544 1\.;
+#X text 170 544 ~;
+#X text 270 544 input signal.;
 #X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 584 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 585 1\.;
-#X text 150 585 ~;
-#X text 245 585 result signal.;
+#X text 130 585 1\.;
+#X text 170 585 ~;
+#X text 270 585 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

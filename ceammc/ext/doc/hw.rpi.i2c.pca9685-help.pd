@@ -7,20 +7,20 @@ for Raspberry Pi;
 -104026 -4096 0;
 #X obj 455 11 hw.rpi.pwm.pca9685;
 #X obj 610 11 hw.rpi.i2c.pca9685;
-#X obj 205 93 cnv 1 560 372 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Note: default PWM freq is 50Hz;
-#X text 215 123 *Servo Control*;
-#X text 215 148 Many digital servos run on a 20ms pulse width (50Hz
+#X obj 230 93 cnv 1 535 372 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 98 Note: default PWM freq is 50Hz;
+#X text 240 123 *Servo Control*;
+#X text 240 148 Many digital servos run on a 20ms pulse width (50Hz
 update frequency) based duty cycle \, and do not utilize the entire
 pulse width for their control;
-#X text 215 203 Typically \, 2.5% of the 20ms pulse width (0.5ms) represents
+#X text 240 203 Typically \, 2.5% of the 20ms pulse width (0.5ms) represents
 -90° offset \, and 12.5% of the 20ms pulse width (2.5ms) represents
 +90° offset;
-#X text 215 258 Be aware that driving some 180° servos too far past
+#X text 240 258 Be aware that driving some 180° servos too far past
 their -90°/+90° operational range can cause a little plastic limiter
 pin to break off and get stuck inside of the servo's gearing \, which
 could potentially cause the servo to become jammed and no longer function;
-#X text 215 359 Continuous servos operate in much the same fashion
+#X text 240 359 Continuous servos operate in much the same fashion
 as 180° servos \, but instead of the 2.5%/12.5% pulse width controlling
 a -90°/+90° offset it controls a -1x/+1x speed multiplier \, with 0x
 being parked/no-movement and -1x/+1x being maximum speed in either
@@ -42,122 +42,122 @@ ceammc://img/info_pca9685.jpg;
 -49933 0;
 #X obj 735 852 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 884 1\.;
-#X text 150 884 atom;
-#X obj 246 885 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 884 I2C_BUS: See @i2c_bus property. Allowed values: 1 \,
+#X text 130 850 1\.;
+#X text 170 850 atom;
+#X obj 271 851 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 850 I2C_BUS: See @i2c_bus property. Allowed values: 1 \,
 2 \, 3 \, 4 \, 5 \, 6 \, default \, none. Type: atom.;
-#X obj 20 929 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 934 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 895 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 900 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 937 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 903 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 969 @i2c_addr;
-#X text 245 969 (initonly) Get/Set I²C address. Also 'default' value
+#X msg 130 901 @i2c_addr;
+#X text 270 901 (initonly) Get/Set I²C address. Also 'default' value
 is accepted (for addr 0x40). Type: int. Default value: -1\. Range:
 -4\...119\.;
-#X msg 110 1026 @i2c_bus;
-#X text 245 1026 (initonly) Get/Set I²C bus. Type: atom. Default value:
+#X msg 130 958 @i2c_bus;
+#X text 270 958 (initonly) Get/Set I²C bus. Type: atom. Default value:
 none. Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
-#X obj 20 1078 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1083 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1010 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1015 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1084 const;
-#X text 245 1084 set channel constant value. Arguments are:;
-#X obj 255 1107 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1107 CHAN: device PWM channel. If equals to 16 means all
+#X msg 130 1016 const;
+#X text 270 1016 set channel constant value. Arguments are:;
+#X obj 280 1039 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1039 CHAN: device PWM channel. If equals to 16 means all
 channels. Type: int. Range: 0\...16\.;
-#X obj 255 1145 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1145 VALUE: value. Type: bool.;
-#X obj 255 1168 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1168 [DELAY]: the setting is delayed by the given phase
+#X obj 280 1077 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1077 VALUE: value. Type: bool.;
+#X obj 280 1100 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1100 [DELAY]: the setting is delayed by the given phase
 value. Type: float. Range: 0\...1\.;
-#X msg 110 1208 disable_prog_addr;
-#X text 245 1208 disable of using programmable address. Arguments are:;
-#X obj 255 1231 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1231 TYPE: prog address type. Type: atom. Allowed values:
+#X msg 130 1140 disable_prog_addr;
+#X text 270 1140 disable of using programmable address. Arguments are:;
+#X obj 280 1163 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1163 TYPE: prog address type. Type: atom. Allowed values:
 1 \, 2 \, 3 \, all.;
-#X msg 110 1271 duty;
-#X text 245 1271 set channel PWM duty cycle. Arguments are:;
-#X obj 255 1294 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1294 CHAN: device PWM channel. If equals to 16 means all
+#X msg 130 1203 duty;
+#X text 270 1203 set channel PWM duty cycle. Arguments are:;
+#X obj 280 1226 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1226 CHAN: device PWM channel. If equals to 16 means all
 channels. Type: int. Range: 0\...16\.;
-#X obj 255 1332 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1332 DUTY: duty cycle value. Type: float. Range: -1\...1\.;
-#X obj 255 1355 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1355 [PHASE]: phase offset. Type: float. Range: -1\...1\.;
-#X msg 110 1380 enable;
-#X text 245 1380 enable/disable the device. The disabled state is equal
+#X obj 280 1264 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1264 DUTY: duty cycle value. Type: float. Range: -1\...1\.;
+#X obj 280 1287 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1287 [PHASE]: phase offset. Type: float. Range: -1\...1\.;
+#X msg 130 1312 enable;
+#X text 270 1312 enable/disable the device. The disabled state is equal
 to sleep \, the device is keeping all current PWM setting \, but just
 not responds to the new settings. Arguments are:;
-#X obj 255 1433 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1433 [STATE=1]: new state. Type: bool.;
-#X msg 110 1458 enable_restart_and_disable;
-#X text 325 1458 put the controller to sleep while keeping the PWM
+#X obj 280 1365 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1365 [STATE=1]: new state. Type: bool.;
+#X msg 130 1390 enable_restart_and_disable;
+#X text 350 1390 put the controller to sleep while keeping the PWM
 register contents in preparation for a future restart.;
-#X msg 110 1498 freq;
-#X text 245 1498 set PWM frequency. Arguments are:;
-#X obj 255 1521 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1521 FREQ: new frequency. Type: float. Range: 24\...2048\.
+#X msg 130 1430 freq;
+#X text 270 1430 set PWM frequency. Arguments are:;
+#X obj 280 1453 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1453 FREQ: new frequency. Type: float. Range: 24\...2048\.
 Units: 'Hz'.;
-#X msg 110 1561 period;
-#X text 245 1561 set PWM period. Arguments are:;
-#X obj 255 1584 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1584 PERIOD: new frequency. Type: float. Range: 0.5\...40\.
+#X msg 130 1493 period;
+#X text 270 1493 set PWM period. Arguments are:;
+#X obj 280 1516 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1516 PERIOD: new frequency. Type: float. Range: 0.5\...40\.
 Units: 'ms'.;
-#X msg 110 1624 polarity;
-#X text 245 1624 set PWM inversed polarity. Applicable when OE = 0\.
+#X msg 130 1556 polarity;
+#X text 270 1556 set PWM inversed polarity. Applicable when OE = 0\.
 Arguments are:;
-#X obj 255 1662 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1662 POLARITY: polarity value: 0 - direct \, 1 - inversed.
+#X obj 280 1594 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1594 POLARITY: polarity value: 0 - direct \, 1 - inversed.
 Type: bool.;
-#X msg 110 1702 pwidth;
-#X text 245 1702 set channel PWM pulse width. Arguments are:;
-#X obj 255 1725 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1725 CHAN: device PWM channel. If equals to 16 means all
+#X msg 130 1634 pwidth;
+#X text 270 1634 set channel PWM pulse width. Arguments are:;
+#X obj 280 1657 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1657 CHAN: device PWM channel. If equals to 16 means all
 channels. Type: int. Range: 0\...16\.;
-#X obj 255 1763 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1763 WIDTH: pulse width. Type: float. Range: 0.5\...40\.
+#X obj 280 1695 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1695 WIDTH: pulse width. Type: float. Range: 0.5\...40\.
 Units: 'ms'.;
-#X obj 255 1801 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1801 [PHASE]: phase offset. Type: float. Range: 0\...1\.;
-#X msg 110 1826 restart;
-#X text 245 1826 re-enable the controller after a sleep with restart
+#X obj 280 1733 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1733 [PHASE]: phase offset. Type: float. Range: 0\...1\.;
+#X msg 130 1758 restart;
+#X text 270 1758 re-enable the controller after a sleep with restart
 enabled so that previously active PWM channels are restarted.;
-#X msg 110 1866 set_raw;
-#X text 245 1866 set channel raw PWM frequency. Arguments are:;
-#X obj 255 1889 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1889 CHAN: device PWM channel. If equals to 16 means all
+#X msg 130 1798 set_raw;
+#X text 270 1798 set channel raw PWM frequency. Arguments are:;
+#X obj 280 1821 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1821 CHAN: device PWM channel. If equals to 16 means all
 channels. Type: int. Range: 0\...16\.;
-#X obj 255 1927 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1927 ON: ON counter time value. Type: int. Range: 0\...4095\.;
-#X obj 255 1950 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1950 OFF: OFF counter time value. Type: int. Range: 0\...4095\.;
-#X msg 110 1975 use_prog_addr;
-#X text 245 1975 set and use programmable address. Arguments are:;
-#X obj 255 1998 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1998 TYPE: prog address type. Type: atom. Allowed values:
+#X obj 280 1859 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1859 ON: ON counter time value. Type: int. Range: 0\...4095\.;
+#X obj 280 1882 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1882 OFF: OFF counter time value. Type: int. Range: 0\...4095\.;
+#X msg 130 1907 use_prog_addr;
+#X text 270 1907 set and use programmable address. Arguments are:;
+#X obj 280 1930 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1930 TYPE: prog address type. Type: atom. Allowed values:
 1 \, 2 \, 3 \, all.;
-#X obj 255 2036 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2036 I2C_ADDR: new I²C address. Type: int. Range: 7\...119\.;
-#X obj 20 2071 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2076 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 280 1968 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1968 I2C_ADDR: new I²C address. Type: int. Range: 7\...119\.;
+#X obj 20 2003 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2008 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2077 1\.;
-#X text 245 2077 control input.;
-#X obj 20 2112 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2117 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 2009 1\.;
+#X text 270 2009 control input.;
+#X obj 20 2044 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2049 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2118 1\.;
-#X text 245 2118 control output.;
+#X text 130 2050 1\.;
+#X text 270 2050 control output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 2168 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2171 library: ceammc v0.9.8;
-#N canvas 10 2190 400 290 info 0;
+#X obj 1 2100 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2103 library: ceammc v0.9.8;
+#N canvas 10 2122 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -181,7 +181,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2190 pd info;
+#X restore 10 2122 pd info;
 #X connect 13 0 14 0;
 #X connect 15 0 16 0;
 #X connect 16 0 17 0;

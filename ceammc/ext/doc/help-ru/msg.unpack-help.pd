@@ -23,43 +23,43 @@
 -49933 0;
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 410 1\.;
-#X text 150 410 int;
-#X obj 246 411 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 410 N: number of outputs. Тип: int. Диапазон: 1…32;
-#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 445 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 376 1\.;
+#X text 170 376 int;
+#X obj 271 377 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 376 N: number of outputs. Тип: int. Диапазон: 1…32;
+#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 448 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 414 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 480 @n;
-#X text 245 480 (при инициализации) Получить/Установить number of outputs.
+#X msg 130 412 @n;
+#X text 270 412 (при инициализации) Получить/Установить number of outputs.
 Тип: int. Значение по умолчанию: 1\. Диапазон: 1\...32\.;
-#X obj 20 532 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 537 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 469 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 538 1\.;
-#X text 245 538 any messages.;
-#X obj 20 573 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 578 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 470 1\.;
+#X text 270 470 any messages.;
+#X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 510 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 579 1\.;
-#X text 245 579 symbol: message selector.;
-#X text 110 599 ...;
-#X text 245 599 atom: message args.;
-#X text 110 619 n+1\.;
-#X text 245 619 list: last message args.;
+#X text 130 511 1\.;
+#X text 270 511 symbol: message selector.;
+#X text 130 531 ...;
+#X text 270 531 atom: message args.;
+#X text 130 551 n+1\.;
+#X text 270 551 list: last message args.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title msg @url ceammc.msg-help.pd;
-#X obj 1 669 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 672 библиотека: ceammc v0.9.8;
-#X text 523 684 смотрите также:;
-#X obj 644 684 msg;
-#X obj 681 684 msg.pack;
-#N canvas 10 691 400 290 info 0;
+#X obj 1 601 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 604 библиотека: ceammc v0.9.8;
+#X text 523 616 смотрите также:;
+#X obj 644 616 msg;
+#X obj 681 616 msg.pack;
+#N canvas 10 623 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -83,7 +83,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 691 pd info;
+#X restore 10 623 pd info;
 #X connect 6 0 9 0;
 #X connect 11 0 13 0;
 #X connect 13 0 14 0;

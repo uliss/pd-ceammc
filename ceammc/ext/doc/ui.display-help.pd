@@ -10,8 +10,8 @@
 [ui.dt] @url ui.display-help.pd;
 #X obj 665 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.display] @url ui.display-help.pd;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 [ui.dt] is the alias for [ui.display @display_type 1];
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 [ui.dt] is the alias for [ui.display @display_type 1];
 #X msg 50 161 list a b c;
 #X msg 174 161 1;
 #X msg 213 161 symbol X;
@@ -29,108 +29,108 @@
 #X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 432 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 110 467 Left-click;
-#X text 285 467 copy the message value to the clipboard buffer.;
-#X text 110 487 Left-click + ⇧;
-#X text 285 487 copy the whole message value with selector to the clipboard
+#X text 130 467 Left-click;
+#X text 310 467 copy the message value to the clipboard buffer.;
+#X text 130 487 Left-click + ⇧;
+#X text 310 487 copy the whole message value with selector to the clipboard
 buffer.;
-#X text 110 522 Double-click;
-#X text 285 522 show/hide message type.;
-#X text 110 542 Right-click;
-#X text 285 542 open popup menu.;
-#X text 110 562 Right-click + ⇧;
-#X text 285 562 open object help.;
-#X text 110 582 Right-click + ⌥;
-#X text 285 582 open properties dialog.;
-#X text 110 602 Right-click + ⇧;
-#X text 285 602 open object help.;
-#X text 61 602 [Edit];
-#X text 110 622 Right-click + ⌥;
-#X text 285 622 open properties dialog.;
-#X text 61 622 [Edit];
+#X text 130 522 Double-click;
+#X text 310 522 show/hide message type.;
+#X text 130 542 Right-click;
+#X text 310 542 open popup menu.;
+#X text 130 562 Right-click + ⇧;
+#X text 310 562 open object help.;
+#X text 130 582 Right-click + ⌥;
+#X text 310 582 open properties dialog.;
+#X text 130 602 Right-click + ⇧;
+#X text 310 602 open object help.;
+#X text 81 602 [Edit];
+#X text 130 622 Right-click + ⌥;
+#X text 310 622 open properties dialog.;
+#X text 81 622 [Edit];
 #X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 657 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 660 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 692 @auto_size;
-#X text 245 692 Get/Set flag if automatically resize contents to feet
+#X msg 130 658 @auto_size;
+#X text 270 658 Get/Set flag if automatically resize contents to feet
 incoming message. Type: bool. Default value: 1\.;
-#X msg 110 734 @display_events;
-#X text 245 734 Get/Set flag for blinking on incoming messages. Type:
+#X msg 130 700 @display_events;
+#X text 270 700 Get/Set flag for blinking on incoming messages. Type:
 bool. Default value: 1\.;
-#X msg 110 776 @display_type;
-#X text 245 776 Get/Set flag for displaying incoming message type.
+#X msg 130 742 @display_type;
+#X text 270 742 Get/Set flag for displaying incoming message type.
 Type: bool. Default value: 0\.;
-#X msg 110 818 @float_width;
-#X text 245 818 Get/Set number of digits after floating point. If -1:
+#X msg 130 784 @float_width;
+#X text 270 784 Get/Set number of digits after floating point. If -1:
 skip trailing zeroes \, if 0 - output as integers. Type: int. Default
 value: -1\. Range: -1\...17\.;
-#X msg 110 875 @hex;
-#X text 245 875 Get/Set output integers in hex format. Type: bool.
+#X msg 130 841 @hex;
+#X text 270 841 Get/Set output integers in hex format. Type: bool.
 Default value: 0\.;
-#X msg 110 917 @hex_width;
-#X text 245 917 Get/Set hex output format width. Type: int. Default
+#X msg 130 883 @hex_width;
+#X text 270 883 Get/Set hex output format width. Type: int. Default
 value: 2\. Range: 0\...16\.;
-#X msg 110 959 @receive;
-#X text 245 959 Get/Set source of message receive. Type: symbol. Default
+#X msg 130 925 @receive;
+#X text 270 925 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 1001 @active_color;
-#X text 245 1001 Get/Set element active color (list of red \, green
+#X msg 130 967 @active_color;
+#X text 270 967 Get/Set element active color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1043 @background_color;
-#X text 245 1043 Get/Set element background color (list of red \, green
+#X msg 130 1009 @background_color;
+#X text 270 1009 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 1100 @border_color;
-#X text 245 1100 Get/Set border color (list of red \, green \, blue
+#X msg 130 1066 @border_color;
+#X text 270 1066 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1142 @text_color;
-#X text 245 1142 Get/Set text color (list of red \, green \, blue values
+#X msg 130 1108 @text_color;
+#X text 270 1108 Get/Set text color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0 0 1\.;
-#X msg 110 1184 @fontname;
-#X text 245 1184 Get/Set font name. Type: symbol. Default value: Helvetica.
+#X msg 130 1150 @fontname;
+#X text 270 1150 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1226 @fontsize;
-#X text 245 1226 Get/Set font size. Type: int. Default value: 11\.
+#X msg 130 1192 @fontsize;
+#X text 270 1192 Get/Set font size. Type: int. Default value: 11\.
 Range: 4\...100\.;
-#X msg 110 1268 @fontslant;
-#X text 245 1268 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 130 1234 @fontslant;
+#X text 270 1234 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1310 @fontweight;
-#X text 245 1310 Get/Set font weight. Type: symbol. Default value:
+#X msg 130 1276 @fontweight;
+#X text 270 1276 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1352 @pinned;
-#X text 245 1352 Get/Set pin mode. If set to 1 \, it places the element
+#X msg 130 1318 @pinned;
+#X text 270 1318 Get/Set pin mode. If set to 1 \, it places the element
 at the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
-#X msg 110 1409 @size;
-#X text 245 1409 Get/Set object size (width \, height pair). Type:
+#X msg 130 1375 @size;
+#X text 270 1375 Get/Set object size (width \, height pair). Type:
 list. Default value: 80 18\.;
-#X obj 20 1461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1466 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1432 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1467 pos;
-#X text 245 1467 set UI element position. Arguments are:;
-#X obj 255 1490 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1490 X: top left x-coord. Type: float.;
-#X obj 255 1513 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1513 Y: top right y-coord. Type: float.;
-#X obj 20 1548 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1553 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1433 pos;
+#X text 270 1433 set UI element position. Arguments are:;
+#X obj 280 1456 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1456 X: top left x-coord. Type: float.;
+#X obj 280 1479 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1479 Y: top right y-coord. Type: float.;
+#X obj 20 1514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1519 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1554 1\.;
-#X text 245 1554 accepts any messages and displays it.;
+#X text 130 1520 1\.;
+#X text 270 1520 accepts any messages and displays it.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1609 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1612 library: ceammc v0.9.8;
-#X text 643 1624 see also:;
-#X obj 718 1624 msg;
-#N canvas 10 1631 400 290 info 0;
+#X obj 1 1575 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1578 library: ceammc v0.9.8;
+#X text 643 1590 see also:;
+#X obj 718 1590 msg;
+#N canvas 10 1597 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -154,7 +154,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1631 pd info;
+#X restore 10 1597 pd info;
 #X connect 8 0 13 0;
 #X connect 9 0 13 0;
 #X connect 10 0 13 0;

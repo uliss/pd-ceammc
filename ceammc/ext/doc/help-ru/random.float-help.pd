@@ -7,15 +7,15 @@
 -4096 0;
 #X obj 572 11 random.f;
 #X obj 654 11 random.float;
-#X obj 205 93 cnv 1 560 169 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 generates a random floating-point value uniformly distributed
+#X obj 230 93 cnv 1 535 169 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 98 generates a random floating-point value uniformly distributed
 in the range [min..max);
-#X text 215 138 Use @seed property to get reproducible sequences. If
+#X text 240 138 Use @seed property to get reproducible sequences. If
 @seed property was not explicitly set or specified \, uses generator
 initialized with current time.;
-#X text 215 193 Algorithm: 32-bit Mersenne Twister by Matsumoto and
+#X text 240 193 Algorithm: 32-bit Mersenne Twister by Matsumoto and
 Nishimura \, 1998;
-#X obj 215 233 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 233 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Mersenne Twister @url
 https://en.wikipedia.org/wiki/Mersenne_Twister;
 #X obj 50 310 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -29,61 +29,61 @@ https://en.wikipedia.org/wiki/Mersenne_Twister;
 -49933 0;
 #X obj 735 455 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 487 1\.;
-#X text 150 487 list;
-#X obj 246 488 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 487 ARG: @min=ARG[0] \, @max=ARG[1] \, in case of signle
+#X text 130 453 1\.;
+#X text 170 453 list;
+#X obj 271 454 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 453 ARG: @min=ARG[0] \, @max=ARG[1] \, in case of signle
 arg: @min=0 \, @max=ARG[0]. Тип: list.;
-#X obj 20 532 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 537 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 503 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 540 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 506 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 572 @max;
-#X text 245 572 Получить/Установить random range upper bound. Тип:
+#X msg 130 504 @max;
+#X text 270 504 Получить/Установить random range upper bound. Тип:
 float. Значение по умолчанию: 1\.;
-#X msg 110 614 @min;
-#X text 245 614 Получить/Установить random range lower bound. Тип:
+#X msg 130 546 @min;
+#X text 270 546 Получить/Установить random range lower bound. Тип:
 float. Значение по умолчанию: 0\.;
-#X msg 110 656 @seed;
-#X text 245 656 Получить/Установить generator seed. Тип: int. Значение
+#X msg 130 588 @seed;
+#X text 270 588 Получить/Установить generator seed. Тип: int. Значение
 по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 713 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 640 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 645 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 714 gen;
-#X text 245 714 generate list of random floats with specified length.
+#X msg 130 646 gen;
+#X text 270 646 generate list of random floats with specified length.
 Аргументы:;
-#X obj 255 752 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 752 N: list length. Тип: int. Минимальное значение: 1\.;
-#X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 792 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 280 684 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 684 N: list length. Тип: int. Минимальное значение: 1\.;
+#X obj 20 719 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 724 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 793 1\.;
-#X text 150 793 bang:;
-#X text 245 793 generate new number.;
-#X text 110 818 2\.;
-#X text 150 818 float:;
-#X text 245 818 set @min property.;
-#X text 110 843 3\.;
-#X text 150 843 float:;
-#X text 245 843 set @max property.;
-#X obj 20 878 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 883 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 725 1\.;
+#X text 170 725 bang:;
+#X text 270 725 generate new number.;
+#X text 130 750 2\.;
+#X text 170 750 float:;
+#X text 270 750 set @min property.;
+#X text 130 775 3\.;
+#X text 170 775 float:;
+#X text 270 775 set @max property.;
+#X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 815 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 884 1\.;
-#X text 245 884 float ot list: result value.;
+#X text 130 816 1\.;
+#X text 270 816 float ot list: result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 934 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 937 библиотека: ceammc v0.9.8;
-#X text 447 949 смотрите также:;
-#X obj 568 949 random.int;
-#X obj 654 949 random.gauss;
-#N canvas 10 956 400 290 info 0;
+#X obj 1 866 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 869 библиотека: ceammc v0.9.8;
+#X text 447 881 смотрите также:;
+#X obj 568 881 random.int;
+#X obj 654 881 random.gauss;
+#N canvas 10 888 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 956 pd info;
+#X restore 10 888 pd info;
 #X connect 10 0 13 0;
 #X connect 11 0 13 0;
 #X connect 12 0 13 0;

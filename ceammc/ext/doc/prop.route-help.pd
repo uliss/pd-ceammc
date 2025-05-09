@@ -11,8 +11,8 @@
 #X obj 30 154 ceammc/@->;
 #X restore 570 11 pd aliases;
 #X obj 667 11 prop.route;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Extracts properties from data stream with matching.
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Extracts properties from data stream with matching.
 Non property values are passed untouched;
 #X msg 146 176 any value;
 #X floatatom 50 205 5 0 0 0 - - -;
@@ -28,20 +28,20 @@ Non property values are passed untouched;
 #X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 433 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 434 1\.;
-#X text 150 434 any:;
-#X text 245 434 input values.;
+#X text 130 434 1\.;
+#X text 170 434 any:;
+#X text 270 434 input values.;
 #X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 474 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 475 1\.;
-#X text 245 475 passed values.;
-#X text 110 495 2\.;
-#X text 245 495 first matched property value (without property selector).;
-#X text 110 515 ...;
-#X text 245 515 others matched property value.;
-#X text 110 535 n.;
-#X text 245 535 unmatched property output (with selector).;
+#X text 130 475 1\.;
+#X text 270 475 passed values.;
+#X text 130 495 2\.;
+#X text 270 495 first matched property value (without property selector).;
+#X text 130 515 ...;
+#X text 270 515 others matched property value.;
+#X text 130 535 n.;
+#X text 270 535 unmatched property output (with selector).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

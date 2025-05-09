@@ -7,23 +7,23 @@
 #X obj 382 11 hoa.2d.process~;
 #X obj 517 11 hoa.3d.process~;
 #X obj 652 11 hoa.process~;
-#X obj 205 78 cnv 1 560 374 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 hoa.process~ helps the modularization of patches for
+#X obj 230 78 cnv 1 535 374 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 hoa.process~ helps the modularization of patches for
 ambisonic or plane waves processing.;
-#X text 215 123 hoa.process~ is a kind of poly~ object particulary
+#X text 240 123 hoa.process~ is a kind of poly~ object particulary
 suitable for multichannel ambisonic or plane wave processing. Create
 a patch/effect/operator \, then parallelize it with the hoa.process~;
-#X text 215 208 Target selector examples:;
-#X text 215 233 #* send to all instances;
-#X text 215 258 #: send list values spreaded amoung all instances \,
+#X text 240 208 Target selector examples:;
+#X text 240 233 #* send to all instances;
+#X text 240 258 #: send list values spreaded amoung all instances \,
 one value per instance;
-#X text 215 298 #:2 send list values spreaded amoung instances with
+#X text 240 298 #:2 send list values spreaded amoung instances with
 id>=2;
-#X text 215 323 #1 send to second instance;
-#X text 215 348 #<2 send to instance #0 and #1;
-#X text 215 373 #>2 send to instances with id>2;
-#X text 215 398 #2-4 send to instances with id in [2 \, 4] range;
-#X obj 215 423 ui.link @background_color 0.98039 0.98039 0.98039
+#X text 240 323 #1 send to second instance;
+#X text 240 348 #<2 send to instance #0 and #1;
+#X text 240 373 #>2 send to instances with id>2;
+#X text 240 398 #2-4 send to instances with id in [2 \, 4] range;
+#X obj 240 423 ui.link @background_color 0.98039 0.98039 0.98039
 @title CICM documentation @url hoa/hoa.2d.process~-help.pd;
 #X obj 50 500 hoa/hoa.soundrone;
 #X obj 280 500 phasor~ 0.15;
@@ -54,95 +54,95 @@ id>=2;
 #X obj 20 1213 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1218 cnv 5 115 25 empty empty mouse_events: 4 12 0 14
 -262144 -49933 0;
-#X text 110 1253 Left-click;
-#X text 285 1253 open process patch window.;
+#X text 130 1253 Left-click;
+#X text 310 1253 open process patch window.;
 #X obj 20 1283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1288 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 1291 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 1323 1\.;
-#X text 150 1323 int;
-#X obj 246 1324 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 1323 N: the order of decomposition. Type: int. Min value:
+#X text 130 1289 1\.;
+#X text 170 1289 int;
+#X obj 271 1290 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1289 N: the order of decomposition. Type: int. Min value:
 0;
-#X text 110 1343 2\.;
-#X text 150 1343 symbol;
-#X obj 246 1344 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 1343 PATCH: patch name. Type: symbol.;
-#X text 110 1363 3\.;
-#X text 150 1363 symbol;
-#X obj 246 1364 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 1363 DOMAIN: process domain: harmonics or planewaves. Allowed
+#X text 130 1309 2\.;
+#X text 170 1309 symbol;
+#X obj 271 1310 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1309 PATCH: patch name. Type: symbol.;
+#X text 130 1329 3\.;
+#X text 170 1329 symbol;
+#X obj 271 1330 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1329 DOMAIN: process domain: harmonics or planewaves. Allowed
 values: harmonics \, planewaves. Type: symbol.;
-#X text 110 1398 4\.;
-#X text 150 1398 list;
-#X obj 246 1399 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 1398 ARGS: instance arguments. Type: list.;
-#X obj 20 1428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1433 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 1364 4\.;
+#X text 170 1364 list;
+#X obj 271 1365 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1364 ARGS: instance arguments. Type: list.;
+#X obj 20 1394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1399 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 1436 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 1402 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 1468 @args;
-#X text 245 1468 (initonly) Get/Set arguments passed to instances.
+#X msg 130 1400 @args;
+#X text 270 1400 (initonly) Get/Set arguments passed to instances.
 Type: list.;
-#X msg 110 1498 @domain;
-#X text 245 1498 (initonly) Get/Set process domain: harmonics or planewaves.
+#X msg 130 1430 @domain;
+#X text 270 1430 (initonly) Get/Set process domain: harmonics or planewaves.
 Type: symbol. Default value: harmonics. Allowed values: harmonics \,
 planewaves.;
-#X msg 110 1555 @n;
-#X text 245 1555 (initonly) Get/Set the order of decomposition/number
+#X msg 130 1487 @n;
+#X text 270 1487 (initonly) Get/Set the order of decomposition/number
 of planewaves. Type: int. Default value: 0\. Range: 0\...63\.;
-#X msg 110 1597 @patch;
-#X text 245 1597 (initonly) Get/Set patch name. Type: symbol.;
-#X obj 20 1637 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1642 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 1529 @patch;
+#X text 270 1529 (initonly) Get/Set patch name. Type: symbol.;
+#X obj 20 1569 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1574 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1643 on;
-#X text 245 1643 switch on/off DSP instance processing. Usage: on all
+#X msg 130 1575 on;
+#X text 270 1575 switch on/off DSP instance processing. Usage: on all
 0|1 - turn on/off all instances \, on IDX 0|1 - turn on/off specified
 instance.;
-#X msg 110 1698 open;
-#X text 245 1698 open Pd window for specified instance. Arguments are:;
-#X obj 255 1721 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1721 IDX: instance index. Type: int.;
-#X msg 110 1746 dump;
-#X text 245 1746 dumps all object info to Pd console window.;
-#X obj 20 1784 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1789 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1630 open;
+#X text 270 1630 open Pd window for specified instance. Arguments are:;
+#X obj 280 1653 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1653 IDX: instance index. Type: int.;
+#X msg 130 1678 dump;
+#X text 270 1678 dumps all object info to Pd console window.;
+#X obj 20 1716 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1721 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1790 1\.;
-#X text 150 1790 ~;
-#X text 245 1790 first input harmonic/planewave.;
-#X text 110 1815 ...;
-#X text 150 1815 ~;
-#X text 245 1815 ... input harmonic/planewave.;
-#X text 110 1840 n.;
-#X text 150 1840 ~;
-#X text 245 1840 n-th input harmonic/planewave.;
-#X obj 20 1875 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1880 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1722 1\.;
+#X text 170 1722 ~;
+#X text 270 1722 first input harmonic/planewave.;
+#X text 130 1747 ...;
+#X text 170 1747 ~;
+#X text 270 1747 ... input harmonic/planewave.;
+#X text 130 1772 n.;
+#X text 170 1772 ~;
+#X text 270 1772 n-th input harmonic/planewave.;
+#X obj 20 1807 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1812 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1881 1\.;
-#X text 150 1881 ~;
-#X text 245 1881 first harmonic/planewave output.;
-#X text 110 1901 ...;
-#X text 150 1901 ~;
-#X text 245 1901 ... harmonic/planewave output.;
-#X text 110 1921 n.;
-#X text 150 1921 ~;
-#X text 245 1921 n-th harmonic/planewave output.;
+#X text 130 1813 1\.;
+#X text 170 1813 ~;
+#X text 270 1813 first harmonic/planewave output.;
+#X text 130 1833 ...;
+#X text 170 1833 ~;
+#X text 270 1833 ... harmonic/planewave output.;
+#X text 130 1853 n.;
+#X text 170 1853 ~;
+#X text 270 1853 n-th harmonic/planewave output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1971 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1974 library: ceammc v0.9.8;
-#X text 555 1986 see also:;
-#X obj 630 1986 hoa.2d.decoder~;
-#N canvas 10 1993 400 290 info 0;
+#X obj 1 1903 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1906 library: ceammc v0.9.8;
+#X text 555 1918 see also:;
+#X obj 630 1918 hoa.2d.decoder~;
+#N canvas 10 1925 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -167,7 +167,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1993 pd info;
+#X restore 10 1925 pd info;
 #X connect 18 0 21 0;
 #X connect 19 0 22 0;
 #X connect 21 0 23 0;

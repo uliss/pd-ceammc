@@ -22,54 +22,54 @@
 -49933 0;
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 410 1\.;
-#X text 150 410 symbol;
-#X obj 246 411 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 410 TYPE: routed data type name (optional). Тип: symbol.;
-#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 445 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 376 1\.;
+#X text 170 376 symbol;
+#X obj 271 377 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 376 TYPE: routed data type name (optional). Тип: symbol.;
+#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 448 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 414 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 480 @type;
-#X text 245 480 (при инициализации) Получить/Установить routed data
+#X msg 130 412 @type;
+#X text 270 412 (при инициализации) Получить/Установить routed data
 type name. Тип: symbol.;
-#X obj 20 532 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 537 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 469 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 538 1\.;
-#X text 150 538 data:;
-#X text 245 538 data to *first* outlet.;
-#X text 150 563 any:;
-#X text 245 563 any to second outlet.;
-#X text 150 588 bang:;
-#X text 245 588 bang to second outlet.;
-#X text 150 613 float:;
-#X text 245 613 float to second outlet.;
-#X text 150 638 list:;
-#X text 245 638 list to second outlet.;
-#X text 150 663 symbol:;
-#X text 245 663 symbol to second outlet.;
-#X obj 20 698 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 703 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 470 1\.;
+#X text 170 470 data:;
+#X text 270 470 data to *first* outlet.;
+#X text 170 495 any:;
+#X text 270 495 any to second outlet.;
+#X text 170 520 bang:;
+#X text 270 520 bang to second outlet.;
+#X text 170 545 float:;
+#X text 270 545 float to second outlet.;
+#X text 170 570 list:;
+#X text 270 570 list to second outlet.;
+#X text 170 595 symbol:;
+#X text 270 595 symbol to second outlet.;
+#X obj 20 630 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 635 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 704 1\.;
-#X text 245 704 data output.;
-#X text 110 724 2\.;
-#X text 245 724 other messages.;
+#X text 130 636 1\.;
+#X text 270 636 data output.;
+#X text 130 656 2\.;
+#X text 270 656 other messages.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 774 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 777 библиотека: ceammc v0.9.8;
-#X text 272 789 смотрите также:;
-#X obj 393 789 route.float;
-#X obj 487 789 route.list;
-#X obj 573 789 route.random;
-#X obj 675 789 route.any;
-#N canvas 10 796 400 290 info 0;
+#X obj 1 706 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 709 библиотека: ceammc v0.9.8;
+#X text 272 721 смотрите также:;
+#X obj 393 721 route.float;
+#X obj 487 721 route.list;
+#X obj 573 721 route.random;
+#X obj 675 721 route.any;
+#N canvas 10 728 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -93,7 +93,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 796 pd info;
+#X restore 10 728 pd info;
 #X connect 5 0 7 0;
 #X connect 12 0 13 0;
 #X connect 12 1 14 0;

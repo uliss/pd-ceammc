@@ -22,49 +22,49 @@
 -49933 0;
 #X obj 735 302 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 334 1\.;
-#X text 150 334 int;
-#X obj 246 335 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 334 N: number of multiplexed inputs. Тип: int. Диапазон:
+#X text 130 300 1\.;
+#X text 170 300 int;
+#X obj 271 301 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 300 N: number of multiplexed inputs. Тип: int. Диапазон:
 2…24;
-#X text 110 354 2\.;
-#X text 150 354 int;
-#X obj 246 355 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 354 INDEX: default input index. Тип: int. Диапазон: 0…23;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 389 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 320 2\.;
+#X text 170 320 int;
+#X obj 271 321 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 320 INDEX: default input index. Тип: int. Диапазон: 0…23;
+#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 355 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 358 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 424 @index;
-#X text 245 424 Получить/Установить input index \, can be set only
+#X msg 130 356 @index;
+#X text 270 356 Получить/Установить input index \, can be set only
 with [prop.set] object or via rightmost inlet. Тип: int. Значение по
 умолчанию: 0\. Диапазон: 0\...23\.;
-#X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 496 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 428 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 497 1\.;
-#X text 245 497 multiplexer first inlet.;
-#X text 110 522 n.;
-#X text 245 522 multiplexer N-th inlet.;
-#X text 110 547 n+1\.;
-#X text 150 547 int:;
-#X text 245 547 set input index.;
-#X obj 20 582 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 587 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 429 1\.;
+#X text 270 429 multiplexer first inlet.;
+#X text 130 454 n.;
+#X text 270 454 multiplexer N-th inlet.;
+#X text 130 479 n+1\.;
+#X text 170 479 int:;
+#X text 270 479 set input index.;
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 519 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 588 1\.;
-#X text 245 588 output.;
+#X text 130 520 1\.;
+#X text 270 520 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 638 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 641 библиотека: ceammc v0.9.8;
-#X text 502 653 смотрите также:;
-#X obj 623 653 flow.demultiplex;
-#N canvas 10 660 400 290 info 0;
+#X obj 1 570 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 573 библиотека: ceammc v0.9.8;
+#X text 502 585 смотрите также:;
+#X obj 623 585 flow.demultiplex;
+#N canvas 10 592 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -88,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 660 pd info;
+#X restore 10 592 pd info;
 #X connect 5 0 7 0;
 #X connect 7 0 14 0;
 #X connect 10 0 14 0;

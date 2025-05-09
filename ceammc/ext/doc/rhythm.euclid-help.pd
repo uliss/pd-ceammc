@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty rhythm.euclid 20 20 0 20 -104026
 -4096 0;
 #X obj 647 11 rhythm.euclid;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Note: fast Bresenham algorithm is used;
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Note: fast Bresenham algorithm is used;
 #X obj 50 161 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X msg 88 161 3 5 1;
@@ -22,62 +22,62 @@
 -49933 0;
 #X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 424 1\.;
-#X text 150 424 int;
-#X obj 246 425 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 424 BEATS: number of beats inside the sequence. Type: int.
+#X text 130 390 1\.;
+#X text 170 390 int;
+#X obj 271 391 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 390 BEATS: number of beats inside the sequence. Type: int.
 Range: 0\...8192;
-#X text 110 459 2\.;
-#X text 150 459 int;
-#X obj 246 460 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 459 N: the whole sequence length. Type: int. Range: 1\...8192;
-#X text 110 479 3\.;
-#X text 150 479 int;
-#X obj 246 480 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 479 OFFSET: sequence offset. Type: int.;
-#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 514 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 425 2\.;
+#X text 170 425 int;
+#X obj 271 426 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 425 N: the whole sequence length. Type: int. Range: 1\...8192;
+#X text 130 445 3\.;
+#X text 170 445 int;
+#X obj 271 446 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 445 OFFSET: sequence offset. Type: int.;
+#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 480 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 517 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 483 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 549 @beats;
-#X text 245 549 Get/Set number of beats inside the sequence. Type:
+#X msg 130 481 @beats;
+#X text 270 481 Get/Set number of beats inside the sequence. Type:
 int. Default value: 3\. Range: 0\...8192\.;
-#X msg 110 591 @n;
-#X text 245 591 Get/Set the whole sequence length. Type: int. Default
+#X msg 130 523 @n;
+#X text 270 523 Get/Set the whole sequence length. Type: int. Default
 value: 8\. Range: 1\...8192\.;
-#X msg 110 633 @offset;
-#X text 245 633 Get/Set sequence offset. Type: int. Default value:
+#X msg 130 565 @offset;
+#X text 270 565 Get/Set sequence offset. Type: int. Default value:
 0\.;
-#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 678 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 610 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 679 1\.;
-#X text 150 679 bang:;
-#X text 245 679 output generated sequence.;
-#X text 150 704 int:;
-#X text 245 704 set number of beats in the sequence.;
-#X text 150 729 list:;
-#X text 245 729 list: BEATS LENGTH OFFSET?.;
-#X text 110 754 2\.;
-#X text 150 754 int:;
-#X text 245 754 set sequence lenghth.;
-#X text 110 779 3\.;
-#X text 150 779 int:;
-#X text 245 779 set sequence offset.;
-#X obj 20 814 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 819 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 611 1\.;
+#X text 170 611 bang:;
+#X text 270 611 output generated sequence.;
+#X text 170 636 int:;
+#X text 270 636 set number of beats in the sequence.;
+#X text 170 661 list:;
+#X text 270 661 list: BEATS LENGTH OFFSET?.;
+#X text 130 686 2\.;
+#X text 170 686 int:;
+#X text 270 686 set sequence lenghth.;
+#X text 130 711 3\.;
+#X text 170 711 int:;
+#X text 270 711 set sequence offset.;
+#X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 751 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 820 1\.;
-#X text 245 820 converted value.;
+#X text 130 752 1\.;
+#X text 270 752 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title music @url ceammc.music-help.pd;
-#X obj 1 870 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 873 library: ceammc v0.9.8;
-#N canvas 10 892 400 290 info 0;
+#X obj 1 802 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 805 library: ceammc v0.9.8;
+#N canvas 10 824 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -101,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 892 pd info;
+#X restore 10 824 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 9 0;
 #X connect 6 0 10 0;

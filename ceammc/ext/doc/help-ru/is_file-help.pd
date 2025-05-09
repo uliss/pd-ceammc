@@ -6,8 +6,8 @@
 0;
 #X obj 562 11 ceammc/is_file;
 #X obj 689 11 is_file;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 If relative path is given file searched under patch
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 If relative path is given file searched under patch
 directory;
 #X msg 50 161 symbol is_file-help.pd;
 #X msg 88 190 symbol not-exists;
@@ -16,17 +16,17 @@ directory;
 #X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 285 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 286 1\.;
-#X text 150 286 symbol:;
-#X text 245 286 outputs '1' if file exists and can be opened \, otherwise
+#X text 130 286 1\.;
+#X text 170 286 symbol:;
+#X text 270 286 outputs '1' if file exists and can be opened \, otherwise
 '0'.;
 #X obj 20 321 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 326 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 327 1\.;
-#X text 245 327 0 or 1\.;
-#X text 110 347 2\.;
-#X text 245 347 symbol os String: pass filename if file exists.;
+#X text 130 327 1\.;
+#X text 270 327 0 or 1\.;
+#X text 130 347 2\.;
+#X text 270 347 symbol os String: pass filename if file exists.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -19,52 +19,52 @@
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 352 @maxsize;
-#X text 245 352 Получить/Установить max impulse response size. Тип:
+#X msg 130 318 @maxsize;
+#X text 270 318 Получить/Установить max impulse response size. Тип:
 int. Единицы: 'samp'. Значение по умолчанию: 50000\. Диапазон: 0\...300000\.;
-#X msg 110 409 @norm;
-#X text 245 409 Получить/Установить normalize impulse response. Тип:
+#X msg 130 375 @norm;
+#X text 270 375 Получить/Установить normalize impulse response. Тип:
 bool. Значение по умолчанию: 1\.;
-#X msg 110 451 @offset;
-#X text 245 451 Получить/Установить impulse response (IR) offset. Тип:
+#X msg 130 417 @offset;
+#X text 270 417 Получить/Установить impulse response (IR) offset. Тип:
 int. Единицы: 'samp'. Значение по умолчанию: 0\. Минимальное значение:
 0\.;
-#X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 523 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 489 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 524 load_array;
-#X text 245 524 load IR from array. Аргументы:;
-#X obj 255 547 cnv 1 46 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 547 ARRAY: array name. Тип: symbol.;
-#X msg 110 572 load_file;
-#X text 245 572 load IR from specified file (resamples if required
+#X msg 130 490 load_array;
+#X text 270 490 load IR from array. Аргументы:;
+#X obj 280 513 cnv 1 46 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 513 ARRAY: array name. Тип: symbol.;
+#X msg 130 538 load_file;
+#X text 270 538 load IR from specified file (resamples if required
 from file samplerate to runtime samplerate). Аргументы:;
-#X obj 255 610 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 610 FILE: file name \, relative or absolute. Тип: atom.;
-#X msg 110 635 set;
-#X text 245 635 set IR from list. Аргументы:;
-#X obj 255 658 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 658 LIST: IR data. Тип: float.;
-#X obj 20 693 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 698 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 280 576 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 576 FILE: file name \, relative or absolute. Тип: atom.;
+#X msg 130 601 set;
+#X text 270 601 set IR from list. Аргументы:;
+#X obj 280 624 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 624 LIST: IR data. Тип: float.;
+#X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 664 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 699 1\.;
-#X text 150 699 ~;
-#X text 245 699 input signal.;
-#X obj 20 734 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 739 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 665 1\.;
+#X text 170 665 ~;
+#X text 270 665 input signal.;
+#X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 705 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 740 1\.;
-#X text 150 740 ~;
-#X text 245 740 output signal.;
+#X text 130 706 1\.;
+#X text 170 706 ~;
+#X text 270 706 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 790 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 793 библиотека: ceammc v0.9.8;
-#N canvas 10 812 400 290 info 0;
+#X obj 1 756 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 759 библиотека: ceammc v0.9.8;
+#N canvas 10 778 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -88,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 812 pd info;
+#X restore 10 778 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;

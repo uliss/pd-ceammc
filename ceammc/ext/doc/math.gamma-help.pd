@@ -5,9 +5,9 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.gamma 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 math.gamma;
-#X obj 205 78 cnv 1 560 60 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Extension of factorial function to real numbers;
-#X text 215 108 For any positive integer n \, Γ(n) = (n−1)!;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Extension of factorial function to real numbers;
+#X text 240 108 For any positive integer n \, Γ(n) = (n−1)!;
 #X msg 50 186 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array GAMMA 161 float 0;
@@ -23,16 +23,16 @@
 #X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 428 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 429 1\.;
-#X text 150 429 float:;
-#X text 245 429 input value.;
-#X text 150 454 list:;
-#X text 245 454 apply to all numeric values.;
+#X text 130 429 1\.;
+#X text 170 429 float:;
+#X text 270 429 input value.;
+#X text 170 454 list:;
+#X text 270 454 apply to all numeric values.;
 #X obj 20 489 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 494 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 495 1\.;
-#X text 245 495 result value or list.;
+#X text 130 495 1\.;
+#X text 270 495 result value or list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

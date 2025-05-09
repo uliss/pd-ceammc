@@ -23,54 +23,54 @@
 -49933 0;
 #X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 424 1\.;
-#X text 150 424 float;
-#X obj 246 425 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 424 BASE(semitone): base pitch. Тип: float. Диапазон: 10…100;
-#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 459 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 390 1\.;
+#X text 170 390 float;
+#X obj 271 391 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 390 BASE(semitone): base pitch. Тип: float. Диапазон: 10…100;
+#X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 425 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 462 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 428 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 494 @n;
-#X text 245 494 (при инициализации) Получить/Установить number of bands.
+#X msg 130 426 @n;
+#X text 270 426 (при инициализации) Получить/Установить number of bands.
 Тип: int. Значение по умолчанию: 5\.;
-#X msg 110 536 @ampexp;
-#X text 245 536 Получить/Установить amplitude exponent. Тип: float.
+#X msg 130 468 @ampexp;
+#X text 270 468 Получить/Установить amplitude exponent. Тип: float.
 Значение по умолчанию: 2\.;
-#X msg 110 578 @base;
-#X text 245 578 Получить/Установить base pitch. Тип: float. Единицы:
+#X msg 130 510 @base;
+#X text 270 510 Получить/Установить base pitch. Тип: float. Единицы:
 'semitone'. Значение по умолчанию: 60\. Диапазон: 10\...100\.;
-#X msg 110 620 @interval;
-#X text 245 620 Получить/Установить interval between bands. Тип: float.
+#X msg 130 552 @interval;
+#X text 270 552 Получить/Установить interval between bands. Тип: float.
 Единицы: 'semitone'. Значение по умолчанию: 12\.;
-#X msg 110 662 @shift;
-#X text 245 662 Получить/Установить band shift in octaves. Тип: float.
+#X msg 130 594 @shift;
+#X text 270 594 Получить/Установить band shift in octaves. Тип: float.
 Значение по умолчанию: 0\.;
-#X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 719 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 646 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 651 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 740 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 745 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 677 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 746 1\.;
-#X text 150 746 float:;
-#X text 245 746 glissando phase.;
-#X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 786 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 678 1\.;
+#X text 170 678 float:;
+#X text 270 678 glissando phase.;
+#X obj 20 713 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 718 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 787 1\.;
-#X text 245 787 list of midi pitches.;
-#X text 110 807 2\.;
-#X text 245 807 list of amplitudes.;
+#X text 130 719 1\.;
+#X text 270 719 list of midi pitches.;
+#X text 130 739 2\.;
+#X text 270 739 list of amplitudes.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 857 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 860 библиотека: ceammc v0.9.8;
-#N canvas 10 879 400 290 info 0;
+#X obj 1 789 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 792 библиотека: ceammc v0.9.8;
+#N canvas 10 811 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -94,7 +94,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 879 pd info;
+#X restore 10 811 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 8 0;
 #X connect 6 0 9 0;

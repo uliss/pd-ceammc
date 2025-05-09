@@ -16,45 +16,45 @@
 -49933 0;
 #X obj 735 306 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 338 1\.;
-#X text 150 338 list;
-#X obj 246 339 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 338 ARGS: list of rejected values. Тип: list.;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 304 1\.;
+#X text 170 304 list;
+#X obj 271 305 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 304 ARGS: list of rejected values. Тип: list.;
+#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 339 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 342 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 408 @args;
-#X text 245 408 Получить/Установить list of rejected values. Тип: list.;
-#X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 453 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 340 @args;
+#X text 270 340 Получить/Установить list of rejected values. Тип: list.;
+#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 385 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 454 1\.;
-#X text 150 454 float:;
-#X text 245 454 input float.;
-#X text 150 479 symbol:;
-#X text 245 479 input symbol.;
-#X text 150 504 list:;
-#X text 245 504 input list.;
-#X text 150 529 data:mlist:;
-#X text 245 529 input mlist.;
-#X text 110 554 2\.;
-#X text 150 554 list:;
-#X text 245 554 set rejected values.;
-#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 594 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 386 1\.;
+#X text 170 386 float:;
+#X text 270 386 input float.;
+#X text 170 411 symbol:;
+#X text 270 411 input symbol.;
+#X text 170 436 list:;
+#X text 270 436 input list.;
+#X text 170 461 data:mlist:;
+#X text 270 461 input mlist.;
+#X text 130 486 2\.;
+#X text 170 486 list:;
+#X text 270 486 set rejected values.;
+#X obj 20 521 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 526 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 595 1\.;
-#X text 245 595 list without rejected elements.;
+#X text 130 527 1\.;
+#X text 270 527 list without rejected elements.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 645 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 648 библиотека: ceammc v0.9.8;
-#N canvas 10 667 400 290 info 0;
+#X obj 1 577 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 580 библиотека: ceammc v0.9.8;
+#N canvas 10 599 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -78,7 +78,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 667 pd info;
+#X restore 10 599 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
 #X connect 4 0 8 0;

@@ -15,70 +15,70 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 318 download;
-#X text 245 318 download file. Аргументы:;
-#X obj 255 341 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 341 URL: download URL. Тип: symbol.;
-#X obj 255 364 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 364 [FILE]: save filename. If not specified \, use HTTP
+#X msg 130 318 download;
+#X text 270 318 download file. Аргументы:;
+#X obj 280 341 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 341 URL: download URL. Тип: symbol.;
+#X obj 280 364 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 364 [FILE]: save filename. If not specified \, use HTTP
 document filename. Тип: symbol.;
-#X obj 255 402 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 402 [@PARAMS]: see get method parameters. Тип: list.;
-#X msg 110 427 get;
-#X text 245 427 send GET request. Аргументы:;
-#X obj 255 450 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 450 URL: request URL. Тип: symbol.;
-#X obj 255 473 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 473 [@header]: additional http header: @header NAME VALUE.
+#X obj 280 402 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 402 [@PARAMS]: see get method parameters. Тип: list.;
+#X msg 130 427 get;
+#X text 270 427 send GET request. Аргументы:;
+#X obj 280 450 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 450 URL: request URL. Тип: symbol.;
+#X obj 280 473 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 473 [@header]: additional http header: @header NAME VALUE.
 Тип: list.;
-#X obj 255 511 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 511 [@form]: form key-value pair: @form KEY VALUE. For
+#X obj 280 511 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 511 [@form]: form key-value pair: @form KEY VALUE. For
 application/x-www-form-urlencoded MIME type. Тип: list.;
-#X obj 255 549 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 549 [@auth]: basic auth username/password: @auth USER PASS.
+#X obj 280 549 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 549 [@auth]: basic auth username/password: @auth USER PASS.
 Тип: list.;
-#X obj 255 587 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 587 [@css]: apply CSS selector to the request body: @css
+#X obj 280 587 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 587 [@css]: apply CSS selector to the request body: @css
 SEL OUTPUT_TYPE \, where OUTPUT_TYPE is one of: 'html' \, 'inner' \,
 'text' \, 'href' \, 'none'. 'html' - returns selected elenent HTML
 content \, 'inner' - returns inner HTML content \, without element
 surrounding tags \, 'text' returns element text without tags \, 'href'
 - return href attribute of selected element \, 'none' - returns empty
 string. Тип: list.;
-#X obj 255 716 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 716 [@strip_ws]: replace multiple whitespaces/newlines/tabs
+#X obj 280 716 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 716 [@strip_ws]: replace multiple whitespaces/newlines/tabs
 with single space. Тип: symbol.;
-#X obj 255 754 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 754 [@json]: parse result as Json and output it as data:Dict().
+#X obj 280 754 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 754 [@json]: parse result as Json and output it as data:Dict().
 Тип: symbol.;
-#X msg 110 794 post;
-#X text 245 794 send POST request. Аргументы:;
-#X obj 255 817 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 817 URL: request URL. Тип: symbol.;
-#X obj 255 840 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 840 [@PARAMS]: see get method parameters. Тип: list.;
-#X msg 110 865 upload;
-#X text 245 865 updload file for the form. Аргументы:;
-#X obj 255 888 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 888 URL: upload URL. Тип: symbol.;
-#X obj 255 911 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 911 FILE: upload file path in the filesystem. Тип: symbol.;
-#X obj 255 934 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 934 FORM_KEY: form entry key. Тип: symbol.;
-#X obj 255 957 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 957 [@PARAMS]: see get method parameters. Тип: list.;
+#X msg 130 794 post;
+#X text 270 794 send POST request. Аргументы:;
+#X obj 280 817 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 817 URL: request URL. Тип: symbol.;
+#X obj 280 840 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 840 [@PARAMS]: see get method parameters. Тип: list.;
+#X msg 130 865 upload;
+#X text 270 865 updload file for the form. Аргументы:;
+#X obj 280 888 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 888 URL: upload URL. Тип: symbol.;
+#X obj 280 911 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 911 FILE: upload file path in the filesystem. Тип: symbol.;
+#X obj 280 934 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 934 FORM_KEY: form entry key. Тип: symbol.;
+#X obj 280 957 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 957 [@PARAMS]: see get method parameters. Тип: list.;
 #X obj 20 992 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 997 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 998 1\.;
-#X text 245 998 input.;
+#X text 130 998 1\.;
+#X text 270 998 input.;
 #X obj 20 1033 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1038 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1039 1\.;
-#X text 245 1039 int: HTTP status code.;
-#X text 110 1059 2\.;
-#X text 245 1059 data:String: HTTP body or content of selected element.;
+#X text 130 1039 1\.;
+#X text 270 1039 int: HTTP status code.;
+#X text 130 1059 2\.;
+#X text 270 1059 data:String: HTTP body or content of selected element.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

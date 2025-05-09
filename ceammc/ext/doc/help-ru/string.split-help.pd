@@ -7,8 +7,8 @@
 #X obj 451 11 str.split;
 #X obj 541 11 symbol.split;
 #X obj 653 11 string.split;
-#X obj 205 78 cnv 1 560 65 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Note: by default string or symbol splitted to list of
+#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Note: by default string or symbol splitted to list of
 data:String \, to get list of Pd symbols use @sym flag or use alias
 [symbol.split];
 #X msg 50 191 symbol A/B/C;
@@ -38,46 +38,46 @@ data:String \, to get list of Pd symbols use @sym flag or use alias
 -49933 0;
 #X obj 735 505 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 537 1\.;
-#X text 150 537 symbol;
-#X obj 246 538 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 537 SEP: separator. If nonspecified - separate by every
+#X text 130 503 1\.;
+#X text 170 503 symbol;
+#X obj 271 504 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 503 SEP: separator. If nonspecified - separate by every
 char. To separate by space - use " " argument. Тип: symbol.;
-#X obj 20 582 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 587 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 553 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 590 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 556 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 622 @sym;
-#X text 245 622 flag to output as list of Pd symbols.;
-#X msg 110 652 @sep;
-#X text 245 652 Получить/Установить separator. Тип: symbol.;
-#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 697 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 554 @sym;
+#X text 270 554 flag to output as list of Pd symbols.;
+#X msg 130 584 @sep;
+#X text 270 584 Получить/Установить separator. Тип: symbol.;
+#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 629 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 698 1\.;
-#X text 150 698 symbol:;
-#X text 245 698 input symbol.;
-#X text 150 723 data:string:;
-#X text 245 723 input symbol.;
-#X text 110 748 2\.;
-#X text 150 748 symbol:;
-#X text 245 748 set split symbol.;
-#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 788 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 630 1\.;
+#X text 170 630 symbol:;
+#X text 270 630 input symbol.;
+#X text 170 655 data:string:;
+#X text 270 655 input symbol.;
+#X text 130 680 2\.;
+#X text 170 680 symbol:;
+#X text 270 680 set split symbol.;
+#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 720 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 789 1\.;
-#X text 245 789 list of data:Strings or symbols.;
+#X text 130 721 1\.;
+#X text 270 721 list of data:Strings or symbols.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title string @url ceammc.string-help.pd;
-#X obj 1 839 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 842 библиотека: ceammc v0.9.8;
-#X text 539 854 смотрите также:;
-#X obj 660 854 string.join;
-#N canvas 10 861 400 290 info 0;
+#X obj 1 771 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 774 библиотека: ceammc v0.9.8;
+#X text 539 786 смотрите также:;
+#X obj 660 786 string.join;
+#N canvas 10 793 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 861 pd info;
+#X restore 10 793 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;
 #X connect 10 0 13 0;

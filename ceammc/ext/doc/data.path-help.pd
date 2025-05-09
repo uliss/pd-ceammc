@@ -22,66 +22,66 @@
 -49933 0;
 #X obj 735 335 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 367 1\.;
-#X text 150 367 atom;
-#X obj 246 368 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 367 PATH: See @path. Type: atom.;
-#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 402 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 333 1\.;
+#X text 170 333 atom;
+#X obj 271 334 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 333 PATH: See @path. Type: atom.;
+#X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 368 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 405 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 371 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 437 @async;
-#X text 245 437 Get/Set use async operations. Type: bool. Default value:
+#X msg 130 369 @async;
+#X text 270 369 Get/Set use async operations. Type: bool. Default value:
 1\.;
-#X msg 110 467 @norm;
-#X text 245 467 Get/Set normalize path. Type: bool. Default value:
+#X msg 130 399 @norm;
+#X text 270 399 Get/Set normalize path. Type: bool. Default value:
 1\.;
-#X msg 110 497 @path;
-#X text 245 497 Get/Set current path value. Type: atom.;
-#X obj 20 537 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 542 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 429 @path;
+#X text 270 429 Get/Set current path value. Type: atom.;
+#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 474 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 543 exists;
-#X text 245 543 checks if path exists. Output [exists VALUE( message.;
-#X msg 110 571 info;
-#X text 245 571 request path information. Output [info DICT(.;
-#X msg 110 599 permissions;
-#X text 245 599 request path permissions. Output [permissions VALUE(.;
-#X msg 110 627 size;
-#X text 245 627 request file size in bytes. Output [size BYTES(.;
-#X msg 110 655 type;
-#X text 245 655 request path type. Output [type TYPE( message \, where
+#X msg 130 475 exists;
+#X text 270 475 checks if path exists. Output [exists VALUE( message.;
+#X msg 130 503 info;
+#X text 270 503 request path information. Output [info DICT(.;
+#X msg 130 531 permissions;
+#X text 270 531 request path permissions. Output [permissions VALUE(.;
+#X msg 130 559 size;
+#X text 270 559 request file size in bytes. Output [size BYTES(.;
+#X msg 130 587 type;
+#X text 270 587 request path type. Output [type TYPE( message \, where
 type is one of: regular \, dir \, symlink \, char \, block \, fifo
 \, socket.;
-#X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 710 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 637 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 642 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 711 1\.;
-#X text 150 711 bang:;
-#X text 245 711 output current path.;
-#X text 150 736 symbol:;
-#X text 245 736 set current path and output.;
-#X text 150 761 data:;
-#X text 245 761 set current path and output.;
-#X text 110 786 2\.;
-#X text 150 786 symbol:;
-#X text 245 786 set current path and without output.;
-#X text 150 811 data:;
-#X text 245 811 set current path and without output.;
-#X obj 20 846 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 851 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 643 1\.;
+#X text 170 643 bang:;
+#X text 270 643 output current path.;
+#X text 170 668 symbol:;
+#X text 270 668 set current path and output.;
+#X text 170 693 data:;
+#X text 270 693 set current path and output.;
+#X text 130 718 2\.;
+#X text 170 718 symbol:;
+#X text 270 718 set current path and without output.;
+#X text 170 743 data:;
+#X text 270 743 set current path and without output.;
+#X obj 20 778 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 783 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 852 1\.;
-#X text 245 852 data output.;
+#X text 130 784 1\.;
+#X text 270 784 data output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 902 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 905 library: ceammc v0.9.8;
-#N canvas 10 924 400 290 info 0;
+#X obj 1 834 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 837 library: ceammc v0.9.8;
+#N canvas 10 856 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -105,7 +105,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 924 pd info;
+#X restore 10 856 pd info;
 #X connect 9 0 10 0;
 #X connect 4 0 12 0;
 #X connect 10 0 12 0;

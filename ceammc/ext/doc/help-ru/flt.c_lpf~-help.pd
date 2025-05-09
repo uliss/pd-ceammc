@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty flt.c_lpf~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 flt.c_lpf~;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Calculates coefficients for transfer function: H(z)=(b0
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Calculates coefficients for transfer function: H(z)=(b0
 + b1*z⁻¹ + b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²);
 #X obj 50 176 noise.pink~;
 #X obj 184 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -25,70 +25,70 @@
 -49933 0;
 #X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 482 1\.;
-#X text 150 482 float;
-#X obj 246 483 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 482 FREQ(Hz): center frequency. Тип: float. Диапазон: 20…20000;
-#X text 110 502 2\.;
-#X text 150 502 float;
-#X obj 246 503 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 502 Q: quality factory. Тип: float. Диапазон: 0.01…100;
-#X obj 20 532 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 537 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 448 1\.;
+#X text 170 448 float;
+#X obj 271 449 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 448 FREQ(Hz): center frequency. Тип: float. Диапазон: 20…20000;
+#X text 130 468 2\.;
+#X text 170 468 float;
+#X obj 271 469 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 468 Q: quality factory. Тип: float. Диапазон: 0.01…100;
+#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 503 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 540 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 506 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 572 @id;
-#X text 245 572 (при инициализации) Получить/Установить идентификатор
+#X msg 130 504 @id;
+#X text 270 504 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/flt_c_lpf/ИМЯ_СВОЙСТВА \, в противном
 случае к /flt_c_lpf/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 659 @osc;
-#X text 245 659 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 591 @osc;
+#X text 270 591 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 701 @active;
-#X text 245 701 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 633 @active;
+#X text 270 633 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 743 @freq;
-#X text 245 743 Получить/Установить center frequency. Тип: float. Единицы:
+#X msg 130 675 @freq;
+#X text 270 675 Получить/Установить center frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 1000\. Диапазон: 20\...20000\.;
-#X msg 110 785 @q;
-#X text 245 785 Получить/Установить quality factor: @freq/BANDWIDTH.
+#X msg 130 717 @q;
+#X text 270 717 Получить/Установить quality factor: @freq/BANDWIDTH.
 Тип: float. Значение по умолчанию: 1\. Диапазон: 0.01\...100\.;
-#X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 842 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 769 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 774 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 843 1\.;
-#X text 245 843 control signal.;
-#X obj 20 878 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 883 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 775 1\.;
+#X text 270 775 control signal.;
+#X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 815 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 884 1\.;
-#X text 150 884 ~;
-#X text 245 884 b0\.;
-#X text 110 904 2\.;
-#X text 150 904 ~;
-#X text 245 904 b1\.;
-#X text 110 924 3\.;
-#X text 150 924 ~;
-#X text 245 924 b2\.;
-#X text 110 944 4\.;
-#X text 150 944 ~;
-#X text 245 944 a1\.;
-#X text 110 964 5\.;
-#X text 150 964 ~;
-#X text 245 964 a2\.;
+#X text 130 816 1\.;
+#X text 170 816 ~;
+#X text 270 816 b0\.;
+#X text 130 836 2\.;
+#X text 170 836 ~;
+#X text 270 836 b1\.;
+#X text 130 856 3\.;
+#X text 170 856 ~;
+#X text 270 856 b2\.;
+#X text 130 876 4\.;
+#X text 170 876 ~;
+#X text 270 876 a1\.;
+#X text 130 896 5\.;
+#X text 170 896 ~;
+#X text 270 896 a2\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1014 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1017 библиотека: ceammc v0.9.8;
-#X text 449 1029 смотрите также:;
-#X obj 570 1029 flt.biquad~;
-#X obj 666 1029 flt.lpf12~;
-#N canvas 10 1036 400 290 info 0;
+#X obj 1 946 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 949 библиотека: ceammc v0.9.8;
+#X text 449 961 смотрите также:;
+#X obj 570 961 flt.biquad~;
+#X obj 666 961 flt.lpf12~;
+#N canvas 10 968 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -112,7 +112,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1036 pd info;
+#X restore 10 968 pd info;
 #X connect 6 0 10 0;
 #X connect 7 0 10 1;
 #X connect 8 0 11 0;

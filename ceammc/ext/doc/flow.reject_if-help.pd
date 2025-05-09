@@ -7,10 +7,10 @@
 #X obj 408 11 ceammc/reject_if;
 #X obj 549 11 reject_if;
 #X obj 638 11 flow.reject_if;
-#X obj 205 78 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 conditional value reject according to *predicate* object.
+#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 conditional value reject according to *predicate* object.
 *predicate* should accept value and ouput 0 or 1 \, for value passing.;
-#X text 215 138 [<] [is_even] [is_list] - examples of predicates.;
+#X text 240 138 [<] [is_even] [is_list] - examples of predicates.;
 #X floatatom 50 216 5 0 0 0 - - -;
 #X obj 50 245 flow.reject_if;
 #X obj 232 245 < 10;
@@ -18,19 +18,19 @@
 #X obj 20 306 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 311 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 312 1\.;
-#X text 245 312 input value.;
-#X text 110 337 2\.;
-#X text 150 337 int:;
-#X text 245 337 value from predicate (0 or 1). If *1* reject value
+#X text 130 312 1\.;
+#X text 270 312 input value.;
+#X text 130 337 2\.;
+#X text 170 337 int:;
+#X text 270 337 value from predicate (0 or 1). If *1* reject value
 \, if *0* - pass.;
 #X obj 20 387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 392 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 393 1\.;
-#X text 245 393 passed values.;
-#X text 110 413 2\.;
-#X text 245 413 output value to predicate.;
+#X text 130 393 1\.;
+#X text 270 393 passed values.;
+#X text 130 413 2\.;
+#X text 270 413 output value to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty hoa.@process 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 hoa.@process;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 With [hoa.@process] you can get [hoa.process~] instance
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 With [hoa.@process] you can get [hoa.process~] instance
 properties and get/set properties declared via [prop.declare];
 #X msg 50 176 open 0;
 #X msg 136 176 open 1;
@@ -32,58 +32,58 @@ properties and get/set properties declared via [prop.declare];
 -49933 0;
 #X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 554 @hdegree?;
-#X text 245 554 (только чтение) Получить current harmonic degree in
+#X msg 130 520 @hdegree?;
+#X text 270 520 (только чтение) Получить current harmonic degree in
 hoa.process~ instance (only in harmonics mode). Тип: int. Значение
 по умолчанию: 0\.;
-#X msg 110 611 @horder?;
-#X text 245 611 (только чтение) Получить current harmonic order in
+#X msg 130 577 @horder?;
+#X text 270 577 (только чтение) Получить current harmonic order in
 hoa.process~ instance (only in harmonics mode). Тип: int. Значение
 по умолчанию: 0\.;
-#X msg 110 668 @index?;
-#X text 245 668 (только чтение) Получить current instance index starting
+#X msg 130 634 @index?;
+#X text 270 634 (только чтение) Получить current instance index starting
 from 0\. Тип: int. Значение по умолчанию: 0\.;
-#X msg 110 710 @order?;
-#X text 245 710 (только чтение) Получить order of parent hoa.process~.
+#X msg 130 676 @order?;
+#X text 270 676 (только чтение) Получить order of parent hoa.process~.
 Тип: int. Значение по умолчанию: 0\.;
-#X msg 110 752 @pmode?;
-#X text 245 752 (только чтение) Получить amibisonic mode. Тип: symbol.
+#X msg 130 718 @pmode?;
+#X text 270 718 (только чтение) Получить amibisonic mode. Тип: symbol.
 Разрешённые значения: 2d \, 3d.;
-#X msg 110 794 @ptype?;
-#X text 245 794 (только чтение) Получить amibisonic type. Тип: symbol.
+#X msg 130 760 @ptype?;
+#X text 270 760 (только чтение) Получить amibisonic type. Тип: symbol.
 Разрешённые значения: harmonics \, planewaves.;
-#X msg 110 836 @total?;
-#X text 245 836 (только чтение) Получить total number of hoa.process~
+#X msg 130 802 @total?;
+#X text 270 802 (только чтение) Получить total number of hoa.process~
 instances. Тип: int. Значение по умолчанию: 0\.;
-#X obj 20 888 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 893 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 854 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 859 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 894 1\.;
-#X text 245 894 set or request properties.;
-#X text 150 919 bang:;
-#X text 245 919 if harmonics mode output list: @order @hdegree @horder
+#X text 130 860 1\.;
+#X text 270 860 set or request properties.;
+#X text 170 885 bang:;
+#X text 270 885 if harmonics mode output list: @order @hdegree @horder
 \, in planewaves: @order @index @index.;
-#X text 150 959 float:;
-#X text 245 959 pass float message thru.;
-#X text 150 984 symbol:;
-#X text 245 984 pass symbol message thru.;
-#X text 150 1009 list:;
-#X text 245 1009 pass list message thru.;
-#X obj 20 1044 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1049 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 170 925 float:;
+#X text 270 925 pass float message thru.;
+#X text 170 950 symbol:;
+#X text 270 950 pass symbol message thru.;
+#X text 170 975 list:;
+#X text 270 975 pass list message thru.;
+#X obj 20 1010 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1015 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1050 1\.;
-#X text 245 1050 outputs properties.;
+#X text 130 1016 1\.;
+#X text 270 1016 outputs properties.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1100 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1103 библиотека: ceammc v0.9.8;
-#X text 531 1115 смотрите также:;
-#X obj 652 1115 hoa.process~;
-#N canvas 10 1122 400 290 info 0;
+#X obj 1 1066 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1069 библиотека: ceammc v0.9.8;
+#X text 531 1081 смотрите также:;
+#X obj 652 1081 hoa.process~;
+#N canvas 10 1088 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -108,7 +108,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1122 pd info;
+#X restore 10 1088 pd info;
 #X connect 13 0 14 0;
 #X connect 14 0 17 0;
 #X connect 6 0 19 0;

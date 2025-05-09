@@ -28,73 +28,73 @@
 -49933 0;
 #X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 496 @resize;
-#X text 245 496 Get/Set resize the destination array on overflow. Type:
+#X msg 130 462 @resize;
+#X text 270 462 Get/Set resize the destination array on overflow. Type:
 bool. Default value: 0\.;
-#X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 553 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 519 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 554 copy SRC DEST;
-#X text 245 554 copy the whole array content. Arguments are:;
-#X obj 255 577 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 577 SRC: the source array. Type: symbol.;
-#X obj 255 600 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 600 DST: the destination array. Type: symbol.;
-#X msg 110 625 copy SRC FROM DEST;
-#X text 245 625 copy the array content from the specified position
+#X msg 130 520 copy SRC DEST;
+#X text 270 520 copy the whole array content. Arguments are:;
+#X obj 280 543 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 543 SRC: the source array. Type: symbol.;
+#X obj 280 566 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 566 DST: the destination array. Type: symbol.;
+#X msg 130 591 copy SRC FROM DEST;
+#X text 270 591 copy the array content from the specified position
 till the end. Arguments are:;
-#X obj 255 663 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 663 SRC: the source array. Type: symbol.;
-#X obj 255 686 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 686 FROM: the source array start position. Type: int.;
-#X obj 255 709 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 709 DEST: the destination array. Type: symbol.;
-#X msg 110 734 copy SRC FROM TO DEST;
-#X text 275 734 copy the array content from the specified range. Arguments
+#X obj 280 629 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 629 SRC: the source array. Type: symbol.;
+#X obj 280 652 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 652 FROM: the source array start position. Type: int.;
+#X obj 280 675 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 675 DEST: the destination array. Type: symbol.;
+#X msg 130 700 copy SRC FROM TO DEST;
+#X text 300 700 copy the array content from the specified range. Arguments
 are:;
-#X obj 255 772 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 772 SRC: the source array. Type: symbol.;
-#X obj 255 795 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 795 FROM: the source start range. Type: int.;
-#X obj 255 818 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 818 TO: the source end range. Type: int.;
-#X obj 255 841 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 841 DEST: the destination array. Type: symbol.;
-#X msg 110 866 copy SRC FROM TO DEST DEST_START;
-#X text 385 866 copy the array content from the specified range and
+#X obj 280 738 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 738 SRC: the source array. Type: symbol.;
+#X obj 280 761 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 761 FROM: the source start range. Type: int.;
+#X obj 280 784 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 784 TO: the source end range. Type: int.;
+#X obj 280 807 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 807 DEST: the destination array. Type: symbol.;
+#X msg 130 832 copy SRC FROM TO DEST DEST_START;
+#X text 410 832 copy the array content from the specified range and
 to the specified destination position. Arguments are:;
-#X obj 255 904 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 904 SRC: the source array. Type: symbol.;
-#X obj 255 927 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 927 FROM: the source start range. Type: int.;
-#X obj 255 950 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 950 TO: the source end range. Type: int.;
-#X obj 255 973 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 973 DEST: the destination array. Type: symbol.;
-#X obj 255 996 cnv 1 75 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 996 DEST_FROM: the destination start position. Type: int.;
-#X obj 20 1031 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1036 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 280 870 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 870 SRC: the source array. Type: symbol.;
+#X obj 280 893 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 893 FROM: the source start range. Type: int.;
+#X obj 280 916 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 916 TO: the source end range. Type: int.;
+#X obj 280 939 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 939 DEST: the destination array. Type: symbol.;
+#X obj 280 962 cnv 1 75 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 962 DEST_FROM: the destination start position. Type: int.;
+#X obj 20 997 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1002 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1037 1\.;
-#X text 150 1037 list:;
-#X text 245 1037 FROM TO - copy data from the one array to another.;
-#X obj 20 1072 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1077 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1003 1\.;
+#X text 170 1003 list:;
+#X text 270 1003 FROM TO - copy data from the one array to another.;
+#X obj 20 1038 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1043 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1078 1\.;
-#X text 150 1078 bang:;
-#X text 245 1078 on done.;
+#X text 130 1044 1\.;
+#X text 170 1044 bang:;
+#X text 270 1044 on done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1128 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1131 library: ceammc v0.9.8;
-#X text 592 1143 see also:;
-#X obj 667 1143 array.each;
-#N canvas 10 1150 400 290 info 0;
+#X obj 1 1094 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1097 library: ceammc v0.9.8;
+#X text 592 1109 see also:;
+#X obj 667 1109 array.each;
+#N canvas 10 1116 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -118,7 +118,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1150 pd info;
+#X restore 10 1116 pd info;
 #X connect 8 0 10 0;
 #X connect 6 0 10 0;
 #X connect 9 0 10 0;

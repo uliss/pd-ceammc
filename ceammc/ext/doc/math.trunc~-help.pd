@@ -5,10 +5,10 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.trunc~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 math.trunc~;
-#X obj 205 78 cnv 1 560 74 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Outputs the integral value nearest to but no larger
+#X obj 230 78 cnv 1 535 74 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Outputs the integral value nearest to but no larger
 in magnitude than x;
-#X obj 215 123 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 123 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Floor and             ceiling functions @url
 https://en.wikipedia.org/wiki/Floor_and_ceiling_functions;
 #X msg 50 200 bang;
@@ -21,15 +21,15 @@ https://en.wikipedia.org/wiki/Floor_and_ceiling_functions;
 #X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 615 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 616 1\.;
-#X text 150 616 ~;
-#X text 245 616 input signal.;
+#X text 130 616 1\.;
+#X text 170 616 ~;
+#X text 270 616 input signal.;
 #X obj 20 651 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 656 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 657 1\.;
-#X text 150 657 ~;
-#X text 245 657 result signal.;
+#X text 130 657 1\.;
+#X text 170 657 ~;
+#X text 270 657 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

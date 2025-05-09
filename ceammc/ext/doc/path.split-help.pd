@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty path.split 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 path.split;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Split filename to dirname and basename.;
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Split filename to dirname and basename.;
 #X msg 50 161 symbol /path/to/the/file.txt;
 #X obj 50 190 path.split;
 #X obj 136 219 ui.dt;
@@ -14,18 +14,18 @@
 #X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 303 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 304 1\.;
-#X text 150 304 symbol:;
-#X text 245 304 filename.;
-#X text 150 329 data:string:;
-#X text 245 329 filename.;
+#X text 130 304 1\.;
+#X text 170 304 symbol:;
+#X text 270 304 filename.;
+#X text 170 329 data:string:;
+#X text 270 329 filename.;
 #X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 369 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 370 1\.;
-#X text 245 370 symbol: dirname.;
-#X text 110 390 2\.;
-#X text 245 390 symbol: basename.;
+#X text 130 370 1\.;
+#X text 270 370 symbol: dirname.;
+#X text 130 390 2\.;
+#X text 270 390 symbol: basename.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

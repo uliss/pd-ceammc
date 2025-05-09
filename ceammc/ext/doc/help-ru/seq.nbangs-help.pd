@@ -27,89 +27,89 @@
 -49933 0;
 #X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 439 1\.;
-#X text 150 439 int;
-#X obj 246 440 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 439 N: number of bangs. Тип: int. Минимальное значение:
+#X text 130 405 1\.;
+#X text 170 405 int;
+#X obj 271 406 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 405 N: number of bangs. Тип: int. Минимальное значение:
 0\.;
-#X text 110 459 2\.;
-#X text 150 459 float;
-#X obj 246 460 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 459 T(ms): time interval between bangs. Тип: float. Диапазон:
+#X text 130 425 2\.;
+#X text 170 425 float;
+#X obj 271 426 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 425 T(ms): time interval between bangs. Тип: float. Диапазон:
 1…20000;
-#X obj 20 504 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 509 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 475 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 512 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 478 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 544 @accel;
-#X text 245 544 Получить/Установить tempo acceleration. 1 - no acceleration
+#X msg 130 476 @accel;
+#X text 270 476 Получить/Установить tempo acceleration. 1 - no acceleration
 \, >1 - speed up \, <1 - slow down. Тип: float. Значение по умолчанию:
 1\. Диапазон: 0.25\...4\.;
-#X msg 110 601 @curve;
-#X text 245 601 Получить/Установить acceleration curve. Values >>0
+#X msg 130 533 @curve;
+#X text 270 533 Получить/Установить acceleration curve. Values >>0
 - slow changes \, then fast encrease. Values <0 - fast changes \, then
 slower. Тип: float. Значение по умолчанию: 1\. Диапазон: -8\...8\.;
-#X msg 110 688 @div;
-#X text 245 688 Получить/Установить beat subdivision. Тип: int. Значение
+#X msg 130 620 @div;
+#X text 270 620 Получить/Установить beat subdivision. Тип: int. Значение
 по умолчанию: 1\. Диапазон: 1\...64\.;
-#X msg 110 730 @dur;
-#X text 245 730 Получить/Установить sequence duration. Changing this
+#X msg 130 662 @dur;
+#X text 270 662 Получить/Установить sequence duration. Changing this
 property also changes @t interval between bangs. Тип: float. Значение
 по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 110 787 @n;
-#X text 245 787 Получить/Установить number of bangs. Тип: int. Значение
+#X msg 130 719 @n;
+#X text 270 719 Получить/Установить number of bangs. Тип: int. Значение
 по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 110 829 @t;
-#X text 245 829 Получить/Установить time interval between bangs. You
+#X msg 130 761 @t;
+#X text 270 761 Получить/Установить time interval between bangs. You
 could also use units values like 100ms or 120bpm. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 0\. Диапазон: 1\...20000\.;
-#X obj 20 926 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 931 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 858 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 863 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 932 reset;
-#X text 245 932 stop bang output and reset bang counter.;
-#X msg 110 960 rewind;
-#X text 245 960 reset all counters without stopping.;
-#X msg 110 988 start;
-#X text 245 988 start/stop. Аргументы:;
-#X obj 255 1011 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1011 [on=1]: if true - starts bang sequence \, otherwise
+#X msg 130 864 reset;
+#X text 270 864 stop bang output and reset bang counter.;
+#X msg 130 892 rewind;
+#X text 270 892 reset all counters without stopping.;
+#X msg 130 920 start;
+#X text 270 920 start/stop. Аргументы:;
+#X obj 280 943 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 943 [on=1]: if true - starts bang sequence \, otherwise
 stops. Тип: int. Разрешённые значения: 0 \, 1\.;
-#X msg 110 1051 stop;
-#X text 245 1051 stop bang output.;
-#X msg 110 1079 tick;
-#X text 245 1079 manually output current sequence element and move
+#X msg 130 983 stop;
+#X text 270 983 stop bang output.;
+#X msg 130 1011 tick;
+#X text 270 1011 manually output current sequence element and move
 to next.;
-#X obj 20 1117 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1122 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1049 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1054 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1123 1\.;
-#X text 150 1123 bang:;
-#X text 245 1123 reset counter and starts output.;
-#X text 150 1148 float:;
-#X text 245 1148 sets number of bangs and starts output.;
-#X text 110 1173 2\.;
-#X text 150 1173 float:;
-#X text 245 1173 set number of bangs.;
-#X obj 20 1208 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1213 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1055 1\.;
+#X text 170 1055 bang:;
+#X text 270 1055 reset counter and starts output.;
+#X text 170 1080 float:;
+#X text 270 1080 sets number of bangs and starts output.;
+#X text 130 1105 2\.;
+#X text 170 1105 float:;
+#X text 270 1105 set number of bangs.;
+#X obj 20 1140 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1145 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1214 1\.;
-#X text 245 1214 bang output.;
-#X text 110 1234 2\.;
-#X text 245 1234 [i IDX N( - bang index or [done( when done.;
+#X text 130 1146 1\.;
+#X text 270 1146 bang output.;
+#X text 130 1166 2\.;
+#X text 270 1166 [i IDX N( - bang index or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1284 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1287 библиотека: ceammc v0.9.8;
-#X text 459 1299 смотрите также:;
-#X obj 580 1299 seq.bangs;
-#X obj 660 1299 seq.toggles;
-#N canvas 10 1306 400 290 info 0;
+#X obj 1 1216 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1219 библиотека: ceammc v0.9.8;
+#X text 459 1231 смотрите также:;
+#X obj 580 1231 seq.bangs;
+#X obj 660 1231 seq.toggles;
+#N canvas 10 1238 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -133,7 +133,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1306 pd info;
+#X restore 10 1238 pd info;
 #X connect 5 0 10 0;
 #X connect 6 0 10 0;
 #X connect 7 0 10 0;

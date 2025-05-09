@@ -19,67 +19,67 @@
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 352 1\.;
-#X text 150 352 float;
-#X obj 246 353 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 352 FREQ(Hz): frequency. Тип: float. Диапазон: 0…1000;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 318 1\.;
+#X text 170 318 float;
+#X obj 271 319 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 318 FREQ(Hz): frequency. Тип: float. Диапазон: 0…1000;
+#X obj 20 348 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 353 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 356 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 422 @id;
-#X text 245 422 (при инициализации) Получить/Установить идентификатор
+#X msg 130 354 @id;
+#X text 270 354 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/lfo_tri/ИМЯ_СВОЙСТВА \, в противном
 случае к /lfo_tri/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 509 @osc;
-#X text 245 509 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 441 @osc;
+#X text 270 441 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 551 @active;
-#X text 245 551 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 483 @active;
+#X text 270 483 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 593 @freq;
-#X text 245 593 Получить/Установить initial frequency. Тип: float.
+#X msg 130 525 @freq;
+#X text 270 525 Получить/Установить initial frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 0\. Диапазон: 0\...1000\.;
-#X msg 110 635 @pause;
-#X text 245 635 Получить/Установить pause oscillator at current value.
+#X msg 130 567 @pause;
+#X text 270 567 Получить/Установить pause oscillator at current value.
 Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 677 @phase;
-#X text 245 677 Получить/Установить initial phase. Тип: float. Значение
+#X msg 130 609 @phase;
+#X text 270 609 Получить/Установить initial phase. Тип: float. Значение
 по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 20 729 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 734 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 661 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 666 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 735 reset;
-#X text 245 735 reset to initial state.;
-#X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 778 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 667 reset;
+#X text 270 667 reset to initial state.;
+#X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 710 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 779 1\.;
-#X text 150 779 ~;
-#X text 245 779 frequency in Hz (can be zero or negative).;
-#X text 110 804 2\.;
-#X text 150 804 bang:;
-#X text 245 804 reset phase.;
-#X obj 20 839 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 844 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 711 1\.;
+#X text 170 711 ~;
+#X text 270 711 frequency in Hz (can be zero or negative).;
+#X text 130 736 2\.;
+#X text 170 736 bang:;
+#X text 270 736 reset phase.;
+#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 776 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 845 1\.;
-#X text 150 845 ~;
-#X text 245 845 triangle wave in [1 \, -1] range.;
+#X text 130 777 1\.;
+#X text 170 777 ~;
+#X text 270 777 triangle wave in [1 \, -1] range.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title lfo @url ceammc.lfo-help.pd;
-#X obj 1 895 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 898 библиотека: ceammc v0.9.8;
-#X text 355 910 смотрите также:;
-#X obj 476 910 lfo.+tri~;
-#X obj 557 910 lfo.square~;
-#X obj 652 910 lfo.impulse~;
-#N canvas 10 917 400 290 info 0;
+#X obj 1 827 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 830 библиотека: ceammc v0.9.8;
+#X text 355 842 смотрите также:;
+#X obj 476 842 lfo.+tri~;
+#X obj 557 842 lfo.square~;
+#X obj 652 842 lfo.impulse~;
+#N canvas 10 849 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -103,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 917 pd info;
+#X restore 10 849 pd info;
 #X connect 4 0 6 0;
 #X connect 7 0 9 0;
 #X connect 8 0 9 1;

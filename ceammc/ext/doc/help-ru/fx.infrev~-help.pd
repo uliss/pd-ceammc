@@ -5,10 +5,10 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.infrev~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 fx.infrev~;
-#X obj 205 78 cnv 1 560 74 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Infinity is a MatrixVerb specifically designed to sustain
+#X obj 230 78 cnv 1 535 74 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Infinity is a MatrixVerb specifically designed to sustain
 and layer sounds forever.;
-#X obj 215 123 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 123 ui.link @background_color 0.98039 0.98039 0.98039
 @title More info @url https://www.airwindows.com/infinity/;
 #X msg 50 200 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 414 200 loadmsg 0.5 0.2 0.9 0.7;
@@ -31,70 +31,70 @@ and layer sounds forever.;
 -49933 0;
 #X obj 735 431 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 463 1\.;
-#X text 150 463 float;
-#X obj 246 464 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 463 SIZE: room size. Тип: float. Диапазон: 0…1;
-#X text 110 483 2\.;
-#X text 150 483 float;
-#X obj 246 484 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 483 DRYWET: proportion of mix between the original (dry)
+#X text 130 429 1\.;
+#X text 170 429 float;
+#X obj 271 430 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 429 SIZE: room size. Тип: float. Диапазон: 0…1;
+#X text 130 449 2\.;
+#X text 170 449 float;
+#X obj 271 450 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 449 DRYWET: proportion of mix between the original (dry)
 and 'effected' (wet) signals. Тип: float. Диапазон: 0…1;
-#X obj 20 528 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 533 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 499 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 536 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 502 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 568 @bypass;
-#X text 245 568 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 130 500 @bypass;
+#X text 270 500 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 610 @damp;
-#X text 245 610 Получить/Установить damping of the lowpass comb filter.
+#X msg 130 542 @damp;
+#X text 270 542 Получить/Установить damping of the lowpass comb filter.
 Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 652 @drywet;
-#X text 245 652 Получить/Установить proportion of mix between the original
+#X msg 130 584 @drywet;
+#X text 270 584 Получить/Установить proportion of mix between the original
 (dry) and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Тип:
 float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 709 @filter;
-#X text 245 709 Получить/Установить filter coefficient. Тип: float.
+#X msg 130 641 @filter;
+#X text 270 641 Получить/Установить filter coefficient. Тип: float.
 Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 751 @size;
-#X text 245 751 Получить/Установить room size. Тип: float. Значение
+#X msg 130 683 @size;
+#X text 270 683 Получить/Установить room size. Тип: float. Значение
 по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 808 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 740 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 809 reset;
-#X text 245 809 reset reverb.;
-#X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 852 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 741 reset;
+#X text 270 741 reset reverb.;
+#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 784 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 853 1\.;
-#X text 150 853 ~;
-#X text 245 853 input Left signal.;
-#X text 110 878 2\.;
-#X text 150 878 ~;
-#X text 245 878 input Right signal.;
-#X obj 20 913 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 918 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 785 1\.;
+#X text 170 785 ~;
+#X text 270 785 input Left signal.;
+#X text 130 810 2\.;
+#X text 170 810 ~;
+#X text 270 810 input Right signal.;
+#X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 850 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 919 1\.;
-#X text 150 919 ~;
-#X text 245 919 output Left signal.;
-#X text 110 939 2\.;
-#X text 150 939 ~;
-#X text 245 939 output Right signal.;
+#X text 130 851 1\.;
+#X text 170 851 ~;
+#X text 270 851 output Left signal.;
+#X text 130 871 2\.;
+#X text 170 871 ~;
+#X text 270 871 output Right signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 989 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 992 библиотека: ceammc v0.9.8;
-#X text 421 1004 смотрите также:;
-#X obj 542 1004 fx.freeverb~;
-#X obj 645 1004 fx.zita_rev1~;
-#N canvas 10 1011 400 290 info 0;
+#X obj 1 921 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 924 библиотека: ceammc v0.9.8;
+#X text 421 936 смотрите также:;
+#X obj 542 936 fx.freeverb~;
+#X obj 645 936 fx.zita_rev1~;
+#N canvas 10 943 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -118,7 +118,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1011 pd info;
+#X restore 10 943 pd info;
 #X connect 7 0 9 0;
 #X connect 10 0 12 0;
 #X connect 9 0 14 0;

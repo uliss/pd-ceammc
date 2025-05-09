@@ -16,17 +16,17 @@
 #X obj 20 251 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 256 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 257 1\.;
-#X text 150 257 bang:;
-#X text 245 257 outputs memory use.;
+#X text 130 257 1\.;
+#X text 170 257 bang:;
+#X text 270 257 outputs memory use.;
 #X obj 20 292 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 297 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 298 1\.;
-#X text 245 298 current physical memory use measured in bytes \, or
+#X text 130 298 1\.;
+#X text 270 298 current physical memory use measured in bytes \, or
 zero if the value cannot be determined on this OS.;
-#X text 110 333 2\.;
-#X text 245 333 peak (maximum so far) physical memory use measured
+#X text 130 333 2\.;
+#X text 270 333 peak (maximum so far) physical memory use measured
 in bytes \, or zero if the value cannot be determined on this OS.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -21,65 +21,65 @@
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 352 @id;
-#X text 245 352 (при инициализации) Получить/Установить идентификатор
+#X msg 130 318 @id;
+#X text 270 318 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_kick/ИМЯ_СВОЙСТВА \, в противном
 случае к /synth_kick/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 439 @osc;
-#X text 245 439 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 405 @osc;
+#X text 270 405 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 481 @active;
-#X text 245 481 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 447 @active;
+#X text 270 447 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 523 @attack;
-#X text 245 523 Получить/Установить attack time. Тип: float. Единицы:
+#X msg 130 489 @attack;
+#X text 270 489 Получить/Установить attack time. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 10\. Диапазон: 1\...50\.;
-#X msg 110 565 @envwait;
-#X text 245 565 Получить/Установить ignore new notes until previous
+#X msg 130 531 @envwait;
+#X text 270 531 Получить/Установить ignore new notes until previous
 note is not finished release time. Тип: bool. Значение по умолчанию:
 0\.;
-#X msg 110 622 @freq;
-#X text 245 622 Получить/Установить start frequency. Тип: float. Единицы:
+#X msg 130 588 @freq;
+#X text 270 588 Получить/Установить start frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 50\. Диапазон: 10\...5000\.;
-#X msg 110 664 @gate;
-#X text 245 664 Получить/Установить play trigger >0: on \, 0: off.
+#X msg 130 630 @gate;
+#X text 270 630 Получить/Установить play trigger >0: on \, 0: off.
 To set output gain to 0.5 you can 0.5 as trigger value. Тип: float.
 Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 721 @release;
-#X text 245 721 Получить/Установить release time. Тип: float. Единицы:
+#X msg 130 687 @release;
+#X text 270 687 Получить/Установить release time. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 1000\. Диапазон: 10\...8000\.;
-#X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 778 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 739 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 744 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 779 reset;
-#X text 245 779 reset synth.;
-#X obj 20 817 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 822 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 745 reset;
+#X text 270 745 reset synth.;
+#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 788 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 823 1\.;
-#X text 150 823 bang:;
-#X text 245 823 play with default duration and full gain.;
-#X text 150 848 float:;
-#X text 245 848 play with default duration and specified gain.;
-#X text 150 873 list:;
-#X text 245 873 GAIN(0\..1) DUR(ms) pair expected.;
-#X obj 20 908 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 913 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 789 1\.;
+#X text 170 789 bang:;
+#X text 270 789 play with default duration and full gain.;
+#X text 170 814 float:;
+#X text 270 814 play with default duration and specified gain.;
+#X text 170 839 list:;
+#X text 270 839 GAIN(0\..1) DUR(ms) pair expected.;
+#X obj 20 874 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 879 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 914 1\.;
-#X text 150 914 ~;
-#X text 245 914 synth output.;
-#X text 110 934 2\.;
-#X text 245 934 bang after release finished.;
+#X text 130 880 1\.;
+#X text 170 880 ~;
+#X text 270 880 synth output.;
+#X text 130 900 2\.;
+#X text 270 900 bang after release finished.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 984 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 987 библиотека: ceammc v0.9.8;
-#N canvas 10 1006 400 290 info 0;
+#X obj 1 950 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 953 библиотека: ceammc v0.9.8;
+#N canvas 10 972 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -103,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1006 pd info;
+#X restore 10 972 pd info;
 #X connect 4 0 7 0;
 #X connect 7 0 8 0;
 #X connect 5 0 9 0;

@@ -23,103 +23,103 @@
 -49933 0;
 #X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 439 1\.;
-#X text 150 439 float;
-#X obj 246 440 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 439 RADIUS: @radius property. Тип: float. Диапазон: 0…1;
-#X text 110 459 2\.;
-#X text 150 459 float;
-#X obj 246 460 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 459 ANGLE: @angle property. Тип: float. Диапазон: 0…1;
-#X obj 20 489 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 494 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 405 1\.;
+#X text 170 405 float;
+#X obj 271 406 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 405 RADIUS: @radius property. Тип: float. Диапазон: 0…1;
+#X text 130 425 2\.;
+#X text 170 425 float;
+#X obj 271 426 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 425 ANGLE: @angle property. Тип: float. Диапазон: 0…1;
+#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 460 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 497 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 463 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 529 @id;
-#X text 245 529 (при инициализации) Получить/Установить идентификатор
+#X msg 130 461 @id;
+#X text 270 461 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/spat_zita8/ИМЯ_СВОЙСТВА \, в противном
 случае к /spat_zita8/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 616 @osc;
-#X text 245 616 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 548 @osc;
+#X text 270 548 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 658 @active;
-#X text 245 658 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 590 @active;
+#X text 270 590 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 700 @angle;
-#X text 245 700 Получить/Установить source panning position. Тип: float.
+#X msg 130 632 @angle;
+#X text 270 632 Получить/Установить source panning position. Тип: float.
 Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 742 @decay_low;
-#X text 245 742 Получить/Установить time (in seconds) to decay 60dB
+#X msg 130 674 @decay_low;
+#X text 270 674 Получить/Установить time (in seconds) to decay 60dB
 in low-frequency band. Тип: float. Единицы: 'sec'. Значение по умолчанию:
 3\. Диапазон: 1\...60\.;
-#X msg 110 799 @decay_mid;
-#X text 245 799 Получить/Установить time (in seconds) to decay 60dB
+#X msg 130 731 @decay_mid;
+#X text 270 731 Получить/Установить time (in seconds) to decay 60dB
 in mid-frequency band. Тип: float. Единицы: 'sec'. Значение по умолчанию:
 2\. Диапазон: 1\...60\.;
-#X msg 110 856 @delay;
-#X text 245 856 Получить/Установить a delay of 20 to 100 ms operating
+#X msg 130 788 @delay;
+#X text 270 788 Получить/Установить a delay of 20 to 100 ms operating
 on the 'wet' signal. Large values will provide the impression of a
 larger room. Тип: float. Единицы: 'ms'. Значение по умолчанию: 60\.
 Диапазон: 20\...100\.;
-#X msg 110 943 @dump_hf;
-#X text 245 943 Получить/Установить Frequency (Hz) at which the high-frequency
+#X msg 130 875 @dump_hf;
+#X text 270 875 Получить/Установить Frequency (Hz) at which the high-frequency
 T60 is half the middle-band's T60\. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 6000\. Диапазон: 1500\...47040\.;
-#X msg 110 1030 @freq_low;
-#X text 245 1030 Получить/Установить Crossover frequency (Hz) separating
+#X msg 130 962 @freq_low;
+#X text 270 962 Получить/Установить Crossover frequency (Hz) separating
 low and middle frequencies. Тип: float. Единицы: 'Hz'. Значение по
 умолчанию: 200\. Диапазон: 50\...1000\.;
-#X msg 110 1087 @radius;
-#X text 245 1087 Получить/Установить source distance from circle center.
+#X msg 130 1019 @radius;
+#X text 270 1019 Получить/Установить source distance from circle center.
 Тип: float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 20 1139 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1144 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1071 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1076 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1145 reset;
-#X text 245 1145 reset spat and reverb.;
-#X obj 20 1183 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1188 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1077 reset;
+#X text 270 1077 reset spat and reverb.;
+#X obj 20 1115 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1120 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1189 1\.;
-#X text 150 1189 ~;
-#X text 245 1189 input.;
-#X obj 20 1224 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1229 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1121 1\.;
+#X text 170 1121 ~;
+#X text 270 1121 input.;
+#X obj 20 1156 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1161 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1230 1\.;
-#X text 150 1230 ~;
-#X text 245 1230 1st output.;
-#X text 110 1250 2\.;
-#X text 150 1250 ~;
-#X text 245 1250 2dn output.;
-#X text 110 1270 3\.;
-#X text 150 1270 ~;
-#X text 245 1270 3rd output.;
-#X text 110 1290 4\.;
-#X text 150 1290 ~;
-#X text 245 1290 4th output.;
-#X text 110 1310 5\.;
-#X text 150 1310 ~;
-#X text 245 1310 5th output.;
-#X text 110 1330 6\.;
-#X text 150 1330 ~;
-#X text 245 1330 6th output.;
-#X text 110 1350 7\.;
-#X text 150 1350 ~;
-#X text 245 1350 7th output.;
-#X text 110 1370 8\.;
-#X text 150 1370 ~;
-#X text 245 1370 8th output.;
+#X text 130 1162 1\.;
+#X text 170 1162 ~;
+#X text 270 1162 1st output.;
+#X text 130 1182 2\.;
+#X text 170 1182 ~;
+#X text 270 1182 2dn output.;
+#X text 130 1202 3\.;
+#X text 170 1202 ~;
+#X text 270 1202 3rd output.;
+#X text 130 1222 4\.;
+#X text 170 1222 ~;
+#X text 270 1222 4th output.;
+#X text 130 1242 5\.;
+#X text 170 1242 ~;
+#X text 270 1242 5th output.;
+#X text 130 1262 6\.;
+#X text 170 1262 ~;
+#X text 270 1262 6th output.;
+#X text 130 1282 7\.;
+#X text 170 1282 ~;
+#X text 270 1282 7th output.;
+#X text 130 1302 8\.;
+#X text 170 1302 ~;
+#X text 270 1302 8th output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1420 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1423 библиотека: ceammc v0.9.8;
-#N canvas 10 1442 400 290 info 0;
+#X obj 1 1352 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1355 библиотека: ceammc v0.9.8;
+#N canvas 10 1374 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -143,7 +143,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1442 pd info;
+#X restore 10 1374 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 5 0 9 0;

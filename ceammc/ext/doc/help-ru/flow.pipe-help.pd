@@ -5,10 +5,10 @@
 #X obj 1 1 cnv 5 765 40 empty empty flow.pipe 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 flow.pipe;
-#X obj 205 78 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Acts like vanilla [pipe] but for any messages: bangs
+#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Acts like vanilla [pipe] but for any messages: bangs
 \, floats \, symbols etc.;
-#X text 215 123 Note: @delay property can be set only via right inlet
+#X text 240 123 Note: @delay property can be set only via right inlet
 or [prop.set] object;
 #X obj 50 216 ui.keyboard;
 #X obj 69 288 flow.pipe 1000;
@@ -24,52 +24,52 @@ or [prop.set] object;
 -49933 0;
 #X obj 735 519 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 551 1\.;
-#X text 150 551 float;
-#X obj 246 552 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 551 DELAY(ms): init @delay property. Тип: float. Минимальное
+#X text 130 517 1\.;
+#X text 170 517 float;
+#X obj 271 518 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 517 DELAY(ms): init @delay property. Тип: float. Минимальное
 значение: 0\.;
-#X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 601 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 562 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 567 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 604 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 570 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 636 @delay;
-#X text 245 636 Получить/Установить delay time. Тип: float. Единицы:
+#X msg 130 568 @delay;
+#X text 270 568 Получить/Установить delay time. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 110 678 @empty?;
-#X text 245 678 (только чтение) Получить 1 if pipe is empty \, otherwise
+#X msg 130 610 @empty?;
+#X text 270 610 (только чтение) Получить 1 if pipe is empty \, otherwise
 0\. Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 720 @size?;
-#X text 245 720 (только чтение) Получить pipe size. Тип: int. Значение
+#X msg 130 652 @size?;
+#X text 270 652 (только чтение) Получить pipe size. Тип: int. Значение
 по умолчанию: 0\.;
-#X obj 20 772 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 777 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 709 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 778 1\.;
-#X text 245 778 incoming message.;
-#X text 110 803 2\.;
-#X text 150 803 bang:;
-#X text 245 803 clear pipe.;
-#X text 245 828 reset: clear pipe.;
-#X text 245 853 flush: output and clear.;
-#X text 150 878 float:;
-#X text 245 878 set delay time. Минимальное значение: 0\.;
-#X obj 20 913 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 918 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 710 1\.;
+#X text 270 710 incoming message.;
+#X text 130 735 2\.;
+#X text 170 735 bang:;
+#X text 270 735 clear pipe.;
+#X text 270 760 reset: clear pipe.;
+#X text 270 785 flush: output and clear.;
+#X text 170 810 float:;
+#X text 270 810 set delay time. Минимальное значение: 0\.;
+#X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 850 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 919 1\.;
-#X text 245 919 pipe output.;
+#X text 130 851 1\.;
+#X text 270 851 pipe output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 969 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 972 библиотека: ceammc v0.9.8;
-#X text 546 984 смотрите также:;
-#X obj 667 984 flow.delay;
-#N canvas 10 991 400 290 info 0;
+#X obj 1 901 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 904 библиотека: ceammc v0.9.8;
+#X text 546 916 смотрите также:;
+#X obj 667 916 flow.delay;
+#N canvas 10 923 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -93,7 +93,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 991 pd info;
+#X restore 10 923 pd info;
 #X connect 7 0 8 0;
 #X connect 7 0 9 0;
 #X connect 8 0 9 0;

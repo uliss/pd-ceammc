@@ -8,8 +8,8 @@
 #X obj 458 11 ceammc/bpm->ms;
 #X obj 584 11 bpm->ms;
 #X obj 660 11 conv.bpm2ms;
-#X obj 205 93 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Converts frequency from BPM (beats per minute) to period
+#X obj 230 93 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 98 Converts frequency from BPM (beats per minute) to period
 in ms. It is simple as (60 / f) * 1000 \, but more readable.;
 #X floatatom 126 191 5 0 0 0 - - -;
 #X text 203 191 tempo;
@@ -27,14 +27,14 @@ in ms. It is simple as (60 / f) * 1000 \, but more readable.;
 #X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 477 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 478 1\.;
-#X text 150 478 float:;
-#X text 245 478 frequency in BPM.;
+#X text 130 478 1\.;
+#X text 170 478 float:;
+#X text 270 478 frequency in BPM.;
 #X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 518 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 519 1\.;
-#X text 245 519 period in milliseconds.;
+#X text 130 519 1\.;
+#X text 270 519 period in milliseconds.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

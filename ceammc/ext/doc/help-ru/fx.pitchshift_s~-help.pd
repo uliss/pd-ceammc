@@ -21,58 +21,58 @@
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 381 @id;
-#X text 245 381 (при инициализации) Получить/Установить идентификатор
+#X msg 130 347 @id;
+#X text 270 347 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_pitchshift_s/ИМЯ_СВОЙСТВА \,
 в противном случае к /fx_pitchshift_s/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 484 @osc;
-#X text 245 484 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 450 @osc;
+#X text 270 450 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 526 @active;
-#X text 245 526 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 492 @active;
+#X text 270 492 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 568 @bypass;
-#X text 245 568 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 130 534 @bypass;
+#X text 270 534 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 610 @drywet;
-#X text 245 610 Получить/Установить proportion of mix between the original
+#X msg 130 576 @drywet;
+#X text 270 576 Получить/Установить proportion of mix between the original
 (dry) and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Тип:
 float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 667 @fade;
-#X text 245 667 Получить/Установить crossfade duration. Тип: float.
+#X msg 130 633 @fade;
+#X text 270 633 Получить/Установить crossfade duration. Тип: float.
 Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон: 0\...1000\.;
-#X msg 110 709 @window;
-#X text 245 709 Получить/Установить the window size. Тип: float. Единицы:
+#X msg 130 675 @window;
+#X text 270 675 Получить/Установить the window size. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 200\. Диапазон: 10\...2000\.;
-#X obj 20 761 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 766 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 732 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 767 reset;
-#X text 245 767 reset object state.;
-#X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 810 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 733 reset;
+#X text 270 733 reset object state.;
+#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 776 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 811 1\.;
-#X text 150 811 ~;
-#X text 245 811 input signal.;
-#X text 110 836 2\.;
-#X text 150 836 ~;
-#X text 245 836 pitch shift in semitones.;
-#X obj 20 871 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 876 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 777 1\.;
+#X text 170 777 ~;
+#X text 270 777 input signal.;
+#X text 130 802 2\.;
+#X text 170 802 ~;
+#X text 270 802 pitch shift in semitones.;
+#X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 842 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 877 1\.;
-#X text 150 877 ~;
-#X text 245 877 output signal.;
+#X text 130 843 1\.;
+#X text 170 843 ~;
+#X text 270 843 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 927 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 930 библиотека: ceammc v0.9.8;
-#N canvas 10 949 400 290 info 0;
+#X obj 1 893 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 896 библиотека: ceammc v0.9.8;
+#N canvas 10 915 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -96,7 +96,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 949 pd info;
+#X restore 10 915 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 8 0;
 #X connect 6 0 9 0;

@@ -30,92 +30,92 @@
 -49933 0;
 #X obj 735 479 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 511 @mode;
-#X text 245 511 Get/Set parsing mode for incoming messages. If 'fudi'
+#X msg 130 477 @mode;
+#X text 270 477 Get/Set parsing mode for incoming messages. If 'fudi'
 - interpret incoming websocket data as Pd messages \, if 'sym' - always
 interpret as symbols \, 'data' - parse ceammc data \, 'json' - convert
 json values to ceammc data. Type: symbol. Default value: fudi. Allowed
 values: data \, fudi \, json \, sym.;
-#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 629 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 595 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 630 close;
-#X text 245 630 gracefully close connection (with websocket handshake).;
-#X msg 110 658 connect;
-#X text 245 658 connect to websocket server. Arguments are:;
-#X obj 255 681 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 681 URL: url - ws://HOST:PORT/ \, for ex.: ws://127.0.0.1:9000/path.
+#X msg 130 596 close;
+#X text 270 596 gracefully close connection (with websocket handshake).;
+#X msg 130 624 connect;
+#X text 270 624 connect to websocket server. Arguments are:;
+#X obj 280 647 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 647 URL: url - ws://HOST:PORT/ \, for ex.: ws://127.0.0.1:9000/path.
 Type: symbol.;
-#X msg 110 721 flush;
-#X text 245 721 flush output stream: sends all buffered messages.;
-#X msg 110 749 latency;
-#X text 245 749 measure rountrip latency. Outputs: latency TIME_MSEC.;
-#X msg 110 777 ping;
-#X text 245 777 send ping message to server (on server answer outputs:
+#X msg 130 687 flush;
+#X text 270 687 flush output stream: sends all buffered messages.;
+#X msg 130 715 latency;
+#X text 270 715 measure rountrip latency. Outputs: latency TIME_MSEC.;
+#X msg 130 743 ping;
+#X text 270 743 send ping message to server (on server answer outputs:
 pong DATA). Arguments are:;
-#X obj 255 815 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 815 [DATA]: list of integers in [0\..255] range. Type:
+#X obj 280 781 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 781 [DATA]: list of integers in [0\..255] range. Type:
 list.;
-#X msg 110 840 send;
-#X text 245 840 send as text message. Arguments are:;
-#X obj 255 863 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 863 [ARGS]: arguments. Type: list.;
-#X msg 110 888 send_array;
-#X text 245 888 send as Pd array content as json array. Arguments are:;
-#X obj 255 911 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 911 ARR: array name. Type: symbol.;
-#X obj 255 934 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 934 [START=0]: array start index. Type: int. Min value:
+#X msg 130 806 send;
+#X text 270 806 send as text message. Arguments are:;
+#X obj 280 829 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 829 [ARGS]: arguments. Type: list.;
+#X msg 130 854 send_array;
+#X text 270 854 send as Pd array content as json array. Arguments are:;
+#X obj 280 877 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 877 ARR: array name. Type: symbol.;
+#X obj 280 900 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 900 [START=0]: array start index. Type: int. Min value:
 0\. Units: 'samp'.;
-#X obj 255 972 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 972 [LENGTH]: read length. If not specified - read until
+#X obj 280 938 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 938 [LENGTH]: read length. If not specified - read until
 array end. Type: int. Min value: 0\. Units: 'samp'.;
-#X msg 110 1012 send_binary;
-#X text 245 1012 send as binary bytes. Arguments are:;
-#X obj 255 1035 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1035 [ARGS]: list of integers in [0\..255] range. Type:
+#X msg 130 978 send_binary;
+#X text 270 978 send as binary bytes. Arguments are:;
+#X obj 280 1001 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1001 [ARGS]: list of integers in [0\..255] range. Type:
 list.;
-#X msg 110 1060 send_json;
-#X text 245 1060 send as encoded json. Arguments are:;
-#X obj 255 1083 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1083 [ARGS]: arguments. Type: list.;
-#X msg 110 1108 write;
-#X text 245 1108 write as text message to output buffer. You have to
+#X msg 130 1026 send_json;
+#X text 270 1026 send as encoded json. Arguments are:;
+#X obj 280 1049 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1049 [ARGS]: arguments. Type: list.;
+#X msg 130 1074 write;
+#X text 270 1074 write as text message to output buffer. You have to
 call [flush( method for sending. Arguments are:;
-#X obj 255 1146 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1146 [ARGS]: arguments. Type: list.;
-#X msg 110 1171 write_binary;
-#X text 245 1171 write as binary bytes to output buffer. You have to
+#X obj 280 1112 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1112 [ARGS]: arguments. Type: list.;
+#X msg 130 1137 write_binary;
+#X text 270 1137 write as binary bytes to output buffer. You have to
 call [flush( method for sending. Arguments are:;
-#X obj 255 1209 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1209 [ARGS]: list of integers in [0\..255] range. Type:
+#X obj 280 1175 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1175 [ARGS]: list of integers in [0\..255] range. Type:
 list.;
-#X msg 110 1234 write_json;
-#X text 245 1234 write as encoded json to output buffer. You have to
+#X msg 130 1200 write_json;
+#X text 270 1200 write as encoded json to output buffer. You have to
 call [flush( method for sending. Arguments are:;
-#X obj 255 1272 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1272 [ARGS]: arguments. Type: list.;
-#X obj 20 1307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1312 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 280 1238 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1238 [ARGS]: arguments. Type: list.;
+#X obj 20 1273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1278 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1313 1\.;
-#X text 245 1313 message input.;
-#X obj 20 1348 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1353 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1279 1\.;
+#X text 270 1279 message input.;
+#X obj 20 1314 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1319 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1354 1\.;
-#X text 245 1354 output messages: latency \, ping \, text \, binary
+#X text 130 1320 1\.;
+#X text 270 1320 output messages: latency \, ping \, text \, binary
 \, closed \, connected \, disconnected.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1419 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1422 library: ceammc v0.9.8;
-#X text 570 1434 see also:;
-#X obj 645 1434 net.ws.server;
-#N canvas 10 1441 400 290 info 0;
+#X obj 1 1385 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1388 library: ceammc v0.9.8;
+#X text 570 1400 see also:;
+#X obj 645 1400 net.ws.server;
+#N canvas 10 1407 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -139,7 +139,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1441 pd info;
+#X restore 10 1407 pd info;
 #X connect 5 0 16 0;
 #X connect 13 0 16 0;
 #X connect 15 0 16 0;

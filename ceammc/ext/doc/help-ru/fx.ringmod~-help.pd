@@ -23,74 +23,74 @@
 -49933 0;
 #X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 424 1\.;
-#X text 150 424 float;
-#X obj 246 425 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 424 DRYWET: dry/wet ratio. Тип: float. Диапазон: 0…1;
-#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 459 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 390 1\.;
+#X text 170 390 float;
+#X obj 271 391 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 390 DRYWET: dry/wet ratio. Тип: float. Диапазон: 0…1;
+#X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 425 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 462 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 428 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 494 @id;
-#X text 245 494 (при инициализации) Получить/Установить идентификатор
+#X msg 130 426 @id;
+#X text 270 426 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_ringmod/ИМЯ_СВОЙСТВА \, в противном
 случае к /fx_ringmod/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 581 @osc;
-#X text 245 581 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 513 @osc;
+#X text 270 513 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 623 @active;
-#X text 245 623 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 130 555 @active;
+#X text 270 555 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 665 @bypass;
-#X text 245 665 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 130 597 @bypass;
+#X text 270 597 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 707 @drive;
-#X text 245 707 Получить/Установить overdrive effect after modulator.
+#X msg 130 639 @drive;
+#X text 270 639 Получить/Установить overdrive effect after modulator.
 Тип: float. Значение по умолчанию: 1\. Диапазон: 1\...10\.;
-#X msg 110 749 @drywet;
-#X text 245 749 Получить/Установить proportion of mix between the original
+#X msg 130 681 @drywet;
+#X text 270 681 Получить/Установить proportion of mix between the original
 (dry) and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Тип:
 float. Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X msg 110 806 @freq;
-#X text 245 806 Получить/Установить internal modulator frequency. Тип:
+#X msg 130 738 @freq;
+#X text 270 738 Получить/Установить internal modulator frequency. Тип:
 float. Единицы: 'Hz'. Значение по умолчанию: 150\. Диапазон: 0.5\...22050\.;
-#X msg 110 863 @offset;
-#X text 245 863 Получить/Установить modulator offset. Тип: float. Значение
+#X msg 130 795 @offset;
+#X text 270 795 Получить/Установить modulator offset. Тип: float. Значение
 по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 905 @src;
-#X text 245 905 Получить/Установить modulator source. 0: modulator
+#X msg 130 837 @src;
+#X text 270 837 Получить/Установить modulator source. 0: modulator
 from second inlet \, 1: internal sinusoid oscilallator \, 2: internal
 low freq noise. Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...2\.;
-#X obj 20 1002 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1007 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
--49933 0;
-#X msg 110 1008 reset;
-#X text 245 1008 reset object.;
-#X obj 20 1046 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1051 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 934 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 939 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1052 1\.;
-#X text 150 1052 ~;
-#X text 245 1052 carrier.;
-#X text 110 1077 2\.;
-#X text 150 1077 ~;
-#X text 245 1077 modulator.;
-#X obj 20 1112 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1117 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X msg 130 940 reset;
+#X text 270 940 reset object.;
+#X obj 20 978 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 983 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 984 1\.;
+#X text 170 984 ~;
+#X text 270 984 carrier.;
+#X text 130 1009 2\.;
+#X text 170 1009 ~;
+#X text 270 1009 modulator.;
+#X obj 20 1044 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1049 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1118 1\.;
-#X text 150 1118 ~;
-#X text 245 1118 output.;
+#X text 130 1050 1\.;
+#X text 170 1050 ~;
+#X text 270 1050 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1168 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1171 библиотека: ceammc v0.9.8;
-#N canvas 10 1190 400 290 info 0;
+#X obj 1 1100 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1103 библиотека: ceammc v0.9.8;
+#N canvas 10 1122 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -114,7 +114,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1190 pd info;
+#X restore 10 1122 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 10 0;

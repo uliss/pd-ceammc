@@ -20,186 +20,186 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 352 Left-click;
-#X text 285 352 jump to click position if @relative property is off.;
-#X text 110 372 Mouse-drag;
-#X text 285 372 relative gain change if @relative is on \, otherwise
+#X text 130 352 Left-click;
+#X text 310 352 jump to click position if @relative property is off.;
+#X text 130 372 Mouse-drag;
+#X text 310 372 relative gain change if @relative is on \, otherwise
 follows mouse pointer.;
-#X text 110 407 Mouse-drag + ⇧;
-#X text 285 407 slow relative gain change if @relative is on.;
-#X text 110 427 Mouse-wheel;
-#X text 285 427 change the knob value.;
-#X text 110 447 Mouse-wheel + ⇧;
-#X text 285 447 change the knob value slowly.;
-#X text 110 467 Right-click;
-#X text 285 467 open popup menu.;
-#X text 110 487 Right-click + ⇧;
-#X text 285 487 open object help.;
-#X text 110 507 Right-click + ⌥;
-#X text 285 507 open properties dialog.;
-#X text 110 527 Double-click + ⇧;
-#X text 285 527 toggle MIDI-learn mode (red border displayed).;
-#X text 110 547 Mouse-drag + ⌘;
-#X text 285 547 relative gain change.;
-#X text 45 547 [Правка];
-#X text 110 567 Double-click + ⌘;
-#X text 285 567 toggle horizontal/vertical orientation.;
-#X text 45 567 [Правка];
-#X text 110 587 Right-click + ⇧;
-#X text 285 587 open object help.;
-#X text 45 587 [Правка];
-#X text 110 607 Right-click + ⌥;
-#X text 285 607 open properties dialog.;
-#X text 45 607 [Правка];
+#X text 130 407 Mouse-drag + ⇧;
+#X text 310 407 slow relative gain change if @relative is on.;
+#X text 130 427 Mouse-wheel;
+#X text 310 427 change the knob value.;
+#X text 130 447 Mouse-wheel + ⇧;
+#X text 310 447 change the knob value slowly.;
+#X text 130 467 Right-click;
+#X text 310 467 open popup menu.;
+#X text 130 487 Right-click + ⇧;
+#X text 310 487 open object help.;
+#X text 130 507 Right-click + ⌥;
+#X text 310 507 open properties dialog.;
+#X text 130 527 Double-click + ⇧;
+#X text 310 527 toggle MIDI-learn mode (red border displayed).;
+#X text 130 547 Mouse-drag + ⌘;
+#X text 310 547 relative gain change.;
+#X text 65 547 [Правка];
+#X text 130 567 Double-click + ⌘;
+#X text 310 567 toggle horizontal/vertical orientation.;
+#X text 65 567 [Правка];
+#X text 130 587 Right-click + ⇧;
+#X text 310 587 open object help.;
+#X text 65 587 [Правка];
+#X text 130 607 Right-click + ⌥;
+#X text 310 607 open properties dialog.;
+#X text 65 607 [Правка];
 #X obj 20 637 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 642 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 645 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 677 @amp;
-#X text 245 677 Получить/Установить gain as amplitude ratio. Тип: float.
+#X msg 130 643 @amp;
+#X text 270 643 Получить/Установить gain as amplitude ratio. Тип: float.
 Значение по умолчанию: 0\.;
-#X msg 110 719 @db;
-#X text 245 719 Получить/Установить gain in dbfs scale. Тип: float.
+#X msg 130 685 @db;
+#X text 270 685 Получить/Установить gain in dbfs scale. Тип: float.
 Единицы: 'db'. Значение по умолчанию: -60\.;
-#X msg 110 761 @max;
-#X text 245 761 Получить/Установить maximum gain value. Тип: int. Единицы:
+#X msg 130 727 @max;
+#X text 270 727 Получить/Установить maximum gain value. Тип: int. Единицы:
 'db'. Значение по умолчанию: 0\. Диапазон: -12\...12\.;
-#X msg 110 803 @min;
-#X text 245 803 Получить/Установить minimal gain value. Тип: int. Единицы:
+#X msg 130 769 @min;
+#X text 270 769 Получить/Установить minimal gain value. Тип: int. Единицы:
 'db'. Значение по умолчанию: -60\. Диапазон: -90\...-15\.;
-#X msg 110 845 @mouse_events;
-#X text 245 845 Получить/Установить mouse events output mode. If on
+#X msg 130 811 @mouse_events;
+#X text 270 811 Получить/Установить mouse events output mode. If on
 outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
 Значение по умолчанию: 0\.;
-#X msg 110 902 @output_value;
-#X text 245 902 Получить/Установить flag to output @db property after
+#X msg 130 868 @output_value;
+#X text 270 868 Получить/Установить flag to output @db property after
 each knob move. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 944 @receive;
-#X text 245 944 Получить/Установить источник получения сообщений. Тип:
+#X msg 130 910 @receive;
+#X text 270 910 Получить/Установить источник получения сообщений. Тип:
 symbol. Значение по умолчанию: (null).;
-#X msg 110 986 @relative;
-#X text 245 986 Получить/Установить relative input mode. When set do
+#X msg 130 952 @relative;
+#X text 270 952 Получить/Установить relative input mode. When set do
 not jump to value on click. Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 1028 @send;
-#X text 245 1028 Получить/Установить адрес отправки сообщений. Тип:
+#X msg 130 994 @send;
+#X text 270 994 Получить/Установить адрес отправки сообщений. Тип:
 symbol. Значение по умолчанию: (null).;
-#X msg 110 1070 @show_range;
-#X text 245 1070 Получить/Установить if show slider range. Тип: bool.
+#X msg 130 1036 @show_range;
+#X text 270 1036 Получить/Установить if show slider range. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 1112 @midi_channel;
-#X text 245 1112 Получить/Установить привязанный канал MIDI. Если установлен
+#X msg 130 1078 @midi_channel;
+#X text 270 1078 Получить/Установить привязанный канал MIDI. Если установлен
 в 0 - привязка ко всем каналам. Значения в диапазоне [1\..16] привязываются
 к каналам первого Pd MIDI устройства \, [17\..32] - к каналам второго
 и т.д. Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...255\.;
-#X msg 110 1215 @midi_control;
-#X text 245 1215 Получить/Установить binded MIDI controller number.
+#X msg 130 1181 @midi_control;
+#X text 270 1181 Получить/Установить binded MIDI controller number.
 -1 means not binded to any controller. Тип: int. Значение по умолчанию:
 -1\. Диапазон: -1\...127\.;
-#X msg 110 1272 @midi_pickup;
-#X text 245 1272 Получить/Установить pickup current value. If slider
+#X msg 130 1238 @midi_pickup;
+#X text 270 1238 Получить/Установить pickup current value. If slider
 is binded to value \, first time you should pass over this value to
 make binding. It prevents from sudden value change on first control
 change. Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 1359 @background_color;
-#X text 245 1359 Получить/Установить цвета фона у объекта (список из
+#X msg 130 1325 @background_color;
+#X text 270 1325 Получить/Установить цвета фона у объекта (список из
 красного \, зеленого и синего значений в диапазоне [0\..1]). Тип: list.
 Значение по умолчанию: 0.93 0.93 0.93 1\.;
-#X msg 110 1416 @border_color;
-#X text 245 1416 Получить/Установить цвет границы объекта (список из
+#X msg 130 1382 @border_color;
+#X text 270 1382 Получить/Установить цвет границы объекта (список из
 красного \, зеленого и синего цветов в [0\..1] диапазоне). Тип: list.
 Значение по умолчанию: 0.6 0.6 0.6 1\.;
-#X msg 110 1473 @knob_color;
-#X text 245 1473 Получить/Установить knob color (list of red \, green
+#X msg 130 1439 @knob_color;
+#X text 270 1439 Получить/Установить knob color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0.75
 1 1\.;
-#X msg 110 1530 @fontname;
-#X text 245 1530 Получить/Установить имя шрифта. Тип: symbol. Значение
+#X msg 130 1496 @fontname;
+#X text 270 1496 Получить/Установить имя шрифта. Тип: symbol. Значение
 по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
 Helvetica \, Monaco \, Times.;
-#X msg 110 1587 @fontsize;
-#X text 245 1587 Получить/Установить размер шрифта. Тип: int. Значение
+#X msg 130 1553 @fontsize;
+#X text 270 1553 Получить/Установить размер шрифта. Тип: int. Значение
 по умолчанию: 11\. Диапазон: 4\...100\.;
-#X msg 110 1629 @fontslant;
-#X text 245 1629 Получить/Установить наклон шрифта. Тип: symbol. Значение
+#X msg 130 1595 @fontslant;
+#X text 270 1595 Получить/Установить наклон шрифта. Тип: symbol. Значение
 по умолчанию: roman. Разрешённые значения: roman \, italic.;
-#X msg 110 1671 @fontweight;
-#X text 245 1671 Получить/Установить толщину шрифта. Тип: symbol. Значение
+#X msg 130 1637 @fontweight;
+#X text 270 1637 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
-#X msg 110 1713 @pinned;
-#X text 245 1713 Получить/Установить режим закрепления. Если 1 - помещает
+#X msg 130 1679 @pinned;
+#X text 270 1679 Получить/Установить режим закрепления. Если 1 - помещает
 элемент на самый дальний уровень на холсте за другими элементам. Тип:
 bool. Значение по умолчанию: 0\.;
-#X msg 110 1770 @presetname;
-#X text 245 1770 Получить/Установить имя пресета для использования
+#X msg 130 1736 @presetname;
+#X text 270 1736 Получить/Установить имя пресета для использования
 с объектами [ui.preset] или [preset.storage]. Тип: symbol. Значение
 по умолчанию: (null).;
-#X msg 110 1827 @size;
-#X text 245 1827 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
+#X msg 130 1793 @size;
+#X text 270 1793 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
 Тип: list. Значение по умолчанию: 15 120\.;
-#X obj 20 1879 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1884 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1850 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1885 clear;
-#X text 245 1885 clears specified preset. Аргументы:;
-#X obj 255 1908 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1908 IDX: preset index. Тип: int.;
-#X msg 110 1933 interp;
-#X text 245 1933 interplolates between presets. Аргументы:;
-#X obj 255 1956 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1956 IDX: preset fraction index. Тип: float.;
-#X msg 110 1981 load;
-#X text 245 1981 loads specified preset. Аргументы:;
-#X obj 255 2004 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2004 IDX: preset index. Тип: int.;
-#X msg 110 2029 pos;
-#X text 245 2029 set UI element position. Аргументы:;
-#X obj 255 2052 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2052 X: top left x-coord. Тип: float.;
-#X obj 255 2075 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2075 Y: top right y-coord. Тип: float.;
-#X msg 110 2100 set N;
-#X text 245 2100 set current gain to N db.;
-#X msg 110 2128 store;
-#X text 245 2128 stores specified preset. Аргументы:;
-#X obj 255 2151 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2151 IDX: preset index. Тип: int.;
-#X msg 110 2176 + N;
-#X text 245 2176 increase current gain by N db.;
-#X msg 110 2204 ++;
-#X text 245 2204 decrease current gain by 1 db.;
-#X msg 110 2232 - N;
-#X text 245 2232 decrease current gain by N db.;
-#X msg 110 2260 --;
-#X text 245 2260 decrease current gain by 1 db.;
-#X obj 20 2298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2303 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1851 clear;
+#X text 270 1851 clears specified preset. Аргументы:;
+#X obj 280 1874 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1874 IDX: preset index. Тип: int.;
+#X msg 130 1899 interp;
+#X text 270 1899 interplolates between presets. Аргументы:;
+#X obj 280 1922 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1922 IDX: preset fraction index. Тип: float.;
+#X msg 130 1947 load;
+#X text 270 1947 loads specified preset. Аргументы:;
+#X obj 280 1970 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1970 IDX: preset index. Тип: int.;
+#X msg 130 1995 pos;
+#X text 270 1995 set UI element position. Аргументы:;
+#X obj 280 2018 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2018 X: top left x-coord. Тип: float.;
+#X obj 280 2041 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2041 Y: top right y-coord. Тип: float.;
+#X msg 130 2066 set N;
+#X text 270 2066 set current gain to N db.;
+#X msg 130 2094 store;
+#X text 270 2094 stores specified preset. Аргументы:;
+#X obj 280 2117 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2117 IDX: preset index. Тип: int.;
+#X msg 130 2142 + N;
+#X text 270 2142 increase current gain by N db.;
+#X msg 130 2170 ++;
+#X text 270 2170 decrease current gain by 1 db.;
+#X msg 130 2198 - N;
+#X text 270 2198 decrease current gain by N db.;
+#X msg 130 2226 --;
+#X text 270 2226 decrease current gain by 1 db.;
+#X obj 20 2264 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2269 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2304 1\.;
-#X text 150 2304 ~;
-#X text 245 2304 left input signal.;
-#X text 150 2329 bang:;
-#X text 245 2329 output current gain @db property.;
-#X text 110 2354 2\.;
-#X text 150 2354 ~;
-#X text 245 2354 right input signal.;
-#X obj 20 2389 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2394 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 2270 1\.;
+#X text 170 2270 ~;
+#X text 270 2270 left input signal.;
+#X text 170 2295 bang:;
+#X text 270 2295 output current gain @db property.;
+#X text 130 2320 2\.;
+#X text 170 2320 ~;
+#X text 270 2320 right input signal.;
+#X obj 20 2355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2360 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2395 1\.;
-#X text 150 2395 ~;
-#X text 245 2395 left output signal.;
-#X text 110 2415 2\.;
-#X text 150 2415 ~;
-#X text 245 2415 right output signal.;
+#X text 130 2361 1\.;
+#X text 170 2361 ~;
+#X text 270 2361 left output signal.;
+#X text 130 2381 2\.;
+#X text 170 2381 ~;
+#X text 270 2381 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2465 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2468 библиотека: ceammc v0.9.8;
-#N canvas 10 2487 400 290 info 0;
+#X obj 1 2431 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2434 библиотека: ceammc v0.9.8;
+#N canvas 10 2453 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -223,7 +223,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2487 pd info;
+#X restore 10 2453 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

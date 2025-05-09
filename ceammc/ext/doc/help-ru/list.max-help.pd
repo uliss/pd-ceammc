@@ -5,10 +5,10 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.max 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 list.max;
-#X obj 205 78 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 By default returns largest float in list \, this equal
+#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 By default returns largest float in list \, this equal
 to using @float property.;
-#X text 215 123 Also you can choose largest symbol from list \, using
+#X text 240 123 Also you can choose largest symbol from list \, using
 @symbol property.;
 #X msg 50 216 1 2 3 a b;
 #X msg 174 216 list a b c;
@@ -28,44 +28,44 @@ to using @float property.;
 -49933 0;
 #X obj 735 447 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 479 @any;
-#X text 245 479 Alias for @type any. Find greatest atom of any type.
+#X msg 130 445 @any;
+#X text 270 445 Alias for @type any. Find greatest atom of any type.
 Note: symbols are greater then numbers.;
-#X msg 110 521 @float;
-#X text 245 521 Alias for @type float. Find max float element in list.;
-#X msg 110 551 @symbol;
-#X text 245 551 Alias for @type symbol. Find greatest symbol element.;
-#X msg 110 581 @type;
-#X text 245 581 Получить/Установить type of largest element. Тип: symbol.
+#X msg 130 487 @float;
+#X text 270 487 Alias for @type float. Find max float element in list.;
+#X msg 130 517 @symbol;
+#X text 270 517 Alias for @type symbol. Find greatest symbol element.;
+#X msg 130 547 @type;
+#X text 270 547 Получить/Установить type of largest element. Тип: symbol.
 Значение по умолчанию: float. Разрешённые значения: float \, symbol
 \, any.;
-#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 653 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 619 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 654 1\.;
-#X text 150 654 list:;
-#X text 245 654 input list.;
-#X text 150 679 data:mlist:;
-#X text 245 679 input mlist.;
-#X text 150 704 float:;
-#X text 245 704 passed thru in @float or @any mode.;
-#X text 150 729 symbol:;
-#X text 245 729 passed thru in @symbol or @any mode.;
-#X obj 20 764 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 769 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 620 1\.;
+#X text 170 620 list:;
+#X text 270 620 input list.;
+#X text 170 645 data:mlist:;
+#X text 270 645 input mlist.;
+#X text 170 670 float:;
+#X text 270 670 passed thru in @float or @any mode.;
+#X text 170 695 symbol:;
+#X text 270 695 passed thru in @symbol or @any mode.;
+#X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 735 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 770 1\.;
-#X text 245 770 largest element.;
+#X text 130 736 1\.;
+#X text 270 736 largest element.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 820 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 823 библиотека: ceammc v0.9.8;
-#X text 561 835 смотрите также:;
-#X obj 682 835 list.min;
-#N canvas 10 842 400 290 info 0;
+#X obj 1 786 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 789 библиотека: ceammc v0.9.8;
+#X text 561 801 смотрите также:;
+#X obj 682 801 list.min;
+#N canvas 10 808 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,7 +89,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 842 pd info;
+#X restore 10 808 pd info;
 #X connect 7 0 11 0;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;

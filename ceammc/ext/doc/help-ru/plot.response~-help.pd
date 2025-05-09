@@ -18,56 +18,56 @@
 -49933 0;
 #X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 554 1\.;
-#X text 150 554 int;
-#X obj 246 555 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 554 N: @n property. Тип: int. Диапазон: 32…8192;
-#X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 589 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 520 1\.;
+#X text 170 520 int;
+#X obj 271 521 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 520 N: @n property. Тип: int. Диапазон: 32…8192;
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 555 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 592 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 558 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 624 @db;
-#X text 245 624 Получить/Установить decibel mode. It true outputs amplitude
+#X msg 130 556 @db;
+#X text 270 556 Получить/Установить decibel mode. It true outputs amplitude
 in decibels. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 666 @n;
-#X text 245 666 Получить/Установить number of processed samples. Тип:
+#X msg 130 598 @n;
+#X text 270 598 Получить/Установить number of processed samples. Тип:
 int. Значение по умолчанию: 512\. Диапазон: 32\...8192\.;
-#X msg 110 708 @sr;
-#X text 245 708 Получить/Установить using samplerate. If true output
+#X msg 130 640 @sr;
+#X text 270 640 Получить/Установить using samplerate. If true output
 in [0\..SR/2] instead of [0\..pi]. Тип: bool. Значение по умолчанию:
 0\.;
-#X obj 20 775 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 780 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 707 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 712 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 781 1\.;
-#X text 150 781 ~;
-#X text 245 781 input signal.;
-#X text 110 806 2\.;
-#X text 150 806 bang:;
-#X text 245 806 starts response calculation.;
-#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 846 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 713 1\.;
+#X text 170 713 ~;
+#X text 270 713 input signal.;
+#X text 130 738 2\.;
+#X text 170 738 bang:;
+#X text 270 738 starts response calculation.;
+#X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 778 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 847 1\.;
-#X text 150 847 ~;
-#X text 245 847 frequency response.;
-#X text 110 867 2\.;
-#X text 150 867 ~;
-#X text 245 867 phase response.;
-#X text 110 887 3\.;
-#X text 245 887 output to [array.plot~] or [ui.plot~].;
+#X text 130 779 1\.;
+#X text 170 779 ~;
+#X text 270 779 frequency response.;
+#X text 130 799 2\.;
+#X text 170 799 ~;
+#X text 270 799 phase response.;
+#X text 130 819 3\.;
+#X text 270 819 output to [array.plot~] or [ui.plot~].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 937 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 940 библиотека: ceammc v0.9.8;
-#X text 392 952 смотрите также:;
-#X obj 513 952 plot.linspace~;
-#X obj 630 952 plot.geomspace~;
-#N canvas 10 959 400 290 info 0;
+#X obj 1 869 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 872 библиотека: ceammc v0.9.8;
+#X text 392 884 смотрите также:;
+#X obj 513 884 plot.linspace~;
+#X obj 630 884 plot.geomspace~;
+#N canvas 10 891 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -91,7 +91,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 959 pd info;
+#X restore 10 891 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

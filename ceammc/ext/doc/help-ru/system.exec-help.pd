@@ -20,53 +20,53 @@
 -49933 0;
 #X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 324 @low;
-#X text 245 324 Alias to @priority low.;
-#X msg 110 354 @priority;
-#X text 245 354 Получить/Установить subprocess priority (not all platforms
+#X msg 130 290 @low;
+#X text 270 290 Alias to @priority low.;
+#X msg 130 320 @priority;
+#X text 270 320 Получить/Установить subprocess priority (not all platforms
 are supported). Тип: symbol. Значение по умолчанию: normal. Разрешённые
 значения: normal \, low.;
-#X msg 110 411 @is_running?;
-#X text 245 411 (только чтение) Получить is process is running. Тип:
+#X msg 130 377 @is_running?;
+#X text 270 377 (только чтение) Получить is process is running. Тип:
 bool. Значение по умолчанию: 0\.;
-#X msg 110 453 @state?;
-#X text 245 453 (только чтение) Получить running process state: -1
+#X msg 130 419 @state?;
+#X text 270 419 (только чтение) Получить running process state: -1
 (no process) \, 0 (not started) \, 1 (running) \, 2 (finished). Тип:
 int. Значение по умолчанию: -1\.;
-#X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 525 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 491 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 526 eof;
-#X text 245 526 send EOF to running processes.;
-#X msg 110 554 stop;
-#X text 245 554 stop running process.;
-#X msg 110 582 terminate;
-#X text 245 582 terminate running process.;
-#X msg 110 610 write;
-#X text 245 610 write data to process stdin.;
-#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 653 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 492 eof;
+#X text 270 492 send EOF to running processes.;
+#X msg 130 520 stop;
+#X text 270 520 stop running process.;
+#X msg 130 548 terminate;
+#X text 270 548 terminate running process.;
+#X msg 130 576 write;
+#X text 270 576 write data to process stdin.;
+#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 619 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 654 1\.;
-#X text 150 654 symbol:;
-#X text 245 654 run specified program.;
-#X text 150 679 any:;
-#X text 245 679 run specified program with arguments.;
-#X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 719 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 620 1\.;
+#X text 170 620 symbol:;
+#X text 270 620 run specified program.;
+#X text 170 645 any:;
+#X text 270 645 run specified program with arguments.;
+#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 685 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 720 1\.;
-#X text 245 720 output process exit code.;
-#X text 110 740 2\.;
-#X text 245 740 output list of strings.;
+#X text 130 686 1\.;
+#X text 270 686 output process exit code.;
+#X text 130 706 2\.;
+#X text 270 706 output list of strings.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 790 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 793 библиотека: ceammc v0.9.8;
-#N canvas 10 812 400 290 info 0;
+#X obj 1 756 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 759 библиотека: ceammc v0.9.8;
+#N canvas 10 778 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,7 +90,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 812 pd info;
+#X restore 10 778 pd info;
 #X connect 4 0 9 0;
 #X connect 5 0 9 0;
 #X connect 7 0 9 0;

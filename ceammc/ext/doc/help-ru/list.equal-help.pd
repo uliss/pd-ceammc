@@ -19,46 +19,46 @@
 -49933 0;
 #X obj 735 306 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 338 1\.;
-#X text 150 338 list;
-#X obj 246 339 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 338 PATTERN: initial value. Тип: list.;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 304 1\.;
+#X text 170 304 list;
+#X obj 271 305 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 304 PATTERN: initial value. Тип: list.;
+#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 339 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 342 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 408 @pattern;
-#X text 245 408 Получить/Установить current pattern. Тип: list.;
-#X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 453 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 340 @pattern;
+#X text 270 340 Получить/Установить current pattern. Тип: list.;
+#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 385 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 454 dump;
-#X text 245 454 dumps object state to PD console window.;
-#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 497 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 386 dump;
+#X text 270 386 dumps object state to PD console window.;
+#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 429 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 498 1\.;
-#X text 150 498 list:;
-#X text 245 498 First list.;
-#X text 150 523 data:mlist:;
-#X text 245 523 First list.;
-#X text 110 548 2\.;
-#X text 150 548 list:;
-#X text 245 548 Second list.;
-#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 588 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 430 1\.;
+#X text 170 430 list:;
+#X text 270 430 First list.;
+#X text 170 455 data:mlist:;
+#X text 270 455 First list.;
+#X text 130 480 2\.;
+#X text 170 480 list:;
+#X text 270 480 Second list.;
+#X obj 20 515 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 520 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 589 1\.;
-#X text 245 589 "1" if lists are equal \, "0" otherwise.;
+#X text 130 521 1\.;
+#X text 270 521 "1" if lists are equal \, "0" otherwise.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 639 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 642 библиотека: ceammc v0.9.8;
-#N canvas 10 661 400 290 info 0;
+#X obj 1 571 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 574 библиотека: ceammc v0.9.8;
+#N canvas 10 593 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -82,7 +82,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 661 pd info;
+#X restore 10 593 pd info;
 #X connect 4 0 10 0;
 #X connect 5 0 10 0;
 #X connect 6 0 10 1;

@@ -7,8 +7,8 @@
 #X obj 491 11 ceammc/carg~;
 #X obj 604 11 carg~;
 #X obj 666 11 math.carg~;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 outputs the phase angle in the interval [−π π];
+#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 outputs the phase angle in the interval [−π π];
 #X obj 50 161 ui.slider2d @show_grid 1 @size 100 100;
 #X obj 50 277 unpack f f;
 #X obj 50 305 sig~;
@@ -19,18 +19,18 @@
 #X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 418 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 419 1\.;
-#X text 150 419 ~;
-#X text 245 419 real part of input signal.;
-#X text 110 444 2\.;
-#X text 150 444 ~;
-#X text 245 444 imag part of input signal.;
+#X text 130 419 1\.;
+#X text 170 419 ~;
+#X text 270 419 real part of input signal.;
+#X text 130 444 2\.;
+#X text 170 444 ~;
+#X text 270 444 imag part of input signal.;
 #X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 484 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 485 1\.;
-#X text 150 485 ~;
-#X text 245 485 signal phase angle in radians.;
+#X text 130 485 1\.;
+#X text 170 485 ~;
+#X text 270 485 signal phase angle in radians.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

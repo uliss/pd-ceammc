@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty synth.sitar~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 synth.sitar~;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Implements a sitar plucked string physical model based
+#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Implements a sitar plucked string physical model based
 on the Karplus-Strong algorithm;
 #X obj 50 176 ui.keyboard;
 #X msg 50 248 note \$1 \$2;
@@ -20,50 +20,50 @@ on the Karplus-Strong algorithm;
 -49933 0;
 #X obj 735 393 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 425 @freq;
-#X text 245 425 Получить/Установить maximum speed of whistles. Тип:
+#X msg 130 391 @freq;
+#X text 270 391 Получить/Установить maximum speed of whistles. Тип:
 float. Единицы: 'Hz'. Значение по умолчанию: 220\. Диапазон: 0\...480\.;
-#X msg 110 482 @gate;
-#X text 245 482 Получить/Установить synth gate (>0 - play). Тип: float.
+#X msg 130 448 @gate;
+#X text 270 448 Получить/Установить synth gate (>0 - play). Тип: float.
 Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 524 @pitch;
-#X text 245 524 Получить/Установить midi pitch. Тип: float. Значение
+#X msg 130 490 @pitch;
+#X text 270 490 Получить/Установить midi pitch. Тип: float. Значение
 по умолчанию: 57\. Диапазон: 36\...84\.;
-#X obj 20 576 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 581 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 547 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 582 cc;
-#X text 245 582 control change message. Аргументы:;
-#X obj 255 605 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 605 CTL: control number. Тип: int.;
-#X obj 255 628 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 628 VAL: value. Тип: float.;
-#X msg 110 653 note;
-#X text 245 653 note on/off message. Аргументы:;
-#X obj 255 676 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 676 NOTE: midi note. Тип: float.;
-#X obj 255 699 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 699 VEL: velocity. Тип: float. Диапазон: 0…127\.;
-#X obj 20 734 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 739 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 548 cc;
+#X text 270 548 control change message. Аргументы:;
+#X obj 280 571 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 571 CTL: control number. Тип: int.;
+#X obj 280 594 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 594 VAL: value. Тип: float.;
+#X msg 130 619 note;
+#X text 270 619 note on/off message. Аргументы:;
+#X obj 280 642 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 642 NOTE: midi note. Тип: float.;
+#X obj 280 665 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 665 VEL: velocity. Тип: float. Диапазон: 0…127\.;
+#X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 705 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 740 1\.;
-#X text 150 740 list:;
-#X text 245 740 NOTE VEL.;
-#X obj 20 775 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 780 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 706 1\.;
+#X text 170 706 list:;
+#X text 270 706 NOTE VEL.;
+#X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 746 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 781 1\.;
-#X text 150 781 ~;
-#X text 245 781 synth output.;
+#X text 130 747 1\.;
+#X text 170 747 ~;
+#X text 270 747 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 831 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 834 библиотека: ceammc v0.9.8;
-#N canvas 10 853 400 290 info 0;
+#X obj 1 797 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 800 библиотека: ceammc v0.9.8;
+#N canvas 10 819 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -87,7 +87,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 853 pd info;
+#X restore 10 819 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;
 #X connect 8 0 9 0;

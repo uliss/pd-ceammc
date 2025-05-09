@@ -7,10 +7,10 @@
 #X obj 394 11 ceammc/bits->bang;
 #X obj 542 11 bits->bang;
 #X obj 639 11 conv.bits2bang;
-#X obj 205 78 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 in default mode if bit is on - sends bang to corresponding
+#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 in default mode if bit is on - sends bang to corresponding
 outlet;
-#X text 215 123 in @poly mode if bit is on - send list (BIT_IDX bang)
+#X text 240 123 in @poly mode if bit is on - send list (BIT_IDX bang)
 to single outlet;
 #X msg 50 216 random;
 #X obj 50 245 ui.hrd* @nitems 4;
@@ -37,42 +37,42 @@ to single outlet;
 -49933 0;
 #X obj 735 649 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 681 1\.;
-#X text 150 681 int;
-#X obj 246 682 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 681 N: количество выходов. Тип: int. Диапазон: 1…64;
-#X obj 20 711 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 716 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 647 1\.;
+#X text 170 647 int;
+#X obj 271 648 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 647 N: количество выходов. Тип: int. Диапазон: 1…64;
+#X obj 20 677 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 682 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 719 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 685 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 751 @n;
-#X text 245 751 (при инициализации) Получить/Установить количество
+#X msg 130 683 @n;
+#X text 270 683 (при инициализации) Получить/Установить количество
 выходов. Тип: int. Значение по умолчанию: 8\. Диапазон: 1\...64\.;
-#X msg 110 793 @poly;
-#X text 245 793 полифонический режим для использования с объектом [clone].;
-#X msg 110 823 @rev;
-#X text 245 823 Получить/Установить обратный порядок битов. Тип: bool.
+#X msg 130 725 @poly;
+#X text 270 725 полифонический режим для использования с объектом [clone].;
+#X msg 130 755 @rev;
+#X text 270 755 Получить/Установить обратный порядок битов. Тип: bool.
 Значение по умолчанию: 0\.;
-#X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 880 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 807 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 812 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 881 1\.;
-#X text 150 881 list:;
-#X text 245 881 input bit list.;
-#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 921 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 813 1\.;
+#X text 170 813 list:;
+#X text 270 813 input bit list.;
+#X obj 20 848 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 853 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 922 1\.;
-#X text 245 922 output.;
+#X text 130 854 1\.;
+#X text 270 854 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 972 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 975 библиотека: ceammc v0.9.8;
-#N canvas 10 994 400 290 info 0;
+#X obj 1 904 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 907 библиотека: ceammc v0.9.8;
+#N canvas 10 926 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -96,7 +96,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 994 pd info;
+#X restore 10 926 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;
 #X connect 12 0 16 0;

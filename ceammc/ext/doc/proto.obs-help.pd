@@ -26,101 +26,101 @@
 -49933 0;
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 410 @host;
-#X text 245 410 Get/Set OBS studio host name. Type: symbol. Default
+#X msg 130 376 @host;
+#X text 270 376 Get/Set OBS studio host name. Type: symbol. Default
 value: localhost.;
-#X msg 110 452 @passwd;
-#X text 245 452 Get/Set OBS studio password. Type: symbol.;
-#X msg 110 482 @port;
-#X text 245 482 Get/Set OBS studio control port. Type: int. Default
+#X msg 130 418 @passwd;
+#X text 270 418 Get/Set OBS studio password. Type: symbol.;
+#X msg 130 448 @port;
+#X text 270 448 Get/Set OBS studio control port. Type: int. Default
 value: 4455\. Range: 1\...32767\.;
-#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 539 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 500 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 505 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 540 collection current get;
-#X text 285 540 request current collection.;
-#X msg 110 568 collection current set;
-#X text 285 568 set current collection. Arguments are:;
-#X obj 255 591 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 591 NAME: collection name. Type: symbol.;
-#X msg 110 616 collection list;
-#X text 245 616 request collection list.;
-#X msg 110 644 connect;
-#X text 245 644 connect to OBS studio. Message [connected 1( is send
+#X msg 130 506 collection current get;
+#X text 310 506 request current collection.;
+#X msg 130 534 collection current set;
+#X text 310 534 set current collection. Arguments are:;
+#X obj 280 557 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 557 NAME: collection name. Type: symbol.;
+#X msg 130 582 collection list;
+#X text 270 582 request collection list.;
+#X msg 130 610 connect;
+#X text 270 610 connect to OBS studio. Message [connected 1( is send
 to output on success \, [connected 0( - on error. Arguments are:;
-#X obj 255 682 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 682 [PASSWD]: if specified \, temporaly overrides @passwd
+#X obj 280 648 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 648 [PASSWD]: if specified \, temporaly overrides @passwd
 property. Type: symbol.;
-#X msg 110 722 disconnect;
-#X text 245 722 disconnect from OBS studio. Message [connected 0( is
+#X msg 130 688 disconnect;
+#X text 270 688 disconnect from OBS studio. Message [connected 0( is
 send to output.;
-#X msg 110 762 info;
-#X text 245 762 request OBS studio information: OBS version \, web-socket
+#X msg 130 728 info;
+#X text 270 728 request OBS studio information: OBS version \, web-socket
 version \, RPC version and list of supported image formats. This info
 is outputted as messages to first outlet.;
-#X msg 110 817 item enable;
-#X text 245 817 enable/disable scene item. Arguments are:;
-#X obj 255 840 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 840 SCENE: scene name. Type: symbol.;
-#X obj 255 863 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 863 IDX: item pos. Type: int.;
-#X obj 255 886 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 886 VALUE: value. Type: bool.;
-#X msg 110 911 item list;
-#X text 245 911 request list of scene items. Arguments are:;
-#X obj 255 934 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 934 SCENE: scene name. Type: symbol.;
-#X msg 110 959 item remove;
-#X text 245 959 remove scene item. Arguments are:;
-#X obj 255 982 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 982 SCENE: scene name. Type: symbol.;
-#X obj 255 1005 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1005 IDX: item pos. Type: int.;
-#X msg 110 1030 monitor list;
-#X text 245 1030 request monitor list.;
-#X msg 110 1058 scene create;
-#X text 245 1058 create new scene. Arguments are:;
-#X obj 255 1081 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1081 SCENE: scene name. Type: symbol.;
-#X msg 110 1106 scene current get;
-#X text 245 1106 request current scene.;
-#X msg 110 1134 scene current set;
-#X text 245 1134 set current scene. Arguments are:;
-#X obj 255 1157 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1157 SCENE: scene name. Type: symbol.;
-#X msg 110 1182 scene first;
-#X text 245 1182 change to first scene.;
-#X msg 110 1210 scene last;
-#X text 245 1210 change to last scene.;
-#X msg 110 1238 scene list;
-#X text 245 1238 request scene list.;
-#X msg 110 1266 scene next;
-#X text 245 1266 change to next scene.;
-#X msg 110 1294 scene prev;
-#X text 245 1294 change to prev scene.;
-#X msg 110 1322 scene remove;
-#X text 245 1322 remove scene. Arguments are:;
-#X obj 255 1345 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1345 SCENE: scene name. Type: symbol.;
-#X obj 20 1380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1385 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 783 item enable;
+#X text 270 783 enable/disable scene item. Arguments are:;
+#X obj 280 806 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 806 SCENE: scene name. Type: symbol.;
+#X obj 280 829 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 829 IDX: item pos. Type: int.;
+#X obj 280 852 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 852 VALUE: value. Type: bool.;
+#X msg 130 877 item list;
+#X text 270 877 request list of scene items. Arguments are:;
+#X obj 280 900 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 900 SCENE: scene name. Type: symbol.;
+#X msg 130 925 item remove;
+#X text 270 925 remove scene item. Arguments are:;
+#X obj 280 948 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 948 SCENE: scene name. Type: symbol.;
+#X obj 280 971 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 971 IDX: item pos. Type: int.;
+#X msg 130 996 monitor list;
+#X text 270 996 request monitor list.;
+#X msg 130 1024 scene create;
+#X text 270 1024 create new scene. Arguments are:;
+#X obj 280 1047 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1047 SCENE: scene name. Type: symbol.;
+#X msg 130 1072 scene current get;
+#X text 270 1072 request current scene.;
+#X msg 130 1100 scene current set;
+#X text 270 1100 set current scene. Arguments are:;
+#X obj 280 1123 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1123 SCENE: scene name. Type: symbol.;
+#X msg 130 1148 scene first;
+#X text 270 1148 change to first scene.;
+#X msg 130 1176 scene last;
+#X text 270 1176 change to last scene.;
+#X msg 130 1204 scene list;
+#X text 270 1204 request scene list.;
+#X msg 130 1232 scene next;
+#X text 270 1232 change to next scene.;
+#X msg 130 1260 scene prev;
+#X text 270 1260 change to prev scene.;
+#X msg 130 1288 scene remove;
+#X text 270 1288 remove scene. Arguments are:;
+#X obj 280 1311 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1311 SCENE: scene name. Type: symbol.;
+#X obj 20 1346 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1351 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1386 1\.;
-#X text 150 1386 float:;
-#X text 245 1386 raw midi input bytes.;
-#X obj 20 1421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1426 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1352 1\.;
+#X text 170 1352 float:;
+#X text 270 1352 raw midi input bytes.;
+#X obj 20 1387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1392 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1427 1\.;
-#X text 245 1427 any messages.;
+#X text 130 1393 1\.;
+#X text 270 1393 any messages.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1477 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1480 library: ceammc v0.9.8;
-#N canvas 10 1499 400 290 info 0;
+#X obj 1 1443 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1446 library: ceammc v0.9.8;
+#N canvas 10 1465 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -144,7 +144,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1499 pd info;
+#X restore 10 1465 pd info;
 #X connect 12 0 15 0;
 #X connect 18 0 19 0;
 #X connect 4 0 18 0;
