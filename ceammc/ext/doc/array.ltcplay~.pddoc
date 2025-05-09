@@ -38,21 +38,21 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">LTC input signal</tr>
-                    <tr lang="ru" finished="false">LTC входной сигнал</tr>
+                    <tr lang="ru">входной сигнал LTC</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="symbol">
-                    <tr lang="en">set source array</tr>
-                    <tr lang="ru" finished="false">установочный источник</tr>
+                    <tr lang="en">set the source array</tr>
+                    <tr lang="ru">установить исходный массив</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">
                 <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
+                    <tr lang="en">playback output</tr>
+                    <tr lang="ru">выход воспроизведения</tr>
                 </out>
             </outlet>
         </outlets>

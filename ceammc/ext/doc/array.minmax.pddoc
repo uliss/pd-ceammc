@@ -33,20 +33,19 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">perform search in current array</tr>
-                    <tr lang="ru" finished="false">выполнить поиск в текущем массиве</tr>
+                    <tr lang="ru">ваполняет поиск в текущем массиве</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">set new array and perform search</tr>
-                    <tr lang="ru" finished="false">установить новый массив и выполнить поиск</tr>
+                    <tr lang="ru">устанавливает новый массив, а затем выполняет поиск</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">list with two elements: minimal and maximum value</tr>
-                    <tr lang="ru" finished="false">Список из двух элементов: минимальное и
-                    максимальное значение</tr>
+                <out type="list">
+                    <tr lang="en">minimal and maximum value</tr>
+                    <tr lang="ru">минимальное и максимальное значение</tr>
                 </out>
             </outlet>
             <outlet>

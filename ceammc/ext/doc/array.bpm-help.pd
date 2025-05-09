@@ -47,7 +47,8 @@ library;
 #X obj 20 572 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 573 1\.;
-#X text 245 573 float value - BPM.;
+#X text 150 573 float:;
+#X text 245 573 beats per minute.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

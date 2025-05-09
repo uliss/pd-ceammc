@@ -347,15 +347,13 @@
         <inlets>
             <inlet>
                 <xinfo>
-                    <tr lang="en">control inlet</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
+                    <tr lang="en">control messages</tr>
+                    <tr lang="ru">вход для управляющих сообщений</tr>
                 </xinfo>
                 <xinfo on="bang">
                     <tr lang="en">if @sync = 'ext': starts finished grains playback</tr>
-                    <!-- old: если @sync = 'ext': начинается воспроизведение
-                    готовых зерен -->
-                    <tr lang="ru" finished="false">если @sync = 'ext': начинается воспроизведение
-                    готовых зерен</tr>
+                    <tr lang="ru">если @sync = 'ext': начинает воспроизведение
+                    завершенных гранул</tr>
                 </xinfo>
             </inlet>
         </inlets>
@@ -363,13 +361,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">left output</tr>
-                    <tr lang="ru" finished="false">левый выход</tr>
+                    <tr lang="ru">левый канал</tr>
                 </out>
             </outlet>
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">right output</tr>
-                    <tr lang="ru" finished="false">правильный выход</tr>
+                    <tr lang="ru">правый канал</tr>
                 </out>
             </outlet>
         </outlets>

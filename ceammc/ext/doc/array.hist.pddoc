@@ -72,15 +72,15 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">calculates and outputs histogram</tr>
-                    <tr lang="ru" finished="false">вычисление и вывод гистограммы</tr>
+                    <tr lang="ru">вычисляет и выводит гистограмму</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">list of histogram value (length=@bins)</tr>
-                    <tr lang="ru" finished="false">Список значения гистограммы (длина = @bins)</tr>
+                <out type="list">
+                    <tr lang="en">histogram values (length = number of @bins)</tr>
+                    <tr lang="ru">значения гистограммы (длина = число @bins)</tr>
                 </out>
             </outlet>
         </outlets>

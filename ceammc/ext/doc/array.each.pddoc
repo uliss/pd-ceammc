@@ -40,38 +40,32 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">
-                    <tr lang="en">process each element of current array</tr>
-                    <tr lang="ru" finished="false">Обработка каждого элемента текущего массива</tr>
+                    <tr lang="en">starts processing</tr>
+                    <tr lang="ru">начинает обработку</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">set the new array, then process each element</tr>
-                    <!-- old: установить новый массив, затем обработать каждый
-                    элемент -->
-                    <tr lang="ru" finished="false">установить новый массив, затем обработать каждый
-                    элемент</tr>
+                    <tr lang="ru">установить новый массив, затем обработать его</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">processed float value from side-chain</tr>
-                    <!-- old: Обработанная поплавковая стоимость из боковой
-                    цепи -->
-                    <tr lang="ru" finished="false">Обработанная поплавковая стоимость из боковой
-                    цепи</tr>
+                    <tr lang="ru">обработанное значение из боковой цепи</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">bang on finish</tr>
-                    <tr lang="ru" finished="false">Взрыв на финише</tr>
+                <out type="bang">
+                    <tr lang="en">on iteration done</tr>
+                    <tr lang="ru">при завершении итерации</tr>
                 </out>
             </outlet>
             <outlet>
-                <out type="any">
-                    <tr lang="en">float value</tr>
-                    <tr lang="ru" finished="false">плавающая стоимость</tr>
+                <out type="float">
+                    <tr lang="en">array sample value</tr>
+                    <tr lang="ru">значение семпла массива</tr>
                 </out>
             </outlet>
         </outlets>

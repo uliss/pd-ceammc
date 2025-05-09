@@ -47,21 +47,21 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">start convolution process</tr>
-                    <tr lang="ru" finished="false">начать процесс свертывания</tr>
+                    <tr lang="ru">начинает процесс свертки</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="symbol">
-                    <tr lang="en">set array name</tr>
-                    <tr lang="ru" finished="false">Имя при рождении</tr>
+                    <tr lang="en">sets the array name</tr>
+                    <tr lang="ru">устанавливает имя массива</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">bang: on done</tr>
-                    <tr lang="ru" finished="false">Исполнитель: The Done</tr>
+                <out type="bang">
+                    <tr lang="en">on done</tr>
+                    <tr lang="ru">при завершении свертки</tr>
                 </out>
             </outlet>
         </outlets>

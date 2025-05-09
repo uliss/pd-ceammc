@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">converting the array phase [0..1] to the sample index</tr>
-                <tr lang="ru">преобразование фазы в массиве [0..1] в индекс семпла</tr>
+                <tr lang="ru">преобразование фазы массива [0..1] в индекс семпла</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -47,22 +47,24 @@
                 <xinfo on="float">
                     <tr lang="en">value between 0 and 1, where 0 maps to begin of array, 1 - to
                     end</tr>
-                    <!-- old: значение между 0 и 1, где 0 карт для начала
-                    массива, 1 - для конца -->
                     <tr lang="ru" finished="false">значение между 0 и 1, где 0 карт для начала
                     массива, 1 - для конца</tr>
                 </xinfo>
                 <xinfo on="list">
-                    <tr lang="en">list of phases</tr>
-                    <tr lang="ru" finished="false">Перечень этапов</tr>
+                    <tr lang="en">list of array phases</tr>
+                    <tr lang="ru">список фаз для массива</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">sample number</tr>
-                    <tr lang="ru" finished="false">номер выборки</tr>
+                <out type="float">
+                    <tr lang="en">sample index when input value is float</tr>
+                    <tr lang="ru">индекс семпла, когда входное значение - число</tr>
+                </out>
+                <out type="list">
+                    <tr lang="en">sample indexes when input value is list of floats</tr>
+                    <tr lang="ru">индексы семплов, когда входное значение - список чисел</tr>
                 </out>
             </outlet>
         </outlets>

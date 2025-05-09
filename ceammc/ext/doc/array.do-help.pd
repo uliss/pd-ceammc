@@ -40,18 +40,20 @@ value: 1\.;
 0;
 #X text 110 539 1\.;
 #X text 150 539 *bang*;
-#X text 245 539 starts iteration.;
+#X text 245 539 starts the array iteration.;
 #X text 150 559 *symbol*;
-#X text 245 559 set array name.;
+#X text 245 559 set the array name.;
 #X text 110 579 2\.;
 #X text 150 579 *float*;
-#X text 245 579 sample value from side-chain.;
+#X text 245 579 numeric value from the side-chain.;
 #X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 614 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 615 1\.;
-#X text 245 615 bang on finish.;
+#X text 150 615 bang:;
+#X text 245 615 on iteration done.;
 #X text 110 635 2\.;
+#X text 150 635 list:;
 #X text 245 635 for each array sample outputs list: SAMPLE_VALUE \,
 SAMPLE_POS \, TOTAL_SAMPLES.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

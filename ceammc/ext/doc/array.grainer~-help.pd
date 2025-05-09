@@ -183,7 +183,7 @@ tag. Type: symbol.;
 #X obj 20 2730 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2731 1\.;
-#X text 245 2731 control inlet.;
+#X text 245 2731 control messages.;
 #X text 150 2751 *bang*;
 #X text 245 2751 if @sync = 'ext': starts finished grains playback.;
 #X obj 20 2781 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

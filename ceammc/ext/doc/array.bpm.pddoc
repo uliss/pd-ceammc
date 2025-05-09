@@ -46,9 +46,9 @@
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">float value - BPM</tr>
-                    <tr lang="ru" finished="false">Поплавковая стоимость - BPM</tr>
+                <out type="float">
+                    <tr lang="en">beats per minute</tr>
+                    <tr lang="ru">BPM - количество ударов в минуту</tr>
                 </out>
             </outlet>
         </outlets>

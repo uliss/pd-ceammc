@@ -83,7 +83,8 @@ to the specified destination position. Arguments are:;
 #X obj 20 1106 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1107 1\.;
-#X text 245 1107 bang on finish.;
+#X text 150 1107 bang:;
+#X text 245 1107 on done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

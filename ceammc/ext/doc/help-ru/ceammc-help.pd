@@ -189,7 +189,7 @@ process in the Centre of ElectroAcoustic Music of Moscow Conservatory
 0;
 #X obj 20 2592 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 2603 array.p2s;
-#X text 200 2603 преобразование фазы в массиве [0\..1] в индекс семпла;
+#X text 200 2603 преобразование фазы массива [0\..1] в индекс семпла;
 #X obj 30 2631 array.s2p;
 #X text 200 2631 преобразование индекса семпла в фазовый диапазон [0\..1];
 #X obj 30 2659 conv.amp2dbfs;

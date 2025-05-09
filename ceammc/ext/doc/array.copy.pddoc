@@ -119,18 +119,16 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">FROM TO - copy data from the one array to another</tr>
-                    <!-- old: FROM TO - копирование данных из одного массива в
-                    другой -->
-                    <tr lang="ru" finished="false">FROM TO - копирование данных из одного массива в
+                    <tr lang="ru">FROM TO - копирование данных из одного массива в
                     другой</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">bang on finish</tr>
-                    <tr lang="ru" finished="false">Взрыв на финише</tr>
+                <out type="bang">
+                    <tr lang="en">on done</tr>
+                    <tr lang="ru">при завершении операции</tr>
                 </out>
             </outlet>
         </outlets>

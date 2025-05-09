@@ -41,15 +41,15 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">push back new float</tr>
-                    <tr lang="ru" finished="false">Отталкивать новый флот</tr>
+                    <tr lang="ru">добавляет новое число в конец массива</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">float: popped front element</tr>
-                    <tr lang="ru" finished="false">Поплавок: лопнувший передний элемент</tr>
+                <out type="float">
+                    <tr lang="en">popped front element</tr>
+                    <tr lang="ru">вытолкнутый передний элемент массива</tr>
                 </out>
             </outlet>
         </outlets>

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 353 50 cnv 1 412 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 358 50 преобразование фазы в массиве [0\..1] в индекс семпла;
+#X obj 369 50 cnv 1 396 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 374 50 преобразование фазы массива [0\..1] в индекс семпла;
 #X obj 1 1 cnv 5 765 40 empty empty array.p2s 20 20 0 20 -104026 -4096
 0;
 #X obj 413 11 array.p->s;
@@ -46,22 +46,26 @@
 #X text 245 569 value between 0 and 1 \, where 0 maps to begin of array
 \, 1 - to end.;
 #X text 150 604 *list*;
-#X text 245 604 list of phases.;
+#X text 245 604 список фаз для массива.;
 #X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 639 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 640 1\.;
-#X text 245 640 sample number.;
+#X text 150 640 float:;
+#X text 245 640 индекс семпла \, когда входное значение - число.;
+#X text 150 665 list:;
+#X text 245 665 индексы семплов \, когда входное значение - список
+чисел.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 690 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 693 библиотека: ceammc v0.9.8;
-#X text 553 705 смотрите также:;
-#X obj 674 705 array.s2p;
-#N canvas 10 712 400 290 info 0;
+#X obj 1 715 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 718 библиотека: ceammc v0.9.8;
+#X text 553 730 смотрите также:;
+#X obj 674 730 array.s2p;
+#N canvas 10 737 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -85,7 +89,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 712 pd info;
+#X restore 10 737 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

@@ -174,16 +174,16 @@
         <inlets>
             <inlet>
                 <xinfo on="symbol">
-                    <tr lang="en">change array name</tr>
-                    <tr lang="ru" finished="false">изменить имя файла</tr>
+                    <tr lang="en">set the array name</tr>
+                    <tr lang="ru">установить имя массива</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">bang on finish</tr>
-                    <tr lang="ru" finished="false">Взрыв на финише</tr>
+                <out type="bang">
+                    <tr lang="en">on done</tr>
+                    <tr lang="ru">после завершения операции</tr>
                 </out>
             </outlet>
         </outlets>

@@ -115,9 +115,9 @@ chaos.logistic	logistic map chaotic generator / хаотический гене�
 noise.logistic	logistic map chaotic generator / хаотический генератор на основе логистического отображения
 chaos.std0	standard map chaotic generator / хаотический генератор на основе стандартного отображения
 chaos.std0~	standard map chaotic generator / хаотический генератор на основе стандартного отображения
-array.p2s	converting the array phase [0..1] to the sample index / преобразование фазы в массиве [0..1] в индекс семпла
-array.p->s	converting the array phase [0..1] to the sample index / преобразование фазы в массиве [0..1] в индекс семпла
-array.phase->sample	converting the array phase [0..1] to the sample index / преобразование фазы в массиве [0..1] в индекс семпла
+array.p2s	converting the array phase [0..1] to the sample index / преобразование фазы массива [0..1] в индекс семпла
+array.p->s	converting the array phase [0..1] to the sample index / преобразование фазы массива [0..1] в индекс семпла
+array.phase->sample	converting the array phase [0..1] to the sample index / преобразование фазы массива [0..1] в индекс семпла
 array.s2p	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
 array.s->p	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
 array.sample->phase	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]

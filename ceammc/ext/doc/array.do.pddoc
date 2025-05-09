@@ -40,34 +40,33 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">
-                    <tr lang="en">starts iteration</tr>
-                    <tr lang="ru" finished="false">Начинается итерация</tr>
+                    <tr lang="en">starts the array iteration</tr>
+                    <tr lang="ru">начинает итерацию массива</tr>
                 </xinfo>
                 <xinfo on="symbol">
-                    <tr lang="en">set array name</tr>
-                    <tr lang="ru" finished="false">Имя при рождении</tr>
+                    <tr lang="en">set the array name</tr>
+                    <tr lang="ru">установить имя массива</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
-                    <tr lang="en">sample value from side-chain</tr>
-                    <tr lang="ru" finished="false">значение выборки из боковой цепи</tr>
+                    <tr lang="en">numeric value from the side-chain</tr>
+                    <tr lang="ru">числовое значение из боковой цепи обработки</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">bang on finish</tr>
-                    <tr lang="ru" finished="false">Взрыв на финише</tr>
+                <out type="bang">
+                    <tr lang="en">on iteration done</tr>
+                    <tr lang="ru">при завершении итерации</tr>
                 </out>
             </outlet>
             <outlet>
-                <out type="any">
+                <out type="list">
                     <tr lang="en">for each array sample outputs list: SAMPLE_VALUE, SAMPLE_POS,
                     TOTAL_SAMPLES</tr>
-                    <tr lang="ru" finished="false">Для каждого массива выборка выводов:
-                    SAMPLE_VALUE, SAMPLE_POS, TOTAL_SAMPLES</tr>
+                    <tr lang="ru">для каждого семпла массива выводит список: ЗНАЧЕНИЕ_СЕМПЛА, ИНДЕКС_СЕМПЛА, ВСЕГО_СЕМПЛОВ</tr>
                 </out>
             </outlet>
         </outlets>
