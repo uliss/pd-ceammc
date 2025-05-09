@@ -57,9 +57,10 @@
         <outlets>
             <outlet type="audio">
                 <out type="any">
-                    <tr lang="en">zero crossing count/freq/rate depending on the property @mode</tr>
-                    <tr lang="ru">число/скорость/частота пересечения сигналом нулевого
-                    значения в зависимости от свойства @mode</tr>
+                    <tr lang="en">zero crossing count/freq/rate depending on the property
+                    @mode</tr>
+                    <tr lang="ru">число/скорость/частота пересечения сигналом нулевого значения в
+                    зависимости от свойства @mode</tr>
                 </out>
             </outlet>
         </outlets>

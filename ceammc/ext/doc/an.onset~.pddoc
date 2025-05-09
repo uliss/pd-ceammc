@@ -179,10 +179,10 @@
             </outlet>
             <outlet>
                 <out type="float" units="millisecond">
-                    <tr lang="en">time of the latest onset detected in milliseconds from
-                    starting of measuring. You can reset start time with 'reset' message</tr>
-                    <tr lang="ru">время последней атаки в миллисекундах от начала измерения.
-                    Вы можете сбросить время начала измерения отправкой сообщения «reset»</tr>
+                    <tr lang="en">time of the latest onset detected in milliseconds from starting
+                    of measuring. You can reset start time with 'reset' message</tr>
+                    <tr lang="ru">время последней атаки в миллисекундах от начала измерения. Вы
+                    можете сбросить время начала измерения отправкой сообщения «reset»</tr>
                 </out>
             </outlet>
         </outlets>

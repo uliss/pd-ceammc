@@ -97,9 +97,9 @@
                     <tr lang="en">track fidelity: a value between 0 and 1, indicating to which
                     extent the input signal is periodic. A fidelity of ~0.95 can be considered to
                     indicate a periodic signal.</tr>
-                    <tr lang="ru">точность распознования: значение от 0 до 1, указывающее,
-                    в какой степени входной сигнал является периодическим. Точность около 0.95
-                    можно считать признаком периодического сигнала.</tr>
+                    <tr lang="ru">точность распознования: значение от 0 до 1, указывающее, в какой
+                    степени входной сигнал является периодическим. Точность около 0.95 можно
+                    считать признаком периодического сигнала.</tr>
                 </out>
             </outlet>
         </outlets>
