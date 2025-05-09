@@ -121,394 +121,394 @@ list. Default value: 120 60\.;
 #X obj 20 1838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1843 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1878 abc;
-#X text 245 1878 draw music in ABC notation. Arguments are:;
-#X obj 255 1901 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1901 X: left-coord in pixel or percents of width. Type:
+#X msg 110 1844 abc;
+#X text 245 1844 draw music in ABC notation. Arguments are:;
+#X obj 255 1867 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1867 X: left-coord in pixel or percents of width. Type:
 atom.;
-#X obj 255 1924 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1924 Y: top-coord in pixel or percents of height. Type:
+#X obj 255 1890 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1890 Y: top-coord in pixel or percents of height. Type:
 atom.;
-#X obj 255 1947 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1947 MUSIC: ABC notation. Type: list.;
-#X msg 110 1972 arc;
-#X text 245 1972 draw arc. Arguments are:;
-#X obj 255 1995 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1995 XC: x-center coord in pixel or percents of width.
+#X obj 255 1913 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1913 MUSIC: ABC notation. Type: list.;
+#X msg 110 1938 arc;
+#X text 245 1938 draw arc. Arguments are:;
+#X obj 255 1961 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1961 XC: x-center coord in pixel or percents of width.
 Type: atom.;
-#X obj 255 2018 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2018 YC: y-center coord in pixel or percents of height.
+#X obj 255 1984 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1984 YC: y-center coord in pixel or percents of height.
 Type: atom.;
-#X obj 255 2056 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2056 RC: radius in pixel or percents of width. Type: atom.;
-#X obj 255 2079 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2079 A0: start angle in degrees or radians. Type: atom.;
-#X obj 255 2102 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2102 A1: end angle in degrees or radians. Type: atom.;
-#X msg 110 2127 arrow;
-#X text 245 2127 creates arrow shape. Arguments are:;
-#X obj 255 2150 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2150 X0: x-coord of start point in pixel or percents of
+#X obj 255 2022 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2022 RC: radius in pixel or percents of width. Type: atom.;
+#X obj 255 2045 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2045 A0: start angle in degrees or radians. Type: atom.;
+#X obj 255 2068 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2068 A1: end angle in degrees or radians. Type: atom.;
+#X msg 110 2093 arrow;
+#X text 245 2093 creates arrow shape. Arguments are:;
+#X obj 255 2116 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2116 X0: x-coord of start point in pixel or percents of
 width. Type: atom.;
-#X obj 255 2188 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2188 Y0: y-coord of start point in pixel or percents of
+#X obj 255 2154 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2154 Y0: y-coord of start point in pixel or percents of
 height. Type: atom.;
-#X obj 255 2226 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2226 X1: x-coord of target point in pixel or percents of
+#X obj 255 2192 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2192 X1: x-coord of target point in pixel or percents of
 width. Type: atom.;
-#X obj 255 2264 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2264 Y1: y-coord of target point in pixel or percents of
+#X obj 255 2230 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2230 Y1: y-coord of target point in pixel or percents of
 height. Type: atom.;
-#X obj 255 2302 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2302 [START]: start shape. Type: symbol. Allowed values:
+#X obj 255 2268 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2268 [START]: start shape. Type: symbol. Allowed values:
 A \, a \, V \, v \, X \, x \, T \, t \, O \, o \, n.;
-#X obj 255 2340 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2340 [END]: end shape. Type: symbol. Allowed values: A
+#X obj 255 2306 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2306 [END]: end shape. Type: symbol. Allowed values: A
 \, a \, V \, v \, X \, x \, T \, t \, O \, o \, n.;
-#X msg 110 2380 bg;
-#X text 245 2380 draws background. Arguments are:;
-#X obj 255 2403 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2403 [COLOR]: background color. Type: list.;
-#X msg 110 2428 circle;
-#X text 245 2428 create circle shape. Arguments are:;
-#X obj 255 2451 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2451 X: x-coord. Type: float.;
-#X obj 255 2474 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2474 Y: y-coord. Type: float.;
-#X obj 255 2497 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2497 RADIUS: radius. Type: float.;
-#X msg 110 2522 clear;
-#X text 245 2522 clear image.;
-#X msg 110 2550 close_path;
-#X text 245 2550 close path and its subpaths.;
-#X msg 110 2578 color;
-#X text 245 2578 set current color. Arguments are:;
-#X obj 255 2601 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2601 DATA: RGB \, RGBA float list or hex or named color.
+#X msg 110 2346 bg;
+#X text 245 2346 draws background. Arguments are:;
+#X obj 255 2369 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2369 [COLOR]: background color. Type: list.;
+#X msg 110 2394 circle;
+#X text 245 2394 create circle shape. Arguments are:;
+#X obj 255 2417 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2417 X: x-coord. Type: float.;
+#X obj 255 2440 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2440 Y: y-coord. Type: float.;
+#X obj 255 2463 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2463 RADIUS: radius. Type: float.;
+#X msg 110 2488 clear;
+#X text 245 2488 clear image.;
+#X msg 110 2516 close_path;
+#X text 245 2516 close path and its subpaths.;
+#X msg 110 2544 color;
+#X text 245 2544 set current color. Arguments are:;
+#X obj 255 2567 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2567 DATA: RGB \, RGBA float list or hex or named color.
 Type: list.;
-#X msg 110 2626 crestore;
-#X text 245 2626 restore previously saved context (pen type \, width
+#X msg 110 2592 crestore;
+#X text 245 2592 restore previously saved context (pen type \, width
 \, color \, matrix etc.).;
-#X msg 110 2666 csave;
-#X text 245 2666 save current drawing context (pen type \, width \,
+#X msg 110 2632 csave;
+#X text 245 2632 save current drawing context (pen type \, width \,
 color \, matrix etc.).;
-#X msg 110 2706 curve;
-#X text 245 2706 create bezier-curve shape. Arguments are:;
-#X obj 255 2729 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2729 X0: x0-coord in pixels or percents of width. Type:
+#X msg 110 2672 curve;
+#X text 245 2672 create bezier-curve shape. Arguments are:;
+#X obj 255 2695 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2695 X0: x0-coord in pixels or percents of width. Type:
 atom.;
-#X obj 255 2752 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2752 Y0: y0-coord in pixels or percents of height. Type:
+#X obj 255 2718 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2718 Y0: y0-coord in pixels or percents of height. Type:
 atom.;
-#X obj 255 2775 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2775 X1: x1-coord in pixels or percents of width. Type:
+#X obj 255 2741 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2741 X1: x1-coord in pixels or percents of width. Type:
 atom.;
-#X obj 255 2798 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2798 Y1: y1-coord in pixels or percents of height. Type:
+#X obj 255 2764 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2764 Y1: y1-coord in pixels or percents of height. Type:
 atom.;
-#X obj 255 2821 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2821 X2: x2-coord in pixels or percents of width. Type:
+#X obj 255 2787 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2787 X2: x2-coord in pixels or percents of width. Type:
 atom.;
-#X obj 255 2844 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2844 Y2: y2-coord in pixels or percents of height. Type:
+#X obj 255 2810 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2810 Y2: y2-coord in pixels or percents of height. Type:
 atom.;
-#X obj 255 2867 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2867 X3: x3-coord in pixels or percents of width. Type:
+#X obj 255 2833 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2833 X3: x3-coord in pixels or percents of width. Type:
 atom.;
-#X obj 255 2890 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2890 Y4: y3-coord in pixels or percents of height. Type:
+#X obj 255 2856 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2856 Y4: y3-coord in pixels or percents of height. Type:
 atom.;
-#X msg 110 2915 dash;
-#X text 245 2915 set line dash pattern. Arguments are:;
-#X obj 255 2938 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2938 PATTERN: line dash pattern. If empty - reset to solid
+#X msg 110 2881 dash;
+#X text 245 2881 set line dash pattern. Arguments are:;
+#X obj 255 2904 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2904 PATTERN: line dash pattern. If empty - reset to solid
 shape. Type: list.;
-#X msg 110 2978 ellipse;
-#X text 245 2978 draw ellipse. Arguments are:;
-#X obj 255 3001 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3001 X: left-coord in pixel or percents of width. Type:
+#X msg 110 2944 ellipse;
+#X text 245 2944 draw ellipse. Arguments are:;
+#X obj 255 2967 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2967 X: left-coord in pixel or percents of width. Type:
 atom.;
-#X obj 255 3024 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3024 Y: top-coord in pixel or percents of height. Type:
+#X obj 255 2990 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2990 Y: top-coord in pixel or percents of height. Type:
 atom.;
-#X obj 255 3047 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3047 WIDTH: width. Type: atom.;
-#X obj 255 3070 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3070 HEIGHT: height. Type: atom.;
-#X msg 110 3095 fill;
-#X text 245 3095 fill shape with color. Arguments are:;
-#X obj 255 3118 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3118 COLOR: fill color. Type: atom.;
-#X obj 255 3141 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3141 [PRESERVE]: preserve path after fill. You can call
+#X obj 255 3013 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3013 WIDTH: width. Type: atom.;
+#X obj 255 3036 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3036 HEIGHT: height. Type: atom.;
+#X msg 110 3061 fill;
+#X text 245 3061 fill shape with color. Arguments are:;
+#X obj 255 3084 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3084 COLOR: fill color. Type: atom.;
+#X obj 255 3107 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3107 [PRESERVE]: preserve path after fill. You can call
 stroke method after that. Type: atom. Allowed values: preserve \, 1\.;
-#X msg 110 3181 font;
-#X text 245 3181 set current font. Arguments are:;
-#X obj 255 3204 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3204 FONT: font family. Type: symbol.;
-#X obj 255 3227 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3227 [SIZE]: font size. Type: float.;
-#X msg 110 3252 font_size;
-#X text 245 3252 set current font size. Arguments are:;
-#X obj 255 3275 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3275 X: font size. Type: float.;
-#X msg 110 3300 icon;
-#X text 245 3300 draw named icon. Pass ? as single argument to dump
+#X msg 110 3147 font;
+#X text 245 3147 set current font. Arguments are:;
+#X obj 255 3170 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3170 FONT: font family. Type: symbol.;
+#X obj 255 3193 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3193 [SIZE]: font size. Type: float.;
+#X msg 110 3218 font_size;
+#X text 245 3218 set current font size. Arguments are:;
+#X obj 255 3241 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3241 X: font size. Type: float.;
+#X msg 110 3266 icon;
+#X text 245 3266 draw named icon. Pass ? as single argument to dump
 all icons to Pd window. Arguments are:;
-#X obj 255 3338 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3338 X: left-coord in pixel or percents of width. Type:
+#X obj 255 3304 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3304 X: left-coord in pixel or percents of width. Type:
 atom.;
-#X obj 255 3361 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3361 Y: top-coord in pixel or percents of height. Type:
+#X obj 255 3327 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3327 Y: top-coord in pixel or percents of height. Type:
 atom.;
-#X obj 255 3384 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3384 SIZE: font size. Type: float.;
-#X obj 255 3407 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3407 ICON: icon name. See https://fonts.google.com/icons
+#X obj 255 3350 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3350 SIZE: font size. Type: float.;
+#X obj 255 3373 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3373 ICON: icon name. See https://fonts.google.com/icons
 for full list. Type: symbol.;
-#X msg 110 3447 image;
-#X text 245 3447 draws image. Note: only PNG images are supported!.
+#X msg 110 3413 image;
+#X text 245 3413 draws image. Note: only PNG images are supported!.
 Arguments are:;
-#X obj 255 3485 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3485 X: left-coord in pixel or percents of width. Type:
+#X obj 255 3451 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3451 X: left-coord in pixel or percents of width. Type:
 atom.;
-#X obj 255 3508 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3508 Y: top-coord in pixel or percents of height. Type:
+#X obj 255 3474 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3474 Y: top-coord in pixel or percents of height. Type:
 atom.;
-#X obj 255 3531 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3531 PATH: path to image file \, full or relative to patch.
+#X obj 255 3497 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3497 PATH: path to image file \, full or relative to patch.
 Type: symbol.;
-#X obj 255 3569 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3569 [SCALE]: image scale. Type: float. Min value: 0\.;
-#X msg 110 3594 line;
-#X text 245 3594 create line shape. Arguments are:;
-#X obj 255 3617 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3617 X0: x0-coord in pixels or percents of width. Type:
+#X obj 255 3535 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3535 [SCALE]: image scale. Type: float. Min value: 0\.;
+#X msg 110 3560 line;
+#X text 245 3560 create line shape. Arguments are:;
+#X obj 255 3583 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3583 X0: x0-coord in pixels or percents of width. Type:
 atom.;
-#X obj 255 3640 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3640 Y0: y0-coord in pixels or percents of height. Type:
+#X obj 255 3606 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3606 Y0: y0-coord in pixels or percents of height. Type:
 atom.;
-#X obj 255 3663 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3663 X1: x1-coord in pixels or percents of width. Type:
+#X obj 255 3629 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3629 X1: x1-coord in pixels or percents of width. Type:
 atom.;
-#X obj 255 3686 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3686 Y1: y1-coord in pixels or percents of height. Type:
+#X obj 255 3652 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3652 Y1: y1-coord in pixels or percents of height. Type:
 atom.;
-#X msg 110 3711 line_cap;
-#X text 245 3711 set line cap. Arguments are:;
-#X obj 255 3734 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3734 X: line cap. Type: symbol. Allowed values: butt \,
+#X msg 110 3677 line_cap;
+#X text 245 3677 set line cap. Arguments are:;
+#X obj 255 3700 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3700 X: line cap. Type: symbol. Allowed values: butt \,
 round \, square.;
-#X msg 110 3774 line_to;
-#X text 245 3774 add line segment to line shape. Arguments are:;
-#X obj 255 3797 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3797 X: x-coord in pixels or percents of width. Type: atom.;
-#X obj 255 3820 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3820 Y: y-coord in pixels or percents of height. Type:
+#X msg 110 3740 line_to;
+#X text 245 3740 add line segment to line shape. Arguments are:;
+#X obj 255 3763 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3763 X: x-coord in pixels or percents of width. Type: atom.;
+#X obj 255 3786 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3786 Y: y-coord in pixels or percents of height. Type:
 atom.;
-#X msg 110 3845 matrix;
-#X text 245 3845 set 2D transformation matrix. Arguments are:;
-#X obj 255 3868 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3868 XX: xx component of the affine transformation. Type:
+#X msg 110 3811 matrix;
+#X text 245 3811 set 2D transformation matrix. Arguments are:;
+#X obj 255 3834 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3834 XX: xx component of the affine transformation. Type:
 atom.;
-#X obj 255 3891 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3891 YX: yx component of the affine transformation. Type:
+#X obj 255 3857 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3857 YX: yx component of the affine transformation. Type:
 atom.;
-#X obj 255 3914 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3914 XY: xy component of the affine transformation. Type:
+#X obj 255 3880 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3880 XY: xy component of the affine transformation. Type:
 atom.;
-#X obj 255 3937 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3937 YY: yy component of the affine transformation. Type:
+#X obj 255 3903 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3903 YY: yy component of the affine transformation. Type:
 atom.;
-#X obj 255 3960 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3960 X0: x component of the affine transformation. Type:
+#X obj 255 3926 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3926 X0: x component of the affine transformation. Type:
 atom.;
-#X obj 255 3983 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3983 Y0: y component of the affine transformation. Type:
+#X obj 255 3949 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3949 Y0: y component of the affine transformation. Type:
 atom.;
-#X msg 110 4008 move_by;
-#X text 245 4008 move current drawing point by relative offset. Arguments
+#X msg 110 3974 move_by;
+#X text 245 3974 move current drawing point by relative offset. Arguments
 are:;
-#X obj 255 4031 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4031 X: x relative offset in pixels or percents of width.
+#X obj 255 3997 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3997 X: x relative offset in pixels or percents of width.
 Type: atom.;
-#X obj 255 4069 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4069 Y: y relative offset in pixels or percents of height.
+#X obj 255 4035 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4035 Y: y relative offset in pixels or percents of height.
 Type: atom.;
-#X msg 110 4109 move_to;
-#X text 245 4109 move current drawing point to absolute position. Arguments
+#X msg 110 4075 move_to;
+#X text 245 4075 move current drawing point to absolute position. Arguments
 are:;
-#X obj 255 4147 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4147 X: x-coord in pixels or percents of width. Type: atom.;
-#X obj 255 4170 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4170 Y: y-coord in pixels or percents of height. Type:
+#X obj 255 4113 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4113 X: x-coord in pixels or percents of width. Type: atom.;
+#X obj 255 4136 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4136 Y: y-coord in pixels or percents of height. Type:
 atom.;
-#X msg 110 4195 musicxml;
-#X text 245 4195 render MusicXML file. Arguments are:;
-#X obj 255 4218 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4218 X: x-coord in pixels or percents of width. Type: atom.;
-#X obj 255 4241 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4241 Y: y-coord in pixels or percents of height. Type:
+#X msg 110 4161 musicxml;
+#X text 245 4161 render MusicXML file. Arguments are:;
+#X obj 255 4184 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4184 X: x-coord in pixels or percents of width. Type: atom.;
+#X obj 255 4207 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4207 Y: y-coord in pixels or percents of height. Type:
 atom.;
-#X obj 255 4264 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4264 FILE: absolute or relative to patch filepath of MusicXML
+#X obj 255 4230 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4230 FILE: absolute or relative to patch filepath of MusicXML
 file. Type: symbol.;
-#X msg 110 4304 new_path;
-#X text 245 4304 starts new path.;
-#X msg 110 4332 new_subpath;
-#X text 245 4332 starts new subpath \, means no line connection between
+#X msg 110 4270 new_path;
+#X text 245 4270 starts new path.;
+#X msg 110 4298 new_subpath;
+#X text 245 4298 starts new subpath \, means no line connection between
 last point and new subpath shape.;
-#X msg 110 4372 polar;
-#X text 245 4372 creates polar grid. Arguments are:;
-#X obj 255 4395 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4395 X: x-coord of center in pixel or percents of width.
+#X msg 110 4338 polar;
+#X text 245 4338 creates polar grid. Arguments are:;
+#X obj 255 4361 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4361 X: x-coord of center in pixel or percents of width.
 Type: atom.;
-#X obj 255 4433 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4433 Y: y-coord of center in pixel or percents of height.
+#X obj 255 4399 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4399 Y: y-coord of center in pixel or percents of height.
 Type: atom.;
-#X obj 255 4471 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4471 [ADIV]: number of divisions of 90 degree angle. Type:
+#X obj 255 4437 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4437 [ADIV]: number of divisions of 90 degree angle. Type:
 int. Min value: 0\.;
-#X obj 255 4509 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4509 [NC]: number of circles. Type: int. Min value: 0\.;
-#X obj 255 4532 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4532 [CDIST]: circle distance. Type: int. Min value: 1\.;
-#X msg 110 4557 polygon;
-#X text 245 4557 create polygon shape. Arguments are:;
-#X obj 255 4580 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4580 X0: x0-coord in pixel or percents of width. Type:
+#X obj 255 4475 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4475 [NC]: number of circles. Type: int. Min value: 0\.;
+#X obj 255 4498 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4498 [CDIST]: circle distance. Type: int. Min value: 1\.;
+#X msg 110 4523 polygon;
+#X text 245 4523 create polygon shape. Arguments are:;
+#X obj 255 4546 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4546 X0: x0-coord in pixel or percents of width. Type:
 atom.;
-#X obj 255 4603 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4603 Y0: y0-coord in pixel or percents of height. Type:
+#X obj 255 4569 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4569 Y0: y0-coord in pixel or percents of height. Type:
 atom.;
-#X obj 255 4626 cnv 1 35 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4626 X...: x...-coord in pixel or percents of width. Type:
+#X obj 255 4592 cnv 1 35 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4592 X...: x...-coord in pixel or percents of width. Type:
 atom.;
-#X obj 255 4649 cnv 1 35 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4649 Y...: y...-coord in pixel or percents of height. Type:
+#X obj 255 4615 cnv 1 35 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4615 Y...: y...-coord in pixel or percents of height. Type:
 atom.;
-#X obj 255 4672 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4672 XN: xn-coord in pixel or percents of width. Type:
+#X obj 255 4638 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4638 XN: xn-coord in pixel or percents of width. Type:
 atom.;
-#X obj 255 4695 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4695 YN: yn-coord in pixel or percents of height. Type:
+#X obj 255 4661 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4661 YN: yn-coord in pixel or percents of height. Type:
 atom.;
-#X msg 110 4720 pos;
-#X text 245 4720 set UI element position. Arguments are:;
-#X obj 255 4743 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4743 X: top left x-coord. Type: float.;
-#X obj 255 4766 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4766 Y: top right y-coord. Type: float.;
-#X msg 110 4791 qrcode;
-#X text 245 4791 create QR-code shape. Arguments are:;
-#X obj 255 4814 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4814 X: left-coord in pixel or percents of width. Type:
+#X msg 110 4686 pos;
+#X text 245 4686 set UI element position. Arguments are:;
+#X obj 255 4709 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4709 X: top left x-coord. Type: float.;
+#X obj 255 4732 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4732 Y: top right y-coord. Type: float.;
+#X msg 110 4757 qrcode;
+#X text 245 4757 create QR-code shape. Arguments are:;
+#X obj 255 4780 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4780 X: left-coord in pixel or percents of width. Type:
 atom.;
-#X obj 255 4837 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4837 Y: top-coord in pixel or percents of height. Type:
+#X obj 255 4803 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4803 Y: top-coord in pixel or percents of height. Type:
 atom.;
-#X obj 255 4860 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4860 PIXEL: pixel size. Type: int. Min value: 1\.;
-#X obj 255 4883 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4883 TEXT: message. Type: symbol.;
-#X msg 110 4908 rect;
-#X text 245 4908 create rectangle shape. Arguments are:;
-#X obj 255 4931 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4931 X: x-coord in pixels or percents of width. Type: atom.;
-#X obj 255 4954 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4954 Y: y-coord in pixels or percents of height. Type:
+#X obj 255 4826 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4826 PIXEL: pixel size. Type: int. Min value: 1\.;
+#X obj 255 4849 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4849 TEXT: message. Type: symbol.;
+#X msg 110 4874 rect;
+#X text 245 4874 create rectangle shape. Arguments are:;
+#X obj 255 4897 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4897 X: x-coord in pixels or percents of width. Type: atom.;
+#X obj 255 4920 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4920 Y: y-coord in pixels or percents of height. Type:
 atom.;
-#X obj 255 4977 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4977 W: width in pixels or percents of width. Type: atom.;
-#X obj 255 5000 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5000 H: height in pixels or percents of height. Type: atom.;
-#X msg 110 5025 rotate;
-#X text 245 5025 clock-wise rotatation of draw origin. Arguments are:;
-#X obj 255 5048 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5048 X: rotation angle. Type: float. Units: 'deg'.;
-#X msg 110 5073 rpolygon;
-#X text 245 5073 create polygon shape. Arguments are:;
-#X obj 255 5096 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5096 X: x-coord of center in pixel or percents of width.
+#X obj 255 4943 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4943 W: width in pixels or percents of width. Type: atom.;
+#X obj 255 4966 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4966 H: height in pixels or percents of height. Type: atom.;
+#X msg 110 4991 rotate;
+#X text 245 4991 clock-wise rotatation of draw origin. Arguments are:;
+#X obj 255 5014 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5014 X: rotation angle. Type: float. Units: 'deg'.;
+#X msg 110 5039 rpolygon;
+#X text 245 5039 create polygon shape. Arguments are:;
+#X obj 255 5062 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5062 X: x-coord of center in pixel or percents of width.
 Type: atom.;
-#X obj 255 5134 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5134 Y: y-coord of center in pixel or percents of height.
+#X obj 255 5100 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5100 Y: y-coord of center in pixel or percents of height.
 Type: atom.;
-#X obj 255 5172 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5172 N: number of vertexes. Type: int.;
-#X obj 255 5195 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5195 R: polygon radius. Type: float.;
-#X msg 110 5220 scale;
-#X text 245 5220 scale current draw matrix. Arguments are:;
-#X obj 255 5243 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5243 X: x. Type: float.;
-#X obj 255 5266 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5266 [Y]: y. If omitted \, uses X-value to scale same in
+#X obj 255 5138 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5138 N: number of vertexes. Type: int.;
+#X obj 255 5161 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5161 R: polygon radius. Type: float.;
+#X msg 110 5186 scale;
+#X text 245 5186 scale current draw matrix. Arguments are:;
+#X obj 255 5209 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5209 X: x. Type: float.;
+#X obj 255 5232 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5232 [Y]: y. If omitted \, uses X-value to scale same in
 both directions. Type: float.;
-#X msg 110 5306 star;
-#X text 245 5306 create star shape. Arguments are:;
-#X obj 255 5329 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5329 X: x-coord of center in pixel or percents of width.
+#X msg 110 5272 star;
+#X text 245 5272 create star shape. Arguments are:;
+#X obj 255 5295 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5295 X: x-coord of center in pixel or percents of width.
 Type: atom.;
-#X obj 255 5367 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5367 Y: y-coord of center in pixel or percents of height.
+#X obj 255 5333 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5333 Y: y-coord of center in pixel or percents of height.
 Type: atom.;
-#X obj 255 5405 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5405 N: number of vertexes. Type: int.;
-#X obj 255 5428 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5428 [R]: star radius. Type: float. Min value: 0\.;
-#X obj 255 5451 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5451 [STEP]: connection step. If omitted step is auto-calculated.
+#X obj 255 5371 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5371 N: number of vertexes. Type: int.;
+#X obj 255 5394 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5394 [R]: star radius. Type: float. Min value: 0\.;
+#X obj 255 5417 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5417 [STEP]: connection step. If omitted step is auto-calculated.
 Type: int. Min value: 1\.;
-#X msg 110 5491 stroke;
-#X text 245 5491 stroke shape with color. Arguments are:;
-#X obj 255 5514 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5514 COLOR: stroke color. Type: atom.;
-#X obj 255 5537 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5537 [PRESERVE]: preserve path after stroke. Type: atom.
+#X msg 110 5457 stroke;
+#X text 245 5457 stroke shape with color. Arguments are:;
+#X obj 255 5480 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5480 COLOR: stroke color. Type: atom.;
+#X obj 255 5503 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5503 [PRESERVE]: preserve path after stroke. Type: atom.
 Allowed values: preserve \, 1\.;
-#X msg 110 5577 text;
-#X text 245 5577 set current text shape. Arguments are:;
-#X obj 255 5600 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5600 X: x-coord in pixels or percents of width. Type: atom.;
-#X obj 255 5623 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5623 Y: y-coord in pixels or percents of height. Type:
+#X msg 110 5543 text;
+#X text 245 5543 set current text shape. Arguments are:;
+#X obj 255 5566 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5566 X: x-coord in pixels or percents of width. Type: atom.;
+#X obj 255 5589 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5589 Y: y-coord in pixels or percents of height. Type:
 atom.;
-#X obj 255 5646 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5646 TXT: text content. Type: list.;
-#X msg 110 5671 translate;
-#X text 245 5671 translate draw origin. Arguments are:;
-#X obj 255 5694 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5694 X: x offset. Type: float.;
-#X obj 255 5717 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5717 Y: y offset. Type: float.;
-#X msg 110 5742 update;
-#X text 245 5742 updates drawed image.;
-#X msg 110 5770 width;
-#X text 245 5770 set stroke width. Arguments are:;
-#X obj 255 5793 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5793 WIDTH: line width. Type: float.;
-#X msg 110 5818 dump;
-#X text 245 5818 dumps all object info to Pd console window.;
-#X obj 20 5856 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 5861 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 255 5612 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5612 TXT: text content. Type: list.;
+#X msg 110 5637 translate;
+#X text 245 5637 translate draw origin. Arguments are:;
+#X obj 255 5660 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5660 X: x offset. Type: float.;
+#X obj 255 5683 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5683 Y: y offset. Type: float.;
+#X msg 110 5708 update;
+#X text 245 5708 updates drawed image.;
+#X msg 110 5736 width;
+#X text 245 5736 set stroke width. Arguments are:;
+#X obj 255 5759 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5759 WIDTH: line width. Type: float.;
+#X msg 110 5784 dump;
+#X text 245 5784 dumps all object info to Pd console window.;
+#X obj 20 5822 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 5827 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 5862 1\.;
-#X text 245 5862 draw commands.;
-#X obj 20 5892 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 5897 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 5828 1\.;
+#X text 245 5828 draw commands.;
+#X obj 20 5863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 5868 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 5898 1\.;
-#X text 245 5898 message: mouse ACTION(down|up|drag) X Y MOD_CTL MOD_ALT
+#X text 110 5869 1\.;
+#X text 245 5869 message: mouse ACTION(down|up|drag) X Y MOD_CTL MOD_ALT
 MOD_SHIFT MOD_CMD.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 5963 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 5966 library: ceammc v0.9.8;
-#N canvas 10 5985 400 290 info 0;
+#X obj 1 5934 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 5937 library: ceammc v0.9.8;
+#N canvas 10 5956 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -532,7 +532,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 5985 pd info;
+#X restore 10 5956 pd info;
 #X connect 11 0 23 0;
 #X connect 13 0 23 0;
 #X connect 15 0 23 0;

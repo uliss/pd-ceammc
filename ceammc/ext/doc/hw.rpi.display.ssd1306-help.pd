@@ -79,94 +79,94 @@ value: 128 64\.;
 #X obj 20 1132 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1137 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1172 brightness;
-#X text 245 1172 set display brightness. Arguments are:;
-#X obj 255 1195 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1195 LEVEL: brightness level from 0 (lowest) to 4 (brightest).
+#X msg 110 1138 brightness;
+#X text 245 1138 set display brightness. Arguments are:;
+#X obj 255 1161 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1161 LEVEL: brightness level from 0 (lowest) to 4 (brightest).
 Normal level is 2\. Type: int. Allowed values: 0 \, 1 \, 2 \, 3 \,
 4\.;
-#X msg 110 1250 clear;
-#X text 245 1250 clear display and optionally flush internal buffer.
+#X msg 110 1216 clear;
+#X text 245 1216 clear display and optionally flush internal buffer.
 Arguments are:;
-#X obj 255 1288 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1288 [FLUSH=0]: flush internal buffer to the device. Type:
+#X obj 255 1254 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1254 [FLUSH=0]: flush internal buffer to the device. Type:
 bool.;
-#X msg 110 1313 flush;
-#X text 245 1313 flush internal buffer to the device.;
-#X msg 110 1341 font;
-#X text 245 1341 set current font. Arguments are:;
-#X obj 255 1364 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1364 FONT: font name. Type: symbol.;
-#X msg 110 1389 invert;
-#X text 245 1389 invert display. Arguments are:;
-#X obj 255 1412 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1412 VALUE: value. Type: bool.;
-#X msg 110 1437 mirror;
-#X text 245 1437 mirror display. Arguments are:;
-#X obj 255 1460 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1460 VALUE: value. Type: bool.;
-#X msg 110 1485 pixel;
-#X text 245 1485 draw pixel. Arguments are:;
-#X obj 255 1508 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1508 X: X coord (from the left). Type: int. Min value:
+#X msg 110 1279 flush;
+#X text 245 1279 flush internal buffer to the device.;
+#X msg 110 1307 font;
+#X text 245 1307 set current font. Arguments are:;
+#X obj 255 1330 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1330 FONT: font name. Type: symbol.;
+#X msg 110 1355 invert;
+#X text 245 1355 invert display. Arguments are:;
+#X obj 255 1378 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1378 VALUE: value. Type: bool.;
+#X msg 110 1403 mirror;
+#X text 245 1403 mirror display. Arguments are:;
+#X obj 255 1426 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1426 VALUE: value. Type: bool.;
+#X msg 110 1451 pixel;
+#X text 245 1451 draw pixel. Arguments are:;
+#X obj 255 1474 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1474 X: X coord (from the left). Type: int. Min value:
 0\.;
-#X obj 255 1531 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1531 Y: Y coord (from the top). Type: int. Min value: 0\.;
-#X obj 255 1554 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1554 VALUE: pixel value. Type: bool.;
-#X msg 110 1579 rotation;
-#X text 245 1579 set display rotation. Arguments are:;
-#X obj 255 1602 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1602 [ANGLE]: rotation angle. Type: int. Allowed values:
+#X obj 255 1497 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1497 Y: Y coord (from the top). Type: int. Min value: 0\.;
+#X obj 255 1520 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1520 VALUE: pixel value. Type: bool.;
+#X msg 110 1545 rotation;
+#X text 245 1545 set display rotation. Arguments are:;
+#X obj 255 1568 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1568 [ANGLE]: rotation angle. Type: int. Allowed values:
 0 \, 90 \, 180 \, 270\.;
-#X msg 110 1642 switch_on;
-#X text 245 1642 switch on display (needed for SPI connection). Arguments
+#X msg 110 1608 switch_on;
+#X text 245 1608 switch on display (needed for SPI connection). Arguments
 are:;
-#X obj 255 1665 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1665 VALUE: value. Type: bool.;
-#X msg 110 1690 text;
-#X text 245 1690 draw text on the display. Arguments are:;
-#X obj 255 1713 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1713 TXT: text. Type: symbol.;
-#X obj 255 1736 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1736 X: left text X coordinate. Type: int.;
-#X obj 255 1759 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1759 Y: top text Y coordinate. Type: int.;
-#X msg 110 1784 write bitmap;
-#X text 245 1784 write bitmap to the display buffer. Arguments are:;
-#X obj 255 1807 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1807 X: bitmap X coordinate. Type: int.;
-#X obj 255 1830 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1830 Y: bitmap Y coordinate. Type: int.;
-#X obj 255 1853 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1853 WIDTH: bitmap width in pixels. Type: int. Min value:
+#X obj 255 1631 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1631 VALUE: value. Type: bool.;
+#X msg 110 1656 text;
+#X text 245 1656 draw text on the display. Arguments are:;
+#X obj 255 1679 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1679 TXT: text. Type: symbol.;
+#X obj 255 1702 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1702 X: left text X coordinate. Type: int.;
+#X obj 255 1725 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1725 Y: top text Y coordinate. Type: int.;
+#X msg 110 1750 write bitmap;
+#X text 245 1750 write bitmap to the display buffer. Arguments are:;
+#X obj 255 1773 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1773 X: bitmap X coordinate. Type: int.;
+#X obj 255 1796 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1796 Y: bitmap Y coordinate. Type: int.;
+#X obj 255 1819 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1819 WIDTH: bitmap width in pixels. Type: int. Min value:
 1\.;
-#X obj 255 1876 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1876 PIXELS: list of pixels (0 or 1). Type: list.;
-#X msg 110 1901 write bytes;
-#X text 245 1901 write raw byte list to the display buffer and move
+#X obj 255 1842 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1842 PIXELS: list of pixels (0 or 1). Type: list.;
+#X msg 110 1867 write bytes;
+#X text 245 1867 write raw byte list to the display buffer and move
 internal cursor position. Arguments are:;
-#X obj 255 1939 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1939 BYTES: list of bytes (integers in 0\..255 range).
+#X obj 255 1905 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1905 BYTES: list of bytes (integers in 0\..255 range).
 Each byte describes a single column of 8 pixels in height. Type: list.;
-#X obj 20 1989 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1994 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 1955 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1960 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1995 1\.;
-#X text 245 1995 control input.;
-#X obj 20 2025 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2030 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1961 1\.;
+#X text 245 1961 control input.;
+#X obj 20 1996 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2001 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2031 1\.;
-#X text 245 2031 no output.;
+#X text 110 2002 1\.;
+#X text 245 2002 no output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 2081 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2084 library: ceammc v0.9.8;
-#N canvas 10 2103 400 290 info 0;
+#X obj 1 2052 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2055 library: ceammc v0.9.8;
+#N canvas 10 2074 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -190,7 +190,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2103 pd info;
+#X restore 10 2074 pd info;
 #X connect 8 0 10 0;
 #X connect 13 0 16 0;
 #X connect 18 0 20 0;

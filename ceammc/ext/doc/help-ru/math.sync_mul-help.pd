@@ -47,22 +47,22 @@
 #X text 150 518 list:;
 #X text 245 518 pair: set multipliers and multiplicand \, calculate
 and output result.;
-#X text 110 553 2\.;
-#X text 150 553 float:;
-#X text 245 553 change multiplicand \, calculate and output result.;
-#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 588 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 558 2\.;
+#X text 150 558 float:;
+#X text 245 558 change multiplicand \, calculate and output result.;
+#X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 598 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 589 1\.;
-#X text 245 589 multiplication result.;
+#X text 110 599 1\.;
+#X text 245 599 multiplication result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 639 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 642 библиотека: ceammc v0.9.8;
-#N canvas 10 661 400 290 info 0;
+#X obj 1 649 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 652 библиотека: ceammc v0.9.8;
+#N canvas 10 671 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -86,7 +86,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 661 pd info;
+#X restore 10 671 pd info;
 #X connect 11 0 12 0;
 #X connect 7 0 13 0;
 #X connect 8 0 13 1;

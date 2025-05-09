@@ -91,52 +91,52 @@ record \, play \, overdub.;
 #X obj 20 1257 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1262 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1297 adjust;
-#X text 245 1297 increase loop length. Аргументы:;
-#X obj 255 1320 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1320 [DELTA]: loop length delta. Тип: float. Единицы: 'samp'.;
-#X msg 110 1345 clear;
-#X text 245 1345 clear loop data and stops playing.;
-#X msg 110 1373 overdub;
-#X text 245 1373 start loop overdubbing while keeping it playing.;
-#X msg 110 1401 pause;
-#X text 245 1401 loop pause.;
-#X msg 110 1429 play;
-#X text 245 1429 play recorded or stopped loop.;
-#X msg 110 1457 rec;
-#X text 245 1457 same as record.;
-#X msg 110 1485 record;
-#X text 245 1485 start loop record.;
-#X msg 110 1513 smooth;
-#X text 245 1513 Аргументы:;
-#X obj 255 1536 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1536 [TIME]: apply linear fadein/fadeout to loop. Тип:
+#X msg 110 1263 adjust;
+#X text 245 1263 increase loop length. Аргументы:;
+#X obj 255 1286 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1286 [DELTA]: loop length delta. Тип: float. Единицы: 'samp'.;
+#X msg 110 1311 clear;
+#X text 245 1311 clear loop data and stops playing.;
+#X msg 110 1339 overdub;
+#X text 245 1339 start loop overdubbing while keeping it playing.;
+#X msg 110 1367 pause;
+#X text 245 1367 loop pause.;
+#X msg 110 1395 play;
+#X text 245 1395 play recorded or stopped loop.;
+#X msg 110 1423 rec;
+#X text 245 1423 same as record.;
+#X msg 110 1451 record;
+#X text 245 1451 start loop record.;
+#X msg 110 1479 smooth;
+#X text 245 1479 Аргументы:;
+#X obj 255 1502 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1502 [TIME]: apply linear fadein/fadeout to loop. Тип:
 float. Единицы: 'ms'.;
-#X msg 110 1576 stop;
-#X text 245 1576 stop played loop.;
-#X obj 20 1614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1619 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1542 stop;
+#X text 245 1542 stop played loop.;
+#X obj 20 1580 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1585 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1620 1\.;
-#X text 150 1620 ~;
-#X text 245 1620 input signal.;
-#X obj 20 1650 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1655 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1586 1\.;
+#X text 150 1586 ~;
+#X text 245 1586 input signal.;
+#X obj 20 1621 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1626 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1656 1\.;
-#X text 150 1656 ~;
-#X text 245 1656 output signal.;
-#X text 110 1676 2\.;
-#X text 245 1676 bang on each loop start if @loop_bang property is
+#X text 110 1627 1\.;
+#X text 150 1627 ~;
+#X text 245 1627 output signal.;
+#X text 110 1647 2\.;
+#X text 245 1647 bang on each loop start if @loop_bang property is
 true.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1726 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1729 библиотека: ceammc v0.9.8;
-#N canvas 10 1748 400 290 info 0;
+#X obj 1 1697 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1700 библиотека: ceammc v0.9.8;
+#N canvas 10 1719 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -160,7 +160,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1748 pd info;
+#X restore 10 1719 pd info;
 #X connect 4 0 10 0;
 #X connect 5 0 10 0;
 #X connect 6 0 10 0;

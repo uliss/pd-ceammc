@@ -75,37 +75,37 @@ infinitely. Тип: int. Значение по умолчанию: -1\. Мини
 #X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 921 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 956 next;
-#X text 245 956 increment counter then output.;
-#X msg 110 984 prev;
-#X text 245 984 decrement counter then output.;
-#X msg 110 1012 reset;
-#X text 245 1012 reset counter to start value and repeat counter to
+#X msg 110 922 next;
+#X text 245 922 increment counter then output.;
+#X msg 110 950 prev;
+#X text 245 950 decrement counter then output.;
+#X msg 110 978 reset;
+#X text 245 978 reset counter to start value and repeat counter to
 0\.;
-#X obj 20 1050 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1055 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1016 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1021 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1056 1\.;
-#X text 150 1056 bang:;
-#X text 245 1056 output current value then increment counter.;
-#X text 110 1076 2\.;
-#X text 150 1076 bang:;
-#X text 245 1076 reset counter to start value.;
-#X obj 20 1106 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1111 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1022 1\.;
+#X text 150 1022 bang:;
+#X text 245 1022 output current value then increment counter.;
+#X text 110 1047 2\.;
+#X text 150 1047 bang:;
+#X text 245 1047 reset counter to start value.;
+#X obj 20 1082 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1087 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1112 1\.;
-#X text 245 1112 int: counter value.;
-#X text 110 1132 2\.;
-#X text 245 1132 int: repeat counter \, done: when done.;
+#X text 110 1088 1\.;
+#X text 245 1088 int: counter value.;
+#X text 110 1108 2\.;
+#X text 245 1108 int: repeat counter \, done: when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1182 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1185 библиотека: ceammc v0.9.8;
-#N canvas 10 1204 400 290 info 0;
+#X obj 1 1158 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1161 библиотека: ceammc v0.9.8;
+#N canvas 10 1180 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -129,7 +129,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1204 pd info;
+#X restore 10 1180 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 7 0;
 #X connect 6 0 7 0;

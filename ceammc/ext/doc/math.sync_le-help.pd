@@ -36,14 +36,14 @@
 #X text 150 338 list:;
 #X text 245 338 pair: set first and second numbers \, calculate and
 output result.;
-#X text 110 373 2\.;
-#X text 150 373 float:;
-#X text 245 373 change second number \, calculate and output result.;
-#X obj 20 403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 408 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 378 2\.;
+#X text 150 378 float:;
+#X text 245 378 change second number \, calculate and output result.;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 409 1\.;
-#X text 245 409 result output: 1 if first number is less or equal second
+#X text 110 419 1\.;
+#X text 245 419 result output: 1 if first number is less or equal second
 \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

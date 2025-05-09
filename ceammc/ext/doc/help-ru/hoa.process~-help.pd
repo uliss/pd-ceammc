@@ -101,50 +101,50 @@ of decomposition/number of planewaves. Тип: int. Значение по умо
 #X obj 20 1691 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1696 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1731 on;
-#X text 245 1731 switch on/off DSP instance processing. Usage: on all
+#X msg 110 1697 on;
+#X text 245 1697 switch on/off DSP instance processing. Usage: on all
 0|1 - turn on/off all instances \, on IDX 0|1 - turn on/off specified
 instance.;
-#X msg 110 1786 open;
-#X text 245 1786 open Pd window for specified instance. Аргументы:;
-#X obj 255 1809 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1809 IDX: instance index. Тип: int.;
-#X msg 110 1834 dump;
-#X text 245 1834 dumps all object info to Pd console window.;
-#X obj 20 1872 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1877 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1752 open;
+#X text 245 1752 open Pd window for specified instance. Аргументы:;
+#X obj 255 1775 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1775 IDX: instance index. Тип: int.;
+#X msg 110 1800 dump;
+#X text 245 1800 dumps all object info to Pd console window.;
+#X obj 20 1838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1843 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1878 1\.;
-#X text 150 1878 ~;
-#X text 245 1878 first input harmonic/planewave.;
-#X text 110 1898 ...;
-#X text 150 1898 ~;
-#X text 245 1898 ... input harmonic/planewave.;
-#X text 110 1918 n.;
-#X text 150 1918 ~;
-#X text 245 1918 n-th input harmonic/planewave.;
-#X obj 20 1948 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1953 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1844 1\.;
+#X text 150 1844 ~;
+#X text 245 1844 first input harmonic/planewave.;
+#X text 110 1869 ...;
+#X text 150 1869 ~;
+#X text 245 1869 ... input harmonic/planewave.;
+#X text 110 1894 n.;
+#X text 150 1894 ~;
+#X text 245 1894 n-th input harmonic/planewave.;
+#X obj 20 1929 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1934 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1954 1\.;
-#X text 150 1954 ~;
-#X text 245 1954 first harmonic/planewave output.;
-#X text 110 1974 ...;
-#X text 150 1974 ~;
-#X text 245 1974 ... harmonic/planewave output.;
-#X text 110 1994 n.;
-#X text 150 1994 ~;
-#X text 245 1994 n-th harmonic/planewave output.;
+#X text 110 1935 1\.;
+#X text 150 1935 ~;
+#X text 245 1935 first harmonic/planewave output.;
+#X text 110 1955 ...;
+#X text 150 1955 ~;
+#X text 245 1955 ... harmonic/planewave output.;
+#X text 110 1975 n.;
+#X text 150 1975 ~;
+#X text 245 1975 n-th harmonic/planewave output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 2044 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2047 библиотека: ceammc v0.9.8;
-#X text 509 2059 смотрите также:;
-#X obj 630 2059 hoa.2d.decoder~;
-#N canvas 10 2066 400 290 info 0;
+#X obj 1 2025 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2028 библиотека: ceammc v0.9.8;
+#X text 509 2040 смотрите также:;
+#X obj 630 2040 hoa.2d.decoder~;
+#N canvas 10 2047 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -169,7 +169,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2066 pd info;
+#X restore 10 2047 pd info;
 #X connect 18 0 21 0;
 #X connect 19 0 22 0;
 #X connect 21 0 23 0;

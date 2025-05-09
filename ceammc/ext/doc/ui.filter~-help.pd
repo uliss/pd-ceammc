@@ -119,59 +119,59 @@ list. Default value: 300 100\.;
 #X obj 20 1738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1743 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1778 biquad;
-#X text 245 1778 set biquad coefficients (but not changes current filter
+#X msg 110 1744 biquad;
+#X text 245 1744 set biquad coefficients (but not changes current filter
 properties). Arguments are:;
-#X obj 255 1816 cnv 1 113 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1816 b0 b1 b2 a1 a2: coefficients. Type: list.;
-#X msg 110 1841 clear;
-#X text 245 1841 clears specified preset. Arguments are:;
-#X obj 255 1864 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1864 IDX: preset index. Type: int.;
-#X msg 110 1889 interp;
-#X text 245 1889 for this object acts as *load* \, no interpolation
+#X obj 255 1782 cnv 1 113 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1782 b0 b1 b2 a1 a2: coefficients. Type: list.;
+#X msg 110 1807 clear;
+#X text 245 1807 clears specified preset. Arguments are:;
+#X obj 255 1830 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1830 IDX: preset index. Type: int.;
+#X msg 110 1855 interp;
+#X text 245 1855 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 1917 load;
-#X text 245 1917 loads specified preset. Arguments are:;
-#X obj 255 1940 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1940 IDX: preset index. Type: int.;
-#X msg 110 1965 pos;
-#X text 245 1965 set UI element position. Arguments are:;
-#X obj 255 1988 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1988 X: top left x-coord. Type: float.;
-#X obj 255 2011 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2011 Y: top right y-coord. Type: float.;
-#X msg 110 2036 store;
-#X text 245 2036 stores specified preset. Arguments are:;
-#X obj 255 2059 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2059 IDX: preset index. Type: int.;
-#X msg 110 2084 dump;
-#X text 245 2084 dumps all object info to Pd console window.;
-#X obj 20 2122 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2127 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1883 load;
+#X text 245 1883 loads specified preset. Arguments are:;
+#X obj 255 1906 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1906 IDX: preset index. Type: int.;
+#X msg 110 1931 pos;
+#X text 245 1931 set UI element position. Arguments are:;
+#X obj 255 1954 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1954 X: top left x-coord. Type: float.;
+#X obj 255 1977 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1977 Y: top right y-coord. Type: float.;
+#X msg 110 2002 store;
+#X text 245 2002 stores specified preset. Arguments are:;
+#X obj 255 2025 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2025 IDX: preset index. Type: int.;
+#X msg 110 2050 dump;
+#X text 245 2050 dumps all object info to Pd console window.;
+#X obj 20 2088 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2093 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2128 1\.;
-#X text 150 2128 ~;
-#X text 245 2128 input signal.;
-#X obj 20 2158 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2163 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 2094 1\.;
+#X text 150 2094 ~;
+#X text 245 2094 input signal.;
+#X obj 20 2129 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2134 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2164 1\.;
-#X text 150 2164 ~;
-#X text 245 2164 filtered signal.;
-#X text 110 2184 2\.;
-#X text 245 2184 list: filter biquad coefficient.;
+#X text 110 2135 1\.;
+#X text 150 2135 ~;
+#X text 245 2135 filtered signal.;
+#X text 110 2155 2\.;
+#X text 245 2155 list: filter biquad coefficient.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2234 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2237 library: ceammc v0.9.8;
-#X text 597 2249 see also:;
-#X obj 672 2252 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 2205 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2208 library: ceammc v0.9.8;
+#X text 597 2220 see also:;
+#X obj 672 2223 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.filter] @url ui.filter-help.pd;
-#N canvas 10 2256 400 290 info 0;
+#N canvas 10 2227 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -195,7 +195,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2256 pd info;
+#X restore 10 2227 pd info;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;
 #X connect 4 0 9 0;

@@ -75,36 +75,36 @@ Values below 1 can sound quite metallic. Тип: float. Значение по у
 #X obj 20 1309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1314 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1349 reset;
-#X text 245 1349 reset to initial state.;
-#X obj 20 1387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1392 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1315 reset;
+#X text 245 1315 reset to initial state.;
+#X obj 20 1353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1358 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1393 1\.;
-#X text 150 1393 ~;
-#X text 245 1393 left channel.;
-#X text 110 1413 2\.;
-#X text 150 1413 ~;
-#X text 245 1413 right channel.;
-#X obj 20 1443 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1448 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1359 1\.;
+#X text 150 1359 ~;
+#X text 245 1359 left channel.;
+#X text 110 1384 2\.;
+#X text 150 1384 ~;
+#X text 245 1384 right channel.;
+#X obj 20 1419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1424 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1449 1\.;
-#X text 150 1449 ~;
-#X text 245 1449 output signal.;
-#X text 110 1469 2\.;
-#X text 150 1469 ~;
-#X text 245 1469 output signal.;
+#X text 110 1425 1\.;
+#X text 150 1425 ~;
+#X text 245 1425 output signal.;
+#X text 110 1445 2\.;
+#X text 150 1445 ~;
+#X text 245 1445 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1519 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1522 библиотека: ceammc v0.9.8;
-#X text 524 1534 смотрите также:;
-#X obj 645 1534 fx.freeverb2~;
-#N canvas 10 1541 400 290 info 0;
+#X obj 1 1495 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1498 библиотека: ceammc v0.9.8;
+#X text 524 1510 смотрите также:;
+#X obj 645 1510 fx.freeverb2~;
+#N canvas 10 1517 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -128,7 +128,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1541 pd info;
+#X restore 10 1517 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;

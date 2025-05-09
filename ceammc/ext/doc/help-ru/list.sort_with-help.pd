@@ -19,16 +19,16 @@
 #X text 245 261 input list.;
 #X text 150 286 data:mlist:;
 #X text 245 286 input mlist.;
-#X text 110 306 2\.;
-#X text 150 306 int:;
-#X text 245 306 output from compare object (1 or 0).;
-#X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 341 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 311 2\.;
+#X text 150 311 int:;
+#X text 245 311 output from compare object (1 or 0).;
+#X obj 20 346 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 351 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 342 1\.;
-#X text 245 342 sorted list (or mlist).;
-#X text 110 362 2\.;
-#X text 245 362 output list with two element to compare side-chain.;
+#X text 110 352 1\.;
+#X text 245 352 sorted list (or mlist).;
+#X text 110 372 2\.;
+#X text 245 372 output list with two element to compare side-chain.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

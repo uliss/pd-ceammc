@@ -12,53 +12,53 @@
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 260 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 295 id_request;
-#X text 245 295 send Identity Request SysEx message.;
-#X msg 110 323 mbal:f;
-#X text 245 323 set device master balance. Аргументы:;
-#X obj 255 346 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 346 PAN: balance. Тип: float. Диапазон: -1…1\.;
-#X msg 110 371 mtune;
-#X text 245 371 set device master tuning in float semitones (combination
+#X msg 110 261 id_request;
+#X text 245 261 send Identity Request SysEx message.;
+#X msg 110 289 mbal:f;
+#X text 245 289 set device master balance. Аргументы:;
+#X obj 255 312 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 312 PAN: balance. Тип: float. Диапазон: -1…1\.;
+#X msg 110 337 mtune;
+#X text 245 337 set device master tuning in float semitones (combination
 of coarse and fine tune). Аргументы:;
-#X obj 255 409 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 409 V: tuning. Тип: float. Диапазон: -64…63\. Единицы:
+#X obj 255 375 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 375 V: tuning. Тип: float. Диапазон: -64…63\. Единицы:
 'semitone'.;
-#X msg 110 449 mtune.;
-#X text 245 449 set device master fine tuning in cents. Аргументы:;
-#X obj 255 472 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 472 V: tuning. Тип: int. Диапазон: -100…100\. Единицы:
+#X msg 110 415 mtune.;
+#X text 245 415 set device master fine tuning in cents. Аргументы:;
+#X obj 255 438 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 438 V: tuning. Тип: int. Диапазон: -100…100\. Единицы:
 'cent'.;
-#X msg 110 497 mtune~;
-#X text 245 497 set device master coarse tuning in semitones. Аргументы:;
-#X obj 255 520 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 520 V: tuning. Тип: int. Диапазон: -64…63\. Единицы: 'semitone'.;
-#X msg 110 545 mvolume;
-#X text 245 545 set device master volume. Аргументы:;
-#X obj 255 568 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 568 LEVEL: volume level. Тип: float. Диапазон: 0…1\.;
-#X obj 20 603 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 608 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 463 mtune~;
+#X text 245 463 set device master coarse tuning in semitones. Аргументы:;
+#X obj 255 486 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 486 V: tuning. Тип: int. Диапазон: -64…63\. Единицы: 'semitone'.;
+#X msg 110 511 mvolume;
+#X text 245 511 set device master volume. Аргументы:;
+#X obj 255 534 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 534 LEVEL: volume level. Тип: float. Диапазон: 0…1\.;
+#X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 574 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 609 1\.;
-#X text 150 609 float:;
-#X text 245 609 raw midi input bytes.;
-#X text 150 634 list:;
-#X text 245 634 raw midi input bytes.;
-#X obj 20 664 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 669 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 575 1\.;
+#X text 150 575 float:;
+#X text 245 575 raw midi input bytes.;
+#X text 150 600 list:;
+#X text 245 600 raw midi input bytes.;
+#X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 640 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 670 1\.;
-#X text 245 670 float: raw midi output or parsed messages with selector
+#X text 110 641 1\.;
+#X text 245 641 float: raw midi output or parsed messages with selector
 (output format is the same as for corresponding methods).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 735 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 738 библиотека: ceammc v0.9.8;
-#N canvas 10 757 400 290 info 0;
+#X obj 1 706 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 709 библиотека: ceammc v0.9.8;
+#N canvas 10 728 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -82,4 +82,4 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 757 pd info;
+#X restore 10 728 pd info;

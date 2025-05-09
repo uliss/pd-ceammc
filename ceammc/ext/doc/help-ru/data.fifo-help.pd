@@ -61,38 +61,38 @@ add to queue until it full. Тип: int. Значение по умолчани�
 #X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 765 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 800 clear;
-#X text 245 800 removes all queue values.;
-#X msg 110 828 flush;
-#X text 245 828 outputs and removes all queue values.;
-#X msg 110 856 pop;
-#X text 245 856 outputs and removes first values in queue.;
-#X msg 110 884 resize;
-#X text 245 884 Аргументы:;
-#X obj 255 907 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 907 [anonym]: changes queue size. All previous values (if
+#X msg 110 766 clear;
+#X text 245 766 removes all queue values.;
+#X msg 110 794 flush;
+#X text 245 794 outputs and removes all queue values.;
+#X msg 110 822 pop;
+#X text 245 822 outputs and removes first values in queue.;
+#X msg 110 850 resize;
+#X text 245 850 Аргументы:;
+#X obj 255 873 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 873 [anonym]: changes queue size. All previous values (if
 any) are silently removed. Тип: int. Минимальное значение: 0\.;
-#X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 962 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 923 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 928 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 963 1\.;
-#X text 150 963 bang:;
-#X text 245 963 same as *flush* message.;
-#X obj 20 993 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 998 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 929 1\.;
+#X text 150 929 bang:;
+#X text 245 929 same as *flush* message.;
+#X obj 20 964 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 969 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 999 1\.;
-#X text 245 999 output value.;
+#X text 110 970 1\.;
+#X text 245 970 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 1049 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1052 библиотека: ceammc v0.9.8;
-#X text 553 1064 смотрите также:;
-#X obj 674 1064 data.list;
-#N canvas 10 1071 400 290 info 0;
+#X obj 1 1020 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1023 библиотека: ceammc v0.9.8;
+#X text 553 1035 смотрите также:;
+#X obj 674 1035 data.list;
+#N canvas 10 1042 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -116,7 +116,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1071 pd info;
+#X restore 10 1042 pd info;
 #X connect 6 0 9 0;
 #X connect 13 0 17 0;
 #X connect 7 0 17 0;

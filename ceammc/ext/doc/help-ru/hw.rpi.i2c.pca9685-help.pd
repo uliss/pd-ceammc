@@ -63,102 +63,102 @@ atom. Значение по умолчанию: none. Разрешённые з�
 #X obj 20 1093 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1098 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1133 const;
-#X text 245 1133 set channel constant value. Аргументы:;
-#X obj 255 1156 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1156 CHAN: device PWM channel. If equals to 16 means all
+#X msg 110 1099 const;
+#X text 245 1099 set channel constant value. Аргументы:;
+#X obj 255 1122 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1122 CHAN: device PWM channel. If equals to 16 means all
 channels. Тип: int. Диапазон: 0…16\.;
-#X obj 255 1194 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1194 VALUE: value. Тип: bool.;
-#X obj 255 1217 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1217 [DELAY]: the setting is delayed by the given phase
+#X obj 255 1160 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1160 VALUE: value. Тип: bool.;
+#X obj 255 1183 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1183 [DELAY]: the setting is delayed by the given phase
 value. Тип: float. Диапазон: 0…1\.;
-#X msg 110 1257 disable_prog_addr;
-#X text 245 1257 disable of using programmable address. Аргументы:;
-#X obj 255 1280 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1280 TYPE: prog address type. Тип: atom. Разрешённые значения:
+#X msg 110 1223 disable_prog_addr;
+#X text 245 1223 disable of using programmable address. Аргументы:;
+#X obj 255 1246 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1246 TYPE: prog address type. Тип: atom. Разрешённые значения:
 1 \, 2 \, 3 \, all.;
-#X msg 110 1320 duty;
-#X text 245 1320 set channel PWM duty cycle. Аргументы:;
-#X obj 255 1343 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1343 CHAN: device PWM channel. If equals to 16 means all
+#X msg 110 1286 duty;
+#X text 245 1286 set channel PWM duty cycle. Аргументы:;
+#X obj 255 1309 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1309 CHAN: device PWM channel. If equals to 16 means all
 channels. Тип: int. Диапазон: 0…16\.;
-#X obj 255 1381 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1381 DUTY: duty cycle value. Тип: float. Диапазон: -1…1\.;
-#X obj 255 1404 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1404 [PHASE]: phase offset. Тип: float. Диапазон: -1…1\.;
-#X msg 110 1429 enable;
-#X text 245 1429 enable/disable the device. The disabled state is equal
+#X obj 255 1347 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1347 DUTY: duty cycle value. Тип: float. Диапазон: -1…1\.;
+#X obj 255 1370 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1370 [PHASE]: phase offset. Тип: float. Диапазон: -1…1\.;
+#X msg 110 1395 enable;
+#X text 245 1395 enable/disable the device. The disabled state is equal
 to sleep \, the device is keeping all current PWM setting \, but just
 not responds to the new settings. Аргументы:;
-#X obj 255 1482 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1482 [STATE=1]: new state. Тип: bool.;
-#X msg 110 1507 enable_restart_and_disable;
-#X text 325 1507 put the controller to sleep while keeping the PWM
+#X obj 255 1448 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1448 [STATE=1]: new state. Тип: bool.;
+#X msg 110 1473 enable_restart_and_disable;
+#X text 325 1473 put the controller to sleep while keeping the PWM
 register contents in preparation for a future restart.;
-#X msg 110 1547 freq;
-#X text 245 1547 set PWM frequency. Аргументы:;
-#X obj 255 1570 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1570 FREQ: new frequency. Тип: float. Диапазон: 24…2048\.
+#X msg 110 1513 freq;
+#X text 245 1513 set PWM frequency. Аргументы:;
+#X obj 255 1536 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1536 FREQ: new frequency. Тип: float. Диапазон: 24…2048\.
 Единицы: 'Hz'.;
-#X msg 110 1610 period;
-#X text 245 1610 set PWM period. Аргументы:;
-#X obj 255 1633 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1633 PERIOD: new frequency. Тип: float. Диапазон: 0.5…40\.
+#X msg 110 1576 period;
+#X text 245 1576 set PWM period. Аргументы:;
+#X obj 255 1599 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1599 PERIOD: new frequency. Тип: float. Диапазон: 0.5…40\.
 Единицы: 'ms'.;
-#X msg 110 1673 polarity;
-#X text 245 1673 set PWM inversed polarity. Applicable when OE = 0\.
+#X msg 110 1639 polarity;
+#X text 245 1639 set PWM inversed polarity. Applicable when OE = 0\.
 Аргументы:;
-#X obj 255 1711 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1711 POLARITY: polarity value: 0 - direct \, 1 - inversed.
+#X obj 255 1677 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1677 POLARITY: polarity value: 0 - direct \, 1 - inversed.
 Тип: bool.;
-#X msg 110 1751 pwidth;
-#X text 245 1751 set channel PWM pulse width. Аргументы:;
-#X obj 255 1774 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1774 CHAN: device PWM channel. If equals to 16 means all
+#X msg 110 1717 pwidth;
+#X text 245 1717 set channel PWM pulse width. Аргументы:;
+#X obj 255 1740 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1740 CHAN: device PWM channel. If equals to 16 means all
 channels. Тип: int. Диапазон: 0…16\.;
-#X obj 255 1812 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1812 WIDTH: pulse width. Тип: float. Диапазон: 0.5…40\.
+#X obj 255 1778 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1778 WIDTH: pulse width. Тип: float. Диапазон: 0.5…40\.
 Единицы: 'ms'.;
-#X obj 255 1850 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1850 [PHASE]: phase offset. Тип: float. Диапазон: 0…1\.;
-#X msg 110 1875 restart;
-#X text 245 1875 re-enable the controller after a sleep with restart
+#X obj 255 1816 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1816 [PHASE]: phase offset. Тип: float. Диапазон: 0…1\.;
+#X msg 110 1841 restart;
+#X text 245 1841 re-enable the controller after a sleep with restart
 enabled so that previously active PWM channels are restarted.;
-#X msg 110 1915 set_raw;
-#X text 245 1915 set channel raw PWM frequency. Аргументы:;
-#X obj 255 1938 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1938 CHAN: device PWM channel. If equals to 16 means all
+#X msg 110 1881 set_raw;
+#X text 245 1881 set channel raw PWM frequency. Аргументы:;
+#X obj 255 1904 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1904 CHAN: device PWM channel. If equals to 16 means all
 channels. Тип: int. Диапазон: 0…16\.;
-#X obj 255 1976 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1976 ON: ON counter time value. Тип: int. Диапазон: 0…4095\.;
-#X obj 255 1999 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1999 OFF: OFF counter time value. Тип: int. Диапазон: 0…4095\.;
-#X msg 110 2024 use_prog_addr;
-#X text 245 2024 set and use programmable address. Аргументы:;
-#X obj 255 2047 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2047 TYPE: prog address type. Тип: atom. Разрешённые значения:
+#X obj 255 1942 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1942 ON: ON counter time value. Тип: int. Диапазон: 0…4095\.;
+#X obj 255 1965 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1965 OFF: OFF counter time value. Тип: int. Диапазон: 0…4095\.;
+#X msg 110 1990 use_prog_addr;
+#X text 245 1990 set and use programmable address. Аргументы:;
+#X obj 255 2013 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2013 TYPE: prog address type. Тип: atom. Разрешённые значения:
 1 \, 2 \, 3 \, all.;
-#X obj 255 2085 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2085 I2C_ADDR: new I²C address. Тип: int. Диапазон: 7…119\.;
-#X obj 20 2120 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2125 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 255 2051 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2051 I2C_ADDR: new I²C address. Тип: int. Диапазон: 7…119\.;
+#X obj 20 2086 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2091 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2126 1\.;
-#X text 245 2126 control input.;
-#X obj 20 2156 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2161 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 2092 1\.;
+#X text 245 2092 control input.;
+#X obj 20 2127 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2132 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2162 1\.;
-#X text 245 2162 control output.;
+#X text 110 2133 1\.;
+#X text 245 2133 control output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 2212 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2215 библиотека: ceammc v0.9.8;
-#N canvas 10 2234 400 290 info 0;
+#X obj 1 2183 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2186 библиотека: ceammc v0.9.8;
+#N canvas 10 2205 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -182,7 +182,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2234 pd info;
+#X restore 10 2205 pd info;
 #X connect 13 0 14 0;
 #X connect 15 0 16 0;
 #X connect 16 0 17 0;

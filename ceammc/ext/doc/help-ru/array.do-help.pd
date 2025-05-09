@@ -44,29 +44,29 @@
 #X text 245 539 начинает итерацию массива.;
 #X text 150 564 symbol:;
 #X text 245 564 установить имя массива.;
-#X text 110 584 2\.;
-#X text 150 584 float:;
-#X text 245 584 числовое значение из боковой цепи обработки.;
-#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 619 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 589 2\.;
+#X text 150 589 float:;
+#X text 245 589 числовое значение из боковой цепи обработки.;
+#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 629 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 620 1\.;
-#X text 150 620 bang:;
-#X text 245 620 при завершении итерации.;
-#X text 110 640 2\.;
-#X text 150 640 list:;
-#X text 245 640 для каждого семпла массива выводит список: ЗНАЧЕНИЕ_СЕМПЛА
+#X text 110 630 1\.;
+#X text 150 630 bang:;
+#X text 245 630 при завершении итерации.;
+#X text 110 650 2\.;
+#X text 150 650 list:;
+#X text 245 650 для каждого семпла массива выводит список: ЗНАЧЕНИЕ_СЕМПЛА
 \, ИНДЕКС_СЕМПЛА \, ВСЕГО_СЕМПЛОВ.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 705 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 708 библиотека: ceammc v0.9.8;
-#X text 546 720 смотрите также:;
-#X obj 667 720 array.each;
-#N canvas 10 727 400 290 info 0;
+#X obj 1 715 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 718 библиотека: ceammc v0.9.8;
+#X text 546 730 смотрите также:;
+#X obj 667 730 array.each;
+#N canvas 10 737 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,7 +90,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 727 pd info;
+#X restore 10 737 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 8 0;
 #X connect 7 1 9 0;

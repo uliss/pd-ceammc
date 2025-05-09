@@ -46,23 +46,23 @@
 #X text 110 816 1\.;
 #X text 150 816 ~;
 #X text 245 816 входной сигнал для анализа.;
-#X obj 20 846 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 851 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 851 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 856 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 852 1\.;
-#X text 150 852 ~;
-#X text 245 852 число/скорость/частота пересечения сигналом нулевого
+#X text 110 857 1\.;
+#X text 150 857 ~;
+#X text 245 857 число/скорость/частота пересечения сигналом нулевого
 значения в зависимости от свойства @mode.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 917 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 920 библиотека: ceammc v0.9.8;
-#X text 516 932 смотрите также:;
-#X obj 637 932 an.pitchtrack~;
-#N canvas 10 939 400 290 info 0;
+#X obj 1 922 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 925 библиотека: ceammc v0.9.8;
+#X text 516 937 смотрите также:;
+#X obj 637 937 an.pitchtrack~;
+#N canvas 10 944 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -86,7 +86,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 939 pd info;
+#X restore 10 944 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;

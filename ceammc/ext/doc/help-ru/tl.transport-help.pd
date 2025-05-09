@@ -20,17 +20,17 @@
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 260 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 295 cue;
-#X text 245 295 sets cue index. Аргументы:;
-#X obj 255 318 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 318 [N]: cue index. Тип: int. Минимальное значение: 0\.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 358 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 261 cue;
+#X text 245 261 sets cue index. Аргументы:;
+#X obj 255 284 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 284 [N]: cue index. Тип: int. Минимальное значение: 0\.;
+#X obj 20 319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 324 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 359 1\.;
-#X text 245 359 control input.;
-#X obj 20 389 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 394 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 325 1\.;
+#X text 245 325 control input.;
+#X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 365 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

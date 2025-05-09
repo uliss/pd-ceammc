@@ -23,14 +23,15 @@
 #X text 110 243 1\.;
 #X text 150 243 list:;
 #X text 245 243 list of properties.;
+#X text 150 268 any:;
 #X text 245 268 list of properties.;
-#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 303 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 303 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 308 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 304 1\.;
-#X text 245 304 sequence of @prop messages.;
-#X text 110 324 2\.;
-#X text 245 324 list of non prop arguments.;
+#X text 110 309 1\.;
+#X text 245 309 sequence of @prop messages.;
+#X text 110 329 2\.;
+#X text 245 329 list of non prop arguments.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

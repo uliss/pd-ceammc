@@ -30,11 +30,11 @@ rightmost \, this can be changed with @rev property;
 #X text 110 414 1\.;
 #X text 150 414 list:;
 #X text 245 414 input bit list.;
-#X obj 20 444 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 449 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 454 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 450 1\.;
-#X text 245 450 list of bit positions.;
+#X text 110 455 1\.;
+#X text 245 455 list of bit positions.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

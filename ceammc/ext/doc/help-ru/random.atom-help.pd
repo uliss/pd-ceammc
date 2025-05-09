@@ -60,26 +60,26 @@ values (note: distribution will changed!). Тип: bool. Значение по �
 #X text 110 877 1\.;
 #X text 150 877 bang:;
 #X text 245 877 output random atom.;
-#X text 110 897 2\.;
-#X text 150 897 list:;
-#X text 245 897 set list of elements to choose from. Note: clear all
+#X text 110 902 2\.;
+#X text 150 902 list:;
+#X text 245 902 set list of elements to choose from. Note: clear all
 weights.;
-#X obj 20 927 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 932 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 942 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 933 1\.;
-#X text 245 933 random atom value.;
+#X text 110 943 1\.;
+#X text 245 943 random atom value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 983 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 986 библиотека: ceammc v0.9.8;
-#X text 432 998 смотрите также:;
-#X obj 553 998 random.float;
-#X obj 654 998 random.gauss;
-#N canvas 10 1005 400 290 info 0;
+#X obj 1 993 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 996 библиотека: ceammc v0.9.8;
+#X text 432 1008 смотрите также:;
+#X obj 553 1008 random.float;
+#X obj 654 1008 random.gauss;
+#N canvas 10 1015 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -103,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1005 pd info;
+#X restore 10 1015 pd info;
 #X connect 10 0 12 0;
 #X connect 11 0 13 0;
 #X connect 12 0 14 0;

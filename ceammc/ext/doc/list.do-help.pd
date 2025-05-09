@@ -17,16 +17,16 @@
 #X text 245 232 input list.;
 #X text 150 257 data:;
 #X text 245 257 input mlist.;
-#X text 110 277 2\.;
-#X text 150 277 atom:;
-#X text 245 277 processed atom from side-chain.;
-#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 312 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 282 2\.;
+#X text 150 282 atom:;
+#X text 245 282 processed atom from side-chain.;
+#X obj 20 317 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 322 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 313 1\.;
-#X text 245 313 output processed list.;
-#X text 110 333 2\.;
-#X text 245 333 output per each list element: ATOM INDEX TOTAL.;
+#X text 110 323 1\.;
+#X text 245 323 output processed list.;
+#X text 110 343 2\.;
+#X text 245 343 output per each list element: ATOM INDEX TOTAL.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

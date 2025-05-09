@@ -67,28 +67,28 @@ to give even harmonics. Тип: float. Значение по умолчанию:
 #X obj 20 953 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 958 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 993 reset;
-#X text 245 993 reset object.;
-#X obj 20 1031 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1036 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 959 reset;
+#X text 245 959 reset object.;
+#X obj 20 997 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1002 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1037 1\.;
-#X text 150 1037 ~;
-#X text 245 1037 input signal.;
-#X obj 20 1067 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1072 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1003 1\.;
+#X text 150 1003 ~;
+#X text 245 1003 input signal.;
+#X obj 20 1038 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1043 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1073 1\.;
-#X text 150 1073 ~;
-#X text 245 1073 output signal.;
+#X text 110 1044 1\.;
+#X text 150 1044 ~;
+#X text 245 1044 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1123 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1126 библиотека: ceammc v0.9.8;
-#N canvas 10 1145 400 290 info 0;
+#X obj 1 1094 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1097 библиотека: ceammc v0.9.8;
+#N canvas 10 1116 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -112,7 +112,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1145 pd info;
+#X restore 10 1116 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 11 0;

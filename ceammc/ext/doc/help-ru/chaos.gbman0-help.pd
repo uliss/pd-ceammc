@@ -62,29 +62,29 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 758 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 813 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 818 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 784 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 819 1\.;
-#X text 150 819 bang:;
-#X text 245 819 generates and outputs next x-value.;
-#X obj 20 849 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 854 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 785 1\.;
+#X text 150 785 bang:;
+#X text 245 785 generates and outputs next x-value.;
+#X obj 20 820 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 825 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 855 1\.;
-#X text 245 855 outputs x-value.;
-#X text 110 875 2\.;
-#X text 245 875 outputs y-value.;
+#X text 110 826 1\.;
+#X text 245 826 outputs x-value.;
+#X text 110 846 2\.;
+#X text 245 846 outputs y-value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 925 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 928 библиотека: ceammc v0.9.8;
-#X text 532 940 смотрите также:;
-#X obj 653 940 chaos.gbman0;
-#N canvas 10 947 400 290 info 0;
+#X obj 1 896 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 899 библиотека: ceammc v0.9.8;
+#X text 532 911 смотрите также:;
+#X obj 653 911 chaos.gbman0;
+#N canvas 10 918 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -108,7 +108,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 947 pd info;
+#X restore 10 918 pd info;
 #X connect 9 0 12 0;
 #X connect 11 0 13 0;
 #X connect 11 0 14 0;

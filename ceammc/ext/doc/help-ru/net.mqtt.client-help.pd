@@ -47,48 +47,48 @@ json values to ceammc data. Тип: symbol. Значение по умолчан
 #X obj 20 765 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 770 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 805 close;
-#X text 245 805 close MQTT connection.;
-#X msg 110 833 connect;
-#X text 245 833 connect to websocket server. Аргументы:;
-#X obj 255 856 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 856 URL: mqtt server url \, for ex.: mqtt://127.0.0.1:9000
+#X msg 110 771 close;
+#X text 245 771 close MQTT connection.;
+#X msg 110 799 connect;
+#X text 245 799 connect to websocket server. Аргументы:;
+#X obj 255 822 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 822 URL: mqtt server url \, for ex.: mqtt://127.0.0.1:9000
 \, tcp://user:pass@127.0.0.1:9000 \, ssl://user:pass@127.0.0.1 etc.
 Тип: symbol.;
-#X msg 110 911 publish;
-#X text 245 911 publish message to topic. Аргументы:;
-#X obj 255 934 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 934 TOPIC: topic. Тип: symbol.;
-#X obj 255 957 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 957 [ARGS]: content. Тип: list.;
-#X msg 110 982 subscribe;
-#X text 245 982 subscribe to topic. Аргументы:;
-#X obj 255 1005 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1005 TOPIC: topic. Тип: symbol.;
-#X msg 110 1030 unsubscribe;
-#X text 245 1030 unsubscribe from topic. Аргументы:;
-#X obj 255 1053 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1053 TOPIC: topic. Тип: symbol.;
-#X obj 20 1088 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1093 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 877 publish;
+#X text 245 877 publish message to topic. Аргументы:;
+#X obj 255 900 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 900 TOPIC: topic. Тип: symbol.;
+#X obj 255 923 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 923 [ARGS]: content. Тип: list.;
+#X msg 110 948 subscribe;
+#X text 245 948 subscribe to topic. Аргументы:;
+#X obj 255 971 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 971 TOPIC: topic. Тип: symbol.;
+#X msg 110 996 unsubscribe;
+#X text 245 996 unsubscribe from topic. Аргументы:;
+#X obj 255 1019 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1019 TOPIC: topic. Тип: symbol.;
+#X obj 20 1054 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1059 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1094 1\.;
-#X text 245 1094 message input.;
-#X obj 20 1124 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1129 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1060 1\.;
+#X text 245 1060 message input.;
+#X obj 20 1095 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1100 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1130 1\.;
-#X text 245 1130 output messages: topic data.;
-#X text 110 1150 2\.;
-#X text 245 1150 bang: on ping message.;
+#X text 110 1101 1\.;
+#X text 245 1101 output messages: topic data.;
+#X text 110 1121 2\.;
+#X text 245 1121 bang: on ping message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1200 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1203 библиотека: ceammc v0.9.8;
-#N canvas 10 1222 400 290 info 0;
+#X obj 1 1171 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1174 библиотека: ceammc v0.9.8;
+#N canvas 10 1193 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -112,7 +112,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1222 pd info;
+#X restore 10 1193 pd info;
 #X connect 8 0 18 0;
 #X connect 18 0 19 0;
 #X connect 18 1 20 0;

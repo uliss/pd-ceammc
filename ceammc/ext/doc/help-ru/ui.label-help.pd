@@ -111,41 +111,42 @@ bool. Значение по умолчанию: 1\.;
 #X obj 20 1558 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1563 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1598 append;
-#X text 245 1598 appends to @text end.;
-#X msg 110 1626 clear;
-#X text 245 1626 clear label text and clear @text property.;
-#X msg 110 1654 pos;
-#X text 245 1654 set UI element position. Аргументы:;
-#X obj 255 1677 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1677 X: top left x-coord. Тип: float.;
-#X obj 255 1700 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1700 Y: top right y-coord. Тип: float.;
-#X msg 110 1725 prepend;
-#X text 245 1725 insert into beginning of @text.;
-#X obj 20 1763 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1768 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1564 append;
+#X text 245 1564 appends to @text end.;
+#X msg 110 1592 clear;
+#X text 245 1592 clear label text and clear @text property.;
+#X msg 110 1620 pos;
+#X text 245 1620 set UI element position. Аргументы:;
+#X obj 255 1643 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1643 X: top left x-coord. Тип: float.;
+#X obj 255 1666 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1666 Y: top right y-coord. Тип: float.;
+#X msg 110 1691 prepend;
+#X text 245 1691 insert into beginning of @text.;
+#X obj 20 1729 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1734 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1769 1\.;
-#X text 150 1769 float:;
-#X text 245 1769 [hidden inlet] set the label text to the given float
+#X text 110 1735 1\.;
+#X text 150 1735 float:;
+#X text 245 1735 [hidden inlet] set the label text to the given float
 without changing @text property.;
-#X text 150 1809 symbol:;
-#X text 245 1809 [hidden inlet] set the label text without changing
+#X text 150 1775 symbol:;
+#X text 245 1775 [hidden inlet] set the label text without changing
 @text property.;
-#X text 150 1849 list:;
-#X text 245 1849 [hidden inlet] set the label text to the given list
+#X text 150 1815 list:;
+#X text 245 1815 [hidden inlet] set the label text to the given list
 separated by spaces without changing @text property.;
-#X text 245 1889 [hidden inlet] set the label text to the given message
+#X text 150 1855 any:;
+#X text 245 1855 [hidden inlet] set the label text to the given message
 separated by spaces without changing @text property.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1954 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1957 библиотека: ceammc v0.9.8;
-#N canvas 10 1976 400 290 info 0;
+#X obj 1 1925 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1928 библиотека: ceammc v0.9.8;
+#N canvas 10 1947 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -169,7 +170,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1976 pd info;
+#X restore 10 1947 pd info;
 #X connect 7 0 8 0;
 #X connect 11 0 17 0;
 #X connect 12 0 17 0;

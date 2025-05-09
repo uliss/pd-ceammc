@@ -20,15 +20,15 @@
 #X text 110 376 1\.;
 #X text 150 376 ~;
 #X text 245 376 real part of input signal.;
-#X text 110 396 2\.;
-#X text 150 396 ~;
-#X text 245 396 imag part of input signal.;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 431 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 401 2\.;
+#X text 150 401 ~;
+#X text 245 401 imag part of input signal.;
+#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 441 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 432 1\.;
-#X text 150 432 ~;
-#X text 245 432 signal magnitude.;
+#X text 110 442 1\.;
+#X text 150 442 ~;
+#X text 245 442 signal magnitude.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

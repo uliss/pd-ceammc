@@ -76,6 +76,7 @@
 #X obj 20 681 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 682 1\.;
+#X text 150 682 any:;
 #X text 245 682 appends all atoms to message content and outputs it.;
 #X text 150 707 list:;
 #X text 245 707 appends input list to message content and outputs it.;
@@ -83,24 +84,24 @@
 #X text 245 732 appends float to message content and outputs it.;
 #X text 150 757 symbol:;
 #X text 245 757 appends symbol to message content and outputs it.;
-#X text 110 777 2\.;
-#X text 150 777 symbol:;
-#X text 245 777 change message selector.;
-#X text 150 802 list:;
-#X text 245 802 change message selector and first atoms.;
-#X obj 20 832 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 837 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 782 2\.;
+#X text 150 782 symbol:;
+#X text 245 782 change message selector.;
+#X text 150 807 list:;
+#X text 245 807 change message selector and first atoms.;
+#X obj 20 842 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 847 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 838 1\.;
-#X text 245 838 message output.;
+#X text 110 848 1\.;
+#X text 245 848 message output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title msg @url ceammc.msg-help.pd;
-#X obj 1 888 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 891 библиотека: ceammc v0.9.8;
-#N canvas 10 910 400 290 info 0;
+#X obj 1 898 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 901 библиотека: ceammc v0.9.8;
+#N canvas 10 920 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -124,7 +125,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 910 pd info;
+#X restore 10 920 pd info;
 #X connect 5 0 11 0;
 #X connect 6 0 12 0;
 #X connect 7 0 13 0;

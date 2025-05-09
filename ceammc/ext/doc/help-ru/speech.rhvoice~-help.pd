@@ -58,34 +58,34 @@ characters. Тип: symbol.;
 #X obj 20 849 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 854 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 889 clear;
-#X text 245 889 clear TTS queue.;
-#X msg 110 917 read;
-#X text 245 917 read TTS file (text or SSML). Аргументы:;
-#X obj 255 940 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 940 FILE: absolute or relative path to the file. Тип: symbol.;
-#X msg 110 965 ssml;
-#X text 245 965 speak SSML text markup.;
-#X msg 110 993 stop;
-#X text 245 993 stops speech and clear TTS queue.;
-#X obj 20 1031 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1036 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 855 clear;
+#X text 245 855 clear TTS queue.;
+#X msg 110 883 read;
+#X text 245 883 read TTS file (text or SSML). Аргументы:;
+#X obj 255 906 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 906 FILE: absolute or relative path to the file. Тип: symbol.;
+#X msg 110 931 ssml;
+#X text 245 931 speak SSML text markup.;
+#X msg 110 959 stop;
+#X text 245 959 stops speech and clear TTS queue.;
+#X obj 20 997 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1002 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1037 1\.;
-#X text 150 1037 float:;
-#X text 245 1037 speak number.;
-#X text 150 1062 symbol:;
-#X text 245 1062 speak symbol.;
-#X text 150 1087 list:;
-#X text 245 1087 speak list of symbols.;
-#X obj 20 1117 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1122 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1003 1\.;
+#X text 150 1003 float:;
+#X text 245 1003 speak number.;
+#X text 150 1028 symbol:;
+#X text 245 1028 speak symbol.;
+#X text 150 1053 list:;
+#X text 245 1053 speak list of symbols.;
+#X obj 20 1088 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1093 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1123 1\.;
-#X text 150 1123 ~;
-#X text 245 1123 TTS output.;
-#X text 110 1143 2\.;
-#X text 245 1143 bang on done \, [word 1( on word start \, [word 0(
+#X text 110 1094 1\.;
+#X text 150 1094 ~;
+#X text 245 1094 TTS output.;
+#X text 110 1114 2\.;
+#X text 245 1114 bang on done \, [word 1( on word start \, [word 0(
 on word end \, [sentence 1( on sentence start \, [sentence 0( on sentence
 end.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -93,11 +93,11 @@ end.;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 1208 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1211 библиотека: ceammc v0.9.8;
-#X text 524 1223 смотрите также:;
-#X obj 645 1223 speech.flite~;
-#N canvas 10 1230 400 290 info 0;
+#X obj 1 1179 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1182 библиотека: ceammc v0.9.8;
+#X text 524 1194 смотрите также:;
+#X obj 645 1194 speech.flite~;
+#N canvas 10 1201 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -121,7 +121,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1230 pd info;
+#X restore 10 1201 pd info;
 #X connect 11 0 14 0;
 #X connect 14 0 15 0;
 #X connect 16 0 18 0;

@@ -42,30 +42,30 @@ on every input value. Тип: bool. Значение по умолчанию: 1\
 #X obj 20 701 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 706 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 741 clear;
-#X text 245 741 clear all histogram data.;
-#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 784 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 707 clear;
+#X text 245 707 clear all histogram data.;
+#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 750 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 785 1\.;
-#X text 150 785 bang:;
-#X text 245 785 calculates histogram and output current bin values.;
-#X text 150 810 float:;
-#X text 245 810 add value to the histogram and output it's value if
+#X text 110 751 1\.;
+#X text 150 751 bang:;
+#X text 245 751 calculates histogram and output current bin values.;
+#X text 150 776 float:;
+#X text 245 776 add value to the histogram and output it's value if
 @sync property is true.;
-#X obj 20 855 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 860 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 826 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 831 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 861 1\.;
-#X text 245 861 list: bin values.;
+#X text 110 832 1\.;
+#X text 245 832 list: bin values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 911 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 914 библиотека: ceammc v0.9.8;
-#N canvas 10 933 400 290 info 0;
+#X obj 1 882 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 885 библиотека: ceammc v0.9.8;
+#N canvas 10 904 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,7 +89,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 933 pd info;
+#X restore 10 904 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;

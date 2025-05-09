@@ -33,26 +33,26 @@
 #X text 110 407 1\.;
 #X text 150 407 data:;
 #X text 245 407 outputs '1' to 1st outlet \, otherwise '0'.;
-#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 442 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 447 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 443 1\.;
-#X text 245 443 0 or 1\.;
-#X text 110 463 2\.;
-#X text 245 463 passes *data* message.;
+#X text 110 448 1\.;
+#X text 245 448 0 or 1\.;
+#X text 110 468 2\.;
+#X text 245 468 passes *data* message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title predicates @url
 ceammc.predicates-help.pd;
-#X obj 1 513 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 516 библиотека: ceammc v0.9.8;
-#X text 415 528 смотрите также:;
-#X obj 536 528 is_float;
-#X obj 609 528 is_symbol;
-#X obj 689 528 is_list;
-#N canvas 10 535 400 290 info 0;
+#X obj 1 518 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 521 библиотека: ceammc v0.9.8;
+#X text 415 533 смотрите также:;
+#X obj 536 533 is_float;
+#X obj 609 533 is_symbol;
+#X obj 689 533 is_list;
+#N canvas 10 540 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -76,7 +76,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 535 pd info;
+#X restore 10 540 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 12 0;
 #X connect 7 0 12 0;

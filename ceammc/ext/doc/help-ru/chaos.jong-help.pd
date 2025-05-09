@@ -68,54 +68,54 @@ http://paulbourke.net/fractals/peterdejong/;
 #X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 850 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 885 a;
-#X text 245 885 set a-value \, does not not change init state value.;
-#X msg 110 913 b;
-#X text 245 913 set b-value \, does not not change init state value.;
-#X msg 110 941 c;
-#X text 245 941 set c-value \, does not not change init state value.;
-#X msg 110 969 d;
-#X text 245 969 set d-value \, does not not change init state value.;
-#X msg 110 997 om;
-#X text 245 997 turn on/off method output mode. If true (1) outputs
+#X msg 110 851 a;
+#X text 245 851 set a-value \, does not not change init state value.;
+#X msg 110 879 b;
+#X text 245 879 set b-value \, does not not change init state value.;
+#X msg 110 907 c;
+#X text 245 907 set c-value \, does not not change init state value.;
+#X msg 110 935 d;
+#X text 245 935 set d-value \, does not not change init state value.;
+#X msg 110 963 om;
+#X text 245 963 turn on/off method output mode. If true (1) outputs
 new generated value after each a \, b \, d \, e \, x \, y method call
 \, if 0 - change values without output. Default is 0\. Аргументы:;
-#X obj 255 1050 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1050 BOOL: output mode. Тип: int.;
-#X msg 110 1075 reset;
-#X text 245 1075 set to initial state.;
-#X msg 110 1103 set;
-#X text 245 1103 set A B C D E X Y values. Also updates init state
+#X obj 255 1016 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1016 BOOL: output mode. Тип: int.;
+#X msg 110 1041 reset;
+#X text 245 1041 set to initial state.;
+#X msg 110 1069 set;
+#X text 245 1069 set A B C D E X Y values. Also updates init state
 vars.;
-#X msg 110 1131 x;
-#X text 245 1131 set current x-value \, does not not change init state
+#X msg 110 1097 x;
+#X text 245 1097 set current x-value \, does not not change init state
 value.;
-#X msg 110 1159 y;
-#X text 245 1159 set current y-value \, does not not change init state
+#X msg 110 1125 y;
+#X text 245 1125 set current y-value \, does not not change init state
 value.;
-#X obj 20 1197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1202 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1163 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1168 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1203 1\.;
-#X text 150 1203 bang:;
-#X text 245 1203 generate and output new value.;
-#X obj 20 1233 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1238 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1169 1\.;
+#X text 150 1169 bang:;
+#X text 245 1169 generate and output new value.;
+#X obj 20 1204 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1209 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1239 1\.;
-#X text 245 1239 new generated x-value.;
-#X text 110 1259 2\.;
-#X text 245 1259 new generated y-value.;
+#X text 110 1210 1\.;
+#X text 245 1210 new generated x-value.;
+#X text 110 1230 2\.;
+#X text 245 1230 new generated y-value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 1309 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1312 библиотека: ceammc v0.9.8;
-#X text 546 1324 смотрите также:;
-#X obj 667 1324 chaos.std0;
-#N canvas 10 1331 400 290 info 0;
+#X obj 1 1280 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1283 библиотека: ceammc v0.9.8;
+#X text 546 1295 смотрите также:;
+#X obj 667 1295 chaos.std0;
+#N canvas 10 1302 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -139,7 +139,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1331 pd info;
+#X restore 10 1302 pd info;
 #X connect 10 0 12 0;
 #X connect 11 0 13 0;
 #X connect 12 0 14 0;

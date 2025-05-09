@@ -15,78 +15,78 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 352 download;
-#X text 245 352 download file. Аргументы:;
-#X obj 255 375 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 375 URL: download URL. Тип: symbol.;
-#X obj 255 398 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 398 [FILE]: save filename. If not specified \, use HTTP
+#X msg 110 318 download;
+#X text 245 318 download file. Аргументы:;
+#X obj 255 341 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 341 URL: download URL. Тип: symbol.;
+#X obj 255 364 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 364 [FILE]: save filename. If not specified \, use HTTP
 document filename. Тип: symbol.;
-#X obj 255 436 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 436 [@PARAMS]: see get method parameters. Тип: list.;
-#X msg 110 461 get;
-#X text 245 461 send GET request. Аргументы:;
-#X obj 255 484 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 484 URL: request URL. Тип: symbol.;
-#X obj 255 507 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 507 [@header]: additional http header: @header NAME VALUE.
+#X obj 255 402 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 402 [@PARAMS]: see get method parameters. Тип: list.;
+#X msg 110 427 get;
+#X text 245 427 send GET request. Аргументы:;
+#X obj 255 450 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 450 URL: request URL. Тип: symbol.;
+#X obj 255 473 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 473 [@header]: additional http header: @header NAME VALUE.
 Тип: list.;
-#X obj 255 545 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 545 [@form]: form key-value pair: @form KEY VALUE. For
+#X obj 255 511 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 511 [@form]: form key-value pair: @form KEY VALUE. For
 application/x-www-form-urlencoded MIME type. Тип: list.;
-#X obj 255 583 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 583 [@auth]: basic auth username/password: @auth USER PASS.
+#X obj 255 549 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 549 [@auth]: basic auth username/password: @auth USER PASS.
 Тип: list.;
-#X obj 255 621 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 621 [@css]: apply CSS selector to the request body: @css
+#X obj 255 587 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 587 [@css]: apply CSS selector to the request body: @css
 SEL OUTPUT_TYPE \, where OUTPUT_TYPE is one of: 'html' \, 'inner' \,
 'text' \, 'href' \, 'none'. 'html' - returns selected elenent HTML
 content \, 'inner' - returns inner HTML content \, without element
 surrounding tags \, 'text' returns element text without tags \, 'href'
 - return href attribute of selected element \, 'none' - returns empty
 string. Тип: list.;
-#X obj 255 750 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 750 [@strip_ws]: replace multiple whitespaces/newlines/tabs
+#X obj 255 716 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 716 [@strip_ws]: replace multiple whitespaces/newlines/tabs
 with single space. Тип: symbol.;
-#X obj 255 788 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 788 [@json]: parse result as Json and output it as data:Dict().
+#X obj 255 754 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 754 [@json]: parse result as Json and output it as data:Dict().
 Тип: symbol.;
-#X msg 110 828 post;
-#X text 245 828 send POST request. Аргументы:;
-#X obj 255 851 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 851 URL: request URL. Тип: symbol.;
-#X obj 255 874 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 874 [@PARAMS]: see get method parameters. Тип: list.;
-#X msg 110 899 upload;
-#X text 245 899 updload file for the form. Аргументы:;
-#X obj 255 922 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 922 URL: upload URL. Тип: symbol.;
-#X obj 255 945 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 945 FILE: upload file path in the filesystem. Тип: symbol.;
-#X obj 255 968 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 968 FORM_KEY: form entry key. Тип: symbol.;
-#X obj 255 991 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 991 [@PARAMS]: see get method parameters. Тип: list.;
-#X obj 20 1026 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1031 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 794 post;
+#X text 245 794 send POST request. Аргументы:;
+#X obj 255 817 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 817 URL: request URL. Тип: symbol.;
+#X obj 255 840 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 840 [@PARAMS]: see get method parameters. Тип: list.;
+#X msg 110 865 upload;
+#X text 245 865 updload file for the form. Аргументы:;
+#X obj 255 888 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 888 URL: upload URL. Тип: symbol.;
+#X obj 255 911 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 911 FILE: upload file path in the filesystem. Тип: symbol.;
+#X obj 255 934 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 934 FORM_KEY: form entry key. Тип: symbol.;
+#X obj 255 957 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 957 [@PARAMS]: see get method parameters. Тип: list.;
+#X obj 20 992 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 997 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1032 1\.;
-#X text 245 1032 input.;
-#X obj 20 1062 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1067 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 998 1\.;
+#X text 245 998 input.;
+#X obj 20 1033 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1038 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1068 1\.;
-#X text 245 1068 int: HTTP status code.;
-#X text 110 1088 2\.;
-#X text 245 1088 data:String: HTTP body or content of selected element.;
+#X text 110 1039 1\.;
+#X text 245 1039 int: HTTP status code.;
+#X text 110 1059 2\.;
+#X text 245 1059 data:String: HTTP body or content of selected element.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1138 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1141 библиотека: ceammc v0.9.8;
-#N canvas 10 1160 400 290 info 0;
+#X obj 1 1109 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1112 библиотека: ceammc v0.9.8;
+#N canvas 10 1131 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -110,7 +110,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1160 pd info;
+#X restore 10 1131 pd info;
 #X connect 5 0 8 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

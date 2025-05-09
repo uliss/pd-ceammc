@@ -86,34 +86,34 @@ ceammc://img/conn_ads1115.png;
 #X obj 20 1495 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1500 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1535 measure;
-#X text 245 1535 single measure request. Аргументы:;
-#X obj 255 1558 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1558 [CHAN]: the channel to measure. If omitted: perform
+#X msg 110 1501 measure;
+#X text 245 1501 single measure request. Аргументы:;
+#X obj 255 1524 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1524 [CHAN]: the channel to measure. If omitted: perform
 measure on all channels. Тип: int. Диапазон: 0…3\.;
-#X msg 110 1598 poll;
-#X text 245 1598 set polling turn on/off. Аргументы:;
-#X obj 255 1621 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1621 STATE: poll state. Тип: bool.;
-#X obj 20 1656 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1661 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1564 poll;
+#X text 245 1564 set polling turn on/off. Аргументы:;
+#X obj 255 1587 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1587 STATE: poll state. Тип: bool.;
+#X obj 20 1622 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1627 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1662 1\.;
-#X text 150 1662 bang:;
-#X text 245 1662;
-#X obj 20 1692 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1697 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1628 1\.;
+#X text 150 1628 bang:;
+#X text 245 1628;
+#X obj 20 1663 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1668 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1698 1\.;
-#X text 245 1698 [ch CHANNEL VALUE( messages.;
+#X text 110 1669 1\.;
+#X text 245 1669 [ch CHANNEL VALUE( messages.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1748 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1751 библиотека: ceammc v0.9.8;
-#N canvas 10 1770 400 290 info 0;
+#X obj 1 1719 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1722 библиотека: ceammc v0.9.8;
+#N canvas 10 1741 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -137,7 +137,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1770 pd info;
+#X restore 10 1741 pd info;
 #X connect 12 0 13 0;
 #X connect 13 0 16 0;
 #X connect 14 0 16 0;

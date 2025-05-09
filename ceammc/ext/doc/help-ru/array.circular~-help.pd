@@ -44,39 +44,39 @@
 #X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 601 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 636 resize;
-#X text 245 636 изменить размер целевого массива. Аргументы:;
-#X obj 255 659 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 659 SZ: новый размер. Тип: int. Минимальное значение: 10\.
+#X msg 110 602 resize;
+#X text 245 602 изменить размер целевого массива. Аргументы:;
+#X obj 255 625 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 625 SZ: новый размер. Тип: int. Минимальное значение: 10\.
 Единицы: 'samp'.;
-#X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 714 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 680 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 715 1\.;
-#X text 150 715 ~;
-#X text 245 715 write delay.;
-#X text 110 735 2\.;
-#X text 150 735 ~;
-#X text 245 735 read delay.;
-#X text 110 755 3\.;
-#X text 150 755 bang:;
-#X text 245 755 reset write position to zero.;
-#X text 150 780 float:;
-#X text 245 780 set write position.;
-#X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 815 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 681 1\.;
+#X text 150 681 ~;
+#X text 245 681 write delay.;
+#X text 110 706 2\.;
+#X text 150 706 ~;
+#X text 245 706 read delay.;
+#X text 110 731 3\.;
+#X text 150 731 bang:;
+#X text 245 731 reset write position to zero.;
+#X text 150 756 float:;
+#X text 245 756 set write position.;
+#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 796 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 816 1\.;
-#X text 150 816 ~;
-#X text 245 816 read signal.;
+#X text 110 797 1\.;
+#X text 150 797 ~;
+#X text 245 797 read signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 866 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 869 библиотека: ceammc v0.9.8;
-#N canvas 10 888 400 290 info 0;
+#X obj 1 847 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 850 библиотека: ceammc v0.9.8;
+#N canvas 10 869 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -100,7 +100,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 888 pd info;
+#X restore 10 869 pd info;
 #X connect 4 0 6 0;
 #X connect 7 0 8 0;
 #X connect 6 0 9 0;

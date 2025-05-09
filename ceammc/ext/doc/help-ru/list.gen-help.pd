@@ -39,38 +39,39 @@ int. Значение по умолчанию: 1\. Диапазон: 1\...1024\.
 #X obj 20 532 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 537 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 572 dump;
-#X text 245 572 dump internal object state to Pd console window.;
-#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 615 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 538 dump;
+#X text 245 538 dump internal object state to Pd console window.;
+#X obj 20 576 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 581 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 616 1\.;
-#X text 150 616 bang:;
-#X text 245 616 starts list generation.;
-#X text 150 641 int:;
-#X text 245 641 changes length of generated list and starts generation.
+#X text 110 582 1\.;
+#X text 150 582 bang:;
+#X text 245 582 starts list generation.;
+#X text 150 607 int:;
+#X text 245 607 changes length of generated list and starts generation.
 Диапазон: 0…1024\.;
-#X text 110 676 2\.;
-#X text 245 676 input for generated values.;
-#X obj 20 706 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 711 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 647 2\.;
+#X text 150 647 any:;
+#X text 245 647 input for generated values.;
+#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 687 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 712 1\.;
-#X text 245 712 generated list.;
-#X text 110 732 2\.;
-#X text 245 732 bang output for generator object.;
+#X text 110 688 1\.;
+#X text 245 688 generated list.;
+#X text 110 708 2\.;
+#X text 245 708 bang output for generator object.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 782 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 785 библиотека: ceammc v0.9.8;
-#X text 364 797 смотрите также:;
-#X obj 485 797 list.seq;
-#X obj 558 797 list.shuffle;
-#X obj 660 797 list.choice;
-#N canvas 10 804 400 290 info 0;
+#X obj 1 758 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 761 библиотека: ceammc v0.9.8;
+#X text 364 773 смотрите также:;
+#X obj 485 773 list.seq;
+#X obj 558 773 list.shuffle;
+#X obj 660 773 list.choice;
+#N canvas 10 780 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -94,7 +95,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 804 pd info;
+#X restore 10 780 pd info;
 #X connect 7 0 10 0;
 #X connect 8 0 11 0;
 #X connect 6 0 11 0;

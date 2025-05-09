@@ -48,23 +48,23 @@ it canceled;
 0;
 #X text 110 556 1\.;
 #X text 245 556 control inlet.;
-#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 591 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 596 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 592 1\.;
-#X text 245 592 bang output.;
+#X text 110 597 1\.;
+#X text 245 597 bang output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title tl @url ceammc.tl-help.pd;
-#X obj 1 642 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 645 библиотека: ceammc v0.9.8;
-#X text 492 657 смотрите также:;
-#X obj 613 657 tl.toggle;
-#X obj 694 660 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 647 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 650 библиотека: ceammc v0.9.8;
+#X text 492 662 смотрите также:;
+#X obj 613 662 tl.toggle;
+#X obj 694 665 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.cue] @url tl.cue-help.pd;
-#N canvas 10 664 400 290 info 0;
+#N canvas 10 669 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -88,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 664 pd info;
+#X restore 10 669 pd info;
 #X connect 9 0 12 0;
 #X connect 10 0 13 0;
 #X connect 11 0 14 0;

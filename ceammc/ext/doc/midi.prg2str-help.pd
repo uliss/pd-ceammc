@@ -30,11 +30,11 @@ value: 0\.;
 #X text 110 395 1\.;
 #X text 150 395 float:;
 #X text 245 395 General MIDI instrument number [1-128].;
-#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 430 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 435 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 431 1\.;
-#X text 245 431 output General MIDI instrument name (string or symbol).;
+#X text 110 436 1\.;
+#X text 245 436 output General MIDI instrument name (string or symbol).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

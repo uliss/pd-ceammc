@@ -77,50 +77,50 @@ for detailed information. Тип: symbol. Значение по умолчани
 #X obj 20 1092 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1097 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1132 current;
-#X text 245 1132 outputs current element.;
-#X msg 110 1160 next;
-#X text 245 1160 Аргументы:;
-#X obj 255 1183 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1183 [STEP=1]: moves to next element with optional given
+#X msg 110 1098 current;
+#X text 245 1098 outputs current element.;
+#X msg 110 1126 next;
+#X text 245 1126 Аргументы:;
+#X obj 255 1149 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1149 [STEP=1]: moves to next element with optional given
 step and outputs it. Тип: int.;
-#X msg 110 1223 prev;
-#X text 245 1223 Аргументы:;
-#X obj 255 1246 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1246 [STEP=1]: moves to previous element with optional
+#X msg 110 1189 prev;
+#X text 245 1189 Аргументы:;
+#X obj 255 1212 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1212 [STEP=1]: moves to previous element with optional
 given step and outputs it. Тип: int.;
-#X msg 110 1286 reset;
-#X text 245 1286 sets current position to 0\.;
-#X msg 110 1314 dump;
-#X text 245 1314 dump internal object state to Pd console window.;
-#X obj 20 1352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1357 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1252 reset;
+#X text 245 1252 sets current position to 0\.;
+#X msg 110 1280 dump;
+#X text 245 1280 dump internal object state to Pd console window.;
+#X obj 20 1318 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1323 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1358 1\.;
-#X text 150 1358 bang:;
-#X text 245 1358 outputs current element and moves to next.;
-#X text 150 1383 float:;
-#X text 245 1383 outputs current element and moves by specified position.;
-#X text 150 1408 list:;
-#X text 245 1408 set new list and reset current position. (no output).;
-#X obj 20 1438 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1443 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1324 1\.;
+#X text 150 1324 bang:;
+#X text 245 1324 outputs current element and moves to next.;
+#X text 150 1349 float:;
+#X text 245 1349 outputs current element and moves by specified position.;
+#X text 150 1374 list:;
+#X text 245 1374 set new list and reset current position. (no output).;
+#X obj 20 1409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1414 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1444 1\.;
-#X text 245 1444 list element.;
-#X text 110 1464 2\.;
-#X text 245 1464 bang: when last element reached.;
+#X text 110 1415 1\.;
+#X text 245 1415 list element.;
+#X text 110 1435 2\.;
+#X text 245 1435 bang: when last element reached.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 1514 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1517 библиотека: ceammc v0.9.8;
-#X text 488 1529 смотрите также:;
-#X obj 609 1529 list.gen;
-#X obj 682 1529 list.seq;
-#N canvas 10 1536 400 290 info 0;
+#X obj 1 1485 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1488 библиотека: ceammc v0.9.8;
+#X text 488 1500 смотрите также:;
+#X obj 609 1500 list.gen;
+#X obj 682 1500 list.seq;
+#N canvas 10 1507 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -144,7 +144,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1536 pd info;
+#X restore 10 1507 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 10 0;
 #X connect 8 0 19 0;

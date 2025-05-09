@@ -100,45 +100,45 @@ be complex like: |1/4+15/16| etc. Тип: symbol. Значение по умол
 #X obj 20 1298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1303 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1338 down;
-#X text 245 1338 manually play downbeat sound.;
-#X msg 110 1366 mark;
-#X text 245 1366 manually play mark sound.;
-#X msg 110 1394 off;
-#X text 245 1394 manually play offbeat sound.;
-#X msg 110 1422 on;
-#X text 245 1422 manually play onbeat sound.;
-#X msg 110 1450 reset;
-#X text 245 1450 reset metro to the beginning.;
-#X obj 20 1488 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1493 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1304 down;
+#X text 245 1304 manually play downbeat sound.;
+#X msg 110 1332 mark;
+#X text 245 1332 manually play mark sound.;
+#X msg 110 1360 off;
+#X text 245 1360 manually play offbeat sound.;
+#X msg 110 1388 on;
+#X text 245 1388 manually play onbeat sound.;
+#X msg 110 1416 reset;
+#X text 245 1416 reset metro to the beginning.;
+#X obj 20 1454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1459 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1494 1\.;
-#X text 150 1494 float:;
-#X text 245 1494 1: start \, 0: stop metronome.;
-#X text 110 1514 2\.;
-#X text 150 1514 int:;
-#X text 245 1514 1: play downbeat \, 2: play on-beat \, 3: play off-beat.;
-#X text 110 1534 3\.;
-#X text 150 1534 float:;
-#X text 245 1534 set tempo in 1/4 per minute.;
-#X obj 20 1564 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1569 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1460 1\.;
+#X text 150 1460 float:;
+#X text 245 1460 1: start \, 0: stop metronome.;
+#X text 110 1485 2\.;
+#X text 150 1485 int:;
+#X text 245 1485 1: play downbeat \, 2: play on-beat \, 3: play off-beat.;
+#X text 110 1510 3\.;
+#X text 150 1510 float:;
+#X text 245 1510 set tempo in 1/4 per minute.;
+#X obj 20 1545 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1550 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1570 1\.;
-#X text 150 1570 ~;
-#X text 245 1570 synth output.;
-#X text 110 1590 2\.;
-#X text 245 1590 current beat: 1: downbeat \, 2: onbeat \, 3: offbeat
+#X text 110 1551 1\.;
+#X text 150 1551 ~;
+#X text 245 1551 synth output.;
+#X text 110 1571 2\.;
+#X text 245 1571 current beat: 1: downbeat \, 2: onbeat \, 3: offbeat
 \, 4: mark.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1640 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1643 библиотека: ceammc v0.9.8;
-#N canvas 10 1662 400 290 info 0;
+#X obj 1 1621 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1624 библиотека: ceammc v0.9.8;
+#N canvas 10 1643 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -162,7 +162,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1662 pd info;
+#X restore 10 1643 pd info;
 #X connect 9 0 10 0;
 #X connect 4 0 16 0;
 #X connect 10 0 16 0;

@@ -57,28 +57,28 @@
 #X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 843 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 878 reset;
-#X text 245 878 reset to start position.;
-#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 921 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 844 reset;
+#X text 245 844 reset to start position.;
+#X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 887 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 922 1\.;
-#X text 150 922 bang:;
-#X text 245 922 reset to start position.;
-#X obj 20 952 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 957 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 888 1\.;
+#X text 150 888 bang:;
+#X text 245 888 reset to start position.;
+#X obj 20 923 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 928 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 958 1\.;
-#X text 150 958 ~;
-#X text 245 958 output signal.;
+#X text 110 929 1\.;
+#X text 150 929 ~;
+#X text 245 929 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1008 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1011 библиотека: ceammc v0.9.8;
-#N canvas 10 1030 400 290 info 0;
+#X obj 1 979 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 982 библиотека: ceammc v0.9.8;
+#N canvas 10 1001 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -102,7 +102,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1030 pd info;
+#X restore 10 1001 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 8 0 11 0;

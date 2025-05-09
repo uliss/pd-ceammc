@@ -99,30 +99,30 @@ zhi.;
 #X obj 20 1669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1674 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1709 random;
-#X text 245 1709 choose random degree from current scale and convert
+#X msg 110 1675 random;
+#X text 245 1675 choose random degree from current scale and convert
 it to key.;
-#X obj 20 1759 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1764 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1725 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1730 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1765 1\.;
-#X text 150 1765 float:;
-#X text 245 1765 input value.;
-#X text 150 1790 list:;
-#X text 245 1790 input values.;
-#X obj 20 1820 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1825 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1731 1\.;
+#X text 150 1731 float:;
+#X text 245 1731 input value.;
+#X text 150 1756 list:;
+#X text 245 1756 input values.;
+#X obj 20 1791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1796 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1826 1\.;
-#X text 245 1826 float or float list: converted value(s).;
+#X text 110 1797 1\.;
+#X text 245 1797 float or float list: converted value(s).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 1876 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1879 библиотека: ceammc v0.9.8;
-#N canvas 10 1898 400 290 info 0;
+#X obj 1 1847 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1850 библиотека: ceammc v0.9.8;
+#N canvas 10 1869 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -146,7 +146,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1898 pd info;
+#X restore 10 1869 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 11 0 12 0;

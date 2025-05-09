@@ -53,36 +53,36 @@ noise \, 1/2 blue noise \, and 1 violet/azure noise. Тип: float. Значен
 #X obj 20 955 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 960 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 995 blue;
-#X text 245 995 set to blue noise (roll-off factor 0.5).;
-#X msg 110 1023 brown;
-#X text 245 1023 set to brown/red noise (roll-off factor -1).;
-#X msg 110 1051 pink;
-#X text 245 1051 set to pink noise (roll-off factor -0.5).;
-#X msg 110 1079 velvet;
-#X text 245 1079 set to velvet noise (roll-off factor 1).;
-#X msg 110 1107 white;
-#X text 245 1107 set to white noise (roll-off factor 0).;
-#X obj 20 1145 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1150 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 961 blue;
+#X text 245 961 set to blue noise (roll-off factor 0.5).;
+#X msg 110 989 brown;
+#X text 245 989 set to brown/red noise (roll-off factor -1).;
+#X msg 110 1017 pink;
+#X text 245 1017 set to pink noise (roll-off factor -0.5).;
+#X msg 110 1045 velvet;
+#X text 245 1045 set to velvet noise (roll-off factor 1).;
+#X msg 110 1073 white;
+#X text 245 1073 set to white noise (roll-off factor 0).;
+#X obj 20 1111 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1116 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1151 1\.;
-#X text 150 1151 float:;
-#X text 245 1151 set roll-off frequency.;
-#X obj 20 1181 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1186 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1117 1\.;
+#X text 150 1117 float:;
+#X text 245 1117 set roll-off frequency.;
+#X obj 20 1152 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1157 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1187 1\.;
-#X text 150 1187 ~;
-#X text 245 1187 output signal.;
+#X text 110 1158 1\.;
+#X text 150 1158 ~;
+#X text 245 1158 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 1237 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1240 библиотека: ceammc v0.9.8;
-#N canvas 10 1259 400 290 info 0;
+#X obj 1 1208 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1211 библиотека: ceammc v0.9.8;
+#N canvas 10 1230 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1259 pd info;
+#X restore 10 1230 pd info;
 #X connect 7 0 8 0;
 #X connect 6 0 9 0;
 #X connect 8 0 9 0;

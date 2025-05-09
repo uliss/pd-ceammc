@@ -105,43 +105,43 @@ kicks in. Тип: float. Единицы: 'db'. Значение по умолч�
 #X obj 20 1320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1325 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1360 preset;
-#X text 245 1360 choose predefined preset. Аргументы:;
-#X obj 255 1383 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1383 PRESET: name. Тип: symbol. Разрешённые значения: vocal
+#X msg 110 1326 preset;
+#X text 245 1326 choose predefined preset. Аргументы:;
+#X obj 255 1349 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1349 PRESET: name. Тип: symbol. Разрешённые значения: vocal
 \, drums \, bass \, strings.;
-#X msg 110 1423 reset;
-#X text 245 1423 reset to initial state.;
-#X obj 20 1461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1466 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1389 reset;
+#X text 245 1389 reset to initial state.;
+#X obj 20 1427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1432 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1467 1\.;
-#X text 150 1467 ~;
-#X text 245 1467 left input signal.;
-#X text 110 1487 2\.;
-#X text 150 1487 ~;
-#X text 245 1487 right input signal.;
-#X obj 20 1517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1522 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1433 1\.;
+#X text 150 1433 ~;
+#X text 245 1433 left input signal.;
+#X text 110 1458 2\.;
+#X text 150 1458 ~;
+#X text 245 1458 right input signal.;
+#X obj 20 1493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1498 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1523 1\.;
-#X text 150 1523 ~;
-#X text 245 1523 left output signal.;
-#X text 110 1543 2\.;
-#X text 150 1543 ~;
-#X text 245 1543 right output signal.;
-#X text 110 1563 3\.;
-#X text 245 1563 float: output current compression level in [0\..1].;
+#X text 110 1499 1\.;
+#X text 150 1499 ~;
+#X text 245 1499 left output signal.;
+#X text 110 1519 2\.;
+#X text 150 1519 ~;
+#X text 245 1519 right output signal.;
+#X text 110 1539 3\.;
+#X text 245 1539 float: output current compression level in [0\..1].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 1613 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1616 библиотека: ceammc v0.9.8;
-#X text 552 1628 смотрите также:;
-#X obj 673 1628 dyn.comp~;
-#N canvas 10 1635 400 290 info 0;
+#X obj 1 1589 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1592 библиотека: ceammc v0.9.8;
+#X text 552 1604 смотрите также:;
+#X obj 673 1604 dyn.comp~;
+#N canvas 10 1611 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -165,7 +165,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1635 pd info;
+#X restore 10 1611 pd info;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;
 #X connect 9 0 11 0;

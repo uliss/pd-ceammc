@@ -106,59 +106,59 @@ float. Значение по умолчанию: 1\. Минимальное зн
 #X obj 20 1535 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1540 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1575 pause;
-#X text 245 1575 pause/resume playback. Аргументы:;
-#X obj 255 1598 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1598 [anonym=1]: если истинно: ставит на паузу \, иначе
+#X msg 110 1541 pause;
+#X text 245 1541 pause/resume playback. Аргументы:;
+#X obj 255 1564 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1564 [anonym=1]: если истинно: ставит на паузу \, иначе
 возобновляет воспроизведение. Тип: int. Разрешённые значения: 0 \,
 1\.;
-#X msg 110 1638 play;
-#X text 245 1638 начать воспроизведение с текущей позиции.;
-#X msg 110 1666 range;
-#X text 245 1666 set @begin and @end property. Аргументы:;
-#X obj 255 1689 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1689 BEGIN: начальная позиция. Если дано числовое значение:
+#X msg 110 1604 play;
+#X text 245 1604 начать воспроизведение с текущей позиции.;
+#X msg 110 1632 range;
+#X text 245 1632 set @begin and @end property. Аргументы:;
+#X obj 255 1655 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1655 BEGIN: начальная позиция. Если дано числовое значение:
 интерпретировать как фазу в [0\..1] диапазоне. В противном случае ожидается
 значение с единицами времени. Примеры: 10ms \, 5% \, 4sec \, 20samp
 и т.д. Тип: atom.;
-#X obj 255 1772 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1772 END: конечная позиция. Тип значения \, аналогичный
+#X obj 255 1738 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1738 END: конечная позиция. Тип значения \, аналогичный
 первому аргументу. Тип: atom.;
-#X msg 110 1812 stop;
-#X text 245 1812 остановить воспроизведение и сбросить текущую позицию.;
-#X obj 20 1850 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1855 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1778 stop;
+#X text 245 1778 остановить воспроизведение и сбросить текущую позицию.;
+#X obj 20 1816 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1821 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1856 1\.;
-#X text 150 1856 bang:;
-#X text 245 1856 сбрасывает текущую позицию в начало и начинает воспроизведение.;
-#X text 150 1896 float:;
-#X text 245 1896 начинает воспроизведение с указанного семпла. Также
+#X text 110 1822 1\.;
+#X text 150 1822 bang:;
+#X text 245 1822 сбрасывает текущую позицию в начало и начинает воспроизведение.;
+#X text 150 1862 float:;
+#X text 245 1862 начинает воспроизведение с указанного семпла. Также
 поддерживаются отрицательные смещения: -10 означает воспроизвести последние
 10 семплов массива до конца.;
-#X obj 20 1956 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1961 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1927 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1932 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1962 1\.;
-#X text 150 1962 ~;
-#X text 245 1962 воспроизводимый сигнал.;
-#X text 110 1982 2\.;
-#X text 150 1982 float:;
-#X text 245 1982 выводит текущую позицию воспроизведения согласно свойству
+#X text 110 1933 1\.;
+#X text 150 1933 ~;
+#X text 245 1933 воспроизводимый сигнал.;
+#X text 110 1953 2\.;
+#X text 150 1953 float:;
+#X text 245 1953 выводит текущую позицию воспроизведения согласно свойству
 @cfmt. По умолчанию выводит секунды.;
-#X text 110 2017 3\.;
-#X text 150 2017 bang:;
-#X text 245 2017 после завершения воспроизведения.;
+#X text 110 1988 3\.;
+#X text 150 1988 bang:;
+#X text 245 1988 после завершения воспроизведения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 2067 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2070 библиотека: ceammc v0.9.8;
-#X text 560 2082 смотрите также:;
-#X obj 681 2082 tabplay~;
-#N canvas 10 2089 400 290 info 0;
+#X obj 1 2038 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2041 библиотека: ceammc v0.9.8;
+#X text 560 2053 смотрите также:;
+#X obj 681 2053 tabplay~;
+#N canvas 10 2060 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -182,7 +182,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2089 pd info;
+#X restore 10 2060 pd info;
 #X connect 5 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

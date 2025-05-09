@@ -104,32 +104,32 @@ before sequence start. Тип: float. Значение по умолчанию: 
 #X obj 20 1490 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1495 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1530 reset;
-#X text 245 1530 reset all counters and stop.;
-#X msg 110 1558 rewind;
-#X text 245 1558 reset all counters without stopping.;
-#X msg 110 1586 start;
-#X text 245 1586 start sequencer from current position.;
-#X msg 110 1614 stop;
-#X text 245 1614 stop sequencer.;
-#X msg 110 1642 tick;
-#X text 245 1642 output current sequence element and move to next.;
-#X obj 20 1680 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1685 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1496 reset;
+#X text 245 1496 reset all counters and stop.;
+#X msg 110 1524 rewind;
+#X text 245 1524 reset all counters without stopping.;
+#X msg 110 1552 start;
+#X text 245 1552 start sequencer from current position.;
+#X msg 110 1580 stop;
+#X text 245 1580 stop sequencer.;
+#X msg 110 1608 tick;
+#X text 245 1608 output current sequence element and move to next.;
+#X obj 20 1646 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1651 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1686 1\.;
-#X text 150 1686 bang:;
-#X text 245 1686 reset sequence and repeat counters and start sequencer.;
-#X text 110 1706 2\.;
-#X text 150 1706 list:;
-#X text 245 1706 set new pattern value.;
-#X obj 20 1736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1741 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1652 1\.;
+#X text 150 1652 bang:;
+#X text 245 1652 reset sequence and repeat counters and start sequencer.;
+#X text 110 1677 2\.;
+#X text 150 1677 list:;
+#X text 245 1677 set new pattern value.;
+#X obj 20 1712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1717 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1742 1\.;
-#X text 245 1742 1 and 0\.;
-#X text 110 1762 2\.;
-#X text 245 1762 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
+#X text 110 1718 1\.;
+#X text 245 1718 1 and 0\.;
+#X text 110 1738 2\.;
+#X text 245 1738 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
 iteration \, [ed MS( - event duration \, [el MS( event length or [done(
 when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -137,9 +137,9 @@ when done.;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1842 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1845 библиотека: ceammc v0.9.8;
-#N canvas 10 1864 400 290 info 0;
+#X obj 1 1818 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1821 библиотека: ceammc v0.9.8;
+#N canvas 10 1840 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -163,7 +163,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1864 pd info;
+#X restore 10 1840 pd info;
 #X connect 15 0 17 0;
 #X connect 16 0 18 0;
 #X connect 11 0 19 0;

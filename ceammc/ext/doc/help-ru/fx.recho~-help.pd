@@ -58,30 +58,30 @@ float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
 #X obj 20 806 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 811 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 846 reset;
-#X text 245 846 reset to initial state.;
-#X obj 20 884 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 889 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 812 reset;
+#X text 245 812 reset to initial state.;
+#X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 855 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 890 1\.;
-#X text 150 890 ~;
-#X text 245 890 input signal.;
-#X obj 20 920 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 925 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 856 1\.;
+#X text 150 856 ~;
+#X text 245 856 input signal.;
+#X obj 20 891 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 896 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 926 1\.;
-#X text 150 926 ~;
-#X text 245 926 output signal.;
+#X text 110 897 1\.;
+#X text 150 897 ~;
+#X text 245 897 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 976 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 979 библиотека: ceammc v0.9.8;
-#X text 560 991 смотрите также:;
-#X obj 681 991 fx.echo~;
-#N canvas 10 998 400 290 info 0;
+#X obj 1 947 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 950 библиотека: ceammc v0.9.8;
+#X text 560 962 смотрите также:;
+#X obj 681 962 fx.echo~;
+#N canvas 10 969 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -105,7 +105,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 998 pd info;
+#X restore 10 969 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

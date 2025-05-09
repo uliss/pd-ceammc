@@ -116,82 +116,82 @@ bool. Значение по умолчанию: 0\.;
 #X obj 20 1705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1710 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1745 cartesian;
-#X text 245 1745 sets slider position in cartesian coords and output.
+#X msg 110 1711 cartesian;
+#X text 245 1711 sets slider position in cartesian coords and output.
 Аргументы:;
-#X obj 255 1783 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1783 X: x-coord. Тип: float. Диапазон: -1…1\.;
-#X obj 255 1806 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1806 Y: y-coord. Тип: float. Диапазон: -1…1\.;
-#X msg 110 1831 clear;
-#X text 245 1831 clears specified preset. Аргументы:;
-#X obj 255 1854 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1854 IDX: preset index. Тип: int.;
-#X msg 110 1879 interp;
-#X text 245 1879 interplolates between presets. Аргументы:;
-#X obj 255 1902 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1902 IDX: preset fraction index. Тип: float.;
-#X msg 110 1927 load;
-#X text 245 1927 loads specified preset. Аргументы:;
-#X obj 255 1950 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1950 IDX: preset index. Тип: int.;
-#X msg 110 1975 polar;
-#X text 245 1975 sets slider position in polar coords and output. Аргументы:;
-#X obj 255 1998 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1998 RAD: radius. Тип: float. Диапазон: 0…1\.;
-#X obj 255 2021 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2021 ANG: angle in degrees or radians (depends on @use_degrees
+#X obj 255 1749 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1749 X: x-coord. Тип: float. Диапазон: -1…1\.;
+#X obj 255 1772 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1772 Y: y-coord. Тип: float. Диапазон: -1…1\.;
+#X msg 110 1797 clear;
+#X text 245 1797 clears specified preset. Аргументы:;
+#X obj 255 1820 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1820 IDX: preset index. Тип: int.;
+#X msg 110 1845 interp;
+#X text 245 1845 interplolates between presets. Аргументы:;
+#X obj 255 1868 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1868 IDX: preset fraction index. Тип: float.;
+#X msg 110 1893 load;
+#X text 245 1893 loads specified preset. Аргументы:;
+#X obj 255 1916 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1916 IDX: preset index. Тип: int.;
+#X msg 110 1941 polar;
+#X text 245 1941 sets slider position in polar coords and output. Аргументы:;
+#X obj 255 1964 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1964 RAD: radius. Тип: float. Диапазон: 0…1\.;
+#X obj 255 1987 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1987 ANG: angle in degrees or radians (depends on @use_degrees
 property). Тип: float.;
-#X msg 110 2061 pos;
-#X text 245 2061 set UI element position. Аргументы:;
-#X obj 255 2084 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2084 X: top left x-coord. Тип: float.;
-#X obj 255 2107 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2107 Y: top right y-coord. Тип: float.;
-#X msg 110 2132 random;
-#X text 245 2132 set to random value and output.;
-#X msg 110 2160 rotate;
-#X text 245 2160 rotate slider by specified angle. Аргументы:;
-#X obj 255 2183 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2183 A: angle in degrees or radians (depends on @use_degrees
+#X msg 110 2027 pos;
+#X text 245 2027 set UI element position. Аргументы:;
+#X obj 255 2050 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2050 X: top left x-coord. Тип: float.;
+#X obj 255 2073 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2073 Y: top right y-coord. Тип: float.;
+#X msg 110 2098 random;
+#X text 245 2098 set to random value and output.;
+#X msg 110 2126 rotate;
+#X text 245 2126 rotate slider by specified angle. Аргументы:;
+#X obj 255 2149 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2149 A: angle in degrees or radians (depends on @use_degrees
 property). Тип: float.;
-#X msg 110 2223 set;
-#X text 245 2223 sets slider position without output. Аргументы:;
-#X obj 255 2246 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2246 RAD: radius. Тип: float. Диапазон: 0…1\.;
-#X obj 255 2269 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2269 ANG: angle in degrees or radians (depends on @use_degrees
+#X msg 110 2189 set;
+#X text 245 2189 sets slider position without output. Аргументы:;
+#X obj 255 2212 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2212 RAD: radius. Тип: float. Диапазон: 0…1\.;
+#X obj 255 2235 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2235 ANG: angle in degrees or radians (depends on @use_degrees
 property). Тип: float.;
-#X msg 110 2309 store;
-#X text 245 2309 stores specified preset. Аргументы:;
-#X obj 255 2332 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2332 IDX: preset index. Тип: int.;
-#X msg 110 2357 dump;
-#X text 245 2357 dumps all object info to Pd console window.;
-#X obj 20 2395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2400 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 2275 store;
+#X text 245 2275 stores specified preset. Аргументы:;
+#X obj 255 2298 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2298 IDX: preset index. Тип: int.;
+#X msg 110 2323 dump;
+#X text 245 2323 dumps all object info to Pd console window.;
+#X obj 20 2361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2366 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2401 1\.;
-#X text 150 2401 bang:;
-#X text 245 2401 outputs slider position.;
-#X text 150 2426 list:;
-#X text 245 2426 sets slider position and outputs it.;
-#X obj 20 2456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2461 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 2367 1\.;
+#X text 150 2367 bang:;
+#X text 245 2367 outputs slider position.;
+#X text 150 2392 list:;
+#X text 245 2392 sets slider position and outputs it.;
+#X obj 20 2427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2432 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2462 1\.;
-#X text 245 2462 list output of two values: RADIUS and ANGLE.;
+#X text 110 2433 1\.;
+#X text 245 2433 list output of two values: RADIUS and ANGLE.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2512 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2515 библиотека: ceammc v0.9.8;
-#X text 536 2527 смотрите также:;
-#X obj 657 2530 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 2483 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2486 библиотека: ceammc v0.9.8;
+#X text 536 2498 смотрите также:;
+#X obj 657 2501 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.slider2d] @url ui.slider2d-help.pd;
-#N canvas 10 2534 400 290 info 0;
+#N canvas 10 2505 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -215,7 +215,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2534 pd info;
+#X restore 10 2505 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

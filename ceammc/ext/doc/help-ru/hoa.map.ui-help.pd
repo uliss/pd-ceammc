@@ -127,79 +127,79 @@ pair). Тип: list. Значение по умолчанию: 225 225\.;
 #X obj 20 1863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1868 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1903 clear;
-#X text 245 1903 clears specified preset. Аргументы:;
-#X obj 255 1926 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1926 IDX: preset index. Тип: int.;
-#X msg 110 1951 clear_all;
-#X text 245 1951 remove all sources from map.;
-#X msg 110 1979 group;
-#X text 245 1979 group operations. Аргументы:;
-#X obj 255 2002 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2002 IDX: group index. Тип: int.;
-#X obj 255 2025 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2025 ACTION: action. Тип: symbol. Разрешённые значения:
+#X msg 110 1869 clear;
+#X text 245 1869 clears specified preset. Аргументы:;
+#X obj 255 1892 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1892 IDX: preset index. Тип: int.;
+#X msg 110 1917 clear_all;
+#X text 245 1917 remove all sources from map.;
+#X msg 110 1945 group;
+#X text 245 1945 group operations. Аргументы:;
+#X obj 255 1968 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1968 IDX: group index. Тип: int.;
+#X obj 255 1991 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1991 ACTION: action. Тип: symbol. Разрешённые значения:
 set \, polar \, pol \, azimuth \, elevation \, cartesian \, car \,
 abscissa \, ordinate \, height \, relpolar \, relradius \, relazimuth
 \, relelevation \, mute \, remove \, description \, color.;
-#X obj 255 2108 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2108 [ARGS]: action arguments. Тип: list.;
-#X msg 110 2133 info;
-#X text 245 2133 outputs info to 3rd outlet.;
-#X msg 110 2161 interp;
-#X text 245 2161 for this object acts as *load* \, no interpolation
+#X obj 255 2074 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2074 [ARGS]: action arguments. Тип: list.;
+#X msg 110 2099 info;
+#X text 245 2099 outputs info to 3rd outlet.;
+#X msg 110 2127 interp;
+#X text 245 2127 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 2189 load;
-#X text 245 2189 loads specified preset. Аргументы:;
-#X obj 255 2212 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2212 IDX: preset index. Тип: int.;
-#X msg 110 2237 pos;
-#X text 245 2237 set UI element position. Аргументы:;
-#X obj 255 2260 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2260 X: top left x-coord. Тип: float.;
-#X obj 255 2283 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2283 Y: top right y-coord. Тип: float.;
-#X msg 110 2308 set;
-#X text 245 2308 sets toggle state without output.;
-#X msg 110 2336 source;
-#X text 245 2336 source operations. Аргументы:;
-#X obj 255 2359 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2359 IDX: source index. Тип: int.;
-#X obj 255 2382 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2382 ACTION: action. Тип: symbol. Разрешённые значения:
+#X msg 110 2155 load;
+#X text 245 2155 loads specified preset. Аргументы:;
+#X obj 255 2178 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2178 IDX: preset index. Тип: int.;
+#X msg 110 2203 pos;
+#X text 245 2203 set UI element position. Аргументы:;
+#X obj 255 2226 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2226 X: top left x-coord. Тип: float.;
+#X obj 255 2249 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2249 Y: top right y-coord. Тип: float.;
+#X msg 110 2274 set;
+#X text 245 2274 sets toggle state without output.;
+#X msg 110 2302 source;
+#X text 245 2302 source operations. Аргументы:;
+#X obj 255 2325 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2325 IDX: source index. Тип: int.;
+#X obj 255 2348 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2348 ACTION: action. Тип: symbol. Разрешённые значения:
 polar \, pol \, azimuth \, elevation \, cartesian \, car \, abscissa
 \, ordinate \, height \, mute \, remove \, description \, color.;
-#X obj 255 2435 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2435 [ARGS]: action arguments. Тип: list.;
-#X msg 110 2460 store;
-#X text 245 2460 stores specified preset. Аргументы:;
-#X obj 255 2483 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2483 IDX: preset index. Тип: int.;
-#X msg 110 2508 dump;
-#X text 245 2508 dumps all object info to Pd console window.;
-#X obj 20 2546 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2551 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 255 2401 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2401 [ARGS]: action arguments. Тип: list.;
+#X msg 110 2426 store;
+#X text 245 2426 stores specified preset. Аргументы:;
+#X obj 255 2449 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2449 IDX: preset index. Тип: int.;
+#X msg 110 2474 dump;
+#X text 245 2474 dumps all object info to Pd console window.;
+#X obj 20 2512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2517 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2552 1\.;
-#X text 150 2552 bang:;
-#X text 245 2552 output group and source info.;
-#X obj 20 2582 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2587 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 2518 1\.;
+#X text 150 2518 bang:;
+#X text 245 2518 output group and source info.;
+#X obj 20 2553 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2558 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2588 1\.;
-#X text 245 2588 source output.;
-#X text 110 2608 2\.;
-#X text 245 2608 group output.;
-#X text 110 2628 3\.;
-#X text 245 2628 info output.;
+#X text 110 2559 1\.;
+#X text 245 2559 source output.;
+#X text 110 2579 2\.;
+#X text 245 2579 group output.;
+#X text 110 2599 3\.;
+#X text 245 2599 info output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 2678 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2681 библиотека: ceammc v0.9.8;
-#N canvas 10 2700 400 290 info 0;
+#X obj 1 2649 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2652 библиотека: ceammc v0.9.8;
+#N canvas 10 2671 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -224,7 +224,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2700 pd info;
+#X restore 10 2671 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 8 1 10 0;

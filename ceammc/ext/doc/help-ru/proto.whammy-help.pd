@@ -51,74 +51,74 @@ hardware switch on pedal). Тип: symbol. Значение по умолчан�
 #X obj 20 653 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 658 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 693 next;
-#X text 245 693 select next preset. Аргументы:;
-#X obj 255 716 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 716 [N]: positive step or 'random'. Тип: atom.;
-#X msg 110 741 prev;
-#X text 245 741 select previous preset. Аргументы:;
-#X obj 255 764 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 764 [N]: positive step or 'random'. Тип: atom.;
-#X msg 110 789 random;
-#X text 245 789 choose random preset. Аргументы:;
-#X obj 255 812 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 812 MODE: if 'whammy' - select random preset from 'whammy'
+#X msg 110 659 next;
+#X text 245 659 select next preset. Аргументы:;
+#X obj 255 682 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 682 [N]: positive step or 'random'. Тип: atom.;
+#X msg 110 707 prev;
+#X text 245 707 select previous preset. Аргументы:;
+#X obj 255 730 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 730 [N]: positive step or 'random'. Тип: atom.;
+#X msg 110 755 random;
+#X text 245 755 choose random preset. Аргументы:;
+#X obj 255 778 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 778 MODE: if 'whammy' - select random preset from 'whammy'
 modes (right pedal side) \, if 'harm' - select random preset from harmonizer
 modes (left pedal side) \, if 'detune' - select random detune mode.
 If not specified - select random mode from all categories. Тип: symbol.
 Разрешённые значения: whammy \, harm \, detune.;
-#X obj 255 926 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 926 [STATE]: pedal state (on/off). Тип: int. Разрешённые
+#X obj 255 892 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 892 [STATE]: pedal state (on/off). Тип: int. Разрешённые
 значения: 0 \, 1\.;
-#X msg 110 966 reset;
-#X text 245 966 turn off pedal and select default preset.;
-#X msg 110 994 set IDX;
-#X text 245 994 set preset by index. Аргументы:;
-#X obj 255 1017 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1017 IDX: preset index. Тип: int. Диапазон: 0…20\.;
-#X obj 255 1040 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1040 [STATE]: pedal state (on/off). Тип: int. Разрешённые
+#X msg 110 932 reset;
+#X text 245 932 turn off pedal and select default preset.;
+#X msg 110 960 set IDX;
+#X text 245 960 set preset by index. Аргументы:;
+#X obj 255 983 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 983 IDX: preset index. Тип: int. Диапазон: 0…20\.;
+#X obj 255 1006 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1006 [STATE]: pedal state (on/off). Тип: int. Разрешённые
 значения: 0 \, 1\.;
-#X msg 110 1080 set NAME;
-#X text 245 1080 set preset by name. Аргументы:;
-#X obj 255 1103 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1103 NAME: preset name. Тип: symbol. Диапазон: 0…20\. Разрешённые
+#X msg 110 1046 set NAME;
+#X text 245 1046 set preset by name. Аргументы:;
+#X obj 255 1069 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1069 NAME: preset name. Тип: symbol. Диапазон: 0…20\. Разрешённые
 значения: +2oct \, +1oct \, +5th \, +4th \, -2nd \, -4th \, -5th \,
 -1oct \, -2oct \, bomb \, deep \, shallow \, +2+3 \, +3b+3 \, +3+4
 \, +4+5 \, +5+6 \, +5+7 \, -4-3 \, -5-4 \, -8+8\.;
-#X obj 255 1186 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1186 [STATE]: pedal state (on/off). Тип: int. Разрешённые
+#X obj 255 1152 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1152 [STATE]: pedal state (on/off). Тип: int. Разрешённые
 значения: 0 \, 1\.;
-#X msg 110 1226 set UP DOWN;
-#X text 245 1226 set preset by transpose range. Аргументы:;
-#X obj 255 1249 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1249 UP: up range. Тип: int.;
-#X obj 255 1272 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1272 DOWN: down range. Тип: int.;
-#X obj 255 1295 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1295 [STATE]: pedal state (on/off). Тип: int. Разрешённые
+#X msg 110 1192 set UP DOWN;
+#X text 245 1192 set preset by transpose range. Аргументы:;
+#X obj 255 1215 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1215 UP: up range. Тип: int.;
+#X obj 255 1238 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1238 DOWN: down range. Тип: int.;
+#X obj 255 1261 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1261 [STATE]: pedal state (on/off). Тип: int. Разрешённые
 значения: 0 \, 1\.;
-#X msg 110 1335 toggle;
-#X text 245 1335 toggle pedal on/off.;
-#X obj 20 1373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1378 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1301 toggle;
+#X text 245 1301 toggle pedal on/off.;
+#X obj 20 1339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1344 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1379 1\.;
-#X text 150 1379 int:;
-#X text 245 1379 1: turn on \, 0: turn off pedal.;
-#X obj 20 1409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1414 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1345 1\.;
+#X text 150 1345 int:;
+#X text 245 1345 1: turn on \, 0: turn off pedal.;
+#X obj 20 1380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1385 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1415 1\.;
-#X text 245 1415 float stream: raw midi output.;
+#X text 110 1386 1\.;
+#X text 245 1386 float stream: raw midi output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1465 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1468 библиотека: ceammc v0.9.8;
-#N canvas 10 1487 400 290 info 0;
+#X obj 1 1436 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1439 библиотека: ceammc v0.9.8;
+#N canvas 10 1458 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -142,7 +142,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1487 pd info;
+#X restore 10 1458 pd info;
 #X connect 5 0 7 0;
 #X connect 4 0 8 0;
 #X connect 6 0 8 0;

@@ -59,35 +59,35 @@
 #X obj 20 806 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 811 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 846 reset;
-#X text 245 846 reset to initial state.;
-#X obj 20 884 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 889 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 812 reset;
+#X text 245 812 reset to initial state.;
+#X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 855 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 890 1\.;
-#X text 150 890 ~;
-#X text 245 890 frequency in Hz.;
-#X text 110 910 2\.;
-#X text 150 910 bang:;
-#X text 245 910 reset phase.;
-#X obj 20 940 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 945 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 856 1\.;
+#X text 150 856 ~;
+#X text 245 856 frequency in Hz.;
+#X text 110 881 2\.;
+#X text 150 881 bang:;
+#X text 245 881 reset phase.;
+#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 921 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 946 1\.;
-#X text 150 946 ~;
-#X text 245 946 pulsetrain wave in [0-1] range.;
+#X text 110 922 1\.;
+#X text 150 922 ~;
+#X text 245 922 pulsetrain wave in [0-1] range.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title lfo @url ceammc.lfo-help.pd;
-#X obj 1 996 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 999 библиотека: ceammc v0.9.8;
-#X text 340 1011 смотрите также:;
-#X obj 461 1011 lfo.pulse~;
-#X obj 549 1011 lfo.+square~;
-#X obj 652 1011 lfo.impulse~;
-#N canvas 10 1018 400 290 info 0;
+#X obj 1 972 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 975 библиотека: ceammc v0.9.8;
+#X text 340 987 смотрите также:;
+#X obj 461 987 lfo.pulse~;
+#X obj 549 987 lfo.+square~;
+#X obj 652 987 lfo.impulse~;
+#N canvas 10 994 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -111,7 +111,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1018 pd info;
+#X restore 10 994 pd info;
 #X connect 6 0 8 0;
 #X connect 5 0 9 0;
 #X connect 8 0 9 0;

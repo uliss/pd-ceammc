@@ -74,32 +74,32 @@
 #X obj 20 1184 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1189 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1224 reset;
-#X text 245 1224 reset object.;
-#X obj 20 1262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1267 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1190 reset;
+#X text 245 1190 reset object.;
+#X obj 20 1228 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1233 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1268 1\.;
-#X text 150 1268 ~;
-#X text 245 1268 input signal.;
-#X obj 20 1298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1303 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1234 1\.;
+#X text 150 1234 ~;
+#X text 245 1234 input signal.;
+#X obj 20 1269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1274 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1304 1\.;
-#X text 150 1304 ~;
-#X text 245 1304 output signal.;
+#X text 110 1275 1\.;
+#X text 150 1275 ~;
+#X text 245 1275 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1354 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1357 библиотека: ceammc v0.9.8;
-#X text 267 1369 смотрите также:;
-#X obj 388 1369 fx.distortion~;
-#X obj 505 1369 fx.distortion1~;
-#X obj 630 1369 fx.distortion3~;
-#N canvas 10 1376 400 290 info 0;
+#X obj 1 1325 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1328 библиотека: ceammc v0.9.8;
+#X text 267 1340 смотрите также:;
+#X obj 388 1340 fx.distortion~;
+#X obj 505 1340 fx.distortion1~;
+#X obj 630 1340 fx.distortion3~;
+#N canvas 10 1347 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -123,7 +123,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1376 pd info;
+#X restore 10 1347 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 10 0;

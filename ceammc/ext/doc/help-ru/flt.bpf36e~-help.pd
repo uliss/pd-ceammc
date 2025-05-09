@@ -62,31 +62,31 @@ https://en.wikipedia.org/wiki/Elliptic_filter;
 #X obj 20 1065 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1070 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1105 reset;
-#X text 245 1105 reset filter state.;
-#X obj 20 1143 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1148 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1071 reset;
+#X text 245 1071 reset filter state.;
+#X obj 20 1109 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1114 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1149 1\.;
-#X text 150 1149 ~;
-#X text 245 1149 input signal.;
-#X obj 20 1179 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1184 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1115 1\.;
+#X text 150 1115 ~;
+#X text 245 1115 input signal.;
+#X obj 20 1150 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1155 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1185 1\.;
-#X text 150 1185 ~;
-#X text 245 1185 filtered signal.;
+#X text 110 1156 1\.;
+#X text 150 1156 ~;
+#X text 245 1156 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1235 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1238 библиотека: ceammc v0.9.8;
-#X text 449 1250 смотрите также:;
-#X obj 570 1250 flt.bpf72e~;
-#X obj 666 1250 flt.bpf24~;
-#N canvas 10 1257 400 290 info 0;
+#X obj 1 1206 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1209 библиотека: ceammc v0.9.8;
+#X text 449 1221 смотрите также:;
+#X obj 570 1221 flt.bpf72e~;
+#X obj 666 1221 flt.bpf24~;
+#N canvas 10 1228 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -110,7 +110,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1257 pd info;
+#X restore 10 1228 pd info;
 #X connect 8 0 10 0;
 #X connect 11 0 13 0;
 #X connect 8 0 13 1;

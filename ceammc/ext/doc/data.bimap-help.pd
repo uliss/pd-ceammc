@@ -52,63 +52,63 @@ int. Default value: 0\.;
 #X obj 20 677 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 682 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 717 clear;
-#X text 245 717 clear bidirectional map content.;
-#X msg 110 745 insert;
-#X text 245 745 insert new left-right map entry. Arguments are:;
-#X obj 255 768 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 768 PAIR: list: LEFT_KEY RIGHT_KEY. Type: list.;
-#X msg 110 793 read;
-#X text 245 793 read bimap from JSON file. Array of array pairs expected.
+#X msg 110 683 clear;
+#X text 245 683 clear bidirectional map content.;
+#X msg 110 711 insert;
+#X text 245 711 insert new left-right map entry. Arguments are:;
+#X obj 255 734 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 734 PAIR: list: LEFT_KEY RIGHT_KEY. Type: list.;
+#X msg 110 759 read;
+#X text 245 759 read bimap from JSON file. Array of array pairs expected.
 Arguments are:;
-#X obj 255 831 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 831 FNAME: path to file \, absolute or relative. Type:
+#X obj 255 797 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 797 FNAME: path to file \, absolute or relative. Type:
 symbol.;
-#X msg 110 856 set;
-#X text 245 856 set bidirectional map content. Arguments are:;
-#X obj 255 879 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 879 DATA: new value list. Type: list.;
-#X msg 110 904 write;
-#X text 245 904 write to JSON file \, to overwrite existing file use
+#X msg 110 822 set;
+#X text 245 822 set bidirectional map content. Arguments are:;
+#X obj 255 845 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 845 DATA: new value list. Type: list.;
+#X msg 110 870 write;
+#X text 245 870 write to JSON file \, to overwrite existing file use
 @force flag. Arguments are:;
-#X obj 255 942 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 942 FNAME: path to file \, absolute or relative. Type:
+#X obj 255 908 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 908 FNAME: path to file \, absolute or relative. Type:
 symbol.;
-#X obj 255 965 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 965 [@force]: force flag to overwrite existing files. Type:
+#X obj 255 931 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 931 [@force]: force flag to overwrite existing files. Type:
 symbol.;
-#X obj 20 1015 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1020 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
--49933 0;
-#X text 110 1021 1\.;
-#X text 150 1021 atom:;
-#X text 245 1021 try to find left key in the map and output the right
+#X obj 20 981 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 986 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+0;
+#X text 110 987 1\.;
+#X text 150 987 atom:;
+#X text 245 987 try to find left key in the map and output the right
 value on success.;
-#X text 150 1061 list:;
-#X text 245 1061 try to find each left key of the list in the map and
+#X text 150 1027 list:;
+#X text 245 1027 try to find each left key of the list in the map and
 output the result list of right values.;
-#X text 110 1096 2\.;
-#X text 150 1096 atom:;
-#X text 245 1096 try to find right key in the map and output the left
+#X text 110 1067 2\.;
+#X text 150 1067 atom:;
+#X text 245 1067 try to find right key in the map and output the left
 value on success.;
-#X text 150 1136 list:;
-#X text 245 1136 try to find each right key of the list in the map
+#X text 150 1107 list:;
+#X text 245 1107 try to find each right key of the list in the map
 and output the result list of left values.;
-#X obj 20 1181 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1186 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1157 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1162 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1187 1\.;
-#X text 245 1187 atom or list: right value output.;
-#X text 110 1207 2\.;
-#X text 245 1207 atom or list: left value output.;
+#X text 110 1163 1\.;
+#X text 245 1163 atom or list: right value output.;
+#X text 110 1183 2\.;
+#X text 245 1183 atom or list: left value output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 1257 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1260 library: ceammc v0.9.8;
-#N canvas 10 1279 400 290 info 0;
+#X obj 1 1233 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1236 library: ceammc v0.9.8;
+#N canvas 10 1255 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -132,7 +132,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1279 pd info;
+#X restore 10 1255 pd info;
 #X connect 8 0 12 0;
 #X connect 10 0 12 0;
 #X connect 9 0 12 1;

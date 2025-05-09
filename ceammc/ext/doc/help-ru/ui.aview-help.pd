@@ -168,45 +168,45 @@ float. Единицы: 'sec'. Значение по умолчанию: 0\. Ми
 #X obj 20 2440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2445 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 2480 pos;
-#X text 245 2480 set UI element position. Аргументы:;
-#X obj 255 2503 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2503 X: top left x-coord. Тип: float.;
-#X obj 255 2526 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2526 Y: top right y-coord. Тип: float.;
-#X msg 110 2551 select;
-#X text 245 2551 set selection. Аргументы:;
-#X obj 255 2574 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2574 BEGIN: selection start in samples. Тип: int.;
-#X obj 255 2597 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2597 END: selection end in samples. Тип: int.;
-#X msg 110 2622 update;
-#X text 245 2622 redraws view.;
-#X msg 110 2650 dump;
-#X text 245 2650 dumps all object info to Pd console window.;
-#X obj 20 2688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2693 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 2446 pos;
+#X text 245 2446 set UI element position. Аргументы:;
+#X obj 255 2469 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2469 X: top left x-coord. Тип: float.;
+#X obj 255 2492 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2492 Y: top right y-coord. Тип: float.;
+#X msg 110 2517 select;
+#X text 245 2517 set selection. Аргументы:;
+#X obj 255 2540 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2540 BEGIN: selection start in samples. Тип: int.;
+#X obj 255 2563 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2563 END: selection end in samples. Тип: int.;
+#X msg 110 2588 update;
+#X text 245 2588 redraws view.;
+#X msg 110 2616 dump;
+#X text 245 2616 dumps all object info to Pd console window.;
+#X obj 20 2654 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2659 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2694 1\.;
-#X text 150 2694 bang:;
-#X text 245 2694 output current cursor positions: @cursor_samp \, @cursor_phase
+#X text 110 2660 1\.;
+#X text 150 2660 bang:;
+#X text 245 2660 output current cursor positions: @cursor_samp \, @cursor_phase
 \, @cursor_ms \, @cursor_sec and selection (if selected): @select_samp
 \, @select_phase \, @select_ms \, @select_sec \, @begin \, @end.;
-#X text 150 2779 float:;
-#X text 245 2779 move cursor to specified sample position.;
-#X obj 20 2809 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2814 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 150 2745 float:;
+#X text 245 2745 move cursor to specified sample position.;
+#X obj 20 2780 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2785 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2815 1\.;
-#X text 245 2815 output.;
+#X text 110 2786 1\.;
+#X text 245 2786 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2865 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2868 библиотека: ceammc v0.9.8;
-#N canvas 10 2887 400 290 info 0;
+#X obj 1 2836 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2839 библиотека: ceammc v0.9.8;
+#N canvas 10 2858 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -230,7 +230,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2887 pd info;
+#X restore 10 2858 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;

@@ -79,49 +79,49 @@ float. Значение по умолчанию: 1\. Минимальное зн
 #X obj 20 901 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 906 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 941 play;
-#X text 245 941 начать воспроизведения.;
-#X msg 110 969 range;
-#X text 245 969 установить диапазон воспроизведения. Аргументы:;
-#X obj 255 992 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 992 VALUE: начальное значение. Отрицательные значения (смещение
+#X msg 110 907 play;
+#X text 245 907 начать воспроизведения.;
+#X msg 110 935 range;
+#X text 245 935 установить диапазон воспроизведения. Аргументы:;
+#X obj 255 958 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 958 VALUE: начальное значение. Отрицательные значения (смещение
 с конца) поддерживаются для ms \, sec и семплов. *-1 семпл* означает
 последний семпл. Тип: float.;
-#X obj 255 1045 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1045 UNIT: единица времени. Тип: symbol. Разрешённые значения:
+#X obj 255 1011 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1011 UNIT: единица времени. Тип: symbol. Разрешённые значения:
 ms \, sec \, phase \, sample.;
-#X obj 255 1083 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1083 [VALUE]: конечное значение. Тип: float.;
-#X obj 255 1106 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1106 UNIT: единица времени. Тип: symbol. Разрешённые значения:
+#X obj 255 1049 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1049 [VALUE]: конечное значение. Тип: float.;
+#X obj 255 1072 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1072 UNIT: единица времени. Тип: symbol. Разрешённые значения:
 ms \, sec \, phase \, sample.;
-#X msg 110 1146 stop;
-#X text 245 1146 остановить воспроизведение.;
-#X obj 20 1184 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1189 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1112 stop;
+#X text 245 1112 остановить воспроизведение.;
+#X obj 20 1150 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1155 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1190 1\.;
-#X text 150 1190 bang:;
-#X text 245 1190 start playing from the beginning.;
-#X text 150 1215 float:;
-#X text 245 1215 1 - play \, 0 - stop.;
-#X obj 20 1245 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1250 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1156 1\.;
+#X text 150 1156 bang:;
+#X text 245 1156 start playing from the beginning.;
+#X text 150 1181 float:;
+#X text 245 1181 1 - play \, 0 - stop.;
+#X obj 20 1216 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1221 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1251 1\.;
-#X text 245 1251 message to vline~ object.;
-#X text 110 1271 2\.;
-#X text 245 1271 bang after playing finished.;
+#X text 110 1222 1\.;
+#X text 245 1222 message to vline~ object.;
+#X text 110 1242 2\.;
+#X text 245 1242 bang after playing finished.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1321 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1324 библиотека: ceammc v0.9.8;
-#X text 554 1336 смотрите также:;
-#X obj 675 1336 list.each;
-#N canvas 10 1343 400 290 info 0;
+#X obj 1 1292 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1295 библиотека: ceammc v0.9.8;
+#X text 554 1307 смотрите также:;
+#X obj 675 1307 list.each;
+#N canvas 10 1314 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -145,7 +145,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1343 pd info;
+#X restore 10 1314 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 10 0;
 #X connect 7 0 11 0;

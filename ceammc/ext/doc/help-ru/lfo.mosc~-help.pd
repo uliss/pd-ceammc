@@ -71,36 +71,36 @@ sin \, saw \, tri \, sqr \, pulse \, +sin \, +saw \, +tri \, +sqr \,
 #X obj 20 1021 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1026 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1061 reset;
-#X text 245 1061 reset to initial state.;
-#X obj 20 1099 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1104 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1027 reset;
+#X text 245 1027 reset to initial state.;
+#X obj 20 1065 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1070 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1105 1\.;
-#X text 150 1105 ~;
-#X text 245 1105 frequency in Hz.;
-#X text 110 1125 2\.;
-#X text 150 1125 bang:;
-#X text 245 1125 reset phase.;
-#X text 150 1150 int:;
-#X text 245 1150 select waveform.;
-#X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1185 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1071 1\.;
+#X text 150 1071 ~;
+#X text 245 1071 frequency in Hz.;
+#X text 110 1096 2\.;
+#X text 150 1096 bang:;
+#X text 245 1096 reset phase.;
+#X text 150 1121 int:;
+#X text 245 1121 select waveform.;
+#X obj 20 1156 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1161 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1186 1\.;
-#X text 150 1186 ~;
-#X text 245 1186 oscillator output.;
+#X text 110 1162 1\.;
+#X text 150 1162 ~;
+#X text 245 1162 oscillator output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title lfo @url ceammc.lfo-help.pd;
-#X obj 1 1236 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1239 библиотека: ceammc v0.9.8;
-#X text 465 1251 смотрите также:;
-#X obj 586 1251 lfo.square~;
-#X obj 681 1251 lfo.saw~;
-#N canvas 10 1258 400 290 info 0;
+#X obj 1 1212 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1215 библиотека: ceammc v0.9.8;
+#X text 465 1227 смотрите также:;
+#X obj 586 1227 lfo.square~;
+#X obj 681 1227 lfo.saw~;
+#N canvas 10 1234 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -124,7 +124,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1258 pd info;
+#X restore 10 1234 pd info;
 #X connect 8 0 10 0;
 #X connect 6 0 11 0;
 #X connect 10 0 11 0;

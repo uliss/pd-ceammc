@@ -64,28 +64,28 @@ from the bottom to the top of the bell;
 #X obj 20 1356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1361 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1396 reset;
-#X text 245 1396 reset synth.;
-#X obj 20 1434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1439 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1362 reset;
+#X text 245 1362 reset synth.;
+#X obj 20 1400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1405 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1440 1\.;
-#X text 150 1440 bang:;
-#X text 245 1440 play.;
-#X obj 20 1470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1475 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1406 1\.;
+#X text 150 1406 bang:;
+#X text 245 1406 play.;
+#X obj 20 1441 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1446 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1476 1\.;
-#X text 150 1476 ~;
-#X text 245 1476 output signal.;
+#X text 110 1447 1\.;
+#X text 150 1447 ~;
+#X text 245 1447 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1526 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1529 библиотека: ceammc v0.9.8;
-#N canvas 10 1548 400 290 info 0;
+#X obj 1 1497 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1500 библиотека: ceammc v0.9.8;
+#N canvas 10 1519 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -109,7 +109,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1548 pd info;
+#X restore 10 1519 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

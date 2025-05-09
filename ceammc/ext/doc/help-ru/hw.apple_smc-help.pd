@@ -53,31 +53,31 @@ VD0r VN0R VN0r VP0R VP0r WKEN WVr0 WVw0 zDBG zDSF.;
 #X obj 20 931 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 936 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 971 read;
-#X text 245 971 query specified SMC key. Аргументы:;
-#X obj 255 994 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 994 KEY: SMC key. Тип: symbol.;
-#X obj 20 1029 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1034 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 937 read;
+#X text 245 937 query specified SMC key. Аргументы:;
+#X obj 255 960 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 960 KEY: SMC key. Тип: symbol.;
+#X obj 20 995 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1000 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1035 1\.;
-#X text 245 1035 input.;
-#X obj 20 1065 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1070 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1001 1\.;
+#X text 245 1001 input.;
+#X obj 20 1036 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1041 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1071 1\.;
-#X text 245 1071 output key value.;
+#X text 110 1042 1\.;
+#X text 245 1042 output key value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1121 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1124 библиотека: ceammc v0.9.8;
-#X text 437 1136 смотрите также:;
-#X obj 558 1136 hw.apple_sms;
-#X obj 660 1136 system.info;
-#N canvas 10 1143 400 290 info 0;
+#X obj 1 1092 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1095 библиотека: ceammc v0.9.8;
+#X text 437 1107 смотрите также:;
+#X obj 558 1107 hw.apple_sms;
+#X obj 660 1107 system.info;
+#N canvas 10 1114 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1143 pd info;
+#X restore 10 1114 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;

@@ -307,42 +307,42 @@
 #X obj 20 4400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 4405 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 4440 load;
-#X text 245 4440 load the preset from a previously loaded sysex file.
+#X msg 110 4406 load;
+#X text 245 4406 load the preset from a previously loaded sysex file.
 Аргументы:;
-#X obj 255 4478 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4478 [IDX]: preset index. Тип: int. Диапазон: 0…31\.;
-#X msg 110 4503 note;
-#X text 245 4503 note on/off message. Аргументы:;
-#X obj 255 4526 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4526 NOTE: midi note. Тип: float.;
-#X obj 255 4549 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4549 VEL: velocity. Тип: float. Диапазон: 0…127\.;
-#X msg 110 4574 read;
-#X text 245 4574 reads the DX7 sysex preset file. Аргументы:;
-#X obj 255 4597 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4597 [PATH]: relative or absolute path to the DX sysex
+#X obj 255 4444 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4444 [IDX]: preset index. Тип: int. Диапазон: 0…31\.;
+#X msg 110 4469 note;
+#X text 245 4469 note on/off message. Аргументы:;
+#X obj 255 4492 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4492 NOTE: midi note. Тип: float.;
+#X obj 255 4515 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4515 VEL: velocity. Тип: float. Диапазон: 0…127\.;
+#X msg 110 4540 read;
+#X text 245 4540 reads the DX7 sysex preset file. Аргументы:;
+#X obj 255 4563 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4563 [PATH]: relative or absolute path to the DX sysex
 preset file. Тип: symbol.;
-#X obj 20 4647 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4652 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 4613 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4618 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 4653 1\.;
-#X text 150 4653 list:;
-#X text 245 4653 NOTE VEL.;
-#X obj 20 4683 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4688 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 4619 1\.;
+#X text 150 4619 list:;
+#X text 245 4619 NOTE VEL.;
+#X obj 20 4654 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4659 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 4689 1\.;
-#X text 150 4689 ~;
-#X text 245 4689 synth output.;
+#X text 110 4660 1\.;
+#X text 150 4660 ~;
+#X text 245 4660 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 4739 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 4742 библиотека: ceammc v0.9.8;
-#N canvas 10 4761 400 290 info 0;
+#X obj 1 4710 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4713 библиотека: ceammc v0.9.8;
+#N canvas 10 4732 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -366,7 +366,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 4761 pd info;
+#X restore 10 4732 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 7 0;
 #X connect 7 0 10 0;

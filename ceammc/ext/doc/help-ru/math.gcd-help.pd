@@ -27,14 +27,14 @@
 #X text 150 338 list:;
 #X text 245 338 sets first argument and second arguments \, then output
 calculated GCD value.;
-#X text 110 373 2\.;
-#X text 150 373 int:;
-#X text 245 373 sets second value.;
-#X obj 20 403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 408 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 378 2\.;
+#X text 150 378 int:;
+#X text 245 378 sets second value.;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 409 1\.;
-#X text 245 409 GCD value.;
+#X text 110 419 1\.;
+#X text 245 419 GCD value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

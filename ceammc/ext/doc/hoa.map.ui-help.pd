@@ -119,79 +119,79 @@ list. Default value: 225 225\.;
 #X obj 20 1734 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1739 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1774 clear;
-#X text 245 1774 clears specified preset. Arguments are:;
-#X obj 255 1797 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1797 IDX: preset index. Type: int.;
-#X msg 110 1822 clear_all;
-#X text 245 1822 remove all sources from map.;
-#X msg 110 1850 group;
-#X text 245 1850 group operations. Arguments are:;
-#X obj 255 1873 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1873 IDX: group index. Type: int.;
-#X obj 255 1896 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1896 ACTION: action. Type: symbol. Allowed values: set
+#X msg 110 1740 clear;
+#X text 245 1740 clears specified preset. Arguments are:;
+#X obj 255 1763 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1763 IDX: preset index. Type: int.;
+#X msg 110 1788 clear_all;
+#X text 245 1788 remove all sources from map.;
+#X msg 110 1816 group;
+#X text 245 1816 group operations. Arguments are:;
+#X obj 255 1839 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1839 IDX: group index. Type: int.;
+#X obj 255 1862 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1862 ACTION: action. Type: symbol. Allowed values: set
 \, polar \, pol \, azimuth \, elevation \, cartesian \, car \, abscissa
 \, ordinate \, height \, relpolar \, relradius \, relazimuth \, relelevation
 \, mute \, remove \, description \, color.;
-#X obj 255 1979 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1979 [ARGS]: action arguments. Type: list.;
-#X msg 110 2004 info;
-#X text 245 2004 outputs info to 3rd outlet.;
-#X msg 110 2032 interp;
-#X text 245 2032 for this object acts as *load* \, no interpolation
+#X obj 255 1945 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1945 [ARGS]: action arguments. Type: list.;
+#X msg 110 1970 info;
+#X text 245 1970 outputs info to 3rd outlet.;
+#X msg 110 1998 interp;
+#X text 245 1998 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 2060 load;
-#X text 245 2060 loads specified preset. Arguments are:;
-#X obj 255 2083 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2083 IDX: preset index. Type: int.;
-#X msg 110 2108 pos;
-#X text 245 2108 set UI element position. Arguments are:;
-#X obj 255 2131 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2131 X: top left x-coord. Type: float.;
-#X obj 255 2154 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2154 Y: top right y-coord. Type: float.;
-#X msg 110 2179 set;
-#X text 245 2179 sets toggle state without output.;
-#X msg 110 2207 source;
-#X text 245 2207 source operations. Arguments are:;
-#X obj 255 2230 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2230 IDX: source index. Type: int.;
-#X obj 255 2253 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2253 ACTION: action. Type: symbol. Allowed values: polar
+#X msg 110 2026 load;
+#X text 245 2026 loads specified preset. Arguments are:;
+#X obj 255 2049 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2049 IDX: preset index. Type: int.;
+#X msg 110 2074 pos;
+#X text 245 2074 set UI element position. Arguments are:;
+#X obj 255 2097 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2097 X: top left x-coord. Type: float.;
+#X obj 255 2120 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2120 Y: top right y-coord. Type: float.;
+#X msg 110 2145 set;
+#X text 245 2145 sets toggle state without output.;
+#X msg 110 2173 source;
+#X text 245 2173 source operations. Arguments are:;
+#X obj 255 2196 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2196 IDX: source index. Type: int.;
+#X obj 255 2219 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2219 ACTION: action. Type: symbol. Allowed values: polar
 \, pol \, azimuth \, elevation \, cartesian \, car \, abscissa \, ordinate
 \, height \, mute \, remove \, description \, color.;
-#X obj 255 2306 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2306 [ARGS]: action arguments. Type: list.;
-#X msg 110 2331 store;
-#X text 245 2331 stores specified preset. Arguments are:;
-#X obj 255 2354 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2354 IDX: preset index. Type: int.;
-#X msg 110 2379 dump;
-#X text 245 2379 dumps all object info to Pd console window.;
-#X obj 20 2417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2422 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 255 2272 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2272 [ARGS]: action arguments. Type: list.;
+#X msg 110 2297 store;
+#X text 245 2297 stores specified preset. Arguments are:;
+#X obj 255 2320 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2320 IDX: preset index. Type: int.;
+#X msg 110 2345 dump;
+#X text 245 2345 dumps all object info to Pd console window.;
+#X obj 20 2383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2388 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2423 1\.;
-#X text 150 2423 bang:;
-#X text 245 2423 output group and source info.;
-#X obj 20 2453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2458 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 2389 1\.;
+#X text 150 2389 bang:;
+#X text 245 2389 output group and source info.;
+#X obj 20 2424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2429 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2459 1\.;
-#X text 245 2459 source output.;
-#X text 110 2479 2\.;
-#X text 245 2479 group output.;
-#X text 110 2499 3\.;
-#X text 245 2499 info output.;
+#X text 110 2430 1\.;
+#X text 245 2430 source output.;
+#X text 110 2450 2\.;
+#X text 245 2450 group output.;
+#X text 110 2470 3\.;
+#X text 245 2470 info output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 2549 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2552 library: ceammc v0.9.8;
-#N canvas 10 2571 400 290 info 0;
+#X obj 1 2520 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2523 library: ceammc v0.9.8;
+#N canvas 10 2542 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -216,7 +216,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2571 pd info;
+#X restore 10 2542 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 8 1 10 0;

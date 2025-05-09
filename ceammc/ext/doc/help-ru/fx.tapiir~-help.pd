@@ -320,52 +320,52 @@ float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
 #X obj 20 4591 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 4596 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 4631 pingpong;
-#X text 245 4631 set pingpong delay values. Аргументы:;
-#X obj 255 4654 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4654 DELAY: delay time. Тип: float. Единицы: 'ms'.;
-#X obj 255 4677 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4677 FB: feedback value. Тип: float. Диапазон: 0…1\.;
-#X msg 110 4702 random;
-#X text 245 4702 randomize values. Аргументы:;
-#X obj 255 4725 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4725 TYPE: group name. If 'delays' - randomize @delays
+#X msg 110 4597 pingpong;
+#X text 245 4597 set pingpong delay values. Аргументы:;
+#X obj 255 4620 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4620 DELAY: delay time. Тип: float. Единицы: 'ms'.;
+#X obj 255 4643 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4643 FB: feedback value. Тип: float. Диапазон: 0…1\.;
+#X msg 110 4668 random;
+#X text 245 4668 randomize values. Аргументы:;
+#X obj 255 4691 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4691 TYPE: group name. If 'delays' - randomize @delays
 properties \, if 'fb' - randomize @fb* properties. Тип: symbol. Разрешённые
 значения: delays \, fb \, inputs \, outputs \, gains.;
-#X obj 255 4778 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4778 [MIN]: minimal value. Тип: float. Минимальное значение:
+#X obj 255 4744 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4744 [MIN]: minimal value. Тип: float. Минимальное значение:
 0\.;
-#X obj 255 4801 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4801 [MAX]: maximum value. Тип: float. Минимальное значение:
+#X obj 255 4767 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4767 [MAX]: maximum value. Тип: float. Минимальное значение:
 0\.;
-#X msg 110 4826 reset;
-#X text 245 4826 reset to initial state.;
-#X obj 20 4864 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4869 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 4792 reset;
+#X text 245 4792 reset to initial state.;
+#X obj 20 4830 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4835 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 4870 1\.;
-#X text 150 4870 ~;
-#X text 245 4870 left in channel.;
-#X text 110 4890 2\.;
-#X text 150 4890 ~;
-#X text 245 4890 right in channel.;
-#X obj 20 4920 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4925 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 4836 1\.;
+#X text 150 4836 ~;
+#X text 245 4836 left in channel.;
+#X text 110 4861 2\.;
+#X text 150 4861 ~;
+#X text 245 4861 right in channel.;
+#X obj 20 4896 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4901 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 4926 1\.;
-#X text 150 4926 ~;
-#X text 245 4926 left out channel.;
-#X text 110 4946 2\.;
-#X text 150 4946 ~;
-#X text 245 4946 right out channel.;
+#X text 110 4902 1\.;
+#X text 150 4902 ~;
+#X text 245 4902 left out channel.;
+#X text 110 4922 2\.;
+#X text 150 4922 ~;
+#X text 245 4922 right out channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 4996 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 4999 библиотека: ceammc v0.9.8;
-#N canvas 10 5018 400 290 info 0;
+#X obj 1 4972 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4975 библиотека: ceammc v0.9.8;
+#N canvas 10 4994 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -389,7 +389,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 5018 pd info;
+#X restore 10 4994 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 8 0;
 #X connect 7 0 9 0;

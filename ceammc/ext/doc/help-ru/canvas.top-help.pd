@@ -54,34 +54,34 @@
 #X obj 20 785 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 790 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 825 postscript;
-#X text 245 825 save patch to postscript. Аргументы:;
-#X obj 255 848 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 848 [FNAME]: имя файла. Если не указано \, используется
+#X msg 110 791 postscript;
+#X text 245 791 save patch to postscript. Аргументы:;
+#X obj 255 814 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 814 [FNAME]: имя файла. Если не указано \, используется
 имя патча с расширением .ps. Тип: symbol.;
-#X obj 20 898 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 903 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 864 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 869 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 904 1\.;
-#X text 245 904 property request.;
-#X text 150 929 bang:;
-#X text 245 929 output as dict.;
-#X obj 20 959 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 964 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 870 1\.;
+#X text 245 870 property request.;
+#X text 150 895 bang:;
+#X text 245 895 output as dict.;
+#X obj 20 930 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 935 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 965 1\.;
-#X text 245 965 dict/property output.;
+#X text 110 936 1\.;
+#X text 245 936 dict/property output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
-#X obj 1 1015 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1018 библиотека: ceammc v0.9.8;
-#X text 431 1030 смотрите также:;
-#X obj 552 1030 patch.args;
-#X obj 639 1030 canvas.current;
-#N canvas 10 1037 400 290 info 0;
+#X obj 1 986 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 989 библиотека: ceammc v0.9.8;
+#X text 431 1001 смотрите также:;
+#X obj 552 1001 patch.args;
+#X obj 639 1001 canvas.current;
+#N canvas 10 1008 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -105,7 +105,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1037 pd info;
+#X restore 10 1008 pd info;
 #X connect 4 0 11 0;
 #X connect 8 0 11 0;
 #X connect 9 0 11 0;

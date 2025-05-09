@@ -32,39 +32,39 @@ int. Единицы: 'samp'. Значение по умолчанию: 0\. Ми�
 #X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 523 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 558 load_array;
-#X text 245 558 load IR from array. Аргументы:;
-#X obj 255 581 cnv 1 46 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 581 ARRAY: array name. Тип: symbol.;
-#X msg 110 606 load_file;
-#X text 245 606 load IR from specified file (resamples if required
+#X msg 110 524 load_array;
+#X text 245 524 load IR from array. Аргументы:;
+#X obj 255 547 cnv 1 46 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 547 ARRAY: array name. Тип: symbol.;
+#X msg 110 572 load_file;
+#X text 245 572 load IR from specified file (resamples if required
 from file samplerate to runtime samplerate). Аргументы:;
-#X obj 255 644 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 644 FILE: file name \, relative or absolute. Тип: atom.;
-#X msg 110 669 set;
-#X text 245 669 set IR from list. Аргументы:;
-#X obj 255 692 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 692 LIST: IR data. Тип: float.;
-#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 732 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 255 610 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 610 FILE: file name \, relative or absolute. Тип: atom.;
+#X msg 110 635 set;
+#X text 245 635 set IR from list. Аргументы:;
+#X obj 255 658 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 658 LIST: IR data. Тип: float.;
+#X obj 20 693 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 698 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 733 1\.;
-#X text 150 733 ~;
-#X text 245 733 input signal.;
-#X obj 20 763 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 768 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 699 1\.;
+#X text 150 699 ~;
+#X text 245 699 input signal.;
+#X obj 20 734 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 739 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 769 1\.;
-#X text 150 769 ~;
-#X text 245 769 output signal.;
+#X text 110 740 1\.;
+#X text 150 740 ~;
+#X text 245 740 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 819 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 822 библиотека: ceammc v0.9.8;
-#N canvas 10 841 400 290 info 0;
+#X obj 1 790 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 793 библиотека: ceammc v0.9.8;
+#N canvas 10 812 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -88,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 841 pd info;
+#X restore 10 812 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;

@@ -62,38 +62,39 @@ is ready to accept the new one. Тип: bool. Значение по умолча
 #X obj 20 1047 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1052 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1087 reset;
-#X text 245 1087 reset all scheduled delays.;
-#X obj 20 1125 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1130 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1053 reset;
+#X text 245 1053 reset all scheduled delays.;
+#X obj 20 1091 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1096 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1131 1\.;
-#X text 245 1131 incoming message.;
-#X text 110 1151 2\.;
-#X text 150 1151 list:;
-#X text 245 1151 set delay times.;
-#X text 245 1176 'reset' - reset all scheduled delays \, '@t' - set
+#X text 110 1097 1\.;
+#X text 245 1097 incoming message.;
+#X text 110 1122 2\.;
+#X text 150 1122 list:;
+#X text 245 1122 set delay times.;
+#X text 150 1147 any:;
+#X text 245 1147 'reset' - reset all scheduled delays \, '@t' - set
 @t property \, '@block' - set @block property \, 'dump' - dump object
 info to Pd window.;
-#X obj 20 1236 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1241 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1212 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1217 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1242 1\.;
-#X text 245 1242 first delayed output.;
-#X text 110 1262 ...;
-#X text 245 1262 ...-th delayed output.;
-#X text 110 1282 n.;
-#X text 245 1282 n-th delayed output.;
+#X text 110 1218 1\.;
+#X text 245 1218 first delayed output.;
+#X text 110 1238 ...;
+#X text 245 1238 ...-th delayed output.;
+#X text 110 1258 n.;
+#X text 245 1258 n-th delayed output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1332 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1335 библиотека: ceammc v0.9.8;
-#X text 546 1347 смотрите также:;
-#X obj 667 1347 flow.delay;
-#N canvas 10 1354 400 290 info 0;
+#X obj 1 1308 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1311 библиотека: ceammc v0.9.8;
+#X text 546 1323 смотрите также:;
+#X obj 667 1323 flow.delay;
+#N canvas 10 1330 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -117,7 +118,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1354 pd info;
+#X restore 10 1330 pd info;
 #X connect 9 0 11 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

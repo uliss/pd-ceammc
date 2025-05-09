@@ -53,27 +53,27 @@ rightmost outlet on each iteration. Тип: int. Значение по умол�
 #X text 245 670 Input list.;
 #X text 150 695 data:mlist:;
 #X text 245 695 Input mlist.;
-#X text 110 715 2\.;
-#X text 245 715 New modified value from applied object.;
-#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 750 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 720 2\.;
+#X text 245 720 New modified value from applied object.;
+#X obj 20 755 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 760 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 751 1\.;
-#X text 245 751 New modified list (or mlist).;
-#X text 110 771 2\.;
-#X text 245 771 single element or list of values (if @step property
+#X text 110 761 1\.;
+#X text 245 761 New modified list (or mlist).;
+#X text 110 781 2\.;
+#X text 245 781 single element or list of values (if @step property
 > 1).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 821 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 824 библиотека: ceammc v0.9.8;
-#X text 459 836 смотрите также:;
-#X obj 580 836 list.do;
-#X obj 646 836 list.apply_to;
-#N canvas 10 843 400 290 info 0;
+#X obj 1 831 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 834 библиотека: ceammc v0.9.8;
+#X text 459 846 смотрите также:;
+#X obj 580 846 list.do;
+#X obj 646 846 list.apply_to;
+#N canvas 10 853 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -97,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 843 pd info;
+#X restore 10 853 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 10 0;
 #X connect 8 0 12 0;

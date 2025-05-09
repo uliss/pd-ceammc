@@ -68,31 +68,31 @@ the lowest level. Тип: bool. Значение по умолчанию: 0\.;
 #X obj 20 794 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 799 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 834 pos;
-#X text 245 834 set UI element position. Аргументы:;
-#X obj 255 857 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 857 X: top left x-coord. Тип: float.;
-#X obj 255 880 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 880 Y: top right y-coord. Тип: float.;
-#X obj 20 915 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 920 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 800 pos;
+#X text 245 800 set UI element position. Аргументы:;
+#X obj 255 823 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 823 X: top left x-coord. Тип: float.;
+#X obj 255 846 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 846 Y: top right y-coord. Тип: float.;
+#X obj 20 881 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 886 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 941 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 946 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 907 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 912 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title tl @url ceammc.tl-help.pd;
-#X obj 1 987 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 990 библиотека: ceammc v0.9.8;
-#X text 482 1002 смотрите также:;
-#X obj 603 1005 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 953 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 956 библиотека: ceammc v0.9.8;
+#X text 482 968 смотрите также:;
+#X obj 603 971 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.bang] @url tl.bang-help.pd;
-#X obj 672 1005 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 971 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.toggle] @url tl.toggle-help.pd;
-#N canvas 10 1009 400 290 info 0;
+#N canvas 10 975 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -116,7 +116,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1009 pd info;
+#X restore 10 975 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;
 #X connect 9 0 13 0;

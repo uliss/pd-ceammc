@@ -88,34 +88,34 @@ with 1 for maximum spread. Тип: float. Значение по умолчани
 #X obj 20 1296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1301 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1336 reset;
-#X text 245 1336 reset reverb.;
-#X obj 20 1374 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1379 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1302 reset;
+#X text 245 1302 reset reverb.;
+#X obj 20 1340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1345 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1380 1\.;
-#X text 150 1380 ~;
-#X text 245 1380 left channel.;
-#X text 110 1400 2\.;
-#X text 150 1400 ~;
-#X text 245 1400 right channel.;
-#X obj 20 1430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1435 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1346 1\.;
+#X text 150 1346 ~;
+#X text 245 1346 left channel.;
+#X text 110 1371 2\.;
+#X text 150 1371 ~;
+#X text 245 1371 right channel.;
+#X obj 20 1406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1411 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1436 1\.;
-#X text 150 1436 ~;
-#X text 245 1436 output left.;
-#X text 110 1456 2\.;
-#X text 150 1456 ~;
-#X text 245 1456 output right.;
+#X text 110 1412 1\.;
+#X text 150 1412 ~;
+#X text 245 1412 output left.;
+#X text 110 1432 2\.;
+#X text 150 1432 ~;
+#X text 245 1432 output right.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1506 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1509 библиотека: ceammc v0.9.8;
-#N canvas 10 1528 400 290 info 0;
+#X obj 1 1482 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1485 библиотека: ceammc v0.9.8;
+#N canvas 10 1504 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -139,7 +139,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1528 pd info;
+#X restore 10 1504 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 11 0;
 #X connect 8 0 12 0;

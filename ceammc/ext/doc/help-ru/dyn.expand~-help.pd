@@ -105,35 +105,35 @@ float. Единицы: 'db'. Значение по умолчанию: 0\. Ди�
 #X obj 20 1430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1435 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1470 reset;
-#X text 245 1470 reset to initial state.;
-#X obj 20 1508 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1513 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1436 reset;
+#X text 245 1436 reset to initial state.;
+#X obj 20 1474 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1479 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1514 1\.;
-#X text 150 1514 ~;
-#X text 245 1514 input signal.;
-#X text 110 1534 2\.;
-#X text 150 1534 float:;
-#X text 245 1534 set expander strength.;
-#X obj 20 1564 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1569 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1480 1\.;
+#X text 150 1480 ~;
+#X text 245 1480 input signal.;
+#X text 110 1505 2\.;
+#X text 150 1505 float:;
+#X text 245 1505 set expander strength.;
+#X obj 20 1540 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1545 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1570 1\.;
-#X text 150 1570 ~;
-#X text 245 1570 output expanded signal.;
-#X text 110 1590 2\.;
-#X text 245 1590 float: output current expander level in db.;
+#X text 110 1546 1\.;
+#X text 150 1546 ~;
+#X text 245 1546 output expanded signal.;
+#X text 110 1566 2\.;
+#X text 245 1566 float: output current expander level in db.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 1640 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1643 библиотека: ceammc v0.9.8;
-#X text 531 1655 смотрите также:;
-#X obj 652 1655 dyn.expand2~;
-#N canvas 10 1662 400 290 info 0;
+#X obj 1 1616 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1619 библиотека: ceammc v0.9.8;
+#X text 531 1631 смотрите также:;
+#X obj 652 1631 dyn.expand2~;
+#N canvas 10 1638 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -157,7 +157,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1662 pd info;
+#X restore 10 1638 pd info;
 #X connect 7 0 9 0;
 #X connect 9 0 10 0;
 #X connect 11 0 12 0;

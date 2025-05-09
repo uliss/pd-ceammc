@@ -65,63 +65,63 @@ ceammc://img/conn_pwm.png;
 #X obj 20 1238 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1243 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1278 duty;
-#X text 245 1278 set duty cycle. Аргументы:;
-#X obj 255 1301 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1301 DUTY: duty cycle. Тип: float. Диапазон: 0…1\.;
-#X msg 110 1326 enable;
-#X text 245 1326 enable PWM. By default it is disabled. Аргументы:;
-#X obj 255 1349 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1349 ENABLE: value. Тип: bool.;
-#X msg 110 1374 freq;
-#X text 245 1374 set frequency. Аргументы:;
-#X obj 255 1397 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1397 FREQ: frequency. Тип: float. Минимальное значение:
+#X msg 110 1244 duty;
+#X text 245 1244 set duty cycle. Аргументы:;
+#X obj 255 1267 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1267 DUTY: duty cycle. Тип: float. Диапазон: 0…1\.;
+#X msg 110 1292 enable;
+#X text 245 1292 enable PWM. By default it is disabled. Аргументы:;
+#X obj 255 1315 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1315 ENABLE: value. Тип: bool.;
+#X msg 110 1340 freq;
+#X text 245 1340 set frequency. Аргументы:;
+#X obj 255 1363 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1363 FREQ: frequency. Тип: float. Минимальное значение:
 0\. Единицы: 'Hz'.;
-#X obj 255 1435 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1435 DUTY: duty cycle. Тип: float. Диапазон: 0…1\.;
-#X msg 110 1460 period;
-#X text 245 1460 set period. Expected width<=pulse. Аргументы:;
-#X obj 255 1483 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1483 PERIOD: the whole cycle period. Тип: float. Минимальное
+#X obj 255 1401 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1401 DUTY: duty cycle. Тип: float. Диапазон: 0…1\.;
+#X msg 110 1426 period;
+#X text 245 1426 set period. Expected width<=pulse. Аргументы:;
+#X obj 255 1449 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1449 PERIOD: the whole cycle period. Тип: float. Минимальное
 значение: 0\. Единицы: 'ms'.;
-#X msg 110 1523 polarity;
-#X text 245 1523 set output polarity. Аргументы:;
-#X obj 255 1546 cnv 1 67 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1546 INVERTED: new value. If true: polarity is inverted.
+#X msg 110 1489 polarity;
+#X text 245 1489 set output polarity. Аргументы:;
+#X obj 255 1512 cnv 1 67 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1512 INVERTED: new value. If true: polarity is inverted.
 Тип: bool.;
-#X msg 110 1586 pwm;
-#X text 245 1586 set period and pulse width. Expected width<=pulse.
+#X msg 110 1552 pwm;
+#X text 245 1552 set period and pulse width. Expected width<=pulse.
 Аргументы:;
-#X obj 255 1609 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1609 PERIOD: the whole cycle period. Тип: float. Минимальное
+#X obj 255 1575 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1575 PERIOD: the whole cycle period. Тип: float. Минимальное
 значение: 0\. Единицы: 'ms'.;
-#X obj 255 1647 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1647 WIDTH: pulse width. Тип: float. Минимальное значение:
+#X obj 255 1613 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1613 WIDTH: pulse width. Тип: float. Минимальное значение:
 0\. Единицы: 'ms'.;
-#X msg 110 1687 width;
-#X text 245 1687 set pulse width. Expected width<=pulse. Аргументы:;
-#X obj 255 1710 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1710 WIDTH: pulse width. Тип: float. Минимальное значение:
+#X msg 110 1653 width;
+#X text 245 1653 set pulse width. Expected width<=pulse. Аргументы:;
+#X obj 255 1676 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1676 WIDTH: pulse width. Тип: float. Минимальное значение:
 0\. Единицы: 'ms'.;
-#X obj 20 1760 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1765 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1726 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1731 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1766 1\.;
-#X text 245 1766 input messages.;
-#X obj 20 1796 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1801 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1732 1\.;
+#X text 245 1732 input messages.;
+#X obj 20 1767 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1772 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1802 1\.;
-#X text 245 1802 no output.;
+#X text 110 1773 1\.;
+#X text 245 1773 no output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1852 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1855 библиотека: ceammc v0.9.8;
-#N canvas 10 1874 400 290 info 0;
+#X obj 1 1823 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1826 библиотека: ceammc v0.9.8;
+#N canvas 10 1845 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -145,7 +145,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1874 pd info;
+#X restore 10 1845 pd info;
 #X connect 21 0 22 0;
 #X connect 23 0 25 0;
 #X connect 24 0 26 0;

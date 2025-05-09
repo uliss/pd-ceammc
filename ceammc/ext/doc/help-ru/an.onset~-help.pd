@@ -114,34 +114,34 @@ detection function.;
 #X obj 20 1550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1555 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1590 reset;
-#X text 245 1590 сбрасывает последний кадр и счетчики кадров.;
-#X obj 20 1628 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1633 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1556 reset;
+#X text 245 1556 сбрасывает последний кадр и счетчики кадров.;
+#X obj 20 1594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1599 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1634 1\.;
-#X text 150 1634 ~;
-#X text 245 1634 входной сигнал.;
-#X obj 20 1664 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1669 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1600 1\.;
+#X text 150 1600 ~;
+#X text 245 1600 входной сигнал.;
+#X obj 20 1635 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1640 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1670 1\.;
-#X text 150 1670 bang:;
-#X text 245 1670 если обнаружена атака.;
-#X text 110 1690 2\.;
-#X text 150 1690 float(ms):;
-#X text 245 1690 время последней атаки в миллисекундах от начала измерения.
+#X text 110 1641 1\.;
+#X text 150 1641 bang:;
+#X text 245 1641 если обнаружена атака.;
+#X text 110 1661 2\.;
+#X text 150 1661 float(ms):;
+#X text 245 1661 время последней атаки в миллисекундах от начала измерения.
 Вы можете сбросить время начала измерения отправкой сообщения «reset».;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 1770 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1773 библиотека: ceammc v0.9.8;
-#X text 561 1785 смотрите также:;
-#X obj 682 1785 an.onset;
-#N canvas 10 1792 400 290 info 0;
+#X obj 1 1741 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1744 библиотека: ceammc v0.9.8;
+#X text 561 1756 смотрите также:;
+#X obj 682 1756 an.onset;
+#N canvas 10 1763 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -165,7 +165,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1792 pd info;
+#X restore 10 1763 pd info;
 #X connect 7 0 10 0;
 #X connect 8 0 10 1;
 #X connect 9 0 11 0;

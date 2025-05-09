@@ -25,13 +25,13 @@
 #X text 110 331 1\.;
 #X text 245 331 first set or list (converted to set) \, other values
 are ignored.;
-#X text 110 366 2\.;
-#X text 245 366 second set or list (converted to set).;
-#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 401 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 371 2\.;
+#X text 245 371 second set or list (converted to set).;
+#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 402 1\.;
-#X text 245 402 output set with elements from first set \, that are
+#X text 110 412 1\.;
+#X text 245 412 output set with elements from first set \, that are
 not in second set.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

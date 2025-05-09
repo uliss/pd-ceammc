@@ -38,38 +38,38 @@
 #X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 453 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 488 append;
-#X text 245 488 append values to the end of string.;
-#X msg 110 516 clear;
-#X text 245 516 clear string without output.;
-#X msg 110 544 set;
-#X text 245 544 set string content without output.;
-#X obj 20 582 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 587 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 454 append;
+#X text 245 454 append values to the end of string.;
+#X msg 110 482 clear;
+#X text 245 482 clear string without output.;
+#X msg 110 510 set;
+#X text 245 510 set string content without output.;
+#X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 553 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 588 1\.;
-#X text 150 588 bang:;
-#X text 245 588 outputs string value.;
-#X text 150 613 float:;
-#X text 245 613 convert float to string and outputs value.;
-#X text 150 638 symbol:;
-#X text 245 638 convert symbol to string and outputs value.;
-#X text 150 663 list:;
-#X text 245 663 convert list to string (separated with spaces) and
+#X text 110 554 1\.;
+#X text 150 554 bang:;
+#X text 245 554 outputs string value.;
+#X text 150 579 float:;
+#X text 245 579 convert float to string and outputs value.;
+#X text 150 604 symbol:;
+#X text 245 604 convert symbol to string and outputs value.;
+#X text 150 629 list:;
+#X text 245 629 convert list to string (separated with spaces) and
 outputs value.;
-#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 713 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 679 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 684 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 714 1\.;
-#X text 245 714 string data.;
+#X text 110 685 1\.;
+#X text 245 685 string data.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title string @url ceammc.string-help.pd;
-#X obj 1 764 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 767 библиотека: ceammc v0.9.8;
-#N canvas 10 786 400 290 info 0;
+#X obj 1 735 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 738 библиотека: ceammc v0.9.8;
+#N canvas 10 757 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -93,7 +93,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 786 pd info;
+#X restore 10 757 pd info;
 #X connect 7 0 10 0;
 #X connect 8 0 10 0;
 #X connect 9 0 10 0;
