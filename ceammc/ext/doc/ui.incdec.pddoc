@@ -29,16 +29,16 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <xi:include href="props_background_color.xml"/>
-            <xi:include href="props_border_color.xml"/>
-            <xi:include href="props_fontname.xml"/>
-            <xi:include href="props_fontsize.xml"/>
-            <xi:include href="props_fontslant.xml"/>
-            <xi:include href="props_fontweight.xml"/>
-            <xi:include href="props_pinned.xml"/>
-            <xi:include href="props_ui_receive.xml"/>
-            <xi:include href="props_ui_send.xml"/>
-            <xi:include href="props_preset.xml"/>
+            <xi:include href="props_background_color.xml" />
+            <xi:include href="props_border_color.xml" />
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @arrow_color -->
             <property name="@arrow_color" type="list" default="0.6 0.6 0.6 1">
                 <tr lang="en">arrow color (list of red, green, blue values in 0-1 range)</tr>

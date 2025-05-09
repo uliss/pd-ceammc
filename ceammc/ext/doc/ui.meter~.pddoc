@@ -50,15 +50,15 @@
             <event type="right-click" editmode="true">open Pd popup menu</event>
         </mouse>
         <properties>
-            <xi:include href="props_background_color.xml"/>
-            <xi:include href="props_border_color.xml"/>
-            <xi:include href="props_fontname.xml"/>
-            <xi:include href="props_fontsize.xml"/>
-            <xi:include href="props_fontslant.xml"/>
-            <xi:include href="props_fontweight.xml"/>
-            <xi:include href="props_pinned.xml"/>
-            <xi:include href="props_ui_receive.xml"/>
-            <xi:include href="props_ui_send.xml"/>
+            <xi:include href="props_background_color.xml" />
+            <xi:include href="props_border_color.xml" />
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <!-- @cold_color -->
             <property name="@cold_color" type="list" default="0 0.6 0 1">
                 <tr lang="en">extra low-level signal color &lt;-31db (list of red, green, blue

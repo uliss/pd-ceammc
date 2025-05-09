@@ -29,9 +29,9 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @auto -->
             <property name="@auto" type="bool" default="0">
                 <tr lang="en">auto playing mode</tr>
@@ -43,7 +43,8 @@
                 <tr lang="ru" finished="false">играть в триггер. Начал играть на релизе</tr>
             </property>
             <!-- @probability -->
-            <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50" units="percent">
+            <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50"
+            units="percent">
                 <tr lang="en">whistles probability if @auto enabled</tr>
                 <tr lang="ru" finished="false">Вероятность свистка, если @auto включен</tr>
             </property>

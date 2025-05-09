@@ -31,12 +31,14 @@
         </arguments>
         <properties>
             <!-- @inputs -->
-            <property name="@inputs" type="int" minvalue="2" maxvalue="16" default="2" access="initonly">
+            <property name="@inputs" type="int" minvalue="2" maxvalue="16" default="2"
+            access="initonly">
                 <tr lang="en">number of matrix inputs</tr>
                 <tr lang="ru" finished="false">Количество входов матрицы</tr>
             </property>
             <!-- @outputs -->
-            <property name="@outputs" type="int" minvalue="2" maxvalue="16" default="2" access="initonly">
+            <property name="@outputs" type="int" minvalue="2" maxvalue="16" default="2"
+            access="initonly">
                 <tr lang="en">number of matrix outputs</tr>
                 <tr lang="ru" finished="false">Количество выходов матрицы</tr>
             </property>

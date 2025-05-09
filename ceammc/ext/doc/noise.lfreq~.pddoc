@@ -26,11 +26,12 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @freq -->
-            <property name="@freq" type="float" minvalue="5" maxvalue="22050" default="1000" units="hertz">
+            <property name="@freq" type="float" minvalue="5" maxvalue="22050" default="1000"
+            units="hertz">
                 <tr lang="en">noise generation freq</tr>
                 <tr lang="ru" finished="false">генерация шума freq</tr>
             </property>

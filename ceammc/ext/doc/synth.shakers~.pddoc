@@ -36,11 +36,14 @@
                 <tr lang="en">synth gate (&gt;0 - play)</tr>
             </property>
             <!-- @type -->
-            <property name="@type" type="atom" enum="maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes" default="maraca">
+            <property name="@type" type="atom"
+            enum="maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes"
+            default="maraca">
                 <tr lang="en">instrument type</tr>
             </property>
             <!-- @types -->
-            <property name="@types" type="list" access="readonly" default="maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes">
+            <property name="@types" type="list" access="readonly"
+            default="maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes">
 
                 <tr lang="en">all instrument types</tr>
             </property>
@@ -69,7 +72,7 @@
         <outlets>
             <outlet type="audio">
                 <out type="any">
-                    <tr lang="en"/>
+                    <tr lang="en" />
                 </out>
             </outlet>
         </outlets>

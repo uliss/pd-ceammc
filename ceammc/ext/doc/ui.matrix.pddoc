@@ -54,17 +54,17 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_active_color.xml"/>
-            <xi:include href="props_background_color.xml"/>
-            <xi:include href="props_border_color.xml"/>
-            <xi:include href="props_fontname.xml"/>
-            <xi:include href="props_fontsize.xml"/>
-            <xi:include href="props_fontslant.xml"/>
-            <xi:include href="props_fontweight.xml"/>
-            <xi:include href="props_pinned.xml"/>
-            <xi:include href="props_ui_receive.xml"/>
-            <xi:include href="props_ui_send.xml"/>
-            <xi:include href="props_preset.xml"/>
+            <xi:include href="props_active_color.xml" />
+            <xi:include href="props_background_color.xml" />
+            <xi:include href="props_border_color.xml" />
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @cols -->
             <property name="@cols" type="int" minvalue="1" maxvalue="64" default="8">
                 <tr lang="en">number of matrix columns</tr>

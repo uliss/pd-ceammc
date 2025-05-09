@@ -43,7 +43,8 @@
                     <tr lang="ru" finished="false">Настройка мастер-устройства в поплавковых
                     полутонах (комбинация грубой и тонкой мелодии)</tr>
                 </info>
-                <param name="V" type="float" minvalue="-64" maxvalue="63" required="true" units="semitone">
+                <param name="V" type="float" minvalue="-64" maxvalue="63" required="true"
+                units="semitone">
                     <tr lang="en">tuning</tr>
                     <tr lang="ru" finished="false">настройка</tr>
                 </param>
@@ -55,7 +56,8 @@
                     <tr lang="ru" finished="false">Настройка устройства мастер тонкой настройки в
                     центах</tr>
                 </info>
-                <param name="V" type="int" minvalue="-100" maxvalue="100" required="true" units="cent">
+                <param name="V" type="int" minvalue="-100" maxvalue="100" required="true"
+                units="cent">
                     <tr lang="en">tuning</tr>
                     <tr lang="ru" finished="false">настройка</tr>
                 </param>
@@ -67,7 +69,8 @@
                     <tr lang="ru" finished="false">сет-устройство мастер грубой настройки в
                     полутонах</tr>
                 </info>
-                <param name="V" type="int" minvalue="-64" maxvalue="63" required="true" units="semitone">
+                <param name="V" type="int" minvalue="-64" maxvalue="63" required="true"
+                units="semitone">
                     <tr lang="en">tuning</tr>
                     <tr lang="ru" finished="false">настройка</tr>
                 </param>

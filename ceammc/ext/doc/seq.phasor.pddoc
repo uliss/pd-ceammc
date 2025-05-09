@@ -38,7 +38,8 @@
         </arguments>
         <properties>
             <!-- @freq -->
-            <property name="@freq" type="float" minvalue="0" default="0" maxvalue="100" units="hertz">
+            <property name="@freq" type="float" minvalue="0" default="0" maxvalue="100"
+            units="hertz">
                 <tr lang="en">frequency</tr>
                 <tr lang="ru" finished="false">частота</tr>
             </property>

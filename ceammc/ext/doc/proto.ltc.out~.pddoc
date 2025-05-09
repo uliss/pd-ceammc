@@ -47,7 +47,8 @@
                 <tr lang="ru" finished="false">скорость игры</tr>
             </property>
             <!-- @volume -->
-            <property name="@volume" type="float" default="-3" minvalue="-42" maxvalue="0" units="decibel">
+            <property name="@volume" type="float" default="-3" minvalue="-42" maxvalue="0"
+            units="decibel">
                 <tr lang="en">output signal level</tr>
                 <tr lang="ru" finished="false">выходной сигнал</tr>
             </property>

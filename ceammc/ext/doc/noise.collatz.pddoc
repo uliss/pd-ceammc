@@ -22,7 +22,7 @@
                 <tr lang="ru" finished="false">Вывод гипотезы Коллаца</tr>
             </par>
         </info>
-        <arguments/>
+        <arguments />
         <methods>
             <!-- mode -->
             <method name="mode">

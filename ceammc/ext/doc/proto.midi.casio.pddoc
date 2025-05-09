@@ -115,7 +115,8 @@
                     <tr lang="en">midi channel</tr>
                     <tr lang="ru" finished="false">канал Midi</tr>
                 </param>
-                <param name="NAME" type="symbol" enum="piano epiano strings bass organ vibr harps" required="true">
+                <param name="NAME" type="symbol" enum="piano epiano strings bass organ vibr harps"
+                required="true">
                     <tr lang="en">instrument name</tr>
                     <tr lang="ru" finished="false">название инструмента</tr>
                 </param>

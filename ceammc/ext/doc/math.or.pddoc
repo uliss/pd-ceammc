@@ -31,7 +31,8 @@
         </arguments>
         <properties>
             <!-- @n -->
-            <property name="@n" type="int" access="initonly" minvalue="3" maxvalue="16" default="3">
+            <property name="@n" type="int" access="initonly" minvalue="3" maxvalue="16"
+            default="3">
                 <tr lang="en">number of arguments</tr>
                 <tr lang="ru" finished="false">Количество аргументов</tr>
             </property>

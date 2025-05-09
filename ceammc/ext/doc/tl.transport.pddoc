@@ -41,7 +41,7 @@
                 </in>
             </inlet>
         </inlets>
-        <outlets/>
+        <outlets />
         <example>
             <pdascii>
 <![CDATA[

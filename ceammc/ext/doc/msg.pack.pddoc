@@ -40,7 +40,8 @@
                 [prop.set] объект</tr>
             </property>
             <!-- @n -->
-            <property name="@n" type="int" minvalue="1" default="2" maxvalue="32" access="initonly">
+            <property name="@n" type="int" minvalue="1" default="2" maxvalue="32"
+            access="initonly">
                 <tr lang="en">number of inlets</tr>
                 <tr lang="ru" finished="false">Количество входов</tr>
             </property>

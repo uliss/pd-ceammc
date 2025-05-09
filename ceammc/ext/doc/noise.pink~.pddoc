@@ -49,7 +49,7 @@
             </par>
         </info>
         <properties>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_active.xml" />
         </properties>
         <outlets>
             <outlet type="audio">

@@ -19,9 +19,9 @@
             <since>0.6</since>
         </meta>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @cutoff -->
             <property name="@cutoff" type="float" minvalue="1000" maxvalue="10000" default="7000">
                 <tr lang="en">cuttoff frequency of the strike generator</tr>
@@ -75,7 +75,7 @@
         <outlets>
             <outlet type="audio">
                 <out type="any">
-                    <tr lang="en"/>
+                    <tr lang="en" />
                 </out>
             </outlet>
         </outlets>

@@ -56,12 +56,14 @@
         </arguments>
         <properties>
             <!-- @current -->
-            <property name="@current" type="float" access="readonly" units="millisecond" default="0">
+            <property name="@current" type="float" access="readonly" units="millisecond"
+            default="0">
                 <tr lang="en">current time</tr>
                 <tr lang="ru" finished="false">Текущее время</tr>
             </property>
             <!-- @current_sec -->
-            <property name="@current_sec" type="float" access="readonly" units="second" default="0">
+            <property name="@current_sec" type="float" access="readonly" units="second"
+            default="0">
                 <tr lang="en">current time</tr>
                 <tr lang="ru" finished="false">Текущее время</tr>
             </property>
@@ -77,7 +79,8 @@
                 <tr lang="ru" finished="false">Если временная шкала работает</tr>
             </property>
             <!-- @length -->
-            <property name="@length" type="float" minvalue="0" access="initonly" default="60" units="second">
+            <property name="@length" type="float" minvalue="0" access="initonly" default="60"
+            units="second">
                 <tr lang="en">timeline length</tr>
                 <tr lang="ru" finished="false">продолжительность</tr>
             </property>
@@ -97,7 +100,8 @@
                 Фиксированная временная шкала может иметь свойство @loop для повторов</tr>
             </property>
             <!-- @phase -->
-            <property name="@phase" type="float" access="readonly" minvalue="0" maxvalue="1" default="0">
+            <property name="@phase" type="float" access="readonly" minvalue="0" maxvalue="1"
+            default="0">
                 <tr lang="en">current phase in [0-1) range</tr>
                 <tr lang="ru" finished="false">Текущая фаза в диапазоне [0-1]</tr>
             </property>

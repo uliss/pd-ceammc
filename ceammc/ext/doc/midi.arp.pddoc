@@ -84,7 +84,8 @@
                 арпеджио</tr>
             </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" default="up" enum="up down tri up1 down1 tri1 random random1">
+            <property name="@mode" type="symbol" default="up"
+            enum="up down tri up1 down1 tri1 random random1">
                 <tr lang="en">argpeggiator mode</tr>
                 <tr lang="ru" finished="false">режим argpeggiator</tr>
             </property>
@@ -107,7 +108,8 @@
                 воспроизводимых случайных рядов)</tr>
             </property>
             <!-- @t -->
-            <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000" units="millisecond">
+            <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000"
+            units="millisecond">
                 <tr lang="en">time between arpeggio</tr>
                 <tr lang="ru" finished="false">Время между арпеджио</tr>
             </property>

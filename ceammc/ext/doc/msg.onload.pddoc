@@ -45,7 +45,7 @@
                 Comma</tr>
             </argument>
         </arguments>
-        <inlets/>
+        <inlets />
         <outlets>
             <outlet>
                 <out type="any">

@@ -35,7 +35,7 @@
             slowly)</event>
             <event type="wheel" editmode="false">change the knob value (with ⇧ change
             slowly)</event>
-            <event type="left-click" editmode="false" empty="true"/>
+            <event type="left-click" editmode="false" empty="true" />
             <event type="double-click" editmode="false">set knob to the middle position</event>
             <event type="double-click" editmode="false" keys="Shift">toggle MIDI-learn mode (red
             border displayed)</event>
@@ -60,23 +60,23 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_background_color.xml"/>
-            <xi:include href="props_border_color.xml"/>
-            <xi:include href="props_fontname.xml"/>
-            <xi:include href="props_fontsize.xml"/>
-            <xi:include href="props_fontslant.xml"/>
-            <xi:include href="props_fontweight.xml"/>
-            <xi:include href="props_label.xml"/>
-            <xi:include href="props_label_align.xml"/>
-            <xi:include href="props_label_inner.xml"/>
-            <xi:include href="props_label_margins.xml"/>
-            <xi:include href="props_label_side.xml"/>
-            <xi:include href="props_label_valign.xml"/>
-            <xi:include href="props_pinned.xml"/>
-            <xi:include href="props_ui_receive.xml"/>
-            <xi:include href="props_ui_send.xml"/>
-            <xi:include href="props_midi_channel.xml"/>
-            <xi:include href="props_preset.xml"/>
+            <xi:include href="props_background_color.xml" />
+            <xi:include href="props_border_color.xml" />
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_label.xml" />
+            <xi:include href="props_label_align.xml" />
+            <xi:include href="props_label_inner.xml" />
+            <xi:include href="props_label_margins.xml" />
+            <xi:include href="props_label_side.xml" />
+            <xi:include href="props_label_valign.xml" />
+            <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
+            <xi:include href="props_midi_channel.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @active_scale -->
             <property name="@active_scale" type="bool" default="0">
                 <tr lang="en">if should draw active scale</tr>

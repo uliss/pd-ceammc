@@ -16,7 +16,7 @@
             <keywords>video mixer fellworld</keywords>
             <since>0.9.5</since>
         </meta>
-        <properties/>
+        <properties />
         <methods>
             <!-- input -->
             <method name="input">

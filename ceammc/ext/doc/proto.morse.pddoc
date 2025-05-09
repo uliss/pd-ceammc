@@ -24,7 +24,8 @@
         </arguments>
         <properties>
             <!-- @dot -->
-            <property name="@dot" type="float" default="100" minvalue="5" maxvalue="1000" units="millisecond">
+            <property name="@dot" type="float" default="100" minvalue="5" maxvalue="1000"
+            units="millisecond">
                 <tr lang="en">dot length</tr>
                 <tr lang="ru" finished="false">длина точки</tr>
             </property>

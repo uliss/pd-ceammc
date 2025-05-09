@@ -123,7 +123,8 @@
                     <tr lang="en">array name</tr>
                     <tr lang="ru" finished="false">имя массива</tr>
                 </param>
-                <param name="START" type="int" required="false" minvalue="0" units="sample" default="0">
+                <param name="START" type="int" required="false" minvalue="0" units="sample"
+                default="0">
                     <tr lang="en">array start index</tr>
                     <tr lang="ru" finished="false">Массовый стартовый индекс</tr>
                 </param>

@@ -75,7 +75,9 @@
                     <tr lang="en">pin number</tr>
                     <tr lang="ru" finished="false">пин-код</tr>
                 </param>
-                <param name="MODE" type="symbol" enum="INPUT OUTPUT ANALOG PWM SERVO SHIFT I2C ONEWIRE STEPPER ENCODER SERIAL PULLUP" required="true">
+                <param name="MODE" type="symbol"
+                enum="INPUT OUTPUT ANALOG PWM SERVO SHIFT I2C ONEWIRE STEPPER ENCODER SERIAL PULLUP"
+                required="true">
                     <tr lang="en">pin mode</tr>
                     <tr lang="ru" finished="false">режим pin</tr>
                 </param>
@@ -156,7 +158,8 @@
                     аналоговые данные, и любые устройства i2c с непрерывным режимом чтения будут
                     считываться.</tr>
                 </info>
-                <param name="TIME" type="int" units="millisecond" required="true" minvalue="10" maxvalue="10000">
+                <param name="TIME" type="int" units="millisecond" required="true" minvalue="10"
+                maxvalue="10000">
                     <tr lang="en">time</tr>
                     <tr lang="ru" finished="false">время</tr>
                 </param>

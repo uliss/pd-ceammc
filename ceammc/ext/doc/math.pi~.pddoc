@@ -46,7 +46,7 @@
                 <tr lang="ru" finished="false">умножитель</tr>
             </property>
         </properties>
-        <inlets/>
+        <inlets />
         <outlets>
             <outlet type="audio">
                 <out type="any">

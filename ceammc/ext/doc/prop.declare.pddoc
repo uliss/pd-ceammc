@@ -78,7 +78,8 @@
                 <tr lang="ru" finished="false">псевдоним @type symbol</tr>
             </property>
             <!-- @type -->
-            <property name="@type" type="symbol" enum="float int bool enum symbol list" default="float">
+            <property name="@type" type="symbol" enum="float int bool enum symbol list"
+            default="float">
                 <tr lang="en">property type</tr>
                 <tr lang="ru" finished="false">Тип собственности</tr>
             </property>

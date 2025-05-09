@@ -46,9 +46,9 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @alpha -->
             <property name="@alpha" type="float" minvalue="-1" maxvalue="1" default="0">
                 <tr lang="en">slope of roll-off, between -1 and 1. -1 corresponds to brown/red

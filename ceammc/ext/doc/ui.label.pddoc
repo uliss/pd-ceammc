@@ -38,12 +38,12 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_fontname.xml"/>
-            <xi:include href="props_fontsize.xml"/>
-            <xi:include href="props_fontslant.xml"/>
-            <xi:include href="props_fontweight.xml"/>
-            <xi:include href="props_ui_receive.xml"/>
-            <xi:include href="props_ui_receive.xml"/>
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @align -->
             <property name="@align" type="symbol" default="left" enum="left center right">
                 <tr lang="en">text align</tr>

@@ -18,9 +18,9 @@
             <since>0.9.2</since>
         </meta>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @brightness -->
             <property name="@brightness" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">brightness</tr>

@@ -17,16 +17,18 @@
             <since>0.9.4</since>
         </meta>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @attack -->
-            <property name="@attack" type="float" minvalue="0.3" maxvalue="100" default="0.5" units="millisecond">
+            <property name="@attack" type="float" minvalue="0.3" maxvalue="100" default="0.5"
+            units="millisecond">
                 <tr lang="en">attack time</tr>
                 <tr lang="ru" finished="false">Время атаки</tr>
             </property>
             <!-- @decay -->
-            <property name="@decay" type="float" minvalue="1" maxvalue="100" default="1" units="millisecond">
+            <property name="@decay" type="float" minvalue="1" maxvalue="100" default="1"
+            units="millisecond">
                 <tr lang="en">decay time</tr>
                 <tr lang="ru" finished="false">время распада</tr>
             </property>
@@ -45,7 +47,8 @@
                 выходной коэффициент усиления до 0,5, вы можете 0,5 как триггерное значение.</tr>
             </property>
             <!-- @release -->
-            <property name="@release" type="float" minvalue="10" maxvalue="1000" default="200" units="millisecond">
+            <property name="@release" type="float" minvalue="10" maxvalue="1000" default="200"
+            units="millisecond">
                 <tr lang="en">release time</tr>
                 <tr lang="ru" finished="false">Время освобождения</tr>
             </property>

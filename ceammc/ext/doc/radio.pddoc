@@ -32,7 +32,8 @@
         </arguments>
         <properties>
             <!-- @n -->
-            <property name="@n" type="int" minvalue="2" maxvalue="24" default="2" access="initonly">
+            <property name="@n" type="int" minvalue="2" maxvalue="24" default="2"
+            access="initonly">
                 <tr lang="en">number of outlets</tr>
                 <tr lang="ru" finished="false">количество торговых точек</tr>
             </property>

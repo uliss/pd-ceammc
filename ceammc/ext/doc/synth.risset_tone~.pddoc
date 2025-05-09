@@ -28,9 +28,9 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @centroid -->
             <property name="@centroid" type="float" minvalue="20" maxvalue="120" default="60">
                 <tr lang="en">main frequency. Units: MIDI note</tr>

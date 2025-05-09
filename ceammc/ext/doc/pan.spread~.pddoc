@@ -43,7 +43,8 @@
                 на количество входных каналов</tr>
             </property>
             <!-- @n -->
-            <property name="@n" type="int" minvalue="2" maxvalue="16" default="2" access="initonly">
+            <property name="@n" type="int" minvalue="2" maxvalue="16" default="2"
+            access="initonly">
                 <tr lang="en">number of input channels</tr>
                 <tr lang="ru" finished="false">Количество входных каналов</tr>
             </property>

@@ -51,7 +51,8 @@
                     <tr lang="ru" finished="false">устанавливает глобальное время опроса
                     курсора</tr>
                 </info>
-                <param name="T" type="float" units="millisecond" minvalue="10" maxvalue="1000" required="true">
+                <param name="T" type="float" units="millisecond" minvalue="10" maxvalue="1000"
+                required="true">
                     <tr lang="en">polling time</tr>
                     <tr lang="ru" finished="false">время опроса</tr>
                 </param>

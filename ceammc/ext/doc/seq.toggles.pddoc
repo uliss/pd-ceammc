@@ -130,7 +130,8 @@
                 <tr lang="ru" finished="false">Текущая повторная итерация</tr>
             </property>
             <!-- @t -->
-            <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000" units="millisecond">
+            <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"
+            units="millisecond">
                 <tr lang="en">time between beats. Unit values like 100ms, 240bpm or 60|4bpm also
                 can be used</tr>
                 <tr lang="ru" finished="false">Время между ударами. Значения единицы, такие как 100

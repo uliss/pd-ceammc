@@ -42,15 +42,15 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <xi:include href="props_background_color.xml"/>
-            <xi:include href="props_border_color.xml"/>
-            <xi:include href="props_fontname.xml"/>
-            <xi:include href="props_fontsize.xml"/>
-            <xi:include href="props_fontslant.xml"/>
-            <xi:include href="props_fontweight.xml"/>
-            <xi:include href="props_pinned.xml"/>
-            <xi:include href="props_ui_receive.xml"/>
-            <xi:include href="props_ui_send.xml"/>
+            <xi:include href="props_background_color.xml" />
+            <xi:include href="props_border_color.xml" />
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <!-- @angles -->
             <property name="@angles" type="list" default="">
                 <tr lang="en">channel angle positions</tr>
@@ -98,7 +98,8 @@
                 красных, зеленых, синих значений в диапазоне 0-1)</tr>
             </property>
             <!-- @rotation -->
-            <property name="@rotation" type="float" default="0" minvalue="-360" maxvalue="360" units="degree">
+            <property name="@rotation" type="float" default="0" minvalue="-360" maxvalue="360"
+            units="degree">
                 <tr lang="en">source channels rotation (anticlockwise)</tr>
                 <tr lang="ru" finished="false">Вращение каналов-источников (антиклоклюв)</tr>
             </property>
@@ -143,7 +144,7 @@
                 </in>
             </inlet>
         </inlets>
-        <outlets/>
+        <outlets />
         <example>
             <pdascii>
 <![CDATA[

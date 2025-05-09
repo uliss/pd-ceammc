@@ -19,9 +19,9 @@
             <since>0.6</since>
         </meta>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @cutoff -->
             <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="3000">
                 <tr lang="en">cutoff frequency</tr>
@@ -68,7 +68,7 @@
         <outlets>
             <outlet type="audio">
                 <out type="any">
-                    <tr lang="en"/>
+                    <tr lang="en" />
                 </out>
             </outlet>
         </outlets>

@@ -26,7 +26,8 @@
         </info>
         <properties>
             <!-- @freq -->
-            <property name="@freq" type="float" minvalue="0" maxvalue="480" default="220" units="hertz">
+            <property name="@freq" type="float" minvalue="0" maxvalue="480" default="220"
+            units="hertz">
                 <tr lang="en">maximum speed of whistles</tr>
                 <tr lang="ru" finished="false">Максимальная скорость свистка</tr>
             </property>

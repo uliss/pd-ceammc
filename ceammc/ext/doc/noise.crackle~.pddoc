@@ -33,11 +33,12 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @freq -->
-            <property name="@freq" type="float" minvalue="0" maxvalue="100" default="10" units="hertz">
+            <property name="@freq" type="float" minvalue="0" maxvalue="100" default="10"
+            units="hertz">
                 <tr lang="en">average frequency of noise impulses per second</tr>
                 <tr lang="ru" finished="false">Средняя частота шумовых импульсов в секунду</tr>
             </property>

@@ -34,7 +34,8 @@
                 <tr lang="ru" finished="false">декодировать дату</tr>
             </property>
             <!-- @volume -->
-            <property name="@volume" type="float" default="0" minvalue="-60" maxvalue="0" units="decibel" access="readonly">
+            <property name="@volume" type="float" default="0" minvalue="-60" maxvalue="0"
+            units="decibel" access="readonly">
                 <tr lang="en">input signal level</tr>
                 <tr lang="ru" finished="false">Уровень входного сигнала</tr>
             </property>

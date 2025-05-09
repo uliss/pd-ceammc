@@ -60,7 +60,8 @@
                 <tr lang="ru" finished="false">внутреннее состояние</tr>
             </property>
             <!-- @time -->
-            <property name="@time" type="float" minvalue="50" maxvalue="5000" default="500" units="millisecond">
+            <property name="@time" type="float" minvalue="50" maxvalue="5000" default="500"
+            units="millisecond">
                 <tr lang="en">time to reach target value</tr>
                 <tr lang="ru" finished="false">Время достижения целевого значения</tr>
             </property>

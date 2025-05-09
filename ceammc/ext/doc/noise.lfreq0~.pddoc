@@ -35,11 +35,12 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @freq -->
-            <property name="@freq" type="float" minvalue="0.5" maxvalue="22050" default="1000" units="hertz">
+            <property name="@freq" type="float" minvalue="0.5" maxvalue="22050" default="1000"
+            units="hertz">
                 <tr lang="en">noise generation freq. New random number every int(SR/freq)</tr>
                 <!-- old: генерация шума freq. Новое случайное число каждый
                 int (SR/freq) -->

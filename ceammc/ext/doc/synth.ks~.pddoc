@@ -17,9 +17,9 @@
             <since>0.6</since>
         </meta>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @cutoff -->
             <property name="@cutoff" type="float" minvalue="0.1" maxvalue="1" default="1">
                 <tr lang="en">cutoff coefficent (for low pass filter)</tr>

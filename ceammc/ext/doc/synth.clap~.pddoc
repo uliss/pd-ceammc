@@ -21,11 +21,12 @@
             </also>
         </meta>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @attack -->
-            <property name="@attack" type="float" minvalue="0" maxvalue="400" default="0" units="millisecond">
+            <property name="@attack" type="float" minvalue="0" maxvalue="400" default="0"
+            units="millisecond">
                 <tr lang="en">attack time</tr>
                 <tr lang="ru" finished="false">Время атаки</tr>
             </property>
@@ -44,12 +45,14 @@
                 выходной коэффициент усиления до 0,5, вы можете 0,5 как триггерное значение.</tr>
             </property>
             <!-- @release -->
-            <property name="@release" type="float" minvalue="0" maxvalue="4000" default="0" units="millisecond">
+            <property name="@release" type="float" minvalue="0" maxvalue="4000" default="0"
+            units="millisecond">
                 <tr lang="en">release time</tr>
                 <tr lang="ru" finished="false">Время освобождения</tr>
             </property>
             <!-- @tone -->
-            <property name="@tone" type="float" default="3500" minvalue="400" maxvalue="3500" units="hertz">
+            <property name="@tone" type="float" default="3500" minvalue="400" maxvalue="3500"
+            units="hertz">
                 <tr lang="en">bandpass filter cutoff frequency</tr>
                 <tr lang="ru" finished="false">частота отсечения полосового фильтра</tr>
             </property>

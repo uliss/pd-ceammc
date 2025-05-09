@@ -16,7 +16,7 @@
             <keywords>arturia midi sysex</keywords>
             <since>0.9.7</since>
         </meta>
-        <properties/>
+        <properties />
         <methods>
             <!-- backlight -->
             <method name="backlight">
@@ -84,7 +84,8 @@
                     <tr lang="ru" finished="false">Индекс пада. Если не указан установленный цвет
                     для всех прокладок</tr>
                 </param>
-                <param name="COLOR" type="atom" required="true" enum="0 1 2 3 4 5 6 7 black red green yellow blue magenta cyan white">
+                <param name="COLOR" type="atom" required="true"
+                enum="0 1 2 3 4 5 6 7 black red green yellow blue magenta cyan white">
                     <tr lang="en">color</tr>
                     <tr lang="ru" finished="false">цвет</tr>
                 </param>

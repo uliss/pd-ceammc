@@ -50,7 +50,8 @@
                 <tr lang="ru" finished="false">Текущий индекс выхода</tr>
             </property>
             <!-- @n -->
-            <property name="@n" type="int" default="2" minvalue="1" maxvalue="64" access="initonly">
+            <property name="@n" type="int" default="2" minvalue="1" maxvalue="64"
+            access="initonly">
                 <tr lang="en">number of outlets</tr>
                 <tr lang="ru" finished="false">количество торговых точек</tr>
             </property>

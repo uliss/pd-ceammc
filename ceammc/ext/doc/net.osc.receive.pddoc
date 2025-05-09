@@ -54,7 +54,7 @@
                 <tr lang="ru" finished="false">ожидаемая строка типа OSC</tr>
             </property>
         </properties>
-        <methods/>
+        <methods />
         <inlets>
             <inlet>
                 <in>

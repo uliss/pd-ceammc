@@ -37,7 +37,8 @@
                 <tr lang="ru" finished="false">ADSR 2 и 4 Target</tr>
             </property>
             <!-- @freq -->
-            <property name="@freq" type="float" minvalue="0" maxvalue="10000" default="220" units="hertz">
+            <property name="@freq" type="float" minvalue="0" maxvalue="10000" default="220"
+            units="hertz">
                 <tr lang="en">frequency</tr>
                 <tr lang="ru" finished="false">частота</tr>
             </property>

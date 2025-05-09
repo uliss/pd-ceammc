@@ -29,22 +29,22 @@
             <event type="wheel" editmode="false" keys="Shift">change precisely radius coord</event>
         </mouse>
         <properties>
-            <xi:include href="props_background_color.xml"/>
-            <xi:include href="props_border_color.xml"/>
-            <xi:include href="props_fontname.xml"/>
-            <xi:include href="props_fontsize.xml"/>
-            <xi:include href="props_fontslant.xml"/>
-            <xi:include href="props_fontweight.xml"/>
-            <xi:include href="props_label.xml"/>
-            <xi:include href="props_label_align.xml"/>
-            <xi:include href="props_label_inner.xml"/>
-            <xi:include href="props_label_margins.xml"/>
-            <xi:include href="props_label_side.xml"/>
-            <xi:include href="props_label_valign.xml"/>
-            <xi:include href="props_pinned.xml"/>
-            <xi:include href="props_ui_receive.xml"/>
-            <xi:include href="props_ui_send.xml"/>
-            <xi:include href="props_preset.xml"/>
+            <xi:include href="props_background_color.xml" />
+            <xi:include href="props_border_color.xml" />
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_label.xml" />
+            <xi:include href="props_label_align.xml" />
+            <xi:include href="props_label_inner.xml" />
+            <xi:include href="props_label_margins.xml" />
+            <xi:include href="props_label_side.xml" />
+            <xi:include href="props_label_valign.xml" />
+            <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @angle -->
             <property name="@angle" type="float" default="0">
                 <tr lang="en">angle</tr>

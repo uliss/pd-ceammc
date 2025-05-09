@@ -50,7 +50,8 @@
                 <tr lang="ru" finished="false">Исполнитель: @type lin</tr>
             </property>
             <!-- @n -->
-            <property name="@n" type="int" default="2" access="initonly" minvalue="2" maxvalue="16">
+            <property name="@n" type="int" default="2" access="initonly" minvalue="2"
+            maxvalue="16">
                 <tr lang="en">number of xfade inputs stereo pairs</tr>
                 <tr lang="ru" finished="false">Количество входов xfade стереопар</tr>
             </property>

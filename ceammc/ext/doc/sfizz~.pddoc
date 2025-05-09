@@ -71,7 +71,8 @@
                 #tri, #saw, #square, #noise</tr>
             </property>
             <!-- @volume -->
-            <property name="@volume" type="float" minvalue="-60" maxvalue="10" default="-7.35" units="decibel">
+            <property name="@volume" type="float" minvalue="-60" maxvalue="10" default="-7.35"
+            units="decibel">
                 <tr lang="en">output volume (same as @gain but in db)</tr>
                 <tr lang="ru" finished="false">Объем выпуска (та же, что и @gain, но в дб)</tr>
             </property>
@@ -83,7 +84,8 @@
                     <tr lang="en">aftertouch channel pressure</tr>
                     <tr lang="ru" finished="false">давление после касания канала</tr>
                 </info>
-                <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
                     <tr lang="en">MIDI channel, ignored</tr>
                     <tr lang="ru" finished="false">Канал MIDI, проигнорированный</tr>
                 </param>
@@ -98,7 +100,8 @@
                     <tr lang="en">pitchbend change</tr>
                     <tr lang="ru" finished="false">изменение питчэнда</tr>
                 </info>
-                <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
                     <tr lang="en">MIDI channel, ignored</tr>
                     <tr lang="ru" finished="false">Канал MIDI, проигнорированный</tr>
                 </param>
@@ -114,7 +117,8 @@
                     <tr lang="en">pitchbend change</tr>
                     <tr lang="ru" finished="false">изменение питчэнда</tr>
                 </info>
-                <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
                     <tr lang="en">MIDI channel, ignored</tr>
                     <tr lang="ru" finished="false">Канал MIDI, проигнорированный</tr>
                 </param>
@@ -129,7 +133,8 @@
                     <tr lang="en">pitchbend change</tr>
                     <tr lang="ru" finished="false">изменение питчэнда</tr>
                 </info>
-                <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
                     <tr lang="en">MIDI channel, ignored</tr>
                     <tr lang="ru" finished="false">Канал MIDI, проигнорированный</tr>
                 </param>
@@ -147,11 +152,13 @@
                     <tr lang="ru" finished="false">чувствительность к питчбенду (не поддерживается,
                     это функция заглушки)</tr>
                 </info>
-                <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
                     <tr lang="en">MIDI channel, ignored</tr>
                     <tr lang="ru" finished="false">Канал MIDI, проигнорированный</tr>
                 </param>
-                <param name="RANGE" type="int" units="semitone" minvalue="0" maxvalue="64" required="true">
+                <param name="RANGE" type="int" units="semitone" minvalue="0" maxvalue="64"
+                required="true">
                     <tr lang="en">semitones sensitivity</tr>
                     <tr lang="ru" finished="false">чувствительность полутонов</tr>
                 </param>
@@ -162,7 +169,8 @@
                     <tr lang="en">control change</tr>
                     <tr lang="ru" finished="false">изменение контроля</tr>
                 </info>
-                <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
                     <tr lang="en">MIDI channel, ignored</tr>
                     <tr lang="ru" finished="false">Канал MIDI, проигнорированный</tr>
                 </param>
@@ -227,7 +235,8 @@
                     <tr lang="en">play note</tr>
                     <tr lang="ru" finished="false">играть в игру</tr>
                 </info>
-                <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
                     <tr lang="en">MIDI channel, ignored</tr>
                     <tr lang="ru" finished="false">Канал MIDI, проигнорированный</tr>
                 </param>
@@ -320,7 +329,8 @@
                     <tr lang="en">polytouch key pressure</tr>
                     <tr lang="ru" finished="false">давление ключа политач</tr>
                 </info>
-                <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
                     <tr lang="en">MIDI channel, ignored</tr>
                     <tr lang="ru" finished="false">Канал MIDI, проигнорированный</tr>
                 </param>
@@ -339,7 +349,8 @@
                     <tr lang="en">program change</tr>
                     <tr lang="ru" finished="false">Изменение программы</tr>
                 </info>
-                <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
                     <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
                     <tr lang="ru" finished="false">Канал MIDI, если ноль или опущенный набор для
                     всех каналов</tr>

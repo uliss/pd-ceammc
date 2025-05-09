@@ -42,7 +42,7 @@
             </par>
         </info>
         <mouse>
-            <event type="left-click" editmode="false" empty="true"/>
+            <event type="left-click" editmode="false" empty="true" />
             <event type="drag" editmode="0">change the number</event>
             <event type="drag" editmode="0" keys="Cmd">change the number value fast</event>
             <event type="drag" editmode="0" keys="Shift">change the number value slowly</event>
@@ -55,17 +55,17 @@
             <event type="right-click" editmode="true">open the Pd popup menu</event>
         </mouse>
         <properties>
-            <xi:include href="props_active_color.xml"/>
-            <xi:include href="props_background_color.xml"/>
-            <xi:include href="props_border_color.xml"/>
-            <xi:include href="props_fontname.xml"/>
-            <xi:include href="props_fontsize.xml"/>
-            <xi:include href="props_fontslant.xml"/>
-            <xi:include href="props_fontweight.xml"/>
-            <xi:include href="props_pinned.xml"/>
-            <xi:include href="props_ui_receive.xml"/>
-            <xi:include href="props_ui_send.xml"/>
-            <xi:include href="props_preset.xml"/>
+            <xi:include href="props_active_color.xml" />
+            <xi:include href="props_background_color.xml" />
+            <xi:include href="props_border_color.xml" />
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @digits -->
             <property name="@digits" type="int" default="-1" minvalue="-1" maxvalue="9">
                 <tr lang="en">number of digits. If -1 - no fixed digits used</tr>

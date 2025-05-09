@@ -203,7 +203,8 @@
                     <tr lang="en">object name</tr>
                     <tr lang="ru" finished="false">имя объекта</tr>
                 </param>
-                <param name="SIZE" type="symbol" required="true" enum="light|demibold|normal|bold|black">
+                <param name="SIZE" type="symbol" required="true"
+                enum="light|demibold|normal|bold|black">
                     <tr lang="en">weight</tr>
                     <tr lang="ru" finished="false">вес</tr>
                 </param>

@@ -17,9 +17,9 @@
             <since>0.9.6</since>
         </meta>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @C1 -->
             <property name="@C1" type="float" default="5.5" minvalue="5.2" maxvalue="6">
                 <tr lang="en">C1 capacity in nF</tr>

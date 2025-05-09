@@ -17,7 +17,8 @@
             <since>0.9.5</since>
         </meta>
         <arguments>
-            <argument name="ROOT" type="atom" enum="A A# A## Ab Abb B B# B## Bb Bbb C C# C## Cb Cbb D D# D## Db Dbb E E# E## Eb Ebb F F# F## Fb Fbb G G# G## Gb Gbb">
+            <argument name="ROOT" type="atom"
+            enum="A A# A## Ab Abb B B# B## Bb Bbb C C# C## Cb Cbb D D# D## Db Dbb E E# E## Eb Ebb F F# F## Fb Fbb G G# G## Gb Gbb">
 
                 <tr lang="en">root key</tr>
                 <tr lang="ru" finished="false">Ключ</tr>
@@ -34,13 +35,15 @@
                 <tr lang="ru" finished="false">щелкать или пропускать входящие поля</tr>
             </property>
             <!-- @root -->
-            <property name="@root" type="atom" default="C" enum="Cbb Cb C C# C## Dbb Db D D# D## Ebb Eb E E# E## Fbb Fb F F# F## Gbb Gb G G# G## Abb Ab A A# A## Bbb Bb B B# B##">
+            <property name="@root" type="atom" default="C"
+            enum="Cbb Cb C C# C## Dbb Db D D# D## Ebb Eb E E# E## Fbb Fb F F# F## Gbb Gb G G# G## Abb Ab A A# A## Bbb Bb B B# B##">
 
                 <tr lang="en">root key</tr>
                 <tr lang="ru" finished="false">Ключ</tr>
             </property>
             <!-- @scale -->
-            <property name="@scale" type="symbol" default="chromatic" enum="ahirbhairav indian kurd diminished2 partch_u6 gong partch_o4 rast_desc nairuz hirajoshi hex_major6 farahfaza minor pelog partch_o3 partch_u1 partch_u3 yakah kumoi nikriz yakah_desc lydian whole ritusen jiharkah major_melodic augmented2 locrian mustar mixolydian nahawand partch_o1 ionian partch_u5 hex_dorian nawa_athar hex_aeolian minor_harmonic minor_melodic yu minor_melodic_desc minor_lydian zhi dorian sikah_desc marva hijaz partch_o6 major_pentatonic partch_u4 diminished shang partch_o5 whole_leading iraq major_harmonic bartok zamzam super_locrian chromatic24 ajam prometheus atharKurd chinese mahur augmented jiao egyptian suznak hijaz_kar saba kijaz_kar_kurd husseini huzam major_neapolitan shawq_afza hex_phrygian minor_pentatonic bastanikar hex_sus bayati minor_romanian major_locrian rast scriabin major murassah ushaq_mashri partch_u2 sikah partch_o2 nahawand_desc minor_hungarian iwato chromatic aeolian enigmatic hindu phrygian zanjaran karjighar spanish purvi minor_neapolitan bhairav hijaz_desc todi hex_major7">
+            <property name="@scale" type="symbol" default="chromatic"
+            enum="ahirbhairav indian kurd diminished2 partch_u6 gong partch_o4 rast_desc nairuz hirajoshi hex_major6 farahfaza minor pelog partch_o3 partch_u1 partch_u3 yakah kumoi nikriz yakah_desc lydian whole ritusen jiharkah major_melodic augmented2 locrian mustar mixolydian nahawand partch_o1 ionian partch_u5 hex_dorian nawa_athar hex_aeolian minor_harmonic minor_melodic yu minor_melodic_desc minor_lydian zhi dorian sikah_desc marva hijaz partch_o6 major_pentatonic partch_u4 diminished shang partch_o5 whole_leading iraq major_harmonic bartok zamzam super_locrian chromatic24 ajam prometheus atharKurd chinese mahur augmented jiao egyptian suznak hijaz_kar saba kijaz_kar_kurd husseini huzam major_neapolitan shawq_afza hex_phrygian minor_pentatonic bastanikar hex_sus bayati minor_romanian major_locrian rast scriabin major murassah ushaq_mashri partch_u2 sikah partch_o2 nahawand_desc minor_hungarian iwato chromatic aeolian enigmatic hindu phrygian zanjaran karjighar spanish purvi minor_neapolitan bhairav hijaz_desc todi hex_major7">
 
                 <tr lang="en">modus scale</tr>
                 <tr lang="ru" finished="false">шкала модусов</tr>

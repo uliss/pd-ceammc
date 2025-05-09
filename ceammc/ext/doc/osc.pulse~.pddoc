@@ -30,16 +30,17 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @duty -->
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">
                 <tr lang="en">duty cycle</tr>
                 <tr lang="ru" finished="false">дежурный цикл</tr>
             </property>
             <!-- @freq -->
-            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050" units="hertz">
+            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050"
+            units="hertz">
                 <tr lang="en">frequency</tr>
                 <tr lang="ru" finished="false">частота</tr>
             </property>

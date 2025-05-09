@@ -51,7 +51,7 @@
                 <tr lang="ru" finished="false">начальное значение y, по умолчанию 1.2</tr>
             </argument>
         </arguments>
-        <properties/>
+        <properties />
         <methods>
             <!-- reset -->
             <method name="reset">

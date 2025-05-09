@@ -46,7 +46,8 @@
                 <tr lang="ru" finished="false">порт назначения</tr>
             </property>
             <!-- @timeout -->
-            <property name="@timeout" type="int" default="1" minvalue="1" maxvalue="10" units="second">
+            <property name="@timeout" type="int" default="1" minvalue="1" maxvalue="10"
+            units="second">
                 <tr lang="en">TCP connection timeout</tr>
                 <tr lang="ru" finished="false">Время подключения TCP</tr>
             </property>

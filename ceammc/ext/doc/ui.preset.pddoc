@@ -54,15 +54,15 @@
             actions</event>
         </mouse>
         <properties>
-            <xi:include href="props_active_color.xml"/>
-            <xi:include href="props_background_color.xml"/>
-            <xi:include href="props_border_color.xml"/>
-            <xi:include href="props_fontname.xml"/>
-            <xi:include href="props_fontsize.xml"/>
-            <xi:include href="props_fontslant.xml"/>
-            <xi:include href="props_fontweight.xml"/>
-            <xi:include href="props_pinned.xml"/>
-            <xi:include href="props_ui_receive.xml"/>
+            <xi:include href="props_active_color.xml" />
+            <xi:include href="props_background_color.xml" />
+            <xi:include href="props_border_color.xml" />
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @current -->
             <property name="@current" type="int" default="-1" access="readonly">
                 <tr lang="en">current preset index</tr>
@@ -190,7 +190,7 @@
             </method>
         </methods>
         <inlets>
-            <inlet/>
+            <inlet />
         </inlets>
         <example>
             <pdascii>

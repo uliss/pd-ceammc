@@ -30,14 +30,14 @@
             <event type="right-click" editmode="true">open the Pd popup menu</event>
         </mouse>
         <properties>
-            <xi:include href="props_background_color.xml"/>
-            <xi:include href="props_border_color.xml"/>
-            <xi:include href="props_fontname.xml"/>
-            <xi:include href="props_fontsize.xml"/>
-            <xi:include href="props_fontslant.xml"/>
-            <xi:include href="props_fontweight.xml"/>
-            <xi:include href="props_pinned.xml"/>
-            <xi:include href="props_ui_receive.xml"/>
+            <xi:include href="props_background_color.xml" />
+            <xi:include href="props_border_color.xml" />
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @mode -->
             <property name="@mode" type="symbol" default="lines" enum="lines bars">
                 <tr lang="en">draw mode</tr>
@@ -181,7 +181,7 @@
                 </in>
             </inlet>
         </inlets>
-        <outlets/>
+        <outlets />
         <example>
             <pdascii>
 <![CDATA[

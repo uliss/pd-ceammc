@@ -35,11 +35,12 @@
             </argument>
         </arguments>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @freq -->
-            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050" units="hertz">
+            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050"
+            units="hertz">
                 <tr lang="en">frequency</tr>
                 <tr lang="ru" finished="false">частота</tr>
             </property>

@@ -36,7 +36,8 @@
                 grain segments.</tr>
             </property>
             <!-- @gramp -->
-            <property name="@gramp" type="int" minvalue="1" maxvalue="100" default="50" units="percent">
+            <property name="@gramp" type="int" minvalue="1" maxvalue="100" default="50"
+            units="percent">
                 <tr lang="en">grain ramp. For values of @gramp greater than zero, a linear envelope
                 will be applied to each grain. If @gramp = 100, the resultant grain "window" is
                 triangular while @gramp = 50 produces a trapezoidal window.</tr>
@@ -90,7 +91,7 @@
         <outlets>
             <outlet type="audio">
                 <out type="any">
-                    <tr lang="en"/>
+                    <tr lang="en" />
                 </out>
             </outlet>
         </outlets>

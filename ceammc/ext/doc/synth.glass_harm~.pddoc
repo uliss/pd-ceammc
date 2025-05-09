@@ -18,9 +18,9 @@
             <since>0.9.2</since>
         </meta>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @bow_press -->
             <property name="@bow_press" type="float" minvalue="0" maxvalue="1" default="0.2">
                 <tr lang="en">bow pressure on the instrument</tr>
@@ -47,7 +47,8 @@
                 <tr lang="ru" finished="false">постоянная интеграция</tr>
             </property>
             <!-- @modfreq -->
-            <property name="@modfreq" type="float" minvalue="20" maxvalue="1000" default="220" units="hertz">
+            <property name="@modfreq" type="float" minvalue="20" maxvalue="1000" default="220"
+            units="hertz">
                 <tr lang="en">frequency of the sine wave for the modulation of theta (works if
                 @modetype=3)</tr>
                 <tr lang="ru" finished="false">Частота синусоидальной волны для модуляции теты

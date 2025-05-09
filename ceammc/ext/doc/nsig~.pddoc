@@ -34,7 +34,8 @@
         </arguments>
         <properties>
             <!-- @n -->
-            <property name="@n" type="int" minvalue="1" default="1" maxvalue="12" access="initonly">
+            <property name="@n" type="int" minvalue="1" default="1" maxvalue="12"
+            access="initonly">
                 <tr lang="en">number of inputs/outputs</tr>
                 <tr lang="ru" finished="false">Количество входов/выходов</tr>
             </property>

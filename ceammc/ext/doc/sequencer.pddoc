@@ -74,7 +74,8 @@
                 <tr lang="ru" finished="false">Текущая повторная итерация</tr>
             </property>
             <!-- @t -->
-            <property name="@t" type="float" default="20" minvalue="1" maxvalue="20000" units="millisecond">
+            <property name="@t" type="float" default="20" minvalue="1" maxvalue="20000"
+            units="millisecond">
                 <tr lang="en">time interval between bangs. You could also use units values like
                 100ms or 120bpm.</tr>
                 <tr lang="ru" finished="false">временной интервал между взрывами. Вы также можете

@@ -60,7 +60,8 @@
                     <tr lang="ru" finished="false">изящно тесная связь с указанным
                     клиентом(ами)</tr>
                 </info>
-                <param name="TARGET" type="symbol" required="true" enum="* all first last id == != except">
+                <param name="TARGET" type="symbol" required="true"
+                enum="* all first last id == != except">
                     <tr lang="en">client selector. If '*' or 'all' - send message to all clients.
                     If 'first' - send message to first connected client. If 'last' - send message
                     to last connected client. If 'id' or '==' - send message to client with
@@ -119,7 +120,8 @@
                     <tr lang="ru" finished="false">отправить ping-сообщение указанному
                     клиенту(ам)</tr>
                 </info>
-                <param name="TARGET" type="symbol" required="true" enum="* all first last id == != except">
+                <param name="TARGET" type="symbol" required="true"
+                enum="* all first last id == != except">
                     <tr lang="en">client selector. If '*' or 'all' - send message to all clients.
                     If 'first' - send message to first connected client. If 'last' - send message
                     to last connected client. If 'id' or '==' - send message to client with
@@ -160,7 +162,8 @@
                     <tr lang="ru" finished="false">отправка текстового сообщения указанному
                     клиенту(ам)</tr>
                 </info>
-                <param name="TARGET" type="symbol" required="true" enum="* all first last id == != except">
+                <param name="TARGET" type="symbol" required="true"
+                enum="* all first last id == != except">
                     <tr lang="en">client selector. If '*' or 'all' - send message to all clients.
                     If 'first' - send message to first connected client. If 'last' - send message
                     to last connected client. If 'id' or '==' - send message to client with
@@ -201,7 +204,8 @@
                     <tr lang="ru" finished="false">отправлять в виде бинарных байтов в указанный
                     клиент(ы)</tr>
                 </info>
-                <param name="TARGET" type="symbol" required="true" enum="* all first last id == != except">
+                <param name="TARGET" type="symbol" required="true"
+                enum="* all first last id == != except">
                     <tr lang="en">client selector. If '*' or 'all' - send message to all clients.
                     If 'first' - send message to first connected client. If 'last' - send message
                     to last connected client. If 'id' or '==' - send message to client with
@@ -242,7 +246,8 @@
                     <tr lang="ru" finished="false">Отправить как закодированный json в указанный
                     клиент(ы)</tr>
                 </info>
-                <param name="TARGET" type="symbol" required="true" enum="* all first last id == != except">
+                <param name="TARGET" type="symbol" required="true"
+                enum="* all first last id == != except">
                     <tr lang="en">client selector. If '*' or 'all' - send message to all clients.
                     If 'first' - send message to first connected client. If 'last' - send message
                     to last connected client. If 'id' or '==' - send message to client with
@@ -280,7 +285,8 @@
                     <tr lang="en">abort connection with specified client(s)</tr>
                     <tr lang="ru" finished="false">Прервать связь с указанным клиентом(ами)</tr>
                 </info>
-                <param name="TARGET" type="symbol" required="true" enum="* all first last id == != except">
+                <param name="TARGET" type="symbol" required="true"
+                enum="* all first last id == != except">
                     <tr lang="en">client selector. If '*' or 'all' - send message to all clients.
                     If 'first' - send message to first connected client. If 'last' - send message
                     to last connected client. If 'id' or '==' - send message to client with

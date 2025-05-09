@@ -50,7 +50,8 @@
                 <tr lang="ru" finished="false">Смещение канала DMX</tr>
             </property>
             <!-- @rate -->
-            <property name="@rate" type="float" units="hertz" default="44" minvalue="1" maxvalue="100">
+            <property name="@rate" type="float" units="hertz" default="44" minvalue="1"
+            maxvalue="100">
                 <tr lang="en">send framerate</tr>
                 <tr lang="ru" finished="false">посылать кадры</tr>
             </property>

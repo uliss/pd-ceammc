@@ -17,9 +17,9 @@
             <since>0.6</since>
         </meta>
         <properties>
-            <xi:include href="props_osc.xml"/>
-            <xi:include href="props_id.xml"/>
-            <xi:include href="props_active.xml"/>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @freq -->
             <property name="@freq" type="float" units="hertz" default="130.8128">
                 <tr lang="en">frequency</tr>
@@ -69,7 +69,7 @@
         <outlets>
             <outlet type="audio">
                 <out type="any">
-                    <tr lang="en"/>
+                    <tr lang="en" />
                 </out>
             </outlet>
         </outlets>
