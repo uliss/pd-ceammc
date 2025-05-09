@@ -141,31 +141,31 @@
 |
 [s \#ctlin]
 
-/*@bind cc[3]>64*/    /*@bind cc[3]<65*/
+/*@bind cc[3]>64*/        /*@bind cc[3]<65*/
 
-[ui.bang #a]          [ui.bang #b]
-
-
-
-/*@bind key=32*/      /*@bind key[ctl]=32*/
-
-[ui.bang #c]          [ui.bang #d]
+[ui.bang #a]              [ui.bang #b]
 
 
 
-/*@bind key[alt]=32*/ /*@bind key[shift]=32*/
+/*@bind keycode=32*/      /*@bind keycode[ctl]=32*/
 
-[ui.bang #e]          [ui.bang #f]
+[ui.bang #c]              [ui.bang #d]
+
+
+
+/*@bind keycode[alt]=32*/ /*@bind keycode[shift]=32*/
+
+[ui.bang #e]              [ui.bang #f]
 
 
 
 
 #a @size 40 40 @bind cc\[3\]>64
-#b @size 40 40 @bind cc\[3\]&lt;65
-#c @size 40 40 @bind key=32
-#d @size 40 40 @bind key\[ctl\]=32
-#e @size 40 40 @bind key\[alt\]=32
-#f @size 40 40 @bind key\[shift\]=32
+#b @size 40 40 @bind cc\[3\]<65
+#c @size 40 40 @bind keycode=32
+#d @size 40 40 @bind keycode\[ctl\]=32
+#e @size 40 40 @bind keycode\[alt\]=32
+#f @size 40 40 @bind keycode\[shift\]=32
 ]]>
             </pdascii>
         </example>
