@@ -22,17 +22,16 @@
         <inlets>
             <inlet>
                 <in>
-                    <tr lang="en">input flow</tr>
-                    <tr lang="ru" finished="false">входной поток</tr>
+                    <tr lang="en">input message flow</tr>
+                    <tr lang="ru">входной поток сообщений</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
                 <out type="any">
-                    <tr lang="en">outputs flow with realized dollar atoms</tr>
-                    <tr lang="ru" finished="false">Выходы текут с реализованными атомами
-                    доллара</tr>
+                    <tr lang="en">outputs messages with substituted $-values</tr>
+                    <tr lang="ru">выводит сообщения с подставленными $-значениями</tr>
                 </out>
             </outlet>
         </outlets>

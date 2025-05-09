@@ -21,37 +21,35 @@
         </meta>
         <info>
             <par>
-                <tr lang="en">Output incoming message specified number of times</tr>
-                <!-- old: Выходное входящее сообщение указанное количество
-                раз -->
-                <tr lang="ru" finished="false">Выходное входящее сообщение указанное количество
+                <tr lang="en">outputs the incoming message the specified number of times</tr>
+                <tr lang="ru">выводит входящее сообщение указанное количество
                 раз</tr>
             </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="0">
                 <tr lang="en">number of repeats</tr>
-                <tr lang="ru" finished="false">Количество повторений</tr>
+                <tr lang="ru">количество повторений</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @n -->
             <property name="@n" type="int" minvalue="0" default="2">
                 <tr lang="en">number of repeats</tr>
-                <tr lang="ru" finished="false">Количество повторений</tr>
+                <tr lang="ru">количество повторений</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
-                <in>
+                <in on="any">
                     <tr lang="en">incoming message</tr>
-                    <tr lang="ru" finished="false">Входящее сообщение</tr>
+                    <tr lang="ru">входящее сообщение</tr>
                 </in>
             </inlet>
             <inlet>
                 <in on="int" minvalue="0">
                     <tr lang="en">set number of repeats</tr>
-                    <tr lang="ru" finished="false">количество повторений</tr>
+                    <tr lang="ru">установить количество повторений</tr>
                 </in>
             </inlet>
         </inlets>
@@ -59,7 +57,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
+                    <tr lang="ru">выход</tr>
                 </out>
             </outlet>
         </outlets>

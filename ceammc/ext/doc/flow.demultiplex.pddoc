@@ -24,44 +24,42 @@
         </meta>
         <info>
             <par>
-                <tr lang="en">Note: you can get/set object properties only via prop.set/prop.get
+                <tr lang="en">Note: you can get/set object properties only via [prop.set] and [prop.get]
                 objects</tr>
-                <!-- old: Примечание: Вы можете получить/установить свойства
-                объекта только через prop.set/prop.get объекты -->
-                <tr lang="ru" finished="false">Примечание: Вы можете получить/установить свойства
-                объекта только через prop.set/prop.get объекты</tr>
+                <tr lang="ru">Примечание: вы можете получить/установить свойства
+                объекта только через объекты [prop.set] и [prop.get]</tr>
             </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="24">
                 <tr lang="en">number of outlets</tr>
-                <tr lang="ru" finished="false">количество торговых точек</tr>
+                <tr lang="ru">количество выходов</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @index -->
             <property name="@index" type="int" minvalue="0" default="0">
-                <tr lang="en">current demultiplexer output index</tr>
-                <tr lang="ru" finished="false">Текущий выходной индекс демультиплексора</tr>
+                <tr lang="en">current output index</tr>
+                <tr lang="ru">текущий индекс выхода</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="2" default="2" maxvalue="24"
             access="initonly">
                 <tr lang="en">number of outlets</tr>
-                <tr lang="ru" finished="false">количество торговых точек</tr>
+                <tr lang="ru">количество выходов</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <in on="any">
-                    <tr lang="en">input flow inlet</tr>
-                    <tr lang="ru" finished="false">входной входной поток</tr>
+                    <tr lang="en">input message flow</tr>
+                    <tr lang="ru">входной поток сообщений</tr>
                 </in>
             </inlet>
             <inlet>
                 <in on="int">
-                    <tr lang="en">output selector</tr>
-                    <tr lang="ru" finished="false">выходной селектор</tr>
+                    <tr lang="en">sets the current outlet</tr>
+                    <tr lang="ru">устанавливает текущий выход</tr>
                 </in>
             </inlet>
         </inlets>
@@ -69,13 +67,13 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">demultiplexer first output</tr>
-                    <tr lang="ru" finished="false">демультиплексор первый выход</tr>
+                    <tr lang="ru">первый выход демультиплексора</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">demultiplexer N-th output</tr>
-                    <tr lang="ru" finished="false">демультиплексор N-й выход</tr>
+                    <tr lang="ru">N-й выход демультиплексора</tr>
                 </out>
             </outlet>
         </outlets>

@@ -22,35 +22,35 @@
         </meta>
         <arguments>
             <argument name="BY" type="int" minvalue="1">
-                <tr lang="en">group by this size</tr>
-                <tr lang="ru" finished="false">группы такого размера</tr>
+                <tr lang="en">group size (the length of output list)</tr>
+                <tr lang="ru">размер группы (длина выходного списка)</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @by -->
             <property name="@by" type="int" minvalue="1" default="1">
-                <tr lang="en">group size</tr>
-                <tr lang="ru" finished="false">размер группы</tr>
+                <tr lang="en">group size (the length of output list)</tr>
+                <tr lang="ru">размер группы (длина выходного списка)</tr>
             </property>
             <!-- @free -->
             <property name="@free" type="int" access="readonly" default="0" minvalue="0">
-                <tr lang="en">free space left in group</tr>
-                <tr lang="ru" finished="false">Свободное пространство в группе</tr>
+                <tr lang="en">free space that is left in the current group</tr>
+                <tr lang="ru">cвободное пространство, которое осталось в текущей группе</tr>
             </property>
         </properties>
         <methods>
             <!-- clear -->
             <method name="clear">
                 <info>
-                    <tr lang="en">clear without output</tr>
-                    <tr lang="ru" finished="false">Чистый без выхода</tr>
+                    <tr lang="en">clear the current group without output</tr>
+                    <tr lang="ru">очистить текущую группу без вывода</tr>
                 </info>
             </method>
             <!-- flush -->
             <method name="flush">
                 <info>
-                    <tr lang="en">outputs and clears group</tr>
-                    <tr lang="ru" finished="false">выходы и клиринговая группа</tr>
+                    <tr lang="en">outputs and clears the current group</tr>
+                    <tr lang="ru">вывести и очистить текущую группу</tr>
                 </info>
             </method>
         </methods>
@@ -88,15 +88,15 @@
             <inlet>
                 <in on="int">
                     <tr lang="en">set group size</tr>
-                    <tr lang="ru" finished="false">установленный размер группы</tr>
+                    <tr lang="ru">установить размер группы</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">output list of grouped atoms</tr>
-                    <tr lang="ru" finished="false">Список выходных группированных атомов</tr>
+                <out type="list">
+                    <tr lang="en">regrouped input elements</tr>
+                    <tr lang="ru">перегруппированные входные элементы</tr>
                 </out>
             </outlet>
         </outlets>

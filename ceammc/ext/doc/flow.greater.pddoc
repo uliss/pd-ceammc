@@ -25,64 +25,55 @@
         <info>
             <par>
                 <tr lang="en">Numbers that are *less* or *equal* then last argument are passed to
-                the N-th inlet</tr>
-                <!-- old: Числа, которые *меньше* или *равны*, затем последний
-                аргумент передается на вход N-го числа. -->
-                <tr lang="ru" finished="false">Числа, которые *меньше* или *равны*, затем последний
-                аргумент передается на вход N-го числа.</tr>
+                the N-th outlet</tr>
+                <tr lang="ru">Числа, которые *меньше или равны* последнему аргументу выводятся на выход N+1.</tr>
             </par>
         </info>
         <arguments>
             <argument name="VALUES" type="list">
-                <tr lang="en">compare values: list of floats in descending order</tr>
-                <!-- old: Сравнительные значения: список поплавков в
-                нисходящем порядке -->
-                <tr lang="ru" finished="false">Сравнительные значения: список поплавков в
-                нисходящем порядке</tr>
+                <tr lang="en">values for comparison: a list of numbers in decreasing order</tr>
+                <tr lang="ru">значения для сравнения: список чисел в порядке уменьшения</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @values -->
             <property name="@values" type="list" access="initonly" default="">
-                <tr lang="en">compare values: list of floats in descending order</tr>
-                <!-- old: Сравнительные значения: список поплавков в
-                нисходящем порядке -->
-                <tr lang="ru" finished="false">Сравнительные значения: список поплавков в
-                нисходящем порядке</tr>
+                <tr lang="en">values for comparison: a list of numbers in decreasing order</tr>
+                <tr lang="ru">значения для сравнения: список чисел в порядке уменьшения</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <in on="float">
-                    <tr lang="en">input flow</tr>
-                    <tr lang="ru" finished="false">входной поток</tr>
+                    <tr lang="en">input numeric flow</tr>
+                    <tr lang="ru">входной числовой поток</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets dynamic="true">
             <outlet number="1">
-                <out type="any">
+                <out type="float">
                     <tr lang="en">numbers that are greater then 1st argument</tr>
-                    <tr lang="ru" finished="false">Число, которое больше 1-го аргумента</tr>
+                    <tr lang="ru">числа, которые больше первого аргумента</tr>
                 </out>
             </outlet>
             <outlet number="...">
-                <out type="any">
+                <out type="float">
                     <tr lang="en">numbers that are greater than ... argument</tr>
-                    <tr lang="ru" finished="false">Цифры, которые превосходят... аргументы</tr>
+                    <tr lang="ru">числа, которые больше аргумента ...</tr>
                 </out>
             </outlet>
             <outlet number="n">
-                <out type="any">
+                <out type="float">
                     <tr lang="en">numbers that are greater than last argument</tr>
-                    <tr lang="ru" finished="false">Цифры, которые больше, чем последний
+                    <tr lang="ru">числа, которые больше, чем последний
                     аргумент</tr>
                 </out>
             </outlet>
             <outlet number="n+1">
-                <out type="any">
+                <out type="float">
                     <tr lang="en">numbers that are less or equal than last argument</tr>
-                    <tr lang="ru" finished="false">Число, которое меньше или равно последнему
+                    <tr lang="ru">числа, которые меньше или равны последнему
                     аргументу</tr>
                 </out>
             </outlet>

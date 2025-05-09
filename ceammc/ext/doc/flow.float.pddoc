@@ -22,32 +22,32 @@
         <inlets>
             <inlet>
                 <in on="float">
-                    <tr lang="en">passed float</tr>
-                    <tr lang="ru" finished="false">пропущенный</tr>
+                    <tr lang="en">passes numerical values</tr>
+                    <tr lang="ru">пропускает числовые значения</tr>
                 </in>
                 <in on="bang">
                     <tr lang="en">ignored</tr>
-                    <tr lang="ru" finished="false">игнорируемый</tr>
+                    <tr lang="ru">игнорируется</tr>
                 </in>
                 <in on="symbol">
                     <tr lang="en">ignored</tr>
-                    <tr lang="ru" finished="false">игнорируемый</tr>
+                    <tr lang="ru">игнорируется</tr>
                 </in>
                 <in on="list">
                     <tr lang="en">ignored</tr>
-                    <tr lang="ru" finished="false">игнорируемый</tr>
+                    <tr lang="ru">игнорируется</tr>
                 </in>
                 <in on="any">
                     <tr lang="en">ignored</tr>
-                    <tr lang="ru" finished="false">игнорируемый</tr>
+                    <tr lang="ru">игнорируется</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">passed float</tr>
-                    <tr lang="ru" finished="false">пропущенный</tr>
+                <out type="float">
+                    <tr lang="en">passed numerical values</tr>
+                    <tr lang="ru">пропущенные числовые значения</tr>
                 </out>
             </outlet>
         </outlets>

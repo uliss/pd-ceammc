@@ -7,8 +7,8 @@
 #X obj 525 11 flow.demux;
 #X obj 623 11 flow.demultiplex;
 #X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Note: you can get/set object properties only via prop.set/prop.get
-objects;
+#X text 215 83 Примечание: вы можете получить/установить свойства объекта
+только через объекты [prop.set] и [prop.get];
 #X floatatom 50 176 5 0 0 0 - - -;
 #X obj 222 205 ui.radio @nitems 4;
 #X obj 50 248 flow.demultiplex 4;
@@ -24,43 +24,44 @@ objects;
 #X text 110 349 1\.;
 #X text 150 349 int;
 #X obj 246 350 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 349 N: number of outlets. Тип: int. Диапазон: 2…24;
+#X text 245 349 N: количество выходов. Тип: int. Диапазон: 2…24;
 #X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 384 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 387 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 419 @n;
-#X text 245 419 (при инициализации) Получить/Установить number of outlets.
-Тип: int. Значение по умолчанию: 2\. Диапазон: 2\...24\.;
+#X text 245 419 (при инициализации) Получить/Установить количество
+выходов. Тип: int. Значение по умолчанию: 2\. Диапазон: 2\...24\.;
 #X msg 110 461 @index;
-#X text 245 461 Получить/Установить current demultiplexer output index.
-Тип: int. Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X text 245 461 Получить/Установить текущий индекс выхода. Тип: int.
+Значение по умолчанию: 0\. Минимальное значение: 0\.;
 #X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 518 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 110 519 1\.;
-#X text 245 519 input flow inlet.;
-#X text 110 539 2\.;
-#X text 150 539 int:;
-#X text 245 539 output selector.;
-#X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 574 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 150 519 any:;
+#X text 245 519 входной поток сообщений.;
+#X text 110 544 2\.;
+#X text 150 544 int:;
+#X text 245 544 устанавливает текущий выход.;
+#X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 584 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 575 1\.;
-#X text 245 575 demultiplexer first output.;
-#X text 110 595 n.;
-#X text 245 595 demultiplexer N-th output.;
+#X text 110 585 1\.;
+#X text 245 585 первый выход демультиплексора.;
+#X text 110 605 n.;
+#X text 245 605 N-й выход демультиплексора.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 645 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 648 библиотека: ceammc v0.9.8;
-#X text 517 660 смотрите также:;
-#X obj 638 660 flow.multiplex;
-#N canvas 10 667 400 290 info 0;
+#X obj 1 655 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 658 библиотека: ceammc v0.9.8;
+#X text 517 670 смотрите также:;
+#X obj 638 670 flow.multiplex;
+#N canvas 10 677 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -84,7 +85,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 667 pd info;
+#X restore 10 677 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 9 1;
 #X connect 9 0 10 0;
