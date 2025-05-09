@@ -58,6 +58,8 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">output zero crossing count/freq/rate</tr>
+                    <tr lang="ru" finished="false">выходной нулевой коэффициент пересечения /
+                    freq/rate</tr>
                 </out>
             </outlet>
         </outlets>

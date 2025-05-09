@@ -174,12 +174,16 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">bang if onset detected</tr>
+                    <tr lang="ru" finished="false">Bang, если обнаружено начало</tr>
                 </out>
             </outlet>
             <outlet>
                 <out type="any">
                     <tr lang="en">float: time of the latest onset detected in milliseconds from
                     starting of measuring. You can reset start time with 'reset' message</tr>
+                    <tr lang="ru" finished="false">Поплавок: время последнего наступления,
+                    обнаруженное в миллисекундах от начала измерения. Вы можете перезагрузить время
+                    начала с сообщением «перезагрузить»</tr>
                 </out>
             </outlet>
         </outlets>

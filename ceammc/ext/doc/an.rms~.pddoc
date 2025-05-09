@@ -54,6 +54,7 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">rms level</tr>
+                    <tr lang="ru" finished="false">уровень rms</tr>
                 </out>
             </outlet>
         </outlets>
