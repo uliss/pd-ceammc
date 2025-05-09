@@ -172,9 +172,6 @@
                 <out type="any">
                     <tr lang="en">output list of detected onsets</tr>
                 </out>
-                <out type="any">
-                    <tr lang="en"></tr>
-                </out>
             </outlet>
         </outlets>
         <example>
