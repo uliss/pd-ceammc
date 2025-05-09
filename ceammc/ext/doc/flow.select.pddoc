@@ -25,25 +25,33 @@
         <info>
             <par>
                 <tr lang="en">Match syntax:</tr>
+                <tr lang="ru" finished="false">Синтаксис матча:</tr>
             </par>
             <par>
                 <tr lang="en">common: symbols or floats</tr>
+                <tr lang="ru" finished="false">Общие: символы или поплавки</tr>
             </par>
             <par>
                 <tr lang="en">compare: &gt;NUM, &gt;=NUM, &lt;NUM, &lt;=NUM</tr>
+                <tr lang="ru" finished="false">сравните: &gt;NUM, &gt;=NUM, &lt;NUM, &lt;=NUM</tr>
             </par>
             <par>
                 <tr lang="en">intervals: FROM..TO, or [FROM..TO] - closed interval, [FROM..TO) or
                 (FROM..TO] semi-open interval, (FROM..TO) open interval, NUM~EPSILON - value in
                 NUM+-EPSILON range</tr>
+                <tr lang="ru" finished="false">интервалы: FROM..TO, или [FROM..TO] - закрытый
+                интервал, [FROM..TO] или (FROM..TO) полуоткрытый интервал, (FROM..TO) открытый
+                интервал, NUM~EPSILON - значение в диапазоне NUM+-EPSILON</tr>
             </par>
             <par>
                 <tr lang="en">set: A|B|C - match to A or B or C</tr>
+                <tr lang="ru" finished="false">сет: A | B | C - соответствие A или B или C</tr>
             </par>
         </info>
         <arguments>
             <argument name="ARGS" type="list">
                 <tr lang="en">flow match expressions</tr>
+                <tr lang="ru" finished="false">выражения соответствия потока</tr>
             </argument>
         </arguments>
         <properties>
@@ -52,37 +60,63 @@
                 <tr lang="en">value output mode. If false (by default) acts like vanilla select:
                 output bang on match or full unmatched message to last outlet. If true always
                 outputs full matched message to corresponding outlet.</tr>
+                <tr lang="ru" finished="false">Режим вывода стоимости. Если ложное (по умолчанию)
+                действует как ваниль, выберите: выходной удар по совпадению или полное
+                непревзойденное сообщение для последней розетки. Если истинное всегда выводит
+                полностью совпадающее сообщение в соответствующую розетку.</tr>
             </property>
             <!-- @msg -->
             <property name="@msg" type="list" default="">
                 <tr lang="en">output this message on match, instead of bang</tr>
+                <tr lang="ru" finished="false">Отправьте это сообщение на матч, а не на взрыв</tr>
             </property>
             <!-- @v -->
             <property name="@v" type="alias">
                 <tr lang="en">alias to @keep_value 1</tr>
+                <tr lang="ru" finished="false">Источник: @keep_value 1 1</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">check float for matches</tr>
+                    <tr lang="ru" finished="false">Проверить поплавок для матчей</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">check symbol for matches</tr>
+                    <tr lang="ru" finished="false">Проверьте символ для матчей</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">check first list element for matches</tr>
+                    <tr lang="ru" finished="false">Проверьте первый элемент списка для матчей</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">check message selector for matches</tr>
+                    <tr lang="ru" finished="false">Проверить селектор сообщений для матчей</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1">first matched output: bang or full message</outlet>
-            <outlet number="...">... matched output: bang or full message</outlet>
-            <outlet number="n">nth matched output: bang or full message</outlet>
-            <outlet number="n+1">unmatched message</outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">first matched output: bang or full message</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">... matched output: bang or full message</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">nth matched output: bang or full message</tr>
+                </out>
+            </outlet>
+            <outlet number="n+1">
+                <out type="any">
+                    <tr lang="en">unmatched message</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

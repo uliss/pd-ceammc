@@ -19,32 +19,39 @@
         <arguments>
             <argument name="FILENAME" type="symbol">
                 <tr lang="en">initial MIDI filename</tr>
+                <tr lang="ru" finished="false">Оригинальное название MIDI filename</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @filename -->
             <property name="@filename" type="symbol" default="">
                 <tr lang="en">current filename</tr>
+                <tr lang="ru" finished="false">Текущее имя файла</tr>
             </property>
             <!-- @length_beat -->
             <property name="@length_beat" type="float" access="readonly" default="0">
                 <tr lang="en">file length in quarters</tr>
+                <tr lang="ru" finished="false">Длина файла в кварталах</tr>
             </property>
             <!-- @length_sec -->
             <property name="@length_sec" type="float" access="readonly" units="second" default="0">
                 <tr lang="en">file length</tr>
+                <tr lang="ru" finished="false">длина файла</tr>
             </property>
             <!-- @length_tick -->
             <property name="@length_tick" type="int" access="readonly" default="0">
                 <tr lang="en">file length in ticks</tr>
+                <tr lang="ru" finished="false">Длина файла в клещах</tr>
             </property>
             <!-- @tempo -->
             <property name="@tempo" type="int" access="readonly" default="120">
                 <tr lang="en">midi tempo in ticks per quarter</tr>
+                <tr lang="ru" finished="false">темп миди в клещах за квартал</tr>
             </property>
             <!-- @tracks -->
             <property name="@tracks" type="int" access="readonly" default="1">
                 <tr lang="en">number of tracks</tr>
+                <tr lang="ru" finished="false">Количество трасс</tr>
             </property>
         </properties>
         <methods>
@@ -52,18 +59,21 @@
             <method name="clear">
                 <info>
                     <tr lang="en">removes all midi file content</tr>
+                    <tr lang="ru" finished="false">Удалить все содержимое файла Midi</tr>
                 </info>
             </method>
             <!-- read -->
             <method name="read">
                 <info>
                     <tr lang="en">read specified midi file. No output</tr>
+                    <tr lang="ru" finished="false">Прочитайте указанный файл Midi. Нет выхода</tr>
                 </info>
             </method>
             <!-- write -->
             <method name="write">
                 <info>
                     <tr lang="en">write to specified midi file</tr>
+                    <tr lang="ru" finished="false">Записать в указанный файл midi</tr>
                 </info>
             </method>
         </methods>
@@ -71,11 +81,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output MidiFile data type</tr>
+                    <tr lang="ru" finished="false">выходные данные типа MidiFile</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>MidiStream data type</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">MidiStream data type</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

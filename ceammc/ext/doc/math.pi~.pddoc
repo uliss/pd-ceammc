@@ -27,22 +27,30 @@
             <par>
                 <tr lang="en">The number PI is a mathematical constant, the ratio of a circle's
                 circumference to its diameter, commonly approximated as 3.14159.</tr>
+                <tr lang="ru" finished="false">Число PI — математическая константа, отношение
+                окружности круга к его диаметру, обычно аппроксимируемое как 3.14159.</tr>
             </par>
         </info>
         <arguments>
             <argument name="K" type="float">
                 <tr lang="en">multiplier. default is 1</tr>
+                <tr lang="ru" finished="false">мультипликатор - по умолчанию 1</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @k -->
             <property name="@k" type="float" default="1" access="initonly">
                 <tr lang="en">multiplier</tr>
+                <tr lang="ru" finished="false">умножитель</tr>
             </property>
         </properties>
         <inlets />
         <outlets>
-            <outlet type="audio">output value</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

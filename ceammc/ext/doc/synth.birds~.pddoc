@@ -55,8 +55,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">synth left channel</outlet>
-            <outlet type="audio">synth right channel</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">synth left channel</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">synth right channel</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

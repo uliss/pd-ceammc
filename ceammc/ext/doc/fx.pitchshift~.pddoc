@@ -20,6 +20,7 @@
         <arguments>
             <argument name="PITCH" type="float" minvalue="-38" maxvalue="60">
                 <tr lang="en">pitch shift in semitones</tr>
+                <tr lang="ru" finished="false">смещение шага в полутонах</tr>
             </argument>
         </arguments>
         <properties>
@@ -29,25 +30,32 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet.</tr>
+                <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
+                сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
             </property>
             <!-- @fade -->
             <property name="@fade" type="float" units="millisecond" minvalue="0" maxvalue="1000"
             default="100">
                 <tr lang="en">crossfade duration</tr>
+                <tr lang="ru" finished="false">продолжительность кроссфейда</tr>
             </property>
             <!-- @pitch -->
             <property name="@pitch" type="float" minvalue="-38" maxvalue="60" default="0">
                 <tr lang="en">pitchshift in semitones</tr>
+                <tr lang="ru" finished="false">смена высоты в полутонах</tr>
             </property>
             <!-- @window -->
             <property name="@window" type="float" units="millisecond" minvalue="10" maxvalue="2000"
             default="200">
                 <tr lang="en">the window size</tr>
+                <tr lang="ru" finished="false">Размер окна</tr>
             </property>
         </properties>
         <methods>
@@ -55,6 +63,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset object state</tr>
+                    <tr lang="ru" finished="false">Сброс состояния объекта</tr>
                 </info>
             </method>
         </methods>
@@ -62,16 +71,22 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo minvalue="-38" maxvalue="60" on="float">
                     <tr lang="en">pitch shift in semitones</tr>
+                    <tr lang="ru" finished="false">смещение шага в полутонах</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

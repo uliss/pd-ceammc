@@ -106,8 +106,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>int: counter value</outlet>
-            <outlet>int: repeat counter, done: when done</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int: counter value</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int: repeat counter, done: when done</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

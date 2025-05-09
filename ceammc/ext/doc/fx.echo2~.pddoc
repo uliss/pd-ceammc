@@ -23,9 +23,11 @@
         <arguments>
             <argument name="DELAY" type="float" minvalue="10" maxvalue="5000" units="millisecond">
                 <tr lang="en">echo time</tr>
+                <tr lang="ru" finished="false">время эхо</tr>
             </argument>
             <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="0.99">
                 <tr lang="en">feedback coefficient</tr>
+                <tr lang="ru" finished="false">коэффициент обратной связи</tr>
             </argument>
         </arguments>
         <properties>
@@ -35,20 +37,26 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @delay -->
             <property name="@delay" type="float" minvalue="10" maxvalue="5000" units="millisecond"
             default="500">
                 <tr lang="en">echo time</tr>
+                <tr lang="ru" finished="false">время эхо</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
             <!-- @feedback -->
             <property name="@feedback" type="float" minvalue="0" maxvalue="0.99" default="0.3">
                 <tr lang="en">feedback coefficient</tr>
+                <tr lang="ru" finished="false">коэффициент обратной связи</tr>
             </property>
             <!-- @stereo -->
             <property name="@stereo" type="float" minvalue="0" maxvalue="1" default="1">
@@ -56,6 +64,10 @@
                 stereo=0 you get a plain delay, without crosstalk between the channels. For
                 stereo=1 you get a pure ping-pong delay where the echos from the left first appear
                 on the right channel and vice versa</tr>
+                <tr lang="ru" finished="false">Стереопараметр контролирует количество
+                стереораспространения. Для стерео=0 вы получаете простую задержку, без перекрестных
+                разговоров между каналами. Для стерео=1 вы получаете чистую задержку пинг-понга,
+                когда эхо слева сначала появляется на правом канале и наоборот.</tr>
             </property>
         </properties>
         <methods>
@@ -63,6 +75,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset to initial state</tr>
+                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
                 </info>
             </method>
         </methods>
@@ -70,17 +83,27 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">left input signal</tr>
+                    <tr lang="ru" finished="false">левый входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">right input signal</tr>
+                    <tr lang="ru" finished="false">правильный входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">left output signal</outlet>
-            <outlet type="audio">right output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">left output signal</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">right output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

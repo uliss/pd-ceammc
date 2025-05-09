@@ -23,45 +23,57 @@
         <info>
             <par>
                 <tr lang="en">Works with data atoms</tr>
+                <tr lang="ru" finished="false">Работа с атомами данных</tr>
             </par>
         </info>
         <arguments>
             <argument name="VALUE" type="list">
                 <tr lang="en">list content</tr>
+                <tr lang="ru" finished="false">Список контента</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @index -->
             <property name="@index" type="int" default="0" minvalue="0">
                 <tr lang="en">insert element index</tr>
+                <tr lang="ru" finished="false">вставить элемент индекса</tr>
             </property>
             <!-- @value -->
             <property name="@value" type="list" default="">
                 <tr lang="en">list content</tr>
+                <tr lang="ru" finished="false">Список контента</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set inserted atom or list</tr>
+                    <tr lang="ru" finished="false">Вставленный атом или список</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set insert position</tr>
+                    <tr lang="ru" finished="false">положение вставки</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output result list or mlist</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output result list or mlist</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

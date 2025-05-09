@@ -26,11 +26,16 @@
                 <tr lang="en">Each @step elements are passed via righmost outlet to extenal object,
                 that suppose to return it back to rightmost inlet. So various mapping and filtering
                 are possible.</tr>
+                <tr lang="ru" finished="false">Каждый элемент @step передается через самую высокую
+                розетку на экстенальный объект, который, как предполагается, возвращает его обратно
+                в самую правую розетку. Таким образом, возможны различные картографирование и
+                фильтрация.</tr>
             </par>
         </info>
         <arguments>
             <argument name="STEP" type="int" minvalue="1" maxvalue="1024">
                 <tr lang="en">see @step property</tr>
+                <tr lang="ru" finished="false">См. @step property</tr>
             </argument>
         </arguments>
         <properties>
@@ -38,26 +43,40 @@
             <property name="@step" type="int" minvalue="1" maxvalue="1024" default="1">
                 <tr lang="en">number of elements outputted to rightmost outlet on each
                 iteration</tr>
+                <tr lang="ru" finished="false">количество элементов, выводимых в самую правильную
+                точку на каждой итерации</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">Input list</tr>
+                    <tr lang="ru" finished="false">Список вводимых данных</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">Input mlist</tr>
+                    <tr lang="ru" finished="false">Входной млист</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">New modified value from applied object.</tr>
+                    <tr lang="ru" finished="false">Новое модифицированное значение от прикладного
+                    объекта.</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>New modified list (or mlist)</outlet>
-            <outlet>single element or list of values (if @step property &gt; 1)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">New modified list (or mlist)</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">single element or list of values (if @step property &gt; 1)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

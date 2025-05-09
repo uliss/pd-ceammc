@@ -44,12 +44,8 @@
             <property name="@bias" type="float" minvalue="0" maxvalue="1" default="0.2">
                 <tr lang="en">bias which favours small lags over large lags in the period
                 detection, thereby avoiding low-octave jumps</tr>
-                <!-- old: Предвзятость, которая благоприятствует небольшим
-                задержкам по сравнению с большими задержками в обнаружении периода, тем самым
-                избегая скачков низкой октавы -->
-                <tr lang="ru" finished="false">Предвзятость, которая благоприятствует небольшим
-                задержкам по сравнению с большими задержками в обнаружении периода, тем самым
-                избегая скачков низкой октавы</tr>
+                <tr lang="ru">насколько предпочитать небольшие задержки по сравнению
+                с большими при обнаружении периода, тем самым избегая скачков на октаву вниз</tr>
             </property>
             <!-- @fidthr -->
             <property name="@fidthr" type="float" minvalue="0" maxvalue="1" default="0.95">
@@ -84,11 +80,23 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
-            <outlet>output frequency in Hz</outlet>
-            <outlet>track fidelity: a value between 0 and 1, indicating to which extent the input
-            signal is periodic. A fidelity of ~0.95 can be considered to indicate a periodic
-            signal.</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output frequency in Hz</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">track fidelity: a value between 0 and 1, indicating to which
+                    extent the input signal is periodic. A fidelity of ~0.95 can be considered to
+                    indicate a periodic signal.</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

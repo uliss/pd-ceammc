@@ -23,20 +23,28 @@
             <par>
                 <tr lang="en">Note: symbol values are treated as 0. So if list contains at least
                 one symbol, product will be always equal to zero</tr>
+                <tr lang="ru" finished="false">Примечание: значения символов рассматриваются как 0.
+                Если список содержит хотя бы один символ, продукт всегда будет равен нулю.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float list product</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float list product</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -29,37 +29,51 @@
             <par>
                 <tr lang="en">on division by zero outputs nothing: just put error message into
                 console</tr>
+                <tr lang="ru" finished="false">на деление на ноль ничего не выводит: просто
+                поместите сообщение об ошибке в консоль</tr>
             </par>
         </info>
         <arguments>
             <argument name="DIV" type="float">
                 <tr lang="en">modulo divisor</tr>
+                <tr lang="ru" finished="false">модульный делитель</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @int -->
             <property name="@int" type="flag" default="0" access="initonly">
                 <tr lang="en">operate on integers only</tr>
+                <tr lang="ru" finished="false">работать только на целых числах</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set modulo divident, calculate and output remainder</tr>
+                    <tr lang="ru" finished="false">установить модульный делитель, рассчитать и
+                    вывести остаток</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pair: set modulo divident and divisor, calculate and output
                     remainder</tr>
+                    <tr lang="ru" finished="false">пара: установить модульный делитель и делитель,
+                    рассчитать и вывести остаток</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">change divisor, calculate and output result</tr>
+                    <tr lang="ru" finished="false">изменение делителя, вычисление и выходной
+                    результат</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>remainder signed as first number</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">remainder signed as first number</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

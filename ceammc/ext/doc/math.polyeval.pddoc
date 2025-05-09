@@ -19,31 +19,40 @@
         <arguments>
             <argument name="COEFFS" type="list">
                 <tr lang="en">coefficient list</tr>
+                <tr lang="ru" finished="false">список коэффициентов</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @coeffs -->
             <property name="@coeffs" type="list" default="">
                 <tr lang="en">coefficient list</tr>
+                <tr lang="ru" finished="false">список коэффициентов</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">evalute polynomial</tr>
+                    <tr lang="ru" finished="false">эвалютный полином</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">evalute each value in list</tr>
+                    <tr lang="ru" finished="false">Оценить каждое значение в списке</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">sets polynomial coefficients</tr>
+                    <tr lang="ru" finished="false">устанавливает полиномиальные коэффициенты</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>calculated value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">calculated value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

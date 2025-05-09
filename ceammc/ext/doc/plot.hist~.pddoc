@@ -28,40 +28,56 @@
         <arguments>
             <argument name="NSAMP" type="int" minvalue="8" maxvalue="32768">
                 <tr lang="en">@nsamp property</tr>
+                <tr lang="ru" finished="false">Недвижимость @nsamp</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @clip -->
             <property name="@clip" type="bool" default="1">
                 <tr lang="en">clip input values into input range, otherwise just ignore them</tr>
+                <tr lang="ru" finished="false">Значения ввода клипа в диапазон ввода, иначе просто
+                игнорируйте их</tr>
             </property>
             <!-- @max -->
             <property name="@max" type="float" default="1">
                 <tr lang="en">maximum input value</tr>
+                <tr lang="ru" finished="false">Максимальная входная величина</tr>
             </property>
             <!-- @min -->
             <property name="@min" type="float" default="-1">
                 <tr lang="en">minimal input value</tr>
+                <tr lang="ru" finished="false">Минимальная входная стоимость</tr>
             </property>
             <!-- @nbins -->
             <property name="@nbins" type="int" minvalue="8" maxvalue="512" default="63">
                 <tr lang="en">number of histogram bins</tr>
+                <tr lang="ru" finished="false">количество гистограммных бункеров</tr>
             </property>
             <!-- @nsamp -->
             <property name="@nsamp" type="int" minvalue="8" maxvalue="32768" default="512">
                 <tr lang="en">max number of input samples</tr>
+                <tr lang="ru" finished="false">Максимальное количество входных образцов</tr>
             </property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo on="bang">
                     <tr lang="en">starts histogram calculation</tr>
+                    <tr lang="ru" finished="false">Начинается расчет гистограммы</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">signal output</outlet>
-            <outlet>output to [array.plot~] or [ui.plot~]</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">signal output</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output to [array.plot~] or [ui.plot~]</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -24,20 +24,31 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="atom">
                     <tr lang="en">processed atom from side-chain</tr>
+                    <tr lang="ru" finished="false">Обработанный атом из боковой цепи</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output processed list</outlet>
-            <outlet>output per each list element: ATOM INDEX TOTAL</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output processed list</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output per each list element: ATOM INDEX TOTAL</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

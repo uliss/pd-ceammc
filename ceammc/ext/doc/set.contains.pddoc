@@ -45,7 +45,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>1 if element exists in set, otherwise 0</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">1 if element exists in set, otherwise 0</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

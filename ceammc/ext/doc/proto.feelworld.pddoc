@@ -36,7 +36,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list: bytes to send to UDP port 1000</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: bytes to send to UDP port 1000</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

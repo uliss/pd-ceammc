@@ -62,12 +62,15 @@
             <method name="get">
                 <info>
                     <tr lang="en">send GET request</tr>
+                    <tr lang="ru" finished="false">Отправить запрос GET</tr>
                 </info>
                 <param name="PATH" type="symbol" required="true">
                     <tr lang="en">request path</tr>
+                    <tr lang="ru" finished="false">Путь запроса</tr>
                 </param>
                 <param name="VALUES" type="list" required="true">
                     <tr lang="en">list of query pairs</tr>
+                    <tr lang="ru" finished="false">Список пар запросов</tr>
                 </param>
             </method>
         </methods>
@@ -75,12 +78,21 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">input</tr>
+                    <tr lang="ru" finished="false">ввод</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>int: HTTP status code</outlet>
-            <outlet>data:String: HTTP body</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int: HTTP status code</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">data:String: HTTP body</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

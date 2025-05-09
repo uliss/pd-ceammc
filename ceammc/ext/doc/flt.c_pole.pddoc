@@ -27,11 +27,14 @@
             <par>
                 <tr lang="en">Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ +
                 b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²)</tr>
+                <tr lang="ru" finished="false">Расчет коэффициентов для функции переноса: H(z)=(b0
+                + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2)</tr>
             </par>
         </info>
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="22050">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </argument>
         </arguments>
         <properties>
@@ -39,33 +42,43 @@
             <property name="@freq" type="float" minvalue="0" maxvalue="22050" default="1000"
             units="hertz">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </property>
             <!-- @hpf -->
             <property name="@hpf" type="alias">
                 <tr lang="en">ti @mode hpf</tr>
+                <tr lang="ru" finished="false">ti @mode hpf</tr>
             </property>
             <!-- @lpf -->
             <property name="@lpf" type="alias">
                 <tr lang="en">to @mode lpf</tr>
+                <tr lang="ru" finished="false">@mode lpf</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="hpf lpf" default="lpf">
                 <tr lang="en">filter modey</tr>
+                <tr lang="ru" finished="false">модный фильтр</tr>
             </property>
             <!-- @rad -->
             <property name="@rad" type="flag" access="initonly">
                 <tr lang="en">use angular frequency</tr>
+                <tr lang="ru" finished="false">использовать угловую частоту</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">filter frequency</tr>
+                    <tr lang="ru" finished="false">частота фильтров</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list: b0 b1 b2 a1 a2</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: b0 b1 b2 a1 a2</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -73,8 +73,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float: value</outlet>
-            <outlet>bang: when target value is reached</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: value</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang: when target value is reached</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

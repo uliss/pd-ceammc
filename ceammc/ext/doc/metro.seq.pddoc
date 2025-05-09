@@ -25,49 +25,64 @@
         <info>
             <par>
                 <tr lang="en">Easy way to build beat machines</tr>
+                <tr lang="ru" finished="false">Простой способ создания бит-машин</tr>
             </par>
         </info>
         <arguments>
             <argument name="INTERVAL" type="float" units="millisecond" minvalue="0">
                 <tr lang="en">metro tempo in ms</tr>
+                <tr lang="ru" finished="false">темп метро в мс</tr>
             </argument>
             <argument name="PATTERN" type="list">
                 <tr lang="en">list of 1 and 0. Where 1 means output bang on this beat</tr>
+                <tr lang="ru" finished="false">Список 1 и 0. Где 1 означает выходной удар по этому
+                биту</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @current -->
             <property name="@current" type="int" minvalue="0" default="0">
                 <tr lang="en">current pattern index</tr>
+                <tr lang="ru" finished="false">Текущий индекс</tr>
             </property>
             <!-- @interval -->
             <property name="@interval" type="float" units="millisecond" minvalue="0" default="0">
                 <tr lang="en">interval between beats</tr>
+                <tr lang="ru" finished="false">интервал между ударами</tr>
             </property>
             <!-- @pattern -->
             <property name="@pattern" type="list" default="">
                 <tr lang="en">list of 1 and 0. Where 1 means output bang on this beat</tr>
+                <tr lang="ru" finished="false">Список 1 и 0. Где 1 означает выходной удар по этому
+                биту</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">starts (on 1) or stops (on 0) metro</tr>
+                    <tr lang="ru" finished="false">старты (на 1) или остановки (на 0) метро</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set new step interval</tr>
+                    <tr lang="ru" finished="false">Новый интервал шагов</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set new pattern</tr>
+                    <tr lang="ru" finished="false">Установить новый шаблон</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs *bang*</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs *bang*</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

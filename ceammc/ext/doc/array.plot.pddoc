@@ -64,22 +64,33 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">single input sample</tr>
+                    <tr lang="ru" finished="false">единый входной образец</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">resizes array to list size and plot all list values</tr>
+                    <tr lang="ru" finished="false">Resizes array to list size и нарисуйте все
+                    значения списка</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">plot all samples fitted to specified array</tr>
+                    <tr lang="ru" finished="false">Все образцы, установленные на заданный
+                    массив</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">plot specified number of samples, resizes array</tr>
+                    <tr lang="ru" finished="false">участок заданное количество образцов, размеры
+                    массива</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang on done</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang on done</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

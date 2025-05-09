@@ -44,7 +44,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>1 on cue enter, 0 on cue out</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">1 on cue enter, 0 on cue out</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

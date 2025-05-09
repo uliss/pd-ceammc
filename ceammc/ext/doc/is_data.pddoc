@@ -28,18 +28,29 @@
             <!-- @in_list -->
             <property name="@in_list" type="flag" default="0" access="initonly">
                 <tr lang="en">output '1' if list contains at least one data atom</tr>
+                <tr lang="ru" finished="false">выход «1», если список содержит по меньшей мере один
+                атом данных</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="data">
                     <tr lang="en">outputs '1' to 1st outlet, otherwise '0'</tr>
+                    <tr lang="ru" finished="false">выходы "1" - 1-й выход, иначе "0"</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>0 or 1</outlet>
-            <outlet>passes *data* message</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">0 or 1</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">passes *data* message</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

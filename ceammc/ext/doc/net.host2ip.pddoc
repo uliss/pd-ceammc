@@ -46,14 +46,20 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">DNS name</tr>
+                    <tr lang="ru" finished="false">Имя DNS</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">DNS name</tr>
+                    <tr lang="ru" finished="false">Имя DNS</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of resolved IP's</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of resolved IP's</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -141,7 +141,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>[ch CHANNEL VALUE( messages</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">[ch CHANNEL VALUE( messages</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

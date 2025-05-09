@@ -23,6 +23,12 @@
                 rightwards, positive *y* means rearwards, positive *z* mean upwards, but not all
                 devices are in database. It it occures with your device (wrong direction), please,
                 send us this information</tr>
+                <tr lang="ru" finished="false">В режиме необработанного вывода выходные значения
+                могут быть в различных диапазонах и знаках, в противном случае выходные данные
+                нормализуются до диапазона плавания, где положительные *x * означают вправо,
+                положительные *y * означают взад, положительные *z * означают в сторону вверх, но
+                не все устройства находятся в базе данных. Это происходит с вашим устройством
+                (неправильное направление), пожалуйста, отправьте нам эту информацию</tr>
             </par>
         </info>
         <properties>
@@ -36,11 +42,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs current motion sensor information</tr>
+                    <tr lang="ru" finished="false">выводит текущую информацию датчика движения</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of three values: x-rotation, y-rotation, z-acceleration</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of three values: x-rotation, y-rotation, z-acceleration</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

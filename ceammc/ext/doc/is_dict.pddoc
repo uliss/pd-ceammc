@@ -26,12 +26,21 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">input</tr>
+                    <tr lang="ru" finished="false">ввод</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>0 or 1</outlet>
-            <outlet>passes *dict*</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">0 or 1</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">passes *dict*</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

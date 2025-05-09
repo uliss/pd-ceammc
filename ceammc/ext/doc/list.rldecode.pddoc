@@ -26,29 +26,37 @@
         <arguments>
             <argument name="L" type="list">
                 <tr lang="en">initial element repeat list</tr>
+                <tr lang="ru" finished="false">Первоначальный повторный список элементов</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @l -->
             <property name="@l" type="list" default="">
                 <tr lang="en">list of repeats</tr>
+                <tr lang="ru" finished="false">Список повторений</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">First list - single elements</tr>
+                    <tr lang="ru" finished="false">Первый список - одиночные элементы</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">Second list - count of each element</tr>
+                    <tr lang="ru" finished="false">Второй список - подсчет каждого элемента</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result - elements repeated n times specified by corresponding values in second
-            list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result - elements repeated n times specified by corresponding
+                    values in second list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

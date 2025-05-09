@@ -25,11 +25,16 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list.</tr>
+                    <tr lang="ru" finished="false">Список входов.</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new sorted list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">new sorted list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

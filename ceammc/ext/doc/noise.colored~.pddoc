@@ -22,6 +22,10 @@
                 factor (alpha) over the entire audible frequency range (20-20000 Hz). The output is
                 normalized so that an equal RMS level is maintained for different values of
                 alpha.</tr>
+                <tr lang="ru" finished="false">Генерирует цветной шумовой сигнал с произвольным
+                спектральным коэффициентом скатывания (альфа) по всему слышимому частотному
+                диапазону (20-20000 Гц). Выход нормализуется таким образом, что для разных значений
+                альфа поддерживается равный уровень RMS.</tr>
             </par>
         </info>
         <arguments>
@@ -29,6 +33,9 @@
                 <tr lang="en">slope of roll-off, between -1 and 1. -1 corresponds to brown/red
                 noise, -1/2 pink noise, 0 white noise, 1/2 blue noise, and 1 violet/azure
                 noise.</tr>
+                <tr lang="ru" finished="false">Наклон отката, между -1 и 1. -1 соответствует
+                коричневому/красному шуму, -1/2 розовому шуму, 0 белому шуму, 1/2 синему шуму и 1
+                фиолетовому/азурному шуму.</tr>
             </argument>
         </arguments>
         <properties>
@@ -40,6 +47,9 @@
                 <tr lang="en">slope of roll-off, between -1 and 1. -1 corresponds to brown/red
                 noise, -1/2 pink noise, 0 white noise, 1/2 blue noise, and 1 violet/azure
                 noise.</tr>
+                <tr lang="ru" finished="false">Наклон отката, между -1 и 1. -1 соответствует
+                коричневому/красному шуму, -1/2 розовому шуму, 0 белому шуму, 1/2 синему шуму и 1
+                фиолетовому/азурному шуму.</tr>
             </property>
         </properties>
         <methods>
@@ -47,30 +57,38 @@
             <method name="blue">
                 <info>
                     <tr lang="en">set to blue noise (roll-off factor 0.5)</tr>
+                    <tr lang="ru" finished="false">Синий шум (коэффициент отката 0,5)</tr>
                 </info>
             </method>
             <!-- brown -->
             <method name="brown">
                 <info>
                     <tr lang="en">set to brown/red noise (roll-off factor -1)</tr>
+                    <tr lang="ru" finished="false">установленный на коричневый/красный шум (фактор
+                    выключения -1)</tr>
                 </info>
             </method>
             <!-- pink -->
             <method name="pink">
                 <info>
                     <tr lang="en">set to pink noise (roll-off factor -0.5)</tr>
+                    <tr lang="ru" finished="false">- розовый шум (коэффициент отката -0,5)</tr>
                 </info>
             </method>
             <!-- velvet -->
             <method name="velvet">
                 <info>
                     <tr lang="en">set to velvet noise (roll-off factor 1)</tr>
+                    <tr lang="ru" finished="false">Установка на бархатный шум (фактор отката
+                    1)</tr>
                 </info>
             </method>
             <!-- white -->
             <method name="white">
                 <info>
                     <tr lang="en">set to white noise (roll-off factor 0)</tr>
+                    <tr lang="ru" finished="false">Установка на белый шум (коэффициент отката
+                    0)</tr>
                 </info>
             </method>
         </methods>
@@ -78,11 +96,16 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set roll-off frequency</tr>
+                    <tr lang="ru" finished="false">установленная частота выкатывания</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

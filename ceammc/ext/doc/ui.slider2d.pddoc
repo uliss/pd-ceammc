@@ -205,7 +205,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list output of two values: X and Y</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list output of two values: X and Y</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

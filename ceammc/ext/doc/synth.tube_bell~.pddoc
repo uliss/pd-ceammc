@@ -96,7 +96,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">synth output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">synth output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -87,7 +87,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>int or list: generated value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int or list: generated value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

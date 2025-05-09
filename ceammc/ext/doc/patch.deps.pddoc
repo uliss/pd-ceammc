@@ -24,6 +24,7 @@
             <method name="dump">
                 <info>
                     <tr lang="en">output dependency tree to Pd window</tr>
+                    <tr lang="ru" finished="false">Дерево зависимостей выходного окна Pd</tr>
                 </info>
             </method>
         </methods>
@@ -33,11 +34,19 @@
                     <tr lang="en">output patch dependencies as Dict. Keys are library external
                     paths or abstraction full paths, values are external or abstraction names.
                     PureData core objects listed under "_core" key.</tr>
+                    <tr lang="ru" finished="false">Выходные патчи зависимостей как Дикт. Ключи —
+                    это внешние пути библиотеки или полные пути абстракции, значения — внешние или
+                    абстракционные имена. Объекты ядра PureData, перечисленные под ключом
+                    «_core».</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="control">patch dependency</outlet>
+            <outlet type="control">
+                <out type="any">
+                    <tr lang="en">patch dependency</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

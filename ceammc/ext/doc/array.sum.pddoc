@@ -36,11 +36,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">calculates and outputs the sum</tr>
+                    <tr lang="ru" finished="false">вычисляет и выводит сумму</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>sum of array values</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">sum of array values</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

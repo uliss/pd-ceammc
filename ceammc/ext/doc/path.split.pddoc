@@ -22,21 +22,32 @@
         <info>
             <par>
                 <tr lang="en">Split filename to dirname and basename.</tr>
+                <tr lang="ru" finished="false">Разделите имя файла на dirname и basename.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">filename</tr>
+                    <tr lang="ru" finished="false">имя файла</tr>
                 </xinfo>
                 <xinfo on="data:string">
                     <tr lang="en">filename</tr>
+                    <tr lang="ru" finished="false">имя файла</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>symbol: dirname</outlet>
-            <outlet>symbol: basename</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">symbol: dirname</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">symbol: basename</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

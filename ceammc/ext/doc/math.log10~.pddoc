@@ -22,26 +22,35 @@
         <info>
             <par>
                 <tr lang="en">Outputs the value of the base-10 logarithm</tr>
+                <tr lang="ru" finished="false">Выходит значение логарифма базы-10</tr>
             </par>
             <par>
                 <tr lang="en">Special values:</tr>
+                <tr lang="ru" finished="false">Особые ценности:</tr>
             </par>
             <par>
                 <tr lang="en">log10(1) return +0.</tr>
+                <tr lang="ru" finished="false">log10(1) возврат +0.</tr>
             </par>
             <par>
                 <tr lang="en">log10(+infinity) return +infinity.</tr>
+                <tr lang="ru" finished="false">log10(+infinity) Возвращение +infinity.</tr>
             </par>
         </info>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">result signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">result signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

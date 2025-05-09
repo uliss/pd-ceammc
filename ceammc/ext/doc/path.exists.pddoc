@@ -20,14 +20,21 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">checks if given path exists</tr>
+                    <tr lang="ru" finished="false">Проверка наличия данного пути</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">If string given - checks if path exists</tr>
+                    <tr lang="ru" finished="false">Если дана строка - проверяет, существует ли
+                    путь</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>1 - on success, 0 - if not exists</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">1 - on success, 0 - if not exists</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

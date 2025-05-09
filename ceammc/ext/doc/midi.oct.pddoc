@@ -19,47 +19,60 @@
         <arguments>
             <argument name="OCT" type="int" minvalue="-11" maxvalue="11">
                 <tr lang="en">octave transposition</tr>
+                <tr lang="ru" finished="false">октавная транспозиция</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @mode -->
             <property name="@mode" type="symbol" default="transpose" enum="transpose set">
                 <tr lang="en">octave mode</tr>
+                <tr lang="ru" finished="false">октавный режим</tr>
             </property>
             <!-- @oct -->
             <property name="@oct" type="int" minvalue="-11" maxvalue="11" default="0">
                 <tr lang="en">octave transposition</tr>
+                <tr lang="ru" finished="false">октавная транспозиция</tr>
             </property>
             <!-- @random -->
             <property name="@random" type="list" default="">
                 <tr lang="en">random octave range. Arguments are: MIN MAX.</tr>
+                <tr lang="ru" finished="false">случайный диапазон октав. Аргументы: Мин Макс.</tr>
             </property>
             <!-- @set -->
             <property name="@set" type="alias">
                 <tr lang="en">alias to @mode set</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @mode set</tr>
             </property>
             <!-- @transpose -->
             <property name="@transpose" type="alias">
                 <tr lang="en">alias to @mode transpose</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @mode transpose</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">note value</tr>
+                    <tr lang="ru" finished="false">примечание</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">NOTE VELOCITY [DUR] list</tr>
+                    <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set @oct value</tr>
+                    <tr lang="ru" finished="false">значение @oct</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>transposed NOTE VELOCITY [DUR] list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">transposed NOTE VELOCITY [DUR] list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

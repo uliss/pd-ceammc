@@ -23,25 +23,31 @@
             <par>
                 <tr lang="en">Note: may perform slowly in large lists because it does not use the
                 FFT to compute the convolution</tr>
+                <tr lang="ru" finished="false">Примечание: может выполняться медленно в больших
+                списках, потому что он не использует FFT для вычисления свертки</tr>
             </par>
         </info>
         <arguments>
             <argument name="B" type="list">
                 <tr lang="en">second argument values</tr>
+                <tr lang="ru" finished="false">Вторые аргументы</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @a -->
             <property name="@a" type="list" default="">
                 <tr lang="en">first argument</tr>
+                <tr lang="ru" finished="false">Первый аргумент</tr>
             </property>
             <!-- @b -->
             <property name="@b" type="list" default="">
                 <tr lang="en">second argument</tr>
+                <tr lang="ru" finished="false">Второй аргумент</tr>
             </property>
             <!-- @full -->
             <property name="@full" type="alias">
                 <tr lang="en">alias to @mode full</tr>
+                <tr lang="ru" finished="false">Скачать @mode Full</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="valid same full" default="full">
@@ -52,30 +58,44 @@
                 points where the signals overlap completely. Values outside the signal boundary
                 have no effect. 'same' - output of length max(M,N). Boundary effects are still
                 visible</tr>
+                <tr lang="ru" finished="false">выходной режим. "полный" - вывод свертки в каждой
+                точке перекрытия с длиной вывода (M+N-1). В конечных точках свертки сигналы не
+                перекрываются полностью, и могут быть видны граничные эффекты. "действительный" -
+                выход длины (max(M,N)-min(M,N)+1). Продукт свертки дается только для точек, где
+                сигналы полностью перекрываются. Значения за пределами границы сигнала не имеют
+                эффекта. "одинаковый" - выход длины max(M,N). Граничные эффекты все еще видны</tr>
             </property>
             <!-- @same -->
             <property name="@same" type="alias">
                 <tr lang="en">alias to @mode same</tr>
+                <tr lang="ru" finished="false">Название: @mode same</tr>
             </property>
             <!-- @valid -->
             <property name="@valid" type="alias">
                 <tr lang="en">alias to @mode valid</tr>
+                <tr lang="ru" finished="false">псевдоним @mode valid</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">calculate convolution and output</tr>
+                    <tr lang="ru" finished="false">рассчитать свёртку и выход</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set second argument (@b property)</tr>
+                    <tr lang="ru" finished="false">Второй аргумент (@b)</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list: output result</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: output result</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

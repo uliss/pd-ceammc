@@ -24,24 +24,40 @@
             <par>
                 <tr lang="en">On incoming list (l⁰ l¹ ...) outputs to corresponding outlet message:
                 [s⁰ l⁰(, [s¹ l¹( etc...</tr>
+                <tr lang="ru" finished="false">В входящем списке (l0 l1 ...) выводит
+                соответствующее выходное сообщение: [s0 l0(, [s1 l1( и т.д.)]</tr>
             </par>
         </info>
         <arguments>
             <argument name="SEL" type="list">
                 <tr lang="en">list of selectors</tr>
+                <tr lang="ru" finished="false">Список селекторов</tr>
             </argument>
         </arguments>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1">first element with first selector</outlet>
-            <outlet number="...">... element with ... selector</outlet>
-            <outlet number="n">nth element with nth selector</outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">first element with first selector</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">... element with ... selector</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">nth element with nth selector</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

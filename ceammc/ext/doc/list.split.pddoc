@@ -24,27 +24,40 @@
             <argument name="AT" type="int" minvalue="0">
                 <tr lang="en">size of first list. The size of the list on the second output is the
                 size of input list - this value</tr>
+                <tr lang="ru" finished="false">Размер первого списка. Размер списка на втором
+                выходе - это размер входного списка - это значение</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @at -->
             <property name="@at" type="int" minvalue="0" default="0">
                 <tr lang="en">split point</tr>
+                <tr lang="ru" finished="false">разделительная точка</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>first sub-list of given size</outlet>
-            <outlet>second sub-list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">first sub-list of given size</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">second sub-list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

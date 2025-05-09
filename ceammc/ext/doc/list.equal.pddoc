@@ -19,12 +19,14 @@
         <arguments>
             <argument name="PATTERN" type="list">
                 <tr lang="en">initial value</tr>
+                <tr lang="ru" finished="false">начальное значение</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @pattern -->
             <property name="@pattern" type="list" default="">
                 <tr lang="en">current pattern</tr>
+                <tr lang="ru" finished="false">Текущая модель</tr>
             </property>
         </properties>
         <methods>
@@ -32,6 +34,7 @@
             <method name="dump">
                 <info>
                     <tr lang="en">dumps object state to PD console window</tr>
+                    <tr lang="ru" finished="false">Сброс состояния объекта в окно консоли PD</tr>
                 </info>
             </method>
         </methods>
@@ -39,19 +42,26 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">First list</tr>
+                    <tr lang="ru" finished="false">Первый список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">First list</tr>
+                    <tr lang="ru" finished="false">Первый список</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">Second list</tr>
+                    <tr lang="ru" finished="false">Второй список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>"1" if lists are equal, "0" otherwise</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">"1" if lists are equal, "0" otherwise</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

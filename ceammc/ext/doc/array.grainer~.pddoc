@@ -348,15 +348,26 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">control inlet</tr>
+                    <tr lang="ru" finished="false">контрольный вход</tr>
                 </xinfo>
                 <xinfo on="bang">
                     <tr lang="en">if @sync = 'ext': starts finished grains playback</tr>
+                    <tr lang="ru" finished="false">если @sync = 'ext': начинается воспроизведение
+                    готовых зерен</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">left output</outlet>
-            <outlet type="audio">right output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">left output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">right output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

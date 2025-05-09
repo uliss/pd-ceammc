@@ -48,11 +48,16 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang: on edge</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang: on edge</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -93,7 +93,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">signal pass thru</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">signal pass thru</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

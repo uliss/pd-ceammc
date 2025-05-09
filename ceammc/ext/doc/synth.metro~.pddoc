@@ -148,9 +148,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">synth output</outlet>
-            <outlet type="control">current beat: 1: downbeat, 2: onbeat, 3: offbeat, 4:
-            mark</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">synth output</tr>
+                </out>
+            </outlet>
+            <outlet type="control">
+                <out type="any">
+                    <tr lang="en">current beat: 1: downbeat, 2: onbeat, 3: offbeat, 4: mark</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

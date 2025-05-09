@@ -22,31 +22,40 @@
         <arguments>
             <argument name="PATTERN" type="atom">
                 <tr lang="en">count pattern value</tr>
+                <tr lang="ru" finished="false">значение паттерна</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @pattern -->
             <property name="@pattern" type="atom">
                 <tr lang="en">new pattern value</tr>
+                <tr lang="ru" finished="false">Новая модель ценности</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">Input list</tr>
+                    <tr lang="ru" finished="false">Список вводимых данных</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">Input mlist</tr>
+                    <tr lang="ru" finished="false">Входной млист</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">change pattern value</tr>
+                    <tr lang="ru" finished="false">значение изменения шаблона</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>count of found elements</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">count of found elements</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

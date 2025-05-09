@@ -145,7 +145,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>(hidden outlet!) see @mode property</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">(hidden outlet!) see @mode property</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

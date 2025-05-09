@@ -39,7 +39,12 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output set with elements from first set, that are not in second set</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output set with elements from first set, that are not in second
+                    set</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

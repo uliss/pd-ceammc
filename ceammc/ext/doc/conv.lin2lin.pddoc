@@ -48,6 +48,8 @@
             <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
                 <tr lang="en">noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip
                 both).</tr>
+                <!-- old: noclip (Don't Clip) max (clip ceiling) min (clip
+                floor) minmax (clip both). -->
                 <tr lang="ru" finished="false">noclip (Don't Clip) max (clip ceiling) min (clip
                 floor) minmax (clip both).</tr>
             </property>
@@ -96,14 +98,20 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input float</tr>
+                    <tr lang="ru" finished="false">входной поплавок</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>converted float/list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">converted float/list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

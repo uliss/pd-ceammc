@@ -28,10 +28,18 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>current physical memory use measured in bytes, or zero if the value cannot be
-            determined on this OS.</outlet>
-            <outlet>peak (maximum so far) physical memory use measured in bytes, or zero if the
-            value cannot be determined on this OS.</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">current physical memory use measured in bytes, or zero if the
+                    value cannot be determined on this OS.</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">peak (maximum so far) physical memory use measured in bytes, or
+                    zero if the value cannot be determined on this OS.</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

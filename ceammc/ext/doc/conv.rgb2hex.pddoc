@@ -24,12 +24,16 @@
             <!-- @float -->
             <property name="@float" type="alias">
                 <tr lang="en">alias to @mode float. Expected input values are in [0-1] range</tr>
+                <!-- old: Оригинальное название: Mode Float. Ожидаемые входные
+                значения находятся в диапазоне [0-1] -->
                 <tr lang="ru" finished="false">Оригинальное название: Mode Float. Ожидаемые входные
                 значения находятся в диапазоне [0-1]</tr>
             </property>
             <!-- @int -->
             <property name="@int" type="alias">
                 <tr lang="en">alias to @mode int. Expected input values are in [0-255] range</tr>
+                <!-- old: Название: @mode int Ожидаемые входные значения
+                находятся в диапазоне [0-255] -->
                 <tr lang="ru" finished="false">Название: @mode int Ожидаемые входные значения
                 находятся в диапазоне [0-255]</tr>
             </property>
@@ -48,30 +52,42 @@
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">red channel value in [0-255] range</tr>
+                    <tr lang="ru" finished="false">значение красного канала в диапазоне
+                    [0-255]</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">red channel value in [0-1] range</tr>
+                    <tr lang="ru" finished="false">значение красного канала в диапазоне [0-1]</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">green channel value in [0-255] range</tr>
+                    <tr lang="ru" finished="false">Значение зеленого канала в диапазоне
+                    [0-255]</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">green channel value in [0-1] range</tr>
+                    <tr lang="ru" finished="false">Значение зеленого канала в диапазоне [0-1]</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">blue channel value in [0-255] range</tr>
+                    <tr lang="ru" finished="false">Значение синего канала в диапазоне [0-255]</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">blue channel value in [0-1] range</tr>
+                    <tr lang="ru" finished="false">Значение синего канала в диапазоне [0-1]</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>symbol: #RRGGBB color value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">symbol: #RRGGBB color value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

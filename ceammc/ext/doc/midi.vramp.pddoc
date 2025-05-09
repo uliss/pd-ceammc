@@ -19,12 +19,15 @@
         <arguments>
             <argument name="FROM" type="int" maxvalue="127" minvalue="0">
                 <tr lang="en">start value</tr>
+                <tr lang="ru" finished="false">стартовая стоимость</tr>
             </argument>
             <argument name="TO" type="int" maxvalue="127" minvalue="0">
                 <tr lang="en">end value</tr>
+                <tr lang="ru" finished="false">конечная стоимость</tr>
             </argument>
             <argument name="N" type="int" minvalue="0">
                 <tr lang="en">number of steps</tr>
+                <tr lang="ru" finished="false">Количество шагов</tr>
             </argument>
         </arguments>
         <properties>
@@ -32,18 +35,23 @@
             <property name="@auto" type="bool" default="0">
                 <tr lang="en">auto reset mode. If true: reset to @start value after ramp is
                 finished</tr>
+                <tr lang="ru" finished="false">Режим автоматического сброса. Если это правда:
+                перезагрузка до @start после завершения рампы</tr>
             </property>
             <!-- @from -->
             <property name="@from" type="int" default="127" maxvalue="127" minvalue="0">
                 <tr lang="en">start value</tr>
+                <tr lang="ru" finished="false">стартовая стоимость</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" default="0" minvalue="0">
                 <tr lang="en">number of steps</tr>
+                <tr lang="ru" finished="false">Количество шагов</tr>
             </property>
             <!-- @to -->
             <property name="@to" type="int" default="127" maxvalue="127" minvalue="0">
                 <tr lang="en">end value</tr>
+                <tr lang="ru" finished="false">конечная стоимость</tr>
             </property>
         </properties>
         <methods>
@@ -51,6 +59,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset to start value</tr>
+                    <tr lang="ru" finished="false">Сбросить, чтобы начать значение</tr>
                 </info>
             </method>
         </methods>
@@ -59,15 +68,26 @@
                 <xinfo on="float">
                     <tr lang="en">if VALUE &gt;0, treat as (VALUE 127) list, otherwise as (-VALUE,
                     0)</tr>
+                    <tr lang="ru" finished="false">Если значение &gt;0, относитесь к списку (VALUE
+                    127), в противном случае (-VALUE, 0)</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">NOTE [VELOCITY] list expected</tr>
+                    <tr lang="ru" finished="false">ПРИМЕЧАНИЕ (Список ожидаемых)</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs NOTE VELOCITY pair</outlet>
-            <outlet>bang when destination value is reached</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs NOTE VELOCITY pair</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang when destination value is reached</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

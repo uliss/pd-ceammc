@@ -41,21 +41,32 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">starts iteration</tr>
+                    <tr lang="ru" finished="false">Начинается итерация</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">set array name</tr>
+                    <tr lang="ru" finished="false">Имя при рождении</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">sample value from side-chain</tr>
+                    <tr lang="ru" finished="false">значение выборки из боковой цепи</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang on finish</outlet>
-            <outlet>for each array sample outputs list: SAMPLE_VALUE, SAMPLE_POS,
-            TOTAL_SAMPLES</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang on finish</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">for each array sample outputs list: SAMPLE_VALUE, SAMPLE_POS,
+                    TOTAL_SAMPLES</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

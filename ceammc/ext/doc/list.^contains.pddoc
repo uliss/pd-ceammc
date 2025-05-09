@@ -25,48 +25,64 @@
         <info>
             <par>
                 <tr lang="en">Outputs 1 if contains, otherwise 0</tr>
+                <tr lang="ru" finished="false">Выходы 1 если содержат, иначе 0</tr>
             </par>
             <par>
                 <tr lang="en">Different arguments order then in [list.^contains]</tr>
+                <tr lang="ru" finished="false">Разные аргументы в порядке [список.]</tr>
             </par>
         </info>
         <arguments>
             <argument name="VALUE" type="list">
                 <tr lang="en">list contents</tr>
+                <tr lang="ru" finished="false">список содержимого</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @value -->
             <property name="@value" type="list" default="">
                 <tr lang="en">list contents</tr>
+                <tr lang="ru" finished="false">список содержимого</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">checks if given float is found the list</tr>
+                    <tr lang="ru" finished="false">Проверить, найден ли данный поплавок в
+                    списке</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">checks if given symbol is found the list</tr>
+                    <tr lang="ru" finished="false">Проверьте, найден ли данный символ в списке</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">check is given list is subseqence of list</tr>
+                    <tr lang="ru" finished="false">Check is given list является подсеквенцией
+                    списка</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">as list</tr>
+                    <tr lang="ru" finished="false">как список</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">checks if given data is found the list</tr>
+                    <tr lang="ru" finished="false">Проверяет, найдены ли данные в списке</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set haystack list</tr>
+                    <tr lang="ru" finished="false">Установить список стогов сена</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>1 on success, otherwise 0</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">1 on success, otherwise 0</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

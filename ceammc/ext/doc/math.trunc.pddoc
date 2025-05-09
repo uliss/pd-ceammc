@@ -25,17 +25,24 @@
             <par>
                 <tr lang="en">Outputs the integral value nearest to but no larger in magnitude than
                 x</tr>
+                <tr lang="ru" finished="false">Выходит интегральное значение, близкое, но не
+                большее по величине, чем x</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result signal</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

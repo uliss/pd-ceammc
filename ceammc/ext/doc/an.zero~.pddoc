@@ -55,7 +55,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output zero crossing count/freq/rate</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output zero crossing count/freq/rate</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

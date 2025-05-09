@@ -22,6 +22,7 @@
         <arguments>
             <argument name="DICT" type="list">
                 <tr lang="en">mapping dictionary, see @dict property</tr>
+                <tr lang="ru" finished="false">Картографический словарь, см. @dict property</tr>
             </argument>
         </arguments>
         <properties>
@@ -29,37 +30,57 @@
             <property name="@def" type="list" default="">
                 <tr lang="en">default value to replace missing keys. If empty (by default), missing
                 keys are ignored.</tr>
+                <tr lang="ru" finished="false">значение по умолчанию для замены отсутствующих
+                ключей. Если пустые (по умолчанию), пропущенные ключи игнорируются.</tr>
             </property>
             <!-- @dict -->
             <property name="@dict" type="list" default="[]">
                 <tr lang="en">mapping dictionary, the syntax is [KEY: VALUES...], for example: [1:
                 "one" 2: "two" k: "map values"]</tr>
+                <tr lang="ru" finished="false">Словарь отображения, синтаксис [KEY: VALUES...],
+                например: [1: «один» 2: «два» k: «значения карты»]</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input float, no output if not in dict</tr>
+                    <tr lang="ru" finished="false">Входной поплавок, нет выхода, если не в
+                    дикте</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">input symbol, no output if not in dict</tr>
+                    <tr lang="ru" finished="false">Входной символ, не выход, если не в дикте</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">input list, output always at least empty list</tr>
+                    <tr lang="ru" finished="false">Список входов, выход всегда, по крайней мере,
+                    пустой список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input list, output always at least empty list</tr>
+                    <tr lang="ru" finished="false">Список входов, выход всегда, по крайней мере,
+                    пустой список</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="data:dict">
                     <tr lang="en">set mapping dictionary</tr>
+                    <tr lang="ru" finished="false">Настройка картографического словаря</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list or data:mlist mapped list</outlet>
-            <outlet>atom: missing keys</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list or data:mlist mapped list</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">atom: missing keys</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

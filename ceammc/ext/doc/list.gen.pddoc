@@ -25,17 +25,21 @@
         <info>
             <par>
                 <tr lang="en">Note, that maximum length limited to 1024 elements.</tr>
+                <tr lang="ru" finished="false">Максимальная длина ограничивается 1024
+                элементами.</tr>
             </par>
         </info>
         <arguments>
             <argument name="COUNT" type="int" minvalue="1" maxvalue="1024">
                 <tr lang="en">length of generated list</tr>
+                <tr lang="ru" finished="false">Длина генерируемого списка</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @count -->
             <property name="@count" type="int" minvalue="1" maxvalue="1024" default="1">
                 <tr lang="en">length of generated list</tr>
+                <tr lang="ru" finished="false">Длина генерируемого списка</tr>
             </property>
         </properties>
         <methods>
@@ -43,6 +47,8 @@
             <method name="dump">
                 <info>
                     <tr lang="en">dump internal object state to Pd console window</tr>
+                    <tr lang="ru" finished="false">Сбросить внутреннее состояние объекта в окно
+                    консоли Pd</tr>
                 </info>
             </method>
         </methods>
@@ -50,20 +56,32 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">starts list generation</tr>
+                    <tr lang="ru" finished="false">Начало формирования списка</tr>
                 </xinfo>
                 <xinfo on="int" minvalue="0" maxvalue="1024">
                     <tr lang="en">changes length of generated list and starts generation</tr>
+                    <tr lang="ru" finished="false">Изменение длины сгенерированного списка и начало
+                    генерации</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">input for generated values</tr>
+                    <tr lang="ru" finished="false">вход для генерируемых значений</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>generated list</outlet>
-            <outlet>bang output for generator object</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">generated list</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang output for generator object</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

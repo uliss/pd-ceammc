@@ -24,11 +24,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output current canvas fullpath</tr>
+                    <tr lang="ru" finished="false">выходной ток canvas fullpath</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>current canvas fullpath as symbol</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">current canvas fullpath as symbol</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

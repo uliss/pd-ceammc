@@ -28,21 +28,29 @@
             <par>
                 <tr lang="en">hoa.in defines a message inlet for a patcher loaded by a hoa.process~
                 object.</tr>
+                <tr lang="ru" finished="false">hoa.in определяет вход сообщения для патчера,
+                загруженного hoa.process~ объектом.</tr>
             </par>
         </info>
         <arguments>
             <argument name="INDEX" type="int" minvalue="1">
                 <tr lang="en">shortcut for @index property</tr>
+                <tr lang="ru" finished="false">Скриншоты для @index Property</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @index -->
             <property name="@index" type="int" minvalue="1" default="1">
                 <tr lang="en">Defines an inlet index</tr>
+                <tr lang="ru" finished="false">Определяет входной индекс</tr>
             </property>
         </properties>
         <outlets>
-            <outlet>output messages received from a hoa.process~ input.</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output messages received from a hoa.process~ input.</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

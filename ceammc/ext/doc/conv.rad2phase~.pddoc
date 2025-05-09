@@ -27,11 +27,16 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">converted value</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">converted value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

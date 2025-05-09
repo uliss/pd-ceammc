@@ -25,66 +25,92 @@
         <arguments>
             <argument name="START" type="float" minvalue="0">
                 <tr lang="en">@start property</tr>
+                <tr lang="ru" finished="false">@Start Недвижимость</tr>
             </argument>
             <argument name="STOP" type="float" minvalue="0">
                 <tr lang="en">@stop property</tr>
+                <tr lang="ru" finished="false">@stop Недвижимость</tr>
             </argument>
             <argument name="N" type="int" minvalue="4" maxvalue="1024">
                 <tr lang="en">@n property</tr>
+                <tr lang="ru" finished="false">@n имущество</tr>
             </argument>
             <argument name="BASE" type="atom" enum="10 2 e">
                 <tr lang="en">x-axis scale base</tr>
+                <tr lang="ru" finished="false">x-осевая шкала</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @10 -->
             <property name="@10" type="atom">
                 <tr lang="en">alias to @base 10</tr>
+                <tr lang="ru" finished="false">Источник: @base 10</tr>
             </property>
             <!-- @2 -->
             <property name="@2" type="atom">
                 <tr lang="en">alias to @base 2</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @base 2</tr>
             </property>
             <!-- @base -->
             <property name="@base" type="atom" enum="10 2 e" default="10">
                 <tr lang="en">x-axis scale base</tr>
+                <tr lang="ru" finished="false">x-осевая шкала</tr>
             </property>
             <!-- @e -->
             <property name="@e" type="atom">
                 <tr lang="en">alias to @base e</tr>
+                <tr lang="ru" finished="false">Источник: @base e</tr>
             </property>
             <!-- @endpoint -->
             <property name="@endpoint" type="bool" default="1">
                 <tr lang="en">include @stop to interval</tr>
+                <tr lang="ru" finished="false">Включите @stop в интервал</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="4" maxvalue="1024" default="100">
                 <tr lang="en">number of points</tr>
+                <tr lang="ru" finished="false">количество точек</tr>
             </property>
             <!-- @start -->
             <property name="@start" type="float" minvalue="0" default="0.1">
                 <tr lang="en">the starting value of the sequence</tr>
+                <tr lang="ru" finished="false">начальное значение последовательности</tr>
             </property>
             <!-- @stop -->
             <property name="@stop" type="float" minvalue="0" default="100">
                 <tr lang="en">the final value of the sequence, unless @endpoint is false. In that
                 case, @n + 1 values are spaced over the interval in log-space, of which all but the
                 last (a sequence of length @n) are returned.</tr>
+                <tr lang="ru" finished="false">Окончательное значение последовательности, если
+                @endpoint не является ложным. В этом случае значения @n + 1 размещаются через
+                интервал в пространстве журнала, из которого возвращаются все, кроме последнего
+                (последовательность длины @n).</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">starts output</tr>
+                    <tr lang="ru" finished="false">Начинается вывод</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">output specified number of values, change @n property valuue</tr>
+                    <tr lang="ru" finished="false">выход заданного количества значений, изменение
+                    @n стоимости имущества</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">signal output</outlet>
-            <outlet>output to [array.plot~] or [ui.plot~]</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">signal output</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output to [array.plot~] or [ui.plot~]</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

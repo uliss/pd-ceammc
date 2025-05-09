@@ -62,7 +62,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of data:Strings or symbols</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of data:Strings or symbols</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

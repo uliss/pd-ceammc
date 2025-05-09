@@ -22,31 +22,41 @@
         <arguments>
             <argument name="MUL" type="float">
                 <tr lang="en">multiplicand</tr>
+                <tr lang="ru" finished="false">мультипликационный</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @mul -->
             <property name="@mul" type="float" default="1">
                 <tr lang="en">multiplicand</tr>
+                <tr lang="ru" finished="false">мультипликационный</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">multiplier</tr>
+                    <tr lang="ru" finished="false">умножитель</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list of multipliers (non float values are ignored)</tr>
+                    <tr lang="ru" finished="false">список мультипликаторов (не поплавковые значения
+                    игнорируются)</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">change multiplicand</tr>
+                    <tr lang="ru" finished="false">изменить мультипликатор</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float or list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float or list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

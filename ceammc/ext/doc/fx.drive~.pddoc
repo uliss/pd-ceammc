@@ -19,6 +19,7 @@
         <arguments>
             <argument name="DRIVE" type="float" minvalue="1" maxvalue="10">
                 <tr lang="en">drive coefficient</tr>
+                <tr lang="ru" finished="false">коэффициент привода</tr>
             </argument>
         </arguments>
         <properties>
@@ -28,10 +29,13 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @drive -->
             <property name="@drive" type="float" minvalue="1" maxvalue="10" default="1">
                 <tr lang="en">drive coefficient</tr>
+                <tr lang="ru" finished="false">коэффициент привода</tr>
             </property>
         </properties>
         <methods>
@@ -39,6 +43,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset object</tr>
+                    <tr lang="ru" finished="false">сбрасывать объект</tr>
                 </info>
             </method>
         </methods>
@@ -46,11 +51,16 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

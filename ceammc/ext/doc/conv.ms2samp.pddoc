@@ -29,14 +29,20 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">time in milliseconds</tr>
+                    <tr lang="ru" finished="false">Время в миллисекундах</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list of times in milliseconds</tr>
+                    <tr lang="ru" finished="false">Список раз в миллисекундах</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>converted value (float or list)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">converted value (float or list)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

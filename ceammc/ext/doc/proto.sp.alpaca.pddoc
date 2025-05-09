@@ -147,7 +147,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output parsed messages from device</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output parsed messages from device</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

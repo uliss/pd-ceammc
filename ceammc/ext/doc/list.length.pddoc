@@ -26,14 +26,20 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">Input list</tr>
+                    <tr lang="ru" finished="false">Список вводимых данных</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">Input mlist</tr>
+                    <tr lang="ru" finished="false">Входной млист</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>the number of elements in the list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">the number of elements in the list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

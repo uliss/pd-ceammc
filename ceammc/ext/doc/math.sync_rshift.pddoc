@@ -27,25 +27,35 @@
         <arguments>
             <argument name="SHIFT" type="int">
                 <tr lang="en">shift amount</tr>
+                <tr lang="ru" finished="false">сменная сумма</tr>
             </argument>
         </arguments>
         <inlets>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">set value, calculate and output result</tr>
+                    <tr lang="ru" finished="false">заданное значение, вычисление и выходной
+                    результат</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pair: set value and shift, calculate and output result</tr>
+                    <tr lang="ru" finished="false">пара: заданное значение и сдвиг, вычисление и
+                    выходной результат</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">change shift, calculate and output result</tr>
+                    <tr lang="ru" finished="false">изменение смещения, вычисления и результата</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

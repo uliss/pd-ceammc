@@ -24,6 +24,7 @@
         <arguments>
             <argument name="VALUE" type="list">
                 <tr lang="en">list contents</tr>
+                <tr lang="ru" finished="false">список содержимого</tr>
             </argument>
         </arguments>
         <properties>
@@ -31,52 +32,75 @@
             <property name="@clip" type="alias">
                 <tr lang="en">alias to @method clip. If index &lt; 0 - return first element. If
                 index greater or equal list size - return last element</tr>
+                <tr lang="ru" finished="false">@method клип. Если индекс &lt; 0 - возвращайте
+                первый элемент. Если индекс больше или равный размер списка - возвращайте последний
+                элемент</tr>
             </property>
             <!-- @default -->
             <property name="@default" type="atom" default="None">
                 <tr lang="en">default output value if element was not found</tr>
+                <tr lang="ru" finished="false">выходное значение по умолчанию, если элемент не
+                найден</tr>
             </property>
             <!-- @fold -->
             <property name="@fold" type="alias">
                 <tr lang="en">alias to @method fold. In range [0, LIST_SIZE) ordinal elements are
                 returned. [LIST_SIZE, 2*LIST_SIZE) - returned in negative order etc.</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @method fold. В диапазоне [0,
+                LIST_SIZE] порядковые элементы возвращаются. [LIST_SIZE, 2*LIST_SIZE) -
+                возвращаются в отрицательном порядке и т.д.</tr>
             </property>
             <!-- @method -->
             <property name="@method" type="symbol" enum="rel clip fold wrap" default="rel">
                 <tr lang="en">methods of processing of negative/invalid indexes</tr>
+                <tr lang="ru" finished="false">Методы обработки отрицательных/инвалидных
+                индексов</tr>
             </property>
             <!-- @rel -->
             <property name="@rel" type="alias">
                 <tr lang="en">alias to @method rel. Negative index means position from the end of
                 the list</tr>
+                <tr lang="ru" finished="false">@method rel. Отрицательный индекс означает позицию в
+                конце списка.</tr>
             </property>
             <!-- @value -->
             <property name="@value" type="list" default="">
                 <tr lang="en">list contents</tr>
+                <tr lang="ru" finished="false">список содержимого</tr>
             </property>
             <!-- @wrap -->
             <property name="@wrap" type="alias">
                 <tr lang="en">alias to @method wrap. In range [0, LIST_SIZE) ordinal elements are
                 returned. Other indexes are wrapped by modulo division.</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @method wrap В диапазоне [0,
+                LIST_SIZE] порядковые элементы возвращаются. Другие индексы обернуты модульным
+                делением.</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">element index</tr>
+                    <tr lang="ru" finished="false">Элементный индекс</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list of indexes</tr>
+                    <tr lang="ru" finished="false">Список индексов</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set list content</tr>
+                    <tr lang="ru" finished="false">Содержание списка</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>element(s) at the input index position(s)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">element(s) at the input index position(s)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

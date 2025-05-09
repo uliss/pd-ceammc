@@ -56,12 +56,14 @@
             <method name="close">
                 <info>
                     <tr lang="en">disconnect from device</tr>
+                    <tr lang="ru" finished="false">отключение от устройства</tr>
                 </info>
             </method>
             <!-- open -->
             <method name="open">
                 <info>
                     <tr lang="en">connect to device</tr>
+                    <tr lang="ru" finished="false">подключаться к устройству</tr>
                 </info>
             </method>
         </methods>
@@ -69,14 +71,22 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">sends float value in byte range [0-255] to serial port</tr>
+                    <tr lang="ru" finished="false">посылает значение плавания в байтовом диапазоне
+                    [0-255] в последовательный порт</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">sends list of floats in byte range [0-255] to serial port</tr>
+                    <tr lang="ru" finished="false">Отправляет список поплавков в байтовом диапазоне
+                    [0-255] в последовательный порт</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs received byte from serial port</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs received byte from serial port</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

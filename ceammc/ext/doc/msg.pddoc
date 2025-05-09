@@ -26,37 +26,53 @@
         <arguments>
             <argument name="NAME" type="symbol">
                 <tr lang="en">message selector</tr>
+                <tr lang="ru" finished="false">Селектор сообщений</tr>
             </argument>
             <argument name="X" type="any">
                 <tr lang="en">message content</tr>
+                <tr lang="ru" finished="false">контент сообщения</tr>
             </argument>
         </arguments>
         <inlets>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">appends all atoms to message content and outputs it</tr>
+                    <tr lang="ru" finished="false">Добавляет все атомы к содержанию сообщения и
+                    выводит его</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">appends input list to message content and outputs it</tr>
+                    <tr lang="ru" finished="false">Добавляет список ввода к содержанию сообщения и
+                    выводит его</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">appends float to message content and outputs it</tr>
+                    <tr lang="ru" finished="false">Добавляет поплавок к контенту сообщения и
+                    выводит его</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">appends symbol to message content and outputs it</tr>
+                    <tr lang="ru" finished="false">Добавляет символ к содержанию сообщения и
+                    выводит его</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">change message selector</tr>
+                    <tr lang="ru" finished="false">Изменить селектор сообщений</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">change message selector and first atoms</tr>
+                    <tr lang="ru" finished="false">Изменить селектор сообщений и первые атомы</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>message output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">message output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

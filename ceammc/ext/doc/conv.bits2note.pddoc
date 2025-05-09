@@ -24,9 +24,14 @@
             <par>
                 <tr lang="en">In default mode: output NOTE VEL pair to corresponding bit index
                 outlet. If bit is on: velocity is @vel, otherwise 0</tr>
+                <tr lang="ru" finished="false">В режиме по умолчанию: выходная пара NOTE VEL к
+                соответствующей розетке индекса битов. Если бит включен: скорость @vel, в противном
+                случае 0</tr>
             </par>
             <par>
                 <tr lang="en">In @poly mode: output VOICE NOTE VEL triplet to first outlet</tr>
+                <tr lang="ru" finished="false">В режиме @poly: вывод VOICE NOTE VEL триплет на
+                первую розетку</tr>
             </par>
         </info>
         <arguments>
@@ -65,11 +70,16 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input bit list</tr>
+                    <tr lang="ru" finished="false">Список входных бит</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet>output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

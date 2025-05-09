@@ -30,7 +30,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of codes</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of codes</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

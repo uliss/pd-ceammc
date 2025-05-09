@@ -436,8 +436,12 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float: raw midi output or parsed messages with selector (output format is the
-            same as for corresponding methods)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: raw midi output or parsed messages with selector (output
+                    format is the same as for corresponding methods)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

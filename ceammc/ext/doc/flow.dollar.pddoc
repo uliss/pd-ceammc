@@ -23,11 +23,16 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">input flow</tr>
+                    <tr lang="ru" finished="false">входной поток</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs flow with realized dollar atoms</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs flow with realized dollar atoms</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

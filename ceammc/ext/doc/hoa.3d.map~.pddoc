@@ -24,25 +24,33 @@
             <par>
                 <tr lang="en">Encodes several sources in the circular harmonics domain with
                 distance compensation and muting system</tr>
+                <tr lang="ru" finished="false">Кодирует несколько источников в области круговых
+                гармоник с компенсацией расстояния и системой приглушения</tr>
             </par>
             <par>
                 <tr lang="en">If @nsrc 1: radius, azimuth and elevation are controlled with signal
                 values</tr>
+                <tr lang="ru" finished="false">Если @nsrc 1: радиус, азимут и высота контролируются
+                с помощью значений сигнала</tr>
             </par>
             <par>
                 <tr lang="en">Note: source indexes are 1-based.</tr>
+                <tr lang="ru" finished="false">Примечание: исходные индексы основаны на 1.</tr>
             </par>
             <a href="hoa/hoa.3d.map~-help.pd">CICM documentation</a>
         </info>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="10">
                 <tr lang="en">the order of decomposition</tr>
+                <tr lang="ru" finished="false">Порядок разложения</tr>
             </argument>
             <argument name="NSRC" type="int" minvalue="1">
                 <tr lang="en">number of sources</tr>
+                <tr lang="ru" finished="false">Количество источников</tr>
             </argument>
             <argument name="MODE" type="symbol" enum="car pol">
                 <tr lang="en">coordinates mode</tr>
+                <tr lang="ru" finished="false">режим координат</tr>
             </argument>
         </arguments>
         <properties>
@@ -50,19 +58,24 @@
             <property name="@mode" type="symbol" enum="car pol" default="pol">
                 <tr lang="en">coordinates mode in signal control mode (with @nsrc 1), polar or
                 cartesian</tr>
+                <tr lang="ru" finished="false">режим координат в режиме управления сигналом (с
+                @nsrc 1), полярный или картезианский</tr>
             </property>
             <!-- @nsrc -->
             <property name="@nsrc" type="int" minvalue="1" default="1" access="initonly">
                 <tr lang="en">number of input sources</tr>
+                <tr lang="ru" finished="false">Количество входных источников</tr>
             </property>
             <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
             access="initonly">
                 <tr lang="en">the order of decomposition</tr>
+                <tr lang="ru" finished="false">Порядок разложения</tr>
             </property>
             <!-- @ramp -->
             <property name="@ramp" type="float" minvalue="0" default="100">
                 <tr lang="en">ramp time</tr>
+                <tr lang="ru" finished="false">время</tr>
             </property>
         </properties>
         <methods>
@@ -70,62 +83,79 @@
             <method name="car">
                 <info>
                     <tr lang="en">alias to cartesian method</tr>
+                    <tr lang="ru" finished="false">псевдоним картезианский метод</tr>
                 </info>
             </method>
             <!-- cartesian -->
             <method name="cartesian">
                 <info>
                     <tr lang="en">set source mapping in cartesian coordinates</tr>
+                    <tr lang="ru" finished="false">картографирование источника в картезианских
+                    координатах</tr>
                 </info>
                 <param name="IDX" type="int" required="true" minvalue="1">
                     <tr lang="en">source index. 1-based</tr>
+                    <tr lang="ru" finished="false">Исходный индекс. 1 основанный</tr>
                 </param>
                 <param name="X" type="float" required="true">
                     <tr lang="en">x coordinate</tr>
+                    <tr lang="ru" finished="false">x координата</tr>
                 </param>
                 <param name="Y" type="float" required="true">
                     <tr lang="en">y coordinate</tr>
+                    <tr lang="ru" finished="false">координаты</tr>
                 </param>
                 <param name="Z" type="float" required="true">
                     <tr lang="en">z coordinate</tr>
+                    <tr lang="ru" finished="false">z координата</tr>
                 </param>
             </method>
             <!-- mute -->
             <method name="mute">
                 <info>
                     <tr lang="en">mute/unmute specified source</tr>
+                    <tr lang="ru" finished="false">немой / немой указанный источник</tr>
                 </info>
                 <param name="IDX" type="int" required="true" minvalue="1">
                     <tr lang="en">source index. 1-based</tr>
+                    <tr lang="ru" finished="false">Исходный индекс. 1 основанный</tr>
                 </param>
                 <param name="STATE" type="int" required="true" enum="0 1">
                     <tr lang="en">mute value</tr>
+                    <tr lang="ru" finished="false">немая ценность</tr>
                 </param>
             </method>
             <!-- pol -->
             <method name="pol">
                 <info>
                     <tr lang="en">alias to polar method</tr>
+                    <tr lang="ru" finished="false">псевдоним полярный метод</tr>
                 </info>
             </method>
             <!-- polar -->
             <method name="polar">
                 <info>
                     <tr lang="en">set source mapping in polar coordinates</tr>
+                    <tr lang="ru" finished="false">картирование источника в полярных
+                    координатах</tr>
                 </info>
                 <param name="IDX" type="int" required="true" minvalue="1">
                     <tr lang="en">source index. 1-based</tr>
+                    <tr lang="ru" finished="false">Исходный индекс. 1 основанный</tr>
                 </param>
                 <param name="RAD" type="float" required="true" minvalue="0" maxvalue="1">
                     <tr lang="en">radius</tr>
+                    <tr lang="ru" finished="false">радиус</tr>
                 </param>
                 <param name="AZIM" type="float" required="true" minvalue="0" maxvalue="2π"
                 units="radian">
                     <tr lang="en">azimuth angle</tr>
+                    <tr lang="ru" finished="false">угол азимута</tr>
                 </param>
                 <param name="ELEV" type="float" required="true" minvalue="0" maxvalue="2π"
                 units="radian">
                     <tr lang="en">elevation</tr>
+                    <tr lang="ru" finished="false">высота</tr>
                 </param>
             </method>
         </methods>
@@ -133,26 +163,43 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">first source input</tr>
+                    <tr lang="ru" finished="false">Первый источник ввода</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">SRC_IDX polar RADIUS AZIMUTH ELEVATION or SRC_IDX mute VALUE</tr>
+                    <tr lang="ru" finished="false">SRC_IDX Polar RADIUS AZIMUTH ELEVATION или
+                    SRC_IDX mute VALUE</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="...">
                 <xinfo>
                     <tr lang="en">... source input</tr>
+                    <tr lang="ru" finished="false">Источник ввода</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="n">
                 <xinfo>
                     <tr lang="en">n-th source input</tr>
+                    <tr lang="ru" finished="false">n-й исходный ввод</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet type="audio">first harmonic output</outlet>
-            <outlet type="audio" number="...">... harmonic output</outlet>
-            <outlet type="audio" number="n">n-th harmonic output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">first harmonic output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio" number="...">
+                <out type="any">
+                    <tr lang="en">... harmonic output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio" number="n">
+                <out type="any">
+                    <tr lang="en">n-th harmonic output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

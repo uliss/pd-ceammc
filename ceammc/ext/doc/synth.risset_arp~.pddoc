@@ -74,8 +74,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio" />
-            <outlet type="audio" />
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en" />
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en" />
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

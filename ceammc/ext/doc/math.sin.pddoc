@@ -25,29 +25,40 @@
             <par>
                 <tr lang="en">The sin() function computes the sine of input value (measured in
                 radians).</tr>
+                <tr lang="ru" finished="false">Функция sin() вычисляет синус входного значения
+                (измеряется в радианах).</tr>
             </par>
             <par>
                 <tr lang="en">Special values:</tr>
+                <tr lang="ru" finished="false">Особые ценности:</tr>
             </par>
             <par>
                 <tr lang="en">sin(+-0) returns +-0.</tr>
+                <tr lang="ru" finished="false">Грех (+-0) возвращается +-0.</tr>
             </par>
             <par>
                 <tr lang="en">sin(+-infinity) returns a NaN.</tr>
+                <tr lang="ru" finished="false">(+-бесконечность) возвращает NaN.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">apply to all numeric values</tr>
+                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

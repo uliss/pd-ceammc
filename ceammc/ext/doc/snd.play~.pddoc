@@ -159,10 +159,26 @@
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet type="audio" number="1">first output channel</outlet>
-            <outlet type="audio" number="...">... output channel</outlet>
-            <outlet type="audio" number="n">n-th output channel</outlet>
-            <outlet type="control" number="n+1">control output</outlet>
+            <outlet type="audio" number="1">
+                <out type="any">
+                    <tr lang="en">first output channel</tr>
+                </out>
+            </outlet>
+            <outlet type="audio" number="...">
+                <out type="any">
+                    <tr lang="en">... output channel</tr>
+                </out>
+            </outlet>
+            <outlet type="audio" number="n">
+                <out type="any">
+                    <tr lang="en">n-th output channel</tr>
+                </out>
+            </outlet>
+            <outlet type="control" number="n+1">
+                <out type="any">
+                    <tr lang="en">control output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -28,28 +28,38 @@
                 <tr lang="en">Convertion depends on property @step, which means a length of
                 key/value pair. First element of the pair becames a key, and other elements becames
                 value.</tr>
+                <tr lang="ru" finished="false">Конвертация зависит от свойства @step, что означает
+                длину пары ключ/значение. Первый элемент пары становится ключом, а другие элементы
+                — ценностью.</tr>
             </par>
         </info>
         <arguments>
             <argument name="STEP" type="int" minvalue="2">
                 <tr lang="en">key/value length in input list</tr>
+                <tr lang="ru" finished="false">длина ключа/значения во входном списке</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @step -->
             <property name="@step" type="int" minvalue="2" default="2">
                 <tr lang="en">key/value length in input list</tr>
+                <tr lang="ru" finished="false">длина ключа/значения во входном списке</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input</tr>
+                    <tr lang="ru" finished="false">ввод</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>dict output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">dict output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

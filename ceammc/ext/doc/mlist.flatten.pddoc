@@ -23,14 +23,20 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">list of mlists</tr>
+                    <tr lang="ru" finished="false">Список млистов</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">mlist input</tr>
+                    <tr lang="ru" finished="false">млечный вход</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>mlist output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">mlist output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

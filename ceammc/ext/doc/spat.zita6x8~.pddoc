@@ -207,14 +207,46 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">1st output</outlet>
-            <outlet type="audio">2dn output</outlet>
-            <outlet type="audio">3rd output</outlet>
-            <outlet type="audio">4th output</outlet>
-            <outlet type="audio">5th output</outlet>
-            <outlet type="audio">6th output</outlet>
-            <outlet type="audio">7th output</outlet>
-            <outlet type="audio">8th output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">1st output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">2dn output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">3rd output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">4th output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">5th output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">6th output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">7th output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">8th output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

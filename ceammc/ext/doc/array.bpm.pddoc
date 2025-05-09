@@ -40,11 +40,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">starts calculation</tr>
+                    <tr lang="ru" finished="false">Начинается расчет</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float value - BPM</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float value - BPM</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

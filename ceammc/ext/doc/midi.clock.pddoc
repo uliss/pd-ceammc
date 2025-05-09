@@ -20,11 +20,14 @@
             <par>
                 <tr lang="en">Note: cause in Pd messages are processed between DSP blocks -
                 measured bpm is not exact</tr>
+                <tr lang="ru" finished="false">Примечание: причина в сообщениях Pd обрабатывается
+                между блоками DSP - измеренный bpm не точен</tr>
             </par>
         </info>
         <arguments>
             <argument name="DIV" type="int" enum="0 4 8 16 32">
                 <tr lang="en">@div clock subdivision</tr>
+                <tr lang="ru" finished="false">@div Часы подраздел</tr>
             </argument>
         </arguments>
         <properties>
@@ -32,6 +35,9 @@
             <property name="@div" type="int" enum="0 4 8 16 32" default="0">
                 <tr lang="en">clock subdivision. If 0: bang each incoming midi clock message, if 4:
                 output every quoter note, 8: every eight note etc.</tr>
+                <tr lang="ru" finished="false">Часовое подразделение. Если 0: ударить каждое
+                входящее сообщение миди-часа, если 4: вывести каждую заметку цитатора, 8: каждую
+                восьмую заметку и т.д.</tr>
             </property>
         </properties>
         <methods>
@@ -39,6 +45,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset beat counter</tr>
+                    <tr lang="ru" finished="false">Обсуждение Beat Counter</tr>
                 </info>
             </method>
         </methods>
@@ -46,12 +53,21 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">control input</tr>
+                    <tr lang="ru" finished="false">контрольный вход</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang: on specified beat</outlet>
-            <outlet>float: measured bpm (output every beat)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang: on specified beat</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: measured bpm (output every beat)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

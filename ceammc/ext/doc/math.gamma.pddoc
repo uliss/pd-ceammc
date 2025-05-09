@@ -23,23 +23,33 @@
         <info>
             <par>
                 <tr lang="en">Extension of factorial function to real numbers</tr>
+                <tr lang="ru" finished="false">Расширение факториальной функции на реальные
+                числа</tr>
             </par>
             <par>
                 <tr lang="en">For any positive integer n, Γ(n) = (n−1)!</tr>
+                <tr lang="ru" finished="false">Для любого положительного целого числа n, Γ(n) =
+                (n−1)!</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">apply to all numeric values</tr>
+                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value or list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result value or list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

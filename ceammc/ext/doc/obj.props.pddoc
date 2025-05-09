@@ -19,18 +19,29 @@
         <info>
             <par>
                 <tr lang="en">extract properties from object, connected to second outlet</tr>
+                <tr lang="ru" finished="false">извлекать свойства из объекта, подключенного ко
+                второй розетке</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output extracted properties to first outlet</tr>
+                    <tr lang="ru" finished="false">вывод извлеченных свойств на первый выход</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>property output (data:dict)</outlet>
-            <outlet>connect to examined object</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">property output (data:dict)</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">connect to examined object</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

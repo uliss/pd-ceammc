@@ -171,9 +171,17 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang if onset detected</outlet>
-            <outlet>float: time of the latest onset detected in milliseconds from starting of
-            measuring. You can reset start time with 'reset' message</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang if onset detected</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: time of the latest onset detected in milliseconds from
+                    starting of measuring. You can reset start time with 'reset' message</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

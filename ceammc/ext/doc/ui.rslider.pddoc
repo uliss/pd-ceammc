@@ -175,7 +175,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output slider range as pair of values</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output slider range as pair of values</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

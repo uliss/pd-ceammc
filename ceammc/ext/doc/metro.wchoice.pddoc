@@ -26,49 +26,64 @@
             <argument name="INIT" type="list">
                 <tr lang="en">TIME and WEIGHT list in format: T0 W1... Weight values can be floats
                 or percent</tr>
+                <tr lang="ru" finished="false">Список времени и времени в формате: T0 W1 Значения
+                веса могут быть плавающими или процентами.</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @calc_w -->
             <property name="@calc_w" type="list" default="1" access="readonly">
                 <tr lang="en">normalized list of probabilities</tr>
+                <tr lang="ru" finished="false">Нормализованный список вероятностей</tr>
             </property>
             <!-- @init -->
             <property name="@init" type="list" default="" access="initonly">
                 <tr lang="en">intermixed list of time and weights values</tr>
+                <tr lang="ru" finished="false">Перемешанный список значений времени и весов</tr>
             </property>
             <!-- @seed -->
             <property name="@seed" type="int" minvalue="0" default="0">
                 <tr lang="en">generator seed</tr>
+                <tr lang="ru" finished="false">генератор</tr>
             </property>
             <!-- @t -->
             <property name="@t" type="list" units="millisecond" default="">
                 <tr lang="en">timeset (&gt;0)</tr>
+                <tr lang="ru" finished="false">Время (&gt;0)</tr>
             </property>
             <!-- @w -->
             <property name="@w" type="list" default="">
                 <tr lang="en">weight list, float or percent values</tr>
+                <tr lang="ru" finished="false">весовой список, значения поплавка или процента</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">starts (on &gt;0) or stops (on &lt;=0) metro</tr>
+                    <tr lang="ru" finished="false">старты (на &gt;0) или остановки (на &lt;=0)
+                    метро</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set timeset</tr>
+                    <tr lang="ru" finished="false">установленное время</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set weights</tr>
+                    <tr lang="ru" finished="false">установленный вес</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs *bang*</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs *bang*</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

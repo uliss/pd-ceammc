@@ -42,7 +42,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>symbol: env-variable value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">symbol: env-variable value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -379,7 +379,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>osc send command</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">osc send command</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -23,14 +23,20 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">outputs directory portion of pathname</tr>
+                    <tr lang="ru" finished="false">Выходит часть каталога Pathname</tr>
                 </xinfo>
                 <xinfo on="data:string">
                     <tr lang="en">outputs directory portion of pathname</tr>
+                    <tr lang="ru" finished="false">Выходит часть каталога Pathname</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>directory name</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">directory name</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

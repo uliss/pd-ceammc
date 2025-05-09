@@ -28,17 +28,24 @@
             <par>
                 <tr lang="en">Convert frequency from BPM (beats per minute) to period in seconds.
                 It's simple as 60/f, but more readable.</tr>
+                <tr lang="ru" finished="false">Преобразуйте частоту от BPM (бит в минуту) в период
+                в секундах. Это просто как 60/f, но более читаемо.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">frequency in BPM</tr>
+                    <tr lang="ru" finished="false">Частота в BPM</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>period in seconds</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">period in seconds</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

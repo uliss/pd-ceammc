@@ -28,11 +28,16 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">period in seconds</tr>
+                    <tr lang="ru" finished="false">период в секундах</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bpm frequency</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bpm frequency</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

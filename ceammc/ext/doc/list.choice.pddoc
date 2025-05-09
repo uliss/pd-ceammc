@@ -24,20 +24,29 @@
             <property name="@norepeat" type="bool" default="0">
                 <tr lang="en">norepeat property. If 1 is given: every time output value at new list
                 position, do not repeat choosed position twice at adjacent events.</tr>
+                <tr lang="ru" finished="false">Неповторное имущество. Если дано 1: каждый раз,
+                когда выходное значение на новой позиции списка, не повторяйте выбранную позицию
+                дважды на смежных событиях.</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">Input list</tr>
+                    <tr lang="ru" finished="false">Список вводимых данных</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">Input mlist</tr>
+                    <tr lang="ru" finished="false">Входной млист</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>random list element</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">random list element</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

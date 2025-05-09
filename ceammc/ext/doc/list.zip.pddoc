@@ -26,14 +26,19 @@
         <info>
             <par>
                 <tr lang="en">takes X lists of length M and outputs them as a single list:</tr>
+                <tr lang="ru" finished="false">принимает X списков длины M и выводит их в виде
+                единого списка:</tr>
             </par>
             <par>
                 <tr lang="en">l₀[0], l₁[0], ..., lₓ[0], ..., l₀[M-1] l₁[M-1] ... lₓ[M-1]</tr>
+                <tr lang="ru" finished="false">l0[0], l1[0], ..., lx[0], ..., l0[M-1] l1[M-1]...
+                lx[M-1]</tr>
             </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="20">
                 <tr lang="en">number of inputs</tr>
+                <tr lang="ru" finished="false">Количество входов</tr>
             </argument>
         </arguments>
         <properties>
@@ -41,49 +46,67 @@
             <property name="@clip" type="alias">
                 <tr lang="en">alias for "@oversize clip" property. Pad shortest list with last
                 element to conform longest list</tr>
+                <tr lang="ru" finished="false">alias for "@oversize clip" property. Самый короткий
+                список с последним элементом, чтобы соответствовать самому длинному списку</tr>
             </property>
             <!-- @fold -->
             <property name="@fold" type="alias">
                 <tr lang="en">alias for "@oversize fold" property. Pad shortest list with repeated
                 values from the end to the beginning, then back and so on.</tr>
+                <tr lang="ru" finished="false">alias for "@oversize fold" property. Самый короткий
+                список с повторяющимися значениями от конца до начала, затем назад и так
+                далее.</tr>
             </property>
             <!-- @lists -->
             <property name="@lists" type="list" access="readonly" default="">
                 <tr lang="en">input data list: list of data:mlist</tr>
+                <tr lang="ru" finished="false">Список входных данных: список данных:mlist</tr>
             </property>
             <!-- @method -->
             <property name="@method" type="symbol" enum="min pad clip wrap fold" default="min">
                 <tr lang="en">behavior, if list have different sizes</tr>
+                <tr lang="ru" finished="false">Поведение, если список имеет разные размеры</tr>
             </property>
             <!-- @min -->
             <property name="@min" type="alias">
                 <tr lang="en">alias for "@oversize min" property. Truncates lists to minimal common
                 size</tr>
+                <tr lang="ru" finished="false">alias for "@oversize min" property. Усеченные списки
+                до минимального общего размера</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="2" maxvalue="20" default="2"
             access="initonly">
                 <tr lang="en">number of inputs</tr>
+                <tr lang="ru" finished="false">Количество входов</tr>
             </property>
             <!-- @pad -->
             <property name="@pad" type="atom" default="0">
                 <tr lang="en">pad value for pad method of resizing</tr>
+                <tr lang="ru" finished="false">Значение прокладки для метода прокладки</tr>
             </property>
             <!-- @wrap -->
             <property name="@wrap" type="alias">
                 <tr lang="en">alias for "@oversize wrap" property. Pad shortest list with repeated
                 values from the beginning.</tr>
+                <tr lang="ru" finished="false">alias for "@oversize wrap" property. Самый короткий
+                список с повторяющимися значениями с самого начала.</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>interleaved list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">interleaved list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

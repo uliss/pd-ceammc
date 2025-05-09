@@ -37,6 +37,8 @@
             <property name="@ip" type="symbol" default="" access="initonly">
                 <tr lang="en">bind interface IP address. If empty - use first available
                 interface.</tr>
+                <!-- old: Связать IP-адрес интерфейса. Если пуст - используйте
+                первый доступный интерфейс. -->
                 <tr lang="ru" finished="false">Связать IP-адрес интерфейса. Если пуст - используйте
                 первый доступный интерфейс.</tr>
             </property>
@@ -60,6 +62,9 @@
             <property name="@sync" type="bool" default="0">
                 <tr lang="en">send mode. If true: send frame only when bang is received, otherwise
                 send frames with @rate speed with internal clock</tr>
+                <!-- old: Отправь сигнал. Если верно: отправляйте кадр только
+                тогда, когда получен взрыв, в противном случае отправляйте кадры со скоростью @rate
+                с внутренними часами. -->
                 <tr lang="ru" finished="false">Отправь сигнал. Если верно: отправляйте кадр только
                 тогда, когда получен взрыв, в противном случае отправляйте кадры со скоростью @rate
                 с внутренними часами.</tr>
@@ -75,42 +80,54 @@
             <method name="blackout">
                 <info>
                     <tr lang="en">blackout (send 0 to all DMX channels)</tr>
+                    <tr lang="ru" finished="false">Отключение (отправить 0 на все каналы DMX)</tr>
                 </info>
             </method>
             <!-- dmx -->
             <method name="dmx">
                 <info>
                     <tr lang="en">set DMX channel values</tr>
+                    <tr lang="ru" finished="false">Настройка значений каналов DMX</tr>
                 </info>
                 <param name="VALUES" type="list" required="true">
                     <tr lang="en">list of DMX values, first element sets first channel etc.</tr>
+                    <tr lang="ru" finished="false">список значений DMX, первый элемент
+                    устанавливает первый канал и т.д.</tr>
                 </param>
             </method>
             <!-- dmx_fill -->
             <method name="dmx_fill">
                 <info>
                     <tr lang="en">set all DMX channels to given value</tr>
+                    <tr lang="ru" finished="false">Настройка всех каналов DMX на заданное
+                    значение</tr>
                 </info>
                 <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">
                     <tr lang="en">DMX value</tr>
+                    <tr lang="ru" finished="false">значение DMX</tr>
                 </param>
             </method>
             <!-- dmx_set -->
             <method name="dmx_set">
                 <info>
                     <tr lang="en">set DMX channel value</tr>
+                    <tr lang="ru" finished="false">значение канала DMX</tr>
                 </info>
                 <param name="CHAN" type="int" required="true" minvalue="0" maxvalue="512">
                     <tr lang="en">DMX channel</tr>
+                    <tr lang="ru" finished="false">Канал DMX</tr>
                 </param>
                 <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">
                     <tr lang="en">DMX value</tr>
+                    <tr lang="ru" finished="false">значение DMX</tr>
                 </param>
             </method>
             <!-- poll -->
             <method name="poll">
                 <info>
                     <tr lang="en">send poll request, dump response to Pd window</tr>
+                    <tr lang="ru" finished="false">Отправьте запрос на опрос, ответ на сброс в окно
+                    Pd</tr>
                 </info>
             </method>
         </methods>
@@ -118,14 +135,20 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">input</tr>
+                    <tr lang="ru" finished="false">ввод</tr>
                 </xinfo>
                 <xinfo on="bang">
                     <tr lang="en">send packet</tr>
+                    <tr lang="ru" finished="false">Отправить пакет</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

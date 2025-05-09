@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">Note: some scales are not for eq12 temperament</tr>
+                <tr lang="ru" finished="false">Примечание: некоторые весы не для темперамента
+                eq12</tr>
             </par>
         </info>
         <arguments>
@@ -55,6 +57,8 @@
                 <info>
                     <tr lang="en">choose random degree from current scale and convert it to
                     key</tr>
+                    <tr lang="ru" finished="false">выбрать случайную степень из текущей шкалы и
+                    преобразовать ее в ключевую</tr>
                 </info>
             </method>
         </methods>
@@ -62,14 +66,20 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">input values</tr>
+                    <tr lang="ru" finished="false">входные значения</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float or float list: converted value(s)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float or float list: converted value(s)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

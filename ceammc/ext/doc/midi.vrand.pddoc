@@ -19,19 +19,23 @@
         <arguments>
             <argument name="MIN" type="float">
                 <tr lang="en">min random range</tr>
+                <tr lang="ru" finished="false">min случайный диапазон</tr>
             </argument>
             <argument name="MAX" type="float">
                 <tr lang="en">max random range</tr>
+                <tr lang="ru" finished="false">max случайный диапазон</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @add -->
             <property name="@add" type="alias">
                 <tr lang="en">alias to @mode add</tr>
+                <tr lang="ru" finished="false">Скачать @mode add</tr>
             </property>
             <!-- @assign -->
             <property name="@assign" type="alias">
                 <tr lang="en">alias to @mode assign</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @mode assign</tr>
             </property>
             <!-- @dist -->
             <property name="@dist" type="symbol" default="uniform"
@@ -41,42 +45,63 @@
                 distribution with prob=0 at @min and prob=1 at @max, *lindown* - linear
                 distribution with prob=1 at @min and prob=0 at @max, *cmin* - constant @min value,
                 *cmax* - constant @max value, *cmean* - constant (@max+@min)/2 value</tr>
+                <tr lang="ru" finished="false">случайное распределение. *uniform* - генерировать
+                равномерно распределенное значение, *gauss* - среднее=(@max+@min)/2,
+                sigma=(@max-@max)/3, *linup* - линейное распределение с prob=0 по @min и prob=1 по
+                @max, *lindown* - линейное распределение с prob=1 по @min и prob=0 по @max, *cmin*
+                - постоянное значение @min, *cmax* - постоянное значение @max, *cmean* - постоянное
+                (@max+@min)/2 значение</tr>
             </property>
             <!-- @max -->
             <property name="@max" type="float" default="127">
                 <tr lang="en">max random range</tr>
+                <tr lang="ru" finished="false">max случайный диапазон</tr>
             </property>
             <!-- @min -->
             <property name="@min" type="float" default="0">
                 <tr lang="en">min random range</tr>
+                <tr lang="ru" finished="false">min случайный диапазон</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" default="assign" enum="assign add sub">
                 <tr lang="en">assign mode. If *assign* - replace origin velocity with random new
                 one (default), if *add* - adds random value to origin velocity, if *sub* - subtract
                 random value from origin velocity.</tr>
+                <tr lang="ru" finished="false">Установить режим. Если *назначить* - заменить
+                скорость начала на случайную новую (по умолчанию), если *добавить* - добавить
+                случайное значение к скорости начала, если *sub* - вычесть случайное значение из
+                скорости начала.</tr>
             </property>
             <!-- @seed -->
             <property name="@seed" type="int" default="0" minvalue="0">
                 <tr lang="en">random seed</tr>
+                <tr lang="ru" finished="false">случайное семя</tr>
             </property>
             <!-- @sub -->
             <property name="@sub" type="alias">
                 <tr lang="en">alias to @mode sub</tr>
+                <tr lang="ru" finished="false">Исполнитель: @mode sub</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">note value</tr>
+                    <tr lang="ru" finished="false">примечание</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">NOTE VELOCITY [DUR] list</tr>
+                    <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs NOTE VELOCITY [DUR] list with randomized VELOCITY value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs NOTE VELOCITY [DUR] list with randomized VELOCITY
+                    value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

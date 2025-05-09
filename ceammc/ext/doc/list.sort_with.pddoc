@@ -23,20 +23,31 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">output from compare object (1 or 0)</tr>
+                    <tr lang="ru" finished="false">выход из объекта сравнения (1 или 0)</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>sorted list (or mlist)</outlet>
-            <outlet>output list with two element to compare side-chain</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">sorted list (or mlist)</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output list with two element to compare side-chain</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

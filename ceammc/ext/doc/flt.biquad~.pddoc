@@ -25,10 +25,14 @@
             <par>
                 <tr lang="en">Digital biquad filter is a second-order recursive linear filter,
                 containing two poles and two zeros.</tr>
+                <tr lang="ru" finished="false">Цифровой биквад-фильтр представляет собой
+                рекурсивный линейный фильтр второго порядка, содержащий два полюса и два нуля.</tr>
             </par>
             <par>
                 <tr lang="en">transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1 + a1*z⁻¹ +
                 a2*z⁻²)</tr>
+                <tr lang="ru" finished="false">передаточная функция: H(z)=(b0 + b1*z−1 + b2*z−2)/(1
+                + a1*z−1 + a2*z−2)</tr>
             </par>
             <a href="https://en.wikipedia.org/wiki/Digital_biquad_filter">wiki: Digital biquad
             filter</a>
@@ -41,6 +45,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset filter state</tr>
+                    <tr lang="ru" finished="false">состояние фильтра сброса</tr>
                 </info>
             </method>
         </methods>
@@ -48,36 +53,46 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">b0</tr>
+                    <tr lang="ru" finished="false">b0</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">b1</tr>
+                    <tr lang="ru" finished="false">b1</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">b2</tr>
+                    <tr lang="ru" finished="false">b2</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">a1</tr>
+                    <tr lang="ru" finished="false">а1</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">a2</tr>
+                    <tr lang="ru" finished="false">а2</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">filtered signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">filtered signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

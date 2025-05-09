@@ -21,12 +21,18 @@
                 <tr lang="en">Arduino serial port that supports reconnect and hotplug. If no
                 properties are given tries to connect to the first available and not opened device.
                 If @reconnect flag is given, waits for device hotplug and reconnects to it.</tr>
+                <tr lang="ru" finished="false">Серийный порт Arduino, поддерживающий повторное
+                подключение и горячее подключение. При отсутствии свойств дается попытка
+                подключения к первому доступному и не открытому устройству. Если @reconnect флаг
+                дан, ждет хот-плаг устройства и повторно подключается к нему.</tr>
             </par>
         </info>
         <arguments>
             <argument name="PORT" type="symbol">
                 <tr lang="en">serial port name, eg.: COM3 on Windows, /dev/ttyACM0 on Linux and
                 /dev/cu.usbmodem411 on MacOSX</tr>
+                <!-- old: последовательное название порта, например: COM3 на
+                Windows, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX -->
                 <tr lang="ru" finished="false">последовательное название порта, например: COM3 на
                 Windows, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX</tr>
             </argument>
@@ -111,12 +117,14 @@
             <method name="connect">
                 <info>
                     <tr lang="en">manually connect to device</tr>
+                    <tr lang="ru" finished="false">вручную подключиться к устройству</tr>
                 </info>
             </method>
             <!-- disconnect -->
             <method name="disconnect">
                 <info>
                     <tr lang="en">disconnect from device</tr>
+                    <tr lang="ru" finished="false">отключение от устройства</tr>
                 </info>
             </method>
         </methods>
@@ -124,14 +132,22 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">sends float value in byte range [0-255] to arduino device</tr>
+                    <tr lang="ru" finished="false">посылает поплавковое значение в байтовом
+                    диапазоне [0-255] в устройство Arduino</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">sends list of floats in byte range [0-255] to arduino device</tr>
+                    <tr lang="ru" finished="false">отправляет список поплавков в байтовом диапазоне
+                    [0-255] на устройство Arduino</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs received byte from arduino</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs received byte from arduino</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

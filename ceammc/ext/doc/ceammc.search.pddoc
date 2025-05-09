@@ -20,6 +20,7 @@
             <!-- @max -->
             <property name="@max" type="int" minvalue="1" maxvalue="50" default="10">
                 <tr lang="en">maximum number of result</tr>
+                <tr lang="ru" finished="false">Максимальное количество результата</tr>
             </property>
         </properties>
         <methods>
@@ -27,24 +28,28 @@
             <method name="k">
                 <info>
                     <tr lang="en">alias to keywords method</tr>
+                    <tr lang="ru" finished="false">псевдоним метода ключевых слов</tr>
                 </info>
             </method>
             <!-- keywords -->
             <method name="keywords">
                 <info>
                     <tr lang="en">search in keywords</tr>
+                    <tr lang="ru" finished="false">Поиск по ключевым словам</tr>
                 </info>
             </method>
             <!-- o -->
             <method name="o">
                 <info>
                     <tr lang="en">alias to objects method</tr>
+                    <tr lang="ru" finished="false">alias to objects метод</tr>
                 </info>
             </method>
             <!-- objects -->
             <method name="objects">
                 <info>
                     <tr lang="en">search in objects names</tr>
+                    <tr lang="ru" finished="false">Поиск по именам объектов</tr>
                 </info>
             </method>
         </methods>
@@ -52,11 +57,16 @@
             <inlet type="control">
                 <xinfo on="symbol">
                     <tr lang="en">search in descriptions</tr>
+                    <tr lang="ru" finished="false">Поиск в описаниях</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="control">list of matched object names</outlet>
+            <outlet type="control">
+                <out type="any">
+                    <tr lang="en">list of matched object names</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -23,17 +23,23 @@
             <!-- @symbol -->
             <property name="@symbol" type="flag" default="0" access="initonly">
                 <tr lang="en">output as symbol instead of string by default</tr>
+                <tr lang="ru" finished="false">вывод как символ вместо строки по умолчанию</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">Standart MIDI controller number [0-127]</tr>
+                    <tr lang="ru" finished="false">Стандартный контроллер MIDI [0-127]</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output Standart MIDI controller name (string or symbol)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output Standart MIDI controller name (string or symbol)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

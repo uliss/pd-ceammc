@@ -25,6 +25,10 @@
                 <tr lang="en">parsing mode for incoming client messages. If 'fudi' - interpret
                 incoming websocket data as Pd messages, if 'sym' - always interpret as symbols,
                 'data' - parse ceammc data, 'json' - convert json values to ceammc data.</tr>
+                <!-- old: Режим разбора для входящих сообщений клиента. Если
+                «fudi» — интерпретировать входящие данные websocket как Pd-сообщения, если «sym» —
+                всегда интерпретировать как символы, «data» — разбирать данные ceammc, «json» —
+                преобразовывать значения json в данные ceammc. -->
                 <tr lang="ru" finished="false">Режим разбора для входящих сообщений клиента. Если
                 «fudi» — интерпретировать входящие данные websocket как Pd-сообщения, если «sym» —
                 всегда интерпретировать как символы, «data» — разбирать данные ceammc, «json» —
@@ -37,12 +41,16 @@
                 <info>
                     <tr lang="en">output connected clients as list CLIENT_ID CLIENT_ADDR...
                     etc.</tr>
+                    <tr lang="ru" finished="false">выход подключенных клиентов в виде списка
+                    CLIENT_ID CLIENT_ADDR и т.д.</tr>
                 </info>
             </method>
             <!-- close -->
             <method name="close">
                 <info>
                     <tr lang="en">gracefully close connection with specified client(s)</tr>
+                    <tr lang="ru" finished="false">изящно тесная связь с указанным
+                    клиентом(ами)</tr>
                 </info>
                 <param name="TARGET" type="symbol" required="true"
                 enum="* all first last id == != except">
@@ -51,29 +59,44 @@
                     to last connected client. If 'id' or '==' - send message to client with
                     specified ID. If 'except' or '!=' - send message to all client except
                     specified.</tr>
+                    <tr lang="ru" finished="false">Клиентский селектор. Если "*" или "все" -
+                    отправьте сообщение всем клиентам. Если «первый» — отправьте сообщение первому
+                    подключенному клиенту. Если «последнее» — отправьте сообщение последнему
+                    подключенному клиенту. Если 'id' или '== - отправить сообщение клиенту с
+                    указанным идентификатором. Если "кроме" или "! Отправьте сообщение всем
+                    клиентам, кроме указанных.</tr>
                 </param>
                 <param name="ID" type="int" required="false">
                     <tr lang="en">client ID. Required, if client selector is one of: 'id', '==',
                     '!=' or 'except'.</tr>
+                    <tr lang="ru" finished="false">Клиентский билет. Требуется, если клиент
+                    селектор один из: 'id', '==', '!= Или "кроме".</tr>
                 </param>
             </method>
             <!-- listen -->
             <method name="listen">
                 <info>
                     <tr lang="en">starts/stop websocket server</tr>
+                    <tr lang="ru" finished="false">Запуск/остановка сервера websocket</tr>
                 </info>
                 <param name="PORT" type="int" minvalue="0" required="true">
                     <tr lang="en">listening port. If 0 - stops server.</tr>
+                    <tr lang="ru" finished="false">Прослушивающий порт. Если 0 - остановка
+                    сервера.</tr>
                 </param>
                 <param name="ADDR" type="symbol" required="false">
                     <tr lang="en">listening address. If not specified - using 0.0.0.0 (all network
                     interfaces)</tr>
+                    <tr lang="ru" finished="false">Адрес прослушивания. Если не указано - с
+                    использованием 0.0.0.0 (все сетевые интерфейсы)</tr>
                 </param>
             </method>
             <!-- ping -->
             <method name="ping">
                 <info>
                     <tr lang="en">send ping message to specified client(s)</tr>
+                    <tr lang="ru" finished="false">отправить ping-сообщение указанному
+                    клиенту(ам)</tr>
                 </info>
                 <param name="TARGET" type="symbol" required="true"
                 enum="* all first last id == != except">
@@ -82,19 +105,30 @@
                     to last connected client. If 'id' or '==' - send message to client with
                     specified ID. If 'except' or '!=' - send message to all client except
                     specified.</tr>
+                    <tr lang="ru" finished="false">Клиентский селектор. Если "*" или "все" -
+                    отправьте сообщение всем клиентам. Если «первый» — отправьте сообщение первому
+                    подключенному клиенту. Если «последнее» — отправьте сообщение последнему
+                    подключенному клиенту. Если 'id' или '== - отправить сообщение клиенту с
+                    указанным идентификатором. Если "кроме" или "! Отправьте сообщение всем
+                    клиентам, кроме указанных.</tr>
                 </param>
                 <param name="ID" type="int" required="false">
                     <tr lang="en">client ID. Required, if client selector is one of: 'id', '==',
                     '!=' or 'except'.</tr>
+                    <tr lang="ru" finished="false">Клиентский билет. Требуется, если клиент
+                    селектор один из: 'id', '==', '!= Или "кроме".</tr>
                 </param>
                 <param name="DATA" type="list" required="false">
                     <tr lang="en">list of integers in [0..255] range</tr>
+                    <tr lang="ru" finished="false">Список целых чисел в диапазоне [0,255]</tr>
                 </param>
             </method>
             <!-- send -->
             <method name="send">
                 <info>
                     <tr lang="en">send as text message to specified client(s)</tr>
+                    <tr lang="ru" finished="false">отправка текстового сообщения указанному
+                    клиенту(ам)</tr>
                 </info>
                 <param name="TARGET" type="symbol" required="true"
                 enum="* all first last id == != except">
@@ -103,19 +137,30 @@
                     to last connected client. If 'id' or '==' - send message to client with
                     specified ID. If 'except' or '!=' - send message to all client except
                     specified.</tr>
+                    <tr lang="ru" finished="false">Клиентский селектор. Если "*" или "все" -
+                    отправьте сообщение всем клиентам. Если «первый» — отправьте сообщение первому
+                    подключенному клиенту. Если «последнее» — отправьте сообщение последнему
+                    подключенному клиенту. Если 'id' или '== - отправить сообщение клиенту с
+                    указанным идентификатором. Если "кроме" или "! Отправьте сообщение всем
+                    клиентам, кроме указанных.</tr>
                 </param>
                 <param name="ID" type="int" required="false">
                     <tr lang="en">client ID. Required, if client selector is one of: 'id', '==',
                     '!=' or 'except'.</tr>
+                    <tr lang="ru" finished="false">Клиентский билет. Требуется, если клиент
+                    селектор один из: 'id', '==', '!= Или "кроме".</tr>
                 </param>
                 <param name="ARGS" type="list" required="false">
                     <tr lang="en">arguments</tr>
+                    <tr lang="ru" finished="false">аргументы</tr>
                 </param>
             </method>
             <!-- send_binary -->
             <method name="send_binary">
                 <info>
                     <tr lang="en">send as binary bytes to specified client(s)</tr>
+                    <tr lang="ru" finished="false">отправлять в виде бинарных байтов в указанный
+                    клиент(ы)</tr>
                 </info>
                 <param name="TARGET" type="symbol" required="true"
                 enum="* all first last id == != except">
@@ -124,19 +169,30 @@
                     to last connected client. If 'id' or '==' - send message to client with
                     specified ID. If 'except' or '!=' - send message to all client except
                     specified.</tr>
+                    <tr lang="ru" finished="false">Клиентский селектор. Если "*" или "все" -
+                    отправьте сообщение всем клиентам. Если «первый» — отправьте сообщение первому
+                    подключенному клиенту. Если «последнее» — отправьте сообщение последнему
+                    подключенному клиенту. Если 'id' или '== - отправить сообщение клиенту с
+                    указанным идентификатором. Если "кроме" или "! Отправьте сообщение всем
+                    клиентам, кроме указанных.</tr>
                 </param>
                 <param name="ID" type="int" required="false">
                     <tr lang="en">client ID. Required, if client selector is one of: 'id', '==',
                     '!=' or 'except'.</tr>
+                    <tr lang="ru" finished="false">Клиентский билет. Требуется, если клиент
+                    селектор один из: 'id', '==', '!= Или "кроме".</tr>
                 </param>
                 <param name="DATA" type="list" required="false">
                     <tr lang="en">list of integers in [0..255] range</tr>
+                    <tr lang="ru" finished="false">Список целых чисел в диапазоне [0,255]</tr>
                 </param>
             </method>
             <!-- send_json -->
             <method name="send_json">
                 <info>
                     <tr lang="en">send as encoded json to specified client(s)</tr>
+                    <tr lang="ru" finished="false">Отправить как закодированный json в указанный
+                    клиент(ы)</tr>
                 </info>
                 <param name="TARGET" type="symbol" required="true"
                 enum="* all first last id == != except">
@@ -145,19 +201,29 @@
                     to last connected client. If 'id' or '==' - send message to client with
                     specified ID. If 'except' or '!=' - send message to all client except
                     specified.</tr>
+                    <tr lang="ru" finished="false">Клиентский селектор. Если "*" или "все" -
+                    отправьте сообщение всем клиентам. Если «первый» — отправьте сообщение первому
+                    подключенному клиенту. Если «последнее» — отправьте сообщение последнему
+                    подключенному клиенту. Если 'id' или '== - отправить сообщение клиенту с
+                    указанным идентификатором. Если "кроме" или "! Отправьте сообщение всем
+                    клиентам, кроме указанных.</tr>
                 </param>
                 <param name="ID" type="int" required="false">
                     <tr lang="en">client ID. Required, if client selector is one of: 'id', '==',
                     '!=' or 'except'.</tr>
+                    <tr lang="ru" finished="false">Клиентский билет. Требуется, если клиент
+                    селектор один из: 'id', '==', '!= Или "кроме".</tr>
                 </param>
                 <param name="ARGS" type="list" required="false">
                     <tr lang="en">arguments</tr>
+                    <tr lang="ru" finished="false">аргументы</tr>
                 </param>
             </method>
             <!-- shutdown -->
             <method name="shutdown">
                 <info>
                     <tr lang="en">abort connection with specified client(s)</tr>
+                    <tr lang="ru" finished="false">Прервать связь с указанным клиентом(ами)</tr>
                 </info>
                 <param name="TARGET" type="symbol" required="true"
                 enum="* all first last id == != except">
@@ -166,16 +232,26 @@
                     to last connected client. If 'id' or '==' - send message to client with
                     specified ID. If 'except' or '!=' - send message to all client except
                     specified.</tr>
+                    <tr lang="ru" finished="false">Клиентский селектор. Если "*" или "все" -
+                    отправьте сообщение всем клиентам. Если «первый» — отправьте сообщение первому
+                    подключенному клиенту. Если «последнее» — отправьте сообщение последнему
+                    подключенному клиенту. Если 'id' или '== - отправить сообщение клиенту с
+                    указанным идентификатором. Если "кроме" или "! Отправьте сообщение всем
+                    клиентам, кроме указанных.</tr>
                 </param>
                 <param name="ID" type="int" required="false">
                     <tr lang="en">client ID. Required, if client selector is one of: 'id', '==',
                     '!=' or 'except'.</tr>
+                    <tr lang="ru" finished="false">Клиентский билет. Требуется, если клиент
+                    селектор один из: 'id', '==', '!= Или "кроме".</tr>
                 </param>
             </method>
             <!-- stop -->
             <method name="stop">
                 <info>
                     <tr lang="en">stops server, equal to [listen 0( message</tr>
+                    <tr lang="ru" finished="false">Остановка сервера, равная [listen
+                    0(сообщение)]</tr>
                 </info>
             </method>
         </methods>
@@ -183,13 +259,23 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">message input</tr>
+                    <tr lang="ru" finished="false">ввод сообщения</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>[connected( when client is connected, [closed( when client closed, [text( on
-            text message, [ping( on ping message from client, [binary( on binary message</outlet>
-            <outlet>list: CLIENT_ID CLIENT_ADDR</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">[connected( when client is connected, [closed( when client
+                    closed, [text( on text message, [ping( on ping message from client, [binary( on
+                    binary message</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: CLIENT_ID CLIENT_ADDR</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

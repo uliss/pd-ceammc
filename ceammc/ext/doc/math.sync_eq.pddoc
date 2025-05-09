@@ -27,6 +27,7 @@
         <arguments>
             <argument name="F" type="float">
                 <tr lang="en">second number</tr>
+                <tr lang="ru" finished="false">второе число</tr>
             </argument>
         </arguments>
         <properties>
@@ -34,26 +35,38 @@
             <property name="@epsilon" type="float" default="0" minvalue="0">
                 <tr lang="en">compare epsilon. If not zero calculates expession: -epsilon &lt;
                 abs(A-B) &lt; +epsilon</tr>
+                <tr lang="ru" finished="false">Сравните эпсилон. Если не ноль вычисляет эксцессию:
+                -эпсилон &lt; abs(A-B) &lt; +эпсилон</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set first number, calculate and output result</tr>
+                    <tr lang="ru" finished="false">установить первое число, вычислить и получить
+                    результат</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pair: set first and second numbers, calculate and output
                     result</tr>
+                    <tr lang="ru" finished="false">пара: установить первое и второе числа,
+                    вычислить и вывести результат</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">change second number, calculate and output result</tr>
+                    <tr lang="ru" finished="false">изменить второе число, вычислить и получить
+                    результат</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result output: 1 if numbers are equal otherwise 0</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result output: 1 if numbers are equal otherwise 0</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

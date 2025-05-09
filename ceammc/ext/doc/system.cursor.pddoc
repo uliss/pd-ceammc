@@ -60,7 +60,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>messages: motion X Y, mousewheel DELTA, button IDX STATE</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">messages: motion X Y, mousewheel DELTA, button IDX STATE</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

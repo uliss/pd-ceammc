@@ -36,7 +36,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>envelope output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">envelope output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

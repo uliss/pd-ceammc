@@ -23,17 +23,23 @@
         <info>
             <par>
                 <tr lang="en">outputs NAN if input signal &lt;0</tr>
+                <tr lang="ru" finished="false">выходы NAN, если входной сигнал &lt;0</tr>
             </par>
         </info>
         <inlets>
             <inlet type="audio">
                 <xinfo on="float">
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

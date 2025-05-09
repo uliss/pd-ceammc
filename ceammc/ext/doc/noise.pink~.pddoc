@@ -24,21 +24,32 @@
                 <tr lang="en">Pink noise or 1/f noise is a signal or process with a frequency
                 spectrum such that the power spectral density (energy or power per frequency
                 interval) is inversely proportional to the frequency of the signal.</tr>
+                <tr lang="ru" finished="false">Розовый шум или 1/f шум является сигналом или
+                процессом с частотным спектром, таким, что спектральная плотность мощности (энергия
+                или мощность на частотный интервал) обратно пропорциональна частоте сигнала.</tr>
             </par>
             <par>
                 <tr lang="en">In pink noise, each octave (halving/doubling in frequency) carries an
                 equal amount of noise energy.</tr>
+                <tr lang="ru" finished="false">В розовом шуме каждая октава (половину / удвоение
+                частоты) несет равное количество энергии шума.</tr>
             </par>
             <par>
                 <tr lang="en">The name arises from the pink appearance of visible light with this
                 power spectrum.</tr>
+                <tr lang="ru" finished="false">Название происходит от розового вида видимого света
+                с этим спектром мощности.</tr>
             </par>
         </info>
         <properties>
             <xi:include href="props_active.xml" />
         </properties>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

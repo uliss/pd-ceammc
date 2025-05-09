@@ -74,8 +74,12 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>messages: hex color symbol in format #RRGGBB or RGB color triplet in float
-            (0-1) or int (0-255) range depending from @mode</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">messages: hex color symbol in format #RRGGBB or RGB color triplet
+                    in float (0-1) or int (0-255) range depending from @mode</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

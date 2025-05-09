@@ -27,6 +27,11 @@
                 floating-point calculations. Systematic use of NaNs was introduced by the IEEE 754
                 floating-point standard in 1985, along with the representation of other non-finite
                 quantities like infinities.</tr>
+                <tr lang="ru" finished="false">В вычислительной технике NaN, обозначающий не число,
+                представляет собой числовой тип данных, представляющий неопределенное или
+                непредставимое значение, особенно в вычислениях с плавающей точкой. Систематическое
+                использование NaNs было введено стандартом IEEE 754 в 1985 году, наряду с
+                представлением других неконечных величин, таких как бесконечности.</tr>
             </par>
             <par>
                 <tr lang="en">When an operation results in a quiet NaN, there is no indication that
@@ -35,34 +40,49 @@
                 library if floating-point is implemented in software. A signalling NaN will produce
                 a signal, usually in the form of exception from the FPU. Whether the exception is
                 thrown depends on the state of the FPU.</tr>
+                <tr lang="ru" finished="false">Когда операция приводит к тихому NaN, нет никаких
+                признаков того, что что-то необычное, пока программа не проверит результат и не
+                увидит NaN. То есть вычисления продолжаются без какого-либо сигнала от блока с
+                плавающей точкой (FPU) или библиотеки, если плавающая точка реализована в
+                программном обеспечении. Сигнализация NaN будет производить сигнал, обычно в виде
+                исключения из FPU. Будет ли выброшено исключение, зависит от состояния ФПУ.</tr>
             </par>
             <par>
                 <tr lang="en">Note: in Pd float point exceptions are disabled.</tr>
+                <tr lang="ru" finished="false">Примечание: в Pd плавающие точки исключены.</tr>
             </par>
         </info>
         <properties>
             <!-- @quiet -->
             <property name="@quiet" type="alias">
                 <tr lang="en">alias to @type quiet</tr>
+                <tr lang="ru" finished="false">Исполнитель: @type quiet</tr>
             </property>
             <!-- @signal -->
             <property name="@signal" type="alias">
                 <tr lang="en">alias to @type signal</tr>
+                <tr lang="ru" finished="false">alias to @type signal</tr>
             </property>
             <!-- @type -->
             <property name="@type" type="symbol" default="quiet" enum="quiet signal">
                 <tr lang="en">type of outputed NaN: quiet or signal</tr>
+                <tr lang="ru" finished="false">Тип выведенного NaN: тишина или сигнал</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

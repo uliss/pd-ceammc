@@ -19,32 +19,53 @@
         <info>
             <par>
                 <tr lang="en">Split midi note messages at specified pitch values</tr>
+                <tr lang="ru" finished="false">Сплит-сообщения Midi Notes с заданными значениями
+                шага</tr>
             </par>
         </info>
         <arguments>
             <argument name="NOTES" type="list">
                 <tr lang="en">list of note values (split points)</tr>
+                <tr lang="ru" finished="false">Список значений нот (сплит-точки)</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @points -->
             <property name="@points" type="list" access="readonly" default="">
                 <tr lang="en">split points. Should be in strict ascending order</tr>
+                <tr lang="ru" finished="false">разделять точки. Должно быть в строгом порядке</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">NOTE VELOCITY [DUR] list</tr>
+                    <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1">midi pitches that are less than first split point</outlet>
-            <outlet number="...">...</outlet>
-            <outlet number="n">midi pitches that are greater or equal than N-th split point and
-            less then N+1</outlet>
-            <outlet number="n+1">notes that are greater or equal last split point</outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">midi pitches that are less than first split point</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">...</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">midi pitches that are greater or equal than N-th split point and
+                    less then N+1</tr>
+                </out>
+            </outlet>
+            <outlet number="n+1">
+                <out type="any">
+                    <tr lang="en">notes that are greater or equal last split point</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

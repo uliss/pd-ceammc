@@ -134,7 +134,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float: raw midi output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: raw midi output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

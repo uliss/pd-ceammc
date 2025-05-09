@@ -20,11 +20,14 @@
             <par>
                 <tr lang="en">Random impulses in the amplitude range -1 to 1 are generated at an
                 average rate of @freq impulses per second</tr>
+                <tr lang="ru" finished="false">Случайные импульсы в амплитуде от -1 до 1
+                генерируются со средней скоростью импульсов @freq в секунду.</tr>
             </par>
         </info>
         <arguments>
             <argument name="FREQ" type="float" minvalue="0" maxvalue="100" units="hertz">
                 <tr lang="en">average frequency of noise impulses per second</tr>
+                <tr lang="ru" finished="false">Средняя частота шумовых импульсов в секунду</tr>
             </argument>
         </arguments>
         <properties>
@@ -35,17 +38,23 @@
             <property name="@freq" type="float" minvalue="0" maxvalue="100" default="10"
             units="hertz">
                 <tr lang="en">average frequency of noise impulses per second</tr>
+                <tr lang="ru" finished="false">Средняя частота шумовых импульсов в секунду</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set average frequency</tr>
+                    <tr lang="ru" finished="false">Установить среднюю частоту</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -81,11 +81,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">starts resampling</tr>
+                    <tr lang="ru" finished="false">начинается повторная выборка</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>number of samples written</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">number of samples written</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

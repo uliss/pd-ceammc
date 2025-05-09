@@ -26,31 +26,41 @@
             <argument name="SHIFT" type="float">
                 <tr lang="en">shift amount. Float values cause linear interpolation. Can be
                 negative.</tr>
+                <tr lang="ru" finished="false">Размер сдвига. Поплавковые значения вызывают
+                линейную интерполяцию. Может быть отрицательным.</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @shift -->
             <property name="@shift" type="float" default="0">
                 <tr lang="en">shift amount</tr>
+                <tr lang="ru" finished="false">сменная сумма</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">shift value</tr>
+                    <tr lang="ru" finished="false">значение смещения</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new modified list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">new modified list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

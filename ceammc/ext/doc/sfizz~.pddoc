@@ -363,8 +363,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">left channel and property output</outlet>
-            <outlet type="audio">right channel</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">left channel and property output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">right channel</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

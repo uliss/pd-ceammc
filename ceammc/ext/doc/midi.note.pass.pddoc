@@ -26,20 +26,30 @@
             <par>
                 <tr lang="en">Passes midi notes (list of PITCH VELOCITY DUR?) for which expression
                 returns true.</tr>
+                <tr lang="ru" finished="false">Пропускает миди-заметки (список PITCH VELOCITY
+                DUR?), для которых выражение возвращается истинным.</tr>
             </par>
             <par>
                 <tr lang="en">Available variables: $N - MIDI note, $V - MIDI velocity</tr>
+                <tr lang="ru" finished="false">Доступные переменные: $N - MIDI примечание, $V -
+                MIDI скорость</tr>
             </par>
             <par>
                 <tr lang="en">Available functions: white(NOTE), black(NOTE), oct(NOTE), abs(X),
                 sqrt(X)</tr>
+                <tr lang="ru" finished="false">Доступные функции: белый (NOTE), черный (NOTE), окт
+                (NOTE), abs (X), sqrt (X)</tr>
             </par>
             <par>
                 <tr lang="en">Available math operations: +,-,*,/,%,^,==,!=,&gt;,&gt;=,&lt;,&lt;=,
                 &amp;&amp;,||</tr>
+                <tr lang="ru" finished="false">Доступные математические операции:
+                +,-,*,/,%,^,==,!=,&gt;,&gt;=,&lt;,&lt;=, &amp;&amp;, | |</tr>
             </par>
             <par>
                 <tr lang="en">see for more information:</tr>
+                <tr lang="ru" finished="false">Смотрите для получения дополнительной
+                информации:</tr>
             </par>
             <a href="https://beltoforion.de/en/muparser/features.php#idDef1">
             https://beltoforion.de/en/muparser/features.php#idDef1</a>
@@ -47,28 +57,36 @@
         <arguments>
             <argument name="EXPR" type="list">
                 <tr lang="en">init expression</tr>
+                <tr lang="ru" finished="false">выражение init</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @expr -->
             <property name="@expr" type="list" default="">
                 <tr lang="en">expression</tr>
+                <tr lang="ru" finished="false">выражение</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">NOTE VELOCITY [DUR] list</tr>
+                    <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set new expression</tr>
+                    <tr lang="ru" finished="false">Настройка нового выражения</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>passed NOTE VELOCITY [DUR] list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">passed NOTE VELOCITY [DUR] list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

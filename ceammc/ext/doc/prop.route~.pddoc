@@ -40,10 +40,26 @@
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet type="audio">passed values and sound</outlet>
-            <outlet>first matched property output</outlet>
-            <outlet number="...">others matched property output</outlet>
-            <outlet number="n">unmatched property output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">passed values and sound</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">first matched property output</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">others matched property output</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">unmatched property output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

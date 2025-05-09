@@ -60,14 +60,19 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">plot all samples fitted to specified array</tr>
+                    <tr lang="ru" finished="false">Все образцы, установленные на заданный
+                    массив</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">plot specified number of samples, resizes array</tr>
+                    <tr lang="ru" finished="false">участок заданное количество образцов, размеры
+                    массива</tr>
                 </xinfo>
             </inlet>
         </inlets>

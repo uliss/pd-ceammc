@@ -27,11 +27,15 @@
                 <tr lang="en">Sync data flow. All inlets are 'hot'. When float, symbol or list
                 arrives to inlet, it's value stored. Then output all stored values from all inlets
                 from rightmost to leftmost</tr>
+                <tr lang="ru" finished="false">Синхронизация потока данных. Все входы «горячие».
+                Когда поплавок, символ или список поступает на вход, это значение сохраняется.
+                Затем выведите все сохраненные значения из всех входов справа налево.</tr>
             </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="16">
                 <tr lang="en">Number of input/outputs</tr>
+                <tr lang="ru" finished="false">Количество входов/выходов</tr>
             </argument>
         </arguments>
         <properties>
@@ -39,29 +43,45 @@
             <property name="@n" type="int" minvalue="2" maxvalue="16" default="2"
             access="initonly">
                 <tr lang="en">number of inputs/outputs</tr>
+                <tr lang="ru" finished="false">Количество входов/выходов</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet>
                 <xinfo>
                     <tr lang="en">first inlet</tr>
+                    <tr lang="ru" finished="false">первый вход</tr>
                 </xinfo>
             </inlet>
             <inlet number="...">
                 <xinfo>
                     <tr lang="en">...</tr>
+                    <tr lang="ru" finished="false">...</tr>
                 </xinfo>
             </inlet>
             <inlet number="n">
                 <xinfo>
                     <tr lang="en">Nth inlet</tr>
+                    <tr lang="ru" finished="false">N-й вход</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet>first outlet</outlet>
-            <outlet number="...">... outlet</outlet>
-            <outlet number="n">Nth outlet</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">first outlet</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">... outlet</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">Nth outlet</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -38,16 +38,22 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">LTC input signal</tr>
+                    <tr lang="ru" finished="false">LTC входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">set source array</tr>
+                    <tr lang="ru" finished="false">установочный источник</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

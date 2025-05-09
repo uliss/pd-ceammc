@@ -29,17 +29,24 @@
             <par>
                 <tr lang="en">Converts frequency from BPM (beats per minute) to period in ms. It is
                 simple as (60 / f) * 1000, but more readable.</tr>
+                <tr lang="ru" finished="false">Преобразует частоту от BPM (бит в минуту) до периода
+                в мс. Она проста как (60/f)*1000, но более читаема.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">frequency in BPM</tr>
+                    <tr lang="ru" finished="false">Частота в BPM</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>period in milliseconds</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">period in milliseconds</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

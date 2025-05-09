@@ -24,16 +24,28 @@
                 <xinfo on="int">
                     <tr lang="en">outputs '1' if number can be divided exactly by 2, otherwise
                     '0'</tr>
+                    <tr lang="ru" finished="false">выходы 1, если число можно разделить ровно на 2,
+                    в противном случае 0</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">first value converted to integer, then the check is
                     performed</tr>
+                    <tr lang="ru" finished="false">сначала значение преобразуется в целое число,
+                    затем выполняется проверка</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>0 or 1</outlet>
-            <outlet>passed even numbers</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">0 or 1</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">passed even numbers</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

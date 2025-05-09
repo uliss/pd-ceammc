@@ -20,24 +20,35 @@
         <arguments>
             <argument name="SIZE" type="int" minvalue="1" maxvalue="1024">
                 <tr lang="en">output list size</tr>
+                <tr lang="ru" finished="false">Объем выходного списка</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @size -->
             <property name="@size" type="int" minvalue="1" maxvalue="1024" default="1">
                 <tr lang="en">output list size</tr>
+                <tr lang="ru" finished="false">Объем выходного списка</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list</outlet>
-            <outlet>bang after last element output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output list</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang after last element output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

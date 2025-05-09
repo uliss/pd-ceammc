@@ -24,11 +24,15 @@
                 <tr lang="en">Given the M-order numerator b and N-order denominator a of a digital
                 filter, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(eʲʷ) =
                 (b⁰+b¹e⁻ʲʷ+...+bᴹe⁻ʲʷᴹ)/(1+a¹e⁻ʲʷ+...+aᴺe⁻ʲʷᴺ)</tr>
+                <tr lang="ru" finished="false">Учитывая числитель M-порядка b и знаменатель
+                N-порядка a цифрового фильтра, вычислите его частотный отклик: H(ejw) =
+                B(ejw)/A(ejw) = (b0+b1e−jw+...+bMe−jwM)/(1+a1e−jw+...+aNe−jwN)</tr>
             </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="4" maxvalue="1024">
                 <tr lang="en">number of points</tr>
+                <tr lang="ru" finished="false">количество точек</tr>
             </argument>
         </arguments>
         <properties>
@@ -36,18 +40,23 @@
             <property name="@a" type="list" default="">
                 <tr lang="en">denominator (poles) coefficients. 'a0' always implicitly set to 1,
                 property value set a1...an coefficients</tr>
+                <tr lang="ru" finished="false">Коэффициенты знаменателя (полюса). a0 всегда неявно
+                устанавливается на 1, значение свойства устанавливается a1 ... коэффициенты</tr>
             </property>
             <!-- @b -->
             <property name="@b" type="list" default="1">
                 <tr lang="en">numerator (zeros) coefficients</tr>
+                <tr lang="ru" finished="false">числитель (зеро) коэффициенты</tr>
             </property>
             <!-- @db -->
             <property name="@db" type="bool" default="0">
                 <tr lang="en">output amp response in db scale</tr>
+                <tr lang="ru" finished="false">выходной отклик усилителя в db-шкале</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="4" maxvalue="1024" default="256">
                 <tr lang="en">number of points</tr>
+                <tr lang="ru" finished="false">количество точек</tr>
             </property>
         </properties>
         <methods>
@@ -55,21 +64,27 @@
             <method name="biquad">
                 <info>
                     <tr lang="en">set 'b' and 'a' coefficients, no output</tr>
+                    <tr lang="ru" finished="false">Установить коэффициенты «b» и «a», не выход</tr>
                 </info>
                 <param name="b0" type="float" required="true">
                     <tr lang="en">b0</tr>
+                    <tr lang="ru" finished="false">b0</tr>
                 </param>
                 <param name="b1" type="float" required="true">
                     <tr lang="en">b1</tr>
+                    <tr lang="ru" finished="false">b1</tr>
                 </param>
                 <param name="b2" type="float" required="true">
                     <tr lang="en">b2</tr>
+                    <tr lang="ru" finished="false">b2</tr>
                 </param>
                 <param name="a1" type="float" required="true">
                     <tr lang="en">a1</tr>
+                    <tr lang="ru" finished="false">а1</tr>
                 </param>
                 <param name="a2" type="float" required="true">
                     <tr lang="en">a2</tr>
+                    <tr lang="ru" finished="false">а2</tr>
                 </param>
             </method>
         </methods>
@@ -77,13 +92,26 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">calculate and output frequency responses</tr>
+                    <tr lang="ru" finished="false">вычисление и выходная частота ответов</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list: amplitude response data</outlet>
-            <outlet>list: phase response data</outlet>
-            <outlet>int: number of points</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: amplitude response data</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: phase response data</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int: number of points</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

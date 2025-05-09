@@ -25,9 +25,13 @@
         <info>
             <par>
                 <tr lang="en">like [loadmsg], but support expression calls and datatype</tr>
+                <tr lang="ru" finished="false">как [loadmsg], но поддерживает вызовы выражения и
+                тип данных</tr>
             </par>
             <par>
                 <tr lang="en">Click on object sends message again</tr>
+                <tr lang="ru" finished="false">Нажмите на объект, чтобы снова отправить
+                сообщение</tr>
             </par>
         </info>
         <mouse>
@@ -36,11 +40,17 @@
         <arguments>
             <argument name="ARGS" type="list">
                 <tr lang="en">message. Comma separated messages are supported</tr>
+                <tr lang="ru" finished="false">Сообщение. Поддерживаются сообщения, разделенные
+                Comma</tr>
             </argument>
         </arguments>
         <inlets />
         <outlets>
-            <outlet>message output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">message output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

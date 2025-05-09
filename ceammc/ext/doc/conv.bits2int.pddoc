@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">Note: byte default the least significant bit is the rightmost, this
                 can be changed with @rev property</tr>
+                <tr lang="ru" finished="false">Примечание: по умолчанию байт наименее значимый бит
+                является самым правильным, это может быть изменено свойством @rev</tr>
             </par>
         </info>
         <properties>
@@ -40,11 +42,16 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input bit list</tr>
+                    <tr lang="ru" finished="false">Список входных бит</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of bits</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of bits</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

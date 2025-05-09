@@ -23,37 +23,52 @@
         <arguments>
             <argument name="PATTERN" type="list">
                 <tr lang="en">list of time intervals (in ms)</tr>
+                <tr lang="ru" finished="false">Список временных интервалов (в мс)</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @current -->
             <property name="@current" type="int" minvalue="0" default="0">
                 <tr lang="en">current pattern index</tr>
+                <tr lang="ru" finished="false">Текущий индекс</tr>
             </property>
             <!-- @pattern -->
             <property name="@pattern" type="list" default="">
                 <tr lang="en">time intervals (in ms) performed in a loop</tr>
+                <tr lang="ru" finished="false">интервалы времени (в мс), выполненные в петле</tr>
             </property>
             <!-- @sync -->
             <property name="@sync" type="bool" default="0">
                 <tr lang="en">sync mode - change pattern after full cycle</tr>
+                <tr lang="ru" finished="false">Режим синхронизации - изменение шаблона после
+                полного цикла</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">starts (on 1) or stops (on 0) metro</tr>
+                    <tr lang="ru" finished="false">старты (на 1) или остановки (на 0) метро</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set new pattern</tr>
+                    <tr lang="ru" finished="false">Установить новый шаблон</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs *bang*</outlet>
-            <outlet>outputs current pattern index and bang on each cycle</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs *bang*</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs current pattern index and bang on each cycle</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

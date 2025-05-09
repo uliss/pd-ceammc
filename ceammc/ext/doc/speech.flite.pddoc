@@ -67,7 +67,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang on done</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang on done</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

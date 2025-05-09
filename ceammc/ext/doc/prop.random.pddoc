@@ -53,8 +53,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>connect to target object</outlet>
-            <outlet>atom: new random value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">connect to target object</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">atom: new random value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

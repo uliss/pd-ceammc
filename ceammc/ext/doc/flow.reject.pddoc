@@ -28,40 +28,54 @@
         <arguments>
             <argument name="VALUES" type="list">
                 <tr lang="en">list of atoms to reject</tr>
+                <tr lang="ru" finished="false">Список атомов для отклонения</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @values -->
             <property name="@values" type="list" default="">
                 <tr lang="en">atoms to reject</tr>
+                <tr lang="ru" finished="false">Атомы отвергают</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">pass</tr>
+                    <tr lang="ru" finished="false">проход</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">reject if float is in reject list</tr>
+                    <tr lang="ru" finished="false">Отклонить, если в списке отклонить</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">reject if symbol is in reject list</tr>
+                    <tr lang="ru" finished="false">Отклонить, если символ в списке отклонений</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">reject if first atom is in reject list</tr>
+                    <tr lang="ru" finished="false">Если первый атом находится в списке
+                    отклонений</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">reject if message selector is in reject list</tr>
+                    <tr lang="ru" finished="false">Отклонить, если селектор сообщения находится в
+                    списке отклонений</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set reject list</tr>
+                    <tr lang="ru" finished="false">Отклонить список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>passed values</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">passed values</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

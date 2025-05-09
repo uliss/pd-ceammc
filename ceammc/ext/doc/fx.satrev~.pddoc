@@ -19,6 +19,7 @@
         <arguments>
             <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">drywet mix</tr>
+                <tr lang="ru" finished="false">сухая смесь</tr>
             </argument>
         </arguments>
         <properties>
@@ -28,11 +29,15 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.25">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
         </properties>
         <methods>
@@ -40,6 +45,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset to initial state</tr>
+                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
                 </info>
             </method>
         </methods>
@@ -47,17 +53,27 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set drywet</tr>
+                    <tr lang="ru" finished="false">установленный сухой</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">left output signal</outlet>
-            <outlet type="audio">right output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">left output signal</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">right output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

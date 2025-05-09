@@ -23,16 +23,19 @@
         <arguments>
             <argument name="BY" type="int" minvalue="1">
                 <tr lang="en">group by this size</tr>
+                <tr lang="ru" finished="false">группы такого размера</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @by -->
             <property name="@by" type="int" minvalue="1" default="1">
                 <tr lang="en">group size</tr>
+                <tr lang="ru" finished="false">размер группы</tr>
             </property>
             <!-- @free -->
             <property name="@free" type="int" access="readonly" default="0" minvalue="0">
                 <tr lang="en">free space left in group</tr>
+                <tr lang="ru" finished="false">Свободное пространство в группе</tr>
             </property>
         </properties>
         <methods>
@@ -40,12 +43,14 @@
             <method name="clear">
                 <info>
                     <tr lang="en">clear without output</tr>
+                    <tr lang="ru" finished="false">Чистый без выхода</tr>
                 </info>
             </method>
             <!-- flush -->
             <method name="flush">
                 <info>
                     <tr lang="en">outputs and clears group</tr>
+                    <tr lang="ru" finished="false">выходы и клиринговая группа</tr>
                 </info>
             </method>
         </methods>
@@ -53,25 +58,38 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">add float to group and flush if group is full packed</tr>
+                    <tr lang="ru" finished="false">Добавить поплавок в группу и смыть, если группа
+                    заполнена</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">add symbol to group and flush if group is full packed</tr>
+                    <tr lang="ru" finished="false">Добавить символ в группу и смыть, если группа
+                    заполнена</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">add list atoms to group and flush if needed</tr>
+                    <tr lang="ru" finished="false">Добавить атомы списка в группу и смыть, если это
+                    необходимо.</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">add data to group and flush if needed</tr>
+                    <tr lang="ru" finished="false">Добавление данных в группу и смыв при
+                    необходимости</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">set group size</tr>
+                    <tr lang="ru" finished="false">установленный размер группы</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list of grouped atoms</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output list of grouped atoms</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

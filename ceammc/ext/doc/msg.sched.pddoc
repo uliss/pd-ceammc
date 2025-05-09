@@ -23,21 +23,28 @@
             <par>
                 <tr lang="en">First element of input list considered as delay time in
                 milliseconds.</tr>
+                <tr lang="ru" finished="false">Первый элемент входного списка рассматривается как
+                время задержки в миллисекундах.</tr>
             </par>
             <par>
                 <tr lang="en">Other messages passed 'as is' immediately.</tr>
+                <tr lang="ru" finished="false">Другие сообщения были переданы «как есть»
+                немедленно.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">immediately output bang</tr>
+                    <tr lang="ru" finished="false">Немедленно произвести взрыв</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">immediately output float</tr>
+                    <tr lang="ru" finished="false">немедленно выпустить поплавок</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">immediately output symbol</tr>
+                    <tr lang="ru" finished="false">Немедленный вывод символа</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">If first element is a float it considered as delay time in
@@ -45,22 +52,37 @@
                     time. If delay time is &lt;0, output left elements immediately. If delay time
                     is ==0, output left elements with shortest possible delay (on next scheduler
                     block). If first element not a float, output whole list immediately.</tr>
+                    <tr lang="ru" finished="false">Если первый элемент является поплавком, он
+                    считается временем задержки в миллисекунде. Если это время задержки &gt; 0:
+                    выход оставил элементы после этого времени задержки. Если время задержки &lt;0,
+                    то выход сразу же оставляет элементы. Если время задержки ==0, на выходе
+                    остаются элементы с наименьшей возможной задержкой (на следующем блоке
+                    планировщика). Если первый элемент не плавает, немедленно выведите весь
+                    список.</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">immediately output any</tr>
+                    <tr lang="ru" finished="false">немедленно вывести любой</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">clear scheduled messages</tr>
+                    <tr lang="ru" finished="false">четкие запланированные сообщения</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">reset: clear scheduled messages, flush: output and clear</tr>
+                    <tr lang="ru" finished="false">Сброс: четкие запланированные сообщения, смыв:
+                    вывод и ясность</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>message output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">message output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

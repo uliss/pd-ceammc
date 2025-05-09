@@ -20,21 +20,29 @@
             <!-- @db -->
             <property name="@db" type="flag" default="0" access="initonly">
                 <tr lang="en">output in decibels</tr>
+                <tr lang="ru" finished="false">выход в децибелах</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input frequency in Herz</tr>
+                    <tr lang="ru" finished="false">Вводная частота в Герце</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list of input frequencies in Herz, non float types are
                     ignored</tr>
+                    <tr lang="ru" finished="false">Список входных частот в Герце, непоплавковые
+                    типы игнорируются.</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float or list A-weight amplitudes or decibel values</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float or list A-weight amplitudes or decibel values</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -61,8 +61,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of 1 and 0</outlet>
-            <outlet>int: qr code size</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of 1 and 0</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int: qr code size</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

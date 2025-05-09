@@ -202,7 +202,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list output of two values: RADIUS and ANGLE</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list output of two values: RADIUS and ANGLE</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

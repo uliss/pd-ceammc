@@ -23,20 +23,28 @@
             <par>
                 <tr lang="en">The abs() function computes the absolute value of the float
                 input.</tr>
+                <tr lang="ru" finished="false">Функция abs() вычисляет абсолютное значение
+                поплавкового входа.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">apply to all numeric values</tr>
+                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

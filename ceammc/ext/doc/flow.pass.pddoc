@@ -27,40 +27,54 @@
         <arguments>
             <argument name="VALUES" type="list">
                 <tr lang="en">atoms to pass</tr>
+                <tr lang="ru" finished="false">Атомы проходят</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @values -->
             <property name="@values" type="list" default="">
                 <tr lang="en">atoms to pass</tr>
+                <tr lang="ru" finished="false">Атомы проходят</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">pass</tr>
+                    <tr lang="ru" finished="false">проход</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">pass if float found in pass list</tr>
+                    <tr lang="ru" finished="false">Пройти, если поплавок найден в списке
+                    пропусков</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">pass if symbol found in pass list</tr>
+                    <tr lang="ru" finished="false">если символ найден в списке пропусков</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pass if first atom found in pass list</tr>
+                    <tr lang="ru" finished="false">если первый атом найден в списке пропусков</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">pass if message selector found in pass list</tr>
+                    <tr lang="ru" finished="false">Pass, если селектор сообщений найден в списке
+                    пропусков</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set pass list</tr>
+                    <tr lang="ru" finished="false">Установить список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>passed values</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">passed values</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

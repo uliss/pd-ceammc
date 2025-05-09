@@ -26,6 +26,9 @@
             <par>
                 <tr lang="en">With [hoa.@process] you can get [hoa.process~] instance properties
                 and get/set properties declared via [prop.declare]</tr>
+                <tr lang="ru" finished="false">С [hoa.@process] вы можете получить свойства
+                экземпляра [hoa.process~] и получить / установить свойства, объявленные через
+                [prop.declare]</tr>
             </par>
         </info>
         <properties>
@@ -33,56 +36,75 @@
             <property name="@hdegree" type="int" access="readonly" default="0">
                 <tr lang="en">current harmonic degree in hoa.process~ instance (only in harmonics
                 mode)</tr>
+                <tr lang="ru" finished="false">текущая степень гармоники в hoa.process~ example
+                (только в режиме гармоники)</tr>
             </property>
             <!-- @horder -->
             <property name="@horder" type="int" access="readonly" default="0">
                 <tr lang="en">current harmonic order in hoa.process~ instance (only in harmonics
                 mode)</tr>
+                <tr lang="ru" finished="false">текущий гармонический порядок в hoa.process~
+                instance (только в режиме гармоник)</tr>
             </property>
             <!-- @index -->
             <property name="@index" type="int" access="readonly" default="0">
                 <tr lang="en">current instance index starting from 0</tr>
+                <tr lang="ru" finished="false">Текущий индекс экземпляра, начинающийся с 0</tr>
             </property>
             <!-- @order -->
             <property name="@order" type="int" access="readonly" default="0">
                 <tr lang="en">order of parent hoa.process~</tr>
+                <tr lang="ru" finished="false">Порядок родительского hoa.process</tr>
             </property>
             <!-- @pmode -->
             <property name="@pmode" type="symbol" enum="2d 3d" access="readonly" default="">
                 <tr lang="en">amibisonic mode</tr>
+                <tr lang="ru" finished="false">амибизонный режим</tr>
             </property>
             <!-- @ptype -->
             <property name="@ptype" type="symbol" enum="harmonics planewaves" access="readonly"
             default="">
                 <tr lang="en">amibisonic type</tr>
+                <tr lang="ru" finished="false">амибизонный тип</tr>
             </property>
             <!-- @total -->
             <property name="@total" type="int" access="readonly" default="0">
                 <tr lang="en">total number of hoa.process~ instances</tr>
+                <tr lang="ru" finished="false">Общее количество экземпляров hoa.process</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">set or request properties</tr>
+                    <tr lang="ru" finished="false">устанавливать или запрашивать свойства</tr>
                 </xinfo>
                 <xinfo on="bang">
                     <tr lang="en">if harmonics mode output list: @order @hdegree @horder, in
                     planewaves: @order @index @index</tr>
+                    <tr lang="ru" finished="false">если гармоники режим вывода список: @order
+                    @hdegree @horder, в плоских волнах: @order @index @index</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">pass float message thru</tr>
+                    <tr lang="ru" finished="false">Отправить сообщение Float Message</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">pass symbol message thru</tr>
+                    <tr lang="ru" finished="false">Передайте символьное сообщение через</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pass list message thru</tr>
+                    <tr lang="ru" finished="false">Обсуждение Pass List Message</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs properties</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs properties</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

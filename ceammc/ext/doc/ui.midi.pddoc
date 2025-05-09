@@ -99,7 +99,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>MIDI output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">MIDI output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

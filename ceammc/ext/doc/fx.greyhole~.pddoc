@@ -27,9 +27,15 @@
                 of a similar name. The effect consists of a diffuser (like a mini-reverb,
                 structurally similar to the one used in JPverb) connected in a feedback system with
                 a long, modulated delay-line. Excels at producing spacey washes of sound.</tr>
+                <tr lang="ru" finished="false">Сложный эхоподобный эффект, вдохновленный
+                классическим эффектом Эвентида с аналогичным названием. Эффект состоит из диффузора
+                (как мини-реверберация, структурно аналогичная используемой в JPverb), соединенного
+                в системе обратной связи с длинной модулированной линией задержки. Превосходство в
+                производстве пространственных стирок звука.</tr>
             </par>
             <par>
                 <tr lang="en">Developed as part of the DEIND project.</tr>
+                <tr lang="ru" finished="false">Разработан в рамках проекта DEIND.</tr>
             </par>
         </info>
         <properties>
@@ -39,46 +45,64 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @damping -->
             <property name="@damping" type="float" minvalue="0" maxvalue="0.99" default="0">
                 <tr lang="en">controls damping of high-frequencies as the delay decays. 0 is no
                 damping, 1 is very strong damping</tr>
+                <tr lang="ru" finished="false">управляет демпфированием высоких частот, поскольку
+                задержка распадается. 0 не демпфирование, 1 очень сильное демпфирование</tr>
             </property>
             <!-- @delaytime -->
             <property name="@delaytime" type="float" units="second" minvalue="0.001"
             maxvalue="1.45" default="0.2">
                 <tr lang="en">approximate delay time in seconds</tr>
+                <tr lang="ru" finished="false">Приблизительное время задержки в секундах</tr>
             </property>
             <!-- @diffusion -->
             <property name="@diffusion" type="float" minvalue="0" maxvalue="0.99" default="0.5">
                 <tr lang="en">shape of the diffusion unit. Values greater than 0.707 produce smooth
                 exponential decay. Lower values produce a slower build-up of echoes</tr>
+                <tr lang="ru" finished="false">Форма диффузионной единицы. Значения, превышающие
+                0.707, приводят к плавному экспоненциальному распаду. Более низкие значения
+                вызывают более медленное накопление эхов</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet.</tr>
+                <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
+                сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
             </property>
             <!-- @feedback -->
             <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0.9">
                 <tr lang="en">amount of feedback for the delay line</tr>
+                <tr lang="ru" finished="false">Количество обратной связи для линии задержки</tr>
             </property>
             <!-- @moddepth -->
             <property name="@moddepth" type="float" minvalue="0" maxvalue="1" default="0.1">
                 <tr lang="en">depth of delay-line modulation. Use in combination with *@modfreq* to
                 set amount of chorusing within the structure</tr>
+                <tr lang="ru" finished="false">глубина модуляции линии задержки. Используйте в
+                сочетании с *@modfreq*, чтобы установить количество припева в структуре</tr>
             </property>
             <!-- @modfreq -->
             <property name="@modfreq" type="float" minvalue="0" maxvalue="10" default="2">
                 <tr lang="en">frequency of delay-line modulation. Use in combination with
                 *@moddepth* to set amount of chorusing within the structure</tr>
+                <tr lang="ru" finished="false">Частота модуляции линии задержки. Используйте в
+                сочетании с *@moddepth*, чтобы установить количество припева в структуре</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="float" minvalue="0.5" maxvalue="3" default="1">
                 <tr lang="en">size of delay-lines within the diffusion unit, producing the
                 impression of a larger or smaller space. Values below 1 can sound quite
                 metallic.</tr>
+                <tr lang="ru" finished="false">размер линий задержки внутри диффузионного блока,
+                создающих впечатление большего или меньшего пространства. Значения ниже 1 могут
+                звучать довольно металлически.</tr>
             </property>
         </properties>
         <methods>
@@ -86,6 +110,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset to initial state</tr>
+                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
                 </info>
             </method>
         </methods>
@@ -93,17 +118,27 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">left channel</tr>
+                    <tr lang="ru" finished="false">левый канал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">right channel</tr>
+                    <tr lang="ru" finished="false">Правый канал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

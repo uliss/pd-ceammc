@@ -22,28 +22,37 @@
         <arguments>
             <argument name="MSG" type="list">
                 <tr lang="en">init value for prepended message</tr>
+                <tr lang="ru" finished="false">значение init для заранее подготовленного
+                сообщения</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @msg -->
             <property name="@msg" type="list" default="">
                 <tr lang="en">prepended message</tr>
+                <tr lang="ru" finished="false">предварительное сообщение</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">input message</tr>
+                    <tr lang="ru" finished="false">вводное сообщение</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">set prepend value</tr>
+                    <tr lang="ru" finished="false">Устанавливать предоплаченную стоимость</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output message</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output message</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

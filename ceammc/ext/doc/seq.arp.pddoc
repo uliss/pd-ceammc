@@ -94,8 +94,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list: pitch vel</outlet>
-            <outlet>float: number of active notes</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: pitch vel</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: number of active notes</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -36,11 +36,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">calculates and outputs the sum of squares</tr>
+                    <tr lang="ru" finished="false">вычисляет и выводит сумму квадратов</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>sum value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">sum value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

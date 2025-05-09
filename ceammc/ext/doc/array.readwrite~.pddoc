@@ -57,21 +57,28 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">reading index</tr>
+                    <tr lang="ru" finished="false">Индекс чтения</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">signal to write</tr>
+                    <tr lang="ru" finished="false">Сигнал писать</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">write index</tr>
+                    <tr lang="ru" finished="false">писать индекс</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

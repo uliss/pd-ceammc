@@ -51,9 +51,12 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">resizes array and sets its content</tr>
+                    <tr lang="ru" finished="false">изменить размер массива и установить его
+                    содержание</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">set array name</tr>
+                    <tr lang="ru" finished="false">Имя при рождении</tr>
                 </xinfo>
             </inlet>
         </inlets>

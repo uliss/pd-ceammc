@@ -22,12 +22,15 @@
         <arguments>
             <argument name="FROM" type="int">
                 <tr lang="en">@from property</tr>
+                <tr lang="ru" finished="false">@от собственности</tr>
             </argument>
             <argument name="TO" type="int">
                 <tr lang="en">@to property</tr>
+                <tr lang="ru" finished="false">@to Собственность</tr>
             </argument>
             <argument name="STEP" type="int" minvalue="0">
                 <tr lang="en">@step property</tr>
+                <tr lang="ru" finished="false">@step Недвижимость</tr>
             </argument>
         </arguments>
         <properties>
@@ -35,26 +38,36 @@
             <property name="@from" type="int" default="0">
                 <tr lang="en">start slice position. You can use negative index to address elements
                 from the end</tr>
+                <tr lang="ru" finished="false">Начните резать позицию. Вы можете использовать
+                отрицательный индекс для адресации элементов с конца.</tr>
             </property>
             <!-- @step -->
             <property name="@step" type="int" default="1" minvalue="0">
                 <tr lang="en">slice step</tr>
+                <tr lang="ru" finished="false">шаг</tr>
             </property>
             <!-- @to -->
             <property name="@to" type="int" default="-1">
                 <tr lang="en">end slice position. You can use negative index to address elements
                 from the end</tr>
+                <tr lang="ru" finished="false">Положение конца среза. Вы можете использовать
+                отрицательный индекс для адресации элементов с конца.</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output sublist</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output sublist</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

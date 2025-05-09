@@ -19,50 +19,73 @@
         <arguments>
             <argument name="DELAY" type="float" units="millisecond" minvalue="1">
                 <tr lang="en">time space between messages</tr>
+                <tr lang="ru" finished="false">Пространство времени между сообщениями</tr>
             </argument>
             <argument name="DONE" type="int" minvalue="0">
                 <tr lang="en">time space = N*space after last outputted message</tr>
+                <tr lang="ru" finished="false">Пространство времени = N* Пространство после
+                последнего выведенного сообщения</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @delay -->
             <property name="@delay" type="float" default="1" minvalue="1" units="millisecond">
                 <tr lang="en">time-space between messages</tr>
+                <tr lang="ru" finished="false">Пространство времени между сообщениями</tr>
             </property>
             <!-- @dev -->
             <property name="@dev" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">random deviation</tr>
+                <tr lang="ru" finished="false">случайное отклонение</tr>
             </property>
             <!-- @done -->
             <property name="@done" type="int" default="1" minvalue="0">
                 <tr lang="en">time space (=@done*@delay) after last outputted message. After that
                 delay output bang to second outlet</tr>
+                <tr lang="ru" finished="false">Пространство времени (=@done*@delay) после
+                последнего отправленного сообщения. После этого отсрочка выхода Bang на вторую
+                розетку</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">messages</tr>
+                    <tr lang="ru" finished="false">сообщения</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set space interval (ms)</tr>
+                    <tr lang="ru" finished="false">установленный интервал пространства (ms)</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">reset: cancel all scheduled outputs and clear message queue</tr>
+                    <tr lang="ru" finished="false">Сброс: отменить все запланированные выходы и
+                    четкую очередь сообщений</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">@delay: set @delay property</tr>
+                    <tr lang="ru" finished="false">@delay: set @delay property</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">@done: set @done property</tr>
+                    <tr lang="ru" finished="false">Оригинальное название: Set @done Property</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output</outlet>
-            <outlet>bang on finish (after @delay*@done ms after last outputted message)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang on finish (after @delay*@done ms after last outputted
+                    message)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

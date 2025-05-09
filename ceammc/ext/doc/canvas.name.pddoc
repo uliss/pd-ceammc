@@ -23,11 +23,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output current canvas name</tr>
+                    <tr lang="ru" finished="false">Имя текущего canvas</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>current canvas name</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">current canvas name</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

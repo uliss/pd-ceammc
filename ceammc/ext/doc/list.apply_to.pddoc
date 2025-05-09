@@ -24,12 +24,16 @@
             <argument name="INDEXES" type="list">
                 <tr lang="en">apply index(es) (starting from 0). Negative value means position from
                 end of the list. For example: '-1' means last element.</tr>
+                <tr lang="ru" finished="false">Применять индекс(ы) (начиная с 0). Отрицательное
+                значение означает позицию в конце списка. Например, «-1» означает последний
+                элемент.</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @indexes -->
             <property name="@indexes" type="list" default="">
                 <tr lang="en">applied index(es)</tr>
+                <tr lang="ru" finished="false">Применяемый индекс(ы)</tr>
             </property>
         </properties>
         <inlets>
@@ -37,22 +41,34 @@
                 <xinfo on="list">
                     <tr lang="en">Input list. If no element found by specified index - list passed
                     without changes</tr>
+                    <tr lang="ru" finished="false">Список входов. Если элемент не найден указанным
+                    индексом - список прошел без изменений</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set apply index(es)</tr>
+                    <tr lang="ru" finished="false">Устанавливать индекс(ы)</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">return value from applied object</tr>
+                    <tr lang="ru" finished="false">Возвратная стоимость приложенного объекта</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new modified list</outlet>
-            <outlet>element at given index. Should be passed to applied object</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">new modified list</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">element at given index. Should be passed to applied object</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

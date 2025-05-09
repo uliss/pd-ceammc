@@ -24,52 +24,68 @@
         <info>
             <par>
                 <tr lang="en">Random distribution: uniform</tr>
+                <tr lang="ru" finished="false">Случайное распределение: униформа</tr>
             </par>
         </info>
         <arguments>
             <argument name="MIN" type="int" units="millisecond" minvalue="1">
                 <tr lang="en">minimal bang interval</tr>
+                <tr lang="ru" finished="false">Минимальный интервал взрыва</tr>
             </argument>
             <argument name="MAX" type="int" units="millisecond" minvalue="1">
                 <tr lang="en">maximum bang interval</tr>
+                <tr lang="ru" finished="false">Максимальный интервал взрыва</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @max -->
             <property name="@max" type="int" units="millisecond" minvalue="1" default="200">
                 <tr lang="en">maximum bang interval</tr>
+                <tr lang="ru" finished="false">Максимальный интервал взрыва</tr>
             </property>
             <!-- @min -->
             <property name="@min" type="int" units="millisecond" minvalue="1" default="100">
                 <tr lang="en">minimal bang interval</tr>
+                <tr lang="ru" finished="false">Минимальный интервал взрыва</tr>
             </property>
             <!-- @seed -->
             <property name="@seed" type="int" minvalue="0" default="0">
                 <tr lang="en">generator seed</tr>
+                <tr lang="ru" finished="false">генератор</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">starts (on &gt; 0) or stops (on &lt;= 0) metro</tr>
+                    <tr lang="ru" finished="false">старты (на &gt; 0) или остановки (на &lt;= 0)
+                    метро</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set @min property</tr>
+                    <tr lang="ru" finished="false">@min Недвижимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">set random range. min max pair expected.</tr>
+                    <tr lang="ru" finished="false">Установите случайный диапазон. Ожидаемая пара
+                    min max.</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set @max property</tr>
+                    <tr lang="ru" finished="false">Обсуждение @max Property</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs *bang*</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs *bang*</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

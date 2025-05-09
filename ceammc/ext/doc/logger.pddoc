@@ -28,27 +28,33 @@
         <arguments>
             <argument name="PREFIX" type="list">
                 <tr lang="en">log message prefix</tr>
+                <tr lang="ru" finished="false">log message prefix</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @active -->
             <property name="@active" type="bool" default="1">
                 <tr lang="en">enabled/disabled logging state</tr>
+                <tr lang="ru" finished="false">включенное/отключенное состояние лесозаготовки</tr>
             </property>
             <!-- @prefix -->
             <property name="@prefix" type="list" default="">
                 <tr lang="en">log message prefix</tr>
+                <tr lang="ru" finished="false">log message prefix</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">log input</tr>
+                    <tr lang="ru" finished="false">входной вход</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">1: enable logging, 0: disable logging</tr>
+                    <tr lang="ru" finished="false">1: включить лесозаготовку, 0: отключить
+                    лесозаготовку</tr>
                 </xinfo>
             </inlet>
         </inlets>

@@ -24,24 +24,31 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @delay -->
             <property name="@delay" type="float" minvalue="0" maxvalue="200" default="25"
             units="millisecond">
                 <tr lang="en">delay amount</tr>
+                <tr lang="ru" finished="false">Сумма задержки</tr>
             </property>
             <!-- @depth -->
             <property name="@depth" type="float" minvalue="0" maxvalue="1" default="0.02">
                 <tr lang="en">effect depth</tr>
+                <tr lang="ru" finished="false">Эффект глубины</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">Ratio between processed signal (wet) and source signal</tr>
+                <tr lang="ru" finished="false">Соотношение между обработанным сигналом (мокрым) и
+                исходным сигналом</tr>
             </property>
             <!-- @freq -->
             <property name="@freq" type="float" minvalue="0" maxvalue="10" default="3"
             units="hertz">
                 <tr lang="en">effect freq</tr>
+                <tr lang="ru" finished="false">эффект freq</tr>
             </property>
         </properties>
         <methods>
@@ -49,6 +56,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset object</tr>
+                    <tr lang="ru" finished="false">сбрасывать объект</tr>
                 </info>
             </method>
         </methods>
@@ -56,11 +64,16 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

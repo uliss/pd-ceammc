@@ -23,21 +23,29 @@
             <par>
                 <tr lang="en">Low-frequency speaker model = +12 dB/octave slope breaking to flat
                 near @f1.</tr>
+                <tr lang="ru" finished="false">низкий - частотная динамиковая модель = +12
+                дБ/октава наклона, разбивающегося на плоскость около @f1.</tr>
             </par>
             <par>
                 <tr lang="en">Implemented using two dc blockers in series.</tr>
+                <tr lang="ru" finished="false">Реализуется с использованием двух блокировщиков dc
+                последовательно.</tr>
             </par>
             <par>
                 <tr lang="en">High-frequency model = -24 dB/octave slope implemented using a
                 fourth-order Butterworth lowpass.</tr>
+                <tr lang="ru" finished="false">высокий - частотная модель = -24 дБ/октава наклона,
+                реализованная с использованием четвертого порядка Butterworth lowpass.</tr>
             </par>
         </info>
         <arguments>
             <argument name="F1" type="float" units="hertz" minvalue="20" maxvalue="1000">
                 <tr lang="en">lower band frequency</tr>
+                <tr lang="ru" finished="false">нижняя полоса частот</tr>
             </argument>
             <argument name="F2" type="float" minvalue="1000" maxvalue="20000" units="hertz">
                 <tr lang="en">high band frequency</tr>
+                <tr lang="ru" finished="false">высокая полоса частот</tr>
             </argument>
         </arguments>
         <properties>
@@ -47,26 +55,33 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
             <!-- @f1 -->
             <property name="@f1" type="float" minvalue="20" maxvalue="1000" default="130"
             units="hertz">
                 <tr lang="en">lower band frequency</tr>
+                <tr lang="ru" finished="false">нижняя полоса частот</tr>
             </property>
             <!-- @f2 -->
             <property name="@f2" type="float" minvalue="1000" maxvalue="20000" default="5000"
             units="hertz">
                 <tr lang="en">high band frequency</tr>
+                <tr lang="ru" finished="false">высокая полоса частот</tr>
             </property>
             <!-- @gain -->
             <property name="@gain" type="float" minvalue="-30" maxvalue="30" default="0"
             units="decibel">
                 <tr lang="en">filter gain</tr>
+                <tr lang="ru" finished="false">коэффициент усиления фильтра</tr>
             </property>
         </properties>
         <methods>
@@ -74,6 +89,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset filter state</tr>
+                    <tr lang="ru" finished="false">состояние фильтра сброса</tr>
                 </info>
             </method>
         </methods>
@@ -81,21 +97,28 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set @f1 property</tr>
+                    <tr lang="ru" finished="false">@f1 Недвижимость</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set @f2 property</tr>
+                    <tr lang="ru" finished="false">Свойство @f2</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">filtered signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">filtered signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

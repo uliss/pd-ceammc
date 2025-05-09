@@ -25,6 +25,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset object</tr>
+                    <tr lang="ru" finished="false">сбрасывать объект</tr>
                 </info>
             </method>
         </methods>
@@ -32,17 +33,27 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo minvalue="-10000" maxvalue="10000">
                     <tr lang="en">frequency shift in Hertz</tr>
+                    <tr lang="ru" finished="false">Сдвиг частоты в Герце</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal (freq + shift)</outlet>
-            <outlet type="audio">output signal (freq - shift)</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal (freq + shift)</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal (freq - shift)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

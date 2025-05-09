@@ -23,21 +23,28 @@
             <!-- @family -->
             <property name="@family" type="flag" default="0" access="initonly">
                 <tr lang="en">output family name instead of instrument name</tr>
+                <tr lang="ru" finished="false">Фамилия выпуска вместо названия инструмента</tr>
             </property>
             <!-- @symbol -->
             <property name="@symbol" type="flag" default="0" access="initonly">
                 <tr lang="en">output as symbol instead of string by default</tr>
+                <tr lang="ru" finished="false">вывод как символ вместо строки по умолчанию</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">General MIDI instrument number [1-128]</tr>
+                    <tr lang="ru" finished="false">Общий номер прибора MIDI [1-128]</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output General MIDI instrument name (string or symbol)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output General MIDI instrument name (string or symbol)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

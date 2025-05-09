@@ -28,6 +28,8 @@
             <!-- @on_err -->
             <property name="@on_err" type="float" default="-1">
                 <tr lang="en">value returned when unrecognized symbol given</tr>
+                <!-- old: значение возвращается, когда непризнанный
+                символ -->
                 <tr lang="ru" finished="false">значение возвращается, когда непризнанный
                 символ</tr>
             </property>
@@ -36,17 +38,24 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">Time in format: "HH:MM::SS[.XXX]"</tr>
+                    <tr lang="ru" finished="false">Время в формате: «HH:MM::SS[.XXX]»</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">String time in format: "HH:MM::SS[.XXX]"</tr>
+                    <tr lang="ru" finished="false">Время струн в формате: «HH:MM::SS[.XXX]»</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">Time in format: "HH:MM::SS[.XXX]"</tr>
+                    <tr lang="ru" finished="false">Время в формате: «HH:MM::SS[.XXX]»</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>time in seconds</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">time in seconds</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

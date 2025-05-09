@@ -26,28 +26,36 @@
         <arguments>
             <argument name="PASS" type="bool">
                 <tr lang="en">set init state</tr>
+                <tr lang="ru" finished="false">установленное состояние</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @pass -->
             <property name="@pass" type="bool" default="1">
                 <tr lang="en">open state</tr>
+                <tr lang="ru" finished="false">Открытое государство</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">input flow</tr>
+                    <tr lang="ru" finished="false">входной поток</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">reset to opened state</tr>
+                    <tr lang="ru" finished="false">Перезагрузка в открытое государство</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output flow</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output flow</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

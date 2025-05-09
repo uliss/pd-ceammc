@@ -47,14 +47,21 @@
                 <xinfo on="float">
                     <tr lang="en">value between 0 and 1, where 0 maps to begin of array, 1 - to
                     end</tr>
+                    <tr lang="ru" finished="false">значение между 0 и 1, где 0 карт для начала
+                    массива, 1 - для конца</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list of phases</tr>
+                    <tr lang="ru" finished="false">Перечень этапов</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>sample number</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">sample number</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

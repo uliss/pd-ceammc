@@ -35,11 +35,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output canvas active state</tr>
+                    <tr lang="ru" finished="false">выходной холст активное состояние</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>int: 1 or 0</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int: 1 or 0</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -19,63 +19,88 @@
         <info>
             <par>
                 <tr lang="en">inspired by Paul Bourke, implementation by André Sier</tr>
+                <tr lang="ru" finished="false">Вдохновленный Полом Бурком, реализация Андре
+                Сиером</tr>
             </par>
             <par>
                 <tr lang="en">---</tr>
+                <tr lang="ru" finished="false">-</tr>
             </par>
             <par>
                 <tr lang="en">lyapunov random attractors</tr>
+                <tr lang="ru" finished="false">Ляпунов случайные аттракторы</tr>
             </par>
             <par>
                 <tr lang="en">---</tr>
+                <tr lang="ru" finished="false">-</tr>
             </par>
             <par>
                 <tr lang="en">Paul Bourke's words
                 http://astronomy.swin.edu.au/%7Epbourke/fractals/lyapunov/</tr>
+                <tr lang="ru" finished="false">Слова Пола Бурка
+                http://astronomy.swin.edu.au/%7Epbourke/fractals/lyapunov/</tr>
             </par>
             <par>
                 <tr lang="en">---</tr>
+                <tr lang="ru" finished="false">-</tr>
             </par>
             <par>
                 <tr lang="en">On average 98% of the random selections of (an, bn) result in an
                 infinite series.</tr>
+                <tr lang="ru" finished="false">В среднем 98% случайных отборов (an, bn) приводят к
+                бесконечному ряду.</tr>
             </par>
             <par>
                 <tr lang="en">This is so common because of the range (-2&lt;=a, b&lt;=2) for each
                 of the parameters a and b, the number of infinite cases will reduce greatly with a
                 smaller range.</tr>
+                <tr lang="ru" finished="false">Это так распространено из-за диапазона (-2&lt;=a,
+                b&lt;=2) для каждого из параметров a и b, количество бесконечных случаев
+                значительно уменьшится с меньшим диапазоном.</tr>
             </par>
             <par>
                 <tr lang="en">About 1% were point attractors, and about 0.5% were periodic basins
                 of attraction.</tr>
+                <tr lang="ru" finished="false">Около 1% были точечными аттракторами, и около 0,5%
+                были периодическими бассейнами притяжения.</tr>
             </par>
             <par>
                 <tr lang="en">===</tr>
+                <tr lang="ru" finished="false">= = =</tr>
             </par>
             <par>
                 <tr lang="en">x[n+1] = a[0] + a[1]*x[n] + a[2]*x[n]^2 + a[3]*x[n]*y[n] + a[4]*y[n]
                 + a[5]*y[n]^2</tr>
+                <tr lang="ru" finished="false">x[n+1] = a[0] + a[1]*x[n] + a[2]*x[n]^2 +
+                a[3]*x[n]*y[n] + a[4]*y[n] + a[5]*y[n]^2</tr>
             </par>
             <par>
                 <tr lang="en">y[n+1] = b[0] + b[1]*x[n] + b[2]*x[n]^2 + b[3]*x[n]*y[n] + b[4]*y[n]
                 + b[5]*y[n]^2</tr>
+                <tr lang="ru" finished="false">y[n+1] ] = b[0] + b[1]*x[n] + b[2]*x[n]^2 +
+                b[3]*x[n]*y[n] + b[4]*y[n] + b[5]*y[n]^2</tr>
             </par>
             <par>
                 <tr lang="en">===</tr>
+                <tr lang="ru" finished="false">= = =</tr>
             </par>
         </info>
         <arguments>
             <argument name="A" type="float">
                 <tr lang="en">a value (optional)</tr>
+                <tr lang="ru" finished="false">значение (факультативно)</tr>
             </argument>
             <argument name="B" type="float">
                 <tr lang="en">b value (optional)</tr>
+                <tr lang="ru" finished="false">b значение (факультативно)</tr>
             </argument>
             <argument name="X" type="float">
                 <tr lang="en">x value (optional)</tr>
+                <tr lang="ru" finished="false">x значение (необязательно)</tr>
             </argument>
             <argument name="Y" type="float">
                 <tr lang="en">y value (optional)</tr>
+                <tr lang="ru" finished="false">y значение (факультативно)</tr>
             </argument>
         </arguments>
         <methods>
@@ -83,72 +108,90 @@
             <method name="a">
                 <param name="A0" type="float" required="true">
                     <tr lang="en">a[0] value</tr>
+                    <tr lang="ru" finished="false">a[0] значение</tr>
                 </param>
                 <param name="A1" type="float" required="false">
                     <tr lang="en">a[1] value</tr>
+                    <tr lang="ru" finished="false">значение [1]</tr>
                 </param>
                 <param name="A2" type="float" required="false">
                     <tr lang="en">a[2] value</tr>
+                    <tr lang="ru" finished="false">значение [2]</tr>
                 </param>
                 <param name="A3" type="float" required="false">
                     <tr lang="en">a[3] value</tr>
+                    <tr lang="ru" finished="false">Значение [3]</tr>
                 </param>
                 <param name="A4" type="float" required="false">
                     <tr lang="en">a[4] value</tr>
+                    <tr lang="ru" finished="false">значение [4]</tr>
                 </param>
                 <param name="A5" type="float" required="false">
                     <tr lang="en">a[5] value</tr>
+                    <tr lang="ru" finished="false">Значение [5]</tr>
                 </param>
             </method>
             <!-- b -->
             <method name="b">
                 <param name="B0" type="float" required="true">
                     <tr lang="en">b[0] value</tr>
+                    <tr lang="ru" finished="false">b[0] значение</tr>
                 </param>
                 <param name="B1" type="float" required="false">
                     <tr lang="en">b[1] value</tr>
+                    <tr lang="ru" finished="false">b[1] значение</tr>
                 </param>
                 <param name="B2" type="float" required="false">
                     <tr lang="en">b[2] value</tr>
+                    <tr lang="ru" finished="false">b[2] значение</tr>
                 </param>
                 <param name="B3" type="float" required="false">
                     <tr lang="en">b[3] value</tr>
+                    <tr lang="ru" finished="false">b[3] значение</tr>
                 </param>
                 <param name="B4" type="float" required="false">
                     <tr lang="en">b[4] value</tr>
+                    <tr lang="ru" finished="false">b[4] значение</tr>
                 </param>
                 <param name="B5" type="float" required="false">
                     <tr lang="en">b[5] value</tr>
+                    <tr lang="ru" finished="false">b[5] значение</tr>
                 </param>
             </method>
             <!-- om -->
             <method name="om">
                 <param name="OM" type="int" required="true">
                     <tr lang="en">enables output when cut or fold value is changed</tr>
+                    <tr lang="ru" finished="false">позволяет вывод при изменении значения разреза
+                    или сгиба</tr>
                 </param>
             </method>
             <!-- reset -->
             <method name="reset">
                 <info>
                     <tr lang="en">reset state</tr>
+                    <tr lang="ru" finished="false">состояние сброса</tr>
                 </info>
             </method>
             <!-- set -->
             <method name="set">
                 <param name="SET" type="float" required="true">
                     <tr lang="en">set to value</tr>
+                    <tr lang="ru" finished="false">установить ценность</tr>
                 </param>
             </method>
             <!-- x -->
             <method name="x">
                 <param name="NX" type="float" required="true">
                     <tr lang="en">x value</tr>
+                    <tr lang="ru" finished="false">x значение</tr>
                 </param>
             </method>
             <!-- y -->
             <method name="y">
                 <param name="NY" type="float" required="true">
                     <tr lang="en">y value</tr>
+                    <tr lang="ru" finished="false">y значение</tr>
                 </param>
             </method>
         </methods>
@@ -156,12 +199,21 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>x outlet</outlet>
-            <outlet>y outlet</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">x outlet</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">y outlet</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

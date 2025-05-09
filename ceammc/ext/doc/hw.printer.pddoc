@@ -19,9 +19,12 @@
         <info>
             <par>
                 <tr lang="en">MacOs: supports only text, PDF and images files.</tr>
+                <tr lang="ru" finished="false">MacO: поддерживает только текст, PDF и файлы
+                изображений.</tr>
             </par>
             <par>
                 <tr lang="en">Windows: supports only PDF files.</tr>
+                <tr lang="ru" finished="false">Windows поддерживает только PDF-файлы.</tr>
             </par>
         </info>
         <arguments>
@@ -36,6 +39,8 @@
             <!-- @name -->
             <property name="@name" type="symbol" default="">
                 <tr lang="en">printer name, if empty - use default system printer</tr>
+                <!-- old: Имя принтера, если пусто - используйте системный
+                принтер по умолчанию -->
                 <tr lang="ru" finished="false">Имя принтера, если пусто - используйте системный
                 принтер по умолчанию</tr>
             </property>
@@ -45,27 +50,33 @@
             <method name="choose">
                 <info>
                     <tr lang="en">choose printer by index</tr>
+                    <tr lang="ru" finished="false">Выберите принтер по индексу</tr>
                 </info>
                 <param name="IDX" type="int" minvalue="0">
                     <tr lang="en">printer index in device list</tr>
+                    <tr lang="ru" finished="false">Индекс принтера в списке устройств</tr>
                 </param>
             </method>
             <!-- devices -->
             <method name="devices">
                 <info>
                     <tr lang="en">list printers</tr>
+                    <tr lang="ru" finished="false">Список принтеров</tr>
                 </info>
             </method>
             <!-- print -->
             <method name="print">
                 <info>
                     <tr lang="en">print file</tr>
+                    <tr lang="ru" finished="false">печатный файл</tr>
                 </info>
                 <param name="FILE" type="symbol" required="true">
                     <tr lang="en">file to print</tr>
+                    <tr lang="ru" finished="false">Файл для печати</tr>
                 </param>
                 <param name="@landscape" type="bool" required="false">
                     <tr lang="en">print in landscape mode</tr>
+                    <tr lang="ru" finished="false">Печать в ландшафтном режиме</tr>
                 </param>
             </method>
         </methods>
@@ -73,11 +84,16 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">input</tr>
+                    <tr lang="ru" finished="false">ввод</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>dict: printer info output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">dict: printer info output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

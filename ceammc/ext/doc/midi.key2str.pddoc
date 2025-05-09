@@ -22,27 +22,35 @@
         <arguments>
             <argument name="TONALITY" type="list">
                 <tr lang="en">initial tomality</tr>
+                <tr lang="ru" finished="false">начальная теплота</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @symbol -->
             <property name="@symbol" type="flag" default="0" access="initonly">
                 <tr lang="en">output as symbol instead of string by default</tr>
+                <tr lang="ru" finished="false">вывод как символ вместо строки по умолчанию</tr>
             </property>
             <!-- @tonality -->
             <property name="@tonality" type="list" default="C major">
                 <tr lang="en">current tonality</tr>
+                <tr lang="ru" finished="false">текущая тональность</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">standart MIDI key number [0-127]</tr>
+                    <tr lang="ru" finished="false">Стандартный номер MIDI [0-127]</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output key name</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output key name</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

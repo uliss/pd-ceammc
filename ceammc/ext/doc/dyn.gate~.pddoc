@@ -48,26 +48,36 @@
             <property name="@attack" type="float" units="millisecond" minvalue="0" maxvalue="500"
             default="0.1">
                 <tr lang="en">attack time = time constant (ms) for gate to open</tr>
+                <tr lang="ru" finished="false">Время атаки = постоянная времени (ms) для открытия
+                ворот</tr>
             </property>
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @hold -->
             <property name="@hold" type="float" units="millisecond" minvalue="1" maxvalue="500"
             default="100">
                 <tr lang="en">hold time = time (ms) gate stays open after signal level &lt;
                 threshold</tr>
+                <tr lang="ru" finished="false">время ожидания = время (ms) ворот остается открытым
+                после уровня сигнала &lt; порог</tr>
             </property>
             <!-- @release -->
             <property name="@release" type="float" units="millisecond" default="20" minvalue="1"
             maxvalue="500">
                 <tr lang="en">release time = time constant (ms) for gate to close</tr>
+                <tr lang="ru" finished="false">Время выпуска = постоянная времени (ms) для закрытия
+                ворот</tr>
             </property>
             <!-- @threshold -->
             <property name="@threshold" type="float" units="decibel" minvalue="-90" maxvalue="0"
             default="-60">
                 <tr lang="en">dB level threshold above which gate opens</tr>
+                <tr lang="ru" finished="false">порог уровня дБ, выше которого открывается
+                затвор</tr>
             </property>
         </properties>
         <methods>
@@ -75,6 +85,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset to initial state</tr>
+                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
                 </info>
             </method>
         </methods>
@@ -82,16 +93,22 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set threshold</tr>
+                    <tr lang="ru" finished="false">установленный порог</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

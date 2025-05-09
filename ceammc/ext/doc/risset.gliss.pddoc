@@ -53,8 +53,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of midi pitches</outlet>
-            <outlet>list of amplitudes</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of midi pitches</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of amplitudes</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

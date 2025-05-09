@@ -22,9 +22,11 @@
         <arguments>
             <argument name="DELAY" type="float" minvalue="0" maxvalue="4000" units="millisecond">
                 <tr lang="en">echo time</tr>
+                <tr lang="ru" finished="false">время эхо</tr>
             </argument>
             <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="0.99">
                 <tr lang="en">feedback coefficient</tr>
+                <tr lang="ru" finished="false">коэффициент обратной связи</tr>
             </argument>
         </arguments>
         <properties>
@@ -34,20 +36,26 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @delay -->
             <property name="@delay" type="float" minvalue="0" maxvalue="4000" units="millisecond"
             default="500">
                 <tr lang="en">echo time</tr>
+                <tr lang="ru" finished="false">время эхо</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
             <!-- @feedback -->
             <property name="@feedback" type="float" minvalue="0" maxvalue="0.99" default="0.3">
                 <tr lang="en">feedback coefficient</tr>
+                <tr lang="ru" finished="false">коэффициент обратной связи</tr>
             </property>
         </properties>
         <methods>
@@ -55,6 +63,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset to initial state</tr>
+                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
                 </info>
             </method>
         </methods>
@@ -62,11 +71,16 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

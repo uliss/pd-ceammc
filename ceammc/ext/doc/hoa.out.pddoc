@@ -29,17 +29,21 @@
             <par>
                 <tr lang="en">hoa.out defines a message outlet for a patcher loaded by a
                 hoa.process~ object.</tr>
+                <tr lang="ru" finished="false">hoa.out определяет выход сообщения для патчера,
+                загруженного hoa.process~ объектом.</tr>
             </par>
         </info>
         <arguments>
             <argument name="INDEX" type="int" minvalue="1">
                 <tr lang="en">outlet index</tr>
+                <tr lang="ru" finished="false">выходной индекс</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @index -->
             <property name="@index" type="int" minvalue="1" default="1">
                 <tr lang="en">outlet index</tr>
+                <tr lang="ru" finished="false">выходной индекс</tr>
             </property>
         </properties>
         <inlets>
@@ -47,22 +51,32 @@
                 <xinfo on="bang">
                     <tr lang="en">output bang message in the corresponding hoa.process~ object's
                     message outlet</tr>
+                    <tr lang="ru" finished="false">выходное сообщение bang в соответствующем
+                    hoa.process~ выходе сообщения объекта</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">output float message in the corresponding hoa.process~ object's
                     message outlet</tr>
+                    <tr lang="ru" finished="false">выходное поплавковое сообщение в соответствующем
+                    выпуске сообщения hoa.process~ object</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">output symbol message in the corresponding hoa.process~ object's
                     message outlet</tr>
+                    <tr lang="ru" finished="false">вывод символьного сообщения в соответствующем
+                    hoa.process~ выходе сообщения объекта</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">output list message in the corresponding hoa.process~ object's
                     message outlet</tr>
+                    <tr lang="ru" finished="false">сообщение списка вывода в соответствующем
+                    выпуске сообщения hoa.process~ object</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">output any message in the corresponding hoa.process~ object's
                     message outlet</tr>
+                    <tr lang="ru" finished="false">вывод любого сообщения в соответствующем выпуске
+                    сообщения hoa.process~ object</tr>
                 </xinfo>
             </inlet>
         </inlets>

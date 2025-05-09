@@ -45,8 +45,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list: HOUR MINUTE SECOND FRAME</outlet>
-            <outlet>list: YEAR MONTH DAY</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: HOUR MINUTE SECOND FRAME</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: YEAR MONTH DAY</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

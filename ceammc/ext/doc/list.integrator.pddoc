@@ -27,35 +27,49 @@
             <property name="@clip" type="alias">
                 <tr lang="en">alias for "@oversize min" property. Truncates lists to minimal common
                 size.</tr>
+                <tr lang="ru" finished="false">alias for "@oversize min" property. Усеченные списки
+                до минимального общего размера.</tr>
             </property>
             <!-- @clip -->
             <property name="@clip" type="alias">
                 <tr lang="en">alias for "@oversize clip" property. Pad shortest list with last
                 element to conform longest list</tr>
+                <tr lang="ru" finished="false">alias for "@oversize clip" property. Самый короткий
+                список с последним элементом, чтобы соответствовать самому длинному списку</tr>
             </property>
             <!-- @fold -->
             <property name="@fold" type="alias">
                 <tr lang="en">alias for "@oversize fold" property. Pad shortest list with repeated
                 values from the end to the beginning, then back and so on.</tr>
+                <tr lang="ru" finished="false">alias for "@oversize fold" property. Самый короткий
+                список с повторяющимися значениями от конца до начала, затем назад и так
+                далее.</tr>
             </property>
             <!-- @min -->
             <property name="@min" type="alias">
                 <tr lang="en">alias for "@oversize min" property. Truncates lists to minimal common
                 size</tr>
+                <tr lang="ru" finished="false">alias for "@oversize min" property. Усеченные списки
+                до минимального общего размера</tr>
             </property>
             <!-- @oversize -->
             <property name="@oversize" type="symbol" enum="min padz clip wrap fold" default="padz">
                 <tr lang="en">behavior, if list have different sizes</tr>
+                <tr lang="ru" finished="false">Поведение, если список имеет разные размеры</tr>
             </property>
             <!-- @padz -->
             <property name="@padz" type="alias">
                 <tr lang="en">alias for "@oversize padz" property. Pad shortest list with
                 zeroes.</tr>
+                <tr lang="ru" finished="false">alias for "@oversize padz" property. Самый короткий
+                список с нулями.</tr>
             </property>
             <!-- @wrap -->
             <property name="@wrap" type="alias">
                 <tr lang="en">alias for "@oversize wrap" property. Pad shortest list with repeated
                 values from the beginning.</tr>
+                <tr lang="ru" finished="false">alias for "@oversize wrap" property. Самый короткий
+                список с повторяющимися значениями с самого начала.</tr>
             </property>
         </properties>
         <methods>
@@ -63,6 +77,7 @@
             <method name="clear">
                 <info>
                     <tr lang="en">clear integrator state</tr>
+                    <tr lang="ru" finished="false">Четкое государство интегратора</tr>
                 </info>
             </method>
         </methods>
@@ -70,11 +85,16 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">Input list</tr>
+                    <tr lang="ru" finished="false">Список вводимых данных</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new integrated list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">new integrated list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

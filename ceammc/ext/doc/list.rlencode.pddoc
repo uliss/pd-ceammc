@@ -27,13 +27,22 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>First list: list entries without repetitions. For example 1 1 2 2 2 1 1 becomes
-            1 2 1</outlet>
-            <outlet>Second list: count of entries</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">First list: list entries without repetitions. For example 1 1 2 2
+                    2 1 1 becomes 1 2 1</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">Second list: count of entries</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

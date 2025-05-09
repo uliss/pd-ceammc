@@ -180,7 +180,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>number of loaded/saved samples or -1 on error</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">number of loaded/saved samples or -1 on error</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

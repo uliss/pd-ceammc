@@ -89,7 +89,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float ot list: result value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float ot list: result value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

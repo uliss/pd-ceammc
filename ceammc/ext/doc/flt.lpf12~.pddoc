@@ -28,16 +28,24 @@
                 lower than a certain cutoff frequency and attenuates signals with frequencies
                 higher than the cutoff frequency. A low-pass filter is the complement of a
                 high-pass filter.</tr>
+                <tr lang="ru" finished="false">Низкочастотный фильтр представляет собой фильтр,
+                который передает сигналы с частотой ниже определенной частоты отсечки и ослабляет
+                сигналы с частотами выше частоты отсечки. Фильтр с низким проходом является
+                дополнением фильтра с высоким проходом.</tr>
             </par>
             <par>
                 <tr lang="en">Butterworth filter is a type of filter designed to have a frequency
                 response as flat as possible in the passband.</tr>
+                <tr lang="ru" finished="false">Фильтр Баттерворта — это тип фильтра,
+                предназначенный для того, чтобы иметь как можно более плоскую частотную реакцию в
+                полосе пропускания.</tr>
             </par>
             <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
         </info>
         <arguments>
             <argument name="FREQ" type="float" minvalue="20" maxvalue="20000" units="hertz">
                 <tr lang="en">cutoff frequency</tr>
+                <tr lang="ru" finished="false">частота отключения</tr>
             </argument>
         </arguments>
         <properties>
@@ -48,6 +56,7 @@
             <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="1000">
                 <tr lang="en">cutoff frequency</tr>
+                <tr lang="ru" finished="false">частота отключения</tr>
             </property>
         </properties>
         <methods>
@@ -55,6 +64,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset filter state</tr>
+                    <tr lang="ru" finished="false">состояние фильтра сброса</tr>
                 </info>
             </method>
         </methods>
@@ -62,16 +72,22 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set frequency</tr>
+                    <tr lang="ru" finished="false">установленная частота</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">filtered signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">filtered signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

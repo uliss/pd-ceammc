@@ -28,6 +28,8 @@
             <method name="note">
                 <param name="PITCH" type="int" required="true">
                     <tr lang="en">note pitch (pitch &lt;0 treated as rest)</tr>
+                    <!-- old: нота шаг (pitch <0 рассматривается как
+                    отдых) -->
                     <tr lang="ru" finished="false">нота шаг (pitch &lt;0 рассматривается как
                     отдых)</tr>
                 </param>
@@ -41,14 +43,20 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">pitch</tr>
+                    <tr lang="ru" finished="false">высота</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list of pitches</tr>
+                    <tr lang="ru" finished="false">Список полей</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>symbol: converted value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">symbol: converted value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

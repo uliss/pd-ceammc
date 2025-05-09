@@ -43,8 +43,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>any output</outlet>
-            <outlet>bangs, floats, symbols and lists</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">any output</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bangs, floats, symbols and lists</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

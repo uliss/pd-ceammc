@@ -22,31 +22,41 @@
         <arguments>
             <argument name="DIV" type="float">
                 <tr lang="en">divisor</tr>
+                <tr lang="ru" finished="false">делитель</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @div -->
             <property name="@div" type="float" default="1">
                 <tr lang="en">divisor</tr>
+                <tr lang="ru" finished="false">делитель</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">divident</tr>
+                    <tr lang="ru" finished="false">разделительный</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list of divident (non float values are ignored)</tr>
+                    <tr lang="ru" finished="false">Список делителей (не плавающие значения
+                    игнорируются)</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">change divisor</tr>
+                    <tr lang="ru" finished="false">изменить делитель</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float or list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float or list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

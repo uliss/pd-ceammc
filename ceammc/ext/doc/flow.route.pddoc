@@ -19,14 +19,19 @@
         <info>
             <par>
                 <tr lang="en">if no match occured - output original message to last outlet</tr>
+                <tr lang="ru" finished="false">Если совпадения не произошло - выведите исходное
+                сообщение на последнюю розетку</tr>
             </par>
             <par>
                 <tr lang="en">if route starts with '*' - output with message selector</tr>
+                <tr lang="ru" finished="false">если маршрут начинается с "*" - вывод с помощью
+                селектора сообщений</tr>
             </par>
         </info>
         <arguments>
             <argument name="MATCHES" type="list">
                 <tr lang="en">list of route matches</tr>
+                <tr lang="ru" finished="false">Список матчей маршрута</tr>
             </argument>
         </arguments>
         <inlets>
@@ -35,25 +40,51 @@
                     <tr lang="en">match to first list element, output to corresponding outlet. If
                     route starts with * output list 'as is', otherwise output without first
                     element</tr>
+                    <tr lang="ru" finished="false">соответствие первому элементу списка, вывод на
+                    соответствующую розетку. Если маршрут начинается с * списка вывода "как есть",
+                    в противном случае выход без первого элемента</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">match to message selector, output to corresponding outlet. On
                     success outputs message arguments to corresponding outlet</tr>
+                    <tr lang="ru" finished="false">соответствие селектору сообщений, вывод на
+                    соответствующую розетку. Об успехе выводит аргументы сообщения в
+                    соответствующий выпуск</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">same as list</tr>
+                    <tr lang="ru" finished="false">Тот же список</tr>
                 </xinfo>
                 <xinfo on="data:dict">
                     <tr lang="en">match dict keys. On success outputs dict values to corresponding
                     outlets, if starts with * output with matched key</tr>
+                    <tr lang="ru" finished="false">Ключи от диктовки. На выходе успеха диктуют
+                    значения соответствующим выходам, если начинается с * выход с соответствующим
+                    ключом</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1">first pattern match output</outlet>
-            <outlet number="...">... pattern match output</outlet>
-            <outlet number="n">n-th pattern match output</outlet>
-            <outlet number="n+1">unmatched output</outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">first pattern match output</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">... pattern match output</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">n-th pattern match output</tr>
+                </out>
+            </outlet>
+            <outlet number="n+1">
+                <out type="any">
+                    <tr lang="en">unmatched output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

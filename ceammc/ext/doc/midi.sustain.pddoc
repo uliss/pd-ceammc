@@ -19,40 +19,52 @@
         <info>
             <par>
                 <tr lang="en">when pedal is on: ignore all note offs</tr>
+                <tr lang="ru" finished="false">Когда педаль включена: игнорируйте все заметки</tr>
             </par>
             <par>
                 <tr lang="en">when pedal is off: output all sustained notes off</tr>
+                <tr lang="ru" finished="false">когда педаль выключена: выведите все устойчивые
+                ноты</tr>
             </par>
         </info>
         <arguments>
             <argument name="ON" type="bool">
                 <tr lang="en">initial state</tr>
+                <tr lang="ru" finished="false">начальное состояние</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @ctlin -->
             <property name="@ctlin" type="bool" default="0">
                 <tr lang="en">listen to CTL64 from MIDI controller</tr>
+                <tr lang="ru" finished="false">Слушать CTL64 с контроллера MIDI</tr>
             </property>
             <!-- @on -->
             <property name="@on" type="bool" default="0">
                 <tr lang="en">pedal state</tr>
+                <tr lang="ru" finished="false">состояние педали</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">MIDI input: NOTE VEL</tr>
+                    <tr lang="ru" finished="false">Ввод MIDI: Примечание VEL</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">turn sustain on/off (1/0)</tr>
+                    <tr lang="ru" finished="false">включение/выключение (1/0)</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>MIDI output: NOTE VEL</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">MIDI output: NOTE VEL</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

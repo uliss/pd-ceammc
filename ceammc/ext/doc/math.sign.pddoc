@@ -19,20 +19,28 @@
         <info>
             <par>
                 <tr lang="en">Returns *-1* if x &lt; 0, *0* if x == 0 and *1* if x &gt; 0.</tr>
+                <tr lang="ru" finished="false">Возвращает *-1*, если x &lt; 0, *0*, если x == 0 и
+                *1*, если x &gt; 0.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list of numbers</tr>
+                    <tr lang="ru" finished="false">Список номеров</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

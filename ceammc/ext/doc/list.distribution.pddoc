@@ -20,21 +20,28 @@
             <!-- @normalize -->
             <property name="@normalize" type="bool" default="1">
                 <tr lang="en">normalize sum to 1</tr>
+                <tr lang="ru" finished="false">нормализовать сумму до 1</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of pairs: first element - value, second - number of repeats in list (by
-            default normalized to have sum 1)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of pairs: first element - value, second - number of repeats
+                    in list (by default normalized to have sum 1)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

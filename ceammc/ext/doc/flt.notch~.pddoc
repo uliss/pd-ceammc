@@ -24,14 +24,19 @@
                 <tr lang="en">filter that passes most frequencies unaltered, but attenuates those
                 in a specific range to very low levels. It is the opposite of a band-pass
                 filter.</tr>
+                <tr lang="ru" finished="false">фильтр, который передает большинство частот без
+                изменений, но ослабляет их в определенном диапазоне до очень низких уровней. Это
+                противоположность полосового фильтра.</tr>
             </par>
         </info>
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </argument>
             <argument name="WIDTH" type="float" units="hertz" minvalue="1" maxvalue="10000">
                 <tr lang="en">band width (approximate)</tr>
+                <tr lang="ru" finished="false">Ширина полосы (приблизительно)</tr>
             </argument>
         </arguments>
         <properties>
@@ -42,27 +47,35 @@
             <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
             units="hertz">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </property>
             <!-- @width -->
             <property name="@width" type="float" default="50" units="hertz" minvalue="1"
             maxvalue="10000">
                 <tr lang="en">band width (approximate)</tr>
+                <tr lang="ru" finished="false">Ширина полосы (приблизительно)</tr>
             </property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set frequency</tr>
+                    <tr lang="ru" finished="false">установленная частота</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">filtered signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">filtered signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

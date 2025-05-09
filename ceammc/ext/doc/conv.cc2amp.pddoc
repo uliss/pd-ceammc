@@ -27,6 +27,8 @@
         <info>
             <par>
                 <tr lang="en">By default converts from [0..127] to [0..1]</tr>
+                <tr lang="ru" finished="false">По умолчанию конвертируется из [0..127] в
+                [0..1]</tr>
             </par>
         </info>
         <arguments>
@@ -55,11 +57,16 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">value in MIDI CC range [0..127]</tr>
+                    <tr lang="ru" finished="false">значение в диапазоне MIDI CC [0,127]</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>converted value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">converted value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

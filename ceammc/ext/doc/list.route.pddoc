@@ -23,47 +23,74 @@
             <par>
                 <tr lang="en">Outputs float, symbol or list to matched outlet or to last outlet if
                 no match</tr>
+                <tr lang="ru" finished="false">Выходы плавают, символ или список для
+                соответствующей розетки или последней розетки, если нет совпадения</tr>
             </par>
         </info>
         <arguments>
             <argument name="ARGS" type="list">
                 <tr lang="en">list of matched atoms</tr>
+                <tr lang="ru" finished="false">Список совпадающих атомов</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @args -->
             <property name="@args" type="list" access="initonly" default="">
                 <tr lang="en">matching atoms</tr>
+                <tr lang="ru" finished="false">совпадающие атомы</tr>
             </property>
             <!-- @as_any -->
             <property name="@as_any" type="flag" default="0" access="initonly">
                 <tr lang="en">trim list or symbol selector on output</tr>
+                <tr lang="ru" finished="false">Список отделки или селектор символов на выходе</tr>
             </property>
             <!-- @simplify -->
             <property name="@simplify" type="bool" default="1">
                 <tr lang="en">one element list simplification - transform them to floats or
                 symbols</tr>
+                <tr lang="ru" finished="false">упрощение списка элементов - преобразование их в
+                поплавки или символы</tr>
             </property>
             <!-- @trim -->
             <property name="@trim" type="flag" default="0" access="initonly">
                 <tr lang="en">cut first element from list, transform float or symbol to bang</tr>
+                <tr lang="ru" finished="false">вырезать первый элемент из списка, преобразовать
+                поплавок или символ в удар</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="0">first match</outlet>
-            <outlet number="1">second match</outlet>
-            <outlet number="...">nth match</outlet>
-            <outlet number="n">unmatched element (without changes)</outlet>
+            <outlet number="0">
+                <out type="any">
+                    <tr lang="en">first match</tr>
+                </out>
+            </outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">second match</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">nth match</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">unmatched element (without changes)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

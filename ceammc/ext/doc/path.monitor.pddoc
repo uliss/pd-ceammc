@@ -19,23 +19,33 @@
         <arguments>
             <argument name="PATH" type="symbol">
                 <tr lang="en">directory to monitor filesystem events</tr>
+                <tr lang="ru" finished="false">каталог для мониторинга событий файловой
+                системы</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @path -->
             <property name="@path" type="symbol" default="">
                 <tr lang="en">directory to monitor filesystem events</tr>
+                <tr lang="ru" finished="false">каталог для мониторинга событий файловой
+                системы</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">...</tr>
+                    <tr lang="ru" finished="false">...</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>messages: [create fname(, [update fname(, [move fname(, [remove fname(</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">messages: [create fname(, [update fname(, [move fname(, [remove
+                    fname(</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

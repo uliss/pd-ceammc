@@ -22,6 +22,7 @@
         <arguments>
             <argument name="FREQ" type="float" minvalue="5" maxvalue="22050" units="hertz">
                 <tr lang="en">noise generation freq</tr>
+                <tr lang="ru" finished="false">генерация шума freq</tr>
             </argument>
         </arguments>
         <properties>
@@ -32,17 +33,23 @@
             <property name="@freq" type="float" minvalue="5" maxvalue="22050" default="1000"
             units="hertz">
                 <tr lang="en">noise generation freq</tr>
+                <tr lang="ru" finished="false">генерация шума freq</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set average frequency</tr>
+                    <tr lang="ru" finished="false">Установить среднюю частоту</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

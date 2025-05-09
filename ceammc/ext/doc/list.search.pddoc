@@ -23,28 +23,39 @@
         <info>
             <par>
                 <tr lang="en">Returns item position in list or -1 if not found.</tr>
+                <tr lang="ru" finished="false">Возвращает пункт позиции в списке или -1, если не
+                найден.</tr>
             </par>
             <par>
                 <tr lang="en">If several items are specified returns list of positions.</tr>
+                <tr lang="ru" finished="false">Если указано несколько пунктов, возвращается список
+                позиций.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set searched items</tr>
+                    <tr lang="ru" finished="false">Настройка поисковых элементов</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>position of search item or list of such positions</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">position of search item or list of such positions</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

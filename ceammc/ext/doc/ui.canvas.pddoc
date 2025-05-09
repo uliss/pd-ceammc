@@ -657,8 +657,12 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>message: mouse ACTION(down|up|drag) X Y MOD_CTL MOD_ALT MOD_SHIFT
-            MOD_CMD</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">message: mouse ACTION(down|up|drag) X Y MOD_CTL MOD_ALT MOD_SHIFT
+                    MOD_CMD</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -24,11 +24,16 @@
             <inlet>
                 <xinfo on="data">
                     <tr lang="en">data.dict</tr>
+                    <tr lang="ru" finished="false">data.dict.</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of dict keys</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of dict keys</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -27,17 +27,24 @@
             <par>
                 <tr lang="en">Converts frequency from BPM (beats per minute) to hertz. It's simple
                 as /60, but more readable</tr>
+                <tr lang="ru" finished="false">Преобразует частоту от BPM (бит в минуту) в герц.
+                Простой как /60, но более читаемый</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">frequency in BPM</tr>
+                    <tr lang="ru" finished="false">Частота в BPM</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>frequency in hertz</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">frequency in hertz</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

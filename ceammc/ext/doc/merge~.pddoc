@@ -26,11 +26,14 @@
             <par>
                 <tr lang="en">mostly syntax sugar for clear schemes, but can be used in dynamic
                 pathing</tr>
+                <tr lang="ru" finished="false">В основном синтаксический сахар для четких схем, но
+                может использоваться в динамических дорожках.</tr>
             </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="64">
                 <tr lang="en">number of inputs</tr>
+                <tr lang="ru" finished="false">Количество входов</tr>
             </argument>
         </arguments>
         <properties>
@@ -38,27 +41,35 @@
             <property name="@n" type="int" minvalue="2" maxvalue="64" default="2"
             access="initonly">
                 <tr lang="en">number of inputs</tr>
+                <tr lang="ru" finished="false">Количество входов</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
                 <xinfo>
                     <tr lang="en">first input signal</tr>
+                    <tr lang="ru" finished="false">Первый входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="...">
                 <xinfo>
                     <tr lang="en">... input signal</tr>
+                    <tr lang="ru" finished="false">... входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="n">
                 <xinfo>
                     <tr lang="en">n-th input signal</tr>
+                    <tr lang="ru" finished="false">n-й входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

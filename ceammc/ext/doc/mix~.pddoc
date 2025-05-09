@@ -22,29 +22,37 @@
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="16">
                 <tr lang="en">number of inputs</tr>
+                <tr lang="ru" finished="false">Количество входов</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @db -->
             <property name="@db" type="list" minvalue="-144" units="decibel" default="-144 -144">
                 <tr lang="en">amplitude values in decibels</tr>
+                <tr lang="ru" finished="false">значения амплитуды в децибелах</tr>
             </property>
             <!-- @mute -->
             <property name="@mute" type="list" default="0 0">
                 <tr lang="en">mute channel list, allowed values: 0, 1</tr>
+                <tr lang="ru" finished="false">список немых каналов, разрешенные значения: 0,
+                1</tr>
             </property>
             <!-- @solo -->
             <property name="@solo" type="list" default="0 0">
                 <tr lang="en">solo channel list, allowed values: 0, 1</tr>
+                <tr lang="ru" finished="false">сольный список каналов, разрешенные значения: 0,
+                1</tr>
             </property>
             <!-- @value -->
             <property name="@value" type="list" minvalue="0" default="0 0">
                 <tr lang="en">linear amplitude values</tr>
+                <tr lang="ru" finished="false">значения линейной амплитуды</tr>
             </property>
             <!-- @xfade_time -->
             <property name="@xfade_time" type="float" minvalue="1" default="20"
             units="millisecond">
                 <tr lang="en">smooth time</tr>
+                <tr lang="ru" finished="false">гладкое время</tr>
             </property>
         </properties>
         <methods>
@@ -52,24 +60,31 @@
             <method name="mute">
                 <info>
                     <tr lang="en">mute specified channel</tr>
+                    <tr lang="ru" finished="false">неопределенный канал</tr>
                 </info>
                 <param name="CH" type="int" minvalue="0" required="true">
                     <tr lang="en">channel index (from 0)</tr>
+                    <tr lang="ru" finished="false">Индекс канала (от 0)</tr>
                 </param>
                 <param name="VAL" type="int" enum="0 1" required="true">
                     <tr lang="en">1 - mute, 0 - unmute</tr>
+                    <tr lang="ru" finished="false">1 - немой, 0 - немой</tr>
                 </param>
             </method>
             <!-- solo -->
             <method name="solo">
                 <info>
                     <tr lang="en">solo (mute all others that not solo) specified channel</tr>
+                    <tr lang="ru" finished="false">соло (сметь все остальные, которые не соло)
+                    указанный канал</tr>
                 </info>
                 <param name="CH" type="int" minvalue="0" required="true">
                     <tr lang="en">channel index (from 0)</tr>
+                    <tr lang="ru" finished="false">Индекс канала (от 0)</tr>
                 </param>
                 <param name="VAL" type="int" enum="0 1">
                     <tr lang="en">1 - enable solo, 0 - disable solo</tr>
+                    <tr lang="ru" finished="false">1 - включить соло, 0 - отключить соло</tr>
                 </param>
             </method>
         </methods>
@@ -77,21 +92,28 @@
             <inlet type="audio" number="1">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="...">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="n">
                 <xinfo on="float">
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output mixed signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output mixed signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

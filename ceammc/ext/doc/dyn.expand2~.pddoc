@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">It uses a strength parameter instead of the traditional ratio</tr>
+                <tr lang="ru" finished="false">Он использует параметр силы вместо традиционного
+                соотношения.</tr>
             </par>
             <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range
             compression</a>
@@ -52,15 +54,19 @@
             <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
             maxvalue="100">
                 <tr lang="en">time constant when expander is turning on</tr>
+                <tr lang="ru" finished="false">Постоянная времени, когда экспандер включается</tr>
             </property>
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @hold -->
             <property name="@hold" type="float" units="sample" default="128" minvalue="1"
             maxvalue="255">
                 <tr lang="en">hold period</tr>
+                <tr lang="ru" finished="false">Период ожидания</tr>
             </property>
             <!-- @knee -->
             <property name="@knee" type="float" units="decibel" default="3" minvalue="0"
@@ -69,42 +75,58 @@
                 thresh-(knee/2) there is no gain reduction, above thresh+(knee/2) there is the same
                 gain reduction as without a knee, and in between there is a gradual increase in
                 gain reduction</tr>
+                <tr lang="ru" finished="false">постепенное увеличение снижения прироста вокруг
+                порога: ниже треш-(knee/2) нет снижения прироста, выше треш+(knee/2) есть такое же
+                снижение прироста, как и без колена, и между ними есть постепенное увеличение
+                снижения прироста</tr>
             </property>
             <!-- @level -->
             <property name="@level" type="float" units="decibel" default="0" minvalue="0"
             maxvalue="90" access="readonly">
                 <tr lang="en">current expander level</tr>
+                <tr lang="ru" finished="false">текущий уровень расширения</tr>
             </property>
             <!-- @link -->
             <property name="@link" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">the amount of linkage between the channels: 0 = each channel is
                 independent, 1 = all channels have the same amount of gain reduction</tr>
+                <tr lang="ru" finished="false">количество связей между каналами: 0 = каждый канал
+                независим, 1 = все каналы имеют одинаковое снижение коэффициента усиления</tr>
             </property>
             <!-- @range -->
             <property name="@range" type="float" units="decibel" default="-120" minvalue="-120"
             maxvalue="0">
                 <tr lang="en">max expand range</tr>
+                <tr lang="ru" finished="false">Максимальный диапазон расширения</tr>
             </property>
             <!-- @refresh -->
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
             units="millisecond">
                 <tr lang="en">expander level output time interval. If 0 - no output</tr>
+                <tr lang="ru" finished="false">Расширитель уровня выходного интервала. Если 0 -
+                выход отсутствует</tr>
             </property>
             <!-- @release -->
             <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
             maxvalue="500">
                 <tr lang="en">release time = time constant coming out of expanding</tr>
+                <tr lang="ru" finished="false">Время высвобождения = постоянная времени, выходящая
+                из расширения</tr>
             </property>
             <!-- @strength -->
             <property name="@strength" type="float" default="0" minvalue="0" maxvalue="10">
                 <tr lang="en">expander strength (0: no expanding, 1: increase level by @range
                 db.)</tr>
+                <tr lang="ru" finished="false">Прочность экспандера (0: без расширения, 1:
+                повышение уровня на @range db.)</tr>
             </property>
             <!-- @threshold -->
             <property name="@threshold" type="float" units="decibel" default="-48" minvalue="-60"
             maxvalue="0">
                 <tr lang="en">level threshold above which compression kicks in (100 dB = max
                 level)</tr>
+                <tr lang="ru" finished="false">порог уровня, выше которого начинается сжатие (100
+                дБ = максимальный уровень)</tr>
             </property>
         </properties>
         <methods>
@@ -112,6 +134,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset to initial state</tr>
+                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
                 </info>
             </method>
         </methods>
@@ -119,23 +142,38 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">left input signal</tr>
+                    <tr lang="ru" finished="false">левый входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">right input signal</tr>
+                    <tr lang="ru" finished="false">правильный входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set expander strength</tr>
+                    <tr lang="ru" finished="false">Установить силу расширения</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">left expanded signal</outlet>
-            <outlet type="audio">right expanded signal</outlet>
-            <outlet>list: output current expander level in db</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">left expanded signal</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">right expanded signal</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: output current expander level in db</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

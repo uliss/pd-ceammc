@@ -23,62 +23,85 @@
             <par>
                 <tr lang="en">Searches file by name in user specified or PureData system
                 paths.</tr>
+                <tr lang="ru" finished="false">Поиск файла по имени в заданных пользователем или
+                Пути системы PureData.</tr>
             </par>
             <par>
                 <tr lang="en">Outputs first found file.</tr>
+                <tr lang="ru" finished="false">Выходы первого найденного файла.</tr>
             </par>
             <par>
                 <tr lang="en">Search order: 1. user defined paths (@path property), 2. current
                 patch directory, 3. PureData system path, 4. home directory.</tr>
+                <tr lang="ru" finished="false">Порядок поиска: 1. пути, определенные пользователем
+                (@path property), 2. текущий каталог патчей, 3. Путь системы PureData, 4. домашний
+                каталог.</tr>
             </par>
             <par>
                 <tr lang="en">Absolute paths processed before relative.</tr>
+                <tr lang="ru" finished="false">Абсолютные пути обрабатываются перед
+                относительными.</tr>
             </par>
             <par>
                 <tr lang="en">Home directory can be specified with '~' symbol.</tr>
+                <tr lang="ru" finished="false">Домашний каталог может быть указан символом
+                «~».</tr>
             </par>
             <par>
                 <tr lang="en">Note: by default search request is performed asynchronously, so a
                 delay will occured between input and output.</tr>
+                <tr lang="ru" finished="false">Примечание: по умолчанию поисковый запрос
+                выполняется асинхронно, поэтому между входом и выходом возникает задержка.</tr>
             </par>
         </info>
         <arguments>
             <argument name="PATHS" type="list">
                 <tr lang="en">list of paths, can be quoted to handle whitespace.</tr>
+                <tr lang="ru" finished="false">Список путей можно процитировать для обработки
+                белого пространства.</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @async -->
             <property name="@async" type="bool" default="1">
                 <tr lang="en">perform async search in separate thread</tr>
+                <tr lang="ru" finished="false">выполнить асинхронный поиск в отдельном потоке</tr>
             </property>
             <!-- @depth -->
             <property name="@depth" type="int" minvalue="-1" default="0">
                 <tr lang="en">search recursion depth (-1: infinite)</tr>
+                <tr lang="ru" finished="false">глубина рекурсии поиска (-1: бесконечность)</tr>
             </property>
             <!-- @home -->
             <property name="@home" type="bool" default="1">
                 <tr lang="en">search in home directory</tr>
+                <tr lang="ru" finished="false">Поиск в домашнем каталоге</tr>
             </property>
             <!-- @nohome -->
             <property name="@nohome" type="alias">
                 <tr lang="en">alias to @home 0, do not search in home directory</tr>
+                <tr lang="ru" finished="false">alias to @home 0, не ищите в домашнем каталоге</tr>
             </property>
             <!-- @nostd -->
             <property name="@nostd" type="alias">
                 <tr lang="en">alias to @std 0, do not search in standard dirs</tr>
+                <tr lang="ru" finished="false">alias to @std 0, не ищите в стандартных
+                закладках</tr>
             </property>
             <!-- @paths -->
             <property name="@paths" type="list" default="">
                 <tr lang="en">user defined search paths</tr>
+                <tr lang="ru" finished="false">определяемые пользователем пути поиска</tr>
             </property>
             <!-- @std -->
             <property name="@std" type="bool" default="1">
                 <tr lang="en">search in PureData standard directory</tr>
+                <tr lang="ru" finished="false">Поиск в стандартном каталоге PureData</tr>
             </property>
             <!-- @sync -->
             <property name="@sync" type="alias">
                 <tr lang="en">alias to @async 0</tr>
+                <tr lang="ru" finished="false">Исполнитель: @async 0</tr>
             </property>
         </properties>
         <methods>
@@ -86,6 +109,7 @@
             <method name="cancel">
                 <info>
                     <tr lang="en">cancel search process</tr>
+                    <tr lang="ru" finished="false">Отмена поискового процесса</tr>
                 </info>
             </method>
         </methods>
@@ -93,15 +117,25 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">filename</tr>
+                    <tr lang="ru" finished="false">имя файла</tr>
                 </xinfo>
                 <xinfo on="data:string">
                     <tr lang="en">filename</tr>
+                    <tr lang="ru" finished="false">имя файла</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>symbol: full filename</outlet>
-            <outlet>bang: if not found</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">symbol: full filename</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang: if not found</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

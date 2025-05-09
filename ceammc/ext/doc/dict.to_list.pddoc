@@ -27,17 +27,23 @@
             <!-- @props -->
             <property name="@props" type="flag" access="initonly">
                 <tr lang="en">output as list of properties: @key1 vals.. @key2 vals2...</tr>
+                <tr lang="ru" finished="false">@key1 vals.. @key2 vals2 ...</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="data:dict">
                     <tr lang="en">input</tr>
+                    <tr lang="ru" finished="false">ввод</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

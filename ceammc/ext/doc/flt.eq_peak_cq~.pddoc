@@ -22,12 +22,15 @@
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </argument>
             <argument name="GAIN" type="float" minvalue="-15" maxvalue="+15" units="decibel">
                 <tr lang="en">filter gain</tr>
+                <tr lang="ru" finished="false">коэффициент усиления фильтра</tr>
             </argument>
             <argument name="Q" type="float" minvalue="0.1" maxvalue="100">
                 <tr lang="en">quality factory</tr>
+                <tr lang="ru" finished="false">Качественный завод</tr>
             </argument>
         </arguments>
         <properties>
@@ -38,26 +41,34 @@
             <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
             units="hertz">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </property>
             <!-- @gain -->
             <property name="@gain" type="float" minvalue="-15" maxvalue="15" default="0"
             units="decibel">
                 <tr lang="en">filter gain</tr>
+                <tr lang="ru" finished="false">коэффициент усиления фильтра</tr>
             </property>
             <!-- @q -->
             <property name="@q" type="float" minvalue="0.1" maxvalue="100" default="3">
                 <tr lang="en">quality factor: @freq/BANDWIDTH</tr>
+                <tr lang="ru" finished="false">Коэффициент качества: @freq/BANDWIDTH</tr>
             </property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">filtered signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">filtered signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

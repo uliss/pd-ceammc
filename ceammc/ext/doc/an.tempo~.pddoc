@@ -140,8 +140,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float: BPM value</outlet>
-            <outlet>float: detection confidence</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: BPM value</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: detection confidence</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

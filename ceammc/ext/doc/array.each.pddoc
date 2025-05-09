@@ -41,20 +41,33 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">process each element of current array</tr>
+                    <tr lang="ru" finished="false">Обработка каждого элемента текущего массива</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">set the new array, then process each element</tr>
+                    <tr lang="ru" finished="false">установить новый массив, затем обработать каждый
+                    элемент</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">processed float value from side-chain</tr>
+                    <tr lang="ru" finished="false">Обработанная поплавковая стоимость из боковой
+                    цепи</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang on finish</outlet>
-            <outlet>float value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang on finish</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

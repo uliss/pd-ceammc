@@ -24,14 +24,20 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new shuffled list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">new shuffled list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -22,18 +22,30 @@
         <info>
             <par>
                 <tr lang="en">If relative path is given file searched under patch directory</tr>
+                <tr lang="ru" finished="false">Если относительный путь задан, файл ищется в
+                каталоге патчей</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">outputs '1' if file exists and can be opened, otherwise '0'</tr>
+                    <tr lang="ru" finished="false">выходы 1 если файл существует и может быть
+                    открыт, в противном случае 0</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>0 or 1</outlet>
-            <outlet>symbol os String: pass filename if file exists</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">0 or 1</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">symbol os String: pass filename if file exists</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

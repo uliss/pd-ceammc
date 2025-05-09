@@ -36,11 +36,16 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">x, y coord pair</tr>
+                    <tr lang="ru" finished="false">x, y coord pair</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>radius and angle (in radians) pair</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">radius and angle (in radians) pair</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

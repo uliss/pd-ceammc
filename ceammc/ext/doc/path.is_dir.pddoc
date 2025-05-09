@@ -21,15 +21,26 @@
                 <xinfo on="symbol">
                     <tr lang="en">output 1 if given path is found and is directory, otherwise
                     false</tr>
+                    <tr lang="ru" finished="false">выход 1 если данный путь найден и является
+                    каталогом, в противном случае ложным</tr>
                 </xinfo>
                 <xinfo on="data:string">
                     <tr lang="en">same as for symbol</tr>
+                    <tr lang="ru" finished="false">То же, что и символ</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>1 or 0</outlet>
-            <outlet>output path if it's directory</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">1 or 0</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output path if it's directory</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

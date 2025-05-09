@@ -26,11 +26,14 @@
             <par>
                 <tr lang="en">Differentiated Polynomial Waves (DPW) used for aliasing suppression.
                 4nd order interpolation.</tr>
+                <tr lang="ru" finished="false">Дифференцированные полиномиальные волны (DPW),
+                используемые для псевдонима подавления. 4-й порядок интерполяции.</tr>
             </par>
         </info>
         <arguments>
             <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050" units="hertz">
                 <tr lang="en">See @freq</tr>
+                <tr lang="ru" finished="false">См. @freq</tr>
             </argument>
         </arguments>
         <properties>
@@ -41,26 +44,34 @@
             <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050"
             units="hertz">
                 <tr lang="en">frequency</tr>
+                <tr lang="ru" finished="false">частота</tr>
             </property>
             <!-- @phase -->
             <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">phase</tr>
+                <tr lang="ru" finished="false">фаза</tr>
             </property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo on="float">
                     <tr lang="en">frequency in Hz</tr>
+                    <tr lang="ru" finished="false">частота в Гц</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">reset phase</tr>
+                    <tr lang="ru" finished="false">фаза сброса</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

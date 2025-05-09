@@ -24,12 +24,21 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">MidiEvent message</tr>
+                    <tr lang="ru" finished="false">Сообщение MidiEvent</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output pair: controller number, value</outlet>
-            <outlet>track number</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output pair: controller number, value</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">track number</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

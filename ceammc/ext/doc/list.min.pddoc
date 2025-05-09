@@ -24,10 +24,14 @@
             <par>
                 <tr lang="en">By default returns smallest float in list, this equal to using @float
                 property.</tr>
+                <tr lang="ru" finished="false">По умолчанию возвращает наименьший поплавок в
+                списке, это равно использованию свойства @float.</tr>
             </par>
             <par>
                 <tr lang="en">Also you can choose smallest symbol from list by using @symbol
                 property.</tr>
+                <tr lang="ru" finished="false">Также вы можете выбрать наименьший символ из списка,
+                используя свойство символа.</tr>
             </par>
         </info>
         <properties>
@@ -35,38 +39,53 @@
             <property name="@any" type="alias">
                 <tr lang="en">alias for @type any. Find greatest atom of any type. Note: symbols
                 are greater then numbers</tr>
+                <tr lang="ru" finished="false">Фамилия для @type any. Найдите самый большой атом
+                любого типа. Примечание: символы больше, чем числа</tr>
             </property>
             <!-- @float -->
             <property name="@float" type="alias">
                 <tr lang="en">alias for @type float. Find max float element in list</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @type float. Найти элемент
+                max float в списке</tr>
             </property>
             <!-- @symbol -->
             <property name="@symbol" type="alias">
                 <tr lang="en">alias for @type symbol. Find greatest symbol element</tr>
+                <tr lang="ru" finished="false">Фамилия для символа @type. Найдите самый большой
+                элемент символа</tr>
             </property>
             <!-- @type -->
             <property name="@type" type="symbol" enum="float symbol any" default="float">
                 <tr lang="en">type of largest element</tr>
+                <tr lang="ru" finished="false">Тип самого большого элемента</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">passed thru in @float or @any mode</tr>
+                    <tr lang="ru" finished="false">@float или любой режим</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">passed thru in @symbol or @any mode</tr>
+                    <tr lang="ru" finished="false">@symbol или любой режим</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>smallest element</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">smallest element</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

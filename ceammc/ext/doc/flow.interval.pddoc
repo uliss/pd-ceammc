@@ -23,12 +23,17 @@
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">input flow</tr>
+                    <tr lang="ru" finished="false">входной поток</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output time between the current and the previous message in
-            milliseconds</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output time between the current and the previous message in
+                    milliseconds</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

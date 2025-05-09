@@ -26,12 +26,14 @@
         <arguments>
             <argument name="VALUE" type="float">
                 <tr lang="en">set initial value</tr>
+                <tr lang="ru" finished="false">заданная начальная величина</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @value -->
             <property name="@value" type="float" access="readonly" default="0">
                 <tr lang="en">current value</tr>
+                <tr lang="ru" finished="false">Текущая стоимость</tr>
             </property>
         </properties>
         <methods>
@@ -39,29 +41,34 @@
             <method name="*">
                 <info>
                     <tr lang="en">multiply to, no output</tr>
+                    <tr lang="ru" finished="false">Умножить на, не выход</tr>
                 </info>
             </method>
             <!-- + -->
             <method name="+">
                 <info>
                     <tr lang="en">add to float, no output</tr>
+                    <tr lang="ru" finished="false">Добавить в Float, нет выхода</tr>
                 </info>
             </method>
             <method name="-">
                 <info>
                     <tr lang="en">subtract from float, no output</tr>
+                    <tr lang="ru" finished="false">вычитать из флоата, не выходя</tr>
                 </info>
             </method>
             <!-- / -->
             <method name="/">
                 <info>
                     <tr lang="en">divide by, no output</tr>
+                    <tr lang="ru" finished="false">делить на, не выход</tr>
                 </info>
             </method>
             <!-- set -->
             <method name="set">
                 <info>
                     <tr lang="en">sets new value without output</tr>
+                    <tr lang="ru" finished="false">Новая стоимость без выхода</tr>
                 </info>
             </method>
         </methods>
@@ -69,19 +76,26 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">set new value and outputs</tr>
+                    <tr lang="ru" finished="false">установить новые значения и выходы</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">set new value without output</tr>
+                    <tr lang="ru" finished="false">установить новую стоимость без выхода</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>set output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">set output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

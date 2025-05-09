@@ -27,34 +27,47 @@
             <par>
                 <tr lang="en">Note: property setting can be done only via [prop.set] object, since
                 object accepts all incoming messages</tr>
+                <tr lang="ru" finished="false">Настройка свойств может быть выполнена только через
+                объект [prop.set], так как объект принимает все входящие сообщения.</tr>
             </par>
         </info>
         <arguments>
             <argument name="STATE" type="bool">
                 <tr lang="en">init gate state. 1 means open, 0 - closed. By default gate is
                 closed</tr>
+                <tr lang="ru" finished="false">Состояние врат. 1 означает открытый, 0 - закрытый.
+                По умолчанию ворота закрыты</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @state -->
             <property name="@state" type="bool" default="0">
                 <tr lang="en">gate state. 1 means open, 0 - closed</tr>
+                <tr lang="ru" finished="false">Состояние ворот. 1 означает открытый, 0 -
+                закрытый</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">input flow</tr>
+                    <tr lang="ru" finished="false">входной поток</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">gate control inlet. Sending *1* opens gate, *0* - closes</tr>
+                    <tr lang="ru" finished="false">Впуск управления воротами. отправка *1*
+                    открывает ворота, *0* - закрывает</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output flow</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output flow</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

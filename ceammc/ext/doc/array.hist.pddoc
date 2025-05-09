@@ -72,11 +72,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">calculates and outputs histogram</tr>
+                    <tr lang="ru" finished="false">вычисление и вывод гистограммы</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of histogram value (length=@bins)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of histogram value (length=@bins)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

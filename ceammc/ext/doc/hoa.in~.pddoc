@@ -28,11 +28,14 @@
             <par>
                 <tr lang="en">defines a signal inlet for a patcher loaded by a hoa.process~
                 object</tr>
+                <tr lang="ru" finished="false">определяет вход сигнала для патчера, загруженного
+                hoa.process~ объектом</tr>
             </par>
         </info>
         <arguments>
             <argument name="EXTRA" type="int" minvalue="0">
                 <tr lang="en">shortcut for @extra property</tr>
+                <tr lang="ru" finished="false">Скриншоты для @extra Property</tr>
             </argument>
         </arguments>
         <properties>
@@ -40,10 +43,17 @@
             <property name="@extra" type="int" minvalue="0" default="0">
                 <tr lang="en">extra inlet. Extra inlet are added to the "normal" instance inlet and
                 can be used to send signal to all instances</tr>
+                <tr lang="ru" finished="false">дополнительный вход. Дополнительный вход добавляется
+                к входу «нормального» экземпляра и может использоваться для отправки сигнала во все
+                экземпляры.</tr>
             </property>
         </properties>
         <outlets>
-            <outlet type="audio">output signal from a hoa.process~ object's inlet</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal from a hoa.process~ object's inlet</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

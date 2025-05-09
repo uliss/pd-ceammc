@@ -19,43 +19,60 @@
         <arguments>
             <argument name="N" type="int" minvalue="0" maxvalue="10000">
                 <tr lang="en">repeat times</tr>
+                <tr lang="ru" finished="false">повторять</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @n -->
             <property name="@n" type="int" default="1" minvalue="0" maxvalue="10000">
                 <tr lang="en">repeat times</tr>
+                <tr lang="ru" finished="false">повторять</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input float. Example: input 10 outputs list - 10 x n times</tr>
+                    <tr lang="ru" finished="false">Входной поплавок. Пример: ввод 10 выходов список
+                    - 10 x n раз</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">input symbol. Example: input "A" outputs list - "A" x n
                     times</tr>
+                    <tr lang="ru" finished="false">Входной символ. Пример: входной "A" выходной
+                    список - "A" x n раз</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">input list. Example: input 1 2 3 outputs list - (1 2 3) x n
                     times</tr>
+                    <tr lang="ru" finished="false">Список входов. Пример: ввод 1 2 3 вывода списка
+                    - (1 2 3) x n раз</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">input data. Output list of data repeated @times</tr>
+                    <tr lang="ru" finished="false">Входные данные. Список результатов повторения
+                    данных @times</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">same as list. Example: (1 2 3) results mlist (1 2 3 1 2 3
                     ...)</tr>
+                    <tr lang="ru" finished="false">То же, что и список. Пример: (1 2 3) результаты
+                    млиста (1 2 3 1 2 3 ...)</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int" minvalue="0" maxvalue="10000">
                     <tr lang="en">repeat count</tr>
+                    <tr lang="ru" finished="false">повторный счет</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

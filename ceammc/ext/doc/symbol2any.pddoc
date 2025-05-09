@@ -36,7 +36,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output message</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output message</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

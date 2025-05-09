@@ -26,22 +26,29 @@
         <info>
             <par>
                 <tr lang="en">outputs the phase angle in the interval [−π π]</tr>
+                <tr lang="ru" finished="false">выдает фазовый угол в интервале [−π π]</tr>
             </par>
         </info>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">real part of input signal</tr>
+                    <tr lang="ru" finished="false">Реальная часть входного сигнала</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">imag part of input signal</tr>
+                    <tr lang="ru" finished="false">Имаг часть входного сигнала</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">signal phase angle in radians</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">signal phase angle in radians</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

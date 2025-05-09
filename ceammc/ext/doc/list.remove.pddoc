@@ -22,31 +22,41 @@
         <arguments>
             <argument name="INDEXES" type="list">
                 <tr lang="en">list of indexes to remove. Negative indexes are also supported</tr>
+                <tr lang="ru" finished="false">Список индексов для удаления. Негативные индексы
+                также поддерживаются.</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @indexes -->
             <property name="@indexes" type="list" default="">
                 <tr lang="en">indexes to remove</tr>
+                <tr lang="ru" finished="false">Индексы для удаления</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set remove indexes</tr>
+                    <tr lang="ru" finished="false">Удалить индексы</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

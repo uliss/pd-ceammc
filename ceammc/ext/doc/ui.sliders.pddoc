@@ -296,7 +296,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of slider values</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of slider values</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

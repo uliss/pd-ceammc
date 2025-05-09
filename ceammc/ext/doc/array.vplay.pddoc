@@ -113,15 +113,25 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">start playing from the beginning</tr>
+                    <tr lang="ru" finished="false">Начинайте играть с самого начала</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">1 - play, 0 - stop</tr>
+                    <tr lang="ru" finished="false">1 - играть, 0 - останавливаться</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>message to vline~ object</outlet>
-            <outlet>bang after playing finished</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">message to vline~ object</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang after playing finished</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

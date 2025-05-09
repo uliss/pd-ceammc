@@ -41,11 +41,16 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">push back new float</tr>
+                    <tr lang="ru" finished="false">Отталкивать новый флот</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float: popped front element</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: popped front element</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

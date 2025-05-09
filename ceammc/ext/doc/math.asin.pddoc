@@ -25,30 +25,42 @@
             <par>
                 <tr lang="en">The asin() function computes the principal value of the arc sine of
                 input value. The result is in the range [-pi/2, +pi/2].</tr>
+                <tr lang="ru" finished="false">Функция asin() вычисляет основное значение синуса
+                дуги входного значения. Результат находится в диапазоне [-pi/2, +pi/2].</tr>
             </par>
             <par>
                 <tr lang="en">Special values:</tr>
+                <tr lang="ru" finished="false">Особые ценности:</tr>
             </par>
             <par>
                 <tr lang="en">asin(+-0) returns +-0.</tr>
+                <tr lang="ru" finished="false">Asin(+-0) возвращается +-0.</tr>
             </par>
             <par>
                 <tr lang="en">asin(x) returns a NAN and raises the "invalid" floating-point
                 exception for |x| &gt; 1.</tr>
+                <tr lang="ru" finished="false">asin(x) возвращает NAN и поднимает
+                «недействительное» исключение с плавающей точкой для |x | &gt; 1.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">apply to all numeric values</tr>
+                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

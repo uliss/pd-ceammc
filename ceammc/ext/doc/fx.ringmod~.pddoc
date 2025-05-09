@@ -19,6 +19,7 @@
         <arguments>
             <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">dry/wet ratio</tr>
+                <tr lang="ru" finished="false">сухое/мокрое соотношение</tr>
             </argument>
         </arguments>
         <properties>
@@ -28,29 +29,38 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @drive -->
             <property name="@drive" type="float" default="1" minvalue="1" maxvalue="10">
                 <tr lang="en">overdrive effect after modulator</tr>
+                <tr lang="ru" finished="false">Эффект перегрузки после модулятора</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
             <!-- @freq -->
             <property name="@freq" type="float" default="150" minvalue="0.5" maxvalue="22050"
             units="hertz">
                 <tr lang="en">internal modulator frequency</tr>
+                <tr lang="ru" finished="false">Частота внутренних модуляторов</tr>
             </property>
             <!-- @offset -->
             <property name="@offset" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">modulator offset</tr>
+                <tr lang="ru" finished="false">Модулятор смещения</tr>
             </property>
             <!-- @src -->
             <property name="@src" type="int" default="0" minvalue="0" maxvalue="2">
                 <tr lang="en">modulator source. 0: modulator from second inlet, 1: internal
                 sinusoid oscilallator, 2: internal low freq noise.</tr>
+                <tr lang="ru" finished="false">Источник модулятора. 0: модулятор от второго входа,
+                1: внутренний синусоидальный осциллятор, 2: внутренний низкий уровень шума.</tr>
             </property>
         </properties>
         <methods>
@@ -58,6 +68,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset object</tr>
+                    <tr lang="ru" finished="false">сбрасывать объект</tr>
                 </info>
             </method>
         </methods>
@@ -65,16 +76,22 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">carrier</tr>
+                    <tr lang="ru" finished="false">перевозчик</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">modulator</tr>
+                    <tr lang="ru" finished="false">модулятор</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

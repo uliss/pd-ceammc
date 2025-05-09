@@ -158,8 +158,12 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>raw byte output to Arduino serial connection and tagged parsed output from
-            Arduino</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">raw byte output to Arduino serial connection and tagged parsed
+                    output from Arduino</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

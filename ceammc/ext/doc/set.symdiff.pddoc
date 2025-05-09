@@ -45,7 +45,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output symmetric set difference</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output symmetric set difference</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -26,6 +26,7 @@
         <arguments>
             <argument name="N" type="int" minvalue="3" maxvalue="16">
                 <tr lang="en">number of arguments</tr>
+                <tr lang="ru" finished="false">Количество аргументов</tr>
             </argument>
         </arguments>
         <properties>
@@ -33,14 +34,17 @@
             <property name="@n" type="int" access="initonly" minvalue="3" maxvalue="16"
             default="3">
                 <tr lang="en">number of arguments</tr>
+                <tr lang="ru" finished="false">Количество аргументов</tr>
             </property>
             <!-- @state -->
             <property name="@state" type="list" access="readonly" default="">
                 <tr lang="en">internal logic state as list of 1 and 0</tr>
+                <tr lang="ru" finished="false">Состояние внутренней логики как список 1 и 0</tr>
             </property>
             <!-- @sync -->
             <property name="@sync" type="flag" access="initonly">
                 <tr lang="en">if specified - all inlets are 'hot'</tr>
+                <tr lang="ru" finished="false">если указано - все входы "горячие"</tr>
             </property>
         </properties>
         <methods>
@@ -48,6 +52,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">resets all input states to false</tr>
+                    <tr lang="ru" finished="false">Сброс всех входных состояний на ложные</tr>
                 </info>
             </method>
         </methods>
@@ -55,21 +60,28 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">1 or 0</tr>
+                    <tr lang="ru" finished="false">1 или 0</tr>
                 </xinfo>
             </inlet>
             <inlet number="...">
                 <xinfo on="float">
                     <tr lang="en">1 or 0</tr>
+                    <tr lang="ru" finished="false">1 или 0</tr>
                 </xinfo>
             </inlet>
             <inlet number="n">
                 <xinfo on="float">
                     <tr lang="en">1 or 0</tr>
+                    <tr lang="ru" finished="false">1 или 0</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>1 - if all input values are true (1), 0 - otherwise</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">1 - if all input values are true (1), 0 - otherwise</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

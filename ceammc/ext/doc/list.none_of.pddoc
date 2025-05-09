@@ -26,22 +26,34 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">Input list</tr>
+                    <tr lang="ru" finished="false">Список вводимых данных</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">Input mlist</tr>
+                    <tr lang="ru" finished="false">Входной млист</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float" minvalue="0" maxvalue="1">
                     <tr lang="en">input value from predicate. "1" means accepted. "0" means
                     reject.</tr>
+                    <tr lang="ru" finished="false">Входные значения из предиката. «1» означает
+                    принятый. «0» означает отказ.</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>1 - if predicate object returns true for all the elements or list is empty or 0
-            otherwise.</outlet>
-            <outlet>atom to predicate</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">1 - if predicate object returns true for all the elements or list
+                    is empty or 0 otherwise.</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">atom to predicate</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

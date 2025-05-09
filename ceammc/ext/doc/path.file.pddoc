@@ -20,6 +20,7 @@
             <!-- @path -->
             <property name="@path" type="symbol" default="">
                 <tr lang="en">file path</tr>
+                <tr lang="ru" finished="false">Файловый путь</tr>
             </property>
         </properties>
         <methods>
@@ -27,15 +28,18 @@
             <method name="close">
                 <info>
                     <tr lang="en">close file</tr>
+                    <tr lang="ru" finished="false">Закрыть файл</tr>
                 </info>
             </method>
             <!-- open -->
             <method name="open">
                 <info>
                     <tr lang="en">open file, updates @path property</tr>
+                    <tr lang="ru" finished="false">Открытый файл, обновление свойств @path</tr>
                 </info>
                 <param name="FNAME" type="symbol" required="true">
                     <tr lang="en">file path: absolute or relative</tr>
+                    <tr lang="ru" finished="false">Путь файла: абсолютный или относительный</tr>
                 </param>
                 <param name="MODE" type="symbol" required="false" enum="r w a r+ w+ a+">
                     <tr lang="en">open mode, 'r': open text file for reading only. 'w': truncate to
@@ -44,94 +48,129 @@
                     reading and writing. 'w+': truncate to 0 length, if existent, or create text
                     file for reading and writing. 'a+': append, open or create text file for
                     reading and writing, writing at end of file</tr>
+                    <tr lang="ru" finished="false">open mode, 'r': открытый текстовый файл для
+                    чтения. 'w': усечение до 0 длины, если существует, или создание текстового
+                    файла только для записи. «a»: добавить, открыть или создать текстовый файл
+                    только для записи в конце файла. r+: открытый текстовый файл для чтения и
+                    записи. W+: усечение до 0 длины, если существует, или создание текстового файла
+                    для чтения и записи. «a+»: добавление, открытие или создание текстового файла
+                    для чтения и записи, написание в конце файла</tr>
                 </param>
             </method>
             <!-- read_bytes -->
             <method name="read_bytes">
                 <info>
                     <tr lang="en">read bytes from file, output as list of integers</tr>
+                    <tr lang="ru" finished="false">читать байты из файла, выводимые как список
+                    целых чисел</tr>
                 </info>
                 <param name="N" type="int" required="false">
                     <tr lang="en">number of bytes to read, if omitted read all content</tr>
+                    <tr lang="ru" finished="false">количество байтов для чтения, если не прочитано
+                    весь контент</tr>
                 </param>
             </method>
             <!-- read_line -->
             <method name="read_line">
                 <info>
                     <tr lang="en">read line from file, output as list as atoms</tr>
+                    <tr lang="ru" finished="false">читать строку из файла, выводить список как
+                    атомы</tr>
                 </info>
             </method>
             <!-- remove -->
             <method name="remove">
                 <info>
                     <tr lang="en">remove file</tr>
+                    <tr lang="ru" finished="false">удалить файл</tr>
                 </info>
                 <param name="NAME" type="symbol" required="true">
                     <tr lang="en">file path</tr>
+                    <tr lang="ru" finished="false">Файловый путь</tr>
                 </param>
             </method>
             <!-- rename -->
             <method name="rename">
                 <info>
                     <tr lang="en">rename file</tr>
+                    <tr lang="ru" finished="false">Переименовать файл</tr>
                 </info>
                 <param name="PATH" type="symbol" required="true">
                     <tr lang="en">old file path</tr>
+                    <tr lang="ru" finished="false">Старый файловый путь</tr>
                 </param>
                 <param name="NEW_PATH" type="symbol" required="true">
                     <tr lang="en">new file path</tr>
+                    <tr lang="ru" finished="false">Новый файл Path</tr>
                 </param>
             </method>
             <!-- seek_read -->
             <method name="seek_read">
                 <info>
                     <tr lang="en">change reading position</tr>
+                    <tr lang="ru" finished="false">Изменение позиции чтения</tr>
                 </info>
                 <param name="POS" type="int" required="true">
                     <tr lang="en">offset position</tr>
+                    <tr lang="ru" finished="false">смещенная позиция</tr>
                 </param>
                 <param name="ORIG" type="symbol" required="false" enum="beg|cur|end">
                     <tr lang="en">offset origin, if omitted offset from the beginning</tr>
+                    <tr lang="ru" finished="false">Смещение происхождения, если опущено смещение с
+                    начала</tr>
                 </param>
             </method>
             <!-- seek_write -->
             <method name="seek_write">
                 <info>
                     <tr lang="en">change writing position</tr>
+                    <tr lang="ru" finished="false">Изменение письменной позиции</tr>
                 </info>
                 <param name="POS" type="int" required="true">
                     <tr lang="en">offset position</tr>
+                    <tr lang="ru" finished="false">смещенная позиция</tr>
                 </param>
                 <param name="ORIG" type="symbol" required="false" enum="beg|cur|end">
                     <tr lang="en">offset origin, if omitted offset from the beginning</tr>
+                    <tr lang="ru" finished="false">Смещение происхождения, если опущено смещение с
+                    начала</tr>
                 </param>
             </method>
             <!-- write -->
             <method name="write">
                 <info>
                     <tr lang="en">write space separated atoms to file, no newline added</tr>
+                    <tr lang="ru" finished="false">записывать разделенные атомы в файл без
+                    добавления новой строки</tr>
                 </info>
                 <param name="ARGS" type="list" required="true">
                     <tr lang="en">atoms to write</tr>
+                    <tr lang="ru" finished="false">Атомы для записи</tr>
                 </param>
             </method>
             <!-- write_bytes -->
             <method name="write_bytes">
                 <info>
                     <tr lang="en">write given bytes to file</tr>
+                    <tr lang="ru" finished="false">Записать заданные байты в файл</tr>
                 </info>
                 <param name="ARGS" type="list" required="true">
                     <tr lang="en">list of bytes: integers in 0-255 or symbols with '0x' prefix:
                     0x11, 0xFF etc..</tr>
+                    <tr lang="ru" finished="false">список байтов: целые числа в 0-255 или символы с
+                    префиксом 0x: 0x11, 0xFF и т.д.</tr>
                 </param>
             </method>
             <!-- write_line -->
             <method name="write_line">
                 <info>
                     <tr lang="en">write space separated atoms to file, newline added</tr>
+                    <tr lang="ru" finished="false">записывать разделенные атомы в файл, добавила
+                    Newline</tr>
                 </info>
                 <param name="ARGS" type="list" required="true">
                     <tr lang="en">atoms to write</tr>
+                    <tr lang="ru" finished="false">Атомы для записи</tr>
                 </param>
             </method>
         </methods>
@@ -139,12 +178,21 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">...</tr>
+                    <tr lang="ru" finished="false">...</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list: read output</outlet>
-            <outlet>bang on EOF reached</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: read output</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang on EOF reached</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

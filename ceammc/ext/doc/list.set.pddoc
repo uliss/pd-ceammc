@@ -20,43 +20,56 @@
             <argument name="INDEX" type="int">
                 <tr lang="en">element position. Negative indexes are supported. -1 means last
                 element</tr>
+                <tr lang="ru" finished="false">Элементная позиция. Поддерживаются отрицательные
+                индексы. 1 означает последний элемент</tr>
             </argument>
             <argument name="VALUE" type="atom">
                 <tr lang="en">element value</tr>
+                <tr lang="ru" finished="false">значение элемента</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @index -->
             <property name="@index" type="int" default="0">
                 <tr lang="en">element index</tr>
+                <tr lang="ru" finished="false">Элементный индекс</tr>
             </property>
             <!-- @value -->
             <property name="@value" type="atom">
                 <tr lang="en">element value</tr>
+                <tr lang="ru" finished="false">значение элемента</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">element index</tr>
+                    <tr lang="ru" finished="false">Элементный индекс</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="atom">
                     <tr lang="en">new element value</tr>
+                    <tr lang="ru" finished="false">Новое значение элемента</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

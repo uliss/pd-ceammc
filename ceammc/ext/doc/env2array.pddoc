@@ -27,45 +27,58 @@
         <arguments>
             <argument name="ARRAY" type="symbol">
                 <tr lang="en">array name</tr>
+                <tr lang="ru" finished="false">имя массива</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">target array name</tr>
+                <tr lang="ru" finished="false">имя целевого массива</tr>
             </property>
             <!-- @fit -->
             <property name="@fit" type="alias">
                 <tr lang="en">alias to @mode fit property</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @mode fit property</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="fit resize raw" default="fit">
                 <tr lang="en">rendering mode: *fit* to array size, *resize* array to envelope
                 length or *raw* render while enough space in array</tr>
+                <tr lang="ru" finished="false">Режим рендеринга: *fit* to array size, *resize*
+                array to envelope length или *raw* render while enough space in array</tr>
             </property>
             <!-- @raw -->
             <property name="@raw" type="alias">
                 <tr lang="en">alias to @mode raw property</tr>
+                <tr lang="ru" finished="false">Источник: @mode raw property</tr>
             </property>
             <!-- @redraw -->
             <property name="@redraw" type="bool" default="1">
                 <tr lang="en">redraw after array change</tr>
+                <tr lang="ru" finished="false">Перерисовать после изменения массива</tr>
             </property>
             <!-- @resize -->
             <property name="@resize" type="alias">
                 <tr lang="en">alias to @mode resize property</tr>
+                <tr lang="ru" finished="false">@mode Resize Недвижимость</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">*envelope* data</tr>
+                    <tr lang="ru" finished="false">*конвертные данные*</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output number of samples in destination array. If array was resized - output
-            this new size</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output number of samples in destination array. If array was
+                    resized - output this new size</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

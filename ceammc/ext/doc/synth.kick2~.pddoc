@@ -80,8 +80,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">synth output</outlet>
-            <outlet type="control">bang after release finished</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">synth output</tr>
+                </out>
+            </outlet>
+            <outlet type="control">
+                <out type="any">
+                    <tr lang="en">bang after release finished</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

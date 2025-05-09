@@ -146,7 +146,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float stream: raw midi output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float stream: raw midi output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

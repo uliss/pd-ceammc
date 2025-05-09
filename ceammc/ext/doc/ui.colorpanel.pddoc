@@ -153,8 +153,12 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output values: @pd COLOR, @rgb in range [0-1], @hsl in range [0-1],
-            @hex</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output values: @pd COLOR, @rgb in range [0-1], @hsl in range
+                    [0-1], @hex</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

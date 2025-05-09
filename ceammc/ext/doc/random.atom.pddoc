@@ -80,7 +80,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>random atom value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">random atom value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

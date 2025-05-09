@@ -27,19 +27,28 @@
                 <tr lang="en">Delay any route incoming message by specified relative time list. If
                 @block=0 if new message has arrived while delay time is not expired, old message is
                 discarded and new delay time is set from current moment.</tr>
+                <tr lang="ru" finished="false">Задержка любого входящего сообщения маршрута по
+                указанному относительному списку времени. Если @block = 0, если новое сообщение
+                пришло, а время задержки не истекло, старое сообщение отбрасывается и новое время
+                задержки устанавливается с текущего момента.</tr>
             </par>
             <par>
                 <tr lang="en">Zero delay time means output message on next Pd runloop iteration (as
                 soon as possible)</tr>
+                <tr lang="ru" finished="false">Нулевое время задержки означает выходное сообщение
+                на следующей итерации рулона Pd (как можно скорее).</tr>
             </par>
             <par>
                 <tr lang="en">Note: @t and @block property can be set only via right inlet or with
                 [prop.set] object</tr>
+                <tr lang="ru" finished="false">Примечание: свойство @t и @block может быть
+                установлено только через правый вход или с объектом [prop.set]</tr>
             </par>
         </info>
         <arguments>
             <argument name="T" type="list" units="millisecond">
                 <tr lang="en">List of delay times. See @t property.</tr>
+                <tr lang="ru" finished="false">Список времен задержки. См. @t Property.</tr>
             </argument>
         </arguments>
         <properties>
@@ -47,10 +56,14 @@
             <property name="@block" type="bool" default="0">
                 <tr lang="en">blocking mode. If true, discards incoming messages until scheduled
                 message will output, after that is ready to accept the new one.</tr>
+                <tr lang="ru" finished="false">Режим блокировки. Если это правда, отбрасывает
+                входящие сообщения до выхода запланированного сообщения, после чего готов принять
+                новое.</tr>
             </property>
             <!-- @t -->
             <property name="@t" type="list" minvalue="0" units="millisecond" default="">
                 <tr lang="en">delay time list</tr>
+                <tr lang="ru" finished="false">Перечень сроков задержки</tr>
             </property>
         </properties>
         <methods>
@@ -58,6 +71,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset all scheduled delays</tr>
+                    <tr lang="ru" finished="false">Сбросить все запланированные задержки</tr>
                 </info>
             </method>
         </methods>
@@ -65,22 +79,39 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">incoming message</tr>
+                    <tr lang="ru" finished="false">Входящее сообщение</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set delay times</tr>
+                    <tr lang="ru" finished="false">Установить время задержки</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">'reset' - reset all scheduled delays, '@t' - set @t property,
                     '@block' - set @block property, 'dump' - dump object info to Pd window.</tr>
+                    <tr lang="ru" finished="false">"reset" - сброс всех запланированных задержек,
+                    "@t" - set @t property, "@block" - set @block property, "dump" - dump object
+                    info to Pd window.</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1">first delayed output</outlet>
-            <outlet number="...">...-th delayed output</outlet>
-            <outlet number="n">n-th delayed output</outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">first delayed output</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">...-th delayed output</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">n-th delayed output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

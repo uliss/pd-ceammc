@@ -145,7 +145,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs @on_value or @off_value (by default 0 or 1)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs @on_value or @off_value (by default 0 or 1)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

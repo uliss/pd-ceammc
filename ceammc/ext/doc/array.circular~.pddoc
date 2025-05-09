@@ -61,24 +61,32 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">write delay</tr>
+                    <tr lang="ru" finished="false">Писать задержки</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">read delay</tr>
+                    <tr lang="ru" finished="false">читать задержки</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">reset write position to zero</tr>
+                    <tr lang="ru" finished="false">Сброс позиции записи до нуля</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">set write position</tr>
+                    <tr lang="ru" finished="false">Записать позицию</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">read signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">read signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

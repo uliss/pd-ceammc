@@ -25,6 +25,9 @@
             <par>
                 <tr lang="en">Supported named colors are: black blue cyan gold gray green lime
                 magenta navy olive orange pink purple red white yellow</tr>
+                <tr lang="ru" finished="false">Поддерживаются названные цвета: черный синий голубой
+                серо-зеленый лайм magenta Navy оливковый оранжево-розовый фиолетовый красный белый
+                желтый</tr>
             </par>
         </info>
         <properties>
@@ -54,21 +57,42 @@
                 <xinfo on="symbol">
                     <tr lang="en">color name or hex value in full (#RRGGBB or #RRGGBBAA) or short
                     (#RGB or #RGBA) format</tr>
+                    <tr lang="ru" finished="false">Цветовое имя или шестнадцатеричное значение в
+                    полном (#RRGGBB или #RRGGBBAA) или коротком (#RGB или #RGBA) формате</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">use message selector as color name</tr>
+                    <tr lang="ru" finished="false">Используйте селектор сообщений в качестве
+                    цветового имени</tr>
                 </xinfo>
                 <xinfo on="data:color">
                     <tr lang="en">Color data</tr>
+                    <tr lang="ru" finished="false">Цветовые данные</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet>list if @pack flag specified or int[0-255] or float[0-1]: red channel
-            value</outlet>
-            <outlet>int[0-255] or float[0-1]: green channel value</outlet>
-            <outlet>int[0-255] or float[0-1]: blue channel value</outlet>
-            <outlet>int[0-255] or float[0-1]: alpha channel value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list if @pack flag specified or int[0-255] or float[0-1]: red
+                    channel value</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int[0-255] or float[0-1]: green channel value</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int[0-255] or float[0-1]: blue channel value</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int[0-255] or float[0-1]: alpha channel value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

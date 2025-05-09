@@ -25,25 +25,31 @@
             <property name="@attack" type="float" units="millisecond" minvalue="0"
             maxvalue="100000" default="50">
                 <tr lang="en">rec envelope attack time</tr>
+                <tr lang="ru" finished="false">Время атаки на конверт</tr>
             </property>
             <!-- @gain -->
             <property name="@gain" type="float" default="0" minvalue="-60" maxvalue="12"
             units="decibel">
                 <tr lang="en">playing gain</tr>
+                <tr lang="ru" finished="false">Игровая прибыль</tr>
             </property>
             <!-- @gate -->
             <property name="@gate" type="bool" default="0">
                 <tr lang="en">start/stop recording</tr>
+                <tr lang="ru" finished="false">Запись Start/Stop</tr>
             </property>
             <!-- @release -->
             <property name="@release" type="float" units="millisecond" minvalue="0"
             maxvalue="100000" default="50">
                 <tr lang="en">rec envelope release time</tr>
+                <tr lang="ru" finished="false">время выпуска река</tr>
             </property>
             <!-- @sustain -->
             <property name="@sustain" type="float" units="percent" minvalue="0" maxvalue="100"
             default="100">
                 <tr lang="en">rec envelope sustain level - percent from trigger signal</tr>
+                <tr lang="ru" finished="false">Рекомендуемый уровень поддержки - % от триггерного
+                сигнала</tr>
             </property>
         </properties>
         <methods>
@@ -51,27 +57,32 @@
             <method name="div">
                 <info>
                     <tr lang="en">set rec division</tr>
+                    <tr lang="ru" finished="false">Обсуждение Set Re Division</tr>
                 </info>
                 <param name="N" type="int" minvalue="1" maxvalue="8">
                     <tr lang="en">value</tr>
+                    <tr lang="ru" finished="false">ценность</tr>
                 </param>
             </method>
             <!-- record -->
             <method name="record">
                 <info>
                     <tr lang="en">start record</tr>
+                    <tr lang="ru" finished="false">Стартовый рекорд</tr>
                 </info>
             </method>
             <!-- reset -->
             <method name="reset">
                 <info>
                     <tr lang="en">reset recorded data</tr>
+                    <tr lang="ru" finished="false">Сброс записанных данных</tr>
                 </info>
             </method>
             <!-- stop -->
             <method name="stop">
                 <info>
                     <tr lang="en">stop record</tr>
+                    <tr lang="ru" finished="false">стоп рекорд</tr>
                 </info>
             </method>
         </methods>
@@ -79,16 +90,22 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">source signal</tr>
+                    <tr lang="ru" finished="false">источник сигнала</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">1/0 toggle signal</tr>
+                    <tr lang="ru" finished="false">1/0 сигнал переключения</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">recorded signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">recorded signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

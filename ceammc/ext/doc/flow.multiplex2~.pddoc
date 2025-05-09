@@ -28,54 +28,71 @@
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="8">
                 <tr lang="en">number of input stereo-pairs</tr>
+                <tr lang="ru" finished="false">Количество входных стереопар</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @value -->
             <property name="@value" type="list" default="1 0">
                 <tr lang="en">gain coefficients per each input</tr>
+                <tr lang="ru" finished="false">коэффициенты усиления на каждый вход</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
                 <xinfo>
                     <tr lang="en">first left input signal</tr>
+                    <tr lang="ru" finished="false">Первый левый входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="2">
                 <xinfo>
                     <tr lang="en">first right input signal</tr>
+                    <tr lang="ru" finished="false">Первый правый входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="...">
                 <xinfo>
                     <tr lang="en">... left input signal</tr>
+                    <tr lang="ru" finished="false">левый входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="...">
                 <xinfo>
                     <tr lang="en">... right input signal</tr>
+                    <tr lang="ru" finished="false">Правильный входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="n">
                 <xinfo>
                     <tr lang="en">last left input signal</tr>
+                    <tr lang="ru" finished="false">Последний левый входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="n">
                 <xinfo>
                     <tr lang="en">last right input signal</tr>
+                    <tr lang="ru" finished="false">Последний правильный входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="control" number="n+1">
                 <xinfo>
                     <tr lang="en">multiplexer control</tr>
+                    <tr lang="ru" finished="false">управление мультиплексором</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">left output</outlet>
-            <outlet type="audio">right output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">left output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">right output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

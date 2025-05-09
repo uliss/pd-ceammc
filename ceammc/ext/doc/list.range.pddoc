@@ -26,38 +26,52 @@
         <info>
             <par>
                 <tr lang="en">Note: if @type = any, numbers are smaller then symbols</tr>
+                <tr lang="ru" finished="false">Примечание: если @type = любой, числа меньше, чем
+                символы</tr>
             </par>
         </info>
         <properties>
             <!-- @a -->
             <property name="@a" type="alias">
                 <tr lang="en">alias to @type any, accept all</tr>
+                <tr lang="ru" finished="false">alias to @type any, accept all</tr>
             </property>
             <!-- @f -->
             <property name="@f" type="alias">
                 <tr lang="en">alias to @type float, accept only floats</tr>
+                <tr lang="ru" finished="false">alias to @type float, accept only floats
+                (недоступная ссылка)</tr>
             </property>
             <!-- @s -->
             <property name="@s" type="alias">
                 <tr lang="en">alias to @type symbol, accept only symbols</tr>
+                <tr lang="ru" finished="false">alias to @type symbol, только символы</tr>
             </property>
             <!-- @type -->
             <property name="@type" type="symbol" enum="float symbol any" default="float">
                 <tr lang="en">type of accepted atoms</tr>
+                <tr lang="ru" finished="false">Тип принятых атомов</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of two elements: first is a smallest value, second - largest</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of two elements: first is a smallest value, second -
+                    largest</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

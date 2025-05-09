@@ -27,11 +27,16 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">radius and angle (in radians) pair</tr>
+                    <tr lang="ru" finished="false">радиус и угол (в радианах)</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>x, y coordinates pair</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">x, y coordinates pair</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

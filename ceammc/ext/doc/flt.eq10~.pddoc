@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">One band per octave. 5th-order Butterworth filters</tr>
+                <tr lang="ru" finished="false">Одна полоса на октаву. 5-я Заказать фильтры
+                Butterworth</tr>
             </par>
         </info>
         <properties>
@@ -32,51 +34,61 @@
             <property name="@f1000" type="float" minvalue="-70" maxvalue="10" default="0"
             units="decibel">
                 <tr lang="en">gain at 1000Hz</tr>
+                <tr lang="ru" finished="false">увеличение на 1000 Гц</tr>
             </property>
             <!-- @f125 -->
             <property name="@f125" type="float" minvalue="-70" maxvalue="10" default="0"
             units="decibel">
                 <tr lang="en">gain at 125Hz</tr>
+                <tr lang="ru" finished="false">увеличение на 125 Гц</tr>
             </property>
             <!-- @f16000 -->
             <property name="@f16000" type="float" minvalue="-70" maxvalue="10" default="0"
             units="decibel">
                 <tr lang="en">gain at 16000Hz</tr>
+                <tr lang="ru" finished="false">увеличение на 16000 Гц</tr>
             </property>
             <!-- @f2000 -->
             <property name="@f2000" type="float" minvalue="-70" maxvalue="10" default="0"
             units="decibel">
                 <tr lang="en">gain at 2000Hz</tr>
+                <tr lang="ru" finished="false">увеличение на 2000 Гц</tr>
             </property>
             <!-- @f250 -->
             <property name="@f250" type="float" minvalue="-70" maxvalue="10" default="0"
             units="decibel">
                 <tr lang="en">gain at 250Hz</tr>
+                <tr lang="ru" finished="false">увеличение на 250 Гц</tr>
             </property>
             <!-- @f31 -->
             <property name="@f31" type="float" minvalue="-70" maxvalue="10" default="0"
             units="decibel">
                 <tr lang="en">gain at 31.25Hz</tr>
+                <tr lang="ru" finished="false">увеличение на 31,25 Гц</tr>
             </property>
             <!-- @f4000 -->
             <property name="@f4000" type="float" minvalue="-70" maxvalue="10" default="0"
             units="decibel">
                 <tr lang="en">gain at 4000Hz</tr>
+                <tr lang="ru" finished="false">увеличение на 4000 Гц</tr>
             </property>
             <!-- @f500 -->
             <property name="@f500" type="float" minvalue="-70" maxvalue="10" default="0"
             units="decibel">
                 <tr lang="en">gain at 500Hz</tr>
+                <tr lang="ru" finished="false">увеличение на 500 Гц</tr>
             </property>
             <!-- @f62 -->
             <property name="@f62" type="float" minvalue="-70" maxvalue="10" default="0"
             units="decibel">
                 <tr lang="en">gain at 62.5Hz</tr>
+                <tr lang="ru" finished="false">увеличение на 62,5 Гц</tr>
             </property>
             <!-- @f8000 -->
             <property name="@f8000" type="float" minvalue="-70" maxvalue="10" default="0"
             units="decibel">
                 <tr lang="en">gain at 8000Hz</tr>
+                <tr lang="ru" finished="false">увеличение на 8000 Гц</tr>
             </property>
         </properties>
         <methods>
@@ -84,6 +96,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset filter state to default</tr>
+                    <tr lang="ru" finished="false">Сброс состояния фильтра по умолчанию</tr>
                 </info>
             </method>
         </methods>
@@ -91,14 +104,20 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">sets equalizer coefficients</tr>
+                    <tr lang="ru" finished="false">устанавливает коэффициенты эквалайзера</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

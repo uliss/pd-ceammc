@@ -25,32 +25,45 @@
             <par>
                 <tr lang="en">The acosh() function computes the principle value of the inverse
                 hyperbolic cosine of input value. The result is in the range [0, +infinity].</tr>
+                <tr lang="ru" finished="false">Функция acosh() вычисляет основное значение
+                обратного гиперболического косинуса входного значения. Результат находится в
+                диапазоне [0, + бесконечность].</tr>
             </par>
             <par>
                 <tr lang="en">Special values:</tr>
+                <tr lang="ru" finished="false">Особые ценности:</tr>
             </par>
             <par>
                 <tr lang="en">acosh(1) returns +0.</tr>
+                <tr lang="ru" finished="false">acosh(1) возвращается +0.</tr>
             </par>
             <par>
                 <tr lang="en">acosh(x) returns a NAN.</tr>
+                <tr lang="ru" finished="false">acosh(x) возвращает NAN.</tr>
             </par>
             <par>
                 <tr lang="en">acosh(+infinity) returns +infinity.</tr>
+                <tr lang="ru" finished="false">acosh (+infinity) возвращается +infinity.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">apply to all numeric values</tr>
+                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

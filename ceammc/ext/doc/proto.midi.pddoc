@@ -260,9 +260,17 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float: raw midi bytes</outlet>
-            <outlet>parsed messages with selector (output format same as for corresponding
-            methods)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: raw midi bytes</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">parsed messages with selector (output format same as for
+                    corresponding methods)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

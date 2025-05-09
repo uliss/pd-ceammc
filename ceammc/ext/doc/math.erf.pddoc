@@ -23,24 +23,35 @@
             <par>
                 <tr lang="en">In statistics, for non-negative values of x, the error function has
                 the following interpretation:</tr>
+                <tr lang="ru" finished="false">В статистике для неотрицательных значений x функция
+                ошибки имеет следующую интерпретацию:</tr>
             </par>
             <par>
                 <tr lang="en">for a random variable Y that is normally distributed with mean 0 and
                 variance 1/2, erf x is the probability that Y falls in the range [−x, x]</tr>
+                <tr lang="ru" finished="false">для случайной переменной Y, который обычно
+                распределяется со средним 0 и дисперсией 1/2, erf x - вероятность того, что Y
+                падает в диапазоне [-x, x]</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">apply to all numeric values</tr>
+                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

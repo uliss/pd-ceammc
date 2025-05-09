@@ -22,29 +22,41 @@
         <info>
             <par>
                 <tr lang="en">The cbrt() function computes the cube root of input value.</tr>
+                <tr lang="ru" finished="false">Функция cbrt() вычисляет кубический корень входного
+                значения.</tr>
             </par>
             <par>
                 <tr lang="en">Special values:</tr>
+                <tr lang="ru" finished="false">Особые ценности:</tr>
             </par>
             <par>
                 <tr lang="en">cbrt(+-0) returns +-0.</tr>
+                <tr lang="ru" finished="false">cbrt(+-0) возвращается +-0.</tr>
             </par>
             <par>
                 <tr lang="en">cbrt(+-infinity) returns +-infinity.</tr>
+                <tr lang="ru" finished="false">cbrt (+-бесконечность) возвращает
+                +-бесконечность.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">apply to all numeric values</tr>
+                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

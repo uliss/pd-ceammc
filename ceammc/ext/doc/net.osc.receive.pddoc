@@ -59,16 +59,22 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">message input</tr>
+                    <tr lang="ru" finished="false">ввод сообщения</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">set OSC listen path</tr>
+                    <tr lang="ru" finished="false">Установить путь прослушивания</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>OSC output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">OSC output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

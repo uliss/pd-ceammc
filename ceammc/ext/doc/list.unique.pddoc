@@ -23,20 +23,27 @@
             <!-- @stable -->
             <property name="@stable" type="bool" default="1">
                 <tr lang="en">if true - preserves element appearing order</tr>
+                <tr lang="ru" finished="false">Если верно - сохраняет элемент порядка</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

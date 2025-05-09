@@ -24,14 +24,21 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list. Non float values are ignored</tr>
+                    <tr lang="ru" finished="false">Список входов. Неподвижные значения
+                    игнорируются</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float list sum</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float list sum</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

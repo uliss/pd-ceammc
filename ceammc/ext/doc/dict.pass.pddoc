@@ -22,28 +22,36 @@
         <arguments>
             <argument name="KEYS" type="list">
                 <tr lang="en">keys</tr>
+                <tr lang="ru" finished="false">ключи</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @keys -->
             <property name="@keys" type="list" default="">
                 <tr lang="en">passed keys</tr>
+                <tr lang="ru" finished="false">Пропущенные ключи</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="data:dict">
                     <tr lang="en">input dictionary</tr>
+                    <tr lang="ru" finished="false">словарь входного словаря</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">set passed keys</tr>
+                    <tr lang="ru" finished="false">Пропущенные ключи</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>dict with passed keys</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">dict with passed keys</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

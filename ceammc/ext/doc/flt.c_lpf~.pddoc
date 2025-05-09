@@ -25,14 +25,18 @@
             <par>
                 <tr lang="en">Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ +
                 b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²)</tr>
+                <tr lang="ru" finished="false">Расчет коэффициентов для функции переноса: H(z)=(b0
+                + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2)</tr>
             </par>
         </info>
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </argument>
             <argument name="Q" type="float" minvalue="0.01" maxvalue="100">
                 <tr lang="en">quality factory</tr>
+                <tr lang="ru" finished="false">Качественный завод</tr>
             </argument>
         </arguments>
         <properties>
@@ -43,25 +47,48 @@
             <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
             units="hertz">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </property>
             <!-- @q -->
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="1">
                 <tr lang="en">quality factor: @freq/BANDWIDTH</tr>
+                <tr lang="ru" finished="false">Коэффициент качества: @freq/BANDWIDTH</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">control signal</tr>
+                    <tr lang="ru" finished="false">управляющий сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">b0</outlet>
-            <outlet type="audio">b1</outlet>
-            <outlet type="audio">b2</outlet>
-            <outlet type="audio">a1</outlet>
-            <outlet type="audio">a2</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">b0</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">b1</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">b2</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">a1</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">a2</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

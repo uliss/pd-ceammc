@@ -22,11 +22,14 @@
         <info>
             <par>
                 <tr lang="en">new random number every int(SR/freq) samples or so</tr>
+                <tr lang="ru" finished="false">новое случайное число в каждой выборке int
+                (SR/freq)</tr>
             </par>
         </info>
         <arguments>
             <argument name="FREQ" type="float" minvalue="0.5" maxvalue="22050" units="hertz">
                 <tr lang="en">noise generation freq</tr>
+                <tr lang="ru" finished="false">генерация шума freq</tr>
             </argument>
         </arguments>
         <properties>
@@ -37,17 +40,24 @@
             <property name="@freq" type="float" minvalue="0.5" maxvalue="22050" default="1000"
             units="hertz">
                 <tr lang="en">noise generation freq. New random number every int(SR/freq)</tr>
+                <tr lang="ru" finished="false">генерация шума freq. Новое случайное число каждый
+                int (SR/freq)</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set average frequency</tr>
+                    <tr lang="ru" finished="false">Установить среднюю частоту</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

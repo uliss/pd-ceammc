@@ -106,8 +106,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">LTC signal</outlet>
-            <outlet>list: HOUR MINUTE SECOND FRAME</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">LTC signal</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: HOUR MINUTE SECOND FRAME</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

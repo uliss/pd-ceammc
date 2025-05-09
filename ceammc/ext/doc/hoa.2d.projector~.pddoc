@@ -29,15 +29,19 @@
             <par>
                 <tr lang="en">Discretizes the ambisonic sound field into the plane waves
                 domain.</tr>
+                <tr lang="ru" finished="false">Дискретизирует амбисоническое звуковое поле в
+                область плоских волн.</tr>
             </par>
             <a href="hoa/hoa.2d.projector~-help.pd">CICM documentation</a>
         </info>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
                 <tr lang="en">the order of decomposition</tr>
+                <tr lang="ru" finished="false">Порядок разложения</tr>
             </argument>
             <argument name="N" type="int" minvalue="1" maxvalue="63">
                 <tr lang="en">number of channels</tr>
+                <tr lang="ru" finished="false">Количество каналов</tr>
             </argument>
         </arguments>
         <properties>
@@ -45,34 +49,51 @@
             <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
             access="initonly">
                 <tr lang="en">number of channels (planewaves)</tr>
+                <tr lang="ru" finished="false">Количество каналов (плановых волн)</tr>
             </property>
             <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             access="initonly">
                 <tr lang="en">the order of decomposition</tr>
+                <tr lang="ru" finished="false">Порядок разложения</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input harmonic</tr>
+                    <tr lang="ru" finished="false">входная гармоника</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="...">
                 <xinfo>
                     <tr lang="en">... input harmonic</tr>
+                    <tr lang="ru" finished="false">Входная гармоника</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="n">
                 <xinfo>
                     <tr lang="en">n-th input harmonic</tr>
+                    <tr lang="ru" finished="false">n-я входная гармоника</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet type="audio">first plane wave output</outlet>
-            <outlet type="audio" number="...">... plane wave output</outlet>
-            <outlet type="audio" number="n">n-th plane wave output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">first plane wave output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio" number="...">
+                <out type="any">
+                    <tr lang="en">... plane wave output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio" number="n">
+                <out type="any">
+                    <tr lang="en">n-th plane wave output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

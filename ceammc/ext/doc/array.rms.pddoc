@@ -40,11 +40,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">calculates and outputs RMS value</tr>
+                    <tr lang="ru" finished="false">вычисляет и выводит значение RMS</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>RMS value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">RMS value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

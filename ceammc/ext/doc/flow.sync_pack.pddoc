@@ -26,72 +26,102 @@
         <arguments>
             <argument name="N" type="int" minvalue="1" maxvalue="255">
                 <tr lang="en">number of inputs</tr>
+                <tr lang="ru" finished="false">Количество входов</tr>
             </argument>
             <argument name="INIT" type="list">
                 <tr lang="en">default values for all inlets. If not enough default values given it
                 sets to 0</tr>
+                <tr lang="ru" finished="false">Значения по умолчанию для всех входов. Если не
+                достаточно значений по умолчанию, при условии, что он устанавливает 0</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @init -->
             <property name="@init" type="list" access="initonly" default="">
                 <tr lang="en">default init values</tr>
+                <tr lang="ru" finished="false">значения init по умолчанию</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="1" default="1" maxvalue="255"
             access="initonly">
                 <tr lang="en">number of inlets</tr>
+                <tr lang="ru" finished="false">Количество входов</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo on="bang">
                     <tr lang="en">output current value</tr>
+                    <tr lang="ru" finished="false">текущая стоимость выпуска</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">change first packed value and output</tr>
+                    <tr lang="ru" finished="false">изменение первого упакованного значения и
+                    выхода</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">change first packed value and output</tr>
+                    <tr lang="ru" finished="false">изменение первого упакованного значения и
+                    выхода</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">propagate list values to other inlets and output</tr>
+                    <tr lang="ru" finished="false">распространять значения списка на другие входы и
+                    выход</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">propagate message values to other inlets and output</tr>
+                    <tr lang="ru" finished="false">распространять значения сообщений на другие
+                    входы и выход</tr>
                 </xinfo>
             </inlet>
             <inlet number="...">
                 <xinfo on="bang">
                     <tr lang="en">output current value</tr>
+                    <tr lang="ru" finished="false">текущая стоимость выпуска</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">change ... packed value and output</tr>
+                    <tr lang="ru" finished="false">Изменение ... упакованная стоимость и выход</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">change ... packed value and output</tr>
+                    <tr lang="ru" finished="false">Изменение ... упакованная стоимость и выход</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">propagate ... list values among rest inlets and output</tr>
+                    <tr lang="ru" finished="false">распространять ... списки значений среди входов
+                    и выходов отдыха</tr>
                 </xinfo>
             </inlet>
             <inlet number="n">
                 <xinfo on="bang">
                     <tr lang="en">output current value and output</tr>
+                    <tr lang="ru" finished="false">выходная текущая стоимость и выход</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">change n-th packed value and output</tr>
+                    <tr lang="ru" finished="false">изменение n-го упакованного значения и
+                    выхода</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">change n-th packed value and output</tr>
+                    <tr lang="ru" finished="false">изменение n-го упакованного значения и
+                    выхода</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">propagate n-th list values among rest inlets and output</tr>
+                    <tr lang="ru" finished="false">распространять значения n-го списка среди входов
+                    и выходов для отдыха</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>packed list or message (if message input)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">packed list or message (if message input)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

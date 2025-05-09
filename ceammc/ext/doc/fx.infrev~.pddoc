@@ -24,39 +24,52 @@
             <par>
                 <tr lang="en">Infinity is a MatrixVerb specifically designed to sustain and layer
                 sounds forever.</tr>
+                <tr lang="ru" finished="false">Infinity - это MatrixVerb, специально разработанный
+                для поддержания и сложения звуков навсегда.</tr>
             </par>
             <a href="https://www.airwindows.com/infinity/">More info</a>
         </info>
         <arguments>
             <argument name="SIZE" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">room size</tr>
+                <tr lang="ru" finished="false">размер комнаты</tr>
             </argument>
             <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals</tr>
+                <tr lang="ru" finished="false">Пропорция смеси между исходными (сухими) и
+                «вредными» (мокрыми) сигналами</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @damp -->
             <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">damping of the lowpass comb filter</tr>
+                <tr lang="ru" finished="false">демпфирование низкопроходного гребенчатого
+                фильтра</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
             <!-- @filter -->
             <property name="@filter" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">filter coefficient</tr>
+                <tr lang="ru" finished="false">коэффициент фильтрации</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="float" minvalue="0" maxvalue="1" default="0.5">
                 <tr lang="en">room size</tr>
+                <tr lang="ru" finished="false">размер комнаты</tr>
             </property>
         </properties>
         <methods>
@@ -64,6 +77,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset reverb</tr>
+                    <tr lang="ru" finished="false">реверберация</tr>
                 </info>
             </method>
         </methods>
@@ -71,17 +85,27 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input Left signal</tr>
+                    <tr lang="ru" finished="false">Левый входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input Right signal</tr>
+                    <tr lang="ru" finished="false">Входной сигнал Правый сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output Left signal</outlet>
-            <outlet type="audio">output Right signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output Left signal</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output Right signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

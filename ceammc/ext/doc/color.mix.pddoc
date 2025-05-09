@@ -19,40 +19,51 @@
         <arguments>
             <argument name="C0" type="atom">
                 <tr lang="en">first color</tr>
+                <tr lang="ru" finished="false">Первый цвет</tr>
             </argument>
             <argument name="C1" type="atom">
                 <tr lang="en">second value</tr>
+                <tr lang="ru" finished="false">второе значение</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @c0 -->
             <property name="@c0" type="atom">
                 <tr lang="en">first color</tr>
+                <tr lang="ru" finished="false">Первый цвет</tr>
             </property>
             <!-- @c1 -->
             <property name="@c1" type="atom">
                 <tr lang="en">second color</tr>
+                <tr lang="ru" finished="false">Второй цвет</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float" minvalue="0" maxvalue="1">
                     <tr lang="en">calculate color mix and output</tr>
+                    <tr lang="ru" finished="false">Рассчитать цветовую смесь и выход</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="data:color">
                     <tr lang="en">set color and output</tr>
+                    <tr lang="ru" finished="false">Установить цвет и выход</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="data:color">
                     <tr lang="en">set color without output</tr>
+                    <tr lang="ru" finished="false">цвет без выхода</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>data:color output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">data:color output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

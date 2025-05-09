@@ -19,23 +19,29 @@
         <info>
             <par>
                 <tr lang="en">try these parameters:</tr>
+                <tr lang="ru" finished="false">Попробуйте эти параметры:</tr>
             </par>
             <par>
                 <tr lang="en">0.7 1.1 1.3</tr>
+                <tr lang="ru" finished="false">0,7 1,1 1,3</tr>
             </par>
             <par>
                 <tr lang="en">0.9 1. 1.6</tr>
+                <tr lang="ru" finished="false">0.9 1. 1.6</tr>
             </par>
         </info>
         <arguments>
             <argument name="X" type="float">
                 <tr lang="en">x value (optional)</tr>
+                <tr lang="ru" finished="false">x значение (необязательно)</tr>
             </argument>
             <argument name="Y" type="float">
                 <tr lang="en">y value (optional)</tr>
+                <tr lang="ru" finished="false">y значение (факультативно)</tr>
             </argument>
             <argument name="CR" type="float">
                 <tr lang="en">cr value (optional)</tr>
+                <tr lang="ru" finished="false">значение cr (факультативно)</tr>
             </argument>
         </arguments>
         <methods>
@@ -43,36 +49,43 @@
             <method name="cr">
                 <param name="SEED" type="float" required="true">
                     <tr lang="en">cr value</tr>
+                    <tr lang="ru" finished="false">значение k</tr>
                 </param>
             </method>
             <!-- om -->
             <method name="om">
                 <param name="OM" type="int" required="true">
                     <tr lang="en">enables output when cut or fold value is changed</tr>
+                    <tr lang="ru" finished="false">позволяет вывод при изменении значения разреза
+                    или сгиба</tr>
                 </param>
             </method>
             <!-- reset -->
             <method name="reset">
                 <info>
                     <tr lang="en">reset state</tr>
+                    <tr lang="ru" finished="false">состояние сброса</tr>
                 </info>
             </method>
             <!-- set -->
             <method name="set">
                 <param name="SET" type="float" required="true">
                     <tr lang="en">set to value</tr>
+                    <tr lang="ru" finished="false">установить ценность</tr>
                 </param>
             </method>
             <!-- x -->
             <method name="x">
                 <param name="NX" type="float" required="true">
                     <tr lang="en">x value</tr>
+                    <tr lang="ru" finished="false">x значение</tr>
                 </param>
             </method>
             <!-- y -->
             <method name="y">
                 <param name="NY" type="float" required="true">
                     <tr lang="en">y value</tr>
+                    <tr lang="ru" finished="false">y значение</tr>
                 </param>
             </method>
         </methods>
@@ -80,12 +93,21 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>x outlet</outlet>
-            <outlet>y outlet</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">x outlet</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">y outlet</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

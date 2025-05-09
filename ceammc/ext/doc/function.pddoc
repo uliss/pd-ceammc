@@ -27,29 +27,41 @@
         <arguments>
             <argument name="NAME" type="symbol">
                 <tr lang="en">function name, should be unique</tr>
+                <tr lang="ru" finished="false">имя должно быть уникальным</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @name -->
             <property name="@name" type="symbol" default="" access="initonly">
                 <tr lang="en">function name, should be unique and non-empty</tr>
+                <tr lang="ru" finished="false">имя должно быть уникальным и непустым</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input values</tr>
+                    <tr lang="ru" finished="false">входные значения</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">value from the side-chain</tr>
+                    <tr lang="ru" finished="false">значение из боковой цепи</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
-            <outlet>value to the side-chain</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result value</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">value to the side-chain</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -102,8 +102,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">left output signal</outlet>
-            <outlet type="audio">right output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">left output signal</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">right output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -22,32 +22,43 @@
         <info>
             <par>
                 <tr lang="en">Basic syntax:</tr>
+                <tr lang="ru" finished="false">Основной синтаксис:</tr>
             </par>
             <par>
                 <tr lang="en">- pitch: C, D, E, F, G, A, B</tr>
+                <tr lang="ru" finished="false">- шаг: C, D, E, F, G, A, B</tr>
             </par>
             <par>
                 <tr lang="en">- alteration: #, ##, b or bb</tr>
+                <tr lang="ru" finished="false">- изменение: #, ##, b или b</tr>
             </par>
             <par>
                 <tr lang="en">- octave: -1..9 or ^, _</tr>
+                <tr lang="ru" finished="false">- октава: -1,9 или ^, _</tr>
             </par>
             <par>
                 <tr lang="en">- deviation in cents: (+-NUMc)</tr>
+                <tr lang="ru" finished="false">- отклонение в центах: (+-NUMc)</tr>
             </par>
             <par>
                 <tr lang="en">- duration: |8, |4. or |3/8</tr>
+                <tr lang="ru" finished="false">- продолжительность: |8, |4. или |3/8</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">note list</tr>
+                    <tr lang="ru" finished="false">примечание</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>MIDI values</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">MIDI values</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii id="main">

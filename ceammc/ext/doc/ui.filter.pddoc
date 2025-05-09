@@ -164,7 +164,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list: b0 b1 b2 a1 a2</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: b0 b1 b2 a1 a2</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

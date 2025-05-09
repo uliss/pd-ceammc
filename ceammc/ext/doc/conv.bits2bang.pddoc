@@ -24,10 +24,14 @@
             <par>
                 <tr lang="en">in default mode if bit is on - sends bang to corresponding
                 outlet</tr>
+                <tr lang="ru" finished="false">в режиме по умолчанию, если бит включен - отправляет
+                удар в соответствующую розетку</tr>
             </par>
             <par>
                 <tr lang="en">in @poly mode if bit is on - send list (BIT_IDX bang) to single
                 outlet</tr>
+                <tr lang="ru" finished="false">в режиме @poly, если бит включен - отправьте список
+                (BIT_IDX bang) в одну точку</tr>
             </par>
         </info>
         <arguments>
@@ -58,11 +62,16 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input bit list</tr>
+                    <tr lang="ru" finished="false">Список входных бит</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet>output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

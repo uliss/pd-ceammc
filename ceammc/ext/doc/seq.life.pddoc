@@ -169,7 +169,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of all cells in row by row order</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of all cells in row by row order</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

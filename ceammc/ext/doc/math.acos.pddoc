@@ -26,29 +26,40 @@
             <par>
                 <tr lang="en">The acos() function computes the principle value of the arc cosine of
                 input value. The result is in the range [0, pi].</tr>
+                <tr lang="ru" finished="false">Функция acos() вычисляет основное значение дугового
+                косинуса входного значения. Результат находится в диапазоне [0, pi].</tr>
             </par>
             <par>
                 <tr lang="en">Special values:</tr>
+                <tr lang="ru" finished="false">Особые ценности:</tr>
             </par>
             <par>
                 <tr lang="en">acos(1) returns +0.</tr>
+                <tr lang="ru" finished="false">acos(1) возвращается +0.</tr>
             </par>
             <par>
                 <tr lang="en">acos(x) returns a NAN.</tr>
+                <tr lang="ru" finished="false">acos(x) возвращает NAN.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">apply to all numeric values</tr>
+                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

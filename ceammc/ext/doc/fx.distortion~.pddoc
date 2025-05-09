@@ -19,9 +19,12 @@
         <arguments>
             <argument name="DRIVE" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">distortion amount</tr>
+                <tr lang="ru" finished="false">искажение суммы</tr>
             </argument>
             <argument name="OFFSET" type="float" minvalue="0" maxvalue="0.5">
                 <tr lang="en">constant added before nonlinearity to give even harmonics</tr>
+                <tr lang="ru" finished="false">константа, добавляемая перед нелинейностью для
+                придания четной гармоники</tr>
             </argument>
         </arguments>
         <properties>
@@ -31,19 +34,26 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @drive -->
             <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.5">
                 <tr lang="en">distortion amount</tr>
+                <tr lang="ru" finished="false">искажение суммы</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet.</tr>
+                <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
+                сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
             </property>
             <!-- @offset -->
             <property name="@offset" type="float" minvalue="0" maxvalue="0.5" default="0">
                 <tr lang="en">constant added before nonlinearity to give even harmonics</tr>
+                <tr lang="ru" finished="false">константа, добавляемая перед нелинейностью для
+                придания четной гармоники</tr>
             </property>
         </properties>
         <methods>
@@ -51,6 +61,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset object</tr>
+                    <tr lang="ru" finished="false">сбрасывать объект</tr>
                 </info>
             </method>
         </methods>
@@ -58,11 +69,16 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

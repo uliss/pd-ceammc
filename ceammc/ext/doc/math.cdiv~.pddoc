@@ -27,36 +27,51 @@
             <par>
                 <tr lang="en">Calculates for signals (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2)
                 + ((bc - ad) / (c^2 + d^2))i</tr>
+                <tr lang="ru" finished="false">Расчеты сигналов (a + bi) / (c + di) = (ac + bd) /
+                (c^2 + d^2) + (bc - ad) / (c^2 + d^2))i</tr>
             </par>
             <par>
                 <tr lang="en">If c + di = 0, outputs 0, as [/~] does</tr>
+                <tr lang="ru" finished="false">Если c + di = 0, выходы 0, как [/~]</tr>
             </par>
         </info>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">real part of input signal1</tr>
+                    <tr lang="ru" finished="false">Реальная часть входного сигнала1</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">imag part of input signal1</tr>
+                    <tr lang="ru" finished="false">Имаг часть входного сигнала1</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">real part of input signal2</tr>
+                    <tr lang="ru" finished="false">Реальная часть входного сигнала2</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">imag part of input signal2</tr>
+                    <tr lang="ru" finished="false">Имаг часть входного сигнала2</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">real part of result</outlet>
-            <outlet type="audio">imag part of result</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">real part of result</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">imag part of result</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -24,9 +24,12 @@
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
                 <tr lang="en">corner frequency for the shelf</tr>
+                <tr lang="ru" finished="false">Угловая частота для полки</tr>
             </argument>
             <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">
                 <tr lang="en">amount of boost or cut apply to the signal</tr>
+                <tr lang="ru" finished="false">величина наддува или разреза применяется к
+                сигналу</tr>
             </argument>
         </arguments>
         <properties>
@@ -37,22 +40,30 @@
             <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="1000">
                 <tr lang="en">corner frequency for the shelf</tr>
+                <tr lang="ru" finished="false">Угловая частота для полки</tr>
             </property>
             <!-- @gain -->
             <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
             default="0">
                 <tr lang="en">amount of boost or cut apply to the signal</tr>
+                <tr lang="ru" finished="false">величина наддува или разреза применяется к
+                сигналу</tr>
             </property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">filtered signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">filtered signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

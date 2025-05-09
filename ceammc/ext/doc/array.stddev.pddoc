@@ -39,11 +39,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">calculates and outputs standard deviation</tr>
+                    <tr lang="ru" finished="false">вычисления и выходы стандартного отклонения</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>standard deviation value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">standard deviation value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

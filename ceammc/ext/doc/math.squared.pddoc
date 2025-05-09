@@ -25,14 +25,20 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list of numbers</tr>
+                    <tr lang="ru" finished="false">Список номеров</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

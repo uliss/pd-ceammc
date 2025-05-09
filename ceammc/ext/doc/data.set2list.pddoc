@@ -27,23 +27,32 @@
             <par>
                 <tr lang="en">Note: output list is not sorted by default. You can use @sort flag to
                 get sorted output</tr>
+                <tr lang="ru" finished="false">Примечание: список вывода не сортируется по
+                умолчанию. Вы можете использовать флаг @sort для получения отсортированного
+                вывода</tr>
             </par>
         </info>
         <properties>
             <!-- @sort -->
             <property name="@sort" type="flag" default="0" access="initonly">
                 <tr lang="en">if specified - sort output list</tr>
+                <tr lang="ru" finished="false">Если указано - сортировать выходной список</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input set</tr>
+                    <tr lang="ru" finished="false">входной набор</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

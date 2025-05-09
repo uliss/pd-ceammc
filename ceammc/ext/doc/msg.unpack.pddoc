@@ -23,6 +23,7 @@
         <arguments>
             <argument name="N" type="int" minvalue="1" maxvalue="32">
                 <tr lang="en">number of outputs</tr>
+                <tr lang="ru" finished="false">количество выходов</tr>
             </argument>
         </arguments>
         <properties>
@@ -30,19 +31,33 @@
             <property name="@n" type="int" minvalue="1" default="1" maxvalue="32"
             access="initonly">
                 <tr lang="en">number of outputs</tr>
+                <tr lang="ru" finished="false">количество выходов</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">any messages</tr>
+                    <tr lang="ru" finished="false">Любые сообщения</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1">symbol: message selector</outlet>
-            <outlet number="...">atom: message args</outlet>
-            <outlet number="n+1">list: last message args</outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">symbol: message selector</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">atom: message args</tr>
+                </out>
+            </outlet>
+            <outlet number="n+1">
+                <out type="any">
+                    <tr lang="en">list: last message args</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

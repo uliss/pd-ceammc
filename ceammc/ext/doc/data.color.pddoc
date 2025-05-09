@@ -26,12 +26,14 @@
         <arguments>
             <argument name="VALUE" type="atom">
                 <tr lang="en">initial value</tr>
+                <tr lang="ru" finished="false">начальное значение</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @value -->
             <property name="@value" type="atom">
                 <tr lang="en">current color</tr>
+                <tr lang="ru" finished="false">Текущий цвет</tr>
             </property>
         </properties>
         <methods>
@@ -39,222 +41,278 @@
             <method name="alpha">
                 <info>
                     <tr lang="en">set alpha channel value</tr>
+                    <tr lang="ru" finished="false">значение альфа-канала</tr>
                 </info>
                 <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">value</tr>
+                    <tr lang="ru" finished="false">ценность</tr>
                 </param>
             </method>
             <!-- blue -->
             <method name="blue">
                 <info>
                     <tr lang="en">set blue channel value</tr>
+                    <tr lang="ru" finished="false">значение синего канала</tr>
                 </info>
                 <param name="BLUE" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">value</tr>
+                    <tr lang="ru" finished="false">ценность</tr>
                 </param>
             </method>
             <!-- brighten -->
             <method name="brighten">
                 <info>
                     <tr lang="en">set color brighter</tr>
+                    <tr lang="ru" finished="false">Установить цвет ярче</tr>
                 </info>
                 <param name="V" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">value</tr>
+                    <tr lang="ru" finished="false">ценность</tr>
                 </param>
             </method>
             <!-- darken -->
             <method name="darken">
                 <info>
                     <tr lang="en">set color darker</tr>
+                    <tr lang="ru" finished="false">Установить цвет темнее</tr>
                 </info>
                 <param name="V" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">value</tr>
+                    <tr lang="ru" finished="false">ценность</tr>
                 </param>
             </method>
             <!-- desaturate -->
             <method name="desaturate">
                 <info>
                     <tr lang="en">decrease color saturation</tr>
+                    <tr lang="ru" finished="false">уменьшение насыщенности цвета</tr>
                 </info>
                 <param name="V" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">value</tr>
+                    <tr lang="ru" finished="false">ценность</tr>
                 </param>
             </method>
             <!-- flip -->
             <method name="flip">
                 <info>
                     <tr lang="en">flip color hue</tr>
+                    <tr lang="ru" finished="false">цвет флипа</tr>
                 </info>
                 <param name="V" type="float" minvalue="0" maxvalue="1" required="false">
                     <tr lang="en">v</tr>
+                    <tr lang="ru" finished="false">v</tr>
                 </param>
             </method>
             <!-- grayscale -->
             <method name="grayscale">
                 <info>
                     <tr lang="en">convert color to grayscale</tr>
+                    <tr lang="ru" finished="false">Преобразовать цвет в серый</tr>
                 </info>
             </method>
             <!-- green -->
             <method name="green">
                 <info>
                     <tr lang="en">set green channel value</tr>
+                    <tr lang="ru" finished="false">Значение зеленого канала</tr>
                 </info>
                 <param name="GREEN" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">value</tr>
+                    <tr lang="ru" finished="false">ценность</tr>
                 </param>
             </method>
             <!-- hex -->
             <method name="hex">
                 <info>
                     <tr lang="en">set color with hex #RGB or #RRGGBB value</tr>
+                    <tr lang="ru" finished="false">Установите цвет с значением hex #RGB или
+                    #RRGGBB</tr>
                 </info>
                 <param name="HEX" type="symbol" required="true">
                     <tr lang="en">mix amount</tr>
+                    <tr lang="ru" finished="false">количество смеси</tr>
                 </param>
             </method>
             <!-- hsl -->
             <method name="hsl">
                 <info>
                     <tr lang="en">set color in HSL colorspace</tr>
+                    <tr lang="ru" finished="false">Цвет в цветовом пространстве HSL</tr>
                 </info>
                 <param name="HUE" type="float" minvalue="0" maxvalue="360" required="true">
                     <tr lang="en">hue value</tr>
+                    <tr lang="ru" finished="false">значение оттенка</tr>
                 </param>
                 <param name="SATURATION" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">saturation value</tr>
+                    <tr lang="ru" finished="false">значение насыщения</tr>
                 </param>
                 <param name="LIGHTNESS" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">lightness value</tr>
+                    <tr lang="ru" finished="false">величина освещенности</tr>
                 </param>
                 <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="false">
                     <tr lang="en">alpha value</tr>
+                    <tr lang="ru" finished="false">альфа-значение</tr>
                 </param>
             </method>
             <!-- hwb -->
             <method name="hwb">
                 <info>
                     <tr lang="en">set color in HWB colorspace</tr>
+                    <tr lang="ru" finished="false">Цвет в цветовом пространстве HWB</tr>
                 </info>
                 <param name="HUE" type="float" minvalue="0" maxvalue="360" required="true">
                     <tr lang="en">hue value</tr>
+                    <tr lang="ru" finished="false">значение оттенка</tr>
                 </param>
                 <param name="WHITENESS" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">whiteness value</tr>
+                    <tr lang="ru" finished="false">ценность белизны</tr>
                 </param>
                 <param name="BLACKNESS" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">blackness value</tr>
+                    <tr lang="ru" finished="false">ценность черного</tr>
                 </param>
                 <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="false">
                     <tr lang="en">alpha value</tr>
+                    <tr lang="ru" finished="false">альфа-значение</tr>
                 </param>
             </method>
             <!-- invert -->
             <method name="invert">
                 <info>
                     <tr lang="en">invert color in RGB colorspace</tr>
+                    <tr lang="ru" finished="false">Инвертированный цвет в цветовом пространстве
+                    RGB</tr>
                 </info>
             </method>
             <!-- mix -->
             <method name="mix">
                 <info>
                     <tr lang="en">mix with specified color</tr>
+                    <tr lang="ru" finished="false">смешивать с определенным цветом</tr>
                 </info>
                 <param name="COLOR" type="data:color" required="true">
                     <tr lang="en">color to mix with</tr>
+                    <tr lang="ru" finished="false">Цвет смешивается с</tr>
                 </param>
                 <param name="MIX" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">mix amount</tr>
+                    <tr lang="ru" finished="false">количество смеси</tr>
                 </param>
             </method>
             <!-- oklab -->
             <method name="oklab">
                 <info>
                     <tr lang="en">set color in OkLab colorspace</tr>
+                    <tr lang="ru" finished="false">Цвет в цветовом пространстве OkLab</tr>
                 </info>
                 <param name="HUE" type="float" minvalue="0" maxvalue="360" required="true">
                     <tr lang="en">hue value</tr>
+                    <tr lang="ru" finished="false">значение оттенка</tr>
                 </param>
                 <param name="a" type="float" minvalue="-1" maxvalue="1" required="true">
                     <tr lang="en">a value</tr>
+                    <tr lang="ru" finished="false">ценность</tr>
                 </param>
                 <param name="b" type="float" minvalue="-1" maxvalue="1" required="true">
                     <tr lang="en">b value</tr>
+                    <tr lang="ru" finished="false">b значение</tr>
                 </param>
                 <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="false">
                     <tr lang="en">alpha value</tr>
+                    <tr lang="ru" finished="false">альфа-значение</tr>
                 </param>
             </method>
             <!-- red -->
             <method name="red">
                 <info>
                     <tr lang="en">set red channel value</tr>
+                    <tr lang="ru" finished="false">значение красного канала</tr>
                 </info>
                 <param name="RED" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">value</tr>
+                    <tr lang="ru" finished="false">ценность</tr>
                 </param>
             </method>
             <!-- rgb -->
             <method name="rgb">
                 <info>
                     <tr lang="en">set RGB with floats</tr>
+                    <tr lang="ru" finished="false">Настройка RGB с поплавками</tr>
                 </info>
                 <param name="RED" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">red value</tr>
+                    <tr lang="ru" finished="false">красное значение</tr>
                 </param>
                 <param name="GREEN" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">green value</tr>
+                    <tr lang="ru" finished="false">зеленая стоимость</tr>
                 </param>
                 <param name="BLUE" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">blue value</tr>
+                    <tr lang="ru" finished="false">синее значение</tr>
                 </param>
                 <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="false">
                     <tr lang="en">alpha value</tr>
+                    <tr lang="ru" finished="false">альфа-значение</tr>
                 </param>
             </method>
             <!-- rgb8 -->
             <method name="rgb8">
                 <info>
                     <tr lang="en">set RGB with int values</tr>
+                    <tr lang="ru" finished="false">Настройка RGB с значениями int</tr>
                 </info>
                 <param name="RED" type="int" minvalue="0" maxvalue="255" required="true">
                     <tr lang="en">red value</tr>
+                    <tr lang="ru" finished="false">красное значение</tr>
                 </param>
                 <param name="GREEN" type="int" minvalue="0" maxvalue="255" required="true">
                     <tr lang="en">green value</tr>
+                    <tr lang="ru" finished="false">зеленая стоимость</tr>
                 </param>
                 <param name="BLUE" type="int" minvalue="0" maxvalue="255" required="true">
                     <tr lang="en">blue value</tr>
+                    <tr lang="ru" finished="false">синее значение</tr>
                 </param>
                 <param name="ALPHA" type="int" minvalue="0" maxvalue="255" required="false">
                     <tr lang="en">alpha value</tr>
+                    <tr lang="ru" finished="false">альфа-значение</tr>
                 </param>
             </method>
             <!-- rotate -->
             <method name="rotate">
                 <info>
                     <tr lang="en">rotate color hue</tr>
+                    <tr lang="ru" finished="false">вращающийся цветной оттенок</tr>
                 </info>
                 <param name="V" type="float" minvalue="0" maxvalue="360" required="true">
                     <tr lang="en">rotation angle</tr>
+                    <tr lang="ru" finished="false">угол поворота</tr>
                 </param>
             </method>
             <!-- saturate -->
             <method name="saturate">
                 <info>
                     <tr lang="en">increase color saturation</tr>
+                    <tr lang="ru" finished="false">Увеличить насыщенность цвета</tr>
                 </info>
                 <param name="V" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">value</tr>
+                    <tr lang="ru" finished="false">ценность</tr>
                 </param>
             </method>
             <!-- set -->
             <method name="set">
                 <info>
                     <tr lang="en">set color</tr>
+                    <tr lang="ru" finished="false">набор цветов</tr>
                 </info>
                 <param name="COLOR" type="data:color" required="true">
                     <tr lang="en">new color value</tr>
+                    <tr lang="ru" finished="false">Новая цветовая ценность</tr>
                 </param>
             </method>
         </methods>
@@ -262,16 +320,22 @@
             <inlet>
                 <xinfo on="data:color">
                     <tr lang="en">set color and output</tr>
+                    <tr lang="ru" finished="false">Установить цвет и выход</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="data:color">
                     <tr lang="en">set color without output</tr>
+                    <tr lang="ru" finished="false">цвет без выхода</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>data:color output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">data:color output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

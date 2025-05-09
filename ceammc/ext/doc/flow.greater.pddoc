@@ -26,31 +26,54 @@
             <par>
                 <tr lang="en">Numbers that are *less* or *equal* then last argument are passed to
                 the N-th inlet</tr>
+                <tr lang="ru" finished="false">Числа, которые *меньше* или *равны*, затем последний
+                аргумент передается на вход N-го числа.</tr>
             </par>
         </info>
         <arguments>
             <argument name="VALUES" type="list">
                 <tr lang="en">compare values: list of floats in descending order</tr>
+                <tr lang="ru" finished="false">Сравнительные значения: список поплавков в
+                нисходящем порядке</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @values -->
             <property name="@values" type="list" access="initonly" default="">
                 <tr lang="en">compare values: list of floats in descending order</tr>
+                <tr lang="ru" finished="false">Сравнительные значения: список поплавков в
+                нисходящем порядке</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input flow</tr>
+                    <tr lang="ru" finished="false">входной поток</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1">numbers that are greater then 1st argument</outlet>
-            <outlet number="...">numbers that are greater than ... argument</outlet>
-            <outlet number="n">numbers that are greater than last argument</outlet>
-            <outlet number="n+1">numbers that are less or equal than last argument</outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">numbers that are greater then 1st argument</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">numbers that are greater than ... argument</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">numbers that are greater than last argument</tr>
+                </out>
+            </outlet>
+            <outlet number="n+1">
+                <out type="any">
+                    <tr lang="en">numbers that are less or equal than last argument</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

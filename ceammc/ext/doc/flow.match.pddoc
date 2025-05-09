@@ -23,61 +23,90 @@
         <info>
             <par>
                 <tr lang="en">Use backtick ` instead of backslash in regexp syntax</tr>
+                <tr lang="ru" finished="false">Используйте backtick вместо backslash в синтаксисе
+                regexp</tr>
             </par>
             <par>
                 <tr lang="en">if you want to match property - use double quotes in arg list:
                 "@prop+"</tr>
+                <tr lang="ru" finished="false">если вы хотите сопоставить недвижимость -
+                используйте двойные котировки в списке arg: "@prop+"</tr>
             </par>
             <a href="https://github.com/google/re2">Regexp library: RE2</a>
         </info>
         <arguments>
             <argument name="PATTERNS" type="list" required="true">
                 <tr lang="en">list of regular expressions</tr>
+                <tr lang="ru" finished="false">Список регулярных выражений</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @cut -->
             <property name="@cut" type="bool" default="0">
                 <tr lang="en">cut or pass message selector</tr>
+                <tr lang="ru" finished="false">Вырезать или передать селектор сообщений</tr>
             </property>
             <!-- @patterns -->
             <property name="@patterns" type="list" access="initonly" default="">
                 <tr lang="en">list of regular expressions</tr>
+                <tr lang="ru" finished="false">Список регулярных выражений</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo on="any">
                     <tr lang="en">input message</tr>
+                    <tr lang="ru" finished="false">вводное сообщение</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">input symbol</tr>
+                    <tr lang="ru" finished="false">входной символ</tr>
                 </xinfo>
                 <xinfo on="data:string">
                     <tr lang="en">input symbol</tr>
+                    <tr lang="ru" finished="false">входной символ</tr>
                 </xinfo>
             </inlet>
             <inlet number="2">
                 <xinfo on="symbol">
                     <tr lang="en">set first regexp</tr>
+                    <tr lang="ru" finished="false">Установить первый regexp</tr>
                 </xinfo>
             </inlet>
             <inlet number="...">
                 <xinfo on="symbol">
                     <tr lang="en">set ... regexp</tr>
+                    <tr lang="ru" finished="false">Исполнитель: Regexp</tr>
                 </xinfo>
             </inlet>
             <inlet number="n+1">
                 <xinfo on="symbol">
                     <tr lang="en">set n-th regexp</tr>
+                    <tr lang="ru" finished="false">Настройка n-го regexp</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1">output match to first regexp</outlet>
-            <outlet number="...">output match to ... regexp</outlet>
-            <outlet number="n">output match to n-th regexp</outlet>
-            <outlet number="n+1">unmatched output</outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">output match to first regexp</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">output match to ... regexp</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">output match to n-th regexp</tr>
+                </out>
+            </outlet>
+            <outlet number="n+1">
+                <out type="any">
+                    <tr lang="en">unmatched output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

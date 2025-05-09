@@ -26,15 +26,25 @@
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">list of properties</tr>
+                    <tr lang="ru" finished="false">Список свойств</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">list of properties</tr>
+                    <tr lang="ru" finished="false">Список свойств</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>sequence of @prop messages</outlet>
-            <outlet>list of non prop arguments</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">sequence of @prop messages</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of non prop arguments</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

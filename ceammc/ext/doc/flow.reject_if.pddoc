@@ -30,27 +30,43 @@
             <par>
                 <tr lang="en">conditional value reject according to *predicate* object. *predicate*
                 should accept value and ouput 0 or 1, for value passing.</tr>
+                <tr lang="ru" finished="false">Условная величина отклоняется согласно *предикату*
+                объекта. *предикат* должен принимать значение и выдавать 0 или 1, для прохождения
+                значения.</tr>
             </par>
             <par>
                 <tr lang="en">[&lt;] [is_even] [is_list] - examples of predicates.</tr>
+                <tr lang="ru" finished="false">[&lt;] [is_even] [is_list] — примеры
+                предикатов.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">value from predicate (0 or 1). If *1* reject value, if *0* -
                     pass.</tr>
+                    <tr lang="ru" finished="false">значение из предиката (0 или 1). Если *1*
+                    отклонить значение, если *0* - пройти.</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>passed values</outlet>
-            <outlet>output value to predicate</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">passed values</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output value to predicate</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

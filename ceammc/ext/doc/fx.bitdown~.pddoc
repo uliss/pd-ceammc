@@ -20,9 +20,11 @@
         <arguments>
             <argument name="BITS" type="int" minvalue="1" maxvalue="16">
                 <tr lang="en">number of bits</tr>
+                <tr lang="ru" finished="false">Количество бит</tr>
             </argument>
             <argument name="DOWNSAMP" type="int" minvalue="1" maxvalue="200" units="sample">
                 <tr lang="en">number of samples to skip</tr>
+                <tr lang="ru" finished="false">Количество образцов для пропуска</tr>
             </argument>
         </arguments>
         <properties>
@@ -32,15 +34,19 @@
             <!-- @bits -->
             <property name="@bits" type="int" minvalue="1" maxvalue="16" default="16">
                 <tr lang="en">output bits</tr>
+                <tr lang="ru" finished="false">выходные биты</tr>
             </property>
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @downsamp -->
             <property name="@downsamp" type="int" minvalue="1" maxvalue="200" default="1"
             units="sample">
                 <tr lang="en">number samples to skip</tr>
+                <tr lang="ru" finished="false">Количество образцов для пропуска</tr>
             </property>
         </properties>
         <methods>
@@ -48,6 +54,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset object</tr>
+                    <tr lang="ru" finished="false">сбрасывать объект</tr>
                 </info>
             </method>
         </methods>
@@ -55,11 +62,16 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">left channel</tr>
+                    <tr lang="ru" finished="false">левый канал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -47,12 +47,21 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">Guido note</tr>
+                    <tr lang="ru" finished="false">Нота Гвидо</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>int: MIDI pitch</outlet>
-            <outlet>float: note duration in milliseconds</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int: MIDI pitch</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: note duration in milliseconds</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

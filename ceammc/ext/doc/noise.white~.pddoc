@@ -22,13 +22,19 @@
         <info>
             <par>
                 <tr lang="en">outputs random numbers between -1 and 1 at signal rate.</tr>
+                <tr lang="ru" finished="false">выдает случайные числа между -1 и 1 со скоростью
+                сигнала.</tr>
             </par>
         </info>
         <properties>
             <xi:include href="props_active.xml" />
         </properties>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

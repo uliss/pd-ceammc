@@ -39,7 +39,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output union of given sets</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output union of given sets</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

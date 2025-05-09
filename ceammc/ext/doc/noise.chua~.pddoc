@@ -23,23 +23,29 @@
             <!-- @C1 -->
             <property name="@C1" type="float" default="5.5" minvalue="5.2" maxvalue="6">
                 <tr lang="en">C1 capacity in nF</tr>
+                <tr lang="ru" finished="false">Вместимость C1 в nF</tr>
             </property>
             <!-- @C2 -->
             <property name="@C2" type="float" default="49.5" minvalue="40" maxvalue="60">
                 <tr lang="en">C2 capacity in nF</tr>
+                <tr lang="ru" finished="false">Емкость C2 в nF</tr>
             </property>
             <!-- @L -->
             <property name="@L" type="float" default="7.07" minvalue="6.5" maxvalue="7.3">
                 <tr lang="en">L in mH</tr>
+                <tr lang="ru" finished="false">L в mH</tr>
             </property>
             <!-- @R -->
             <property name="@R" type="float" default="1.6" minvalue="1.252" maxvalue="1.7">
                 <tr lang="en">R resistance in kOhm</tr>
+                <tr lang="ru" finished="false">Сопротивление R в kOhm</tr>
             </property>
             <!-- @gate -->
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">play trigger &gt;0: on, 0: off. To set output gain to 0.5 you can 0.5
                 as trigger value</tr>
+                <tr lang="ru" finished="false">играть триггер &gt;0: on, 0: off. Чтобы установить
+                выходной коэффициент усиления до 0,5, вы можете 0,5 как триггерное значение.</tr>
             </property>
         </properties>
         <methods>
@@ -47,12 +53,14 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset generator</tr>
+                    <tr lang="ru" finished="false">генератор сброса</tr>
                 </info>
             </method>
             <!-- start -->
             <method name="start">
                 <info>
                     <tr lang="en">start generator</tr>
+                    <tr lang="ru" finished="false">стартовый генератор</tr>
                 </info>
             </method>
         </methods>
@@ -60,18 +68,31 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">play with default duration and full gain</tr>
+                    <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и
+                    полным выигрышем</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">play with default duration and specified gain</tr>
+                    <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и
+                    определенным выигрышем</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">GAIN(0..1) DUR(ms) pair expected</tr>
+                    <tr lang="ru" finished="false">ГАИН(0) ..1) Ожидаемая пара DUR(ms)</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">X output (C1 Vout)</outlet>
-            <outlet type="audio">Y output (C2 Vout)</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">X output (C1 Vout)</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">Y output (C2 Vout)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

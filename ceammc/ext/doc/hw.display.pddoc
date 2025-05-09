@@ -19,6 +19,7 @@
         <info>
             <par>
                 <tr lang="en">At this moment supports only MacOSX</tr>
+                <tr lang="ru" finished="false">На данный момент поддерживается только MacOSX.</tr>
             </par>
         </info>
         <properties>
@@ -32,11 +33,16 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">input</tr>
+                    <tr lang="ru" finished="false">ввод</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>properties output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">properties output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

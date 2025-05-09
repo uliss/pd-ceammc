@@ -191,7 +191,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>any messages</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">any messages</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

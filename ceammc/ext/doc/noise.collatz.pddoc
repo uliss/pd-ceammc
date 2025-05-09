@@ -19,6 +19,7 @@
         <info>
             <par>
                 <tr lang="en">Collatz conjecture output</tr>
+                <tr lang="ru" finished="false">Вывод гипотезы Коллаца</tr>
             </par>
         </info>
         <arguments />
@@ -27,18 +28,23 @@
             <method name="mode">
                 <param name="MODE" type="int" required="true">
                     <tr lang="en">mode value. 0 for Collatz, 1 for Terras</tr>
+                    <tr lang="ru" finished="false">значение режима. 0 для Collatz, 1 для
+                    Terras</tr>
                 </param>
             </method>
             <!-- offset -->
             <method name="offset">
                 <param name="OFFSET" type="float" required="true">
                     <tr lang="en">offset value</tr>
+                    <tr lang="ru" finished="false">смещенная стоимость</tr>
                 </param>
             </method>
             <!-- om -->
             <method name="om">
                 <param name="OM" type="int" required="true">
                     <tr lang="en">enables output when cut or fold value is changed</tr>
+                    <tr lang="ru" finished="false">позволяет вывод при изменении значения разреза
+                    или сгиба</tr>
                 </param>
             </method>
         </methods>
@@ -46,11 +52,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>main outlet</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">main outlet</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

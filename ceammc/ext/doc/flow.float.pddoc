@@ -23,23 +23,32 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">passed float</tr>
+                    <tr lang="ru" finished="false">пропущенный</tr>
                 </xinfo>
                 <xinfo on="bang">
                     <tr lang="en">ignored</tr>
+                    <tr lang="ru" finished="false">игнорируемый</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">ignored</tr>
+                    <tr lang="ru" finished="false">игнорируемый</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">ignored</tr>
+                    <tr lang="ru" finished="false">игнорируемый</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">ignored</tr>
+                    <tr lang="ru" finished="false">игнорируемый</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>passed float</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">passed float</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

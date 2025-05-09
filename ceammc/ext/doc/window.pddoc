@@ -124,7 +124,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>sample number</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">sample number</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

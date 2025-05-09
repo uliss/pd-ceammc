@@ -20,12 +20,19 @@
             <par>
                 <tr lang="en">button names: south, east, north, west, ltrig, ltrig2, rtrig, rtrig2,
                 select, start, mode, lthumb, rthumb, up, down, left, right, unknown.</tr>
+                <tr lang="ru" finished="false">Названия кнопок: юг, восток, север, запад, ltrig,
+                ltrig2, rtrig, rtrig2, выберите, запустите, режим, lthumb, rthumb, вверх, вниз,
+                слева, справа, неизвестно.</tr>
             </par>
             <par>
                 <tr lang="en">button events: pressed, released, repeated, changed</tr>
+                <tr lang="ru" finished="false">события кнопки: нажаты, выпущены, повторены,
+                изменены</tr>
             </par>
             <par>
                 <tr lang="en">axis names: lstickx, lsticky, rstickx, rsticky, leftz, rightz</tr>
+                <tr lang="ru" finished="false">названия осей: lstickx, lsticky, rstickx, rsticky,
+                leftz, rightz</tr>
             </par>
         </info>
         <methods>
@@ -33,6 +40,8 @@
             <method name="devices">
                 <info>
                     <tr lang="en">output devices info as data:Dict into third outlet</tr>
+                    <tr lang="ru" finished="false">выводить информацию об устройствах в виде
+                    данных: Дикт в третью точку</tr>
                 </info>
             </method>
         </methods>
@@ -40,14 +49,28 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">input</tr>
+                    <tr lang="ru" finished="false">ввод</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>button output: list GAMEPAD_ID BUTTON_NAME BUTTON_EVENT VALUE</outlet>
-            <outlet>axis output: list GAMEPAD_ID AXIS_NAME VALUE</outlet>
-            <outlet>[device DICT( - connected device information, [connected ID( - when device
-            connected, [disconnected ID( - when device disconnected</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">button output: list GAMEPAD_ID BUTTON_NAME BUTTON_EVENT
+                    VALUE</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">axis output: list GAMEPAD_ID AXIS_NAME VALUE</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">[device DICT( - connected device information, [connected ID( -
+                    when device connected, [disconnected ID( - when device disconnected</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -23,20 +23,28 @@
         <info>
             <par>
                 <tr lang="en">Symbols are ignored, 0 gives NAN value</tr>
+                <tr lang="ru" finished="false">Символы игнорируются, 0 дает значение NAN</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">on list input outputs a list of reciprocal values</tr>
+                    <tr lang="ru" finished="false">в списке входных выходов список взаимных
+                    значений</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

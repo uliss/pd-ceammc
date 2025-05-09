@@ -31,14 +31,20 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">input values</tr>
+                    <tr lang="ru" finished="false">входные значения</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>converted value: int</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">converted value: int</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

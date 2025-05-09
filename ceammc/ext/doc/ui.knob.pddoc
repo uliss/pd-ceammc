@@ -259,7 +259,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>knob output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">knob output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

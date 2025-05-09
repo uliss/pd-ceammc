@@ -64,7 +64,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output data stream</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output data stream</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

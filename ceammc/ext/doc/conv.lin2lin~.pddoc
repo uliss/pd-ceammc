@@ -48,6 +48,8 @@
             <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
                 <tr lang="en">noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip
                 both).</tr>
+                <!-- old: noclip (Don't Clip) max (clip ceiling) min (clip
+                floor) minmax (clip both). -->
                 <tr lang="ru" finished="false">noclip (Don't Clip) max (clip ceiling) min (clip
                 floor) minmax (clip both).</tr>
             </property>
@@ -96,11 +98,16 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input singnal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">converted signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">converted signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -25,9 +25,11 @@
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="24">
                 <tr lang="en">number of multiplexed inputs</tr>
+                <tr lang="ru" finished="false">количество мультиплексированных входов</tr>
             </argument>
             <argument name="INDEX" type="int" minvalue="0" maxvalue="23">
                 <tr lang="en">default input index</tr>
+                <tr lang="ru" finished="false">Входной индекс по умолчанию</tr>
             </argument>
         </arguments>
         <properties>
@@ -35,27 +37,36 @@
             <property name="@index" type="int" minvalue="0" default="0" maxvalue="23">
                 <tr lang="en">input index, can be set only with [prop.set] object or via rightmost
                 inlet</tr>
+                <tr lang="ru" finished="false">Входной индекс может быть установлен только с
+                объектом [prop.set] или через самый правый вход.</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet>
                 <xinfo>
                     <tr lang="en">multiplexer first inlet</tr>
+                    <tr lang="ru" finished="false">мультиплексор первый вход</tr>
                 </xinfo>
             </inlet>
             <inlet number="n">
                 <xinfo>
                     <tr lang="en">multiplexer N-th inlet</tr>
+                    <tr lang="ru" finished="false">мультиплексор N-й вход</tr>
                 </xinfo>
             </inlet>
             <inlet number="n+1">
                 <xinfo on="int">
                     <tr lang="en">set input index</tr>
+                    <tr lang="ru" finished="false">Установленный входной индекс</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -25,7 +25,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>length of symbol: number of character</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">length of symbol: number of character</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

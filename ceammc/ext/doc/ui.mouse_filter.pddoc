@@ -86,7 +86,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>passed messages from ui object</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">passed messages from ui object</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

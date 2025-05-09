@@ -61,7 +61,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs nothing. connect to destination object(s)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs nothing. connect to destination object(s)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

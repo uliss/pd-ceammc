@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">Property should be declared with [prop.declare]</tr>
+                <tr lang="ru" finished="false">Имущество должно быть объявлено с
+                [prop.declare]</tr>
             </par>
         </info>
         <methods>
@@ -30,12 +32,15 @@
             <method name="@*?">
                 <info>
                     <tr lang="en">output all patch properties as list</tr>
+                    <tr lang="ru" finished="false">Выведите все свойства патча в список</tr>
                 </info>
             </method>
             <!-- default -->
             <method name="default">
                 <info>
                     <tr lang="en">reset all props to default value and output</tr>
+                    <tr lang="ru" finished="false">Сбросить все реквизиты до значения по умолчанию
+                    и выхода</tr>
                 </info>
             </method>
         </methods>
@@ -43,14 +48,21 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output all properties in [prop] objects</tr>
+                    <tr lang="ru" finished="false">Вывод всех свойств в [prop] объектах</tr>
                 </xinfo>
                 <xinfo on="any">
                     <tr lang="en">get/set property value and output it</tr>
+                    <tr lang="ru" finished="false">получить/установить стоимость имущества и
+                    выпустить его</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

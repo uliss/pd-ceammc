@@ -41,10 +41,26 @@
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet>passed values</outlet>
-            <outlet>first matched property value (without property selector)</outlet>
-            <outlet number="...">others matched property value</outlet>
-            <outlet number="n">unmatched property output (with selector)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">passed values</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">first matched property value (without property selector)</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">others matched property value</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">unmatched property output (with selector)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

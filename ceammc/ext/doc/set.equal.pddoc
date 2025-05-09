@@ -46,7 +46,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output 1 if sets are equal, 0 otherwise</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output 1 if sets are equal, 0 otherwise</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

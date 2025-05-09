@@ -27,12 +27,16 @@
             <!-- @float -->
             <property name="@float" type="alias">
                 <tr lang="en">alias to @mode float. Output float values in [0-1] range</tr>
+                <!-- old: Оригинальное название: Mode Float. Значения
+                выходного поплавка в [0-1] диапазоне -->
                 <tr lang="ru" finished="false">Оригинальное название: Mode Float. Значения
                 выходного поплавка в [0-1] диапазоне</tr>
             </property>
             <!-- @int -->
             <property name="@int" type="alias">
                 <tr lang="en">alias to @mode int. Output integer values in [0-255] range</tr>
+                <!-- old: @mode int. Вывод целых чисел в диапазоне
+                [0-255] -->
                 <tr lang="ru" finished="false">@mode int. Вывод целых чисел в диапазоне
                 [0-255]</tr>
             </property>
@@ -44,6 +48,8 @@
             <!-- @pack -->
             <property name="@pack" type="flag" access="initonly">
                 <tr lang="en">output as list (creates single outlet object)</tr>
+                <!-- old: вывод в виде списка (создает единый выходной
+                объект) -->
                 <tr lang="ru" finished="false">вывод в виде списка (создает единый выходной
                 объект)</tr>
             </property>
@@ -57,26 +63,42 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output current value</tr>
+                    <tr lang="ru" finished="false">текущая стоимость выпуска</tr>
                 </xinfo>
                 <xinfo on="float" minvalue="0" maxvalue="1">
                     <tr lang="en">set color L-component and output</tr>
+                    <tr lang="ru" finished="false">установить цвет L-компонента и выход</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float" minvalue="-1" maxvalue="1">
                     <tr lang="en">set color a*-component</tr>
+                    <tr lang="ru" finished="false">Установочный цвет a*-компонент</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float" minvalue="-1" maxvalue="1">
                     <tr lang="en">set color b*-component</tr>
+                    <tr lang="ru" finished="false">Цветовой компонент b*</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet>list: R G B or red channel value (int[0-255] or float[0-1])</outlet>
-            <outlet>int[0-255] or float[0-1]: green channel value</outlet>
-            <outlet>int[0-255] or float[0-1]: blue channel value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: R G B or red channel value (int[0-255] or float[0-1])</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int[0-255] or float[0-1]: green channel value</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int[0-255] or float[0-1]: blue channel value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -23,28 +23,37 @@
         <arguments>
             <argument name="KEYS" type="list">
                 <tr lang="en">checked keys</tr>
+                <tr lang="ru" finished="false">Проверенные ключи</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @keys -->
             <property name="@keys" type="list" default="">
                 <tr lang="en">checked keys</tr>
+                <tr lang="ru" finished="false">Проверенные ключи</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="data">
                     <tr lang="en">Data.dict expected</tr>
+                    <tr lang="ru" finished="false">Data.dict ожидаемый</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set searched keys</tr>
+                    <tr lang="ru" finished="false">Настройка поиска ключей</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list of 1 and 0. One means dict contains key, zero - not</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output list of 1 and 0. One means dict contains key, zero -
+                    not</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -19,30 +19,40 @@
         <arguments>
             <argument name="FROM" type="int">
                 <tr lang="en">enumeration start index</tr>
+                <tr lang="ru" finished="false">Перечислительный стартовый индекс</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @append -->
             <property name="@append" type="flag" default="0" access="initonly">
                 <tr lang="en">put element index after element value</tr>
+                <tr lang="ru" finished="false">поставить индекс элемента после значения
+                элемента</tr>
             </property>
             <!-- @from -->
             <property name="@from" type="int" default="0">
                 <tr lang="en">enumeration start index</tr>
+                <tr lang="ru" finished="false">Перечислительный стартовый индекс</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

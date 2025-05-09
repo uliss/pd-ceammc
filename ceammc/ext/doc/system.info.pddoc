@@ -39,7 +39,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output [temp SENSOR_NAME VALUE( or [cpu INFO_DICT(</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output [temp SENSOR_NAME VALUE( or [cpu INFO_DICT(</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

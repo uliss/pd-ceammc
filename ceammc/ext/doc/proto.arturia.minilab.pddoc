@@ -85,8 +85,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>MIDI bytes</outlet>
-            <outlet>parsed MIDI commands: noteon, noteoff, cc, program etc...</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">MIDI bytes</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">parsed MIDI commands: noteon, noteoff, cc, program etc...</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -27,12 +27,16 @@
                 <tr lang="en">hoa.2d.wider~ can be used to wide the diffusion of a localised sound.
                 The order depending signals are weighted and appear in a logarithmic way to have
                 linear changes.</tr>
+                <tr lang="ru" finished="false">hoa.2d.wider~ может использоваться для широкого
+                распространения локализованного звука. Сигналы, зависящие от порядка, взвешиваются
+                и выглядят логарифмическим образом, чтобы иметь линейные изменения.</tr>
             </par>
             <a href="hoa/hoa.2d.wider~-help.pd">CICM documentation</a>
         </info>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
                 <tr lang="en">the order of decomposition</tr>
+                <tr lang="ru" finished="false">Порядок разложения</tr>
             </argument>
         </arguments>
         <properties>
@@ -40,34 +44,51 @@
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             access="initonly">
                 <tr lang="en">the order of decomposition</tr>
+                <tr lang="ru" finished="false">Порядок разложения</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">first input signal</tr>
+                    <tr lang="ru" finished="false">Первый входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="...">
                 <xinfo>
                     <tr lang="en">... input signal</tr>
+                    <tr lang="ru" finished="false">... входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="n">
                 <xinfo>
                     <tr lang="en">n-th input signal</tr>
+                    <tr lang="ru" finished="false">n-й входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="n+1">
                 <xinfo>
                     <tr lang="en">widening signal in [0-1] range.</tr>
+                    <tr lang="ru" finished="false">Расширение сигнала в диапазоне [0-1].</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet type="audio">first circular harmonics output</outlet>
-            <outlet type="audio" number="...">... circular harmonics output</outlet>
-            <outlet type="audio" number="n">n-th circular harmonics output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">first circular harmonics output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio" number="...">
+                <out type="any">
+                    <tr lang="en">... circular harmonics output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio" number="n">
+                <out type="any">
+                    <tr lang="en">n-th circular harmonics output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

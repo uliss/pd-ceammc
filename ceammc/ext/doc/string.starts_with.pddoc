@@ -46,7 +46,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output 1 if input string starts with prefix, otherwise 0</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output 1 if input string starts with prefix, otherwise 0</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

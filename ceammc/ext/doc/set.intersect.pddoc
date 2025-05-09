@@ -39,7 +39,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output intersection of given sets</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output intersection of given sets</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -22,9 +22,11 @@
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </argument>
             <argument name="Q" type="float" minvalue="0.1" maxvalue="100">
                 <tr lang="en">Quality factor</tr>
+                <tr lang="ru" finished="false">Фактор качества</tr>
             </argument>
         </arguments>
         <properties>
@@ -35,31 +37,40 @@
             <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="1000">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </property>
             <!-- @q -->
             <property name="@q" type="float" minvalue="0.1" maxvalue="100" default="40">
                 <tr lang="en">Quality factor</tr>
+                <tr lang="ru" finished="false">Фактор качества</tr>
             </property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set frequency</tr>
+                    <tr lang="ru" finished="false">установленная частота</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set Q-factor</tr>
+                    <tr lang="ru" finished="false">Настройка Q-фактора</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">filtered signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">filtered signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

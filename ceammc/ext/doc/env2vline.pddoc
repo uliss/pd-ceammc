@@ -31,6 +31,9 @@
             <par>
                 <tr lang="en">Supports stop-points for multisegment envelopes. Note: non-linear
                 envelopes are outputted using linear approximation</tr>
+                <tr lang="ru" finished="false">Поддержка точек остановки для многосегментных
+                конвертов. Примечание: нелинейные конверты выводятся с использованием линейного
+                приближения</tr>
             </par>
         </info>
         <properties>
@@ -38,6 +41,8 @@
             <property name="@sync" type="bool" default="0">
                 <tr lang="en">sync with input data. When set to 1 outputs envelope (as fixed) on
                 every input data</tr>
+                <tr lang="ru" finished="false">Синхронизация с входными данными. При настройке на 1
+                выходную оболочку (как фиксированную) на каждой входной информации</tr>
             </property>
         </properties>
         <methods>
@@ -46,12 +51,16 @@
                 <info>
                     <tr lang="en">output segment until next stop-point or end of envelope is
                     reached</tr>
+                    <tr lang="ru" finished="false">выходной сегмент до достижения следующей точки
+                    остановки или конца конверта</tr>
                 </info>
             </method>
             <!-- reset -->
             <method name="reset">
                 <info>
                     <tr lang="en">reset current segment position for multi-segment envelopes</tr>
+                    <tr lang="ru" finished="false">сбросить текущее положение сегмента для
+                    многосегментных конвертов</tr>
                 </info>
             </method>
         </methods>
@@ -60,18 +69,28 @@
                 <xinfo on="bang">
                     <tr lang="en">output as envelope of fixed length (no stop-points are
                     encountered)</tr>
+                    <tr lang="ru" finished="false">выход как оболочка фиксированной длины (не
+                    встречаются точки остановки)</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">output as attack (on 1) / release (on 0) envelope with one
                     stop-point</tr>
+                    <tr lang="ru" finished="false">выход как атака (на 1) / выпуск (на 0) конверт с
+                    одной точкой остановки</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">output as fixed envelope* data</tr>
+                    <tr lang="ru" finished="false">выходные данные в виде фиксированной
+                    оболочки*</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bunch of vline-compatible messages: VALUE, DURATION, OFFSET</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bunch of vline-compatible messages: VALUE, DURATION, OFFSET</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

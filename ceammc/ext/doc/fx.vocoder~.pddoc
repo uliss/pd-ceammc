@@ -26,15 +26,19 @@
             <property name="@attack" type="float" minvalue="0.1" maxvalue="100" default="5"
             units="millisecond">
                 <tr lang="en">attack time</tr>
+                <tr lang="ru" finished="false">Время атаки</tr>
             </property>
             <!-- @bwratio -->
             <property name="@bwratio" type="float" minvalue="0.1" maxvalue="2" default="0.5">
                 <tr lang="en">coefficient to adjust the bandwidth of each band</tr>
+                <tr lang="ru" finished="false">коэффициент для регулировки полосы пропускания
+                каждой полосы</tr>
             </property>
             <!-- @release -->
             <property name="@release" type="float" minvalue="0.1" maxvalue="100" default="5"
             units="millisecond">
                 <tr lang="en">release time</tr>
+                <tr lang="ru" finished="false">Время освобождения</tr>
             </property>
         </properties>
         <methods>
@@ -42,6 +46,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset object</tr>
+                    <tr lang="ru" finished="false">сбрасывать объект</tr>
                 </info>
             </method>
         </methods>
@@ -49,16 +54,22 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">modulation signal</tr>
+                    <tr lang="ru" finished="false">сигнал модуляции</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">excitation/carrier signal</tr>
+                    <tr lang="ru" finished="false">сигнал возбуждения/несущего</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio" />
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en" />
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

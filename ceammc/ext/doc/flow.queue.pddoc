@@ -19,9 +19,11 @@
         <arguments>
             <argument name="MAX_SIZE" type="int" minvalue="1" maxvalue="1024">
                 <tr lang="en">max queue lane size</tr>
+                <tr lang="ru" finished="false">максимальный размер полосы</tr>
             </argument>
             <argument name="N" type="int" minvalue="1" maxvalue="32">
                 <tr lang="en">number of lanes</tr>
+                <tr lang="ru" finished="false">количество полос</tr>
             </argument>
         </arguments>
         <properties>
@@ -29,26 +31,32 @@
             <property name="@auto_pop" type="bool" default="0">
                 <tr lang="en">auto pop mode. If true automatically pops oldest elements when queue
                 is full</tr>
+                <tr lang="ru" finished="false">Автопоп режим. Если правда автоматически выскакивает
+                самые старые элементы, когда очередь заполнена</tr>
             </property>
             <!-- @max_size -->
             <property name="@max_size" type="int" minvalue="1" default="32" maxvalue="1024">
                 <tr lang="en">max queue lane size</tr>
+                <tr lang="ru" finished="false">максимальный размер полосы</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo on="any">
                     <tr lang="en">1st queue input messages</tr>
+                    <tr lang="ru" finished="false">1-я очередь Входные сообщения</tr>
                 </xinfo>
             </inlet>
             <inlet number="...">
                 <xinfo on="any">
                     <tr lang="en">... queue input messages</tr>
+                    <tr lang="ru" finished="false">Очередь входных сообщений</tr>
                 </xinfo>
             </inlet>
             <inlet number="n">
                 <xinfo on="any">
                     <tr lang="en">n-th queue input messages</tr>
+                    <tr lang="ru" finished="false">n-я очередь входных сообщений</tr>
                 </xinfo>
             </inlet>
             <inlet number="n+1">
@@ -56,13 +64,29 @@
                     <tr lang="en">clear: remove all elements from all queues, output: output all
                     element from all queues, flush: output and clear all element from all queues,
                     bang or pop: output and remove first message in all queues</tr>
+                    <tr lang="ru" finished="false">Clear: удалите все элементы из всех очередей,
+                    output: удалите все элементы из всех очередей, flush: удалите и удалите все
+                    элементы из всех очередей, bang или pop: удалите первое сообщение во всех
+                    очередях</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1">1st queue output</outlet>
-            <outlet number="...">... queue output</outlet>
-            <outlet number="n">n-th queue output</outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">1st queue output</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">... queue output</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">n-th queue output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -26,20 +26,29 @@
             <par>
                 <tr lang="en">These conversions are purely lexical. They do not check that the
                 paths exist, do not follow symlinks, and do not access the filesystem at all</tr>
+                <tr lang="ru" finished="false">Эти преобразования являются чисто лексическими. Они
+                не проверяют наличие путей, не следуют по симлинкам и вообще не имеют доступа к
+                файловой системе.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">file path</tr>
+                    <tr lang="ru" finished="false">Файловый путь</tr>
                 </xinfo>
                 <xinfo on="data:string">
                     <tr lang="en">file path</tr>
+                    <tr lang="ru" finished="false">Файловый путь</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>symbol or data:string: normalized path</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">symbol or data:string: normalized path</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

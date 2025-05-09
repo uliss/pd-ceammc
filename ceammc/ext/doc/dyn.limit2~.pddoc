@@ -32,6 +32,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset to initial state</tr>
+                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
                 </info>
             </method>
         </methods>
@@ -39,17 +40,27 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">left input signal</tr>
+                    <tr lang="ru" finished="false">левый входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">right input signal</tr>
+                    <tr lang="ru" finished="false">правильный входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">left output signal</outlet>
-            <outlet type="audio">right output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">left output signal</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">right output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

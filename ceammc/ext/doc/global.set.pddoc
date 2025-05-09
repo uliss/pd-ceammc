@@ -23,6 +23,8 @@
         <info>
             <par>
                 <tr lang="en">Defines global scope set variable, accessed by ID name</tr>
+                <tr lang="ru" finished="false">Определяет глобальную переменную, доступную по имени
+                ID</tr>
             </par>
         </info>
         <mouse>
@@ -31,20 +33,24 @@
         <arguments>
             <argument name="ID" type="symbol">
                 <tr lang="en">object ID</tr>
+                <tr lang="ru" finished="false">объект</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @empty -->
             <property name="@empty" type="bool" access="readonly" default="1">
                 <tr lang="en">1 if list is empty, otherwise 0</tr>
+                <tr lang="ru" finished="false">1 если список пуст, в противном случае 0</tr>
             </property>
             <!-- @id -->
             <property name="@id" type="symbol" access="initonly" default="default">
                 <tr lang="en">global variable id</tr>
+                <tr lang="ru" finished="false">Глобальная переменная id</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="int" access="readonly" minvalue="0" default="0">
                 <tr lang="en">number of elements in list</tr>
+                <tr lang="ru" finished="false">Количество элементов в списке</tr>
             </property>
         </properties>
         <methods>
@@ -52,39 +58,47 @@
             <method name="add">
                 <info>
                     <tr lang="en">add values to the set</tr>
+                    <tr lang="ru" finished="false">Добавить значения в набор</tr>
                 </info>
                 <param name="VAL" type="list" required="true">
                     <tr lang="en">added values</tr>
+                    <tr lang="ru" finished="false">добавленные значения</tr>
                 </param>
             </method>
             <!-- choose -->
             <method name="choose">
                 <info>
                     <tr lang="en">choose random element and output it</tr>
+                    <tr lang="ru" finished="false">Выберите случайный элемент и выведите его</tr>
                 </info>
             </method>
             <!-- clear -->
             <method name="clear">
                 <info>
                     <tr lang="en">removes all set elements</tr>
+                    <tr lang="ru" finished="false">удаляет все заданные элементы</tr>
                 </info>
             </method>
             <!-- remove -->
             <method name="remove">
                 <info>
                     <tr lang="en">remove elements from the set</tr>
+                    <tr lang="ru" finished="false">Удалить элементы из набора</tr>
                 </info>
                 <param name="VAL" type="list" required="true">
                     <tr lang="en">elements</tr>
+                    <tr lang="ru" finished="false">элементы</tr>
                 </param>
             </method>
             <!-- set -->
             <method name="set">
                 <info>
                     <tr lang="en">sets new set content without output</tr>
+                    <tr lang="ru" finished="false">устанавливает новый контент без вывода</tr>
                 </info>
                 <param name="LIST" type="list" required="true">
                     <tr lang="en">new set content</tr>
+                    <tr lang="ru" finished="false">Новый контент</tr>
                 </param>
             </method>
         </methods>
@@ -92,23 +106,35 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output set content</tr>
+                    <tr lang="ru" finished="false">выходные значения</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">adds new element to set, no output</tr>
+                    <tr lang="ru" finished="false">Добавление нового элемента в набор, отсутствие
+                    выхода</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">adds new element to set, no output</tr>
+                    <tr lang="ru" finished="false">Добавление нового элемента в набор, отсутствие
+                    выхода</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">adds new elements to set, no output</tr>
+                    <tr lang="ru" finished="false">Добавление новых элементов в набор, отсутствие
+                    выхода</tr>
                 </xinfo>
                 <xinfo on="data:set">
                     <tr lang="en">set new set content and output</tr>
+                    <tr lang="ru" finished="false">установить новый контент и выход</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>set output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">set output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

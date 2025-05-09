@@ -57,12 +57,21 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">start ramp for array</tr>
+                    <tr lang="ru" finished="false">стартовый пандус для массива</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">ramp signal</outlet>
-            <outlet type="control">bang on done</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">ramp signal</tr>
+                </out>
+            </outlet>
+            <outlet type="control">
+                <out type="any">
+                    <tr lang="en">bang on done</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

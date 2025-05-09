@@ -51,7 +51,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">rms level</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">rms level</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

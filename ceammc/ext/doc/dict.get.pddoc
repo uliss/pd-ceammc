@@ -24,11 +24,14 @@
         <info>
             <par>
                 <tr lang="en">You can use path-like expression, to get nested keys: /x/y/foo.</tr>
+                <tr lang="ru" finished="false">Вы можете использовать дорожеобразное выражение,
+                чтобы получить вложенные ключи: /x/y/foo.</tr>
             </par>
         </info>
         <arguments>
             <argument name="KEYS" type="list">
                 <tr lang="en">keys</tr>
+                <tr lang="ru" finished="false">ключи</tr>
             </argument>
         </arguments>
         <properties>
@@ -36,23 +39,39 @@
             <property name="@default" type="atom" default="null">
                 <tr lang="en">default value when key is not found in dictionary. If not specified
                 no output is performed.</tr>
+                <tr lang="ru" finished="false">значение по умолчанию, когда ключ не найден в
+                словаре. Если не указано, выход не выполняется.</tr>
             </property>
             <!-- @keys -->
             <property name="@keys" type="list" access="initonly" default="">
                 <tr lang="en">extracted keys</tr>
+                <tr lang="ru" finished="false">извлеченные ключи</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="data:dict">
                     <tr lang="en">input dictionary</tr>
+                    <tr lang="ru" finished="false">словарь входного словаря</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1">first key output</outlet>
-            <outlet number="...">... key output</outlet>
-            <outlet number="n">n-th key output</outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">first key output</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">... key output</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">n-th key output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

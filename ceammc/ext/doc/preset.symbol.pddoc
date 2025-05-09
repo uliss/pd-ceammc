@@ -28,6 +28,8 @@
             <par>
                 <tr lang="en">Named symbol preset entry. Can store/load up to 256 various symbol
                 values</tr>
+                <tr lang="ru" finished="false">Назван символ предустановленной записи. Может
+                хранить/загружать до 256 различных значений символов</tr>
             </par>
         </info>
         <mouse>
@@ -36,32 +38,42 @@
         <arguments>
             <argument name="ID" type="symbol">
                 <tr lang="en">preset id (should be unique in most use cases)</tr>
+                <tr lang="ru" finished="false">предустановленный идентификатор (должен быть
+                уникальным в большинстве случаев использования)</tr>
             </argument>
             <argument name="INIT" type="symbol">
                 <tr lang="en">preset initial value</tr>
+                <tr lang="ru" finished="false">заданное начальное значение</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @global -->
             <property name="@global" type="flag" default="0" access="initonly">
                 <tr lang="en">use global path like /ID</tr>
+                <tr lang="ru" finished="false">Используйте глобальный путь как /ID</tr>
             </property>
             <!-- @id -->
             <property name="@id" type="symbol" access="initonly" default="">
                 <tr lang="en">preset id</tr>
+                <tr lang="ru" finished="false">предустановленный</tr>
             </property>
             <!-- @init -->
             <property name="@init" type="symbol" access="initonly" default="">
                 <tr lang="en">init symbol value</tr>
+                <tr lang="ru" finished="false">Значение символа init</tr>
             </property>
             <!-- @path -->
             <property name="@path" type="symbol" access="readonly" default="">
                 <tr lang="en">property OSC-like path that includes id, abstraction name and may be
                 subpatch name separated by slashes.</tr>
+                <tr lang="ru" finished="false">свойство OSC-подобного пути, которое включает в себя
+                идентификатор, имя абстракции и может быть именем подпатча, разделенным
+                слэшами.</tr>
             </property>
             <!-- @subpatch -->
             <property name="@subpatch" type="flag" default="0" access="initonly">
                 <tr lang="en">include subpatch name to path</tr>
+                <tr lang="ru" finished="false">Включите имя субпатча в путь</tr>
             </property>
         </properties>
         <methods>
@@ -69,24 +81,30 @@
             <method name="clear">
                 <info>
                     <tr lang="en">clear preset at specified index</tr>
+                    <tr lang="ru" finished="false">четкая предустановка по заданному индексу</tr>
                 </info>
             </method>
             <!-- interp -->
             <method name="interp">
                 <info>
                     <tr lang="en">do nothing</tr>
+                    <tr lang="ru" finished="false">ничего не делать</tr>
                 </info>
             </method>
             <!-- load -->
             <method name="load">
                 <info>
                     <tr lang="en">load preset value by specified index and output it</tr>
+                    <tr lang="ru" finished="false">заданное значение нагрузки по заданному индексу
+                    и вывести его</tr>
                 </info>
             </method>
             <!-- store -->
             <method name="store">
                 <info>
                     <tr lang="en">stores preset value at specified index</tr>
+                    <tr lang="ru" finished="false">предустановленная стоимость в указанном
+                    индексе</tr>
                 </info>
             </method>
         </methods>
@@ -94,11 +112,16 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">set preset value without output</tr>
+                    <tr lang="ru" finished="false">заданное значение без выхода</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>preset symbol value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">preset symbol value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

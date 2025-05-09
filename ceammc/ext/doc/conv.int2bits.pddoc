@@ -27,6 +27,8 @@
             <par>
                 <tr lang="en">Note: negative numbers converted using machine architecture, commonly
                 two's complement</tr>
+                <tr lang="ru" finished="false">Примечание: отрицательные числа, преобразованные с
+                использованием машинной архитектуры, обычно два дополнения</tr>
             </par>
             <wiki name="Two%27s_complement">Two's complement</wiki>
         </info>
@@ -52,11 +54,16 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of bits</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of bits</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

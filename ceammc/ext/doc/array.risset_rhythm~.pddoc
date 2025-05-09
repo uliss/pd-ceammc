@@ -28,11 +28,16 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">change array name</tr>
+                    <tr lang="ru" finished="false">изменить имя файла</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output signal</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

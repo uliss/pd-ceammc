@@ -110,7 +110,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output pair of values: rms and peak in decibels (dbfs)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output pair of values: rms and peak in decibels (dbfs)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

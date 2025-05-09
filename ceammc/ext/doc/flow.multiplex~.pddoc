@@ -28,33 +28,42 @@
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="16">
                 <tr lang="en">number of signals inputs</tr>
+                <tr lang="ru" finished="false">Количество входов сигналов</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @value -->
             <property name="@value" type="list" default="1 0">
                 <tr lang="en">gain coefficients per each output</tr>
+                <tr lang="ru" finished="false">коэффициенты усиления на каждый выход</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
                 <xinfo>
                     <tr lang="en">first input signal</tr>
+                    <tr lang="ru" finished="false">Первый входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio" number="n">
                 <xinfo>
                     <tr lang="en">last input signal</tr>
+                    <tr lang="ru" finished="false">Последний входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="control" number="n+1">
                 <xinfo>
                     <tr lang="en">multiplexer control</tr>
+                    <tr lang="ru" finished="false">управление мультиплексором</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

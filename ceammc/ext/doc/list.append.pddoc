@@ -22,48 +22,62 @@
         <info>
             <par>
                 <tr lang="en">Works with data atoms</tr>
+                <tr lang="ru" finished="false">Работа с атомами данных</tr>
             </par>
         </info>
         <arguments>
             <argument name="VALUE" type="list">
                 <tr lang="en">appended value</tr>
+                <tr lang="ru" finished="false">добавленная стоимость</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @value -->
             <property name="@value" type="list" default="">
                 <tr lang="en">append value</tr>
+                <tr lang="ru" finished="false">добавленная стоимость</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">treated as empty input list</tr>
+                    <tr lang="ru" finished="false">рассматривается как пустой входной список</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">input float</tr>
+                    <tr lang="ru" finished="false">входной поплавок</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">input symbol</tr>
+                    <tr lang="ru" finished="false">входной символ</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">input data</tr>
+                    <tr lang="ru" finished="false">входные данные</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">append to end of input list</tr>
+                    <tr lang="ru" finished="false">Добавить в конец списка ввода</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set appended list</tr>
+                    <tr lang="ru" finished="false">Добавленный список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output concatenated list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output concatenated list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

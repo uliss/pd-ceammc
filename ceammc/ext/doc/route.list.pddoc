@@ -43,8 +43,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list output</outlet>
-            <outlet>other messages</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list output</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">other messages</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -26,6 +26,8 @@
         <arguments>
             <argument name="NAME" type="symbol">
                 <tr lang="en">OSC server name (for using with other objects)</tr>
+                <!-- old: Название сервера OSC (для использования с другими
+                объектами) -->
                 <tr lang="ru" finished="false">Название сервера OSC (для использования с другими
                 объектами)</tr>
             </argument>
@@ -74,6 +76,8 @@
             <property name="@url" type="atom" default="udp:9000" access="initonly">
                 <tr lang="en">OSC server url in form: PROTO:PORT (udp:12345) or just PORT, or
                 osc.PROTO://:PORT (for ex. osc.tcp://:9001)</tr>
+                <!-- old: URL сервера OSC по форме: PROTO:PORT (udp:12345) или
+                просто PORT, или osc.PROTO://:PORT (для ex. osc.tcp://:9001) -->
                 <tr lang="ru" finished="false">URL сервера OSC по форме: PROTO:PORT (udp:12345) или
                 просто PORT, или osc.PROTO://:PORT (для ex. osc.tcp://:9001)</tr>
             </property>
@@ -83,18 +87,22 @@
             <method name="start">
                 <info>
                     <tr lang="en">start OSC server</tr>
+                    <tr lang="ru" finished="false">Запуск OSC сервера</tr>
                 </info>
                 <param name="VAL" type="int" enum="0 1">
                     <tr lang="en">1: start, 0: stop</tr>
+                    <tr lang="ru" finished="false">1: начало, 0: остановка</tr>
                 </param>
             </method>
             <!-- stop -->
             <method name="stop">
                 <info>
                     <tr lang="en">stop OSC server</tr>
+                    <tr lang="ru" finished="false">Остановить OSC-сервер</tr>
                 </info>
                 <param name="VAL" type="int" enum="0 1">
                     <tr lang="en">1: stop, 0: start</tr>
+                    <tr lang="ru" finished="false">1: стоп, 0: старт</tr>
                 </param>
             </method>
         </methods>
@@ -102,11 +110,16 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">...</tr>
+                    <tr lang="ru" finished="false">...</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>...</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">...</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

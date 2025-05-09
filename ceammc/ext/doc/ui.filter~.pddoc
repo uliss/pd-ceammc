@@ -164,8 +164,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">filtered signal</outlet>
-            <outlet type="control">list: filter biquad coefficient</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">filtered signal</tr>
+                </out>
+            </outlet>
+            <outlet type="control">
+                <out type="any">
+                    <tr lang="en">list: filter biquad coefficient</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

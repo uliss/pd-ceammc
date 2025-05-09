@@ -62,7 +62,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output substring</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output substring</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -26,20 +26,28 @@
         <info>
             <par>
                 <tr lang="en">Note: amplitude value 0 is converted to -144 db (24-bit range)</tr>
+                <tr lang="ru" finished="false">Примечание: значение амплитуды 0 преобразуется в
+                -144 дБ (24-битный диапазон)</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">input values</tr>
+                    <tr lang="ru" finished="false">входные значения</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>converted value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">converted value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

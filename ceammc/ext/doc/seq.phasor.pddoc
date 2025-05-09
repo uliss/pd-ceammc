@@ -107,8 +107,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float value in 0..1 range</outlet>
-            <outlet>bang after full cycle</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float value in 0..1 range</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang after full cycle</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

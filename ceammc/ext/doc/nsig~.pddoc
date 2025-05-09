@@ -25,9 +25,11 @@
         <arguments>
             <argument name="N" type="int" minvalue="1" maxvalue="12">
                 <tr lang="en">number of inputs/outputs</tr>
+                <tr lang="ru" finished="false">Количество входов/выходов</tr>
             </argument>
             <argument name="VALUES" type="list">
                 <tr lang="en">init values</tr>
+                <tr lang="ru" finished="false">значения init</tr>
             </argument>
         </arguments>
         <properties>
@@ -35,36 +37,54 @@
             <property name="@n" type="int" minvalue="1" default="1" maxvalue="12"
             access="initonly">
                 <tr lang="en">number of inputs/outputs</tr>
+                <tr lang="ru" finished="false">Количество входов/выходов</tr>
             </property>
             <!-- @values -->
             <property name="@values" type="list" default="">
                 <tr lang="en">current output values. Default: 0</tr>
+                <tr lang="ru" finished="false">текущие выходные значения. Дефолт: 0</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo on="float">
                     <tr lang="en">set first output value</tr>
+                    <tr lang="ru" finished="false">Установить первую выходную величину</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">set list of output values</tr>
+                    <tr lang="ru" finished="false">установленный список выходных значений</tr>
                 </xinfo>
             </inlet>
             <inlet number="...">
                 <xinfo on="float">
                     <tr lang="en">set ... output value</tr>
+                    <tr lang="ru" finished="false">установленная ... выходная стоимость</tr>
                 </xinfo>
             </inlet>
             <inlet number="n">
                 <xinfo on="float">
                     <tr lang="en">set n-th output value</tr>
+                    <tr lang="ru" finished="false">установленная n-я выходная стоимость</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet type="audio" number="1">first value output</outlet>
-            <outlet type="audio" number="...">... value output</outlet>
-            <outlet type="audio" number="n">n-th value output</outlet>
+            <outlet type="audio" number="1">
+                <out type="any">
+                    <tr lang="en">first value output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio" number="...">
+                <out type="any">
+                    <tr lang="en">... value output</tr>
+                </out>
+            </outlet>
+            <outlet type="audio" number="n">
+                <out type="any">
+                    <tr lang="en">n-th value output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

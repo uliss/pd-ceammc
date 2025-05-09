@@ -127,9 +127,17 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output for ui.matrix</outlet>
-            <outlet>[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration or [done( when
-            done</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output for ui.matrix</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration or
+                    [done( when done</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

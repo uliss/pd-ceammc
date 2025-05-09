@@ -20,30 +20,41 @@
             <par>
                 <tr lang="en">Note: by default filesize request performed asynchronously, so
                 there's a (usually) short delay between input and output</tr>
+                <tr lang="ru" finished="false">Примечание: по умолчанию запрос на форматирование
+                файлов выполняется асинхронно, поэтому существует (обычно) короткая задержка между
+                входом и выходом.</tr>
             </par>
         </info>
         <properties>
             <!-- @async -->
             <property name="@async" type="bool" default="1">
                 <tr lang="en">async mode</tr>
+                <tr lang="ru" finished="false">режим синхронизации</tr>
             </property>
             <!-- @sync -->
             <property name="@sync" type="alias">
                 <tr lang="en">alias for @async 0</tr>
+                <tr lang="ru" finished="false">Исполнитель: @async 0</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">file path</tr>
+                    <tr lang="ru" finished="false">Файловый путь</tr>
                 </xinfo>
                 <xinfo on="data:string">
                     <tr lang="en">file path</tr>
+                    <tr lang="ru" finished="false">Файловый путь</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float: size in bytes</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: size in bytes</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -23,17 +23,25 @@
             <par>
                 <tr lang="en">Frequency response of a comb filter consists of a series of regularly
                 spaced notches, giving the appearance of a comb</tr>
+                <tr lang="ru" finished="false">Частотный отклик гребневого фильтра состоит из серии
+                регулярно расположенных выемок, придающих вид гребневому фильтру</tr>
             </par>
             <par>
                 <tr lang="en">Structure of a feedforward comb filter may be described by the
                 following difference equation: y[n] = x[n] + α[n−K] where K is the delay length
                 (measured in samples), and α is a scaling factor applied to the delayed signal</tr>
+                <tr lang="ru" finished="false">Структура фильтра для расчесывания вперед может быть
+                описана следующим дифференциальным уравнением: y[n] = x[n] + α[n−K], где K — длина
+                задержки (измеряется в образцах), а α — коэффициент масштабирования, применяемый к
+                отложенному сигналу.</tr>
             </par>
             <a href="https://en.wikipedia.org/wiki/Comb_filter">wiki: Comb filter</a>
         </info>
         <arguments>
             <argument name="A" type="float" minvalue="-1" maxvalue="1">
                 <tr lang="en">scaling factor of delayed signal</tr>
+                <tr lang="ru" finished="false">Коэффициент масштабирования замедленного
+                сигнала</tr>
             </argument>
         </arguments>
         <properties>
@@ -43,6 +51,8 @@
             <!-- @a -->
             <property name="@a" type="float" minvalue="-1" maxvalue="1" default="1">
                 <tr lang="en">scaling factor of delayed signal</tr>
+                <tr lang="ru" finished="false">Коэффициент масштабирования замедленного
+                сигнала</tr>
             </property>
         </properties>
         <methods>
@@ -50,6 +60,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset filter state</tr>
+                    <tr lang="ru" finished="false">состояние фильтра сброса</tr>
                 </info>
             </method>
         </methods>
@@ -57,16 +68,22 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">filter notch frequency</tr>
+                    <tr lang="ru" finished="false">частота выемки фильтра</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">filtered signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">filtered signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

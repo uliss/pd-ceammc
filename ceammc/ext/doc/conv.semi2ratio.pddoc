@@ -24,14 +24,20 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">interval in semitones</tr>
+                    <tr lang="ru" finished="false">интервал в полутонах</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">list of intervals in semitones</tr>
+                    <tr lang="ru" finished="false">Список интервалов в полутонах</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float or list: frequency ratio(s)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float or list: frequency ratio(s)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

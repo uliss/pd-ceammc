@@ -214,7 +214,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

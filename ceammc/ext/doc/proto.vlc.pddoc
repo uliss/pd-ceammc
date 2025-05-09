@@ -160,8 +160,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>int: 1 on success, 0 on error</outlet>
-            <outlet>dict: response data</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int: 1 on success, 0 on error</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">dict: response data</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -27,32 +27,44 @@
         <arguments>
             <argument name="F" type="float">
                 <tr lang="en">subtrahend</tr>
+                <tr lang="ru" finished="false">вычитание</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @int -->
             <property name="@int" type="flag" default="0" access="initonly">
                 <tr lang="en">operate on integers only</tr>
+                <tr lang="ru" finished="false">работать только на целых числах</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set minuend, calculate and output result</tr>
+                    <tr lang="ru" finished="false">установить minuend, рассчитать и выходной
+                    результат</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">pair: set minuend and subtrahend, calculate and output
                     result</tr>
+                    <tr lang="ru" finished="false">пара: заданный минуэнд и вычитание, вычисление и
+                    выходной результат</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">change subtrahend, calculate and output result</tr>
+                    <tr lang="ru" finished="false">изменить субпойм, вычислить и вывести
+                    результат</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>difference output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">difference output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

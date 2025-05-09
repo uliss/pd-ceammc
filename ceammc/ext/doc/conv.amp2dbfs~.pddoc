@@ -26,21 +26,29 @@
         <info>
             <par>
                 <tr lang="en">formulae: 20 * log10(amp)</tr>
+                <tr lang="ru" finished="false">формулы: 20 * log10(amp)</tr>
             </par>
             <par>
                 <tr lang="en">Note: amplitude value &lt;=0 is converted to -144 db (24-bit
                 range)</tr>
+                <tr lang="ru" finished="false">Примечание: значение амплитуды &lt;=0 преобразуется
+                в -144 дБ (24-битный диапазон)</tr>
             </par>
         </info>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">converted signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">converted signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

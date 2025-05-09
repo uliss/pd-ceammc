@@ -29,25 +29,43 @@
                 <tr lang="en">Predicate side chain should accept value and return 1 (true) or 0
                 (false). If true, input value is outputed to first outlet. Otherwise to second
                 outlet.</tr>
+                <tr lang="ru" finished="false">Побочная цепочка предикатов должна принимать
+                значение и возвращать 1 (истинное) или 0 (ложное). Если это правда, входное
+                значение выводится на первую розетку. В противном случае второй выход.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">input from predicate side chain. If 1 received - output for first
                     outlet. If 0 - to second.</tr>
+                    <tr lang="ru" finished="false">Вход из предикатов боковой цепи. Если получено 1
+                    - выход для первого выхода. Если 0 - в секунду.</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>values for which predicate side-chain returned true</outlet>
-            <outlet>values for which predicate side-chain returned false</outlet>
-            <outlet>value to predicate side-chain</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">values for which predicate side-chain returned true</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">values for which predicate side-chain returned false</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">value to predicate side-chain</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

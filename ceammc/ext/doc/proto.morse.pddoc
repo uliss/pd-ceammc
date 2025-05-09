@@ -61,7 +61,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float: 1 or 0</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: 1 or 0</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

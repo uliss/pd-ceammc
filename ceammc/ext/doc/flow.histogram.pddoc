@@ -22,24 +22,30 @@
         <arguments>
             <argument name="RANGE" type="list">
                 <tr lang="en">FROM TO NUM_BINS?</tr>
+                <tr lang="ru" finished="false">От NUM_BINS?</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @bins -->
             <property name="@bins" type="list" default="0">
                 <tr lang="en">bins border values</tr>
+                <tr lang="ru" finished="false">пограничные значения</tr>
             </property>
             <!-- @inner_bins -->
             <property name="@inner_bins" type="bool" default="1">
                 <tr lang="en">output histogram inner bins only</tr>
+                <tr lang="ru" finished="false">выход гистограммы только внутренние бункеры</tr>
             </property>
             <!-- @norm -->
             <property name="@norm" type="bool" default="1">
                 <tr lang="en">do the histogram normalization</tr>
+                <tr lang="ru" finished="false">сделать нормализацию гистограммы</tr>
             </property>
             <!-- @sync -->
             <property name="@sync" type="bool" default="1">
                 <tr lang="en">calculate and output histogram on every input value</tr>
+                <tr lang="ru" finished="false">вычислить и вывести гистограмму на каждое входное
+                значение</tr>
             </property>
         </properties>
         <methods>
@@ -47,6 +53,7 @@
             <method name="clear">
                 <info>
                     <tr lang="en">clear all histogram data</tr>
+                    <tr lang="ru" finished="false">Очистить все данные гистограммы</tr>
                 </info>
             </method>
         </methods>
@@ -54,15 +61,23 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">calculates histogram and output current bin values</tr>
+                    <tr lang="ru" finished="false">вычисляет гистограмму и выходные значения тока
+                    бин</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">add value to the histogram and output it's value if @sync
                     property is true</tr>
+                    <tr lang="ru" finished="false">добавить значение гистограмме и вывести его
+                    значение, если свойство @sync истинно</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list: bin values</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: bin values</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

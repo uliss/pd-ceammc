@@ -25,19 +25,26 @@
             <par>
                 <tr lang="en">Band-pass filter passes frequencies within a certain range and
                 rejects frequencies outside that range.</tr>
+                <tr lang="ru" finished="false">оркестр Пропускной фильтр проходит частоты в
+                определенном диапазоне и отклоняет частоты за пределами этого диапазона.</tr>
             </par>
             <par>
                 <tr lang="en">Butterworth filter is a type of filter designed to have a frequency
                 response as flat as possible in the passband.</tr>
+                <tr lang="ru" finished="false">Фильтр Баттерворта — это тип фильтра,
+                предназначенный для того, чтобы иметь как можно более плоскую частотную реакцию в
+                полосе пропускания.</tr>
             </par>
             <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
         </info>
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </argument>
             <argument name="Q" type="float" minvalue="0.01" maxvalue="100">
                 <tr lang="en">quality factory: @freq/BANDWIDTH</tr>
+                <tr lang="ru" finished="false">Производитель: @freq/BANDWIDTH</tr>
             </argument>
         </arguments>
         <properties>
@@ -48,10 +55,12 @@
             <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
             units="hertz">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </property>
             <!-- @q -->
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="2">
                 <tr lang="en">quality factor: @freq/BANDWIDTH</tr>
+                <tr lang="ru" finished="false">Коэффициент качества: @freq/BANDWIDTH</tr>
             </property>
         </properties>
         <methods>
@@ -59,6 +68,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset filter state</tr>
+                    <tr lang="ru" finished="false">состояние фильтра сброса</tr>
                 </info>
             </method>
         </methods>
@@ -66,21 +76,28 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">set frequency</tr>
+                    <tr lang="ru" finished="false">установленная частота</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">set Q-factor</tr>
+                    <tr lang="ru" finished="false">Настройка Q-фактора</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">filtered signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">filtered signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -26,31 +26,41 @@
             <argument name="SIZE" type="int" minvalue="0">
                 <tr lang="en">New size of output list. Input list will be stretched to the new size
                 with linear interpolation</tr>
+                <tr lang="ru" finished="false">Новый размер выходного списка. Список входов будет
+                растянут до нового размера с линейной интерполяцией</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @size -->
             <property name="@size" type="int" minvalue="0" default="1">
                 <tr lang="en">new size</tr>
+                <tr lang="ru" finished="false">Новый размер</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list.</tr>
+                    <tr lang="ru" finished="false">Список входов.</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">new length of output list</tr>
+                    <tr lang="ru" finished="false">Новая длина списка выпуска</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new modified list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">new modified list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -24,376 +24,468 @@
             <!-- @delays -->
             <property name="@delays" type="list" default="0 0 0 0 0 0" units="millisecond">
                 <tr lang="en">list of all tap delays</tr>
+                <tr lang="ru" finished="false">Список всех задержек</tr>
             </property>
             <!-- @fbs0 -->
             <property name="@fbs0" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
                 <tr lang="en">list of all feedbacks to tap0</tr>
+                <tr lang="ru" finished="false">Список всех отзывов на tap0</tr>
             </property>
             <!-- @fbs1 -->
             <property name="@fbs1" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
                 <tr lang="en">list of all feedbacks to tap1</tr>
+                <tr lang="ru" finished="false">Список всех отзывов на tap1</tr>
             </property>
             <!-- @fbs2 -->
             <property name="@fbs2" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
                 <tr lang="en">list of all feedbacks to tap2</tr>
+                <tr lang="ru" finished="false">Список всех отзывов на tap2</tr>
             </property>
             <!-- @fbs3 -->
             <property name="@fbs3" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
                 <tr lang="en">list of all feedbacks to tap3</tr>
+                <tr lang="ru" finished="false">Список всех отзывов на tap3</tr>
             </property>
             <!-- @fbs4 -->
             <property name="@fbs4" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
                 <tr lang="en">list of all feedbacks to tap4</tr>
+                <tr lang="ru" finished="false">Список всех отзывов на tap4</tr>
             </property>
             <!-- @fbs5 -->
             <property name="@fbs5" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
                 <tr lang="en">list of all feedbacks to tap5</tr>
+                <tr lang="ru" finished="false">Список всех отзывов на tap5</tr>
             </property>
             <!-- @gains -->
             <property name="@gains" type="list" default="0 0 0 0 0 0" units="decibel">
                 <tr lang="en">list of all tap gains</tr>
+                <tr lang="ru" finished="false">Список всех достижений Tap</tr>
             </property>
             <!-- @ins0 -->
             <property name="@ins0" type="list" default="1 1 1 1 1 1" minvalue="0" maxvalue="1">
                 <tr lang="en">list of all taps left channel input levels</tr>
+                <tr lang="ru" finished="false">Список всех уровней ввода левого канала</tr>
             </property>
             <!-- @ins1 -->
             <property name="@ins1" type="list" default="1 1 1 1 1 1" minvalue="0" maxvalue="1">
                 <tr lang="en">list of all taps right channel input levels</tr>
+                <tr lang="ru" finished="false">Список всех уровней ввода канала</tr>
             </property>
             <!-- @out0.gain -->
             <property name="@out0.gain" type="float" default="0" minvalue="-60" maxvalue="0"
             units="decibel">
                 <tr lang="en">left channel output gain</tr>
+                <tr lang="ru" finished="false">выходной выход левого канала</tr>
             </property>
             <!-- @out0.in0 -->
             <property name="@out0.in0" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">input left channel level to left output</tr>
+                <tr lang="ru" finished="false">Входной левый уровень канала на левый выход</tr>
             </property>
             <!-- @out0.in1 -->
             <property name="@out0.in1" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">input right channel level to left output</tr>
+                <tr lang="ru" finished="false">Уровень правого канала для левого выхода</tr>
             </property>
             <!-- @out0.tap0 -->
             <property name="@out0.tap0" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap 0 output level to left channel</tr>
+                <tr lang="ru" finished="false">Нажмите 0 выходной уровень на левый канал</tr>
             </property>
             <!-- @out0.tap1 -->
             <property name="@out0.tap1" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap 1 output level to left channel</tr>
+                <tr lang="ru" finished="false">1 выходной уровень для левого канала</tr>
             </property>
             <!-- @out0.tap2 -->
             <property name="@out0.tap2" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap 2 output level to left channel</tr>
+                <tr lang="ru" finished="false">2 выходной уровень для левого канала</tr>
             </property>
             <!-- @out0.tap3 -->
             <property name="@out0.tap3" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap 3 output level to left channel</tr>
+                <tr lang="ru" finished="false">3 выходной уровень для левого канала</tr>
             </property>
             <!-- @out0.tap4 -->
             <property name="@out0.tap4" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap 4 output level to left channel</tr>
+                <tr lang="ru" finished="false">4 выходной уровень для левого канала</tr>
             </property>
             <!-- @out0.tap5 -->
             <property name="@out0.tap5" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap 5 output level to left channel</tr>
+                <tr lang="ru" finished="false">Нажмите 5 выходного уровня на левый канал</tr>
             </property>
             <!-- @out1.gain -->
             <property name="@out1.gain" type="float" default="0" minvalue="-60" maxvalue="0"
             units="decibel">
                 <tr lang="en">right channel output gain</tr>
+                <tr lang="ru" finished="false">Выходной коэффициент правого канала</tr>
             </property>
             <!-- @out1.in0 -->
             <property name="@out1.in0" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">input left channel level to right output</tr>
+                <tr lang="ru" finished="false">Входной левый уровень канала на правый выход</tr>
             </property>
             <!-- @out1.in1 -->
             <property name="@out1.in1" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">input right channel level to right output</tr>
+                <tr lang="ru" finished="false">Уровень правого канала для правильного вывода</tr>
             </property>
             <!-- @out1.tap0 -->
             <property name="@out1.tap0" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap 0 output level to right channel</tr>
+                <tr lang="ru" finished="false">Нажмите 0 выходной уровень на правильный канал</tr>
             </property>
             <!-- @out1.tap1 -->
             <property name="@out1.tap1" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap 1 output level to right channel</tr>
+                <tr lang="ru" finished="false">Нажмите 1 выходной уровень на правильный канал</tr>
             </property>
             <!-- @out1.tap2 -->
             <property name="@out1.tap2" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap 2 output level to right channel</tr>
+                <tr lang="ru" finished="false">Нажмите 2 выходной уровень на правильный канал</tr>
             </property>
             <!-- @out1.tap3 -->
             <property name="@out1.tap3" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap 3 output level to right channel</tr>
+                <tr lang="ru" finished="false">Нажмите 3 уровня вывода на правильный канал</tr>
             </property>
             <!-- @out1.tap4 -->
             <property name="@out1.tap4" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap 4 output level to right channel</tr>
+                <tr lang="ru" finished="false">4 выходной уровень для правильного канала</tr>
             </property>
             <!-- @out1.tap5 -->
             <property name="@out1.tap5" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap 5 output level to right channel</tr>
+                <tr lang="ru" finished="false">Нажмите 5 выходного уровня на правильный канал</tr>
             </property>
             <!-- @outs0 -->
             <property name="@outs0" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
                 <tr lang="en">list of all tap output levels to left channel</tr>
+                <tr lang="ru" finished="false">Список всех уровней выходного крана в левый
+                канал</tr>
             </property>
             <!-- @outs1 -->
             <property name="@outs1" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
                 <tr lang="en">list of all tap output levels to right channel</tr>
+                <tr lang="ru" finished="false">Список всех уровней выходного крана в правильный
+                канал</tr>
             </property>
             <!-- @tap0.delay -->
             <property name="@tap0.delay" type="float" default="0" minvalue="0" maxvalue="5000"
             units="millisecond">
                 <tr lang="en">tap0 delay time</tr>
+                <tr lang="ru" finished="false">Время задержки tap0</tr>
             </property>
             <!-- @tap0.fb0 -->
             <property name="@tap0.fb0" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap0 feedback to tap0</tr>
+                <tr lang="ru" finished="false">Обратная связь с TAP0</tr>
             </property>
             <!-- @tap0.fb1 -->
             <property name="@tap0.fb1" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap1 feedback to tap0</tr>
+                <tr lang="ru" finished="false">Обратная связь tap1 с tap0</tr>
             </property>
             <!-- @tap0.fb2 -->
             <property name="@tap0.fb2" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap2 feedback to tap0</tr>
+                <tr lang="ru" finished="false">Обратная связь tap2 с tap0</tr>
             </property>
             <!-- @tap0.fb3 -->
             <property name="@tap0.fb3" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap3 feedback to tap0</tr>
+                <tr lang="ru" finished="false">Обратная связь tap3 с tap0</tr>
             </property>
             <!-- @tap0.fb4 -->
             <property name="@tap0.fb4" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap4 feedback to tap0</tr>
+                <tr lang="ru" finished="false">Обратная связь tap4 с tap0</tr>
             </property>
             <!-- @tap0.fb5 -->
             <property name="@tap0.fb5" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap5 feedback to tap0</tr>
+                <tr lang="ru" finished="false">Обратная связь от tap5 к tap0</tr>
             </property>
             <!-- @tap0.gain -->
             <property name="@tap0.gain" type="float" default="0" minvalue="-60" maxvalue="0"
             units="decibel">
                 <tr lang="en">tap0 common level</tr>
+                <tr lang="ru" finished="false">Общий уровень tap0</tr>
             </property>
             <!-- @tap0.in0 -->
             <property name="@tap0.in0" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">left input level to tap0</tr>
+                <tr lang="ru" finished="false">левый входной уровень для tap0</tr>
             </property>
             <!-- @tap0.in1 -->
             <property name="@tap0.in1" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">right input level to tap0</tr>
+                <tr lang="ru" finished="false">Правильный входной уровень для tap0</tr>
             </property>
             <!-- @tap1.delay -->
             <property name="@tap1.delay" type="float" default="0" minvalue="0" maxvalue="5000"
             units="millisecond">
                 <tr lang="en">tap1 delay time</tr>
+                <tr lang="ru" finished="false">Время задержки tap1</tr>
             </property>
             <!-- @tap1.fb0 -->
             <property name="@tap1.fb0" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap0 feedback to tap1</tr>
+                <tr lang="ru" finished="false">Обратная связь от tap0 к tap1</tr>
             </property>
             <!-- @tap1.fb1 -->
             <property name="@tap1.fb1" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap1 feedback to tap1</tr>
+                <tr lang="ru" finished="false">Обратная связь с TAP1</tr>
             </property>
             <!-- @tap1.fb2 -->
             <property name="@tap1.fb2" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap2 feedback to tap1</tr>
+                <tr lang="ru" finished="false">Обратная связь tap2 с tap1</tr>
             </property>
             <!-- @tap1.fb3 -->
             <property name="@tap1.fb3" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap3 feedback to tap1</tr>
+                <tr lang="ru" finished="false">Обратная связь tap3 с tap1</tr>
             </property>
             <!-- @tap1.fb4 -->
             <property name="@tap1.fb4" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap4 feedback to tap1</tr>
+                <tr lang="ru" finished="false">Обратная связь tap4 с tap1</tr>
             </property>
             <!-- @tap1.fb5 -->
             <property name="@tap1.fb5" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap5 feedback to tap1</tr>
+                <tr lang="ru" finished="false">Обратная связь от tap5 к tap1</tr>
             </property>
             <!-- @tap1.gain -->
             <property name="@tap1.gain" type="float" default="0" minvalue="-60" maxvalue="0"
             units="decibel">
                 <tr lang="en">tap1 common level</tr>
+                <tr lang="ru" finished="false">1 общий уровень</tr>
             </property>
             <!-- @tap1.in0 -->
             <property name="@tap1.in0" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">left input level to tap1</tr>
+                <tr lang="ru" finished="false">левый входной уровень для tap1</tr>
             </property>
             <!-- @tap1.in1 -->
             <property name="@tap1.in1" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">right input level to tap1</tr>
+                <tr lang="ru" finished="false">Правильный входной уровень для tap1</tr>
             </property>
             <!-- @tap2.delay -->
             <property name="@tap2.delay" type="float" default="0" minvalue="0" maxvalue="5000"
             units="millisecond">
                 <tr lang="en">tap2 delay time</tr>
+                <tr lang="ru" finished="false">tap2 задержка</tr>
             </property>
             <!-- @tap2.fb0 -->
             <property name="@tap2.fb0" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap0 feedback to tap2</tr>
+                <tr lang="ru" finished="false">Обратная связь от tap0 до tap2</tr>
             </property>
             <!-- @tap2.fb1 -->
             <property name="@tap2.fb1" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap1 feedback to tap2</tr>
+                <tr lang="ru" finished="false">Обратная связь tap1 с tap2</tr>
             </property>
             <!-- @tap2.fb2 -->
             <property name="@tap2.fb2" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap2 feedback to tap2</tr>
+                <tr lang="ru" finished="false">Обратная связь tap2 с tap2</tr>
             </property>
             <!-- @tap2.fb3 -->
             <property name="@tap2.fb3" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap3 feedback to tap2</tr>
+                <tr lang="ru" finished="false">Обратная связь tap3 с tap2</tr>
             </property>
             <!-- @tap2.fb4 -->
             <property name="@tap2.fb4" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap4 feedback to tap2</tr>
+                <tr lang="ru" finished="false">Обратная связь tap4 с tap2</tr>
             </property>
             <!-- @tap2.fb5 -->
             <property name="@tap2.fb5" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap5 feedback to tap2</tr>
+                <tr lang="ru" finished="false">Обратная связь tap5 с tap2</tr>
             </property>
             <!-- @tap2.gain -->
             <property name="@tap2.gain" type="float" default="0" minvalue="-60" maxvalue="0"
             units="decibel">
                 <tr lang="en">tap2 common level</tr>
+                <tr lang="ru" finished="false">TAP2 Общий уровень</tr>
             </property>
             <!-- @tap2.in0 -->
             <property name="@tap2.in0" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">left input level to tap2</tr>
+                <tr lang="ru" finished="false">левый входной уровень для tap2</tr>
             </property>
             <!-- @tap2.in1 -->
             <property name="@tap2.in1" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">right input level to tap2</tr>
+                <tr lang="ru" finished="false">Правильный входной уровень для tap2</tr>
             </property>
             <!-- @tap3.delay -->
             <property name="@tap3.delay" type="float" default="0" minvalue="0" maxvalue="5000"
             units="millisecond">
                 <tr lang="en">tap3 delay time</tr>
+                <tr lang="ru" finished="false">tap3 задержка</tr>
             </property>
             <!-- @tap3.fb0 -->
             <property name="@tap3.fb0" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap0 feedback to tap3</tr>
+                <tr lang="ru" finished="false">Обратная связь от tap0 к tap3</tr>
             </property>
             <!-- @tap3.fb1 -->
             <property name="@tap3.fb1" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap1 feedback to tap3</tr>
+                <tr lang="ru" finished="false">Обратная связь от tap1 к tap3</tr>
             </property>
             <!-- @tap3.fb2 -->
             <property name="@tap3.fb2" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap2 feedback to tap3</tr>
+                <tr lang="ru" finished="false">Обратная связь tap2 с tap3</tr>
             </property>
             <!-- @tap3.fb3 -->
             <property name="@tap3.fb3" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap3 feedback to tap3</tr>
+                <tr lang="ru" finished="false">Обратная связь tap3 с tap3</tr>
             </property>
             <!-- @tap3.fb4 -->
             <property name="@tap3.fb4" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap4 feedback to tap3</tr>
+                <tr lang="ru" finished="false">Обратная связь tap4 с tap3</tr>
             </property>
             <!-- @tap3.fb5 -->
             <property name="@tap3.fb5" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap5 feedback to tap3</tr>
+                <tr lang="ru" finished="false">Обратная связь tap5 с tap3</tr>
             </property>
             <!-- @tap3.gain -->
             <property name="@tap3.gain" type="float" default="0" minvalue="-60" maxvalue="0"
             units="decibel">
                 <tr lang="en">tap3 common level</tr>
+                <tr lang="ru" finished="false">tap3 общий уровень</tr>
             </property>
             <!-- @tap3.in0 -->
             <property name="@tap3.in0" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">left input level to tap3</tr>
+                <tr lang="ru" finished="false">левый входной уровень для tap3</tr>
             </property>
             <!-- @tap3.in1 -->
             <property name="@tap3.in1" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">right input level to tap3</tr>
+                <tr lang="ru" finished="false">Правильный входной уровень для tap3</tr>
             </property>
             <!-- @tap4.delay -->
             <property name="@tap4.delay" type="float" default="0" minvalue="0" maxvalue="5000"
             units="millisecond">
                 <tr lang="en">tap4 delay time</tr>
+                <tr lang="ru" finished="false">Время задержки tap4</tr>
             </property>
             <!-- @tap4.fb0 -->
             <property name="@tap4.fb0" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap0 feedback to tap4</tr>
+                <tr lang="ru" finished="false">Обратная связь от tap0 к tap4</tr>
             </property>
             <!-- @tap4.fb1 -->
             <property name="@tap4.fb1" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap1 feedback to tap4</tr>
+                <tr lang="ru" finished="false">Обратная связь от tap1 к tap4</tr>
             </property>
             <!-- @tap4.fb2 -->
             <property name="@tap4.fb2" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap2 feedback to tap4</tr>
+                <tr lang="ru" finished="false">Обратная связь tap2 с tap4</tr>
             </property>
             <!-- @tap4.fb3 -->
             <property name="@tap4.fb3" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap3 feedback to tap4</tr>
+                <tr lang="ru" finished="false">Обратная связь tap3 с tap4</tr>
             </property>
             <!-- @tap4.fb4 -->
             <property name="@tap4.fb4" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap4 feedback to tap4</tr>
+                <tr lang="ru" finished="false">Обратная связь tap4 с tap4</tr>
             </property>
             <!-- @tap4.fb5 -->
             <property name="@tap4.fb5" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap5 feedback to tap4</tr>
+                <tr lang="ru" finished="false">Обратная связь tap5 с tap4</tr>
             </property>
             <!-- @tap4.gain -->
             <property name="@tap4.gain" type="float" default="0" minvalue="-60" maxvalue="0"
             units="decibel">
                 <tr lang="en">tap4 common level</tr>
+                <tr lang="ru" finished="false">TAP4 Общий уровень</tr>
             </property>
             <!-- @tap4.in0 -->
             <property name="@tap4.in0" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">left input level to tap4</tr>
+                <tr lang="ru" finished="false">левый входной уровень для tap4</tr>
             </property>
             <!-- @tap4.in1 -->
             <property name="@tap4.in1" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">right input level to tap4</tr>
+                <tr lang="ru" finished="false">Правильный входной уровень для tap4</tr>
             </property>
             <!-- @tap5.delay -->
             <property name="@tap5.delay" type="float" default="0" minvalue="0" maxvalue="5000"
             units="millisecond">
                 <tr lang="en">tap5 delay time</tr>
+                <tr lang="ru" finished="false">TAP5 Время задержки</tr>
             </property>
             <!-- @tap5.fb0 -->
             <property name="@tap5.fb0" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap0 feedback to tap5</tr>
+                <tr lang="ru" finished="false">Обратная связь от tap0 к tap5</tr>
             </property>
             <!-- @tap5.fb1 -->
             <property name="@tap5.fb1" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap1 feedback to tap5</tr>
+                <tr lang="ru" finished="false">Обратная связь от tap1 к tap5</tr>
             </property>
             <!-- @tap5.fb2 -->
             <property name="@tap5.fb2" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap2 feedback to tap5</tr>
+                <tr lang="ru" finished="false">Обратная связь tap2 с tap5</tr>
             </property>
             <!-- @tap5.fb3 -->
             <property name="@tap5.fb3" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap3 feedback to tap5</tr>
+                <tr lang="ru" finished="false">Обратная связь tap3 с tap5</tr>
             </property>
             <!-- @tap5.fb4 -->
             <property name="@tap5.fb4" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap4 feedback to tap5</tr>
+                <tr lang="ru" finished="false">Обратная связь tap4 с tap5</tr>
             </property>
             <!-- @tap5.fb5 -->
             <property name="@tap5.fb5" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">tap5 feedback to tap5</tr>
+                <tr lang="ru" finished="false">Обратная связь от tap5 к tap5</tr>
             </property>
             <!-- @tap5.gain -->
             <property name="@tap5.gain" type="float" default="0" minvalue="-60" maxvalue="0"
             units="decibel">
                 <tr lang="en">tap5 common level</tr>
+                <tr lang="ru" finished="false">TAP5 Общий уровень</tr>
             </property>
             <!-- @tap5.in0 -->
             <property name="@tap5.in0" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">left input level to tap5</tr>
+                <tr lang="ru" finished="false">левый входной уровень для tap5</tr>
             </property>
             <!-- @tap5.in1 -->
             <property name="@tap5.in1" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">right input level to tap5</tr>
+                <tr lang="ru" finished="false">Правильный входной уровень для tap5</tr>
             </property>
         </properties>
         <methods>
@@ -401,35 +493,44 @@
             <method name="pingpong">
                 <info>
                     <tr lang="en">set pingpong delay values</tr>
+                    <tr lang="ru" finished="false">установить значения задержки пингпонга</tr>
                 </info>
                 <param name="DELAY" type="float" units="millisecond" required="true">
                     <tr lang="en">delay time</tr>
+                    <tr lang="ru" finished="false">задержка времени</tr>
                 </param>
                 <param name="FB" type="float" minvalue="0" maxvalue="1" required="true">
                     <tr lang="en">feedback value</tr>
+                    <tr lang="ru" finished="false">значение обратной связи</tr>
                 </param>
             </method>
             <!-- random -->
             <method name="random">
                 <info>
                     <tr lang="en">randomize values</tr>
+                    <tr lang="ru" finished="false">рандомизированные значения</tr>
                 </info>
                 <param name="TYPE" type="symbol" enum="delays fb inputs outputs gains"
                 required="true">
                     <tr lang="en">group name. If 'delays' - randomize @delays properties, if 'fb' -
                     randomize @fb* properties.</tr>
+                    <tr lang="ru" finished="false">название группы. Если «задержки» —
+                    рандомизируйте свойства @delays, если «fb» — рандомизируйте свойства @fb*.</tr>
                 </param>
                 <param name="MIN" type="float" minvalue="0">
                     <tr lang="en">minimal value</tr>
+                    <tr lang="ru" finished="false">Минимальная ценность</tr>
                 </param>
                 <param name="MAX" type="float" minvalue="0">
                     <tr lang="en">maximum value</tr>
+                    <tr lang="ru" finished="false">максимальное значение</tr>
                 </param>
             </method>
             <!-- reset -->
             <method name="reset">
                 <info>
                     <tr lang="en">reset to initial state</tr>
+                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
                 </info>
             </method>
         </methods>
@@ -437,17 +538,27 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">left in channel</tr>
+                    <tr lang="ru" finished="false">Остаться в канале</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">right in channel</tr>
+                    <tr lang="ru" finished="false">Прямо в канале</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">left out channel</outlet>
-            <outlet type="audio">right out channel</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">left out channel</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">right out channel</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

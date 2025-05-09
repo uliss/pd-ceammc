@@ -90,8 +90,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>int: output process exit code</outlet>
-            <outlet>stdout output, format depends from @mode</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">int: output process exit code</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">stdout output, format depends from @mode</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

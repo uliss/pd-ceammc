@@ -23,61 +23,87 @@
             <!-- @auto -->
             <property name="@auto" type="bool" default="0">
                 <tr lang="en">autostart record on first input atom</tr>
+                <tr lang="ru" finished="false">запись автозапуска первого входного атома</tr>
             </property>
             <!-- @max -->
             <property name="@max" type="int" minvalue="0" default="256" maxvalue="65536">
                 <tr lang="en">max number of events, if 0: no max size check. If @auto is set -
                 starts playback when max size reached</tr>
+                <tr lang="ru" finished="false">Максимальное количество событий, если 0: без
+                проверки максимального размера. Если установлен @auto - начинается воспроизведение,
+                когда максимальный размер достигнут</tr>
             </property>
             <!-- @r -->
             <property name="@r" type="int" minvalue="-1" default="1">
                 <tr lang="en">number of repeats in play mode. If -1: repeat infinitely</tr>
+                <tr lang="ru" finished="false">Количество повторов в игровом режиме. Если -1:
+                повторять бесконечно</tr>
             </property>
             <!-- @speed -->
             <property name="@speed" type="float" minvalue="0.0156" default="1" maxvalue="64">
                 <tr lang="en">play speed</tr>
+                <tr lang="ru" finished="false">скорость игры</tr>
             </property>
             <!-- @sync -->
             <property name="@sync" type="bool" default="0">
                 <tr lang="en">use external bang pulse to sync recorded events with</tr>
+                <tr lang="ru" finished="false">использовать внешний импульс взрыва для
+                синхронизации записанных событий с</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">input message</tr>
+                    <tr lang="ru" finished="false">вводное сообщение</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">sync tick (when @sync 1)</tr>
+                    <tr lang="ru" finished="false">Синхронизация (когда @sync 1)</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">[rec (1|0)?( - start (stop) flow record</tr>
+                    <tr lang="ru" finished="false">[rec (1 | 0)? ( - стартовая (стоп) запись
+                    потока)</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">[play (1|0)?( - play (stop) recorded flow</tr>
+                    <tr lang="ru" finished="false">[play (1 | 0)? ( - play (stop) записываемый
+                    поток)</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">[stop (1|0)?( - stop (play) recording</tr>
+                    <tr lang="ru" finished="false">[стоп (1 | 0)? ( - стоп (игра) запись)</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">[clear( - remove all recorded messages</tr>
+                    <tr lang="ru" finished="false">[Clear() - удалить все записанные сообщения</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">[flush( - output and remove all recorded messages</tr>
+                    <tr lang="ru" finished="false">[flush( - вывод и удаление всех записанных
+                    сообщений)]</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">[qlist( - output to qlist object</tr>
+                    <tr lang="ru" finished="false">[qlist( - вывод на объект qlist)</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">[length FLOAT|time( - resize recorded messages (remove after
                     specified length)</tr>
+                    <tr lang="ru" finished="false">[длина FLOAT | время ( - размер записанных
+                    сообщений (удалить после указанной длины)]</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output message</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output message</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

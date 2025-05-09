@@ -405,8 +405,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>raw midi output to behringer device</outlet>
-            <outlet>control messages from device</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">raw midi output to behringer device</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">control messages from device</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

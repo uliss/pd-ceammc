@@ -56,8 +56,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang output</outlet>
-            <outlet>other messages</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang output</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">other messages</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

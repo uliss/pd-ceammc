@@ -72,8 +72,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output process exit code</outlet>
-            <outlet>output list of strings</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output process exit code</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output list of strings</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

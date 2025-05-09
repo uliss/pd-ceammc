@@ -19,6 +19,7 @@
         <arguments>
             <argument name="GAIN" type="float" minvalue="1" maxvalue="5">
                 <tr lang="en">input gain</tr>
+                <tr lang="ru" finished="false">входной доход</tr>
             </argument>
         </arguments>
         <properties>
@@ -28,14 +29,19 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">Ratio between processed signal (wet) and source signal</tr>
+                <tr lang="ru" finished="false">Соотношение между обработанным сигналом (мокрым) и
+                исходным сигналом</tr>
             </property>
             <!-- @gain -->
             <property name="@gain" type="float" minvalue="1" maxvalue="5" default="1">
                 <tr lang="en">input gain</tr>
+                <tr lang="ru" finished="false">входной доход</tr>
             </property>
         </properties>
         <methods>
@@ -43,6 +49,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset object</tr>
+                    <tr lang="ru" finished="false">сбрасывать объект</tr>
                 </info>
             </method>
         </methods>
@@ -50,16 +57,22 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">gain value</tr>
+                    <tr lang="ru" finished="false">прибыль</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

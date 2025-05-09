@@ -23,15 +23,19 @@
             <par>
                 <tr lang="en">Band-pass filter passes frequencies within a certain range and
                 rejects frequencies outside that range.</tr>
+                <tr lang="ru" finished="false">оркестр Пропускной фильтр проходит частоты в
+                определенном диапазоне и отклоняет частоты за пределами этого диапазона.</tr>
             </par>
             <wiki name="Elliptic_filter">Elliptic filter</wiki>
         </info>
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </argument>
             <argument name="Q" type="float" minvalue="0.25" maxvalue="32">
                 <tr lang="en">quality factory: @freq/BANDWIDTH</tr>
+                <tr lang="ru" finished="false">Производитель: @freq/BANDWIDTH</tr>
             </argument>
         </arguments>
         <properties>
@@ -42,11 +46,13 @@
             <property name="@freq" type="float" units="hertz" default="1000" minvalue="20"
             maxvalue="20000" access="initonly">
                 <tr lang="en">cutoff frequency</tr>
+                <tr lang="ru" finished="false">частота отключения</tr>
             </property>
             <!-- @q -->
             <property name="@q" type="float" minvalue="0.25" maxvalue="32" default="2"
             access="initonly">
                 <tr lang="en">quality factor: @freq/BANDWIDTH</tr>
+                <tr lang="ru" finished="false">Коэффициент качества: @freq/BANDWIDTH</tr>
             </property>
         </properties>
         <methods>
@@ -54,6 +60,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset filter state</tr>
+                    <tr lang="ru" finished="false">состояние фильтра сброса</tr>
                 </info>
             </method>
         </methods>
@@ -61,11 +68,16 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">filtered signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">filtered signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

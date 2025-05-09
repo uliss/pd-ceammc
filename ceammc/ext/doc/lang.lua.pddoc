@@ -19,9 +19,13 @@
         <info>
             <par>
                 <tr lang="en">Lua code is executed in separated thread in async mode.</tr>
+                <tr lang="ru" finished="false">Код Lua выполняется в разделенном потоке в режиме
+                асинхронизации.</tr>
             </par>
             <par>
                 <tr lang="en">Each lang.lua object has own independent context.</tr>
+                <tr lang="ru" finished="false">Каждый объект lang.lua имеет свой независимый
+                контекст.</tr>
             </par>
         </info>
         <mouse>
@@ -30,9 +34,11 @@
         <arguments>
             <argument name="IN" type="int" minvalue="1" maxvalue="16">
                 <tr lang="en">number of inputs</tr>
+                <tr lang="ru" finished="false">Количество входов</tr>
             </argument>
             <argument name="OUT" type="int" minvalue="1" maxvalue="16">
                 <tr lang="en">number of outputs</tr>
+                <tr lang="ru" finished="false">количество выходов</tr>
             </argument>
         </arguments>
         <properties>
@@ -40,11 +46,13 @@
             <property name="@in" type="int" default="1" minvalue="1" maxvalue="16"
             access="initonly">
                 <tr lang="en">number of inputs</tr>
+                <tr lang="ru" finished="false">Количество входов</tr>
             </property>
             <!-- @out -->
             <property name="@out" type="int" default="1" minvalue="1" maxvalue="16"
             access="initonly">
                 <tr lang="en">number of outputs</tr>
+                <tr lang="ru" finished="false">количество выходов</tr>
             </property>
         </properties>
         <methods>
@@ -52,36 +60,44 @@
             <method name="call">
                 <info>
                     <tr lang="en">call lua function</tr>
+                    <tr lang="ru" finished="false">Функция call lua</tr>
                 </info>
                 <param name="FN" type="symbol" required="true">
                     <tr lang="en">function name</tr>
+                    <tr lang="ru" finished="false">название функции</tr>
                 </param>
                 <param name="ARGS" type="list">
                     <tr lang="en">function arguments</tr>
+                    <tr lang="ru" finished="false">Функциональные аргументы</tr>
                 </param>
             </method>
             <!-- eval -->
             <method name="eval">
                 <info>
                     <tr lang="en">eval lua code</tr>
+                    <tr lang="ru" finished="false">Код Eval lua</tr>
                 </info>
                 <param name="CODE" type="list" required="true">
                     <tr lang="en">lua code</tr>
+                    <tr lang="ru" finished="false">код ua</tr>
                 </param>
             </method>
             <!-- load -->
             <method name="load">
                 <info>
                     <tr lang="en">load lua file and eval it</tr>
+                    <tr lang="ru" finished="false">Скачать файл lua и оценить его</tr>
                 </info>
                 <param name="PATH" type="list" required="true">
                     <tr lang="en">path to lua file</tr>
+                    <tr lang="ru" finished="false">Путь к файлу lua</tr>
                 </param>
             </method>
             <!-- quit -->
             <method name="quit">
                 <info>
                     <tr lang="en">abort lua script execution</tr>
+                    <tr lang="ru" finished="false">Исполнение сценария lua</tr>
                 </info>
             </method>
         </methods>
@@ -89,23 +105,38 @@
             <inlet number="1">
                 <xinfo>
                     <tr lang="en">first lua input</tr>
+                    <tr lang="ru" finished="false">Первый ввод ua</tr>
                 </xinfo>
             </inlet>
             <inlet number="...">
                 <xinfo>
                     <tr lang="en">... lua input</tr>
+                    <tr lang="ru" finished="false">Источник:ua input</tr>
                 </xinfo>
             </inlet>
             <inlet number="n">
                 <xinfo>
                     <tr lang="en">n-th lua input</tr>
+                    <tr lang="ru" finished="false">n-й ввод луа</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1">first lua output</outlet>
-            <outlet number="...">... lua output</outlet>
-            <outlet number="n">n-th lua output</outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">first lua output</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">... lua output</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">n-th lua output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -24,7 +24,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>symbol: hostname</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">symbol: hostname</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -108,8 +108,12 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list from two elements: MIDI pitch, MIDI velocity. Velocity depends from key
-            press position.</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list from two elements: MIDI pitch, MIDI velocity. Velocity
+                    depends from key press position.</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -41,8 +41,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>property output</outlet>
-            <outlet>other messages</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">property output</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">other messages</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

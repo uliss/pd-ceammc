@@ -22,48 +22,62 @@
         <arguments>
             <argument name="SIZE" type="int" minvalue="0">
                 <tr lang="en">desired list size</tr>
+                <tr lang="ru" finished="false">желаемый размер списка</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @clip -->
             <property name="@clip" type="alias">
                 <tr lang="en">alias for @method clip</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @method clip</tr>
             </property>
             <!-- @fold -->
             <property name="@fold" type="alias">
                 <tr lang="en">alias for @method fold</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @method fold</tr>
             </property>
             <!-- @method -->
             <property name="@method" type="symbol" enum="pad clip wrap fold" default="pad">
                 <tr lang="en">method of resizing, if new size is longer then current</tr>
+                <tr lang="ru" finished="false">метод изменения размера, если новый размер длиннее
+                текущего</tr>
             </property>
             <!-- @pad -->
             <property name="@pad" type="atom" default="0">
                 <tr lang="en">pad value for pad method of resizing</tr>
+                <tr lang="ru" finished="false">Значение прокладки для метода прокладки</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="int" minvalue="0" default="0">
                 <tr lang="en">output list size</tr>
+                <tr lang="ru" finished="false">Объем выходного списка</tr>
             </property>
             <!-- @wrap -->
             <property name="@wrap" type="alias">
                 <tr lang="en">alias for @method wrap</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @method wrap</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">set desired list size</tr>
+                    <tr lang="ru" finished="false">желаемый размер списка</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>resized list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">resized list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

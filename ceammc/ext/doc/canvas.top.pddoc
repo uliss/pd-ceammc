@@ -79,6 +79,7 @@
             <method name="postscript">
                 <info>
                     <tr lang="en">save patch to postscript</tr>
+                    <tr lang="ru" finished="false">Сохранить патч для postscript</tr>
                 </info>
                 <param name="FNAME" type="symbol" required="false">
                     <tr lang="en">file name. If not specified, the patch name with the extension
@@ -92,14 +93,20 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">property request</tr>
+                    <tr lang="ru" finished="false">имущественный запрос</tr>
                 </xinfo>
                 <xinfo on="bang">
                     <tr lang="en">output as dict</tr>
+                    <tr lang="ru" finished="false">Выход как диктовка</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>dict/property output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">dict/property output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

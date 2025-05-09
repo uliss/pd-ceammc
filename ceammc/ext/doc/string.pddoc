@@ -70,7 +70,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>string data</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">string data</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

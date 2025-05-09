@@ -26,6 +26,8 @@
         <info>
             <par>
                 <tr lang="en">Note: cyrillic utf-8 characters are also supported.</tr>
+                <tr lang="ru" finished="false">Примечание: также поддерживаются кириллические
+                символы utf-8.</tr>
             </par>
         </info>
         <properties>
@@ -41,11 +43,16 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">single character</tr>
+                    <tr lang="ru" finished="false">одиночный персонаж</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of 0 and 1 (or dots and dashes)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list of 0 and 1 (or dots and dashes)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

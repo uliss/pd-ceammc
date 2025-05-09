@@ -25,28 +25,36 @@
         <arguments>
             <argument name="NAME" type="symbol">
                 <tr lang="en">function name</tr>
+                <tr lang="ru" finished="false">название функции</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @name -->
             <property name="@name" type="symbol" default="">
                 <tr lang="en">function name</tr>
+                <tr lang="ru" finished="false">название функции</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input value</tr>
+                    <tr lang="ru" finished="false">входная стоимость</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">change function name</tr>
+                    <tr lang="ru" finished="false">Изменение названия функции</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>function result</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">function result</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -25,11 +25,16 @@
                 <tr lang="en">Universal list walker. If you want to output current element and when
                 move to next - use [1( message, Otherwise - use [next( if you want first move to
                 next position and then output it.</tr>
+                <tr lang="ru" finished="false">Универсальный список ходячих. Если вы хотите вывести
+                текущий элемент и при переходе на следующий - используйте [1(сообщение, В противном
+                случае - используйте [следующий(если вы хотите сначала перейти на следующую
+                позицию, а затем вывести ее).</tr>
             </par>
         </info>
         <arguments>
             <argument name="VALUE" type="list">
                 <tr lang="en">initial list</tr>
+                <tr lang="ru" finished="false">первоначальный список</tr>
             </argument>
         </arguments>
         <properties>
@@ -37,47 +42,63 @@
             <property name="@clip" type="alias">
                 <tr lang="en">clipped pass mode. When the list bounds are reached - min/max value
                 repeats perpetually.</tr>
+                <tr lang="ru" finished="false">Обрезанный режим пропуска. Когда границы списка
+                достигнуты - значение min/max повторяется постоянно.</tr>
             </property>
             <!-- @direction -->
             <property name="@direction" type="bool" default="1">
                 <tr lang="en">walking direction. "1" - forwards, "0" - backwards.</tr>
+                <tr lang="ru" finished="false">направление ходьбы. «1» — вперёд, «0» — назад.</tr>
             </property>
             <!-- @fold -->
             <property name="@fold" type="alias">
                 <tr lang="en">fold pass mode. List values are repeated in a loop with folding</tr>
+                <tr lang="ru" finished="false">Режим сгиба. Значения списка повторяются в петле с
+                складыванием</tr>
             </property>
             <!-- @index -->
             <property name="@index" type="list" minvalue="0" default="0">
                 <tr lang="en">current position</tr>
+                <tr lang="ru" finished="false">текущая позиция</tr>
             </property>
             <!-- @length -->
             <property name="@length" type="int" minvalue="1" default="1">
                 <tr lang="en">output list length</tr>
+                <tr lang="ru" finished="false">Длина списка выходных данных</tr>
             </property>
             <!-- @loop -->
             <property name="@loop" type="alias">
                 <tr lang="en">@wrap alias</tr>
+                <tr lang="ru" finished="false">@wrap псевдоним</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="single clip wrap fold" default="single">
                 <tr lang="en">pass mode. See properties below for detailed information.</tr>
+                <tr lang="ru" finished="false">Пройдите режим. См. свойства ниже для получения
+                подробной информации.</tr>
             </property>
             <!-- @single -->
             <property name="@single" type="alias">
                 <tr lang="en">single pass mode. When the list bounds are reached - no output any
                 more until reset.</tr>
+                <tr lang="ru" finished="false">режим одиночного прохода. При достижении пределов
+                перечня - никакого вывода больше до сброса.</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="int" minvalue="0" access="readonly" default="0">
                 <tr lang="en">current list size</tr>
+                <tr lang="ru" finished="false">Текущий размер списка</tr>
             </property>
             <!-- @value -->
             <property name="@value" type="list" default="">
                 <tr lang="en">current list</tr>
+                <tr lang="ru" finished="false">Текущий список</tr>
             </property>
             <!-- @wrap -->
             <property name="@wrap" type="alias">
                 <tr lang="en">wrap pass mode. List values are repeated in a loop</tr>
+                <tr lang="ru" finished="false">Режим обертывания. Значения списка повторяются в
+                цикле</tr>
             </property>
         </properties>
         <methods>
@@ -85,12 +106,15 @@
             <method name="current">
                 <info>
                     <tr lang="en">outputs current element</tr>
+                    <tr lang="ru" finished="false">выходы текущего элемента</tr>
                 </info>
             </method>
             <!-- dump -->
             <method name="dump">
                 <info>
                     <tr lang="en">dump internal object state to Pd console window</tr>
+                    <tr lang="ru" finished="false">Сбросить внутреннее состояние объекта в окно
+                    консоли Pd</tr>
                 </info>
             </method>
             <!-- next -->
@@ -98,6 +122,8 @@
                 <param name="STEP" type="int" default="1">
                     <tr lang="en">moves to next element with optional given step and outputs
                     it</tr>
+                    <tr lang="ru" finished="false">переходит к следующему элементу с необязательным
+                    заданным шагом и выводит его</tr>
                 </param>
             </method>
             <!-- prev -->
@@ -105,12 +131,15 @@
                 <param name="STEP" type="int" default="1">
                     <tr lang="en">moves to previous element with optional given step and outputs
                     it</tr>
+                    <tr lang="ru" finished="false">переходит к предыдущему элементу с
+                    необязательным заданным шагом и выводит его</tr>
                 </param>
             </method>
             <!-- reset -->
             <method name="reset">
                 <info>
                     <tr lang="en">sets current position to 0</tr>
+                    <tr lang="ru" finished="false">Установить текущее положение на 0</tr>
                 </info>
             </method>
         </methods>
@@ -118,18 +147,32 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs current element and moves to next</tr>
+                    <tr lang="ru" finished="false">выводит текущий элемент и переходит к
+                    следующему</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">outputs current element and moves by specified position</tr>
+                    <tr lang="ru" finished="false">выводит текущий элемент и перемещается по
+                    заданному положению</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">set new list and reset current position. (no output)</tr>
+                    <tr lang="ru" finished="false">установить новый список и сбросить текущую
+                    позицию. (нет выхода)</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list element</outlet>
-            <outlet>bang: when last element reached</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list element</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang: when last element reached</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

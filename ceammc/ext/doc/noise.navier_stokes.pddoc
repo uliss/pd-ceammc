@@ -21,24 +21,32 @@
             <par>
                 <tr lang="en">A model obtained by a suitable five-mode truncation of the
                 Navier-Stokes equations for a two-dimensional incompressible fluid on a torus:</tr>
+                <tr lang="ru" finished="false">Модель, полученная подходящим пятирежимным усечением
+                уравнений Навье-Стокса для двумерной несжимаемой жидкости на торе:</tr>
             </par>
             <par>
                 <tr lang="en">dx1= -2*x1 + 4*x2*x3 + 4*x4*x5</tr>
+                <tr lang="ru" finished="false">x1 = -2*x1 + 4*x2*x3 + 4*x4*x5</tr>
             </par>
             <par>
                 <tr lang="en">dx2= -9*x2 + 3*x1*x3</tr>
+                <tr lang="ru" finished="false">x2 = -9*x2 + 3*x1*x3</tr>
             </par>
             <par>
                 <tr lang="en">dx3= -5*x3 - 7*x1*x2 + reyn</tr>
+                <tr lang="ru" finished="false">x3 = -5*x3 - 7*x1*x2 + реин</tr>
             </par>
             <par>
                 <tr lang="en">dx4= -5*x4 - x1*x5</tr>
+                <tr lang="ru" finished="false">x4 = -5*x4 - x1*x5</tr>
             </par>
             <par>
                 <tr lang="en">dx5= -x5 - 3*x1*x4</tr>
+                <tr lang="ru" finished="false">x5 = -x5 - 3*x1*x4</tr>
             </par>
             <par>
                 <tr lang="en">---</tr>
+                <tr lang="ru" finished="false">-</tr>
             </par>
             <par>
                 <tr lang="en">Where &lt;reyn&gt; is the Reynolds number, and exibits an interesting
@@ -46,26 +54,37 @@
                 critical values of &lt;reyn&gt;, the most interesting feature is the stochastic
                 behavior observed when R1 &lt; &lt;reyn&gt; &lt; R2. With 28.73 &lt; R1 &gt; 29.0
                 and R2 ± = 33.43.</tr>
+                <tr lang="ru" finished="false">Где &lt;reyn&gt; — это число Рейнольдса, и выделяют
+                интересное разнообразие различных поведений для разных диапазонов &lt;reyn&gt;. Для
+                критических значений &lt;reyn&gt; наиболее интересной особенностью является
+                стохастическое поведение, наблюдаемое при R1 &lt; &lt;reyn&gt; &lt; R2. С 28,73
+                &lt; R1 &gt; 29,0 и R2 ± = 33,43.</tr>
             </par>
         </info>
         <arguments>
             <argument name="A" type="float">
                 <tr lang="en">a value (optional)</tr>
+                <tr lang="ru" finished="false">значение (факультативно)</tr>
             </argument>
             <argument name="B" type="float">
                 <tr lang="en">b value (optional)</tr>
+                <tr lang="ru" finished="false">b значение (факультативно)</tr>
             </argument>
             <argument name="C" type="float">
                 <tr lang="en">c value (optional)</tr>
+                <tr lang="ru" finished="false">c значение (факультативно)</tr>
             </argument>
             <argument name="D" type="float">
                 <tr lang="en">d value (optional)</tr>
+                <tr lang="ru" finished="false">d значение (факультативно)</tr>
             </argument>
             <argument name="R" type="float">
                 <tr lang="en">r value (optional)</tr>
+                <tr lang="ru" finished="false">r значение (факультативно)</tr>
             </argument>
             <argument name="DT" type="float">
                 <tr lang="en">dt value (optional)</tr>
+                <tr lang="ru" finished="false">dt значение (факультативно)</tr>
             </argument>
         </arguments>
         <methods>
@@ -73,54 +92,64 @@
             <method name="a">
                 <param name="A" type="float" required="true">
                     <tr lang="en">a value</tr>
+                    <tr lang="ru" finished="false">ценность</tr>
                 </param>
             </method>
             <!-- b -->
             <method name="b">
                 <param name="B" type="float" required="true">
                     <tr lang="en">b value</tr>
+                    <tr lang="ru" finished="false">b значение</tr>
                 </param>
             </method>
             <!-- c -->
             <method name="c">
                 <param name="C" type="float" required="true">
                     <tr lang="en">c value</tr>
+                    <tr lang="ru" finished="false">c значение</tr>
                 </param>
             </method>
             <!-- d -->
             <method name="d">
                 <param name="D" type="float" required="true">
                     <tr lang="en">d value</tr>
+                    <tr lang="ru" finished="false">d значение</tr>
                 </param>
             </method>
             <!-- dt -->
             <method name="dt">
                 <param name="DT" type="float" required="true">
                     <tr lang="en">dt value</tr>
+                    <tr lang="ru" finished="false">значение dt</tr>
                 </param>
             </method>
             <!-- om -->
             <method name="om">
                 <param name="OM" type="int" required="true">
                     <tr lang="en">enables output when cut or fold value is changed</tr>
+                    <tr lang="ru" finished="false">позволяет вывод при изменении значения разреза
+                    или сгиба</tr>
                 </param>
             </method>
             <!-- r -->
             <method name="r">
                 <param name="R" type="float" required="true">
                     <tr lang="en">r value</tr>
+                    <tr lang="ru" finished="false">r значение</tr>
                 </param>
             </method>
             <!-- reset -->
             <method name="reset">
                 <info>
                     <tr lang="en">reset state</tr>
+                    <tr lang="ru" finished="false">состояние сброса</tr>
                 </info>
             </method>
             <!-- set -->
             <method name="set">
                 <param name="SET" type="float" required="true">
                     <tr lang="en">set to value</tr>
+                    <tr lang="ru" finished="false">установить ценность</tr>
                 </param>
             </method>
         </methods>
@@ -128,15 +157,36 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output value</tr>
+                    <tr lang="ru" finished="false">выходная стоимость</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>a outlet</outlet>
-            <outlet>b outlet</outlet>
-            <outlet>c outlet</outlet>
-            <outlet>d outlet</outlet>
-            <outlet>e outlet</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">a outlet</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">b outlet</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">c outlet</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">d outlet</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">e outlet</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

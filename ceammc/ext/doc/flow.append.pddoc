@@ -23,11 +23,14 @@
             <par>
                 <tr lang="en">Note: if you want to specify property message in the init argument,
                 you have to quote it with double-quotes</tr>
+                <tr lang="ru" finished="false">Примечание: если вы хотите указать сообщение свойств
+                в аргументе init, вы должны процитировать его двойными цитатами</tr>
             </par>
         </info>
         <arguments>
             <argument name="MSG" type="list">
                 <tr lang="en">init value for appended message</tr>
+                <tr lang="ru" finished="false">значение init для добавленного сообщения</tr>
             </argument>
         </arguments>
         <properties>
@@ -35,26 +38,35 @@
             <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">
                 <tr lang="en">append delay. If &lt;0 append immediately at the same logical time,
                 if equal zero - output after next DSP block.</tr>
+                <tr lang="ru" finished="false">Добавить задержку. Если &lt;0 приложить сразу в одно
+                и то же логическое время, если равно нулю - вывод после следующего блока DSP.</tr>
             </property>
             <!-- @msg -->
             <property name="@msg" type="list" default="">
                 <tr lang="en">appended message</tr>
+                <tr lang="ru" finished="false">прилагаемое сообщение</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">input message</tr>
+                    <tr lang="ru" finished="false">вводное сообщение</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">set append value</tr>
+                    <tr lang="ru" finished="false">установленная добавленная стоимость</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output message</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output message</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

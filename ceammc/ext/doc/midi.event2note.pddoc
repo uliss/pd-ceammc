@@ -23,13 +23,26 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">MidiEvent message</tr>
+                    <tr lang="ru" finished="false">Сообщение MidiEvent</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>pair: note, velocity</outlet>
-            <outlet>note duration in milliseconds</outlet>
-            <outlet>note track</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">pair: note, velocity</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">note duration in milliseconds</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">note track</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

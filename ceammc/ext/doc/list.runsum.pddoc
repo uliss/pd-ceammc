@@ -25,32 +25,44 @@
             <par>
                 <tr lang="en">Computes the partial sums of the elements in the subranges of the
                 input list</tr>
+                <tr lang="ru" finished="false">Вычисляет частичные суммы элементов в поддиапазонах
+                входного списка</tr>
             </par>
             <par>
                 <tr lang="en">• y0 = x0</tr>
+                <tr lang="ru" finished="false">• y0 = x0</tr>
             </par>
             <par>
                 <tr lang="en">• y1 = x0 + x1</tr>
+                <tr lang="ru" finished="false">• y1 = x0 + x1</tr>
             </par>
             <par>
                 <tr lang="en">• y2 = x0 + x1 + x2</tr>
+                <tr lang="ru" finished="false">• y2 = x0 + x1 + x2</tr>
             </par>
             <par>
                 <tr lang="en">• y3 = x0 + x1 + x2 + x3</tr>
+                <tr lang="ru" finished="false">• y3 = x0 + x1 + x2 + x3</tr>
             </par>
             <par>
                 <tr lang="en">etc...</tr>
+                <tr lang="ru" finished="false">и т.д. ...</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">result list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

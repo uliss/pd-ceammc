@@ -24,26 +24,39 @@
             <par>
                 <tr lang="en">Predicate object should accept atom and output 0 (leave element) or 1
                 (remove).</tr>
+                <tr lang="ru" finished="false">Предикатный объект должен принимать атом и выводить
+                0 (оставной элемент) или 1 (удалить).</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">value from predicate</tr>
+                    <tr lang="ru" finished="false">значение из предиката</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list (or mlist) with some removed elements</outlet>
-            <outlet>atom to predicate</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output list (or mlist) with some removed elements</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">atom to predicate</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

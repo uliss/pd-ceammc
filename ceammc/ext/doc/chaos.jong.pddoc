@@ -25,12 +25,16 @@
         <info>
             <par>
                 <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
+                <tr lang="ru" finished="false">Неинтерполирующий генератор, основанный на
+                разностных уравнениях:</tr>
             </par>
             <par>
                 <tr lang="en">x[n+1] = sin(a * y[n]) - cos(b * x[n])</tr>
+                <tr lang="ru" finished="false">x[n+1] = sin(a * y[n]) — cos(b * x[n])</tr>
             </par>
             <par>
                 <tr lang="en">y[n+1] = sin(c * x[n]) - cos(d * y[n])</tr>
+                <tr lang="ru" finished="false">y[n+1] ] = sin(c * x[n]) - cos(d * y[n])</tr>
             </par>
             <a href="http://paulbourke.net/fractals/peterdejong/">wiki: Peter de Jong
             Attractors</a>
@@ -38,21 +42,27 @@
         <arguments>
             <argument name="A" type="float">
                 <tr lang="en">a-value (default 1.4)</tr>
+                <tr lang="ru" finished="false">a-значение (дефолт 1.4)</tr>
             </argument>
             <argument name="B" type="float">
                 <tr lang="en">b-value (default -2.3)</tr>
+                <tr lang="ru" finished="false">b-значение (дефолт -2,3)</tr>
             </argument>
             <argument name="C" type="float">
                 <tr lang="en">c-value (default 2.4)</tr>
+                <tr lang="ru" finished="false">c - значение (по умолчанию 2.4)</tr>
             </argument>
             <argument name="D" type="float">
                 <tr lang="en">d-value (default -2.1)</tr>
+                <tr lang="ru" finished="false">d-значение (дефолт -2.1)</tr>
             </argument>
             <argument name="X" type="float">
                 <tr lang="en">x init value (default 0)</tr>
+                <tr lang="ru" finished="false">x init значение (по умолчанию 0)</tr>
             </argument>
             <argument name="Y" type="float">
                 <tr lang="en">y init value (default 0)</tr>
+                <tr lang="ru" finished="false">y значение init (по умолчанию 0)</tr>
             </argument>
         </arguments>
         <methods>
@@ -60,24 +70,32 @@
             <method name="a">
                 <info>
                     <tr lang="en">set a-value, does not not change init state value</tr>
+                    <tr lang="ru" finished="false">Устанавливает a-значение, не изменяет его
+                    состояние</tr>
                 </info>
             </method>
             <!-- b -->
             <method name="b">
                 <info>
                     <tr lang="en">set b-value, does not not change init state value</tr>
+                    <tr lang="ru" finished="false">Устанавливает b-значение, не изменяет его
+                    состояние</tr>
                 </info>
             </method>
             <!-- c -->
             <method name="c">
                 <info>
                     <tr lang="en">set c-value, does not not change init state value</tr>
+                    <tr lang="ru" finished="false">Устанавливается c-значение, не изменяется его
+                    состояние</tr>
                 </info>
             </method>
             <!-- d -->
             <method name="d">
                 <info>
                     <tr lang="en">set d-value, does not not change init state value</tr>
+                    <tr lang="ru" finished="false">заданная d-значение, не меняющая значения
+                    состояния</tr>
                 </info>
             </method>
             <!-- om -->
@@ -86,33 +104,44 @@
                     <tr lang="en">turn on/off method output mode. If true (1) outputs new generated
                     value after each a,b,d,e,x,y method call, if 0 - change values without output.
                     Default is 0.</tr>
+                    <tr lang="ru" finished="false">режим вывода метода включения/выключения. Если
+                    истинное (1) выводит новое сгенерированное значение после каждого вызова метода
+                    a,b,d,e,x,y, если 0 - изменяет значения без вывода. По умолчанию 0.</tr>
                 </info>
                 <param name="BOOL" type="int" required="true">
                     <tr lang="en">output mode</tr>
+                    <tr lang="ru" finished="false">выходной режим</tr>
                 </param>
             </method>
             <!-- reset -->
             <method name="reset">
                 <info>
                     <tr lang="en">set to initial state</tr>
+                    <tr lang="ru" finished="false">Установлено начальное состояние</tr>
                 </info>
             </method>
             <!-- set -->
             <method name="set">
                 <info>
                     <tr lang="en">set A B C D E X Y values. Also updates init state vars.</tr>
+                    <tr lang="ru" finished="false">установить значения A B C D E X Y. Обновление
+                    init state vars.</tr>
                 </info>
             </method>
             <!-- x -->
             <method name="x">
                 <info>
                     <tr lang="en">set current x-value, does not not change init state value</tr>
+                    <tr lang="ru" finished="false">Устанавливает текущее x-значение, не изменяет
+                    его состояние</tr>
                 </info>
             </method>
             <!-- y -->
             <method name="y">
                 <info>
                     <tr lang="en">set current y-value, does not not change init state value</tr>
+                    <tr lang="ru" finished="false">Устанавливает текущее значение y, не изменяет
+                    его состояние</tr>
                 </info>
             </method>
         </methods>
@@ -120,12 +149,21 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">generate and output new value</tr>
+                    <tr lang="ru" finished="false">генерировать и производить новую стоимость</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new generated x-value</outlet>
-            <outlet>new generated y-value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">new generated x-value</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">new generated y-value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

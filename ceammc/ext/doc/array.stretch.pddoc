@@ -149,11 +149,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">starts processing</tr>
+                    <tr lang="ru" finished="false">Начинается обработка</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float value - number of result samples</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float value - number of result samples</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -22,25 +22,33 @@
         <info>
             <par>
                 <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
+                <tr lang="ru" finished="false">Неинтерполирующий генератор, основанный на
+                разностных уравнениях:</tr>
             </par>
             <par>
                 <tr lang="en">y(n+1) = (y(n) + k * sin(x(n))) % 2pi</tr>
+                <tr lang="ru" finished="false">y(n+1) = (y(n) + k* sin(x(n))) % 2pi</tr>
             </par>
             <par>
                 <tr lang="en">x(n+1) = (x(n) + y(n+1)) % 2pi</tr>
+                <tr lang="ru" finished="false">x(n+1) = (x(n) + y(n+1) % 2pi</tr>
             </par>
             <a href="https://en.wikipedia.org/wiki/Standard_map">wiki: Standard map</a>
             <par>
                 <tr lang="en">The properties of chaos of the standard map were established by Boris
                 Chirikov in 1969</tr>
+                <tr lang="ru" finished="false">Свойства хаоса стандартной карты были установлены
+                Борисом Чириковым в 1969 году.</tr>
             </par>
         </info>
         <arguments>
             <argument name="X" type="float">
                 <tr lang="en">initial x value, default 0.5</tr>
+                <tr lang="ru" finished="false">начальное значение x, по умолчанию 0,5</tr>
             </argument>
             <argument name="Y" type="float">
                 <tr lang="en">initial y value, default 0</tr>
+                <tr lang="ru" finished="false">начальное значение y, по умолчанию 0</tr>
             </argument>
         </arguments>
         <properties />
@@ -49,17 +57,28 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">generation frequency, minimal value 0.001Hz</tr>
+                    <tr lang="ru" finished="false">частота генерации, минимальное значение 0,001
+                    Гц</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">k-value</tr>
+                    <tr lang="ru" finished="false">значение k</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">outputs x-value mapped to [-1..1] range</outlet>
-            <outlet type="audio">outputs y-value mapped to [-1..1] range</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">outputs x-value mapped to [-1..1] range</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">outputs y-value mapped to [-1..1] range</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

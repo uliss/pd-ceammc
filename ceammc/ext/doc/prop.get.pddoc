@@ -48,10 +48,26 @@
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1">connected to destination object</outlet>
-            <outlet number="2">output of first requested property</outlet>
-            <outlet number="...">output of ... requested property</outlet>
-            <outlet number="n+1">output of n-th requested property</outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">connected to destination object</tr>
+                </out>
+            </outlet>
+            <outlet number="2">
+                <out type="any">
+                    <tr lang="en">output of first requested property</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">output of ... requested property</tr>
+                </out>
+            </outlet>
+            <outlet number="n+1">
+                <out type="any">
+                    <tr lang="en">output of n-th requested property</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

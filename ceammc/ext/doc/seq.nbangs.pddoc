@@ -113,8 +113,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang output</outlet>
-            <outlet>[i IDX N( - bang index or [done( when done</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang output</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">[i IDX N( - bang index or [done( when done</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

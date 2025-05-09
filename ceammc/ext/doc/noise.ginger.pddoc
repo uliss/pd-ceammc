@@ -22,24 +22,31 @@
         <info>
             <par>
                 <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
+                <tr lang="ru" finished="false">Неинтерполирующий генератор, основанный на
+                разностных уравнениях:</tr>
             </par>
             <par>
                 <tr lang="en">x(n+1) = 1 - y(n) + seed * |x(n)|</tr>
+                <tr lang="ru" finished="false">x(n+1) = 1 - y(n) + семя * |x(n) |</tr>
             </par>
             <par>
                 <tr lang="en">y(n+1) = x(n)</tr>
+                <tr lang="ru" finished="false">y(n+1) = x(n)</tr>
             </par>
             <a href="https://en.wikipedia.org/wiki/Gingerbreadman_map">wiki: Gingerbreadman map</a>
         </info>
         <arguments>
             <argument name="SEED" type="float">
                 <tr lang="en">seed value, default 0.82</tr>
+                <tr lang="ru" finished="false">семенное значение, по умолчанию 0,82</tr>
             </argument>
             <argument name="X" type="float">
                 <tr lang="en">initial x value, default 0.7</tr>
+                <tr lang="ru" finished="false">начальное значение x, по умолчанию 0,7</tr>
             </argument>
             <argument name="Y" type="float">
                 <tr lang="en">initial y value, default 1.2</tr>
+                <tr lang="ru" finished="false">начальное значение y, по умолчанию 1.2</tr>
             </argument>
         </arguments>
         <properties />
@@ -48,30 +55,40 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset seed, x and y values to defaults</tr>
+                    <tr lang="ru" finished="false">сбрасывать значения семян, x и y по
+                    умолчанию</tr>
                 </info>
             </method>
             <!-- seed -->
             <method name="seed">
                 <info>
                     <tr lang="en">set seed value and update default</tr>
+                    <tr lang="ru" finished="false">установить начальное значение и обновить по
+                    умолчанию</tr>
                 </info>
             </method>
             <!-- set -->
             <method name="set">
                 <info>
                     <tr lang="en">set seed, x and y values, updates defaults</tr>
+                    <tr lang="ru" finished="false">установить значения семени, x и y, обновить по
+                    умолчанию</tr>
                 </info>
             </method>
             <!-- x -->
             <method name="x">
                 <info>
                     <tr lang="en">set x value and update default</tr>
+                    <tr lang="ru" finished="false">установить значение x и обновить по
+                    умолчанию</tr>
                 </info>
             </method>
             <!-- y -->
             <method name="y">
                 <info>
                     <tr lang="en">set y value and update default</tr>
+                    <tr lang="ru" finished="false">установить значение y и обновить по
+                    умолчанию</tr>
                 </info>
             </method>
         </methods>
@@ -79,12 +96,22 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs current x/y values and generates new one</tr>
+                    <tr lang="ru" finished="false">выводит текущие значения x/y и генерирует
+                    новые</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs x-value</outlet>
-            <outlet>outputs y-value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs x-value</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs y-value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

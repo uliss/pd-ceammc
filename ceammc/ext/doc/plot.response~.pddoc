@@ -25,38 +25,58 @@
         <arguments>
             <argument name="N" type="int" minvalue="32" maxvalue="8192">
                 <tr lang="en">@n property</tr>
+                <tr lang="ru" finished="false">@n имущество</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @db -->
             <property name="@db" type="bool" default="0">
                 <tr lang="en">decibel mode. It true outputs amplitude in decibels</tr>
+                <tr lang="ru" finished="false">Режим децибел. Истинная амплитуда выходов в
+                децибелах</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="32" maxvalue="8192" default="512">
                 <tr lang="en">number of processed samples</tr>
+                <tr lang="ru" finished="false">Количество обработанных образцов</tr>
             </property>
             <!-- @sr -->
             <property name="@sr" type="bool" default="0">
                 <tr lang="en">using samplerate. If true output in [0..SR/2] instead of [0..pi]</tr>
+                <tr lang="ru" finished="false">Использование сэмплрейта. Если истинный выход в
+                [0..SR/2] вместо [0..pi]</tr>
             </property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">starts response calculation</tr>
+                    <tr lang="ru" finished="false">Начинается расчет ответа</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">frequency response</outlet>
-            <outlet type="audio">phase response</outlet>
-            <outlet>output to [array.plot~] or [ui.plot~]</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">frequency response</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">phase response</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output to [array.plot~] or [ui.plot~]</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

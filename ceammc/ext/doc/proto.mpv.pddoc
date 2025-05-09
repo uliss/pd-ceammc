@@ -152,7 +152,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>mpv output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">mpv output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

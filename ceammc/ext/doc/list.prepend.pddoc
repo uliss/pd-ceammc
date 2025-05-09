@@ -22,48 +22,62 @@
         <info>
             <par>
                 <tr lang="en">Works with data atoms</tr>
+                <tr lang="ru" finished="false">Работа с атомами данных</tr>
             </par>
         </info>
         <arguments>
             <argument name="VALUE" type="list">
                 <tr lang="en">prepend values</tr>
+                <tr lang="ru" finished="false">предопределенные значения</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @value -->
             <property name="@value" type="list" default="">
                 <tr lang="en">prepend values</tr>
+                <tr lang="ru" finished="false">предопределенные значения</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">treated as empty input list</tr>
+                    <tr lang="ru" finished="false">рассматривается как пустой входной список</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">input float</tr>
+                    <tr lang="ru" finished="false">входной поплавок</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">input symbol</tr>
+                    <tr lang="ru" finished="false">входной символ</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">input data</tr>
+                    <tr lang="ru" finished="false">входные данные</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">set prepended atom or list</tr>
+                    <tr lang="ru" finished="false">Предполагаемый атом или список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output concatenated list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output concatenated list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

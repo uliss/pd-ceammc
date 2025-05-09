@@ -39,11 +39,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">calculates and outputs variance</tr>
+                    <tr lang="ru" finished="false">вычисления и отклонения результатов</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>variance</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">variance</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

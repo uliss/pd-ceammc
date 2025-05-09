@@ -25,6 +25,7 @@
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">
                 <tr lang="en">frequency</tr>
+                <tr lang="ru" finished="false">частота</tr>
             </argument>
         </arguments>
         <properties>
@@ -35,14 +36,17 @@
             <property name="@freq" type="float" default="0" minvalue="0" maxvalue="1000"
             units="hertz">
                 <tr lang="en">initial frequency</tr>
+                <tr lang="ru" finished="false">Начальная частота</tr>
             </property>
             <!-- @pause -->
             <property name="@pause" type="bool" default="0">
                 <tr lang="en">pause oscillator at current value</tr>
+                <tr lang="ru" finished="false">осциллятор паузы при текущем значении</tr>
             </property>
             <!-- @phase -->
             <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">initial phase</tr>
+                <tr lang="ru" finished="false">начальный этап</tr>
             </property>
         </properties>
         <methods>
@@ -50,6 +54,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset to initial state</tr>
+                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
                 </info>
             </method>
         </methods>
@@ -57,16 +62,22 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">frequency in Hz</tr>
+                    <tr lang="ru" finished="false">частота в Гц</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">reset phase</tr>
+                    <tr lang="ru" finished="false">фаза сброса</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal in [0, 1] range</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal in [0, 1] range</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

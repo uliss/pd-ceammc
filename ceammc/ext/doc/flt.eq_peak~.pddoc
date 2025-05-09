@@ -25,12 +25,16 @@
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
                 <tr lang="en">peak frequency</tr>
+                <tr lang="ru" finished="false">пиковая частота</tr>
             </argument>
             <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">
                 <tr lang="en">level at fx (boost if &gt;0 or cut if &lt;0)</tr>
+                <tr lang="ru" finished="false">уровень в fx (буст если &gt;0 или вырезать если
+                &lt;0)</tr>
             </argument>
             <argument name="BANDWIDTH" type="float" units="hertz" minvalue="1" maxvalue="5000">
                 <tr lang="en">bandwidth of peak</tr>
+                <tr lang="ru" finished="false">полоса пропускания пика</tr>
             </argument>
         </arguments>
         <properties>
@@ -41,27 +45,36 @@
             <property name="@bandwidth" type="float" units="hertz" minvalue="1" maxvalue="5000"
             default="100">
                 <tr lang="en">bandwidth of peak</tr>
+                <tr lang="ru" finished="false">полоса пропускания пика</tr>
             </property>
             <!-- @freq -->
             <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="1000">
                 <tr lang="en">peak frequency</tr>
+                <tr lang="ru" finished="false">пиковая частота</tr>
             </property>
             <!-- @gain -->
             <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
             default="0">
                 <tr lang="en">level at fx (boost if &gt;0 or cut if &lt;0)</tr>
+                <tr lang="ru" finished="false">уровень в fx (буст если &gt;0 или вырезать если
+                &lt;0)</tr>
             </property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">filtered signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">filtered signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

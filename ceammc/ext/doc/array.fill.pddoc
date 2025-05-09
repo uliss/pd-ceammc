@@ -175,11 +175,16 @@
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">change array name</tr>
+                    <tr lang="ru" finished="false">изменить имя файла</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang on finish</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">bang on finish</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

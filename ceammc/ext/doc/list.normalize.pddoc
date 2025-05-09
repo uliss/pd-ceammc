@@ -20,41 +20,56 @@
         <info>
             <par>
                 <tr lang="en">There are two modes of normalization:</tr>
+                <tr lang="ru" finished="false">Существует два способа нормализации:</tr>
             </par>
             <par>
                 <tr lang="en">1. by sum - multiply all elements to such number to get total sum =
                 1.0</tr>
+                <tr lang="ru" finished="false">1. по сумме - умножьте все элементы на такое число,
+                чтобы получить общую сумму = 1,0</tr>
             </par>
             <par>
                 <tr lang="en">2. by value range - maps all values to range 0..1 lineary</tr>
+                <tr lang="ru" finished="false">2. по диапазону значений - отображает все значения в
+                диапазоне 0,1</tr>
             </par>
         </info>
         <properties>
             <!-- @by -->
             <property name="@by" type="symbol" enum="sum range" default="sum">
                 <tr lang="en">normalization mode</tr>
+                <tr lang="ru" finished="false">режим нормализации</tr>
             </property>
             <!-- @range -->
             <property name="@range" type="alias">
                 <tr lang="en">alias to @by range</tr>
+                <tr lang="ru" finished="false">Исполнитель: @by Range</tr>
             </property>
             <!-- @sum -->
             <property name="@sum" type="alias">
                 <tr lang="en">alias to @by sum</tr>
+                <tr lang="ru" finished="false">псевдоним @by sum</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list of floats. Non float values are rejected</tr>
+                    <tr lang="ru" finished="false">Список входных поплавков. Неподвижные значения
+                    отклонены</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">same as list</tr>
+                    <tr lang="ru" finished="false">Тот же список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">output list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

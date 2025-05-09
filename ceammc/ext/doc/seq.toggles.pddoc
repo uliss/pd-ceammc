@@ -149,9 +149,17 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>1 and 0</outlet>
-            <outlet>[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration, [ed MS( - event
-            duration, [el MS( event length or [done( when done</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">1 and 0</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration,
+                    [ed MS( - event duration, [el MS( event length or [done( when done</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

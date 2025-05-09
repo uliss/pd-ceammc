@@ -89,14 +89,20 @@
             <inlet>
                 <xinfo>
                     <tr lang="en">property request</tr>
+                    <tr lang="ru" finished="false">имущественный запрос</tr>
                 </xinfo>
                 <xinfo on="bang">
                     <tr lang="en">output dict with all properties</tr>
+                    <tr lang="ru" finished="false">выходной дикт со всеми свойствами</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>dict or property output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">dict or property output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

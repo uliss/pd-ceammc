@@ -26,39 +26,54 @@
             <par>
                 <tr lang="en">Note: you can get/set object properties only via prop.set/prop.get
                 objects</tr>
+                <tr lang="ru" finished="false">Примечание: Вы можете получить/установить свойства
+                объекта только через prop.set/prop.get объекты</tr>
             </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="24">
                 <tr lang="en">number of outlets</tr>
+                <tr lang="ru" finished="false">количество торговых точек</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @index -->
             <property name="@index" type="int" minvalue="0" default="0">
                 <tr lang="en">current demultiplexer output index</tr>
+                <tr lang="ru" finished="false">Текущий выходной индекс демультиплексора</tr>
             </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="2" default="2" maxvalue="24"
             access="initonly">
                 <tr lang="en">number of outlets</tr>
+                <tr lang="ru" finished="false">количество торговых точек</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">input flow inlet</tr>
+                    <tr lang="ru" finished="false">входной входной поток</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">output selector</tr>
+                    <tr lang="ru" finished="false">выходной селектор</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet>demultiplexer first output</outlet>
-            <outlet number="n">demultiplexer N-th output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">demultiplexer first output</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">demultiplexer N-th output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

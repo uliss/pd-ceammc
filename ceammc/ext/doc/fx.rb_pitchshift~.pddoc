@@ -19,6 +19,7 @@
         <arguments>
             <argument name="TRANSPOSE" type="float" minvalue="-24" units="semitone" maxvalue="24">
                 <tr lang="en">transposition in semitones</tr>
+                <tr lang="ru" finished="false">транспозиция в полутонах</tr>
             </argument>
         </arguments>
         <properties>
@@ -30,6 +31,12 @@
                 'precussive' detect percussive transients. 'piano' use an onset detector with less
                 of a bias toward percussive transients. This may give better results with certain
                 material (e.g. relatively monophonic piano music).</tr>
+                <tr lang="ru" finished="false">контроль типа используемого преходящего детектора.
+                «Сложный» преходящий детектор общего назначения, который, вероятно, будет полезен
+                для большинства ситуаций. «Практическое» обнаружение перкуссионных переходных
+                процессов. «Фортепиано» использует детектор начала с меньшим уклоном в сторону
+                ударных переходных процессов. Это может дать лучшие результаты с определенным
+                материалом (например, относительно монофоническая фортепианная музыка).</tr>
             </property>
             <!-- @formant -->
             <property name="@formant" type="bool" default="0">
@@ -38,10 +45,17 @@
                 This permits shifting the note frequency without so substantially affecting the
                 perceived pitch profile of the voice or instrument. 'False' apply no special
                 formant processing. The spectral envelope will be pitch shifted as normal.</tr>
+                <tr lang="ru" finished="false">управлять обработкой формантной формы (спектральной
+                оболочки) при смене шага. Если «правда», сохраните спектральную оболочку
+                несдвинутого сигнала. Это позволяет изменять частоту нот без существенного влияния
+                на воспринимаемый профиль тона голоса или инструмента. "Ложное" не применяется
+                специальная обработка форманта. Спектральная оболочка будет смещена как
+                обычно.</tr>
             </property>
             <!-- @latency -->
             <property name="@latency" type="float" units="sample" default="1024" access="readonly">
                 <tr lang="en">object latency</tr>
+                <tr lang="ru" finished="false">задержка объекта</tr>
             </property>
             <!-- @phase -->
             <property name="@phase" type="bool" default="1">
@@ -51,6 +65,12 @@
                 slightly softer, phasier sound. 'True' adjust phases when stretching in such a way
                 as to try to retain the continuity of phase relationships between adjacent
                 frequency bins whose phases are behaving in similar ways</tr>
+                <tr lang="ru" finished="false">контроль регулировки частотных фаз компонентов из
+                одного окна анализа в другое в непереходных сегментах. «Ложное» регулирует фазу в
+                каждой частотной корзине независимо от ее соседей. Это обычно приводит к более
+                мягкому, более фазистому звуку. «Истинное» регулирует фазы при растяжении таким
+                образом, чтобы попытаться сохранить непрерывность фазовых отношений между соседними
+                частотными бункерами, фазы которых ведут себя аналогичным образом.</tr>
             </property>
             <!-- @quality -->
             <property name="@quality" type="symbol" enum="speed quality consistency"
@@ -62,10 +82,19 @@
                 1.0-ratio level. Unlike the previous two options, this avoids discontinuities when
                 moving across the 1.0 pitch scale in real-time. It also consumes more CPU than the
                 others in the case where the pitch scale is exactly 1.0.</tr>
+                <tr lang="ru" finished="false">Метод, используемый для сдвига шага. «Скорость»
+                может звучать менее ясно, чем «качество», особенно для больших сдвигов шага. Метод
+                «качества» имеет стоимость процессора, приблизительно пропорциональную требуемому
+                сдвигу частоты. «Последовательность» дает наибольшую согласованность при
+                использовании для создания небольших вариаций высоты вокруг уровня 1,0-отношение. В
+                отличие от предыдущих двух вариантов, это позволяет избежать разрывов при
+                перемещении по шкале шага 1,0 в режиме реального времени. Он также потребляет
+                больше процессора, чем другие в случае, когда шкала шага составляет ровно 1,0.</tr>
             </property>
             <!-- @scale -->
             <property name="@scale" type="float" minvalue="0.25" maxvalue="4" default="1">
                 <tr lang="en">transposition as ratio</tr>
+                <tr lang="ru" finished="false">транспозиция как отношение</tr>
             </property>
             <!-- @smooth -->
             <property name="@smooth" type="bool" default="0">
@@ -73,6 +102,11 @@
                 true result in a softer sound with some audible artifacts around sharp transients,
                 but it may be appropriate for longer stretches of some instruments and can mix well
                 with @window short</tr>
+                <tr lang="ru" finished="false">контролировать использование FFT окна-презуммы и
+                сглаживания домена времени. Если это действительно приводит к более мягкому звуку с
+                некоторыми слышимыми артефактами вокруг резких переходов, но это может быть уместно
+                для более длинных отрезков некоторых инструментов и может хорошо сочетаться с
+                коротким окном.</tr>
             </property>
             <!-- @trans -->
             <property name="@trans" type="symbol" enum="crisp mixed smooth" default="crisp">
@@ -89,11 +123,26 @@
                 very good for certain types of music and fairly bad for others. 'smooth' do not
                 reset component phases at any point. The results will be smoother and more regular
                 but may be less clear than with either of the other @trans settings</tr>
+                <tr lang="ru" finished="false">управлять механизмом сбрасывания фаз частоты
+                компонентов, который может использоваться в переходных точках для обеспечения
+                ясности и реализма перкуссии и других значительных переходных звуков. «четкие» фазы
+                компонентов сброса на пике каждого переходного периода (начало значительной ноты
+                или ударного события). Это обычно приводит к четкому звучанию, но не всегда
+                последовательно и может вызвать перебои в стабильных звуках, присутствующих
+                одновременно с переходными событиями. Свойство @detector можно использовать для
+                настройки этого в некоторой степени. «смешанные» фазы компонентов сброса на пике
+                каждого переходного периода, за пределами диапазона частот, типичного для
+                музыкальных фундаментальных частот. Результаты могут быть более регулярными для
+                смешанных устойчивых и перкуссивных нот, чем «четкие», но с более «фазным» звуком.
+                Баланс может звучать очень хорошо для определенных типов музыки и довольно плохо
+                для других. Результаты будут более плавными и регулярными, но могут быть менее
+                четкими, чем при любой из других настроек @trans.</tr>
             </property>
             <!-- @transpose -->
             <property name="@transpose" type="float" minvalue="-24" units="semitone" maxvalue="24"
             default="0">
                 <tr lang="en">transposition in semitones</tr>
+                <tr lang="ru" finished="false">транспозиция в полутонах</tr>
             </property>
             <!-- @window -->
             <property name="@window" type="symbol" enum="standard short long" default="standard">
@@ -101,22 +150,33 @@
                 than the other window options in most situations. 'short' may result in crisper
                 sound for audio that depends strongly on its timing qualities. 'long' is likely to
                 result in a smoother sound at the expense of clarity and timing</tr>
+                <tr lang="ru" finished="false">Размер окна. Ожидается, что «стандарт» даст лучшие
+                результаты, чем другие варианты окон в большинстве ситуаций. «короткий» может
+                привести к более четкому звуку для звука, который сильно зависит от его временных
+                качеств. «Длинный» может привести к более плавному звуку за счет ясности и
+                времени.</tr>
             </property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">pitch shift in semitones</tr>
+                    <tr lang="ru" finished="false">смещение шага в полутонах</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -20,6 +20,8 @@
             <par>
                 <tr lang="en">Reverberator based on the Dattorro reverb topology with default
                 reverb parameters from the original paper</tr>
+                <tr lang="ru" finished="false">Ревербератор на основе топологии реверберации
+                Dattorro с параметрами реверберации по умолчанию из оригинальной бумаги</tr>
             </par>
             <a href="https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf">
             https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf</a>
@@ -27,10 +29,13 @@
         <arguments>
             <argument name="DECAY" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">decay rate, infinite decay = 1.0</tr>
+                <tr lang="ru" finished="false">скорость распада, бесконечный распад = 1,0</tr>
             </argument>
             <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals</tr>
+                <tr lang="ru" finished="false">Пропорция смеси между исходными (сухими) и
+                «вредными» (мокрыми) сигналами</tr>
             </argument>
         </arguments>
         <properties>
@@ -40,45 +45,59 @@
             <!-- @bw -->
             <property name="@bw" type="float" minvalue="0" maxvalue="1" default="0.9995">
                 <tr lang="en">band-width filter (pre filtering)</tr>
+                <tr lang="ru" finished="false">Широкополосный фильтр (pre filtering)</tr>
             </property>
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @damp -->
             <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0.0005">
                 <tr lang="en">high-frequency damping. No damping = 0.0</tr>
+                <tr lang="ru" finished="false">высокочастотное демпфирование. Нет демпфирования =
+                0,0</tr>
             </property>
             <!-- @ddiff1 -->
             <property name="@ddiff1" type="float" minvalue="0" maxvalue="1" default="0.5">
                 <tr lang="en">decay diffusion factor 1</tr>
+                <tr lang="ru" finished="false">коэффициент диффузии распада 1</tr>
             </property>
             <!-- @ddiff2 -->
             <property name="@ddiff2" type="float" minvalue="0" maxvalue="1" default="0.7">
                 <tr lang="en">decay diffusion factor 2</tr>
+                <tr lang="ru" finished="false">коэффициент диффузии распада 2</tr>
             </property>
             <!-- @decay -->
             <property name="@decay" type="float" minvalue="0" maxvalue="1" default="0.5">
                 <tr lang="en">decay rate. Infinite decay = 1.0</tr>
+                <tr lang="ru" finished="false">Скорость распада. Бесконечный распад = 1,0</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.33">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet</tr>
+                <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
+                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
             </property>
             <!-- @idiff1 -->
             <property name="@idiff1" type="float" minvalue="0" maxvalue="1" default="0.625">
                 <tr lang="en">input diffusion factor 1</tr>
+                <tr lang="ru" finished="false">входной коэффициент диффузии 1</tr>
             </property>
             <!-- @idiff2 -->
             <property name="@idiff2" type="float" minvalue="0" maxvalue="1" default="0.75">
                 <tr lang="en">input diffusion factor 2</tr>
+                <tr lang="ru" finished="false">входной коэффициент диффузии 2</tr>
             </property>
             <!-- @predelay -->
             <property name="@predelay" type="float" minvalue="0" maxvalue="100" default="40"
             units="millisecond">
                 <tr lang="en">a delay operating on the 'wet' signal. Large values will provide the
                 impression of a larger room</tr>
+                <tr lang="ru" finished="false">Задержка работы по сигналу «мокрый». Большие
+                значения обеспечат впечатление большой комнаты</tr>
             </property>
         </properties>
         <methods>
@@ -86,6 +105,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset reverb</tr>
+                    <tr lang="ru" finished="false">реверберация</tr>
                 </info>
             </method>
         </methods>
@@ -93,17 +113,27 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">left channel</tr>
+                    <tr lang="ru" finished="false">левый канал</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">right channel</tr>
+                    <tr lang="ru" finished="false">Правый канал</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output left</outlet>
-            <outlet type="audio">output right</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output left</tr>
+                </out>
+            </outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output right</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

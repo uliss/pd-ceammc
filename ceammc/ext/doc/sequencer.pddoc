@@ -127,9 +127,18 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>sequence element output, in case of Mlist args - outputs play lists</outlet>
-            <outlet>[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration or [done( when
-            done</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">sequence element output, in case of Mlist args - outputs play
+                    lists</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration or
+                    [done( when done</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

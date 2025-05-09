@@ -30,21 +30,30 @@
                 <tr lang="en">Allpass filter is a signal processing filter that passes all
                 frequencies equally in gain, but changes the phase relationship among various
                 frequencies.</tr>
+                <tr lang="ru" finished="false">Фильтр Allpass представляет собой фильтр обработки
+                сигналов, который проходит все частоты одинаково, но изменяет фазовое соотношение
+                между различными частотами.</tr>
             </par>
             <par>
                 <tr lang="en">Most types of filter reduce the amplitude (i.e. the magnitude) of the
                 signal applied to it for some values of frequency, whereas the all-pass filter
                 allows all frequencies through without changes in level.</tr>
+                <tr lang="ru" finished="false">Большинство типов фильтров уменьшают амплитуду (т.е.
+                величину) сигнала, приложенного к нему, для некоторых значений частоты, тогда как
+                фильтр полного прохода позволяет всем частотам проходить без изменений уровня.</tr>
             </par>
             <par>
                 <tr lang="en">Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ +
                 b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²)</tr>
+                <tr lang="ru" finished="false">Расчет коэффициентов для функции переноса: H(z)=(b0
+                + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2)</tr>
             </par>
             <wiki name="All-pass_filter">Allpass filter</wiki>
         </info>
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="22050">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </argument>
         </arguments>
         <properties>
@@ -52,14 +61,17 @@
             <property name="@freq" type="float" minvalue="0" maxvalue="22050" default="0"
             units="hertz">
                 <tr lang="en">center frequency</tr>
+                <tr lang="ru" finished="false">центральная частота</tr>
             </property>
             <!-- @q -->
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.7071">
                 <tr lang="en">quality factor: @freq/BANDWIDTH</tr>
+                <tr lang="ru" finished="false">Коэффициент качества: @freq/BANDWIDTH</tr>
             </property>
             <!-- @rad -->
             <property name="@rad" type="flag" access="initonly">
                 <tr lang="en">use angular frequency</tr>
+                <tr lang="ru" finished="false">использовать угловую частоту</tr>
             </property>
         </properties>
         <methods>
@@ -67,9 +79,11 @@
             <method name="bw">
                 <info>
                     <tr lang="en">set bandwidth in octaves</tr>
+                    <tr lang="ru" finished="false">установленная полоса пропускания в октавах</tr>
                 </info>
                 <param name="OCT" type="float" required="true">
                     <tr lang="en">bandwidth</tr>
+                    <tr lang="ru" finished="false">пропускная способность</tr>
                 </param>
             </method>
         </methods>
@@ -77,11 +91,16 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">filter frequency</tr>
+                    <tr lang="ru" finished="false">частота фильтров</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list: b0 b1 b2 a1 a2</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: b0 b1 b2 a1 a2</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

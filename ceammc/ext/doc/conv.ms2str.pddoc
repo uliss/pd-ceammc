@@ -33,6 +33,8 @@
             <property name="@symbol" type="flag" default="0" access="initonly">
                 <tr lang="en">if specified - output formatted time as symbol, otherwise as
                 string.</tr>
+                <!-- old: Если указано - выходное отформатированное время как
+                символ, иначе как строка. -->
                 <tr lang="ru" finished="false">Если указано - выходное отформатированное время как
                 символ, иначе как строка.</tr>
             </property>
@@ -41,11 +43,17 @@
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">converts float value in milliseconds to formatted symbol</tr>
+                    <tr lang="ru" finished="false">Преобразует значение плавания в миллисекундах в
+                    отформатированный символ</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>time in format "HH:MM::SS" or "HH:MM:SS.XXX"</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">time in format "HH:MM::SS" or "HH:MM:SS.XXX"</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

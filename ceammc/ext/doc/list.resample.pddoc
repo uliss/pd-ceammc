@@ -25,31 +25,40 @@
         <arguments>
             <argument name="RATIO" type="float" minvalue="0" maxvalue="100">
                 <tr lang="en">resample ratio</tr>
+                <tr lang="ru" finished="false">коэффициент повторения</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @ratio -->
             <property name="@ratio" type="float" minvalue="0" maxvalue="100" default="1">
                 <tr lang="en">resample ratio (src/dest)</tr>
+                <tr lang="ru" finished="false">Соотношение повторных образцов (src/dest)</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list.</tr>
+                    <tr lang="ru" finished="false">Список входов.</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo>
                     <tr lang="en">set ratio</tr>
+                    <tr lang="ru" finished="false">установленное соотношение</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>new modified list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">new modified list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -29,25 +29,39 @@
             <property name="@enumerate" type="bool" default="0">
                 <tr lang="en">enumeration mode. If enumeration is active output pairs: INDEX ATOM,
                 otherwise single atoms</tr>
+                <tr lang="ru" finished="false">Режим перечисления. Если перечисление является парой
+                активного выхода: INDEX ATOM, в противном случае одиночные атомы</tr>
             </property>
             <!-- @from -->
             <property name="@from" type="int" default="0">
                 <tr lang="en">enumeration starting index</tr>
+                <tr lang="ru" finished="false">Перечислительный стартовый индекс</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outlet for single atoms (or pair: IDX ATOM in enumeration mode)</outlet>
-            <outlet>outputs bang after last element in the list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outlet for single atoms (or pair: IDX ATOM in enumeration
+                    mode)</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs bang after last element in the list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

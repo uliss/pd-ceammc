@@ -27,14 +27,21 @@
                 <xinfo on="list">
                     <tr lang="en">input list of floats. Non float values are just ignored. No
                     output if no floats in list</tr>
+                    <tr lang="ru" finished="false">Список входных поплавков. Неподвижные ценности
+                    просто игнорируются. Нет выхода, если нет поплавков в списке</tr>
                 </xinfo>
                 <xinfo on="data:mlist">
                     <tr lang="en">same as list</tr>
+                    <tr lang="ru" finished="false">Тот же список</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>average (float)</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">average (float)</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

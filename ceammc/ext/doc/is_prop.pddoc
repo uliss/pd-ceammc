@@ -26,12 +26,21 @@
             <inlet>
                 <xinfo on="any">
                     <tr lang="en">outputs '1' to 1st outlet, otherwise '0'</tr>
+                    <tr lang="ru" finished="false">выходы "1" - 1-й выход, иначе "0"</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>0 or 1</outlet>
-            <outlet>passes only *property* messages</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">0 or 1</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">passes only *property* messages</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

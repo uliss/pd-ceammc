@@ -61,8 +61,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
-            <outlet>float: number of sentences left to speak</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">float: number of sentences left to speak</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

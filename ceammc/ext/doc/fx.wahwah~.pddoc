@@ -19,9 +19,11 @@
         <arguments>
             <argument name="ANGLE" type="float" minvalue="0" maxvalue="1">
                 <tr lang="en">pedal angle</tr>
+                <tr lang="ru" finished="false">угол наклона педали</tr>
             </argument>
             <argument name="SPEED" type="float" minvalue="360" maxvalue="780" units="bpm">
                 <tr lang="en">automatisation speed</tr>
+                <tr lang="ru" finished="false">Скорость автоматизации</tr>
             </argument>
         </arguments>
         <properties>
@@ -31,20 +33,26 @@
             <!-- @angle -->
             <property name="@angle" type="float" minvalue="0" maxvalue="1" default="0.6">
                 <tr lang="en">pedal angle</tr>
+                <tr lang="ru" finished="false">угол наклона педали</tr>
             </property>
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet.</tr>
+                <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
+                сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
             </property>
             <!-- @speed -->
             <property name="@speed" type="float" minvalue="360" maxvalue="780" default="540"
             units="bpm">
                 <tr lang="en">automatisation speed</tr>
+                <tr lang="ru" finished="false">Скорость автоматизации</tr>
             </property>
         </properties>
         <methods>
@@ -52,6 +60,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset object</tr>
+                    <tr lang="ru" finished="false">сбрасывать объект</tr>
                 </info>
             </method>
         </methods>
@@ -59,16 +68,22 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set angle</tr>
+                    <tr lang="ru" finished="false">угол</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio" />
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en" />
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

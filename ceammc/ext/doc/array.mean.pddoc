@@ -39,11 +39,16 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">calculates and outputs mean value</tr>
+                    <tr lang="ru" finished="false">вычисления и выходы означают значение</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>mean value</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">mean value</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

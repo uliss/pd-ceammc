@@ -19,44 +19,58 @@
         <arguments>
             <argument name="SCALE" type="list">
                 <tr lang="en">color list</tr>
+                <tr lang="ru" finished="false">Цветной список</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @color -->
             <property name="@color" type="alias">
                 <tr lang="en">alias to @mode color</tr>
+                <tr lang="ru" finished="false">Исполнитель: @mode Color</tr>
             </property>
             <!-- @hex -->
             <property name="@hex" type="alias">
                 <tr lang="en">alias to @mode hex</tr>
+                <tr lang="ru" finished="false">Исполнитель: @mode hex</tr>
             </property>
             <!-- @interp -->
             <property name="@interp" type="symbol" default="none" enum="none short long inc dec">
                 <tr lang="en">hue interpolation strategy</tr>
+                <tr lang="ru" finished="false">Стратегия интерполяции оттенков</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" default="color" enum="color hex rgb">
                 <tr lang="en">output mode: if 'color' - output as data:color type, if 'hex' -
                 output as hex value, if 'rgb' - RGB list</tr>
+                <tr lang="ru" finished="false">Режим вывода: если "цвет" - выход как данные: тип
+                цвета, если "хекс" - выход как шестнадцатеричное значение, если "ргб" - список
+                RGB</tr>
             </property>
             <!-- @rgb -->
             <property name="@rgb" type="alias">
                 <tr lang="en">alias to @mode rgb</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @mode rgb</tr>
             </property>
             <!-- @scale -->
             <property name="@scale" type="list" default="">
                 <tr lang="en">color list</tr>
+                <tr lang="ru" finished="false">Цветной список</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float" minvalue="0" maxvalue="1">
                     <tr lang="en">calculate color scale hue and output</tr>
+                    <tr lang="ru" finished="false">Вычислить цветовую шкалу оттенка и выхода</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>data:color output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">data:color output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

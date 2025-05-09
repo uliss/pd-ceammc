@@ -186,7 +186,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list: event index, event name, current event time</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: event index, event name, current event time</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

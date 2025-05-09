@@ -25,30 +25,40 @@
             <par>
                 <tr lang="en">if new input message received, while delayed message is not send, the
                 delayed message is resetted</tr>
+                <tr lang="ru" finished="false">если получено новое входное сообщение, а отложенное
+                сообщение не отправлено, то отложенное сообщение сбрасывается</tr>
             </par>
         </info>
         <arguments>
             <argument name="DELAY" type="float" minvalue="0" units="millisecond">
                 <tr lang="en">message delay</tr>
+                <tr lang="ru" finished="false">задержка сообщения</tr>
             </argument>
             <argument name="MSG" type="list">
                 <tr lang="en">message arguments</tr>
+                <tr lang="ru" finished="false">сообщение аргументов</tr>
             </argument>
         </arguments>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">any input message</tr>
+                    <tr lang="ru" finished="false">Любое входное сообщение</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">change message delay</tr>
+                    <tr lang="ru" finished="false">Изменение сообщения задержка</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>message output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">message output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

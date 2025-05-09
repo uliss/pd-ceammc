@@ -27,7 +27,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>physical memory (RAM) size in bytes</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">physical memory (RAM) size in bytes</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

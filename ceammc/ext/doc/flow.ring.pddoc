@@ -22,6 +22,7 @@
         <arguments>
             <argument name="LENGTH" type="int" minvalue="1" maxvalue="24">
                 <tr lang="en">buffer length</tr>
+                <tr lang="ru" finished="false">длина буфера</tr>
             </argument>
         </arguments>
         <properties>
@@ -29,30 +30,49 @@
             <property name="@length" type="int" default="2" minvalue="1" maxvalue="24"
             access="initonly">
                 <tr lang="en">buffer length</tr>
+                <tr lang="ru" finished="false">длина буфера</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>
                     <tr lang="en">input</tr>
+                    <tr lang="ru" finished="false">ввод</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output all buffer values</tr>
+                    <tr lang="ru" finished="false">вывод всех буферных значений</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">get IDX: output buffer value at specified index</tr>
+                    <tr lang="ru" finished="false">Получить IDX: значение буфера вывода при
+                    заданном индексе</tr>
                 </xinfo>
                 <xinfo>
                     <tr lang="en">fill ARGS...: fill buffer with specified values (no output)</tr>
+                    <tr lang="ru" finished="false">заполнить ARGS...: заполнить буфер с заданными
+                    значениями (без выхода)</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1">first output</outlet>
-            <outlet number="...">... output</outlet>
-            <outlet number="n">n-th output</outlet>
+            <outlet number="1">
+                <out type="any">
+                    <tr lang="en">first output</tr>
+                </out>
+            </outlet>
+            <outlet number="...">
+                <out type="any">
+                    <tr lang="en">... output</tr>
+                </out>
+            </outlet>
+            <outlet number="n">
+                <out type="any">
+                    <tr lang="en">n-th output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

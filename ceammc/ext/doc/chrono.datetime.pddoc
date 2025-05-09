@@ -24,6 +24,7 @@
             <!-- @utc -->
             <property name="@utc" type="bool" default="0">
                 <tr lang="en">output in UTC format</tr>
+                <tr lang="ru" finished="false">выход в формате UTC</tr>
             </property>
         </properties>
         <inlets>
@@ -31,12 +32,22 @@
                 <xinfo on="bang">
                     <tr lang="en">output HOUR MIN SEC to second outlet and YEAR MONTH DAY to first
                     outlet</tr>
+                    <tr lang="ru" finished="false">выход в течение часа до второго выхода и в
+                    течение месяца до первого выхода</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list: YEAR MONTH DAY</outlet>
-            <outlet>list: HOUR MIN SEC</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: YEAR MONTH DAY</tr>
+                </out>
+            </outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">list: HOUR MIN SEC</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

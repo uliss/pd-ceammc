@@ -19,20 +19,24 @@
         <arguments>
             <argument name="PATH" type="atom">
                 <tr lang="en">See @path</tr>
+                <tr lang="ru" finished="false">См. @path</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @async -->
             <property name="@async" type="bool" default="1">
                 <tr lang="en">use async operations</tr>
+                <tr lang="ru" finished="false">Использование операций Sync</tr>
             </property>
             <!-- @norm -->
             <property name="@norm" type="bool" default="1">
                 <tr lang="en">normalize path</tr>
+                <tr lang="ru" finished="false">нормализовать путь</tr>
             </property>
             <!-- @path -->
             <property name="@path" type="atom" default="">
                 <tr lang="en">current path value</tr>
+                <tr lang="ru" finished="false">Текущая стоимость пути</tr>
             </property>
         </properties>
         <methods>
@@ -40,24 +44,32 @@
             <method name="exists">
                 <info>
                     <tr lang="en">checks if path exists. Output [exists VALUE( message</tr>
+                    <tr lang="ru" finished="false">Проверить, существует ли путь. Результат
+                    [существует Ценность]</tr>
                 </info>
             </method>
             <!-- info -->
             <method name="info">
                 <info>
                     <tr lang="en">request path information. Output [info DICT(</tr>
+                    <tr lang="ru" finished="false">запросить информацию о пути. Выход [информация
+                    DICT()</tr>
                 </info>
             </method>
             <!-- permissions -->
             <method name="permissions">
                 <info>
                     <tr lang="en">request path permissions. Output [permissions VALUE(</tr>
+                    <tr lang="ru" finished="false">Запросить разрешения пути. Результат [разрешение
+                    Ценность()</tr>
                 </info>
             </method>
             <!-- size -->
             <method name="size">
                 <info>
                     <tr lang="en">request file size in bytes. Output [size BYTES(</tr>
+                    <tr lang="ru" finished="false">Запрос размера файла в байтах. Выход [размер
+                    BYTES()</tr>
                 </info>
             </method>
             <!-- type -->
@@ -65,6 +77,8 @@
                 <info>
                     <tr lang="en">request path type. Output [type TYPE( message, where type is one
                     of: regular, dir, symlink, char, block, fifo, socket</tr>
+                    <tr lang="ru" finished="false">Тип пути запроса. Выход [тип TYPE(сообщение, где
+                    тип один из: обычный, dir, symlink, char, block, fifo, socket)</tr>
                 </info>
             </method>
         </methods>
@@ -72,25 +86,34 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">output current path</tr>
+                    <tr lang="ru" finished="false">Выходной текущий путь</tr>
                 </xinfo>
                 <xinfo on="symbol">
                     <tr lang="en">set current path and output</tr>
+                    <tr lang="ru" finished="false">Установить текущий путь и выход</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">set current path and output</tr>
+                    <tr lang="ru" finished="false">Установить текущий путь и выход</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="symbol">
                     <tr lang="en">set current path and without output</tr>
+                    <tr lang="ru" finished="false">установить текущий путь и без выхода</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">set current path and without output</tr>
+                    <tr lang="ru" finished="false">установить текущий путь и без выхода</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>data output</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">data output</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

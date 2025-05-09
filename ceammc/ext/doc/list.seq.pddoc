@@ -23,50 +23,68 @@
         <arguments>
             <argument name="FROM" type="float">
                 <tr lang="en">start value</tr>
+                <tr lang="ru" finished="false">стартовая стоимость</tr>
             </argument>
             <argument name="TO" type="float">
                 <tr lang="en">end value</tr>
+                <tr lang="ru" finished="false">конечная стоимость</tr>
             </argument>
             <argument name="STEP" type="float">
                 <tr lang="en">sequence step</tr>
+                <tr lang="ru" finished="false">шаг последовательности</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @closed -->
             <property name="@closed" type="flag" default="0" access="initonly">
                 <tr lang="en">generate closed range sequence</tr>
+                <tr lang="ru" finished="false">генерировать замкнутую последовательность</tr>
             </property>
             <!-- @from -->
             <property name="@from" type="float" default="0">
                 <tr lang="en">start value</tr>
+                <tr lang="ru" finished="false">стартовая стоимость</tr>
             </property>
             <!-- @step -->
             <property name="@step" type="float" default="1">
                 <tr lang="en">sequence step (always positive)</tr>
+                <tr lang="ru" finished="false">Шаг последовательности (всегда положительный)</tr>
             </property>
             <!-- @to -->
             <property name="@to" type="float" default="1">
                 <tr lang="en">end value</tr>
+                <tr lang="ru" finished="false">конечная стоимость</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">outputs generated list</tr>
+                    <tr lang="ru" finished="false">сгенерированный список</tr>
                 </xinfo>
                 <xinfo on="float">
                     <tr lang="en">sets @from=0, @to=X and outputs generated sequence</tr>
+                    <tr lang="ru" finished="false">Устанавливает @from=0, @to=X и выводит
+                    генерируемую последовательность</tr>
                 </xinfo>
                 <xinfo on="list">
                     <tr lang="en">if 3 arguments are given: they are set to @from, @to and @step
                     accordingly. If 2 args are given: they are set to @from, @to and @step is set
                     to *1*. If 1 arg given, @from is set to 0, @to sets to given value and @step is
                     set to *1*</tr>
+                    <tr lang="ru" finished="false">Если дано 3 аргумента: они установлены на @from,
+                    @to и @step соответственно. Если дано 2 args: они установлены на @from, @to и
+                    @step установлены на *1*. Если дано 1 arg, @from установлен на 0, @to
+                    установлен на заданное значение и @step установлен на *1*</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>generated sequence</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">generated sequence</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

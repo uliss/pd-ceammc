@@ -41,7 +41,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs 1 if symbols are equal, otherwise 0</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">outputs 1 if symbols are equal, otherwise 0</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

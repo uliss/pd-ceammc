@@ -27,16 +27,22 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">real part of input signal</tr>
+                    <tr lang="ru" finished="false">Реальная часть входного сигнала</tr>
                 </xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">imag part of input signal</tr>
+                    <tr lang="ru" finished="false">Имаг часть входного сигнала</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">signal magnitude</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">signal magnitude</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -27,11 +27,15 @@
             <par>
                 <tr lang="en">[list.rotate] and [list.&lt;&lt;] rotate list left. [list.&gt;&gt;
                 rotates right.</tr>
+                <tr lang="ru" finished="false">[list.rotate] и [list. Перевернуть список влево.
+                [список.] Повернуть вправо.</tr>
             </par>
         </info>
         <arguments>
             <argument name="STEP" type="int">
                 <tr lang="en">rotate step. Negative step changes rotation direction</tr>
+                <tr lang="ru" finished="false">Поворотный шаг. Отрицательный шаг меняет направление
+                вращения</tr>
             </argument>
         </arguments>
         <properties>
@@ -39,25 +43,34 @@
             <property name="@step" type="int" default="1">
                 <tr lang="en">rotate step. Negative value change rotation direction to
                 opposite</tr>
+                <tr lang="ru" finished="false">Поворотный шаг. Отрицательное значение изменяет
+                направление вращения на противоположное</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">
                     <tr lang="en">input list</tr>
+                    <tr lang="ru" finished="false">вводный список</tr>
                 </xinfo>
                 <xinfo on="data">
                     <tr lang="en">input mlist</tr>
+                    <tr lang="ru" finished="false">входной млечный</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">
                     <tr lang="en">rotation step</tr>
+                    <tr lang="ru" finished="false">шаг поворота</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>rotated list</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">rotated list</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

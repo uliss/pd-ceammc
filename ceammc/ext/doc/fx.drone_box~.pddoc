@@ -20,6 +20,7 @@
         <arguments>
             <argument name="PITCH" type="float" minvalue="36" maxvalue="60">
                 <tr lang="en">drone MIDI pitch</tr>
+                <tr lang="ru" finished="false">дрон MIDI скачать</tr>
             </argument>
         </arguments>
         <properties>
@@ -29,20 +30,26 @@
             <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">
                 <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
+                «эффективный» сигнал.</tr>
             </property>
             <!-- @decay -->
             <property name="@decay" type="float" minvalue="100" maxvalue="120000"
             units="millisecond" default="4000">
                 <tr lang="en">drone pluck decay time</tr>
+                <tr lang="ru" finished="false">Время распада дрона</tr>
             </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
                 <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
                 signals. 0 - dry signal, 1 - wet.</tr>
+                <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
+                сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
             </property>
             <!-- @pitch -->
             <property name="@pitch" type="float" minvalue="36" maxvalue="60" default="48">
                 <tr lang="en">drone MIDI pitch</tr>
+                <tr lang="ru" finished="false">дрон MIDI скачать</tr>
             </property>
         </properties>
         <methods>
@@ -50,6 +57,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset object</tr>
+                    <tr lang="ru" finished="false">сбрасывать объект</tr>
                 </info>
             </method>
         </methods>
@@ -57,16 +65,22 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru" finished="false">входной сигнал</tr>
                 </xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">
                     <tr lang="en">set drone pitch</tr>
+                    <tr lang="ru" finished="false">Настройка дрона</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">
+                <out type="any">
+                    <tr lang="en">output signal</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>

@@ -20,17 +20,24 @@
             <par>
                 <tr lang="en">Data types, such as MList, are passed by reference, not by
                 value.</tr>
+                <tr lang="ru" finished="false">Типы данных, такие как MList, передаются по ссылке,
+                а не по значению.</tr>
             </par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="data">
                     <tr lang="en">input data</tr>
+                    <tr lang="ru" finished="false">входные данные</tr>
                 </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>data copy</outlet>
+            <outlet>
+                <out type="any">
+                    <tr lang="en">data copy</tr>
+                </out>
+            </outlet>
         </outlets>
         <example>
             <pdascii>
