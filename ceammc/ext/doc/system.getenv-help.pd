@@ -21,28 +21,28 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 275 1\.;
 #X text 170 275 symbol;
-#X obj 271 276 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 276 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 275 NAME: environment variable name. Type: symbol.;
-#X obj 20 305 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 310 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 315 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 313 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 318 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 311 @name;
-#X text 270 311 Get/Set environment variable name. Type: symbol.;
-#X obj 20 351 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 356 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 316 @name;
+#X text 270 316 Environment variable name. Type: symbol.;
+#X obj 20 356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 361 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 357 1\.;
-#X text 170 357 bang:;
-#X text 270 357 outputs variable value.;
-#X text 170 382 symbol:;
-#X text 270 382 sets name of environment variable and outputs it value.;
-#X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 422 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 362 1\.;
+#X text 170 362 bang:;
+#X text 270 362 outputs variable value.;
+#X text 170 387 symbol:;
+#X text 270 387 sets name of environment variable and outputs it value.;
+#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 427 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 423 1\.;
-#X text 270 423 symbol: env-variable value.;
+#X text 130 428 1\.;
+#X text 270 428 symbol: env-variable value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

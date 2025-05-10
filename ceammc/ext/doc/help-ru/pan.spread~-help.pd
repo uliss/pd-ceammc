@@ -29,58 +29,57 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 520 1\.;
 #X text 170 520 int;
-#X obj 271 521 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 521 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 520 N: number of input channels. Тип: int. Диапазон: 2…16;
-#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 555 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 560 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 558 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 563 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 556 @n;
-#X text 270 556 (при инициализации) Получить/Установить number of input
-channels. Тип: int. Значение по умолчанию: 2\. Диапазон: 2\...16\.;
-#X msg 130 613 @center;
-#X text 270 613 Получить/Установить shift the centre of the distribution.
-Тип: float. Значение по умолчанию: 0\. Диапазон: -0.5\...0.5\.;
-#X msg 130 670 @compensate;
-#X text 270 670 Получить/Установить compensate output level: divide
-amplitude to number of input channels. Тип: bool. Значение по умолчанию:
-0\.;
-#X msg 130 727 @spread;
-#X text 270 727 Получить/Установить for @spread = 0 \, all channels
-are in the centre \, for 1 \, they have maximum distribution. Тип:
-float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 130 784 @coeffs?;
-#X text 270 784 (только чтение) Получить list of gain pairs. Тип: list.;
-#X obj 20 824 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 829 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 561 @n;
+#X text 270 561 (при инициализации) Number of input channels. Тип:
+int. Значение по умолчанию: 2\. Диапазон: 2\...16\.;
+#X msg 130 603 @center;
+#X text 270 603 Shift the centre of the distribution. Тип: float. Значение
+по умолчанию: 0\. Диапазон: -0.5\...0.5\.;
+#X msg 130 645 @compensate;
+#X text 270 645 Compensate output level: divide amplitude to number
+of input channels. Тип: bool. Значение по умолчанию: 0\.;
+#X msg 130 687 @spread;
+#X text 270 687 For @spread = 0 \, all channels are in the centre \,
+for 1 \, they have maximum distribution. Тип: float. Значение по умолчанию:
+1\. Диапазон: 0\...1\.;
+#X msg 130 744 @coeffs?;
+#X text 270 744 (только чтение) List of gain pairs. Тип: list.;
+#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 789 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 830 1\.;
-#X text 170 830 ~;
-#X text 270 830 input signal.;
-#X text 130 855 ...;
-#X text 170 855 ~;
-#X text 270 855 input signal.;
-#X text 130 880 n.;
-#X text 170 880 ~;
-#X text 270 880 input signal.;
-#X obj 20 915 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 920 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 790 1\.;
+#X text 170 790 ~;
+#X text 270 790 input signal.;
+#X text 130 815 ...;
+#X text 170 815 ~;
+#X text 270 815 input signal.;
+#X text 130 840 n.;
+#X text 170 840 ~;
+#X text 270 840 input signal.;
+#X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 880 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 921 1\.;
-#X text 170 921 ~;
-#X text 270 921 left output channel.;
-#X text 130 941 2\.;
-#X text 170 941 ~;
-#X text 270 941 right output channel.;
+#X text 130 881 1\.;
+#X text 170 881 ~;
+#X text 270 881 left output channel.;
+#X text 130 901 2\.;
+#X text 170 901 ~;
+#X text 270 901 right output channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 991 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 994 библиотека: ceammc v0.9.8;
-#N canvas 10 1013 400 290 info 0;
+#X obj 1 951 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 954 библиотека: ceammc v0.9.8;
+#N canvas 10 973 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -104,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1013 pd info;
+#X restore 10 973 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

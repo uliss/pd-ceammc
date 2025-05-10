@@ -19,31 +19,31 @@ list;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 261 1\.;
 #X text 170 261 list;
-#X obj 271 262 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 262 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 261 COEFFS: coefficient list. Type: list.;
-#X obj 20 291 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 296 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 299 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 304 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 297 @coeffs;
-#X text 270 297 Get/Set coefficient list. Type: list.;
-#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 342 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 302 @coeffs;
+#X text 270 302 Coefficient list. Type: list.;
+#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 347 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 343 1\.;
-#X text 170 343 float:;
-#X text 270 343 evalute polynomial.;
-#X text 170 368 list:;
-#X text 270 368 evalute each value in list.;
-#X text 130 393 2\.;
-#X text 170 393 list:;
-#X text 270 393 sets polynomial coefficients.;
-#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 433 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 348 1\.;
+#X text 170 348 float:;
+#X text 270 348 evalute polynomial.;
+#X text 170 373 list:;
+#X text 270 373 evalute each value in list.;
+#X text 130 398 2\.;
+#X text 170 398 list:;
+#X text 270 398 sets polynomial coefficients.;
+#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 438 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 434 1\.;
-#X text 270 434 calculated value.;
+#X text 130 439 1\.;
+#X text 270 439 calculated value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

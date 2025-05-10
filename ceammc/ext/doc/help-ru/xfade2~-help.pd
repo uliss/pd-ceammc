@@ -6,101 +6,98 @@
 0;
 #X obj 560 11 ceammc/xfade2~;
 #X obj 687 11 xfade2~;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 83 control float value in range [0-1) controls xfade between
 first and second signals \, [1-2) between second and third etc.;
-#X obj 50 176 osc~ 440;
-#X obj 184 176 osc~ 1000;
-#X obj 318 176 ui.knob;
-#X obj 69 205 osc~ 441;
-#X obj 203 205 osc~ 1002;
-#X floatatom 318 234 5 0 0 0 - - -;
-#X obj 50 263 xfade2~ 2;
-#X obj 126 292 ui.slider @size 120 16;
-#X obj 50 320 gain~ 2;
-#X obj 50 349 dac~;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 191 osc~ 440;
+#X obj 184 191 osc~ 1000;
+#X obj 318 191 ui.knob;
+#X obj 69 220 osc~ 441;
+#X obj 203 220 osc~ 1002;
+#X floatatom 318 249 5 0 0 0 - - -;
+#X obj 50 278 xfade2~ 2;
+#X obj 126 307 ui.slider @size 120 16;
+#X obj 50 335 gain~ 2;
+#X obj 50 364 dac~;
+#X obj 20 414 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 419 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 422 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 130 405 1\.;
-#X text 170 405 int;
-#X obj 271 406 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 405 N: number of signal inputs stereo pairs. Тип: int.
+#X text 130 420 1\.;
+#X text 170 420 int;
+#X obj 268 421 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 420 N: number of signal inputs stereo pairs. Тип: int.
 Диапазон: 2…16;
-#X text 130 440 2\.;
-#X text 170 440 float;
-#X obj 271 441 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 440 X: crossfade init value. Valid value in [0\..N-1] range.
+#X text 130 460 2\.;
+#X text 170 460 float;
+#X obj 268 461 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 460 X: crossfade init value. Valid value in [0\..N-1] range.
 See @x property. Тип: float.;
-#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 490 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 515 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 518 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 491 @n;
-#X text 270 491 (при инициализации) Получить/Установить number of xfade
-inputs stereo pairs. Тип: int. Значение по умолчанию: 2\. Диапазон:
-2\...16\.;
-#X msg 130 548 @lin;
-#X text 270 548 Alias to @type lin.;
-#X msg 130 578 @pow;
-#X text 270 578 Alias to @type pow.;
-#X msg 130 608 @smooth;
-#X text 270 608 Получить/Установить signal change smooth time. Тип:
-float. Единицы: 'ms'. Значение по умолчанию: 20\. Минимальное значение:
-1\.;
-#X msg 130 665 @type;
-#X text 270 665 Получить/Установить fade curve type: linear or power.
-Тип: symbol. Значение по умолчанию: pow. Разрешённые значения: lin
-\, pow.;
-#X msg 130 722 @x;
-#X text 270 722 Получить/Установить crossfade property. Valid value
-in [0\..N-1] range. Тип: float. Значение по умолчанию: 0\.;
-#X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 779 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 516 @n;
+#X text 270 516 (при инициализации) Number of xfade inputs stereo pairs.
+Тип: int. Значение по умолчанию: 2\. Диапазон: 2\...16\.;
+#X msg 130 573 @lin;
+#X text 270 573 Alias to @type lin.;
+#X msg 130 603 @pow;
+#X text 270 603 Alias to @type pow.;
+#X msg 130 633 @smooth;
+#X text 270 633 Signal change smooth time. Тип: float. Единицы: 'ms'.
+Значение по умолчанию: 20\. Минимальное значение: 1\.;
+#X msg 130 675 @type;
+#X text 270 675 Fade curve type: linear or power. Тип: symbol. Значение
+по умолчанию: pow. Разрешённые значения: lin \, pow.;
+#X msg 130 717 @x;
+#X text 270 717 Crossfade property. Valid value in [0\..N-1] range.
+Тип: float. Значение по умолчанию: 0\.;
+#X obj 20 769 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 774 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 780 1\.;
-#X text 170 780 ~;
-#X text 270 780 left input signal.;
-#X text 130 805 2\.;
-#X text 170 805 ~;
-#X text 270 805 right input signal.;
-#X text 130 830 ...;
-#X text 170 830 ~;
-#X text 270 830 left input signal.;
-#X text 130 855 ...;
-#X text 170 855 ~;
-#X text 270 855 right input signal.;
-#X text 130 880 n-1\.;
-#X text 170 880 ~;
-#X text 270 880 left input signal.;
-#X text 130 905 n.;
-#X text 170 905 ~;
-#X text 270 905 right input signal.;
-#X text 130 930 n+1\.;
-#X text 170 930 float:;
-#X text 270 930 set crossfade value.;
-#X obj 20 965 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 970 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 775 1\.;
+#X text 170 775 ~;
+#X text 270 775 left input signal.;
+#X text 130 800 2\.;
+#X text 170 800 ~;
+#X text 270 800 right input signal.;
+#X text 130 825 ...;
+#X text 170 825 ~;
+#X text 270 825 left input signal.;
+#X text 130 850 ...;
+#X text 170 850 ~;
+#X text 270 850 right input signal.;
+#X text 130 875 n-1\.;
+#X text 170 875 ~;
+#X text 270 875 left input signal.;
+#X text 130 900 n.;
+#X text 170 900 ~;
+#X text 270 900 right input signal.;
+#X text 130 925 n+1\.;
+#X text 170 925 float:;
+#X text 270 925 set crossfade value.;
+#X obj 20 960 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 965 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 971 1\.;
-#X text 170 971 ~;
-#X text 270 971 left output signal.;
-#X text 130 991 2\.;
-#X text 170 991 ~;
-#X text 270 991 right output signal.;
+#X text 130 966 1\.;
+#X text 170 966 ~;
+#X text 270 966 left output signal.;
+#X text 130 986 2\.;
+#X text 170 986 ~;
+#X text 270 986 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 1041 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1044 библиотека: ceammc v0.9.8;
-#X text 574 1056 смотрите также:;
-#X obj 695 1056 xfade~;
-#N canvas 10 1063 400 290 info 0;
+#X obj 1 1036 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1039 библиотека: ceammc v0.9.8;
+#X text 574 1051 смотрите также:;
+#X obj 695 1051 xfade~;
+#N canvas 10 1058 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -124,7 +121,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1063 pd info;
+#X restore 10 1058 pd info;
 #X connect 9 0 12 0;
 #X connect 7 0 13 0;
 #X connect 10 0 13 1;

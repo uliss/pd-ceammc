@@ -20,30 +20,30 @@ SPN;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 261 1\.;
 #X text 170 261 list;
-#X obj 271 262 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 262 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 261 TONALITY: initial tomality. Тип: list.;
-#X obj 20 291 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 296 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 299 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 304 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 297 @symbol;
-#X text 270 297 output as symbol instead of string by default. Значение
+#X msg 130 302 @symbol;
+#X text 270 302 Output as symbol instead of string by default. Значение
 по умолчанию: 0\.;
-#X msg 130 339 @tonality;
-#X text 270 339 Получить/Установить current tonality. Тип: list. Значение
-по умолчанию: C major.;
-#X obj 20 391 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 396 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 344 @tonality;
+#X text 270 344 Current tonality. Тип: list. Значение по умолчанию:
+C major.;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 389 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 397 1\.;
-#X text 170 397 float:;
-#X text 270 397 standart MIDI key number [0-127].;
-#X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 437 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 390 1\.;
+#X text 170 390 float:;
+#X text 270 390 standart MIDI key number [0-127].;
+#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 430 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 438 1\.;
-#X text 270 438 output key name.;
+#X text 130 431 1\.;
+#X text 270 431 output key name.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -22,30 +22,30 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 286 1\.;
 #X text 170 286 symbol;
-#X obj 271 287 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 287 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 286 ARRAY: array name. Type: symbol.;
-#X obj 20 316 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 321 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 321 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 326 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 324 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 329 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 322 @array;
-#X text 270 322 Get/Set array name. Type: symbol.;
-#X msg 130 352 @redraw;
-#X text 270 352 Get/Set array redraw after change. Type: bool. Default
-value: 1\.;
-#X obj 20 404 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 409 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 327 @array;
+#X text 270 327 Array name. Type: symbol.;
+#X msg 130 357 @redraw;
+#X text 270 357 Array redraw after change. Type: bool. Default value:
+1\.;
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 402 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 410 1\.;
-#X text 170 410 float:;
-#X text 270 410 push back new float.;
-#X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 450 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 403 1\.;
+#X text 170 403 float:;
+#X text 270 403 push back new float.;
+#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 443 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 451 1\.;
-#X text 170 451 float:;
-#X text 270 451 popped front element.;
+#X text 130 444 1\.;
+#X text 170 444 float:;
+#X text 270 444 popped front element.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

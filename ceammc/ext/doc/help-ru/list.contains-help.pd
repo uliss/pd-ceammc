@@ -27,54 +27,53 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 434 1\.;
 #X text 170 434 list;
-#X obj 271 435 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 435 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 434 SUBLIST: list for @sublist mode. Тип: list.;
-#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 469 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 474 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 472 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 470 @all_of;
-#X text 270 470 Получить/Установить all_of mode \, output 1 is input
-list contains all of this property values. Тип: list.;
-#X msg 130 512 @any_of;
-#X text 270 512 Получить/Установить any_of mode \, output 1 is input
-list contains any (al least one) of this property values. Тип: list.;
-#X msg 130 569 @none_of;
-#X text 270 569 Получить/Установить none_of mode \, output 1 is input
-list contains none of this property values. Тип: list.;
-#X msg 130 611 @sublist;
-#X text 270 611 Получить/Установить sublist mode \, output 1 if input
-list contains this property value as sublist \, otherwise 0\. Тип:
-list.;
-#X obj 20 678 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 683 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 475 @all_of;
+#X text 270 475 All_of mode \, output 1 is input list contains all
+of this property values. Тип: list.;
+#X msg 130 517 @any_of;
+#X text 270 517 Any_of mode \, output 1 is input list contains any
+(al least one) of this property values. Тип: list.;
+#X msg 130 559 @none_of;
+#X text 270 559 None_of mode \, output 1 is input list contains none
+of this property values. Тип: list.;
+#X msg 130 601 @sublist;
+#X text 270 601 Sublist mode \, output 1 if input list contains this
+property value as sublist \, otherwise 0\. Тип: list.;
+#X obj 20 653 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 658 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 684 1\.;
-#X text 170 684 list:;
-#X text 270 684 check is list is contains specified atom or sequence.;
-#X text 170 709 data:mlist:;
-#X text 270 709 as list.;
-#X text 130 734 2\.;
-#X text 170 734 list:;
-#X text 270 734 set search atoms.;
-#X obj 20 769 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 774 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 659 1\.;
+#X text 170 659 list:;
+#X text 270 659 check is list is contains specified atom or sequence.;
+#X text 170 684 data:mlist:;
+#X text 270 684 as list.;
+#X text 130 709 2\.;
+#X text 170 709 list:;
+#X text 270 709 set search atoms.;
+#X obj 20 744 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 749 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 775 1\.;
-#X text 270 775 1 on success \, otherwise 0\.;
+#X text 130 750 1\.;
+#X text 270 750 1 on success \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 825 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 828 библиотека: ceammc v0.9.8;
-#X text 321 840 смотрите также:;
-#X obj 442 840 list.^contains;
-#X obj 558 840 list.all_of;
-#X obj 653 840 list.none_of;
-#N canvas 10 847 400 290 info 0;
+#X obj 1 800 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 803 библиотека: ceammc v0.9.8;
+#X text 321 815 смотрите также:;
+#X obj 442 815 list.^contains;
+#X obj 558 815 list.all_of;
+#X obj 653 815 list.none_of;
+#N canvas 10 822 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -98,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 847 pd info;
+#X restore 10 822 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 7 0;
 #X connect 6 0 7 1;

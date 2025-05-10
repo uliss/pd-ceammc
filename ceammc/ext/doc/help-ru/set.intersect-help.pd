@@ -19,21 +19,21 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 290 1\.;
 #X text 170 290 any;
-#X obj 271 291 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 291 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 290 ARGS: right set elements. Тип: any.;
-#X obj 20 320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 325 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 326 1\.;
-#X text 270 326 first set or list (converted to set) \, other values
+#X text 130 331 1\.;
+#X text 270 331 first set or list (converted to set) \, other values
 are ignored.;
-#X text 130 366 2\.;
-#X text 270 366 second set or list (converted to set).;
-#X obj 20 401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 406 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 371 2\.;
+#X text 270 371 second set or list (converted to set).;
+#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 407 1\.;
-#X text 270 407 output intersection of given sets.;
+#X text 130 412 1\.;
+#X text 270 412 output intersection of given sets.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

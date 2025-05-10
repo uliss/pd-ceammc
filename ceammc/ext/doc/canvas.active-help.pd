@@ -20,19 +20,19 @@ active;
 #X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 290 @abs;
-#X text 270 290 Get/Set use canvas for abstractions. Type: bool. Default
-value: 0\.;
-#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 347 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 270 290 Use canvas for abstractions. Type: bool. Default value:
+0\.;
+#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 335 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 348 1\.;
-#X text 170 348 bang:;
-#X text 270 348 output canvas active state.;
-#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 388 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 336 1\.;
+#X text 170 336 bang:;
+#X text 270 336 output canvas active state.;
+#X obj 20 371 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 376 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 389 1\.;
-#X text 270 389 int: 1 or 0\.;
+#X text 130 377 1\.;
+#X text 270 377 int: 1 or 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

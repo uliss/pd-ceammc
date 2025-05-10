@@ -43,19 +43,19 @@ is number.;
 #X msg 130 753 capabilities?;
 #X text 270 753 query pin capabilities. Return sequence of messages
 like: [pin_info PIN# MODE RESOLUTION( \, where # is pin number.;
-#X msg 130 793 firmware?;
-#X text 270 793 query firmata protocol version. Returns message like:
+#X msg 130 808 firmware?;
+#X text 270 808 query firmata protocol version. Returns message like:
 [firmware ARDUINO_FIRMWARE_NAME.ino MAJOR MINOR(.;
-#X msg 130 833 pin_mode;
-#X text 270 833 sets pin mode. Arguments are:;
-#X obj 280 856 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 856 PIN#: pin number. Type: int. Min value: 0\.;
-#X obj 280 879 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 879 MODE: pin mode. Type: symbol. Allowed values: INPUT
+#X msg 130 848 pin_mode;
+#X text 270 848 sets pin mode. Arguments are:;
+#X obj 280 871 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 871 PIN#: pin number. Type: int. Min value: 0\.;
+#X obj 280 894 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 894 MODE: pin mode. Type: symbol. Allowed values: INPUT
 \, OUTPUT \, ANALOG \, PWM \, SERVO \, SHIFT \, I2C \, ONEWIRE \, STEPPER
 \, ENCODER \, SERIAL \, PULLUP.;
-#X msg 130 934 pin_state?;
-#X text 270 934 query pin state. The pin state is any data written
+#X msg 130 949 pin_state?;
+#X text 270 949 query pin state. The pin state is any data written
 to the pin (it is important to note that pin state != pin value). For
 output modes (digital output \, PWM \, and Servo) \, the state is any
 value that has been previously written to the pin. For input modes
@@ -74,62 +74,62 @@ are:;
 #X text 280 1179 VALUE: value. If 1 - activates analog reporting \,
 messages like [apin PIN# value( are returned every sampling interval
 (by default 19ms). Type: int. Allowed values: 0 \, 1\.;
-#X msg 130 1234 report_dport;
-#X text 270 1234 turns on/off digital port value reporting. Arguments
+#X msg 130 1249 report_dport;
+#X text 270 1249 turns on/off digital port value reporting. Arguments
 are:;
-#X obj 280 1257 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1257 PORT#: digital port number. Port is a group of pins
+#X obj 280 1272 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1272 PORT#: digital port number. Port is a group of pins
 \, port 0 refers pins 0-8\. Type: int.;
-#X obj 280 1295 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1295 VALUE: value. If 1 - activates digital port reporting
+#X obj 280 1310 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1310 VALUE: value. If 1 - activates digital port reporting
 \, messages like [dport PORT# value( are returned only on pin value
 change. Type: int. Allowed values: 0 \, 1\.;
-#X msg 130 1350 samp_interval;
-#X text 270 1350 sets sampling interval - how often analog data and
+#X msg 130 1365 samp_interval;
+#X text 270 1365 sets sampling interval - how often analog data and
 i2c data is reported to the client. The default for the arduino implementation
 is 19ms. This means that every 19ms analog data will be reported and
 any i2c devices with read continuous mode will be read. Arguments are:;
-#X obj 280 1449 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1449 TIME: time. Type: int. Range: 10\...10000\. Units:
+#X obj 280 1448 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1448 TIME: time. Type: int. Range: 10\...10000\. Units:
 'ms'.;
-#X msg 130 1474 version?;
-#X text 270 1474 query firmata protocol version. Returns message like:
+#X msg 130 1473 version?;
+#X text 270 1473 query firmata protocol version. Returns message like:
 [version MAJOR MINOR(.;
-#X msg 130 1514 write_dpin;
-#X text 270 1514 write 1 or 0 to digital pin. Pin mode should be OUTPUT.
+#X msg 130 1513 write_dpin;
+#X text 270 1513 write 1 or 0 to digital pin. Pin mode should be OUTPUT.
 Arguments are:;
-#X obj 280 1552 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1552 PIN#: pin number. Type: int.;
-#X obj 280 1575 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1575 VALUE: pin value. Type: int. Allowed values: 0 \,
+#X obj 280 1551 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1551 PIN#: pin number. Type: int.;
+#X obj 280 1574 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1574 VALUE: pin value. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 130 1600 write_pwm;
-#X text 270 1600 writes PWM (Pulse Width Modulation) value to specified
+#X msg 130 1599 write_pwm;
+#X text 270 1599 writes PWM (Pulse Width Modulation) value to specified
 pin. Arguments are:;
-#X obj 280 1638 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1638 PIN#: pin number. Type: int.;
-#X obj 280 1661 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1661 VALUE: pin value. Type: int. Range: 0\...256\.;
-#X obj 20 1696 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1701 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 280 1637 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1637 PIN#: pin number. Type: int.;
+#X obj 280 1660 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1660 VALUE: pin value. Type: int. Range: 0\...256\.;
+#X obj 20 1695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1700 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1702 1\.;
-#X text 170 1702 float:;
-#X text 270 1702 raw input of bytes from Arduino serial connection.;
-#X obj 20 1737 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1742 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1701 1\.;
+#X text 170 1701 float:;
+#X text 270 1701 raw input of bytes from Arduino serial connection.;
+#X obj 20 1736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1741 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1743 1\.;
-#X text 270 1743 raw byte output to Arduino serial connection and tagged
+#X text 130 1742 1\.;
+#X text 270 1742 raw byte output to Arduino serial connection and tagged
 parsed output from Arduino.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1808 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1811 library: ceammc v0.9.8;
-#N canvas 10 1830 400 290 info 0;
+#X obj 1 1807 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1810 library: ceammc v0.9.8;
+#N canvas 10 1829 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -153,7 +153,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1830 pd info;
+#X restore 10 1829 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 9 0;
 #X connect 10 0 12 0;

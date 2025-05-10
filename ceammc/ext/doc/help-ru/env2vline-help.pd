@@ -11,90 +11,89 @@
 #X obj 30 116 env->vline;
 #X restore 577 11 pd aliases;
 #X obj 674 11 env2vline;
-#X obj 230 93 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 93 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 98 Supports stop-points for multisegment envelopes. Note:
 non-linear envelopes are outputted using linear approximation;
-#X obj 50 191 loadbang;
-#X obj 414 191 r a1;
-#X obj 50 220 envelope easr 20 -4 1000 -8;
-#X obj 414 220 env->array env_a1;
-#X obj 69 249 s a1;
-#X msg 136 249 bang;
-#X obj 203 249 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 278 env->vline;
+#X obj 50 206 loadbang;
+#X obj 414 206 r a1;
+#X obj 50 235 envelope easr 20 -4 1000 -8;
+#X obj 414 235 env->array env_a1;
+#X obj 69 264 s a1;
+#X msg 136 264 bang;
+#X obj 203 264 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 293 env->vline;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array env_a1 100 float 0;
 #X coords 0 1 100 0 110 80 1;
-#X restore 414 278 graph;
-#X obj 50 307 vline~;
-#X obj 136 307 osc~ 1000;
-#X obj 50 335 *~;
-#X obj 50 364 ui.hgain~;
-#X obj 50 393 dac~;
-#X obj 50 422 loadbang;
-#X msg 50 451 line 0 100 1 400 0.2 1000 0.7 2000 0 \, set_stop_point 2 1 \, set_stop_point 3 1 \, bang;
-#X obj 50 494 envelope;
-#X msg 155 494 next;
-#X msg 222 494 reset;
-#X obj 414 494 r a2;
-#X obj 69 522 s a2;
-#X obj 414 522 env->array env_b1;
-#X obj 50 551 env->vline;
-#X obj 50 580 vline~;
-#X obj 136 580 osc~ 1200;
+#X restore 414 293 graph;
+#X obj 50 322 vline~;
+#X obj 136 322 osc~ 1000;
+#X obj 50 350 *~;
+#X obj 50 379 ui.hgain~;
+#X obj 50 408 dac~;
+#X obj 50 437 loadbang;
+#X msg 50 466 line 0 100 1 400 0.2 1000 0.7 2000 0 \, set_stop_point 2 1 \, set_stop_point 3 1 \, bang;
+#X obj 50 509 envelope;
+#X msg 155 509 next;
+#X msg 222 509 reset;
+#X obj 414 509 r a2;
+#X obj 69 537 s a2;
+#X obj 414 537 env->array env_b1;
+#X obj 50 566 env->vline;
+#X obj 50 595 vline~;
+#X obj 136 595 osc~ 1200;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array env_b1 100 float 0;
 #X coords 0 1 100 0 110 80 1;
-#X restore 414 580 graph;
-#X obj 50 609 *~;
-#X obj 50 638 ui.hgain~;
-#X obj 50 667 dac~;
-#X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 722 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X restore 414 595 graph;
+#X obj 50 624 *~;
+#X obj 50 653 ui.hgain~;
+#X obj 50 682 dac~;
+#X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 737 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 725 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 740 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 723 @sync;
-#X text 270 723 Получить/Установить sync with input data. When set
-to 1 outputs envelope (as fixed) on every input data. Тип: bool. Значение
-по умолчанию: 0\.;
-#X obj 20 790 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 795 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 738 @sync;
+#X text 270 738 Sync with input data. When set to 1 outputs envelope
+(as fixed) on every input data. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 810 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 796 next;
-#X text 270 796 output segment until next stop-point or end of envelope
+#X msg 130 811 next;
+#X text 270 811 output segment until next stop-point or end of envelope
 is reached.;
-#X msg 130 836 reset;
-#X text 270 836 reset current segment position for multi-segment envelopes.;
-#X obj 20 874 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 879 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 851 reset;
+#X text 270 851 reset current segment position for multi-segment envelopes.;
+#X obj 20 889 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 894 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 880 1\.;
-#X text 170 880 bang:;
-#X text 270 880 output as envelope of fixed length (no stop-points
+#X text 130 895 1\.;
+#X text 170 895 bang:;
+#X text 270 895 output as envelope of fixed length (no stop-points
 are encountered).;
-#X text 170 920 float:;
-#X text 270 920 output as attack (on 1) / release (on 0) envelope with
+#X text 170 935 float:;
+#X text 270 935 output as attack (on 1) / release (on 0) envelope with
 one stop-point.;
-#X text 170 960 data:;
-#X text 270 960 output as fixed envelope* data.;
-#X obj 20 995 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1000 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 170 975 data:;
+#X text 270 975 output as fixed envelope* data.;
+#X obj 20 1010 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1015 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1001 1\.;
-#X text 270 1001 bunch of vline-compatible messages: VALUE \, DURATION
+#X text 130 1016 1\.;
+#X text 270 1016 bunch of vline-compatible messages: VALUE \, DURATION
 \, OFFSET.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title env @url ceammc.env-help.pd;
-#X obj 1 1051 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1054 библиотека: ceammc v0.9.8;
-#X text 456 1066 смотрите также:;
-#X obj 577 1066 vline->env;
-#X obj 666 1066 env->array;
-#N canvas 10 1073 400 290 info 0;
+#X obj 1 1066 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1069 библиотека: ceammc v0.9.8;
+#X text 456 1081 смотрите также:;
+#X obj 577 1081 vline->env;
+#X obj 666 1081 env->array;
+#N canvas 10 1088 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -118,7 +117,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1073 pd info;
+#X restore 10 1088 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;

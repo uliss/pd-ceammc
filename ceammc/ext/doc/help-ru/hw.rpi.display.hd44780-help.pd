@@ -35,58 +35,57 @@ ceammc://img/conn_ws2812.png;
 #X obj 735 486 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 484 @i2c_addr;
-#X text 270 484 (при инициализации) Получить/Установить I²C address.
-Values 'default' (for addr 0x27) \, 'alt' (for addr 0x3f) are also
-accepted. Тип: int. Значение по умолчанию: -1\. Диапазон: -4\...119\.;
-#X msg 130 571 @i2c_bus;
-#X text 270 571 (при инициализации) Получить/Установить шина I²C. Тип:
-atom. Значение по умолчанию: none. Разрешённые значения: 1 \, 2 \,
-3 \, 4 \, 5 \, 6 \, default \, none.;
-#X msg 130 628 @rows;
-#X text 270 628 (при инициализации) Получить/Установить number of display
-rows. Тип: int. Значение по умолчанию: 1\. Разрешённые значения: 1
-\, 2 \, 4\.;
-#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 700 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X text 270 484 (при инициализации) I²C address. Values 'default' (for
+addr 0x27) \, 'alt' (for addr 0x3f) are also accepted. Тип: int. Значение
+по умолчанию: -1\. Диапазон: -4\...119\.;
+#X msg 130 556 @i2c_bus;
+#X text 270 556 (при инициализации) Шина I²C. Тип: atom. Значение по
+умолчанию: none. Разрешённые значения: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \,
+default \, none.;
+#X msg 130 613 @rows;
+#X text 270 613 (при инициализации) Number of display rows. Тип: int.
+Значение по умолчанию: 1\. Разрешённые значения: 1 \, 2 \, 4\.;
+#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 685 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 701 backlight;
-#X text 270 701 turn on/off the display backlight. Аргументы:;
-#X obj 280 724 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 724 STATE: new state. Тип: bool.;
-#X msg 130 749 char;
-#X text 270 749 write character to the display and move cursor to the
+#X msg 130 686 backlight;
+#X text 270 686 turn on/off the display backlight. Аргументы:;
+#X obj 280 709 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 709 STATE: new state. Тип: bool.;
+#X msg 130 734 char;
+#X text 270 734 write character to the display and move cursor to the
 next position. Аргументы:;
-#X obj 280 787 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 787 CHAR: char code. Тип: int. Диапазон: 0…255\.;
-#X msg 130 812 clear;
-#X text 270 812 clear all display data and set cursor position to 0
+#X obj 280 772 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 772 CHAR: char code. Тип: int. Диапазон: 0…255\.;
+#X msg 130 797 clear;
+#X text 270 797 clear all display data and set cursor position to 0
 \, 0\.;
-#X msg 130 840 clear_line;
-#X text 270 840 clear only specified line. Аргументы:;
-#X obj 280 863 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 863 LINE: line index. Тип: int. Диапазон: 0…3\.;
-#X msg 130 888 cursor_blink;
-#X text 270 888 turn on/off cursor blinking. Аргументы:;
-#X obj 280 911 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 911 STATE: new state. Тип: bool.;
-#X msg 130 936 cursor_on;
-#X text 270 936 turn on/off display cursor. Аргументы:;
-#X obj 280 959 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 959 STATE: new state. Тип: bool.;
-#X msg 130 984 cursor_pos;
-#X text 270 984 set cursor potision. Аргументы:;
-#X obj 280 1007 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1007 LINE: cursor line. Тип: int. Минимальное значение:
+#X msg 130 825 clear_line;
+#X text 270 825 clear only specified line. Аргументы:;
+#X obj 280 848 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 848 LINE: line index. Тип: int. Диапазон: 0…3\.;
+#X msg 130 873 cursor_blink;
+#X text 270 873 turn on/off cursor blinking. Аргументы:;
+#X obj 280 896 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 896 STATE: new state. Тип: bool.;
+#X msg 130 921 cursor_on;
+#X text 270 921 turn on/off display cursor. Аргументы:;
+#X obj 280 944 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 944 STATE: new state. Тип: bool.;
+#X msg 130 969 cursor_pos;
+#X text 270 969 set cursor potision. Аргументы:;
+#X obj 280 992 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 992 LINE: cursor line. Тип: int. Минимальное значение:
 0\.;
-#X obj 280 1030 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1030 COL: cursor line character position. Тип: int. Диапазон:
+#X obj 280 1015 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1015 COL: cursor line character position. Тип: int. Диапазон:
 0…20\.;
-#X msg 130 1070 font;
-#X text 270 1070 choose font.;
-#X msg 130 1098 move_cursor;
-#X text 270 1098 move cursor horizontally. Аргументы:;
-#X obj 280 1121 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1121 SHIFT: relative cursor shift. Negative values move
+#X msg 130 1055 font;
+#X text 270 1055 choose font.;
+#X msg 130 1083 move_cursor;
+#X text 270 1083 move cursor horizontally. Аргументы:;
+#X obj 280 1106 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1106 SHIFT: relative cursor shift. Negative values move
 the cursor leftwards \, positive values - rightwards. Тип: int.;
 #X msg 130 1161 move_display;
 #X text 270 1161 move display content horizontally. Аргументы:;

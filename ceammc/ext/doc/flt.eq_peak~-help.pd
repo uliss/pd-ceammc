@@ -22,66 +22,65 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 390 1\.;
 #X text 170 390 float;
-#X obj 271 391 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 391 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 390 FREQ(Hz): peak frequency. Type: float. Range: 20\...20000;
-#X text 130 410 2\.;
-#X text 170 410 float;
-#X obj 271 411 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 410 GAIN(db): level at fx (boost if >0 or cut if <0). Type:
+#X text 130 415 2\.;
+#X text 170 415 float;
+#X obj 268 416 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 415 GAIN(db): level at fx (boost if >0 or cut if <0). Type:
 float. Range: -15\...15;
-#X text 130 445 3\.;
-#X text 170 445 float;
-#X obj 271 446 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 445 BANDWIDTH(Hz): bandwidth of peak. Type: float. Range:
+#X text 130 455 3\.;
+#X text 170 455 float;
+#X obj 268 456 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 455 BANDWIDTH(Hz): bandwidth of peak. Type: float. Range:
 1\...5000;
-#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 495 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 510 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 498 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 513 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 496 @id;
-#X text 270 496 (initonly) Get/Set OSC address id. If specified \,
-bind all properties to /ID/flt_eq_peak/PROP_NAME osc address \, if
-empty bind to /flt_eq_peak/PROP_NAME. Type: symbol.;
-#X msg 130 553 @osc;
-#X text 270 553 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
-#X msg 130 583 @active;
-#X text 270 583 Turn on/off object dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 130 625 @bandwidth;
-#X text 270 625 Get/Set bandwidth of peak. Type: float. Units: 'Hz'.
-Default value: 100\. Range: 1\...5000\.;
-#X msg 130 667 @freq;
-#X text 270 667 Get/Set peak frequency. Type: float. Units: 'Hz'. Default
-value: 1000\. Range: 20\...20000\.;
-#X msg 130 709 @gain;
-#X text 270 709 Get/Set level at fx (boost if >0 or cut if <0). Type:
-float. Units: 'db'. Default value: 0\. Range: -15\...15\.;
-#X obj 20 761 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 766 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 511 @id;
+#X text 270 511 (initonly) OSC address id. If specified \, bind all
+properties to /ID/flt_eq_peak/PROP_NAME osc address \, if empty bind
+to /flt_eq_peak/PROP_NAME. Type: symbol.;
+#X msg 130 568 @osc;
+#X text 270 568 (initonly) OSC server name to listen. Type: symbol.;
+#X msg 130 598 @active;
+#X text 270 598 On/off object dsp processing. Type: bool. Default value:
+1\.;
+#X msg 130 628 @bandwidth;
+#X text 270 628 Bandwidth of peak. Type: float. Units: 'Hz'. Default
+value: 100\. Range: 1\...5000\.;
+#X msg 130 670 @freq;
+#X text 270 670 Peak frequency. Type: float. Units: 'Hz'. Default value:
+1000\. Range: 20\...20000\.;
+#X msg 130 712 @gain;
+#X text 270 712 Level at fx (boost if >0 or cut if <0). Type: float.
+Units: 'db'. Default value: 0\. Range: -15\...15\.;
+#X obj 20 764 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 769 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 767 1\.;
-#X text 170 767 ~;
-#X text 270 767 input signal.;
-#X obj 20 802 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 807 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 770 1\.;
+#X text 170 770 ~;
+#X text 270 770 input signal.;
+#X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 810 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 808 1\.;
-#X text 170 808 ~;
-#X text 270 808 filtered signal.;
+#X text 130 811 1\.;
+#X text 170 811 ~;
+#X text 270 811 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 858 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 861 library: ceammc v0.9.8;
-#X text 328 873 see also:;
-#X obj 403 873 flt.eq_peak_cq~;
-#X obj 528 873 flt.lowshelf~;
-#X obj 638 873 flt.highshelf~;
-#N canvas 10 880 400 290 info 0;
+#X obj 1 861 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 864 library: ceammc v0.9.8;
+#X text 328 876 see also:;
+#X obj 403 876 flt.eq_peak_cq~;
+#X obj 528 876 flt.lowshelf~;
+#X obj 638 876 flt.highshelf~;
+#N canvas 10 883 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -105,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 880 pd info;
+#X restore 10 883 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;

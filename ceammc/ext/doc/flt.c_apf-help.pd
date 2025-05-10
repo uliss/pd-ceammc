@@ -8,8 +8,8 @@ object;
 #X obj 415 11 ceammc/apf->biquad;
 #X obj 570 11 apf->biquad;
 #X obj 675 11 flt.c_apf;
-#X obj 230 93 cnv 1 535 214 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 240 278 Wiki:;
+#X obj 230 93 cnv 1 535 199 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 263 Wiki:;
 #X text 240 98 Allpass filter is a signal processing filter that passes
 all frequencies equally in gain \, but changes the phase relationship
 among various frequencies.;
@@ -17,73 +17,73 @@ among various frequencies.;
 magnitude) of the signal applied to it for some values of frequency
 \, whereas the all-pass filter allows all frequencies through without
 changes in level.;
-#X text 240 238 Calculates coefficients for transfer function: H(z)=(b0
+#X text 240 223 Calculates coefficients for transfer function: H(z)=(b0
 + b1*z⁻¹ + b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²);
-#X obj 280 280 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 280 265 ui.link @background_color 0.98039 0.98039 0.98039
 @title Allpass filter @url
 https://en.wikipedia.org/wiki/All-pass_filter;
-#X obj 50 355 ui.hsl;
-#X obj 366 355 ui.hsl;
-#X floatatom 50 384 5 0 0 0 - - -;
-#X floatatom 366 384 5 0 0 0 - - -;
-#X obj 50 413 math.* expr(sr/2);
-#X obj 366 413 math.* pi();
-#X obj 50 442 flt.c_apf;
-#X obj 366 442 flt.c_apf @rad;
-#X obj 50 471 ui.dt @float_width 5;
-#X obj 366 471 ui.dt @float_width 5;
-#X obj 50 542 flt.c_apf-plot;
-#X obj 20 592 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 597 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 340 ui.hsl;
+#X obj 366 340 ui.hsl;
+#X floatatom 50 369 5 0 0 0 - - -;
+#X floatatom 366 369 5 0 0 0 - - -;
+#X obj 50 398 math.* expr(sr/2);
+#X obj 366 398 math.* pi();
+#X obj 50 427 flt.c_apf;
+#X obj 366 427 flt.c_apf @rad;
+#X obj 50 456 ui.dt @float_width 5;
+#X obj 366 456 ui.dt @float_width 5;
+#X obj 50 527 flt.c_apf-plot;
+#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 582 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 600 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 585 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 130 598 1\.;
-#X text 170 598 float;
-#X obj 271 599 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 598 FREQ(Hz): center frequency. Type: float. Range: 0\...22050;
-#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 633 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 583 1\.;
+#X text 170 583 float;
+#X obj 268 584 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 583 FREQ(Hz): center frequency. Type: float. Range: 0\...22050;
+#X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 623 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 636 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 626 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 634 @rad;
-#X text 270 634 use angular frequency.;
-#X msg 130 664 @freq;
-#X text 270 664 Get/Set center frequency. Type: float. Units: 'Hz'.
-Default value: 0\. Range: 0\...22050\.;
-#X msg 130 706 @q;
-#X text 270 706 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
-Default value: 0.7071\. Range: 0.01\...100\.;
-#X obj 20 758 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 763 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 624 @rad;
+#X text 270 624 Use angular frequency.;
+#X msg 130 654 @freq;
+#X text 270 654 Center frequency. Type: float. Units: 'Hz'. Default
+value: 0\. Range: 0\...22050\.;
+#X msg 130 696 @q;
+#X text 270 696 Quality factor: @freq/BANDWIDTH. Type: float. Default
+value: 0.7071\. Range: 0.01\...100\.;
+#X obj 20 748 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 753 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 764 bw;
-#X text 270 764 set bandwidth in octaves. Arguments are:;
-#X obj 280 787 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 787 OCT: bandwidth. Type: float.;
-#X obj 20 822 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 827 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 754 bw;
+#X text 270 754 set bandwidth in octaves. Arguments are:;
+#X obj 280 777 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 777 OCT: bandwidth. Type: float.;
+#X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 817 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 828 1\.;
-#X text 170 828 float:;
-#X text 270 828 filter frequency.;
-#X obj 20 863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 868 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 818 1\.;
+#X text 170 818 float:;
+#X text 270 818 filter frequency.;
+#X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 858 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 869 1\.;
-#X text 270 869 list: b0 b1 b2 a1 a2\.;
+#X text 130 859 1\.;
+#X text 270 859 list: b0 b1 b2 a1 a2\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 919 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 922 library: ceammc v0.9.8;
-#X text 526 934 see also:;
-#X obj 601 934 flt.c_lpf;
-#X obj 681 934 hilbert~;
-#N canvas 10 941 400 290 info 0;
+#X obj 1 909 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 912 library: ceammc v0.9.8;
+#X text 526 924 see also:;
+#X obj 601 924 flt.c_lpf;
+#X obj 681 924 hilbert~;
+#N canvas 10 931 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 941 pd info;
+#X restore 10 931 pd info;
 #X connect 12 0 14 0;
 #X connect 13 0 15 0;
 #X connect 14 0 16 0;

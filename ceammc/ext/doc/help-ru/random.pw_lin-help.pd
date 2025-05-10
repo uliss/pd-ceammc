@@ -34,51 +34,51 @@ initialized with current time.;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 515 1\.;
 #X text 170 515 list;
-#X obj 271 516 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 516 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 515 V: interleaved interval boundaries and boundary propabilities.
 Note: number of arguments should be even and >=4\. Boundaries should
 be in strictly increasing order and weights should be non-negative.
 Тип: list.;
-#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 610 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 600 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 613 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 603 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 611 @seed;
-#X text 270 611 Получить/Установить generator seed. Тип: int. Значение
-по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 130 653 @v;
-#X text 270 653 Получить/Установить interleaved interval boundaries
-and boundary propabilities. For example: values 0 0 0.5 0 1 0 produce
-triangle distribution. Тип: list.;
-#X msg 130 710 @bounds?;
-#X text 270 710 (только чтение) Получить list of boundaries. Тип: list.;
-#X msg 130 740 @weights?;
-#X text 270 740 (только чтение) Получить list of weights. Тип: list.;
-#X obj 20 780 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 785 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 601 @seed;
+#X text 270 601 Generator seed. Тип: int. Значение по умолчанию: 0\.
+Минимальное значение: 0\.;
+#X msg 130 643 @v;
+#X text 270 643 Interleaved interval boundaries and boundary propabilities.
+For example: values 0 0 0.5 0 1 0 produce triangle distribution. Тип:
+list.;
+#X msg 130 700 @bounds?;
+#X text 270 700 (только чтение) List of boundaries. Тип: list.;
+#X msg 130 730 @weights?;
+#X text 270 730 (только чтение) List of weights. Тип: list.;
+#X obj 20 770 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 775 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 786 1\.;
-#X text 170 786 bang:;
-#X text 270 786 generates random number.;
-#X text 170 811 list:;
-#X text 270 811 set new distribution values.;
-#X obj 20 846 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 851 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 776 1\.;
+#X text 170 776 bang:;
+#X text 270 776 generates random number.;
+#X text 170 801 list:;
+#X text 270 801 set new distribution values.;
+#X obj 20 836 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 841 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 852 1\.;
-#X text 270 852 result value.;
+#X text 130 842 1\.;
+#X text 270 842 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 902 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 905 библиотека: ceammc v0.9.8;
-#X text 402 917 смотрите также:;
-#X obj 523 917 random.linear;
-#X obj 632 917 random.pw_const;
-#N canvas 10 924 400 290 info 0;
+#X obj 1 892 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 895 библиотека: ceammc v0.9.8;
+#X text 402 907 смотрите также:;
+#X obj 523 907 random.linear;
+#X obj 632 907 random.pw_const;
+#N canvas 10 914 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -102,7 +102,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 924 pd info;
+#X restore 10 914 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 12 0;
 #X connect 12 0 13 0;

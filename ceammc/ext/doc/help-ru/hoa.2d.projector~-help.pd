@@ -31,58 +31,58 @@ waves domain.;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 544 1\.;
 #X text 170 544 int;
-#X obj 271 545 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 545 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 544 ORDER: the order of decomposition. Тип: int. Диапазон:
 1…63;
-#X text 130 564 2\.;
-#X text 170 564 int;
-#X obj 271 565 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 564 N: number of channels. Тип: int. Диапазон: 1…63;
-#X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 599 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 569 2\.;
+#X text 170 569 int;
+#X obj 268 570 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 569 N: number of channels. Тип: int. Диапазон: 1…63;
+#X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 609 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 602 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 612 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 600 @n;
-#X text 270 600 (при инициализации) Получить/Установить number of channels
-(planewaves). Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...63\.;
-#X msg 130 657 @order;
-#X text 270 657 (при инициализации) Получить/Установить the order of
-decomposition. Тип: int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
-#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 729 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 610 @n;
+#X text 270 610 (при инициализации) Number of channels (planewaves).
+Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...63\.;
+#X msg 130 652 @order;
+#X text 270 652 (при инициализации) The order of decomposition. Тип:
+int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
+#X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 709 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 730 1\.;
-#X text 170 730 ~;
-#X text 270 730 input harmonic.;
-#X text 130 755 ...;
-#X text 170 755 ~;
-#X text 270 755 ... input harmonic.;
-#X text 130 780 n.;
-#X text 170 780 ~;
-#X text 270 780 n-th input harmonic.;
-#X obj 20 815 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 820 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 710 1\.;
+#X text 170 710 ~;
+#X text 270 710 input harmonic.;
+#X text 130 735 ...;
+#X text 170 735 ~;
+#X text 270 735 ... input harmonic.;
+#X text 130 760 n.;
+#X text 170 760 ~;
+#X text 270 760 n-th input harmonic.;
+#X obj 20 795 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 800 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 821 1\.;
+#X text 130 801 1\.;
+#X text 170 801 ~;
+#X text 270 801 first plane wave output.;
+#X text 130 821 ...;
 #X text 170 821 ~;
-#X text 270 821 first plane wave output.;
-#X text 130 841 ...;
+#X text 270 821 ... plane wave output.;
+#X text 130 841 n.;
 #X text 170 841 ~;
-#X text 270 841 ... plane wave output.;
-#X text 130 861 n.;
-#X text 170 861 ~;
-#X text 270 861 n-th plane wave output.;
+#X text 270 841 n-th plane wave output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 911 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 914 библиотека: ceammc v0.9.8;
-#X text 488 926 смотрите также:;
-#X obj 609 926 hoa.2d.recomposer~;
-#N canvas 10 933 400 290 info 0;
+#X obj 1 891 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 894 библиотека: ceammc v0.9.8;
+#X text 488 906 смотрите также:;
+#X obj 609 906 hoa.2d.recomposer~;
+#N canvas 10 913 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 933 pd info;
+#X restore 10 913 pd info;
 #X connect 9 0 10 0;
 #X connect 8 0 11 0;
 #X connect 10 0 11 1;

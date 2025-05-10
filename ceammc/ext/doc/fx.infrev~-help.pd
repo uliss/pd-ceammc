@@ -33,68 +33,68 @@ and layer sounds forever.;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 429 1\.;
 #X text 170 429 float;
-#X obj 271 430 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 430 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 429 SIZE: room size. Type: float. Range: 0\...1;
-#X text 130 449 2\.;
-#X text 170 449 float;
-#X obj 271 450 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 449 DRYWET: proportion of mix between the original (dry)
+#X text 130 454 2\.;
+#X text 170 454 float;
+#X obj 268 455 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 454 DRYWET: proportion of mix between the original (dry)
 and 'effected' (wet) signals. Type: float. Range: 0\...1;
-#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 499 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 504 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 509 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 502 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 512 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 500 @bypass;
-#X text 270 500 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0\.;
-#X msg 130 542 @damp;
-#X text 270 542 Get/Set damping of the lowpass comb filter. Type: float.
-Default value: 0\. Range: 0\...1\.;
-#X msg 130 584 @drywet;
-#X text 270 584 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X msg 130 641 @filter;
-#X text 270 641 Get/Set filter coefficient. Type: float. Default value:
+#X msg 130 510 @bypass;
+#X text 270 510 Bypass flag. If true: bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 130 552 @damp;
+#X text 270 552 Damping of the lowpass comb filter. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 130 594 @drywet;
+#X text 270 594 Proportion of mix between the original (dry) and 'effected'
+(wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
 1\. Range: 0\...1\.;
-#X msg 130 683 @size;
-#X text 270 683 Get/Set room size. Type: float. Default value: 0.5\.
+#X msg 130 651 @filter;
+#X text 270 651 Filter coefficient. Type: float. Default value: 1\.
 Range: 0\...1\.;
-#X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 740 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 693 @size;
+#X text 270 693 Room size. Type: float. Default value: 0.5\. Range:
+0\...1\.;
+#X obj 20 733 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 738 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 741 reset;
-#X text 270 741 reset reverb.;
-#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 784 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 739 reset;
+#X text 270 739 reset reverb.;
+#X obj 20 777 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 782 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 785 1\.;
-#X text 170 785 ~;
-#X text 270 785 input Left signal.;
-#X text 130 810 2\.;
-#X text 170 810 ~;
-#X text 270 810 input Right signal.;
-#X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 850 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 783 1\.;
+#X text 170 783 ~;
+#X text 270 783 input Left signal.;
+#X text 130 808 2\.;
+#X text 170 808 ~;
+#X text 270 808 input Right signal.;
+#X obj 20 843 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 848 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 851 1\.;
-#X text 170 851 ~;
-#X text 270 851 output Left signal.;
-#X text 130 871 2\.;
-#X text 170 871 ~;
-#X text 270 871 output Right signal.;
+#X text 130 849 1\.;
+#X text 170 849 ~;
+#X text 270 849 output Left signal.;
+#X text 130 869 2\.;
+#X text 170 869 ~;
+#X text 270 869 output Right signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 921 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 924 library: ceammc v0.9.8;
-#X text 467 936 see also:;
-#X obj 542 936 fx.freeverb~;
-#X obj 645 936 fx.zita_rev1~;
-#N canvas 10 943 400 290 info 0;
+#X obj 1 919 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 922 library: ceammc v0.9.8;
+#X text 467 934 see also:;
+#X obj 542 934 fx.freeverb~;
+#X obj 645 934 fx.zita_rev1~;
+#N canvas 10 941 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -118,7 +118,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 943 pd info;
+#X restore 10 941 pd info;
 #X connect 7 0 9 0;
 #X connect 10 0 12 0;
 #X connect 9 0 14 0;

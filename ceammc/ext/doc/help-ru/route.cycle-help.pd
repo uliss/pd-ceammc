@@ -5,96 +5,95 @@
 #X obj 1 1 cnv 5 765 40 empty empty route.cycle 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 route.cycle;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 83 NOTICE: to get properties use [prop.get] object \, cause
 all messages (including property requests) are passed thru;
-#X obj 50 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 205 metro 150;
-#X msg 69 234 bang;
-#X obj 50 263 route.cycle 4;
-#X obj 50 320 click~;
-#X obj 174 320 click~;
-#X obj 299 320 click~;
-#X obj 424 320 click~;
-#X obj 50 349 flt.resonlp~ 400;
-#X obj 88 378 flt.resonlp~ 600;
-#X obj 126 407 flt.resonlp~ 800;
-#X obj 165 436 flt.resonlp~ 1200;
-#X obj 50 464 pan.spread~ 4;
-#X obj 50 493 ui.hgain2~;
-#X obj 270 493 ui.dsp~;
-#X obj 50 522 dac~;
-#X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 577 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 191 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 220 metro 150;
+#X msg 69 249 bang;
+#X obj 50 278 route.cycle 4;
+#X obj 50 335 click~;
+#X obj 174 335 click~;
+#X obj 299 335 click~;
+#X obj 424 335 click~;
+#X obj 50 364 flt.resonlp~ 400;
+#X obj 88 393 flt.resonlp~ 600;
+#X obj 126 422 flt.resonlp~ 800;
+#X obj 165 451 flt.resonlp~ 1200;
+#X obj 50 479 pan.spread~ 4;
+#X obj 50 508 ui.hgain2~;
+#X obj 270 508 ui.dsp~;
+#X obj 50 537 dac~;
+#X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 592 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 580 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 595 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 130 578 1\.;
-#X text 170 578 int;
-#X obj 271 579 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 578 N: number of outlets. Тип: int. Диапазон: 1…64;
-#X text 130 598 2\.;
-#X text 170 598 int;
-#X obj 271 599 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 598 OFFSET: start position. Тип: int. Диапазон: -64…64;
-#X text 130 618 3\.;
+#X text 130 593 1\.;
+#X text 170 593 int;
+#X obj 268 594 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 593 N: number of outlets. Тип: int. Диапазон: 1…64;
+#X text 130 618 2\.;
 #X text 170 618 int;
-#X obj 271 619 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 618 STEP: cycle step. Тип: int.;
-#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 653 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 268 619 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 618 OFFSET: start position. Тип: int. Диапазон: -64…64;
+#X text 130 643 3\.;
+#X text 170 643 int;
+#X obj 268 644 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 643 STEP: cycle step. Тип: int.;
+#X obj 20 678 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 683 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 656 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 686 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 654 @n;
-#X text 270 654 (при инициализации) Получить/Установить number of outlets.
-Тип: int. Значение по умолчанию: 2\. Диапазон: 1\...64\.;
-#X msg 130 696 @index;
-#X text 270 696 Получить/Установить current outlet index. Тип: int.
-Значение по умолчанию: 0\.;
-#X msg 130 738 @offset;
-#X text 270 738 Получить/Установить init cycle offset. Тип: int. Значение
-по умолчанию: 0\. Диапазон: -64\...64\.;
-#X msg 130 780 @step;
-#X text 270 780 Получить/Установить cycle step. Тип: int. Значение
-по умолчанию: 1\.;
-#X obj 20 832 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 837 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 684 @n;
+#X text 270 684 (при инициализации) Number of outlets. Тип: int. Значение
+по умолчанию: 2\. Диапазон: 1\...64\.;
+#X msg 130 726 @index;
+#X text 270 726 Current outlet index. Тип: int. Значение по умолчанию:
+0\.;
+#X msg 130 756 @offset;
+#X text 270 756 Init cycle offset. Тип: int. Значение по умолчанию:
+0\. Диапазон: -64\...64\.;
+#X msg 130 798 @step;
+#X text 270 798 Cycle step. Тип: int. Значение по умолчанию: 1\.;
+#X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 843 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 838 1\.;
-#X text 170 838 any:;
-#X text 270 838 any to current outlet \, then move to next.;
-#X text 170 863 bang:;
-#X text 270 863 bang to current outlet \, then move to next.;
-#X text 170 888 float:;
-#X text 270 888 float to current outlet \, then move to next.;
-#X text 170 913 list:;
-#X text 270 913 list to to current outlet \, then move to next.;
-#X text 170 938 symbol:;
-#X text 270 938 symbol to current outlet \, then move to next.;
-#X text 130 963 2\.;
-#X text 170 963 bang:;
-#X text 270 963 reset to initial outlet index.;
-#X obj 20 998 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1003 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 844 1\.;
+#X text 170 844 any:;
+#X text 270 844 any to current outlet \, then move to next.;
+#X text 170 869 bang:;
+#X text 270 869 bang to current outlet \, then move to next.;
+#X text 170 894 float:;
+#X text 270 894 float to current outlet \, then move to next.;
+#X text 170 919 list:;
+#X text 270 919 list to to current outlet \, then move to next.;
+#X text 170 944 symbol:;
+#X text 270 944 symbol to current outlet \, then move to next.;
+#X text 130 969 2\.;
+#X text 170 969 bang:;
+#X text 270 969 reset to initial outlet index.;
+#X obj 20 1004 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1009 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1004 1\.;
-#X text 270 1004 first output.;
-#X text 130 1024 ...;
-#X text 270 1024 ... output.;
-#X text 130 1044 n.;
-#X text 270 1044 nth output.;
+#X text 130 1010 1\.;
+#X text 270 1010 first output.;
+#X text 130 1030 ...;
+#X text 270 1030 ... output.;
+#X text 130 1050 n.;
+#X text 270 1050 nth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1094 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1097 библиотека: ceammc v0.9.8;
-#X text 452 1109 смотрите также:;
-#X obj 573 1109 flow.ring;
-#X obj 653 1109 route.random;
-#N canvas 10 1116 400 290 info 0;
+#X obj 1 1100 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1103 библиотека: ceammc v0.9.8;
+#X text 452 1115 смотрите также:;
+#X obj 573 1115 flow.ring;
+#X obj 653 1115 route.random;
+#N canvas 10 1122 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -118,7 +117,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1116 pd info;
+#X restore 10 1122 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;
 #X connect 8 0 9 0;

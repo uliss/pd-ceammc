@@ -21,82 +21,81 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 347 1\.;
 #X text 170 347 float;
-#X obj 271 348 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 348 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 347 DELAY(ms): echo time. Тип: float. Диапазон: 10…5000;
-#X text 130 367 2\.;
-#X text 170 367 float;
-#X obj 271 368 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 367 FEEDBACK: feedback coefficient. Тип: float. Диапазон:
+#X text 130 372 2\.;
+#X text 170 372 float;
+#X obj 268 373 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 372 FEEDBACK: feedback coefficient. Тип: float. Диапазон:
 0…0.99;
-#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 402 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 412 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 405 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 415 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 403 @id;
-#X text 270 403 (при инициализации) Получить/Установить идентификатор
-для OSC адреса. Если установлен \, все свойства объекта привязываются
-к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_echo2/ИМЯ_СВОЙСТВА \, в противном
-случае к /fx_echo2/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 130 490 @osc;
-#X text 270 490 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 413 @id;
+#X text 270 413 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/fx_echo2/ИМЯ_СВОЙСТВА \, в противном случае к /fx_echo2/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X msg 130 532 @active;
-#X text 270 532 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
-Значение по умолчанию: 1\.;
-#X msg 130 574 @bypass;
-#X text 270 574 Получить/Установить bypass flag. If true: bypass 'effected'
-signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 130 616 @delay;
-#X text 270 616 Получить/Установить echo time. Тип: float. Единицы:
-'ms'. Значение по умолчанию: 500\. Диапазон: 10\...5000\.;
-#X msg 130 658 @drywet;
-#X text 270 658 Получить/Установить proportion of mix between the original
-(dry) and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Тип:
-float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 130 715 @feedback;
-#X text 270 715 Получить/Установить feedback coefficient. Тип: float.
-Значение по умолчанию: 0.3\. Диапазон: 0\...0.99\.;
-#X msg 130 757 @stereo;
-#X text 270 757 Получить/Установить The stereo parameter controls the
-amount of stereo spread. For stereo=0 you get a plain delay \, without
-crosstalk between the channels. For stereo=1 you get a pure ping-pong
-delay where the echos from the left first appear on the right channel
-and vice versa. Тип: float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 20 885 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 890 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 485 @osc;
+#X text 270 485 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X msg 130 515 @active;
+#X text 270 515 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X msg 130 557 @bypass;
+#X text 270 557 Bypass flag. If true: bypass 'effected' signal. Тип:
+bool. Значение по умолчанию: 0\.;
+#X msg 130 599 @delay;
+#X text 270 599 Echo time. Тип: float. Единицы: 'ms'. Значение по умолчанию:
+500\. Диапазон: 10\...5000\.;
+#X msg 130 641 @drywet;
+#X text 270 641 Proportion of mix between the original (dry) and 'effected'
+(wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
+1\. Диапазон: 0\...1\.;
+#X msg 130 698 @feedback;
+#X text 270 698 Feedback coefficient. Тип: float. Значение по умолчанию:
+0.3\. Диапазон: 0\...0.99\.;
+#X msg 130 740 @stereo;
+#X text 270 740 The stereo parameter controls the amount of stereo
+spread. For stereo=0 you get a plain delay \, without crosstalk between
+the channels. For stereo=1 you get a pure ping-pong delay where the
+echos from the left first appear on the right channel and vice versa.
+Тип: float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 858 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 891 reset;
-#X text 270 891 reset to initial state.;
-#X obj 20 929 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 934 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 859 reset;
+#X text 270 859 reset to initial state.;
+#X obj 20 897 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 902 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 935 1\.;
-#X text 170 935 ~;
-#X text 270 935 left input signal.;
-#X text 130 960 2\.;
-#X text 170 960 ~;
-#X text 270 960 right input signal.;
-#X obj 20 995 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1000 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
--49933 0;
-#X text 130 1001 1\.;
-#X text 170 1001 ~;
-#X text 270 1001 left output signal.;
-#X text 130 1021 2\.;
-#X text 170 1021 ~;
-#X text 270 1021 right output signal.;
+#X text 130 903 1\.;
+#X text 170 903 ~;
+#X text 270 903 left input signal.;
+#X text 130 928 2\.;
+#X text 170 928 ~;
+#X text 270 928 right input signal.;
+#X obj 20 963 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 968 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 969 1\.;
+#X text 170 969 ~;
+#X text 270 969 left output signal.;
+#X text 130 989 2\.;
+#X text 170 989 ~;
+#X text 270 989 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1071 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1074 библиотека: ceammc v0.9.8;
-#X text 464 1086 смотрите также:;
-#X obj 585 1086 fx.echo2~;
-#X obj 666 1086 fx.sdelay~;
-#N canvas 10 1093 400 290 info 0;
+#X obj 1 1039 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1042 библиотека: ceammc v0.9.8;
+#X text 464 1054 смотрите также:;
+#X obj 585 1054 fx.echo2~;
+#X obj 666 1054 fx.sdelay~;
+#N canvas 10 1061 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -120,7 +119,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1093 pd info;
+#X restore 10 1061 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 8 0;

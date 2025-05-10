@@ -22,58 +22,58 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 390 1\.;
 #X text 170 390 int;
-#X obj 271 391 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 391 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 390 MIN(ms): minimal bang interval. Тип: int. Минимальное
 значение: 1\.;
-#X text 130 425 2\.;
-#X text 170 425 int;
-#X obj 271 426 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 425 MAX(ms): maximum bang interval. Тип: int. Минимальное
+#X text 130 430 2\.;
+#X text 170 430 int;
+#X obj 268 431 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 430 MAX(ms): maximum bang interval. Тип: int. Минимальное
 значение: 1\.;
-#X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 475 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 485 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 478 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 488 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 476 @max;
-#X text 270 476 Получить/Установить maximum bang interval. Тип: int.
-Единицы: 'ms'. Значение по умолчанию: 200\. Минимальное значение: 1\.;
-#X msg 130 518 @min;
-#X text 270 518 Получить/Установить minimal bang interval. Тип: int.
-Единицы: 'ms'. Значение по умолчанию: 100\. Минимальное значение: 1\.;
-#X msg 130 560 @seed;
-#X text 270 560 Получить/Установить generator seed. Тип: int. Значение
-по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 617 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 486 @max;
+#X text 270 486 Maximum bang interval. Тип: int. Единицы: 'ms'. Значение
+по умолчанию: 200\. Минимальное значение: 1\.;
+#X msg 130 528 @min;
+#X text 270 528 Minimal bang interval. Тип: int. Единицы: 'ms'. Значение
+по умолчанию: 100\. Минимальное значение: 1\.;
+#X msg 130 570 @seed;
+#X text 270 570 Generator seed. Тип: int. Значение по умолчанию: 0\.
+Минимальное значение: 0\.;
+#X obj 20 622 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 627 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 618 1\.;
-#X text 170 618 float:;
-#X text 270 618 starts (on > 0) or stops (on <= 0) metro.;
-#X text 130 643 2\.;
-#X text 170 643 float:;
-#X text 270 643 set @min property.;
-#X text 170 668 list:;
-#X text 270 668 set random range. min max pair expected.;
-#X text 130 693 3\.;
-#X text 170 693 float:;
-#X text 270 693 set @max property.;
-#X obj 20 728 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 733 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 628 1\.;
+#X text 170 628 float:;
+#X text 270 628 starts (on > 0) or stops (on <= 0) metro.;
+#X text 130 653 2\.;
+#X text 170 653 float:;
+#X text 270 653 set @min property.;
+#X text 170 678 list:;
+#X text 270 678 set random range. min max pair expected.;
+#X text 130 703 3\.;
+#X text 170 703 float:;
+#X text 270 703 set @max property.;
+#X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 743 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 734 1\.;
-#X text 270 734 outputs *bang*.;
+#X text 130 744 1\.;
+#X text 270 744 outputs *bang*.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 784 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 787 библиотека: ceammc v0.9.8;
-#X text 472 799 смотрите также:;
-#X obj 593 799 metro;
-#X obj 645 799 metro.pattern;
-#N canvas 10 806 400 290 info 0;
+#X obj 1 794 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 797 библиотека: ceammc v0.9.8;
+#X text 472 809 смотрите также:;
+#X obj 593 809 metro;
+#X obj 645 809 metro.pattern;
+#N canvas 10 816 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -97,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 806 pd info;
+#X restore 10 816 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 8 1;
 #X connect 8 0 9 0;

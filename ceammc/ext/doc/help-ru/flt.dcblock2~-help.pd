@@ -6,53 +6,53 @@
 #X obj 1 1 cnv 5 765 40 empty empty flt.dcblock2~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 flt.dcblock2~;
-#X obj 230 93 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 93 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 98 Stereo DC blocker. It has -3dB point near 35 Hz (at
 44.1 kHz) and high-frequency gain near 1.0025 (due to no scaling).;
-#X obj 50 191 sig~ 2;
-#X obj 117 220 env~;
-#X floatatom 117 249 5 0 0 0 - - -;
-#X obj 50 278 flt.dcblock2~;
-#X obj 50 307 env~;
-#X obj 146 307 env~;
-#X floatatom 50 335 5 0 0 0 - - -;
-#X floatatom 146 335 5 0 0 0 - - -;
-#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 372 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 50 206 sig~ 2;
+#X obj 117 235 env~;
+#X floatatom 117 264 5 0 0 0 - - -;
+#X obj 50 293 flt.dcblock2~;
+#X obj 50 322 env~;
+#X obj 146 322 env~;
+#X floatatom 50 350 5 0 0 0 - - -;
+#X floatatom 146 350 5 0 0 0 - - -;
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 387 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 375 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 373 @active;
-#X text 270 373 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
-Значение по умолчанию: 1\.;
-#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 430 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 388 @active;
+#X text 270 388 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 445 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 431 1\.;
-#X text 170 431 ~;
-#X text 270 431 right input signal.;
-#X text 130 456 2\.;
-#X text 170 456 ~;
-#X text 270 456 left input signal.;
-#X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 496 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 446 1\.;
+#X text 170 446 ~;
+#X text 270 446 right input signal.;
+#X text 130 471 2\.;
+#X text 170 471 ~;
+#X text 270 471 left input signal.;
+#X obj 20 506 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 511 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 497 1\.;
-#X text 170 497 ~;
-#X text 270 497 left filtered signal.;
-#X text 130 517 2\.;
-#X text 170 517 ~;
-#X text 270 517 right filtered signal.;
+#X text 130 512 1\.;
+#X text 170 512 ~;
+#X text 270 512 left filtered signal.;
+#X text 130 532 2\.;
+#X text 170 532 ~;
+#X text 270 532 right filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 567 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 570 библиотека: ceammc v0.9.8;
-#X text 531 582 смотрите также:;
-#X obj 652 582 flt.dcblock~;
-#N canvas 10 589 400 290 info 0;
+#X obj 1 582 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 585 библиотека: ceammc v0.9.8;
+#X text 531 597 смотрите также:;
+#X obj 652 597 flt.dcblock~;
+#N canvas 10 604 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -76,7 +76,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 589 pd info;
+#X restore 10 604 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 6 0 9 0;

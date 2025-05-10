@@ -29,78 +29,78 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 504 1\.;
 #X text 170 504 int;
-#X obj 271 505 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 505 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 504 UNIVERSE: ArtNet universe. Тип: int. Диапазон: 0…15;
-#X text 130 524 2\.;
-#X text 170 524 int;
-#X obj 271 525 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 524 SUBNET: ArtNet subnet. Тип: int. Диапазон: 0…15;
-#X obj 20 554 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 559 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 529 2\.;
+#X text 170 529 int;
+#X obj 268 530 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 529 SUBNET: ArtNet subnet. Тип: int. Диапазон: 0…15;
+#X obj 20 564 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 569 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 562 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 572 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 560 @ip;
-#X text 270 560 (при инициализации) Получить/Установить bind interface
-IP address. If empty - use first available interface. Тип: symbol.;
-#X msg 130 617 @offset;
-#X text 270 617 Получить/Установить DMX channel offset. Тип: int. Значение
-по умолчанию: 0\. Диапазон: 0\...511\.;
-#X msg 130 659 @rate;
-#X text 270 659 Получить/Установить send framerate. Тип: float. Единицы:
-'Hz'. Значение по умолчанию: 44\. Диапазон: 1\...100\.;
-#X msg 130 701 @subnet;
-#X text 270 701 Получить/Установить ArtNet subnet. Тип: int. Значение
-по умолчанию: 0\. Диапазон: 0\...15\.;
-#X msg 130 743 @sync;
-#X text 270 743 Получить/Установить send mode. If true: send frame
-only when bang is received \, otherwise send frames with @rate speed
-with internal clock. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 130 800 @universe;
-#X text 270 800 Получить/Установить ArtNet universe. Тип: int. Значение
-по умолчанию: 0\. Диапазон: 0\...15\.;
-#X obj 20 852 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 857 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 570 @ip;
+#X text 270 570 (при инициализации) Bind interface IP address. If empty
+- use first available interface. Тип: symbol.;
+#X msg 130 612 @offset;
+#X text 270 612 DMX channel offset. Тип: int. Значение по умолчанию:
+0\. Диапазон: 0\...511\.;
+#X msg 130 654 @rate;
+#X text 270 654 Send framerate. Тип: float. Единицы: 'Hz'. Значение
+по умолчанию: 44\. Диапазон: 1\...100\.;
+#X msg 130 696 @subnet;
+#X text 270 696 ArtNet subnet. Тип: int. Значение по умолчанию: 0\.
+Диапазон: 0\...15\.;
+#X msg 130 738 @sync;
+#X text 270 738 Send mode. If true: send frame only when bang is received
+\, otherwise send frames with @rate speed with internal clock. Тип:
+bool. Значение по умолчанию: 0\.;
+#X msg 130 795 @universe;
+#X text 270 795 ArtNet universe. Тип: int. Значение по умолчанию: 0\.
+Диапазон: 0\...15\.;
+#X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 852 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 858 blackout;
-#X text 270 858 blackout (send 0 to all DMX channels).;
-#X msg 130 886 dmx;
-#X text 270 886 set DMX channel values. Аргументы:;
-#X obj 280 909 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 909 VALUES: list of DMX values \, first element sets first
+#X msg 130 853 blackout;
+#X text 270 853 blackout (send 0 to all DMX channels).;
+#X msg 130 881 dmx;
+#X text 270 881 set DMX channel values. Аргументы:;
+#X obj 280 904 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 904 VALUES: list of DMX values \, first element sets first
 channel etc. Тип: list.;
-#X msg 130 949 dmx_fill;
-#X text 270 949 set all DMX channels to given value. Аргументы:;
-#X obj 280 972 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 972 VAL: DMX value. Тип: int. Диапазон: 0…255\.;
-#X msg 130 997 dmx_set;
-#X text 270 997 set DMX channel value. Аргументы:;
-#X obj 280 1020 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1020 CHAN: DMX channel. Тип: int. Диапазон: 0…512\.;
-#X obj 280 1043 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1043 VAL: DMX value. Тип: int. Диапазон: 0…255\.;
-#X msg 130 1068 poll;
-#X text 270 1068 send poll request \, dump response to Pd window.;
-#X obj 20 1106 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1111 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 944 dmx_fill;
+#X text 270 944 set all DMX channels to given value. Аргументы:;
+#X obj 280 967 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 967 VAL: DMX value. Тип: int. Диапазон: 0…255\.;
+#X msg 130 992 dmx_set;
+#X text 270 992 set DMX channel value. Аргументы:;
+#X obj 280 1015 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1015 CHAN: DMX channel. Тип: int. Диапазон: 0…512\.;
+#X obj 280 1038 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1038 VAL: DMX value. Тип: int. Диапазон: 0…255\.;
+#X msg 130 1063 poll;
+#X text 270 1063 send poll request \, dump response to Pd window.;
+#X obj 20 1101 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1106 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1112 1\.;
-#X text 270 1112 input.;
-#X text 170 1137 bang:;
-#X text 270 1137 send packet.;
-#X obj 20 1172 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1177 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1107 1\.;
+#X text 270 1107 input.;
+#X text 170 1132 bang:;
+#X text 270 1132 send packet.;
+#X obj 20 1167 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1172 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1178 1\.;
-#X text 270 1178 output.;
+#X text 130 1173 1\.;
+#X text 270 1173 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1228 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1231 библиотека: ceammc v0.9.8;
-#N canvas 10 1250 400 290 info 0;
+#X obj 1 1223 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1226 библиотека: ceammc v0.9.8;
+#N canvas 10 1245 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -124,7 +124,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1250 pd info;
+#X restore 10 1245 pd info;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;
 #X connect 9 0 10 0;

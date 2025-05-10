@@ -27,56 +27,56 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 463 1\.;
 #X text 170 463 float;
-#X obj 271 464 cnv 1 100 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 464 cnv 1 100 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 463 INTERVAL(ms): metro tempo in ms. Тип: float. Минимальное
 значение: 0\.;
-#X text 130 498 2\.;
-#X text 170 498 list;
-#X obj 271 499 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 498 PATTERN: list of 1 and 0\. Where 1 means output bang
+#X text 130 503 2\.;
+#X text 170 503 list;
+#X obj 268 504 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 503 PATTERN: list of 1 and 0\. Where 1 means output bang
 on this beat. Тип: list.;
-#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 548 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 553 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 558 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 551 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 561 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 549 @current;
-#X text 270 549 Получить/Установить current pattern index. Тип: int.
+#X msg 130 559 @current;
+#X text 270 559 Current pattern index. Тип: int. Значение по умолчанию:
+0\. Минимальное значение: 0\.;
+#X msg 130 601 @interval;
+#X text 270 601 Interval between beats. Тип: float. Единицы: 'ms'.
 Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 130 591 @interval;
-#X text 270 591 Получить/Установить interval between beats. Тип: float.
-Единицы: 'ms'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 130 648 @pattern;
-#X text 270 648 Получить/Установить list of 1 and 0\. Where 1 means
-output bang on this beat. Тип: list.;
-#X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 705 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 643 @pattern;
+#X text 270 643 List of 1 and 0\. Where 1 means output bang on this
+beat. Тип: list.;
+#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 700 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 706 1\.;
-#X text 170 706 float:;
-#X text 270 706 starts (on 1) or stops (on 0) metro.;
-#X text 130 731 2\.;
-#X text 170 731 float:;
-#X text 270 731 set new step interval.;
-#X text 130 756 3\.;
-#X text 170 756 list:;
-#X text 270 756 set new pattern.;
-#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 796 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 701 1\.;
+#X text 170 701 float:;
+#X text 270 701 starts (on 1) or stops (on 0) metro.;
+#X text 130 726 2\.;
+#X text 170 726 float:;
+#X text 270 726 set new step interval.;
+#X text 130 751 3\.;
+#X text 170 751 list:;
+#X text 270 751 set new pattern.;
+#X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 791 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 797 1\.;
-#X text 270 797 outputs *bang*.;
+#X text 130 792 1\.;
+#X text 270 792 outputs *bang*.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 847 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 850 библиотека: ceammc v0.9.8;
-#X text 472 862 смотрите также:;
-#X obj 593 862 metro;
-#X obj 645 862 metro.pattern;
-#N canvas 10 869 400 290 info 0;
+#X obj 1 842 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 845 библиотека: ceammc v0.9.8;
+#X text 472 857 смотрите также:;
+#X obj 593 857 metro;
+#X obj 645 857 metro.pattern;
+#N canvas 10 864 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -100,7 +100,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 869 pd info;
+#X restore 10 864 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 12 0;

@@ -41,36 +41,35 @@ output all available network service names with format [service SERVICE(;
 #X obj 735 787 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 785 @fullname;
-#X text 270 785 Получить/Установить if true: output full instance name
-(with service and domain suffix) \, for ex.: 'THE_SERVICE._xx.local.'
-format. Тип: bool. Значение по умолчанию: 1\.;
+#X text 270 785 If true: output full instance name (with service and
+domain suffix) \, for ex.: 'THE_SERVICE._xx.local.' format. Тип: bool.
+Значение по умолчанию: 1\.;
 #X msg 130 842 @ip;
-#X text 270 842 Получить/Установить restrict addresses by type. Тип:
-symbol. Значение по умолчанию: v4\. Разрешённые значения: v4 \, v6
-\, any.;
-#X obj 20 909 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 914 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X text 270 842 Restrict addresses by type. Тип: symbol. Значение по
+умолчанию: v4\. Разрешённые значения: v4 \, v6 \, any.;
+#X obj 20 894 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 899 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 915 ifaces;
-#X text 270 915 output available network interfaces and their info.;
-#X msg 130 943 register;
-#X text 270 943 register MDNS service instance. Instance will be available
+#X msg 130 900 ifaces;
+#X text 270 900 output available network interfaces and their info.;
+#X msg 130 928 register;
+#X text 270 928 register MDNS service instance. Instance will be available
 with DNS name NAME.local. Аргументы:;
-#X obj 280 981 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 981 SERVICE: service name \, for example: _osc._tcp \,
+#X obj 280 966 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 966 SERVICE: service name \, for example: _osc._tcp \,
 or alias: #osc. Тип: symbol.;
-#X obj 280 1019 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1019 NAME: instance name \, for example: MY_SUPER_SERVER.
+#X obj 280 1004 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1004 NAME: instance name \, for example: MY_SUPER_SERVER.
 Тип: symbol.;
-#X obj 280 1057 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1057 PORT: instance port. Тип: int. Минимальное значение:
+#X obj 280 1042 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1042 PORT: instance port. Тип: int. Минимальное значение:
 0\.;
-#X obj 280 1080 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1080 [PROPS]: list of text props (TXT record) \, for example:
+#X obj 280 1065 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1065 [PROPS]: list of text props (TXT record) \, for example:
 @prop1 FOO @prop2 BOO will have TXT records prop1=FOO prop2=BAR. Тип:
 list.;
-#X msg 130 1135 resolve;
-#X text 270 1135 does mDNS name resolving: get service information:
+#X msg 130 1120 resolve;
+#X text 270 1120 does mDNS name resolving: get service information:
 host \, ip \, port etc by SERVICE type and INSTANCE name. Аргументы:;
 #X obj 280 1173 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1173 SERVICE: service name \, for example: _osc._tcp \,
@@ -116,9 +115,9 @@ add|remove SERVICE \, resolve SERVICE NAME HOST PORT IP PROPERTIES.;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1638 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1641 библиотека: ceammc v0.9.8;
-#N canvas 10 1660 400 290 info 0;
+#X obj 1 1653 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1656 библиотека: ceammc v0.9.8;
+#N canvas 10 1675 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -143,7 +142,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1660 pd info;
+#X restore 10 1675 pd info;
 #X connect 19 0 21 0;
 #X connect 21 0 22 0;
 #X connect 22 0 23 0;

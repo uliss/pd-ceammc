@@ -30,7 +30,7 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 520 1\.;
 #X text 170 520 symbol;
-#X obj 271 521 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 521 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 520 SCALE: название звукоряда. Разрешённые значения: aeolian
 \, ahirbhairav \, ajam \, atharKurd \, augmented \, augmented2 \, bartok
 \, bastanikar \, bayati \, bhairav \, chinese \, chromatic \, chromatic24
@@ -51,22 +51,22 @@ partch_u3 \, partch_u4 \, partch_u5 \, partch_u6 \, pelog \, phrygian
 \, shang \, shawq_afza \, sikah \, sikah_desc \, spanish \, super_locrian
 \, suznak \, todi \, ushaq_mashri \, whole \, whole_leading \, yakah
 \, yakah_desc \, yu \, zamzam \, zanjaran \, zhi. Тип: symbol.;
-#X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 887 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 872 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 877 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 890 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 880 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 888 @scale;
-#X text 270 888 Получить/Установить название звукоряда. Тип: symbol.
-Значение по умолчанию: major. Разрешённые значения: aeolian \, ahirbhairav
-\, ajam \, atharKurd \, augmented \, augmented2 \, bartok \, bastanikar
-\, bayati \, bhairav \, chinese \, chromatic \, chromatic24 \, diminished
-\, diminished2 \, dorian \, egyptian \, enigmatic \, farahfaza \, gong
-\, hex_aeolian \, hex_dorian \, hex_major6 \, hex_major7 \, hex_phrygian
-\, hex_sus \, hijaz \, hijaz_desc \, hijaz_kar \, hindu \, hirajoshi
-\, husseini \, huzam \, indian \, ionian \, iraq \, iwato \, jiao \,
-jiharkah \, karjighar \, kijaz_kar_kurd \, kumoi \, kurd \, locrian
-\, lydian \, mahur \, major \, major_harmonic \, major_locrian \, major_melodic
+#X msg 130 878 @scale;
+#X text 270 878 Название звукоряда. Тип: symbol. Значение по умолчанию:
+major. Разрешённые значения: aeolian \, ahirbhairav \, ajam \, atharKurd
+\, augmented \, augmented2 \, bartok \, bastanikar \, bayati \, bhairav
+\, chinese \, chromatic \, chromatic24 \, diminished \, diminished2
+\, dorian \, egyptian \, enigmatic \, farahfaza \, gong \, hex_aeolian
+\, hex_dorian \, hex_major6 \, hex_major7 \, hex_phrygian \, hex_sus
+\, hijaz \, hijaz_desc \, hijaz_kar \, hindu \, hirajoshi \, husseini
+\, huzam \, indian \, ionian \, iraq \, iwato \, jiao \, jiharkah \,
+karjighar \, kijaz_kar_kurd \, kumoi \, kurd \, locrian \, lydian \,
+mahur \, major \, major_harmonic \, major_locrian \, major_melodic
 \, major_neapolitan \, major_pentatonic \, marva \, minor \, minor_harmonic
 \, minor_hungarian \, minor_lydian \, minor_melodic \, minor_melodic_desc
 \, minor_neapolitan \, minor_pentatonic \, minor_romanian \, mixolydian
@@ -78,17 +78,17 @@ partch_u5 \, partch_u6 \, pelog \, phrygian \, prometheus \, purvi
 \, sikah \, sikah_desc \, spanish \, super_locrian \, suznak \, todi
 \, ushaq_mashri \, whole \, whole_leading \, yakah \, yakah_desc \,
 yu \, zamzam \, zanjaran \, zhi.;
-#X msg 130 1262 @all?;
-#X text 270 1262 (только чтение) Получить список всех поддерживаемых
-звукорядов. Тип: list. Значение по умолчанию: aeolian ahirbhairav ajam
-atharKurd augmented augmented2 bartok bastanikar bayati bhairav chinese
-chromatic chromatic24 diminished diminished2 dorian egyptian enigmatic
-farahfaza gong hex_aeolian hex_dorian hex_major6 hex_major7 hex_phrygian
-hex_sus hijaz hijaz_desc hijaz_kar hindu hirajoshi husseini huzam indian
-ionian iraq iwato jiao jiharkah karjighar kijaz_kar_kurd kumoi kurd
-locrian lydian mahur major major_harmonic major_locrian major_melodic
-major_neapolitan major_pentatonic marva minor minor_harmonic minor_hungarian
-minor_lydian minor_melodic minor_melodic_desc minor_neapolitan minor_pentatonic
+#X msg 130 1237 @all?;
+#X text 270 1237 (только чтение) Список всех поддерживаемых звукорядов.
+Тип: list. Значение по умолчанию: aeolian ahirbhairav ajam atharKurd
+augmented augmented2 bartok bastanikar bayati bhairav chinese chromatic
+chromatic24 diminished diminished2 dorian egyptian enigmatic farahfaza
+gong hex_aeolian hex_dorian hex_major6 hex_major7 hex_phrygian hex_sus
+hijaz hijaz_desc hijaz_kar hindu hirajoshi husseini huzam indian ionian
+iraq iwato jiao jiharkah karjighar kijaz_kar_kurd kumoi kurd locrian
+lydian mahur major major_harmonic major_locrian major_melodic major_neapolitan
+major_pentatonic marva minor minor_harmonic minor_hungarian minor_lydian
+minor_melodic minor_melodic_desc minor_neapolitan minor_pentatonic
 minor_romanian mixolydian murassah mustar nahawand nahawand_desc nairuz
 nawa_athar nikriz partch_o1 partch_o2 partch_o3 partch_o4 partch_o5
 partch_o6 partch_u1 partch_u2 partch_u3 partch_u4 partch_u5 partch_u6
@@ -96,33 +96,33 @@ pelog phrygian prometheus purvi rast rast_desc ritusen saba scriabin
 shang shawq_afza sikah sikah_desc spanish super_locrian suznak todi
 ushaq_mashri whole whole_leading yakah yakah_desc yu zamzam zanjaran
 zhi.;
-#X obj 20 1601 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1606 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1576 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1581 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1607 random;
-#X text 270 1607 choose random degree from current scale and convert
+#X msg 130 1582 random;
+#X text 270 1582 choose random degree from current scale and convert
 it to key.;
-#X obj 20 1657 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1662 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1632 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1637 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1663 1\.;
-#X text 170 1663 float:;
-#X text 270 1663 input value.;
-#X text 170 1688 list:;
-#X text 270 1688 input values.;
-#X obj 20 1723 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1728 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1638 1\.;
+#X text 170 1638 float:;
+#X text 270 1638 input value.;
+#X text 170 1663 list:;
+#X text 270 1663 input values.;
+#X obj 20 1698 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1703 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1729 1\.;
-#X text 270 1729 float or float list: converted value(s).;
+#X text 130 1704 1\.;
+#X text 270 1704 float or float list: converted value(s).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 1779 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1782 библиотека: ceammc v0.9.8;
-#N canvas 10 1801 400 290 info 0;
+#X obj 1 1754 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1757 библиотека: ceammc v0.9.8;
+#N canvas 10 1776 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -146,7 +146,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1801 pd info;
+#X restore 10 1776 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 11 0 12 0;

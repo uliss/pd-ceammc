@@ -23,59 +23,58 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 318 1\.;
 #X text 170 318 int;
-#X obj 271 319 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 319 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 318 N: number of inputs/outputs. Тип: int. Диапазон: 1…12;
-#X text 130 338 2\.;
-#X text 170 338 list;
-#X obj 271 339 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 338 VALUES: init values. Тип: list.;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 343 2\.;
+#X text 170 343 list;
+#X obj 268 344 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 343 VALUES: init values. Тип: list.;
+#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 383 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 386 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 374 @n;
-#X text 270 374 (при инициализации) Получить/Установить number of inputs/outputs.
-Тип: int. Значение по умолчанию: 1\. Диапазон: 1\...12\.;
-#X msg 130 431 @values;
-#X text 270 431 Получить/Установить current output values. Default:
-0\. Тип: list.;
-#X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 488 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 384 @n;
+#X text 270 384 (при инициализации) Number of inputs/outputs. Тип:
+int. Значение по умолчанию: 1\. Диапазон: 1\...12\.;
+#X msg 130 426 @values;
+#X text 270 426 Current output values. Default: 0\. Тип: list.;
+#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 471 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 489 1\.;
-#X text 170 489 float:;
-#X text 270 489 set first output value.;
-#X text 170 514 list:;
-#X text 270 514 set list of output values.;
-#X text 130 539 ...;
-#X text 170 539 float:;
-#X text 270 539 set ... output value.;
-#X text 130 564 n.;
-#X text 170 564 float:;
-#X text 270 564 set n-th output value.;
-#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 604 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 472 1\.;
+#X text 170 472 float:;
+#X text 270 472 set first output value.;
+#X text 170 497 list:;
+#X text 270 497 set list of output values.;
+#X text 130 522 ...;
+#X text 170 522 float:;
+#X text 270 522 set ... output value.;
+#X text 130 547 n.;
+#X text 170 547 float:;
+#X text 270 547 set n-th output value.;
+#X obj 20 582 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 587 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 605 1\.;
-#X text 170 605 ~;
-#X text 270 605 first value output.;
-#X text 130 625 ...;
-#X text 170 625 ~;
-#X text 270 625 ... value output.;
-#X text 130 645 n.;
-#X text 170 645 ~;
-#X text 270 645 n-th value output.;
+#X text 130 588 1\.;
+#X text 170 588 ~;
+#X text 270 588 first value output.;
+#X text 130 608 ...;
+#X text 170 608 ~;
+#X text 270 608 ... value output.;
+#X text 130 628 n.;
+#X text 170 628 ~;
+#X text 270 628 n-th value output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 695 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 698 библиотека: ceammc v0.9.8;
-#X text 589 710 смотрите также:;
-#X obj 710 710 sig~;
-#N canvas 10 717 400 290 info 0;
+#X obj 1 678 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 681 библиотека: ceammc v0.9.8;
+#X text 589 693 смотрите также:;
+#X obj 710 693 sig~;
+#N canvas 10 700 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -99,7 +98,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 717 pd info;
+#X restore 10 700 pd info;
 #X connect 7 0 11 0;
 #X connect 8 0 11 1;
 #X connect 9 0 11 2;

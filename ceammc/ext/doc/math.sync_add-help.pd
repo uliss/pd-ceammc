@@ -25,32 +25,32 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 243 1\.;
 #X text 170 243 float;
-#X obj 271 244 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 244 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 243 F: second addend. Type: float.;
-#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 278 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 283 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 281 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 286 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 279 @int;
-#X text 270 279 operate on integers only. Default value: 0\.;
-#X obj 20 319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 324 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 284 @int;
+#X text 270 284 Operate on integers only. Default value: 0\.;
+#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 329 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 325 1\.;
-#X text 170 325 float:;
-#X text 270 325 set first addend \, calculate and output result.;
-#X text 170 350 list:;
-#X text 270 350 pair: set first and second addends \, calculate and
+#X text 130 330 1\.;
+#X text 170 330 float:;
+#X text 270 330 set first addend \, calculate and output result.;
+#X text 170 355 list:;
+#X text 270 355 pair: set first and second addends \, calculate and
 output result.;
-#X text 130 390 2\.;
-#X text 170 390 float:;
-#X text 270 390 change second addend \, calculate and output result.;
-#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 430 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 395 2\.;
+#X text 170 395 float:;
+#X text 270 395 change second addend \, calculate and output result.;
+#X obj 20 430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 435 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 431 1\.;
-#X text 270 431 result output.;
+#X text 130 436 1\.;
+#X text 270 436 result output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

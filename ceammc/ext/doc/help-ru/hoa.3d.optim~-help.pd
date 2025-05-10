@@ -38,66 +38,65 @@ your ears.;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 777 1\.;
 #X text 170 777 int;
-#X obj 271 778 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 778 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 777 ORDER: the order of decomposition. Тип: int. Диапазон:
 1…10;
-#X text 130 797 2\.;
-#X text 170 797 symbol;
-#X obj 271 798 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 797 MODE: optimization mode. Разрешённые значения: basic
+#X text 130 802 2\.;
+#X text 170 802 symbol;
+#X obj 268 803 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 802 MODE: optimization mode. Разрешённые значения: basic
 \, maxre \, inphase. Тип: symbol.;
-#X obj 20 842 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 847 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 852 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 857 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 850 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 860 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 848 @order;
-#X text 270 848 (при инициализации) Получить/Установить the order of
-decomposition. Тип: int. Значение по умолчанию: 1\. Диапазон: 1\...10\.;
-#X msg 130 905 @basic;
-#X text 270 905 Alias for @mode basic (no optimization).;
-#X msg 130 935 @inphase;
-#X text 270 935 Alias for @mode inphase.;
-#X msg 130 965 @maxre;
-#X text 270 965 Alias for @mode maxre.;
-#X msg 130 995 @mode;
-#X text 270 995 Получить/Установить optimization mode. Тип: symbol.
-Значение по умолчанию: basic. Разрешённые значения: basic \, maxre
-\, inphase.;
-#X obj 20 1062 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1067 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 858 @order;
+#X text 270 858 (при инициализации) The order of decomposition. Тип:
+int. Значение по умолчанию: 1\. Диапазон: 1\...10\.;
+#X msg 130 900 @basic;
+#X text 270 900 Alias for @mode basic (no optimization).;
+#X msg 130 930 @inphase;
+#X text 270 930 Alias for @mode inphase.;
+#X msg 130 960 @maxre;
+#X text 270 960 Alias for @mode maxre.;
+#X msg 130 990 @mode;
+#X text 270 990 Optimization mode. Тип: symbol. Значение по умолчанию:
+basic. Разрешённые значения: basic \, maxre \, inphase.;
+#X obj 20 1042 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1047 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1068 1\.;
-#X text 170 1068 ~;
-#X text 270 1068 first input harmonic.;
-#X text 130 1093 ...;
-#X text 170 1093 ~;
-#X text 270 1093 ... input harmonic.;
-#X text 130 1118 n.;
-#X text 170 1118 ~;
-#X text 270 1118 n-th input harmonic.;
-#X obj 20 1153 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1158 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1048 1\.;
+#X text 170 1048 ~;
+#X text 270 1048 first input harmonic.;
+#X text 130 1073 ...;
+#X text 170 1073 ~;
+#X text 270 1073 ... input harmonic.;
+#X text 130 1098 n.;
+#X text 170 1098 ~;
+#X text 270 1098 n-th input harmonic.;
+#X obj 20 1133 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1138 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1159 1\.;
+#X text 130 1139 1\.;
+#X text 170 1139 ~;
+#X text 270 1139 first harmonic output.;
+#X text 130 1159 ...;
 #X text 170 1159 ~;
-#X text 270 1159 first harmonic output.;
-#X text 130 1179 ...;
+#X text 270 1159 ... harmonic output.;
+#X text 130 1179 n.;
 #X text 170 1179 ~;
-#X text 270 1179 ... harmonic output.;
-#X text 130 1199 n.;
-#X text 170 1199 ~;
-#X text 270 1199 n-th harmonic output.;
+#X text 270 1179 n-th harmonic output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1249 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1252 библиотека: ceammc v0.9.8;
-#X text 509 1264 смотрите также:;
-#X obj 630 1264 hoa.3d.decoder~;
-#N canvas 10 1271 400 290 info 0;
+#X obj 1 1229 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1232 библиотека: ceammc v0.9.8;
+#X text 509 1244 смотрите также:;
+#X obj 630 1244 hoa.3d.decoder~;
+#N canvas 10 1251 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -122,7 +121,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1271 pd info;
+#X restore 10 1251 pd info;
 #X connect 11 0 13 0;
 #X connect 12 0 14 0;
 #X connect 13 0 16 0;

@@ -27,56 +27,56 @@ CICM documentation @url hoa/hoa.2d.rotate~-help.pd;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 533 1\.;
 #X text 170 533 int;
-#X obj 271 534 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 534 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 533 ORDER: the order of decomposition. Тип: int. Диапазон:
 1…63;
-#X obj 20 563 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 568 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 573 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 571 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 576 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 569 @order;
-#X text 270 569 (при инициализации) Получить/Установить the order of
-decomposition. Тип: int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
-#X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 641 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 574 @order;
+#X text 270 574 (при инициализации) The order of decomposition. Тип:
+int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
+#X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 631 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 642 1\.;
-#X text 170 642 ~;
-#X text 270 642 first input harmonic.;
-#X text 130 667 ...;
-#X text 170 667 ~;
-#X text 270 667 ... input harmonic.;
-#X text 130 692 n.;
-#X text 170 692 ~;
-#X text 270 692 n-th input harmonic.;
-#X text 130 717 n+1\.;
-#X text 170 717 ~;
-#X text 270 717 Set the angle of the rotation of the soundfield in
+#X text 130 632 1\.;
+#X text 170 632 ~;
+#X text 270 632 first input harmonic.;
+#X text 130 657 ...;
+#X text 170 657 ~;
+#X text 270 657 ... input harmonic.;
+#X text 130 682 n.;
+#X text 170 682 ~;
+#X text 270 682 n-th input harmonic.;
+#X text 130 707 n+1\.;
+#X text 170 707 ~;
+#X text 270 707 Set the angle of the rotation of the soundfield in
 radian. The rotation angle is anti-clockwise and wrapped between 0
 and 2π.;
-#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 787 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 772 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 777 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 788 1\.;
-#X text 170 788 ~;
-#X text 270 788 first output harmonic.;
-#X text 130 808 ...;
-#X text 170 808 ~;
-#X text 270 808 ... output harmonic.;
-#X text 130 828 n.;
-#X text 170 828 ~;
-#X text 270 828 n-th output harmonic.;
+#X text 130 778 1\.;
+#X text 170 778 ~;
+#X text 270 778 first output harmonic.;
+#X text 130 798 ...;
+#X text 170 798 ~;
+#X text 270 798 ... output harmonic.;
+#X text 130 818 n.;
+#X text 170 818 ~;
+#X text 270 818 n-th output harmonic.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 878 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 881 библиотека: ceammc v0.9.8;
-#X text 531 893 смотрите также:;
-#X obj 652 893 hoa.encoder~;
-#N canvas 10 900 400 290 info 0;
+#X obj 1 868 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 871 библиотека: ceammc v0.9.8;
+#X text 531 883 смотрите также:;
+#X obj 652 883 hoa.encoder~;
+#N canvas 10 890 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 900 pd info;
+#X restore 10 890 pd info;
 #X connect 7 0 10 0;
 #X connect 8 0 10 1;
 #X connect 9 0 11 0;

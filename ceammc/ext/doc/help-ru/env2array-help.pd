@@ -37,50 +37,50 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 472 1\.;
 #X text 170 472 symbol;
-#X obj 271 473 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 473 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 472 ARRAY: array name. Тип: symbol.;
-#X obj 20 502 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 507 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 512 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 510 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 515 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 508 @array;
-#X text 270 508 Получить/Установить target array name. Тип: symbol.;
-#X msg 130 538 @fit;
-#X text 270 538 Alias to @mode fit property.;
-#X msg 130 568 @mode;
-#X text 270 568 Получить/Установить rendering mode: *fit* to array
-size \, *resize* array to envelope length or *raw* render while enough
-space in array. Тип: symbol. Значение по умолчанию: fit. Разрешённые
-значения: fit \, resize \, raw.;
-#X msg 130 655 @raw;
-#X text 270 655 Alias to @mode raw property.;
-#X msg 130 685 @redraw;
-#X text 270 685 Получить/Установить redraw after array change. Тип:
-bool. Значение по умолчанию: 1\.;
-#X msg 130 727 @resize;
-#X text 270 727 Alias to @mode resize property.;
-#X obj 20 767 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 772 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 513 @array;
+#X text 270 513 Target array name. Тип: symbol.;
+#X msg 130 543 @fit;
+#X text 270 543 Alias to @mode fit property.;
+#X msg 130 573 @mode;
+#X text 270 573 Rendering mode: *fit* to array size \, *resize* array
+to envelope length or *raw* render while enough space in array. Тип:
+symbol. Значение по умолчанию: fit. Разрешённые значения: fit \, resize
+\, raw.;
+#X msg 130 645 @raw;
+#X text 270 645 Alias to @mode raw property.;
+#X msg 130 675 @redraw;
+#X text 270 675 Redraw after array change. Тип: bool. Значение по умолчанию:
+1\.;
+#X msg 130 717 @resize;
+#X text 270 717 Alias to @mode resize property.;
+#X obj 20 757 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 762 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 773 1\.;
-#X text 270 773 *envelope* data.;
-#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 813 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 763 1\.;
+#X text 270 763 *envelope* data.;
+#X obj 20 798 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 803 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 814 1\.;
-#X text 270 814 output number of samples in destination array. If array
+#X text 130 804 1\.;
+#X text 270 804 output number of samples in destination array. If array
 was resized - output this new size.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title env @url ceammc.env-help.pd;
-#X obj 1 879 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 882 библиотека: ceammc v0.9.8;
-#X text 546 894 смотрите также:;
-#X obj 667 894 env->vline;
-#N canvas 10 901 400 290 info 0;
+#X obj 1 869 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 872 библиотека: ceammc v0.9.8;
+#X text 546 884 смотрите также:;
+#X obj 667 884 env->vline;
+#N canvas 10 891 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -104,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 901 pd info;
+#X restore 10 891 pd info;
 #X connect 6 0 9 0;
 #X connect 8 0 11 0;
 #X connect 9 0 11 1;

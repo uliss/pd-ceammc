@@ -5,86 +5,85 @@
 #X obj 1 1 cnv 5 765 40 empty empty synth.german_bell~ 20 20 0 20
 -104026 -4096 0;
 #X obj 609 11 synth.german_bell~;
-#X obj 230 78 cnv 1 535 130 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 145 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 83 Modeled after D. Bartocha and . Baron \, Influence of
 Tin Bronze Melting and Pouring Parameters on Its Properties and Bell'
 Tone \, Archives of Foundry Engineering \, 2016;
-#X text 240 138 Model height is 1m;
-#X text 240 163 This model contains 7 excitation positions going linearly
+#X text 240 153 Model height is 1m;
+#X text 240 178 This model contains 7 excitation positions going linearly
 from the bottom to the top of the bell;
-#X obj 50 256 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 194 256 ui.dsp~;
-#X obj 50 285 metro 1000;
-#X msg 50 314 @gate 1;
-#X obj 50 343 msg.after 300 @gate 0;
-#X obj 50 372 msg synth.german_bell;
-#X obj 50 400 gsynth.german_bell~;
-#X obj 50 674 ui.gain~ @size 120 16;
-#X obj 50 703 dac~;
-#X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 758 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 50 271 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 194 271 ui.dsp~;
+#X obj 50 300 metro 1000;
+#X msg 50 329 @gate 1;
+#X obj 50 358 msg.after 300 @gate 0;
+#X obj 50 387 msg synth.german_bell;
+#X obj 50 415 gsynth.german_bell~;
+#X obj 50 689 ui.gain~ @size 120 16;
+#X obj 50 718 dac~;
+#X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 773 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 761 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 776 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 759 @id;
-#X text 270 759 (initonly) Get/Set OSC address id. If specified \,
-bind all properties to /ID/synth_german_bell/PROP_NAME osc address
-\, if empty bind to /synth_german_bell/PROP_NAME. Type: symbol.;
-#X msg 130 816 @osc;
-#X text 270 816 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
-#X msg 130 846 @active;
-#X text 270 846 Turn on/off object dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 130 888 @cutoff;
-#X text 270 888 Get/Set strike cutoff frequency. Type: float. Units:
-'Hz'. Default value: 4000\. Range: 20\...20000\.;
-#X msg 130 930 @decay_ratio;
-#X text 270 930 Get/Set decay ratio. Type: float. Default value: 1\.
-Range: 0\...1\.;
-#X msg 130 972 @decay_slope;
-#X text 270 972 Get/Set decay slope. Type: float. Default value: 3\.
-Range: 0\...10\.;
-#X msg 130 1014 @gain;
-#X text 270 1014 Get/Set strike gain. Type: float. Default value: 1\.
-Range: 0\...1\.;
-#X msg 130 1056 @gate;
-#X text 270 1056 Get/Set play trigger - 1: on \, 0: off. Type: float.
-Default value: 0\. Range: 0\...1\.;
-#X msg 130 1098 @pos;
-#X text 270 1098 Get/Set strike position (0 is on the bottom). Type:
-int. Default value: 0\. Range: 0\...6\.;
-#X msg 130 1140 @sharp;
-#X text 270 1140 Get/Set strike sharpness. Type: float. Default value:
-0.25\. Range: 0.01\...5\.;
-#X msg 130 1182 @t60;
-#X text 270 1182 Get/Set time to decay to -60db level. Type: float.
-Units: 'sec'. Default value: 20\. Range: 0.1\...30\.;
-#X obj 20 1234 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1239 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 774 @id;
+#X text 270 774 (initonly) OSC address id. If specified \, bind all
+properties to /ID/synth_german_bell/PROP_NAME osc address \, if empty
+bind to /synth_german_bell/PROP_NAME. Type: symbol.;
+#X msg 130 846 @osc;
+#X text 270 846 (initonly) OSC server name to listen. Type: symbol.;
+#X msg 130 876 @active;
+#X text 270 876 On/off object dsp processing. Type: bool. Default value:
+1\.;
+#X msg 130 906 @cutoff;
+#X text 270 906 Strike cutoff frequency. Type: float. Units: 'Hz'.
+Default value: 4000\. Range: 20\...20000\.;
+#X msg 130 948 @decay_ratio;
+#X text 270 948 Decay ratio. Type: float. Default value: 1\. Range:
+0\...1\.;
+#X msg 130 978 @decay_slope;
+#X text 270 978 Decay slope. Type: float. Default value: 3\. Range:
+0\...10\.;
+#X msg 130 1008 @gain;
+#X text 270 1008 Strike gain. Type: float. Default value: 1\. Range:
+0\...1\.;
+#X msg 130 1038 @gate;
+#X text 270 1038 Play trigger - 1: on \, 0: off. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 130 1080 @pos;
+#X text 270 1080 Strike position (0 is on the bottom). Type: int. Default
+value: 0\. Range: 0\...6\.;
+#X msg 130 1122 @sharp;
+#X text 270 1122 Strike sharpness. Type: float. Default value: 0.25\.
+Range: 0.01\...5\.;
+#X msg 130 1164 @t60;
+#X text 270 1164 Time to decay to -60db level. Type: float. Units:
+'sec'. Default value: 20\. Range: 0.1\...30\.;
+#X obj 20 1216 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1221 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1240 reset;
-#X text 270 1240 reset synth.;
-#X obj 20 1278 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1283 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1222 reset;
+#X text 270 1222 reset synth.;
+#X obj 20 1260 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1265 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1284 1\.;
-#X text 170 1284 bang:;
-#X text 270 1284 play.;
-#X obj 20 1319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1324 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1266 1\.;
+#X text 170 1266 bang:;
+#X text 270 1266 play.;
+#X obj 20 1301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1306 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1325 1\.;
-#X text 170 1325 ~;
-#X text 270 1325 output signal.;
+#X text 130 1307 1\.;
+#X text 170 1307 ~;
+#X text 270 1307 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1375 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1378 library: ceammc v0.9.8;
-#N canvas 10 1397 400 290 info 0;
+#X obj 1 1357 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1360 library: ceammc v0.9.8;
+#N canvas 10 1379 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -108,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1397 pd info;
+#X restore 10 1379 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

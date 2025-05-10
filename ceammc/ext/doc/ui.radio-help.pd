@@ -61,157 +61,155 @@ mode.;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 564 1\.;
 #X text 170 564 float;
-#X obj 271 565 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 565 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 564 NCELLS: number of cells. Type: float. Range: 2\...128;
-#X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 599 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 604 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 602 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 607 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 600 @mode;
-#X text 270 600 Get/Set check list mode. If true acts as checklist.
-Type: bool. Default value: 0\.;
-#X msg 130 642 @mouse_events;
-#X text 270 642 Get/Set mouse events output mode. If on outputs @mouse_down
-and @mouse_drag events. Type: bool. Default value: 0\.;
-#X msg 130 684 @nitems;
-#X text 270 684 Get/Set number of items. Type: int. Default value:
-8\. Range: 2\...128\.;
-#X msg 130 726 @receive;
-#X text 270 726 Get/Set source of message receive. Type: symbol. Default
-value: (null).;
-#X msg 130 768 @send;
-#X text 270 768 Get/Set address for sending messages. Type: symbol.
-Default value: (null).;
-#X msg 130 810 @value;
-#X text 270 810 Get/Set widget value (float or list). Type: list.;
-#X msg 130 840 @active_color;
-#X text 270 840 Get/Set element active color (list of red \, green
-\, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 130 882 @background_color;
-#X text 270 882 Get/Set element background color (list of red \, green
-\, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1\.;
-#X msg 130 939 @border_color;
-#X text 270 939 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 130 981 @fontname;
-#X text 270 981 Get/Set font name. Type: symbol. Default value: Helvetica.
-Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 130 1023 @fontsize;
-#X text 270 1023 Get/Set font size. Type: int. Default value: 11\.
-Range: 4\...100\.;
-#X msg 130 1065 @fontslant;
-#X text 270 1065 Get/Set font slant. Type: symbol. Default value: roman.
-Allowed values: roman \, italic.;
-#X msg 130 1107 @fontweight;
-#X text 270 1107 Get/Set font weight. Type: symbol. Default value:
-normal. Allowed values: normal \, bold.;
-#X msg 130 1149 @pinned;
-#X text 270 1149 Get/Set pin mode. If set to 1 \, it places the element
-at the furthest level on the canvas behind other elements. Type: bool.
+#X msg 130 605 @mode;
+#X text 270 605 Check list mode. If true acts as checklist. Type: bool.
 Default value: 0\.;
-#X msg 130 1206 @presetname;
-#X text 270 1206 Get/Set preset name for using with [ui.preset] or
-[preset.storage] objects. Type: symbol. Default value: (null).;
-#X msg 130 1263 @size;
-#X text 270 1263 Get/Set object size (width \, height pair). Type:
-list. Default value: 120 15\.;
-#X obj 20 1315 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1320 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 647 @mouse_events;
+#X text 270 647 Mouse events output mode. If on outputs @mouse_down
+and @mouse_drag events. Type: bool. Default value: 0\.;
+#X msg 130 689 @nitems;
+#X text 270 689 Number of items. Type: int. Default value: 8\. Range:
+2\...128\.;
+#X msg 130 731 @receive;
+#X text 270 731 Source of message receive. Type: symbol. Default value:
+(null).;
+#X msg 130 773 @send;
+#X text 270 773 Address for sending messages. Type: symbol. Default
+value: (null).;
+#X msg 130 815 @value;
+#X text 270 815 Widget value (float or list). Type: list.;
+#X msg 130 845 @active_color;
+#X text 270 845 Element active color (list of red \, green \, blue
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X msg 130 887 @background_color;
+#X text 270 887 Element background color (list of red \, green \, blue
+values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93 1\.;
+#X msg 130 944 @border_color;
+#X text 270 944 Border color (list of red \, green \, blue values in
+0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
+#X msg 130 986 @fontname;
+#X text 270 986 Font name. Type: symbol. Default value: Helvetica.
+Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X msg 130 1028 @fontsize;
+#X text 270 1028 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X msg 130 1058 @fontslant;
+#X text 270 1058 Font slant. Type: symbol. Default value: roman. Allowed
+values: roman \, italic.;
+#X msg 130 1100 @fontweight;
+#X text 270 1100 Font weight. Type: symbol. Default value: normal.
+Allowed values: normal \, bold.;
+#X msg 130 1142 @pinned;
+#X text 270 1142 Pin mode. If set to 1 \, it places the element at
+the furthest level on the canvas behind other elements. Type: bool.
+Default value: 0\.;
+#X msg 130 1199 @presetname;
+#X text 270 1199 Preset name for using with [ui.preset] or [preset.storage]
+objects. Type: symbol. Default value: (null).;
+#X msg 130 1241 @size;
+#X text 270 1241 Object size (width \, height pair). Type: list. Default
+value: 120 15\.;
+#X obj 20 1293 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1298 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1321 cellsize;
-#X text 270 1321 set cell size (resize widget). Arguments are:;
-#X obj 280 1344 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1344 X: cell size in pixels. Type: int.;
-#X msg 130 1369 clear;
-#X text 270 1369 clears specified preset. Arguments are:;
-#X obj 280 1392 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1392 IDX: preset index. Type: int.;
-#X msg 130 1417 euclid;
-#X text 270 1417 set euclid pattern (checklist mode only). Arguments
+#X msg 130 1299 cellsize;
+#X text 270 1299 set cell size (resize widget). Arguments are:;
+#X obj 280 1322 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1322 X: cell size in pixels. Type: int.;
+#X msg 130 1347 clear;
+#X text 270 1347 clears specified preset. Arguments are:;
+#X obj 280 1370 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1370 IDX: preset index. Type: int.;
+#X msg 130 1395 euclid;
+#X text 270 1395 set euclid pattern (checklist mode only). Arguments
 are:;
-#X obj 280 1440 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1440 BEATS: requested number of beats. Type: int.;
-#X obj 280 1463 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1463 [OFFSET]: pattern offset (rotation to the right).
+#X obj 280 1418 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1418 BEATS: requested number of beats. Type: int.;
+#X obj 280 1441 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1441 [OFFSET]: pattern offset (rotation to the right).
 Type: int.;
-#X msg 130 1488 flip;
-#X text 270 1488 flips radio (only in checklist mode).;
-#X msg 130 1516 hexbeat;
-#X text 270 1516 set hexbeat pattern (checklist mode only). Arguments
+#X msg 130 1466 flip;
+#X text 270 1466 flips radio (only in checklist mode).;
+#X msg 130 1494 hexbeat;
+#X text 270 1494 set hexbeat pattern (checklist mode only). Arguments
 are:;
-#X obj 280 1539 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1539 HEXSTR: hex string. For example \, 0xF1 will set 1
+#X obj 280 1517 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1517 HEXSTR: hex string. For example \, 0xF1 will set 1
 1 1 1 0 0 0 1 pattern. Type: symbol.;
-#X msg 130 1579 interp;
-#X text 270 1579 for this object acts as *load* \, no interpolation
+#X msg 130 1557 interp;
+#X text 270 1557 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 130 1607 load;
-#X text 270 1607 loads specified preset. Arguments are:;
-#X obj 280 1630 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1630 IDX: preset index. Type: int.;
-#X msg 130 1655 next;
-#X text 270 1655 moves to next position until last cell is reached
+#X msg 130 1585 load;
+#X text 270 1585 loads specified preset. Arguments are:;
+#X obj 280 1608 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1608 IDX: preset index. Type: int.;
+#X msg 130 1633 next;
+#X text 270 1633 moves to next position until last cell is reached
 (single mode only).;
-#X msg 130 1695 pos;
-#X text 270 1695 set UI element position. Arguments are:;
-#X obj 280 1718 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1718 X: top left x-coord. Type: float.;
-#X obj 280 1741 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1741 Y: top right y-coord. Type: float.;
-#X msg 130 1766 prev;
-#X text 270 1766 moves to previous position until first cell is reached
+#X msg 130 1673 pos;
+#X text 270 1673 set UI element position. Arguments are:;
+#X obj 280 1696 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1696 X: top left x-coord. Type: float.;
+#X obj 280 1719 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1719 Y: top right y-coord. Type: float.;
+#X msg 130 1744 prev;
+#X text 270 1744 moves to previous position until first cell is reached
 (single mode only).;
-#X msg 130 1806 random;
-#X text 270 1806 select random cells. If called as [random move( moves
+#X msg 130 1784 random;
+#X text 270 1784 select random cells. If called as [random move( moves
 to another random cell (excluding the current one).;
-#X msg 130 1846 reset;
-#X text 270 1846 reset radio (only in checklist mode).;
-#X msg 130 1874 rotate;
-#X text 270 1874 left rotate (checklist mode only). Arguments are:;
-#X obj 280 1897 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1897 STEPS: number of steps. Type: int.;
-#X msg 130 1922 set;
-#X text 270 1922 sets radio without output. Arguments are:;
-#X obj 280 1945 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1945 V: new value. Type: float.;
-#X msg 130 1970 store;
-#X text 270 1970 stores specified preset. Arguments are:;
-#X obj 280 1993 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1993 IDX: preset index. Type: int.;
-#X msg 130 2018 + STEP;
-#X text 270 2018 moves several steps forward on a loop (single mode
+#X msg 130 1824 reset;
+#X text 270 1824 reset radio (only in checklist mode).;
+#X msg 130 1852 rotate;
+#X text 270 1852 left rotate (checklist mode only). Arguments are:;
+#X obj 280 1875 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1875 STEPS: number of steps. Type: int.;
+#X msg 130 1900 set;
+#X text 270 1900 sets radio without output. Arguments are:;
+#X obj 280 1923 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1923 V: new value. Type: float.;
+#X msg 130 1948 store;
+#X text 270 1948 stores specified preset. Arguments are:;
+#X obj 280 1971 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1971 IDX: preset index. Type: int.;
+#X msg 130 1996 + STEP;
+#X text 270 1996 moves several steps forward on a loop (single mode
 only).;
-#X msg 130 2046 - STEP;
-#X text 270 2046 moves several step backwards on a loop (single mode
+#X msg 130 2024 - STEP;
+#X text 270 2024 moves several step backwards on a loop (single mode
 only).;
-#X obj 20 2084 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2089 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 2062 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2067 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2090 1\.;
-#X text 170 2090 bang:;
-#X text 270 2090 outputs current radio state.;
-#X text 170 2115 float:;
-#X text 270 2115 set radio and output.;
-#X text 170 2140 list:;
-#X text 270 2140 set radio and output (only in checklist mode).;
-#X obj 20 2175 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2180 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 2068 1\.;
+#X text 170 2068 bang:;
+#X text 270 2068 outputs current radio state.;
+#X text 170 2093 float:;
+#X text 270 2093 set radio and output.;
+#X text 170 2118 list:;
+#X text 270 2118 set radio and output (only in checklist mode).;
+#X obj 20 2153 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2158 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2181 1\.;
-#X text 270 2181 output value.;
+#X text 130 2159 1\.;
+#X text 270 2159 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2231 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2234 library: ceammc v0.9.8;
-#X text 597 2246 see also:;
-#X obj 672 2249 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 2209 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2212 library: ceammc v0.9.8;
+#X text 597 2224 see also:;
+#X obj 672 2227 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.matrix] @url ui.matrix-help.pd;
-#N canvas 10 2253 400 290 info 0;
+#N canvas 10 2231 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -235,7 +233,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2253 pd info;
+#X restore 10 2231 pd info;
 #X connect 7 0 15 0;
 #X connect 8 0 15 0;
 #X connect 9 0 16 0;

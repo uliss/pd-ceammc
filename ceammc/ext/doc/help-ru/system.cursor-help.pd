@@ -30,49 +30,48 @@
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 376 @clip;
-#X text 270 376 Получить/Установить clip mode. If true clip a cursor
-XY values to the [0\..1] range in normalized mode \, to the window
-width/height relative mode \, otherwise to the screen width/height.
-Тип: bool. Значение по умолчанию: 0\.;
-#X msg 130 463 @norm;
-#X text 270 463 Получить/Установить cursor x/y coordinates normalization
-by screen (or window) width/height. Тип: bool. Значение по умолчанию:
+#X text 270 376 Clip mode. If true clip a cursor XY values to the [0\..1]
+range in normalized mode \, to the window width/height relative mode
+\, otherwise to the screen width/height. Тип: bool. Значение по умолчанию:
 0\.;
-#X msg 130 520 @relative;
-#X text 270 520 Получить/Установить relative output mode: if on output
-coords relative to the root window \, otherwise output screen coordinates.
-Тип: bool. Значение по умолчанию: 0\.;
-#X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 592 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 448 @norm;
+#X text 270 448 Cursor x/y coordinates normalization by screen (or
+window) width/height. Тип: bool. Значение по умолчанию: 0\.;
+#X msg 130 505 @relative;
+#X text 270 505 Relative output mode: if on output coords relative
+to the root window \, otherwise output screen coordinates. Тип: bool.
+Значение по умолчанию: 0\.;
+#X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 577 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 593 polltime;
-#X text 270 593 sets global cursor polling time. Аргументы:;
-#X obj 280 616 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 616 T: polling time. Тип: float. Диапазон: 10…1000\. Единицы:
+#X msg 130 578 polltime;
+#X text 270 578 sets global cursor polling time. Аргументы:;
+#X obj 280 601 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 601 T: polling time. Тип: float. Диапазон: 10…1000\. Единицы:
 'ms'.;
-#X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 671 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 651 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 656 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 672 1\.;
-#X text 170 672 bang:;
-#X text 270 672 output cursor position.;
-#X text 170 697 float:;
-#X text 270 697 when 1 is received - turns on cursor polling (position
+#X text 130 657 1\.;
+#X text 170 657 bang:;
+#X text 270 657 output cursor position.;
+#X text 170 682 float:;
+#X text 270 682 when 1 is received - turns on cursor polling (position
 and buttons) \, when 0 is received - turns it off.;
-#X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 752 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 737 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 753 1\.;
-#X text 270 753 messages: motion X Y \, mousewheel DELTA \, button
+#X text 130 738 1\.;
+#X text 270 738 messages: motion X Y \, mousewheel DELTA \, button
 IDX STATE.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 803 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 806 библиотека: ceammc v0.9.8;
-#N canvas 10 825 400 290 info 0;
+#X obj 1 788 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 791 библиотека: ceammc v0.9.8;
+#N canvas 10 810 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -96,7 +95,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 825 pd info;
+#X restore 10 810 pd info;
 #X connect 5 0 10 0;
 #X connect 6 0 11 0;
 #X connect 7 0 12 0;

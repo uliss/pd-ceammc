@@ -23,68 +23,68 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 331 1\.;
 #X text 170 331 any;
-#X obj 271 332 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 332 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 331 X: set elements. Type: any.;
-#X obj 20 361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 366 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 371 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 369 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 374 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 367 @empty?;
-#X text 270 367 (readonly) Get 1 if list is empty \, otherwise 0\.
-Type: bool. Default value: 1\.;
-#X msg 130 409 @size?;
-#X text 270 409 (readonly) Get number of elements in list. Type: int.
-Default value: 0\. Min value: 0\.;
-#X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 466 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 372 @empty?;
+#X text 270 372 (readonly) 1 if list is empty \, otherwise 0\. Type:
+bool. Default value: 1\.;
+#X msg 130 414 @size?;
+#X text 270 414 (readonly) Number of elements in list. Type: int. Default
+value: 0\. Min value: 0\.;
+#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 471 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 467 add;
-#X text 270 467 add values to the set. Arguments are:;
-#X obj 280 490 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 490 VAL: added values. Type: list.;
-#X msg 130 515 choose;
-#X text 270 515 choose random element and output it.;
-#X msg 130 543 clear;
-#X text 270 543 removes all set elements.;
-#X msg 130 571 remove;
-#X text 270 571 remove elements from the set. Arguments are:;
-#X obj 280 594 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 594 VAL: elements. Type: list.;
-#X msg 130 619 set;
-#X text 270 619 sets new set content without output. Arguments are:;
-#X obj 280 642 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 642 LIST: new set content. Type: list.;
-#X obj 20 677 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 682 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 472 add;
+#X text 270 472 add values to the set. Arguments are:;
+#X obj 280 495 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 495 VAL: added values. Type: list.;
+#X msg 130 520 choose;
+#X text 270 520 choose random element and output it.;
+#X msg 130 548 clear;
+#X text 270 548 removes all set elements.;
+#X msg 130 576 remove;
+#X text 270 576 remove elements from the set. Arguments are:;
+#X obj 280 599 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 599 VAL: elements. Type: list.;
+#X msg 130 624 set;
+#X text 270 624 sets new set content without output. Arguments are:;
+#X obj 280 647 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 647 LIST: new set content. Type: list.;
+#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 687 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 683 1\.;
-#X text 170 683 bang:;
-#X text 270 683 output set content.;
-#X text 170 708 float:;
-#X text 270 708 adds new element to set \, no output.;
-#X text 170 733 symbol:;
-#X text 270 733 adds new element to set \, no output.;
-#X text 170 758 list:;
-#X text 270 758 adds new elements to set \, no output.;
-#X text 170 783 data:set:;
-#X text 270 783 set new set content and output.;
-#X obj 20 818 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 823 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 688 1\.;
+#X text 170 688 bang:;
+#X text 270 688 output set content.;
+#X text 170 713 float:;
+#X text 270 713 adds new element to set \, no output.;
+#X text 170 738 symbol:;
+#X text 270 738 adds new element to set \, no output.;
+#X text 170 763 list:;
+#X text 270 763 adds new elements to set \, no output.;
+#X text 170 788 data:set:;
+#X text 270 788 set new set content and output.;
+#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 828 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 824 1\.;
-#X text 270 824 set output.;
+#X text 130 829 1\.;
+#X text 270 829 set output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 874 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 877 library: ceammc v0.9.8;
-#X text 519 889 see also:;
-#X obj 594 889 set->list;
-#X obj 674 889 data.list;
-#N canvas 10 896 400 290 info 0;
+#X obj 1 879 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 882 library: ceammc v0.9.8;
+#X text 519 894 see also:;
+#X obj 594 894 set->list;
+#X obj 674 894 data.list;
+#N canvas 10 901 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -108,7 +108,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 896 pd info;
+#X restore 10 901 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 8 0;
 #X connect 6 0 8 0;

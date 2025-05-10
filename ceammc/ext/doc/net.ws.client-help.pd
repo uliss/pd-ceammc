@@ -31,11 +31,11 @@
 #X obj 735 479 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 477 @mode;
-#X text 270 477 Get/Set parsing mode for incoming messages. If 'fudi'
-- interpret incoming websocket data as Pd messages \, if 'sym' - always
-interpret as symbols \, 'data' - parse ceammc data \, 'json' - convert
-json values to ceammc data. Type: symbol. Default value: fudi. Allowed
-values: data \, fudi \, json \, sym.;
+#X text 270 477 Parsing mode for incoming messages. If 'fudi' - interpret
+incoming websocket data as Pd messages \, if 'sym' - always interpret
+as symbols \, 'data' - parse ceammc data \, 'json' - convert json values
+to ceammc data. Type: symbol. Default value: fudi. Allowed values:
+data \, fudi \, json \, sym.;
 #X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 595 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

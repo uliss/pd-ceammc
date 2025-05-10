@@ -30,67 +30,66 @@
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 376 @id;
-#X text 270 376 (initonly) Get/Set OSC address id. If specified \,
-bind all properties to /ID/synth_hat/PROP_NAME osc address \, if empty
-bind to /synth_hat/PROP_NAME. Type: symbol.;
+#X text 270 376 (initonly) OSC address id. If specified \, bind all
+properties to /ID/synth_hat/PROP_NAME osc address \, if empty bind
+to /synth_hat/PROP_NAME. Type: symbol.;
 #X msg 130 433 @osc;
-#X text 270 433 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
+#X text 270 433 (initonly) OSC server name to listen. Type: symbol.;
 #X msg 130 463 @active;
-#X text 270 463 Turn on/off object dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 130 505 @attack;
-#X text 270 505 Get/Set attack time. Type: float. Units: 'ms'. Default
-value: 20\. Range: 5\...400\.;
-#X msg 130 547 @envwait;
-#X text 270 547 Get/Set ignore new notes until previous note is not
-finished release time. Type: bool. Default value: 0\.;
-#X msg 130 589 @freq;
-#X text 270 589 Get/Set base frequency. Type: float. Units: 'Hz'. Default
-value: 317\. Range: 300\...4000\.;
-#X msg 130 631 @gate;
-#X text 270 631 Get/Set play trigger >0: on \, 0: off. To set output
-gain to 0.5 you can 0.5 as trigger value. Type: float. Default value:
-0\. Range: 0\...1\.;
-#X msg 130 688 @release;
-#X text 270 688 Get/Set release time. Type: float. Units: 'ms'. Default
-value: 100\. Range: 5\...4000\.;
-#X msg 130 730 @tone;
-#X text 270 730 Get/Set bandpass filter cutoff frequency. Type: float.
-Units: 'Hz'. Default value: 6400\. Range: 800\...18000\.;
-#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 787 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 270 463 On/off object dsp processing. Type: bool. Default value:
+1\.;
+#X msg 130 493 @attack;
+#X text 270 493 Attack time. Type: float. Units: 'ms'. Default value:
+20\. Range: 5\...400\.;
+#X msg 130 535 @envwait;
+#X text 270 535 Ignore new notes until previous note is not finished
+release time. Type: bool. Default value: 0\.;
+#X msg 130 577 @freq;
+#X text 270 577 Base frequency. Type: float. Units: 'Hz'. Default value:
+317\. Range: 300\...4000\.;
+#X msg 130 619 @gate;
+#X text 270 619 Play trigger >0: on \, 0: off. To set output gain to
+0.5 you can 0.5 as trigger value. Type: float. Default value: 0\. Range:
+0\...1\.;
+#X msg 130 676 @release;
+#X text 270 676 Release time. Type: float. Units: 'ms'. Default value:
+100\. Range: 5\...4000\.;
+#X msg 130 718 @tone;
+#X text 270 718 Bandpass filter cutoff frequency. Type: float. Units:
+'Hz'. Default value: 6400\. Range: 800\...18000\.;
+#X obj 20 770 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 775 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 788 reset;
-#X text 270 788 reset synth.;
-#X obj 20 826 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 831 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 776 reset;
+#X text 270 776 reset synth.;
+#X obj 20 814 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 819 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 832 1\.;
-#X text 170 832 bang:;
-#X text 270 832 play with default duration and full gain.;
-#X text 170 857 float:;
-#X text 270 857 play with default duration and specified gain.;
-#X text 170 882 list:;
-#X text 270 882 GAIN(0\..1) DUR(ms) pair expected.;
-#X obj 20 917 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 922 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 820 1\.;
+#X text 170 820 bang:;
+#X text 270 820 play with default duration and full gain.;
+#X text 170 845 float:;
+#X text 270 845 play with default duration and specified gain.;
+#X text 170 870 list:;
+#X text 270 870 GAIN(0\..1) DUR(ms) pair expected.;
+#X obj 20 905 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 910 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 923 1\.;
-#X text 170 923 ~;
-#X text 270 923 synth output.;
-#X text 130 943 2\.;
-#X text 270 943 bang after release finished.;
+#X text 130 911 1\.;
+#X text 170 911 ~;
+#X text 270 911 synth output.;
+#X text 130 931 2\.;
+#X text 270 931 bang after release finished.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 993 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 996 library: ceammc v0.9.8;
-#X text 577 1008 see also:;
-#X obj 652 1008 synth.kick2~;
-#N canvas 10 1015 400 290 info 0;
+#X obj 1 981 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 984 library: ceammc v0.9.8;
+#X text 577 996 see also:;
+#X obj 652 996 synth.kick2~;
+#N canvas 10 1003 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -114,7 +113,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1015 pd info;
+#X restore 10 1003 pd info;
 #X connect 4 0 10 0;
 #X connect 5 0 10 1;
 #X connect 10 0 11 0;

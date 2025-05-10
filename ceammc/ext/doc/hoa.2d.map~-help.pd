@@ -48,107 +48,107 @@ values;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 1041 1\.;
 #X text 170 1041 int;
-#X obj 271 1042 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 1042 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 1041 ORDER: the order of decomposition. Type: int. Range:
 1\...63;
-#X text 130 1061 2\.;
-#X text 170 1061 int;
-#X obj 271 1062 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1061 NSRC: number of sources. Type: int. Min value: 1;
-#X text 130 1081 3\.;
-#X text 170 1081 symbol;
-#X obj 271 1082 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1081 MODE: mode in signal control mode (with nsrc=1). Allowed
+#X text 130 1066 2\.;
+#X text 170 1066 int;
+#X obj 268 1067 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1066 NSRC: number of sources. Type: int. Min value: 1;
+#X text 130 1091 3\.;
+#X text 170 1091 symbol;
+#X obj 268 1092 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1091 MODE: mode in signal control mode (with nsrc=1). Allowed
 values: pol \, car. Type: symbol.;
-#X obj 20 1126 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1131 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 1141 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1146 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 1134 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 1149 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 1132 @nsrc;
-#X text 270 1132 (initonly) Get/Set number of input sources. Type:
-int. Default value: 1\. Min value: 1\.;
-#X msg 130 1174 @order;
-#X text 270 1174 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1\. Range: 1\...63\.;
-#X msg 130 1216 @mode;
-#X text 270 1216 Get/Set signal control mode (with nsrc=1). If 'pol':
-second and third signal inlets are treated as radius and angle values
-\, if 'car': as X and Y coordinates. Type: symbol. Default value: pol.
-Allowed values: pol \, car.;
+#X msg 130 1147 @nsrc;
+#X text 270 1147 (initonly) Number of input sources. Type: int. Default
+value: 1\. Min value: 1\.;
+#X msg 130 1189 @order;
+#X text 270 1189 (initonly) The order of decomposition. Type: int.
+Default value: 1\. Range: 1\...63\.;
+#X msg 130 1231 @mode;
+#X text 270 1231 Signal control mode (with nsrc=1). If 'pol': second
+and third signal inlets are treated as radius and angle values \, if
+'car': as X and Y coordinates. Type: symbol. Default value: pol. Allowed
+values: pol \, car.;
 #X msg 130 1303 @ramp;
-#X text 270 1303 Get/Set ramp time. Type: float. Default value: 100\.
-Min value: 0\.;
-#X obj 20 1355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1360 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 270 1303 Ramp time. Type: float. Default value: 100\. Min value:
+0\.;
+#X obj 20 1343 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1348 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1361 car;
-#X text 270 1361 alias to 'cartesian' method.;
-#X msg 130 1389 cartesian;
-#X text 270 1389 set source mapping in cartesian coordinates. Arguments
+#X msg 130 1349 car;
+#X text 270 1349 alias to 'cartesian' method.;
+#X msg 130 1377 cartesian;
+#X text 270 1377 set source mapping in cartesian coordinates. Arguments
 are:;
-#X obj 280 1412 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1412 IDX: source index. 1-based. Type: int. Min value:
+#X obj 280 1400 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1400 IDX: source index. 1-based. Type: int. Min value:
 1\.;
-#X obj 280 1435 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1435 X: x-coord. Type: float.;
-#X obj 280 1458 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1458 X: y-coord. Type: float.;
-#X msg 130 1483 mute;
-#X text 270 1483 mute/unmute specified source. Arguments are:;
-#X obj 280 1506 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1506 IDX: source index. 1-based. Type: int. Min value:
+#X obj 280 1423 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1423 X: x-coord. Type: float.;
+#X obj 280 1446 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1446 X: y-coord. Type: float.;
+#X msg 130 1471 mute;
+#X text 270 1471 mute/unmute specified source. Arguments are:;
+#X obj 280 1494 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1494 IDX: source index. 1-based. Type: int. Min value:
 1\.;
-#X obj 280 1529 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1529 STATE: mute value. Type: int. Allowed values: 0 \,
+#X obj 280 1517 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1517 STATE: mute value. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 130 1554 pol;
-#X text 270 1554 alias to 'polar' method.;
-#X msg 130 1582 polar;
-#X text 270 1582 set source mapping in polar coordinates. Arguments
+#X msg 130 1542 pol;
+#X text 270 1542 alias to 'polar' method.;
+#X msg 130 1570 polar;
+#X text 270 1570 set source mapping in polar coordinates. Arguments
 are:;
-#X obj 280 1605 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1605 IDX: source index. 1-based. Type: int. Min value:
+#X obj 280 1593 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1593 IDX: source index. 1-based. Type: int. Min value:
 1\.;
-#X obj 280 1628 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1628 RAD: radius. Type: float. Range: 0\...1\.;
-#X obj 280 1651 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1651 ANG: rotation angle. Type: float. Range: 0\...2π.
+#X obj 280 1616 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1616 RAD: radius. Type: float. Range: 0\...1\.;
+#X obj 280 1639 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1639 ANG: rotation angle. Type: float. Range: 0\...2π.
 Units: 'rad'.;
-#X obj 20 1701 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1706 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 1689 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1694 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1707 1\.;
-#X text 170 1707 ~;
-#X text 270 1707 first source input.;
-#X text 170 1732 list:;
-#X text 270 1732 SRC_IDX polar RADIUS AZIMUTH or SRC_IDX mute VALUE.;
-#X text 130 1757 ...;
-#X text 170 1757 ~;
-#X text 270 1757 ... source input.;
-#X text 130 1782 n.;
-#X text 170 1782 ~;
-#X text 270 1782 n-th source input.;
-#X obj 20 1817 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1822 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1695 1\.;
+#X text 170 1695 ~;
+#X text 270 1695 first source input.;
+#X text 170 1720 list:;
+#X text 270 1720 SRC_IDX polar RADIUS AZIMUTH or SRC_IDX mute VALUE.;
+#X text 130 1745 ...;
+#X text 170 1745 ~;
+#X text 270 1745 ... source input.;
+#X text 130 1770 n.;
+#X text 170 1770 ~;
+#X text 270 1770 n-th source input.;
+#X obj 20 1805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1810 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1823 1\.;
-#X text 170 1823 ~;
-#X text 270 1823 first harmonic output.;
-#X text 130 1843 ...;
-#X text 170 1843 ~;
-#X text 270 1843 ... harmonic output.;
-#X text 130 1863 n.;
-#X text 170 1863 ~;
-#X text 270 1863 n-th harmonic output.;
+#X text 130 1811 1\.;
+#X text 170 1811 ~;
+#X text 270 1811 first harmonic output.;
+#X text 130 1831 ...;
+#X text 170 1831 ~;
+#X text 270 1831 ... harmonic output.;
+#X text 130 1851 n.;
+#X text 170 1851 ~;
+#X text 270 1851 n-th harmonic output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1913 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1916 library: ceammc v0.9.8;
-#N canvas 10 1935 400 290 info 0;
+#X obj 1 1901 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1904 library: ceammc v0.9.8;
+#N canvas 10 1923 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -173,7 +173,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1935 pd info;
+#X restore 10 1923 pd info;
 #X connect 12 0 14 0;
 #X connect 13 0 15 0;
 #X connect 11 0 16 0;

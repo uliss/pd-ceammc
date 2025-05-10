@@ -32,76 +32,75 @@ https://faust.grame.fr/ @url https://faust.grame.fr/;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 473 1\.;
 #X text 170 473 symbol;
-#X obj 271 474 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 474 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 473 LOAD: initial file to load after object creation. Type:
 symbol.;
-#X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 523 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 528 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 526 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 531 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 524 @load;
-#X text 270 524 (initonly) Get/Set initial file to load after object
-creation. Type: symbol.;
-#X msg 130 566 @active;
-#X text 270 566 Turn on/off dsp processing. Type: bool. Default value:
-1\.;
-#X msg 130 596 @include;
-#X text 270 596 Get/Set list of faust include directories. Type: list.;
-#X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 641 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 529 @load;
+#X text 270 529 (initonly) Initial file to load after object creation.
+Type: symbol.;
+#X msg 130 571 @active;
+#X text 270 571 On/off dsp processing. Type: bool. Default value: 1\.;
+#X msg 130 601 @include;
+#X text 270 601 List of faust include directories. Type: list.;
+#X obj 20 641 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 646 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 642 open;
-#X text 270 642 open editor window.;
-#X msg 130 670 read;
-#X text 270 670 read Faust code from file and compile it. Arguments
+#X msg 130 647 open;
+#X text 270 647 open editor window.;
+#X msg 130 675 read;
+#X text 270 675 read Faust code from file and compile it. Arguments
 are:;
-#X obj 280 693 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 693 FILE: file path \, absolute or relative to patch \,
+#X obj 280 698 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 698 FILE: file path \, absolute or relative to patch \,
 include directories. Type: symbol.;
-#X msg 130 733 reset;
-#X text 270 733 reset object state.;
-#X msg 130 761 write;
-#X text 270 761 write Faust code to file. Arguments are:;
-#X obj 280 784 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 784 FILE: file path \, absolute or relative to patch. Type:
+#X msg 130 738 reset;
+#X text 270 738 reset object state.;
+#X msg 130 766 write;
+#X text 270 766 write Faust code to file. Arguments are:;
+#X obj 280 789 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 789 FILE: file path \, absolute or relative to patch. Type:
 symbol.;
-#X obj 280 807 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 807 [@force]: overwrite existing files. Type: property.;
-#X obj 20 842 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 847 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 280 812 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 812 [@force]: overwrite existing files. Type: property.;
+#X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 852 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 848 1\.;
-#X text 270 848 control input.;
-#X text 130 873 2\.;
-#X text 170 873 ~;
-#X text 270 873 first faust input.;
-#X text 130 898 ...;
-#X text 170 898 ~;
-#X text 270 898 ... faust input.;
-#X text 130 923 n+1\.;
-#X text 170 923 ~;
-#X text 270 923 n-th faust input.;
-#X obj 20 958 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 963 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 853 1\.;
+#X text 270 853 control input.;
+#X text 130 878 2\.;
+#X text 170 878 ~;
+#X text 270 878 first faust input.;
+#X text 130 903 ...;
+#X text 170 903 ~;
+#X text 270 903 ... faust input.;
+#X text 130 928 n+1\.;
+#X text 170 928 ~;
+#X text 270 928 n-th faust input.;
+#X obj 20 963 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 968 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 964 1\.;
-#X text 170 964 ~;
-#X text 270 964 first faust output.;
-#X text 130 984 ...;
-#X text 170 984 ~;
-#X text 270 984 ... faust output.;
-#X text 130 1004 n.;
-#X text 170 1004 ~;
-#X text 270 1004 n-th faust output.;
+#X text 130 969 1\.;
+#X text 170 969 ~;
+#X text 270 969 first faust output.;
+#X text 130 989 ...;
+#X text 170 989 ~;
+#X text 270 989 ... faust output.;
+#X text 130 1009 n.;
+#X text 170 1009 ~;
+#X text 270 1009 n-th faust output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title lang @url ceammc.lang-help.pd;
-#X obj 1 1054 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1057 library: ceammc v0.9.8;
-#N canvas 10 1076 400 290 info 0;
+#X obj 1 1059 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1062 library: ceammc v0.9.8;
+#N canvas 10 1081 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -125,7 +124,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1076 pd info;
+#X restore 10 1081 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;
 #X connect 6 0 13 0;

@@ -19,9 +19,9 @@
 #X obj 735 274 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 272 @ms;
-#X text 270 272 output milliseconds. Default value: 0\.;
+#X text 270 272 Output milliseconds. Default value: 0\.;
 #X msg 130 302 @symbol;
-#X text 270 302 if specified - output formatted time as symbol \, otherwise
+#X text 270 302 If specified - output formatted time as symbol \, otherwise
 as string. Default value: 0\.;
 #X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 359 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933

@@ -23,72 +23,69 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 243 1\.;
 #X text 170 243 float;
-#X obj 271 244 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 244 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 243 IN_FROM: begin of input range. Type: float.;
-#X text 130 263 2\.;
-#X text 170 263 float;
-#X obj 271 264 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 263 IN_TO: end of input range. Type: float.;
-#X text 130 283 3\.;
-#X text 170 283 float;
-#X obj 271 284 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 283 OUT_FROM: begin of output range. Type: float.;
-#X text 130 303 4\.;
-#X text 170 303 float;
-#X obj 271 304 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 303 OUT_TO: end of input range. Type: float.;
-#X obj 20 333 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 338 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 268 2\.;
+#X text 170 268 float;
+#X obj 268 269 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 268 IN_TO: end of input range. Type: float.;
+#X text 130 293 3\.;
+#X text 170 293 float;
+#X obj 268 294 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 293 OUT_FROM: begin of output range. Type: float.;
+#X text 130 318 4\.;
+#X text 170 318 float;
+#X obj 268 319 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 318 OUT_TO: end of input range. Type: float.;
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 358 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 341 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 361 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 339 @clip;
-#X text 270 339 Get/Set noclip (don't clip) max (clip ceiling) min
-(clip floor) minmax (clip both). Type: symbol. Default value: minmax.
-Allowed values: noclip \, min \, max \, minmax.;
-#X msg 130 396 @in_from;
-#X text 270 396 Get/Set begin of input range. Type: float. Default
-value: 0\.;
-#X msg 130 426 @in_to;
-#X text 270 426 Get/Set end of input range. Type: float. Default value:
-127\.;
-#X msg 130 456 @max;
-#X text 270 456 Alias to @clip max.;
-#X msg 130 486 @min;
-#X text 270 486 Alias to @clip min.;
-#X msg 130 516 @minmax;
-#X text 270 516 Alias to @clip minmax.;
-#X msg 130 546 @noclip;
-#X text 270 546 Alias to @clip noclip.;
-#X msg 130 576 @out_from;
-#X text 270 576 Get/Set begin of output range. Type: float. Default
-value: 0\.;
-#X msg 130 618 @out_to;
-#X text 270 618 Get/Set end of output range. Type: float. Default value:
-1\.;
-#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 663 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 359 @clip;
+#X text 270 359 Noclip (don't clip) max (clip ceiling) min (clip floor)
+minmax (clip both). Type: symbol. Default value: minmax. Allowed values:
+noclip \, min \, max \, minmax.;
+#X msg 130 416 @in_from;
+#X text 270 416 Begin of input range. Type: float. Default value: 0\.;
+#X msg 130 446 @in_to;
+#X text 270 446 End of input range. Type: float. Default value: 127\.;
+#X msg 130 476 @max;
+#X text 270 476 Alias to @clip max.;
+#X msg 130 506 @min;
+#X text 270 506 Alias to @clip min.;
+#X msg 130 536 @minmax;
+#X text 270 536 Alias to @clip minmax.;
+#X msg 130 566 @noclip;
+#X text 270 566 Alias to @clip noclip.;
+#X msg 130 596 @out_from;
+#X text 270 596 Begin of output range. Type: float. Default value:
+0\.;
+#X msg 130 626 @out_to;
+#X text 270 626 End of output range. Type: float. Default value: 1\.;
+#X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 671 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 664 1\.;
-#X text 170 664 float:;
-#X text 270 664 input float.;
-#X text 170 689 list:;
-#X text 270 689 input list.;
-#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 729 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 672 1\.;
+#X text 170 672 float:;
+#X text 270 672 input float.;
+#X text 170 697 list:;
+#X text 270 697 input list.;
+#X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 737 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 730 1\.;
-#X text 270 730 converted float/list.;
+#X text 130 738 1\.;
+#X text 270 738 converted float/list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 780 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 783 library: ceammc v0.9.8;
-#X text 585 795 see also:;
-#X obj 660 795 conv.cc2amp;
-#N canvas 10 802 400 290 info 0;
+#X obj 1 788 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 791 library: ceammc v0.9.8;
+#X text 585 803 see also:;
+#X obj 660 803 conv.cc2amp;
+#N canvas 10 810 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -112,7 +109,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 802 pd info;
+#X restore 10 810 pd info;
 #X connect 6 0 7 0;
 #X connect 5 0 8 0;
 #X connect 7 0 8 0;

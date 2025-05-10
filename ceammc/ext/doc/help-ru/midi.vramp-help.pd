@@ -20,35 +20,34 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 390 1\.;
 #X text 170 390 int;
-#X obj 271 391 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 391 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 390 FROM: start value. Тип: int. Диапазон: 0…127;
-#X text 130 410 2\.;
-#X text 170 410 int;
-#X obj 271 411 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 410 TO: end value. Тип: int. Диапазон: 0…127;
-#X text 130 430 3\.;
-#X text 170 430 int;
-#X obj 271 431 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 430 N: number of steps. Тип: int. Минимальное значение:
+#X text 130 415 2\.;
+#X text 170 415 int;
+#X obj 268 416 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 415 TO: end value. Тип: int. Диапазон: 0…127;
+#X text 130 440 3\.;
+#X text 170 440 int;
+#X obj 268 441 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 440 N: number of steps. Тип: int. Минимальное значение:
 0\.;
-#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 465 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 480 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 468 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 483 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 466 @auto;
-#X text 270 466 Получить/Установить auto reset mode. If true: reset
-to @start value after ramp is finished. Тип: bool. Значение по умолчанию:
-0\.;
+#X msg 130 481 @auto;
+#X text 270 481 Auto reset mode. If true: reset to @start value after
+ramp is finished. Тип: bool. Значение по умолчанию: 0\.;
 #X msg 130 523 @from;
-#X text 270 523 Получить/Установить start value. Тип: int. Значение
-по умолчанию: 127\. Диапазон: 0\...127\.;
+#X text 270 523 Start value. Тип: int. Значение по умолчанию: 127\.
+Диапазон: 0\...127\.;
 #X msg 130 565 @n;
-#X text 270 565 Получить/Установить number of steps. Тип: int. Значение
-по умолчанию: 0\. Минимальное значение: 0\.;
+#X text 270 565 Number of steps. Тип: int. Значение по умолчанию: 0\.
+Минимальное значение: 0\.;
 #X msg 130 607 @to;
-#X text 270 607 Получить/Установить end value. Тип: int. Значение по
-умолчанию: 127\. Диапазон: 0\...127\.;
+#X text 270 607 End value. Тип: int. Значение по умолчанию: 127\. Диапазон:
+0\...127\.;
 #X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 664 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

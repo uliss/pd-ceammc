@@ -23,66 +23,65 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 376 1\.;
 #X text 170 376 float;
-#X obj 271 377 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 377 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 376 FREQ(Hz): main frequency. Type: float. Range: 1\...10000;
-#X text 130 396 2\.;
-#X text 170 396 float;
-#X obj 271 397 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 396 DUR(ms): duration. Type: float. Range: 10\...600000;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 431 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 401 2\.;
+#X text 170 401 float;
+#X obj 268 402 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 401 DUR(ms): duration. Type: float. Range: 10\...600000;
+#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 441 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 434 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 444 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 432 @id;
-#X text 270 432 (initonly) Get/Set OSC address id. If specified \,
-bind all properties to /ID/synth_risset_bell/PROP_NAME osc address
-\, if empty bind to /synth_risset_bell/PROP_NAME. Type: symbol.;
-#X msg 130 489 @osc;
-#X text 270 489 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
-#X msg 130 519 @active;
-#X text 270 519 Turn on/off object dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 130 561 @dur;
-#X text 270 561 Get/Set duration. Type: float. Units: 'ms'. Default
-value: 5000\. Range: 10\...600000\.;
-#X msg 130 603 @freq;
-#X text 270 603 Get/Set base frequency. Type: float. Units: 'Hz'. Default
-value: 440\. Range: 1\...10000\.;
-#X msg 130 645 @gate;
-#X text 270 645 Get/Set play trigger - 1: on \, 0: off. Type: float.
-Default value: 0\. Range: 0\...1\.;
-#X msg 130 687 @pfreq;
-#X text 270 687 Get/Set freq multiplication coefficient. Type: float.
-Default value: 1\. Range: 0\...10\.;
-#X obj 20 739 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 744 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 442 @id;
+#X text 270 442 (initonly) OSC address id. If specified \, bind all
+properties to /ID/synth_risset_bell/PROP_NAME osc address \, if empty
+bind to /synth_risset_bell/PROP_NAME. Type: symbol.;
+#X msg 130 514 @osc;
+#X text 270 514 (initonly) OSC server name to listen. Type: symbol.;
+#X msg 130 544 @active;
+#X text 270 544 On/off object dsp processing. Type: bool. Default value:
+1\.;
+#X msg 130 574 @dur;
+#X text 270 574 Duration. Type: float. Units: 'ms'. Default value:
+5000\. Range: 10\...600000\.;
+#X msg 130 616 @freq;
+#X text 270 616 Base frequency. Type: float. Units: 'Hz'. Default value:
+440\. Range: 1\...10000\.;
+#X msg 130 658 @gate;
+#X text 270 658 Play trigger - 1: on \, 0: off. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 130 700 @pfreq;
+#X text 270 700 Freq multiplication coefficient. Type: float. Default
+value: 1\. Range: 0\...10\.;
+#X obj 20 752 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 757 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 745 reset;
-#X text 270 745 reset synth.;
-#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 788 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 758 reset;
+#X text 270 758 reset synth.;
+#X obj 20 796 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 801 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 789 1\.;
-#X text 170 789 bang:;
-#X text 270 789 play.;
-#X text 170 814 float:;
-#X text 270 814 play with specified amp.;
-#X obj 20 849 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 854 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 802 1\.;
+#X text 170 802 bang:;
+#X text 270 802 play.;
+#X text 170 827 float:;
+#X text 270 827 play with specified amp.;
+#X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 867 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 855 1\.;
-#X text 170 855 ~;
-#X text 270 855 output signal.;
+#X text 130 868 1\.;
+#X text 170 868 ~;
+#X text 270 868 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 905 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 908 library: ceammc v0.9.8;
-#N canvas 10 927 400 290 info 0;
+#X obj 1 918 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 921 library: ceammc v0.9.8;
+#N canvas 10 940 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -106,7 +105,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 927 pd info;
+#X restore 10 940 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 9 0;

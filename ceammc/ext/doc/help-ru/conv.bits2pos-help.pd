@@ -22,19 +22,19 @@ rightmost \, this can be changed with @rev property;
 #X obj 735 321 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 319 @rev;
-#X text 270 319 Получить/Установить обратный порядок битов. Тип: bool.
-Значение по умолчанию: 0\.;
-#X obj 20 371 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 376 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 270 319 Обратный порядок битов. Тип: bool. Значение по умолчанию:
+0\.;
+#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 364 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 377 1\.;
-#X text 170 377 list:;
-#X text 270 377 input bit list.;
-#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 417 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 365 1\.;
+#X text 170 365 list:;
+#X text 270 365 input bit list.;
+#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 405 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 418 1\.;
-#X text 270 418 list of bit positions.;
+#X text 130 406 1\.;
+#X text 270 406 list of bit positions.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

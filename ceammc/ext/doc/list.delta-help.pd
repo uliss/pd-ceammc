@@ -44,9 +44,9 @@ so on.;
 #X text 270 546 Alias for "@oversize min" property. Truncates lists
 to minimal common size.;
 #X msg 130 588 @oversize;
-#X text 270 588 Get/Set behavior \, if list have different sizes. Type:
-symbol. Default value: padz. Allowed values: min \, padz \, clip \,
-wrap \, fold.;
+#X text 270 588 Behavior \, if list have different sizes. Type: symbol.
+Default value: padz. Allowed values: min \, padz \, clip \, wrap \,
+fold.;
 #X msg 130 645 @padz;
 #X text 270 645 Alias for "@oversize padz" property. Pad shortest list
 with zeroes.;

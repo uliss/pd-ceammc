@@ -28,21 +28,21 @@
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 347 @done;
-#X text 270 347 Get/Set function called with bang when playing is finished.
+#X text 270 347 Function called with bang when playing is finished.
 Type: symbol.;
 #X msg 130 389 @play;
-#X text 270 389 Get/Set play state. Type: bool. Default value: 0\.;
+#X text 270 389 Play state. Type: bool. Default value: 0\.;
 #X msg 130 419 @pos;
-#X text 270 419 Get/Set position in mod file. Type: float. Units: 'ms'.
-Default value: -1\.;
+#X text 270 419 Position in mod file. Type: float. Units: 'ms'. Default
+value: -1\.;
 #X msg 130 461 @rpos;
-#X text 270 461 Get/Set relative position in mod file. Type: float.
-Default value: 0\. Range: 0\...1\.;
+#X text 270 461 Relative position in mod file. Type: float. Default
+value: 0\. Range: 0\...1\.;
 #X msg 130 503 @len?;
-#X text 270 503 (readonly) Get length of mod file. Type: float. Units:
+#X text 270 503 (readonly) Length of mod file. Type: float. Units:
 'ms'. Default value: 0\.;
 #X msg 130 545 @name?;
-#X text 270 545 (readonly) Get mod name. Type: symbol.;
+#X text 270 545 (readonly) Mod name. Type: symbol.;
 #X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 590 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

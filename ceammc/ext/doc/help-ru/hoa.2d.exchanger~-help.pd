@@ -20,36 +20,36 @@ the standard.;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 286 1\.;
 #X text 170 286 int;
-#X obj 271 287 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 287 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 286 ORDER: the order of decomposition. Тип: int. Диапазон:
 1…63;
-#X text 130 306 2\.;
-#X text 170 306 symbol;
-#X obj 271 307 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 306 NUM: numbering scheme. Разрешённые значения: ACN \,
+#X text 130 311 2\.;
+#X text 170 311 symbol;
+#X obj 268 312 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 311 NUM: numbering scheme. Разрешённые значения: ACN \,
 fromFurseMalham \, fromSID \, toFurseMalham \, toSID. Тип: symbol.;
-#X text 130 341 3\.;
-#X text 170 341 symbol;
-#X obj 271 342 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 341 NORM: normalization. Разрешённые значения: SN2D \,
+#X text 130 366 3\.;
+#X text 170 366 symbol;
+#X obj 268 367 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 366 NORM: normalization. Разрешённые значения: SN2D \,
 fromMaxN \, toMaxN. Тип: symbol.;
-#X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 391 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 416 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 421 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 394 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 424 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 392 @order;
-#X text 270 392 (при инициализации) Получить/Установить the order of
-decomposition. Тип: int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
-#X msg 130 449 @fromB;
-#X text 270 449 Alias to @num fromFurseMalham and @norm fromMaxN.;
-#X msg 130 479 @norm;
-#X text 270 479 Получить/Установить normalization. Тип: symbol. Значение
-по умолчанию: SN2D. Разрешённые значения: SN2D \, fromMaxN \, toMaxN.;
+#X msg 130 422 @order;
+#X text 270 422 (при инициализации) The order of decomposition. Тип:
+int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
+#X msg 130 464 @fromB;
+#X text 270 464 Alias to @num fromFurseMalham and @norm fromMaxN.;
+#X msg 130 494 @norm;
+#X text 270 494 Normalization. Тип: symbol. Значение по умолчанию:
+SN2D. Разрешённые значения: SN2D \, fromMaxN \, toMaxN.;
 #X msg 130 536 @num;
-#X text 270 536 Получить/Установить numbering scheme. Тип: symbol.
-Значение по умолчанию: ACN. Разрешённые значения: ACN \, fromFurseMalham
-\, fromSID \, toFurseMalham \, toSID.;
+#X text 270 536 Numbering scheme. Тип: symbol. Значение по умолчанию:
+ACN. Разрешённые значения: ACN \, fromFurseMalham \, fromSID \, toFurseMalham
+\, toSID.;
 #X msg 130 593 @toB;
 #X text 270 593 Alias to @num toFurseMalham and @norm toMaxN.;
 #X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

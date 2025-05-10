@@ -1,6 +1,6 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 338 50 cnv 1 427 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X obj 338 50 cnv 1 427 53 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 343 50 выводит последовательность равномерно распределенных
 по логарифмической шкале чисел (геометрическая прогрессия);
 #X obj 1 1 cnv 5 765 40 empty empty plot.geomspace~ 20 20 0 20 -104026
@@ -19,80 +19,80 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 405 1\.;
 #X text 170 405 float;
-#X obj 271 406 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 406 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 405 START: @start property. Тип: float. Минимальное значение:
 0\.;
-#X text 130 425 2\.;
-#X text 170 425 float;
-#X obj 271 426 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 425 STOP: @stop property. Тип: float. Минимальное значение:
+#X text 130 430 2\.;
+#X text 170 430 float;
+#X obj 268 431 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 430 STOP: @stop property. Тип: float. Минимальное значение:
 0\.;
-#X text 130 445 3\.;
-#X text 170 445 int;
-#X obj 271 446 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 445 N: @n property. Тип: int. Диапазон: 4…1024;
-#X text 130 465 4\.;
-#X text 170 465 atom;
-#X obj 271 466 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 465 BASE: x-axis scale base. Разрешённые значения: 10 \,
+#X text 130 455 3\.;
+#X text 170 455 int;
+#X obj 268 456 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 455 N: @n property. Тип: int. Диапазон: 4…1024;
+#X text 130 480 4\.;
+#X text 170 480 atom;
+#X obj 268 481 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 480 BASE: x-axis scale base. Разрешённые значения: 10 \,
 2 \, e. Тип: atom.;
-#X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 515 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 530 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 535 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 518 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 538 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 516 @10;
-#X text 270 516 Получить/Установить alias to @base 10\. Тип: atom.;
-#X msg 130 546 @2;
-#X text 270 546 Получить/Установить alias to @base 2\. Тип: atom.;
-#X msg 130 576 @base;
-#X text 270 576 Получить/Установить x-axis scale base. Тип: atom. Значение
-по умолчанию: 10\. Разрешённые значения: 10 \, 2 \, e.;
-#X msg 130 618 @e;
-#X text 270 618 Получить/Установить alias to @base e. Тип: atom.;
-#X msg 130 648 @endpoint;
-#X text 270 648 Получить/Установить include @stop to interval. Тип:
-bool. Значение по умолчанию: 1\.;
-#X msg 130 690 @n;
-#X text 270 690 Получить/Установить number of points. Тип: int. Значение
-по умолчанию: 100\. Диапазон: 4\...1024\.;
-#X msg 130 732 @start;
-#X text 270 732 Получить/Установить the starting value of the sequence.
-Тип: float. Значение по умолчанию: 0.1\. Минимальное значение: 0\.;
-#X msg 130 774 @stop;
-#X text 270 774 Получить/Установить the final value of the sequence
-\, unless @endpoint is false. In that case \, @n + 1 values are spaced
-over the interval in log-space \, of which all but the last (a sequence
-of length @n) are returned. Тип: float. Значение по умолчанию: 100\.
-Минимальное значение: 0\.;
-#X obj 20 887 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 892 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 536 @10;
+#X text 270 536 Alias to @base 10\. Тип: atom.;
+#X msg 130 566 @2;
+#X text 270 566 Alias to @base 2\. Тип: atom.;
+#X msg 130 596 @base;
+#X text 270 596 X-axis scale base. Тип: atom. Значение по умолчанию:
+10\. Разрешённые значения: 10 \, 2 \, e.;
+#X msg 130 638 @e;
+#X text 270 638 Alias to @base e. Тип: atom.;
+#X msg 130 668 @endpoint;
+#X text 270 668 Include @stop to interval. Тип: bool. Значение по умолчанию:
+1\.;
+#X msg 130 710 @n;
+#X text 270 710 Number of points. Тип: int. Значение по умолчанию:
+100\. Диапазон: 4\...1024\.;
+#X msg 130 752 @start;
+#X text 270 752 The starting value of the sequence. Тип: float. Значение
+по умолчанию: 0.1\. Минимальное значение: 0\.;
+#X msg 130 794 @stop;
+#X text 270 794 The final value of the sequence \, unless @endpoint
+is false. In that case \, @n + 1 values are spaced over the interval
+in log-space \, of which all but the last (a sequence of length @n)
+are returned. Тип: float. Значение по умолчанию: 100\. Минимальное
+значение: 0\.;
+#X obj 20 891 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 896 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 893 1\.;
-#X text 170 893 bang:;
-#X text 270 893 starts output.;
-#X text 170 918 float:;
-#X text 270 918 output specified number of values \, change @n property
+#X text 130 897 1\.;
+#X text 170 897 bang:;
+#X text 270 897 starts output.;
+#X text 170 922 float:;
+#X text 270 922 output specified number of values \, change @n property
 valuue.;
-#X obj 20 953 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 958 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 962 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 959 1\.;
-#X text 170 959 ~;
-#X text 270 959 signal output.;
-#X text 130 979 2\.;
-#X text 270 979 output to [array.plot~] or [ui.plot~].;
+#X text 130 963 1\.;
+#X text 170 963 ~;
+#X text 270 963 signal output.;
+#X text 130 983 2\.;
+#X text 270 983 output to [array.plot~] or [ui.plot~].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1029 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1032 библиотека: ceammc v0.9.8;
-#X text 400 1044 смотрите также:;
-#X obj 521 1044 plot.linspace~;
-#X obj 638 1044 plot.logspace~;
-#N canvas 10 1051 400 290 info 0;
+#X obj 1 1033 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1036 библиотека: ceammc v0.9.8;
+#X text 400 1048 смотрите также:;
+#X obj 521 1048 plot.linspace~;
+#X obj 638 1048 plot.logspace~;
+#N canvas 10 1055 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -116,7 +116,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1051 pd info;
+#X restore 10 1055 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 5 1 6 1;

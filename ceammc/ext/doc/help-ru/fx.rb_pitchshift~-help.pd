@@ -24,113 +24,111 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 376 1\.;
 #X text 170 376 float;
-#X obj 271 377 cnv 1 155 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 377 cnv 1 155 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 376 TRANSPOSE(semitone): transposition in semitones. Тип:
 float. Диапазон: -24…24;
-#X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 426 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 431 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 429 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 434 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 427 @detector;
-#X text 270 427 Получить/Установить control the type of transient detector
-used. 'compound' a general-purpose transient detector which is likely
-to be good for most situations. 'precussive' detect percussive transients.
-'piano' use an onset detector with less of a bias toward percussive
-transients. This may give better results with certain material (e.g.
-relatively monophonic piano music). Тип: symbol. Значение по умолчанию:
-compound. Разрешённые значения: compound \, percussive \, soft.;
-#X msg 130 575 @formant;
-#X text 270 575 Получить/Установить control the handling of formant
-shape (spectral envelope) when pitch-shifting. If 'true' preserve the
-spectral envelope of the unshifted signal. This permits shifting the
-note frequency without so substantially affecting the perceived pitch
-profile of the voice or instrument. 'False' apply no special formant
-processing. The spectral envelope will be pitch shifted as normal.
-Тип: bool. Значение по умолчанию: 0\.;
-#X msg 130 723 @phase;
-#X text 270 723 Получить/Установить control the adjustment of component
-frequency phases from one analysis window to the next during non-transient
-segments. 'False' adjust the phase in each frequency bin independently
-from its neighbours. This usually results in a slightly softer \, phasier
-sound. 'True' adjust phases when stretching in such a way as to try
-to retain the continuity of phase relationships between adjacent frequency
-bins whose phases are behaving in similar ways. Тип: bool. Значение
-по умолчанию: 1\.;
-#X msg 130 886 @quality;
-#X text 270 886 Получить/Установить method used for pitch shifting.
-'speed' may sound less clear than 'quality' \, especially for large
-pitch shifts. 'quality' method has a CPU cost approximately proportional
-to the required frequency shift. 'consistency' gives greatest consistency
-when used to create small variations in pitch around the 1.0-ratio
-level. Unlike the previous two options \, this avoids discontinuities
-when moving across the 1.0 pitch scale in real-time. It also consumes
-more CPU than the others in the case where the pitch scale is exactly
-1.0\. Тип: symbol. Значение по умолчанию: speed. Разрешённые значения:
-speed \, quality \, consistency.;
-#X msg 130 1079 @scale;
-#X text 270 1079 Получить/Установить transposition as ratio. Тип: float.
-Значение по умолчанию: 1\. Диапазон: 0.25\...4\.;
-#X msg 130 1121 @smooth;
-#X text 270 1121 Получить/Установить control the use of window-presum
-FFT and time-domain smoothing. If true result in a softer sound with
-some audible artifacts around sharp transients \, but it may be appropriate
-for longer stretches of some instruments and can mix well with @window
-short. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 130 1239 @trans;
-#X text 270 1239 Получить/Установить control the component frequency
-phase-reset mechanism that may be used at transient points to provide
-clarity and realism to percussion and other significant transient sounds.
-'crisp' reset component phases at the peak of each transient (the start
-of a significant note or percussive event). This usually results in
-a clear-sounding output \, but it is not always consistent \, and may
-cause interruptions in stable sounds present at the same time as transient
-events. The @detector property can be used to tune this to some extent.
-'mixed' reset component phases at the peak of each transient \, outside
-a frequency range typical of musical fundamental frequencies. The results
-may be more regular for mixed stable and percussive notes than 'crisp'
-\, but with a "phasier" sound. The balance may sound very good for
-certain types of music and fairly bad for others. 'smooth' do not reset
-component phases at any point. The results will be smoother and more
-regular but may be less clear than with either of the other @trans
-settings. Тип: symbol. Значение по умолчанию: crisp. Разрешённые значения:
-crisp \, mixed \, smooth.;
-#X msg 130 1568 @transpose;
-#X text 270 1568 Получить/Установить transposition in semitones. Тип:
-float. Единицы: 'semitone'. Значение по умолчанию: 0\. Диапазон: -24\...24\.;
-#X msg 130 1625 @window;
-#X text 270 1625 Получить/Установить the window size. 'standard' is
-expected to produce better results than the other window options in
-most situations. 'short' may result in crisper sound for audio that
-depends strongly on its timing qualities. 'long' is likely to result
-in a smoother sound at the expense of clarity and timing. Тип: symbol.
-Значение по умолчанию: standard. Разрешённые значения: standard \,
-short \, long.;
-#X msg 130 1758 @latency?;
-#X text 270 1758 (только чтение) Получить object latency. Тип: float.
-Единицы: 'samp'. Значение по умолчанию: 1024\.;
-#X obj 20 1810 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1815 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 432 @detector;
+#X text 270 432 Control the type of transient detector used. 'compound'
+a general-purpose transient detector which is likely to be good for
+most situations. 'precussive' detect percussive transients. 'piano'
+use an onset detector with less of a bias toward percussive transients.
+This may give better results with certain material (e.g. relatively
+monophonic piano music). Тип: symbol. Значение по умолчанию: compound.
+Разрешённые значения: compound \, percussive \, soft.;
+#X msg 130 580 @formant;
+#X text 270 580 Control the handling of formant shape (spectral envelope)
+when pitch-shifting. If 'true' preserve the spectral envelope of the
+unshifted signal. This permits shifting the note frequency without
+so substantially affecting the perceived pitch profile of the voice
+or instrument. 'False' apply no special formant processing. The spectral
+envelope will be pitch shifted as normal. Тип: bool. Значение по умолчанию:
+0\.;
+#X msg 130 713 @phase;
+#X text 270 713 Control the adjustment of component frequency phases
+from one analysis window to the next during non-transient segments.
+'False' adjust the phase in each frequency bin independently from its
+neighbours. This usually results in a slightly softer \, phasier sound.
+'True' adjust phases when stretching in such a way as to try to retain
+the continuity of phase relationships between adjacent frequency bins
+whose phases are behaving in similar ways. Тип: bool. Значение по умолчанию:
+1\.;
+#X msg 130 861 @quality;
+#X text 270 861 Method used for pitch shifting. 'speed' may sound less
+clear than 'quality' \, especially for large pitch shifts. 'quality'
+method has a CPU cost approximately proportional to the required frequency
+shift. 'consistency' gives greatest consistency when used to create
+small variations in pitch around the 1.0-ratio level. Unlike the previous
+two options \, this avoids discontinuities when moving across the 1.0
+pitch scale in real-time. It also consumes more CPU than the others
+in the case where the pitch scale is exactly 1.0\. Тип: symbol. Значение
+по умолчанию: speed. Разрешённые значения: speed \, quality \, consistency.;
+#X msg 130 1054 @scale;
+#X text 270 1054 Transposition as ratio. Тип: float. Значение по умолчанию:
+1\. Диапазон: 0.25\...4\.;
+#X msg 130 1096 @smooth;
+#X text 270 1096 Control the use of window-presum FFT and time-domain
+smoothing. If true result in a softer sound with some audible artifacts
+around sharp transients \, but it may be appropriate for longer stretches
+of some instruments and can mix well with @window short. Тип: bool.
+Значение по умолчанию: 0\.;
+#X msg 130 1199 @trans;
+#X text 270 1199 Control the component frequency phase-reset mechanism
+that may be used at transient points to provide clarity and realism
+to percussion and other significant transient sounds. 'crisp' reset
+component phases at the peak of each transient (the start of a significant
+note or percussive event). This usually results in a clear-sounding
+output \, but it is not always consistent \, and may cause interruptions
+in stable sounds present at the same time as transient events. The
+@detector property can be used to tune this to some extent. 'mixed'
+reset component phases at the peak of each transient \, outside a frequency
+range typical of musical fundamental frequencies. The results may be
+more regular for mixed stable and percussive notes than 'crisp' \,
+but with a "phasier" sound. The balance may sound very good for certain
+types of music and fairly bad for others. 'smooth' do not reset component
+phases at any point. The results will be smoother and more regular
+but may be less clear than with either of the other @trans settings.
+Тип: symbol. Значение по умолчанию: crisp. Разрешённые значения: crisp
+\, mixed \, smooth.;
+#X msg 130 1513 @transpose;
+#X text 270 1513 Transposition in semitones. Тип: float. Единицы: 'semitone'.
+Значение по умолчанию: 0\. Диапазон: -24\...24\.;
+#X msg 130 1555 @window;
+#X text 270 1555 The window size. 'standard' is expected to produce
+better results than the other window options in most situations. 'short'
+may result in crisper sound for audio that depends strongly on its
+timing qualities. 'long' is likely to result in a smoother sound at
+the expense of clarity and timing. Тип: symbol. Значение по умолчанию:
+standard. Разрешённые значения: standard \, short \, long.;
+#X msg 130 1673 @latency?;
+#X text 270 1673 (только чтение) Object latency. Тип: float. Единицы:
+'samp'. Значение по умолчанию: 1024\.;
+#X obj 20 1725 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1730 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1816 1\.;
-#X text 170 1816 ~;
-#X text 270 1816 input signal.;
-#X text 130 1841 2\.;
-#X text 270 1841 pitch shift in semitones.;
-#X obj 20 1876 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1881 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1731 1\.;
+#X text 170 1731 ~;
+#X text 270 1731 input signal.;
+#X text 130 1756 2\.;
+#X text 270 1756 pitch shift in semitones.;
+#X obj 20 1791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1796 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1882 1\.;
-#X text 170 1882 ~;
-#X text 270 1882 output signal.;
+#X text 130 1797 1\.;
+#X text 170 1797 ~;
+#X text 270 1797 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1932 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1935 библиотека: ceammc v0.9.8;
-#N canvas 10 1954 400 290 info 0;
+#X obj 1 1847 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1850 библиотека: ceammc v0.9.8;
+#N canvas 10 1869 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -154,7 +152,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1954 pd info;
+#X restore 10 1869 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;

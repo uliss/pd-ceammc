@@ -19,69 +19,68 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 318 1\.;
 #X text 170 318 float;
-#X obj 271 319 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 319 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 318 DELAY(ms): echo time. Тип: float. Диапазон: 0…4000;
-#X text 130 338 2\.;
-#X text 170 338 float;
-#X obj 271 339 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 338 FEEDBACK: feedback coefficient. Тип: float. Диапазон:
+#X text 130 343 2\.;
+#X text 170 343 float;
+#X obj 268 344 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 343 FEEDBACK: feedback coefficient. Тип: float. Диапазон:
 0…0.99;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 383 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 386 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 374 @id;
-#X text 270 374 (при инициализации) Получить/Установить идентификатор
-для OSC адреса. Если установлен \, все свойства объекта привязываются
-к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_recho/ИМЯ_СВОЙСТВА \, в противном
-случае к /fx_recho/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 130 461 @osc;
-#X text 270 461 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 384 @id;
+#X text 270 384 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/fx_recho/ИМЯ_СВОЙСТВА \, в противном случае к /fx_recho/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X msg 130 503 @active;
-#X text 270 503 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
-Значение по умолчанию: 1\.;
-#X msg 130 545 @bypass;
-#X text 270 545 Получить/Установить bypass flag. If true: bypass 'effected'
-signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 130 587 @delay;
-#X text 270 587 Получить/Установить echo time. Тип: float. Единицы:
-'ms'. Значение по умолчанию: 500\. Диапазон: 0\...4000\.;
-#X msg 130 629 @drywet;
-#X text 270 629 Получить/Установить proportion of mix between the original
-(dry) and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Тип:
-float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 130 686 @feedback;
-#X text 270 686 Получить/Установить feedback coefficient. Тип: float.
-Значение по умолчанию: 0.3\. Диапазон: 0\...0.99\.;
-#X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 743 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 456 @osc;
+#X text 270 456 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X msg 130 486 @active;
+#X text 270 486 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X msg 130 528 @bypass;
+#X text 270 528 Bypass flag. If true: bypass 'effected' signal. Тип:
+bool. Значение по умолчанию: 0\.;
+#X msg 130 570 @delay;
+#X text 270 570 Echo time. Тип: float. Единицы: 'ms'. Значение по умолчанию:
+500\. Диапазон: 0\...4000\.;
+#X msg 130 612 @drywet;
+#X text 270 612 Proportion of mix between the original (dry) and 'effected'
+(wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
+1\. Диапазон: 0\...1\.;
+#X msg 130 669 @feedback;
+#X text 270 669 Feedback coefficient. Тип: float. Значение по умолчанию:
+0.3\. Диапазон: 0\...0.99\.;
+#X obj 20 721 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 726 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 744 reset;
-#X text 270 744 reset to initial state.;
-#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 787 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 727 reset;
+#X text 270 727 reset to initial state.;
+#X obj 20 765 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 770 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 788 1\.;
-#X text 170 788 ~;
-#X text 270 788 input signal.;
-#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 828 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 771 1\.;
+#X text 170 771 ~;
+#X text 270 771 input signal.;
+#X obj 20 806 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 811 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 829 1\.;
-#X text 170 829 ~;
-#X text 270 829 output signal.;
+#X text 130 812 1\.;
+#X text 170 812 ~;
+#X text 270 812 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 879 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 882 библиотека: ceammc v0.9.8;
-#X text 560 894 смотрите также:;
-#X obj 681 894 fx.echo~;
-#N canvas 10 901 400 290 info 0;
+#X obj 1 862 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 865 библиотека: ceammc v0.9.8;
+#X text 560 877 смотрите также:;
+#X obj 681 877 fx.echo~;
+#N canvas 10 884 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -105,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 901 pd info;
+#X restore 10 884 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

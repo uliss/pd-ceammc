@@ -29,42 +29,41 @@ it canceled;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 334 1\.;
 #X text 170 334 float;
-#X obj 271 335 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 335 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 334 DELAY(ms): timeline length. Тип: float. Минимальное
 значение: 0\.;
-#X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 384 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 389 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 387 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 385 @delay;
-#X text 270 385 Получить/Установить bang delay after cue activation.
-Тип: float. Единицы: 'ms'. Значение по умолчанию: 0\. Минимальное значение:
-0\.;
-#X msg 130 442 @cue?;
-#X text 270 442 (только чтение) Получить related cue. Тип: symbol.;
-#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 487 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 390 @delay;
+#X text 270 390 Bang delay after cue activation. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X msg 130 447 @cue?;
+#X text 270 447 (только чтение) Related cue. Тип: symbol.;
+#X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 492 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 488 1\.;
-#X text 270 488 control inlet.;
-#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 528 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 493 1\.;
+#X text 270 493 control inlet.;
+#X obj 20 528 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 533 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 529 1\.;
-#X text 270 529 bang output.;
+#X text 130 534 1\.;
+#X text 270 534 bang output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title tl @url ceammc.tl-help.pd;
-#X obj 1 579 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 582 библиотека: ceammc v0.9.8;
-#X text 492 594 смотрите также:;
-#X obj 613 594 tl.toggle;
-#X obj 694 597 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 584 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 587 библиотека: ceammc v0.9.8;
+#X text 492 599 смотрите также:;
+#X obj 613 599 tl.toggle;
+#X obj 694 602 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.cue] @url tl.cue-help.pd;
-#N canvas 10 601 400 290 info 0;
+#N canvas 10 606 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -88,7 +87,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 601 pd info;
+#X restore 10 606 pd info;
 #X connect 9 0 12 0;
 #X connect 10 0 13 0;
 #X connect 11 0 14 0;

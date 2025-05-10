@@ -28,48 +28,47 @@ flite TTS engine.;
 #X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 434 @pitch;
-#X text 270 434 Получить/Установить voice pitch (-1 - default value).
-Тип: float. Значение по умолчанию: -1\.;
+#X text 270 434 Voice pitch (-1 - default value). Тип: float. Значение
+по умолчанию: -1\.;
 #X msg 130 476 @speed;
-#X text 270 476 Получить/Установить speaking speed. Тип: float. Значение
-по умолчанию: 1\. Диапазон: 0.5\...4\.;
+#X text 270 476 Speaking speed. Тип: float. Значение по умолчанию:
+1\. Диапазон: 0.5\...4\.;
 #X msg 130 518 @voice;
-#X text 270 518 Получить/Установить default voice. Тип: symbol. Значение
-по умолчанию: kal16\. Разрешённые значения: kal16 \, slt \, rms \,
-awb.;
-#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 590 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X text 270 518 Default voice. Тип: symbol. Значение по умолчанию:
+kal16\. Разрешённые значения: kal16 \, slt \, rms \, awb.;
+#X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 575 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 591 stop;
-#X text 270 591 stops speech and clear speech queue.;
-#X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 634 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 576 stop;
+#X text 270 576 stops speech and clear speech queue.;
+#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 619 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 635 1\.;
-#X text 170 635 float:;
-#X text 270 635 speak number.;
-#X text 170 660 symbol:;
-#X text 270 660 speak text.;
-#X text 170 685 list:;
-#X text 270 685 speak text.;
-#X obj 20 720 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 725 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 620 1\.;
+#X text 170 620 float:;
+#X text 270 620 speak number.;
+#X text 170 645 symbol:;
+#X text 270 645 speak text.;
+#X text 170 670 list:;
+#X text 270 670 speak text.;
+#X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 710 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 726 1\.;
-#X text 170 726 ~;
-#X text 270 726 output signal.;
-#X text 130 746 2\.;
-#X text 270 746 float: number of sentences left to speak.;
+#X text 130 711 1\.;
+#X text 170 711 ~;
+#X text 270 711 output signal.;
+#X text 130 731 2\.;
+#X text 270 731 float: number of sentences left to speak.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 796 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 799 библиотека: ceammc v0.9.8;
-#X text 532 811 смотрите также:;
-#X obj 653 811 speech.flite;
-#N canvas 10 818 400 290 info 0;
+#X obj 1 781 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 784 библиотека: ceammc v0.9.8;
+#X text 532 796 смотрите также:;
+#X obj 653 796 speech.flite;
+#N canvas 10 803 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -93,7 +92,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 818 pd info;
+#X restore 10 803 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 10 0;
 #X connect 8 0 11 0;

@@ -24,39 +24,39 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 333 1\.;
 #X text 170 333 symbol;
-#X obj 271 334 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 334 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 333 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 368 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 371 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 369 @normalize;
-#X text 270 369 масштабировать входные значения \, чтобы вместить их
+#X msg 130 374 @normalize;
+#X text 270 374 Масштабировать входные значения \, чтобы вместить их
 в [0 \, 1] диапазон. Значение по умолчанию: 0\.;
-#X msg 130 411 @array;
-#X text 270 411 Получить/Установить имя массива. Тип: symbol.;
-#X msg 130 441 @redraw;
-#X text 270 441 Получить/Установить перерисовать массив. Тип: bool.
-Значение по умолчанию: 1\.;
-#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 498 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 416 @array;
+#X text 270 416 Имя массива. Тип: symbol.;
+#X msg 130 446 @redraw;
+#X text 270 446 Перерисовать массив. Тип: bool. Значение по умолчанию:
+1\.;
+#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 491 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 499 1\.;
-#X text 170 499 list:;
-#X text 270 499 resizes array and sets its content.;
-#X text 170 524 symbol:;
-#X text 270 524 set array name.;
+#X text 130 492 1\.;
+#X text 170 492 list:;
+#X text 270 492 resizes array and sets its content.;
+#X text 170 517 symbol:;
+#X text 270 517 set array name.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 579 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 582 библиотека: ceammc v0.9.8;
-#X text 546 594 смотрите также:;
-#X obj 667 594 array.each;
-#N canvas 10 601 400 290 info 0;
+#X obj 1 572 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 575 библиотека: ceammc v0.9.8;
+#X text 546 587 смотрите также:;
+#X obj 667 587 array.each;
+#N canvas 10 594 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -80,7 +80,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 601 pd info;
+#X restore 10 594 pd info;
 #X connect 7 0 11 0;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;

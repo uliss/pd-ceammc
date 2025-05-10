@@ -14,8 +14,8 @@
 #X obj 735 248 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 246 @stable;
-#X text 270 246 Get/Set if true - preserves element appearing order.
-Type: bool. Default value: 1\.;
+#X text 270 246 If true - preserves element appearing order. Type:
+bool. Default value: 1\.;
 #X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 303 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

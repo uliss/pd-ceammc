@@ -36,45 +36,45 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 465 1\.;
 #X text 170 465 float;
-#X obj 271 466 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 466 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 465 X: initial x value \, default 1.2\. Тип: float.;
-#X text 130 485 2\.;
-#X text 170 485 float;
-#X obj 271 486 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 485 Y: initial y value \, default 2.1\. Тип: float.;
-#X obj 20 515 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 520 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 490 2\.;
+#X text 170 490 float;
+#X obj 268 491 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 490 Y: initial y value \, default 2.1\. Тип: float.;
+#X obj 20 525 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 530 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 523 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 533 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X obj 20 541 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 546 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 556 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 572 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 582 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 573 1\.;
-#X text 170 573 ~;
-#X text 270 573 generation frequency \, minimal value 0.001Hz.;
-#X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 613 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 583 1\.;
+#X text 170 583 ~;
+#X text 270 583 generation frequency \, minimal value 0.001Hz.;
+#X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 623 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 614 1\.;
-#X text 170 614 ~;
-#X text 270 614 outputs x value.;
-#X text 130 634 2\.;
-#X text 170 634 ~;
-#X text 270 634 outputs y value.;
+#X text 130 624 1\.;
+#X text 170 624 ~;
+#X text 270 624 outputs x value.;
+#X text 130 644 2\.;
+#X text 170 644 ~;
+#X text 270 644 outputs y value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 684 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 687 библиотека: ceammc v0.9.8;
-#X text 532 699 смотрите также:;
-#X obj 653 699 chaos.gbman0;
-#N canvas 10 706 400 290 info 0;
+#X obj 1 694 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 697 библиотека: ceammc v0.9.8;
+#X text 532 709 смотрите также:;
+#X obj 653 709 chaos.gbman0;
+#N canvas 10 716 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -98,7 +98,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 706 pd info;
+#X restore 10 716 pd info;
 #X connect 9 0 14 0;
 #X connect 10 0 14 0;
 #X connect 11 0 14 0;

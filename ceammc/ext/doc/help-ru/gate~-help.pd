@@ -22,64 +22,63 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 232 1\.;
 #X text 170 232 int;
-#X obj 271 233 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 233 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 232 N: number of inputs/outputs. Тип: int. Диапазон: 1…64;
-#X text 130 252 2\.;
-#X text 170 252 bool;
-#X obj 271 253 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 252 INIT: initial open/close state for all slots. Тип:
+#X text 130 257 2\.;
+#X text 170 257 bool;
+#X obj 268 258 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 257 INIT: initial open/close state for all slots. Тип:
 bool.;
-#X obj 20 282 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 287 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 292 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 297 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 290 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 300 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 288 @init;
-#X text 270 288 (при инициализации) Получить/Установить init state
-for all slots. If true: all slots are open. Тип: bool. Значение по
-умолчанию: true.;
-#X msg 130 345 @n;
-#X text 270 345 (при инициализации) Получить/Установить number of [in|out]puts.
-Тип: int. Значение по умолчанию: 1\. Диапазон: 1\...64\.;
-#X msg 130 402 @smooth;
-#X text 270 402 Получить/Установить gain change smooth time. Тип: float.
-Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: 0\...1000\.;
-#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 474 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 298 @init;
+#X text 270 298 (при инициализации) Init state for all slots. If true:
+all slots are open. Тип: bool. Значение по умолчанию: true.;
+#X msg 130 355 @n;
+#X text 270 355 (при инициализации) Number of [in|out]puts. Тип: int.
+Значение по умолчанию: 1\. Диапазон: 1\...64\.;
+#X msg 130 397 @smooth;
+#X text 270 397 Gain change smooth time. Тип: float. Единицы: 'ms'.
+Значение по умолчанию: 50\. Диапазон: 0\...1000\.;
+#X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 454 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 475 1\.;
-#X text 170 475 ~;
-#X text 270 475 input signal.;
-#X text 130 500 ...;
-#X text 170 500 ~;
-#X text 270 500 ... input signal.;
-#X text 130 525 n.;
-#X text 270 525 n-th input signal.;
-#X text 130 550 n+1\.;
-#X text 170 550 bool:;
-#X text 270 550 on/off all channels.;
-#X text 170 575 list:;
-#X text 270 575 list of 1|0 \, on/off specified channels only.;
-#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 615 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 455 1\.;
+#X text 170 455 ~;
+#X text 270 455 input signal.;
+#X text 130 480 ...;
+#X text 170 480 ~;
+#X text 270 480 ... input signal.;
+#X text 130 505 n.;
+#X text 270 505 n-th input signal.;
+#X text 130 530 n+1\.;
+#X text 170 530 bool:;
+#X text 270 530 on/off all channels.;
+#X text 170 555 list:;
+#X text 270 555 list of 1|0 \, on/off specified channels only.;
+#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 595 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 616 1\.;
+#X text 130 596 1\.;
+#X text 170 596 ~;
+#X text 270 596 first output signal.;
+#X text 130 616 ...;
 #X text 170 616 ~;
-#X text 270 616 first output signal.;
-#X text 130 636 ...;
+#X text 270 616 ... output signal.;
+#X text 130 636 n.;
 #X text 170 636 ~;
-#X text 270 636 ... output signal.;
-#X text 130 656 n.;
-#X text 170 656 ~;
-#X text 270 656 n-th output signal.;
+#X text 270 636 n-th output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 706 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 709 библиотека: ceammc v0.9.8;
-#N canvas 10 728 400 290 info 0;
+#X obj 1 686 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 689 библиотека: ceammc v0.9.8;
+#N canvas 10 708 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -103,7 +102,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 728 pd info;
+#X restore 10 708 pd info;
 #X connect 5 0 11 0;
 #X connect 6 0 11 1;
 #X connect 7 0 11 2;

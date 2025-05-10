@@ -28,36 +28,36 @@ Variance @url https://en.wikipedia.org/wiki/Variance;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 360 1\.;
 #X text 170 360 symbol;
-#X obj 271 361 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 361 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 360 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 395 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 400 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 398 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 403 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 396 @array;
-#X text 270 396 Получить/Установить имя массива. Тип: symbol.;
-#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 441 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 401 @array;
+#X text 270 401 Имя массива. Тип: symbol.;
+#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 446 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 442 1\.;
-#X text 170 442 bang:;
-#X text 270 442 calculates and outputs variance.;
-#X obj 20 477 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 482 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 447 1\.;
+#X text 170 447 bang:;
+#X text 270 447 calculates and outputs variance.;
+#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 487 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 483 1\.;
-#X text 270 483 variance.;
+#X text 130 488 1\.;
+#X text 270 488 variance.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 533 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 536 библиотека: ceammc v0.9.8;
-#X text 531 548 смотрите также:;
-#X obj 652 548 array.stddev;
-#N canvas 10 555 400 290 info 0;
+#X obj 1 538 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 541 библиотека: ceammc v0.9.8;
+#X text 531 553 смотрите также:;
+#X obj 652 553 array.stddev;
+#N canvas 10 560 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -81,7 +81,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 555 pd info;
+#X restore 10 560 pd info;
 #X connect 7 0 9 0;
 #X connect 9 0 10 0;
 #X connect 11 0 14 0;

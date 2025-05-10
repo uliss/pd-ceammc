@@ -19,71 +19,70 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 405 1\.;
 #X text 170 405 float;
-#X obj 271 406 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 406 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 405 FREQ(Hz): initial frequency. Type: float. Range: 0\...1000;
-#X text 130 425 2\.;
-#X text 170 425 float;
-#X obj 271 426 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 425 DUTY: duty cycle. Type: float. Range: 0\...1;
-#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 460 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 430 2\.;
+#X text 170 430 float;
+#X obj 268 431 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 430 DUTY: duty cycle. Type: float. Range: 0\...1;
+#X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 470 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 463 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 473 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 461 @id;
-#X text 270 461 (initonly) Get/Set OSC address id. If specified \,
-bind all properties to /ID/lfo_pulse/PROP_NAME osc address \, if empty
-bind to /lfo_pulse/PROP_NAME. Type: symbol.;
-#X msg 130 518 @osc;
-#X text 270 518 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
-#X msg 130 548 @active;
-#X text 270 548 Turn on/off object dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 130 590 @duty;
-#X text 270 590 Get/Set duty cycle. Type: float. Default value: 0.5\.
-Range: 0\...1\.;
-#X msg 130 632 @freq;
-#X text 270 632 Get/Set initial frequency. Type: float. Units: 'Hz'.
-Default value: 0\. Range: 0\...1000\.;
-#X msg 130 674 @pause;
-#X text 270 674 Get/Set pause oscillator at current value. Type: bool.
-Default value: 0\.;
-#X msg 130 716 @phase;
-#X text 270 716 Get/Set initial phase. Type: float. Default value:
-0\. Range: 0\...1\.;
-#X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 773 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 471 @id;
+#X text 270 471 (initonly) OSC address id. If specified \, bind all
+properties to /ID/lfo_pulse/PROP_NAME osc address \, if empty bind
+to /lfo_pulse/PROP_NAME. Type: symbol.;
+#X msg 130 528 @osc;
+#X text 270 528 (initonly) OSC server name to listen. Type: symbol.;
+#X msg 130 558 @active;
+#X text 270 558 On/off object dsp processing. Type: bool. Default value:
+1\.;
+#X msg 130 588 @duty;
+#X text 270 588 Duty cycle. Type: float. Default value: 0.5\. Range:
+0\...1\.;
+#X msg 130 618 @freq;
+#X text 270 618 Initial frequency. Type: float. Units: 'Hz'. Default
+value: 0\. Range: 0\...1000\.;
+#X msg 130 660 @pause;
+#X text 270 660 Pause oscillator at current value. Type: bool. Default
+value: 0\.;
+#X msg 130 702 @phase;
+#X text 270 702 Initial phase. Type: float. Default value: 0\. Range:
+0\...1\.;
+#X obj 20 754 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 759 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 774 reset;
-#X text 270 774 reset to initial state.;
-#X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 817 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 760 reset;
+#X text 270 760 reset to initial state.;
+#X obj 20 798 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 803 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 818 1\.;
-#X text 170 818 ~;
-#X text 270 818 frequency in Hz.;
-#X text 130 843 2\.;
-#X text 170 843 bang:;
-#X text 270 843 reset phase.;
-#X obj 20 878 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 883 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 804 1\.;
+#X text 170 804 ~;
+#X text 270 804 frequency in Hz.;
+#X text 130 829 2\.;
+#X text 170 829 bang:;
+#X text 270 829 reset phase.;
+#X obj 20 864 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 869 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 884 1\.;
-#X text 170 884 ~;
-#X text 270 884 pulsetrain wave in [-1 \, +1] range.;
+#X text 130 870 1\.;
+#X text 170 870 ~;
+#X text 270 870 pulsetrain wave in [-1 \, +1] range.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title lfo @url ceammc.lfo-help.pd;
-#X obj 1 934 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 937 library: ceammc v0.9.8;
-#X text 387 949 see also:;
-#X obj 462 949 lfo.+pulse~;
-#X obj 557 949 lfo.square~;
-#X obj 652 949 lfo.impulse~;
-#N canvas 10 956 400 290 info 0;
+#X obj 1 920 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 923 library: ceammc v0.9.8;
+#X text 387 935 see also:;
+#X obj 462 935 lfo.+pulse~;
+#X obj 557 935 lfo.square~;
+#X obj 652 935 lfo.impulse~;
+#N canvas 10 942 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -107,7 +106,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 956 pd info;
+#X restore 10 942 pd info;
 #X connect 5 0 7 0;
 #X connect 4 0 8 0;
 #X connect 7 0 8 0;

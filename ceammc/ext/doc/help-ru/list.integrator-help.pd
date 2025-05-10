@@ -31,9 +31,9 @@ so on.;
 #X text 270 431 Alias for "@oversize min" property. Truncates lists
 to minimal common size.;
 #X msg 130 473 @oversize;
-#X text 270 473 Получить/Установить behavior \, if list have different
-sizes. Тип: symbol. Значение по умолчанию: padz. Разрешённые значения:
-min \, padz \, clip \, wrap \, fold.;
+#X text 270 473 Behavior \, if list have different sizes. Тип: symbol.
+Значение по умолчанию: padz. Разрешённые значения: min \, padz \, clip
+\, wrap \, fold.;
 #X msg 130 530 @padz;
 #X text 270 530 Alias for "@oversize padz" property. Pad shortest list
 with zeroes.;

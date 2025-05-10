@@ -25,60 +25,60 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 361 1\.;
 #X text 170 361 symbol;
-#X obj 271 362 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 362 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 361 ARRAY: имя массива. Тип: symbol.;
-#X text 130 381 2\.;
-#X text 170 381 float;
-#X obj 271 382 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 381 YMIN: минимальное значение y-оси. Тип: float. Диапазон:
+#X text 130 386 2\.;
+#X text 170 386 float;
+#X obj 268 387 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 386 YMIN: минимальное значение y-оси. Тип: float. Диапазон:
 -1024…1024;
-#X text 130 416 3\.;
-#X text 170 416 float;
-#X obj 271 417 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 416 YMAX: максимальное значение y-оси. Тип: float. Диапазон:
+#X text 130 426 3\.;
+#X text 170 426 float;
+#X obj 268 427 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 426 YMAX: максимальное значение y-оси. Тип: float. Диапазон:
 -1024…1024;
-#X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 466 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 481 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 469 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 484 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 467 @array;
-#X text 270 467 Получить/Установить имя массива. Тип: symbol.;
-#X msg 130 497 @yauto;
-#X text 270 497 Получить/Установить вычислить диапазон y-оси автоматически.
-Тип: bool. Значение по умолчанию: 0\.;
-#X msg 130 539 @ymax;
-#X text 270 539 Получить/Установить минимальное значение y-оси. Тип:
-float. Значение по умолчанию: 1\. Диапазон: -1024\...1024\.;
-#X msg 130 581 @ymin;
-#X text 270 581 Получить/Установить минимальное значение y-оси. Тип:
-float. Значение по умолчанию: -1\. Диапазон: -1024\...1024\.;
-#X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 638 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 482 @array;
+#X text 270 482 Имя массива. Тип: symbol.;
+#X msg 130 512 @yauto;
+#X text 270 512 Вычислить диапазон y-оси автоматически. Тип: bool.
+Значение по умолчанию: 0\.;
+#X msg 130 554 @ymax;
+#X text 270 554 Минимальное значение y-оси. Тип: float. Значение по
+умолчанию: 1\. Диапазон: -1024\...1024\.;
+#X msg 130 596 @ymin;
+#X text 270 596 Минимальное значение y-оси. Тип: float. Значение по
+умолчанию: -1\. Диапазон: -1024\...1024\.;
+#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 653 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 639 1\.;
-#X text 170 639 ~;
-#X text 270 639 input signal.;
-#X text 130 664 2\.;
-#X text 170 664 bang:;
-#X text 270 664 plot all samples fitted to specified array.;
-#X text 170 689 float:;
-#X text 270 689 plot specified number of samples \, resizes array.;
-#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 729 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 654 1\.;
+#X text 170 654 ~;
+#X text 270 654 input signal.;
+#X text 130 679 2\.;
+#X text 170 679 bang:;
+#X text 270 679 plot all samples fitted to specified array.;
+#X text 170 704 float:;
+#X text 270 704 plot specified number of samples \, resizes array.;
+#X obj 20 739 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 744 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 770 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 773 библиотека: ceammc v0.9.8;
-#X text 470 785 смотрите также:;
-#X obj 591 788 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 785 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 788 библиотека: ceammc v0.9.8;
+#X text 470 800 смотрите также:;
+#X obj 591 803 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.plot~] @url ui.plot~-help.pd;
-#X obj 667 785 array.plot;
-#N canvas 10 792 400 290 info 0;
+#X obj 667 800 array.plot;
+#N canvas 10 807 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -102,7 +102,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 792 pd info;
+#X restore 10 807 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 8 1;
 #X connect 9 0 10 0;

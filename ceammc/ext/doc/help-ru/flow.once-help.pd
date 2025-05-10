@@ -18,30 +18,29 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 214 1\.;
 #X text 170 214 bool;
-#X obj 271 215 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 215 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 214 PASS: set init state. Тип: bool.;
-#X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 249 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 249 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 254 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 252 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 257 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 250 @pass;
-#X text 270 250 Получить/Установить open state. Тип: bool. Значение
-по умолчанию: 1\.;
-#X obj 20 302 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 307 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 255 @pass;
+#X text 270 255 Open state. Тип: bool. Значение по умолчанию: 1\.;
+#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 300 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 308 1\.;
-#X text 170 308 any:;
-#X text 270 308 input flow.;
-#X text 130 333 2\.;
-#X text 170 333 bang:;
-#X text 270 333 reset to opened state.;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 373 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 301 1\.;
+#X text 170 301 any:;
+#X text 270 301 input flow.;
+#X text 130 326 2\.;
+#X text 170 326 bang:;
+#X text 270 326 reset to opened state.;
+#X obj 20 361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 366 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 374 1\.;
-#X text 270 374 output flow.;
+#X text 130 367 1\.;
+#X text 270 367 output flow.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

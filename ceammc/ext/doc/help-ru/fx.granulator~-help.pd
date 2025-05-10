@@ -38,82 +38,79 @@
 #X obj 735 547 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 545 @id;
-#X text 270 545 (при инициализации) Получить/Установить идентификатор
-для OSC адреса. Если установлен \, все свойства объекта привязываются
-к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_granulator/ИМЯ_СВОЙСТВА \, в
-противном случае к /fx_granulator/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 130 648 @osc;
-#X text 270 648 (при инициализации) Получить/Установить имя OSC сервера.
+#X text 270 545 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/fx_granulator/ИМЯ_СВОЙСТВА \, в противном случае к /fx_granulator/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X msg 130 690 @active;
-#X text 270 690 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
-Значение по умолчанию: 1\.;
-#X msg 130 732 @delay;
-#X text 270 732 Получить/Установить grain delay. Тип: float. Единицы:
-'ms'. Значение по умолчанию: 3000\. Диапазон: 500\...3000\.;
-#X msg 130 774 @density;
-#X text 270 774 Получить/Установить number of grains. Тип: float. Значение
-по умолчанию: 1.0\. Диапазон: 1.0\...16.0\.;
-#X msg 130 816 @gainAL;
-#X text 270 816 Получить/Установить A-channel left output gain. Тип:
-float. Значение по умолчанию: 0.75\. Диапазон: 0.0\...1.0\.;
-#X msg 130 858 @gainAR;
-#X text 270 858 Получить/Установить A-channel right ouptut gain. Тип:
-float. Значение по умолчанию: 0.25\. Диапазон: 0.0\...1.0\.;
-#X msg 130 900 @gainBL;
-#X text 270 900 Получить/Установить B-channel left output gain. Тип:
-float. Значение по умолчанию: 0.25\. Диапазон: 0.0\...1.0\.;
-#X msg 130 942 @gainBR;
-#X text 270 942 Получить/Установить B-channel right output gain. Тип:
-float. Значение по умолчанию: 0.75\. Диапазон: 0.0\...1.0\.;
-#X msg 130 984 @hpfA;
-#X text 270 984 Получить/Установить A-channel HPF corner frequency.
-Тип: float. Единицы: 'Hz'. Значение по умолчанию: 100.0\. Диапазон:
-50.0\...10000.0\.;
-#X msg 130 1041 @hpfB;
-#X text 270 1041 Получить/Установить B-channel HPF corner frequency.
-Тип: float. Единицы: 'Hz'. Значение по умолчанию: 100.0\. Диапазон:
-50.0\...10000.0\.;
-#X msg 130 1098 @pitchA;
-#X text 270 1098 Получить/Установить A-channel pitch shift. Тип: float.
-Значение по умолчанию: 1.0\. Диапазон: -4.0\...4.0\.;
-#X msg 130 1140 @pitchB;
-#X text 270 1140 Получить/Установить B-channel pitchshift. Тип: float.
-Значение по умолчанию: 1.0\. Диапазон: -4.0\...4.0\.;
-#X msg 130 1182 @spread;
-#X text 270 1182 Получить/Установить grain spread in the input buffer.
-Тип: float. Значение по умолчанию: 0.5\. Диапазон: 0.05\...1.0\.;
-#X msg 130 1224 @size;
-#X text 270 1224 Получить/Установить grain size for both lines. Тип:
-float. Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон: 10\...1000\.;
-#X obj 20 1291 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1296 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X msg 130 632 @osc;
+#X text 270 632 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X msg 130 662 @active;
+#X text 270 662 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X msg 130 704 @delay;
+#X text 270 704 Grain delay. Тип: float. Единицы: 'ms'. Значение по
+умолчанию: 3000\. Диапазон: 500\...3000\.;
+#X msg 130 746 @density;
+#X text 270 746 Number of grains. Тип: float. Значение по умолчанию:
+1.0\. Диапазон: 1.0\...16.0\.;
+#X msg 130 788 @gainAL;
+#X text 270 788 A-channel left output gain. Тип: float. Значение по
+умолчанию: 0.75\. Диапазон: 0.0\...1.0\.;
+#X msg 130 830 @gainAR;
+#X text 270 830 A-channel right ouptut gain. Тип: float. Значение по
+умолчанию: 0.25\. Диапазон: 0.0\...1.0\.;
+#X msg 130 872 @gainBL;
+#X text 270 872 B-channel left output gain. Тип: float. Значение по
+умолчанию: 0.25\. Диапазон: 0.0\...1.0\.;
+#X msg 130 914 @gainBR;
+#X text 270 914 B-channel right output gain. Тип: float. Значение по
+умолчанию: 0.75\. Диапазон: 0.0\...1.0\.;
+#X msg 130 956 @hpfA;
+#X text 270 956 A-channel HPF corner frequency. Тип: float. Единицы:
+'Hz'. Значение по умолчанию: 100.0\. Диапазон: 50.0\...10000.0\.;
+#X msg 130 1013 @hpfB;
+#X text 270 1013 B-channel HPF corner frequency. Тип: float. Единицы:
+'Hz'. Значение по умолчанию: 100.0\. Диапазон: 50.0\...10000.0\.;
+#X msg 130 1070 @pitchA;
+#X text 270 1070 A-channel pitch shift. Тип: float. Значение по умолчанию:
+1.0\. Диапазон: -4.0\...4.0\.;
+#X msg 130 1112 @pitchB;
+#X text 270 1112 B-channel pitchshift. Тип: float. Значение по умолчанию:
+1.0\. Диапазон: -4.0\...4.0\.;
+#X msg 130 1154 @spread;
+#X text 270 1154 Grain spread in the input buffer. Тип: float. Значение
+по умолчанию: 0.5\. Диапазон: 0.05\...1.0\.;
+#X msg 130 1196 @size;
+#X text 270 1196 Grain size for both lines. Тип: float. Единицы: 'ms'.
+Значение по умолчанию: 100\. Диапазон: 10\...1000\.;
+#X obj 20 1248 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1253 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1297 reset;
-#X text 270 1297 reset object state.;
-#X obj 20 1335 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1340 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1254 reset;
+#X text 270 1254 reset object state.;
+#X obj 20 1292 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1297 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1341 1\.;
-#X text 170 1341 ~;
-#X text 270 1341 input signal.;
-#X obj 20 1376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1381 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1298 1\.;
+#X text 170 1298 ~;
+#X text 270 1298 input signal.;
+#X obj 20 1333 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1338 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1382 1\.;
-#X text 170 1382 ~;
-#X text 270 1382 left output.;
-#X text 130 1402 2\.;
-#X text 170 1402 ~;
-#X text 270 1402 right output.;
+#X text 130 1339 1\.;
+#X text 170 1339 ~;
+#X text 270 1339 left output.;
+#X text 130 1359 2\.;
+#X text 170 1359 ~;
+#X text 270 1359 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1452 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1455 библиотека: ceammc v0.9.8;
-#N canvas 10 1474 400 290 info 0;
+#X obj 1 1409 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1412 библиотека: ceammc v0.9.8;
+#N canvas 10 1431 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -137,7 +134,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1474 pd info;
+#X restore 10 1431 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 13 0;
 #X connect 9 0 13 0;

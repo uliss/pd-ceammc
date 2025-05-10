@@ -5,45 +5,45 @@
 #X obj 1 1 cnv 5 765 40 empty empty noise.pink~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 noise.pink~;
-#X obj 230 78 cnv 1 535 175 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 160 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 83 Pink noise or 1/f noise is a signal or process with
 a frequency spectrum such that the power spectral density (energy or
 power per frequency interval) is inversely proportional to the frequency
 of the signal.;
-#X text 240 168 In pink noise \, each octave (halving/doubling in frequency)
+#X text 240 153 In pink noise \, each octave (halving/doubling in frequency)
 carries an equal amount of noise energy.;
-#X text 240 208 The name arises from the pink appearance of visible
+#X text 240 193 The name arises from the pink appearance of visible
 light with this power spectrum.;
-#X obj 50 301 ui.dsp~;
-#X obj 50 345 noise.pink~;
-#X obj 50 373 ui.gain~ @size 120 16;
-#X obj 280 373 ui.ssc~ @size 300 120 @log_scale 1;
-#X obj 50 460 dac~;
-#X obj 50 488 ui.dsp~;
-#X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 543 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 50 286 ui.dsp~;
+#X obj 50 330 noise.pink~;
+#X obj 50 358 ui.gain~ @size 120 16;
+#X obj 280 358 ui.ssc~ @size 300 120 @log_scale 1;
+#X obj 50 445 dac~;
+#X obj 50 473 ui.dsp~;
+#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 528 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 546 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 531 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 544 @active;
-#X text 270 544 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
-Значение по умолчанию: 1\.;
-#X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 601 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X msg 130 529 @active;
+#X text 270 529 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 586 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 602 1\.;
-#X text 170 602 ~;
-#X text 270 602 output signal.;
+#X text 130 587 1\.;
+#X text 170 587 ~;
+#X text 270 587 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 652 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 655 библиотека: ceammc v0.9.8;
-#X text 531 667 смотрите также:;
-#X obj 652 667 noise.white~;
-#N canvas 10 674 400 290 info 0;
+#X obj 1 637 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 640 библиотека: ceammc v0.9.8;
+#X text 531 652 смотрите также:;
+#X obj 652 652 noise.white~;
+#N canvas 10 659 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -67,7 +67,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 674 pd info;
+#X restore 10 659 pd info;
 #X connect 9 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

@@ -29,34 +29,33 @@
 #X msg 130 508 @s;
 #X text 270 508 Alias to @type symbol \, accept only symbols.;
 #X msg 130 538 @type;
-#X text 270 538 Получить/Установить type of accepted atoms. Тип: symbol.
-Значение по умолчанию: float. Разрешённые значения: float \, symbol
-\, any.;
-#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 610 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 270 538 Type of accepted atoms. Тип: symbol. Значение по умолчанию:
+float. Разрешённые значения: float \, symbol \, any.;
+#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 595 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 611 1\.;
-#X text 170 611 list:;
-#X text 270 611 input list.;
-#X text 170 636 data:mlist:;
-#X text 270 636 input mlist.;
-#X obj 20 671 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 676 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 596 1\.;
+#X text 170 596 list:;
+#X text 270 596 input list.;
+#X text 170 621 data:mlist:;
+#X text 270 621 input mlist.;
+#X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 661 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 677 1\.;
-#X text 270 677 list of two elements: first is a smallest value \,
+#X text 130 662 1\.;
+#X text 270 662 list of two elements: first is a smallest value \,
 second - largest.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 742 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 745 библиотека: ceammc v0.9.8;
-#X text 488 757 смотрите также:;
-#X obj 609 757 list.min;
-#X obj 682 757 list.max;
-#N canvas 10 764 400 290 info 0;
+#X obj 1 727 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 730 библиотека: ceammc v0.9.8;
+#X text 488 742 смотрите также:;
+#X obj 609 742 list.min;
+#X obj 682 742 list.max;
+#N canvas 10 749 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -80,7 +79,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 764 pd info;
+#X restore 10 749 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 10 0 11 0;

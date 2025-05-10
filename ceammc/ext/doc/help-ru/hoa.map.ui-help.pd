@@ -6,200 +6,192 @@
 -4096 0;
 #X obj 665 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [hoa.map.ui] @url hoa.map.ui-help.pd;
-#X obj 230 78 cnv 1 535 119 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 104 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 83 [hoa.map.ui] allows you to spatialize several sources
 on a plane to control [hoa.2d.map~] or [hoa.3d.map]. You can add and
 remove sources \, change coordinates \, add description and create
 groups.;
-#X obj 240 168 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 153 ui.link @background_color 0.98039 0.98039 0.98039
 @title CICM documentation @url hoa/hoa.map-help.pd;
-#X msg 50 245 info;
-#X obj 50 274 hoa.map.ui @size 150 150;
-#X obj 50 447 print SRC;
-#X obj 194 447 print GRP;
-#X obj 338 447 print INF;
-#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 502 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X msg 50 230 info;
+#X obj 50 259 hoa.map.ui @size 150 150;
+#X obj 50 432 print SRC;
+#X obj 194 432 print GRP;
+#X obj 338 432 print INF;
+#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 487 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 130 537 Mouse-wheel + ⌥;
-#X text 310 537 zoom the view.;
-#X text 130 557 Left-click;
-#X text 310 557 no action.;
-#X text 130 577 Mouse-drag;
-#X text 310 577 move selected source or group.;
-#X text 130 597 Right-click;
-#X text 310 597 opens the popup menu for adding/remove sources.;
-#X text 130 617 Right-click + ⇧;
-#X text 310 617 open the object help.;
-#X text 130 637 Right-click + ⌥;
-#X text 310 637 open the properties dialog.;
-#X text 130 657 Right-click;
-#X text 310 657 opens the Pd popup menu.;
-#X text 65 657 [Правка];
-#X text 130 677 Right-click + ⇧;
-#X text 310 677 open the object help.;
-#X text 65 677 [Правка];
-#X text 130 697 Right-click + ⌥;
-#X text 310 697 open the properties dialog.;
-#X text 65 697 [Правка];
-#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 732 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 522 Mouse-wheel + ⌥;
+#X text 310 522 zoom the view.;
+#X text 130 542 Left-click;
+#X text 310 542 no action.;
+#X text 130 562 Mouse-drag;
+#X text 310 562 move selected source or group.;
+#X text 130 582 Right-click;
+#X text 310 582 opens the popup menu for adding/remove sources.;
+#X text 130 602 Right-click + ⇧;
+#X text 310 602 open the object help.;
+#X text 130 622 Right-click + ⌥;
+#X text 310 622 open the properties dialog.;
+#X text 130 642 Right-click;
+#X text 310 642 opens the Pd popup menu.;
+#X text 65 642 [Правка];
+#X text 130 662 Right-click + ⇧;
+#X text 310 662 open the object help.;
+#X text 65 662 [Правка];
+#X text 130 682 Right-click + ⌥;
+#X text 310 682 open the properties dialog.;
+#X text 65 682 [Правка];
+#X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 717 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 735 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 720 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 733 @mapname;
-#X text 270 733 Получить/Установить widget name to link them between.
-Тип: symbol. Значение по умолчанию: (null).;
-#X msg 130 775 @outputmode;
-#X text 270 775 Получить/Установить output mode. Тип: symbol. Значение
-по умолчанию: polar. Разрешённые значения: polar \, cartesian.;
-#X msg 130 817 @receive;
-#X text 270 817 Получить/Установить receive source. Тип: symbol. Значение
+#X msg 130 718 @mapname;
+#X text 270 718 Widget name to link them between. Тип: symbol. Значение
 по умолчанию: (null).;
-#X msg 130 859 @send;
-#X text 270 859 Получить/Установить send destination. Тип: symbol.
+#X msg 130 760 @outputmode;
+#X text 270 760 Output mode. Тип: symbol. Значение по умолчанию: polar.
+Разрешённые значения: polar \, cartesian.;
+#X msg 130 802 @receive;
+#X text 270 802 Receive source. Тип: symbol. Значение по умолчанию:
+(null).;
+#X msg 130 832 @send;
+#X text 270 832 Send destination. Тип: symbol. Значение по умолчанию:
+(null).;
+#X msg 130 862 @view;
+#X text 270 862 Coordinate view. Тип: symbol. Значение по умолчанию:
+xy. Разрешённые значения: xy \, xz \, yz.;
+#X msg 130 904 @zoom;
+#X text 270 904 Zoom factor. Тип: float. Значение по умолчанию: 0.35\.
+Диапазон: 0.01\...1\.;
+#X msg 130 946 @background_color;
+#X text 270 946 Element background color (list of red \, green \, blue
+values in 0-1 range). Тип: list. Значение по умолчанию: 0.93 0.93 0.93
+1\.;
+#X msg 130 1003 @border_color;
+#X text 270 1003 Border color (list of red \, green \, blue values
+in 0-1 range). Тип: list. Значение по умолчанию: 0.6 0.6 0.6 1\.;
+#X msg 130 1060 @label_color;
+#X text 270 1060 Label color in RGB format within 0-1 range \, for
+example: 0.2 0.4 0.1\. Тип: list. Значение по умолчанию: 0 0 0 1\.;
+#X msg 130 1117 @selection_color;
+#X text 270 1117 Selection color (list of red \, green \, blue values
+in 0-1 range). Тип: list. Значение по умолчанию: 0 0.75 1 1\.;
+#X msg 130 1174 @label;
+#X text 270 1174 Label text. Тип: symbol. Значение по умолчанию: (null).;
+#X msg 130 1204 @label_align;
+#X text 270 1204 Label horizontal align. Тип: symbol. Значение по умолчанию:
+left. Разрешённые значения: left \, center \, right.;
+#X msg 130 1246 @label_inner;
+#X text 270 1246 Label position (1 - inner \, 0 - outer). Тип: bool.
+Значение по умолчанию: 0\.;
+#X msg 130 1288 @label_margins;
+#X text 270 1288 Label offset in pixels. Тип: list. Значение по умолчанию:
+0 0\.;
+#X msg 130 1330 @label_side;
+#X text 270 1330 Label snap side. Тип: symbol. Значение по умолчанию:
+top. Разрешённые значения: left \, top \, right \, bottom.;
+#X msg 130 1372 @label_valign;
+#X text 270 1372 Label vertical align. Тип: symbol. Значение по умолчанию:
+top. Разрешённые значения: top \, center \, bottom.;
+#X msg 130 1414 @fontname;
+#X text 270 1414 Fontname. Тип: symbol. Значение по умолчанию: Helvetica.
+Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X msg 130 1471 @fontsize;
+#X text 270 1471 Fontsize. Тип: int. Значение по умолчанию: 11\. Диапазон:
+4\...100\.;
+#X msg 130 1513 @fontslant;
+#X text 270 1513 Font slant. Тип: symbol. Значение по умолчанию: roman.
+Разрешённые значения: roman \, italic.;
+#X msg 130 1555 @fontweight;
+#X text 270 1555 Font weight. Тип: symbol. Значение по умолчанию: normal.
+Разрешённые значения: normal \, bold.;
+#X msg 130 1597 @pinned;
+#X text 270 1597 Pin mode. if 1 - put element to the lowest level.
+Тип: bool. Значение по умолчанию: 0\.;
+#X msg 130 1639 @presetname;
+#X text 270 1639 Preset name for using with [ui.preset]. Тип: symbol.
 Значение по умолчанию: (null).;
-#X msg 130 901 @view;
-#X text 270 901 Получить/Установить coordinate view. Тип: symbol. Значение
-по умолчанию: xy. Разрешённые значения: xy \, xz \, yz.;
-#X msg 130 943 @zoom;
-#X text 270 943 Получить/Установить zoom factor. Тип: float. Значение
-по умолчанию: 0.35\. Диапазон: 0.01\...1\.;
-#X msg 130 985 @background_color;
-#X text 270 985 Получить/Установить element background color (list
-of red \, green \, blue values in 0-1 range). Тип: list. Значение по
-умолчанию: 0.93 0.93 0.93 1\.;
-#X msg 130 1042 @border_color;
-#X text 270 1042 Получить/Установить border color (list of red \, green
-\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6
-0.6 0.6 1\.;
-#X msg 130 1099 @label_color;
-#X text 270 1099 Получить/Установить label color in RGB format within
-0-1 range \, for example: 0.2 0.4 0.1\. Тип: list. Значение по умолчанию:
-0 0 0 1\.;
-#X msg 130 1156 @selection_color;
-#X text 270 1156 Получить/Установить selection color (list of red \,
-green \, blue values in 0-1 range). Тип: list. Значение по умолчанию:
-0 0.75 1 1\.;
-#X msg 130 1213 @label;
-#X text 270 1213 Получить/Установить label text. Тип: symbol. Значение
-по умолчанию: (null).;
-#X msg 130 1255 @label_align;
-#X text 270 1255 Получить/Установить label horizontal align. Тип: symbol.
-Значение по умолчанию: left. Разрешённые значения: left \, center \,
-right.;
-#X msg 130 1312 @label_inner;
-#X text 270 1312 Получить/Установить label position (1 - inner \, 0
-- outer). Тип: bool. Значение по умолчанию: 0\.;
-#X msg 130 1354 @label_margins;
-#X text 270 1354 Получить/Установить label offset in pixels. Тип: list.
-Значение по умолчанию: 0 0\.;
-#X msg 130 1396 @label_side;
-#X text 270 1396 Получить/Установить label snap side. Тип: symbol.
-Значение по умолчанию: top. Разрешённые значения: left \, top \, right
-\, bottom.;
-#X msg 130 1453 @label_valign;
-#X text 270 1453 Получить/Установить label vertical align. Тип: symbol.
-Значение по умолчанию: top. Разрешённые значения: top \, center \,
-bottom.;
-#X msg 130 1510 @fontname;
-#X text 270 1510 Получить/Установить fontname. Тип: symbol. Значение
-по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
-Helvetica \, Monaco \, Times.;
-#X msg 130 1567 @fontsize;
-#X text 270 1567 Получить/Установить fontsize. Тип: int. Значение по
-умолчанию: 11\. Диапазон: 4\...100\.;
-#X msg 130 1609 @fontslant;
-#X text 270 1609 Получить/Установить font slant. Тип: symbol. Значение
-по умолчанию: roman. Разрешённые значения: roman \, italic.;
-#X msg 130 1651 @fontweight;
-#X text 270 1651 Получить/Установить font weight. Тип: symbol. Значение
-по умолчанию: normal. Разрешённые значения: normal \, bold.;
-#X msg 130 1693 @pinned;
-#X text 270 1693 Получить/Установить pin mode. if 1 - put element to
-the lowest level. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 130 1735 @presetname;
-#X text 270 1735 Получить/Установить preset name for using with [ui.preset].
-Тип: symbol. Значение по умолчанию: (null).;
-#X msg 130 1777 @size;
-#X text 270 1777 Получить/Установить element size (width \, height
-pair). Тип: list. Значение по умолчанию: 225 225\.;
-#X obj 20 1829 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1834 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X msg 130 1681 @size;
+#X text 270 1681 Element size (width \, height pair). Тип: list. Значение
+по умолчанию: 225 225\.;
+#X obj 20 1733 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1738 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1835 clear;
-#X text 270 1835 clears specified preset. Аргументы:;
-#X obj 280 1858 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1858 IDX: preset index. Тип: int.;
-#X msg 130 1883 clear_all;
-#X text 270 1883 remove all sources from map.;
-#X msg 130 1911 group;
-#X text 270 1911 group operations. Аргументы:;
-#X obj 280 1934 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1934 IDX: group index. Тип: int.;
-#X obj 280 1957 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1957 ACTION: action. Тип: symbol. Разрешённые значения:
+#X msg 130 1739 clear;
+#X text 270 1739 clears specified preset. Аргументы:;
+#X obj 280 1762 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1762 IDX: preset index. Тип: int.;
+#X msg 130 1787 clear_all;
+#X text 270 1787 remove all sources from map.;
+#X msg 130 1815 group;
+#X text 270 1815 group operations. Аргументы:;
+#X obj 280 1838 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1838 IDX: group index. Тип: int.;
+#X obj 280 1861 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1861 ACTION: action. Тип: symbol. Разрешённые значения:
 set \, polar \, pol \, azimuth \, elevation \, cartesian \, car \,
 abscissa \, ordinate \, height \, relpolar \, relradius \, relazimuth
 \, relelevation \, mute \, remove \, description \, color.;
-#X obj 280 2040 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2040 [ARGS]: action arguments. Тип: list.;
-#X msg 130 2065 info;
-#X text 270 2065 outputs info to 3rd outlet.;
-#X msg 130 2093 interp;
-#X text 270 2093 for this object acts as *load* \, no interpolation
+#X obj 280 1929 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1929 [ARGS]: action arguments. Тип: list.;
+#X msg 130 1954 info;
+#X text 270 1954 outputs info to 3rd outlet.;
+#X msg 130 1982 interp;
+#X text 270 1982 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 130 2121 load;
-#X text 270 2121 loads specified preset. Аргументы:;
-#X obj 280 2144 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2144 IDX: preset index. Тип: int.;
-#X msg 130 2169 pos;
-#X text 270 2169 set UI element position. Аргументы:;
-#X obj 280 2192 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2192 X: top left x-coord. Тип: float.;
-#X obj 280 2215 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2215 Y: top right y-coord. Тип: float.;
-#X msg 130 2240 set;
-#X text 270 2240 sets toggle state without output.;
-#X msg 130 2268 source;
-#X text 270 2268 source operations. Аргументы:;
-#X obj 280 2291 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2291 IDX: source index. Тип: int.;
-#X obj 280 2314 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2314 ACTION: action. Тип: symbol. Разрешённые значения:
+#X msg 130 2010 load;
+#X text 270 2010 loads specified preset. Аргументы:;
+#X obj 280 2033 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2033 IDX: preset index. Тип: int.;
+#X msg 130 2058 pos;
+#X text 270 2058 set UI element position. Аргументы:;
+#X obj 280 2081 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2081 X: top left x-coord. Тип: float.;
+#X obj 280 2104 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2104 Y: top right y-coord. Тип: float.;
+#X msg 130 2129 set;
+#X text 270 2129 sets toggle state without output.;
+#X msg 130 2157 source;
+#X text 270 2157 source operations. Аргументы:;
+#X obj 280 2180 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2180 IDX: source index. Тип: int.;
+#X obj 280 2203 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2203 ACTION: action. Тип: symbol. Разрешённые значения:
 polar \, pol \, azimuth \, elevation \, cartesian \, car \, abscissa
 \, ordinate \, height \, mute \, remove \, description \, color.;
-#X obj 280 2367 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2367 [ARGS]: action arguments. Тип: list.;
-#X msg 130 2392 store;
-#X text 270 2392 stores specified preset. Аргументы:;
-#X obj 280 2415 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2415 IDX: preset index. Тип: int.;
-#X msg 130 2440 dump;
-#X text 270 2440 dumps all object info to Pd console window.;
-#X obj 20 2478 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2483 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 280 2256 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2256 [ARGS]: action arguments. Тип: list.;
+#X msg 130 2281 store;
+#X text 270 2281 stores specified preset. Аргументы:;
+#X obj 280 2304 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2304 IDX: preset index. Тип: int.;
+#X msg 130 2329 dump;
+#X text 270 2329 dumps all object info to Pd console window.;
+#X obj 20 2367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2372 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 2484 1\.;
-#X text 170 2484 bang:;
-#X text 270 2484 output group and source info.;
-#X obj 20 2519 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2524 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 2373 1\.;
+#X text 170 2373 bang:;
+#X text 270 2373 output group and source info.;
+#X obj 20 2408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2413 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2525 1\.;
-#X text 270 2525 source output.;
-#X text 130 2545 2\.;
-#X text 270 2545 group output.;
-#X text 130 2565 3\.;
-#X text 270 2565 info output.;
+#X text 130 2414 1\.;
+#X text 270 2414 source output.;
+#X text 130 2434 2\.;
+#X text 270 2434 group output.;
+#X text 130 2454 3\.;
+#X text 270 2454 info output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 2615 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2618 библиотека: ceammc v0.9.8;
-#N canvas 10 2637 400 290 info 0;
+#X obj 1 2504 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2507 библиотека: ceammc v0.9.8;
+#N canvas 10 2526 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -224,7 +216,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2637 pd info;
+#X restore 10 2526 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 8 1 10 0;

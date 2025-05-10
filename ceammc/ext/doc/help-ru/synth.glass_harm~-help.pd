@@ -23,97 +23,96 @@
 #X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 448 @id;
-#X text 270 448 (при инициализации) Получить/Установить идентификатор
-для OSC адреса. Если установлен \, все свойства объекта привязываются
-к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_glass_harm/ИМЯ_СВОЙСТВА \,
-в противном случае к /synth_glass_harm/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 130 551 @osc;
-#X text 270 551 (при инициализации) Получить/Установить имя OSC сервера.
-Тип: symbol.;
-#X msg 130 593 @active;
-#X text 270 593 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
-Значение по умолчанию: 1\.;
-#X msg 130 635 @bow_press;
-#X text 270 635 Получить/Установить bow pressure on the instrument.
-Тип: float. Значение по умолчанию: 0.2\. Диапазон: 0\...1\.;
-#X msg 130 677 @freq;
-#X text 270 677 Получить/Установить frequency. Тип: float. Единицы:
-'Hz'. Значение по умолчанию: 130.8128\.;
-#X msg 130 719 @gain;
-#X text 270 719 Получить/Установить base gain. Тип: float. Значение
-по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 130 761 @gate;
-#X text 270 761 Получить/Установить play trigger - 1: on \, 0: off.
-Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 130 803 @integration;
-#X text 270 803 Получить/Установить integration constant. Тип: float.
-Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 130 845 @modfreq;
-#X text 270 845 Получить/Установить frequency of the sine wave for
-the modulation of theta (works if @modetype=3). Тип: float. Единицы:
-'Hz'. Значение по умолчанию: 220\. Диапазон: 20\...1000\.;
-#X msg 130 932 @modtype;
-#X text 270 932 Получить/Установить modulation type. 0=theta is modulated
-by the incoming signal. 1=theta is modulated by the averaged incoming
-signal. 2=theta is modulated by the squared incoming signal. 3=theta
-is modulated by a sine wave of frequency @modfreq. 4=theta is modulated
-by a sine wave of frequency @freq. Тип: int. Значение по умолчанию:
-0\. Диапазон: 0\...4\.;
-#X msg 130 1065 @nonlin;
-#X text 270 1065 Получить/Установить nonlinearity factor. Тип: float.
-Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 130 1107 @pan;
-#X text 270 1107 Получить/Установить pan angle. Тип: float. Значение
-по умолчанию: 0.6\. Диапазон: 0\...1\.;
-#X msg 130 1149 @pitch;
-#X text 270 1149 Получить/Установить midi pitch. Тип: float. Значение
-по умолчанию: 48\. Диапазон: 24\...96\.;
-#X msg 130 1191 @reverb_gain;
-#X text 270 1191 Получить/Установить reverb gain. Тип: float. Значение
-по умолчанию: 0.137\. Диапазон: 0\...1\.;
-#X msg 130 1233 @room_size;
-#X text 270 1233 Получить/Установить reverb room size. Тип: float.
-Значение по умолчанию: 0.36\. Диапазон: 0.005\...1\.;
-#X msg 130 1275 @strike;
-#X text 270 1275 Получить/Установить strike or bow. Тип: int. Значение
+#X text 270 448 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/synth_glass_harm/ИМЯ_СВОЙСТВА \, в противном случае
+к /synth_glass_harm/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X msg 130 535 @osc;
+#X text 270 535 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X msg 130 565 @active;
+#X text 270 565 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X msg 130 607 @bow_press;
+#X text 270 607 Bow pressure on the instrument. Тип: float. Значение
+по умолчанию: 0.2\. Диапазон: 0\...1\.;
+#X msg 130 649 @freq;
+#X text 270 649 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
+130.8128\.;
+#X msg 130 691 @gain;
+#X text 270 691 Base gain. Тип: float. Значение по умолчанию: 1\. Диапазон:
+0\...1\.;
+#X msg 130 733 @gate;
+#X text 270 733 Play trigger - 1: on \, 0: off. Тип: float. Значение
 по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 130 1317 @width;
-#X text 270 1317 Получить/Установить spatialization width. Тип: float.
-Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X obj 20 1369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1374 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X msg 130 775 @integration;
+#X text 270 775 Integration constant. Тип: float. Значение по умолчанию:
+0\. Диапазон: 0\...1\.;
+#X msg 130 817 @modfreq;
+#X text 270 817 Frequency of the sine wave for the modulation of theta
+(works if @modetype=3). Тип: float. Единицы: 'Hz'. Значение по умолчанию:
+220\. Диапазон: 20\...1000\.;
+#X msg 130 874 @modtype;
+#X text 270 874 Modulation type. 0=theta is modulated by the incoming
+signal. 1=theta is modulated by the averaged incoming signal. 2=theta
+is modulated by the squared incoming signal. 3=theta is modulated by
+a sine wave of frequency @modfreq. 4=theta is modulated by a sine wave
+of frequency @freq. Тип: int. Значение по умолчанию: 0\. Диапазон:
+0\...4\.;
+#X msg 130 992 @nonlin;
+#X text 270 992 Nonlinearity factor. Тип: float. Значение по умолчанию:
+0\. Диапазон: 0\...1\.;
+#X msg 130 1034 @pan;
+#X text 270 1034 Pan angle. Тип: float. Значение по умолчанию: 0.6\.
+Диапазон: 0\...1\.;
+#X msg 130 1076 @pitch;
+#X text 270 1076 Midi pitch. Тип: float. Значение по умолчанию: 48\.
+Диапазон: 24\...96\.;
+#X msg 130 1118 @reverb_gain;
+#X text 270 1118 Reverb gain. Тип: float. Значение по умолчанию: 0.137\.
+Диапазон: 0\...1\.;
+#X msg 130 1160 @room_size;
+#X text 270 1160 Reverb room size. Тип: float. Значение по умолчанию:
+0.36\. Диапазон: 0.005\...1\.;
+#X msg 130 1202 @strike;
+#X text 270 1202 Strike or bow. Тип: int. Значение по умолчанию: 0\.
+Диапазон: 0\...1\.;
+#X msg 130 1244 @width;
+#X text 270 1244 Spatialization width. Тип: float. Значение по умолчанию:
+0.5\. Диапазон: 0\...1\.;
+#X obj 20 1296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1301 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1375 note;
-#X text 270 1375 note on/off message. Аргументы:;
-#X obj 280 1398 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1398 NOTE: midi note. Тип: float.;
-#X obj 280 1421 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1421 VEL: velocity. Тип: float. Диапазон: 0…127\.;
-#X msg 130 1446 reset;
-#X text 270 1446 reset synth.;
-#X obj 20 1484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1489 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1302 note;
+#X text 270 1302 note on/off message. Аргументы:;
+#X obj 280 1325 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1325 NOTE: midi note. Тип: float.;
+#X obj 280 1348 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1348 VEL: velocity. Тип: float. Диапазон: 0…127\.;
+#X msg 130 1373 reset;
+#X text 270 1373 reset synth.;
+#X obj 20 1411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1416 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1490 1\.;
-#X text 170 1490 list:;
-#X text 270 1490 NOTE VEL.;
-#X obj 20 1525 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1530 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1417 1\.;
+#X text 170 1417 list:;
+#X text 270 1417 NOTE VEL.;
+#X obj 20 1452 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1457 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1531 1\.;
-#X text 170 1531 ~;
-#X text 270 1531 left output.;
-#X text 130 1551 2\.;
-#X text 170 1551 ~;
-#X text 270 1551 right output.;
+#X text 130 1458 1\.;
+#X text 170 1458 ~;
+#X text 270 1458 left output.;
+#X text 130 1478 2\.;
+#X text 170 1478 ~;
+#X text 270 1478 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1601 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1604 библиотека: ceammc v0.9.8;
-#N canvas 10 1623 400 290 info 0;
+#X obj 1 1528 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1531 библиотека: ceammc v0.9.8;
+#N canvas 10 1550 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -137,7 +136,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1623 pd info;
+#X restore 10 1550 pd info;
 #X connect 4 0 5 1;
 #X connect 5 0 6 0;
 #X connect 6 0 8 0;

@@ -27,24 +27,24 @@
 #X text 270 361 Alias for @mode float. Output values as RGB list in
 0-1 range.;
 #X msg 130 403 @float;
-#X text 270 403 Get/Set RGB color value in float range (0-1). Type:
-list. Default value: 1 1 1\.;
+#X text 270 403 RGB color value in float range (0-1). Type: list. Default
+value: 1 1 1\.;
 #X msg 130 445 @h;
 #X text 270 445 Alias for @mode hex. Output value as #RRGGBB symbol.;
 #X msg 130 475 @hex;
-#X text 270 475 Get/Set color value as #RRGGBB symbol. Type: symbol.
-Default value: #FFFFFF.;
+#X text 270 475 Color value as #RRGGBB symbol. Type: symbol. Default
+value: #FFFFFF.;
 #X msg 130 517 @i;
 #X text 270 517 Alias for @mode int. Output values as RGB list in 0-255
 range.;
 #X msg 130 559 @int;
-#X text 270 559 Get/Set RGB color value in int range (0-255). Type:
-list. Default value: 255 255 255\.;
+#X text 270 559 RGB color value in int range (0-255). Type: list. Default
+value: 255 255 255\.;
 #X msg 130 601 @mode;
-#X text 270 601 Get/Set output mode. Type: symbol. Default value: float.
-Allowed values: float \, int \, hex \, data.;
+#X text 270 601 Output mode. Type: symbol. Default value: float. Allowed
+values: float \, int \, hex \, data.;
 #X msg 130 643 @color;
-#X text 270 643 Get/Set current color. Type: atom.;
+#X text 270 643 Current color. Type: atom.;
 #X obj 20 683 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 688 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

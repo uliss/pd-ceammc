@@ -23,50 +23,50 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 290 1\.;
 #X text 170 290 int;
-#X obj 271 291 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 291 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 290 N: repeat times. Тип: int. Диапазон: 0…10000;
-#X obj 20 320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 325 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 328 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 333 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 326 @n;
-#X text 270 326 Получить/Установить repeat times. Тип: int. Значение
-по умолчанию: 1\. Диапазон: 0\...10000\.;
-#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 383 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 331 @n;
+#X text 270 331 Repeat times. Тип: int. Значение по умолчанию: 1\.
+Диапазон: 0\...10000\.;
+#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 388 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 384 1\.;
-#X text 170 384 float:;
-#X text 270 384 input float. Example: input 10 outputs list - 10 x
+#X text 130 389 1\.;
+#X text 170 389 float:;
+#X text 270 389 input float. Example: input 10 outputs list - 10 x
 n times.;
-#X text 170 409 symbol:;
-#X text 270 409 input symbol. Example: input "A" outputs list - "A"
+#X text 170 414 symbol:;
+#X text 270 414 input symbol. Example: input "A" outputs list - "A"
 x n times.;
-#X text 170 449 list:;
-#X text 270 449 input list. Example: input 1 2 3 outputs list - (1
+#X text 170 454 list:;
+#X text 270 454 input list. Example: input 1 2 3 outputs list - (1
 2 3) x n times.;
-#X text 170 489 data:;
-#X text 270 489 input data. Output list of data repeated @times.;
-#X text 170 514 data:mlist:;
-#X text 270 514 same as list. Example: (1 2 3) results mlist (1 2 3
+#X text 170 494 data:;
+#X text 270 494 input data. Output list of data repeated @times.;
+#X text 170 519 data:mlist:;
+#X text 270 519 same as list. Example: (1 2 3) results mlist (1 2 3
 1 2 3 ...).;
-#X text 130 554 2\.;
-#X text 170 554 int:;
-#X text 270 554 repeat count. Диапазон: 0…10000\.;
-#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 594 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 559 2\.;
+#X text 170 559 int:;
+#X text 270 559 repeat count. Диапазон: 0…10000\.;
+#X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 599 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 595 1\.;
-#X text 270 595 output list.;
+#X text 130 600 1\.;
+#X text 270 600 output list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 645 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 648 библиотека: ceammc v0.9.8;
-#N canvas 10 667 400 290 info 0;
+#X obj 1 650 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 653 библиотека: ceammc v0.9.8;
+#N canvas 10 672 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,7 +90,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 667 pd info;
+#X restore 10 672 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 9 0;
 #X connect 4 0 12 0;

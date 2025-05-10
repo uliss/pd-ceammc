@@ -23,25 +23,23 @@ ceammc://img/conn_rotenc.png;
 #X obj 735 342 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 340 @btn;
-#X text 270 340 (initonly) Get/Set BTN GPIO pin. Type: int. Default
-value: -1\. Range: -1\...127\.;
+#X text 270 340 (initonly) BTN GPIO pin. Type: int. Default value:
+-1\. Range: -1\...127\.;
 #X msg 130 382 @clk;
-#X text 270 382 (initonly) Get/Set CLK GPIO pin. Type: int. Default
-value: -1\. Range: -1\...127\.;
+#X text 270 382 (initonly) CLK GPIO pin. Type: int. Default value:
+-1\. Range: -1\...127\.;
 #X msg 130 424 @dt;
-#X text 270 424 (initonly) Get/Set DT GPIO pin. Type: int. Default
-value: -1\. Range: -1\...127\.;
+#X text 270 424 (initonly) DT GPIO pin. Type: int. Default value: -1\.
+Range: -1\...127\.;
 #X msg 130 466 @init;
-#X text 270 466 (initonly) Get/Set init encoder value. Type: float.
-Default value: 0\.;
+#X text 270 466 (initonly) Init encoder value. Type: float. Default
+value: 0\.;
 #X msg 130 508 @max;
-#X text 270 508 Get/Set max encoder value. Type: float. Default value:
-100\.;
+#X text 270 508 Max encoder value. Type: float. Default value: 100\.;
 #X msg 130 538 @min;
-#X text 270 538 Get/Set min encoder value. Type: float. Default value:
--100\.;
+#X text 270 538 Min encoder value. Type: float. Default value: -100\.;
 #X msg 130 568 @step;
-#X text 270 568 Get/Set encoder step. Type: float. Default value: 1\.;
+#X text 270 568 Encoder step. Type: float. Default value: 1\.;
 #X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 613 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

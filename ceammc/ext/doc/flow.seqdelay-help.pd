@@ -6,95 +6,95 @@
 -4096 0;
 #X obj 540 11 flow.seqdel;
 #X obj 645 11 flow.seqdelay;
-#X obj 230 78 cnv 1 535 175 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 160 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 83 Delay any route incoming message by specified relative
 time list. If @block=0 if new message has arrived while delay time
 is not expired \, old message is discarded and new delay time is set
 from current moment.;
-#X text 240 168 Zero delay time means output message on next Pd runloop
+#X text 240 153 Zero delay time means output message on next Pd runloop
 iteration (as soon as possible);
-#X text 240 208 Note: @t and @block property can be set only via right
+#X text 240 193 Note: @t and @block property can be set only via right
 inlet or with [prop.set] object;
-#X msg 50 301 bang;
-#X msg 117 301 note 60 120;
-#X obj 50 330 flow.seqdelay 0 1000 500 1000;
-#X obj 50 359 ui.dt;
-#X obj 184 359 ui.dt;
-#X obj 117 388 ui.dt;
-#X obj 251 388 ui.dt;
-#X msg 50 445 bang;
-#X msg 242 445 list 0 500 120 110;
-#X text 443 445 - change pattern;
-#X obj 126 474 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 270 474 list 0 400 100 300;
-#X msg 126 503 @block \$1;
-#X obj 50 532 flow.seqdel 0 0 0 0;
-#X obj 203 561 synth.church_bell~;
-#X obj 155 589 synth.german_bell~;
-#X obj 98 618 synth.english_bell~;
-#X obj 50 647 synth.russian_bell~;
-#X obj 290 647 ui.dsp~;
-#X obj 50 676 pan.spread~ 4, f 21;
-#X obj 50 704 ui.hgain2~ @size 15 151;
-#X obj 50 733 dac~ 1 2, f 21;
-#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 788 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 50 286 bang;
+#X msg 117 286 note 60 120;
+#X obj 50 315 flow.seqdelay 0 1000 500 1000;
+#X obj 50 344 ui.dt;
+#X obj 184 344 ui.dt;
+#X obj 117 373 ui.dt;
+#X obj 251 373 ui.dt;
+#X msg 50 430 bang;
+#X msg 242 430 list 0 500 120 110;
+#X text 443 430 - change pattern;
+#X obj 126 459 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 270 459 list 0 400 100 300;
+#X msg 126 488 @block \$1;
+#X obj 50 517 flow.seqdel 0 0 0 0;
+#X obj 203 546 synth.church_bell~;
+#X obj 155 574 synth.german_bell~;
+#X obj 98 603 synth.english_bell~;
+#X obj 50 632 synth.russian_bell~;
+#X obj 290 632 ui.dsp~;
+#X obj 50 661 pan.spread~ 4, f 21;
+#X obj 50 689 ui.hgain2~ @size 15 151;
+#X obj 50 718 dac~ 1 2, f 21;
+#X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 773 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 791 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 776 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 130 789 1\.;
-#X text 170 789 list;
-#X obj 271 790 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 789 T(ms): List of delay times. See @t property. Type:
+#X text 130 774 1\.;
+#X text 170 774 list;
+#X obj 268 775 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 774 T(ms): List of delay times. See @t property. Type:
 list.;
-#X obj 20 819 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 824 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 809 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 814 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 827 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 817 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 825 @block;
-#X text 270 825 Get/Set blocking mode. If true \, discards incoming
-messages until scheduled message will output \, after that is ready
-to accept the new one. Type: bool. Default value: 0\.;
-#X msg 130 882 @t;
-#X text 270 882 Get/Set delay time list. Type: list. Units: 'ms'. Min
-value: 0\.;
-#X obj 20 934 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 939 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 815 @block;
+#X text 270 815 Blocking mode. If true \, discards incoming messages
+until scheduled message will output \, after that is ready to accept
+the new one. Type: bool. Default value: 0\.;
+#X msg 130 872 @t;
+#X text 270 872 Delay time list. Type: list. Units: 'ms'. Min value:
+0\.;
+#X obj 20 912 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 917 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 940 reset;
-#X text 270 940 reset all scheduled delays.;
-#X obj 20 978 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 983 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 918 reset;
+#X text 270 918 reset all scheduled delays.;
+#X obj 20 956 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 961 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 984 1\.;
-#X text 270 984 incoming message.;
-#X text 130 1009 2\.;
-#X text 170 1009 list:;
-#X text 270 1009 set delay times.;
-#X text 170 1034 any:;
-#X text 270 1034 'reset' - reset all scheduled delays \, '@t' - set
+#X text 130 962 1\.;
+#X text 270 962 incoming message.;
+#X text 130 987 2\.;
+#X text 170 987 list:;
+#X text 270 987 set delay times.;
+#X text 170 1012 any:;
+#X text 270 1012 'reset' - reset all scheduled delays \, '@t' - set
 @t property \, '@block' - set @block property \, 'dump' - dump object
 info to Pd window.;
-#X obj 20 1099 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1104 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1077 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1082 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1105 1\.;
-#X text 270 1105 first delayed output.;
-#X text 130 1125 ...;
-#X text 270 1125 ...-th delayed output.;
-#X text 130 1145 n.;
-#X text 270 1145 n-th delayed output.;
+#X text 130 1083 1\.;
+#X text 270 1083 first delayed output.;
+#X text 130 1103 ...;
+#X text 270 1103 ...-th delayed output.;
+#X text 130 1123 n.;
+#X text 270 1123 n-th delayed output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1195 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1198 library: ceammc v0.9.8;
-#X text 592 1210 see also:;
-#X obj 667 1210 flow.delay;
-#N canvas 10 1217 400 290 info 0;
+#X obj 1 1173 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1176 library: ceammc v0.9.8;
+#X text 592 1188 see also:;
+#X obj 667 1188 flow.delay;
+#N canvas 10 1195 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -118,7 +118,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1217 pd info;
+#X restore 10 1195 pd info;
 #X connect 9 0 11 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

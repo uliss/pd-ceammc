@@ -36,80 +36,78 @@ ceammc://img/conn_ads1115.png;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 720 1\.;
 #X text 170 720 symbol;
-#X obj 271 721 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 721 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 720 MODE: See @mode. Allowed values: diff \, single. Type:
 symbol.;
-#X obj 20 750 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 755 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 755 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 760 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 758 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 763 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 756 @fsr;
-#X text 270 756 (initonly) Get/Set full-scale input range. Type: symbol.
-Default value: 6144mv. Allowed values: 1024mv \, 2048mv \, 256mv \,
-4096mv \, 512mv \, 6144mv.;
-#X msg 130 813 @i2c_addr;
-#X text 270 813 (initonly) Get/Set I²C address. Also 'default' value
-is accepted (for address 0x48) and 'alt' (for address 0x49). Type:
-int. Default value: -1\. Range: -4\...119\.;
-#X msg 130 870 @i2c_bus;
-#X text 270 870 (initonly) Get/Set I²C bus. Type: atom. Default value:
-none. Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
-#X msg 130 912 @mode;
-#X text 270 912 (initonly) Get/Set measure mode. If 'single' - measures
-a level between A0 \, A1 \, A2 \, A3 and GND. If 'diff' - differential
-measure between A0 and A1 \, A0 and A3 \, A1 and A3 \, A2 and A3\.
-Type: symbol. Default value: single. Allowed values: diff \, single.;
-#X msg 130 1015 @poll_time;
-#X text 270 1015 (initonly) Get/Set polling measure time. Type: float.
-Units: 'ms'. Default value: 20.0\. Range: 5.0\...250.0\.;
-#X msg 130 1057 @in_max;
-#X text 270 1057 Get/Set input maximum value in millivolts. Type: float.
-Default value: 5000.0\. Range: 0.0\...6144.0\.;
-#X msg 130 1099 @in_min;
-#X text 270 1099 Get/Set input minimal value in millivolts. Type: float.
-Default value: 0.0\. Range: 0.0\...6144.0\.;
-#X msg 130 1141 @norm;
-#X text 270 1141 Get/Set normalization. If 1: normalize output into
-specified by @out_min @out_max properties range. Type: bool. Default
-value: 0\.;
-#X msg 130 1198 @out_max;
-#X text 270 1198 Get/Set output max value. Type: float. Default value:
-1.0\.;
-#X msg 130 1228 @out_min;
-#X text 270 1228 Get/Set output minimum value. Type: float. Default
-value: 0.0\.;
-#X obj 20 1280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1285 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 761 @fsr;
+#X text 270 761 (initonly) Full-scale input range. Type: symbol. Default
+value: 6144mv. Allowed values: 1024mv \, 2048mv \, 256mv \, 4096mv
+\, 512mv \, 6144mv.;
+#X msg 130 818 @i2c_addr;
+#X text 270 818 (initonly) I²C address. Also 'default' value is accepted
+(for address 0x48) and 'alt' (for address 0x49). Type: int. Default
+value: -1\. Range: -4\...119\.;
+#X msg 130 875 @i2c_bus;
+#X text 270 875 (initonly) I²C bus. Type: atom. Default value: none.
+Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
+#X msg 130 917 @mode;
+#X text 270 917 (initonly) Measure mode. If 'single' - measures a level
+between A0 \, A1 \, A2 \, A3 and GND. If 'diff' - differential measure
+between A0 and A1 \, A0 and A3 \, A1 and A3 \, A2 and A3\. Type: symbol.
+Default value: single. Allowed values: diff \, single.;
+#X msg 130 1004 @poll_time;
+#X text 270 1004 (initonly) Polling measure time. Type: float. Units:
+'ms'. Default value: 20.0\. Range: 5.0\...250.0\.;
+#X msg 130 1046 @in_max;
+#X text 270 1046 Input maximum value in millivolts. Type: float. Default
+value: 5000.0\. Range: 0.0\...6144.0\.;
+#X msg 130 1088 @in_min;
+#X text 270 1088 Input minimal value in millivolts. Type: float. Default
+value: 0.0\. Range: 0.0\...6144.0\.;
+#X msg 130 1130 @norm;
+#X text 270 1130 Normalization. If 1: normalize output into specified
+by @out_min @out_max properties range. Type: bool. Default value: 0\.;
+#X msg 130 1187 @out_max;
+#X text 270 1187 Output max value. Type: float. Default value: 1.0\.;
+#X msg 130 1217 @out_min;
+#X text 270 1217 Output minimum value. Type: float. Default value:
+0.0\.;
+#X obj 20 1257 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1262 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1286 measure;
-#X text 270 1286 single measure request. Arguments are:;
-#X obj 280 1309 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1309 [CHAN]: the channel to measure. If omitted: perform
+#X msg 130 1263 measure;
+#X text 270 1263 single measure request. Arguments are:;
+#X obj 280 1286 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1286 [CHAN]: the channel to measure. If omitted: perform
 measure on all channels. Type: int. Range: 0\...3\.;
-#X msg 130 1349 poll;
-#X text 270 1349 set polling turn on/off. Arguments are:;
-#X obj 280 1372 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1372 STATE: poll state. Type: bool.;
-#X obj 20 1407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1412 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1326 poll;
+#X text 270 1326 set polling turn on/off. Arguments are:;
+#X obj 280 1349 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1349 STATE: poll state. Type: bool.;
+#X obj 20 1384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1389 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1413 1\.;
-#X text 170 1413 bang:;
-#X text 270 1413;
-#X obj 20 1448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1453 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1390 1\.;
+#X text 170 1390 bang:;
+#X text 270 1390;
+#X obj 20 1425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1430 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1454 1\.;
-#X text 270 1454 [ch CHANNEL VALUE( messages.;
+#X text 130 1431 1\.;
+#X text 270 1431 [ch CHANNEL VALUE( messages.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1504 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1507 library: ceammc v0.9.8;
-#N canvas 10 1526 400 290 info 0;
+#X obj 1 1481 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1484 library: ceammc v0.9.8;
+#N canvas 10 1503 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -133,7 +131,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1526 pd info;
+#X restore 10 1503 pd info;
 #X connect 12 0 13 0;
 #X connect 13 0 16 0;
 #X connect 14 0 16 0;

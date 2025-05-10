@@ -24,51 +24,51 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 315 1\.;
 #X text 170 315 float;
-#X obj 271 316 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 316 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 315 VALUE: compare pattern. Тип: float.;
-#X text 130 335 2\.;
-#X text 170 335 float;
-#X obj 271 336 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 335 EPSILON: compare epsilon. Тип: float.;
-#X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 370 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 340 2\.;
+#X text 170 340 float;
+#X obj 268 341 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 340 EPSILON: compare epsilon. Тип: float.;
+#X obj 20 375 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 380 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 373 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 383 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 371 @epsilon;
-#X text 270 371 Получить/Установить compare epsilon. Тип: float. Значение
-по умолчанию: 0.01\.;
-#X msg 130 413 @value;
-#X text 270 413 Получить/Установить compare pattern. Тип: float. Значение
-по умолчанию: 0\.;
-#X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 470 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 381 @epsilon;
+#X text 270 381 Compare epsilon. Тип: float. Значение по умолчанию:
+0.01\.;
+#X msg 130 411 @value;
+#X text 270 411 Compare pattern. Тип: float. Значение по умолчанию:
+0\.;
+#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 456 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 471 1\.;
-#X text 170 471 float:;
-#X text 270 471 input value.;
-#X text 170 496 list:;
-#X text 270 496 list values are spreaded among three inlets.;
-#X text 130 521 2\.;
-#X text 170 521 float:;
-#X text 270 521 pattern value.;
-#X text 130 546 3\.;
-#X text 170 546 float:;
-#X text 270 546 epsilon.;
-#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 586 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 457 1\.;
+#X text 170 457 float:;
+#X text 270 457 input value.;
+#X text 170 482 list:;
+#X text 270 482 list values are spreaded among three inlets.;
+#X text 130 507 2\.;
+#X text 170 507 float:;
+#X text 270 507 pattern value.;
+#X text 130 532 3\.;
+#X text 170 532 float:;
+#X text 270 532 epsilon.;
+#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 572 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 587 1\.;
-#X text 270 587 output 1 if input value is approximately equal to pattern
+#X text 130 573 1\.;
+#X text 270 573 output 1 if input value is approximately equal to pattern
 \, 0 0 otherwise.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 652 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 655 библиотека: ceammc v0.9.8;
-#N canvas 10 674 400 290 info 0;
+#X obj 1 638 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 641 библиотека: ceammc v0.9.8;
+#N canvas 10 660 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -92,7 +92,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 674 pd info;
+#X restore 10 660 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 9 0 11 0;

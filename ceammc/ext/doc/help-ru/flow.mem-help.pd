@@ -25,62 +25,61 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 448 1\.;
 #X text 170 448 int;
-#X obj 271 449 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 449 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 448 N: number of memory cells. Тип: int. Диапазон: 1…32;
-#X text 130 468 2\.;
-#X text 170 468 int;
-#X obj 271 469 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 468 TTL: see @ttl property. Тип: int. Диапазон: 0…1024;
-#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 503 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 473 2\.;
+#X text 170 473 int;
+#X obj 268 474 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 473 TTL: see @ttl property. Тип: int. Диапазон: 0…1024;
+#X obj 20 508 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 513 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 506 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 516 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 504 @free;
-#X text 270 504 Получить/Установить clear cell mode. If on - clear
-cell counter after zero was reached. Тип: bool. Значение по умолчанию:
-1\.;
-#X msg 130 561 @n;
-#X text 270 561 Получить/Установить number of memory cells. Тип: int.
-Значение по умолчанию: 1\. Диапазон: 1\...32\.;
-#X msg 130 603 @ttl;
-#X text 270 603 Получить/Установить time to live counter. Each time
-you set new value its memory cell counter is set to this. Each time
-memory cell is outputted individual memory cell ttl counter (not this
-property!) is decremented until zero reached. After that if @free property
-is on memory cell is cleared. If this property equals zero memory cell
-never expires. Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...1024\.;
-#X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 751 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 514 @free;
+#X text 270 514 Clear cell mode. If on - clear cell counter after zero
+was reached. Тип: bool. Значение по умолчанию: 1\.;
+#X msg 130 556 @n;
+#X text 270 556 Number of memory cells. Тип: int. Значение по умолчанию:
+1\. Диапазон: 1\...32\.;
+#X msg 130 598 @ttl;
+#X text 270 598 Time to live counter. Each time you set new value its
+memory cell counter is set to this. Each time memory cell is outputted
+individual memory cell ttl counter (not this property!) is decremented
+until zero reached. After that if @free property is on memory cell
+is cleared. If this property equals zero memory cell never expires.
+Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...1024\.;
+#X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 746 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 752 1\.;
-#X text 270 752 input: store in 1st memory cell.;
-#X text 130 777 ...;
-#X text 270 777 input: store in ... memory cell.;
-#X text 130 802 n.;
-#X text 270 802 input: store in n-th memory cell.;
-#X text 130 827 n+1\.;
-#X text 170 827 bang:;
-#X text 270 827 output all cells.;
-#X text 170 852 int:;
-#X text 270 852 output specified cell.;
-#X obj 20 887 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 892 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 747 1\.;
+#X text 270 747 input: store in 1st memory cell.;
+#X text 130 772 ...;
+#X text 270 772 input: store in ... memory cell.;
+#X text 130 797 n.;
+#X text 270 797 input: store in n-th memory cell.;
+#X text 130 822 n+1\.;
+#X text 170 822 bang:;
+#X text 270 822 output all cells.;
+#X text 170 847 int:;
+#X text 270 847 output specified cell.;
+#X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 887 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 893 1\.;
-#X text 270 893 output 1st cell.;
-#X text 130 913 ...;
-#X text 270 913 output ... cell.;
-#X text 130 933 n.;
-#X text 270 933 output n-th cell.;
+#X text 130 888 1\.;
+#X text 270 888 output 1st cell.;
+#X text 130 908 ...;
+#X text 270 908 output ... cell.;
+#X text 130 928 n.;
+#X text 270 928 output n-th cell.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 983 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 986 библиотека: ceammc v0.9.8;
-#N canvas 10 1005 400 290 info 0;
+#X obj 1 978 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 981 библиотека: ceammc v0.9.8;
+#N canvas 10 1000 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -104,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1005 pd info;
+#X restore 10 1000 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 8 0;
 #X connect 6 0 9 0;

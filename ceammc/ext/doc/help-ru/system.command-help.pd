@@ -28,65 +28,62 @@ expect too much from it \, if you need powerfull shell capabilities
 @title [?] @url ceammc.args-info.pd;
 #X text 130 431 1\.;
 #X text 170 431 list;
-#X obj 271 432 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 432 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 431 ARGS: execution program chain. Тип: list.;
-#X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 466 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 471 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 469 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 474 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 467 @args;
-#X text 270 467 Получить/Установить execution program chain. Тип: list.;
-#X msg 130 497 @mode;
-#X text 270 497 Получить/Установить output processing mode. 'pd': output
-each output line as Pd atom list \, 'str': output whole as data:string
-\, 'lines': output each output line as data:string \, 'bytes': output
-as byte stream. Тип: symbol. Значение по умолчанию: pd. Разрешённые
-значения: pd \, str \, lines \, bytes.;
-#X msg 130 600 @pwd;
-#X text 270 600 Получить/Установить process working directory. Тип:
-symbol.;
-#X msg 130 630 @stderr;
-#X text 270 630 Получить/Установить capture stderr. Тип: bool. Значение
-по умолчанию: 1\.;
-#X msg 130 672 @stdout;
-#X text 270 672 Получить/Установить capture stdout. Тип: bool. Значение
-по умолчанию: 1\.;
-#X msg 130 714 @t;
-#X text 270 714 Получить/Установить period to check program output.
-Тип: int. Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон: 5\...500\.;
-#X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 786 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 472 @args;
+#X text 270 472 Execution program chain. Тип: list.;
+#X msg 130 502 @mode;
+#X text 270 502 Output processing mode. 'pd': output each output line
+as Pd atom list \, 'str': output whole as data:string \, 'lines': output
+each output line as data:string \, 'bytes': output as byte stream.
+Тип: symbol. Значение по умолчанию: pd. Разрешённые значения: pd \,
+str \, lines \, bytes.;
+#X msg 130 589 @pwd;
+#X text 270 589 Process working directory. Тип: symbol.;
+#X msg 130 619 @stderr;
+#X text 270 619 Capture stderr. Тип: bool. Значение по умолчанию: 1\.;
+#X msg 130 649 @stdout;
+#X text 270 649 Capture stdout. Тип: bool. Значение по умолчанию: 1\.;
+#X msg 130 679 @t;
+#X text 270 679 Period to check program output. Тип: int. Единицы:
+'ms'. Значение по умолчанию: 100\. Диапазон: 5\...500\.;
+#X obj 20 731 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 736 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 787 stdin;
-#X text 270 787 run the program with given input values. Аргументы:;
-#X obj 280 810 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 810 [ARGS]: the input values. Тип: list.;
-#X msg 130 835 terminate;
-#X text 270 835 terminate the running process.;
-#X obj 20 873 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 878 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 737 stdin;
+#X text 270 737 run the program with given input values. Аргументы:;
+#X obj 280 760 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 760 [ARGS]: the input values. Тип: list.;
+#X msg 130 785 terminate;
+#X text 270 785 terminate the running process.;
+#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 828 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 879 1\.;
-#X text 170 879 bang:;
-#X text 270 879 run the program.;
-#X text 170 904 any:;
-#X text 270 904 change @args property and then run the program.;
-#X obj 20 939 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 944 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 829 1\.;
+#X text 170 829 bang:;
+#X text 270 829 run the program.;
+#X text 170 854 any:;
+#X text 270 854 change @args property and then run the program.;
+#X obj 20 889 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 894 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 945 1\.;
-#X text 270 945 int: output process exit code.;
-#X text 130 965 2\.;
-#X text 270 965 stdout output \, format depends from @mode.;
+#X text 130 895 1\.;
+#X text 270 895 int: output process exit code.;
+#X text 130 915 2\.;
+#X text 270 915 stdout output \, format depends from @mode.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 1015 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1018 библиотека: ceammc v0.9.8;
-#N canvas 10 1037 400 290 info 0;
+#X obj 1 965 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 968 библиотека: ceammc v0.9.8;
+#N canvas 10 987 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -110,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1037 pd info;
+#X restore 10 987 pd info;
 #X connect 9 0 14 0;
 #X connect 10 0 14 0;
 #X connect 12 0 14 0;

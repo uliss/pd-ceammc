@@ -5,27 +5,27 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.inf~ 20 20 0 20 -104026 -4096
 0;
 #X obj 673 11 math.inf~;
-#X obj 230 78 cnv 1 535 95 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 80 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 83 IEEE 754 floating point numbers can represent positive
 or negative infinity \, and NaN (not a number). These three values
 arise from calculations whose result is undefined or cannot be represented
 accurately.;
-#X obj 50 221 math.inf~;
-#X obj 213 221 ui.dsp~;
-#X obj 136 250 *~ -1;
-#X obj 50 279 ui.n~;
-#X obj 136 279 ui.n~;
-#X obj 20 329 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 334 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 50 206 math.inf~;
+#X obj 213 206 ui.dsp~;
+#X obj 136 235 *~ -1;
+#X obj 50 264 ui.n~;
+#X obj 136 264 ui.n~;
+#X obj 20 314 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 319 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 335 1\.;
-#X text 270 335 control input.;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 320 1\.;
+#X text 270 320 control input.;
+#X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 360 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 376 1\.;
-#X text 170 376 ~;
-#X text 270 376 output value.;
+#X text 130 361 1\.;
+#X text 170 361 ~;
+#X text 270 361 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

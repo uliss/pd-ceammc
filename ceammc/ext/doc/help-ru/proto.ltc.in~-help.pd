@@ -25,37 +25,36 @@
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 347 @use_date;
-#X text 270 347 Получить/Установить decode date. Тип: bool. Значение
-по умолчанию: 1\.;
-#X msg 130 389 @fps?;
-#X text 270 389 (только чтение) Получить current fpt rate. Тип: int.
-Значение по умолчанию: 25\.;
-#X msg 130 431 @volume?;
-#X text 270 431 (только чтение) Получить input signal level. Тип: float.
-Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -60\...0\.;
-#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 503 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 270 347 Decode date. Тип: bool. Значение по умолчанию: 1\.;
+#X msg 130 377 @fps?;
+#X text 270 377 (только чтение) Current fpt rate. Тип: int. Значение
+по умолчанию: 25\.;
+#X msg 130 419 @volume?;
+#X text 270 419 (только чтение) Input signal level. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -60\...0\.;
+#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 491 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 504 1\.;
-#X text 170 504 ~;
-#X text 270 504 input signal.;
-#X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 544 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 492 1\.;
+#X text 170 492 ~;
+#X text 270 492 input signal.;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 532 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 545 1\.;
-#X text 270 545 list: HOUR MINUTE SECOND FRAME.;
-#X text 130 565 2\.;
-#X text 270 565 list: YEAR MONTH DAY.;
+#X text 130 533 1\.;
+#X text 270 533 list: HOUR MINUTE SECOND FRAME.;
+#X text 130 553 2\.;
+#X text 270 553 list: YEAR MONTH DAY.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 615 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 618 библиотека: ceammc v0.9.8;
-#X text 560 630 смотрите также:;
-#X obj 681 630 ltc.out~;
-#N canvas 10 637 400 290 info 0;
+#X obj 1 603 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 606 библиотека: ceammc v0.9.8;
+#X text 560 618 смотрите также:;
+#X obj 681 618 ltc.out~;
+#N canvas 10 625 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -79,7 +78,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 637 pd info;
+#X restore 10 625 pd info;
 #X connect 7 0 10 0;
 #X connect 5 0 11 0;
 #X connect 6 0 11 0;

@@ -18,32 +18,31 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 246 1\.;
 #X text 170 246 float;
-#X obj 271 247 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 247 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 246 MUL: multiplicand. Тип: float.;
-#X obj 20 276 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 281 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 286 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 284 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 289 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 282 @mul;
-#X text 270 282 Получить/Установить multiplicand. Тип: float. Значение
-по умолчанию: 1\.;
-#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 339 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 287 @mul;
+#X text 270 287 Multiplicand. Тип: float. Значение по умолчанию: 1\.;
+#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 332 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 340 1\.;
-#X text 170 340 float:;
-#X text 270 340 multiplier.;
-#X text 170 365 list:;
-#X text 270 365 list of multipliers (non float values are ignored).;
-#X text 130 390 2\.;
-#X text 170 390 float:;
-#X text 270 390 change multiplicand.;
-#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 430 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 333 1\.;
+#X text 170 333 float:;
+#X text 270 333 multiplier.;
+#X text 170 358 list:;
+#X text 270 358 list of multipliers (non float values are ignored).;
+#X text 130 383 2\.;
+#X text 170 383 float:;
+#X text 270 383 change multiplicand.;
+#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 423 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 431 1\.;
-#X text 270 431 float or list.;
+#X text 130 424 1\.;
+#X text 270 424 float or list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

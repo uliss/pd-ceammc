@@ -34,48 +34,48 @@ by a hoa.process~ object.;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 434 1\.;
 #X text 170 434 int;
-#X obj 271 435 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 435 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 434 INDEX: outlet index. Тип: int. Минимальное значение:
 1\.;
-#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 469 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 474 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 472 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 470 @index;
-#X text 270 470 Получить/Установить outlet index. Тип: int. Значение
-по умолчанию: 1\. Минимальное значение: 1\.;
-#X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 527 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 475 @index;
+#X text 270 475 Outlet index. Тип: int. Значение по умолчанию: 1\.
+Минимальное значение: 1\.;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 532 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 528 1\.;
-#X text 170 528 bang:;
-#X text 270 528 output bang message in the corresponding hoa.process~
+#X text 130 533 1\.;
+#X text 170 533 bang:;
+#X text 270 533 output bang message in the corresponding hoa.process~
 object's message outlet.;
-#X text 170 568 float:;
-#X text 270 568 output float message in the corresponding hoa.process~
+#X text 170 573 float:;
+#X text 270 573 output float message in the corresponding hoa.process~
 object's message outlet.;
-#X text 170 608 symbol:;
-#X text 270 608 output symbol message in the corresponding hoa.process~
+#X text 170 613 symbol:;
+#X text 270 613 output symbol message in the corresponding hoa.process~
 object's message outlet.;
-#X text 170 648 list:;
-#X text 270 648 output list message in the corresponding hoa.process~
+#X text 170 653 list:;
+#X text 270 653 output list message in the corresponding hoa.process~
 object's message outlet.;
-#X text 170 688 any:;
-#X text 270 688 output any message in the corresponding hoa.process~
+#X text 170 693 any:;
+#X text 270 693 output any message in the corresponding hoa.process~
 object's message outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 758 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 761 библиотека: ceammc v0.9.8;
-#X text 434 773 смотрите также:;
-#X obj 555 773 hoa.out~;
-#X obj 629 773 hoa.in;
-#X obj 688 773 hoa.in~;
-#N canvas 10 780 400 290 info 0;
+#X obj 1 763 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 766 библиотека: ceammc v0.9.8;
+#X text 434 778 смотрите также:;
+#X obj 555 778 hoa.out~;
+#X obj 629 778 hoa.in;
+#X obj 688 778 hoa.in~;
+#N canvas 10 785 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -100,7 +100,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 780 pd info;
+#X restore 10 785 pd info;
 #X connect 6 0 11 0;
 #X connect 7 0 11 0;
 #X connect 8 0 11 1;

@@ -34,92 +34,91 @@ https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 516 1\.;
 #X text 170 516 float;
-#X obj 271 517 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 517 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 516 DECAY: decay rate \, infinite decay = 1.0\. Type: float.
 Range: 0\...1;
-#X text 130 551 2\.;
-#X text 170 551 float;
-#X obj 271 552 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 551 DRYWET: proportion of mix between the original (dry)
+#X text 130 556 2\.;
+#X text 170 556 float;
+#X obj 268 557 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 556 DRYWET: proportion of mix between the original (dry)
 and 'effected' (wet) signals. Type: float. Range: 0\...1;
-#X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 601 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 611 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 604 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 614 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 602 @id;
-#X text 270 602 (initonly) Get/Set OSC address id. If specified \,
-bind all properties to /ID/fx_dattorro/PROP_NAME osc address \, if
-empty bind to /fx_dattorro/PROP_NAME. Type: symbol.;
-#X msg 130 659 @osc;
-#X text 270 659 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
-#X msg 130 689 @active;
-#X text 270 689 Turn on/off object dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 130 731 @bw;
-#X text 270 731 Get/Set band-width filter (pre filtering). Type: float.
-Default value: 0.9995\. Range: 0\...1\.;
-#X msg 130 773 @bypass;
-#X text 270 773 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0\.;
-#X msg 130 815 @damp;
-#X text 270 815 Get/Set high-frequency damping. No damping = 0.0\.
-Type: float. Default value: 0.0005\. Range: 0\...1\.;
-#X msg 130 857 @ddiff1;
-#X text 270 857 Get/Set decay diffusion factor 1\. Type: float. Default
+#X msg 130 612 @id;
+#X text 270 612 (initonly) OSC address id. If specified \, bind all
+properties to /ID/fx_dattorro/PROP_NAME osc address \, if empty bind
+to /fx_dattorro/PROP_NAME. Type: symbol.;
+#X msg 130 669 @osc;
+#X text 270 669 (initonly) OSC server name to listen. Type: symbol.;
+#X msg 130 699 @active;
+#X text 270 699 On/off object dsp processing. Type: bool. Default value:
+1\.;
+#X msg 130 729 @bw;
+#X text 270 729 Band-width filter (pre filtering). Type: float. Default
+value: 0.9995\. Range: 0\...1\.;
+#X msg 130 771 @bypass;
+#X text 270 771 Bypass flag. If true: bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 130 813 @damp;
+#X text 270 813 High-frequency damping. No damping = 0.0\. Type: float.
+Default value: 0.0005\. Range: 0\...1\.;
+#X msg 130 855 @ddiff1;
+#X text 270 855 Decay diffusion factor 1\. Type: float. Default value:
+0.5\. Range: 0\...1\.;
+#X msg 130 897 @ddiff2;
+#X text 270 897 Decay diffusion factor 2\. Type: float. Default value:
+0.7\. Range: 0\...1\.;
+#X msg 130 939 @decay;
+#X text 270 939 Decay rate. Infinite decay = 1.0\. Type: float. Default
 value: 0.5\. Range: 0\...1\.;
-#X msg 130 899 @ddiff2;
-#X text 270 899 Get/Set decay diffusion factor 2\. Type: float. Default
-value: 0.7\. Range: 0\...1\.;
-#X msg 130 941 @decay;
-#X text 270 941 Get/Set decay rate. Infinite decay = 1.0\. Type: float.
-Default value: 0.5\. Range: 0\...1\.;
-#X msg 130 983 @drywet;
-#X text 270 983 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.33\. Range: 0\...1\.;
-#X msg 130 1040 @idiff1;
-#X text 270 1040 Get/Set input diffusion factor 1\. Type: float. Default
-value: 0.625\. Range: 0\...1\.;
-#X msg 130 1082 @idiff2;
-#X text 270 1082 Get/Set input diffusion factor 2\. Type: float. Default
-value: 0.75\. Range: 0\...1\.;
-#X msg 130 1124 @predelay;
-#X text 270 1124 Get/Set a delay operating on the 'wet' signal. Large
-values will provide the impression of a larger room. Type: float. Units:
-'ms'. Default value: 40\. Range: 0\...100\.;
-#X obj 20 1191 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1196 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 981 @drywet;
+#X text 270 981 Proportion of mix between the original (dry) and 'effected'
+(wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
+0.33\. Range: 0\...1\.;
+#X msg 130 1038 @idiff1;
+#X text 270 1038 Input diffusion factor 1\. Type: float. Default value:
+0.625\. Range: 0\...1\.;
+#X msg 130 1080 @idiff2;
+#X text 270 1080 Input diffusion factor 2\. Type: float. Default value:
+0.75\. Range: 0\...1\.;
+#X msg 130 1122 @predelay;
+#X text 270 1122 A delay operating on the 'wet' signal. Large values
+will provide the impression of a larger room. Type: float. Units: 'ms'.
+Default value: 40\. Range: 0\...100\.;
+#X obj 20 1189 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1194 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1197 reset;
-#X text 270 1197 reset reverb.;
-#X obj 20 1235 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1240 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1195 reset;
+#X text 270 1195 reset reverb.;
+#X obj 20 1233 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1238 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1241 1\.;
-#X text 170 1241 ~;
-#X text 270 1241 left channel.;
-#X text 130 1266 2\.;
-#X text 170 1266 ~;
-#X text 270 1266 right channel.;
-#X obj 20 1301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1306 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1239 1\.;
+#X text 170 1239 ~;
+#X text 270 1239 left channel.;
+#X text 130 1264 2\.;
+#X text 170 1264 ~;
+#X text 270 1264 right channel.;
+#X obj 20 1299 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1304 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1307 1\.;
-#X text 170 1307 ~;
-#X text 270 1307 output left.;
-#X text 130 1327 2\.;
-#X text 170 1327 ~;
-#X text 270 1327 output right.;
+#X text 130 1305 1\.;
+#X text 170 1305 ~;
+#X text 270 1305 output left.;
+#X text 130 1325 2\.;
+#X text 170 1325 ~;
+#X text 270 1325 output right.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1377 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1380 library: ceammc v0.9.8;
-#N canvas 10 1399 400 290 info 0;
+#X obj 1 1375 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1378 library: ceammc v0.9.8;
+#N canvas 10 1397 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -143,7 +142,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1399 pd info;
+#X restore 10 1397 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 12 0;
 #X connect 9 0 13 0;

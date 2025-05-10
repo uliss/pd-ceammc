@@ -21,7 +21,7 @@
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 318 @path;
-#X text 270 318 Получить/Установить file path. Тип: symbol.;
+#X text 270 318 File path. Тип: symbol.;
 #X obj 20 358 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 363 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

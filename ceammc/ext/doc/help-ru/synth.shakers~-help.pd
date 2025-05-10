@@ -5,81 +5,81 @@
 #X obj 1 1 cnv 5 765 40 empty empty synth.shakers~ 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 synth.shakers~;
-#X obj 230 78 cnv 1 535 227 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 196 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 83 PhISEM (Physically Informed Stochastic Event Modeling)
 is an algorithmic approach for simulating collisions of multiple independent
 sound producing objects. This class is a meta-model that can simulate
 a Maraca \, Sekere \, Cabasa \, Bamboo Wind Chimes \, Water Drops \,
 Tambourine \, Sleighbells \, and a Guiro.;
-#X text 240 199 PhOLIES (Physically-Oriented Library of Imitated Environmental
+#X text 240 184 PhOLIES (Physically-Oriented Library of Imitated Environmental
 Sounds) is a similar approach for the synthesis of environmental sounds.
 This class implements simulations of breaking sticks \, crunchy snow
 (or not) \, a wrench \, sandpaper \, and more.;
-#X obj 50 353 ui.icon get_app;
-#X obj 222 353 loadbang;
-#X obj 328 353 r menu;
-#X obj 328 382 ui.menu;
-#X msg 50 411 @gate \$1;
-#X msg 222 411 @types?;
-#X msg 328 411 @type \$1;
-#X obj 50 440 synth.shakers~ big_rocks;
-#X obj 50 469 ~->;
-#X obj 88 497 prop-> @types;
-#X obj 126 526 msg @items;
-#X obj 126 555 flow.append 1;
-#X obj 126 584 s menu;
-#X obj 50 613 ui.gain~ @size 120 16;
-#X obj 290 613 ui.dsp~;
-#X obj 50 641 dac~;
-#X obj 20 691 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 696 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 50 322 ui.icon get_app;
+#X obj 222 322 loadbang;
+#X obj 328 322 r menu;
+#X obj 328 351 ui.menu;
+#X msg 50 380 @gate \$1;
+#X msg 222 380 @types?;
+#X msg 328 380 @type \$1;
+#X obj 50 409 synth.shakers~ big_rocks;
+#X obj 50 438 ~->;
+#X obj 88 466 prop-> @types;
+#X obj 126 495 msg @items;
+#X obj 126 524 flow.append 1;
+#X obj 126 553 s menu;
+#X obj 50 582 ui.gain~ @size 120 16;
+#X obj 290 582 ui.dsp~;
+#X obj 50 610 dac~;
+#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 665 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 699 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 668 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 697 @gate;
-#X text 270 697 Получить/Установить synth gate (>0 - play). Тип: float.
-Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 130 739 @type;
-#X text 270 739 Получить/Установить instrument type. Тип: atom. Значение
-по умолчанию: maraca. Разрешённые значения: maraca \, cabasa \, sekere
-\, tambourine \, sleigh_bells \, bamboo_chimes \, sand_paper \, coke_can
-\, sticks \, crunch \, big_rocks \, little_rocks \, next_mug \, penny_mug
-\, nickle_mug \, dime_mug \, quarter_mug \, franc_mug \, peso_mug \,
-guiro \, wrench \, water_drops \, tuned_bamboo_chimes.;
-#X msg 130 857 @types?;
-#X text 270 857 (только чтение) Получить all instrument types. Тип:
-list. Значение по умолчанию: maraca cabasa sekere tambourine sleigh_bells
-bamboo_chimes sand_paper coke_can sticks crunch big_rocks little_rocks
-next_mug penny_mug nickle_mug dime_mug quarter_mug franc_mug peso_mug
-guiro wrench water_drops tuned_bamboo_chimes.;
-#X obj 20 985 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 990 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 666 @gate;
+#X text 270 666 Synth gate (>0 - play). Тип: float. Значение по умолчанию:
+0\. Диапазон: 0\...1\.;
+#X msg 130 708 @type;
+#X text 270 708 Instrument type. Тип: atom. Значение по умолчанию:
+maraca. Разрешённые значения: maraca \, cabasa \, sekere \, tambourine
+\, sleigh_bells \, bamboo_chimes \, sand_paper \, coke_can \, sticks
+\, crunch \, big_rocks \, little_rocks \, next_mug \, penny_mug \,
+nickle_mug \, dime_mug \, quarter_mug \, franc_mug \, peso_mug \, guiro
+\, wrench \, water_drops \, tuned_bamboo_chimes.;
+#X msg 130 826 @types?;
+#X text 270 826 (только чтение) All instrument types. Тип: list. Значение
+по умолчанию: maraca cabasa sekere tambourine sleigh_bells bamboo_chimes
+sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug
+nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops
+tuned_bamboo_chimes.;
+#X obj 20 939 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 944 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 991 cc;
-#X text 270 991 Control change. Аргументы:;
-#X obj 280 1014 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1014 CTL: control number. Тип: int.;
-#X obj 280 1037 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1037 VAL: value. Тип: float.;
-#X obj 20 1072 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1077 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 945 cc;
+#X text 270 945 Control change. Аргументы:;
+#X obj 280 968 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 968 CTL: control number. Тип: int.;
+#X obj 280 991 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 991 VAL: value. Тип: float.;
+#X obj 20 1026 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1031 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1078 1\.;
-#X text 270 1078 control inlet.;
-#X obj 20 1113 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1118 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1032 1\.;
+#X text 270 1032 control inlet.;
+#X obj 20 1067 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1072 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1119 1\.;
-#X text 170 1119 ~;
-#X text 270 1119;
+#X text 130 1073 1\.;
+#X text 170 1073 ~;
+#X text 270 1073;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1169 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1172 библиотека: ceammc v0.9.8;
-#N canvas 10 1191 400 290 info 0;
+#X obj 1 1123 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1126 библиотека: ceammc v0.9.8;
+#N canvas 10 1145 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -103,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1191 pd info;
+#X restore 10 1145 pd info;
 #X connect 9 0 10 0;
 #X connect 7 0 11 0;
 #X connect 8 0 12 0;

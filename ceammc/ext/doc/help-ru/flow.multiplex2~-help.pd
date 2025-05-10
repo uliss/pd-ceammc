@@ -24,60 +24,60 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 361 1\.;
 #X text 170 361 int;
-#X obj 271 362 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 362 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 361 N: number of input stereo-pairs. Тип: int. Диапазон:
 2…8;
-#X obj 20 391 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 396 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 401 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 399 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 404 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 397 @value;
-#X text 270 397 Получить/Установить gain coefficients per each input.
-Тип: list. Значение по умолчанию: 1 0\.;
-#X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 454 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 402 @value;
+#X text 270 402 Gain coefficients per each input. Тип: list. Значение
+по умолчанию: 1 0\.;
+#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 459 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 455 1\.;
-#X text 170 455 ~;
-#X text 270 455 first left input signal.;
-#X text 130 480 2\.;
-#X text 170 480 ~;
-#X text 270 480 first right input signal.;
-#X text 130 505 ...;
-#X text 170 505 ~;
-#X text 270 505 ... left input signal.;
-#X text 130 530 ...;
-#X text 170 530 ~;
-#X text 270 530 ... right input signal.;
-#X text 130 555 n.;
-#X text 170 555 ~;
-#X text 270 555 last left input signal.;
-#X text 130 580 n.;
-#X text 170 580 ~;
-#X text 270 580 last right input signal.;
-#X text 130 605 n+1\.;
-#X text 270 605 multiplexer control.;
-#X obj 20 640 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 645 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 460 1\.;
+#X text 170 460 ~;
+#X text 270 460 first left input signal.;
+#X text 130 485 2\.;
+#X text 170 485 ~;
+#X text 270 485 first right input signal.;
+#X text 130 510 ...;
+#X text 170 510 ~;
+#X text 270 510 ... left input signal.;
+#X text 130 535 ...;
+#X text 170 535 ~;
+#X text 270 535 ... right input signal.;
+#X text 130 560 n.;
+#X text 170 560 ~;
+#X text 270 560 last left input signal.;
+#X text 130 585 n.;
+#X text 170 585 ~;
+#X text 270 585 last right input signal.;
+#X text 130 610 n+1\.;
+#X text 270 610 multiplexer control.;
+#X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 650 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 646 1\.;
-#X text 170 646 ~;
-#X text 270 646 left output.;
-#X text 130 666 2\.;
-#X text 170 666 ~;
-#X text 270 666 right output.;
+#X text 130 651 1\.;
+#X text 170 651 ~;
+#X text 270 651 left output.;
+#X text 130 671 2\.;
+#X text 170 671 ~;
+#X text 270 671 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 716 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 719 библиотека: ceammc v0.9.8;
-#X text 392 731 смотрите также:;
-#X obj 513 731 flow.multiplex~;
-#X obj 638 731 flow.multiplex;
-#N canvas 10 738 400 290 info 0;
+#X obj 1 721 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 724 библиотека: ceammc v0.9.8;
+#X text 392 736 смотрите также:;
+#X obj 513 736 flow.multiplex~;
+#X obj 638 736 flow.multiplex;
+#N canvas 10 743 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 738 pd info;
+#X restore 10 743 pd info;
 #X connect 7 0 13 0;
 #X connect 10 0 13 1;
 #X connect 11 0 13 2;

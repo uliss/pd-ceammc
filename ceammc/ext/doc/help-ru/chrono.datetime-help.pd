@@ -20,22 +20,22 @@
 #X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 290 @utc;
-#X text 270 290 Получить/Установить output in UTC format. Тип: bool.
-Значение по умолчанию: 0\.;
-#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 347 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 270 290 Output in UTC format. Тип: bool. Значение по умолчанию:
+0\.;
+#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 335 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 348 1\.;
-#X text 170 348 bang:;
-#X text 270 348 output HOUR MIN SEC to second outlet and YEAR MONTH
+#X text 130 336 1\.;
+#X text 170 336 bang:;
+#X text 270 336 output HOUR MIN SEC to second outlet and YEAR MONTH
 DAY to first outlet.;
-#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 403 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 391 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 404 1\.;
-#X text 270 404 list: YEAR MONTH DAY.;
-#X text 130 424 2\.;
-#X text 270 424 list: HOUR MIN SEC.;
+#X text 130 392 1\.;
+#X text 270 392 list: YEAR MONTH DAY.;
+#X text 130 412 2\.;
+#X text 270 412 list: HOUR MIN SEC.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

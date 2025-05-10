@@ -68,51 +68,51 @@ only first button press \, digital2 - send only second button press
 (from pedal) \, analog_row - send raw analog values (pair). Тип: symbol.
 Разрешённые значения: digital1 \, digital2 \, digital \, analog \,
 analog_raw \, none.;
-#X msg 130 910 pixel;
-#X text 270 910 draw/clear pixel on display matrix (6x8). Аргументы:;
-#X obj 280 933 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 933 X: x-pixel coordinate. Тип: int. Диапазон: 0…7\.;
-#X obj 280 956 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 956 Y: y-pixel coordinate. Тип: int. Диапазон: 0…5\.;
-#X obj 280 979 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 979 ON/OFF: draw (1) or clear (0). Тип: int. Разрешённые
+#X msg 130 895 pixel;
+#X text 270 895 draw/clear pixel on display matrix (6x8). Аргументы:;
+#X obj 280 918 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 918 X: x-pixel coordinate. Тип: int. Диапазон: 0…7\.;
+#X obj 280 941 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 941 Y: y-pixel coordinate. Тип: int. Диапазон: 0…5\.;
+#X obj 280 964 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 964 ON/OFF: draw (1) or clear (0). Тип: int. Разрешённые
 значения: 0 \, 1\.;
-#X msg 130 1019 row;
-#X text 270 1019 draw row pixels. Аргументы:;
-#X obj 280 1042 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1042 N: row index. Тип: int. Диапазон: 0…5\.;
-#X obj 280 1065 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1065 BITS: list of 0 and 1\. Тип: list.;
-#X msg 130 1090 str;
-#X text 270 1090 draw string. Аргументы:;
-#X obj 280 1113 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1113 STR: string or int value from -9 to 99\. Тип: atom.;
-#X msg 130 1138 sync;
-#X text 270 1138 force device to send it's button and mode state.;
-#X msg 130 1166 version?;
-#X text 270 1166 outputs device protocol version as message: [version
+#X msg 130 1004 row;
+#X text 270 1004 draw row pixels. Аргументы:;
+#X obj 280 1027 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1027 N: row index. Тип: int. Диапазон: 0…5\.;
+#X obj 280 1050 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1050 BITS: list of 0 and 1\. Тип: list.;
+#X msg 130 1075 str;
+#X text 270 1075 draw string. Аргументы:;
+#X obj 280 1098 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1098 STR: string or int value from -9 to 99\. Тип: atom.;
+#X msg 130 1123 sync;
+#X text 270 1123 force device to send it's button and mode state.;
+#X msg 130 1151 version?;
+#X text 270 1151 outputs device protocol version as message: [version
 N].;
-#X msg 130 1194 dump;
-#X text 270 1194 dumps all object info to Pd console window.;
-#X obj 20 1232 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1237 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1179 dump;
+#X text 270 1179 dumps all object info to Pd console window.;
+#X obj 20 1217 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1222 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1238 1\.;
-#X text 170 1238 float:;
-#X text 270 1238 input byte value from arduino.;
-#X obj 20 1273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1278 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1223 1\.;
+#X text 170 1223 float:;
+#X text 270 1223 input byte value from arduino.;
+#X obj 20 1258 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1263 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1279 1\.;
-#X text 270 1279 output parsed messages from device.;
+#X text 130 1264 1\.;
+#X text 270 1264 output parsed messages from device.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1329 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1332 библиотека: ceammc v0.9.8;
-#N canvas 10 1351 400 290 info 0;
+#X obj 1 1314 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1317 библиотека: ceammc v0.9.8;
+#N canvas 10 1336 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -136,7 +136,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1351 pd info;
+#X restore 10 1336 pd info;
 #X connect 4 0 11 0;
 #X connect 8 0 12 0;
 #X connect 9 0 13 0;

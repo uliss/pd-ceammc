@@ -19,49 +19,49 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 318 1\.;
 #X text 170 318 list;
-#X obj 271 319 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 319 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 318 SCALE: color list. Тип: list.;
-#X obj 20 348 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 353 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 358 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 356 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 361 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 354 @hex;
-#X text 270 354 Alias to @mode hex.;
-#X msg 130 384 @interp;
-#X text 270 384 Получить/Установить hue interpolation strategy. Тип:
-symbol. Значение по умолчанию: none. Разрешённые значения: none \,
-short \, long \, inc \, dec.;
-#X msg 130 441 @mode;
-#X text 270 441 Получить/Установить output mode: if 'color' - output
-as data:color type \, if 'hex' - output as hex value \, if 'rgb' -
-RGB list. Тип: symbol. Значение по умолчанию: color. Разрешённые значения:
-color \, hex \, rgb.;
-#X msg 130 528 @rgb;
-#X text 270 528 Alias to @mode rgb.;
-#X msg 130 558 @scale;
-#X text 270 558 Получить/Установить color list. Тип: list.;
-#X msg 130 588 @color;
-#X text 270 588 Alias to @mode color.;
-#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 633 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 359 @hex;
+#X text 270 359 Alias to @mode hex.;
+#X msg 130 389 @interp;
+#X text 270 389 Hue interpolation strategy. Тип: symbol. Значение по
+умолчанию: none. Разрешённые значения: none \, short \, long \, inc
+\, dec.;
+#X msg 130 446 @mode;
+#X text 270 446 Output mode: if 'color' - output as data:color type
+\, if 'hex' - output as hex value \, if 'rgb' - RGB list. Тип: symbol.
+Значение по умолчанию: color. Разрешённые значения: color \, hex \,
+rgb.;
+#X msg 130 518 @rgb;
+#X text 270 518 Alias to @mode rgb.;
+#X msg 130 548 @scale;
+#X text 270 548 Color list. Тип: list.;
+#X msg 130 578 @color;
+#X text 270 578 Alias to @mode color.;
+#X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 623 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 634 1\.;
-#X text 170 634 float:;
-#X text 270 634 calculate color scale hue and output. Диапазон: 0…1\.;
-#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 674 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 624 1\.;
+#X text 170 624 float:;
+#X text 270 624 calculate color scale hue and output. Диапазон: 0…1\.;
+#X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 664 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 675 1\.;
-#X text 270 675 data:color output.;
+#X text 130 665 1\.;
+#X text 270 665 data:color output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 725 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 728 библиотека: ceammc v0.9.8;
-#N canvas 10 747 400 290 info 0;
+#X obj 1 715 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 718 библиотека: ceammc v0.9.8;
+#N canvas 10 737 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -85,7 +85,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 747 pd info;
+#X restore 10 737 pd info;
 #X connect 5 0 6 0;
 #X connect 4 0 7 0;
 #X connect 6 0 7 0;

@@ -34,43 +34,43 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 405 1\.;
 #X text 170 405 symbol;
-#X obj 271 406 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 406 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 405 HEX: init pattern value. Тип: symbol.;
-#X obj 20 435 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 440 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 445 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 443 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 448 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 441 @hex;
-#X text 270 441 Получить/Установить hex pattern. Тип: symbol.;
-#X msg 130 471 @pattern?;
-#X text 270 471 (только чтение) Получить list pattern. Тип: list.;
-#X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 516 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 446 @hex;
+#X text 270 446 Hex pattern. Тип: symbol.;
+#X msg 130 476 @pattern?;
+#X text 270 476 (только чтение) List pattern. Тип: list.;
+#X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 521 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 517 1\.;
-#X text 170 517 bang:;
-#X text 270 517 output last pattern.;
-#X text 170 542 symbol:;
-#X text 270 542 set new pattern and output.;
-#X text 170 567 list:;
-#X text 270 567 output enumerated patterns for each list argument.;
-#X text 130 592 2\.;
-#X text 170 592 symbol:;
-#X text 270 592 set new pattern.;
-#X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 632 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 522 1\.;
+#X text 170 522 bang:;
+#X text 270 522 output last pattern.;
+#X text 170 547 symbol:;
+#X text 270 547 set new pattern and output.;
+#X text 170 572 list:;
+#X text 270 572 output enumerated patterns for each list argument.;
+#X text 130 597 2\.;
+#X text 170 597 symbol:;
+#X text 270 597 set new pattern.;
+#X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 637 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 633 1\.;
-#X text 270 633 list output.;
+#X text 130 638 1\.;
+#X text 270 638 list output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title music @url ceammc.music-help.pd;
-#X obj 1 683 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 686 библиотека: ceammc v0.9.8;
-#N canvas 10 705 400 290 info 0;
+#X obj 1 688 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 691 библиотека: ceammc v0.9.8;
+#N canvas 10 710 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -94,7 +94,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 705 pd info;
+#X restore 10 710 pd info;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;
 #X connect 4 0 10 0;

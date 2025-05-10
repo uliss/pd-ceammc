@@ -36,36 +36,35 @@ Note: symbols are greater then numbers.;
 #X msg 130 517 @symbol;
 #X text 270 517 Alias for @type symbol. Find greatest symbol element.;
 #X msg 130 547 @type;
-#X text 270 547 Получить/Установить type of largest element. Тип: symbol.
-Значение по умолчанию: float. Разрешённые значения: float \, symbol
-\, any.;
-#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 619 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 270 547 Type of largest element. Тип: symbol. Значение по умолчанию:
+float. Разрешённые значения: float \, symbol \, any.;
+#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 604 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 620 1\.;
-#X text 170 620 list:;
-#X text 270 620 input list.;
-#X text 170 645 data:mlist:;
-#X text 270 645 input mlist.;
-#X text 170 670 float:;
-#X text 270 670 passed thru in @float or @any mode.;
-#X text 170 695 symbol:;
-#X text 270 695 passed thru in @symbol or @any mode.;
-#X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 735 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 605 1\.;
+#X text 170 605 list:;
+#X text 270 605 input list.;
+#X text 170 630 data:mlist:;
+#X text 270 630 input mlist.;
+#X text 170 655 float:;
+#X text 270 655 passed thru in @float or @any mode.;
+#X text 170 680 symbol:;
+#X text 270 680 passed thru in @symbol or @any mode.;
+#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 720 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 736 1\.;
-#X text 270 736 largest element.;
+#X text 130 721 1\.;
+#X text 270 721 largest element.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 786 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 789 библиотека: ceammc v0.9.8;
-#X text 561 801 смотрите также:;
-#X obj 682 801 list.min;
-#N canvas 10 808 400 290 info 0;
+#X obj 1 771 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 774 библиотека: ceammc v0.9.8;
+#X text 561 786 смотрите также:;
+#X obj 682 786 list.min;
+#N canvas 10 793 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 808 pd info;
+#X restore 10 793 pd info;
 #X connect 7 0 11 0;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;

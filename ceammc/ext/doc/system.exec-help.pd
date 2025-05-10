@@ -23,15 +23,14 @@
 #X msg 130 290 @low;
 #X text 270 290 Alias to @priority low.;
 #X msg 130 320 @priority;
-#X text 270 320 Get/Set subprocess priority (not all platforms are
-supported). Type: symbol. Default value: normal. Allowed values: normal
-\, low.;
+#X text 270 320 Subprocess priority (not all platforms are supported).
+Type: symbol. Default value: normal. Allowed values: normal \, low.;
 #X msg 130 377 @is_running?;
-#X text 270 377 (readonly) Get is process is running. Type: bool. Default
+#X text 270 377 (readonly) Is process is running. Type: bool. Default
 value: 0\.;
 #X msg 130 419 @state?;
-#X text 270 419 (readonly) Get running process state: -1 (no process)
-\, 0 (not started) \, 1 (running) \, 2 (finished). Type: int. Default
+#X text 270 419 (readonly) Running process state: -1 (no process) \,
+0 (not started) \, 1 (running) \, 2 (finished). Type: int. Default
 value: -1\.;
 #X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 491 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144

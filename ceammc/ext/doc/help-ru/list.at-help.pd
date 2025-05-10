@@ -6,89 +6,87 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.at 20 20 0 20 -104026 -4096
 0;
 #X obj 690 11 list.at;
-#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 215 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 83 Returns the element at the given index position in the
 list.;
 #X text 240 108 @rel property allows to acess elements in range (-LIST_SIZE
 \, LIST_SIZE). Negative index means position from the end of the list.
 For example: -1 returns last element.;
-#X text 240 163 @clip property: if element index < 0 - first element
+#X text 240 178 @clip property: if element index < 0 - first element
 returned. If element index >= LIST_SIZE last element returned.;
-#X text 240 218 @wrap property: in range [0 \, LIST_SIZE) ordinal elements
+#X text 240 233 @wrap property: in range [0 \, LIST_SIZE) ordinal elements
 are returned. Other indexes are wrapped by modulo division.;
-#X msg 50 311 1 2 3 4 5;
-#X floatatom 165 311 5 0 0 0 - - -;
-#X msg 213 311 1 2 3 4 5;
-#X floatatom 328 311 5 0 0 0 - - -;
-#X obj 50 340 list.at -1;
-#X obj 213 340 list.at @clip;
-#X floatatom 50 369 5 0 0 0 - - -;
-#X floatatom 213 369 5 0 0 0 - - -;
-#X msg 50 412 1 2 3 4 5;
-#X floatatom 165 412 5 0 0 0 - - -;
-#X msg 213 412 1 2 3 4 5;
-#X floatatom 328 412 5 0 0 0 - - -;
-#X obj 50 441 list.at @wrap;
-#X obj 213 441 list.at @fold;
-#X floatatom 50 470 5 0 0 0 - - -;
-#X floatatom 213 470 5 0 0 0 - - -;
-#X msg 50 498 list A B C D E;
-#X obj 50 527 list.at -1 1 3;
-#X obj 50 556 ui.dt;
-#X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 611 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 341 1 2 3 4 5;
+#X floatatom 165 341 5 0 0 0 - - -;
+#X msg 213 341 1 2 3 4 5;
+#X floatatom 328 341 5 0 0 0 - - -;
+#X obj 50 370 list.at -1;
+#X obj 213 370 list.at @clip;
+#X floatatom 50 399 5 0 0 0 - - -;
+#X floatatom 213 399 5 0 0 0 - - -;
+#X msg 50 442 1 2 3 4 5;
+#X floatatom 165 442 5 0 0 0 - - -;
+#X msg 213 442 1 2 3 4 5;
+#X floatatom 328 442 5 0 0 0 - - -;
+#X obj 50 471 list.at @wrap;
+#X obj 213 471 list.at @fold;
+#X floatatom 50 500 5 0 0 0 - - -;
+#X floatatom 213 500 5 0 0 0 - - -;
+#X msg 50 528 list A B C D E;
+#X obj 50 557 list.at -1 1 3;
+#X obj 50 586 ui.dt;
+#X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 641 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 614 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 644 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 130 612 1\.;
-#X text 170 612 list;
-#X obj 271 613 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 612 INDEX: single or multiple elements position. Тип: list.;
-#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 647 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 642 1\.;
+#X text 170 642 list;
+#X obj 268 643 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 642 INDEX: single or multiple elements position. Тип: list.;
+#X obj 20 677 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 682 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 650 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 685 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 648 @clip;
-#X text 270 648 Alias to @method clip. If index < 0 - return first
+#X msg 130 683 @clip;
+#X text 270 683 Alias to @method clip. If index < 0 - return first
 element. If index greater or equal list size - return last element.;
-#X msg 130 690 @default;
-#X text 270 690 Получить/Установить default output value if not found.
-If not set \, outputs error message to console. Тип: atom. Значение
-по умолчанию: null.;
-#X msg 130 747 @fold;
-#X text 270 747 Alias to @method fold. In range [0 \, LIST_SIZE) ordinal
+#X msg 130 740 @default;
+#X text 270 740 Default output value if not found. If not set \, outputs
+error message to console. Тип: atom. Значение по умолчанию: null.;
+#X msg 130 797 @fold;
+#X text 270 797 Alias to @method fold. In range [0 \, LIST_SIZE) ordinal
 elements are returned. [LIST_SIZE \, 2*LIST_SIZE) - returned in negative
 order etc.;
-#X msg 130 804 @index;
-#X text 270 804 Получить/Установить indexes. Тип: list. Значение по
-умолчанию: 0\.;
-#X msg 130 846 @method;
-#X text 270 846 Получить/Установить methods of processing of negative/invalid
-indexes. Тип: symbol. Значение по умолчанию: rel. Разрешённые значения:
-rel \, clip \, fold \, wrap.;
-#X msg 130 903 @rel;
-#X text 270 903 Alias to @method rel. Negative index means position
+#X msg 130 854 @index;
+#X text 270 854 Indexes. Тип: list. Значение по умолчанию: 0\.;
+#X msg 130 884 @method;
+#X text 270 884 Methods of processing of negative/invalid indexes.
+Тип: symbol. Значение по умолчанию: rel. Разрешённые значения: rel
+\, clip \, fold \, wrap.;
+#X msg 130 941 @rel;
+#X text 270 941 Alias to @method rel. Negative index means position
 from the end of the list.;
-#X msg 130 945 @wrap;
-#X text 270 945 Alias to @method wrap. In range [0 \, LIST_SIZE) ordinal
+#X msg 130 983 @wrap;
+#X text 270 983 Alias to @method wrap. In range [0 \, LIST_SIZE) ordinal
 elements are returned. Other indexes are wrapped by modulo division.;
-#X obj 20 1012 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1017 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1050 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1055 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1018 1\.;
-#X text 170 1018 list:;
-#X text 270 1018 input list.;
-#X text 170 1043 data:mlist:;
-#X text 270 1043 input mlist.;
-#X text 130 1068 2\.;
-#X text 170 1068 list:;
-#X text 270 1068 positions.;
-#X obj 20 1103 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1108 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1056 1\.;
+#X text 170 1056 list:;
+#X text 270 1056 input list.;
+#X text 170 1081 data:mlist:;
+#X text 270 1081 input mlist.;
+#X text 130 1106 2\.;
+#X text 170 1106 list:;
+#X text 270 1106 positions.;
+#X obj 20 1141 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1146 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1109 1\.;
-#X text 270 1109 element(s) at the given index position(s). If element
+#X text 130 1147 1\.;
+#X text 270 1147 element(s) at the given index position(s). If element
 not found at specified position and @default property is set \, output
 that default value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -96,12 +94,12 @@ that default value.;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 1189 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1192 библиотека: ceammc v0.9.8;
-#X text 452 1204 смотрите также:;
-#X obj 573 1204 list.^at;
-#X obj 646 1204 list.apply_to;
-#N canvas 10 1211 400 290 info 0;
+#X obj 1 1227 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1230 библиотека: ceammc v0.9.8;
+#X text 452 1242 смотрите также:;
+#X obj 573 1242 list.^at;
+#X obj 646 1242 list.apply_to;
+#N canvas 10 1249 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -125,7 +123,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1211 pd info;
+#X restore 10 1249 pd info;
 #X connect 9 0 13 0;
 #X connect 10 0 13 1;
 #X connect 11 0 14 0;

@@ -19,7 +19,7 @@
 #X obj 735 298 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 296 @db;
-#X text 270 296 output in decibels. Default value: 0\.;
+#X text 270 296 Output in decibels. Default value: 0\.;
 #X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 341 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

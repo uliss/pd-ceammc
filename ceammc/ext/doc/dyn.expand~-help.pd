@@ -30,105 +30,104 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 454 1\.;
 #X text 170 454 float;
-#X obj 271 455 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 455 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 454 STRENGTH: expander strength (0: no expanding \, 10:
 almost gating). Type: float. Range: 0\...10;
-#X text 130 489 2\.;
-#X text 170 489 float;
-#X obj 271 490 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 489 THRESHOLD(db): level threshold below which expander
+#X text 130 494 2\.;
+#X text 170 494 float;
+#X obj 268 495 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 494 THRESHOLD(db): level threshold below which expander
 kicks in. Type: float. Range: -60\...0;
-#X text 130 524 3\.;
-#X text 170 524 float;
-#X obj 271 525 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 524 ATTACK(ms): attack time = time constant when expander
+#X text 130 534 3\.;
+#X text 170 534 float;
+#X obj 268 535 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 534 ATTACK(ms): attack time = time constant when expander
 is turning on. Type: float. Range: 0.1\...100;
-#X text 130 559 4\.;
-#X text 170 559 float;
-#X obj 271 560 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 559 RELEASE(ms): release time = time constant coming out
+#X text 130 574 4\.;
+#X text 170 574 float;
+#X obj 268 575 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 574 RELEASE(ms): release time = time constant coming out
 of expanding. Type: float. Range: 1\...500;
-#X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 609 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 629 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 612 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 632 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 610 @id;
-#X text 270 610 (initonly) Get/Set OSC address id. If specified \,
-bind all properties to /ID/dyn_expand/PROP_NAME osc address \, if empty
-bind to /dyn_expand/PROP_NAME. Type: symbol.;
-#X msg 130 667 @osc;
-#X text 270 667 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
-#X msg 130 697 @active;
-#X text 270 697 Turn on/off object dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 130 739 @attack;
-#X text 270 739 Get/Set time constant when expander is turning on.
-Type: float. Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
-#X msg 130 781 @bypass;
-#X text 270 781 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0\.;
-#X msg 130 823 @hold;
-#X text 270 823 Get/Set hold period. Type: float. Units: 'samp'. Default
-value: 128\. Range: 1\...255\.;
-#X msg 130 865 @knee;
-#X text 270 865 Get/Set a gradual increase in gain reduction around
-the threshold: below thresh-(knee/2) there is no gain reduction \,
-above thresh+(knee/2) there is the same gain reduction as without a
-knee \, and in between there is a gradual increase in gain reduction.
-Type: float. Units: 'db'. Default value: 3\. Range: 0\...6\.;
-#X msg 130 983 @range;
-#X text 270 983 Get/Set max expand range. Type: float. Units: 'db'.
-Default value: -120\. Range: -120\...0\.;
-#X msg 130 1025 @refresh;
-#X text 270 1025 Get/Set expander level output time interval. If 0
-- no output. Type: int. Units: 'ms'. Default value: 100\. Range: 0\...1000\.;
-#X msg 130 1082 @release;
-#X text 270 1082 Get/Set release time = time constant coming out of
-expanding. Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
-#X msg 130 1139 @strength;
-#X text 270 1139 Get/Set expander strength (0: no expanding \, 1: increase
+#X msg 130 630 @id;
+#X text 270 630 (initonly) OSC address id. If specified \, bind all
+properties to /ID/dyn_expand/PROP_NAME osc address \, if empty bind
+to /dyn_expand/PROP_NAME. Type: symbol.;
+#X msg 130 687 @osc;
+#X text 270 687 (initonly) OSC server name to listen. Type: symbol.;
+#X msg 130 717 @active;
+#X text 270 717 On/off object dsp processing. Type: bool. Default value:
+1\.;
+#X msg 130 747 @attack;
+#X text 270 747 Time constant when expander is turning on. Type: float.
+Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
+#X msg 130 789 @bypass;
+#X text 270 789 Bypass flag. If true: bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 130 831 @hold;
+#X text 270 831 Hold period. Type: float. Units: 'samp'. Default value:
+128\. Range: 1\...255\.;
+#X msg 130 873 @knee;
+#X text 270 873 A gradual increase in gain reduction around the threshold:
+below thresh-(knee/2) there is no gain reduction \, above thresh+(knee/2)
+there is the same gain reduction as without a knee \, and in between
+there is a gradual increase in gain reduction. Type: float. Units:
+'db'. Default value: 3\. Range: 0\...6\.;
+#X msg 130 976 @range;
+#X text 270 976 Max expand range. Type: float. Units: 'db'. Default
+value: -120\. Range: -120\...0\.;
+#X msg 130 1018 @refresh;
+#X text 270 1018 Expander level output time interval. If 0 - no output.
+Type: int. Units: 'ms'. Default value: 100\. Range: 0\...1000\.;
+#X msg 130 1075 @release;
+#X text 270 1075 Release time = time constant coming out of expanding.
+Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
+#X msg 130 1132 @strength;
+#X text 270 1132 Expander strength (0: no expanding \, 1: increase
 level by @range db.). Type: float. Default value: 0\. Range: 0\...10\.;
-#X msg 130 1196 @threshold;
-#X text 270 1196 Get/Set level threshold above which compression kicks
-in (100 dB = max level). Type: float. Units: 'db'. Default value: -48\.
-Range: -60\...0\.;
-#X msg 130 1253 @level?;
-#X text 270 1253 (readonly) Get current expander level. Type: float.
-Units: 'db'. Default value: 0\. Range: 0\...90\.;
-#X obj 20 1305 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1310 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 1189 @threshold;
+#X text 270 1189 Level threshold above which compression kicks in (100
+dB = max level). Type: float. Units: 'db'. Default value: -48\. Range:
+-60\...0\.;
+#X msg 130 1246 @level?;
+#X text 270 1246 (readonly) Current expander level. Type: float. Units:
+'db'. Default value: 0\. Range: 0\...90\.;
+#X obj 20 1298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1303 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1311 reset;
-#X text 270 1311 reset to initial state.;
-#X obj 20 1349 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1354 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1304 reset;
+#X text 270 1304 reset to initial state.;
+#X obj 20 1342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1347 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1355 1\.;
-#X text 170 1355 ~;
-#X text 270 1355 input signal.;
-#X text 130 1380 2\.;
-#X text 170 1380 float:;
-#X text 270 1380 set expander strength.;
-#X obj 20 1415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1420 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1348 1\.;
+#X text 170 1348 ~;
+#X text 270 1348 input signal.;
+#X text 130 1373 2\.;
+#X text 170 1373 float:;
+#X text 270 1373 set expander strength.;
+#X obj 20 1408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1413 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1421 1\.;
-#X text 170 1421 ~;
-#X text 270 1421 output expanded signal.;
-#X text 130 1441 2\.;
-#X text 270 1441 float: output current expander level in db.;
+#X text 130 1414 1\.;
+#X text 170 1414 ~;
+#X text 270 1414 output expanded signal.;
+#X text 130 1434 2\.;
+#X text 270 1434 float: output current expander level in db.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 1491 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1494 library: ceammc v0.9.8;
-#X text 577 1506 see also:;
-#X obj 652 1506 dyn.expand2~;
-#N canvas 10 1513 400 290 info 0;
+#X obj 1 1484 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1487 library: ceammc v0.9.8;
+#X text 577 1499 see also:;
+#X obj 652 1499 dyn.expand2~;
+#N canvas 10 1506 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -152,7 +151,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1513 pd info;
+#X restore 10 1506 pd info;
 #X connect 7 0 9 0;
 #X connect 9 0 10 0;
 #X connect 11 0 12 0;

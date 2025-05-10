@@ -21,13 +21,13 @@ ceammc://img/conn_vl53l0x.png;
 #X obj 735 385 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 383 @i2c_addr;
-#X text 270 383 (при инициализации) Получить/Установить I²C address.
-The value 'default' means default device I²C address (0x29). Тип: int.
-Значение по умолчанию: -1\. Диапазон: -4\...119\.;
+#X text 270 383 (при инициализации) I²C address. The value 'default'
+means default device I²C address (0x29). Тип: int. Значение по умолчанию:
+-1\. Диапазон: -4\...119\.;
 #X msg 130 440 @i2c_bus;
-#X text 270 440 (при инициализации) Получить/Установить шина I²C. Тип:
-atom. Значение по умолчанию: none. Разрешённые значения: 1 \, 2 \,
-3 \, 4 \, 5 \, 6 \, default \, none.;
+#X text 270 440 (при инициализации) Шина I²C. Тип: atom. Значение по
+умолчанию: none. Разрешённые значения: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \,
+default \, none.;
 #X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 512 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

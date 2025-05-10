@@ -24,49 +24,49 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 347 1\.;
 #X text 170 347 symbol;
-#X obj 271 348 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 348 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 347 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 382 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 387 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 385 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 383 @array;
-#X text 270 383 Получить/Установить имя массива. Тип: symbol.;
-#X msg 130 413 @redraw;
-#X text 270 413 Получить/Установить перерисовать после изменения массива.
-Тип: bool. Значение по умолчанию: 1\.;
-#X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 470 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 388 @array;
+#X text 270 388 Имя массива. Тип: symbol.;
+#X msg 130 418 @redraw;
+#X text 270 418 Перерисовать после изменения массива. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 475 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 471 1\.;
-#X text 170 471 bang:;
-#X text 270 471 начинает итерацию массива.;
-#X text 170 496 symbol:;
-#X text 270 496 установить имя массива.;
-#X text 130 521 2\.;
-#X text 170 521 float:;
-#X text 270 521 числовое значение из боковой цепи обработки.;
-#X obj 20 556 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 561 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 476 1\.;
+#X text 170 476 bang:;
+#X text 270 476 начинает итерацию массива.;
+#X text 170 501 symbol:;
+#X text 270 501 установить имя массива.;
+#X text 130 526 2\.;
+#X text 170 526 float:;
+#X text 270 526 числовое значение из боковой цепи обработки.;
+#X obj 20 561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 566 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 562 1\.;
-#X text 170 562 bang:;
-#X text 270 562 при завершении итерации.;
-#X text 130 582 2\.;
-#X text 170 582 list:;
-#X text 270 582 для каждого семпла массива выводит список: ЗНАЧЕНИЕ_СЕМПЛА
+#X text 130 567 1\.;
+#X text 170 567 bang:;
+#X text 270 567 при завершении итерации.;
+#X text 130 587 2\.;
+#X text 170 587 list:;
+#X text 270 587 для каждого семпла массива выводит список: ЗНАЧЕНИЕ_СЕМПЛА
 \, ИНДЕКС_СЕМПЛА \, ВСЕГО_СЕМПЛОВ.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 647 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 650 библиотека: ceammc v0.9.8;
-#X text 546 662 смотрите также:;
-#X obj 667 662 array.each;
-#N canvas 10 669 400 290 info 0;
+#X obj 1 652 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 655 библиотека: ceammc v0.9.8;
+#X text 546 667 смотрите также:;
+#X obj 667 667 array.each;
+#N canvas 10 674 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,7 +90,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 669 pd info;
+#X restore 10 674 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 8 0;
 #X connect 7 1 9 0;

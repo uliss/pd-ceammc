@@ -26,50 +26,49 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 376 1\.;
 #X text 170 376 int;
-#X obj 271 377 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 377 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 376 OCT: octave transposition. Тип: int. Диапазон: -11…11;
-#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 411 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 416 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 414 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 419 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 412 @mode;
-#X text 270 412 Получить/Установить octave mode. Тип: symbol. Значение
-по умолчанию: transpose. Разрешённые значения: transpose \, set.;
-#X msg 130 454 @oct;
-#X text 270 454 Получить/Установить octave transposition. Тип: int.
-Значение по умолчанию: 0\. Диапазон: -11\...11\.;
-#X msg 130 496 @random;
-#X text 270 496 Получить/Установить random octave range. Arguments
-are: MIN MAX. Тип: list.;
-#X msg 130 538 @set;
-#X text 270 538 Alias to @mode set.;
-#X msg 130 568 @transpose;
-#X text 270 568 Alias to @mode transpose.;
-#X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 613 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 417 @mode;
+#X text 270 417 Octave mode. Тип: symbol. Значение по умолчанию: transpose.
+Разрешённые значения: transpose \, set.;
+#X msg 130 459 @oct;
+#X text 270 459 Octave transposition. Тип: int. Значение по умолчанию:
+0\. Диапазон: -11\...11\.;
+#X msg 130 501 @random;
+#X text 270 501 Random octave range. Arguments are: MIN MAX. Тип: list.;
+#X msg 130 531 @set;
+#X text 270 531 Alias to @mode set.;
+#X msg 130 561 @transpose;
+#X text 270 561 Alias to @mode transpose.;
+#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 606 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 614 1\.;
-#X text 170 614 float:;
-#X text 270 614 note value.;
-#X text 170 639 list:;
-#X text 270 639 NOTE VELOCITY [DUR] list.;
-#X text 130 664 2\.;
-#X text 170 664 float:;
-#X text 270 664 set @oct value.;
-#X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 704 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 607 1\.;
+#X text 170 607 float:;
+#X text 270 607 note value.;
+#X text 170 632 list:;
+#X text 270 632 NOTE VELOCITY [DUR] list.;
+#X text 130 657 2\.;
+#X text 170 657 float:;
+#X text 270 657 set @oct value.;
+#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 697 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 705 1\.;
-#X text 270 705 transposed NOTE VELOCITY [DUR] list.;
+#X text 130 698 1\.;
+#X text 270 698 transposed NOTE VELOCITY [DUR] list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 755 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 758 библиотека: ceammc v0.9.8;
-#N canvas 10 777 400 290 info 0;
+#X obj 1 748 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 751 библиотека: ceammc v0.9.8;
+#N canvas 10 770 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -93,7 +92,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 777 pd info;
+#X restore 10 770 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 10 0;
 #X connect 6 0 11 0;

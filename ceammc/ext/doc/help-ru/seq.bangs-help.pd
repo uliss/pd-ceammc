@@ -29,96 +29,93 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 361 1\.;
 #X text 170 361 list;
-#X obj 271 362 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 362 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 361 P: sequencer pattern in beat duration units. Тип: list.;
-#X obj 20 391 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 396 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 401 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 399 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 404 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 397 @div;
-#X text 270 397 Получить/Установить beat subdivision. Тип: int. Значение
-по умолчанию: 1\. Диапазон: 1\...64\.;
-#X msg 130 439 @dur;
-#X text 270 439 Получить/Установить whole sequence duration. (Recalculates
-@t property accordingly). Тип: float. Единицы: 'ms'. Значение по умолчанию:
-0\. Минимальное значение: 0\.;
-#X msg 130 496 @inf;
-#X text 270 496 Alias to @r -1 \, repeats infinitely.;
-#X msg 130 526 @mode;
-#X text 270 526 Получить/Установить sequencer mode. 'inc': from first
-to last \, 'dec': from last to first \, 'tri': from first to last \,
-then back. Тип: symbol. Значение по умолчанию: inc. Разрешённые значения:
-inc \, dec \, tri.;
-#X msg 130 613 @once;
-#X text 270 613 Alias to @r 1 \, play once.;
-#X msg 130 643 @p;
-#X text 270 643 Получить/Установить sequencer pattern in beat duration
-units. Тип: list.;
-#X msg 130 685 @r;
-#X text 270 685 Получить/Установить number of whole sequence repeats.
-If -1: repeat infinitely. Тип: int. Значение по умолчанию: 1\. Минимальное
-значение: -1\.;
-#X msg 130 742 @t;
-#X text 270 742 Получить/Установить time between beats. Unit values
-like 100ms or 240bpm also can be used. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 100\. Диапазон: 1\...20000\.;
-#X msg 130 799 @upbeat;
-#X text 270 799 Получить/Установить wait specified number of beats
-before sequence start. Тип: float. Значение по умолчанию: 0\. Минимальное
-значение: 0\.;
-#X msg 130 856 @i?;
-#X text 270 856 (только чтение) Получить current sequence iteration.
-Тип: int. Значение по умолчанию: 0\.;
-#X msg 130 898 @ri?;
-#X text 270 898 (только чтение) Получить current repeat iteration.
-Тип: int. Значение по умолчанию: 0\.;
-#X obj 20 950 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 955 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 402 @div;
+#X text 270 402 Beat subdivision. Тип: int. Значение по умолчанию:
+1\. Диапазон: 1\...64\.;
+#X msg 130 444 @dur;
+#X text 270 444 Whole sequence duration. (Recalculates @t property
+accordingly). Тип: float. Единицы: 'ms'. Значение по умолчанию: 0\.
+Минимальное значение: 0\.;
+#X msg 130 501 @inf;
+#X text 270 501 Alias to @r -1 \, repeats infinitely.;
+#X msg 130 531 @mode;
+#X text 270 531 Sequencer mode. 'inc': from first to last \, 'dec':
+from last to first \, 'tri': from first to last \, then back. Тип:
+symbol. Значение по умолчанию: inc. Разрешённые значения: inc \, dec
+\, tri.;
+#X msg 130 603 @once;
+#X text 270 603 Alias to @r 1 \, play once.;
+#X msg 130 633 @p;
+#X text 270 633 Sequencer pattern in beat duration units. Тип: list.;
+#X msg 130 663 @r;
+#X text 270 663 Number of whole sequence repeats. If -1: repeat infinitely.
+Тип: int. Значение по умолчанию: 1\. Минимальное значение: -1\.;
+#X msg 130 720 @t;
+#X text 270 720 Time between beats. Unit values like 100ms or 240bpm
+also can be used. Тип: float. Единицы: 'ms'. Значение по умолчанию:
+100\. Диапазон: 1\...20000\.;
+#X msg 130 777 @upbeat;
+#X text 270 777 Wait specified number of beats before sequence start.
+Тип: float. Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X msg 130 834 @i?;
+#X text 270 834 (только чтение) Current sequence iteration. Тип: int.
+Значение по умолчанию: 0\.;
+#X msg 130 876 @ri?;
+#X text 270 876 (только чтение) Current repeat iteration. Тип: int.
+Значение по умолчанию: 0\.;
+#X obj 20 928 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 933 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 956 hexbeat;
-#X text 270 956 set hexbeat bang pattern. Аргументы:;
-#X obj 280 979 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 979 PATTERN: hex-string beat pattern. Тип: symbol.;
-#X msg 130 1004 reset;
-#X text 270 1004 reset all counters and stop.;
-#X msg 130 1032 rewind;
-#X text 270 1032 reset all counters without stopping.;
-#X msg 130 1060 skip;
-#X text 270 1060 skip specified number of steps. Аргументы:;
-#X obj 280 1083 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1083 N: number of steps to skip. Тип: int.;
-#X msg 130 1108 start;
-#X text 270 1108 start sequencer from current position.;
-#X msg 130 1136 stop;
-#X text 270 1136 stop sequencer.;
-#X msg 130 1164 tick;
-#X text 270 1164 output current sequence element and move to next.;
-#X obj 20 1202 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1207 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 934 hexbeat;
+#X text 270 934 set hexbeat bang pattern. Аргументы:;
+#X obj 280 957 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 957 PATTERN: hex-string beat pattern. Тип: symbol.;
+#X msg 130 982 reset;
+#X text 270 982 reset all counters and stop.;
+#X msg 130 1010 rewind;
+#X text 270 1010 reset all counters without stopping.;
+#X msg 130 1038 skip;
+#X text 270 1038 skip specified number of steps. Аргументы:;
+#X obj 280 1061 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1061 N: number of steps to skip. Тип: int.;
+#X msg 130 1086 start;
+#X text 270 1086 start sequencer from current position.;
+#X msg 130 1114 stop;
+#X text 270 1114 stop sequencer.;
+#X msg 130 1142 tick;
+#X text 270 1142 output current sequence element and move to next.;
+#X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1185 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1208 1\.;
-#X text 170 1208 bang:;
-#X text 270 1208 reset all counters and start sequencer.;
-#X text 130 1233 2\.;
-#X text 170 1233 list:;
-#X text 270 1233 set new pattern value.;
-#X obj 20 1268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1273 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1186 1\.;
+#X text 170 1186 bang:;
+#X text 270 1186 reset all counters and start sequencer.;
+#X text 130 1211 2\.;
+#X text 170 1211 list:;
+#X text 270 1211 set new pattern value.;
+#X obj 20 1246 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1251 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1274 1\.;
-#X text 270 1274 bang.;
-#X text 130 1294 2\.;
-#X text 270 1294 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
+#X text 130 1252 1\.;
+#X text 270 1252 bang.;
+#X text 130 1272 2\.;
+#X text 270 1272 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
 iteration \, [ed MS( - event duration or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1359 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1362 библиотека: ceammc v0.9.8;
-#N canvas 10 1381 400 290 info 0;
+#X obj 1 1337 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1340 библиотека: ceammc v0.9.8;
+#N canvas 10 1359 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -142,7 +139,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1381 pd info;
+#X restore 10 1359 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 8 0;
 #X connect 7 0 8 0;

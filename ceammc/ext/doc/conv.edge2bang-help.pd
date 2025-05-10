@@ -37,8 +37,8 @@
 #X msg 130 348 @down;
 #X text 270 348 Alias to @mode down.;
 #X msg 130 378 @mode;
-#X text 270 378 Get/Set edge detection mode. Type: symbol. Default
-value: up. Allowed values: up \, down \, both.;
+#X text 270 378 Edge detection mode. Type: symbol. Default value: up.
+Allowed values: up \, down \, both.;
 #X msg 130 420 @up;
 #X text 270 420 Alias to @mode up.;
 #X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

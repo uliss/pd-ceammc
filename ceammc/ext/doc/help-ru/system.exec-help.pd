@@ -23,16 +23,16 @@
 #X msg 130 290 @low;
 #X text 270 290 Alias to @priority low.;
 #X msg 130 320 @priority;
-#X text 270 320 Получить/Установить subprocess priority (not all platforms
-are supported). Тип: symbol. Значение по умолчанию: normal. Разрешённые
-значения: normal \, low.;
+#X text 270 320 Subprocess priority (not all platforms are supported).
+Тип: symbol. Значение по умолчанию: normal. Разрешённые значения: normal
+\, low.;
 #X msg 130 377 @is_running?;
-#X text 270 377 (только чтение) Получить is process is running. Тип:
-bool. Значение по умолчанию: 0\.;
+#X text 270 377 (только чтение) Is process is running. Тип: bool. Значение
+по умолчанию: 0\.;
 #X msg 130 419 @state?;
-#X text 270 419 (только чтение) Получить running process state: -1
-(no process) \, 0 (not started) \, 1 (running) \, 2 (finished). Тип:
-int. Значение по умолчанию: -1\.;
+#X text 270 419 (только чтение) Running process state: -1 (no process)
+\, 0 (not started) \, 1 (running) \, 2 (finished). Тип: int. Значение
+по умолчанию: -1\.;
 #X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 491 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

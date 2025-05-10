@@ -24,9 +24,9 @@
 #X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 361 @pack;
-#X text 270 361 output as list (creates single outlet object).;
+#X text 270 361 Output as list (creates single outlet object).;
 #X msg 130 391 @sync;
-#X text 270 391 output at any inlet change.;
+#X text 270 391 Output at any inlet change.;
 #X msg 130 421 @float;
 #X text 270 421 Alias to @mode float. Output float values in [0-1]
 range.;
@@ -34,8 +34,8 @@ range.;
 #X text 270 451 Alias to @mode int. Output integer values in [0-255]
 range.;
 #X msg 130 481 @mode;
-#X text 270 481 Получить/Установить output mode. Тип: symbol. Значение
-по умолчанию: int. Разрешённые значения: int \, float.;
+#X text 270 481 Output mode. Тип: symbol. Значение по умолчанию: int.
+Разрешённые значения: int \, float.;
 #X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 538 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

@@ -21,14 +21,14 @@ on the Karplus-Strong algorithm;
 #X obj 735 393 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 391 @freq;
-#X text 270 391 Get/Set maximum speed of whistles. Type: float. Units:
-'Hz'. Default value: 220\. Range: 0\...480\.;
+#X text 270 391 Maximum speed of whistles. Type: float. Units: 'Hz'.
+Default value: 220\. Range: 0\...480\.;
 #X msg 130 433 @gate;
-#X text 270 433 Get/Set synth gate (>0 - play). Type: float. Default
-value: 0\. Range: 0\...1\.;
+#X text 270 433 Synth gate (>0 - play). Type: float. Default value:
+0\. Range: 0\...1\.;
 #X msg 130 475 @pitch;
-#X text 270 475 Get/Set midi pitch. Type: float. Default value: 57\.
-Range: 36\...84\.;
+#X text 270 475 Midi pitch. Type: float. Default value: 57\. Range:
+36\...84\.;
 #X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 532 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

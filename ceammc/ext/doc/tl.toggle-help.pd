@@ -25,7 +25,7 @@ to other cue section;
 #X obj 735 321 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 319 @cue?;
-#X text 270 319 (readonly) Get related cue. Type: symbol.;
+#X text 270 319 (readonly) Related cue. Type: symbol.;
 #X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 364 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

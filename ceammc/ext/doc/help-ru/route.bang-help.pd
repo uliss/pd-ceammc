@@ -27,9 +27,9 @@ messages (including property requests) are passed thru;
 #X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 405 @strict;
-#X text 270 405 Получить/Установить strict mode. By default empty list
-treated as bang. Set to true to disable this behavior. Тип: bool. Значение
-по умолчанию: 0\.;
+#X text 270 405 Strict mode. By default empty list treated as bang.
+Set to true to disable this behavior. Тип: bool. Значение по умолчанию:
+0\.;
 #X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 477 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

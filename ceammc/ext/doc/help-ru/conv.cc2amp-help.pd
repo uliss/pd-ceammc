@@ -23,46 +23,46 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 286 1\.;
 #X text 170 286 float;
-#X obj 271 287 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 287 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 286 FROM: начальное значение выходного диапазона. Тип:
 float.;
-#X text 130 306 2\.;
-#X text 170 306 float;
-#X obj 271 307 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 306 TO: конечное значение выходного диапазона. Тип: float.;
-#X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 341 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 311 2\.;
+#X text 170 311 float;
+#X obj 268 312 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 311 TO: конечное значение выходного диапазона. Тип: float.;
+#X obj 20 346 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 351 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 344 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 354 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 342 @from;
-#X text 270 342 Получить/Установить начальное значение выходного диапазона.
-Тип: float. Значение по умолчанию: 0\.;
-#X msg 130 384 @to;
-#X text 270 384 Получить/Установить конечное значение выходного диапазона.
-Тип: float. Значение по умолчанию: 1\.;
-#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 441 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 352 @from;
+#X text 270 352 Начальное значение выходного диапазона. Тип: float.
+Значение по умолчанию: 0\.;
+#X msg 130 394 @to;
+#X text 270 394 Конечное значение выходного диапазона. Тип: float.
+Значение по умолчанию: 1\.;
+#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 451 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 442 1\.;
-#X text 170 442 float:;
-#X text 270 442 value in MIDI CC range [0\..127].;
-#X obj 20 477 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 482 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 452 1\.;
+#X text 170 452 float:;
+#X text 270 452 value in MIDI CC range [0\..127].;
+#X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 492 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 483 1\.;
-#X text 270 483 converted value.;
+#X text 130 493 1\.;
+#X text 270 493 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 533 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 536 библиотека: ceammc v0.9.8;
-#X text 473 548 смотрите также:;
-#X obj 594 548 lin->lin;
-#X obj 667 548 lin->curve;
-#N canvas 10 555 400 290 info 0;
+#X obj 1 543 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 546 библиотека: ceammc v0.9.8;
+#X text 473 558 смотрите также:;
+#X obj 594 558 lin->lin;
+#X obj 667 558 lin->curve;
+#N canvas 10 565 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -86,7 +86,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 555 pd info;
+#X restore 10 565 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

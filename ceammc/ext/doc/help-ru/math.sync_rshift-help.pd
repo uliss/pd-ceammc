@@ -25,24 +25,24 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 243 1\.;
 #X text 170 243 int;
-#X obj 271 244 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 244 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 243 SHIFT: shift amount. Тип: int.;
-#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 278 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 283 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 279 1\.;
-#X text 170 279 int:;
-#X text 270 279 set value \, calculate and output result.;
-#X text 170 304 list:;
-#X text 270 304 pair: set value and shift \, calculate and output result.;
-#X text 130 329 2\.;
-#X text 170 329 int:;
-#X text 270 329 change shift \, calculate and output result.;
-#X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 369 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 284 1\.;
+#X text 170 284 int:;
+#X text 270 284 set value \, calculate and output result.;
+#X text 170 309 list:;
+#X text 270 309 pair: set value and shift \, calculate and output result.;
+#X text 130 334 2\.;
+#X text 170 334 int:;
+#X text 270 334 change shift \, calculate and output result.;
+#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 374 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 370 1\.;
-#X text 270 370 result output.;
+#X text 130 375 1\.;
+#X text 270 375 result output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

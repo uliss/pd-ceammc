@@ -33,71 +33,70 @@
 #X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 462 @id;
-#X text 270 462 (initonly) Get/Set OSC address id. If specified \,
-bind all properties to /ID/synth_ks/PROP_NAME osc address \, if empty
-bind to /synth_ks/PROP_NAME. Type: symbol.;
+#X text 270 462 (initonly) OSC address id. If specified \, bind all
+properties to /ID/synth_ks/PROP_NAME osc address \, if empty bind to
+/synth_ks/PROP_NAME. Type: symbol.;
 #X msg 130 519 @osc;
-#X text 270 519 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
+#X text 270 519 (initonly) OSC server name to listen. Type: symbol.;
 #X msg 130 549 @active;
-#X text 270 549 Turn on/off object dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 130 591 @cutoff;
-#X text 270 591 Get/Set cutoff coefficent (for low pass filter). Type:
-float. Default value: 1\. Range: 0.1\...1\.;
-#X msg 130 633 @freq;
-#X text 270 633 Get/Set frequency. Type: float. Units: 'Hz'. Default
-value: 130.8128\.;
-#X msg 130 675 @gain;
-#X text 270 675 Get/Set pluck gain. Type: float. Default value: 1\.
-Range: 0\...1\.;
-#X msg 130 717 @gate;
-#X text 270 717 Get/Set play trigger - 1: on \, 0: off. Type: float.
-Default value: 0\. Range: 0\...1\.;
-#X msg 130 759 @mode;
-#X text 270 759 Get/Set excitation mode: 0 - impulse \, 1 - pluck \,
-2 - strike. Type: int. Default value: 1\. Range: 0\...2\.;
-#X msg 130 801 @mute;
-#X text 270 801 Get/Set mute coefficient (0 for no mute and 1 for instant
-mute). Type: float. Default value: 0\. Range: 0\...1\.;
-#X msg 130 843 @pitch;
-#X text 270 843 Get/Set midi pitch. Type: float. Default value: 48\.
-Range: 36\...84\.;
-#X msg 130 885 @pos;
-#X text 270 885 Get/Set pluck position (1 is on the bridge). Type:
-float. Default value: 0.7\. Range: 0\...1\.;
-#X msg 130 927 @sharp;
-#X text 270 927 Get/Set pluck sharpness. Type: float. Default value:
-0.25\. Range: 0.01\...1\.;
-#X obj 20 979 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 984 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 270 549 On/off object dsp processing. Type: bool. Default value:
+1\.;
+#X msg 130 579 @cutoff;
+#X text 270 579 Cutoff coefficent (for low pass filter). Type: float.
+Default value: 1\. Range: 0.1\...1\.;
+#X msg 130 621 @freq;
+#X text 270 621 Frequency. Type: float. Units: 'Hz'. Default value:
+130.8128\.;
+#X msg 130 663 @gain;
+#X text 270 663 Pluck gain. Type: float. Default value: 1\. Range:
+0\...1\.;
+#X msg 130 693 @gate;
+#X text 270 693 Play trigger - 1: on \, 0: off. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 130 735 @mode;
+#X text 270 735 Excitation mode: 0 - impulse \, 1 - pluck \, 2 - strike.
+Type: int. Default value: 1\. Range: 0\...2\.;
+#X msg 130 777 @mute;
+#X text 270 777 Mute coefficient (0 for no mute and 1 for instant mute).
+Type: float. Default value: 0\. Range: 0\...1\.;
+#X msg 130 819 @pitch;
+#X text 270 819 Midi pitch. Type: float. Default value: 48\. Range:
+36\...84\.;
+#X msg 130 861 @pos;
+#X text 270 861 Pluck position (1 is on the bridge). Type: float. Default
+value: 0.7\. Range: 0\...1\.;
+#X msg 130 903 @sharp;
+#X text 270 903 Pluck sharpness. Type: float. Default value: 0.25\.
+Range: 0.01\...1\.;
+#X obj 20 955 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 960 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 985 note;
-#X text 270 985 note on/off message. Arguments are:;
-#X obj 280 1008 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1008 NOTE: midi note. Type: float.;
-#X obj 280 1031 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1031 VEL: velocity. Type: float. Range: 0\...127\.;
-#X obj 20 1066 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1071 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 961 note;
+#X text 270 961 note on/off message. Arguments are:;
+#X obj 280 984 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 984 NOTE: midi note. Type: float.;
+#X obj 280 1007 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1007 VEL: velocity. Type: float. Range: 0\...127\.;
+#X obj 20 1042 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1047 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1072 1\.;
-#X text 170 1072 list:;
-#X text 270 1072 NOTE VEL.;
-#X obj 20 1107 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1112 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1048 1\.;
+#X text 170 1048 list:;
+#X text 270 1048 NOTE VEL.;
+#X obj 20 1083 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1088 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1113 1\.;
-#X text 170 1113 ~;
-#X text 270 1113 synth output.;
+#X text 130 1089 1\.;
+#X text 170 1089 ~;
+#X text 270 1089 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1163 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1166 library: ceammc v0.9.8;
-#N canvas 10 1185 400 290 info 0;
+#X obj 1 1139 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1142 library: ceammc v0.9.8;
+#N canvas 10 1161 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -121,7 +120,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1185 pd info;
+#X restore 10 1161 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;

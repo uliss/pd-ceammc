@@ -23,43 +23,43 @@ rotates right.;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 348 1\.;
 #X text 170 348 int;
-#X obj 271 349 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 349 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 348 STEP: rotate step. Negative step changes rotation direction.
 Тип: int.;
-#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 398 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 403 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 401 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 406 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 399 @step;
-#X text 270 399 Получить/Установить rotate step. Negative value change
-rotation direction to opposite. Тип: int. Значение по умолчанию: 1\.;
-#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 471 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 404 @step;
+#X text 270 404 Rotate step. Negative value change rotation direction
+to opposite. Тип: int. Значение по умолчанию: 1\.;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 461 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 472 1\.;
-#X text 170 472 list:;
-#X text 270 472 input list.;
-#X text 170 497 data:;
-#X text 270 497 input mlist.;
-#X text 130 522 2\.;
-#X text 170 522 int:;
-#X text 270 522 rotation step.;
-#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 562 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 462 1\.;
+#X text 170 462 list:;
+#X text 270 462 input list.;
+#X text 170 487 data:;
+#X text 270 487 input mlist.;
+#X text 130 512 2\.;
+#X text 170 512 int:;
+#X text 270 512 rotation step.;
+#X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 552 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 563 1\.;
-#X text 270 563 rotated list.;
+#X text 130 553 1\.;
+#X text 270 553 rotated list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 613 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 616 библиотека: ceammc v0.9.8;
-#X text 539 628 смотрите также:;
-#X obj 660 628 list.choice;
-#N canvas 10 635 400 290 info 0;
+#X obj 1 603 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 606 библиотека: ceammc v0.9.8;
+#X text 539 618 смотрите также:;
+#X obj 660 618 list.choice;
+#N canvas 10 625 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -83,7 +83,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 635 pd info;
+#X restore 10 625 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 10 0 11 1;

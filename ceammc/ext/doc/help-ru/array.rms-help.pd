@@ -31,37 +31,37 @@ Root mean square @url https://en.wikipedia.org/wiki/Root_mean_square;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 389 1\.;
 #X text 170 389 symbol;
-#X obj 271 390 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 390 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 389 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 424 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 429 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 427 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 432 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 425 @array;
-#X text 270 425 Получить/Установить имя массива. Тип: symbol.;
-#X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 470 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 430 @array;
+#X text 270 430 Имя массива. Тип: symbol.;
+#X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 475 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 471 1\.;
-#X text 170 471 bang:;
-#X text 270 471 calculates and outputs RMS value.;
-#X obj 20 506 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 511 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 476 1\.;
+#X text 170 476 bang:;
+#X text 270 476 calculates and outputs RMS value.;
+#X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 516 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 512 1\.;
-#X text 270 512 RMS value.;
+#X text 130 517 1\.;
+#X text 270 517 RMS value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 562 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 565 библиотека: ceammc v0.9.8;
-#X text 458 577 смотрите также:;
-#X obj 579 577 array.mean;
-#X obj 667 577 array.sum2;
-#N canvas 10 584 400 290 info 0;
+#X obj 1 567 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 570 библиотека: ceammc v0.9.8;
+#X text 458 582 смотрите также:;
+#X obj 579 582 array.mean;
+#X obj 667 582 array.sum2;
+#N canvas 10 589 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -85,7 +85,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 584 pd info;
+#X restore 10 589 pd info;
 #X connect 7 0 9 0;
 #X connect 9 0 10 0;
 #X connect 11 0 17 0;

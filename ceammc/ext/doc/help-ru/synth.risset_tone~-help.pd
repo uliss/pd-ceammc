@@ -22,63 +22,62 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 376 1\.;
 #X text 170 376 float;
-#X obj 271 377 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 377 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 376 CENTROID: main frequency (MIDI pitch). Тип: float.
 Диапазон: 20…120;
-#X text 130 411 2\.;
-#X text 170 411 float;
-#X obj 271 412 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 411 RATE: glissanso speed. Тип: float. Диапазон: -2…2;
-#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 446 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 416 2\.;
+#X text 170 416 float;
+#X obj 268 417 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 416 RATE: glissanso speed. Тип: float. Диапазон: -2…2;
+#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 456 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 449 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 459 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 447 @id;
-#X text 270 447 (при инициализации) Получить/Установить идентификатор
-для OSC адреса. Если установлен \, все свойства объекта привязываются
-к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_risset_tone/ИМЯ_СВОЙСТВА \,
-в противном случае к /synth_risset_tone/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 130 550 @osc;
-#X text 270 550 (при инициализации) Получить/Установить имя OSC сервера.
-Тип: symbol.;
-#X msg 130 592 @active;
-#X text 270 592 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
-Значение по умолчанию: 1\.;
-#X msg 130 634 @centroid;
-#X text 270 634 Получить/Установить main frequency. Units: MIDI note.
-Тип: float. Значение по умолчанию: 60\. Диапазон: 20\...120\.;
-#X msg 130 676 @range;
-#X text 270 676 Получить/Установить glissando range in MIDI note units.
-Тип: float. Значение по умолчанию: 120\. Диапазон: 1\...120\.;
-#X msg 130 718 @rate;
-#X text 270 718 Получить/Установить glissanso speed. Тип: float. Значение
-по умолчанию: 0.01\. Диапазон: -2\...2\.;
-#X obj 20 770 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 775 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 457 @id;
+#X text 270 457 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/synth_risset_tone/ИМЯ_СВОЙСТВА \, в противном случае
+к /synth_risset_tone/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X msg 130 544 @osc;
+#X text 270 544 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X msg 130 574 @active;
+#X text 270 574 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X msg 130 616 @centroid;
+#X text 270 616 Main frequency. Units: MIDI note. Тип: float. Значение
+по умолчанию: 60\. Диапазон: 20\...120\.;
+#X msg 130 658 @range;
+#X text 270 658 Glissando range in MIDI note units. Тип: float. Значение
+по умолчанию: 120\. Диапазон: 1\...120\.;
+#X msg 130 700 @rate;
+#X text 270 700 Glissanso speed. Тип: float. Значение по умолчанию:
+0.01\. Диапазон: -2\...2\.;
+#X obj 20 752 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 757 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 776 reset;
-#X text 270 776 reset to start position.;
-#X obj 20 814 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 819 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 758 reset;
+#X text 270 758 reset to start position.;
+#X obj 20 796 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 801 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 820 1\.;
-#X text 170 820 bang:;
-#X text 270 820 reset to start position.;
-#X obj 20 855 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 860 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 802 1\.;
+#X text 170 802 bang:;
+#X text 270 802 reset to start position.;
+#X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 842 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 861 1\.;
-#X text 170 861 ~;
-#X text 270 861 output signal.;
+#X text 130 843 1\.;
+#X text 170 843 ~;
+#X text 270 843 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 911 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 914 библиотека: ceammc v0.9.8;
-#N canvas 10 933 400 290 info 0;
+#X obj 1 893 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 896 библиотека: ceammc v0.9.8;
+#N canvas 10 915 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -102,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 933 pd info;
+#X restore 10 915 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 8 0 11 0;

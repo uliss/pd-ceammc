@@ -25,43 +25,43 @@ from the current one. This prevents infinite loops;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 363 1\.;
 #X text 170 363 int;
-#X obj 271 364 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 364 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 363 N: number of synchronized values. Тип: int. Диапазон:
 2…8;
-#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 398 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 403 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 401 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 406 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 399 @n;
-#X text 270 399 (при инициализации) Получить/Установить number of synced
-values. Тип: int. Значение по умолчанию: 2\. Диапазон: 2\...8\.;
-#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 471 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 404 @n;
+#X text 270 404 (при инициализации) Number of synced values. Тип: int.
+Значение по умолчанию: 2\. Диапазон: 2\...8\.;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 461 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 472 1\.;
-#X text 270 472 first synchronized input.;
-#X text 130 497 ...;
-#X text 270 497 ... synchronized input.;
-#X text 130 522 n.;
-#X text 270 522 n-th synchronized input.;
-#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 562 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 462 1\.;
+#X text 270 462 first synchronized input.;
+#X text 130 487 ...;
+#X text 270 487 ... synchronized input.;
+#X text 130 512 n.;
+#X text 270 512 n-th synchronized input.;
+#X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 552 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 563 1\.;
-#X text 270 563 first synchronized output.;
-#X text 130 583 ...;
-#X text 270 583 ... synchronized output.;
-#X text 130 603 n.;
-#X text 270 603 n-th synchronized output.;
+#X text 130 553 1\.;
+#X text 270 553 first synchronized output.;
+#X text 130 573 ...;
+#X text 270 573 ... synchronized output.;
+#X text 130 593 n.;
+#X text 270 593 n-th synchronized output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 653 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 656 библиотека: ceammc v0.9.8;
-#N canvas 10 675 400 290 info 0;
+#X obj 1 643 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 646 библиотека: ceammc v0.9.8;
+#N canvas 10 665 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -85,7 +85,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 675 pd info;
+#X restore 10 665 pd info;
 #X connect 12 0 15 0;
 #X connect 15 0 12 0;
 #X connect 13 0 15 1;

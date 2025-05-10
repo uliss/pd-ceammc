@@ -26,67 +26,67 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 286 1\.;
 #X text 170 286 int;
-#X obj 271 287 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 287 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 286 INPUTS: number of matrix inputs (columns). Тип: int.
 Диапазон: 2…16;
-#X text 130 321 2\.;
-#X text 170 321 int;
-#X obj 271 322 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 321 OUTPUTS: number of matrix outputs (rows). Тип: int.
+#X text 130 326 2\.;
+#X text 170 326 int;
+#X obj 268 327 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 326 OUTPUTS: number of matrix outputs (rows). Тип: int.
 Диапазон: 2…16;
-#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 371 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 381 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 374 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 384 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 372 @inputs;
-#X text 270 372 (при инициализации) Получить/Установить number of matrix
-inputs. Тип: int. Значение по умолчанию: 2\. Диапазон: 2\...16\.;
-#X msg 130 429 @outputs;
-#X text 270 429 (при инициализации) Получить/Установить number of matrix
-outputs. Тип: int. Значение по умолчанию: 2\. Диапазон: 2\...16\.;
-#X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 501 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 382 @inputs;
+#X text 270 382 (при инициализации) Number of matrix inputs. Тип: int.
+Значение по умолчанию: 2\. Диапазон: 2\...16\.;
+#X msg 130 424 @outputs;
+#X text 270 424 (при инициализации) Number of matrix outputs. Тип:
+int. Значение по умолчанию: 2\. Диапазон: 2\...16\.;
+#X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 481 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 502 cell;
-#X text 270 502 on/off matrix cell. Note argument order: row \, cols.
+#X msg 130 482 cell;
+#X text 270 482 on/off matrix cell. Note argument order: row \, cols.
 Аргументы:;
-#X obj 280 540 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 540 ROW: row (output) index. Тип: int. Диапазон: 0…15\.;
-#X obj 280 563 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 563 COL: column (input) index. Тип: int. Диапазон: 0…15\.;
-#X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 603 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 280 520 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 520 ROW: row (output) index. Тип: int. Диапазон: 0…15\.;
+#X obj 280 543 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 543 COL: column (input) index. Тип: int. Диапазон: 0…15\.;
+#X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 583 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 604 1\.;
-#X text 170 604 ~;
-#X text 270 604 first input signal.;
-#X text 130 629 ...;
-#X text 170 629 ~;
-#X text 270 629 ... input signal.;
-#X text 130 654 n.;
-#X text 170 654 ~;
-#X text 270 654 n-th input signal.;
-#X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 694 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 584 1\.;
+#X text 170 584 ~;
+#X text 270 584 first input signal.;
+#X text 130 609 ...;
+#X text 170 609 ~;
+#X text 270 609 ... input signal.;
+#X text 130 634 n.;
+#X text 170 634 ~;
+#X text 270 634 n-th input signal.;
+#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 674 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 695 1\.;
+#X text 130 675 1\.;
+#X text 170 675 ~;
+#X text 270 675 first output signal.;
+#X text 130 695 ...;
 #X text 170 695 ~;
-#X text 270 695 first output signal.;
-#X text 130 715 ...;
+#X text 270 695 ... output signal.;
+#X text 130 715 n.;
 #X text 170 715 ~;
-#X text 270 715 ... output signal.;
-#X text 130 735 n.;
-#X text 170 735 ~;
-#X text 270 735 n-th output signal.;
+#X text 270 715 n-th output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 785 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 788 библиотека: ceammc v0.9.8;
-#N canvas 10 807 400 290 info 0;
+#X obj 1 765 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 768 библиотека: ceammc v0.9.8;
+#N canvas 10 787 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -110,7 +110,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 807 pd info;
+#X restore 10 787 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 8 1;
 #X connect 7 0 8 0;

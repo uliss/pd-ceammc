@@ -20,69 +20,68 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 347 1\.;
 #X text 170 347 float;
-#X obj 271 348 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 348 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 347 ANGLE: pedal angle. Type: float. Range: 0\...1;
-#X text 130 367 2\.;
-#X text 170 367 float;
-#X obj 271 368 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 367 SPEED(bpm): automatisation speed. Type: float. Range:
+#X text 130 372 2\.;
+#X text 170 372 float;
+#X obj 268 373 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 372 SPEED(bpm): automatisation speed. Type: float. Range:
 360\...780;
-#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 417 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 427 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 420 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 430 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 418 @id;
-#X text 270 418 (initonly) Get/Set OSC address id. If specified \,
-bind all properties to /ID/fx_wahwah/PROP_NAME osc address \, if empty
-bind to /fx_wahwah/PROP_NAME. Type: symbol.;
-#X msg 130 475 @osc;
-#X text 270 475 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
-#X msg 130 505 @active;
-#X text 270 505 Turn on/off object dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 130 547 @angle;
-#X text 270 547 Get/Set pedal angle. Type: float. Default value: 0.6\.
-Range: 0\...1\.;
-#X msg 130 589 @bypass;
-#X text 270 589 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0\.;
-#X msg 130 631 @drywet;
-#X text 270 631 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X msg 130 688 @speed;
-#X text 270 688 Get/Set automatisation speed. Type: float. Units: 'bpm'.
-Default value: 540\. Range: 360\...780\.;
-#X obj 20 740 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 745 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 428 @id;
+#X text 270 428 (initonly) OSC address id. If specified \, bind all
+properties to /ID/fx_wahwah/PROP_NAME osc address \, if empty bind
+to /fx_wahwah/PROP_NAME. Type: symbol.;
+#X msg 130 485 @osc;
+#X text 270 485 (initonly) OSC server name to listen. Type: symbol.;
+#X msg 130 515 @active;
+#X text 270 515 On/off object dsp processing. Type: bool. Default value:
+1\.;
+#X msg 130 545 @angle;
+#X text 270 545 Pedal angle. Type: float. Default value: 0.6\. Range:
+0\...1\.;
+#X msg 130 587 @bypass;
+#X text 270 587 Bypass flag. If true: bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 130 629 @drywet;
+#X text 270 629 Proportion of mix between the original (dry) and 'effected'
+(wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
+1\. Range: 0\...1\.;
+#X msg 130 686 @speed;
+#X text 270 686 Automatisation speed. Type: float. Units: 'bpm'. Default
+value: 540\. Range: 360\...780\.;
+#X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 743 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 746 reset;
-#X text 270 746 reset object.;
-#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 789 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 744 reset;
+#X text 270 744 reset object.;
+#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 787 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 790 1\.;
-#X text 170 790 ~;
-#X text 270 790 input signal.;
-#X text 130 815 2\.;
-#X text 170 815 float:;
-#X text 270 815 set angle.;
-#X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 855 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 788 1\.;
+#X text 170 788 ~;
+#X text 270 788 input signal.;
+#X text 130 813 2\.;
+#X text 170 813 float:;
+#X text 270 813 set angle.;
+#X obj 20 848 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 853 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 856 1\.;
-#X text 170 856 ~;
-#X text 270 856;
+#X text 130 854 1\.;
+#X text 170 854 ~;
+#X text 270 854;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 906 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 909 library: ceammc v0.9.8;
-#N canvas 10 928 400 290 info 0;
+#X obj 1 904 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 907 library: ceammc v0.9.8;
+#N canvas 10 926 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -106,7 +105,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 928 pd info;
+#X restore 10 926 pd info;
 #X connect 4 0 5 0;
 #X connect 6 0 7 0;
 #X connect 5 0 8 0;

@@ -24,112 +24,111 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 376 1\.;
 #X text 170 376 float;
-#X obj 271 377 cnv 1 155 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 377 cnv 1 155 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 376 TRANSPOSE(semitone): transposition in semitones. Type:
 float. Range: -24\...24;
-#X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 426 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 431 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 429 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 434 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 427 @detector;
-#X text 270 427 Get/Set control the type of transient detector used.
-'compound' a general-purpose transient detector which is likely to
-be good for most situations. 'precussive' detect percussive transients.
-'piano' use an onset detector with less of a bias toward percussive
-transients. This may give better results with certain material (e.g.
-relatively monophonic piano music). Type: symbol. Default value: compound.
-Allowed values: compound \, percussive \, soft.;
-#X msg 130 575 @formant;
-#X text 270 575 Get/Set control the handling of formant shape (spectral
-envelope) when pitch-shifting. If 'true' preserve the spectral envelope
-of the unshifted signal. This permits shifting the note frequency without
+#X msg 130 432 @detector;
+#X text 270 432 Control the type of transient detector used. 'compound'
+a general-purpose transient detector which is likely to be good for
+most situations. 'precussive' detect percussive transients. 'piano'
+use an onset detector with less of a bias toward percussive transients.
+This may give better results with certain material (e.g. relatively
+monophonic piano music). Type: symbol. Default value: compound. Allowed
+values: compound \, percussive \, soft.;
+#X msg 130 565 @formant;
+#X text 270 565 Control the handling of formant shape (spectral envelope)
+when pitch-shifting. If 'true' preserve the spectral envelope of the
+unshifted signal. This permits shifting the note frequency without
 so substantially affecting the perceived pitch profile of the voice
 or instrument. 'False' apply no special formant processing. The spectral
 envelope will be pitch shifted as normal. Type: bool. Default value:
 0\.;
-#X msg 130 723 @phase;
-#X text 270 723 Get/Set control the adjustment of component frequency
-phases from one analysis window to the next during non-transient segments.
+#X msg 130 698 @phase;
+#X text 270 698 Control the adjustment of component frequency phases
+from one analysis window to the next during non-transient segments.
 'False' adjust the phase in each frequency bin independently from its
 neighbours. This usually results in a slightly softer \, phasier sound.
 'True' adjust phases when stretching in such a way as to try to retain
 the continuity of phase relationships between adjacent frequency bins
 whose phases are behaving in similar ways. Type: bool. Default value:
 1\.;
-#X msg 130 886 @quality;
-#X text 270 886 Get/Set method used for pitch shifting. 'speed' may
-sound less clear than 'quality' \, especially for large pitch shifts.
-'quality' method has a CPU cost approximately proportional to the required
-frequency shift. 'consistency' gives greatest consistency when used
-to create small variations in pitch around the 1.0-ratio level. Unlike
-the previous two options \, this avoids discontinuities when moving
-across the 1.0 pitch scale in real-time. It also consumes more CPU
-than the others in the case where the pitch scale is exactly 1.0\.
-Type: symbol. Default value: speed. Allowed values: speed \, quality
-\, consistency.;
-#X msg 130 1079 @scale;
-#X text 270 1079 Get/Set transposition as ratio. Type: float. Default
-value: 1\. Range: 0.25\...4\.;
-#X msg 130 1121 @smooth;
-#X text 270 1121 Get/Set control the use of window-presum FFT and time-domain
+#X msg 130 846 @quality;
+#X text 270 846 Method used for pitch shifting. 'speed' may sound less
+clear than 'quality' \, especially for large pitch shifts. 'quality'
+method has a CPU cost approximately proportional to the required frequency
+shift. 'consistency' gives greatest consistency when used to create
+small variations in pitch around the 1.0-ratio level. Unlike the previous
+two options \, this avoids discontinuities when moving across the 1.0
+pitch scale in real-time. It also consumes more CPU than the others
+in the case where the pitch scale is exactly 1.0\. Type: symbol. Default
+value: speed. Allowed values: speed \, quality \, consistency.;
+#X msg 130 1039 @scale;
+#X text 270 1039 Transposition as ratio. Type: float. Default value:
+1\. Range: 0.25\...4\.;
+#X msg 130 1081 @smooth;
+#X text 270 1081 Control the use of window-presum FFT and time-domain
 smoothing. If true result in a softer sound with some audible artifacts
 around sharp transients \, but it may be appropriate for longer stretches
 of some instruments and can mix well with @window short. Type: bool.
 Default value: 0\.;
-#X msg 130 1224 @trans;
-#X text 270 1224 Get/Set control the component frequency phase-reset
-mechanism that may be used at transient points to provide clarity and
-realism to percussion and other significant transient sounds. 'crisp'
-reset component phases at the peak of each transient (the start of
-a significant note or percussive event). This usually results in a
-clear-sounding output \, but it is not always consistent \, and may
-cause interruptions in stable sounds present at the same time as transient
-events. The @detector property can be used to tune this to some extent.
-'mixed' reset component phases at the peak of each transient \, outside
-a frequency range typical of musical fundamental frequencies. The results
-may be more regular for mixed stable and percussive notes than 'crisp'
-\, but with a "phasier" sound. The balance may sound very good for
-certain types of music and fairly bad for others. 'smooth' do not reset
-component phases at any point. The results will be smoother and more
-regular but may be less clear than with either of the other @trans
-settings. Type: symbol. Default value: crisp. Allowed values: crisp
-\, mixed \, smooth.;
-#X msg 130 1538 @transpose;
-#X text 270 1538 Get/Set transposition in semitones. Type: float. Units:
-'semitone'. Default value: 0\. Range: -24\...24\.;
-#X msg 130 1580 @window;
-#X text 270 1580 Get/Set the window size. 'standard' is expected to
-produce better results than the other window options in most situations.
-'short' may result in crisper sound for audio that depends strongly
-on its timing qualities. 'long' is likely to result in a smoother sound
-at the expense of clarity and timing. Type: symbol. Default value:
-standard. Allowed values: standard \, short \, long.;
-#X msg 130 1713 @latency?;
-#X text 270 1713 (readonly) Get object latency. Type: float. Units:
-'samp'. Default value: 1024\.;
-#X obj 20 1765 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1770 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1184 @trans;
+#X text 270 1184 Control the component frequency phase-reset mechanism
+that may be used at transient points to provide clarity and realism
+to percussion and other significant transient sounds. 'crisp' reset
+component phases at the peak of each transient (the start of a significant
+note or percussive event). This usually results in a clear-sounding
+output \, but it is not always consistent \, and may cause interruptions
+in stable sounds present at the same time as transient events. The
+@detector property can be used to tune this to some extent. 'mixed'
+reset component phases at the peak of each transient \, outside a frequency
+range typical of musical fundamental frequencies. The results may be
+more regular for mixed stable and percussive notes than 'crisp' \,
+but with a "phasier" sound. The balance may sound very good for certain
+types of music and fairly bad for others. 'smooth' do not reset component
+phases at any point. The results will be smoother and more regular
+but may be less clear than with either of the other @trans settings.
+Type: symbol. Default value: crisp. Allowed values: crisp \, mixed
+\, smooth.;
+#X msg 130 1498 @transpose;
+#X text 270 1498 Transposition in semitones. Type: float. Units: 'semitone'.
+Default value: 0\. Range: -24\...24\.;
+#X msg 130 1540 @window;
+#X text 270 1540 The window size. 'standard' is expected to produce
+better results than the other window options in most situations. 'short'
+may result in crisper sound for audio that depends strongly on its
+timing qualities. 'long' is likely to result in a smoother sound at
+the expense of clarity and timing. Type: symbol. Default value: standard.
+Allowed values: standard \, short \, long.;
+#X msg 130 1658 @latency?;
+#X text 270 1658 (readonly) Object latency. Type: float. Units: 'samp'.
+Default value: 1024\.;
+#X obj 20 1710 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1715 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1771 1\.;
-#X text 170 1771 ~;
-#X text 270 1771 input signal.;
-#X text 130 1796 2\.;
-#X text 270 1796 pitch shift in semitones.;
-#X obj 20 1831 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1836 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1716 1\.;
+#X text 170 1716 ~;
+#X text 270 1716 input signal.;
+#X text 130 1741 2\.;
+#X text 270 1741 pitch shift in semitones.;
+#X obj 20 1776 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1781 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1837 1\.;
-#X text 170 1837 ~;
-#X text 270 1837 output signal.;
+#X text 130 1782 1\.;
+#X text 170 1782 ~;
+#X text 270 1782 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1887 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1890 library: ceammc v0.9.8;
-#N canvas 10 1909 400 290 info 0;
+#X obj 1 1832 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1835 library: ceammc v0.9.8;
+#N canvas 10 1854 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -153,7 +152,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1909 pd info;
+#X restore 10 1854 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;

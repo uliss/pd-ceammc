@@ -32,67 +32,66 @@ float values;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 542 1\.;
 #X text 170 542 symbol;
-#X obj 271 543 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 543 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 542 ID: preset id (should be unique in most use cases).
 Тип: symbol.;
-#X text 130 577 2\.;
-#X text 170 577 float;
-#X obj 271 578 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 577 INIT: preset initial value. Тип: float.;
-#X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 612 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 582 2\.;
+#X text 170 582 float;
+#X obj 268 583 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 582 INIT: preset initial value. Тип: float.;
+#X obj 20 617 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 622 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 615 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 625 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 613 @global;
-#X text 270 613 use global path like /ID. Значение по умолчанию: 0\.;
-#X msg 130 643 @id;
-#X text 270 643 (при инициализации) Получить/Установить preset id.
-Тип: symbol.;
-#X msg 130 685 @init;
-#X text 270 685 (при инициализации) Получить/Установить init float
-value. Тип: float. Значение по умолчанию: 0\.;
-#X msg 130 727 @subpatch;
-#X text 270 727 include subpatch name to path. Значение по умолчанию:
+#X msg 130 623 @global;
+#X text 270 623 Use global path like /ID. Значение по умолчанию: 0\.;
+#X msg 130 653 @id;
+#X text 270 653 (при инициализации) Preset id. Тип: symbol.;
+#X msg 130 683 @init;
+#X text 270 683 (при инициализации) Init float value. Тип: float. Значение
+по умолчанию: 0\.;
+#X msg 130 725 @subpatch;
+#X text 270 725 Include subpatch name to path. Значение по умолчанию:
 0\.;
-#X msg 130 757 @path?;
-#X text 270 757 (только чтение) Получить property OSC-like path that
-includes id \, abstraction name and may be subpatch name separated
-by slashes. Тип: symbol.;
-#X obj 20 824 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 829 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 755 @path?;
+#X text 270 755 (только чтение) Property OSC-like path that includes
+id \, abstraction name and may be subpatch name separated by slashes.
+Тип: symbol.;
+#X obj 20 822 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 827 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 830 clear;
-#X text 270 830 clear preset at specified index.;
-#X msg 130 858 interp;
-#X text 270 858 linearly interpolate between preset indexes and output.;
-#X msg 130 886 load;
-#X text 270 886 load preset value by specified index and output it.;
-#X msg 130 914 store;
-#X text 270 914 stores preset value at specified index.;
-#X obj 20 952 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 957 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 828 clear;
+#X text 270 828 clear preset at specified index.;
+#X msg 130 856 interp;
+#X text 270 856 linearly interpolate between preset indexes and output.;
+#X msg 130 884 load;
+#X text 270 884 load preset value by specified index and output it.;
+#X msg 130 912 store;
+#X text 270 912 stores preset value at specified index.;
+#X obj 20 950 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 955 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 958 1\.;
-#X text 170 958 float:;
-#X text 270 958 set preset value without output.;
-#X obj 20 993 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 998 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 956 1\.;
+#X text 170 956 float:;
+#X text 270 956 set preset value without output.;
+#X obj 20 991 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 996 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 999 1\.;
-#X text 270 999 preset float value.;
+#X text 130 997 1\.;
+#X text 270 997 preset float value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title preset @url ceammc.preset-help.pd;
-#X obj 1 1049 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1052 библиотека: ceammc v0.9.8;
-#X text 312 1064 смотрите также:;
-#X obj 433 1064 preset.storage;
-#X obj 550 1064 preset.symbol;
-#X obj 660 1064 preset.list;
-#N canvas 10 1071 400 290 info 0;
+#X obj 1 1047 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1050 библиотека: ceammc v0.9.8;
+#X text 312 1062 смотрите также:;
+#X obj 433 1062 preset.storage;
+#X obj 550 1062 preset.symbol;
+#X obj 660 1062 preset.list;
+#N canvas 10 1069 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -116,7 +115,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1071 pd info;
+#X restore 10 1069 pd info;
 #X connect 8 0 12 0;
 #X connect 9 0 12 0;
 #X connect 10 0 12 0;

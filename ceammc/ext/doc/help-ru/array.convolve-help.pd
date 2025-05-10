@@ -25,48 +25,47 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 372 1\.;
 #X text 170 372 symbol;
-#X obj 271 373 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 373 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 372 ARRAY: целевой массив. Тип: symbol.;
-#X text 130 392 2\.;
-#X text 170 392 symbol;
-#X obj 271 393 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 392 IR: массив с импульсным откликом. Тип: symbol.;
-#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 427 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 397 2\.;
+#X text 170 397 symbol;
+#X obj 268 398 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 397 IR: массив с импульсным откликом. Тип: symbol.;
+#X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 437 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 430 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 440 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 428 @array;
-#X text 270 428 Получить/Установить целевой массив. Тип: symbol.;
-#X msg 130 458 @ir;
-#X text 270 458 Получить/Установить массив с импульсным откликом. Тип:
-symbol.;
-#X msg 130 500 @norm;
-#X text 270 500 Получить/Установить нормализация импульсного отклика.
-Тип: bool. Значение по умолчанию: 0\.;
-#X obj 20 552 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 557 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 438 @array;
+#X text 270 438 Целевой массив. Тип: symbol.;
+#X msg 130 468 @ir;
+#X text 270 468 Массив с импульсным откликом. Тип: symbol.;
+#X msg 130 498 @norm;
+#X text 270 498 Нормализация импульсного отклика. Тип: bool. Значение
+по умолчанию: 0\.;
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 555 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 558 1\.;
-#X text 170 558 bang:;
-#X text 270 558 начинает процесс свертки.;
-#X text 130 583 2\.;
-#X text 170 583 symbol:;
-#X text 270 583 устанавливает имя массива.;
-#X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 623 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 556 1\.;
+#X text 170 556 bang:;
+#X text 270 556 начинает процесс свертки.;
+#X text 130 581 2\.;
+#X text 170 581 symbol:;
+#X text 270 581 устанавливает имя массива.;
+#X obj 20 616 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 621 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 624 1\.;
-#X text 170 624 bang:;
-#X text 270 624 при завершении свертки.;
+#X text 130 622 1\.;
+#X text 170 622 bang:;
+#X text 270 622 при завершении свертки.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 674 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 677 библиотека: ceammc v0.9.8;
-#N canvas 10 696 400 290 info 0;
+#X obj 1 672 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 675 библиотека: ceammc v0.9.8;
+#N canvas 10 694 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,6 +89,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 696 pd info;
+#X restore 10 694 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;

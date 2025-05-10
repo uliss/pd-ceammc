@@ -24,103 +24,102 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 405 1\.;
 #X text 170 405 float;
-#X obj 271 406 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 406 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 405 DECAY_LOW(sec): time to decay 60dB in low-frequency
 band. Type: float. Range: 1\...8;
-#X text 130 440 2\.;
-#X text 170 440 float;
-#X obj 271 441 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 440 DECAY_MID(sec): time to decay 60dB in mid-frequency
+#X text 130 445 2\.;
+#X text 170 445 float;
+#X obj 268 446 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 445 DECAY_MID(sec): time to decay 60dB in mid-frequency
 band. Type: float. Range: 1\...8;
-#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 490 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 500 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 503 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 491 @id;
-#X text 270 491 (initonly) Get/Set OSC address id. If specified \,
-bind all properties to /ID/fx_shimmer/PROP_NAME osc address \, if empty
-bind to /fx_shimmer/PROP_NAME. Type: symbol.;
-#X msg 130 548 @osc;
-#X text 270 548 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
-#X msg 130 578 @active;
-#X text 270 578 Turn on/off object dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 130 620 @bypass;
-#X text 270 620 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0\.;
-#X msg 130 662 @control;
-#X text 270 662 Get/Set envelope follower to pitch shifter influence
-coefficient. Type: float. Default value: 0.5\. Range: 0\...1\.;
-#X msg 130 719 @damp_hf;
-#X text 270 719 Get/Set Frequency (Hz) at which the high-frequency
-T60 is half the middle-band's T60\. Type: float. Units: 'Hz'. Default
-value: 6000\. Range: 1500\...47040\.;
-#X msg 130 776 @decay_low;
-#X text 270 776 Get/Set time (in seconds) to decay 60dB in low-frequency
-band. Type: float. Units: 'sec'. Default value: 3\. Range: 1\...8\.;
-#X msg 130 833 @decay_mid;
-#X text 270 833 Get/Set time (in seconds) to decay 60dB in mid-frequency
-band. Type: float. Units: 'sec'. Default value: 2\. Range: 1\...8\.;
-#X msg 130 890 @depth;
-#X text 270 890 Get/Set pitchshift modulation amplitude. Type: float.
-Default value: 0\. Range: 0\...1\.;
-#X msg 130 932 @drywet;
-#X text 270 932 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.5\. Range: 0\...1\.;
-#X msg 130 989 @envelope;
-#X text 270 989 Get/Set amplitude-envelope time-constant going down.
-Type: float. Units: 'sec'. Default value: 1\. Range: 0.1\...3\.;
-#X msg 130 1031 @freq_low;
-#X text 270 1031 Get/Set Crossover frequency (Hz) separating low and
-middle frequencies. Type: float. Units: 'Hz'. Default value: 200\.
-Range: 50\...1000\.;
-#X msg 130 1088 @mode;
-#X text 270 1088 Get/Set correlation between pitchshift. Type: int.
-Default value: 0\. Range: -3\...3\.;
-#X msg 130 1130 @ps_drywet;
-#X text 270 1130 Get/Set proportion of mix between original and pitchshift
+#X msg 130 501 @id;
+#X text 270 501 (initonly) OSC address id. If specified \, bind all
+properties to /ID/fx_shimmer/PROP_NAME osc address \, if empty bind
+to /fx_shimmer/PROP_NAME. Type: symbol.;
+#X msg 130 558 @osc;
+#X text 270 558 (initonly) OSC server name to listen. Type: symbol.;
+#X msg 130 588 @active;
+#X text 270 588 On/off object dsp processing. Type: bool. Default value:
+1\.;
+#X msg 130 618 @bypass;
+#X text 270 618 Bypass flag. If true: bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 130 660 @control;
+#X text 270 660 Envelope follower to pitch shifter influence coefficient.
+Type: float. Default value: 0.5\. Range: 0\...1\.;
+#X msg 130 702 @damp_hf;
+#X text 270 702 Frequency (Hz) at which the high-frequency T60 is half
+the middle-band's T60\. Type: float. Units: 'Hz'. Default value: 6000\.
+Range: 1500\...47040\.;
+#X msg 130 759 @decay_low;
+#X text 270 759 Time (in seconds) to decay 60dB in low-frequency band.
+Type: float. Units: 'sec'. Default value: 3\. Range: 1\...8\.;
+#X msg 130 816 @decay_mid;
+#X text 270 816 Time (in seconds) to decay 60dB in mid-frequency band.
+Type: float. Units: 'sec'. Default value: 2\. Range: 1\...8\.;
+#X msg 130 873 @depth;
+#X text 270 873 Pitchshift modulation amplitude. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 130 915 @drywet;
+#X text 270 915 Proportion of mix between the original (dry) and 'effected'
+(wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
+0.5\. Range: 0\...1\.;
+#X msg 130 972 @envelope;
+#X text 270 972 Amplitude-envelope time-constant going down. Type:
+float. Units: 'sec'. Default value: 1\. Range: 0.1\...3\.;
+#X msg 130 1014 @freq_low;
+#X text 270 1014 Crossover frequency (Hz) separating low and middle
+frequencies. Type: float. Units: 'Hz'. Default value: 200\. Range:
+50\...1000\.;
+#X msg 130 1071 @mode;
+#X text 270 1071 Correlation between pitchshift. Type: int. Default
+value: 0\. Range: -3\...3\.;
+#X msg 130 1113 @ps_drywet;
+#X text 270 1113 Proportion of mix between original and pitchshift
 signal in shimmer feedback. Type: float. Default value: 0.5\. Range:
 0\...1\.;
-#X msg 130 1187 @shift;
-#X text 270 1187 Get/Set frequency shifting. Type: float. Units: 'semitone'.
+#X msg 130 1170 @shift;
+#X text 270 1170 Frequency shifting. Type: float. Units: 'semitone'.
 Default value: 12\. Range: -12\...12\.;
-#X msg 130 1229 @speed;
-#X text 270 1229 Get/Set pitchshift modulation frequency. Type: float.
-Units: 'Hz'. Default value: 0.1\. Range: 0.1\...10\.;
-#X obj 20 1281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1286 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 1212 @speed;
+#X text 270 1212 Pitchshift modulation frequency. Type: float. Units:
+'Hz'. Default value: 0.1\. Range: 0.1\...10\.;
+#X obj 20 1264 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1269 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1287 reset;
-#X text 270 1287 reset to initial state.;
-#X obj 20 1325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1330 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1270 reset;
+#X text 270 1270 reset to initial state.;
+#X obj 20 1308 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1313 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1331 1\.;
-#X text 170 1331 ~;
-#X text 270 1331 input signal.;
-#X text 130 1356 2\.;
-#X text 170 1356 ~;
-#X text 270 1356 input signal.;
-#X obj 20 1391 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1396 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1314 1\.;
+#X text 170 1314 ~;
+#X text 270 1314 input signal.;
+#X text 130 1339 2\.;
+#X text 170 1339 ~;
+#X text 270 1339 input signal.;
+#X obj 20 1374 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1379 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1397 1\.;
-#X text 170 1397 ~;
-#X text 270 1397 output signal.;
-#X text 130 1417 2\.;
-#X text 170 1417 ~;
-#X text 270 1417 output signal.;
+#X text 130 1380 1\.;
+#X text 170 1380 ~;
+#X text 270 1380 output signal.;
+#X text 130 1400 2\.;
+#X text 170 1400 ~;
+#X text 270 1400 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1467 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1470 library: ceammc v0.9.8;
-#N canvas 10 1489 400 290 info 0;
+#X obj 1 1450 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1453 library: ceammc v0.9.8;
+#N canvas 10 1472 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -144,7 +143,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1489 pd info;
+#X restore 10 1472 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

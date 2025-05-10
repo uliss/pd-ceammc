@@ -27,58 +27,58 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 491 1\.;
 #X text 170 491 symbol;
-#X obj 271 492 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 492 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 491 FILENAME: initial MIDI filename. Тип: symbol.;
-#X obj 20 521 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 526 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 526 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 531 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 529 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 534 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 527 @filename;
-#X text 270 527 Получить/Установить current filename. Тип: symbol.;
-#X msg 130 557 @length_beat?;
-#X text 270 557 (только чтение) Получить file length in quarters. Тип:
-float. Значение по умолчанию: 0\.;
-#X msg 130 599 @length_sec?;
-#X text 270 599 (только чтение) Получить file length. Тип: float. Единицы:
-'sec'. Значение по умолчанию: 0\.;
-#X msg 130 641 @length_tick?;
-#X text 270 641 (только чтение) Получить file length in ticks. Тип:
-int. Значение по умолчанию: 0\.;
-#X msg 130 683 @tempo?;
-#X text 270 683 (только чтение) Получить midi tempo in ticks per quarter.
-Тип: int. Значение по умолчанию: 120\.;
-#X msg 130 725 @tracks?;
-#X text 270 725 (только чтение) Получить number of tracks. Тип: int.
-Значение по умолчанию: 1\.;
-#X obj 20 777 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 782 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 532 @filename;
+#X text 270 532 Current filename. Тип: symbol.;
+#X msg 130 562 @length_beat?;
+#X text 270 562 (только чтение) File length in quarters. Тип: float.
+Значение по умолчанию: 0\.;
+#X msg 130 604 @length_sec?;
+#X text 270 604 (только чтение) File length. Тип: float. Единицы: 'sec'.
+Значение по умолчанию: 0\.;
+#X msg 130 646 @length_tick?;
+#X text 270 646 (только чтение) File length in ticks. Тип: int. Значение
+по умолчанию: 0\.;
+#X msg 130 688 @tempo?;
+#X text 270 688 (только чтение) Midi tempo in ticks per quarter. Тип:
+int. Значение по умолчанию: 120\.;
+#X msg 130 730 @tracks?;
+#X text 270 730 (только чтение) Number of tracks. Тип: int. Значение
+по умолчанию: 1\.;
+#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 787 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 783 clear;
-#X text 270 783 removes all midi file content.;
-#X msg 130 811 read;
-#X text 270 811 read specified midi file. No output.;
-#X msg 130 839 write;
-#X text 270 839 write to specified midi file.;
-#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 882 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 788 clear;
+#X text 270 788 removes all midi file content.;
+#X msg 130 816 read;
+#X text 270 816 read specified midi file. No output.;
+#X msg 130 844 write;
+#X text 270 844 write to specified midi file.;
+#X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 887 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 883 1\.;
-#X text 170 883 bang:;
-#X text 270 883 output MidiFile data type.;
-#X obj 20 918 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 923 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 888 1\.;
+#X text 170 888 bang:;
+#X text 270 888 output MidiFile data type.;
+#X obj 20 923 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 928 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 924 1\.;
-#X text 270 924 MidiStream data type.;
+#X text 130 929 1\.;
+#X text 270 929 MidiStream data type.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 974 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 977 библиотека: ceammc v0.9.8;
-#N canvas 10 996 400 290 info 0;
+#X obj 1 979 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 982 библиотека: ceammc v0.9.8;
+#N canvas 10 1001 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -102,7 +102,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 996 pd info;
+#X restore 10 1001 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

@@ -15,48 +15,46 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 218 1\.;
 #X text 170 218 float;
-#X obj 271 219 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 219 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 218 DELAY(ms): exit delay time. Тип: float. Минимальное
 значение: 0\.;
-#X obj 20 263 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 268 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 271 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 276 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 269 @auto;
-#X text 270 269 Получить/Установить close automatically \, without
-incoming call. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 130 311 @delay;
-#X text 270 311 Получить/Установить exit PureData after specified delay
-time. Тип: float. Единицы: 'ms'. Значение по умолчанию: 0\. Минимальное
-значение: 0\.;
-#X msg 130 368 @rc;
-#X text 270 368 Получить/Установить exit code. Тип: int. Значение по
-умолчанию: 0\.;
-#X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 425 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 274 @auto;
+#X text 270 274 Close automatically \, without incoming call. Тип:
+bool. Значение по умолчанию: 0\.;
+#X msg 130 316 @delay;
+#X text 270 316 Exit PureData after specified delay time. Тип: float.
+Единицы: 'ms'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X msg 130 373 @rc;
+#X text 270 373 Exit code. Тип: int. Значение по умолчанию: 0\.;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 426 exit;
-#X text 270 426 exit PureData. Аргументы:;
-#X obj 280 449 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 449 [RC]: exit code \, if not specified @rc property used.
+#X msg 130 419 exit;
+#X text 270 419 exit PureData. Аргументы:;
+#X obj 280 442 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 442 [RC]: exit code \, if not specified @rc property used.
 Тип: int.;
-#X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 504 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 497 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 505 1\.;
-#X text 270 505 control input.;
-#X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 545 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 498 1\.;
+#X text 270 498 control input.;
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 538 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 586 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 589 библиотека: ceammc v0.9.8;
-#N canvas 10 608 400 290 info 0;
+#X obj 1 579 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 582 библиотека: ceammc v0.9.8;
+#N canvas 10 601 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -80,5 +78,5 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 608 pd info;
+#X restore 10 601 pd info;
 #X connect 4 0 6 0;

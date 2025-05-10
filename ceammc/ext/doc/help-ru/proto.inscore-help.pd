@@ -22,8 +22,8 @@
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 376 @scene;
-#X text 270 376 Получить/Установить scene id. Тип: int. Значение по
-умолчанию: 0\. Минимальное значение: 0\.;
+#X text 270 376 Scene id. Тип: int. Значение по умолчанию: 0\. Минимальное
+значение: 0\.;
 #X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 433 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

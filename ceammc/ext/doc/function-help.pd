@@ -24,30 +24,30 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 243 1\.;
 #X text 170 243 symbol;
-#X obj 271 244 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 244 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 243 NAME: function name \, should be unique. Type: symbol.;
-#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 278 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 283 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 281 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 286 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 279 @name;
-#X text 270 279 (initonly) Get/Set function name \, should be unique
-and non-empty. Type: symbol.;
-#X obj 20 331 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 336 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 284 @name;
+#X text 270 284 (initonly) Function name \, should be unique and non-empty.
+Type: symbol.;
+#X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 337 1\.;
-#X text 270 337 input values.;
-#X text 130 362 2\.;
-#X text 270 362 value from the side-chain.;
-#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 402 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 342 1\.;
+#X text 270 342 input values.;
+#X text 130 367 2\.;
+#X text 270 367 value from the side-chain.;
+#X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 407 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 403 1\.;
-#X text 270 403 result value.;
-#X text 130 423 2\.;
-#X text 270 423 value to the side-chain.;
+#X text 130 408 1\.;
+#X text 270 408 result value.;
+#X text 130 428 2\.;
+#X text 270 428 value to the side-chain.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

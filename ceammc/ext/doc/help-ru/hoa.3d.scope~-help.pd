@@ -41,106 +41,99 @@ field;
 #X obj 735 600 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 598 @gain;
-#X text 270 598 Получить/Установить gain. Тип: float. Значение по умолчанию:
-1\. Минимальное значение: 0\.;
+#X text 270 598 Gain. Тип: float. Значение по умолчанию: 1\. Минимальное
+значение: 0\.;
 #X msg 130 640 @order;
-#X text 270 640 Получить/Установить the order of decomposition. Тип:
-int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
+#X text 270 640 The order of decomposition. Тип: int. Значение по умолчанию:
+1\. Диапазон: 1\...63\.;
 #X msg 130 682 @refresh;
-#X text 270 682 Получить/Установить redraw time. Тип: int. Единицы:
-'ms'. Значение по умолчанию: 100\. Диапазон: 20\...1000\.;
+#X text 270 682 Redraw time. Тип: int. Единицы: 'ms'. Значение по умолчанию:
+100\. Диапазон: 20\...1000\.;
 #X msg 130 724 @view;
-#X text 270 724 Получить/Установить view rotation. Тип: list. Значение
-по умолчанию: 0 0 0\.;
-#X msg 130 766 @background_color;
-#X text 270 766 Получить/Установить element background color (list
-of red \, green \, blue values in 0-1 range). Тип: list. Значение по
-умолчанию: 0.93 0.93 0.93 1\.;
-#X msg 130 823 @border_color;
-#X text 270 823 Получить/Установить border color (list of red \, green
-\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6
-0.6 0.6 1\.;
-#X msg 130 880 @label_color;
-#X text 270 880 Получить/Установить label color in RGB format within
-0-1 range \, for example: 0.2 0.4 0.1\. Тип: list. Значение по умолчанию:
-0 0 0 1\.;
-#X msg 130 937 @nh_color;
-#X text 270 937 Получить/Установить negative harmonics color. Тип:
-list. Значение по умолчанию: 0 0 1 1\.;
-#X msg 130 979 @ph_color;
-#X text 270 979 Получить/Установить positive harmonics color. Тип:
-list. Значение по умолчанию: 1 0 0 1\.;
-#X msg 130 1021 @label;
-#X text 270 1021 Получить/Установить label text. Тип: symbol. Значение
-по умолчанию: (null).;
-#X msg 130 1063 @label_align;
-#X text 270 1063 Получить/Установить label horizontal align. Тип: symbol.
-Значение по умолчанию: left. Разрешённые значения: left \, center \,
-right.;
-#X msg 130 1120 @label_inner;
-#X text 270 1120 Получить/Установить label position (1 - inner \, 0
-- outer). Тип: bool. Значение по умолчанию: 0\.;
-#X msg 130 1162 @label_margins;
-#X text 270 1162 Получить/Установить label offset in pixels. Тип: list.
-Значение по умолчанию: 0 0\.;
-#X msg 130 1204 @label_side;
-#X text 270 1204 Получить/Установить label snap side. Тип: symbol.
-Значение по умолчанию: top. Разрешённые значения: left \, top \, right
-\, bottom.;
-#X msg 130 1261 @label_valign;
-#X text 270 1261 Получить/Установить label vertical align. Тип: symbol.
-Значение по умолчанию: top. Разрешённые значения: top \, center \,
-bottom.;
-#X msg 130 1318 @fontname;
-#X text 270 1318 Получить/Установить fontname. Тип: symbol. Значение
-по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
-Helvetica \, Monaco \, Times.;
-#X msg 130 1375 @fontsize;
-#X text 270 1375 Получить/Установить fontsize. Тип: int. Значение по
-умолчанию: 11\. Диапазон: 4\...100\.;
-#X msg 130 1417 @fontslant;
-#X text 270 1417 Получить/Установить font slant. Тип: symbol. Значение
-по умолчанию: roman. Разрешённые значения: roman \, italic.;
-#X msg 130 1459 @fontweight;
-#X text 270 1459 Получить/Установить font weight. Тип: symbol. Значение
-по умолчанию: normal. Разрешённые значения: normal \, bold.;
-#X msg 130 1501 @pinned;
-#X text 270 1501 Получить/Установить pin mode. if 1 - put element to
-the lowest level. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 130 1543 @size;
-#X text 270 1543 Получить/Установить element size (width \, height
-pair). Тип: list. Значение по умолчанию: 120 120\.;
-#X obj 20 1595 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1600 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X text 270 724 View rotation. Тип: list. Значение по умолчанию: 0
+0 0\.;
+#X msg 130 754 @background_color;
+#X text 270 754 Element background color (list of red \, green \, blue
+values in 0-1 range). Тип: list. Значение по умолчанию: 0.93 0.93 0.93
+1\.;
+#X msg 130 811 @border_color;
+#X text 270 811 Border color (list of red \, green \, blue values in
+0-1 range). Тип: list. Значение по умолчанию: 0.6 0.6 0.6 1\.;
+#X msg 130 868 @label_color;
+#X text 270 868 Label color in RGB format within 0-1 range \, for example:
+0.2 0.4 0.1\. Тип: list. Значение по умолчанию: 0 0 0 1\.;
+#X msg 130 925 @nh_color;
+#X text 270 925 Negative harmonics color. Тип: list. Значение по умолчанию:
+0 0 1 1\.;
+#X msg 130 967 @ph_color;
+#X text 270 967 Positive harmonics color. Тип: list. Значение по умолчанию:
+1 0 0 1\.;
+#X msg 130 1009 @label;
+#X text 270 1009 Label text. Тип: symbol. Значение по умолчанию: (null).;
+#X msg 130 1039 @label_align;
+#X text 270 1039 Label horizontal align. Тип: symbol. Значение по умолчанию:
+left. Разрешённые значения: left \, center \, right.;
+#X msg 130 1081 @label_inner;
+#X text 270 1081 Label position (1 - inner \, 0 - outer). Тип: bool.
+Значение по умолчанию: 0\.;
+#X msg 130 1123 @label_margins;
+#X text 270 1123 Label offset in pixels. Тип: list. Значение по умолчанию:
+0 0\.;
+#X msg 130 1165 @label_side;
+#X text 270 1165 Label snap side. Тип: symbol. Значение по умолчанию:
+top. Разрешённые значения: left \, top \, right \, bottom.;
+#X msg 130 1207 @label_valign;
+#X text 270 1207 Label vertical align. Тип: symbol. Значение по умолчанию:
+top. Разрешённые значения: top \, center \, bottom.;
+#X msg 130 1249 @fontname;
+#X text 270 1249 Fontname. Тип: symbol. Значение по умолчанию: Helvetica.
+Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X msg 130 1306 @fontsize;
+#X text 270 1306 Fontsize. Тип: int. Значение по умолчанию: 11\. Диапазон:
+4\...100\.;
+#X msg 130 1348 @fontslant;
+#X text 270 1348 Font slant. Тип: symbol. Значение по умолчанию: roman.
+Разрешённые значения: roman \, italic.;
+#X msg 130 1390 @fontweight;
+#X text 270 1390 Font weight. Тип: symbol. Значение по умолчанию: normal.
+Разрешённые значения: normal \, bold.;
+#X msg 130 1432 @pinned;
+#X text 270 1432 Pin mode. if 1 - put element to the lowest level.
+Тип: bool. Значение по умолчанию: 0\.;
+#X msg 130 1474 @size;
+#X text 270 1474 Element size (width \, height pair). Тип: list. Значение
+по умолчанию: 120 120\.;
+#X obj 20 1526 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1531 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1601 pos;
-#X text 270 1601 set UI element position. Аргументы:;
-#X obj 280 1624 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1624 X: top left x-coord. Тип: float.;
-#X obj 280 1647 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1647 Y: top right y-coord. Тип: float.;
-#X msg 130 1672 dump;
-#X text 270 1672 dumps all object info to Pd console window.;
-#X obj 20 1710 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1715 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1532 pos;
+#X text 270 1532 set UI element position. Аргументы:;
+#X obj 280 1555 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1555 X: top left x-coord. Тип: float.;
+#X obj 280 1578 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1578 Y: top right y-coord. Тип: float.;
+#X msg 130 1603 dump;
+#X text 270 1603 dumps all object info to Pd console window.;
+#X obj 20 1641 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1646 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1716 1\.;
-#X text 170 1716 ~;
-#X text 270 1716 first input harmonic.;
-#X text 130 1741 ...;
-#X text 170 1741 ~;
-#X text 270 1741 ... input harmonic.;
-#X text 130 1766 n.;
-#X text 170 1766 ~;
-#X text 270 1766 n-th input harmonic.;
+#X text 130 1647 1\.;
+#X text 170 1647 ~;
+#X text 270 1647 first input harmonic.;
+#X text 130 1672 ...;
+#X text 170 1672 ~;
+#X text 270 1672 ... input harmonic.;
+#X text 130 1697 n.;
+#X text 170 1697 ~;
+#X text 270 1697 n-th input harmonic.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1821 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1824 библиотека: ceammc v0.9.8;
-#N canvas 10 1843 400 290 info 0;
+#X obj 1 1752 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1755 библиотека: ceammc v0.9.8;
+#N canvas 10 1774 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -165,7 +158,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1843 pd info;
+#X restore 10 1774 pd info;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;
 #X connect 8 0 11 0;

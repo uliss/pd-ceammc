@@ -25,25 +25,25 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 243 1\.;
 #X text 170 243 float;
-#X obj 271 244 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 244 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 243 F: second number. Тип: float.;
-#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 278 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 283 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 279 1\.;
-#X text 170 279 float:;
-#X text 270 279 set first number \, calculate and output result.;
-#X text 170 304 list:;
-#X text 270 304 pair: set first and second numbers \, calculate and
+#X text 130 284 1\.;
+#X text 170 284 float:;
+#X text 270 284 set first number \, calculate and output result.;
+#X text 170 309 list:;
+#X text 270 309 pair: set first and second numbers \, calculate and
 output result.;
-#X text 130 344 2\.;
-#X text 170 344 float:;
-#X text 270 344 change second number \, calculate and output result.;
-#X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 384 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 349 2\.;
+#X text 170 349 float:;
+#X text 270 349 change second number \, calculate and output result.;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 389 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 385 1\.;
-#X text 270 385 result output: 1 if first number is less then second
+#X text 130 390 1\.;
+#X text 270 390 result output: 1 if first number is less then second
 \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

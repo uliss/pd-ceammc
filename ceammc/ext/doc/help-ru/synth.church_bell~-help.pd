@@ -26,65 +26,64 @@ from the bottom to the top of the bell;
 #X obj 735 746 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 744 @id;
-#X text 270 744 (при инициализации) Получить/Установить идентификатор
-для OSC адреса. Если установлен \, все свойства объекта привязываются
-к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_church_bell/ИМЯ_СВОЙСТВА \,
-в противном случае к /synth_church_bell/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 130 847 @osc;
-#X text 270 847 (при инициализации) Получить/Установить имя OSC сервера.
-Тип: symbol.;
-#X msg 130 889 @active;
-#X text 270 889 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
-Значение по умолчанию: 1\.;
-#X msg 130 931 @cutoff;
-#X text 270 931 Получить/Установить cutoff coefficent. Тип: float.
-Единицы: 'Hz'. Значение по умолчанию: 6500\. Диапазон: 20\...20000\.;
-#X msg 130 973 @decay_ratio;
-#X text 270 973 Получить/Установить decay ratio. Тип: float. Значение
-по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 130 1015 @decay_slope;
-#X text 270 1015 Получить/Установить decay slope. Тип: float. Значение
-по умолчанию: 2.5\. Диапазон: 0\...10\.;
-#X msg 130 1057 @gain;
-#X text 270 1057 Получить/Установить pluck gain. Тип: float. Значение
-по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 130 1099 @gate;
-#X text 270 1099 Получить/Установить play trigger - 1: on \, 0: off.
-Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 130 1141 @pos;
-#X text 270 1141 Получить/Установить strike position (0 is on the bottom).
-Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...6\.;
-#X msg 130 1183 @sharp;
-#X text 270 1183 Получить/Установить strike sharpness. Тип: float.
-Значение по умолчанию: 0.5\. Диапазон: 0.01\...5\.;
-#X msg 130 1225 @t60;
-#X text 270 1225 Получить/Установить time to decay to -60db level.
-Тип: float. Единицы: 'sec'. Значение по умолчанию: 20\. Диапазон: 0.1\...30\.;
-#X obj 20 1292 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1297 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X text 270 744 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/synth_church_bell/ИМЯ_СВОЙСТВА \, в противном случае
+к /synth_church_bell/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X msg 130 831 @osc;
+#X text 270 831 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X msg 130 861 @active;
+#X text 270 861 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X msg 130 903 @cutoff;
+#X text 270 903 Cutoff coefficent. Тип: float. Единицы: 'Hz'. Значение
+по умолчанию: 6500\. Диапазон: 20\...20000\.;
+#X msg 130 945 @decay_ratio;
+#X text 270 945 Decay ratio. Тип: float. Значение по умолчанию: 1\.
+Диапазон: 0\...1\.;
+#X msg 130 987 @decay_slope;
+#X text 270 987 Decay slope. Тип: float. Значение по умолчанию: 2.5\.
+Диапазон: 0\...10\.;
+#X msg 130 1029 @gain;
+#X text 270 1029 Pluck gain. Тип: float. Значение по умолчанию: 1\.
+Диапазон: 0\...1\.;
+#X msg 130 1071 @gate;
+#X text 270 1071 Play trigger - 1: on \, 0: off. Тип: float. Значение
+по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 130 1113 @pos;
+#X text 270 1113 Strike position (0 is on the bottom). Тип: int. Значение
+по умолчанию: 0\. Диапазон: 0\...6\.;
+#X msg 130 1155 @sharp;
+#X text 270 1155 Strike sharpness. Тип: float. Значение по умолчанию:
+0.5\. Диапазон: 0.01\...5\.;
+#X msg 130 1197 @t60;
+#X text 270 1197 Time to decay to -60db level. Тип: float. Единицы:
+'sec'. Значение по умолчанию: 20\. Диапазон: 0.1\...30\.;
+#X obj 20 1249 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1254 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1298 reset;
-#X text 270 1298 reset synth.;
-#X obj 20 1336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1341 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1255 reset;
+#X text 270 1255 reset synth.;
+#X obj 20 1293 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1298 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1342 1\.;
-#X text 170 1342 bang:;
-#X text 270 1342 play.;
-#X obj 20 1377 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1382 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1299 1\.;
+#X text 170 1299 bang:;
+#X text 270 1299 play.;
+#X obj 20 1334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1339 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1383 1\.;
-#X text 170 1383 ~;
-#X text 270 1383 synth output.;
+#X text 130 1340 1\.;
+#X text 170 1340 ~;
+#X text 270 1340 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1433 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1436 библиотека: ceammc v0.9.8;
-#N canvas 10 1455 400 290 info 0;
+#X obj 1 1390 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1393 библиотека: ceammc v0.9.8;
+#N canvas 10 1412 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -108,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1455 pd info;
+#X restore 10 1412 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

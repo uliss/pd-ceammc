@@ -24,48 +24,47 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 376 1\.;
 #X text 170 376 int;
-#X obj 271 377 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 377 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 376 SEED: init random seed. Тип: int.;
-#X text 130 396 2\.;
-#X text 170 396 list;
-#X obj 271 397 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 396 PROPS: properties names. Тип: list.;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 431 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 401 2\.;
+#X text 170 401 list;
+#X obj 268 402 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 401 PROPS: properties names. Тип: list.;
+#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 441 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 434 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 444 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 432 @seed;
-#X text 270 432 Получить/Установить random seed. Тип: int. Значение
-по умолчанию: 0\.;
-#X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 489 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 442 @seed;
+#X text 270 442 Random seed. Тип: int. Значение по умолчанию: 0\.;
+#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 487 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 490 1\.;
-#X text 270 490 first specified property.;
-#X text 130 515 ...;
-#X text 270 515 ... specified property.;
-#X text 130 540 n.;
-#X text 270 540 n-th specified property.;
-#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 580 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 488 1\.;
+#X text 270 488 first specified property.;
+#X text 130 513 ...;
+#X text 270 513 ... specified property.;
+#X text 130 538 n.;
+#X text 270 538 n-th specified property.;
+#X obj 20 573 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 578 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 581 1\.;
-#X text 270 581 connect to target object.;
-#X text 130 601 2\.;
-#X text 270 601 atom: new random value.;
+#X text 130 579 1\.;
+#X text 270 579 connect to target object.;
+#X text 130 599 2\.;
+#X text 270 599 atom: new random value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
-#X obj 1 651 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 654 библиотека: ceammc v0.9.8;
-#X text 392 666 смотрите также:;
-#X obj 513 666 prop;
-#X obj 558 666 prop.declare;
-#X obj 660 666 patch.props;
-#N canvas 10 673 400 290 info 0;
+#X obj 1 649 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 652 библиотека: ceammc v0.9.8;
+#X text 392 664 смотрите также:;
+#X obj 513 664 prop;
+#X obj 558 664 prop.declare;
+#X obj 660 664 patch.props;
+#N canvas 10 671 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 673 pd info;
+#X restore 10 671 pd info;
 #X connect 4 0 5 0;
 #X connect 5 1 7 0;
 #X connect 5 0 8 0;

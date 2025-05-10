@@ -19,82 +19,81 @@
 #X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 434 @id;
-#X text 270 434 (initonly) Get/Set OSC address id. If specified \,
-bind all properties to /ID/synth_piano/PROP_NAME osc address \, if
-empty bind to /synth_piano/PROP_NAME. Type: symbol.;
+#X text 270 434 (initonly) OSC address id. If specified \, bind all
+properties to /ID/synth_piano/PROP_NAME osc address \, if empty bind
+to /synth_piano/PROP_NAME. Type: symbol.;
 #X msg 130 491 @osc;
-#X text 270 491 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
+#X text 270 491 (initonly) OSC server name to listen. Type: symbol.;
 #X msg 130 521 @active;
-#X text 270 521 Turn on/off object dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 130 563 @brightness;
-#X text 270 563 Get/Set brightness. Type: float. Default value: 0\.
+#X text 270 521 On/off object dsp processing. Type: bool. Default value:
+1\.;
+#X msg 130 551 @brightness;
+#X text 270 551 Brightness. Type: float. Default value: 0\. Range:
+0\...1\.;
+#X msg 130 581 @detuning;
+#X text 270 581 Detuning factor. Type: float. Default value: 0.1\.
 Range: 0\...1\.;
-#X msg 130 605 @detuning;
-#X text 270 605 Get/Set detuning factor. Type: float. Default value:
-0.1\. Range: 0\...1\.;
-#X msg 130 647 @freq;
-#X text 270 647 Get/Set frequency. Type: float. Units: 'Hz'. Default
-value: 130.8128\.;
-#X msg 130 689 @gate;
-#X text 270 689 Get/Set play trigger - 1: on \, 0: off. Type: float.
-Default value: 0\. Range: 0\...1\.;
-#X msg 130 731 @hammer_hardness;
-#X text 270 731 Get/Set hammer hardness. Type: float. Default value:
-0.1\. Range: 0\...1\.;
-#X msg 130 773 @pan;
-#X text 270 773 Get/Set pan angle. Type: float. Default value: 0.6\.
+#X msg 130 623 @freq;
+#X text 270 623 Frequency. Type: float. Units: 'Hz'. Default value:
+130.8128\.;
+#X msg 130 665 @gate;
+#X text 270 665 Play trigger - 1: on \, 0: off. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 130 707 @hammer_hardness;
+#X text 270 707 Hammer hardness. Type: float. Default value: 0.1\.
 Range: 0\...1\.;
-#X msg 130 815 @pitch;
-#X text 270 815 Get/Set midi pitch. Type: float. Default value: 48\.
-Range: 21\...108\.;
-#X msg 130 857 @reverb_gain;
-#X text 270 857 Get/Set reverb gain. Type: float. Default value: 0.137\.
+#X msg 130 749 @pan;
+#X text 270 749 Pan angle. Type: float. Default value: 0.6\. Range:
+0\...1\.;
+#X msg 130 779 @pitch;
+#X text 270 779 Midi pitch. Type: float. Default value: 48\. Range:
+21\...108\.;
+#X msg 130 821 @reverb_gain;
+#X text 270 821 Reverb gain. Type: float. Default value: 0.137\. Range:
+0\...1\.;
+#X msg 130 863 @room_size;
+#X text 270 863 Reverb room size. Type: float. Default value: 0.36\.
+Range: 0.005\...1\.;
+#X msg 130 905 @stiffness;
+#X text 270 905 Stiffness factor. Type: float. Default value: 0.28\.
 Range: 0\...1\.;
-#X msg 130 899 @room_size;
-#X text 270 899 Get/Set reverb room size. Type: float. Default value:
-0.36\. Range: 0.005\...1\.;
-#X msg 130 941 @stiffness;
-#X text 270 941 Get/Set stiffness factor. Type: float. Default value:
-0.28\. Range: 0\...1\.;
-#X msg 130 983 @width;
-#X text 270 983 Get/Set spatialization width. Type: float. Default
-value: 0.5\. Range: 0\...1\.;
-#X obj 20 1035 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1040 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 947 @width;
+#X text 270 947 Spatialization width. Type: float. Default value: 0.5\.
+Range: 0\...1\.;
+#X obj 20 999 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1004 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1041 note;
-#X text 270 1041 note on/off message. Arguments are:;
-#X obj 280 1064 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1064 NOTE: midi note. Type: float.;
-#X obj 280 1087 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1087 VEL: velocity. Type: float. Range: 0\...127\.;
-#X msg 130 1112 reset;
-#X text 270 1112 reset synth.;
-#X obj 20 1150 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1155 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1005 note;
+#X text 270 1005 note on/off message. Arguments are:;
+#X obj 280 1028 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1028 NOTE: midi note. Type: float.;
+#X obj 280 1051 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1051 VEL: velocity. Type: float. Range: 0\...127\.;
+#X msg 130 1076 reset;
+#X text 270 1076 reset synth.;
+#X obj 20 1114 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1119 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1156 1\.;
-#X text 170 1156 list:;
-#X text 270 1156 NOTE VEL.;
-#X obj 20 1191 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1196 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1120 1\.;
+#X text 170 1120 list:;
+#X text 270 1120 NOTE VEL.;
+#X obj 20 1155 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1160 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1197 1\.;
-#X text 170 1197 ~;
-#X text 270 1197 left output.;
-#X text 130 1217 2\.;
-#X text 170 1217 ~;
-#X text 270 1217 right output.;
+#X text 130 1161 1\.;
+#X text 170 1161 ~;
+#X text 270 1161 left output.;
+#X text 130 1181 2\.;
+#X text 170 1181 ~;
+#X text 270 1181 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1267 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1270 library: ceammc v0.9.8;
-#N canvas 10 1289 400 290 info 0;
+#X obj 1 1231 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1234 library: ceammc v0.9.8;
+#N canvas 10 1253 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -118,7 +117,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1289 pd info;
+#X restore 10 1253 pd info;
 #X connect 4 0 5 1;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

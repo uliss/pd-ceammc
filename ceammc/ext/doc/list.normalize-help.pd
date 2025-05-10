@@ -26,8 +26,8 @@ lineary;
 #X obj 735 453 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 451 @by;
-#X text 270 451 Get/Set normalization mode. Type: symbol. Default value:
-sum. Allowed values: sum \, range.;
+#X text 270 451 Normalization mode. Type: symbol. Default value: sum.
+Allowed values: sum \, range.;
 #X msg 130 493 @range;
 #X text 270 493 Alias to @by range.;
 #X msg 130 523 @sum;

@@ -28,49 +28,49 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 419 1\.;
 #X text 170 419 float;
-#X obj 271 420 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 420 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 419 FREQ(Hz): center frequency. Тип: float. Диапазон: 20…22050;
-#X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 454 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 459 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 457 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 462 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 455 @rad;
-#X text 270 455 use angular frequency.;
-#X msg 130 485 @freq;
-#X text 270 485 Получить/Установить center frequency. Тип: float. Единицы:
-'Hz'. Значение по умолчанию: 1000\. Диапазон: 20\...22050\.;
-#X msg 130 527 @q;
-#X text 270 527 Получить/Установить quality factor: @freq/BANDWIDTH.
-Тип: float. Значение по умолчанию: 0.7071\. Диапазон: 0.01\...100\.;
-#X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 599 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 460 @rad;
+#X text 270 460 Use angular frequency.;
+#X msg 130 490 @freq;
+#X text 270 490 Center frequency. Тип: float. Единицы: 'Hz'. Значение
+по умолчанию: 1000\. Диапазон: 20\...22050\.;
+#X msg 130 532 @q;
+#X text 270 532 Quality factor: @freq/BANDWIDTH. Тип: float. Значение
+по умолчанию: 0.7071\. Диапазон: 0.01\...100\.;
+#X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 589 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 600 bw;
-#X text 270 600 set bandwidth in octaves. Аргументы:;
-#X obj 280 623 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 623 OCT: bandwidth. Тип: float.;
-#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 663 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 590 bw;
+#X text 270 590 set bandwidth in octaves. Аргументы:;
+#X obj 280 613 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 613 OCT: bandwidth. Тип: float.;
+#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 653 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 664 1\.;
-#X text 170 664 float:;
-#X text 270 664 filter frequency.;
-#X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 704 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 654 1\.;
+#X text 170 654 float:;
+#X text 270 654 filter frequency.;
+#X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 694 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 705 1\.;
-#X text 270 705 list: b0 b1 b2 a1 a2\.;
+#X text 130 695 1\.;
+#X text 270 695 list: b0 b1 b2 a1 a2\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 755 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 758 библиотека: ceammc v0.9.8;
-#X text 554 770 смотрите также:;
-#X obj 675 770 flt.c_lpf;
-#N canvas 10 777 400 290 info 0;
+#X obj 1 745 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 748 библиотека: ceammc v0.9.8;
+#X text 554 760 смотрите также:;
+#X obj 675 760 flt.c_lpf;
+#N canvas 10 767 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -94,7 +94,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 777 pd info;
+#X restore 10 767 pd info;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

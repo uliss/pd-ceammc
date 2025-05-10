@@ -35,108 +35,105 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 429 1\.;
 #X text 170 429 float;
-#X obj 271 430 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 430 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 429 RATIO: compression ratio (1 = no compression \, >1
 means compression). Type: float. Range: 1\...16;
-#X text 130 464 2\.;
-#X text 170 464 float;
-#X obj 271 465 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 464 THRESHOLD(db): level threshold above which compression
+#X text 130 469 2\.;
+#X text 170 469 float;
+#X obj 268 470 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 469 THRESHOLD(db): level threshold above which compression
 kicks in. Type: float. Range: -90\...0;
-#X text 130 499 3\.;
-#X text 170 499 float;
-#X obj 271 500 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 499 ATTACK(ms): attack time - the time that elapses between
+#X text 130 509 3\.;
+#X text 170 509 float;
+#X obj 268 510 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 509 ATTACK(ms): attack time - the time that elapses between
 exceeding the threshold and when the compression ratio is reached.
 Type: float. Range: 0.1\...100;
-#X text 130 549 4\.;
-#X text 170 549 float;
-#X obj 271 550 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 549 RELEASE(ms): release time - the time of decay that
+#X text 130 564 4\.;
+#X text 170 564 float;
+#X obj 268 565 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 564 RELEASE(ms): release time - the time of decay that
 elapses between when the input signal level drops below the threshold
 and when the compressor stops attenuating the signal. Type: float.
 Range: 1\...500;
-#X obj 20 639 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 644 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 649 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 647 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 652 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 645 @id;
-#X text 270 645 (initonly) Get/Set OSC address id. If specified \,
-bind all properties to /ID/dyn_comp2/PROP_NAME osc address \, if empty
-bind to /dyn_comp2/PROP_NAME. Type: symbol.;
-#X msg 130 702 @osc;
-#X text 270 702 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
-#X msg 130 732 @active;
-#X text 270 732 Turn on/off object dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 130 774 @attack;
-#X text 270 774 Get/Set time constant when level & compression going
-up. Type: float. Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
-#X msg 130 831 @bypass;
-#X text 270 831 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0\.;
-#X msg 130 873 @gain;
-#X text 270 873 Get/Set make up gain: applied to the signal after the
-compression takes place. Type: float. Units: 'db'. Default value: 0\.
-Range: -18\...18\.;
-#X msg 130 930 @ratio;
-#X text 270 930 Get/Set compression ratio (1 = no compression \, >1
-means compression). Type: float. Default value: 1\. Range: 1\...16\.;
-#X msg 130 987 @refresh;
-#X text 270 987 Get/Set compression level output time interval. If
-0 - no output. Type: int. Units: 'ms'. Default value: 100\. Range:
-0\...1000\.;
-#X msg 130 1044 @release;
-#X text 270 1044 Get/Set release time = time constant coming out of
-compression. Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
-#X msg 130 1101 @threshold;
-#X text 270 1101 Get/Set level threshold above which compression kicks
-in. Type: float. Units: 'db'. Default value: -10\. Range: -90\...0\.;
-#X msg 130 1158 @level?;
-#X text 270 1158 (readonly) Get current level of compression. Type:
-float. Default value: 0\. Range: 0\...1\.;
-#X obj 20 1210 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1215 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 650 @id;
+#X text 270 650 (initonly) OSC address id. If specified \, bind all
+properties to /ID/dyn_comp2/PROP_NAME osc address \, if empty bind
+to /dyn_comp2/PROP_NAME. Type: symbol.;
+#X msg 130 707 @osc;
+#X text 270 707 (initonly) OSC server name to listen. Type: symbol.;
+#X msg 130 737 @active;
+#X text 270 737 On/off object dsp processing. Type: bool. Default value:
+1\.;
+#X msg 130 767 @attack;
+#X text 270 767 Time constant when level & compression going up. Type:
+float. Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
+#X msg 130 824 @bypass;
+#X text 270 824 Bypass flag. If true: bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 130 866 @gain;
+#X text 270 866 Make up gain: applied to the signal after the compression
+takes place. Type: float. Units: 'db'. Default value: 0\. Range: -18\...18\.;
+#X msg 130 923 @ratio;
+#X text 270 923 Compression ratio (1 = no compression \, >1 means compression).
+Type: float. Default value: 1\. Range: 1\...16\.;
+#X msg 130 980 @refresh;
+#X text 270 980 Compression level output time interval. If 0 - no output.
+Type: int. Units: 'ms'. Default value: 100\. Range: 0\...1000\.;
+#X msg 130 1037 @release;
+#X text 270 1037 Release time = time constant coming out of compression.
+Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
+#X msg 130 1094 @threshold;
+#X text 270 1094 Level threshold above which compression kicks in.
+Type: float. Units: 'db'. Default value: -10\. Range: -90\...0\.;
+#X msg 130 1151 @level?;
+#X text 270 1151 (readonly) Current level of compression. Type: float.
+Default value: 0\. Range: 0\...1\.;
+#X obj 20 1203 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1208 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1216 preset;
-#X text 270 1216 choose predefined preset. Arguments are:;
-#X obj 280 1239 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1239 PRESET: name. Type: symbol. Allowed values: vocal
+#X msg 130 1209 preset;
+#X text 270 1209 choose predefined preset. Arguments are:;
+#X obj 280 1232 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1232 PRESET: name. Type: symbol. Allowed values: vocal
 \, drums \, bass \, strings.;
-#X msg 130 1279 reset;
-#X text 270 1279 reset to initial state.;
-#X obj 20 1317 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1322 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1272 reset;
+#X text 270 1272 reset to initial state.;
+#X obj 20 1310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1315 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1323 1\.;
-#X text 170 1323 ~;
-#X text 270 1323 left input signal.;
-#X text 130 1348 2\.;
-#X text 170 1348 ~;
-#X text 270 1348 right input signal.;
-#X obj 20 1383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1388 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1316 1\.;
+#X text 170 1316 ~;
+#X text 270 1316 left input signal.;
+#X text 130 1341 2\.;
+#X text 170 1341 ~;
+#X text 270 1341 right input signal.;
+#X obj 20 1376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1381 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1389 1\.;
-#X text 170 1389 ~;
-#X text 270 1389 left output signal.;
-#X text 130 1409 2\.;
-#X text 170 1409 ~;
-#X text 270 1409 right output signal.;
-#X text 130 1429 3\.;
-#X text 270 1429 float: output current compression level in [0\..1].;
+#X text 130 1382 1\.;
+#X text 170 1382 ~;
+#X text 270 1382 left output signal.;
+#X text 130 1402 2\.;
+#X text 170 1402 ~;
+#X text 270 1402 right output signal.;
+#X text 130 1422 3\.;
+#X text 270 1422 float: output current compression level in [0\..1].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 1479 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1482 library: ceammc v0.9.8;
-#X text 598 1494 see also:;
-#X obj 673 1494 dyn.comp~;
-#N canvas 10 1501 400 290 info 0;
+#X obj 1 1472 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1475 library: ceammc v0.9.8;
+#X text 598 1487 see also:;
+#X obj 673 1487 dyn.comp~;
+#N canvas 10 1494 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -160,7 +157,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1501 pd info;
+#X restore 10 1494 pd info;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;
 #X connect 9 0 11 0;

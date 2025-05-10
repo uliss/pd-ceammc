@@ -32,58 +32,58 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 534 1\.;
 #X text 170 534 symbol;
-#X obj 271 535 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 535 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 534 ARRAY: имя массива. Тип: symbol.;
-#X text 130 554 2\.;
-#X text 170 554 int;
-#X obj 271 555 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 554 BINS: количество бинов. Тип: int. Диапазон: 2…1000;
-#X text 130 574 3\.;
-#X text 170 574 float;
-#X obj 271 575 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 574 MIN: минимальное значение. Тип: float.;
-#X text 130 594 4\.;
-#X text 170 594 float;
-#X obj 271 595 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 594 MAX: максимальное значение. Тип: float.;
-#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 629 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 559 2\.;
+#X text 170 559 int;
+#X obj 268 560 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 559 BINS: количество бинов. Тип: int. Диапазон: 2…1000;
+#X text 130 584 3\.;
+#X text 170 584 float;
+#X obj 268 585 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 584 MIN: минимальное значение. Тип: float.;
+#X text 130 609 4\.;
+#X text 170 609 float;
+#X obj 268 610 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 609 MAX: максимальное значение. Тип: float.;
+#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 649 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 632 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 652 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 630 @array;
-#X text 270 630 Получить/Установить имя массива. Тип: symbol.;
-#X msg 130 660 @bins;
-#X text 270 660 Получить/Установить количество бинов. Тип: int. Значение
-по умолчанию: 100\. Диапазон: 2\...1000\.;
-#X msg 130 702 @max;
-#X text 270 702 Получить/Установить максимальное значение. Тип: float.
-Значение по умолчанию: 1\.;
-#X msg 130 744 @min;
-#X text 270 744 Получить/Установить минимальное значение. Тип: float.
-Значение по умолчанию: -1\.;
-#X obj 20 796 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 801 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 650 @array;
+#X text 270 650 Имя массива. Тип: symbol.;
+#X msg 130 680 @bins;
+#X text 270 680 Количество бинов. Тип: int. Значение по умолчанию:
+100\. Диапазон: 2\...1000\.;
+#X msg 130 722 @max;
+#X text 270 722 Максимальное значение. Тип: float. Значение по умолчанию:
+1\.;
+#X msg 130 752 @min;
+#X text 270 752 Минимальное значение. Тип: float. Значение по умолчанию:
+-1\.;
+#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 797 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 802 1\.;
-#X text 170 802 bang:;
-#X text 270 802 вычисляет и выводит гистограмму.;
-#X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 842 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 798 1\.;
+#X text 170 798 bang:;
+#X text 270 798 вычисляет и выводит гистограмму.;
+#X obj 20 833 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 838 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 843 1\.;
-#X text 170 843 list:;
-#X text 270 843 значения гистограммы (длина = число @bins).;
+#X text 130 839 1\.;
+#X text 170 839 list:;
+#X text 270 839 значения гистограммы (длина = число @bins).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 893 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 896 библиотека: ceammc v0.9.8;
-#X text 517 908 смотрите также:;
-#X obj 638 908 list.histogram;
-#N canvas 10 915 400 290 info 0;
+#X obj 1 889 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 892 библиотека: ceammc v0.9.8;
+#X text 517 904 смотрите также:;
+#X obj 638 904 list.histogram;
+#N canvas 10 911 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 915 pd info;
+#X restore 10 911 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 14 0;
 #X connect 11 0 14 0;

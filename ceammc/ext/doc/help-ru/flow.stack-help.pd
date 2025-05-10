@@ -22,62 +22,60 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 290 1\.;
 #X text 170 290 int;
-#X obj 271 291 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 291 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 290 MAX_SIZE: max stack size. Тип: int. Минимальное значение:
 1\.;
-#X obj 20 320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 325 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 328 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 333 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 326 @max_size;
-#X text 270 326 Получить/Установить maximum stack grow size. Тип: int.
-Значение по умолчанию: 100\. Минимальное значение: 1\.;
-#X msg 130 368 @on_empty;
-#X text 270 368 Получить/Установить message send to destination address
-when stack becomes empty. First list element is address to send \,
-other additional elements treated as message or bang if not specified.
-Тип: list.;
-#X msg 130 455 @on_full;
-#X text 270 455 Получить/Установить message send to destination address
-when stack becomes full. First list element is address to send \, other
-additional elements treated as message or bang if not specified. Тип:
-list.;
-#X msg 130 542 @empty?;
-#X text 270 542 (только чтение) Получить if stack is empty. Тип: bool.
-Значение по умолчанию: 1\.;
-#X msg 130 584 @size?;
-#X text 270 584 (только чтение) Получить current number of elements
-in stack. Тип: int. Значение по умолчанию: 0\.;
-#X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 641 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 331 @max_size;
+#X text 270 331 Maximum stack grow size. Тип: int. Значение по умолчанию:
+100\. Минимальное значение: 1\.;
+#X msg 130 373 @on_empty;
+#X text 270 373 Message send to destination address when stack becomes
+empty. First list element is address to send \, other additional elements
+treated as message or bang if not specified. Тип: list.;
+#X msg 130 445 @on_full;
+#X text 270 445 Message send to destination address when stack becomes
+full. First list element is address to send \, other additional elements
+treated as message or bang if not specified. Тип: list.;
+#X msg 130 517 @empty?;
+#X text 270 517 (только чтение) If stack is empty. Тип: bool. Значение
+по умолчанию: 1\.;
+#X msg 130 559 @size?;
+#X text 270 559 (только чтение) Current number of elements in stack.
+Тип: int. Значение по умолчанию: 0\.;
+#X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 616 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 642 1\.;
-#X text 270 642 input: push to stack.;
-#X text 130 667 2\.;
-#X text 170 667 bang:;
-#X text 270 667 output and remove top element.;
-#X msg 170 692 top;
-#X text 270 692 output top element.;
-#X msg 170 717 pop;
-#X text 270 717 remove top element (no output).;
-#X msg 170 742 clear;
-#X text 270 742 remove all elements (no output).;
-#X msg 170 767 flush;
-#X text 270 767 output and remove all elements.;
-#X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 810 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 617 1\.;
+#X text 270 617 input: push to stack.;
+#X text 130 642 2\.;
+#X text 170 642 bang:;
+#X text 270 642 output and remove top element.;
+#X msg 170 667 top;
+#X text 270 667 output top element.;
+#X msg 170 692 pop;
+#X text 270 692 remove top element (no output).;
+#X msg 170 717 clear;
+#X text 270 717 remove all elements (no output).;
+#X msg 170 742 flush;
+#X text 270 742 output and remove all elements.;
+#X obj 20 780 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 785 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 811 1\.;
-#X text 270 811 output.;
+#X text 130 786 1\.;
+#X text 270 786 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 861 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 864 библиотека: ceammc v0.9.8;
-#N canvas 10 883 400 290 info 0;
+#X obj 1 836 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 839 библиотека: ceammc v0.9.8;
+#N canvas 10 858 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,7 +99,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 883 pd info;
+#X restore 10 858 pd info;
 #X connect 4 0 11 0;
 #X connect 5 0 11 0;
 #X connect 6 0 11 0;

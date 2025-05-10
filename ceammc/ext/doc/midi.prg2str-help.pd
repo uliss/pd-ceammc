@@ -19,10 +19,10 @@
 #X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 261 @family;
-#X text 270 261 output family name instead of instrument name. Default
+#X text 270 261 Output family name instead of instrument name. Default
 value: 0\.;
 #X msg 130 303 @symbol;
-#X text 270 303 output as symbol instead of string by default. Default
+#X text 270 303 Output as symbol instead of string by default. Default
 value: 0\.;
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 360 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933

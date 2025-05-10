@@ -26,37 +26,36 @@
 #X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 361 @filter;
-#X text 270 361 Get/Set output signal filtering. LTC should have a
-rise time of 40us+/-10 us. If you want a perfect square wave \, set
-to 0\. Type: float. Default value: 0\. Range: 0\...500\.;
-#X msg 130 418 @fps;
-#X text 270 418 Get/Set frames per second rate. Supported values are:
-24 \, 25 \, 29.97 \, 30\. Type: float. Default value: 25\.;
-#X msg 130 460 @on;
-#X text 270 460 Get/Set encoder state. Type: bool. Default value: 0\.;
-#X msg 130 490 @speed;
-#X text 270 490 Get/Set playing speed. Type: float. Default value:
-1\.;
-#X msg 130 520 @volume;
-#X text 270 520 Get/Set output signal level. Type: float. Units: 'db'.
-Default value: -3\. Range: -42\...0\.;
-#X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 577 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 270 361 Output signal filtering. LTC should have a rise time
+of 40us+/-10 us. If you want a perfect square wave \, set to 0\. Type:
+float. Default value: 0\. Range: 0\...500\.;
+#X msg 130 433 @fps;
+#X text 270 433 Frames per second rate. Supported values are: 24 \,
+25 \, 29.97 \, 30\. Type: float. Default value: 25\.;
+#X msg 130 475 @on;
+#X text 270 475 Encoder state. Type: bool. Default value: 0\.;
+#X msg 130 505 @speed;
+#X text 270 505 Playing speed. Type: float. Default value: 1\.;
+#X msg 130 535 @volume;
+#X text 270 535 Output signal level. Type: float. Units: 'db'. Default
+value: -3\. Range: -42\...0\.;
+#X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 592 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 578 date;
-#X text 270 578 set current date. Arguments are:;
-#X obj 280 601 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 601 YEAR: year. Type: int. Range: 0\...3000\.;
-#X obj 280 624 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 624 MONTH: month. Type: int. Range: 1\...12\.;
-#X obj 280 647 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 647 DAY: day. Type: int. Range: 1\...31\.;
-#X obj 280 670 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 670 [TIMEZONE]: timezone in +HHMM format. Type: symbol.;
-#X msg 130 695 seek;
-#X text 270 695 time seek. Arguments are:;
-#X obj 280 718 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 718 UNIT: relative position seek. If float or int - seek
+#X msg 130 593 date;
+#X text 270 593 set current date. Arguments are:;
+#X obj 280 616 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 616 YEAR: year. Type: int. Range: 0\...3000\.;
+#X obj 280 639 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 639 MONTH: month. Type: int. Range: 1\...12\.;
+#X obj 280 662 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 662 DAY: day. Type: int. Range: 1\...31\.;
+#X obj 280 685 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 685 [TIMEZONE]: timezone in +HHMM format. Type: symbol.;
+#X msg 130 710 seek;
+#X text 270 710 time seek. Arguments are:;
+#X obj 280 733 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 733 UNIT: relative position seek. If float or int - seek
 in frames \, otherwise units are expected. Supported units are: day
 \, hour \, min \, sec. E.g.: 1day \, 3hour \, 5min \, 11sec etc. Type:
 atom.;

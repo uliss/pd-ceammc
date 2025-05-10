@@ -25,29 +25,29 @@ eight) \, 3/8 (three eights) etc.;
 #X obj 735 455 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 453 @bpm;
-#X text 270 453 Получить/Установить tempo. Тип: atom. Единицы: 'bpm'.
-Значение по умолчанию: 60|4bpm.;
+#X text 270 453 Tempo. Тип: atom. Единицы: 'bpm'. Значение по умолчанию:
+60|4bpm.;
 #X msg 130 495 @seq;
-#X text 270 495 Получить/Установить sequential durations. Тип: bool.
-Значение по умолчанию: 1\.;
-#X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 552 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 270 495 Sequential durations. Тип: bool. Значение по умолчанию:
+1\.;
+#X obj 20 535 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 540 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 553 1\.;
-#X text 270 553 duration list.;
-#X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 593 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 541 1\.;
+#X text 270 541 duration list.;
+#X obj 20 576 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 581 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 594 1\.;
-#X text 270 594 converted value.;
+#X text 130 582 1\.;
+#X text 270 582 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 644 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 647 библиотека: ceammc v0.9.8;
-#N canvas 10 666 400 290 info 0;
+#X obj 1 632 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 635 библиотека: ceammc v0.9.8;
+#N canvas 10 654 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -71,7 +71,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 666 pd info;
+#X restore 10 654 pd info;
 #X connect 11 0 12 0;
 #X connect 10 0 13 0;
 #X connect 12 0 13 0;

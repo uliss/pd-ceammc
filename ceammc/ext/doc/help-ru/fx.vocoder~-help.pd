@@ -20,53 +20,52 @@
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 347 @id;
-#X text 270 347 (при инициализации) Получить/Установить идентификатор
-для OSC адреса. Если установлен \, все свойства объекта привязываются
-к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_vocoder/ИМЯ_СВОЙСТВА \, в противном
-случае к /fx_vocoder/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 130 434 @osc;
-#X text 270 434 (при инициализации) Получить/Установить имя OSC сервера.
+#X text 270 347 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/fx_vocoder/ИМЯ_СВОЙСТВА \, в противном случае к /fx_vocoder/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X msg 130 476 @active;
-#X text 270 476 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
-Значение по умолчанию: 1\.;
-#X msg 130 518 @attack;
-#X text 270 518 Получить/Установить attack time. Тип: float. Единицы:
-'ms'. Значение по умолчанию: 5\. Диапазон: 0.1\...100\.;
-#X msg 130 560 @bwratio;
-#X text 270 560 Получить/Установить coefficient to adjust the bandwidth
-of each band. Тип: float. Значение по умолчанию: 0.5\. Диапазон: 0.1\...2\.;
-#X msg 130 617 @release;
-#X text 270 617 Получить/Установить release time. Тип: float. Единицы:
-'ms'. Значение по умолчанию: 5\. Диапазон: 0.1\...100\.;
-#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 674 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 434 @osc;
+#X text 270 434 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X msg 130 464 @active;
+#X text 270 464 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X msg 130 506 @attack;
+#X text 270 506 Attack time. Тип: float. Единицы: 'ms'. Значение по
+умолчанию: 5\. Диапазон: 0.1\...100\.;
+#X msg 130 548 @bwratio;
+#X text 270 548 Coefficient to adjust the bandwidth of each band. Тип:
+float. Значение по умолчанию: 0.5\. Диапазон: 0.1\...2\.;
+#X msg 130 605 @release;
+#X text 270 605 Release time. Тип: float. Единицы: 'ms'. Значение по
+умолчанию: 5\. Диапазон: 0.1\...100\.;
+#X obj 20 657 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 662 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 675 reset;
-#X text 270 675 reset object.;
-#X obj 20 713 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 718 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 663 reset;
+#X text 270 663 reset object.;
+#X obj 20 701 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 706 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 719 1\.;
-#X text 170 719 ~;
-#X text 270 719 modulation signal.;
-#X text 130 744 2\.;
-#X text 170 744 ~;
-#X text 270 744 excitation/carrier signal.;
-#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 784 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 707 1\.;
+#X text 170 707 ~;
+#X text 270 707 modulation signal.;
+#X text 130 732 2\.;
+#X text 170 732 ~;
+#X text 270 732 excitation/carrier signal.;
+#X obj 20 767 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 772 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 785 1\.;
-#X text 170 785 ~;
-#X text 270 785;
+#X text 130 773 1\.;
+#X text 170 773 ~;
+#X text 270 773;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 835 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 838 библиотека: ceammc v0.9.8;
-#N canvas 10 857 400 290 info 0;
+#X obj 1 823 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 826 библиотека: ceammc v0.9.8;
+#N canvas 10 845 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,7 +89,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 857 pd info;
+#X restore 10 845 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 8 0;

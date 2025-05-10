@@ -36,8 +36,8 @@ Note: symbols are greater then numbers.;
 #X msg 130 517 @symbol;
 #X text 270 517 Alias for @type symbol. Find greatest symbol element.;
 #X msg 130 547 @type;
-#X text 270 547 Get/Set type of largest element. Type: symbol. Default
-value: float. Allowed values: float \, symbol \, any.;
+#X text 270 547 Type of largest element. Type: symbol. Default value:
+float. Allowed values: float \, symbol \, any.;
 #X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 604 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

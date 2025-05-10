@@ -23,44 +23,44 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 333 1\.;
 #X text 170 333 int;
-#X obj 271 334 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 334 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 333 N: number of signals inputs. Тип: int. Диапазон: 2…16;
-#X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 368 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 371 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 369 @value;
-#X text 270 369 Получить/Установить gain coefficients per each output.
-Тип: list. Значение по умолчанию: 1 0\.;
-#X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 426 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 374 @value;
+#X text 270 374 Gain coefficients per each output. Тип: list. Значение
+по умолчанию: 1 0\.;
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 431 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 427 1\.;
-#X text 170 427 ~;
-#X text 270 427 first input signal.;
-#X text 130 452 n.;
-#X text 170 452 ~;
-#X text 270 452 last input signal.;
-#X text 130 477 n+1\.;
-#X text 270 477 multiplexer control.;
-#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 517 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 432 1\.;
+#X text 170 432 ~;
+#X text 270 432 first input signal.;
+#X text 130 457 n.;
+#X text 170 457 ~;
+#X text 270 457 last input signal.;
+#X text 130 482 n+1\.;
+#X text 270 482 multiplexer control.;
+#X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 522 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 518 1\.;
-#X text 170 518 ~;
-#X text 270 518 output.;
+#X text 130 523 1\.;
+#X text 170 523 ~;
+#X text 270 523 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 568 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 571 библиотека: ceammc v0.9.8;
-#X text 385 583 смотрите также:;
-#X obj 506 583 flow.multiplex2~;
-#X obj 638 583 flow.multiplex;
-#N canvas 10 590 400 290 info 0;
+#X obj 1 573 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 576 библиотека: ceammc v0.9.8;
+#X text 385 588 смотрите также:;
+#X obj 506 588 flow.multiplex2~;
+#X obj 638 588 flow.multiplex;
+#N canvas 10 595 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -84,7 +84,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 590 pd info;
+#X restore 10 595 pd info;
 #X connect 7 0 12 0;
 #X connect 8 0 12 1;
 #X connect 9 0 12 2;

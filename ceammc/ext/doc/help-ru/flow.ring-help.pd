@@ -24,44 +24,44 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 243 1\.;
 #X text 170 243 int;
-#X obj 271 244 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 244 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 243 LENGTH: buffer length. Тип: int. Диапазон: 1…24;
-#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 278 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 283 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 281 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 286 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 279 @length;
-#X text 270 279 (при инициализации) Получить/Установить buffer length.
-Тип: int. Значение по умолчанию: 2\. Диапазон: 1\...24\.;
-#X obj 20 331 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 336 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 284 @length;
+#X text 270 284 (при инициализации) Buffer length. Тип: int. Значение
+по умолчанию: 2\. Диапазон: 1\...24\.;
+#X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 337 1\.;
-#X text 270 337 input.;
-#X text 130 362 2\.;
-#X text 170 362 bang:;
-#X text 270 362 output all buffer values.;
-#X text 270 387 get IDX: output buffer value at specified index.;
-#X text 270 412 fill ARGS...: fill buffer with specified values (no
+#X text 130 342 1\.;
+#X text 270 342 input.;
+#X text 130 367 2\.;
+#X text 170 367 bang:;
+#X text 270 367 output all buffer values.;
+#X text 270 392 get IDX: output buffer value at specified index.;
+#X text 270 417 fill ARGS...: fill buffer with specified values (no
 output).;
-#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 452 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 457 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 453 1\.;
-#X text 270 453 first output.;
-#X text 130 473 ...;
-#X text 270 473 ... output.;
-#X text 130 493 n.;
-#X text 270 493 n-th output.;
+#X text 130 458 1\.;
+#X text 270 458 first output.;
+#X text 130 478 ...;
+#X text 270 478 ... output.;
+#X text 130 498 n.;
+#X text 270 498 n-th output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 543 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 546 библиотека: ceammc v0.9.8;
-#N canvas 10 565 400 290 info 0;
+#X obj 1 548 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 551 библиотека: ceammc v0.9.8;
+#N canvas 10 570 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -85,7 +85,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 565 pd info;
+#X restore 10 570 pd info;
 #X connect 5 0 7 0;
 #X connect 7 0 10 0;
 #X connect 9 0 10 1;

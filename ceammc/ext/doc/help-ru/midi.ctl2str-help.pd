@@ -20,7 +20,7 @@
 #X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 261 @symbol;
-#X text 270 261 output as symbol instead of string by default. Значение
+#X text 270 261 Output as symbol instead of string by default. Значение
 по умолчанию: 0\.;
 #X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 318 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933

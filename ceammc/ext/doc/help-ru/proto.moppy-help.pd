@@ -24,14 +24,14 @@ https://github.com/Sammy1Am/Moppy2;
 #X obj 735 420 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 418 @device;
-#X text 270 418 Получить/Установить moppy device ID. Тип: int. Значение
-по умолчанию: 1\. Диапазон: 1\...255\.;
+#X text 270 418 Moppy device ID. Тип: int. Значение по умолчанию: 1\.
+Диапазон: 1\...255\.;
 #X msg 130 460 @floppy;
-#X text 270 460 Получить/Установить floppy ID on moppy device. Тип:
-int. Значение по умолчанию: 1\. Диапазон: 1\...16\.;
+#X text 270 460 Floppy ID on moppy device. Тип: int. Значение по умолчанию:
+1\. Диапазон: 1\...16\.;
 #X msg 130 502 @v;
-#X text 270 502 Получить/Установить MOPPY protocol version. Тип: int.
-Значение по умолчанию: 2\. Разрешённые значения: 2 \, 1\.;
+#X text 270 502 MOPPY protocol version. Тип: int. Значение по умолчанию:
+2\. Разрешённые значения: 2 \, 1\.;
 #X obj 20 554 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 559 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

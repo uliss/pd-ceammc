@@ -27,13 +27,13 @@
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 376 @host;
-#X text 270 376 Получить/Установить OBS studio host name. Тип: symbol.
-Значение по умолчанию: localhost.;
+#X text 270 376 OBS studio host name. Тип: symbol. Значение по умолчанию:
+localhost.;
 #X msg 130 418 @passwd;
-#X text 270 418 Получить/Установить OBS studio password. Тип: symbol.;
+#X text 270 418 OBS studio password. Тип: symbol.;
 #X msg 130 448 @port;
-#X text 270 448 Получить/Установить OBS studio control port. Тип: int.
-Значение по умолчанию: 4455\. Диапазон: 1\...32767\.;
+#X text 270 448 OBS studio control port. Тип: int. Значение по умолчанию:
+4455\. Диапазон: 1\...32767\.;
 #X obj 20 500 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 505 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
@@ -48,79 +48,79 @@
 #X msg 130 610 connect;
 #X text 270 610 connect to OBS studio. Message [connected 1( is send
 to output on success \, [connected 0( - on error. Аргументы:;
-#X obj 280 648 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 648 [PASSWD]: if specified \, temporaly overrides @passwd
+#X obj 280 663 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 663 [PASSWD]: if specified \, temporaly overrides @passwd
 property. Тип: symbol.;
-#X msg 130 688 disconnect;
-#X text 270 688 disconnect from OBS studio. Message [connected 0( is
+#X msg 130 703 disconnect;
+#X text 270 703 disconnect from OBS studio. Message [connected 0( is
 send to output.;
-#X msg 130 728 info;
-#X text 270 728 request OBS studio information: OBS version \, web-socket
+#X msg 130 743 info;
+#X text 270 743 request OBS studio information: OBS version \, web-socket
 version \, RPC version and list of supported image formats. This info
 is outputted as messages to first outlet.;
-#X msg 130 783 item enable;
-#X text 270 783 enable/disable scene item. Аргументы:;
-#X obj 280 806 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 806 SCENE: scene name. Тип: symbol.;
-#X obj 280 829 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 829 IDX: item pos. Тип: int.;
-#X obj 280 852 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 852 VALUE: value. Тип: bool.;
-#X msg 130 877 item list;
-#X text 270 877 request list of scene items. Аргументы:;
-#X obj 280 900 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 900 SCENE: scene name. Тип: symbol.;
-#X msg 130 925 item remove;
-#X text 270 925 remove scene item. Аргументы:;
-#X obj 280 948 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 948 SCENE: scene name. Тип: symbol.;
-#X obj 280 971 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 971 IDX: item pos. Тип: int.;
-#X msg 130 996 monitor list;
-#X text 270 996 request monitor list.;
-#X msg 130 1024 scene create;
-#X text 270 1024 create new scene. Аргументы:;
-#X obj 280 1047 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1047 SCENE: scene name. Тип: symbol.;
-#X msg 130 1072 scene current get;
-#X text 270 1072 request current scene.;
-#X msg 130 1100 scene current set;
-#X text 270 1100 set current scene. Аргументы:;
-#X obj 280 1123 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1123 SCENE: scene name. Тип: symbol.;
-#X msg 130 1148 scene first;
-#X text 270 1148 change to first scene.;
-#X msg 130 1176 scene last;
-#X text 270 1176 change to last scene.;
-#X msg 130 1204 scene list;
-#X text 270 1204 request scene list.;
-#X msg 130 1232 scene next;
-#X text 270 1232 change to next scene.;
-#X msg 130 1260 scene prev;
-#X text 270 1260 change to prev scene.;
-#X msg 130 1288 scene remove;
-#X text 270 1288 remove scene. Аргументы:;
-#X obj 280 1311 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1311 SCENE: scene name. Тип: symbol.;
-#X obj 20 1346 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1351 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 813 item enable;
+#X text 270 813 enable/disable scene item. Аргументы:;
+#X obj 280 836 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 836 SCENE: scene name. Тип: symbol.;
+#X obj 280 859 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 859 IDX: item pos. Тип: int.;
+#X obj 280 882 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 882 VALUE: value. Тип: bool.;
+#X msg 130 907 item list;
+#X text 270 907 request list of scene items. Аргументы:;
+#X obj 280 930 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 930 SCENE: scene name. Тип: symbol.;
+#X msg 130 955 item remove;
+#X text 270 955 remove scene item. Аргументы:;
+#X obj 280 978 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 978 SCENE: scene name. Тип: symbol.;
+#X obj 280 1001 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1001 IDX: item pos. Тип: int.;
+#X msg 130 1026 monitor list;
+#X text 270 1026 request monitor list.;
+#X msg 130 1054 scene create;
+#X text 270 1054 create new scene. Аргументы:;
+#X obj 280 1077 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1077 SCENE: scene name. Тип: symbol.;
+#X msg 130 1102 scene current get;
+#X text 270 1102 request current scene.;
+#X msg 130 1130 scene current set;
+#X text 270 1130 set current scene. Аргументы:;
+#X obj 280 1153 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1153 SCENE: scene name. Тип: symbol.;
+#X msg 130 1178 scene first;
+#X text 270 1178 change to first scene.;
+#X msg 130 1206 scene last;
+#X text 270 1206 change to last scene.;
+#X msg 130 1234 scene list;
+#X text 270 1234 request scene list.;
+#X msg 130 1262 scene next;
+#X text 270 1262 change to next scene.;
+#X msg 130 1290 scene prev;
+#X text 270 1290 change to prev scene.;
+#X msg 130 1318 scene remove;
+#X text 270 1318 remove scene. Аргументы:;
+#X obj 280 1341 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1341 SCENE: scene name. Тип: symbol.;
+#X obj 20 1376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1381 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1352 1\.;
-#X text 170 1352 float:;
-#X text 270 1352 raw midi input bytes.;
-#X obj 20 1387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1392 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1382 1\.;
+#X text 170 1382 float:;
+#X text 270 1382 raw midi input bytes.;
+#X obj 20 1417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1422 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1393 1\.;
-#X text 270 1393 any messages.;
+#X text 130 1423 1\.;
+#X text 270 1423 any messages.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1443 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1446 библиотека: ceammc v0.9.8;
-#N canvas 10 1465 400 290 info 0;
+#X obj 1 1473 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1476 библиотека: ceammc v0.9.8;
+#N canvas 10 1495 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -144,7 +144,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1465 pd info;
+#X restore 10 1495 pd info;
 #X connect 12 0 15 0;
 #X connect 18 0 19 0;
 #X connect 4 0 18 0;

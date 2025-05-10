@@ -40,88 +40,86 @@ https://faust.grame.fr/ @url https://faust.grame.fr/;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 602 1\.;
 #X text 170 602 symbol;
-#X obj 271 603 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 603 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 602 LOAD: initial file to load after object creation. Тип:
 symbol.;
-#X obj 20 647 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 652 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 657 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 655 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 660 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 653 @load;
-#X text 270 653 (при инициализации) Получить/Установить initial file
-to load after object creation. Тип: symbol.;
-#X msg 130 695 @active;
-#X text 270 695 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
-#X msg 130 737 @include;
-#X text 270 737 Получить/Установить list of faust include directories.
-Тип: list.;
-#X msg 130 779 @style;
-#X text 270 779 Получить/Установить view style. Тип: int. Значение
-по умолчанию: 0\.;
-#X msg 130 821 @size;
-#X text 270 821 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
-Тип: list. Значение по умолчанию: 10 10\.;
-#X obj 20 873 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 878 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 658 @load;
+#X text 270 658 (при инициализации) Initial file to load after object
+creation. Тип: symbol.;
+#X msg 130 700 @active;
+#X text 270 700 On/off dsp processing. Тип: bool. Значение по умолчанию:
+1\.;
+#X msg 130 730 @include;
+#X text 270 730 List of faust include directories. Тип: list.;
+#X msg 130 760 @style;
+#X text 270 760 View style. Тип: int. Значение по умолчанию: 0\.;
+#X msg 130 790 @size;
+#X text 270 790 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
+по умолчанию: 10 10\.;
+#X obj 20 842 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 847 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 879 open;
-#X text 270 879 open faust dsp file in external editor.;
-#X msg 130 907 read;
-#X text 270 907 read Faust code from file and compile it. Аргументы:;
-#X obj 280 930 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 930 FILE: file path \, absolute or relative to patch \,
+#X msg 130 848 open;
+#X text 270 848 open faust dsp file in external editor.;
+#X msg 130 876 read;
+#X text 270 876 read Faust code from file and compile it. Аргументы:;
+#X obj 280 899 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 899 FILE: file path \, absolute or relative to patch \,
 include directories. Тип: symbol.;
-#X msg 130 970 reset;
-#X text 270 970 reset object state.;
-#X msg 130 998 size;
-#X text 270 998 resize object. Аргументы:;
-#X obj 280 1021 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1021 W: new width. Тип: int.;
-#X obj 280 1044 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1044 H: new height. Тип: int.;
-#X msg 130 1069 write;
-#X text 270 1069 write Faust code to file. Аргументы:;
-#X obj 280 1092 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1092 FILE: file path \, absolute or relative to patch.
+#X msg 130 939 reset;
+#X text 270 939 reset object state.;
+#X msg 130 967 size;
+#X text 270 967 resize object. Аргументы:;
+#X obj 280 990 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 990 W: new width. Тип: int.;
+#X obj 280 1013 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1013 H: new height. Тип: int.;
+#X msg 130 1038 write;
+#X text 270 1038 write Faust code to file. Аргументы:;
+#X obj 280 1061 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1061 FILE: file path \, absolute or relative to patch.
 Тип: symbol.;
-#X obj 280 1115 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1115 [@force]: overwrite existing files. Тип: property.;
-#X obj 20 1150 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1155 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 280 1084 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1084 [@force]: overwrite existing files. Тип: property.;
+#X obj 20 1119 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1124 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1156 1\.;
-#X text 270 1156 control input.;
-#X text 130 1181 2\.;
-#X text 170 1181 ~;
-#X text 270 1181 first faust input.;
-#X text 130 1206 ...;
-#X text 170 1206 ~;
-#X text 270 1206 ... faust input.;
-#X text 130 1231 n+1\.;
-#X text 170 1231 ~;
-#X text 270 1231 n-th faust input.;
-#X obj 20 1266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1271 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1125 1\.;
+#X text 270 1125 control input.;
+#X text 130 1150 2\.;
+#X text 170 1150 ~;
+#X text 270 1150 first faust input.;
+#X text 130 1175 ...;
+#X text 170 1175 ~;
+#X text 270 1175 ... faust input.;
+#X text 130 1200 n+1\.;
+#X text 170 1200 ~;
+#X text 270 1200 n-th faust input.;
+#X obj 20 1235 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1240 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1272 1\.;
-#X text 170 1272 ~;
-#X text 270 1272 first faust output.;
-#X text 130 1292 ...;
-#X text 170 1292 ~;
-#X text 270 1292 ... faust output.;
-#X text 130 1312 n.;
-#X text 170 1312 ~;
-#X text 270 1312 n-th faust output.;
+#X text 130 1241 1\.;
+#X text 170 1241 ~;
+#X text 270 1241 first faust output.;
+#X text 130 1261 ...;
+#X text 170 1261 ~;
+#X text 270 1261 ... faust output.;
+#X text 130 1281 n.;
+#X text 170 1281 ~;
+#X text 270 1281 n-th faust output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title lang @url ceammc.lang-help.pd;
-#X obj 1 1362 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1365 библиотека: ceammc v0.9.8;
-#N canvas 10 1384 400 290 info 0;
+#X obj 1 1331 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1334 библиотека: ceammc v0.9.8;
+#N canvas 10 1353 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -145,7 +143,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1384 pd info;
+#X restore 10 1353 pd info;
 #X connect 6 0 9 0;
 #X connect 7 0 9 0;
 #X connect 8 0 9 1;

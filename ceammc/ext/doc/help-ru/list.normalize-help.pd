@@ -26,8 +26,8 @@ lineary;
 #X obj 735 468 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 466 @by;
-#X text 270 466 Получить/Установить normalization mode. Тип: symbol.
-Значение по умолчанию: sum. Разрешённые значения: sum \, range.;
+#X text 270 466 Normalization mode. Тип: symbol. Значение по умолчанию:
+sum. Разрешённые значения: sum \, range.;
 #X msg 130 508 @range;
 #X text 270 508 Alias to @by range.;
 #X msg 130 538 @sum;

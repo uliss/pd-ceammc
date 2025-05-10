@@ -27,54 +27,52 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 318 1\.;
 #X text 170 318 int;
-#X obj 271 319 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 319 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 318 FROM: @from property. Тип: int.;
-#X text 130 338 2\.;
-#X text 170 338 int;
-#X obj 271 339 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 338 TO: @to property. Тип: int.;
-#X text 130 358 3\.;
-#X text 170 358 int;
-#X obj 271 359 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 358 STEP: @step property. Тип: int. Минимальное значение:
+#X text 130 343 2\.;
+#X text 170 343 int;
+#X obj 268 344 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 343 TO: @to property. Тип: int.;
+#X text 130 368 3\.;
+#X text 170 368 int;
+#X obj 268 369 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 368 STEP: @step property. Тип: int. Минимальное значение:
 0\.;
-#X obj 20 388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 393 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 408 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 396 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 411 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 394 @from;
-#X text 270 394 Получить/Установить start slice position. You can use
-negative index to address elements from the end. Тип: int. Значение
-по умолчанию: 0\.;
-#X msg 130 451 @step;
-#X text 270 451 Получить/Установить slice step. Тип: int. Значение
-по умолчанию: 1\. Минимальное значение: 0\.;
-#X msg 130 493 @to;
-#X text 270 493 Получить/Установить end slice position. You can use
-negative index to address elements from the end. Тип: int. Значение
-по умолчанию: -1\.;
-#X obj 20 560 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 565 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 409 @from;
+#X text 270 409 Start slice position. You can use negative index to
+address elements from the end. Тип: int. Значение по умолчанию: 0\.;
+#X msg 130 466 @step;
+#X text 270 466 Slice step. Тип: int. Значение по умолчанию: 1\. Минимальное
+значение: 0\.;
+#X msg 130 508 @to;
+#X text 270 508 End slice position. You can use negative index to address
+elements from the end. Тип: int. Значение по умолчанию: -1\.;
+#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 580 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 566 1\.;
-#X text 170 566 list:;
-#X text 270 566 input list.;
-#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 606 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 581 1\.;
+#X text 170 581 list:;
+#X text 270 581 input list.;
+#X obj 20 616 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 621 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 607 1\.;
-#X text 270 607 output sublist.;
+#X text 130 622 1\.;
+#X text 270 622 output sublist.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 657 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 660 библиотека: ceammc v0.9.8;
-#X text 569 672 смотрите также:;
-#X obj 690 672 list.at;
-#N canvas 10 679 400 290 info 0;
+#X obj 1 672 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 675 библиотека: ceammc v0.9.8;
+#X text 569 687 смотрите также:;
+#X obj 690 687 list.at;
+#N canvas 10 694 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -98,7 +96,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 679 pd info;
+#X restore 10 694 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 8 0;
 #X connect 6 0 9 0;

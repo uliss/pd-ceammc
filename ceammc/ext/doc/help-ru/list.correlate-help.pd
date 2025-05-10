@@ -22,56 +22,55 @@ not use the FFT to compute the convolution;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 445 1\.;
 #X text 170 445 list;
-#X obj 271 446 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 446 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 445 B: second argument values. Тип: list.;
-#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 480 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 485 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 483 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 488 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 481 @a;
-#X text 270 481 Получить/Установить first argument. Тип: list.;
-#X msg 130 511 @b;
-#X text 270 511 Получить/Установить second argument. Тип: list.;
-#X msg 130 541 @full;
-#X text 270 541 Alias to @mode full.;
-#X msg 130 571 @mode;
-#X text 270 571 Получить/Установить output mode. 'full' - output the
-cross-correlation at each point of overlap \, with an output length
-of (M+N-1). At the end-points of the cross-correlation \, the signals
-do not overlap completely \, and boundary effects may be seen. 'valid'
-- output of length (max(M \, N)-min(M \, N)+1). The cross-correlation
-product is only given for points where the signals overlap completely.
-Values outside the signal boundary have no effect. 'same' - output
-of length max(M \, N). Boundary effects are still visible. Тип: symbol.
-Значение по умолчанию: valid. Разрешённые значения: valid \, same \,
-full.;
-#X msg 130 764 @same;
-#X text 270 764 Alias to @mode same.;
-#X msg 130 794 @valid;
-#X text 270 794 Alias to @mode valid.;
-#X obj 20 834 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 839 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 486 @a;
+#X text 270 486 First argument. Тип: list.;
+#X msg 130 516 @b;
+#X text 270 516 Second argument. Тип: list.;
+#X msg 130 546 @full;
+#X text 270 546 Alias to @mode full.;
+#X msg 130 576 @mode;
+#X text 270 576 Output mode. 'full' - output the cross-correlation
+at each point of overlap \, with an output length of (M+N-1). At the
+end-points of the cross-correlation \, the signals do not overlap completely
+\, and boundary effects may be seen. 'valid' - output of length (max(M
+\, N)-min(M \, N)+1). The cross-correlation product is only given for
+points where the signals overlap completely. Values outside the signal
+boundary have no effect. 'same' - output of length max(M \, N). Boundary
+effects are still visible. Тип: symbol. Значение по умолчанию: valid.
+Разрешённые значения: valid \, same \, full.;
+#X msg 130 754 @same;
+#X text 270 754 Alias to @mode same.;
+#X msg 130 784 @valid;
+#X text 270 784 Alias to @mode valid.;
+#X obj 20 824 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 829 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 840 1\.;
-#X text 170 840 list:;
-#X text 270 840 calculate cross-correlation and output.;
-#X text 130 865 2\.;
-#X text 170 865 list:;
-#X text 270 865 set second argument (@b property).;
-#X obj 20 900 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 905 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 830 1\.;
+#X text 170 830 list:;
+#X text 270 830 calculate cross-correlation and output.;
+#X text 130 855 2\.;
+#X text 170 855 list:;
+#X text 270 855 set second argument (@b property).;
+#X obj 20 890 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 895 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 906 1\.;
-#X text 270 906 list: output result.;
+#X text 130 896 1\.;
+#X text 270 896 list: output result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 956 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 959 библиотека: ceammc v0.9.8;
-#N canvas 10 978 400 290 info 0;
+#X obj 1 946 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 949 библиотека: ceammc v0.9.8;
+#N canvas 10 968 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -95,7 +94,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 978 pd info;
+#X restore 10 968 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 8 1;
 #X connect 8 0 9 0;

@@ -35,13 +35,13 @@ are supported: [a: [A:1 B:2]]).;
 #X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 475 @empty?;
-#X text 270 475 (только чтение) Получить 1 if dict is empty \, otherwise
-0\. Тип: bool. Значение по умолчанию: 1\.;
+#X text 270 475 (только чтение) 1 if dict is empty \, otherwise 0\.
+Тип: bool. Значение по умолчанию: 1\.;
 #X msg 130 517 @keys?;
-#X text 270 517 (только чтение) Получить keys of dictionary. Тип: list.;
+#X text 270 517 (только чтение) Keys of dictionary. Тип: list.;
 #X msg 130 547 @size?;
-#X text 270 547 (только чтение) Получить number of entries in dictionary.
-Тип: int. Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X text 270 547 (только чтение) Number of entries in dictionary. Тип:
+int. Значение по умолчанию: 0\. Минимальное значение: 0\.;
 #X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 619 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
@@ -91,24 +91,24 @@ nothing. Аргументы:;
 #X text 170 1122 list:;
 #X text 270 1122 set dict from list. Key-value pairs are expected.
 [1 2 3 4( becames dict with keys: 1 and 3 \, values: 2 and 4\. No output.;
-#X text 170 1162 data:dict:;
-#X text 270 1162 set and output new dict.;
-#X obj 20 1197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1202 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 170 1177 data:dict:;
+#X text 270 1177 set and output new dict.;
+#X obj 20 1212 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1217 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1203 1\.;
-#X text 270 1203 output dictionary.;
+#X text 130 1218 1\.;
+#X text 270 1218 output dictionary.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 1253 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1256 библиотека: ceammc v0.9.8;
-#X text 473 1268 смотрите также:;
-#X obj 594 1268 data.set;
-#X obj 667 1268 data.mlist;
-#N canvas 10 1275 400 290 info 0;
+#X obj 1 1268 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1271 библиотека: ceammc v0.9.8;
+#X text 473 1283 смотрите также:;
+#X obj 594 1283 data.set;
+#X obj 667 1283 data.mlist;
+#N canvas 10 1290 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -132,7 +132,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1275 pd info;
+#X restore 10 1290 pd info;
 #X connect 15 0 16 0;
 #X connect 16 0 18 0;
 #X connect 8 0 19 0;

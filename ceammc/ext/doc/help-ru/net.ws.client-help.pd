@@ -31,43 +31,43 @@
 #X obj 735 479 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 477 @mode;
-#X text 270 477 Получить/Установить parsing mode for incoming messages.
-If 'fudi' - interpret incoming websocket data as Pd messages \, if
-'sym' - always interpret as symbols \, 'data' - parse ceammc data \,
-'json' - convert json values to ceammc data. Тип: symbol. Значение
-по умолчанию: fudi. Разрешённые значения: data \, fudi \, json \, sym.;
-#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 610 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X text 270 477 Parsing mode for incoming messages. If 'fudi' - interpret
+incoming websocket data as Pd messages \, if 'sym' - always interpret
+as symbols \, 'data' - parse ceammc data \, 'json' - convert json values
+to ceammc data. Тип: symbol. Значение по умолчанию: fudi. Разрешённые
+значения: data \, fudi \, json \, sym.;
+#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 595 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 611 close;
-#X text 270 611 gracefully close connection (with websocket handshake).;
-#X msg 130 639 connect;
-#X text 270 639 connect to websocket server. Аргументы:;
-#X obj 280 662 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 662 URL: url - ws://HOST:PORT/ \, for ex.: ws://127.0.0.1:9000/path.
+#X msg 130 596 close;
+#X text 270 596 gracefully close connection (with websocket handshake).;
+#X msg 130 624 connect;
+#X text 270 624 connect to websocket server. Аргументы:;
+#X obj 280 647 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 647 URL: url - ws://HOST:PORT/ \, for ex.: ws://127.0.0.1:9000/path.
 Тип: symbol.;
-#X msg 130 702 flush;
-#X text 270 702 flush output stream: sends all buffered messages.;
-#X msg 130 730 latency;
-#X text 270 730 measure rountrip latency. Outputs: latency TIME_MSEC.;
-#X msg 130 758 ping;
-#X text 270 758 send ping message to server (on server answer outputs:
+#X msg 130 687 flush;
+#X text 270 687 flush output stream: sends all buffered messages.;
+#X msg 130 715 latency;
+#X text 270 715 measure rountrip latency. Outputs: latency TIME_MSEC.;
+#X msg 130 743 ping;
+#X text 270 743 send ping message to server (on server answer outputs:
 pong DATA). Аргументы:;
-#X obj 280 796 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 796 [DATA]: list of integers in [0\..255] range. Тип: list.;
-#X msg 130 821 send;
-#X text 270 821 send as text message. Аргументы:;
-#X obj 280 844 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 844 [ARGS]: arguments. Тип: list.;
-#X msg 130 869 send_array;
-#X text 270 869 send as Pd array content as json array. Аргументы:;
-#X obj 280 892 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 892 ARR: array name. Тип: symbol.;
-#X obj 280 915 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 915 [START=0]: array start index. Тип: int. Минимальное
+#X obj 280 781 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 781 [DATA]: list of integers in [0\..255] range. Тип: list.;
+#X msg 130 806 send;
+#X text 270 806 send as text message. Аргументы:;
+#X obj 280 829 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 829 [ARGS]: arguments. Тип: list.;
+#X msg 130 854 send_array;
+#X text 270 854 send as Pd array content as json array. Аргументы:;
+#X obj 280 877 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 877 ARR: array name. Тип: symbol.;
+#X obj 280 900 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 900 [START=0]: array start index. Тип: int. Минимальное
 значение: 0\. Единицы: 'samp'.;
-#X obj 280 953 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 953 [LENGTH]: read length. If not specified - read until
+#X obj 280 938 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 938 [LENGTH]: read length. If not specified - read until
 array end. Тип: int. Минимальное значение: 0\. Единицы: 'samp'.;
 #X msg 130 993 send_binary;
 #X text 270 993 send as binary bytes. Аргументы:;

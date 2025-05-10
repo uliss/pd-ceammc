@@ -19,68 +19,68 @@ within the specified interval;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 405 1\.;
 #X text 170 405 float;
-#X obj 271 406 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 406 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 405 START: @start property. Type: float.;
-#X text 130 425 2\.;
-#X text 170 425 float;
-#X obj 271 426 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 425 STOP: @stop property. Type: float.;
-#X text 130 445 3\.;
-#X text 170 445 int;
-#X obj 271 446 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 445 N: @n property. Type: int. Range: 4\...1024;
-#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 480 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 430 2\.;
+#X text 170 430 float;
+#X obj 268 431 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 430 STOP: @stop property. Type: float.;
+#X text 130 455 3\.;
+#X text 170 455 int;
+#X obj 268 456 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 455 N: @n property. Type: int. Range: 4\...1024;
+#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 495 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 483 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 498 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 481 @base;
-#X text 270 481 Get/Set x-axis scale base. Type: atom. Default value:
-0\. Allowed values: 0 \, pi.;
-#X msg 130 523 @endpoint;
-#X text 270 523 Get/Set include @stop to interval. Type: bool. Default
-value: 1\.;
-#X msg 130 565 @n;
-#X text 270 565 Get/Set number of points. Type: int. Default value:
-256\. Range: 4\...1024\.;
-#X msg 130 607 @pi;
-#X text 270 607 Get/Set alias to @base pi. Type: atom.;
-#X msg 130 637 @start;
-#X text 270 637 Get/Set the starting value of the sequence. Type: float.
-Default value: 0\.;
-#X msg 130 679 @stop;
-#X text 270 679 Get/Set the final value of the sequence \, unless @endpoint
+#X msg 130 496 @base;
+#X text 270 496 X-axis scale base. Type: atom. Default value: 0\. Allowed
+values: 0 \, pi.;
+#X msg 130 538 @endpoint;
+#X text 270 538 Include @stop to interval. Type: bool. Default value:
+1\.;
+#X msg 130 568 @n;
+#X text 270 568 Number of points. Type: int. Default value: 256\. Range:
+4\...1024\.;
+#X msg 130 610 @pi;
+#X text 270 610 Alias to @base pi. Type: atom.;
+#X msg 130 640 @start;
+#X text 270 640 The starting value of the sequence. Type: float. Default
+value: 0\.;
+#X msg 130 682 @stop;
+#X text 270 682 The final value of the sequence \, unless @endpoint
 is false. In that case \, @n + 1 values are spaced over the interval
 in lin-space \, of which all but the last (a sequence of length @n)
 are returned. Type: float. Default value: 255\.;
-#X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 781 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 784 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 782 1\.;
-#X text 170 782 bang:;
-#X text 270 782 starts output.;
-#X text 170 807 float:;
-#X text 270 807 output specified number of values \, change @n property
+#X text 130 785 1\.;
+#X text 170 785 bang:;
+#X text 270 785 starts output.;
+#X text 170 810 float:;
+#X text 270 810 output specified number of values \, change @n property
 valuue.;
-#X obj 20 842 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 847 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 850 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 848 1\.;
-#X text 170 848 ~;
-#X text 270 848 signal output.;
-#X text 130 868 2\.;
-#X text 270 868 output to [array.plot~] or [ui.plot~].;
+#X text 130 851 1\.;
+#X text 170 851 ~;
+#X text 270 851 signal output.;
+#X text 130 871 2\.;
+#X text 270 871 output to [array.plot~] or [ui.plot~].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 918 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 921 library: ceammc v0.9.8;
-#X text 438 933 see also:;
-#X obj 513 933 plot.geomspace~;
-#X obj 638 933 plot.logspace~;
-#N canvas 10 940 400 290 info 0;
+#X obj 1 921 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 924 library: ceammc v0.9.8;
+#X text 438 936 see also:;
+#X obj 513 936 plot.geomspace~;
+#X obj 638 936 plot.logspace~;
+#N canvas 10 943 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -104,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 940 pd info;
+#X restore 10 943 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 5 1 6 1;

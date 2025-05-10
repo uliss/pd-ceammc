@@ -21,39 +21,39 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 376 1\.;
 #X text 170 376 symbol;
-#X obj 271 377 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 377 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 376 WITH: symbol to compare. Тип: symbol.;
-#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 411 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 416 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 414 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 419 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 412 @with;
-#X text 270 412 Получить/Установить symbol to compare. Тип: symbol.;
-#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 457 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 417 @with;
+#X text 270 417 Symbol to compare. Тип: symbol.;
+#X obj 20 457 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 462 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 458 1\.;
-#X text 170 458 symbol:;
-#X text 270 458 first compare symbol. Unicode strings also supported.;
-#X text 170 483 list:;
-#X text 270 483 compare first and second list elements.;
-#X text 130 508 2\.;
-#X text 170 508 symbol:;
-#X text 270 508 second compare symbol. Unicode strings also supported.;
-#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 548 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 463 1\.;
+#X text 170 463 symbol:;
+#X text 270 463 first compare symbol. Unicode strings also supported.;
+#X text 170 488 list:;
+#X text 270 488 compare first and second list elements.;
+#X text 130 513 2\.;
+#X text 170 513 symbol:;
+#X text 270 513 second compare symbol. Unicode strings also supported.;
+#X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 553 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 549 1\.;
-#X text 270 549 1 if first symbol less then second \, otherwise 0\.;
+#X text 130 554 1\.;
+#X text 270 554 1 if first symbol less then second \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title symbol @url ceammc.symbol-help.pd;
-#X obj 1 599 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 602 библиотека: ceammc v0.9.8;
-#N canvas 10 621 400 290 info 0;
+#X obj 1 604 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 607 библиотека: ceammc v0.9.8;
+#N canvas 10 626 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -77,7 +77,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 621 pd info;
+#X restore 10 626 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
 #X connect 9 0 10 0;

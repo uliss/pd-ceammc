@@ -33,75 +33,75 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 443 1\.;
 #X text 170 443 symbol;
-#X obj 271 444 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 444 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 443 TYPE: window name: blackman \, blackman-harris \, flattop
 \, gauss \, hamming \, hann \, nuttall \, rect \, sine \, tri \, welch.
 Type: symbol.;
-#X text 130 478 2\.;
-#X text 170 478 int;
-#X obj 271 479 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 478 SIZE(samp): window size. Type: int. Min value: 16;
-#X obj 20 508 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 513 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 498 2\.;
+#X text 170 498 int;
+#X obj 268 499 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 498 SIZE(samp): window size. Type: int. Min value: 16;
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 538 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 516 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 541 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 514 @type;
-#X text 270 514 Get/Set window type. See argument description. Type:
-symbol. Default value: hann.;
-#X msg 130 556 @size;
-#X text 270 556 Get/Set window size. Type: int. Units: 'samp'. Default
-value: 512\. Min value: 16\.;
-#X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 613 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 539 @type;
+#X text 270 539 Window type. See argument description. Type: symbol.
+Default value: hann.;
+#X msg 130 581 @size;
+#X text 270 581 Window size. Type: int. Units: 'samp'. Default value:
+512\. Min value: 16\.;
+#X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 638 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 614 blackman;
-#X text 270 614 Sets Blackman window type.;
-#X msg 130 642 blackman-harris;
-#X text 270 642 Sets Blackman-Harris window type.;
-#X msg 130 670 flattop;
-#X text 270 670 Sets Flattop window type.;
-#X msg 130 698 gauss;
-#X text 270 698 Sets Gauss window type.;
-#X msg 130 726 hamming;
-#X text 270 726 Sets Hamming window type.;
-#X msg 130 754 hann;
-#X text 270 754 Sets Hann window type.;
-#X msg 130 782 nuttall;
-#X text 270 782 Sets Nuttall window type.;
-#X msg 130 810 rect;
-#X text 270 810 Sets Rectangle window type.;
-#X msg 130 838 sine;
-#X text 270 838 Sets Sine window type.;
-#X msg 130 866 tri;
-#X text 270 866 Sets Triangle window type.;
-#X msg 130 894 welch;
-#X text 270 894 Sets Welch window type.;
-#X obj 20 932 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 937 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 639 blackman;
+#X text 270 639 Sets Blackman window type.;
+#X msg 130 667 blackman-harris;
+#X text 270 667 Sets Blackman-Harris window type.;
+#X msg 130 695 flattop;
+#X text 270 695 Sets Flattop window type.;
+#X msg 130 723 gauss;
+#X text 270 723 Sets Gauss window type.;
+#X msg 130 751 hamming;
+#X text 270 751 Sets Hamming window type.;
+#X msg 130 779 hann;
+#X text 270 779 Sets Hann window type.;
+#X msg 130 807 nuttall;
+#X text 270 807 Sets Nuttall window type.;
+#X msg 130 835 rect;
+#X text 270 835 Sets Rectangle window type.;
+#X msg 130 863 sine;
+#X text 270 863 Sets Sine window type.;
+#X msg 130 891 tri;
+#X text 270 891 Sets Triangle window type.;
+#X msg 130 919 welch;
+#X text 270 919 Sets Welch window type.;
+#X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 962 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 938 1\.;
-#X text 170 938 bang:;
-#X text 270 938 output all window values as list.;
-#X text 170 963 float:;
-#X text 270 963 window index position: from 0 to SIZE-1\. Output 0
+#X text 130 963 1\.;
+#X text 170 963 bang:;
+#X text 270 963 output all window values as list.;
+#X text 170 988 float:;
+#X text 270 988 window index position: from 0 to SIZE-1\. Output 0
 if invalid index given.;
-#X text 170 1003 list:;
-#X text 270 1003 pair INDEX SIZE expected. Sets windows size to SIZE.
+#X text 170 1028 list:;
+#X text 270 1028 pair INDEX SIZE expected. Sets windows size to SIZE.
 Output window value at given index.;
-#X obj 20 1053 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1058 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1078 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1083 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1059 1\.;
-#X text 270 1059 sample number.;
+#X text 130 1084 1\.;
+#X text 270 1084 sample number.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 1109 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1112 library: ceammc v0.9.8;
-#N canvas 10 1131 400 290 info 0;
+#X obj 1 1134 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1137 library: ceammc v0.9.8;
+#N canvas 10 1156 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -125,7 +125,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1131 pd info;
+#X restore 10 1156 pd info;
 #X connect 7 0 19 0;
 #X connect 10 0 19 0;
 #X connect 14 0 19 0;

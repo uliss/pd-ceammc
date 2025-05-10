@@ -45,138 +45,133 @@
 #X obj 735 706 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 704 @mode;
-#X text 270 704 Получить/Установить draw mode. Тип: symbol. Значение
-по умолчанию: lines. Разрешённые значения: lines \, bars.;
+#X text 270 704 Draw mode. Тип: symbol. Значение по умолчанию: lines.
+Разрешённые значения: lines \, bars.;
 #X msg 130 746 @n;
-#X text 270 746 Получить/Установить number of inputs. Тип: int. Значение
-по умолчанию: 1\. Диапазон: 1\...4\.;
+#X text 270 746 Number of inputs. Тип: int. Значение по умолчанию:
+1\. Диапазон: 1\...4\.;
 #X msg 130 788 @receive;
-#X text 270 788 Получить/Установить источник получения сообщений. Тип:
-symbol. Значение по умолчанию: (null).;
+#X text 270 788 Источник получения сообщений. Тип: symbol. Значение
+по умолчанию: (null).;
 #X msg 130 830 @xmaj_grid;
-#X text 270 830 Получить/Установить draw major grid lines on x-axis.
-Тип: bool. Значение по умолчанию: 1\.;
+#X text 270 830 Draw major grid lines on x-axis. Тип: bool. Значение
+по умолчанию: 1\.;
 #X msg 130 872 @xmaj_ticks;
-#X text 270 872 Получить/Установить draw minor ticks on x-axis. Тип:
-bool. Значение по умолчанию: 1\.;
+#X text 270 872 Draw minor ticks on x-axis. Тип: bool. Значение по
+умолчанию: 1\.;
 #X msg 130 914 @xmin_grid;
-#X text 270 914 Получить/Установить draw minor grid lines on x-axis.
-Тип: bool. Значение по умолчанию: 0\.;
+#X text 270 914 Draw minor grid lines on x-axis. Тип: bool. Значение
+по умолчанию: 0\.;
 #X msg 130 956 @xmin_ticks;
-#X text 270 956 Получить/Установить draw minor ticks on x-axis. Тип:
-bool. Значение по умолчанию: 1\.;
+#X text 270 956 Draw minor ticks on x-axis. Тип: bool. Значение по
+умолчанию: 1\.;
 #X msg 130 998 @yauto;
-#X text 270 998 Получить/Установить calculate y-axis range automatically.
-Тип: bool. Значение по умолчанию: 0\.;
+#X text 270 998 Calculate y-axis range automatically. Тип: bool. Значение
+по умолчанию: 0\.;
 #X msg 130 1040 @ymaj_grid;
-#X text 270 1040 Получить/Установить draw major grid lines on y-axis.
-Тип: bool. Значение по умолчанию: 1\.;
+#X text 270 1040 Draw major grid lines on y-axis. Тип: bool. Значение
+по умолчанию: 1\.;
 #X msg 130 1082 @ymaj_ticks;
-#X text 270 1082 Получить/Установить draw minor ticks on y-axis. Тип:
-bool. Значение по умолчанию: 1\.;
+#X text 270 1082 Draw minor ticks on y-axis. Тип: bool. Значение по
+умолчанию: 1\.;
 #X msg 130 1124 @ymax;
-#X text 270 1124 Получить/Установить minimal y-axis value. Тип: float.
-Значение по умолчанию: 1\. Диапазон: -1024\...1024\.;
+#X text 270 1124 Minimal y-axis value. Тип: float. Значение по умолчанию:
+1\. Диапазон: -1024\...1024\.;
 #X msg 130 1166 @ymin;
-#X text 270 1166 Получить/Установить minimal y-axis value. Тип: float.
-Значение по умолчанию: -1\. Диапазон: -1024\...1024\.;
+#X text 270 1166 Minimal y-axis value. Тип: float. Значение по умолчанию:
+-1\. Диапазон: -1024\...1024\.;
 #X msg 130 1208 @ymin_grid;
-#X text 270 1208 Получить/Установить draw minor grid lines on y-axis.
-Тип: bool. Значение по умолчанию: 0\.;
+#X text 270 1208 Draw minor grid lines on y-axis. Тип: bool. Значение
+по умолчанию: 0\.;
 #X msg 130 1250 @ymin_ticks;
-#X text 270 1250 Получить/Установить draw minor ticks on y-axis. Тип:
-bool. Значение по умолчанию: 1\.;
+#X text 270 1250 Draw minor ticks on y-axis. Тип: bool. Значение по
+умолчанию: 1\.;
 #X msg 130 1292 @background_color;
-#X text 270 1292 Получить/Установить цвета фона у объекта (список из
-красного \, зеленого и синего значений в диапазоне [0\..1]). Тип: list.
-Значение по умолчанию: 0.93 0.93 0.93 1\.;
+#X text 270 1292 Цвета фона у объекта (список из красного \, зеленого
+и синего значений в диапазоне [0\..1]). Тип: list. Значение по умолчанию:
+0.93 0.93 0.93 1\.;
 #X msg 130 1349 @border_color;
-#X text 270 1349 Получить/Установить цвет границы объекта (список из
-красного \, зеленого и синего цветов в [0\..1] диапазоне). Тип: list.
-Значение по умолчанию: 0.6 0.6 0.6 1\.;
+#X text 270 1349 Цвет границы объекта (список из красного \, зеленого
+и синего цветов в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
+0.6 0.6 0.6 1\.;
 #X msg 130 1406 @plot_color0;
-#X text 270 1406 Получить/Установить first plot color (list of red
-\, green \, blue values in 0-1 range). Тип: list. Значение по умолчанию:
-0 0.75 1 1\.;
+#X text 270 1406 First plot color (list of red \, green \, blue values
+in 0-1 range). Тип: list. Значение по умолчанию: 0 0.75 1 1\.;
 #X msg 130 1463 @plot_color1;
-#X text 270 1463 Получить/Установить second color (list of red \, green
-\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.75
-0 1 1\.;
-#X msg 130 1520 @plot_color2;
-#X text 270 1520 Получить/Установить third color (list of red \, green
-\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 1 0
-0.75 1\.;
-#X msg 130 1577 @plot_color3;
-#X text 270 1577 Получить/Установить fourth color (list of red \, green
-\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 1 0.75
-0 1\.;
-#X msg 130 1634 @xlabels;
-#X text 270 1634 Получить/Установить draw labels on x-axis. Тип: bool.
-Значение по умолчанию: 0\.;
-#X msg 130 1676 @xlabels;
-#X text 270 1676 Получить/Установить draw labels on x-axis. Тип: bool.
-Значение по умолчанию: 0\.;
-#X msg 130 1718 @xlabels;
-#X text 270 1718 Получить/Установить draw labels on x-axis. Тип: bool.
-Значение по умолчанию: 0\.;
-#X msg 130 1760 @ylabels;
-#X text 270 1760 Получить/Установить draw labels on y-axis. Тип: bool.
-Значение по умолчанию: 0\.;
-#X msg 130 1802 @fontname;
-#X text 270 1802 Получить/Установить имя шрифта. Тип: symbol. Значение
-по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
-Helvetica \, Monaco \, Times.;
-#X msg 130 1859 @fontsize;
-#X text 270 1859 Получить/Установить размер шрифта. Тип: int. Значение
-по умолчанию: 11\. Диапазон: 4\...100\.;
-#X msg 130 1901 @fontslant;
-#X text 270 1901 Получить/Установить наклон шрифта. Тип: symbol. Значение
-по умолчанию: roman. Разрешённые значения: roman \, italic.;
-#X msg 130 1943 @fontweight;
-#X text 270 1943 Получить/Установить толщину шрифта. Тип: symbol. Значение
-по умолчанию: normal. Разрешённые значения: normal \, bold.;
-#X msg 130 1985 @pinned;
-#X text 270 1985 Получить/Установить режим закрепления. Если 1 - помещает
-элемент на самый дальний уровень на холсте за другими элементам. Тип:
-bool. Значение по умолчанию: 0\.;
-#X msg 130 2042 @size;
-#X text 270 2042 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
-Тип: list. Значение по умолчанию: 200 200\.;
-#X obj 20 2094 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2099 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X text 270 1463 Second color (list of red \, green \, blue values
+in 0-1 range). Тип: list. Значение по умолчанию: 0.75 0 1 1\.;
+#X msg 130 1505 @plot_color2;
+#X text 270 1505 Third color (list of red \, green \, blue values in
+0-1 range). Тип: list. Значение по умолчанию: 1 0 0.75 1\.;
+#X msg 130 1547 @plot_color3;
+#X text 270 1547 Fourth color (list of red \, green \, blue values
+in 0-1 range). Тип: list. Значение по умолчанию: 1 0.75 0 1\.;
+#X msg 130 1589 @xlabels;
+#X text 270 1589 Draw labels on x-axis. Тип: bool. Значение по умолчанию:
+0\.;
+#X msg 130 1619 @xlabels;
+#X text 270 1619 Draw labels on x-axis. Тип: bool. Значение по умолчанию:
+0\.;
+#X msg 130 1649 @xlabels;
+#X text 270 1649 Draw labels on x-axis. Тип: bool. Значение по умолчанию:
+0\.;
+#X msg 130 1679 @ylabels;
+#X text 270 1679 Draw labels on y-axis. Тип: bool. Значение по умолчанию:
+0\.;
+#X msg 130 1709 @fontname;
+#X text 270 1709 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
+Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X msg 130 1766 @fontsize;
+#X text 270 1766 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
+Диапазон: 4\...100\.;
+#X msg 130 1808 @fontslant;
+#X text 270 1808 Наклон шрифта. Тип: symbol. Значение по умолчанию:
+roman. Разрешённые значения: roman \, italic.;
+#X msg 130 1850 @fontweight;
+#X text 270 1850 Толщину шрифта. Тип: symbol. Значение по умолчанию:
+normal. Разрешённые значения: normal \, bold.;
+#X msg 130 1892 @pinned;
+#X text 270 1892 Режим закрепления. Если 1 - помещает элемент на самый
+дальний уровень на холсте за другими элементам. Тип: bool. Значение
+по умолчанию: 0\.;
+#X msg 130 1949 @size;
+#X text 270 1949 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
+по умолчанию: 200 200\.;
+#X obj 20 2001 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2006 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 2100 plot;
-#X text 270 2100 Same as bang: plot default number of samples.;
-#X msg 130 2128 pos;
-#X text 270 2128 set UI element position. Аргументы:;
-#X obj 280 2151 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2151 X: top left x-coord. Тип: float.;
-#X obj 280 2174 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2174 Y: top right y-coord. Тип: float.;
-#X obj 20 2209 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2214 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 2007 plot;
+#X text 270 2007 Same as bang: plot default number of samples.;
+#X msg 130 2035 pos;
+#X text 270 2035 set UI element position. Аргументы:;
+#X obj 280 2058 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2058 X: top left x-coord. Тип: float.;
+#X obj 280 2081 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2081 Y: top right y-coord. Тип: float.;
+#X obj 20 2116 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2121 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 2215 1\.;
-#X text 170 2215 ~;
-#X text 270 2215 input signal.;
-#X text 130 2240 2\.;
-#X text 170 2240 bang:;
-#X text 270 2240 plot default number of samples.;
-#X text 170 2265 float:;
-#X text 270 2265 plot specified number of samples.;
-#X obj 20 2300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2305 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 2122 1\.;
+#X text 170 2122 ~;
+#X text 270 2122 input signal.;
+#X text 130 2147 2\.;
+#X text 170 2147 bang:;
+#X text 270 2147 plot default number of samples.;
+#X text 170 2172 float:;
+#X text 270 2172 plot specified number of samples.;
+#X obj 20 2207 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2212 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2346 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2349 библиотека: ceammc v0.9.8;
-#X text 538 2361 смотрите также:;
-#X obj 659 2361 array.plot~;
-#N canvas 10 2368 400 290 info 0;
+#X obj 1 2253 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2256 библиотека: ceammc v0.9.8;
+#X text 538 2268 смотрите также:;
+#X obj 659 2268 array.plot~;
+#N canvas 10 2275 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -200,7 +195,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2368 pd info;
+#X restore 10 2275 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 5 0 7 0;

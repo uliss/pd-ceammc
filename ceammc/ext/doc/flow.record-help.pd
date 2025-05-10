@@ -32,21 +32,21 @@
 #X obj 735 724 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 722 @auto;
-#X text 270 722 Get/Set autostart record on first input atom. Type:
-bool. Default value: 0\.;
+#X text 270 722 Autostart record on first input atom. Type: bool. Default
+value: 0\.;
 #X msg 130 764 @max;
-#X text 270 764 Get/Set max number of events \, if 0: no max size check.
-If @auto is set - starts playback when max size reached. Type: int.
-Default value: 256\. Range: 0\...65536\.;
+#X text 270 764 Max number of events \, if 0: no max size check. If
+@auto is set - starts playback when max size reached. Type: int. Default
+value: 256\. Range: 0\...65536\.;
 #X msg 130 821 @r;
-#X text 270 821 Get/Set number of repeats in play mode. If -1: repeat
-infinitely. Type: int. Default value: 1\. Min value: -1\.;
+#X text 270 821 Number of repeats in play mode. If -1: repeat infinitely.
+Type: int. Default value: 1\. Min value: -1\.;
 #X msg 130 863 @speed;
-#X text 270 863 Get/Set play speed. Type: float. Default value: 1\.
-Range: 0.0156\...64\.;
+#X text 270 863 Play speed. Type: float. Default value: 1\. Range:
+0.0156\...64\.;
 #X msg 130 905 @sync;
-#X text 270 905 Get/Set use external bang pulse to sync recorded events
-with. Type: bool. Default value: 0\.;
+#X text 270 905 Use external bang pulse to sync recorded events with.
+Type: bool. Default value: 0\.;
 #X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 962 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

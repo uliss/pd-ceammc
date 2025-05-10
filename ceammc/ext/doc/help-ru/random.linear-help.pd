@@ -35,42 +35,42 @@ initialized with current time.;
 #X obj 735 549 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 547 @p0;
-#X text 270 547 Получить/Установить probability at begin. Тип: float.
-Значение по умолчанию: 1\.;
-#X msg 130 589 @p1;
-#X text 270 589 Получить/Установить probability at end. Тип: float.
-Значение по умолчанию: 0\.;
-#X msg 130 631 @seed;
-#X text 270 631 Получить/Установить generator seed. Тип: int. Значение
-по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 130 673 @v0;
-#X text 270 673 Получить/Установить begin of value interval. Тип: float.
-Значение по умолчанию: 0\.;
-#X msg 130 715 @v1;
-#X text 270 715 Получить/Установить end of value interval. Тип: float.
-Значение по умолчанию: 1\.;
-#X obj 20 767 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 772 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 270 547 Probability at begin. Тип: float. Значение по умолчанию:
+1\.;
+#X msg 130 577 @p1;
+#X text 270 577 Probability at end. Тип: float. Значение по умолчанию:
+0\.;
+#X msg 130 607 @seed;
+#X text 270 607 Generator seed. Тип: int. Значение по умолчанию: 0\.
+Минимальное значение: 0\.;
+#X msg 130 649 @v0;
+#X text 270 649 Begin of value interval. Тип: float. Значение по умолчанию:
+0\.;
+#X msg 130 691 @v1;
+#X text 270 691 End of value interval. Тип: float. Значение по умолчанию:
+1\.;
+#X obj 20 731 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 736 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 773 1\.;
-#X text 170 773 bang:;
-#X text 270 773 generates random number.;
-#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 813 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 737 1\.;
+#X text 170 737 bang:;
+#X text 270 737 generates random number.;
+#X obj 20 772 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 777 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 814 1\.;
-#X text 270 814 result value.;
+#X text 130 778 1\.;
+#X text 270 778 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 864 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 867 библиотека: ceammc v0.9.8;
-#X text 447 879 смотрите также:;
-#X obj 568 879 random.float;
-#X obj 669 879 random.int;
-#N canvas 10 886 400 290 info 0;
+#X obj 1 828 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 831 библиотека: ceammc v0.9.8;
+#X text 447 843 смотрите также:;
+#X obj 568 843 random.float;
+#X obj 669 843 random.int;
+#N canvas 10 850 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -94,7 +94,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 886 pd info;
+#X restore 10 850 pd info;
 #X connect 7 0 8 0;
 #X connect 8 1 10 0;
 #X connect 10 0 11 0;

@@ -27,55 +27,53 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 448 1\.;
 #X text 170 448 symbol;
-#X obj 271 449 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 449 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 448 ARRAY: имя массива. Тип: symbol.;
-#X text 130 468 2\.;
-#X text 170 468 float;
-#X obj 271 469 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 468 SPEED: скорость воспроизведения. Тип: float.;
-#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 503 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 473 2\.;
+#X text 170 473 float;
+#X obj 268 474 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 473 SPEED: скорость воспроизведения. Тип: float.;
+#X obj 20 508 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 513 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 506 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 516 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 504 @array;
-#X text 270 504 Получить/Установить имя массива. Тип: symbol.;
-#X msg 130 534 @from;
-#X text 270 534 Получить/Установить нормализованное до [0-1] начало
-линейной функции. Тип: float. Значение по умолчанию: 0\. Диапазон:
-0\...1\.;
-#X msg 130 591 @range;
-#X text 270 591 Получить/Установить диапазон линейной функции. Тип:
-list. Значение по умолчанию: 0 1\.;
-#X msg 130 633 @speed;
-#X text 270 633 Получить/Установить скорость линейной функции. Тип:
-float. Значение по умолчанию: 1\.;
-#X msg 130 675 @to;
-#X text 270 675 Получить/Установить нормализованное до [0-1] конец
-линейной функции. Тип: float. Значение по умолчанию: 1\. Диапазон:
-0\...1\.;
-#X obj 20 742 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 747 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 514 @array;
+#X text 270 514 Имя массива. Тип: symbol.;
+#X msg 130 544 @from;
+#X text 270 544 Нормализованное до [0-1] начало линейной функции. Тип:
+float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 130 586 @range;
+#X text 270 586 Диапазон линейной функции. Тип: list. Значение по умолчанию:
+0 1\.;
+#X msg 130 628 @speed;
+#X text 270 628 Скорость линейной функции. Тип: float. Значение по
+умолчанию: 1\.;
+#X msg 130 670 @to;
+#X text 270 670 Нормализованное до [0-1] конец линейной функции. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 727 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 748 1\.;
-#X text 170 748 bang:;
-#X text 270 748 start ramp for array.;
-#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 788 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 728 1\.;
+#X text 170 728 bang:;
+#X text 270 728 start ramp for array.;
+#X obj 20 763 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 768 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 789 1\.;
-#X text 170 789 ~;
-#X text 270 789 ramp signal.;
-#X text 130 809 2\.;
-#X text 270 809 bang on done.;
+#X text 130 769 1\.;
+#X text 170 769 ~;
+#X text 270 769 ramp signal.;
+#X text 130 789 2\.;
+#X text 270 789 bang on done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 859 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 862 библиотека: ceammc v0.9.8;
-#N canvas 10 881 400 290 info 0;
+#X obj 1 839 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 842 библиотека: ceammc v0.9.8;
+#N canvas 10 861 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -99,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 881 pd info;
+#X restore 10 861 pd info;
 #X connect 4 0 6 0;
 #X connect 8 0 9 0;
 #X connect 7 0 10 0;

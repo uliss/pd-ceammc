@@ -35,23 +35,23 @@
 #X text 270 451 Alias to @mouse_leave 1 property. Значение по умолчанию:
 0\.;
 #X msg 130 481 @mouse_down;
-#X text 270 481 Получить/Установить passing a @mouse_down events. Тип:
-bool. Значение по умолчанию: 0\.;
+#X text 270 481 Passing a @mouse_down events. Тип: bool. Значение по
+умолчанию: 0\.;
 #X msg 130 523 @mouse_drag;
-#X text 270 523 Получить/Установить passing a @mouse_drag events. Тип:
-bool. Значение по умолчанию: 0\.;
+#X text 270 523 Passing a @mouse_drag events. Тип: bool. Значение по
+умолчанию: 0\.;
 #X msg 130 565 @mouse_enter;
-#X text 270 565 Получить/Установить passing a @mouse_enter events.
-Тип: bool. Значение по умолчанию: 0\.;
+#X text 270 565 Passing a @mouse_enter events. Тип: bool. Значение
+по умолчанию: 0\.;
 #X msg 130 607 @mouse_leave;
-#X text 270 607 Получить/Установить passing a @mouse_leave events.
-Тип: bool. Значение по умолчанию: 0\.;
+#X text 270 607 Passing a @mouse_leave events. Тип: bool. Значение
+по умолчанию: 0\.;
 #X msg 130 649 @mouse_move;
-#X text 270 649 Получить/Установить passing a @mouse_move events. Тип:
-bool. Значение по умолчанию: 0\.;
+#X text 270 649 Passing a @mouse_move events. Тип: bool. Значение по
+умолчанию: 0\.;
 #X msg 130 691 @mouse_up;
-#X text 270 691 Получить/Установить passing a @mouse_up events. Тип:
-bool. Значение по умолчанию: 0\.;
+#X text 270 691 Passing a @mouse_up events. Тип: bool. Значение по
+умолчанию: 0\.;
 #X msg 130 733 @move;
 #X text 270 733 Alias to @mouse_move 1 property. Значение по умолчанию:
 0\.;

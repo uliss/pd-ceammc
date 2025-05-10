@@ -25,7 +25,7 @@
 #X obj 735 317 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 315 @in_list;
-#X text 270 315 output '1' if list contains at least one data atom.
+#X text 270 315 Output '1' if list contains at least one data atom.
 Default value: 0\.;
 #X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 372 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933

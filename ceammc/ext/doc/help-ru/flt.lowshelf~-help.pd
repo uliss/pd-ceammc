@@ -21,61 +21,58 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 318 1\.;
 #X text 170 318 float;
-#X obj 271 319 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 319 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 318 FREQ(Hz): corner frequency for the shelf. Тип: float.
 Диапазон: 20…20000;
-#X text 130 353 2\.;
-#X text 170 353 float;
-#X obj 271 354 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 353 GAIN(db): amount of boost or cut apply to the signal.
+#X text 130 358 2\.;
+#X text 170 358 float;
+#X obj 268 359 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 358 GAIN(db): amount of boost or cut apply to the signal.
 Тип: float. Диапазон: -15…15;
-#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 403 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 413 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 406 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 416 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 404 @id;
-#X text 270 404 (при инициализации) Получить/Установить идентификатор
-для OSC адреса. Если установлен \, все свойства объекта привязываются
-к OSC адресам вида: /ИДЕНТИФИКАТОР/flt_lowshelf/ИМЯ_СВОЙСТВА \, в противном
-случае к /flt_lowshelf/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 130 491 @osc;
-#X text 270 491 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 130 414 @id;
+#X text 270 414 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/flt_lowshelf/ИМЯ_СВОЙСТВА \, в противном случае к /flt_lowshelf/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X msg 130 533 @active;
-#X text 270 533 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
-Значение по умолчанию: 1\.;
-#X msg 130 575 @freq;
-#X text 270 575 Получить/Установить corner frequency for the shelf.
-Тип: float. Единицы: 'Hz'. Значение по умолчанию: 1000\. Диапазон:
-20\...20000\.;
-#X msg 130 632 @gain;
-#X text 270 632 Получить/Установить amount of boost or cut apply to
-the signal. Тип: float. Единицы: 'db'. Значение по умолчанию: 0\. Диапазон:
--15\...15\.;
-#X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 704 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 501 @osc;
+#X text 270 501 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X msg 130 531 @active;
+#X text 270 531 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X msg 130 573 @freq;
+#X text 270 573 Corner frequency for the shelf. Тип: float. Единицы:
+'Hz'. Значение по умолчанию: 1000\. Диапазон: 20\...20000\.;
+#X msg 130 630 @gain;
+#X text 270 630 Amount of boost or cut apply to the signal. Тип: float.
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -15\...15\.;
+#X obj 20 697 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 702 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 705 1\.;
-#X text 170 705 ~;
-#X text 270 705 input signal.;
-#X obj 20 740 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 745 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 703 1\.;
+#X text 170 703 ~;
+#X text 270 703 input signal.;
+#X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 743 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 746 1\.;
-#X text 170 746 ~;
-#X text 270 746 filtered signal.;
+#X text 130 744 1\.;
+#X text 170 744 ~;
+#X text 270 744 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 796 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 799 библиотека: ceammc v0.9.8;
-#X text 392 811 смотрите также:;
-#X obj 513 811 flt.highshelf~;
-#X obj 630 811 flt.c_lowshelf~;
-#N canvas 10 818 400 290 info 0;
+#X obj 1 794 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 797 библиотека: ceammc v0.9.8;
+#X text 392 809 смотрите также:;
+#X obj 513 809 flt.highshelf~;
+#X obj 630 809 flt.c_lowshelf~;
+#N canvas 10 816 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -99,7 +96,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 818 pd info;
+#X restore 10 816 pd info;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;
 #X connect 4 0 9 0;

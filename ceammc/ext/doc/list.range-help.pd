@@ -29,8 +29,8 @@
 #X msg 130 508 @s;
 #X text 270 508 Alias to @type symbol \, accept only symbols.;
 #X msg 130 538 @type;
-#X text 270 538 Get/Set type of accepted atoms. Type: symbol. Default
-value: float. Allowed values: float \, symbol \, any.;
+#X text 270 538 Type of accepted atoms. Type: symbol. Default value:
+float. Allowed values: float \, symbol \, any.;
 #X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 595 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

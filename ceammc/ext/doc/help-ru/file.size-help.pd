@@ -5,46 +5,45 @@
 #X obj 1 1 cnv 5 765 40 empty empty file.size 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 file.size;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 83 Note: by default filesize request performed asynchronously
 \, so there's a (usually) short delay between input and output;
-#X msg 50 176 bang;
-#X msg 165 176 symbol %CEAMMC%/guitar1.wav;
-#X obj 50 205 openpanel;
-#X obj 165 205 expand_env;
-#X obj 50 234 file.size;
-#X obj 50 263 ui.dt;
-#X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 318 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X msg 50 191 bang;
+#X msg 165 191 symbol %CEAMMC%/guitar1.wav;
+#X obj 50 220 openpanel;
+#X obj 165 220 expand_env;
+#X obj 50 249 file.size;
+#X obj 50 278 ui.dt;
+#X obj 20 328 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 333 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 321 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 336 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 319 @async;
-#X text 270 319 Получить/Установить async mode. Тип: bool. Значение
-по умолчанию: 1\.;
-#X msg 130 361 @sync;
-#X text 270 361 Alias for @async 0\.;
-#X obj 20 401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 406 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 334 @async;
+#X text 270 334 Async mode. Тип: bool. Значение по умолчанию: 1\.;
+#X msg 130 364 @sync;
+#X text 270 364 Alias for @async 0\.;
+#X obj 20 404 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 409 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 407 1\.;
-#X text 170 407 symbol:;
-#X text 270 407 file path.;
-#X text 170 432 data:string:;
-#X text 270 432 file path.;
-#X obj 20 467 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 472 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 410 1\.;
+#X text 170 410 symbol:;
+#X text 270 410 file path.;
+#X text 170 435 data:string:;
+#X text 270 435 file path.;
+#X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 475 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 473 1\.;
-#X text 270 473 float: size in bytes.;
+#X text 130 476 1\.;
+#X text 270 476 float: size in bytes.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title path @url ceammc.path-help.pd;
-#X obj 1 523 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 526 библиотека: ceammc v0.9.8;
-#N canvas 10 545 400 290 info 0;
+#X obj 1 526 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 529 библиотека: ceammc v0.9.8;
+#N canvas 10 548 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -68,7 +67,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 545 pd info;
+#X restore 10 548 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;

@@ -24,46 +24,45 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 434 1\.;
 #X text 170 434 list;
-#X obj 271 435 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 435 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 434 KEYS: keys. Тип: list.;
-#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 469 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 474 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 472 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 470 @keys;
-#X text 270 470 (при инициализации) Получить/Установить extracted keys.
-Тип: list.;
-#X msg 130 512 @default;
-#X text 270 512 Получить/Установить default value when key is not found
-in dictionary. If not specified no output is performed. Тип: atom.
-Значение по умолчанию: null.;
-#X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 584 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 475 @keys;
+#X text 270 475 (при инициализации) Extracted keys. Тип: list.;
+#X msg 130 505 @default;
+#X text 270 505 Default value when key is not found in dictionary.
+If not specified no output is performed. Тип: atom. Значение по умолчанию:
+null.;
+#X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 577 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 585 1\.;
-#X text 170 585 data:dict:;
-#X text 270 585 input dictionary.;
-#X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 625 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 578 1\.;
+#X text 170 578 data:dict:;
+#X text 270 578 input dictionary.;
+#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 618 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 626 1\.;
-#X text 270 626 first key output.;
-#X text 130 646 ...;
-#X text 270 646 ... key output.;
-#X text 130 666 n.;
-#X text 270 666 n-th key output.;
+#X text 130 619 1\.;
+#X text 270 619 first key output.;
+#X text 130 639 ...;
+#X text 270 639 ... key output.;
+#X text 130 659 n.;
+#X text 270 659 n-th key output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 716 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 719 библиотека: ceammc v0.9.8;
-#X text 465 731 смотрите также:;
-#X obj 586 731 data.dict;
-#X obj 667 731 flow.route;
-#N canvas 10 738 400 290 info 0;
+#X obj 1 709 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 712 библиотека: ceammc v0.9.8;
+#X text 465 724 смотрите также:;
+#X obj 586 724 data.dict;
+#X obj 667 724 flow.route;
+#N canvas 10 731 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -87,7 +86,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 738 pd info;
+#X restore 10 731 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

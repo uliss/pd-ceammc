@@ -16,29 +16,29 @@ size;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 246 1\.;
 #X text 170 246 int;
-#X obj 271 247 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 247 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 246 SIZE: output list size. Type: int. Range: 1\...1024;
-#X obj 20 276 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 281 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 286 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 284 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 289 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 282 @size;
-#X text 270 282 Get/Set output list size. Type: int. Default value:
-1\. Range: 1\...1024\.;
-#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 339 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 287 @size;
+#X text 270 287 Output list size. Type: int. Default value: 1\. Range:
+1\...1024\.;
+#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 344 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 340 1\.;
-#X text 170 340 list:;
-#X text 270 340 input list.;
-#X obj 20 375 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 380 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 345 1\.;
+#X text 170 345 list:;
+#X text 270 345 input list.;
+#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 385 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 381 1\.;
-#X text 270 381 output list.;
-#X text 130 401 2\.;
-#X text 270 401 bang after last element output.;
+#X text 130 386 1\.;
+#X text 270 386 output list.;
+#X text 130 406 2\.;
+#X text 270 406 bang after last element output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -43,19 +43,19 @@ is number.;
 #X msg 130 753 capabilities?;
 #X text 270 753 query pin capabilities. Return sequence of messages
 like: [pin_info PIN# MODE RESOLUTION( \, where # is pin number.;
-#X msg 130 793 firmware?;
-#X text 270 793 query firmata protocol version. Returns message like:
+#X msg 130 808 firmware?;
+#X text 270 808 query firmata protocol version. Returns message like:
 [firmware ARDUINO_FIRMWARE_NAME.ino MAJOR MINOR(.;
-#X msg 130 833 pin_mode;
-#X text 270 833 sets pin mode. Аргументы:;
-#X obj 280 856 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 856 PIN#: pin number. Тип: int. Минимальное значение: 0\.;
-#X obj 280 879 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 879 MODE: pin mode. Тип: symbol. Разрешённые значения:
+#X msg 130 848 pin_mode;
+#X text 270 848 sets pin mode. Аргументы:;
+#X obj 280 871 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 871 PIN#: pin number. Тип: int. Минимальное значение: 0\.;
+#X obj 280 894 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 894 MODE: pin mode. Тип: symbol. Разрешённые значения:
 INPUT \, OUTPUT \, ANALOG \, PWM \, SERVO \, SHIFT \, I2C \, ONEWIRE
 \, STEPPER \, ENCODER \, SERIAL \, PULLUP.;
-#X msg 130 934 pin_state?;
-#X text 270 934 query pin state. The pin state is any data written
+#X msg 130 949 pin_state?;
+#X text 270 949 query pin state. The pin state is any data written
 to the pin (it is important to note that pin state != pin value). For
 output modes (digital output \, PWM \, and Servo) \, the state is any
 value that has been previously written to the pin. For input modes
@@ -73,61 +73,61 @@ where # is pin number. Аргументы:;
 #X text 280 1164 VALUE: value. If 1 - activates analog reporting \,
 messages like [apin PIN# value( are returned every sampling interval
 (by default 19ms). Тип: int. Разрешённые значения: 0 \, 1\.;
-#X msg 130 1219 report_dport;
-#X text 270 1219 turns on/off digital port value reporting. Аргументы:;
-#X obj 280 1242 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1242 PORT#: digital port number. Port is a group of pins
+#X msg 130 1234 report_dport;
+#X text 270 1234 turns on/off digital port value reporting. Аргументы:;
+#X obj 280 1257 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1257 PORT#: digital port number. Port is a group of pins
 \, port 0 refers pins 0-8\. Тип: int.;
-#X obj 280 1280 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1280 VALUE: value. If 1 - activates digital port reporting
+#X obj 280 1295 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1295 VALUE: value. If 1 - activates digital port reporting
 \, messages like [dport PORT# value( are returned only on pin value
 change. Тип: int. Разрешённые значения: 0 \, 1\.;
-#X msg 130 1335 samp_interval;
-#X text 270 1335 sets sampling interval - how often analog data and
+#X msg 130 1365 samp_interval;
+#X text 270 1365 sets sampling interval - how often analog data and
 i2c data is reported to the client. The default for the arduino implementation
 is 19ms. This means that every 19ms analog data will be reported and
 any i2c devices with read continuous mode will be read. Аргументы:;
-#X obj 280 1434 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1434 TIME: time. Тип: int. Диапазон: 10…10000\. Единицы:
+#X obj 280 1448 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1448 TIME: time. Тип: int. Диапазон: 10…10000\. Единицы:
 'ms'.;
-#X msg 130 1459 version?;
-#X text 270 1459 query firmata protocol version. Returns message like:
+#X msg 130 1473 version?;
+#X text 270 1473 query firmata protocol version. Returns message like:
 [version MAJOR MINOR(.;
-#X msg 130 1499 write_dpin;
-#X text 270 1499 write 1 or 0 to digital pin. Pin mode should be OUTPUT.
+#X msg 130 1513 write_dpin;
+#X text 270 1513 write 1 or 0 to digital pin. Pin mode should be OUTPUT.
 Аргументы:;
-#X obj 280 1537 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1537 PIN#: pin number. Тип: int.;
-#X obj 280 1560 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1560 VALUE: pin value. Тип: int. Разрешённые значения:
+#X obj 280 1551 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1551 PIN#: pin number. Тип: int.;
+#X obj 280 1574 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1574 VALUE: pin value. Тип: int. Разрешённые значения:
 0 \, 1\.;
-#X msg 130 1585 write_pwm;
-#X text 270 1585 writes PWM (Pulse Width Modulation) value to specified
+#X msg 130 1599 write_pwm;
+#X text 270 1599 writes PWM (Pulse Width Modulation) value to specified
 pin. Аргументы:;
-#X obj 280 1623 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1623 PIN#: pin number. Тип: int.;
-#X obj 280 1646 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1646 VALUE: pin value. Тип: int. Диапазон: 0…256\.;
-#X obj 20 1681 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1686 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 280 1637 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1637 PIN#: pin number. Тип: int.;
+#X obj 280 1660 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1660 VALUE: pin value. Тип: int. Диапазон: 0…256\.;
+#X obj 20 1695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1700 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1687 1\.;
-#X text 170 1687 float:;
-#X text 270 1687 raw input of bytes from Arduino serial connection.;
-#X obj 20 1722 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1727 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1701 1\.;
+#X text 170 1701 float:;
+#X text 270 1701 raw input of bytes from Arduino serial connection.;
+#X obj 20 1736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1741 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1728 1\.;
-#X text 270 1728 raw byte output to Arduino serial connection and tagged
+#X text 130 1742 1\.;
+#X text 270 1742 raw byte output to Arduino serial connection and tagged
 parsed output from Arduino.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1793 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1796 библиотека: ceammc v0.9.8;
-#N canvas 10 1815 400 290 info 0;
+#X obj 1 1807 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1810 библиотека: ceammc v0.9.8;
+#N canvas 10 1829 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -151,7 +151,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1815 pd info;
+#X restore 10 1829 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 9 0;
 #X connect 10 0 12 0;

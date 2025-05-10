@@ -39,57 +39,57 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 @title [?] @url ceammc.args-info.pd;
 #X text 130 595 1\.;
 #X text 170 595 float;
-#X obj 271 596 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 268 596 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 595 SEED: seed value \, default 0.82\. Тип: float.;
-#X text 130 615 2\.;
-#X text 170 615 float;
-#X obj 271 616 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 615 X: initial x value \, default 0.7\. Тип: float.;
-#X text 130 635 3\.;
-#X text 170 635 float;
-#X obj 271 636 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 635 Y: initial y value \, default 1.2\. Тип: float.;
-#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 670 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 620 2\.;
+#X text 170 620 float;
+#X obj 268 621 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 620 X: initial x value \, default 0.7\. Тип: float.;
+#X text 130 645 3\.;
+#X text 170 645 float;
+#X obj 268 646 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 645 Y: initial y value \, default 1.2\. Тип: float.;
+#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 685 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 673 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 688 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X obj 20 691 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 696 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 706 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 711 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 697 reset;
-#X text 270 697 reset seed \, x and y values to defaults.;
-#X msg 130 725 seed;
-#X text 270 725 set seed value and update default.;
-#X msg 130 753 set;
-#X text 270 753 set seed \, x and y values \, updates defaults.;
-#X msg 130 781 x;
-#X text 270 781 set x value and update default.;
-#X msg 130 809 y;
-#X text 270 809 set y value and update default.;
-#X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 852 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 712 reset;
+#X text 270 712 reset seed \, x and y values to defaults.;
+#X msg 130 740 seed;
+#X text 270 740 set seed value and update default.;
+#X msg 130 768 set;
+#X text 270 768 set seed \, x and y values \, updates defaults.;
+#X msg 130 796 x;
+#X text 270 796 set x value and update default.;
+#X msg 130 824 y;
+#X text 270 824 set y value and update default.;
+#X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 867 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 853 1\.;
-#X text 170 853 bang:;
-#X text 270 853 outputs current x/y values and generates new one.;
-#X obj 20 888 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 893 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 868 1\.;
+#X text 170 868 bang:;
+#X text 270 868 outputs current x/y values and generates new one.;
+#X obj 20 903 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 908 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 894 1\.;
-#X text 270 894 outputs x-value.;
-#X text 130 914 2\.;
-#X text 270 914 outputs y-value.;
+#X text 130 909 1\.;
+#X text 270 909 outputs x-value.;
+#X text 130 929 2\.;
+#X text 270 929 outputs y-value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 964 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 967 библиотека: ceammc v0.9.8;
-#X text 532 979 смотрите также:;
-#X obj 653 979 chaos.gbman0;
-#N canvas 10 986 400 290 info 0;
+#X obj 1 979 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 982 библиотека: ceammc v0.9.8;
+#X text 532 994 смотрите также:;
+#X obj 653 994 chaos.gbman0;
+#N canvas 10 1001 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -113,7 +113,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 986 pd info;
+#X restore 10 1001 pd info;
 #X connect 9 0 10 0;
 #X connect 11 0 13 0;
 #X connect 12 0 14 0;
