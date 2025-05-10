@@ -25,10 +25,10 @@
         <properties>
             <!-- @value -->
             <property name="@value" type="int" minvalue="0" default="0">
-                <tr lang="en">current counter value. It can be set via the message to the second(!) inlet or
-                using [prop.set] object.</tr>
-                <tr lang="ru">текущее значение счетчика. Его можно установить
-                через отправку сообщения на второй (!) вход или используя [prop.set] объект.</tr>
+                <tr lang="en">current counter value. It can be set via the message to the second(!)
+                inlet or using [prop.set] object.</tr>
+                <tr lang="ru">текущее значение счетчика. Его можно установить через отправку
+                сообщения на второй (!) вход или используя [prop.set] объект.</tr>
             </property>
         </properties>
         <inlets>
@@ -57,13 +57,12 @@
                 </in>
                 <in on="any" selector="+ X">
                     <tr lang="en">add the specified value to the current one (no output)</tr>
-                    <tr lang="ru">добавить указанное значение к текущему (без
-                    вывода)</tr>
+                    <tr lang="ru">добавить указанное значение к текущему (без вывода)</tr>
                 </in>
                 <in on="any" selector="- X">
-                    <tr lang="en">subtract the specified value from the current one (no output)</tr>
-                    <tr lang="ru">вычесть указанное значение из текущего (без
-                    вывода)</tr>
+                    <tr lang="en">subtract the specified value from the current one (no
+                    output)</tr>
+                    <tr lang="ru">вычесть указанное значение из текущего (без вывода)</tr>
                 </in>
             </inlet>
         </inlets>

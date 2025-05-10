@@ -26,7 +26,8 @@
             <par>
                 <tr lang="en">Numbers thar are *less* then last argument are passed to N+1
                 outlet</tr>
-                <tr lang="ru">Числа, которые *меньше* последнего аргумента выводятся на выход N+1.</tr>
+                <tr lang="ru">Числа, которые *меньше* последнего аргумента выводятся на выход
+                N+1.</tr>
             </par>
         </info>
         <arguments>

@@ -26,7 +26,8 @@
             <par>
                 <tr lang="en">Numbers that are *less* or *equal* then last argument are passed to
                 the N-th outlet</tr>
-                <tr lang="ru">Числа, которые *меньше или равны* последнему аргументу выводятся на выход N+1.</tr>
+                <tr lang="ru">Числа, которые *меньше или равны* последнему аргументу выводятся на
+                выход N+1.</tr>
             </par>
         </info>
         <arguments>
@@ -66,15 +67,13 @@
             <outlet number="n">
                 <out type="float">
                     <tr lang="en">numbers that are greater than last argument</tr>
-                    <tr lang="ru">числа, которые больше, чем последний
-                    аргумент</tr>
+                    <tr lang="ru">числа, которые больше, чем последний аргумент</tr>
                 </out>
             </outlet>
             <outlet number="n+1">
                 <out type="float">
                     <tr lang="en">numbers that are less or equal than last argument</tr>
-                    <tr lang="ru">числа, которые меньше или равны последнему
-                    аргументу</tr>
+                    <tr lang="ru">числа, которые меньше или равны последнему аргументу</tr>
                 </out>
             </outlet>
         </outlets>

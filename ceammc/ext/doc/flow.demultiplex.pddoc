@@ -24,10 +24,10 @@
         </meta>
         <info>
             <par>
-                <tr lang="en">Note: you can get/set object properties only via [prop.set] and [prop.get]
-                objects</tr>
-                <tr lang="ru">Примечание: вы можете получить/установить свойства
-                объекта только через объекты [prop.set] и [prop.get]</tr>
+                <tr lang="en">Note: you can get/set object properties only via [prop.set] and
+                [prop.get] objects</tr>
+                <tr lang="ru">Примечание: вы можете получить/установить свойства объекта только
+                через объекты [prop.set] и [prop.get]</tr>
             </par>
         </info>
         <arguments>

@@ -22,8 +22,7 @@
         <info>
             <par>
                 <tr lang="en">outputs the incoming message the specified number of times</tr>
-                <tr lang="ru">выводит входящее сообщение указанное количество
-                раз</tr>
+                <tr lang="ru">выводит входящее сообщение указанное количество раз</tr>
             </par>
         </info>
         <arguments>

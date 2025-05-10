@@ -44,7 +44,8 @@
             <!-- @sync -->
             <property name="@sync" type="bool" default="1">
                 <tr lang="en">if true, recalculate and output histogram on every input value</tr>
-                <tr lang="ru">если истинно, перевычислять и выводить гистограмму после каждого входного значения</tr>
+                <tr lang="ru">если истинно, перевычислять и выводить гистограмму после каждого
+                входного значения</tr>
             </property>
         </properties>
         <methods>
@@ -63,10 +64,10 @@
                     <tr lang="ru">вычисляет гистограмму и выводит текущие значения интервалов</tr>
                 </in>
                 <in on="float">
-                    <tr lang="en">add value to the histogram. Calculate and output a new histogram value if @sync
-                    property is true</tr>
-                    <tr lang="ru">добавить значение в гистограмму. Вычислить и вывести её новое значение,
-                    если свойство @sync истинно</tr>
+                    <tr lang="en">add value to the histogram. Calculate and output a new histogram
+                    value if @sync property is true</tr>
+                    <tr lang="ru">добавить значение в гистограмму. Вычислить и вывести её новое
+                    значение, если свойство @sync истинно</tr>
                 </in>
             </inlet>
         </inlets>

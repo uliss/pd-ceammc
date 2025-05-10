@@ -21,15 +21,14 @@
         </meta>
         <info>
             <par>
-                <tr lang="en">The object passes the input message only if it differs from the current one.
-                After passing the message, the current message is updated.</tr>
-                <tr lang="ru">Объект пропускает входное сообщение, только если оно отличается от текущего.
-                После пропуска сообщения текущее сообщение обновляется</tr>
+                <tr lang="en">The object passes the input message only if it differs from the
+                current one. After passing the message, the current message is updated.</tr>
+                <tr lang="ru">Объект пропускает входное сообщение, только если оно отличается от
+                текущего. После пропуска сообщения текущее сообщение обновляется</tr>
             </par>
             <par>
                 <tr lang="en">Note: [list a b c( and [a b c( are different messages!</tr>
-                <tr lang="ru">Примечание: [list a b c( и [a b c( - это разные
-                сообщения!</tr>
+                <tr lang="ru">Примечание: [list a b c( и [a b c( - это разные сообщения!</tr>
             </par>
         </info>
         <properties>
@@ -64,8 +63,10 @@
         <outlets>
             <outlet>
                 <out type="any">
-                    <tr lang="en">outputs only if the input value differs from the previous one</tr>
-                    <tr lang="ru">выводит только в том случае, если входное значение отличается от предыдущего</tr>
+                    <tr lang="en">outputs only if the input value differs from the previous
+                    one</tr>
+                    <tr lang="ru">выводит только в том случае, если входное значение отличается от
+                    предыдущего</tr>
                 </out>
             </outlet>
         </outlets>
