@@ -79,6 +79,8 @@
             </property>
         </properties>
         <methods>
+            <xi:include href="method_dump.xml" />
+            <xi:include href="method_ui_pos.xml" />
             <!-- abc -->
             <method name="abc">
                 <info>
@@ -612,8 +614,6 @@
                     <tr lang="ru" finished="false">yn-coord в пикселях или процентах высоты</tr>
                 </param>
             </method>
-            <xi:include href="method_dump.xml" />
-            <xi:include href="method_ui_pos.xml" />
             <!-- qrcode -->
             <method name="qrcode">
                 <info>

@@ -103,8 +103,8 @@
             </property>
         </properties>
         <methods>
-        <xi:include href="method_dump.xml" />
-        <xi:include href="method_ui_pos.xml" />
+            <xi:include href="method_dump.xml" />
+            <xi:include href="method_ui_pos.xml" />
         </methods>
         <inlets>
             <inlet>
