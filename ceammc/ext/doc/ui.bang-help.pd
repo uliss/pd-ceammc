@@ -109,7 +109,7 @@ list. Default value: 15 15\.;
 #X obj 280 1340 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1340 Y: top right y-coord. Type: float.;
 #X msg 130 1365 dump;
-#X text 270 1365 dumps all object info to Pd console window.;
+#X text 270 1365 dumps all object info to the Pd console window.;
 #X obj 20 1403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1408 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
@@ -126,6 +126,7 @@ list. Default value: 15 15\.;
 #X obj 20 1524 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1525 1\.;
+#X text 170 1525 bang:;
 #X text 270 1525 bang output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<method name="pos">
+    <info>
+        <tr lang="en">set UI element position</tr>
+        <tr lang="ru">установить положение элемента UI</tr>
+    </info>
+    <param name="X" type="float" required="true">
+        <tr lang="en">top left x-coord</tr>
+        <tr lang="ru">верхняя левая X-координата</tr>
+    </param>
+    <param name="Y" type="float" required="true">
+        <tr lang="en">top right y-coord</tr>
+        <tr lang="ru">верхняя правая Y-coord</tr>
+    </param>
+</method>

@@ -9,7 +9,7 @@
 #X obj 686 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.bang] @url ui.bang-help.pd;
 #X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 240 83 Bang on steroids: bind to MIDI and keyboard;
+#X text 240 83 Bang на стероидах: привязки к MIDI и клавиатуре;
 #X msg 50 161 dump;
 #X obj 50 190 ui.bang @size 40 40 @send b_out @receive b_in;
 #X obj 117 219 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -42,8 +42,8 @@
 #X obj 735 476 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 474 @bind;
-#X text 270 474 Получить/Установить MIDI/keyboard bind expression.
-Тип: list.;
+#X text 270 474 Получить/Установить привязка к MIDI/клавиатуре. Тип:
+list.;
 #X msg 130 504 @receive;
 #X text 270 504 Получить/Установить источник получения сообщений. Тип:
 symbol. Значение по умолчанию: (null).;
@@ -111,30 +111,31 @@ bool. Значение по умолчанию: 0\.;
 #X obj 20 1410 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1411 pos;
-#X text 270 1411 set UI element position. Аргументы:;
+#X text 270 1411 установить положение элемента UI. Аргументы:;
 #X obj 280 1434 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1434 X: top left x-coord. Тип: float.;
+#X text 280 1434 X: верхняя левая X-координата. Тип: float.;
 #X obj 280 1457 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1457 Y: top right y-coord. Тип: float.;
+#X text 280 1457 Y: верхняя правая Y-coord. Тип: float.;
 #X msg 130 1482 dump;
-#X text 270 1482 dumps all object info to Pd console window.;
+#X text 270 1482 выводит всю информацию об объекте в окно консоли Pd.;
 #X obj 20 1520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1525 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1526 1\.;
 #X text 170 1526 bang:;
-#X text 270 1526 outputs bang.;
+#X text 270 1526 выводит пустое событие.;
 #X text 170 1551 float:;
-#X text 270 1551 outputs bang.;
+#X text 270 1551 выводит пустое событие.;
 #X text 170 1576 symbol:;
-#X text 270 1576 outputs bang.;
+#X text 270 1576 выводит пустое событие.;
 #X text 170 1601 list:;
-#X text 270 1601 outputs bang.;
+#X text 270 1601 выводит пустое событие.;
 #X obj 20 1636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1641 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1642 1\.;
-#X text 270 1642 bang output.;
+#X text 170 1642 bang:;
+#X text 270 1642 вывод пустого события.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

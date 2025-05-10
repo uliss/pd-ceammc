@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<method name="dump">
+    <info>
+        <tr lang="en">dumps all object info to the Pd console window.</tr>
+        <tr lang="ru">выводит всю информацию об объекте в окно
+        консоли Pd.</tr>
+    </info>
+</method>
