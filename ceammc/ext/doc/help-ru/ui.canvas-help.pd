@@ -397,11 +397,11 @@ atom.;
 #X text 280 4699 YN: yn-coord in pixel or percents of height. Тип:
 atom.;
 #X msg 130 4724 pos;
-#X text 270 4724 set UI element position. Аргументы:;
+#X text 270 4724 установить положение элемента UI. Аргументы:;
 #X obj 280 4747 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 4747 X: top left x-coord. Тип: float.;
+#X text 280 4747 X: верхняя левая X-координата. Тип: float.;
 #X obj 280 4770 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 4770 Y: top right y-coord. Тип: float.;
+#X text 280 4770 Y: верхняя правая Y-coord. Тип: float.;
 #X msg 130 4795 qrcode;
 #X text 270 4795 create QR-code shape. Аргументы:;
 #X obj 280 4818 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -492,7 +492,7 @@ both directions. Тип: float.;
 #X obj 280 5797 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 5797 WIDTH: line width. Тип: float.;
 #X msg 130 5822 dump;
-#X text 270 5822 dumps all object info to Pd console window.;
+#X text 270 5822 выводит всю информацию об объекте в окно консоли Pd.;
 #X obj 20 5860 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 5865 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

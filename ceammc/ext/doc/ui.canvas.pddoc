@@ -285,14 +285,6 @@
                     твердую форму</tr>
                 </param>
             </method>
-            <!-- dump -->
-            <method name="dump">
-                <info>
-                    <tr lang="en">dumps all object info to Pd console window.</tr>
-                    <tr lang="ru" finished="false">Сбрасывает всю информацию об объекте в окно
-                    консоли Pd.</tr>
-                </info>
-            </method>
             <!-- ellipse -->
             <method name="ellipse">
                 <info>
@@ -620,21 +612,8 @@
                     <tr lang="ru" finished="false">yn-coord в пикселях или процентах высоты</tr>
                 </param>
             </method>
-            <!-- pos -->
-            <method name="pos">
-                <info>
-                    <tr lang="en">set UI element position</tr>
-                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">top left x-coord</tr>
-                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">top right y-coord</tr>
-                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
-                </param>
-            </method>
+            <xi:include href="method_dump.xml" />
+            <xi:include href="method_ui_pos.xml" />
             <!-- qrcode -->
             <method name="qrcode">
                 <info>

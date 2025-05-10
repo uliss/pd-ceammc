@@ -489,7 +489,7 @@ atom.;
 #X obj 280 5725 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 5725 WIDTH: line width. Type: float.;
 #X msg 130 5750 dump;
-#X text 270 5750 dumps all object info to Pd console window.;
+#X text 270 5750 dumps all object info to the Pd console window.;
 #X obj 20 5788 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 5793 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;

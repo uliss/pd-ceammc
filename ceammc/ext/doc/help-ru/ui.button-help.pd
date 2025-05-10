@@ -82,13 +82,13 @@ bool. Значение по умолчанию: 0\.;
 #X obj 20 1020 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1021 pos;
-#X text 270 1021 set UI element position. Аргументы:;
+#X text 270 1021 установить положение элемента UI. Аргументы:;
 #X obj 280 1044 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1044 X: top left x-coord. Тип: float.;
+#X text 280 1044 X: верхняя левая X-координата. Тип: float.;
 #X obj 280 1067 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1067 Y: top right y-coord. Тип: float.;
+#X text 280 1067 Y: верхняя правая Y-coord. Тип: float.;
 #X msg 130 1092 dump;
-#X text 270 1092 dumps all object info to Pd console window.;
+#X text 270 1092 выводит всю информацию об объекте в окно консоли Pd.;
 #X obj 20 1130 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1135 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
