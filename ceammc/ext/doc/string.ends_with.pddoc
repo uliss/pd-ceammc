@@ -25,35 +25,35 @@
         <arguments>
             <argument name="SUFFIX" type="symbol">
                 <tr lang="en">suffix</tr>
-                <tr lang="ru" finished="false">суффикс</tr>
+                <tr lang="ru">суффикс</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @suffix -->
             <property name="@suffix" type="symbol" default="">
                 <tr lang="en">suffix to search</tr>
-                <tr lang="ru" finished="false">Суффикс для поиска</tr>
+                <tr lang="ru">cуффикс для поиска</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <in>
                     <tr lang="en">input string or symbol</tr>
-                    <tr lang="ru" finished="false">входная строка или символ</tr>
+                    <tr lang="ru">входная строка или символ</tr>
                 </in>
             </inlet>
             <inlet>
                 <in>
                     <tr lang="en">search suffix (string or symbol)</tr>
-                    <tr lang="ru" finished="false">суффикс поиска (струна или символ)</tr>
+                    <tr lang="ru">суффикс поиска (строка или символ)</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">output 1 if input string ends with suffix, otherwise 0</tr>
-                    <tr lang="ru" finished="false">выход 1 если входная строка заканчивается
+                <out type="bool">
+                    <tr lang="en">output 1 if the input string ends with the suffix, otherwise 0</tr>
+                    <tr lang="ru">выводит 1 если входная строка заканчивается
                     суффиксом, иначе 0</tr>
                 </out>
             </outlet>

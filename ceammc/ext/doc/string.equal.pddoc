@@ -25,43 +25,43 @@
         <arguments>
             <argument name="SUBJ" type="symbol">
                 <tr lang="en">second string initial value</tr>
-                <tr lang="ru" finished="false">вторая строка начальное значение</tr>
+                <tr lang="ru">начальное значение второй строки</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @subj -->
             <property name="@subj" type="symbol" default="">
                 <tr lang="en">string to compare</tr>
-                <tr lang="ru" finished="false">Струна для сравнения</tr>
+                <tr lang="ru">строка для сравнения</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <in on="data:string">
-                    <tr lang="en">do compare</tr>
-                    <tr lang="ru" finished="false">сравнивать</tr>
+                    <tr lang="en">starts checking for the equality of the input string and the specified one</tr>
+                    <tr lang="ru">начинает проверку на равенство входной строки и заданной</tr>
                 </in>
                 <in on="symbol">
-                    <tr lang="en">do compare</tr>
-                    <tr lang="ru" finished="false">сравнивать</tr>
+                    <tr lang="en">begins comparing the input symbol for equality with the specified string</tr>
+                    <tr lang="ru">начинает проверку на равенство входного символа с заданной строкой</tr>
                 </in>
             </inlet>
             <inlet>
                 <in on="data:string">
-                    <tr lang="en">set compare subject</tr>
-                    <tr lang="ru" finished="false">Сравнительная тема</tr>
+                    <tr lang="en">sets the compare subject</tr>
+                    <tr lang="ru">устанавливает строку для сравнения</tr>
                 </in>
                 <in on="symbol">
-                    <tr lang="en">set compare subject</tr>
-                    <tr lang="ru" finished="false">Сравнительная тема</tr>
+                    <tr lang="en">sets the compare subject</tr>
+                    <tr lang="ru">устанавливает строку для сравнения</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
+                <out type="bool">
                     <tr lang="en">outputs 1 if strings are equal, otherwise 0</tr>
-                    <tr lang="ru" finished="false">выходы 1 если строки равны, в противном случае
+                    <tr lang="ru">выводит 1, если строки равны, в противном случае
                     0</tr>
                 </out>
             </outlet>
