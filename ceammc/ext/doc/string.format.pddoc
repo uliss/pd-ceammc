@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">formats a string like printf function</tr>
-                <tr lang="ru">форматирует строки в стиле функции printf</tr>
+                <tr lang="ru">форматирует строку в стиле функции printf</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -1216,8 +1216,8 @@ string.ends_with	checks if the string ends with the specified substring / про
 str.ends_with	checks if the string ends with the specified substring / проверяет, заканчивается ли строка указанной подстрокой
 string.equal	check strings or symbols for equality / проверка строк или символов на равенство
 str.equal	check strings or symbols for equality / проверка строк или символов на равенство
-string.format	formats a string like printf function / форматирует строки в стиле функции printf
-str.format	formats a string like printf function / форматирует строки в стиле функции printf
+string.format	formats a string like printf function / форматирует строку в стиле функции printf
+str.format	formats a string like printf function / форматирует строку в стиле функции printf
 string.join	joins the list into a string with the element separator / объединяет список в строку с указанным разделителем элементов
 str.join	joins the list into a string with the element separator / объединяет список в строку с указанным разделителем элементов
 string.length	number of characters in the string (with Unicode support) / количество символов в строке (с поддержкой Unicode)

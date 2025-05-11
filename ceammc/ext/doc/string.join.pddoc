@@ -23,47 +23,60 @@
                 <see>string.split</see>
             </also>
         </meta>
+        <info>
+            <par>
+                <tr lang="en">To set a space as separator, use either the escape character (\ ) or quotes (" ").</tr>
+                <tr lang="ru">Чтобы установить пробел как разделитель, используйте или символ экранирования (\ ) или кавычки (" ").</tr>
+            </par>
+            <par>
+                <tr lang="en">To set an empty string as separator, use quotes ("")</tr>
+                <tr lang="ru">Чтобы установить пустую строку как разделитель, используйте кавычки ("").</tr>
+            </par>
+        </info>
         <arguments>
             <argument name="SEP" type="list">
                 <tr lang="en">separator. For space use quotes.</tr>
-                <tr lang="ru" finished="false">Разделитель. Для использования пространства
-                цитаты.</tr>
+                <tr lang="ru">разделитель</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @sep -->
             <property name="@sep" type="list" default="">
                 <tr lang="en">separator</tr>
-                <tr lang="ru" finished="false">разделитель</tr>
+                <tr lang="ru">разделитель</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <in on="symbol">
                     <tr lang="en">symbol passed untouched</tr>
-                    <tr lang="ru" finished="false">Символ, переданный нетронутым</tr>
+                    <tr lang="ru">символ пропускается без изменений</tr>
                 </in>
                 <in on="list">
-                    <tr lang="en">list to join</tr>
-                    <tr lang="ru" finished="false">Список присоединиться</tr>
+                    <tr lang="en">a list of items to join into a string</tr>
+                    <tr lang="ru">список элементов для объединения в строку</tr>
                 </in>
                 <in on="data:mlist">
-                    <tr lang="en">list to join</tr>
-                    <tr lang="ru" finished="false">Список присоединиться</tr>
+                    <tr lang="en">a multilevel list of items to join into a string</tr>
+                    <tr lang="ru">многоуровневый список элементов для объединения в строку</tr>
                 </in>
             </inlet>
             <inlet>
-                <in on="list">
-                    <tr lang="en">change separator to new</tr>
-                    <tr lang="ru" finished="false">Смена разделителя на новый</tr>
+                <in on="symbol">
+                    <tr lang="en">sets the separator from symbol</tr>
+                    <tr lang="ru">установить разделитель</tr>
+                </in>
+                <in on="data:string">
+                    <tr lang="en">sets the separator from string</tr>
+                    <tr lang="ru">установить разделитель</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
+                <out type="data:string">
                     <tr lang="en">result String</tr>
-                    <tr lang="ru" finished="false">Результат Струна</tr>
+                    <tr lang="ru">строка результата</tr>
                 </out>
             </outlet>
         </outlets>
@@ -75,6 +88,20 @@
 |               [symbol ":::"( [symbol ""(
 |               |.             |.
 [string.join _                  ]
+|
+[ui.dt]
+
+
+[list A B C(
+|
+[string.join " "]
+|
+[ui.dt]
+
+
+[list A B C(
+|
+[string.join ""]
 |
 [ui.dt]
 ]]>
