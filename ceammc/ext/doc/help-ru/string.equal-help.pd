@@ -11,7 +11,7 @@
 #X obj 50 147 string Chuck;
 #X msg 194 147 symbol Chuck?;
 #X obj 50 176 string.equal Chuck;
-#X obj 50 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 50 205 5 0 0 0 - - -;
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 242 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
@@ -39,9 +39,9 @@
 строкой.;
 #X text 130 395 2\.;
 #X text 170 395 data:string:;
-#X text 270 395 устанавливает строку для сравнения.;
+#X text 270 395 устанавливает строку для сравнения (свойство @subj).;
 #X text 170 420 symbol:;
-#X text 270 420 устанавливает строку для сравнения.;
+#X text 270 420 устанавливает строку для сравнения (свойство @subj).;
 #X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 460 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;

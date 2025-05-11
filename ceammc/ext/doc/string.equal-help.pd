@@ -11,7 +11,7 @@
 #X obj 50 147 string Chuck;
 #X msg 194 147 symbol Chuck?;
 #X obj 50 176 string.equal Chuck;
-#X obj 50 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 50 205 5 0 0 0 - - -;
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 242 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
@@ -40,9 +40,9 @@ and the specified one.;
 the specified string.;
 #X text 130 410 2\.;
 #X text 170 410 data:string:;
-#X text 270 410 sets the compare subject.;
+#X text 270 410 sets the compare subject (@subj property).;
 #X text 170 435 symbol:;
-#X text 270 435 sets the compare subject.;
+#X text 270 435 sets the compare subject (@subj property).;
 #X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 475 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;

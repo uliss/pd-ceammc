@@ -48,12 +48,12 @@
             </inlet>
             <inlet>
                 <in on="data:string">
-                    <tr lang="en">sets the compare subject</tr>
-                    <tr lang="ru">устанавливает строку для сравнения</tr>
+                    <tr lang="en">sets the compare subject (@subj property)</tr>
+                    <tr lang="ru">устанавливает строку для сравнения (свойство @subj)</tr>
                 </in>
                 <in on="symbol">
-                    <tr lang="en">sets the compare subject</tr>
-                    <tr lang="ru">устанавливает строку для сравнения</tr>
+                    <tr lang="en">sets the compare subject (@subj property)</tr>
+                    <tr lang="ru">устанавливает строку для сравнения (свойство @subj)</tr>
                 </in>
             </inlet>
         </inlets>
@@ -75,7 +75,7 @@
 |              |
 [string.equal Chuck]
 |
-[T]
+[F]
 ]]>
             </pdascii>
         </example>
