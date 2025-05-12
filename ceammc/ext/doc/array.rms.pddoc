@@ -40,15 +40,15 @@
             <inlet>
                 <in on="bang">
                     <tr lang="en">calculates and outputs RMS value</tr>
-                    <tr lang="ru" finished="false">вычисляет и выводит значение RMS</tr>
+                    <tr lang="ru">вычисляет и выводит значение RMS</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
+                <out type="float">
                     <tr lang="en">RMS value</tr>
-                    <tr lang="ru" finished="false">Значение RMS</tr>
+                    <tr lang="ru">среднее квадратичное значение</tr>
                 </out>
             </outlet>
         </outlets>

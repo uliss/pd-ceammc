@@ -57,27 +57,27 @@
             <inlet type="audio">
                 <in>
                     <tr lang="en">reading index</tr>
-                    <tr lang="ru" finished="false">Индекс чтения</tr>
+                    <tr lang="ru">индекс чтения</tr>
                 </in>
             </inlet>
             <inlet type="audio">
                 <in>
                     <tr lang="en">signal to write</tr>
-                    <tr lang="ru" finished="false">Сигнал писать</tr>
+                    <tr lang="ru">сигнал для записи</tr>
                 </in>
             </inlet>
             <inlet type="audio">
                 <in>
                     <tr lang="en">write index</tr>
-                    <tr lang="ru" finished="false">писать индекс</tr>
+                    <tr lang="ru">индекс записи</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">
                 <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
+                    <tr lang="en">reading output</tr>
+                    <tr lang="ru">выход чтения</tr>
                 </out>
             </outlet>
         </outlets>

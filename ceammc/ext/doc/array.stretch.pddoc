@@ -149,15 +149,15 @@
             <inlet>
                 <in on="bang">
                     <tr lang="en">starts processing</tr>
-                    <tr lang="ru" finished="false">Начинается обработка</tr>
+                    <tr lang="ru">начинает вычисления</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
+                <out type="int">
                     <tr lang="en">float value - number of result samples</tr>
-                    <tr lang="ru" finished="false">Поплавковое значение - количество образцов
+                    <tr lang="ru">числовое значение - количество семплов
                     результата</tr>
                 </out>
             </outlet>

@@ -39,15 +39,15 @@
             <inlet>
                 <in on="bang">
                     <tr lang="en">calculates and outputs variance</tr>
-                    <tr lang="ru" finished="false">вычисления и отклонения результатов</tr>
+                    <tr lang="ru">начинает вычисление и выводит результат</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
+                <out type="float">
                     <tr lang="en">variance</tr>
-                    <tr lang="ru" finished="false">дисперсия</tr>
+                    <tr lang="ru">дисперсия</tr>
                 </out>
             </outlet>
         </outlets>

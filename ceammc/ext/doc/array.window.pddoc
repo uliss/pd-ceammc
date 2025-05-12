@@ -62,8 +62,8 @@
             <!-- fit -->
             <method name="fit">
                 <info>
-                    <tr lang="en">fit array y-bounds to 0..1 range</tr>
-                    <tr lang="ru" finished="false">Диапазон y-связок 0,1</tr>
+                    <tr lang="en">normalize the array y-bounds to 0..1 range</tr>
+                    <tr lang="ru">уместить значения массива в диапазон 0..1</tr>
                 </info>
             </method>
             <!-- flattop -->
@@ -144,16 +144,16 @@
         <inlets>
             <inlet>
                 <in on="bang">
-                    <tr lang="en">fill array with window</tr>
-                    <tr lang="ru" finished="false">Заполните массив окном</tr>
+                    <tr lang="en">fill the array with a window values</tr>
+                    <tr lang="ru">заполняет массив значениями окна</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">bang on finish</tr>
-                    <tr lang="ru" finished="false">Взрыв на финише</tr>
+                <out type="bang">
+                    <tr lang="en">on finish</tr>
+                    <tr lang="ru">при завершении</tr>
                 </out>
             </outlet>
         </outlets>

@@ -113,25 +113,25 @@
             <inlet>
                 <in on="bang">
                     <tr lang="en">start playing from the beginning</tr>
-                    <tr lang="ru" finished="false">Начинайте играть с самого начала</tr>
+                    <tr lang="ru">начинает воспроизведение с самого начала</tr>
                 </in>
-                <in on="float">
+                <in on="bool">
                     <tr lang="en">1 - play, 0 - stop</tr>
-                    <tr lang="ru" finished="false">1 - играть, 0 - останавливаться</tr>
+                    <tr lang="ru">1 - играть, 0 - остановить</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">message to vline~ object</tr>
-                    <tr lang="ru" finished="false">Обсуждение Vline~ Object</tr>
+                <out type="list">
+                    <tr lang="en">message to the connected [vline~] object</tr>
+                    <tr lang="ru">сообщения для объекта [vline~]</tr>
                 </out>
             </outlet>
             <outlet>
-                <out type="any">
-                    <tr lang="en">bang after playing finished</tr>
-                    <tr lang="ru" finished="false">Взрыв после завершения игры</tr>
+                <out type="bang">
+                    <tr lang="en">after playing finished</tr>
+                    <tr lang="ru">после завершения воспроизведения</tr>
                 </out>
             </outlet>
         </outlets>

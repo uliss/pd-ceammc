@@ -126,6 +126,7 @@ pitch. Type: float. Units: '%'. Default value: 0\. Range: -50\...100\.;
 #X obj 20 1693 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1694 1\.;
+#X text 170 1694 int:;
 #X text 270 1694 float value - number of result samples.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

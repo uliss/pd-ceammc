@@ -36,15 +36,15 @@
             <inlet>
                 <in on="bang">
                     <tr lang="en">calculates and outputs the sum of squares</tr>
-                    <tr lang="ru" finished="false">вычисляет и выводит сумму квадратов</tr>
+                    <tr lang="ru">вычисляет и выводит сумму квадратов</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">sum value</tr>
-                    <tr lang="ru" finished="false">суммарная стоимость</tr>
+                <out type="float">
+                    <tr lang="en">sum of array squares</tr>
+                    <tr lang="ru">сумма квадратов массива</tr>
                 </out>
             </outlet>
         </outlets>

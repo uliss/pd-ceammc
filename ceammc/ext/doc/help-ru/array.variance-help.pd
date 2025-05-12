@@ -42,12 +42,13 @@ Variance @url https://en.wikipedia.org/wiki/Variance;
 0;
 #X text 130 447 1\.;
 #X text 170 447 bang:;
-#X text 270 447 calculates and outputs variance.;
+#X text 270 447 начинает вычисление и выводит результат.;
 #X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 487 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 488 1\.;
-#X text 270 488 variance.;
+#X text 170 488 float:;
+#X text 270 488 дисперсия.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

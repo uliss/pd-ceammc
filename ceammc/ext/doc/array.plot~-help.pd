@@ -56,12 +56,12 @@ Range: -1024\...1024\.;
 0;
 #X text 130 624 1\.;
 #X text 170 624 ~;
-#X text 270 624 input signal.;
+#X text 270 624 input signal for plotting.;
 #X text 130 649 2\.;
 #X text 170 649 bang:;
 #X text 270 649 plot all samples fitted to specified array.;
-#X text 170 674 float:;
-#X text 270 674 plot specified number of samples \, resizes array.;
+#X text 170 674 int:;
+#X text 270 674 plot a specified number of samples \, resizes the array.;
 #X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 714 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;

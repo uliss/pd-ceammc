@@ -41,7 +41,8 @@
 #X obj 20 417 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 418 1\.;
-#X text 270 418 sum value.;
+#X text 170 418 float:;
+#X text 270 418 sum of array squares.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

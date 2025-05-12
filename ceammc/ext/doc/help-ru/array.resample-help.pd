@@ -65,12 +65,13 @@ high. Разрешённые значения: high \, fast \, low \, medium \, 
 0;
 #X text 130 720 1\.;
 #X text 170 720 bang:;
-#X text 270 720 starts resampling.;
+#X text 270 720 начинает ресемплинг.;
 #X obj 20 755 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 760 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 761 1\.;
-#X text 270 761 number of samples written.;
+#X text 170 761 int:;
+#X text 270 761 число семплов после ресемплинга.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

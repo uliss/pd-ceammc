@@ -58,27 +58,29 @@
 0;
 #X text 130 654 1\.;
 #X text 170 654 ~;
-#X text 270 654 input signal.;
+#X text 270 654 входной сигнал для построения графика.;
 #X text 130 679 2\.;
 #X text 170 679 bang:;
-#X text 270 679 plot all samples fitted to specified array.;
-#X text 170 704 float:;
-#X text 270 704 plot specified number of samples \, resizes array.;
-#X obj 20 739 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 744 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 270 679 строит график для всех семплов \, которые помещающиеся
+в указанный массив.;
+#X text 170 719 int:;
+#X text 270 719 строит график для указанного числа семплов \, изменяет
+размер массива.;
+#X obj 20 769 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 774 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 785 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 788 библиотека: ceammc v0.9.8;
-#X text 470 800 смотрите также:;
-#X obj 591 803 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 815 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 818 библиотека: ceammc v0.9.8;
+#X text 470 830 смотрите также:;
+#X obj 591 833 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.plot~] @url ui.plot~-help.pd;
-#X obj 667 800 array.plot;
-#N canvas 10 807 400 290 info 0;
+#X obj 667 830 array.plot;
+#N canvas 10 837 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -102,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 807 pd info;
+#X restore 10 837 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 8 1;
 #X connect 9 0 10 0;

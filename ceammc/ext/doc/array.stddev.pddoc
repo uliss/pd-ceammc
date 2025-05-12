@@ -39,15 +39,15 @@
             <inlet>
                 <in on="bang">
                     <tr lang="en">calculates and outputs standard deviation</tr>
-                    <tr lang="ru" finished="false">вычисления и выходы стандартного отклонения</tr>
+                    <tr lang="ru">начинает вычисление и выводит стандартное отклонение</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
+                <out type="float">
                     <tr lang="en">standard deviation value</tr>
-                    <tr lang="ru" finished="false">значение стандартного отклонения</tr>
+                    <tr lang="ru">значение стандартного отклонения</tr>
                 </out>
             </outlet>
         </outlets>

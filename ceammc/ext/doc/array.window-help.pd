@@ -50,7 +50,7 @@ values: tri \, welch \, hann \, sine \, rect \, hamming \, blackman
 #X msg 130 589 blackman-harris;
 #X text 270 589 generate blackman-harris window.;
 #X msg 130 617 fit;
-#X text 270 617 fit array y-bounds to 0\..1 range.;
+#X text 270 617 normalize the array y-bounds to 0\..1 range.;
 #X msg 130 645 flattop;
 #X text 270 645 generate flattop window.;
 #X msg 130 673 gauss;
@@ -78,12 +78,13 @@ values: tri \, welch \, hann \, sine \, rect \, hamming \, blackman
 0;
 #X text 130 961 1\.;
 #X text 170 961 bang:;
-#X text 270 961 fill array with window.;
+#X text 270 961 fill the array with a window values.;
 #X obj 20 996 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1001 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1002 1\.;
-#X text 270 1002 bang on finish.;
+#X text 170 1002 bang:;
+#X text 270 1002 on finish.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

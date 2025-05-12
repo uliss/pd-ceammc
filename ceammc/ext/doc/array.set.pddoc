@@ -51,14 +51,12 @@
             <inlet>
                 <in on="list">
                     <tr lang="en">resizes array and sets its content</tr>
-                    <!-- old: изменить размер массива и установить его
-                    содержание -->
-                    <tr lang="ru" finished="false">изменить размер массива и установить его
-                    содержание</tr>
+                    <tr lang="ru">изменяет размер массива и устанавливает его
+                    содержимое</tr>
                 </in>
                 <in on="symbol">
-                    <tr lang="en">set array name</tr>
-                    <tr lang="ru" finished="false">Имя при рождении</tr>
+                    <tr lang="en">set the array name</tr>
+                    <tr lang="ru">установить имя массива</tr>
                 </in>
             </inlet>
         </inlets>

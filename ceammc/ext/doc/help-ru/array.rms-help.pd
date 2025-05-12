@@ -45,12 +45,13 @@ Root mean square @url https://en.wikipedia.org/wiki/Root_mean_square;
 0;
 #X text 130 476 1\.;
 #X text 170 476 bang:;
-#X text 270 476 calculates and outputs RMS value.;
+#X text 270 476 вычисляет и выводит значение RMS.;
 #X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 516 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 517 1\.;
-#X text 270 517 RMS value.;
+#X text 170 517 float:;
+#X text 270 517 среднее квадратичное значение.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

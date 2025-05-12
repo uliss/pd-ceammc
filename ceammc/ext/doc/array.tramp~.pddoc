@@ -56,8 +56,8 @@
         <inlets>
             <inlet>
                 <in on="bang">
-                    <tr lang="en">start ramp for array</tr>
-                    <tr lang="ru" finished="false">стартовый пандус для массива</tr>
+                    <tr lang="en">start of the ramp signal for array reading</tr>
+                    <tr lang="ru">старт линейного сигнала для чтения массива</tr>
                 </in>
             </inlet>
         </inlets>
@@ -65,13 +65,13 @@
             <outlet type="audio">
                 <out type="any">
                     <tr lang="en">ramp signal</tr>
-                    <tr lang="ru" finished="false">сигнальный сигнал</tr>
+                    <tr lang="ru">линейный сигнал</tr>
                 </out>
             </outlet>
             <outlet type="control">
-                <out type="any">
-                    <tr lang="en">bang on done</tr>
-                    <tr lang="ru" finished="false">бахвальство</tr>
+                <out type="bang">
+                    <tr lang="en">after reaching the final value</tr>
+                    <tr lang="ru">после достижении финального значения</tr>
                 </out>
             </outlet>
         </outlets>

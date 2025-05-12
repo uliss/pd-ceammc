@@ -36,15 +36,15 @@
             <inlet>
                 <in on="bang">
                     <tr lang="en">calculates and outputs the sum</tr>
-                    <tr lang="ru" finished="false">вычисляет и выводит сумму</tr>
+                    <tr lang="ru">вычисляет и выводит сумму</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
+                <out type="float">
                     <tr lang="en">sum of array values</tr>
-                    <tr lang="ru" finished="false">Сумма значений массива</tr>
+                    <tr lang="ru">сумма значений массива</tr>
                 </out>
             </outlet>
         </outlets>

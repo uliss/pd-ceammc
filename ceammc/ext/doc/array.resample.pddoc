@@ -81,15 +81,15 @@
             <inlet>
                 <in on="bang">
                     <tr lang="en">starts resampling</tr>
-                    <tr lang="ru" finished="false">начинается повторная выборка</tr>
+                    <tr lang="ru">начинает ресемплинг</tr>
                 </in>
             </inlet>
         </inlets>
         <outlets>
             <outlet>
-                <out type="any">
-                    <tr lang="en">number of samples written</tr>
-                    <tr lang="ru" finished="false">Количество образцов, написанных</tr>
+                <out type="int">
+                    <tr lang="en">number of samples after resampling</tr>
+                    <tr lang="ru">число семплов после ресемплинга</tr>
                 </out>
             </outlet>
         </outlets>

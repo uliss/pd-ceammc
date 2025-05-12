@@ -47,6 +47,7 @@
 #X text 170 443 list:;
 #X text 270 443 minimal and maximum value.;
 #X text 130 463 2\.;
+#X text 170 463 list:;
 #X text 270 463 indexes of found values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

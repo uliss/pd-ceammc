@@ -40,7 +40,7 @@
             <inlet>
                 <in on="bang">
                     <tr lang="en">starts calculation</tr>
-                    <tr lang="ru" finished="false">Начинается расчет</tr>
+                    <tr lang="ru">начинает вычисление</tr>
                 </in>
             </inlet>
         </inlets>

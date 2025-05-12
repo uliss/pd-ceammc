@@ -50,7 +50,7 @@
 #X msg 130 601 blackman-harris;
 #X text 270 601 создать окно Blackman Harris.;
 #X msg 130 629 fit;
-#X text 270 629 fit array y-bounds to 0\..1 range.;
+#X text 270 629 уместить значения массива в диапазон 0\..1\.;
 #X msg 130 657 flattop;
 #X text 270 657 генерировать окно FlatTop.;
 #X msg 130 685 gauss;
@@ -79,12 +79,13 @@
 0;
 #X text 130 973 1\.;
 #X text 170 973 bang:;
-#X text 270 973 fill array with window.;
+#X text 270 973 заполняет массив значениями окна.;
 #X obj 20 1008 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1013 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1014 1\.;
-#X text 270 1014 bang on finish.;
+#X text 170 1014 bang:;
+#X text 270 1014 при завершении.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

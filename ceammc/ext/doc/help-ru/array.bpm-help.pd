@@ -41,7 +41,7 @@
 0;
 #X text 130 459 1\.;
 #X text 170 459 bang:;
-#X text 270 459 starts calculation.;
+#X text 270 459 начинает вычисление.;
 #X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 499 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;

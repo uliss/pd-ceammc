@@ -79,7 +79,7 @@ Default value: 0\. Range: 0\...1\.;
 -49933 0;
 #X text 130 871 1\.;
 #X text 170 871 ~;
-#X text 270 871 output.;
+#X text 270 871 reading output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

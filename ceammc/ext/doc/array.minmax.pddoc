@@ -49,9 +49,9 @@
                 </out>
             </outlet>
             <outlet>
-                <out type="any">
+                <out type="list">
                     <tr lang="en">indexes of found values</tr>
-                    <tr lang="ru" finished="false">Индексы найденных значений</tr>
+                    <tr lang="ru">индексы найденных значений</tr>
                 </out>
             </outlet>
         </outlets>
