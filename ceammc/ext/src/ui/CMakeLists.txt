@@ -8,7 +8,12 @@ function(tcl_ui_deps tcl_file)
     tcl_autogen_header(${tcl_file} TARGET ceammc_ui SOURCES ceammc_ui_tcl)
 endfunction()
 
-set(NUI_SOURCES nui_bang.cpp nui_toggle.cpp)
+set(NUI_SOURCES
+    nui_bang.cpp
+    nui_combobox.cpp
+    nui_combobox.h
+    nui_toggle.cpp
+)
 
 add_subdirectory(touchosc)
 
@@ -57,7 +62,6 @@ ceammc_ui_external(touchosc)
 
 add_library(ceammc_ui STATIC mod_ui.cpp
     ${NUI_SOURCES} ${UI_SOURCES}
-
 )
 
 target_link_libraries(ceammc_ui PRIVATE ceammc_nui ceammc_env http_lib readerwriterqueue touchosc)

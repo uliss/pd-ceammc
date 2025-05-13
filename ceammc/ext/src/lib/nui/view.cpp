@@ -271,6 +271,14 @@ namespace ui {
         Base::erase();
     }
 
+    void BoxView::redraw()
+    {
+        if (child_)
+            child_->redraw();
+
+        Base::redraw();
+    }
+
     void BoxView::layout()
     {
         if (!child_)
@@ -314,5 +322,5 @@ namespace ui {
     {
     }
 
-}
-}
+} // namespace ui
+} // namespace ceammc

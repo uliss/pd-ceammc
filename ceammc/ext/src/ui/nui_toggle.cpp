@@ -34,7 +34,7 @@ void NUIToggle::onFloat(t_float f)
 void NUIToggle::onWidgetShow()
 {
     box_view_.setSize(size());
-    box_view_.create((WinId)drawCanvas(), (WidgetId)owner(), zoom());
+    box_view_.create(drawCanvasId(), ownerId(), zoom());
 }
 
 void NUIToggle::onWidgetSelect(bool state)
@@ -49,24 +49,24 @@ void NUIToggle::onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
     floatTo(0, model_.data().value());
 }
 
-void NUIToggle::onWidgetResize(const Size &new_sz)
+void NUIToggle::onWidgetResize(const Size& new_sz)
 {
     OBJ_ERR << __FUNCTION__;
     box_view_.setSize(new_sz);
     box_view_.getChild<ToggleView>()->setSize(new_sz);
     box_view_.redraw();
     box_view_.getChild<ToggleView>()->redraw();
-//    box_model_.notify();
-//    model_.notify();
+    //    box_model_.notify();
+    //    model_.notify();
 }
 
-NUIToggleBase::NUIToggleBase(const PdArgs &args)
+NUIToggleBase::NUIToggleBase(const PdArgs& args)
     : BaseObject(args)
 {
     createOutlet();
 }
 
-}
+} // namespace ceammc
 
 void setup_nui_toggle()
 {

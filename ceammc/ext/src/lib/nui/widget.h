@@ -14,7 +14,6 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
-#include <array>
 #include <cstdint>
 #include <type_traits>
 
@@ -22,6 +21,7 @@
 #include "nui/common.h"
 #include "nui/property.h"
 #include "nui/rect.h"
+#include "nui/view.h"
 
 namespace ceammc {
 namespace ui {
@@ -429,6 +429,16 @@ namespace ui {
         {
             // LIB_ERR << __FUNCTION__;
             // return ebox_properties(x, nullptr);
+        }
+
+        inline WinId drawCanvasId() const
+        {
+            return reinterpret_cast<WinId>(drawCanvas());
+        }
+
+        inline WidgetId ownerId() const
+        {
+            return reinterpret_cast<WidgetId>(this->owner());
         }
 
     private:

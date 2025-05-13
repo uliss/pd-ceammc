@@ -14,6 +14,7 @@
 #include "tk_view_impl.h"
 #include "button_view.h"
 #include "label_view.h"
+#include "nui/combobox_view.h"
 #include "slider_view.h"
 
 #include "tcl_nui_tcl.h"
@@ -70,6 +71,7 @@ namespace ui {
         tcl_button_init();
         tcl_hslider_init();
         tcl_label_init();
+        tcl_combobox_init();
         return true;
     }
 

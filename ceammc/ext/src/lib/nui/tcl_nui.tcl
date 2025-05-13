@@ -110,7 +110,7 @@ proc widget_bg { cnv id color } {
 
 proc widget_erase { cnv id } {
     set win [widget_window $cnv $id]
-    set c [widget_canvas $cnv $id]
+    set c   [widget_canvas $cnv $id]
 
     [pd_canvas $cnv] delete $win
     destroy $c

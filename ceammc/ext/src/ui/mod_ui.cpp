@@ -44,6 +44,7 @@ void setup_ui_filter_tilde();
 void setup_ui_lcd();
 
 void setup_nui_bang();
+void setup_nui_combobox();
 void setup_nui_toggle();
 
 void ceammc_ui_setup()
@@ -90,6 +91,7 @@ void ceammc_ui_setup()
     setup_ui_toggle();
     setup_ui_touchosc();
 
-    //    setup_nui_bang();
-    //    setup_nui_toggle();
+    setup_nui_bang();
+    setup_nui_combobox();
+    setup_nui_toggle();
 }

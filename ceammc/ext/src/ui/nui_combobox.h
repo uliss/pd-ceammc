@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2018 Serge Poltavsky. All rights reserved.
+ * Copyright 2025 Serge Poltavski. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,48 +11,50 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef NUI_TOGGLE_H
-#define NUI_TOGGLE_H
+#ifndef NUI_COMBOBOX_H
+#define NUI_COMBOBOX_H
 
-#include "nui/toggle_model.h"
+#include "ceammc_object.h"
+#include "nui/combobox_model.h"
 #include "nui/view.h"
 #include "nui/widget.h"
 
 namespace ceammc {
 namespace ui {
-
-    class NUIToggleBase : public BaseObject {
+    class NUIComboBoxBase : public BaseObject {
     public:
-        NUIToggleBase(const PdArgs& args);
+        explicit NUIComboBoxBase(const PdArgs& args);
     };
 
-    class NUIToggle : public ui::Widget<NUIToggleBase> {
+    class NUIComboBox : public ui::Widget<NUIComboBoxBase> {
         BoxModel box_model_;
         BoxView box_view_;
-        ToggleModel model_;
+        ComboboxModel model_;
+        ListProperty* items_;
 
     public:
-        NUIToggle(const PdArgs& args);
+        explicit NUIComboBox(const PdArgs& args);
 
+        void initDone() final;
+        void onBang() override;
         void onFloat(t_float f) override;
 
         void onWidgetShow() override;
-        //    void onWidgetResize(const Size& sz) override;
+        void onWidgetResize(const Size& new_sz) override;
         void onWidgetSelect(bool state) override;
+        void onWidgetDelete() override;
 
         void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) override;
-        void onWidgetResize(const Size& new_sz) override;
-        //    void onMouseDrag(const Point& pt, uint32_t mod) override;
-        //    void onMouseUp(const Point& pt, uint32_t mod) override;
 
-    protected:
-        //    void compile() override;
-        //    void createCustomUI() override;
+        void m_open(t_symbol*, const AtomListView& lv);
+        void m_next(t_symbol*, const AtomListView& lv);
+        void m_prev(t_symbol*, const AtomListView& lv);
+        void m_begin(t_symbol*, const AtomListView& lv);
+        void m_end(t_symbol*, const AtomListView& lv);
     };
+} // namespace ui
+} // namespace ceammc
 
-}
-}
+void setup_nui_combobox();
 
-void setup_nui_bang();
-
-#endif // NUI_BANG_H
+#endif // NUI_COMBOBOX_H

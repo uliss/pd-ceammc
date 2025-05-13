@@ -1,0 +1,34 @@
+name: ComboBox
+data:
+- name: size
+  type: Size
+  init: Size(15, 15)
+  style: size
+- name: values
+  type: 'std::vector<t_symbol*>'
+  init: {}
+- name: index
+  type: int
+  init: -1
+- name: is_open
+  type: bool
+  init: 'false'
+- name: font
+  type: Font
+  init: Font()
+- name: border color
+  type: HexColor
+  init: colors::st_border
+  style: color
+- name: fill color
+  type: HexColor
+  init: colors::st_fill
+  style: color
+- name: text color
+  type: HexColor
+  init: colors::st_text
+  style: color
+- name: active color
+  type: HexColor
+  init: colors::st_active
+  style: color

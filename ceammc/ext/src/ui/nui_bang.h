@@ -15,40 +15,41 @@
 #define NUI_BANG_H
 
 #include "ceammc_clock.h"
-#include "nui/widget.h"
-#include "nui/button_view.h"
 #include "nui/button_model.h"
+#include "nui/widget.h"
 
 namespace ceammc {
 namespace ui {
 
-class NUIBangBase : public BaseObject {
-public:
-    NUIBangBase(const PdArgs& args) : BaseObject(args){}
-};
+    class NUIBangBase : public BaseObject {
+    public:
+        NUIBangBase(const PdArgs& args);
+    };
 
-class NUIBang : public ui::Widget<NUIBangBase> {
-    ButtonModel model_;
-    ButtonView view_;
-    ClockLambdaFunction clock_;
+    class NUIBang : public ui::Widget<NUIBangBase> {
+        BoxModel box_model_;
+        BoxView box_view_;
+        ButtonModel model_;
+        // ButtonView view_;
+        ClockLambdaFunction clock_;
 
-public:
-    NUIBang(const PdArgs& args);
+    public:
+        NUIBang(const PdArgs& args);
 
-    void buildUI() override;
+        // void buildUI() override;
 
-    void onWidgetShow() override;
-//    void onWidgetResize(const Size& sz) override;
-//    void onWidgetSelect(bool state) override;
+        void onWidgetShow() override;
+        // void onWidgetResize(const Size& sz) override;
+        void onWidgetSelect(bool state) override;
 
-    void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) override;
-//    void onMouseDrag(const Point& pt, uint32_t mod) override;
-//    void onMouseUp(const Point& pt, uint32_t mod) override;
+        void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) override;
+        //    void onMouseDrag(const Point& pt, uint32_t mod) override;
+        //    void onMouseUp(const Point& pt, uint32_t mod) override;
 
-protected:
-//    void compile() override;
-//    void createCustomUI() override;
-};
+    protected:
+        //    void compile() override;
+        //    void createCustomUI() override;
+    };
 
 }
 }
