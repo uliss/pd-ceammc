@@ -16,8 +16,7 @@
 
 #include "ceammc_object.h"
 #include "nui/combobox_model.h"
-#include "nui/view.h"
-#include "nui/widget.h"
+#include "nui/simple_widget.h"
 
 namespace ceammc {
 namespace ui {
@@ -26,9 +25,7 @@ namespace ui {
         explicit NUIComboBoxBase(const PdArgs& args);
     };
 
-    class NUIComboBox : public ui::Widget<NUIComboBoxBase> {
-        BoxModel box_model_;
-        BoxView box_view_;
+    class NUIComboBox : public ui::SimpleTclWidget<NUIComboBoxBase> {
         ComboboxModel model_;
         ListProperty* items_;
 
@@ -38,11 +35,6 @@ namespace ui {
         void initDone() final;
         void onBang() override;
         void onFloat(t_float f) override;
-
-        void onWidgetShow() override;
-        void onWidgetResize(const Size& new_sz) override;
-        void onWidgetSelect(bool state) override;
-        void onWidgetDelete() override;
 
         void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) override;
 

@@ -368,7 +368,7 @@ void FaustMasterView::createHsliderEntry(faust::UIProperty* p)
     ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
     hgroup->appendChild(std::move(lv));
 
-    auto vgroup = view_.getChild<VGroupView>();
+    auto vgroup = view_.getChildPtr<VGroupView>();
     vgroup->appendChild(std::move(hgroup));
 }
 
@@ -385,7 +385,7 @@ void FaustMasterView::createBarEntry(faust::UIProperty* p)
     vu_props_.emplace_back(new PropBarView(p, barm));
     vu_props_.back()->updateModelFromProp();
 
-    auto vgroup = view_.getChild<VGroupView>();
+    auto vgroup = view_.getChildPtr<VGroupView>();
     vgroup->appendChild(std::move(barv));
 }
 
@@ -415,7 +415,7 @@ void FaustMasterView::createToggleEntry(faust::UIProperty* p)
     ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
     hgroup->appendChild(std::move(lv));
 
-    auto vgroup = view_.getChild<VGroupView>();
+    auto vgroup = view_.getChildPtr<VGroupView>();
     vgroup->appendChild(std::move(hgroup));
 }
 
@@ -445,7 +445,7 @@ void FaustMasterView::createButtonEntry(faust::UIProperty* p)
     ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
     hgroup->appendChild(std::move(lv));
 
-    auto vgroup = view_.getChild<VGroupView>();
+    auto vgroup = view_.getChildPtr<VGroupView>();
     vgroup->appendChild(std::move(hgroup));
 }
 

@@ -338,7 +338,10 @@ namespace ui {
         EventAcceptStatus acceptEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
 
         template <typename T>
-        T* getChild() { return static_cast<T*>(child_.get()); }
+        T* getChildPtr() { return static_cast<T*>(child_.get()); }
+
+        const ViewPtr& getChild() const { return child_; }
+        ViewPtr& getChild() { return child_; }
 
         void setPadding(float pad) { padding_ = pad; }
     };

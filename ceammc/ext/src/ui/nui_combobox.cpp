@@ -16,7 +16,6 @@
 #include "fmt/core.h"
 #include "nui/combobox_view.h"
 #include "nui/factory.h"
-#include "nui/tk_view_impl.h"
 
 using namespace ceammc::ui;
 
@@ -28,22 +27,18 @@ NUIComboBoxBase::NUIComboBoxBase(const PdArgs& args)
 }
 
 NUIComboBox::NUIComboBox(const PdArgs& args)
-    : Widget<NUIComboBoxBase>(args)
-    , box_view_(&box_model_, BoxView::ViewImplPtr(new TclBoxImpl()))
+    : SimpleTclWidget<NUIComboBoxBase>(args)
 {
     items_ = new ListProperty("@items", {});
     items_->setArgIndex(0);
     addProperty(items_);
-
-    box_model_.data().setInlets(Xlets::fromInlets(owner()));
-    box_model_.data().setOutlets(Xlets::fromOutlets(owner()));
 
     using sc = StyleCollection;
     auto sz = sc::size(0, "combobox:size"_hash, Size(60, 20));
 
     ViewPtr view(new ComboBoxView(&model_, ComboBoxView::ViewImplPtr(new TclComboBoxImpl()), {}));
     view->setSize(sz);
-    box_view_.appendChild(std::move(view));
+    setModelView(std::move(view));
 
     setSize(sz);
     setResizeMode(RESIZE_WIDTH);
@@ -97,33 +92,9 @@ void NUIComboBox::onFloat(t_float f)
     onBang();
 }
 
-void NUIComboBox::onWidgetShow()
-{
-    box_view_.setSize(size());
-    box_view_.create(drawCanvasId(), ownerId(), zoom());
-}
-
-void NUIComboBox::onWidgetSelect(bool state)
-{
-    box_model_.data().setBorderColor(state ? colors::blue : colors::st_border);
-    box_model_.notify();
-}
-
-void NUIComboBox::onWidgetDelete()
-{
-    box_view_.erase();
-}
-
 void NUIComboBox::onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
 {
-    box_view_.acceptEvent(EVENT_MOUSE_DOWN, pt, {});
-}
-
-void NUIComboBox::onWidgetResize(const Size& new_sz)
-{
-    box_view_.setSize(new_sz);
-    box_view_.getChild<ComboBoxView>()->setSize(new_sz);
-    box_view_.redraw();
+    boxView().acceptEvent(EVENT_MOUSE_DOWN, pt, {});
 }
 
 void NUIComboBox::m_open(t_symbol*, const AtomListView& lv)

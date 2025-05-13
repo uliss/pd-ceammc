@@ -45,7 +45,7 @@ void NUIToggle::onWidgetSelect(bool state)
 
 void NUIToggle::onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
 {
-    box_view_.getChild<ToggleView>()->onEvent(EVENT_MOUSE_DOWN, pt, {});
+    box_view_.getChildPtr<ToggleView>()->onEvent(EVENT_MOUSE_DOWN, pt, {});
     floatTo(0, model_.data().value());
 }
 
@@ -53,9 +53,9 @@ void NUIToggle::onWidgetResize(const Size& new_sz)
 {
     OBJ_ERR << __FUNCTION__;
     box_view_.setSize(new_sz);
-    box_view_.getChild<ToggleView>()->setSize(new_sz);
+    box_view_.getChildPtr<ToggleView>()->setSize(new_sz);
     box_view_.redraw();
-    box_view_.getChild<ToggleView>()->redraw();
+    box_view_.getChildPtr<ToggleView>()->redraw();
     //    box_model_.notify();
     //    model_.notify();
 }
