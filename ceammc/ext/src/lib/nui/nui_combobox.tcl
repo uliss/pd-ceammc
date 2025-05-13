@@ -54,13 +54,13 @@ namespace eval combobox {
         set txt_y [expr $y+($h*0.5)]
 
         # text item
-        $c create text $txt_x $txt_y -fill $text_color -text $current_item -font $font -anchor w -width 100 -tags [list $ALL $TXT]
+        $c create text $txt_x $txt_y -fill $text_color -text $current_item -font $font -anchor w -width [expr $w-10] -tags [list $ALL $TXT]
 
-        bind $c <Up>                [subst {::nui::combobox::prev $model}]
-        bind $c <Down>              [subst {::nui::combobox::next $model}]
+        bind $c <Up>                [subst {::nui::combobox::prev  $model}]
+        bind $c <Down>              [subst {::nui::combobox::next  $model}]
         bind $c <Begin>             [subst {::nui::combobox::begin $model}]
-        bind $c <End>               [subst {::nui::combobox::end $model}]
-        bind $c <KeyPress-Return>   [subst {::nui::combobox::open $model 0 1}]
+        bind $c <End>               [subst {::nui::combobox::end   $model}]
+        bind $c <KeyPress-Return>   [subst {::nui::combobox::open  $model 0 1}]
     }
 
     proc update { cnv model id x y w h zoom is_open index items font border_color fill_color text_color active_color } {
@@ -104,7 +104,7 @@ namespace eval combobox {
         $pc delete $OPEN
 
         if { $is_open } {
-            set win [::nui::widget_window $cnv $model]
+            set win  [::nui::widget_window $cnv $model]
             set wcnv [::nui::widget_canvas $cnv $model]
 
             set nitems [llength $items]
@@ -145,9 +145,6 @@ namespace eval combobox {
                 if { $i > 0 } {
                     $pc create line $gx0 $item_top $gx1 $item_top -fill $border_color -width $zoom -tags [list $ALL $OPEN]
                 }
-
-                # raise
-                # $pc raise $ALL
             }
         } else {
             # update text
