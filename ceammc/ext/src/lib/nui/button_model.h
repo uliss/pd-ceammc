@@ -13,7 +13,7 @@ namespace ceammc {
 namespace ui {
 
 class ButtonData
-    : public std::tuple<Size, HexColor, HexColor, HexColor, bool, int> {
+    : public std::tuple<Size, HexColor, HexColor, HexColor, bool, t_float, t_float, int> {
 public:
     enum Fields {
         SIZE,
@@ -21,11 +21,13 @@ public:
         FILL_COLOR,
         KNOB_COLOR,
         STATE,
+        ON_VALUE,
+        OFF_VALUE,
         STYLE_IDX,
     };
 public:
     ButtonData()
-        : std::tuple<Size, HexColor, HexColor, HexColor, bool, int>(Size(15, 15), colors::st_border, colors::st_fill, colors::st_active, false, 0) { }
+        : std::tuple<Size, HexColor, HexColor, HexColor, bool, t_float, t_float, int>(Size(15, 15), colors::st_border, colors::st_fill, colors::st_active, false, 1, 0, 0) { }
 
     ButtonData(int style)
         : ButtonData() {
@@ -40,6 +42,8 @@ public:
     HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
     HexColor const& knobColor() const noexcept { return std::get<KNOB_COLOR>(*this); }
     bool const& state() const noexcept { return std::get<STATE>(*this); }
+    t_float const& onValue() const noexcept { return std::get<ON_VALUE>(*this); }
+    t_float const& offValue() const noexcept { return std::get<OFF_VALUE>(*this); }
     int const& style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
     // setters
@@ -48,6 +52,8 @@ public:
     void setFillColor(HexColor v) { std::get<FILL_COLOR>(*this) = v; }
     void setKnobColor(HexColor v) { std::get<KNOB_COLOR>(*this) = v; }
     void setState(bool v) { std::get<STATE>(*this) = v; }
+    void setOnValue(t_float v) { std::get<ON_VALUE>(*this) = v; }
+    void setOffValue(t_float v) { std::get<OFF_VALUE>(*this) = v; }
     void setStyle(int v) { std::get<STYLE_IDX>(*this) = v; }
 
     // refs
@@ -56,6 +62,8 @@ public:
     HexColor& fillColorRef() { return std::get<FILL_COLOR>(*this); }
     HexColor& knobColorRef() { return std::get<KNOB_COLOR>(*this); }
     bool& stateRef() { return std::get<STATE>(*this); }
+    t_float& onValueRef() { return std::get<ON_VALUE>(*this); }
+    t_float& offValueRef() { return std::get<OFF_VALUE>(*this); }
     int& styleRef() { return std::get<STYLE_IDX>(*this); }
 
     // style

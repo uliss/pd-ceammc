@@ -19,3 +19,9 @@ data:
 - name: state
   type: bool
   init: "false"
+- name: on_value
+  type: t_float
+  init: 1
+- name: off_value
+  type: t_float
+  init: 0
