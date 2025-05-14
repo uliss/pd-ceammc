@@ -32,9 +32,14 @@ namespace ceammc {
 namespace ui {
 
     struct EventContext {
-        uint32_t key;
-        uint8_t button;
-        uint8_t modifiers;
+        uint32_t key { 0 };
+        uint8_t button { 0 };
+        uint8_t modifiers { 0 };
+
+        bool hasShift() const
+        {
+            return modifiers & KEY_MOD_SHIFT;
+        }
     };
 
     using WinId = uint64_t;
@@ -101,6 +106,11 @@ namespace ui {
     struct EventAcceptStatus {
         ModelViewBase* acceptor;
         EventStatus status;
+
+        bool isAccepted() const
+        {
+            return status == EVENT_STATUS_ACCEPT;
+        }
     };
 
     class ModelViewBase {
