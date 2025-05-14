@@ -1,7 +1,6 @@
 #include "nui_toggle.h"
-#include "ceammc_factory.h"
-#include "nui/factory.h"
 #include "nui/tk_view_impl.h"
+#include "nui/widget_factory.h"
 
 namespace ceammc {
 using namespace ceammc::ui;
@@ -60,13 +59,6 @@ void setup_nui_toggle()
     using namespace ceammc;
     using namespace ceammc::ui;
 
-    UIFactory<ObjectFactory, NUIToggle> obj("nui.toggle");
+    WidgetFactory<NUIToggle> obj("nui.toggle");
     obj.addAlias("nt");
-
-    obj.useMouseDown();
-    obj.useMouseEnter();
-    obj.useMouseLeave();
-    obj.useMouseMove();
-    obj.useMouseRight();
-    obj.useMouseUp();
 }
