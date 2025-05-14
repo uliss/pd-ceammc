@@ -120,7 +120,7 @@ namespace ui {
     void TclToggleImpl::create(const RectF& bbox, const ToggleData& data)
     {
         Rect rect = transform(bbox);
-        auto value = clip01<int>(data.value() > 0);
+        int value = data.state();
 
         sys_vgui("nui::toggle::create %lx %lx %lx"
                  " %d %d %d %d %d"
@@ -139,7 +139,8 @@ namespace ui {
 
     void TclToggleImpl::update(const RectF& bbox, const ToggleData& data)
     {
-        auto value = clip01<int>(data.value() > 0);
+        int value = data.state();
+
         sys_vgui("nui::toggle::update %lx %lx %lx"
                  " %d %d"
                  " #%6.6x #%6.6x #%6.6x\n",

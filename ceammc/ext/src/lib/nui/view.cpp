@@ -308,7 +308,7 @@ namespace ui {
     {
         switch (t) {
         case EVENT_MOUSE_DOWN: {
-            this->data().setValue(this->data().value() ? 0 : 1);
+            this->data().setState(!this->data().state());
             this->redraw();
             this->notifyOthers();
             return { nullptr, EVENT_STATUS_ACCEPT };

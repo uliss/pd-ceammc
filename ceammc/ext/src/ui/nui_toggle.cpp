@@ -6,64 +6,51 @@
 namespace ceammc {
 using namespace ceammc::ui;
 
-NUIToggle::NUIToggle(const PdArgs& args)
-    : ui::Widget<NUIToggleBase>(args)
-    , box_view_(&box_model_, BoxView::ViewImplPtr(new TclBoxImpl()))
+NUIToggleBase::NUIToggleBase(const PdArgs& args)
+    : BaseObject(args)
 {
-    box_model_.data().setInlets(Xlets::fromInlets(owner()));
-    box_model_.data().setOutlets(Xlets::fromOutlets(owner()));
+    createOutlet();
+}
 
+NUIToggle::NUIToggle(const PdArgs& args)
+    : ui::SimpleTclWidget<NUIToggleBase>(args)
+{
     using sc = StyleCollection;
     auto sz = sc::size(0, "toggle:size"_hash, Size(30, 30));
 
     ViewPtr view(new ToggleView(&model_, ToggleView::ViewImplPtr(new TclToggleImpl()), {}));
     view->setSize(sz);
-    box_view_.appendChild(std::move(view));
+    setModelView(std::move(view));
 
     setSize(sz);
     setResizeMode(RESIZE_LINKED);
 }
 
+void NUIToggle::onBang()
+{
+    model_.data().setState(!model_.data().state());
+    model_.notify();
+    output();
+}
+
 void NUIToggle::onFloat(t_float f)
 {
-    model_.data().setValue(f);
+    model_.data().setState(f != 0);
     model_.notify();
-    floatTo(0, f);
-}
-
-void NUIToggle::onWidgetShow()
-{
-    box_view_.setSize(size());
-    box_view_.create(drawCanvasId(), ownerId(), zoom());
-}
-
-void NUIToggle::onWidgetSelect(bool state)
-{
-    box_model_.data().setBorderColor(state ? colors::blue : colors::st_border);
-    box_model_.notify();
+    output();
 }
 
 void NUIToggle::onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
 {
-    box_view_.getChildPtr<ToggleView>()->onEvent(EVENT_MOUSE_DOWN, pt, {});
-    floatTo(0, model_.data().value());
+    boxView().acceptEvent(EVENT_MOUSE_DOWN, pt, {});
+    output();
 }
 
-void NUIToggle::onWidgetResize(const Size& new_sz)
+void NUIToggle::output()
 {
-    OBJ_ERR << __FUNCTION__;
-    box_view_.setSize(new_sz);
-    box_view_.getChildPtr<ToggleView>()->setSize(new_sz);
-    box_view_.redraw();
-    box_view_.getChildPtr<ToggleView>()->redraw();
-    //    box_model_.notify();
-    //    model_.notify();
-}
-
-NUIToggleBase::NUIToggleBase(const PdArgs& args)
-    : BaseObject(args)
-{
-    createOutlet();
+    floatTo(0, model_.data().state() //
+            ? model_.data().onValue()
+            : model_.data().offValue());
 }
 
 } // namespace ceammc
@@ -77,5 +64,9 @@ void setup_nui_toggle()
     obj.addAlias("nt");
 
     obj.useMouseDown();
+    obj.useMouseEnter();
+    obj.useMouseLeave();
     obj.useMouseMove();
+    obj.useMouseRight();
+    obj.useMouseUp();
 }

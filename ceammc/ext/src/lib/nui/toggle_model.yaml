@@ -4,7 +4,13 @@ data:
   type: Size
   init: Size(15, 15)
   style: size
-- name: value
+- name: state
+  type: bool
+  init: 'false'
+- name: on_value
+  type: t_float
+  init: 1
+- name: off_value
   type: t_float
   init: 0
 - name: border color

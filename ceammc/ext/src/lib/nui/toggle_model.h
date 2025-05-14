@@ -13,11 +13,13 @@ namespace ceammc {
 namespace ui {
 
 class ToggleData
-    : public std::tuple<Size, t_float, HexColor, HexColor, HexColor, int> {
+    : public std::tuple<Size, bool, t_float, t_float, HexColor, HexColor, HexColor, int> {
 public:
     enum Fields {
         SIZE,
-        VALUE,
+        STATE,
+        ON_VALUE,
+        OFF_VALUE,
         BORDER_COLOR,
         FILL_COLOR,
         KNOB_COLOR,
@@ -25,7 +27,7 @@ public:
     };
 public:
     ToggleData()
-        : std::tuple<Size, t_float, HexColor, HexColor, HexColor, int>(Size(15, 15), 0, colors::st_border, colors::st_fill, colors::st_active, 0) { }
+        : std::tuple<Size, bool, t_float, t_float, HexColor, HexColor, HexColor, int>(Size(15, 15), false, 1, 0, colors::st_border, colors::st_fill, colors::st_active, 0) { }
 
     ToggleData(int style)
         : ToggleData() {
@@ -36,7 +38,9 @@ public:
 
     // getters
     Size const& size() const noexcept { return std::get<SIZE>(*this); }
-    t_float const& value() const noexcept { return std::get<VALUE>(*this); }
+    bool const& state() const noexcept { return std::get<STATE>(*this); }
+    t_float const& onValue() const noexcept { return std::get<ON_VALUE>(*this); }
+    t_float const& offValue() const noexcept { return std::get<OFF_VALUE>(*this); }
     HexColor const& borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
     HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
     HexColor const& knobColor() const noexcept { return std::get<KNOB_COLOR>(*this); }
@@ -44,7 +48,9 @@ public:
 
     // setters
     void setSize(Size v) { std::get<SIZE>(*this) = v; }
-    void setValue(t_float v) { std::get<VALUE>(*this) = v; }
+    void setState(bool v) { std::get<STATE>(*this) = v; }
+    void setOnValue(t_float v) { std::get<ON_VALUE>(*this) = v; }
+    void setOffValue(t_float v) { std::get<OFF_VALUE>(*this) = v; }
     void setBorderColor(HexColor v) { std::get<BORDER_COLOR>(*this) = v; }
     void setFillColor(HexColor v) { std::get<FILL_COLOR>(*this) = v; }
     void setKnobColor(HexColor v) { std::get<KNOB_COLOR>(*this) = v; }
@@ -52,7 +58,9 @@ public:
 
     // refs
     Size& sizeRef() { return std::get<SIZE>(*this); }
-    t_float& valueRef() { return std::get<VALUE>(*this); }
+    bool& stateRef() { return std::get<STATE>(*this); }
+    t_float& onValueRef() { return std::get<ON_VALUE>(*this); }
+    t_float& offValueRef() { return std::get<OFF_VALUE>(*this); }
     HexColor& borderColorRef() { return std::get<BORDER_COLOR>(*this); }
     HexColor& fillColorRef() { return std::get<FILL_COLOR>(*this); }
     HexColor& knobColorRef() { return std::get<KNOB_COLOR>(*this); }

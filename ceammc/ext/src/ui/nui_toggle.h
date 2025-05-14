@@ -14,9 +14,9 @@
 #ifndef NUI_TOGGLE_H
 #define NUI_TOGGLE_H
 
+#include "ceammc_object.h"
+#include "nui/simple_widget.h"
 #include "nui/toggle_model.h"
-#include "nui/view.h"
-#include "nui/widget.h"
 
 namespace ceammc {
 namespace ui {
@@ -26,28 +26,18 @@ namespace ui {
         NUIToggleBase(const PdArgs& args);
     };
 
-    class NUIToggle : public ui::Widget<NUIToggleBase> {
-        BoxModel box_model_;
-        BoxView box_view_;
+    class NUIToggle : public SimpleTclWidget<NUIToggleBase> {
         ToggleModel model_;
 
     public:
         NUIToggle(const PdArgs& args);
 
+        void onBang() override;
         void onFloat(t_float f) override;
-
-        void onWidgetShow() override;
-        //    void onWidgetResize(const Size& sz) override;
-        void onWidgetSelect(bool state) override;
-
         void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) override;
-        void onWidgetResize(const Size& new_sz) override;
-        //    void onMouseDrag(const Point& pt, uint32_t mod) override;
-        //    void onMouseUp(const Point& pt, uint32_t mod) override;
 
-    protected:
-        //    void compile() override;
-        //    void createCustomUI() override;
+    private:
+        void output();
     };
 
 }

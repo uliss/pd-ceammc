@@ -396,7 +396,7 @@ void FaustMasterView::createToggleEntry(faust::UIProperty* p)
 
     auto tgl = new ToggleModel(faustThemeIdx);
 
-    tgl->data().setValue(p->value());
+    tgl->data().setState(p->value());
 
     toggles_.emplace_back(tgl);
     ViewPtr tgv(new ToggleView(tgl, ToggleView::ViewImplPtr(new TclToggleImpl), {}));

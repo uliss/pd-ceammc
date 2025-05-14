@@ -38,7 +38,7 @@ class FaustMasterView {
 
     using PropSliderView = PropertyObserver<SliderData, faust::UIProperty, t_float, SliderData::VALUE>;
     using PropSliderViewPtr = std::unique_ptr<PropSliderView>;
-    using PropToggleView = PropertyObserver<ToggleData, faust::UIProperty, t_float, ToggleData::VALUE>;
+    using PropToggleView = PropertyObserver<ToggleData, faust::UIProperty, bool, ToggleData::STATE>;
     using PropToggleViewPtr = std::unique_ptr<PropToggleView>;
     using PropBarView = PropertyObserver<BarData, faust::UIProperty, t_float, BarData::VALUE>;
     using PropVuViewPtr = std::unique_ptr<PropBarView>;
