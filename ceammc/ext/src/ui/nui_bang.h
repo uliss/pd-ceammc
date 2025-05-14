@@ -15,8 +15,9 @@
 #define NUI_BANG_H
 
 #include "ceammc_clock.h"
+#include "ceammc_object.h"
 #include "nui/button_model.h"
-#include "nui/widget.h"
+#include "nui/simple_widget.h"
 
 namespace ceammc {
 namespace ui {
@@ -26,29 +27,15 @@ namespace ui {
         NUIBangBase(const PdArgs& args);
     };
 
-    class NUIBang : public ui::Widget<NUIBangBase> {
-        BoxModel box_model_;
-        BoxView box_view_;
+    class NUIBang : public SimpleTclWidget<NUIBangBase> {
         ButtonModel model_;
-        // ButtonView view_;
         ClockLambdaFunction clock_;
 
     public:
         NUIBang(const PdArgs& args);
 
-        // void buildUI() override;
-
-        void onWidgetShow() override;
-        // void onWidgetResize(const Size& sz) override;
-        void onWidgetSelect(bool state) override;
-
+        void onBang() override;
         void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) override;
-        //    void onMouseDrag(const Point& pt, uint32_t mod) override;
-        //    void onMouseUp(const Point& pt, uint32_t mod) override;
-
-    protected:
-        //    void compile() override;
-        //    void createCustomUI() override;
     };
 
 }

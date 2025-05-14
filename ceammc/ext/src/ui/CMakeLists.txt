@@ -10,6 +10,8 @@ endfunction()
 
 set(NUI_SOURCES
     nui_bang.cpp
+    nui_button.cpp
+    nui_button.h
     nui_combobox.cpp
     nui_combobox.h
     nui_toggle.cpp
