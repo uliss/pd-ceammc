@@ -12,10 +12,16 @@ data:
   init: -1
 - name: min
   type: t_float
-  init: -inf
+  init: -std::numeric_limits<t_float>::max()
 - name: max
   type: t_float
-  init: +inf
+  init: std::numeric_limits<t_float>::max()
+- name: prefix
+  type: std::string
+  init: {}
+- name: suffix
+  type: std::string
+  init: {}
 - name: font
   type: Font
   init: Font()

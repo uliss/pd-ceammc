@@ -13,7 +13,7 @@ namespace ceammc {
 namespace ui {
 
 class NumentryData
-    : public std::tuple<Size, t_float, int, t_float, t_float, Font, HexColor, HexColor, t_float, int> {
+    : public std::tuple<Size, t_float, int, t_float, t_float, std::string, std::string, Font, HexColor, HexColor, t_float, int> {
 public:
     enum Fields {
         SIZE,
@@ -21,6 +21,8 @@ public:
         DIGITS,
         MIN,
         MAX,
+        PREFIX,
+        SUFFIX,
         FONT,
         FILL_COLOR,
         TEXT_COLOR,
@@ -29,7 +31,7 @@ public:
     };
 public:
     NumentryData()
-        : std::tuple<Size, t_float, int, t_float, t_float, Font, HexColor, HexColor, t_float, int>(Size(100, 12), 0, -1, -inf, +inf, Font(), colors::st_fill, colors::st_text, 0, 0) { }
+        : std::tuple<Size, t_float, int, t_float, t_float, std::string, std::string, Font, HexColor, HexColor, t_float, int>(Size(100, 12), 0, -1, -std::numeric_limits<t_float>::max(), std::numeric_limits<t_float>::max(), {}, {}, Font(), colors::st_fill, colors::st_text, 0, 0) { }
 
     NumentryData(int style)
         : NumentryData() {
@@ -44,6 +46,8 @@ public:
     int const& digits() const noexcept { return std::get<DIGITS>(*this); }
     t_float const& min() const noexcept { return std::get<MIN>(*this); }
     t_float const& max() const noexcept { return std::get<MAX>(*this); }
+    std::string const& prefix() const noexcept { return std::get<PREFIX>(*this); }
+    std::string const& suffix() const noexcept { return std::get<SUFFIX>(*this); }
     Font const& font() const noexcept { return std::get<FONT>(*this); }
     HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
     HexColor const& textColor() const noexcept { return std::get<TEXT_COLOR>(*this); }
@@ -56,6 +60,8 @@ public:
     void setDigits(int v) { std::get<DIGITS>(*this) = v; }
     void setMin(t_float v) { std::get<MIN>(*this) = v; }
     void setMax(t_float v) { std::get<MAX>(*this) = v; }
+    void setPrefix(std::string v) { std::get<PREFIX>(*this) = v; }
+    void setSuffix(std::string v) { std::get<SUFFIX>(*this) = v; }
     void setFont(Font v) { std::get<FONT>(*this) = v; }
     void setFillColor(HexColor v) { std::get<FILL_COLOR>(*this) = v; }
     void setTextColor(HexColor v) { std::get<TEXT_COLOR>(*this) = v; }
@@ -68,6 +74,8 @@ public:
     int& digitsRef() { return std::get<DIGITS>(*this); }
     t_float& minRef() { return std::get<MIN>(*this); }
     t_float& maxRef() { return std::get<MAX>(*this); }
+    std::string& prefixRef() { return std::get<PREFIX>(*this); }
+    std::string& suffixRef() { return std::get<SUFFIX>(*this); }
     Font& fontRef() { return std::get<FONT>(*this); }
     HexColor& fillColorRef() { return std::get<FILL_COLOR>(*this); }
     HexColor& textColorRef() { return std::get<TEXT_COLOR>(*this); }
