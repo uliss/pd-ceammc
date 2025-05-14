@@ -7,7 +7,10 @@ using namespace ceammc::ui;
 
 NUIBang::NUIBang(const PdArgs& args)
     : ui::SimpleTclWidget<NUIBangBase>(args)
-    , clock_([this] { })
+    , clock_([this] {
+        model_.data().setState(false);
+        model_.notify();
+    })
 {
     using sc = StyleCollection;
     auto sz = sc::size(0, "button:size"_hash, Size(30, 30));
@@ -22,13 +25,15 @@ NUIBang::NUIBang(const PdArgs& args)
 
 void NUIBang::onBang()
 {
+    model_.data().setState(true);
+    model_.notify();
+    clock_.delay(100);
     bangTo(0);
 }
 
 void NUIBang::onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
 {
-    boxView().acceptEvent(EVENT_MOUSE_DOWN, pt, {});
-    bangTo(0);
+    onBang();
 }
 
 NUIBangBase::NUIBangBase(const PdArgs& args)
