@@ -1,0 +1,26 @@
+name: NumEntry
+data:
+- name: size
+  type: Size
+  init: Size(100, 12)
+  style: size
+- name: value
+  type: t_float
+  init: 0
+- name: min
+  type: t_float
+  init: -inf
+- name: max
+  type: t_float
+  init: +inf
+- name: fill color
+  type: HexColor
+  init: colors::st_fill
+  style: color
+- name: text color
+  type: HexColor
+  init: colors::st_text
+  style: color
+- name: curve
+  type: t_float
+  init: 0
