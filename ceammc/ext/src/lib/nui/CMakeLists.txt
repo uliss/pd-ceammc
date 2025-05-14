@@ -46,6 +46,7 @@ add_library(ceammc_nui STATIC
     tk_view_impl.cpp
     view.cpp
     widget.cpp
+    widget_factory.h
 )
 
 target_include_directories(ceammc_nui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
