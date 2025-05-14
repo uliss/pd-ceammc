@@ -26,11 +26,27 @@ namespace ui {
     {
         switch (t) {
         case EVENT_MOUSE_DOWN:
-            data().setState(true);
-            redraw();
-            notifyOthers();
-            return { nullptr, EVENT_STATUS_ACCEPT };
+            if (ctx.hasShift()) {
+                data().setState(!data().state());
+                redraw();
+                notifyOthers();
+                return { nullptr, EVENT_STATUS_ACCEPT };
+            } else {
+                data().setState(true);
+                redraw();
+                notifyOthers();
+                return { nullptr, EVENT_STATUS_ACCEPT };
+            }
         case EVENT_MOUSE_UP:
+            if (ctx.hasShift()) {
+                return { nullptr, EVENT_STATUS_IGNORE };
+            } else {
+                data().setState(false);
+                redraw();
+                notifyOthers();
+                return { nullptr, EVENT_STATUS_ACCEPT };
+            }
+            break;
         case EVENT_MOUSE_LEAVE:
             data().setState(false);
             redraw();
@@ -47,10 +63,12 @@ namespace ui {
         const Rect rect = transform(bbox).clippedMin(min);
 
         sys_vgui("nui::button::create %lx %lx %lx"
-                 " %d %d %d %d %d %s"
+                 " %d %d %d %d"
+                 " %d %s"
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
-            rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(), data.state() ? "true" : "false",
+            rect.left(), rect.top(), rect.width(), rect.height(),
+            (int)scale(), data.state() ? "true" : "false",
             data.borderColor(), data.fillColor(), data.knobColor());
     }
 
@@ -65,10 +83,12 @@ namespace ui {
         const Rect rect = transform(bbox).clippedMin(min);
 
         sys_vgui("nui::button::update %lx %lx %lx"
-                 " %d %d %s"
+                 " %d %d %d %d"
+                 " %d %s"
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
-            rect.width(), rect.height(), data.state() ? "true" : "false",
+            rect.left(), rect.top(), rect.width(), rect.height(),
+            (int)scale(), data.state() ? "true" : "false",
             data.borderColor(), data.fillColor(), data.knobColor());
     }
 
