@@ -7,12 +7,19 @@ data:
 - name: value
   type: t_float
   init: 0
+- name: digits
+  type: int
+  init: -1
 - name: min
   type: t_float
   init: -inf
 - name: max
   type: t_float
   init: +inf
+- name: font
+  type: Font
+  init: Font()
+  style: font
 - name: fill color
   type: HexColor
   init: colors::st_fill

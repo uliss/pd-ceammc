@@ -13,13 +13,15 @@ namespace ceammc {
 namespace ui {
 
 class NumentryData
-    : public std::tuple<Size, t_float, t_float, t_float, HexColor, HexColor, t_float, int> {
+    : public std::tuple<Size, t_float, int, t_float, t_float, Font, HexColor, HexColor, t_float, int> {
 public:
     enum Fields {
         SIZE,
         VALUE,
+        DIGITS,
         MIN,
         MAX,
+        FONT,
         FILL_COLOR,
         TEXT_COLOR,
         CURVE,
@@ -27,7 +29,7 @@ public:
     };
 public:
     NumentryData()
-        : std::tuple<Size, t_float, t_float, t_float, HexColor, HexColor, t_float, int>(Size(100, 12), 0, -inf, +inf, colors::st_fill, colors::st_text, 0, 0) { }
+        : std::tuple<Size, t_float, int, t_float, t_float, Font, HexColor, HexColor, t_float, int>(Size(100, 12), 0, -1, -inf, +inf, Font(), colors::st_fill, colors::st_text, 0, 0) { }
 
     NumentryData(int style)
         : NumentryData() {
@@ -39,8 +41,10 @@ public:
     // getters
     Size const& size() const noexcept { return std::get<SIZE>(*this); }
     t_float const& value() const noexcept { return std::get<VALUE>(*this); }
+    int const& digits() const noexcept { return std::get<DIGITS>(*this); }
     t_float const& min() const noexcept { return std::get<MIN>(*this); }
     t_float const& max() const noexcept { return std::get<MAX>(*this); }
+    Font const& font() const noexcept { return std::get<FONT>(*this); }
     HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
     HexColor const& textColor() const noexcept { return std::get<TEXT_COLOR>(*this); }
     t_float const& curve() const noexcept { return std::get<CURVE>(*this); }
@@ -49,8 +53,10 @@ public:
     // setters
     void setSize(Size v) { std::get<SIZE>(*this) = v; }
     void setValue(t_float v) { std::get<VALUE>(*this) = v; }
+    void setDigits(int v) { std::get<DIGITS>(*this) = v; }
     void setMin(t_float v) { std::get<MIN>(*this) = v; }
     void setMax(t_float v) { std::get<MAX>(*this) = v; }
+    void setFont(Font v) { std::get<FONT>(*this) = v; }
     void setFillColor(HexColor v) { std::get<FILL_COLOR>(*this) = v; }
     void setTextColor(HexColor v) { std::get<TEXT_COLOR>(*this) = v; }
     void setCurve(t_float v) { std::get<CURVE>(*this) = v; }
@@ -59,8 +65,10 @@ public:
     // refs
     Size& sizeRef() { return std::get<SIZE>(*this); }
     t_float& valueRef() { return std::get<VALUE>(*this); }
+    int& digitsRef() { return std::get<DIGITS>(*this); }
     t_float& minRef() { return std::get<MIN>(*this); }
     t_float& maxRef() { return std::get<MAX>(*this); }
+    Font& fontRef() { return std::get<FONT>(*this); }
     HexColor& fillColorRef() { return std::get<FILL_COLOR>(*this); }
     HexColor& textColorRef() { return std::get<TEXT_COLOR>(*this); }
     t_float& curveRef() { return std::get<CURVE>(*this); }
@@ -70,6 +78,7 @@ public:
     void loadStyle(int st) {
         using sc = StyleCollection;
         setSize(sc::size(st, "numentry:size"_hash, Size(100, 12)));
+        setFont(sc::font(st, "numentry:font"_hash, Font()));
         setFillColor(sc::color(st, "numentry:fill_color"_hash, colors::st_fill));
         setTextColor(sc::color(st, "numentry:text_color"_hash, colors::st_text));
     }
