@@ -30,7 +30,7 @@ namespace eval button {
         }
     }
 
-    proc update { cnv model id w h state border_color fill_color active_color } {
+    proc update { cnv model id x y w h zoom state border_color fill_color active_color } {
         set c [::nui::widget_canvas $cnv $model]
         set ta [tag_all $id]
         set tb [tag_box $id]
