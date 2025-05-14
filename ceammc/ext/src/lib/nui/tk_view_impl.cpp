@@ -123,12 +123,12 @@ namespace ui {
         int value = data.state();
 
         sys_vgui("nui::toggle::create %lx %lx %lx"
-                 " %d %d %d %d %d"
-                 " %d"
+                 " %d %d %d %d"
+                 " %d %d"
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
-            rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(),
-            value,
+            rect.left(), rect.top(), rect.width(), rect.height(),
+            (int)scale(), value,
             data.borderColor(), data.fillColor(), data.knobColor());
     }
 
@@ -139,12 +139,15 @@ namespace ui {
 
     void TclToggleImpl::update(const RectF& bbox, const ToggleData& data)
     {
+        Rect rect = transform(bbox);
         int value = data.state();
 
         sys_vgui("nui::toggle::update %lx %lx %lx"
+                 " %d %d %d %d"
                  " %d %d"
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
+            rect.left(), rect.top(), rect.width(), rect.height(),
             (int)scale(), value,
             data.borderColor(), data.fillColor(), data.knobColor());
     }

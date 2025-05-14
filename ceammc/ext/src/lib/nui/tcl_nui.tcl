@@ -416,18 +416,16 @@ namespace eval toggle {
         if { $value } { draw_knob $c $id $knob_color $x $y $w $h $zoom }
     }
 
-    proc update { cnv model id zoom value out_color fill_color knob_color } {
+    proc update { cnv model id x y w h zoom value out_color fill_color knob_color } {
         set c [::nui::widget_canvas $cnv $model]
-        set tb [tag_box $id]
+        set BOX [tag_box $id]
 
         # update box
-        $c itemconfigure $tb -fill $fill_color -outline $out_color
+        $c itemconfigure $BOX -fill $fill_color -outline $out_color
+        $c coords $BOX $x $y [expr $x+$w] [expr $y+$h]
 
-        lassign [$c coords $tb] x0 y0 x1 y1
-        set w [expr $x1-$x0]
-        set h [expr $y1-$y0]
         $c delete [tag_knob $id]
-        if { $value > 0 } { draw_knob $c $id $knob_color $x0 $y0 $w $h $zoom }
+        if { $value > 0 } { draw_knob $c $id $knob_color $x $y $w $h $zoom }
     }
 
     proc erase { cnv model id } {

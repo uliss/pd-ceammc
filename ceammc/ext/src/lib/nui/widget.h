@@ -351,6 +351,9 @@ namespace ui {
                         default:
                             break;
                         }
+                    } else if (resize_mode_ == RESIZE_LINKED) {
+                        auto xx = std::max(pt.x(), pt.y());
+                        resizeWidget(Size(xx, xx));
                     }
                 } else {
                     return utils::canvas_motion(drawCanvas(), T::owner(), 1);
