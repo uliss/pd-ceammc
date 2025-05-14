@@ -15,7 +15,7 @@
 #include "ceammc_format.h"
 #include "fmt/core.h"
 #include "nui/combobox_view.h"
-#include "nui/factory.h"
+#include "nui/widget_factory.h"
 
 using namespace ceammc::ui;
 
@@ -141,15 +141,8 @@ void setup_nui_combobox()
     using namespace ceammc;
     using namespace ceammc::ui;
 
-    UIFactory<ObjectFactory, NUIComboBox> obj("nui.menu");
+    WidgetFactory<NUIComboBox> obj("nui.menu");
     obj.addAlias("nmenu");
-
-    obj.useMouseDown();
-    obj.useMouseEnter();
-    obj.useMouseLeave();
-    obj.useMouseMove();
-    obj.useMouseRight();
-    obj.useMouseUp();
 
     obj.addMethod("open", &NUIComboBox::m_open);
 
