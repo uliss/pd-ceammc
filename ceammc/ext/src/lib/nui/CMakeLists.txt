@@ -1,53 +1,36 @@
 add_custom_command(
-    COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/nui_button.tcl > nui_button_tcl.h
-    DEPENDS nui_button.tcl
-    OUTPUT  nui_button_tcl.h)
-
-add_custom_command(
-    COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/nui_label.tcl > nui_label_tcl.h
-    DEPENDS nui_label.tcl
-    OUTPUT  nui_label_tcl.h)
-
-add_custom_command(
-    COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/nui_slider.tcl > nui_slider_tcl.h
-    DEPENDS nui_slider.tcl
-    OUTPUT  nui_slider_tcl.h)
-
-add_custom_command(
-    COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/nui_combobox.tcl > nui_combobox_tcl.h
-    DEPENDS nui_combobox.tcl
-    OUTPUT  nui_combobox_tcl.h)
-
-add_custom_command(
     COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/tcl_nui.tcl > tcl_nui_tcl.h
     DEPENDS tcl_nui.tcl
     OUTPUT  tcl_nui_tcl.h)
 
 
 add_library(ceammc_nui STATIC
-    button_view.cpp
-    combobox_view.h
-    combobox_view.cpp
     common.cpp
     factory.cpp
-    label_view.cpp
     layout.cpp
     model.cpp
     nui.cpp
-    # tcl
-    nui_button_tcl.h
-    nui_combobox_tcl.h
-    nui_label_tcl.h
-    nui_slider_tcl.h
-    # tcl end
     property.cpp
-    slider_view.cpp
     tcl_nui_tcl.h
     tk_view_impl.cpp
     view.cpp
     widget.cpp
     widget_factory.h
 )
+
+function(nui_add_view NAME)
+    add_custom_command(
+        COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/nui_${NAME}.tcl > nui_${NAME}_tcl.h
+        DEPENDS nui_${NAME}.tcl
+        OUTPUT  nui_${NAME}_tcl.h)
+    target_sources(ceammc_nui PRIVATE ${NAME}_view.h ${NAME}_view.cpp nui_${NAME}_tcl.h)
+endfunction()
+
+nui_add_view(button)
+nui_add_view(combobox)
+nui_add_view(label)
+nui_add_view(nentry)
+nui_add_view(slider)
 
 target_include_directories(ceammc_nui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
 target_include_directories(ceammc_nui PUBLIC ${CMAKE_CURRENT_BINARY_DIR})

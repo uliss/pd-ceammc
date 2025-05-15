@@ -64,6 +64,7 @@ ceammc_ui_external(touchosc)
 
 add_library(ceammc_ui STATIC mod_ui.cpp
     ${NUI_SOURCES} ${UI_SOURCES}
+    nui_nentry.h nui_nentry.cpp
 )
 
 target_link_libraries(ceammc_ui PRIVATE ceammc_nui ceammc_env http_lib readerwriterqueue touchosc)
