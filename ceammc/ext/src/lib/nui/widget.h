@@ -413,6 +413,12 @@ namespace ui {
             }
         }
 
+        void mouseDoubleClick(const Point& pt, const Point& abspt, uint32_t mod)
+        {
+            if (editModeAccept(mod))
+                onMouseDoubleClick(pt / zoom(), abspt, mod);
+        }
+
         void dragAndDropFiles(const AtomListView& lv)
         {
             onDropFiles(lv);
