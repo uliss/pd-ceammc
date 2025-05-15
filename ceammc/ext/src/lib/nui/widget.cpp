@@ -139,13 +139,16 @@ namespace ui {
 #undef STRCAT
         }
 
-        void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom)
+        void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom, t_guicallbackfn fn)
         {
             auto sz0 = sz * zoom;
             sys_vgui("nui::widget_create %lx %lx"
                      " %d %d %d %d 1\n",
                 c, obj,
                 pos.x(), pos.y(), sz0.width(), sz0.height());
+
+            if (fn)
+                sys_queuegui(obj, c, fn);
         }
 
         void widget_erase(t_glist* c, t_object* obj)

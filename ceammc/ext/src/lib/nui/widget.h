@@ -45,7 +45,7 @@ namespace ui {
         t_glist* object_get_draw_canvas(t_glist* c);
         void widget_bind_mouse(t_glist* c, t_object* obj, UIFactoryFlags flags);
         void widget_bind_drag_and_drop(t_glist* c, t_object* obj, UIFactoryFlags flags);
-        void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom);
+        void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom, t_guicallbackfn fn);
         void widget_erase(t_glist* c, t_object* obj);
         void widget_focus(t_glist* c, t_object* obj);
         void widget_move(t_glist* c, t_object* obj, const Point& pos);
