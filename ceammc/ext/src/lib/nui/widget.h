@@ -190,7 +190,7 @@ namespace ui {
         {
             top_level_ = utils::is_toplevel(owner);
             syncDrawCanvas();
-            utils::widget_create(drawCanvas(), T::owner(), absPos(), size(), zoom());
+            utils::widget_create(drawCanvas(), T::owner(), absPos(), size(), zoom(), nullptr);
             utils::widget_bind_mouse(drawCanvas(), T::owner(), ui_flags_);
             utils::widget_bind_drag_and_drop(drawCanvas(), T::owner(), ui_flags_);
             onWidgetShow();
