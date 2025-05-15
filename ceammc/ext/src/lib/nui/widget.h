@@ -223,27 +223,31 @@ namespace ui {
         }
 
         virtual void onMouseEnter()
-        { /*LIB_ERR << __FUNCTION__;*/
+        {
         }
+
         virtual void onMouseLeave()
-        { /*LIB_ERR << __FUNCTION__;*/
+        {
         }
+
         virtual void onMouseMove()
-        { /*LIB_ERR << __FUNCTION__;*/
+        {
         }
+
         virtual void onMouseDrag(const Point& pt, uint32_t mod)
-        { /*LIB_ERR << __FUNCTION__;*/
+        {
         }
+
         virtual void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
-        { /*LIB_ERR << __FUNCTION__;*/
+        {
         }
+
         virtual void onMouseUp(const Point& pt, uint32_t mod)
-        { /*LIB_ERR << __FUNCTION__;*/
+        {
         }
 
         virtual void onRightClick(const Point& pt, const Point& abspt, uint32_t mod)
         {
-            // LIB_ERR << __FUNCTION__;
             utils::canvas_right(drawCanvas(), T::owner());
         }
 
@@ -252,11 +256,11 @@ namespace ui {
         }
 
         virtual void onDropFiles(const AtomListView& lv)
-        { /*LIB_ERR << __FUNCTION__;*/
+        {
         }
 
         virtual void onDropText(const AtomListView& lv)
-        { /*LIB_ERR << __FUNCTION__;*/
+        {
         }
 
         void mouseEnter()
