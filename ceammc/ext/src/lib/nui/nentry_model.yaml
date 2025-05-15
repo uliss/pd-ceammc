@@ -26,6 +26,10 @@ data:
   type: Font
   init: Font()
   style: font
+- name: border color
+  type: HexColor
+  init: colors::st_border
+  style: color
 - name: fill color
   type: HexColor
   init: colors::st_fill

@@ -13,7 +13,7 @@ namespace ceammc {
 namespace ui {
 
 class NumentryData
-    : public std::tuple<Size, t_float, int, t_float, t_float, std::string, std::string, Font, HexColor, HexColor, t_float, int> {
+    : public std::tuple<Size, t_float, int, t_float, t_float, std::string, std::string, Font, HexColor, HexColor, HexColor, t_float, int> {
 public:
     enum Fields {
         SIZE,
@@ -24,6 +24,7 @@ public:
         PREFIX,
         SUFFIX,
         FONT,
+        BORDER_COLOR,
         FILL_COLOR,
         TEXT_COLOR,
         CURVE,
@@ -31,7 +32,7 @@ public:
     };
 public:
     NumentryData()
-        : std::tuple<Size, t_float, int, t_float, t_float, std::string, std::string, Font, HexColor, HexColor, t_float, int>(Size(100, 12), 0, -1, -std::numeric_limits<t_float>::max(), std::numeric_limits<t_float>::max(), {}, {}, Font(), colors::st_fill, colors::st_text, 0, 0) { }
+        : std::tuple<Size, t_float, int, t_float, t_float, std::string, std::string, Font, HexColor, HexColor, HexColor, t_float, int>(Size(100, 12), 0, -1, -std::numeric_limits<t_float>::max(), std::numeric_limits<t_float>::max(), {}, {}, Font(), colors::st_border, colors::st_fill, colors::st_text, 0, 0) { }
 
     NumentryData(int style)
         : NumentryData() {
@@ -49,6 +50,7 @@ public:
     std::string const& prefix() const noexcept { return std::get<PREFIX>(*this); }
     std::string const& suffix() const noexcept { return std::get<SUFFIX>(*this); }
     Font const& font() const noexcept { return std::get<FONT>(*this); }
+    HexColor const& borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
     HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
     HexColor const& textColor() const noexcept { return std::get<TEXT_COLOR>(*this); }
     t_float const& curve() const noexcept { return std::get<CURVE>(*this); }
@@ -63,6 +65,7 @@ public:
     void setPrefix(std::string v) { std::get<PREFIX>(*this) = v; }
     void setSuffix(std::string v) { std::get<SUFFIX>(*this) = v; }
     void setFont(Font v) { std::get<FONT>(*this) = v; }
+    void setBorderColor(HexColor v) { std::get<BORDER_COLOR>(*this) = v; }
     void setFillColor(HexColor v) { std::get<FILL_COLOR>(*this) = v; }
     void setTextColor(HexColor v) { std::get<TEXT_COLOR>(*this) = v; }
     void setCurve(t_float v) { std::get<CURVE>(*this) = v; }
@@ -77,6 +80,7 @@ public:
     std::string& prefixRef() { return std::get<PREFIX>(*this); }
     std::string& suffixRef() { return std::get<SUFFIX>(*this); }
     Font& fontRef() { return std::get<FONT>(*this); }
+    HexColor& borderColorRef() { return std::get<BORDER_COLOR>(*this); }
     HexColor& fillColorRef() { return std::get<FILL_COLOR>(*this); }
     HexColor& textColorRef() { return std::get<TEXT_COLOR>(*this); }
     t_float& curveRef() { return std::get<CURVE>(*this); }
@@ -87,6 +91,7 @@ public:
         using sc = StyleCollection;
         setSize(sc::size(st, "numentry:size"_hash, Size(100, 12)));
         setFont(sc::font(st, "numentry:font"_hash, Font()));
+        setBorderColor(sc::color(st, "numentry:border_color"_hash, colors::st_border));
         setFillColor(sc::color(st, "numentry:fill_color"_hash, colors::st_fill));
         setTextColor(sc::color(st, "numentry:text_color"_hash, colors::st_text));
     }
