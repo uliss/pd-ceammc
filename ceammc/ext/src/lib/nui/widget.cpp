@@ -131,6 +131,8 @@ namespace ui {
                 STRCAT("up");
             if (flags & UI_FACTORY_FLAG_MOUSE_RIGHT)
                 STRCAT("right");
+            if (flags & UI_FACTORY_FLAG_MOUSE_DBLCLICK)
+                STRCAT("double");
 
             sys_vgui("nui::widget_mouse_bind %lx %lx %lx %s\n", c, obj, obj, buf);
 
