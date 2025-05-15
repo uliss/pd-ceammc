@@ -10,6 +10,7 @@ if { [catch {set tkdnd_version [package require tkdnd]} ] } {
     set tkdnd_found 1
 }
 
+proc pd_window {cnv} { return ".x${cnv}" }
 proc pd_canvas {cnv} { return ".x${cnv}.c" }
 
 namespace eval utils {
