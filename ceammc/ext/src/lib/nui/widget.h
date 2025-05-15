@@ -247,6 +247,10 @@ namespace ui {
             utils::canvas_right(drawCanvas(), T::owner());
         }
 
+        virtual void onMouseDoubleClick(const Point& pt, const Point& abspt, uint32_t mod)
+        {
+        }
+
         virtual void onDropFiles(const AtomListView& lv)
         { /*LIB_ERR << __FUNCTION__;*/
         }
