@@ -36,6 +36,7 @@ namespace ui {
     constexpr const char* SYM_MOUSE_DOWN = "mousedown";
     constexpr const char* SYM_MOUSE_UP = "mouseup";
     constexpr const char* SYM_MOUSE_RIGHT = "rightclick";
+    constexpr const char* SYM_MOUSE_DBLCLICK = "mousedblclick";
     constexpr const char* SYM_DRAG_AND_DROP_FILES = "dropfiles";
     constexpr const char* SYM_DRAG_AND_DROP_TEXT = "droptext";
     constexpr const char* SYM_SIZE = "size";
@@ -148,6 +149,12 @@ namespace ui {
                     gensym(SYM_DRAG_AND_DROP_TEXT), A_GIMME, 0);
             }
 
+            if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_DBLCLICK) {
+                class_addmethod(this->classPointer(),
+                    reinterpret_cast<t_method>(mouse_dblclick),
+                    gensym(SYM_MOUSE_DBLCLICK), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+            }
+
             ObjectInitPtr init(new ObjectMouseInit<T>(static_cast<UIFactoryFlags>(ui_flags_)));
             FactoryT::setObjectInit(std::move(init));
 
@@ -162,6 +169,7 @@ namespace ui {
         void useMouseDown() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_DOWN; }
         void useMouseUp() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_UP; }
         void useMouseRight() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_RIGHT; }
+        void useMouseDoubleClick() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_DBLCLICK; }
         void useDragAndDropFiles() { ui_flags_ |= UI_FACTORY_FLAG_DRAG_AND_DROP_FILES; }
         void useDragAndDropText() { ui_flags_ |= UI_FACTORY_FLAG_DRAG_AND_DROP_TEXT; }
 
@@ -275,6 +283,11 @@ namespace ui {
         static void mouse_right(t_gobj* x, t_floatarg xpos, t_floatarg ypos, t_floatarg absx, t_floatarg absy, t_floatarg mod)
         {
             proxy(x)->impl->mouseRight(Point(xpos, ypos), Point(absx, absy), utils::platform_modifier(mod));
+        }
+
+        static void mouse_dblclick(t_gobj* x, t_floatarg xpos, t_floatarg ypos, t_floatarg absx, t_floatarg absy, t_floatarg mod)
+        {
+            proxy(x)->impl->mouseDoubleClick(Point(xpos, ypos), Point(absx, absy), utils::platform_modifier(mod));
         }
 
         static void drag_and_drop_files(t_gobj* x, t_symbol* s, int argc, t_atom* argv)
