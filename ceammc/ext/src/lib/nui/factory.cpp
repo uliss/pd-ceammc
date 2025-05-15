@@ -32,7 +32,7 @@ namespace ui {
             //            post("MOD : %ld", mod);
             return mod;
         }
-    }
+    } // namespace utils
 
-}
-}
+} // namespace ui
+} // namespace ceammc
