@@ -192,6 +192,18 @@ proc widget_mouse_right_bind {id obj} {
     }
 }
 
+# sends #obj mousedblclick X Y ABSX ABSY MOD
+proc widget_mouse_double_bind {id obj} {
+    switch -- $::windowingsystem {
+        "win32" {
+            bind $id <Double-1> [subst -nocommands {+pdsend "$obj mousedblclick %x %y %X %Y [ceammc_fix_win32_state %s]"}]
+        } "default" {
+            bind $id <Double-1> [subst {+pdsend "$obj mousedblclick %x %y %X %Y %s"}]
+        }
+    }
+}
+
+
 proc widget_send_dnd_text {id txt res} {
     pdsend "#$id droptext $txt"
     return $res
