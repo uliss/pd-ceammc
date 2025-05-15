@@ -49,7 +49,7 @@ namespace ui {
         {
             return cursor_table[c];
         }
-    }
+    } // namespace
 
     namespace utils {
         int canvas_zoom(const t_glist* c)
@@ -240,6 +240,6 @@ namespace ui {
             auto c = x->te_g.g_pd;
             open_via_helppath(class_gethelpname(c), class_gethelpdir(c));
         }
-    }
-}
-}
+    } // namespace utils
+} // namespace ui
+} // namespace ceammc
