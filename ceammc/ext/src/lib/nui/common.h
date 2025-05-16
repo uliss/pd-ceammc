@@ -23,7 +23,7 @@
 
 namespace ceammc {
 namespace ui {
-    enum UIFactoryFlags : uint16_t {
+    enum UIFactoryFlags : uint32_t {
         UI_FACTORY_NONE = 0,
         UI_FACTORY_FLAG_DISPLACE = 1,
         UI_FACTORY_FLAG_SELECT = (1 << 1),
@@ -40,6 +40,8 @@ namespace ui {
         UI_FACTORY_FLAG_MOUSE_DBLCLICK = (1 << 12),
         UI_FACTORY_FLAG_DRAG_AND_DROP_FILES = (1 << 13),
         UI_FACTORY_FLAG_DRAG_AND_DROP_TEXT = (1 << 14),
+        UI_FACTORY_FLAG_KEY_PRESS = (1 << 15),
+        UI_FACTORY_FLAG_KEY_RELEASE = (1 << 16),
         UI_FACTORY_FLAG_DEFAULT = UI_FACTORY_FLAG_VIS
             | UI_FACTORY_FLAG_DISPLACE
             | UI_FACTORY_FLAG_SELECT
