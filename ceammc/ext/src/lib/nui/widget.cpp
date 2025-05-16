@@ -243,6 +243,21 @@ namespace ui {
             auto c = x->te_g.g_pd;
             open_via_helppath(class_gethelpname(c), class_gethelpdir(c));
         }
+
+        void widget_bind_keys(t_glist* c, t_object* obj, UIFactoryFlags flags)
+        {
+            std::string keys;
+
+            if (flags & UI_FACTORY_FLAG_KEY_PRESS)
+                keys += "press";
+
+            if (flags & UI_FACTORY_FLAG_KEY_RELEASE)
+                keys += " release";
+
+            if (!keys.empty())
+                sys_vgui("nui::widget_key_bind %lx %lx %lx %s\n", c, obj, obj, keys.c_str());
+        }
+
     } // namespace utils
 } // namespace ui
 } // namespace ceammc

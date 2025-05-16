@@ -45,6 +45,7 @@ namespace ui {
         t_glist* object_get_draw_canvas(t_glist* c);
         void widget_bind_mouse(t_glist* c, t_object* obj, UIFactoryFlags flags);
         void widget_bind_drag_and_drop(t_glist* c, t_object* obj, UIFactoryFlags flags);
+        void widget_bind_keys(t_glist* c, t_object* obj, UIFactoryFlags flags);
         void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom, t_guicallbackfn fn);
         void widget_erase(t_glist* c, t_object* obj);
         void widget_focus(t_glist* c, t_object* obj);
@@ -193,6 +194,7 @@ namespace ui {
             utils::widget_create(drawCanvas(), T::owner(), absPos(), size(), zoom(), nullptr);
             utils::widget_bind_mouse(drawCanvas(), T::owner(), ui_flags_);
             utils::widget_bind_drag_and_drop(drawCanvas(), T::owner(), ui_flags_);
+            utils::widget_bind_keys(drawCanvas(), T::owner(), ui_flags_);
             onWidgetShow();
         }
 
@@ -260,6 +262,14 @@ namespace ui {
         }
 
         virtual void onDropText(const AtomListView& lv)
+        {
+        }
+
+        virtual void onKeyPress(t_symbol* name, uint32_t keyCode, uint32_t symCode, uint32_t mod)
+        {
+        }
+
+        virtual void onKeyRelease(t_symbol* name, uint32_t keyCode, uint32_t symCode, uint32_t mod)
         {
         }
 
@@ -435,6 +445,18 @@ namespace ui {
         void dragAndDropText(const AtomListView& lv)
         {
             onDropText(lv);
+        }
+
+        void keyPress(t_symbol* name, uint32_t keyCode, uint32_t symCode, uint32_t mod)
+        {
+            if (editModeAccept(mod))
+                onKeyPress(name, keyCode, symCode, mod);
+        }
+
+        void keyRelease(t_symbol* name, uint32_t keyCode, uint32_t symCode, uint32_t mod)
+        {
+            if (editModeAccept(mod))
+                onKeyRelease(name, keyCode, symCode, mod);
         }
 
         void openHelp()
