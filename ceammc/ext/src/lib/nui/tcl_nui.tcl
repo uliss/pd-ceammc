@@ -135,6 +135,7 @@ proc widget_move { cnv id x y } {
 }
 
 proc widget_focus { cnv id } {
+    focus [::nui::pd_canvas $cnv]
     focus [widget_canvas $cnv $id]
 }
 
@@ -202,6 +203,40 @@ proc widget_mouse_double_bind {id obj} {
     }
 }
 
+proc key_name_escape {key} {
+    if [string match {[0-9]*} $key] {
+        return "\\$key"
+    } else {
+        return $key
+    }
+}
+
+proc widget_key_bind {cnv id obj args}  {
+    set c [widget_canvas $cnv $id]
+    foreach name $args {
+        "widget_key_${name}_bind" $c "#$obj"
+    }
+}
+
+proc widget_key_press_bind {id obj} {
+    switch -- $::windowingsystem {
+        "win32" {
+            bind $id <KeyPress> [subst -nocommands {+pdsend "$obj keypress [::nui::key_name_escape %K] %N %k [ceammc_fix_win32_state %s]"}]
+        } "default" {
+            bind $id <KeyPress> [subst -nocommands {+pdsend "$obj keypress [::nui::key_name_escape %K] %N %k %s"}]
+        }
+    }
+}
+
+proc widget_key_release_bind {id obj} {
+    switch -- $::windowingsystem {
+        "win32" {
+            bind $id <KeyRelease> [subst -nocommands {+pdsend "$obj keyrelease [::nui::key_name_escape %K] %N %k [ceammc_fix_win32_state %s]"}]
+        } "default" {
+            bind $id <KeyRelease> [subst -nocommands {+pdsend "$obj keyrelease [::nui::key_name_escape %K] %N %k %s"}]
+        }
+    }
+}
 
 proc widget_send_dnd_text {id txt res} {
     pdsend "#$id droptext $txt"
