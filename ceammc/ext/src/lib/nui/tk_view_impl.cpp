@@ -15,11 +15,10 @@
 #include "button_view.h"
 #include "label_view.h"
 #include "nui/combobox_view.h"
+#include "nui/nentry_view.h"
 #include "slider_view.h"
 
 #include "tcl_nui_tcl.h"
-
-#include "ceammc_convert.h"
 
 #include "m_pd.h"
 
@@ -69,9 +68,10 @@ namespace ui {
     {
         tcl_nui_tcl_output();
         tcl_button_init();
+        tcl_combobox_init();
         tcl_hslider_init();
         tcl_label_init();
-        tcl_combobox_init();
+        tcl_nentry_init();
         return true;
     }
 
