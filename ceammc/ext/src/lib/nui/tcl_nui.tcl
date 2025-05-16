@@ -138,11 +138,10 @@ proc widget_focus { cnv id } {
     focus [widget_canvas $cnv $id]
 }
 
-proc widget_mouse_bind { cnv id target args }  {
+proc widget_mouse_bind { cnv id obj args }  {
     set c [widget_canvas $cnv $id]
     foreach name $args {
-        set ev "widget_mouse_${name}_bind"
-        $ev $c "#$target"
+        "widget_mouse_${name}_bind" $c "#$obj"
     }
 }
 
