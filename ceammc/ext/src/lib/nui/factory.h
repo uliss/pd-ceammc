@@ -39,6 +39,8 @@ namespace ui {
     constexpr const char* SYM_MOUSE_DBLCLICK = "mousedblclick";
     constexpr const char* SYM_DRAG_AND_DROP_FILES = "dropfiles";
     constexpr const char* SYM_DRAG_AND_DROP_TEXT = "droptext";
+    constexpr const char* SYM_KEY_PRESS = "keypress";
+    constexpr const char* SYM_KEY_RELEASE = "keyrelease";
     constexpr const char* SYM_SIZE = "size";
 
     template <typename T>
@@ -155,6 +157,18 @@ namespace ui {
                     gensym(SYM_MOUSE_DBLCLICK), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
             }
 
+            if (ui_flags_ & UI_FACTORY_FLAG_KEY_PRESS) {
+                class_addmethod(this->classPointer(),
+                    reinterpret_cast<t_method>(key_press),
+                    gensym(SYM_KEY_PRESS), A_DEFSYMBOL, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+            }
+
+            if (ui_flags_ & UI_FACTORY_FLAG_KEY_RELEASE) {
+                class_addmethod(this->classPointer(),
+                    reinterpret_cast<t_method>(key_release),
+                    gensym(SYM_KEY_RELEASE), A_DEFSYMBOL, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+            }
+
             ObjectInitPtr init(new ObjectMouseInit<T>(static_cast<UIFactoryFlags>(ui_flags_)));
             FactoryT::setObjectInit(std::move(init));
 
@@ -172,6 +186,8 @@ namespace ui {
         void useMouseDoubleClick() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_DBLCLICK; }
         void useDragAndDropFiles() { ui_flags_ |= UI_FACTORY_FLAG_DRAG_AND_DROP_FILES; }
         void useDragAndDropText() { ui_flags_ |= UI_FACTORY_FLAG_DRAG_AND_DROP_TEXT; }
+        void useKeyPress() { ui_flags_ |= UI_FACTORY_FLAG_KEY_PRESS; }
+        void useKeyRelease() { ui_flags_ |= UI_FACTORY_FLAG_KEY_RELEASE; }
 
         /* PureData call this to get a gobj's bounding rectangle in pixels */
         static void widget_rect(t_gobj* x, t_glist* owner, int* x1, int* y1, int* x2, int* y2)
@@ -298,6 +314,16 @@ namespace ui {
         static void drag_and_drop_text(t_gobj* x, t_symbol* s, int argc, t_atom* argv)
         {
             proxy(x)->impl->dragAndDropText(AtomListView(argv, argc));
+        }
+
+        static void key_press(t_gobj* x, t_symbol* key_name, t_floatarg key_code, t_floatarg sym_code, t_floatarg mod)
+        {
+            proxy(x)->impl->keyPress(key_name, key_code, sym_code, utils::platform_modifier(mod));
+        }
+
+        static void key_release(t_gobj* x, t_symbol* key_name, t_floatarg key_code, t_floatarg sym_code, t_floatarg mod)
+        {
+            proxy(x)->impl->keyPress(key_name, key_code, sym_code, utils::platform_modifier(mod));
         }
     };
 
