@@ -76,15 +76,15 @@ CEAMMC_DEFINE_SYM_HASH(solo)
 CEAMMC_DEFINE_SYM_HASH(white)
 CEAMMC_DEFINE_SYM_HASH(yellow)
 
-#define DEFINE_SYM_PRINT(name, format)             \
-    t_symbol* SYM_##name(int n)                    \
-    {                                              \
-        if (n < 0 || n >= MAX_CONTROLS)            \
-            return &s_;                            \
-                                                   \
-        char buf[64] = { 0 };                      \
+#define DEFINE_SYM_PRINT(name, format)  \
+    t_symbol* SYM_##name(int n)         \
+    {                                   \
+        if (n < 0 || n >= MAX_CONTROLS) \
+            return &s_;                 \
+                                        \
+        char buf[64] = { 0 };           \
         fmt::format_to(buf, format, n); \
-        return gensym(buf);                        \
+        return gensym(buf);             \
     }
 
 namespace {
