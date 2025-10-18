@@ -76,25 +76,25 @@ CEAMMC_DEFINE_SYM_HASH(solo)
 CEAMMC_DEFINE_SYM_HASH(white)
 CEAMMC_DEFINE_SYM_HASH(yellow)
 
-#define DEFINE_SYM_PRINT(name, format)       \
-    t_symbol* SYM_##name(int n)              \
-    {                                        \
-        if (n < 0 || n >= MAX_CONTROLS)      \
-            return &s_;                      \
-                                             \
-        char buf[64];                        \
-        fmt::format_to(buf, format "\0", n); \
-        return gensym(buf);                  \
+#define DEFINE_SYM_PRINT(name, format)             \
+    t_symbol* SYM_##name(int n)                    \
+    {                                              \
+        if (n < 0 || n >= MAX_CONTROLS)            \
+            return &s_;                            \
+                                                   \
+        char buf[64] = { 0 };                      \
+        fmt::format_to(buf, format, n); \
+        return gensym(buf);                        \
     }
 
 namespace {
-DEFINE_SYM_PRINT(FADERS, "fader%d");
-DEFINE_SYM_PRINT(KNOBS, "knob%d");
-DEFINE_SYM_PRINT(BTN_REC, "rec%d");
-DEFINE_SYM_PRINT(BTN_SOLO, "solo%d");
-DEFINE_SYM_PRINT(BTN_MUTE, "mute%d");
-DEFINE_SYM_PRINT(BTN_SELECT, "select%d");
-DEFINE_SYM_PRINT(BTN_KNOB, "knob%d");
+DEFINE_SYM_PRINT(FADERS, "fader{}");
+DEFINE_SYM_PRINT(KNOBS, "knob{}");
+DEFINE_SYM_PRINT(BTN_REC, "rec{}");
+DEFINE_SYM_PRINT(BTN_SOLO, "solo{}");
+DEFINE_SYM_PRINT(BTN_MUTE, "mute{}");
+DEFINE_SYM_PRINT(BTN_SELECT, "select{}");
+DEFINE_SYM_PRINT(BTN_KNOB, "knobb{}");
 }
 
 enum MidiMSG {
