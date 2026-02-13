@@ -154,10 +154,12 @@ endif()
 
 if(APPLE)
     add_compile_options(-funroll-loops)
+    add_compile_options(-Wno-deprecated-builtins)
 
     if(CMAKE_BUILD_TYPE STREQUAL "Release")
         add_compile_options(-O2)
         add_compile_options(-ffast-math)
+        add_compile_options(-Wno-nan-infinity-disabled)
     endif()
 
     if(NOT WITH_ASAN AND NOT WITH_PROFILE)
