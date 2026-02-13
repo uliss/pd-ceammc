@@ -27,7 +27,6 @@ function(add_benchmark name)
         ceammc_core
         puredata-core
         fmt
-        re2
     )
 
     set_property(TARGET bm_${name} APPEND_STRING PROPERTY LINK_FLAGS "${PD_EXTERNAL_LDFLAGS}")
@@ -53,7 +52,6 @@ add_benchmark(parse)
 # extra options
 target_include_directories(bm_core
     PRIVATE
-        $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>
 )
 target_include_directories(bm_grain_expr PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/ext/src/array)
