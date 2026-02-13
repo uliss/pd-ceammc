@@ -94,3 +94,28 @@ pub extern "C" fn ceammc_regexp_is_match(
         }
     }
 }
+
+#[no_mangle]
+/// get regexp str
+/// @param regexp - pointer to regexp struct created with ceammc_regexp_create()
+/// @param user - user pointer passed into get callback, useful with pointers to objects
+/// @param get_cb - get callback
+pub extern "C" fn ceammc_regexp_get_str(
+    re: *const regexp,
+    user: *mut c_void,
+    get_cb: Option<extern "C" fn(user: *mut c_void, str: *const c_char, len: usize)>,
+) -> bool {
+    if re.is_null() {
+        return false;
+    } else if let Some(cb) = get_cb {
+        let pattern = unsafe { &*re }.re.as_str();
+        if let Ok(cstr) = CString::new(pattern) {
+            cb(user, cstr.as_ptr(), cstr.count_bytes());
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}

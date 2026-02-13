@@ -659,6 +659,16 @@ ceammc_regexp *ceammc_regexp_create(const char *re, ceammc_regexp_cb_err on_err)
 void ceammc_regexp_free(ceammc_regexp *re);
 
 /**
+ * get regexp str
+ * @param regexp - pointer to regexp struct created with ceammc_regexp_create()
+ * @param user - user pointer passed into get callback, useful with pointers to objects
+ * @param get_cb - get callback
+ */
+bool ceammc_regexp_get_str(const ceammc_regexp *re,
+                           void *user,
+                           void (*get_cb)(void *user, const char *str, size_t len));
+
+/**
  * @param regexp - pointer to regexp struct created with ceammc_regexp_create()
  * @param re - regexp
  * @param on_err - error callback
