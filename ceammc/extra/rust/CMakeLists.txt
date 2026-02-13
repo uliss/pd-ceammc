@@ -26,6 +26,9 @@ if(Rust_FOUND)
         else()
             corrosion_import_crate(MANIFEST_PATH core/Cargo.toml CRATE_TYPES staticlib)
         endif()
+        target_include_directories(core_rust INTERFACE
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/core>
+        )
     endif()
 
     if(WITH_RUST_HW)

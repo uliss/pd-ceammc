@@ -1,8 +1,5 @@
 use regex::Regex;
-use std::{
-    ffi::{c_char, c_void, CStr, CString},
-    str::FromStr,
-};
+use std::ffi::{c_char, c_void, CStr, CString};
 
 #[allow(non_camel_case_types)]
 pub struct regexp {
@@ -30,6 +27,10 @@ impl regexp_cb_err {
         let msg = CString::new(msg).unwrap_or_default();
         self.cb.map(|f| f(self.user, msg.as_ptr()));
     }
+
+    fn exec_cstr(&self, msg: &CStr) {
+        self.cb.map(|f| f(self.user, msg.as_ptr()));
+    }
 }
 
 #[no_mangle]
@@ -37,25 +38,25 @@ impl regexp_cb_err {
 /// @param re - regexp
 /// @param on_err - error callback
 pub extern "C" fn ceammc_regexp_create(re: *const c_char, on_err: regexp_cb_err) -> *mut regexp {
-    match unsafe { CStr::from_ptr(re) }.to_str() {
-        Ok(str) => match String::from_str(str) {
-            Ok(str) => {
-                return match regexp::new(str.as_str()) {
-                    Ok(re) => Box::into_raw(Box::new(re)),
-                    Err(err) => {
-                        on_err.exec(err.to_string().as_str());
-                        return std::ptr::null_mut();
-                    }
-                };
-            }
-            Err(err) => {
-                on_err.exec(err.to_string().as_str());
-                return std::ptr::null_mut();
-            }
-        },
+    let inner_fn = || -> Result<*mut regexp, CString> {
+        if re.is_null() {
+            return Err(CString::new("Null str pointer").unwrap_or_default());
+        }
+
+        let str = unsafe { CStr::from_ptr(re) }
+            .to_str()
+            .map_err(|err| CString::new(err.to_string()).unwrap_or_default())?;
+
+        let re =
+            regexp::new(str).map_err(|err| CString::new(err.to_string()).unwrap_or_default())?;
+        return Ok(Box::into_raw(Box::new(re)));
+    };
+
+    match inner_fn() {
+        Ok(ptr) => ptr,
         Err(err) => {
-            on_err.exec(err.to_string().as_str());
-            return std::ptr::null_mut();
+            on_err.exec_cstr(err.as_c_str());
+            std::ptr::null_mut()
         }
     }
 }
@@ -117,5 +118,39 @@ pub extern "C" fn ceammc_regexp_get_str(
         }
     } else {
         return false;
+    }
+}
+
+#[no_mangle]
+/// set regexp str
+/// @param regexp - pointer to regexp struct created with ceammc_regexp_create()
+/// @param str - new regep
+pub extern "C" fn ceammc_regexp_set_str(
+    re: *mut regexp,
+    str: *const c_char,
+    on_err: regexp_cb_err,
+) -> bool {
+    let inner_fn = || -> Result<(), CString> {
+        if re.is_null() {
+            return Err(CString::new("Null regexp pointer").unwrap_or_default());
+        } else if !str.is_null() {
+            let cstr = unsafe { CStr::from_ptr(str) };
+            let str = cstr
+                .to_str()
+                .map_err(|err| CString::new(err.to_string()).unwrap_or_default())?;
+            let re = unsafe { &mut *re };
+            re.re =
+                Regex::new(str).map_err(|err| CString::new(err.to_string()).unwrap_or_default())?;
+            return Ok(());
+        } else {
+            return Err(CString::new("Null str pointer").unwrap_or_default());
+        }
+    };
+
+    if let Err(err) = inner_fn() {
+        on_err.exec_cstr(err.as_c_str());
+        return false;
+    } else {
+        return true;
     }
 }

@@ -1,5 +1,6 @@
 add_executable(test_cells test_property.h
-    test_tcl_prop_dialog_generator.cpp)
+    test_tcl_prop_dialog_generator.cpp
+    test_rust_core.cpp)
 
 find_program(SOX_EXEC sox)
 if(SOX_EXEC)
@@ -21,6 +22,7 @@ target_include_directories(test_cells
 target_link_libraries(test_cells PUBLIC
     tests_main_lib
     ceammc_core
+    core_rust
     puredata-core)
 
 add_test(NAME test_cells
@@ -100,6 +102,8 @@ add_cell_test(score)
 add_cell_test(string)
 add_cell_test(transport)
 add_cell_test(units)
+
+add_cell_test(rust_core)
 
 add_cell_test(tcl_prop_dialog_generator)
 

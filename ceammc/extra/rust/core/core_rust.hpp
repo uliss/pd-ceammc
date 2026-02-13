@@ -676,6 +676,13 @@ bool ceammc_regexp_get_str(const ceammc_regexp *re,
 bool ceammc_regexp_is_match(const ceammc_regexp *re, const char *msg, ceammc_regexp_cb_err on_err);
 
 /**
+ * set regexp str
+ * @param regexp - pointer to regexp struct created with ceammc_regexp_create()
+ * @param str - new regep
+ */
+bool ceammc_regexp_set_str(ceammc_regexp *re, const char *str, ceammc_regexp_cb_err on_err);
+
+/**
  * init rust env_logger
  * logger config is done with a RUST_LOG env variable
  */
