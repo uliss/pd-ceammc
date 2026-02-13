@@ -79,5 +79,14 @@ TEST_CASE("rust", "[core]")
         REQUIRE_FALSE(ceammc_regexp_is_match(re, "Пендерецкий?", { nullptr, nullptr }));
         REQUIRE(re);
         ceammc_regexp_free(re);
+
+        // []
+        re = ceammc_regexp_create("b[iau]g", { nullptr, nullptr });
+        REQUIRE(ceammc_regexp_is_match(re, "big", { nullptr, nullptr }));
+        REQUIRE(ceammc_regexp_is_match(re, "bag", { nullptr, nullptr }));
+        REQUIRE(ceammc_regexp_is_match(re, "bug", { nullptr, nullptr }));
+        REQUIRE_FALSE(ceammc_regexp_is_match(re, "bog", { nullptr, nullptr }));
+        REQUIRE(re);
+        ceammc_regexp_free(re);
     }
 }
