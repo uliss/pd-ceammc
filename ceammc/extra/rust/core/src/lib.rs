@@ -1,6 +1,7 @@
 pub mod bitmap;
 pub mod mdns_sd;
 pub mod net_iface;
+pub mod lib_regex;
 
 use env_logger;
 use log::error;

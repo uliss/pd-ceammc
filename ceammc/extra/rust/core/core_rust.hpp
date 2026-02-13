@@ -60,6 +60,8 @@ struct ceammc_net_iface_addr6;
 
 struct ceammc_net_ifaces;
 
+struct ceammc_regexp;
+
 struct ceammc_core_notify {
     /**
      * dispatcher ID
@@ -187,6 +189,11 @@ struct ceammc_mdns_service_info_register {
      * network interface to listen
      */
     ceammc_mdns_iface iface;
+};
+
+struct ceammc_regexp_cb_err {
+    void *user;
+    void (*cb)(void *user, const char *msg);
 };
 
 extern "C" {
@@ -637,6 +644,26 @@ bool ceammc_net_is_ifa_v6(const ceammc_net_iface_addr *va);
  */
 __attribute__((warn_unused_result))
 ceammc_net_ifaces *ceammc_net_list_interfaces(ceammc_core_on_msg msg_cb);
+
+/**
+ * create new regexp
+ * @param re - regexp
+ * @param on_err - error callback
+ */
+ceammc_regexp *ceammc_regexp_create(const char *re, ceammc_regexp_cb_err on_err);
+
+/**
+ * free regexp
+ * @param regexp - pointer to regexp struct created with ceammc_regexp_create()
+ */
+void ceammc_regexp_free(ceammc_regexp *re);
+
+/**
+ * @param regexp - pointer to regexp struct created with ceammc_regexp_create()
+ * @param re - regexp
+ * @param on_err - error callback
+ */
+bool ceammc_regexp_is_match(const ceammc_regexp *re, const char *msg, ceammc_regexp_cb_err on_err);
 
 /**
  * init rust env_logger

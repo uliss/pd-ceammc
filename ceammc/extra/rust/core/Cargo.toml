@@ -8,15 +8,16 @@ crate-type = ["staticlib", "cdylib"]
 
 [dependencies]
 mdns-sd = "0.10.4"
-local-ip-address = "0.6.1"
+local-ip-address = "0.6.10"
 network-interface = "1.1.1"
-log = "0.4.21"
-env_logger = "0.11.3"
+log = "0.4.29"
+env_logger = "0.11.9"
 embedded-graphics = "0.8.1"
 ndarray = "0.16.1"
 png = "0.17.16"
-image = { version = "0.25.5", features = ["png", "gif", "jpeg"], default-features = false }
+image = { version = "0.25.9", features = ["png", "gif", "jpeg"], default-features = false }
 base64 = "0.22.1"
+regex = "1.12.3"
 
 [build-dependencies]
 cbindgen = "0.22.0"
