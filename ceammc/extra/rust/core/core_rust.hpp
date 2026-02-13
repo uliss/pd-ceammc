@@ -42,6 +42,11 @@ enum class ceammc_mdns_rc {
     SERVICENOTFOUND,
 };
 
+enum class ceammc_regexp_mode {
+    FULL_MATCH,
+    PARTIAL_MATCH,
+};
+
 struct ceammc_core_async_bitmap;
 
 struct ceammc_mdns;
@@ -648,9 +653,12 @@ ceammc_net_ifaces *ceammc_net_list_interfaces(ceammc_core_on_msg msg_cb);
 /**
  * create new regexp
  * @param re - regexp
+ * @param mode - match mode
  * @param on_err - error callback
  */
-ceammc_regexp *ceammc_regexp_create(const char *re, ceammc_regexp_cb_err on_err);
+ceammc_regexp *ceammc_regexp_create(const char *re,
+                                    ceammc_regexp_mode mode,
+                                    ceammc_regexp_cb_err on_err);
 
 /**
  * free regexp

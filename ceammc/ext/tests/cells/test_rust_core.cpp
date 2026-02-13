@@ -20,10 +20,10 @@ TEST_CASE("rust", "[core]")
 
     SECTION("regexp invalid")
     {
-        auto re = ceammc_regexp_create(nullptr, { nullptr, nullptr });
+        auto re = ceammc_regexp_create(nullptr, ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
         REQUIRE(!re);
 
-        re = ceammc_regexp_create("[A+", { nullptr, nullptr });
+        re = ceammc_regexp_create("[A+", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
         REQUIRE(!re);
 
         ceammc_regexp_free(nullptr);
@@ -31,7 +31,7 @@ TEST_CASE("rust", "[core]")
 
     SECTION("regexp")
     {
-        auto re = ceammc_regexp_create("A+", { nullptr, nullptr });
+        auto re = ceammc_regexp_create("A+", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
         REQUIRE(re);
 
         REQUIRE(ceammc_regexp_is_match(re, "A", { nullptr, nullptr }));
@@ -42,12 +42,12 @@ TEST_CASE("rust", "[core]")
         ceammc_regexp_free(re);
 
         // empty string
-        re = ceammc_regexp_create("", { nullptr, nullptr });
+        re = ceammc_regexp_create("", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
         REQUIRE(re);
         ceammc_regexp_free(re);
 
         // repeats
-        re = ceammc_regexp_create("\\d{1,3}", { nullptr, nullptr });
+        re = ceammc_regexp_create("\\d{1,3}", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
         REQUIRE(ceammc_regexp_is_match(re, "1", { nullptr, nullptr }));
         REQUIRE(ceammc_regexp_is_match(re, "12", { nullptr, nullptr }));
         REQUIRE(ceammc_regexp_is_match(re, "123", { nullptr, nullptr }));
@@ -56,7 +56,7 @@ TEST_CASE("rust", "[core]")
         ceammc_regexp_free(re);
 
         // *
-        re = ceammc_regexp_create("она*", { nullptr, nullptr });
+        re = ceammc_regexp_create("она*", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
         REQUIRE(ceammc_regexp_is_match(re, "он", { nullptr, nullptr }));
         REQUIRE(ceammc_regexp_is_match(re, "она", { nullptr, nullptr }));
         REQUIRE(ceammc_regexp_is_match(re, "онаа", { nullptr, nullptr }));
@@ -65,7 +65,7 @@ TEST_CASE("rust", "[core]")
         ceammc_regexp_free(re);
 
         // ?
-        re = ceammc_regexp_create("она?", { nullptr, nullptr });
+        re = ceammc_regexp_create("она?", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
         REQUIRE(ceammc_regexp_is_match(re, "он", { nullptr, nullptr }));
         REQUIRE(ceammc_regexp_is_match(re, "она", { nullptr, nullptr }));
         REQUIRE_FALSE(ceammc_regexp_is_match(re, "онаа", { nullptr, nullptr }));
@@ -73,7 +73,7 @@ TEST_CASE("rust", "[core]")
         ceammc_regexp_free(re);
 
         // $
-        re = ceammc_regexp_create(".*ский$", { nullptr, nullptr });
+        re = ceammc_regexp_create(".*ский$", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
         REQUIRE(ceammc_regexp_is_match(re, "Мусоргский", { nullptr, nullptr }));
         REQUIRE(ceammc_regexp_is_match(re, "Чайковский", { nullptr, nullptr }));
         REQUIRE_FALSE(ceammc_regexp_is_match(re, "Пендерецкий?", { nullptr, nullptr }));
@@ -81,7 +81,7 @@ TEST_CASE("rust", "[core]")
         ceammc_regexp_free(re);
 
         // []
-        re = ceammc_regexp_create("b[iau]g", { nullptr, nullptr });
+        re = ceammc_regexp_create("b[iau]g", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
         REQUIRE(ceammc_regexp_is_match(re, "big", { nullptr, nullptr }));
         REQUIRE(ceammc_regexp_is_match(re, "bag", { nullptr, nullptr }));
         REQUIRE(ceammc_regexp_is_match(re, "bug", { nullptr, nullptr }));
