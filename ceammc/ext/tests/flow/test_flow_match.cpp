@@ -51,6 +51,13 @@ TEST_CASE("flow.match", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
         }
+
+        SECTION("invalid")
+        {
+            TObj t("flow.route", LA("\"[X\""));
+            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 2);
+        }
     }
 
     SECTION("run")
