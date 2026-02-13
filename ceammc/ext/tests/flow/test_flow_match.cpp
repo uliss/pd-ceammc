@@ -70,6 +70,12 @@ TEST_CASE("flow.match", "[externals]")
         REQUIRE(t.outputSymbolAt(0) == S("pp"));
         t << "pppp";
         REQUIRE(t.outputSymbolAt(0) == S("pppp"));
+        t << "Ap";
+        REQUIRE(!t.hasOutputAt(0));
+        REQUIRE(t.outputSymbolAt(1) == S("Ap"));
+        t << "pE";
+        REQUIRE(!t.hasOutputAt(0));
+        REQUIRE(t.outputSymbolAt(1) == S("pE"));
 
         // any
         t.sendMessage("ppppp", LF(1, 2, 3));
