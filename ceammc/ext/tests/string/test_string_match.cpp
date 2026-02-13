@@ -37,7 +37,7 @@ TEST_CASE("string.match", "[external]")
         SECTION("invalid")
         {
             TObj t("string.match", LA("\"*[asd\""));
-            REQUIRE_PROPERTY_LIST(t, @re, LA("*[asd"));
+            REQUIRE_PROPERTY_LIST(t, @re, LA(""));
         }
 
         SECTION("prop")
