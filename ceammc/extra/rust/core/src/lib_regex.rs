@@ -1,3 +1,4 @@
+use log::error;
 use regex::Regex;
 use std::ffi::{c_char, c_void, CStr, CString};
 
@@ -24,11 +25,13 @@ pub struct regexp_cb_err {
 
 impl regexp_cb_err {
     fn exec(&self, msg: &str) {
+        error!("{msg}");
         let msg = CString::new(msg).unwrap_or_default();
         self.cb.map(|f| f(self.user, msg.as_ptr()));
     }
 
     fn exec_cstr(&self, msg: &CStr) {
+        error!("{}", msg.to_str().unwrap_or_default());
         self.cb.map(|f| f(self.user, msg.as_ptr()));
     }
 }
