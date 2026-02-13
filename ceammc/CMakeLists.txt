@@ -1,5 +1,11 @@
 # we need 1.50.0 for boost random uniform distribution
-find_package(Boost 1.50.0 REQUIRED)
+if(APPLE)
+    # using macports version
+    set(Boost_DIR /opt/local/libexec/boost/1.71/lib/cmake/Boost-1.71.0)
+    find_package(Boost 1.71 CONFIG REQUIRED)
+else()
+    find_package(Boost 1.50 REQUIRED)
+endif()
 include_directories(${Boost_INCLUDE_DIRS})
 add_subdirectory(extra/corrosion)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/extra/corrosion/cmake")
