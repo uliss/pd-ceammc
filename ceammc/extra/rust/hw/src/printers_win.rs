@@ -90,7 +90,7 @@ pub fn print_file(
     }
 
     // check path
-    let path = Path::new(path);
+    let path = Path::from(path);
     if !path.exists() {
         on_msg.error(format!("file not found: {path:?}").as_str());
         return crate::printers::JOB_ERROR;
@@ -117,7 +117,7 @@ pub fn print_file(
                 let p = PdfiumPrinter::new(p);
 
                 // let p = XpsPrinter::new(p);
-                match p.print(path, Default::default()) {
+                match p.print(&path, Default::default()) {
                     Ok(_) => return 1,
                     Err(_err) => {
                         on_msg.error(format!("print error: {_err}").as_str());
