@@ -307,15 +307,12 @@ if(LibMagic_FOUND AND NOT WIN32) # strange crash in windows
     target_compile_definitions(ceammc_core PRIVATE WITH_LIBMAGIC)
 endif()
 
-target_link_libraries(ceammc_core PRIVATE re2)
+target_link_libraries(ceammc_core PRIVATE core_rust)
 target_link_libraries(ceammc_core PRIVATE reflex)
 target_link_libraries(ceammc_core PRIVATE muparser)
 target_link_libraries(ceammc_core PRIVATE readerwriterqueue)
 target_link_libraries(ceammc_core PRIVATE colorm)
-#target_link_libraries(ceammc_core PRIVATE ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
-#target_link_libraries(ceammc_core PRIVATE puredata-core)
 
-target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:soxr,INCLUDE_DIRECTORIES>)
