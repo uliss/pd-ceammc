@@ -14,6 +14,7 @@ pub enum hw_printer_state {
     PRINTING,
     #[default]
     UNKNOWN,
+    OFFLINE,
 }
 
 #[allow(non_camel_case_types)]
