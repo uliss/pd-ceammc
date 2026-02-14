@@ -33,3 +33,8 @@ endif()
 if(WITH_FLUIDSYNTH)
     add_misc_test(fluid)
 endif()
+
+if(WITH_SFIZZ)
+    add_misc_test(sfizz)
+    target_compile_definitions(test_ext_misc PRIVATE -DSFIZZ_EXPORT_SYMBOLS)
+endif()
