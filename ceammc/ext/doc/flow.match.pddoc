@@ -23,8 +23,6 @@
         <info>
             <par>
                 <tr lang="en">Use backtick ` instead of backslash in regexp syntax</tr>
-                <!-- old: Используйте backtick вместо backslash в синтаксисе
-                regexp -->
                 <tr lang="ru" finished="false">Используйте backtick вместо backslash в синтаксисе
                 regexp</tr>
             </par>
@@ -36,12 +34,11 @@
                 <tr lang="ru" finished="false">если вы хотите сопоставить недвижимость -
                 используйте двойные котировки в списке arg: "@prop+"</tr>
             </par>
-            <a href="https://github.com/google/re2">Regexp library: RE2</a>
         </info>
         <arguments>
             <argument name="PATTERNS" type="list" required="true">
                 <tr lang="en">list of regular expressions</tr>
-                <tr lang="ru" finished="false">Список регулярных выражений</tr>
+                <tr lang="ru">cписок регулярных выражений</tr>
             </argument>
         </arguments>
         <properties>
@@ -53,40 +50,40 @@
             <!-- @patterns -->
             <property name="@patterns" type="list" access="initonly" default="">
                 <tr lang="en">list of regular expressions</tr>
-                <tr lang="ru" finished="false">Список регулярных выражений</tr>
+                <tr lang="ru">cписок регулярных выражений</tr>
             </property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
                 <in on="any">
                     <tr lang="en">input message</tr>
-                    <tr lang="ru" finished="false">вводное сообщение</tr>
+                    <tr lang="ru">входное сообщение</tr>
                 </in>
                 <in on="symbol">
                     <tr lang="en">input symbol</tr>
-                    <tr lang="ru" finished="false">входной символ</tr>
+                    <tr lang="ru">входной символ</tr>
                 </in>
                 <in on="data:string">
                     <tr lang="en">input symbol</tr>
-                    <tr lang="ru" finished="false">входной символ</tr>
+                    <tr lang="ru">входной символ</tr>
                 </in>
             </inlet>
             <inlet number="2">
                 <in on="symbol">
                     <tr lang="en">set first regexp</tr>
-                    <tr lang="ru" finished="false">Установить первый regexp</tr>
+                    <tr lang="ru">установить первое регулярное выражение</tr>
                 </in>
             </inlet>
             <inlet number="...">
                 <in on="symbol">
                     <tr lang="en">set ... regexp</tr>
-                    <tr lang="ru" finished="false">Исполнитель: Regexp</tr>
+                    <tr lang="ru">установить ... регулярное выражение</tr>
                 </in>
             </inlet>
             <inlet number="n+1">
                 <in on="symbol">
                     <tr lang="en">set n-th regexp</tr>
-                    <tr lang="ru" finished="false">Настройка n-го regexp</tr>
+                    <tr lang="ru">установить N-е регулярное выражение</tr>
                 </in>
             </inlet>
         </inlets>
@@ -94,25 +91,25 @@
             <outlet number="1">
                 <out type="any">
                     <tr lang="en">output match to first regexp</tr>
-                    <tr lang="ru" finished="false">Выходной матч для первого regexp</tr>
+                    <tr lang="ru">вывод совпадений для первого регулярного выражение</tr>
                 </out>
             </outlet>
             <outlet number="...">
                 <out type="any">
                     <tr lang="en">output match to ... regexp</tr>
-                    <tr lang="ru" finished="false">Производитель: Regexp</tr>
+                    <tr lang="ru">вывод совпадений для ... регулярного выражение</tr>
                 </out>
             </outlet>
             <outlet number="n">
                 <out type="any">
                     <tr lang="en">output match to n-th regexp</tr>
-                    <tr lang="ru" finished="false">выходной матч для n-го regexp</tr>
+                    <tr lang="ru">вывод совпадений для N-ого регулярного выражение</tr>
                 </out>
             </outlet>
             <outlet number="n+1">
                 <out type="any">
                     <tr lang="en">unmatched output</tr>
-                    <tr lang="ru" finished="false">непревзойденный выход</tr>
+                    <tr lang="ru">выход для сообщений, которым не найдено соответствий</tr>
                 </out>
             </outlet>
         </outlets>
