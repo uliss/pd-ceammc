@@ -123,8 +123,9 @@ pub extern "C" fn ceammc_sysinfo_create(
 
     std::thread::spawn(move || {
         let mut components = Components::new_with_refreshed_list();
-        let mut sysinfo =
-            System::new_with_specifics(RefreshKind::new().with_cpu(CpuRefreshKind::everything()));
+        let mut sysinfo = System::new_with_specifics(
+            RefreshKind::everything().with_cpu(CpuRefreshKind::everything()),
+        );
         loop {
             match req_rx.recv_timeout(Duration::from_millis(100)) {
                 Ok(data) => match data {
@@ -140,24 +141,26 @@ pub extern "C" fn ceammc_sysinfo_create(
                             let str = component.label();
                             let lbl = CString::new(str).unwrap_or_default();
 
-                            let temp = component.temperature();
-                            if temp.is_nan() {
+                            if let Some(temp) = component.temperature() {
+                                if let Err(err) =
+                                    reply_tx.send(SysInfoReply::Temperature(lbl, temp))
+                                {
+                                    log::error!("[worker] send error: {err}");
+                                    break;
+                                }
+
+                                cb_notify.notify();
+                            } else {
                                 // skip
                                 continue;
                             }
-                            if let Err(err) = reply_tx.send(SysInfoReply::Temperature(lbl, temp)) {
-                                log::error!("[worker] send error: {err}");
-                                break;
-                            }
-
-                            cb_notify.notify();
                         }
                     }
                     SysInfoRequest::GetCpu => {
                         log::debug!("[worker] get cpu");
                         // Wait a bit because CPU usage is based on diff.
                         std::thread::sleep(sysinfo::MINIMUM_CPU_UPDATE_INTERVAL);
-                        sysinfo.refresh_cpu();
+                        sysinfo.refresh_cpu_all();
                         for (i, cpu) in sysinfo.cpus().iter().enumerate() {
                             if let Err(err) = reply_tx.send(SysInfoReply::Cpu(CpuInfo {
                                 n: i as c_int,
@@ -237,19 +240,19 @@ pub extern "C" fn ceammc_sysinfo_free(sysinfo: *mut system_info) {
 
 #[cfg(test)]
 mod tests {
-    use sysinfo::{System, RefreshKind, CpuRefreshKind};
+    use sysinfo::{CpuRefreshKind, RefreshKind, System};
 
     #[test]
     fn cpu_test() {
         let mut s = System::new_with_specifics(
-            RefreshKind::new().with_cpu(CpuRefreshKind::everything()),
+            RefreshKind::everything().with_cpu(CpuRefreshKind::everything()),
         );
-        
+
         // Wait a bit because CPU usage is based on diff.
         std::thread::sleep(sysinfo::MINIMUM_CPU_UPDATE_INTERVAL);
         // Refresh CPUs again.
-        s.refresh_cpu();
-        
+        s.refresh_cpu_all();
+
         for cpu in s.cpus() {
             println!("{cpu:?}");
         }
