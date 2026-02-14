@@ -68,7 +68,7 @@ void register_voice(register_fn fn, const char* name)
     add_voice(v);
 }
 
-}
+} // namespace
 
 SpeechFlite::SpeechFlite(const PdArgs& args)
     : BaseObject(args)
@@ -107,7 +107,7 @@ SpeechFlite::~SpeechFlite()
 void SpeechFlite::onFloat(t_float v)
 {
     char buf[64];
-    sprintf(buf, "%g", v);
+    snprintf(buf, sizeof(buf), "%g", v);
     synth(buf);
 }
 
