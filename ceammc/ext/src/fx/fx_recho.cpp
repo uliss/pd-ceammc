@@ -1,3 +1,5 @@
+#include <cstdint>
+
 #include "fx_recho.h"
 #include "ceammc_faust_factory.h"
 
