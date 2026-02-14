@@ -817,11 +817,11 @@ static void ebox_tk_ids(t_ebox* x, t_canvas* canvas)
 {
     char buffer[MAXPDSTRING];
     x->b_obj.o_canvas = canvas;
-    sprintf(buffer, ".x%lx.c", canvas);
+    snprintf(buffer, sizeof(buffer), ".x%lx.c", canvas);
     x->b_canvas_id = gensym(buffer);
-    sprintf(buffer, "%s.ecanvas%lx", x->b_canvas_id->s_name, x);
+    snprintf(buffer, sizeof(buffer), "%s.ecanvas%lx", x->b_canvas_id->s_name, x);
     x->b_drawing_id = gensym(buffer);
-    sprintf(buffer, "all%lx", x);
+    snprintf(buffer, sizeof(buffer), "all%lx", x);
     x->b_all_id = gensym(buffer);
 }
 
@@ -1779,7 +1779,7 @@ void ebox_output_all_attrs(t_ebox* x)
     char buf[MAXPDSTRING];
     t_atom* argv = (t_atom*)malloc(argc * sizeof(t_atom));
     for (size_t i = 0; i < c->c_nattr; i++) {
-        sprintf(buf, "@%s", c->c_attr[i]->name->s_name);
+        snprintf(buf, sizeof(buf), "@%s", c->c_attr[i]->name->s_name);
         atom_setsym(&argv[i], gensym(buf));
     }
 
@@ -1793,7 +1793,7 @@ void ebox_properties(t_ebox* x, t_glist* glist)
     t_eclass* c = eobj_getclass(&x->b_obj);
     char temp[MAXPDSTRING];
 
-    sprintf(temp, "pdtk_%s_dialog %%s", c->c_class.c_name->s_name);
+    snprintf(temp, sizeof(temp), "pdtk_%s_dialog %%s", c->c_class.c_name->s_name);
     std::string buffer(temp);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
@@ -2033,7 +2033,7 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
                 graphic->e_objects.clear();
                 graphic->e_new_objects.e_points.clear();
 
-                sprintf(text, "%s%" PRIxPTR, name->s_name, (intptr_t)x);
+                snprintf(text, sizeof(text), "%s%" PRIxPTR, name->s_name, (intptr_t)x);
                 graphic->e_id = gensym(text);
 
                 graphic->e_new_objects.e_image = NULL;
@@ -2064,7 +2064,7 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
     graphic->e_rect.w = (float)pd_clip_min(width, 0.);
 
     graphic->e_name = name;
-    sprintf(text, "%s%" PRIdPTR, name->s_name, (intptr_t)x);
+    snprintf(text, sizeof(text), "%s%" PRIdPTR, name->s_name, (intptr_t)x);
     graphic->e_state = EGRAPHICS_OPEN;
     graphic->e_id = gensym(text);
     return graphic;
@@ -2185,12 +2185,12 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
         for (const auto& gobj : g->e_objects) {
             if (gobj.e_type == E_GOBJ_PATH) {
                 if (gobj.e_filled) {
-                    sprintf(header, "%s create polygon ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-fill #%6.6x -width 0 -tags { %s %s }\n",
+                    snprintf(header, sizeof(header), "%s create polygon ", x->b_drawing_id->s_name);
+                    snprintf(bottom, sizeof(bottom), "-fill #%6.6x -width 0 -tags { %s %s }\n",
                         gobj.e_color, g->e_id->s_name, x->b_all_id->s_name);
                 } else {
-                    sprintf(header, "%s create line ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-fill #%6.6x -width %.1f -capstyle %s %s %s -tags { %s %s }\n",
+                    snprintf(header, sizeof(header), "%s create line ", x->b_drawing_id->s_name);
+                    snprintf(bottom, sizeof(bottom), "-fill #%6.6x -width %.1f -capstyle %s %s %s -tags { %s %s }\n",
                         gobj.e_color, gobj.e_width,
                         my_capstylelist[gobj.e_capstyle],
                         my_dashstylelist[gobj.e_dashstyle],
