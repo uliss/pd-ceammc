@@ -7,6 +7,7 @@
 #include "nui/style.h"
 #include "m_pd.h"
 
+#include <limits>
 #include <tuple>
 
 namespace ceammc {
