@@ -42,7 +42,7 @@ rppal = { version = "0.22.1", features = ["hal", "nb"] }
 dht11_gpio = "0.1.0"                                     # temperature sensor
 lcd-lcm1602-i2c = "0.3.0"
 max7219 = "0.4.2"
-ws2812-spi = "0.5.0"                                     # stepper driver
+ws2812-spi = "0.5.1"                                     # stepper driver
 smart-leds-trait = "0.3.2"
 smart-leds = "0.4.0"
 rotary-encoder-embedded = "0.4.0"
