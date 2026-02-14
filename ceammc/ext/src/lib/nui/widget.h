@@ -226,6 +226,7 @@ namespace ui {
 
         virtual void onMouseEnter()
         {
+            // utils::widget_focus(drawCanvas(), T::owner());
         }
 
         virtual void onMouseLeave()
@@ -277,10 +278,8 @@ namespace ui {
         {
             syncDrawCanvas();
 
-            if (!isEdit() && !mouse_down_) {
-                utils::widget_focus(drawCanvas(), T::owner());
+            if (!isEdit() && !mouse_down_)
                 onMouseEnter();
-            }
         }
 
         void mouseLeave()
