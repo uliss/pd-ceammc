@@ -1024,7 +1024,7 @@ async fn download_response(id: u64, access: &String) -> Result<Response, String>
 fn make_download_path(response: &Response, base_dir: Option<String>) -> Result<PathBuf, String> {
     let mut path = PathBuf::from(
         base_dir
-            .or(homedir::get_my_home()
+            .or(homedir::my_home()
                 .map_err(|e| e.to_string())?
                 .map(|x| x.to_str().unwrap_or_default().to_owned()))
             .ok_or("can't get home directory")?,
@@ -1414,7 +1414,7 @@ async fn process_request(
         FreeSoundRequest::StoreAccessToken(key, base_dir, overwrite) => {
             let mut path = PathBuf::from(
                 &base_dir
-                    .or(homedir::get_my_home()
+                    .or(homedir::my_home()
                         .map_err(|e| e.to_string())?
                         .map(|x| x.to_str().unwrap_or_default().to_owned()))
                     .ok_or("can't get home directory")?,
@@ -1442,7 +1442,7 @@ async fn process_request(
         FreeSoundRequest::LoadAccessToken(base_dir) => {
             let mut path = PathBuf::from(
                 &base_dir
-                    .or(homedir::get_my_home()
+                    .or(homedir::my_home()
                         .map_err(|e| e.to_string())?
                         .map(|x| x.to_str().unwrap_or_default().to_owned()))
                     .ok_or("can't get home directory")?,
