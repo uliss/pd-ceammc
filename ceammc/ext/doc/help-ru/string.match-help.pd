@@ -7,13 +7,14 @@
 #X obj 563 11 str.match;
 #X obj 653 11 string.match;
 #X obj 230 78 cnv 1 535 175 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 240 83 Used syntax: re2 (like pcre). Some characters are non-supported
-in Pd. Use ` instead of backslash \, `` instead of ` \, (( instead
-of { \, )) instead of } \, .. instead of comma \, `: instead of semicolon;
-#X text 240 153 If you need spaces: you should quote the string \,
-also note that in quoted string ` symbol should be escaped like ``.;
-#X text 240 208 For example \, all digits: `d+ \, two or three chars:
-[a-z]((2\..3)) etc.;
+#X text 240 83 Используемый синтаксис: pcre. Некоторые символы не поддерживаются
+в Pd. Используйте ` вместо обратного слеша \, `` вместо ` \, (( вместо
+{ \, )) вместо } \, .. вместо запятой \, `: вместо точки с запятой;
+#X text 240 153 Если вам нужны пробелы: вы должны заключить строку
+в кавычки \, также обратите внимание \, что в строке символ ` должен
+быть экранирован \, как ``.;
+#X text 240 208 Например \, все цифры: `d+ \, два или три символа:
+[a-z]((2\..3)) и т.д.;
 #X msg 50 301 test.mp3;
 #X msg 155 301 test.mp4;
 #X msg 261 301 FILE.mp2;
@@ -32,26 +33,27 @@ also note that in quoted string ` symbol should be escaped like ``.;
 #X text 130 458 1\.;
 #X text 170 458 list;
 #X obj 268 459 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 458 RE: regular expression. Тип: list.;
+#X text 270 458 RE: регулярное выражение. Тип: list.;
 #X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 498 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 501 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 499 @re;
-#X text 270 499 Regular expression. Тип: list.;
+#X text 270 499 Регулярное выражение. Тип: list.;
 #X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 544 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 545 1\.;
-#X text 270 545 input string or symbol.;
+#X text 270 545 входная строка или символ.;
 #X text 130 570 2\.;
-#X text 270 570 change regular expression.;
+#X text 270 570 установка регулярного выражения.;
 #X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 610 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 611 1\.;
-#X text 270 611 output 1 on successfull match \, otherwise 0\.;
+#X text 270 611 выводит 1 при успешном совпадении \, в противном случае
+0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

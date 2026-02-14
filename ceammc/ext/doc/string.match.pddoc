@@ -21,51 +21,51 @@
         </meta>
         <info>
             <par>
-                <tr lang="en">Used syntax: re2 (like pcre). Some characters are non-supported in
+                <tr lang="en">Used syntax: pcre. Some characters are non-supported in
                 Pd. Use ` instead of backslash, `` instead of `, (( instead of {, )) instead of },
                 .. instead of comma, `: instead of semicolon</tr>
-                <tr lang="ru" finished="false">Используемый синтаксис: re2 (как pcre). Некоторые
-                персонажи не поддерживаются в Pd. Используйте вместо запятой вместо запятой вместо
-                запятой вместо запятой вместо запятой вместо запятой</tr>
+                <tr lang="ru">Используемый синтаксис: pcre. Некоторые
+                символы не поддерживаются в Pd. Используйте ` вместо обратного слеша, `` вместо `, (( вместо
+                {, )) вместо }, .. вместо запятой, `: вместо точки с запятой</tr>
             </par>
             <par>
                 <tr lang="en">If you need spaces: you should quote the string, also note that in
                 quoted string ` symbol should be escaped like ``.</tr>
-                <tr lang="ru" finished="false">Если вам нужны пробелы: вы должны процитировать
-                строку, также обратите внимание, что в процитированной строке «символ должен быть
-                устранен, как«.</tr>
+                <tr lang="ru">Если вам нужны пробелы: вы должны заключить
+                строку в кавычки, также обратите внимание, что в строке символ ` должен быть
+                экранирован, как ``.</tr>
             </par>
             <par>
                 <tr lang="en">For example, all digits: `d+, two or three chars: [a-z]((2..3))
                 etc.</tr>
-                <tr lang="ru" finished="false">Например, все цифры: 'd+, два или три заглавия:
+                <tr lang="ru">Например, все цифры: `d+, два или три символа:
                 [a-z]((2..3)) и т.д.</tr>
             </par>
         </info>
         <arguments>
             <argument name="RE" type="list">
                 <tr lang="en">regular expression</tr>
-                <tr lang="ru" finished="false">регулярное выражение</tr>
+                <tr lang="ru">регулярное выражение</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @re -->
             <property name="@re" type="list" default="">
                 <tr lang="en">regular expression</tr>
-                <tr lang="ru" finished="false">регулярное выражение</tr>
+                <tr lang="ru">регулярное выражение</tr>
             </property>
         </properties>
         <inlets>
             <inlet>
                 <in>
                     <tr lang="en">input string or symbol</tr>
-                    <tr lang="ru" finished="false">входная строка или символ</tr>
+                    <tr lang="ru">входная строка или символ</tr>
                 </in>
             </inlet>
             <inlet>
                 <in>
-                    <tr lang="en">change regular expression</tr>
-                    <tr lang="ru" finished="false">Изменение регулярного выражения</tr>
+                    <tr lang="en">set regular expression</tr>
+                    <tr lang="ru">установка регулярного выражения</tr>
                 </in>
             </inlet>
         </inlets>
@@ -73,7 +73,7 @@
             <outlet>
                 <out type="any">
                     <tr lang="en">output 1 on successfull match, otherwise 0</tr>
-                    <tr lang="ru" finished="false">выход 1 в успешном матче, в противном случае
+                    <tr lang="ru">выводит 1 при успешном совпадении, в противном случае
                     0</tr>
                 </out>
             </outlet>
