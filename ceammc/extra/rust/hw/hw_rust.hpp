@@ -223,6 +223,7 @@ enum class ceammc_hw_printer_state {
     PAUSED,
     PRINTING,
     UNKNOWN,
+    OFFLINE,
 };
 
 enum class ceammc_hw_rpi_pwm_polarity {

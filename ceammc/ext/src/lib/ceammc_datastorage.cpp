@@ -130,4 +130,4 @@ DataStorage::type_iterator DataStorage::findByType(DataTypeId type) const
         [type](const DataTypeRecord& r) { return r.type == type; });
 }
 
-}
+} // namespace ceammc
