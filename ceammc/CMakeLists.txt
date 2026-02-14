@@ -5,7 +5,7 @@ if(APPLE)
     set(Boost_DIR /opt/local/libexec/boost/1.76/lib/cmake/Boost-1.76.0)
     find_package(Boost 1.76 CONFIG REQUIRED)
 else()
-    find_package(Boost 1.76 REQUIRED)
+    find_package(Boost 1.74 REQUIRED)
 endif()
 include_directories(${Boost_INCLUDE_DIRS})
 
