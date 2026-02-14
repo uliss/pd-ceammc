@@ -1,5 +1,5 @@
 pub use image::flat::SampleLayout;
-use image::io::Reader as ImageReader;
+use image::ImageReader;
 use std::ffi::c_char;
 use std::ffi::CStr;
 use std::io::{self, Write};  
