@@ -23,7 +23,7 @@ ceammc_regexp* re_full_match_perl(const char* str)
 
 ceammc_regexp* re_full_match_pd(const char* str)
 {
-    return ceammc_regexp_create(str, ceammc_regexp_mode::FULL_MATCH, ceammc_regexp_syntax::PD, { nullptr, nullptr });
+    return ceammc_regexp_create(str, ceammc_regexp_mode::FULL_MATCH, ceammc_regexp_syntax::PURE_DATA, { nullptr, nullptr });
 }
 } // namespace
 

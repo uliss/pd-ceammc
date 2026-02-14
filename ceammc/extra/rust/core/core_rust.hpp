@@ -49,7 +49,7 @@ enum class ceammc_regexp_mode {
 
 enum class ceammc_regexp_syntax {
     PERL,
-    PD,
+    PURE_DATA,
 };
 
 struct ceammc_core_async_bitmap;

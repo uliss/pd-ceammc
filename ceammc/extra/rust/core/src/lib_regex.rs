@@ -15,7 +15,7 @@ pub enum regexp_mode {
 #[repr(C)]
 pub enum regexp_syntax {
     Perl,
-    Pd,
+    Pure_Data,
 }
 
 #[allow(non_camel_case_types)]
@@ -80,7 +80,7 @@ impl regexp {
     pub fn new(re: &str, mode: regexp_mode, syntax: regexp_syntax) -> Result<regexp, String> {
         match syntax {
             regexp_syntax::Perl => Self::new_perl(re, mode),
-            regexp_syntax::Pd => Self::new_pd(re, mode),
+            regexp_syntax::Pure_Data => Self::new_pd(re, mode),
         }
     }
 }
