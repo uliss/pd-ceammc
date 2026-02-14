@@ -23,12 +23,6 @@ enum class ceammc_core_log_level {
     ERROR,
 };
 
-enum class ceammc_mdns_iface {
-    ANY,
-    V4,
-    V6,
-};
-
 enum class ceammc_mdns_rc {
     OK,
     /**
@@ -40,6 +34,12 @@ enum class ceammc_mdns_rc {
     BROWSEFAILED,
     SETOPTIONERROR,
     SERVICENOTFOUND,
+};
+
+enum class ceammc_mdns_iface {
+    ANY,
+    V4,
+    V6,
 };
 
 enum class ceammc_regexp_mode {
@@ -85,7 +85,12 @@ struct ceammc_core_notify {
 
 struct ceammc_core_bitmap_on_data {
     void *user;
-    void (*cb)(void *user, uint16_t rows, uint16_t cols, ceammc_core_bitmap_output_format format, const uint8_t *data, size_t len);
+    void (*cb)(void *user,
+               uint16_t rows,
+               uint16_t cols,
+               ceammc_core_bitmap_output_format format,
+               const uint8_t *data,
+               size_t len);
 };
 
 struct ceammc_core_bitmap_on_view {
@@ -678,9 +683,9 @@ void ceammc_regexp_free(ceammc_regexp *re);
  * @param user - user pointer passed into get callback, useful with pointers to objects
  * @param get_cb - get callback
  */
-bool ceammc_regexp_get_str(const ceammc_regexp *re,
-                           void *user,
-                           void (*get_cb)(void *user, const char *str, size_t len));
+bool ceammc_regexp_get_str(const ceammc_regexp *re, void *user, void (*get_cb)(void *user,
+                                                                               const char *str,
+                                                                               size_t len));
 
 /**
  * @param regexp - pointer to regexp struct created with ceammc_regexp_create()
@@ -702,6 +707,6 @@ bool ceammc_regexp_set_str(ceammc_regexp *re, const char *str, ceammc_regexp_cb_
  */
 void ceammc_rust_log_init();
 
-} // extern "C"
+}  // extern "C"
 
-#endif // ceammc_rust_core_h
+#endif  // ceammc_rust_core_h
