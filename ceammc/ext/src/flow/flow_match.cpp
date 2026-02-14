@@ -14,9 +14,17 @@
 #include "flow_match.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
-#include "ceammc_regexp.h"
+#include "core_rust.hpp"
 #include "datatype_string.h"
-#include "re2/re2.h"
+
+namespace {
+
+void on_error(void* user, const char* msg)
+{
+    Error(static_cast<FlowMatch*>(user)) << msg;
+}
+
+} // namespace
 
 FlowMatch::FlowMatch(const PdArgs& args)
     : BaseObject(args)
@@ -31,18 +39,17 @@ FlowMatch::FlowMatch(const PdArgs& args)
     patterns_->setArgIndex(0);
     patterns_->setSuccessFn([this](Property* p) {
         for (auto& x : p->get()) {
-            const std::string re = regexp::escape(to_string(x));
-            re_.emplace_back(new re2::RE2(re));
+            auto str = to_string(x);
+            auto re = RegexpPtr(ceammc_regexp_create(str.c_str(),
+                                    ceammc_regexp_mode::FULL_MATCH,
+                                    ceammc_regexp_syntax::PURE_DATA,
+                                    { this, on_error }),
+                ceammc_regexp_free);
+            re_.push_back({ std::move(re), gensym(str.c_str()) });
         }
     });
 
     addProperty(patterns_);
-}
-
-FlowMatch::~FlowMatch()
-{
-    for (auto* p : re_)
-        delete p;
 }
 
 void FlowMatch::initDone()
@@ -58,8 +65,14 @@ void FlowMatch::initDone()
 void FlowMatch::onInlet(size_t idx, const AtomListView& lv)
 {
     if (idx < re_.size()) {
-        delete re_[idx];
-        re_[idx] = new re2::RE2(regexp::escape(to_string(lv)));
+        auto str = to_string(lv);
+
+        re_[idx].first.reset(ceammc_regexp_create(str.c_str(),
+            ceammc_regexp_mode::FULL_MATCH,
+            ceammc_regexp_syntax::PURE_DATA,
+            { this, on_error }));
+
+        re_[idx].second = gensym(str.c_str());
     }
 }
 
@@ -69,7 +82,7 @@ void FlowMatch::onSymbol(t_symbol* s)
     assert(N + 1 == numOutlets());
 
     for (size_t i = 0; i < N; i++) {
-        if (RE2::FullMatch(s->s_name, *re_[i])) {
+        if (ceammc_regexp_is_match(re_[i].first.get(), s->s_name, { this, on_error })) {
             if (cut_->value())
                 bangTo(i);
             else
@@ -88,7 +101,7 @@ void FlowMatch::onAny(t_symbol* s, const AtomListView& lv)
     assert(N + 1 == numOutlets());
 
     for (size_t i = 0; i < N; i++) {
-        if (RE2::FullMatch(s->s_name, *re_[i])) {
+        if (ceammc_regexp_is_match(re_[i].first.get(), s->s_name, { this, on_error })) {
             if (cut_->value())
                 anyTo(i, lv);
             else
@@ -107,9 +120,8 @@ void FlowMatch::onDataT(const StringAtom& s)
     assert(N + 1 == numOutlets());
 
     for (size_t i = 0; i < N; i++) {
-        if (RE2::FullMatch(s->str(), *re_[i])) {
-            atomTo(i, s);
-            return;
+        if (ceammc_regexp_is_match(re_[i].first.get(), s->str().c_str(), { this, on_error })) {
+            return atomTo(i, s);
         }
     }
 
@@ -122,7 +134,7 @@ const char* FlowMatch::annotateInlet(size_t n) const
         return "symbol: input flow\n"
                "any:    messages";
     else if (n <= re_.size())
-        return re_[n - 1]->pattern().c_str();
+        return re_[n - 1].second->s_name;
     else
         return nullptr;
 }
@@ -130,7 +142,7 @@ const char* FlowMatch::annotateInlet(size_t n) const
 const char* FlowMatch::annotateOutlet(size_t n) const
 {
     if (n < re_.size())
-        return re_[n]->pattern().c_str();
+        return re_[n].second->s_name;
     else if (n == re_.size())
         return "unmatched";
     else

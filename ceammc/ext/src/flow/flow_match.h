@@ -19,21 +19,18 @@
 
 #include <memory>
 
-namespace re2 {
-class RE2;
-}
-
 using namespace ceammc;
+struct ceammc_regexp;
+using RegexpPtr = std::unique_ptr<ceammc_regexp, void (*)(ceammc_regexp*)>;
 
 class FlowMatch : public BaseObject {
-    using RE2list = std::vector<re2::RE2*>;
+    using RE2list = std::vector<std::pair<RegexpPtr, t_symbol*>>;
     ListProperty* patterns_;
     RE2list re_;
     BoolProperty* cut_;
 
 public:
     FlowMatch(const PdArgs& args);
-    ~FlowMatch();
 
     void initDone() override;
     void onInlet(size_t idx, const AtomListView& lv) override;
