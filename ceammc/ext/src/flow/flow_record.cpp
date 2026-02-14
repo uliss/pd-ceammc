@@ -16,7 +16,7 @@
 #include "ceammc_factory.h"
 #include "ceammc_units.h"
 
-#include "../mempool/MemoryPool.h"
+#include "MemoryPool.h"
 
 constexpr int MIN_SIZE = 0;
 constexpr int MAX_SIZE = 1024 * 64;
