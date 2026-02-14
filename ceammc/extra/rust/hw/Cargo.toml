@@ -15,9 +15,9 @@ cups = ["dep:cups-sys"]
 
 [dependencies]
 c_str_macro = "1.0.3"
-env_logger = "0.11.3"
+env_logger = "0.11.9"
 gilrs = "0.10.5"
-log = "0.4.21"
+log = "0.4.29"
 tokio = { version = "1.36", features = [
     "rt",
     "rt-multi-thread",
@@ -27,8 +27,8 @@ tokio = { version = "1.36", features = [
     "time",
 ] }
 cups-sys = { version = "0.1.4", optional = true }
-ndarray = "0.16.1"
-rgb = "0.8.5"
+ndarray = "0.17.2"
+rgb = "0.8.52"
 palette = { version = "0.7.6", features = ["std", "approx"] }
 embedded-graphics = "0.8.1"
 embedded-hal = { version = "1.0.0", features = [] }
@@ -43,7 +43,7 @@ dht11_gpio = "0.1.0"                                     # temperature sensor
 lcd-lcm1602-i2c = "0.3.0"
 max7219 = "0.4.2"
 ws2812-spi = "0.5.0"                                     # stepper driver
-smart-leds-trait = "0.3.1"
+smart-leds-trait = "0.3.2"
 smart-leds = "0.4.0"
 rotary-encoder-embedded = "0.4.0"
 pwm-pca9685 = "1.0.0"                                    # PWM 16-ch I2C
@@ -51,11 +51,11 @@ ssd1306 = "0.8.4"                                        # OLED display
 vl53l0x = "1.0.1"                                        # laser distance sensor
 ads1x1x = "0.3.0"                                        # I2C ADC 16-channel
 irp = "0.3.3"                                            # infrared protocol support
-mpu6050-dmp = "0.6.0"                                    # gyro+accelerometer
+mpu6050-dmp = "0.6.1"                                    # gyro+accelerometer
 
 [target.'cfg(windows)'.dependencies]
 winprint = { version = "0.2.0" }
-printers = { version = "2.0.0", default-features = false, features = [] }
+printers = { version = "2.3.0", default-features = false, features = [] }
 
 [build-dependencies]
 cbindgen = "0.28.0"
