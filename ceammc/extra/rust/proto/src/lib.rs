@@ -1,10 +1,15 @@
+mod common_ffi;
 pub mod obs;
 pub mod obs_ffi;
-mod common_ffi;
+pub mod vlc;
+pub mod vlc_ffi;
 
 use env_logger;
 
-use std::{ffi::{c_char, CStr}, sync::Once};
+use std::{
+    ffi::{c_char, CStr},
+    sync::Once,
+};
 static LOG_INIT: Once = Once::new();
 
 /// init rust env_logger
