@@ -3,7 +3,6 @@
 #include "proto_hui.h"
 #include "proto_ltc_in_tilde.h"
 #include "proto_ltcout_tilde.h"
-#include "proto_rust.hpp"
 #include "proto_sp_alpaca.h"
 #include "proto_whammy.h"
 
@@ -23,8 +22,6 @@ void setup_proto_obs_client();
 
 void ceammc_proto_setup()
 {
-    ceammc_proto_log_init();
-
     setup_proto_arturia_minilab();
     setup_proto_feelworld();
     setup_proto_firmata();
