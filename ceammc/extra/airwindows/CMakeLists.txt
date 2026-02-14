@@ -10,4 +10,17 @@ target_include_directories(airw_infinity
         ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_compile_options(airw_infinity PRIVATE -Wno-multichar)
+# reduce number of warnings in third-party code
+include(CheckCXXCompilerFlag)
+check_cxx_compiler_flag("-Wno-multichar" WARN_NO_MULTICHAR)
+check_cxx_compiler_flag("-Wno-unused-value" WARN_NO_UNUSED_VALUE)
+
+if(WARN_NO_MULTICHAR)
+    target_compile_options(airw_infinity PRIVATE -Wno-multichar)
+endif()
+
+if(WARN_NO_UNUSED_VALUE)
+    target_compile_options(airw_infinity PRIVATE -Wno-unused-value)
+endif()
+
+
