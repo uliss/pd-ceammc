@@ -34,7 +34,7 @@ cmake -GNinja \
     -DSFIZZ_GIT_SUBMODULE_CHECK=OFF \
     -DCMAKE_INSTALL_PREFIX=${SFIZZ_INSTALL_DIR}\
     -DSFIZZ_SHARED=ON \
-    -DSFIZZ_RENDER=ON \
+    -DSFIZZ_RENDER=OFF \
     ..
 
 cmake -L
@@ -42,17 +42,4 @@ cmake -L
 rm -rf ${SFIZZ_INSTALL_DIR}
 # ninja clean
 ninja && ninja install
-
-## fin missing install for version-4.1.0
-#if [[ "$COPY_INCLUDES" -ne 0 ]]
-#then
-#    echo "copy include files ..."
-#    rm -rf ${VEROVIO_INSTALL_DIR}/lib
-#    mv ${VEROVIO_INSTALL_DIR}/bin ${VEROVIO_INSTALL_DIR}/lib
-#    mkdir -p ${VEROVIO_INSTALL_DIR}/include/verovio
-#    cp -v ${VEROVIO_SRC_DIR}/include/vrv/*.h ${VEROVIO_INSTALL_DIR}/include/verovio
-#    cp -v ${VEROVIO_SRC_DIR}/libmei/addons/*.h ${VEROVIO_INSTALL_DIR}/include/verovio
-#    cp -v ${VEROVIO_SRC_DIR}/libmei/dist/*.h ${VEROVIO_INSTALL_DIR}/include/verovio
-#    cp -v ${VEROVIO_SRC_DIR}/tools/*.h ${VEROVIO_INSTALL_DIR}/include/verovio
-#fi
 
