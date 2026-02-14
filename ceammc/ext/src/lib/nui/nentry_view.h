@@ -33,6 +33,7 @@ namespace ui {
         void erase() final;
         void update(const RectF& bbox, const NumentryData& data) final;
         void updateCoords(const RectF& bbox) final;
+        void takeFocus() final;
     };
 
     void tcl_nentry_init();
