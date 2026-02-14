@@ -31,7 +31,13 @@ struct ceammc_sysinfo_temp_cb {
 
 struct ceammc_sysinfo_cpu_cb {
     void *user;
-    void (*cb)(void *user, int n, int freq, float usage, const char *name, const char *brand, const char *vendor);
+    void (*cb)(void *user,
+               int n,
+               int freq,
+               float usage,
+               const char *name,
+               const char *brand,
+               const char *vendor);
 };
 
 struct ceammc_system_notify_cb {
@@ -95,8 +101,12 @@ ceammc_system_process *ceammc_system_process_new(const ceammc_system_process_cmd
                                                  const char *stdin_data,
                                                  void *user,
                                                  void (*on_err)(void *user, const char *msg),
-                                                 void (*on_stdout_data)(void *user, const uint8_t *data, size_t len),
-                                                 void (*on_stderr_data)(void *user, const uint8_t *data, size_t len));
+                                                 void (*on_stdout_data)(void *user,
+                                                                        const uint8_t *data,
+                                                                        size_t len),
+                                                 void (*on_stderr_data)(void *user,
+                                                                        const uint8_t *data,
+                                                                        size_t len));
 
 /// process system command results
 /// @param proc - system command pointer
@@ -110,6 +120,6 @@ ceammc_system_process_state ceammc_system_process_results(ceammc_system_process 
 /// @return true on success, false on error
 bool ceammc_system_process_terminate(ceammc_system_process *proc);
 
-} // extern "C"
+}  // extern "C"
 
-#endif // ceammc_rust_system_h
+#endif  // ceammc_rust_system_h
