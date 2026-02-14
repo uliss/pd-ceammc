@@ -14,78 +14,209 @@
 #include "catch.hpp"
 #include "core_rust.hpp"
 
+namespace {
+
+ceammc_regexp* re_full_match_perl(const char* str)
+{
+    return ceammc_regexp_create(str, ceammc_regexp_mode::FULL_MATCH, ceammc_regexp_syntax::PERL, { nullptr, nullptr });
+}
+
+ceammc_regexp* re_full_match_pd(const char* str)
+{
+    return ceammc_regexp_create(str, ceammc_regexp_mode::FULL_MATCH, ceammc_regexp_syntax::PD, { nullptr, nullptr });
+}
+} // namespace
+
+#define REQUIRE_MATCH(re, str) \
+    REQUIRE(ceammc_regexp_is_match(re, str, { nullptr, nullptr }));
+
+#define REQUIRE_NOT_MATCH(re, str) \
+    REQUIRE_FALSE(ceammc_regexp_is_match(re, str, { nullptr, nullptr }));
+
 TEST_CASE("rust", "[core]")
 {
     ceammc_rust_log_init();
 
     SECTION("regexp invalid")
     {
-        auto re = ceammc_regexp_create(nullptr, ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
+        auto re = re_full_match_perl(nullptr);
         REQUIRE(!re);
 
-        re = ceammc_regexp_create("[A+", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
+        re = re_full_match_perl("[A+");
         REQUIRE(!re);
 
         ceammc_regexp_free(nullptr);
     }
 
-    SECTION("regexp")
+    SECTION("regexp perl")
     {
-        auto re = ceammc_regexp_create("A+", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
+        auto re = re_full_match_perl("A+");
         REQUIRE(re);
 
-        REQUIRE(ceammc_regexp_is_match(re, "A", { nullptr, nullptr }));
-        REQUIRE(ceammc_regexp_is_match(re, "AA", { nullptr, nullptr }));
-        REQUIRE(ceammc_regexp_is_match(re, "AAA", { nullptr, nullptr }));
-        REQUIRE_FALSE(ceammc_regexp_is_match(re, "BA", { nullptr, nullptr }));
+        REQUIRE_MATCH(re, "A");
+        REQUIRE_MATCH(re, "AA");
+        REQUIRE_MATCH(re, "AAA");
+        REQUIRE_NOT_MATCH(re, "BA");
 
         ceammc_regexp_free(re);
 
         // empty string
-        re = ceammc_regexp_create("", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
+        re = re_full_match_perl("");
         REQUIRE(re);
         ceammc_regexp_free(re);
 
         // repeats
-        re = ceammc_regexp_create("\\d{1,3}", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
-        REQUIRE(ceammc_regexp_is_match(re, "1", { nullptr, nullptr }));
-        REQUIRE(ceammc_regexp_is_match(re, "12", { nullptr, nullptr }));
-        REQUIRE(ceammc_regexp_is_match(re, "123", { nullptr, nullptr }));
-        REQUIRE_FALSE(ceammc_regexp_is_match(re, "1234", { nullptr, nullptr }));
+        re = re_full_match_perl("\\d{1,3}");
+        REQUIRE_MATCH(re, "1");
+        REQUIRE_MATCH(re, "12");
+        REQUIRE_MATCH(re, "123");
+        REQUIRE_NOT_MATCH(re, "1234");
         REQUIRE(re);
         ceammc_regexp_free(re);
 
         // *
-        re = ceammc_regexp_create("она*", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
-        REQUIRE(ceammc_regexp_is_match(re, "он", { nullptr, nullptr }));
-        REQUIRE(ceammc_regexp_is_match(re, "она", { nullptr, nullptr }));
-        REQUIRE(ceammc_regexp_is_match(re, "онаа", { nullptr, nullptr }));
-        REQUIRE_FALSE(ceammc_regexp_is_match(re, "оно", { nullptr, nullptr }));
+        re = re_full_match_perl("она*");
+        REQUIRE_MATCH(re, "он");
+        REQUIRE_MATCH(re, "она");
+        REQUIRE_MATCH(re, "онаа");
+        REQUIRE_NOT_MATCH(re, "оно");
         REQUIRE(re);
         ceammc_regexp_free(re);
 
         // ?
-        re = ceammc_regexp_create("она?", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
-        REQUIRE(ceammc_regexp_is_match(re, "он", { nullptr, nullptr }));
-        REQUIRE(ceammc_regexp_is_match(re, "она", { nullptr, nullptr }));
-        REQUIRE_FALSE(ceammc_regexp_is_match(re, "онаа", { nullptr, nullptr }));
+        re = re_full_match_perl("она?");
+        REQUIRE_MATCH(re, "он");
+        REQUIRE_MATCH(re, "она");
+        REQUIRE_NOT_MATCH(re, "онаа");
         REQUIRE(re);
         ceammc_regexp_free(re);
 
         // $
-        re = ceammc_regexp_create(".*ский$", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
-        REQUIRE(ceammc_regexp_is_match(re, "Мусоргский", { nullptr, nullptr }));
-        REQUIRE(ceammc_regexp_is_match(re, "Чайковский", { nullptr, nullptr }));
-        REQUIRE_FALSE(ceammc_regexp_is_match(re, "Пендерецкий?", { nullptr, nullptr }));
+        re = re_full_match_perl(".*ский$");
+        REQUIRE_MATCH(re, "Мусоргский");
+        REQUIRE_MATCH(re, "Чайковский");
+        REQUIRE_NOT_MATCH(re, "Пендерецкий?");
         REQUIRE(re);
         ceammc_regexp_free(re);
 
         // []
-        re = ceammc_regexp_create("b[iau]g", ceammc_regexp_mode::FULL_MATCH, { nullptr, nullptr });
-        REQUIRE(ceammc_regexp_is_match(re, "big", { nullptr, nullptr }));
-        REQUIRE(ceammc_regexp_is_match(re, "bag", { nullptr, nullptr }));
-        REQUIRE(ceammc_regexp_is_match(re, "bug", { nullptr, nullptr }));
-        REQUIRE_FALSE(ceammc_regexp_is_match(re, "bog", { nullptr, nullptr }));
+        re = re_full_match_perl("b[iau]g");
+        REQUIRE_MATCH(re, "big");
+        REQUIRE_MATCH(re, "bag");
+        REQUIRE_MATCH(re, "bug");
+        REQUIRE_NOT_MATCH(re, "bog");
+        REQUIRE(re);
+        ceammc_regexp_free(re);
+    }
+
+    SECTION("regexp pd")
+    {
+        auto re = re_full_match_pd("A+");
+        REQUIRE(re);
+
+        REQUIRE_MATCH(re, "A");
+        REQUIRE_MATCH(re, "AA");
+        REQUIRE_MATCH(re, "AAA");
+        REQUIRE_NOT_MATCH(re, "BA");
+
+        ceammc_regexp_free(re);
+
+        // empty string
+        re = re_full_match_pd("");
+        REQUIRE(re);
+        ceammc_regexp_free(re);
+
+        // repeats
+        re = re_full_match_pd("`d{1..3}");
+        REQUIRE_MATCH(re, "1");
+        REQUIRE_MATCH(re, "12");
+        REQUIRE_MATCH(re, "123");
+        REQUIRE_NOT_MATCH(re, "1234");
+        REQUIRE(re);
+        ceammc_regexp_free(re);
+
+        // *
+        re = re_full_match_pd("она*");
+        REQUIRE_MATCH(re, "он");
+        REQUIRE_MATCH(re, "она");
+        REQUIRE_MATCH(re, "онаа");
+        REQUIRE_NOT_MATCH(re, "оно");
+        REQUIRE(re);
+        ceammc_regexp_free(re);
+
+        // ?
+        re = re_full_match_pd("она?");
+        REQUIRE_MATCH(re, "он");
+        REQUIRE_MATCH(re, "она");
+        REQUIRE_NOT_MATCH(re, "онаа");
+        REQUIRE(re);
+        ceammc_regexp_free(re);
+
+        // $
+        re = re_full_match_pd(".*ский$");
+        REQUIRE_MATCH(re, "Мусоргский");
+        REQUIRE_MATCH(re, "Чайковский");
+        REQUIRE_NOT_MATCH(re, "Пендерецкий?");
+        REQUIRE(re);
+        ceammc_regexp_free(re);
+
+        // []
+        re = re_full_match_pd("b[iau]g");
+        REQUIRE_MATCH(re, "big");
+        REQUIRE_MATCH(re, "bag");
+        REQUIRE_MATCH(re, "bug");
+        REQUIRE_NOT_MATCH(re, "bog");
+        REQUIRE(re);
+        ceammc_regexp_free(re);
+
+        // `
+        re = re_full_match_pd("tick:``");
+        REQUIRE_MATCH(re, "tick:`");
+        REQUIRE_NOT_MATCH(re, "tick:``");
+        REQUIRE(re);
+        ceammc_regexp_free(re);
+
+        // (( and ))
+        re = re_full_match_pd("A((1..2))");
+        REQUIRE_MATCH(re, "A");
+        REQUIRE_MATCH(re, "AA");
+        REQUIRE_NOT_MATCH(re, "AAA");
+        REQUIRE(re);
+        ceammc_regexp_free(re);
+
+        // `:
+        re = re_full_match_pd("test`:");
+        REQUIRE_MATCH(re, "test;");
+        REQUIRE_NOT_MATCH(re, "test`:");
+        REQUIRE(re);
+        ceammc_regexp_free(re);
+
+        // ..
+        re = re_full_match_pd("..");
+        REQUIRE_MATCH(re, ",");
+        REQUIRE_NOT_MATCH(re, "..");
+        REQUIRE(re);
+        ceammc_regexp_free(re);
+
+        // `..
+        re = re_full_match_pd("`..");
+        REQUIRE_MATCH(re, "..");
+        REQUIRE_NOT_MATCH(re, "`..");
+        REQUIRE_NOT_MATCH(re, ",");
+        REQUIRE(re);
+        ceammc_regexp_free(re);
+
+        // ()
+        re = re_full_match_pd("(test)?string");
+        REQUIRE_MATCH(re, "teststring");
+        REQUIRE_MATCH(re, "string");
+        REQUIRE(re);
+        ceammc_regexp_free(re);
+
+        // ()
+        re = re_full_match_pd("(`.)+");
+        REQUIRE_MATCH(re, ".");
+        REQUIRE_MATCH(re, "..");
         REQUIRE(re);
         ceammc_regexp_free(re);
     }

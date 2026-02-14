@@ -11,12 +11,61 @@ pub enum regexp_mode {
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Debug)]
+#[repr(C)]
+pub enum regexp_syntax {
+    Perl,
+    Pd,
+}
+
+#[allow(non_camel_case_types)]
 pub struct regexp {
     re: Regex,
 }
 
 impl regexp {
-    pub fn new(re: &str, mode: regexp_mode) -> Result<regexp, String> {
+    pub fn new_pd(re: &str, mode: regexp_mode) -> Result<regexp, String> {
+        let mut res = String::new();
+        res.reserve(re.len());
+
+        let mut ch_it = re.chars().peekable();
+        let mut cprev = None;
+
+        while let Some(c) = ch_it.next() {
+            let cnext = ch_it.peek();
+            let last = cnext == None;
+
+            if c == '`' && last {
+                res.push('\\');
+                break;
+            } else if c == '`' && cnext == Some(&'`') {
+                res.push('`');
+                let _ = ch_it.next();
+            } else if c == '`' && cnext == Some(&':') {
+                res.push(';');
+                let _ = ch_it.next();
+            } else if c == '`' {
+                res.push('\\');
+            } else if c == ')' && cnext == Some(&')') {
+                res.push('}');
+                let _ = ch_it.next();
+            } else if c == '(' && cnext == Some(&'(') {
+                res.push('{');
+                let _ = ch_it.next();
+            } else if c == '.' && cnext == Some(&'.') && cprev != Some('`') {
+                res.push(',');
+                let _ = ch_it.next();
+            } else {
+                res.push(c);
+            }
+
+            cprev = Some(c);
+        }
+
+        Self::new_perl(res.as_str(), mode)
+    }
+
+    pub fn new_perl(re: &str, mode: regexp_mode) -> Result<regexp, String> {
         let re_str = match mode {
             regexp_mode::Full_Match => format!(r"\A{re}\z"),
             regexp_mode::Partial_Match => format!(r"{re}"),
@@ -25,6 +74,13 @@ impl regexp {
         match Regex::new(re_str.as_str()) {
             Ok(re) => Ok(regexp { re }),
             Err(err) => Err(err.to_string()),
+        }
+    }
+
+    pub fn new(re: &str, mode: regexp_mode, syntax: regexp_syntax) -> Result<regexp, String> {
+        match syntax {
+            regexp_syntax::Perl => Self::new_perl(re, mode),
+            regexp_syntax::Pd => Self::new_pd(re, mode),
         }
     }
 }
@@ -57,6 +113,7 @@ impl regexp_cb_err {
 pub extern "C" fn ceammc_regexp_create(
     re: *const c_char,
     mode: regexp_mode,
+    syntax: regexp_syntax,
     on_err: regexp_cb_err,
 ) -> *mut regexp {
     let inner_fn = || -> Result<*mut regexp, CString> {
@@ -68,7 +125,7 @@ pub extern "C" fn ceammc_regexp_create(
             .to_str()
             .map_err(|err| CString::new(err.to_string()).unwrap_or_default())?;
 
-        let re = regexp::new(str, mode)
+        let re = regexp::new(str, mode, syntax)
             .map_err(|err| CString::new(err.to_string()).unwrap_or_default())?;
         return Ok(Box::into_raw(Box::new(re)));
     };

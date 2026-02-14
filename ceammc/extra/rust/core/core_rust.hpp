@@ -47,6 +47,11 @@ enum class ceammc_regexp_mode {
     PARTIAL_MATCH,
 };
 
+enum class ceammc_regexp_syntax {
+    PERL,
+    PD,
+};
+
 struct ceammc_core_async_bitmap;
 
 struct ceammc_mdns;
@@ -658,6 +663,7 @@ ceammc_net_ifaces *ceammc_net_list_interfaces(ceammc_core_on_msg msg_cb);
  */
 ceammc_regexp *ceammc_regexp_create(const char *re,
                                     ceammc_regexp_mode mode,
+                                    ceammc_regexp_syntax syntax,
                                     ceammc_regexp_cb_err on_err);
 
 /**
