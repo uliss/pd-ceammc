@@ -5,7 +5,7 @@ use crate::printers::PrinterInfo;
 use crate::printers::PrinterList;
 use crate::printers::JOB_ERROR;
 use printers;
-use printers::printer::PrinterState;
+use printers::common::base::printer::PrinterState;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 use std::path::Path;
@@ -25,6 +25,7 @@ fn to_pstate(state: &PrinterState) -> hw_printer_state {
         PrinterState::PAUSED => hw_printer_state::PAUSED,
         PrinterState::PRINTING => hw_printer_state::PRINTING,
         PrinterState::UNKNOWN => hw_printer_state::UNKNOWN,
+        PrinterState::OFFLINE => hw_printer_state::OFFLINE,
     }
 }
 
@@ -90,7 +91,7 @@ pub fn print_file(
     }
 
     // check path
-    let path = Path::from(path);
+    let path = Path::new(path);
     if !path.exists() {
         on_msg.error(format!("file not found: {path:?}").as_str());
         return crate::printers::JOB_ERROR;
@@ -138,6 +139,8 @@ pub fn print_file(
 mod tests {
     use std::{os::raw::c_void, ptr::null_mut};
 
+    use crate::hw_msg_level;
+
     use super::*;
 
     #[test]
@@ -153,7 +156,7 @@ mod tests {
         println!("\n\nDEFAULT PRINTER:\n{p:?}");
     }
 
-    extern "C" fn test_err(user: *mut c_void, msg: *const c_char) {
+    extern "C" fn test_err(_user: *mut c_void, _level: hw_msg_level, msg: *const c_char) {
         let err = unsafe { CStr::from_ptr(msg) }.to_str().unwrap_or_default();
         println!("\n\nEROROROROROR: {err}\n\n");
     }
