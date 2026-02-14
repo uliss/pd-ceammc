@@ -33,7 +33,7 @@ palette = { version = "0.7.6", features = ["std", "approx"] }
 embedded-graphics = "0.8.1"
 embedded-hal = { version = "1.0.0", features = [] }
 lib_macro = { path = "lib_macro" }
-xml = "0.8.20"
+xml = "1.2.1"
 lazy_static = "1.5.0"
 
 
