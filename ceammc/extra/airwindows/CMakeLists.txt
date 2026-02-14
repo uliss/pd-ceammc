@@ -9,3 +9,5 @@ target_include_directories(airw_infinity
         ${CMAKE_CURRENT_SOURCE_DIR}/Inifinity
         ${CMAKE_CURRENT_SOURCE_DIR}
 )
+
+target_compile_definitions(airw_infinity PRIVATE -Wno-multichar)
