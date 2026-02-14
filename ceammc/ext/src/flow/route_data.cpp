@@ -38,7 +38,7 @@ void RouteData::initDone()
 void RouteData::onLoadBang()
 {
     if (type_->value() != &s_ && data_id_ == data::DATA_INVALID) {
-        auto id = DataStorage::instance().typeByName(type_->value()->s_name);
+        auto id = DataStorage::instance().typeByName(DataTypeName(type_->value()->s_name));
         if (id == data::DATA_INVALID)
             OBJ_ERR << "datatype not found: " << type_->value()->s_name;
         else
