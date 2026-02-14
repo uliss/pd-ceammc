@@ -57,16 +57,11 @@ set(FMT_INSTALL OFF CACHE BOOL "" FORCE)
 add_subdirectory(fmt)
 set_target_properties(fmt PROPERTIES DEBUG_POSTFIX "")
 
-option(RE2_BUILD_TESTING "" OFF)
-set(RE2_BUILD_TESTING OFF CACHE BOOL "" FORCE)
-add_subdirectory(re2 EXCLUDE_FROM_ALL)
-
 option(HOA_BUILD_TESTS "" OFF)
 set(HOA_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 add_subdirectory(HoaLibrary-Light)
 
 if(UNIX)
-    set_target_properties(re2 PROPERTIES COMPILE_FLAGS "-fPIC")
     set_target_properties(fmt PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
