@@ -109,7 +109,6 @@ add_custom_target(_ceammc_extra_misc
 if(WITH_SFIZZ)
     cmake_minimum_required(VERSION 3.14)
 
-    include(FetchContent)
     if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
         cmake_policy(SET CMP0135 NEW)
     endif()
@@ -120,37 +119,39 @@ if(WITH_SFIZZ)
     set(SFIZZ_VST OFF CACHE INTERNAL "")
     set(SFIZZ_JACK OFF CACHE INTERNAL "")
     set(SFIZZ_RENDER OFF CACHE INTERNAL "")
-    set(ABSL_PROPAGATE_CXX_STD ON CACHE INTERNAL "")
-
-    if(WIN32)
-        set(SFIZZ_SHARED ON CACHE INTERNAL "")
-    else()
-        set(SFIZZ_SHARED OFF CACHE INTERNAL "")
-    endif()
+    set(ABSL_PROPAGATE_CXX_STD OFF CACHE INTERNAL "")
+    set(SFIZZ_USE_SYSTEM_ABSEIL OFF CACHE INTERNAL "")
 
     set(SFIZZ_USE_SNDFILE OFF CACHE INTERNAL "")
     if (UNIX AND NOT APPLE)
+        include(FetchContent)
+        set(SFIZZ_SHARED OFF CACHE INTERNAL "")
+        set(SFIZZ_LIB sfizz_static)
     	FetchContent_Declare(
 		sfizz
         	URL      https://github.com/sfztools/sfizz/releases/download/1.2.0/sfizz-1.2.0.tar.gz
         	URL_HASH MD5=13725a41a811dc81c973f303eaaea86b
 		)
-    else()
+        FetchContent_GetProperties(sfizz)
+        if(NOT sfizz_POPULATED)
+            FetchContent_Populate(sfizz)
+            add_subdirectory(${sfizz_SOURCE_DIR} ${sfizz_BINARY_DIR} EXCLUDE_FROM_ALL)
+        endif()
+    elseif(WIN32)
+        include(FetchContent)
+        set(SFIZZ_SHARED ON CACHE INTERNAL "")
     	FetchContent_Declare(
         	sfizz
-        	URL      https://github.com/sfztools/sfizz/releases/download/1.2.0/sfizz-1.2.0.tar.gz
-        	URL_HASH MD5=13725a41a811dc81c973f303eaaea86b
-        	DOWNLOAD_EXTRACT_TIMESTAMP ON
+                URL      https://github.com/sfztools/sfizz/releases/download/1.2.0/sfizz-1.2.0.tar.gz
+                URL_HASH MD5=13725a41a811dc81c973f303eaaea86b
     	)
-    endif()
-    FetchContent_GetProperties(sfizz)
-    if(NOT sfizz_POPULATED)
-        FetchContent_Populate(sfizz)
-        add_subdirectory(${sfizz_SOURCE_DIR} ${sfizz_BINARY_DIR} EXCLUDE_FROM_ALL)
-
-        if(WIN32)
+        FetchContent_GetProperties(sfizz)
+        if(NOT sfizz_POPULATED)
+            FetchContent_Populate(sfizz)
+            add_subdirectory(${sfizz_SOURCE_DIR} ${sfizz_BINARY_DIR} EXCLUDE_FROM_ALL)
             install(TARGETS sfizz_shared RUNTIME DESTINATION bin)
         endif()
+        set(SFIZZ_LIB sfizz::shared)
     endif()
 endif()
 
