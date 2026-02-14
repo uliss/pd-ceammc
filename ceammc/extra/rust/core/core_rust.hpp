@@ -23,12 +23,6 @@ enum class ceammc_core_log_level {
     ERROR,
 };
 
-enum class ceammc_mdns_iface {
-    ANY,
-    V4,
-    V6,
-};
-
 enum class ceammc_mdns_rc {
     OK,
     /**
@@ -40,6 +34,12 @@ enum class ceammc_mdns_rc {
     BROWSEFAILED,
     SETOPTIONERROR,
     SERVICENOTFOUND,
+};
+
+enum class ceammc_mdns_iface {
+    ANY,
+    V4,
+    V6,
 };
 
 enum class ceammc_regexp_mode {
