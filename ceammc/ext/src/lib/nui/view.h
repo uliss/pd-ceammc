@@ -68,6 +68,7 @@ namespace ui {
         virtual void erase() = 0;
         virtual void update(const RectF& bbox, const ModelData& data) = 0;
         virtual void updateCoords(const RectF& bbox) = 0;
+        virtual void takeFocus() {}
 
         // get
         float scale() const { return scale_; };
