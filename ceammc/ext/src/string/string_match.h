@@ -19,16 +19,13 @@
 
 #include <memory>
 
-// forward definition
-namespace re2 {
-class RE2;
-}
-
 using namespace ceammc;
+struct ceammc_regexp;
+using Regexp = std::unique_ptr<ceammc_regexp, void (*)(ceammc_regexp*)>;
 
 class StringMatch : public BaseObject {
-    using Regexp = std::unique_ptr<re2::RE2>;
     Regexp re_;
+    t_symbol* sym_re_ { &s_ };
 
 public:
     StringMatch(const PdArgs& args);

@@ -14,14 +14,19 @@
 #include "string_match.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
-#include "ceammc_regexp.h"
+#include "core_rust.hpp"
 #include "datatype_string.h"
-#include "re2/re2.h"
 
-#include <algorithm>
+namespace {
+void on_error(void* user, const char* msg)
+{
+    Error(static_cast<StringMatch*>(user)) << msg;
+}
+}
 
 StringMatch::StringMatch(const PdArgs& args)
     : BaseObject(args)
+    , re_(nullptr, &ceammc_regexp_free)
 {
     createCbListProperty(
         "@re",
@@ -53,12 +58,7 @@ void StringMatch::doMatch(const char* str)
         return;
     }
 
-    if (!re_->ok()) {
-        OBJ_ERR << "invalid regexp: " << re_->error();
-        return;
-    }
-
-    boolTo(0, RE2::FullMatch(str, *re_));
+    boolTo(0, ceammc_regexp_is_match(re_.get(), str, { this, on_error }));
 }
 
 void StringMatch::onInlet(size_t n, const AtomListView& l)
@@ -72,7 +72,7 @@ void StringMatch::onInlet(size_t n, const AtomListView& l)
 AtomList StringMatch::propRe2() const
 {
     if (re_)
-        return Atom(gensym(regexp::unescape(re_->pattern()).c_str()));
+        return Atom(sym_re_);
     else
         return Atom(&s_);
 }
@@ -82,8 +82,14 @@ bool StringMatch::propSetRe2(const AtomListView& lv)
     if (lv.empty())
         return false;
 
-    re_.reset(new re2::RE2(regexp::escape(to_string(lv, " "))));
-    if (!re_->ok()) {
+    sym_re_ = gensym(to_string(lv, " ").c_str());
+    auto re = ceammc_regexp_create(sym_re_->s_name,
+        ceammc_regexp_mode::FULL_MATCH,
+        ceammc_regexp_syntax::PURE_DATA,
+        { this, on_error });
+    re_.reset(re);
+
+    if (!re_) {
         OBJ_ERR << "invalid regexp: " << lv[0];
         return false;
     } else
@@ -100,5 +106,5 @@ void setup_string_match()
 
     obj.setDescription("check if string match regular expression");
     obj.setCategory("string");
-    obj.setKeywords({"match", "regex"});
+    obj.setKeywords({ "match", "regex" });
 }
