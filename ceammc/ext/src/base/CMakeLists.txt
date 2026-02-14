@@ -102,7 +102,6 @@ target_include_directories(ceammc_base
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
         "$<TARGET_PROPERTY:aubio,INCLUDE_DIRECTORIES>"
         ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/core
         ${CMAKE_BINARY_DIR} # for config.h
         ${CMAKE_CURRENT_BINARY_DIR} # for base_bitmap.tcl.h
 )
