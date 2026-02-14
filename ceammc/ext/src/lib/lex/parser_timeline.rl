@@ -94,7 +94,7 @@ struct FSM {
     t_symbol* genAnonEventName() {
         static int id = 0;
         char buf[64];
-        sprintf(buf, ".event%d", id++);
+        snprintf(buf, sizeof(buf), ".event%d", id++);
         return ::gensym(buf);
     }
 };

@@ -60,12 +60,12 @@ static bool endRange()
     char buf[64];
     if (b <= e) {
         for (long i = b + 1; i <= e && var_pos < SZ; i++) {
-            sprintf(buf, "%ld", i);
+            snprintf(buf, sizeof(buf), "%ld", i);
             vars[var_pos++].append(buf);
         }
     } else {
         for (long i = b - 1; i >= e && var_pos < SZ; i--) {
-            sprintf(buf, "%ld", i);
+            snprintf(buf, sizeof(buf), "%ld", i);
             vars[var_pos++].append(buf);
         }
     }

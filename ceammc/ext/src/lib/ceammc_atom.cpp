@@ -561,7 +561,7 @@ Maybe<Atom> Atom::expandDollarArgs(const AtomListView& args, bool checkArgs) con
             if (cnv) {
                 auto dz = canvas_info_dollarzero(cnv);
                 char buf[32] = { 0 };
-                sprintf(buf, "%d", dz);
+                snprintf(buf, sizeof(buf), "%d", dz);
                 return Atom(gensym(buf));
             } else
                 return Maybe<Atom>();
@@ -589,7 +589,7 @@ Maybe<Atom> Atom::expandDollarArgs(const t_canvas* cnv, bool checkArgs) const
             if (cnv) {
                 auto dz = canvas_info_dollarzero(cnv);
                 char buf[32] = { 0 };
-                sprintf(buf, "%d", dz);
+                snprintf(buf, sizeof(buf), "%d", dz);
                 return Atom(gensym(buf));
             } else
                 return Maybe<Atom>();

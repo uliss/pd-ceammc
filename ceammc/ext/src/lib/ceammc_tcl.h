@@ -32,7 +32,7 @@ public:
         , proc_name_(procName)
     {
         char buf[64];
-        sprintf(buf, "#%p", static_cast<void*>(this));
+        snprintf(buf, sizeof(buf), "#%p", static_cast<void*>(this));
         tcl_bind_ = gensym(buf);
         pd_bind(&this->owner()->te_g.g_pd, tcl_bind_);
     }

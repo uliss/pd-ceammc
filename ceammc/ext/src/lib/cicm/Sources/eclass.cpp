@@ -532,9 +532,9 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
                 char buf[MAXPDSTRING];
                 c->c_attr = attrs;
                 c->c_attr[c->c_nattr] = attr;
-                sprintf(buf, "@%s", attrname);
+                snprintf(buf, sizeof(buf), "@%s", attrname);
                 class_addmethod(&c->c_class, reinterpret_cast<t_method>(eclass_attr_ceammc_setter), gensym(buf), A_GIMME, 0);
-                sprintf(buf, "@%s?", attrname);
+                snprintf(buf, sizeof(buf), "@%s?", attrname);
                 class_addmethod(&c->c_class, reinterpret_cast<t_method>(eclass_attr_ceammc_getter), gensym(buf), A_GIMME, 0);
                 c->c_nattr++;
             } else {
@@ -552,9 +552,9 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
 void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn)
 {
     char buf[MAXPDSTRING];
-    sprintf(buf, "@%s", attrname);
+    snprintf(buf, sizeof(buf), "@%s", attrname);
     t_symbol* sel0 = gensym(buf);
-    sprintf(buf, "@%s?", attrname);
+    snprintf(buf, sizeof(buf), "@%s?", attrname);
     t_symbol* sel1 = gensym(buf);
 
     for (int i = 0; i < c->c_class.c_nmethod; i++) {

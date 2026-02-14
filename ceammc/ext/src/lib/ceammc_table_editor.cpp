@@ -87,7 +87,7 @@ void TableObjectImpl::open(t_canvas* cnv, const TableLineList& data, const Edito
         *pbuf = '\0';
         sys_vgui("ceammc::tableeditor::open .x%lx %s\n", xowner(), buf);
 
-        sprintf(buf, ".x%lx", xowner());
+        snprintf(buf, sizeof(buf), ".x%lx", xowner());
         guiconnect_ = guiconnect_new(&owner_->te_g.g_pd, gensym(buf));
 
         sync(data);

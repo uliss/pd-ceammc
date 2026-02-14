@@ -24,14 +24,14 @@ using namespace ceammc;
 static t_symbol* makePropertyGet(const char* name)
 {
     char buf[MAXPDSTRING];
-    sprintf(buf, "@%s?", name);
+    snprintf(buf, sizeof(buf), "@%s?", name);
     return gensym(buf);
 }
 
 static t_symbol* makePropertySet(const char* name)
 {
     char buf[MAXPDSTRING];
-    sprintf(buf, "@%s", name);
+    snprintf(buf, sizeof(buf), "@%s", name);
     return gensym(buf);
 }
 

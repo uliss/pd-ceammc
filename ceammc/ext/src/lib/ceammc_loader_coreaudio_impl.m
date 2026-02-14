@@ -48,7 +48,7 @@ static int checkError(OSStatus error, const char* op, struct ceammc_coreaudio_lo
         errorString[0] = errorString[5] = '\'';
         errorString[6] = '\0';
     } else {
-        sprintf(errorString, "%d", (int)error);
+        snprintf(errorString, sizeof(errorString), "%d", (int)error);
     }
 
     if (!log || !log->obj || !log->log_err)

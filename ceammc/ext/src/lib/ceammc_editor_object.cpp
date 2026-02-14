@@ -201,7 +201,7 @@ void EditorObjectImpl::open(t_canvas* cnv, const EditorLineList& data, const Edi
 
         sys_vgui("ceammc::texteditor::set_escape .x%lx %s\n", xowner(), escapeMode(esc_mode_));
 
-        sprintf(buf, ".x%lx", xowner());
+        snprintf(buf, sizeof(buf), ".x%lx", xowner());
         guiconnect_ = guiconnect_new(&owner_->te_g.g_pd, gensym(buf));
 
         sync(data);
@@ -285,4 +285,4 @@ EditorTitleString makeEditorTitleString(const char* dataName, const char* dataId
     return res;
 }
 
-}
+} // namespace ceammc

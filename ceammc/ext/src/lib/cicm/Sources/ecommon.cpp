@@ -115,14 +115,14 @@ static long unformat_atoms(int ac, t_atom* av)
                 }
                 if (!str) {
                     atom_setsym(av + newize, gensym(buf));
-                    //sprintf(buffer, "");
-                    //buffer[0] = '\0'; //-> is equal to sprintf(buffer, "") but only change the first caractere
+                    //snprintf(buffer, "");
+                    //buffer[0] = '\0'; //-> is equal to snprintf(buffer, "") but only change the first caractere
                     memset(buf, '\0', MAXPDSTRING * sizeof(char)); //-> clean all the buffer
                     newize++;
                 }
             }
         } else if (str) {
-            sprintf(temp, " %f", atom_getfloat(av + i));
+            snprintf(temp, sizeof(temp), " %f", atom_getfloat(av + i));
             len = (int)strlen(temp);
             while (temp[len - 1] == '0') {
                 temp[len - 1] = '\0';

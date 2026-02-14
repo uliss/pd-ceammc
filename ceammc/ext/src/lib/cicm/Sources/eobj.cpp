@@ -36,10 +36,10 @@ void* eobj_new(t_eclass* c)
         x->o_nproxy = 0;
         x->o_proxy = nullptr;
         x->o_canvas = canvas_getcurrent();
-        sprintf(buffer, "#%s%" PRIxPTR, c->c_class.c_name->s_name, (uintptr_t)x);
+        snprintf(buffer, sizeof(buffer), "#%s%" PRIxPTR, c->c_class.c_name->s_name, (uintptr_t)x);
         x->o_id = gensym(buffer);
         pd_bind(&x->o_obj.ob_pd, x->o_id);
-        sprintf(buffer, ".x%" PRIxPTR ".c", (uintptr_t)x->o_canvas);
+        snprintf(buffer, sizeof(buffer), ".x%" PRIxPTR ".c", (uintptr_t)x->o_canvas);
         c->c_widget.w_dosave = eobj_dosave;
     } else {
         bug("pd_new: apparently called before setup routine");
@@ -170,7 +170,7 @@ void eobj_attrprocess_viatoms(t_eobj* x, int argc, t_atom* argv)
     t_eclass* c = eobj_getclass(x);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
-        sprintf(buffer, "@%s", c->c_attr[i]->name->s_name);
+        snprintf(buffer, sizeof(buffer), "@%s", c->c_attr[i]->name->s_name);
         atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
         if (defc && defv) {
             eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
@@ -189,7 +189,7 @@ void eobj_attrprocess_viabinbuf(t_eobj* x, t_binbuf* d)
     t_atom* defv = nullptr;
     t_eclass* c = eobj_getclass(x);
     for (size_t i = 0; i < c->c_nattr; i++) {
-        sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
+        snprintf(attr_name, sizeof(attr_name), "@%s", c->c_attr[i]->name->s_name);
         binbuf_get_attribute(d, gensym(attr_name), &defc, &defv);
         if (defc && defv) {
             eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);

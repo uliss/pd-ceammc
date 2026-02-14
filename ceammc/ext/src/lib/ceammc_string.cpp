@@ -367,7 +367,7 @@ namespace string {
         case A_NULL:
             break;
         case A_FLOAT:
-            // this expected to be faster then using atom_string (sprintf by nonius tests)
+            // this expected to be faster then using atom_string (snprintf by nonius tests)
             fmt::format_to(std::back_inserter(out), "{:g}", a.asT<t_float>());
             break;
         default: {
