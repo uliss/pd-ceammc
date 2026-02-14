@@ -36,7 +36,7 @@ NUINumEntry::NUINumEntry(const PdArgs& args)
     setModelView(std::move(view));
 
     setSize(sz);
-    setResizeMode(RESIZE_LINKED);
+    setResizeMode(RESIZE_WIDTH);
 }
 
 void NUINumEntry::onBang()
@@ -48,6 +48,19 @@ void NUINumEntry::onFloat(t_float f)
 {
     set(f);
     onBang();
+}
+
+void NUINumEntry::onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
+{
+    auto cnv = drawCanvas();
+
+    if (cnv->gl_editor) {
+        glist_grab(cnv, asGObj(), nullptr, nullptr, pt.x(), pt.y());
+        cnv->gl_editor->e_textedfor = nullptr;
+        cnv->gl_editor->e_textdirty = 0;
+    }
+
+    boxView().acceptEvent(EVENT_MOUSE_DOWN, pt, {});
 }
 
 void NUINumEntry::set(t_float f)
