@@ -85,4 +85,4 @@ target_include_directories(ceammc_flow PRIVATE
      ${PROJECT_SOURCE_DIR}/ceammc/extra/mempool
 )
 
-target_link_libraries(ceammc_flow PRIVATE core_rust) # for function calls
+target_link_libraries(ceammc_flow PRIVATE core_rust ceammc_core) # for function calls
