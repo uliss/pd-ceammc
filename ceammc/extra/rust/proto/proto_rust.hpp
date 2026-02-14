@@ -316,6 +316,6 @@ bool ceammc_obs_set_current_scene(ceammc_obs_client *cli, const char *name);
 /// logger config is done with a RUST_LOG env variable
 void ceammc_proto_log_init();
 
-} // extern "C"
+}  // extern "C"
 
-#endif // ceammc_rust_proto_h
+#endif  // ceammc_rust_proto_h
