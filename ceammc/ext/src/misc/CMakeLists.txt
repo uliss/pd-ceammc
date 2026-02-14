@@ -49,7 +49,7 @@ if(WITH_SFIZZ)
     else()
         target_compile_definitions(ceammc_misc PUBLIC -DWITH_SFIZZ -DSFIZZ_VERSION="1.2.0")
         target_include_directories(ceammc_misc PUBLIC ${sfizz_SOURCE_DIR}/src)
-        target_link_libraries(ceammc_misc PUBLIC ${SFIZZ_LIB})
+        target_link_libraries(ceammc_misc PUBLIC sfizz_static)
     endif()
 endif()
 
