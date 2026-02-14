@@ -151,7 +151,7 @@ void ceammc_doc_lang(t_object* x, t_symbol* s)
     if (s == gensym("ru")) {
         pdDebug(nullptr, "set documentation language to Russian");
         ObjectInfoStorage::instance().setDocLanguage(ObjectInfoStorage::Russian);
-        sprintf(buf, "help-ru/%s", class_getname(cls));
+        snprintf(buf, sizeof(buf), "help-ru/%s", class_getname(cls));
         class_sethelpsymbol(cls, gensym(buf));
     } else {
         pdDebug(nullptr, "set documentation language to English");
