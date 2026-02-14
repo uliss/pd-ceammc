@@ -45,6 +45,6 @@ RImgResultCode rimg_decode_image(const char *fname, RImgSampleLayout *layout, RI
 
 RImgResultCode rimg_free_result(RImgResult *res);
 
-} // extern "C"
+}  // extern "C"
 
-#endif // ceammc_rimg_h
+#endif  // ceammc_rimg_h
