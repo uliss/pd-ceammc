@@ -83,13 +83,13 @@ ConvNote2Guido::GuidoNote ConvNote2Guido::guidoNote(int midiPitch, int dur, int 
         res = name.c_str();
 
         const int oct = int(clip<int, 0, 128>(midiPitch) / 12) - 4;
-        sprintf(buf, "%d", oct);
+        snprintf(buf, sizeof(buf), "%d", oct);
         res += buf;
     } else
         res += '_';
 
     if (dur > 0) {
-        sprintf(buf, "/%d", dur);
+        snprintf(buf, sizeof(buf), "/%d", dur);
         res += buf;
     }
 
