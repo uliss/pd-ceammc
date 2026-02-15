@@ -46,7 +46,7 @@ MidiSplit::MidiSplit(const PdArgs& args)
 
         split_points_.push_back(pitch);
         char buf[64];
-        sprintf(buf, "pitch: <%0.2g", pitch);
+        snprintf(buf, sizeof(buf), "pitch: <%0.2g", pitch);
         split_tooltips_.push_back(buf);
         createOutlet();
     }
