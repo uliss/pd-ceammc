@@ -113,7 +113,7 @@ public:
 
         for (int i = 0; i < NUM_CYCLES; i++) {
             char buf[16];
-            sprintf(buf, "@cycle%d", i);
+            snprintf(buf, sizeof(buf), "@cycle%d", i);
             auto prop = findUIProperty(buf);
             if (prop)
                 cycles_.push_back(prop);
@@ -129,7 +129,7 @@ public:
 
         for (int i = 0; i < NUM_CYCLES; i++) {
             char buf[16];
-            sprintf(buf, "@delay%d", i);
+            snprintf(buf, sizeof(buf), "@delay%d", i);
             auto prop = findUIProperty(buf);
             if (prop)
                 delays_.push_back(prop);
