@@ -216,7 +216,7 @@ bool TlTimeLine::addAbsEvent(const std::string& name, double time)
     t_symbol* sym_name;
     if (name.empty()) {
         char buf[32];
-        sprintf(buf, "event%d", (int)tl_.events().size());
+        snprintf(buf, sizeof(buf), "event%d", (int)tl_.events().size());
         sym_name = gensym(buf);
     } else
         sym_name = gensym(name.c_str());
