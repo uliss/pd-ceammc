@@ -21,10 +21,39 @@ include_version = false
 # namespace = "ceammc"
 # namespaces = ["ceammc"]
 using_namespaces = []
-sys_includes = ["cstdint", "cstddef"]
+sys_includes = ["cstddef", "cstdint", "type_traits"]
 includes = []
 no_includes = true
-after_includes = ""
+after_includes = '''
+
+namespace ceammc {
+namespace proto_rust {
+template <typename T>
+class Option {
+    static_assert(std::is_default_constructible<T>::value, "Type should have static constructor");
+    T value_;
+    bool is_set_ { false };
+
+public:
+    Option()
+        : value_ {}
+    {
+    }
+
+    void set(const T& value)
+    {
+        value_ = value;
+        is_set_ = true;
+    }
+
+    inline const T* get() const
+    {
+        return is_set_ ? &value_ : nullptr;
+    }
+};
+} // namespace proto_rust
+} // namespace ceammc
+'''
 
 
 
