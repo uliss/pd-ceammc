@@ -14,7 +14,6 @@
 #ifndef POLL_DISPATCHER_H
 #define POLL_DISPATCHER_H
 
-#include <cstdint>
 #include <memory>
 #include <vector>
 
@@ -59,7 +58,7 @@ template <typename T>
 class DispatchedObject : public T, public NotifiedObject {
 public:
     template <typename... Args>
-    DispatchedObject(Args&& ... args)
+    DispatchedObject(Args&&... args)
         : T(std::forward<Args>(args)...)
     {
         Dispatcher::instance().subscribe(this, subscriberId());
