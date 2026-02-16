@@ -1,4 +1,4 @@
-use crate::vlc::Vlc;
+use crate::{rust_atom, vlc::Vlc};
 
 use log::error;
 use serde::Deserialize;
@@ -39,7 +39,7 @@ pub enum vlc_sort_order {
 
 #[allow(non_camel_case_types)]
 #[derive(Debug, Default, PartialEq)]
-#[repr(C)]
+#[repr(u8)]
 /// vlc playing state
 pub enum vlc_state {
     #[default]
@@ -64,18 +64,6 @@ impl vlc_state {
 #[repr(C)]
 pub struct vlc_status {
     #[serde(default)]
-    pub apiversion: u8,
-    #[serde(default, rename = "loop")]
-    pub has_loop: bool,
-    #[serde(default)]
-    pub repeat: bool,
-    #[serde(default)]
-    pub random: bool,
-    #[serde(deserialize_with = "deserialize_bool_or_false")]
-    pub fullscreen: bool,
-    #[serde(deserialize_with = "deserialize_state")]
-    pub state: vlc_state,
-    #[serde(default)]
     pub position: f64,
     #[serde(default)]
     pub volume: f64,
@@ -85,6 +73,18 @@ pub struct vlc_status {
     pub length: f64,
     #[serde(default)]
     pub rate: f64,
+    #[serde(deserialize_with = "deserialize_state")]
+    pub state: vlc_state,
+    #[serde(default)]
+    pub apiversion: u8,
+    #[serde(default, rename = "loop")]
+    pub has_loop: bool,
+    #[serde(default)]
+    pub repeat: bool,
+    #[serde(default)]
+    pub random: bool,
+    #[serde(deserialize_with = "deserialize_bool_or_false")]
+    pub fullscreen: bool,
 }
 
 fn deserialize_bool_or_false<'de, D>(deserializer: D) -> Result<bool, D::Error>
@@ -300,6 +300,20 @@ pub extern "C" fn ceammc_vlc_repeat(vlc: Option<&mut vlc>, value: Option<&bool>)
 
     let vlc = &mut vlc.unwrap().imp;
     return vlc.send_repeat(value.map(|x| *x));
+}
+
+#[no_mangle]
+/// set vlc volume
+/// @param vlc - vlc control handle
+/// @param volume - vlc volume
+pub extern "C" fn ceammc_vlc_volume(vlc: Option<&mut vlc>, v0: rust_atom, v1: rust_atom) -> bool {
+    if vlc.is_none() {
+        error!("NULL vlc pointer");
+        return false;
+    }
+
+    let vlc = &mut vlc.unwrap().imp;
+    return vlc.send_volume(v0, v1);
 }
 
 #[no_mangle]

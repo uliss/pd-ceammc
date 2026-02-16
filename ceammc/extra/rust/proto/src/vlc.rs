@@ -13,10 +13,19 @@ use strum::EnumMessage;
 use strum::IntoEnumIterator;
 
 use crate::common_ffi::callback_notify;
+use crate::rust_atom;
 use crate::vlc_ffi::vlc_sort;
 use crate::vlc_ffi::vlc_sort_order;
 use crate::vlc_ffi::vlc_status;
 use crate::vlc_ffi::vlc_status_cb;
+use crate::RustAtom;
+
+#[derive(Debug)]
+enum VlcVolume {
+    RelativePlus(u16),
+    RelativeMinus(u16),
+    Absolute(u16),
+}
 
 pub struct Vlc {
     tx: std::sync::mpsc::Sender<VlcRequest>,
@@ -42,7 +51,13 @@ async fn send_get_request(
     }
 }
 
-fn make_status_url(host: &str, port: u16, cmd: Option<&str>, id: Option<String>) -> String {
+fn make_status_url(
+    host: &str,
+    port: u16,
+    cmd: Option<&str>,
+    id: Option<String>,
+    value: Option<String>,
+) -> String {
     let mut url = format!("http://{host}:{port}/requests/status.json");
     if let Some(cmd) = cmd {
         url += &format!("?command={cmd}");
@@ -52,7 +67,29 @@ fn make_status_url(host: &str, port: u16, cmd: Option<&str>, id: Option<String>)
         url += &format!("&id={id}");
     }
 
+    if let Some(val) = value {
+        url += &format!("&val={val}");
+    }
+
     return url;
+}
+
+fn parse_volume(v0: &RustAtom, v1: &RustAtom) -> Result<VlcVolume, String> {
+    if v0 == &RustAtom::from_str("+") && v1.is_float() {
+        if let Some(f) = v1.to_float() {
+            return Ok(VlcVolume::RelativePlus(f as u16));
+        }
+    } else if v0 == &RustAtom::from_str("-") && v1.is_float() {
+        if let Some(f) = v1.to_float() {
+            return Ok(VlcVolume::RelativeMinus(f as u16));
+        }
+    } else if v0.is_float() && v1.is_null() {
+        if let Some(f) = v0.to_float() {
+            return Ok(VlcVolume::Absolute(f as u16));
+        }
+    } 
+
+    Err(format!("volume parse error"))
 }
 
 async fn send2vlc(
@@ -65,27 +102,31 @@ async fn send2vlc(
     notify: callback_notify,
 ) -> anyhow::Result<bool> {
     let url = match &req {
-        VlcRequest::Next => make_status_url(host, port, Some("pl_next"), None),
-        VlcRequest::Prev => make_status_url(host, port, Some("pl_previous"), None),
-        VlcRequest::Play(id) => {
-            make_status_url(host, port, Some("pl_previous"), id.map(|id| id.to_string()))
-        }
+        VlcRequest::Next => make_status_url(host, port, Some("pl_next"), None, None),
+        VlcRequest::Prev => make_status_url(host, port, Some("pl_previous"), None, None),
+        VlcRequest::Play(id) => make_status_url(
+            host,
+            port,
+            Some("pl_previous"),
+            id.map(|id| id.to_string()),
+            None,
+        ),
         VlcRequest::Pause(value) => {
             if let Some(pause) = value {
-                let url = make_status_url(host, port, None, None);
+                let url = make_status_url(host, port, None, None, None);
                 let stat = send_get_request(cli, &url, pass).await?;
                 if stat.state.do_pause(*pause) {
-                    make_status_url(host, port, Some("pl_forcepause"), None)
+                    make_status_url(host, port, Some("pl_forcepause"), None, None)
                 } else if stat.state.do_resume(*pause) {
-                    make_status_url(host, port, Some("pl_forceresume"), None)
+                    make_status_url(host, port, Some("pl_forceresume"), None, None)
                 } else {
                     return Ok(true);
                 }
             } else {
-                make_status_url(host, port, Some("pl_pause"), None)
+                make_status_url(host, port, Some("pl_pause"), None, None)
             }
         }
-        VlcRequest::Stop => make_status_url(host, port, Some("pl_stop"), None),
+        VlcRequest::Stop => make_status_url(host, port, Some("pl_stop"), None, None),
         VlcRequest::Sort(sort, vlc_sort_order) => match vlc_sort::from_str(sort.as_str()) {
             Ok(sort) => format!(
                 "http://{host}:{port}/requests/status.json?command=pl_sort&id={}&val={}",
@@ -101,47 +142,61 @@ async fn send2vlc(
                 bail!("{err:?}. Valid variants are: {usage}")
             }
         },
-        VlcRequest::Empty => make_status_url(host, port, Some("pl_empty"), None),
-        VlcRequest::GetStatus => make_status_url(host, port, None, None),
+        VlcRequest::Empty => make_status_url(host, port, Some("pl_empty"), None, None),
+        VlcRequest::GetStatus => make_status_url(host, port, None, None, None),
         VlcRequest::FullScreen(value) => match value {
             Some(value) => {
-                let url = make_status_url(host, port, None, None);
+                let url = make_status_url(host, port, None, None, None);
                 let stat = send_get_request(cli, &url, pass).await?;
                 let is_fullscreen: bool = stat.fullscreen.into();
                 if is_fullscreen != *value {
-                    make_status_url(host, port, Some("fullscreen"), None)
+                    make_status_url(host, port, Some("fullscreen"), None, None)
                 } else {
                     return Ok(true);
                 }
             }
-            None => make_status_url(host, port, Some("fullscreen"), None),
+            None => make_status_url(host, port, Some("fullscreen"), None, None),
         },
         VlcRequest::Loop(value) => {
             if let Some(value) = value {
-                let url = make_status_url(host, port, None, None);
+                let url = make_status_url(host, port, None, None, None);
                 let stat = send_get_request(cli, &url, pass).await?;
                 if stat.has_loop != *value {
-                    make_status_url(host, port, Some("pl_loop"), None)
+                    make_status_url(host, port, Some("pl_loop"), None, None)
                 } else {
                     return Ok(true);
                 }
             } else {
-                make_status_url(host, port, Some("pl_loop"), None)
+                make_status_url(host, port, Some("pl_loop"), None, None)
             }
         }
         VlcRequest::Repeat(value) => {
             if let Some(value) = value {
-                let url = make_status_url(host, port, None, None);
+                let url = make_status_url(host, port, None, None, None);
                 let stat = send_get_request(cli, &url, pass).await?;
                 if stat.repeat != *value {
-                    make_status_url(host, port, Some("pl_repeat"), None)
+                    make_status_url(host, port, Some("pl_repeat"), None, None)
                 } else {
                     return Ok(true);
                 }
             } else {
-                make_status_url(host, port, Some("pl_repeat"), None)
+                make_status_url(host, port, Some("pl_repeat"), None, None)
             }
         }
+        VlcRequest::Volume(v0, v1) => match parse_volume(v0, v1) {
+            Ok(volume) => match volume {
+                VlcVolume::RelativePlus(v) => {
+                    make_status_url(host, port, Some("volume"), None, Some(format!("+{v}")))
+                }
+                VlcVolume::RelativeMinus(v) => {
+                    make_status_url(host, port, Some("volume"), None, Some(format!("-{v}")))
+                }
+                VlcVolume::Absolute(v) => {
+                    make_status_url(host, port, Some("volume"), None, Some(format!("{v}")))
+                }
+            },
+            Err(err) => bail!("{err}"),
+        },
     };
 
     info!("url: {url}");
@@ -186,7 +241,7 @@ impl Vlc {
 
             let cli = ClientBuilder::new()
                 .timeout(Duration::from_millis(1000))
-                .tcp_keepalive(None)
+                // .tcp_keepalive(None)
                 .tcp_nodelay(true)
                 .build();
 
@@ -266,6 +321,10 @@ impl Vlc {
         self.send(VlcRequest::Repeat(value))
     }
 
+    pub fn send_volume(self: &Self, v0: rust_atom, v1: rust_atom) -> bool {
+        self.send(VlcRequest::Volume(v0.as_safe_value(), v1.as_safe_value()))
+    }
+
     pub fn get_status(self: &Self) -> bool {
         self.send(VlcRequest::GetStatus)
     }
@@ -327,6 +386,7 @@ enum VlcRequest {
     FullScreen(Option<bool>),
     Loop(Option<bool>),
     Repeat(Option<bool>),
+    Volume(RustAtom, RustAtom),
 }
 
 #[derive(Debug)]
