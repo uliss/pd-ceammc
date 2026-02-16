@@ -95,6 +95,7 @@ impl RustAtom {
         }
     }
 
+    #[allow(dead_code)]
     fn to_str(self: &Self) -> Option<SmolStr> {
         match &self {
             &RustAtom::Str(s) => Some(s.clone()),
@@ -102,13 +103,15 @@ impl RustAtom {
         }
     }
 
+    #[allow(dead_code)]
     fn is_null(self: &Self) -> bool {
         match self {
             &RustAtom::Null => true,
             _ => false,
         }
     }
-    
+
+    #[allow(dead_code)]
     fn is_str(self: &Self) -> bool {
         match self {
             &RustAtom::Str(_) => true,
