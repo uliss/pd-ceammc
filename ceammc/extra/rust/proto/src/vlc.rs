@@ -3,6 +3,7 @@ use log::debug;
 use log::error;
 use log::info;
 use reqwest::ClientBuilder;
+use smol_str::SmolStr;
 use std::borrow::Cow;
 use std::ffi::c_char;
 use std::ffi::CStr;
@@ -208,6 +209,13 @@ async fn send2vlc(
                 make_status_url(host, port, Some("rate"), None, Some(format!("{rate}")))
             }
         }
+        VlcRequest::PlaylistAdd(uri, play) => {
+            if *play {
+                format!("http://{host}:{port}/requests/status.json?command=in_play&input={uri}")
+            } else {
+                format!("http://{host}:{port}/requests/status.json?command=in_enqueue&input={uri}")
+            }
+        }
     };
 
     info!("url: {url}");
@@ -363,6 +371,14 @@ impl Vlc {
         self.send(VlcRequest::GetStatus)
     }
 
+    pub fn add_uri(self: &Self, uri: Option<&c_char>, play: bool) -> bool {
+        let uri = uri
+            .map(|x| unsafe { CStr::from_ptr(x) }.to_string_lossy().to_string())
+            .unwrap_or_default();
+
+        self.send(VlcRequest::PlaylistAdd(uri, play))
+    }
+
     fn send(self: &Self, req: VlcRequest) -> bool {
         debug!("send: {req:?}");
 
@@ -422,6 +438,7 @@ enum VlcRequest {
     Repeat(Option<bool>),
     Volume(RustAtom, RustAtom),
     PlaybackRate(f32),
+    PlaylistAdd(String, bool),
 }
 
 #[derive(Debug)]

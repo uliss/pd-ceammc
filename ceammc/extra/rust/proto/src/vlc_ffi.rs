@@ -333,6 +333,21 @@ pub extern "C" fn ceammc_vlc_playback_rate(vlc: Option<&mut vlc>, rate: f32) -> 
 }
 
 #[no_mangle]
+/// add URI into vlc playlist
+/// @param vlc - vlc control handle
+/// @param uri - resource URI
+/// @param play - should immidiately play added url
+pub extern "C" fn ceammc_vlc_add_uri(vlc: Option<&mut vlc>, uri: Option<&c_char>, play: bool) -> bool {
+    if vlc.is_none() {
+        error!("NULL vlc pointer");
+        return false;
+    }
+
+    let vlc = &mut vlc.unwrap().imp;
+    return vlc.add_uri(uri, play);
+}
+
+#[no_mangle]
 /// get current vlc status
 /// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_get_status(vlc: Option<&mut vlc>) -> bool {

@@ -187,15 +187,10 @@ void ProtoVlc::m_delete(t_symbol* s, const AtomListView& lv)
 
 void ProtoVlc::m_add(t_symbol* s, const AtomListView& lv)
 {
-    if (lv.empty()) {
-        METHOD_ERR(s) << "URI expected";
+    if (!args::check_args("URI:s PLAY:b?", lv, this, &s_))
         return;
-    }
 
-    // VlcCommand cmd;
-    // cmd.code = VLC_CMD_ADD;
-    // cmd.data = to_string(lv);
-    // sendCommand(s, cmd);
+    ceammc_vlc_add_uri(vlc_.get(), lv[0].asSymbol()->s_name, lv.boolAt(1, false));
 }
 
 void ProtoVlc::m_status(t_symbol* s, const AtomListView& lv)
@@ -307,5 +302,4 @@ void setup_proto_vlc()
     obj.addMethod("add", &ProtoVlc::m_add);
     obj.addMethod("browse", &ProtoVlc::m_browse);
     obj.addMethod("playlist", &ProtoVlc::m_playlist);
-
 }
