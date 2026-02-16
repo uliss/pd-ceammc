@@ -281,6 +281,20 @@ pub extern "C" fn ceammc_vlc_loop(vlc: Option<&mut vlc>, value: Option<&bool>) -
 }
 
 #[no_mangle]
+/// set vlc repeat mode
+/// @param vlc - vlc control handle
+/// @param value - repeat value, if NULL toggles repeat mode
+pub extern "C" fn ceammc_vlc_repeat(vlc: Option<&mut vlc>, value: Option<&bool>) -> bool {
+    if vlc.is_none() {
+        error!("NULL vlc pointer");
+        return false;
+    }
+
+    let vlc = &mut vlc.unwrap().imp;
+    return vlc.send_repeat(value.map(|x| *x));
+}
+
+#[no_mangle]
 /// get current vlc status
 /// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_get_status(vlc: Option<&mut vlc>) -> bool {

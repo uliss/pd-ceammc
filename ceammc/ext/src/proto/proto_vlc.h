@@ -34,6 +34,7 @@ public:
     void m_add(t_symbol* s, const AtomListView& lv);
     void m_delete(t_symbol* s, const AtomListView& lv);
     void m_loop(t_symbol* s, const AtomListView& lv);
+    void m_repeat(t_symbol* s, const AtomListView& lv);
     void m_volume(t_symbol* s, const AtomListView& lv);
 
     void m_status(t_symbol* s, const AtomListView& lv);

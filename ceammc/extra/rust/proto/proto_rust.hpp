@@ -435,6 +435,11 @@ bool ceammc_vlc_poll(ceammc_vlc *vlc, ceammc_callback_msg on_msg, ceammc_vlc_sta
 /// @param vlc - vlc control handle
 bool ceammc_vlc_prev(ceammc_vlc *vlc);
 
+/// set vlc repeat mode
+/// @param vlc - vlc control handle
+/// @param value - repeat value, if NULL toggles repeat mode
+bool ceammc_vlc_repeat(ceammc_vlc *vlc, const bool *value);
+
 /// sort playlist
 /// @param vlc - vlc control handle
 /// @param sort - sort field number, not NULL!

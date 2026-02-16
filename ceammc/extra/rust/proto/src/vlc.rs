@@ -129,6 +129,19 @@ async fn send2vlc(
                 make_status_url(host, port, Some("pl_loop"), None)
             }
         }
+        VlcRequest::Repeat(value) => {
+            if let Some(value) = value {
+                let url = make_status_url(host, port, None, None);
+                let stat = send_get_request(cli, &url, pass).await?;
+                if stat.repeat != *value {
+                    make_status_url(host, port, Some("pl_repeat"), None)
+                } else {
+                    return Ok(true);
+                }
+            } else {
+                make_status_url(host, port, Some("pl_repeat"), None)
+            }
+        }
     };
 
     info!("url: {url}");
@@ -249,6 +262,10 @@ impl Vlc {
         self.send(VlcRequest::Loop(value))
     }
 
+    pub fn send_repeat(self: &Self, value: Option<bool>) -> bool {
+        self.send(VlcRequest::Repeat(value))
+    }
+
     pub fn get_status(self: &Self) -> bool {
         self.send(VlcRequest::GetStatus)
     }
@@ -309,6 +326,7 @@ enum VlcRequest {
     GetStatus,
     FullScreen(Option<bool>),
     Loop(Option<bool>),
+    Repeat(Option<bool>),
 }
 
 #[derive(Debug)]
