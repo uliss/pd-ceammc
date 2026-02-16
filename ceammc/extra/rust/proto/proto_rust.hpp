@@ -471,6 +471,11 @@ bool ceammc_vlc_prev(ceammc_vlc *vlc);
 /// @param value - repeat value, if NULL toggles repeat mode
 bool ceammc_vlc_repeat(ceammc_vlc *vlc, const bool *value);
 
+/// seek to specified time
+/// @param vlc - vlc control handle
+/// @param seek - seek time value
+bool ceammc_vlc_seek(ceammc_vlc *vlc, ceammc_rust_atom seek);
+
 /// sort playlist
 /// @param vlc - vlc control handle
 /// @param sort - sort field number, not NULL!

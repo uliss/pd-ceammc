@@ -103,10 +103,7 @@ void ProtoVlc::m_seek(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    // VlcCommand cmd;
-    // cmd.code = VLC_CMD_SEEK;
-    // cmd.data = to_string(lv[0]);
-    // sendCommand(s, cmd);
+    ceammc_vlc_seek(vlc_.get(), to_rust(lv[0]));
 }
 
 void ProtoVlc::m_clear(t_symbol* s, const AtomListView& lv)

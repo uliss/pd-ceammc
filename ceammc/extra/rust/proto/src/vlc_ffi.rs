@@ -348,6 +348,20 @@ pub extern "C" fn ceammc_vlc_add_uri(vlc: Option<&mut vlc>, uri: Option<&c_char>
 }
 
 #[no_mangle]
+/// seek to specified time
+/// @param vlc - vlc control handle
+/// @param seek - seek time value
+pub extern "C" fn ceammc_vlc_seek(vlc: Option<&mut vlc>, seek: rust_atom) -> bool {
+    if vlc.is_none() {
+        error!("NULL vlc pointer");
+        return false;
+    }
+
+    let vlc = &mut vlc.unwrap().imp;
+    return vlc.seek(seek.as_safe_value());
+}
+
+#[no_mangle]
 /// get current vlc status
 /// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_get_status(vlc: Option<&mut vlc>) -> bool {
