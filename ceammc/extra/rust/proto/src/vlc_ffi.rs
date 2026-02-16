@@ -77,6 +77,12 @@ pub struct vlc_status {
     pub state: vlc_state,
     #[serde(default)]
     pub position: f64,
+    #[serde(default)]
+    pub volume: f64,
+    #[serde(default)]
+    pub time: f64,
+    #[serde(default)]
+    pub length: f64,
 }
 
 fn deserialize_bool_or_false<'de, D>(deserializer: D) -> Result<bool, D::Error>

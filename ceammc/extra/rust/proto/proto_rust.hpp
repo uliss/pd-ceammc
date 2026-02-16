@@ -115,6 +115,9 @@ struct ceammc_vlc_status {
     bool fullscreen;
     ceammc_vlc_state state;
     double position;
+    double volume;
+    double time;
+    double length;
 };
 
 struct ceammc_vlc_status_cb {

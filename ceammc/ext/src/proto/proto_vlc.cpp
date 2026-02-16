@@ -4,12 +4,6 @@
 #include "datatype_dict.h"
 #include "parser_vlc.h"
 
-// #include "httplib.h"
-
-// #define VLC_BROWSE "/requests/browse.json"
-// #define VLC_STATUS "/requests/status.json"
-// #define VLC_PLAYLIST "/requests/playlist.json"
-
 using opt_i16 = ceammc::proto_rust::Option<std::int16_t>;
 
 ProtoVlc::ProtoVlc(const PdArgs& args)
@@ -253,6 +247,9 @@ bool ProtoVlc::notify(int code)
              da->insert("random", stat->random);
              da->insert("fullscreen", stat->fullscreen);
              da->insert("position", stat->position);
+             da->insert("volume", stat->volume);
+             da->insert("time", stat->time);
+             da->insert("length", stat->length);
 
              obj->atomTo(1, da);
          } });
