@@ -3,6 +3,8 @@ use log::debug;
 use log::error;
 use log::info;
 use reqwest::ClientBuilder;
+use serde::Deserialize;
+use smol_str::SmolStr;
 use std::borrow::Cow;
 use std::ffi::c_char;
 use std::ffi::CStr;
@@ -32,6 +34,74 @@ pub struct Vlc {
     tx: std::sync::mpsc::Sender<VlcRequest>,
     rx: std::sync::mpsc::Receiver<VlcReply>,
     cb: crate::common_ffi::callback_msg,
+}
+
+#[derive(Debug, Default, Deserialize)]
+struct Playlist {
+    ro: String,
+    #[serde(rename = "type")]
+    node_type: String,
+    name: String,
+    id: String,
+    #[serde(default)]
+    uri: String,
+    #[serde(default)]
+    duration: u64,
+    #[serde(default)]
+    children: Vec<Playlist>,
+}
+
+impl Playlist {
+    fn find_by_name(self: &Self, name: &str) -> Vec<&Playlist> {
+        let mut res = Vec::new();
+
+        if self.name == name {
+            res.push(self);
+        } else {
+            for x in self.children.iter() {
+                for item in x.find_by_name(name) {
+                    res.push(item);
+                }
+            }
+        }
+
+        return res;
+    }
+
+    // fn find_by_id(self: &Self, id: &str) -> Option<&Playlist> {
+    //     if self.id == id {
+    //         return Some(&self);
+    //     } else {
+    //         let res: Vec::new();
+    //         for x in self.children.iter() {
+    //             for item in x.find_by_id(id) {
+    //                 res.push(item);
+    //             }
+    //         }
+    //         return res;
+    //     }
+    // }
+}
+
+async fn request_playlist(
+    cli: &reqwest::Client,
+    host: &str,
+    port: u16,
+    pass: &str,
+) -> anyhow::Result<Playlist> {
+    let response = cli
+        .get(format!("http://{host}:{port}/requests/playlist.json"))
+        .basic_auth("", Some(pass))
+        .send()
+        .await?;
+
+    if response.status().is_success() {
+        let data = response.text().await?;
+        let stat: Playlist = serde_json::from_str(&data).or_else(|err| bail!("vlc json: {err}"))?;
+        Ok(stat)
+    } else {
+        bail!("Status: {}", response.status())
+    }
 }
 
 async fn send_get_request(
@@ -236,6 +306,32 @@ async fn send2vlc(
             }
             RustAtom::Null => bail!("seek is not specified"),
         },
+        VlcRequest::DeleteById(id) => {
+            make_status_url(host, port, Some("pl_delete"), Some(id.to_string()), None)?
+        }
+        VlcRequest::DeleteAtPos(pos) => {
+            let playlist = request_playlist(cli, host, port, pass).await?;
+            todo!()
+        }
+        VlcRequest::DeleteByName(name) => {
+            let playlist = request_playlist(cli, host, port, pass).await?;
+            let items = playlist.find_by_name(name);
+            if items.is_empty() {
+                bail!("playlist item '{name}' not found")
+            }
+            for item in items {
+                let url =
+                    make_status_url(host, port, Some("pl_delete"), Some(item.id.clone()), None)?;
+                send_get_request(cli, &url, pass).await?;
+            }
+            return Ok(true);
+        }
+        VlcRequest::GetPlaylist => {
+            let playlist = request_playlist(cli, host, port, pass).await?;
+            tx.send(VlcReply::Playlist(playlist))?;
+            notify.exec();
+            return Ok(true);
+        }
     };
 
     info!("url: {}", url);
@@ -391,6 +487,10 @@ impl Vlc {
         self.send(VlcRequest::GetStatus)
     }
 
+    pub fn get_playlist(self: &Self) -> bool {
+        self.send(VlcRequest::GetPlaylist)
+    }
+
     pub fn add_uri(self: &Self, uri: Option<&c_char>, play: bool) -> bool {
         let uri = uri
             .map(|x| unsafe { CStr::from_ptr(x) }.to_string_lossy().to_string())
@@ -401,6 +501,16 @@ impl Vlc {
 
     pub fn seek(self: &Self, seek: RustAtom) -> bool {
         self.send(VlcRequest::Seek(seek))
+    }
+
+    pub fn delete_by_name(self: &Self, name: RustAtom) -> bool {
+        match name {
+            RustAtom::Str(name) => self.send(VlcRequest::DeleteByName(name)),
+            _ => {
+                self.client_err(format!("playlist item name expected, got: {name:?}"));
+                false
+            }
+        }
     }
 
     fn send(self: &Self, req: VlcRequest) -> bool {
@@ -442,6 +552,7 @@ impl Vlc {
                 VlcReply::Status(vlc_status) => {
                     on_stat.exec(&vlc_status);
                 }
+                VlcReply::Playlist(playlist) => {}
             }
         }
     }
@@ -457,12 +568,16 @@ enum VlcRequest {
     Sort(String, vlc_sort_order),
     Empty,
     GetStatus,
+    GetPlaylist,
     FullScreen(Option<bool>),
     Loop(Option<bool>),
     Repeat(Option<bool>),
     Volume(RustAtom, RustAtom),
     PlaybackRate(f32),
     PlaylistAdd(String, bool),
+    DeleteById(u32),
+    DeleteAtPos(i32),
+    DeleteByName(SmolStr),
     Seek(RustAtom),
 }
 
@@ -470,4 +585,5 @@ enum VlcRequest {
 enum VlcReply {
     Error(String),
     Status(vlc_status),
+    Playlist(Playlist),
 }

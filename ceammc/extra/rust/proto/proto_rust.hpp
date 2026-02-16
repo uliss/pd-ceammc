@@ -113,6 +113,16 @@ struct ceammc_callback_notify {
     void (*cb)(size_t id);
 };
 
+union ceammc_rust_value {
+    const char *str_val;
+    double float_val;
+};
+
+struct ceammc_rust_atom {
+    ceammc_rust_value data;
+    ceammc_rust_atom_type atom_type;
+};
+
 struct ceammc_vlc_status {
     double position;
     double volume;
@@ -132,16 +142,6 @@ struct ceammc_vlc_status_cb {
     void *user;
     /// callback function
     void (*cb)(void *user, const ceammc_vlc_status *status);
-};
-
-union ceammc_rust_value {
-    const char *str_val;
-    double float_val;
-};
-
-struct ceammc_rust_atom {
-    ceammc_rust_value data;
-    ceammc_rust_atom_type atom_type;
 };
 
 
@@ -419,6 +419,11 @@ ceammc_vlc *ceammc_vlc_create(const char *host,
                               ceammc_callback_msg cb,
                               ceammc_callback_notify notify);
 
+/// remove item from playlist
+/// @param vlc - vlc control handle
+/// @param name - playlist item name
+bool ceammc_vlc_delete_by_name(ceammc_vlc *vlc, ceammc_rust_atom name);
+
 /// free vlc handle
 /// @param vlc - vlc control handle
 void ceammc_vlc_free(ceammc_vlc *vlc);
@@ -427,6 +432,10 @@ void ceammc_vlc_free(ceammc_vlc *vlc);
 /// @param vlc - vlc control handle
 /// @param value - fullscreen mode, if NULL toggles fullscreen
 bool ceammc_vlc_fullscreen(ceammc_vlc *vlc, const bool *value);
+
+/// get vlc playlist
+/// @param vlc - vlc control handle
+bool ceammc_vlc_get_playlist(ceammc_vlc *vlc);
 
 /// get current vlc status
 /// @param vlc - vlc control handle

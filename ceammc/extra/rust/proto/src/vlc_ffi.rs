@@ -362,6 +362,20 @@ pub extern "C" fn ceammc_vlc_seek(vlc: Option<&mut vlc>, seek: rust_atom) -> boo
 }
 
 #[no_mangle]
+/// remove item from playlist
+/// @param vlc - vlc control handle
+/// @param name - playlist item name
+pub extern "C" fn ceammc_vlc_delete_by_name(vlc: Option<&mut vlc>, name: rust_atom) -> bool {
+    if vlc.is_none() {
+        error!("NULL vlc pointer");
+        return false;
+    }
+
+    let vlc = &mut vlc.unwrap().imp;
+    return vlc.delete_by_name(name.as_safe_value());
+}
+
+#[no_mangle]
 /// get current vlc status
 /// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_get_status(vlc: Option<&mut vlc>) -> bool {
@@ -370,8 +384,19 @@ pub extern "C" fn ceammc_vlc_get_status(vlc: Option<&mut vlc>) -> bool {
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.get_status();
+    vlc.unwrap().imp.get_status()
+}
+
+#[no_mangle]
+/// get vlc playlist
+/// @param vlc - vlc control handle
+pub extern "C" fn ceammc_vlc_get_playlist(vlc: Option<&mut vlc>) -> bool {
+    if vlc.is_none() {
+        error!("NULL vlc pointer");
+        return false;
+    }
+
+    vlc.unwrap().imp.get_playlist()
 }
 
 #[no_mangle]
