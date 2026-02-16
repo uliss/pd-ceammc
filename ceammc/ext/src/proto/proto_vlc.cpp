@@ -343,15 +343,15 @@ void setup_proto_vlc()
 {
     ObjectFactory<ProtoVlc> obj("proto.vlc");
 
-    obj.addMethod("play", &ProtoVlc::m_play);
-    obj.addMethod("stop", &ProtoVlc::m_stop);
-    obj.addMethod("pause", &ProtoVlc::m_pause);
-    obj.addMethod("fs", &ProtoVlc::m_fullscreen);
     obj.addMethod("clear", &ProtoVlc::m_clear);
-    obj.addMethod("next", &ProtoVlc::m_next);
-    obj.addMethod("prev", &ProtoVlc::m_prev);
+    obj.addMethod("fs", &ProtoVlc::m_fullscreen);
     obj.addMethod("loop", &ProtoVlc::m_loop);
+    obj.addMethod("next", &ProtoVlc::m_next);
+    obj.addMethod("pause", &ProtoVlc::m_pause);
+    obj.addMethod("play", &ProtoVlc::m_play);
+    obj.addMethod("prev", &ProtoVlc::m_prev);
     obj.addMethod("repeat", &ProtoVlc::m_repeat);
+    obj.addMethod("stop", &ProtoVlc::m_stop);
 
     obj.addMethod("volume", &ProtoVlc::m_volume);
     obj.addMethod("sort", &ProtoVlc::m_sort);
