@@ -519,7 +519,8 @@ void ceammc_vlc_playlist_iter(const ceammc_vlc_playlist_item *items,
 bool ceammc_vlc_poll(ceammc_vlc *vlc,
                      ceammc_callback_msg on_msg,
                      ceammc_vlc_status_cb on_stat,
-                     ceammc_vlc_playlist_cb on_playlist);
+                     ceammc_vlc_playlist_cb on_playlist,
+                     ceammc_vlc_playlist_item_cb on_current);
 
 /// go to previous item in the playlist and play it
 /// @param vlc - vlc control handle

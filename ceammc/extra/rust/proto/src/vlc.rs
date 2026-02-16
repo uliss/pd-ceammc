@@ -22,6 +22,7 @@ use crate::rust_atom;
 use crate::vlc_ffi::vlc_playlist;
 use crate::vlc_ffi::vlc_playlist_cb;
 use crate::vlc_ffi::vlc_playlist_item;
+use crate::vlc_ffi::vlc_playlist_item_cb;
 use crate::vlc_ffi::vlc_sort;
 use crate::vlc_ffi::vlc_sort_order;
 use crate::vlc_ffi::vlc_status;
@@ -48,6 +49,18 @@ struct PlaylistItem {
     name: CString,
     uri: CString,
     current: bool,
+}
+
+impl From<&PlaylistItem> for vlc_playlist_item {
+    fn from(it: &PlaylistItem) -> Self {
+        Self {
+            name: it.name.as_ptr(),
+            uri: it.uri.as_ptr(),
+            id: it.id,
+            duration: it.duration,
+            current: it.current,
+        }
+    }
 }
 
 #[derive(Debug, Default, Deserialize)]
@@ -98,6 +111,10 @@ impl JsonPlaylist {
         }
 
         res
+    }
+
+    fn current_id(self: &Self) -> Option<PlaylistItem> {
+        None
     }
 }
 
@@ -385,6 +402,12 @@ async fn send2vlc(
             notify.exec();
             return Ok(true);
         }
+        VlcRequest::GetCurrentId => {
+            let playlist = request_playlist(cli, host, port, pass).await?;
+            tx.send(VlcReply::CurrentId(playlist.current_id()))?;
+            notify.exec();
+            return Ok(true);
+        }
     };
 
     info!("url: {}", url);
@@ -607,6 +630,7 @@ impl Vlc {
         on_msg: crate::common_ffi::callback_msg,
         on_stat: vlc_status_cb,
         on_playlist: vlc_playlist_cb,
+        on_current_id: vlc_playlist_item_cb,
     ) -> bool {
         while let Ok(msg) = self.rx.try_recv() {
             debug!("[client] {msg:?}");
@@ -637,6 +661,11 @@ impl Vlc {
 
                     on_playlist.exec(&pl);
                 }
+                VlcReply::CurrentId(id) => {
+                    if let Some(id) = id {
+                        on_current_id.exec(&vlc_playlist_item::from(&id));
+                    }
+                }
             }
         }
 
@@ -655,6 +684,7 @@ enum VlcRequest {
     Empty,
     GetStatus,
     GetPlaylist,
+    GetCurrentId,
     FullScreen(Option<bool>),
     Loop(Option<bool>),
     Repeat(Option<bool>),
@@ -672,4 +702,5 @@ enum VlcReply {
     Error(String),
     Status(vlc_status),
     Playlist(Vec<PlaylistItem>),
+    CurrentId(Option<PlaylistItem>),
 }

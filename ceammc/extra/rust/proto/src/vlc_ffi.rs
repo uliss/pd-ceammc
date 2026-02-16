@@ -82,7 +82,7 @@ pub struct vlc_status {
     #[serde(deserialize_with = "deserialize_bool_or_false")]
     pub fullscreen: bool,
     #[serde(default)]
-    currentplid: u64
+    currentplid: u64,
 }
 
 #[allow(non_camel_case_types)]
@@ -238,13 +238,16 @@ pub extern "C" fn ceammc_vlc_poll(
     on_msg: crate::common_ffi::callback_msg,
     on_stat: vlc_status_cb,
     on_playlist: vlc_playlist_cb,
+    on_current: vlc_playlist_item_cb,
 ) -> bool {
     if vlc.is_none() {
         error!("NULL vlc pointer");
         return false;
     }
 
-    vlc.unwrap().imp.poll(on_msg, on_stat, on_playlist)
+    vlc.unwrap()
+        .imp
+        .poll(on_msg, on_stat, on_playlist, on_current)
 }
 
 #[no_mangle]
