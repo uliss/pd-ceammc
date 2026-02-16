@@ -29,6 +29,7 @@ public:
     void m_next(t_symbol* s, const AtomListView& lv);
     void m_pause(t_symbol* s, const AtomListView& lv);
     void m_play(t_symbol* s, const AtomListView& lv);
+    void m_playlist(t_symbol* s, const AtomListView& lv);
     void m_prev(t_symbol* s, const AtomListView& lv);
     void m_repeat(t_symbol* s, const AtomListView& lv);
     void m_seek(t_symbol* s, const AtomListView& lv);
@@ -39,7 +40,6 @@ public:
     void m_volume(t_symbol* s, const AtomListView& lv);
 
     void m_browse(t_symbol* s, const AtomListView& lv);
-    void m_playlist(t_symbol* s, const AtomListView& lv);
 
     bool notify(int code) final;
 };
