@@ -41,6 +41,13 @@ enum class ceammc_vlc_sort_order {
     Reversed,
 };
 
+enum class ceammc_vlc_state {
+    Unknown,
+    Stopped,
+    Paused,
+    Playing,
+};
+
 struct ceammc_obs_client;
 
 struct ceammc_obs_collection_list;
@@ -104,6 +111,7 @@ struct ceammc_vlc_status {
     bool repeat;
     bool random;
     bool fullscreen;
+    ceammc_vlc_state state;
 };
 
 struct ceammc_vlc_status_cb {
@@ -377,21 +385,31 @@ ceammc_vlc *ceammc_vlc_create(const char *host,
 
 void ceammc_vlc_free(ceammc_vlc *vlc);
 
-/// control vlc fullscreen mode
+/// set vlc fullscreen mode
 /// @param vlc - vlc control handle
-/// @param value - fullscreen mode, if NULL toggles
+/// @param value - fullscreen mode, if NULL toggles fullscreen
 bool ceammc_vlc_fullscreen(ceammc_vlc *vlc, const bool *value);
 
-/// clear current playlist
+/// get current vlc status
 /// @param vlc - vlc control handle
 bool ceammc_vlc_get_status(ceammc_vlc *vlc);
 
 bool ceammc_vlc_next(ceammc_vlc *vlc);
 
+/// pause vlc playback
+/// @param vlc - vlc control handle
+/// @param value - if true, pauses playback, otherwise resume. If NULL toggles pause mode
+bool ceammc_vlc_pause(ceammc_vlc *vlc, const bool *value);
+
+/// play playlist item
+/// @param vlc - vlc control handle
+/// @param id - pointer to track index, can be NULL
 bool ceammc_vlc_play(ceammc_vlc *vlc, const int16_t *id);
 
 bool ceammc_vlc_poll(ceammc_vlc *vlc, ceammc_callback_msg on_msg, ceammc_vlc_status_cb on_stat);
 
+/// go to previous item in playlist and play it
+/// @param vlc - vlc control handle
 bool ceammc_vlc_prev(ceammc_vlc *vlc);
 
 /// sort playlist
@@ -400,6 +418,8 @@ bool ceammc_vlc_prev(ceammc_vlc *vlc);
 /// @param mode - sort mode: normal or reversed
 bool ceammc_vlc_sort(ceammc_vlc *vlc, const char *sort, ceammc_vlc_sort_order mode);
 
+/// stop vlc playback
+/// @param vlc - vlc control handle
 bool ceammc_vlc_stop(ceammc_vlc *vlc);
 
 }  // extern "C"

@@ -36,6 +36,17 @@ pub enum vlc_sort_order {
     Reversed,
 }
 
+#[allow(non_camel_case_types)]
+#[derive(Debug, Default)]
+#[repr(C)]
+pub enum vlc_state {
+    #[default]
+    Unknown,
+    Stopped,
+    Paused,
+    Playing,
+}
+
 #[derive(Debug, Default, Deserialize)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -50,6 +61,8 @@ pub struct vlc_status {
     pub random: bool,
     #[serde(deserialize_with = "deserialize_bool_or_false")]
     pub fullscreen: bool,
+    #[serde(deserialize_with = "deserialize_state")]
+    pub state: vlc_state,
 }
 
 fn deserialize_bool_or_false<'de, D>(deserializer: D) -> Result<bool, D::Error>
@@ -65,6 +78,22 @@ where
         },
         Err(_) => Ok(false),
     }
+}
+
+fn deserialize_state<'de, D>(deserializer: D) -> Result<vlc_state, D::Error>
+where
+    D: serde::Deserializer<'de>,
+{
+    Ok(if let Ok(state) = String::deserialize(deserializer) {
+        match state.as_str() {
+            "stopped" => vlc_state::Stopped,
+            "paused" => vlc_state::Paused,
+            "playing" => vlc_state::Playing,
+            _ => vlc_state::default(),
+        }
+    } else {
+        vlc_state::default()
+    })
 }
 
 #[repr(C)]
@@ -129,6 +158,8 @@ pub extern "C" fn ceammc_vlc_next(vlc: Option<&mut vlc>) -> bool {
 }
 
 #[no_mangle]
+/// go to previous item in playlist and play it
+/// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_prev(vlc: Option<&mut vlc>) -> bool {
     if vlc.is_none() {
         error!("NULL vlc pointer");
@@ -140,8 +171,9 @@ pub extern "C" fn ceammc_vlc_prev(vlc: Option<&mut vlc>) -> bool {
 }
 
 #[no_mangle]
-// @param vlc - vlc control handle
-// @param id - pointer to track index, can be NULL
+/// play playlist item
+/// @param vlc - vlc control handle
+/// @param id - pointer to track index, can be NULL
 pub extern "C" fn ceammc_vlc_play(vlc: Option<&mut vlc>, id: *const i16) -> bool {
     let id = if id.is_null() {
         None
@@ -158,6 +190,8 @@ pub extern "C" fn ceammc_vlc_play(vlc: Option<&mut vlc>, id: *const i16) -> bool
 }
 
 #[no_mangle]
+/// stop vlc playback
+/// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_stop(vlc: Option<&mut vlc>) -> bool {
     if vlc.is_none() {
         error!("NULL vlc pointer");
@@ -166,6 +200,20 @@ pub extern "C" fn ceammc_vlc_stop(vlc: Option<&mut vlc>) -> bool {
 
     let vlc = &mut vlc.unwrap().imp;
     return vlc.send_stop();
+}
+
+#[no_mangle]
+/// pause vlc playback
+/// @param vlc - vlc control handle
+/// @param value - if true, pauses playback, otherwise resume. If NULL toggles pause mode
+pub extern "C" fn ceammc_vlc_pause(vlc: Option<&mut vlc>, value: Option<&bool>) -> bool {
+    if vlc.is_none() {
+        error!("NULL vlc pointer");
+        return false;
+    }
+
+    let vlc = &mut vlc.unwrap().imp;
+    return vlc.send_pause(value.map(|x| *x));
 }
 
 #[no_mangle]
@@ -182,25 +230,21 @@ pub extern "C" fn ceammc_vlc_clear(vlc: Option<&mut vlc>) -> bool {
 }
 
 #[no_mangle]
-/// control vlc fullscreen mode
+/// set vlc fullscreen mode
 /// @param vlc - vlc control handle
-/// @param value - fullscreen mode, if NULL toggles
-pub extern "C" fn ceammc_vlc_fullscreen(vlc: Option<&mut vlc>, value: *const bool) -> bool {
+/// @param value - fullscreen mode, if NULL toggles fullscreen
+pub extern "C" fn ceammc_vlc_fullscreen(vlc: Option<&mut vlc>, value: Option<&bool>) -> bool {
     if vlc.is_none() {
         error!("NULL vlc pointer");
         return false;
     }
 
     let vlc = &mut vlc.unwrap().imp;
-    return vlc.send_fullscreen(if value.is_null() {
-        None
-    } else {
-        Some(unsafe { *value })
-    });
+    return vlc.send_fullscreen(value.map(|x| *x));
 }
 
 #[no_mangle]
-/// clear current playlist
+/// get current vlc status
 /// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_get_status(vlc: Option<&mut vlc>) -> bool {
     if vlc.is_none() {
