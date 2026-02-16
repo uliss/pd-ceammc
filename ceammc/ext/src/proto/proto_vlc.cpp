@@ -247,41 +247,11 @@ bool ProtoVlc::notify(int code)
          } });
 }
 
-// void ProtoVlc::processMessage(const VlcResponse& msg)
-// {
-//     try {
-//         atomTo(1, DictAtom(msg.resp));
-//     } catch (std::exception& e) {
-//         OBJ_ERR << e.what();
-//     }
-
-//     enum {
-//         HTTP_OK = 200,
-//         HTTP_UNAUTH = 401,
-//         HTTP_NOT_FOUND = 404,
-//     };
-
-//     switch (msg.status) {
-//     case HTTP_OK:
-//         return boolTo(0, true);
-//     case HTTP_UNAUTH:
-//         OBJ_ERR << "authorization error";
-//         break;
-//     case HTTP_NOT_FOUND:
-//         OBJ_ERR << "not found";
-//         break;
-//     default:
-//         OBJ_ERR << "unknown http code: " << msg.status;
-//         break;
-//     }
-
-//     boolTo(0, false);
-// }
-
 void setup_proto_vlc()
 {
     ObjectFactory<ProtoVlc> obj("proto.vlc");
 
+    obj.addMethod("add", &ProtoVlc::m_add);
     obj.addMethod("clear", &ProtoVlc::m_clear);
     obj.addMethod("fs", &ProtoVlc::m_fullscreen);
     obj.addMethod("loop", &ProtoVlc::m_loop);
@@ -290,16 +260,14 @@ void setup_proto_vlc()
     obj.addMethod("play", &ProtoVlc::m_play);
     obj.addMethod("prev", &ProtoVlc::m_prev);
     obj.addMethod("repeat", &ProtoVlc::m_repeat);
-    obj.addMethod("seek", &ProtoVlc::m_seek);
     obj.addMethod("speed", &ProtoVlc::m_speed);
     obj.addMethod("status", &ProtoVlc::m_status);
     obj.addMethod("stop", &ProtoVlc::m_stop);
     obj.addMethod("volume", &ProtoVlc::m_volume);
 
-    obj.addMethod("sort", &ProtoVlc::m_sort);
-    obj.addMethod("delete", &ProtoVlc::m_delete);
-
-    obj.addMethod("add", &ProtoVlc::m_add);
     obj.addMethod("browse", &ProtoVlc::m_browse);
+    obj.addMethod("delete", &ProtoVlc::m_delete);
     obj.addMethod("playlist", &ProtoVlc::m_playlist);
+    obj.addMethod("seek", &ProtoVlc::m_seek);
+    obj.addMethod("sort", &ProtoVlc::m_sort);
 }
