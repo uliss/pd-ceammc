@@ -194,12 +194,12 @@ void ProtoVlc::m_add(t_symbol* s, const AtomListView& lv)
     ceammc_vlc_add_uri(vlc_.get(), lv[0].asSymbol()->s_name, lv.boolAt(1, false));
 }
 
-void ProtoVlc::m_status(t_symbol* s, const AtomListView& lv)
+void ProtoVlc::m_get_status(t_symbol* s, const AtomListView& lv)
 {
     ceammc_vlc_get_status(vlc_.get());
 }
 
-void ProtoVlc::m_playlist(t_symbol* s, const AtomListView& lv)
+void ProtoVlc::m_get_playlist(t_symbol* s, const AtomListView& lv)
 {
     ceammc_vlc_get_playlist(vlc_.get());
 }
@@ -276,17 +276,17 @@ void setup_proto_vlc()
     obj.addMethod("clear", &ProtoVlc::m_clear);
     obj.addMethod("delete", &ProtoVlc::m_delete);
     obj.addMethod("fs", &ProtoVlc::m_fullscreen);
+    obj.addMethod("get_playlist", &ProtoVlc::m_get_playlist);
+    obj.addMethod("get_status", &ProtoVlc::m_get_status);
     obj.addMethod("loop", &ProtoVlc::m_loop);
     obj.addMethod("next", &ProtoVlc::m_next);
     obj.addMethod("pause", &ProtoVlc::m_pause);
     obj.addMethod("play", &ProtoVlc::m_play);
-    obj.addMethod("playlist", &ProtoVlc::m_playlist);
     obj.addMethod("prev", &ProtoVlc::m_prev);
     obj.addMethod("repeat", &ProtoVlc::m_repeat);
     obj.addMethod("seek", &ProtoVlc::m_seek);
     obj.addMethod("sort", &ProtoVlc::m_sort);
     obj.addMethod("speed", &ProtoVlc::m_speed);
-    obj.addMethod("status", &ProtoVlc::m_status);
     obj.addMethod("stop", &ProtoVlc::m_stop);
     obj.addMethod("volume", &ProtoVlc::m_volume);
 
