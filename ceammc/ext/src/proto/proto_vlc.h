@@ -23,6 +23,7 @@ public:
 
     void m_add(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
+    void m_delete(t_symbol* s, const AtomListView& lv);
     void m_fullscreen(t_symbol* s, const AtomListView& lv);
     void m_loop(t_symbol* s, const AtomListView& lv);
     void m_next(t_symbol* s, const AtomListView& lv);
@@ -38,9 +39,7 @@ public:
     void m_volume(t_symbol* s, const AtomListView& lv);
 
     void m_browse(t_symbol* s, const AtomListView& lv);
-    void m_delete(t_symbol* s, const AtomListView& lv);
     void m_playlist(t_symbol* s, const AtomListView& lv);
-
 
     bool notify(int code) final;
 };

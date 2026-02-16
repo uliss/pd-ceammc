@@ -172,14 +172,14 @@ void ProtoVlc::m_speed(t_symbol* s, const AtomListView& lv)
 
 void ProtoVlc::m_delete(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_INT))
-        return;
-
-    // VlcCommand cmd;
-    // cmd.code = VLC_CMD_DELETE;
-    // cmd.data = static_cast<int>(lv[0].asInt());
-
-    // sendCommand(s, cmd);
+    AtomListView name, pos, id;
+    if (lv.getProperty(gensym("@name"), name)) {
+        auto str_name = to_string(name);
+        ceammc_vlc_delete_by_name(vlc_.get(), to_rust(Atom(gensym(str_name.c_str()))));
+    } else if (lv.getProperty(gensym("@id"), id)) {
+    } else if (lv.getProperty(gensym("@pos"), pos)) {
+    } else {
+    }
 }
 
 void ProtoVlc::m_add(t_symbol* s, const AtomListView& lv)
@@ -197,9 +197,7 @@ void ProtoVlc::m_status(t_symbol* s, const AtomListView& lv)
 
 void ProtoVlc::m_playlist(t_symbol* s, const AtomListView& lv)
 {
-    // VlcCommand cmd;
-    // cmd.code = VLC_CMD_PLAYLIST;
-    // sendCommand(s, cmd);
+    ceammc_vlc_get_playlist(vlc_.get());
 }
 
 void ProtoVlc::m_browse(t_symbol* s, const AtomListView& lv)
@@ -250,6 +248,7 @@ void setup_proto_vlc()
 
     obj.addMethod("add", &ProtoVlc::m_add);
     obj.addMethod("clear", &ProtoVlc::m_clear);
+    obj.addMethod("delete", &ProtoVlc::m_delete);
     obj.addMethod("fs", &ProtoVlc::m_fullscreen);
     obj.addMethod("loop", &ProtoVlc::m_loop);
     obj.addMethod("next", &ProtoVlc::m_next);
@@ -265,7 +264,6 @@ void setup_proto_vlc()
     obj.addMethod("volume", &ProtoVlc::m_volume);
 
     obj.addMethod("browse", &ProtoVlc::m_browse);
-    obj.addMethod("delete", &ProtoVlc::m_delete);
-    obj.addMethod("playlist", &ProtoVlc::m_playlist);
 
+    obj.addMethod("playlist", &ProtoVlc::m_playlist);
 }
