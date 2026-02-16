@@ -36,13 +36,19 @@ public:
 } // namespace ceammc
 
 
+enum class ceammc_rust_atom_type : uint8_t {
+    Float,
+    String,
+    Null,
+};
+
 enum class ceammc_vlc_sort_order {
     Normal,
     Reversed,
 };
 
 /// vlc playing state
-enum class ceammc_vlc_state {
+enum class ceammc_vlc_state : uint8_t {
     Unknown,
     Stopped,
     Paused,
@@ -108,17 +114,17 @@ struct ceammc_callback_notify {
 };
 
 struct ceammc_vlc_status {
-    uint8_t apiversion;
-    bool has_loop;
-    bool repeat;
-    bool random;
-    bool fullscreen;
-    ceammc_vlc_state state;
     double position;
     double volume;
     double time;
     double length;
     double rate;
+    ceammc_vlc_state state;
+    uint8_t apiversion;
+    bool has_loop;
+    bool repeat;
+    bool random;
+    bool fullscreen;
 };
 
 struct ceammc_vlc_status_cb {
@@ -126,6 +132,16 @@ struct ceammc_vlc_status_cb {
     void *user;
     /// callback function
     void (*cb)(void *user, const ceammc_vlc_status *status);
+};
+
+union ceammc_rust_value {
+    const char *str_val;
+    double float_val;
+};
+
+struct ceammc_rust_atom {
+    ceammc_rust_value data;
+    ceammc_rust_atom_type atom_type;
 };
 
 
@@ -453,6 +469,11 @@ bool ceammc_vlc_sort(ceammc_vlc *vlc, const char *sort, ceammc_vlc_sort_order mo
 /// stop vlc playback
 /// @param vlc - vlc control handle
 bool ceammc_vlc_stop(ceammc_vlc *vlc);
+
+/// set vlc volume
+/// @param vlc - vlc control handle
+/// @param volume - vlc volume
+bool ceammc_vlc_volume(ceammc_vlc *vlc, ceammc_rust_atom v0, ceammc_rust_atom v1);
 
 }  // extern "C"
 
