@@ -4,7 +4,6 @@
 #include "datatype_dict.h"
 #include "parser_vlc.h"
 
-
 // #include "httplib.h"
 
 // #define VLC_BROWSE "/requests/browse.json"
@@ -62,10 +61,11 @@ void ProtoVlc::m_stop(t_symbol* s, const AtomListView& lv)
 
 void ProtoVlc::m_pause(t_symbol* s, const AtomListView& lv)
 {
-    // VlcCommand cmd;
-    // cmd.code = VLC_CMD_PAUSE;
-    // cmd.data = lv.boolAt(0, true);
-    // sendCommand(s, cmd);
+    proto_rust::Option<bool> value;
+    if (lv.isBool())
+        value.set(lv.asBool(true));
+
+    ceammc_vlc_pause(vlc_.get(), value.get());
 }
 
 void ProtoVlc::m_fullscreen(t_symbol* s, const AtomListView& lv)

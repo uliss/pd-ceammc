@@ -12,6 +12,7 @@ use std::time::Duration;
 use strum::EnumMessage;
 use strum::IntoEnumIterator;
 
+use crate::common_ffi::callback_notify;
 use crate::vlc_ffi::vlc_sort;
 use crate::vlc_ffi::vlc_sort_order;
 use crate::vlc_ffi::vlc_status;
@@ -33,7 +34,7 @@ async fn send_get_request(
 
     if response.status().is_success() {
         let data = response.text().await?;
-        debug!("status: {data}");
+        // debug!("status: {data}");
         let stat: vlc_status =
             serde_json::from_str(&data).or_else(|err| bail!("vlc json: {err}"))?;
         Ok(stat)
@@ -62,6 +63,7 @@ async fn send2vlc(
     port: u16,
     req: VlcRequest,
     tx: &Sender<VlcReply>,
+    notify: callback_notify,
 ) -> anyhow::Result<bool> {
     let url = match &req {
         VlcRequest::Next => make_status_url(host, port, Some("pl_next"), None),
@@ -129,6 +131,7 @@ async fn send2vlc(
     match &req {
         VlcRequest::GetStatus => {
             tx.send(VlcReply::Status(stat))?;
+            notify.exec();
             Ok(true)
         }
         _ => Ok(true),
@@ -180,7 +183,7 @@ impl Vlc {
                             debug!("[worker] {req:?}");
 
                             if let Err(err) =
-                                send2vlc(&cli, &host.to_string(), &pass, port, req, &rep_tx).await
+                                send2vlc(&cli, &host.to_string(), &pass, port, req, &rep_tx, notify).await
                             {
                                 Self::worker_err(format!("{err}"), &rep_tx, notify);
                             }
