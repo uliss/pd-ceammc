@@ -1,4 +1,5 @@
 #include "proto_vlc.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "datatype_dict.h"
@@ -164,6 +165,14 @@ void ProtoVlc::m_volume(t_symbol* s, const AtomListView& lv)
     ceammc_vlc_volume(vlc_.get(), to_rust(lv.atomAt(0, {})), to_rust(lv.atomAt(1, {})));
 }
 
+void ProtoVlc::m_speed(t_symbol* s, const AtomListView& lv)
+{
+    if (!args::check_args("SPEED:f[0.25,4]", lv, this, &s_))
+        return;
+
+    ceammc_vlc_playback_rate(vlc_.get(), lv[0].asFloat());
+}
+
 void ProtoVlc::m_delete(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArgs(lv, ARG_INT))
@@ -274,56 +283,6 @@ bool ProtoVlc::notify(int code)
 //     boolTo(0, false);
 // }
 
-// static std::string make_vlc_request(const VlcCommand& cmd)
-// {
-//     switch (cmd.code) {
-//     case VLC_CMD_PLAY: {
-//         auto id = boost::get<int>(&cmd.data);
-//         if (id)
-//             return fmt::format(VLC_STATUS "?command=pl_play&id={}", *id);
-//         else
-//             return VLC_STATUS "?command=pl_play";
-//     }
-//     case VLC_CMD_DELETE:
-//         return fmt::format(VLC_STATUS "?command=pl_delete&id={}", boost::get<int>(cmd.data));
-//     case VLC_CMD_STOP:
-//         return VLC_STATUS "?command=pl_stop";
-//     case VLC_CMD_NEXT:
-//         return VLC_STATUS "?command=pl_next";
-//     case VLC_CMD_PREV:
-//         return VLC_STATUS "?command=pl_prev";
-//     case VLC_CMD_PAUSE: {
-//         auto on = boost::get<bool>(&cmd.data);
-//         if (on && *on)
-//             return VLC_STATUS "?command=pl_forcepause";
-//         else
-//             return VLC_STATUS "?command=pl_forceresume";
-//     }
-//     case VLC_CMD_FULLSCREEN:
-//         return VLC_STATUS "?command=fullscreen";
-//     case VLC_CMD_CLEAR:
-//         return VLC_STATUS "?command=pl_empty";
-//     case VLC_CMD_LOOP:
-//         return VLC_STATUS "?command=pl_loop";
-//     case VLC_CMD_VOLUME:
-//         return fmt::format(VLC_STATUS "?command=volume&val={}", boost::get<std::string>(cmd.data));
-//     case VLC_CMD_STATUS:
-//         return VLC_STATUS;
-//     case VLC_CMD_PLAYLIST:
-//         return VLC_PLAYLIST;
-//     case VLC_CMD_ADD:
-//         return fmt::format(VLC_STATUS "?command=in_enqueue&input={}",
-//             httplib::detail::encode_query_param(boost::get<std::string>(cmd.data)));
-//     case VLC_CMD_BROWSE:
-//         return fmt::format(VLC_BROWSE "?uri={}",
-//             httplib::detail::encode_query_param(boost::get<std::string>(cmd.data)));
-//     case VLC_CMD_SEEK:
-//         return fmt::format(VLC_STATUS "?command=seek&val={}", boost::get<std::string>(cmd.data));
-//     default:
-//         return {};
-//     }
-// }
-
 void setup_proto_vlc()
 {
     ObjectFactory<ProtoVlc> obj("proto.vlc");
@@ -336,12 +295,13 @@ void setup_proto_vlc()
     obj.addMethod("play", &ProtoVlc::m_play);
     obj.addMethod("prev", &ProtoVlc::m_prev);
     obj.addMethod("repeat", &ProtoVlc::m_repeat);
+    obj.addMethod("seek", &ProtoVlc::m_seek);
     obj.addMethod("stop", &ProtoVlc::m_stop);
     obj.addMethod("volume", &ProtoVlc::m_volume);
+    obj.addMethod("speed", &ProtoVlc::m_speed);
 
     obj.addMethod("sort", &ProtoVlc::m_sort);
     obj.addMethod("delete", &ProtoVlc::m_delete);
-    obj.addMethod("seek", &ProtoVlc::m_seek);
 
     obj.addMethod("add", &ProtoVlc::m_add);
     obj.addMethod("browse", &ProtoVlc::m_browse);
