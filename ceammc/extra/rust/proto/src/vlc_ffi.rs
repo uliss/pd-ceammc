@@ -486,6 +486,18 @@ pub extern "C" fn ceammc_vlc_get_playlist(vlc: Option<&mut vlc>) -> bool {
 }
 
 #[no_mangle]
+/// get current playlist item
+/// @param vlc - vlc control handle
+pub extern "C" fn ceammc_vlc_get_current(vlc: Option<&mut vlc>) -> bool {
+    if vlc.is_none() {
+        error!("NULL vlc pointer");
+        return false;
+    }
+
+    vlc.unwrap().imp.get_current()
+}
+
+#[no_mangle]
 /// sort playlist
 /// @param vlc - vlc control handle
 /// @param sort - sort field, not NULL!

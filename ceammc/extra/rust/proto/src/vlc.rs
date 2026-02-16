@@ -114,6 +114,17 @@ impl JsonPlaylist {
     }
 
     fn current_id(self: &Self) -> Option<PlaylistItem> {
+        if self.node_type == "leaf" && self.current == "current" {
+            return Some(self.into());
+        } else {
+            for child in self.children.iter() {
+                let cur = child.current_id();
+                if cur.is_some() {
+                    return cur;
+                }
+            }
+        }
+
         None
     }
 }
@@ -402,7 +413,7 @@ async fn send2vlc(
             notify.exec();
             return Ok(true);
         }
-        VlcRequest::GetCurrentId => {
+        VlcRequest::GetCurrentItem => {
             let playlist = request_playlist(cli, host, port, pass).await?;
             tx.send(VlcReply::CurrentId(playlist.current_id()))?;
             notify.exec();
@@ -567,6 +578,10 @@ impl Vlc {
         self.send(VlcRequest::GetPlaylist)
     }
 
+    pub fn get_current(self: &Self) -> bool {
+        self.send(VlcRequest::GetCurrentItem)
+    }
+
     pub fn add_uri(self: &Self, uri: Option<&c_char>, play: bool) -> bool {
         let uri = uri
             .map(|x| unsafe { CStr::from_ptr(x) }.to_string_lossy().to_string())
@@ -664,6 +679,8 @@ impl Vlc {
                 VlcReply::CurrentId(id) => {
                     if let Some(id) = id {
                         on_current_id.exec(&vlc_playlist_item::from(&id));
+                    } else {
+                        self.client_err(format!("current item not found"));
                     }
                 }
             }
@@ -684,7 +701,7 @@ enum VlcRequest {
     Empty,
     GetStatus,
     GetPlaylist,
-    GetCurrentId,
+    GetCurrentItem,
     FullScreen(Option<bool>),
     Loop(Option<bool>),
     Repeat(Option<bool>),

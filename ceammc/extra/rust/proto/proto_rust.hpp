@@ -471,6 +471,10 @@ void ceammc_vlc_free(ceammc_vlc *vlc);
 /// @param value - fullscreen mode, if NULL toggles fullscreen
 bool ceammc_vlc_fullscreen(ceammc_vlc *vlc, const bool *value);
 
+/// get current playlist item
+/// @param vlc - vlc control handle
+bool ceammc_vlc_get_current(ceammc_vlc *vlc);
+
 /// get vlc playlist
 /// @param vlc - vlc control handle
 bool ceammc_vlc_get_playlist(ceammc_vlc *vlc);

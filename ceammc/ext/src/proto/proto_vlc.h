@@ -25,6 +25,7 @@ public:
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_delete(t_symbol* s, const AtomListView& lv);
     void m_fullscreen(t_symbol* s, const AtomListView& lv);
+    void m_get_current(t_symbol* s, const AtomListView& lv);
     void m_get_playlist(t_symbol* s, const AtomListView& lv);
     void m_get_status(t_symbol* s, const AtomListView& lv);
     void m_loop(t_symbol* s, const AtomListView& lv);

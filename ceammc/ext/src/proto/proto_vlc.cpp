@@ -194,6 +194,11 @@ void ProtoVlc::m_add(t_symbol* s, const AtomListView& lv)
     ceammc_vlc_add_uri(vlc_.get(), lv[0].asSymbol()->s_name, lv.boolAt(1, false));
 }
 
+void ProtoVlc::m_get_current(t_symbol* s, const AtomListView& lv)
+{
+    ceammc_vlc_get_current(vlc_.get());
+}
+
 void ProtoVlc::m_get_status(t_symbol* s, const AtomListView& lv)
 {
     ceammc_vlc_get_status(vlc_.get());
@@ -245,28 +250,44 @@ bool ProtoVlc::notify(int code)
 
              obj->anyTo(1, gensym("status"), da);
          } },
-        { this, [](void* user, const ceammc_vlc_playlist* playlist) {
-             auto obj = static_cast<ProtoVlc*>(user);
+        {
+            this,
+            [](void* user, const ceammc_vlc_playlist* playlist) {
+                auto obj = static_cast<ProtoVlc*>(user);
 
-             MListAtom pl;
-             ceammc_vlc_playlist_iter(playlist->items,
-                 playlist->size,
-                 {
-                     &pl,
-                     [](void* user, const ceammc_vlc_playlist_item* item) {
-                         auto& pl = *static_cast<MListAtom*>(user);
-                         DictAtom da;
-                         da->insert("id", item->id);
-                         da->insert("name", gensym(item->name));
-                         da->insert("uri", gensym(item->uri));
-                         da->insert("duration", item->duration);
-                         da->insert("current", item->current);
-                         pl->append(da);
-                     },
-                 });
+                MListAtom pl;
+                ceammc_vlc_playlist_iter(playlist->items,
+                    playlist->size,
+                    {
+                        &pl,
+                        [](void* user, const ceammc_vlc_playlist_item* item) {
+                            auto& pl = *static_cast<MListAtom*>(user);
+                            DictAtom da;
+                            da->insert("id", item->id);
+                            da->insert("name", gensym(item->name));
+                            da->insert("uri", gensym(item->uri));
+                            da->insert("duration", item->duration);
+                            da->insert("current", item->current);
+                            pl->append(da);
+                        },
+                    });
 
-             obj->anyTo(1, gensym("playlist"), pl);
-         } });
+                obj->anyTo(1, gensym("playlist"), pl);
+            },
+        },
+        {
+            this,
+            [](void* user, const ceammc_vlc_playlist_item* item) {
+                auto obj = static_cast<ProtoVlc*>(user);
+                DictAtom da;
+                da->insert("id", item->id);
+                da->insert("name", gensym(item->name));
+                da->insert("uri", gensym(item->uri));
+                da->insert("duration", item->duration);
+                da->insert("current", item->current);
+                obj->anyTo(1, gensym("current"), da);
+            },
+        });
 }
 
 void setup_proto_vlc()
@@ -277,6 +298,7 @@ void setup_proto_vlc()
     obj.addMethod("clear", &ProtoVlc::m_clear);
     obj.addMethod("delete", &ProtoVlc::m_delete);
     obj.addMethod("fs", &ProtoVlc::m_fullscreen);
+    obj.addMethod("get_current", &ProtoVlc::m_get_current);
     obj.addMethod("get_playlist", &ProtoVlc::m_get_playlist);
     obj.addMethod("get_status", &ProtoVlc::m_get_status);
     obj.addMethod("loop", &ProtoVlc::m_loop);
