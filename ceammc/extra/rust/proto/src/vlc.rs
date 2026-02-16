@@ -311,15 +311,15 @@ impl Vlc {
         }
     }
 
-    pub fn send_play(self: &Self, id: Option<i16>) -> bool {
+    pub fn play(self: &Self, id: Option<i16>) -> bool {
         self.send(VlcRequest::Play(id))
     }
 
-    pub fn send_pause(self: &Self, value: Option<bool>) -> bool {
+    pub fn pause(self: &Self, value: Option<bool>) -> bool {
         self.send(VlcRequest::Pause(value))
     }
 
-    pub fn send_stop(self: &Self) -> bool {
+    pub fn stop(self: &Self) -> bool {
         self.send(VlcRequest::Stop)
     }
 
@@ -327,35 +327,35 @@ impl Vlc {
         self.send(VlcRequest::Sort(sort, mode))
     }
 
-    pub fn send_prev(self: &Self) -> bool {
+    pub fn playlisy_prev(self: &Self) -> bool {
         self.send(VlcRequest::Prev)
     }
 
-    pub fn send_next(self: &Self) -> bool {
+    pub fn playlist_next(self: &Self) -> bool {
         self.send(VlcRequest::Next)
     }
 
-    pub fn send_clear(self: &Self) -> bool {
+    pub fn clear_playlist(self: &Self) -> bool {
         self.send(VlcRequest::Empty)
     }
 
-    pub fn send_fullscreen(self: &Self, value: Option<bool>) -> bool {
+    pub fn set_fullscreen(self: &Self, value: Option<bool>) -> bool {
         self.send(VlcRequest::FullScreen(value))
     }
 
-    pub fn send_loop(self: &Self, value: Option<bool>) -> bool {
+    pub fn set_loop(self: &Self, value: Option<bool>) -> bool {
         self.send(VlcRequest::Loop(value))
     }
 
-    pub fn send_repeat(self: &Self, value: Option<bool>) -> bool {
+    pub fn set_repeat(self: &Self, value: Option<bool>) -> bool {
         self.send(VlcRequest::Repeat(value))
     }
 
-    pub fn send_volume(self: &Self, v0: rust_atom, v1: rust_atom) -> bool {
+    pub fn set_volume(self: &Self, v0: rust_atom, v1: rust_atom) -> bool {
         self.send(VlcRequest::Volume(v0.as_safe_value(), v1.as_safe_value()))
     }
 
-    pub fn send_rate(self: &Self, rate: f32) -> bool {
+    pub fn set_playback_rate(self: &Self, rate: f32) -> bool {
         self.send(VlcRequest::PlaybackRate(rate))
     }
 
