@@ -83,6 +83,16 @@ pub struct vlc_status {
     pub fullscreen: bool,
 }
 
+#[allow(non_camel_case_types)]
+pub struct vlc_playlist_item {}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct vlc_playlist {
+    pub size: usize,
+    pub items: *const vlc_playlist_item,
+}
+
 fn deserialize_bool_or_false<'de, D>(deserializer: D) -> Result<bool, D::Error>
 where
     D: serde::Deserializer<'de>,
@@ -130,6 +140,22 @@ impl vlc_status_cb {
     }
 }
 
+#[repr(C)]
+#[allow(non_camel_case_types)]
+#[derive(Clone, Copy)]
+pub struct vlc_playlist_cb {
+    /// user data
+    user: *mut c_void,
+    /// callback function
+    cb: Option<extern "C" fn(user: *mut c_void, playlist: &vlc_playlist)>,
+}
+
+impl vlc_playlist_cb {
+    pub fn exec(&self, playlist: &vlc_playlist) {
+        self.cb.map(|cb| cb(self.user, playlist));
+    }
+}
+
 #[no_mangle]
 /// create vlc control handle
 /// @param host - vlc host name or ip address, if NULL use localhost
@@ -162,19 +188,19 @@ pub extern "C" fn ceammc_vlc_free(vlc: *mut vlc) {
 /// @param vlc - vlc control handle
 /// @param on_msg - error message callback from worker thread
 /// @param on_stat - vlc status callback
+/// @param on_playlist - vlc playlist callback
 pub extern "C" fn ceammc_vlc_poll(
     vlc: Option<&mut vlc>,
     on_msg: crate::common_ffi::callback_msg,
     on_stat: vlc_status_cb,
+    on_playlist: vlc_playlist_cb,
 ) -> bool {
     if vlc.is_none() {
         error!("NULL vlc pointer");
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    vlc.poll(on_msg, on_stat);
-    return true;
+    vlc.unwrap().imp.poll(on_msg, on_stat, on_playlist)
 }
 
 #[no_mangle]
@@ -186,8 +212,7 @@ pub extern "C" fn ceammc_vlc_next(vlc: Option<&mut vlc>) -> bool {
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.playlist_next();
+    vlc.unwrap().imp.playlist_next()
 }
 
 #[no_mangle]
@@ -199,8 +224,7 @@ pub extern "C" fn ceammc_vlc_prev(vlc: Option<&mut vlc>) -> bool {
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.playlisy_prev();
+    vlc.unwrap().imp.playlisy_prev()
 }
 
 #[no_mangle]
@@ -225,8 +249,7 @@ pub extern "C" fn ceammc_vlc_stop(vlc: Option<&mut vlc>) -> bool {
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.stop();
+    vlc.unwrap().imp.stop()
 }
 
 #[no_mangle]
@@ -239,8 +262,7 @@ pub extern "C" fn ceammc_vlc_pause(vlc: Option<&mut vlc>, value: Option<&bool>) 
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.pause(value.map(|x| *x));
+    vlc.unwrap().imp.pause(value.map(|x| *x))
 }
 
 #[no_mangle]
@@ -252,8 +274,7 @@ pub extern "C" fn ceammc_vlc_clear(vlc: Option<&mut vlc>) -> bool {
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.clear_playlist();
+    vlc.unwrap().imp.clear_playlist()
 }
 
 #[no_mangle]
@@ -266,8 +287,7 @@ pub extern "C" fn ceammc_vlc_fullscreen(vlc: Option<&mut vlc>, value: Option<&bo
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.set_fullscreen(value.map(|x| *x));
+    vlc.unwrap().imp.set_fullscreen(value.map(|x| *x))
 }
 
 #[no_mangle]
@@ -280,8 +300,7 @@ pub extern "C" fn ceammc_vlc_loop(vlc: Option<&mut vlc>, value: Option<&bool>) -
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.set_loop(value.map(|x| *x));
+    vlc.unwrap().imp.set_loop(value.map(|x| *x))
 }
 
 #[no_mangle]
@@ -294,8 +313,7 @@ pub extern "C" fn ceammc_vlc_repeat(vlc: Option<&mut vlc>, value: Option<&bool>)
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.set_repeat(value.map(|x| *x));
+    vlc.unwrap().imp.set_repeat(value.map(|x| *x))
 }
 
 #[no_mangle]
@@ -310,8 +328,7 @@ pub extern "C" fn ceammc_vlc_volume(vlc: Option<&mut vlc>, v0: rust_atom, v1: ru
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.set_volume(v0, v1);
+    vlc.unwrap().imp.set_volume(v0, v1)
 }
 
 #[no_mangle]
@@ -324,8 +341,7 @@ pub extern "C" fn ceammc_vlc_playback_rate(vlc: Option<&mut vlc>, rate: f32) -> 
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.set_playback_rate(rate);
+    vlc.unwrap().imp.set_playback_rate(rate)
 }
 
 #[no_mangle]
@@ -343,8 +359,7 @@ pub extern "C" fn ceammc_vlc_add_uri(
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.add_uri(uri, play);
+    vlc.unwrap().imp.add_uri(uri, play)
 }
 
 #[no_mangle]
@@ -357,8 +372,7 @@ pub extern "C" fn ceammc_vlc_seek(vlc: Option<&mut vlc>, seek: rust_atom) -> boo
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.seek(seek.as_safe_value());
+    vlc.unwrap().imp.seek(seek.as_safe_value())
 }
 
 #[no_mangle]
@@ -371,8 +385,33 @@ pub extern "C" fn ceammc_vlc_delete_by_name(vlc: Option<&mut vlc>, name: rust_at
         return false;
     }
 
-    let vlc = &mut vlc.unwrap().imp;
-    return vlc.delete_by_name(name.as_safe_value());
+    vlc.unwrap().imp.delete_by_name(name.as_safe_value())
+}
+
+#[no_mangle]
+/// remove item from playlist
+/// @param vlc - vlc control handle
+/// @param pos - playlist item position
+pub extern "C" fn ceammc_vlc_delete_at_pos(vlc: Option<&mut vlc>, pos: i32) -> bool {
+    if vlc.is_none() {
+        error!("NULL vlc pointer");
+        return false;
+    }
+
+    vlc.unwrap().imp.delete_at_pos(pos)
+}
+
+#[no_mangle]
+/// remove item from playlist
+/// @param vlc - vlc control handle
+/// @param id - playlist item ID (not index position!)
+pub extern "C" fn ceammc_vlc_delete_by_id(vlc: Option<&mut vlc>, id: u64) -> bool {
+    if vlc.is_none() {
+        error!("NULL vlc pointer");
+        return false;
+    }
+
+    vlc.unwrap().imp.delete_by_id(id)
 }
 
 #[no_mangle]

@@ -76,6 +76,8 @@ struct ceammc_obs_scene_list;
 /// vlc control handle
 struct ceammc_vlc;
 
+struct ceammc_vlc_playlist_item;
+
 struct ceammc_obs_init {
     const char *host;
     const char *password;
@@ -142,6 +144,18 @@ struct ceammc_vlc_status_cb {
     void *user;
     /// callback function
     void (*cb)(void *user, const ceammc_vlc_status *status);
+};
+
+struct ceammc_vlc_playlist {
+    size_t size;
+    const ceammc_vlc_playlist_item *items;
+};
+
+struct ceammc_vlc_playlist_cb {
+    /// user data
+    void *user;
+    /// callback function
+    void (*cb)(void *user, const ceammc_vlc_playlist *playlist);
 };
 
 
@@ -421,6 +435,16 @@ ceammc_vlc *ceammc_vlc_create(const char *host,
 
 /// remove item from playlist
 /// @param vlc - vlc control handle
+/// @param pos - playlist item position
+bool ceammc_vlc_delete_at_pos(ceammc_vlc *vlc, int32_t pos);
+
+/// remove item from playlist
+/// @param vlc - vlc control handle
+/// @param id - playlist item ID (not index position!)
+bool ceammc_vlc_delete_by_id(ceammc_vlc *vlc, uint64_t id);
+
+/// remove item from playlist
+/// @param vlc - vlc control handle
 /// @param name - playlist item name
 bool ceammc_vlc_delete_by_name(ceammc_vlc *vlc, ceammc_rust_atom name);
 
@@ -469,7 +493,11 @@ bool ceammc_vlc_playback_rate(ceammc_vlc *vlc, float rate);
 /// @param vlc - vlc control handle
 /// @param on_msg - error message callback from worker thread
 /// @param on_stat - vlc status callback
-bool ceammc_vlc_poll(ceammc_vlc *vlc, ceammc_callback_msg on_msg, ceammc_vlc_status_cb on_stat);
+/// @param on_playlist - vlc playlist callback
+bool ceammc_vlc_poll(ceammc_vlc *vlc,
+                     ceammc_callback_msg on_msg,
+                     ceammc_vlc_status_cb on_stat,
+                     ceammc_vlc_playlist_cb on_playlist);
 
 /// go to previous item in the playlist and play it
 /// @param vlc - vlc control handle

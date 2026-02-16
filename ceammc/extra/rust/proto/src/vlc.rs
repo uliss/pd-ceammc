@@ -8,6 +8,7 @@ use smol_str::SmolStr;
 use std::borrow::Cow;
 use std::ffi::c_char;
 use std::ffi::CStr;
+use std::ffi::CString;
 use std::str::FromStr;
 use std::sync::mpsc::Sender;
 use std::time::Duration;
@@ -17,6 +18,9 @@ use url::Url;
 
 use crate::common_ffi::callback_notify;
 use crate::rust_atom;
+use crate::vlc_ffi::vlc_playlist;
+use crate::vlc_ffi::vlc_playlist_cb;
+use crate::vlc_ffi::vlc_playlist_item;
 use crate::vlc_ffi::vlc_sort;
 use crate::vlc_ffi::vlc_sort_order;
 use crate::vlc_ffi::vlc_status;
@@ -36,9 +40,17 @@ pub struct Vlc {
     cb: crate::common_ffi::callback_msg,
 }
 
+#[derive(Debug)]
+struct PlaylistItem {
+    id: u64,
+    duration: u64,
+    name: CString,
+    uri: CString,
+}
+
 #[derive(Debug, Default, Deserialize)]
-struct Playlist {
-    ro: String,
+struct JsonPlaylist {
+    // ro: String,
     #[serde(rename = "type")]
     node_type: String,
     name: String,
@@ -48,11 +60,11 @@ struct Playlist {
     #[serde(default)]
     duration: u64,
     #[serde(default)]
-    children: Vec<Playlist>,
+    children: Vec<JsonPlaylist>,
 }
 
-impl Playlist {
-    fn find_by_name(self: &Self, name: &str) -> Vec<&Playlist> {
+impl JsonPlaylist {
+    fn find_by_name(self: &Self, name: &str) -> Vec<&JsonPlaylist> {
         let mut res = Vec::new();
 
         if self.name == name {
@@ -68,19 +80,32 @@ impl Playlist {
         return res;
     }
 
-    // fn find_by_id(self: &Self, id: &str) -> Option<&Playlist> {
-    //     if self.id == id {
-    //         return Some(&self);
-    //     } else {
-    //         let res: Vec::new();
-    //         for x in self.children.iter() {
-    //             for item in x.find_by_id(id) {
-    //                 res.push(item);
-    //             }
-    //         }
-    //         return res;
-    //     }
-    // }
+    fn flatten(self: &Self) -> Vec<PlaylistItem> {
+        let mut res = Vec::new();
+
+        if self.node_type == "leaf" {
+            res.push(self.into());
+        } else {
+            for child in self.children.iter() {
+                for x in child.flatten() {
+                    res.push(x.into());
+                }
+            }
+        }
+
+        res
+    }
+}
+
+impl From<&JsonPlaylist> for PlaylistItem {
+    fn from(value: &JsonPlaylist) -> Self {
+        Self {
+            id: value.id.parse::<u64>().unwrap_or_default(),
+            duration: value.duration,
+            name: CString::new(value.name.as_str()).unwrap_or_default(),
+            uri: CString::new(value.uri.as_str()).unwrap_or_default(),
+        }
+    }
 }
 
 async fn request_playlist(
@@ -88,7 +113,7 @@ async fn request_playlist(
     host: &str,
     port: u16,
     pass: &str,
-) -> anyhow::Result<Playlist> {
+) -> anyhow::Result<JsonPlaylist> {
     let response = cli
         .get(format!("http://{host}:{port}/requests/playlist.json"))
         .basic_auth("", Some(pass))
@@ -97,7 +122,8 @@ async fn request_playlist(
 
     if response.status().is_success() {
         let data = response.text().await?;
-        let stat: Playlist = serde_json::from_str(&data).or_else(|err| bail!("vlc json: {err}"))?;
+        let stat: JsonPlaylist =
+            serde_json::from_str(&data).or_else(|err| bail!("vlc json: {err}"))?;
         Ok(stat)
     } else {
         bail!("Status: {}", response.status())
@@ -310,8 +336,24 @@ async fn send2vlc(
             make_status_url(host, port, Some("pl_delete"), Some(id.to_string()), None)?
         }
         VlcRequest::DeleteAtPos(pos) => {
-            let playlist = request_playlist(cli, host, port, pass).await?;
-            todo!()
+            let playlist = request_playlist(cli, host, port, pass).await?.flatten();
+            let count = playlist.len();
+
+            let index = if *pos >= 0 && (*pos as usize) < count {
+                *pos as usize
+            } else if (pos.abs() as usize) <= count {
+                count - (*pos as usize)
+            } else {
+                bail!("invalid item position: {pos}")
+            };
+
+            make_status_url(
+                host,
+                port,
+                Some("pl_delete"),
+                Some(playlist[index].id.to_string()),
+                None,
+            )?
         }
         VlcRequest::DeleteByName(name) => {
             let playlist = request_playlist(cli, host, port, pass).await?;
@@ -328,7 +370,7 @@ async fn send2vlc(
         }
         VlcRequest::GetPlaylist => {
             let playlist = request_playlist(cli, host, port, pass).await?;
-            tx.send(VlcReply::Playlist(playlist))?;
+            tx.send(VlcReply::Playlist(playlist.flatten()))?;
             notify.exec();
             return Ok(true);
         }
@@ -513,6 +555,14 @@ impl Vlc {
         }
     }
 
+    pub fn delete_at_pos(self: &Self, pos: i32) -> bool {
+        self.send(VlcRequest::DeleteAtPos(pos))
+    }
+
+    pub fn delete_by_id(self: &Self, id: u64) -> bool {
+        self.send(VlcRequest::DeleteById(id))
+    }
+
     fn send(self: &Self, req: VlcRequest) -> bool {
         debug!("send: {req:?}");
 
@@ -541,7 +591,12 @@ impl Vlc {
         }
     }
 
-    pub fn poll(self: &Self, on_msg: crate::common_ffi::callback_msg, on_stat: vlc_status_cb) {
+    pub fn poll(
+        self: &Self,
+        on_msg: crate::common_ffi::callback_msg,
+        on_stat: vlc_status_cb,
+        on_playlist: vlc_playlist_cb,
+    ) -> bool {
         while let Ok(msg) = self.rx.try_recv() {
             debug!("[client] {msg:?}");
 
@@ -552,9 +607,23 @@ impl Vlc {
                 VlcReply::Status(vlc_status) => {
                     on_stat.exec(&vlc_status);
                 }
-                VlcReply::Playlist(playlist) => {}
+                VlcReply::Playlist(playlist) => {
+                    let items = playlist
+                        .iter()
+                        .map(|x| vlc_playlist_item {})
+                        .collect::<Vec<_>>();
+
+                    let pl = vlc_playlist {
+                        size: items.len(),
+                        items: items.as_ptr(),
+                    };
+
+                    on_playlist.exec(&pl);
+                }
             }
         }
+
+        true
     }
 }
 
@@ -575,7 +644,7 @@ enum VlcRequest {
     Volume(RustAtom, RustAtom),
     PlaybackRate(f32),
     PlaylistAdd(String, bool),
-    DeleteById(u32),
+    DeleteById(u64),
     DeleteAtPos(i32),
     DeleteByName(SmolStr),
     Seek(RustAtom),
@@ -585,5 +654,5 @@ enum VlcRequest {
 enum VlcReply {
     Error(String),
     Status(vlc_status),
-    Playlist(Playlist),
+    Playlist(Vec<PlaylistItem>),
 }

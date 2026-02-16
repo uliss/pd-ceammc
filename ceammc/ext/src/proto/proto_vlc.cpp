@@ -240,6 +240,10 @@ bool ProtoVlc::notify(int code)
              da->insert("rate", stat->rate);
 
              obj->atomTo(1, da);
+         } },
+        { this, [](void* user, const ceammc_vlc_playlist* playlist) {
+             auto obj = static_cast<ProtoVlc*>(user);
+             Error(obj) << "count: " << playlist->size;
          } });
 }
 
