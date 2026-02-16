@@ -38,7 +38,7 @@ pub enum vlc_sort_order {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Debug, Default)]
+#[derive(Debug, Default, PartialEq)]
 #[repr(C)]
 /// vlc playing state
 pub enum vlc_state {
@@ -49,13 +49,23 @@ pub enum vlc_state {
     Playing,
 }
 
+impl vlc_state {
+    pub fn do_pause(self: &Self, pause: bool) -> bool {
+        pause && self == &vlc_state::Playing
+    }
+
+    pub fn do_resume(self: &Self, pause: bool) -> bool {
+        !pause && self != &vlc_state::Playing
+    }
+}
+
 #[derive(Debug, Default, Deserialize)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub struct vlc_status {
     #[serde(default)]
     pub apiversion: u8,
-    #[serde(default)]
+    #[serde(default, rename = "loop")]
     pub has_loop: bool,
     #[serde(default)]
     pub repeat: bool,
@@ -65,6 +75,8 @@ pub struct vlc_status {
     pub fullscreen: bool,
     #[serde(deserialize_with = "deserialize_state")]
     pub state: vlc_state,
+    #[serde(default)]
+    pub position: f64,
 }
 
 fn deserialize_bool_or_false<'de, D>(deserializer: D) -> Result<bool, D::Error>
@@ -252,6 +264,20 @@ pub extern "C" fn ceammc_vlc_fullscreen(vlc: Option<&mut vlc>, value: Option<&bo
 
     let vlc = &mut vlc.unwrap().imp;
     return vlc.send_fullscreen(value.map(|x| *x));
+}
+
+#[no_mangle]
+/// set vlc loop mode
+/// @param vlc - vlc control handle
+/// @param value - loop value, if NULL toggles loop mode
+pub extern "C" fn ceammc_vlc_loop(vlc: Option<&mut vlc>, value: Option<&bool>) -> bool {
+    if vlc.is_none() {
+        error!("NULL vlc pointer");
+        return false;
+    }
+
+    let vlc = &mut vlc.unwrap().imp;
+    return vlc.send_loop(value.map(|x| *x));
 }
 
 #[no_mangle]

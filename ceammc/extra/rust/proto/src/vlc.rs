@@ -29,7 +29,6 @@ async fn send_get_request(
     url: &String,
     pass: &String,
 ) -> anyhow::Result<vlc_status> {
-    log::warn!("here");
     let response = cli.get(url).basic_auth("", Some(pass)).send().await?;
 
     if response.status().is_success() {
@@ -72,21 +71,15 @@ async fn send2vlc(
             make_status_url(host, port, Some("pl_previous"), id.map(|id| id.to_string()))
         }
         VlcRequest::Pause(value) => {
-            if let Some(stop) = value {
+            if let Some(pause) = value {
                 let url = make_status_url(host, port, None, None);
                 let stat = send_get_request(cli, &url, pass).await?;
-                if *stop {
-                    match stat.state {
-                        crate::vlc_ffi::vlc_state::Playing => {
-                            make_status_url(host, port, Some("pl_forcepause"), None)
-                        }
-                        _ => return Ok(true),
-                    }
+                if stat.state.do_pause(*pause) {
+                    make_status_url(host, port, Some("pl_forcepause"), None)
+                } else if stat.state.do_resume(*pause) {
+                    make_status_url(host, port, Some("pl_forceresume"), None)
                 } else {
-                    match stat.state {
-                        crate::vlc_ffi::vlc_state::Playing => return Ok(true),
-                        _ => make_status_url(host, port, Some("pl_forceresume"), None),
-                    }
+                    return Ok(true);
                 }
             } else {
                 make_status_url(host, port, Some("pl_pause"), None)
@@ -123,6 +116,19 @@ async fn send2vlc(
             }
             None => make_status_url(host, port, Some("fullscreen"), None),
         },
+        VlcRequest::Loop(value) => {
+            if let Some(value) = value {
+                let url = make_status_url(host, port, None, None);
+                let stat = send_get_request(cli, &url, pass).await?;
+                if stat.has_loop != *value {
+                    make_status_url(host, port, Some("pl_loop"), None)
+                } else {
+                    return Ok(true);
+                }
+            } else {
+                make_status_url(host, port, Some("pl_loop"), None)
+            }
+        }
     };
 
     info!("url: {url}");
@@ -183,7 +189,8 @@ impl Vlc {
                             debug!("[worker] {req:?}");
 
                             if let Err(err) =
-                                send2vlc(&cli, &host.to_string(), &pass, port, req, &rep_tx, notify).await
+                                send2vlc(&cli, &host.to_string(), &pass, port, req, &rep_tx, notify)
+                                    .await
                             {
                                 Self::worker_err(format!("{err}"), &rep_tx, notify);
                             }
@@ -236,6 +243,10 @@ impl Vlc {
 
     pub fn send_fullscreen(self: &Self, value: Option<bool>) -> bool {
         self.send(VlcRequest::FullScreen(value))
+    }
+
+    pub fn send_loop(self: &Self, value: Option<bool>) -> bool {
+        self.send(VlcRequest::Loop(value))
     }
 
     pub fn get_status(self: &Self) -> bool {
@@ -297,6 +308,7 @@ enum VlcRequest {
     Empty,
     GetStatus,
     FullScreen(Option<bool>),
+    Loop(Option<bool>),
 }
 
 #[derive(Debug)]

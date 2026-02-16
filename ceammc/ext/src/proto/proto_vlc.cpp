@@ -130,10 +130,11 @@ void ProtoVlc::m_sort(t_symbol* s, const AtomListView& lv)
 
 void ProtoVlc::m_loop(t_symbol* s, const AtomListView& lv)
 {
-    // VlcCommand cmd;
-    // cmd.code = VLC_CMD_LOOP;
+    proto_rust::Option<bool> value;
+    if (lv.isBool())
+        value.set(lv.asBool(true));
 
-    // sendCommand(s, cmd);
+    ceammc_vlc_loop(vlc_.get(), value.get());
 }
 
 void ProtoVlc::m_volume(t_symbol* s, const AtomListView& lv)
@@ -241,6 +242,8 @@ bool ProtoVlc::notify(int code)
              da->insert("loop", stat->has_loop);
              da->insert("repeat", stat->repeat);
              da->insert("random", stat->random);
+             da->insert("fullscreen", stat->fullscreen);
+             da->insert("position", stat->position);
 
              obj->atomTo(1, da);
          } });

@@ -114,6 +114,7 @@ struct ceammc_vlc_status {
     bool random;
     bool fullscreen;
     ceammc_vlc_state state;
+    double position;
 };
 
 struct ceammc_vlc_status_cb {
@@ -404,6 +405,11 @@ bool ceammc_vlc_fullscreen(ceammc_vlc *vlc, const bool *value);
 /// get current vlc status
 /// @param vlc - vlc control handle
 bool ceammc_vlc_get_status(ceammc_vlc *vlc);
+
+/// set vlc loop mode
+/// @param vlc - vlc control handle
+/// @param value - loop value, if NULL toggles loop mode
+bool ceammc_vlc_loop(ceammc_vlc *vlc, const bool *value);
 
 /// go to next item in the playlist and play it
 /// @param vlc - vlc control handle
