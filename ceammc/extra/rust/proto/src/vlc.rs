@@ -11,6 +11,7 @@ use std::sync::mpsc::Sender;
 use std::time::Duration;
 use strum::EnumMessage;
 use strum::IntoEnumIterator;
+use url::Url;
 
 use crate::common_ffi::callback_notify;
 use crate::rust_atom;
@@ -35,10 +36,14 @@ pub struct Vlc {
 
 async fn send_get_request(
     cli: &reqwest::Client,
-    url: &String,
+    url: &Url,
     pass: &String,
 ) -> anyhow::Result<vlc_status> {
-    let response = cli.get(url).basic_auth("", Some(pass)).send().await?;
+    let response = cli
+        .get(url.as_str())
+        .basic_auth("", Some(pass))
+        .send()
+        .await?;
 
     if response.status().is_success() {
         let data = response.text().await?;
@@ -57,21 +62,22 @@ fn make_status_url(
     cmd: Option<&str>,
     id: Option<String>,
     value: Option<String>,
-) -> String {
-    let mut url = format!("http://{host}:{port}/requests/status.json");
+) -> anyhow::Result<Url> {
+    let mut url = Url::parse(&format!("http://{host}:{port}/requests/status.json"))?;
+
     if let Some(cmd) = cmd {
-        url += &format!("?command={cmd}");
+        url.query_pairs_mut().append_pair("command", cmd);
     }
 
     if let Some(id) = id {
-        url += &format!("&id={id}");
+        url.query_pairs_mut().append_pair("id", &id);
     }
 
     if let Some(val) = value {
-        url += &format!("&val={val}");
+        url.query_pairs_mut().append_pair("val", &val);
     }
 
-    return url;
+    return Ok(url);
 }
 
 fn parse_volume(v0: &RustAtom, v1: &RustAtom) -> Result<VlcVolume, String> {
@@ -103,38 +109,40 @@ async fn send2vlc(
     tx: &Sender<VlcReply>,
     notify: callback_notify,
 ) -> anyhow::Result<bool> {
-    let url = match &req {
-        VlcRequest::Next => make_status_url(host, port, Some("pl_next"), None, None),
-        VlcRequest::Prev => make_status_url(host, port, Some("pl_previous"), None, None),
+    let url: Url = match &req {
+        VlcRequest::Next => make_status_url(host, port, Some("pl_next"), None, None)?,
+        VlcRequest::Prev => make_status_url(host, port, Some("pl_previous"), None, None)?,
         VlcRequest::Play(id) => make_status_url(
             host,
             port,
             Some("pl_previous"),
             id.map(|id| id.to_string()),
             None,
-        ),
+        )?,
         VlcRequest::Pause(value) => {
             if let Some(pause) = value {
-                let url = make_status_url(host, port, None, None, None);
+                let url = make_status_url(host, port, None, None, None)?;
                 let stat = send_get_request(cli, &url, pass).await?;
                 if stat.state.do_pause(*pause) {
-                    make_status_url(host, port, Some("pl_forcepause"), None, None)
+                    make_status_url(host, port, Some("pl_forcepause"), None, None)?
                 } else if stat.state.do_resume(*pause) {
-                    make_status_url(host, port, Some("pl_forceresume"), None, None)
+                    make_status_url(host, port, Some("pl_forceresume"), None, None)?
                 } else {
                     return Ok(true);
                 }
             } else {
-                make_status_url(host, port, Some("pl_pause"), None, None)
+                make_status_url(host, port, Some("pl_pause"), None, None)?
             }
         }
-        VlcRequest::Stop => make_status_url(host, port, Some("pl_stop"), None, None),
+        VlcRequest::Stop => make_status_url(host, port, Some("pl_stop"), None, None)?,
         VlcRequest::Sort(sort, vlc_sort_order) => match vlc_sort::from_str(sort.as_str()) {
-            Ok(sort) => format!(
-                "http://{host}:{port}/requests/status.json?command=pl_sort&id={}&val={}",
-                vlc_sort_order.get_serializations()[0],
-                sort.get_serializations()[0],
-            ),
+            Ok(sort) => make_status_url(
+                host,
+                port,
+                Some("pl_sort"),
+                Some(vlc_sort_order.get_serializations()[0].to_string()),
+                Some(sort.get_serializations()[0].to_string()),
+            )?,
             Err(err) => {
                 let usage = vlc_sort::iter()
                     .map(|x| format!("'{}'", x.get_serializations()[0]))
@@ -144,57 +152,57 @@ async fn send2vlc(
                 bail!("{err:?}. Valid variants are: {usage}")
             }
         },
-        VlcRequest::Empty => make_status_url(host, port, Some("pl_empty"), None, None),
-        VlcRequest::GetStatus => make_status_url(host, port, None, None, None),
+        VlcRequest::Empty => make_status_url(host, port, Some("pl_empty"), None, None)?,
+        VlcRequest::GetStatus => make_status_url(host, port, None, None, None)?,
         VlcRequest::FullScreen(value) => match value {
             Some(value) => {
-                let url = make_status_url(host, port, None, None, None);
+                let url = make_status_url(host, port, None, None, None)?;
                 let stat = send_get_request(cli, &url, pass).await?;
                 let is_fullscreen: bool = stat.fullscreen.into();
                 if is_fullscreen != *value {
-                    make_status_url(host, port, Some("fullscreen"), None, None)
+                    make_status_url(host, port, Some("fullscreen"), None, None)?
                 } else {
                     return Ok(true);
                 }
             }
-            None => make_status_url(host, port, Some("fullscreen"), None, None),
+            None => make_status_url(host, port, Some("fullscreen"), None, None)?,
         },
         VlcRequest::Loop(value) => {
             if let Some(value) = value {
-                let url = make_status_url(host, port, None, None, None);
+                let url = make_status_url(host, port, None, None, None)?;
                 let stat = send_get_request(cli, &url, pass).await?;
                 if stat.has_loop != *value {
-                    make_status_url(host, port, Some("pl_loop"), None, None)
+                    make_status_url(host, port, Some("pl_loop"), None, None)?
                 } else {
                     return Ok(true);
                 }
             } else {
-                make_status_url(host, port, Some("pl_loop"), None, None)
+                make_status_url(host, port, Some("pl_loop"), None, None)?
             }
         }
         VlcRequest::Repeat(value) => {
             if let Some(value) = value {
-                let url = make_status_url(host, port, None, None, None);
+                let url = make_status_url(host, port, None, None, None)?;
                 let stat = send_get_request(cli, &url, pass).await?;
                 if stat.repeat != *value {
-                    make_status_url(host, port, Some("pl_repeat"), None, None)
+                    make_status_url(host, port, Some("pl_repeat"), None, None)?
                 } else {
                     return Ok(true);
                 }
             } else {
-                make_status_url(host, port, Some("pl_repeat"), None, None)
+                make_status_url(host, port, Some("pl_repeat"), None, None)?
             }
         }
         VlcRequest::Volume(v0, v1) => match parse_volume(v0, v1) {
             Ok(volume) => match volume {
                 VlcVolume::RelativePlus(v) => {
-                    make_status_url(host, port, Some("volume"), None, Some(format!("+{v}")))
+                    make_status_url(host, port, Some("volume"), None, Some(format!("+{v}")))?
                 }
                 VlcVolume::RelativeMinus(v) => {
-                    make_status_url(host, port, Some("volume"), None, Some(format!("-{v}")))
+                    make_status_url(host, port, Some("volume"), None, Some(format!("-{v}")))?
                 }
                 VlcVolume::Absolute(v) => {
-                    make_status_url(host, port, Some("volume"), None, Some(format!("{v}")))
+                    make_status_url(host, port, Some("volume"), None, Some(format!("{v}")))?
                 }
             },
             Err(err) => bail!("{err}"),
@@ -205,28 +213,32 @@ async fn send2vlc(
             if *rate < MIN_RATE || *rate > MAX_RATE {
                 bail!("invalid playback rate: {rate}, should be in [{MIN_RATE}, {MAX_RATE}] range")
             } else {
-                make_status_url(host, port, Some("rate"), None, Some(format!("{rate}")))
+                make_status_url(host, port, Some("rate"), None, Some(format!("{rate}")))?
             }
         }
         VlcRequest::PlaylistAdd(uri, play) => {
             if *play {
-                format!("http://{host}:{port}/requests/status.json?command=in_play&input={uri}")
+                url::Url::parse(&format!(
+                    "http://{host}:{port}/requests/status.json?command=in_play&input={uri}"
+                ))?
             } else {
-                format!("http://{host}:{port}/requests/status.json?command=in_enqueue&input={uri}")
+                url::Url::parse(&format!(
+                    "http://{host}:{port}/requests/status.json?command=in_enqueue&input={uri}"
+                ))?
             }
         }
         VlcRequest::Seek(rust_atom) => match rust_atom {
             RustAtom::Str(smol_str) => {
-                make_status_url(host, port, Some("seek"), None, Some(smol_str.to_string()))
-            },
+                make_status_url(host, port, Some("seek"), None, Some(smol_str.to_string()))?
+            }
             RustAtom::Float(t_sec) => {
-                make_status_url(host, port, Some("seek"), None, Some(format!("{t_sec}")))
+                make_status_url(host, port, Some("seek"), None, Some(format!("{t_sec}")))?
             }
             RustAtom::Null => bail!("seek is not specified"),
         },
     };
 
-    info!("url: {url}");
+    info!("url: {}", url);
 
     let stat = send_get_request(cli, &url, pass).await?;
     match &req {
