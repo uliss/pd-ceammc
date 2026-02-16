@@ -233,7 +233,6 @@ impl Vlc {
             |x| unsafe { CStr::from_ptr(x) }.to_string_lossy(),
         );
 
-        debug!("pass: {pass}");
         let pass = pass.to_string();
 
         std::thread::spawn(move || {
