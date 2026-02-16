@@ -87,7 +87,7 @@ fn parse_volume(v0: &RustAtom, v1: &RustAtom) -> Result<VlcVolume, String> {
         if let Some(f) = v0.to_float() {
             return Ok(VlcVolume::Absolute(f as u16));
         }
-    } 
+    }
 
     Err(format!("volume parse error"))
 }
@@ -251,23 +251,42 @@ impl Vlc {
                 Ok(cli) => {
                     debug!("[worker] start worker thread");
 
-                    let rt = tokio::runtime::Runtime::new().unwrap();
-                    rt.block_on(async {
-                        while let Ok(req) = req_rx.recv() {
-                            debug!("[worker] {req:?}");
+                    match tokio::runtime::Builder::new_current_thread()
+                        .enable_all()
+                        .build()
+                    {
+                        Ok(rt) => {
+                            rt.block_on(async {
+                                while let Ok(req) = req_rx.recv() {
+                                    debug!("[worker] <- {req:?}");
 
-                            if let Err(err) =
-                                send2vlc(&cli, &host.to_string(), &pass, port, req, &rep_tx, notify)
+                                    if let Err(err) = send2vlc(
+                                        &cli,
+                                        &host.to_string(),
+                                        &pass,
+                                        port,
+                                        req,
+                                        &rep_tx,
+                                        notify,
+                                    )
                                     .await
-                            {
-                                Self::worker_err(format!("{err}"), &rep_tx, notify);
-                            }
+                                    {
+                                        Self::worker_err(format!("{err}"), &rep_tx, notify);
+                                    }
+                                }
+                            });
                         }
-                    });
+                        Err(err) => {
+                            Self::worker_err(
+                                format!("tokio runtime error: {err}"),
+                                &rep_tx,
+                                notify,
+                            );
+                        }
+                    }
                 }
                 Err(err) => {
-                    notify.exec();
-                    error!("{err}");
+                    Self::worker_err(format!("http client error: {err}"), &rep_tx, notify);
                 }
             }
 
