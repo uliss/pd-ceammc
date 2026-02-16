@@ -6,6 +6,7 @@ use std::ffi::{c_char, c_void, CStr};
 use strum_macros::{EnumIter, EnumMessage, EnumString};
 
 #[allow(non_camel_case_types)]
+/// vlc control handle
 pub struct vlc {
     imp: Vlc,
 }
@@ -39,6 +40,7 @@ pub enum vlc_sort_order {
 #[allow(non_camel_case_types)]
 #[derive(Debug, Default)]
 #[repr(C)]
+/// vlc playing state
 pub enum vlc_state {
     #[default]
     Unknown,
@@ -100,7 +102,9 @@ where
 #[allow(non_camel_case_types)]
 #[derive(Clone, Copy)]
 pub struct vlc_status_cb {
+    /// user data
     user: *mut c_void,
+    /// callback function
     cb: Option<extern "C" fn(user: *mut c_void, status: &vlc_status)>,
 }
 
@@ -111,6 +115,11 @@ impl vlc_status_cb {
 }
 
 #[no_mangle]
+/// create vlc control handle
+/// @param host - vlc host name or ip address, if NULL use localhost
+/// @param port - vlc http remote port
+/// @param pass - vlc http password
+/// @param notify - notification callback
 pub extern "C" fn ceammc_vlc_create(
     host: Option<&std::ffi::c_char>,
     port: u16,
@@ -124,6 +133,8 @@ pub extern "C" fn ceammc_vlc_create(
 }
 
 #[no_mangle]
+/// free vlc handle
+/// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_free(vlc: *mut vlc) {
     if !vlc.is_null() {
         drop(unsafe { Box::from_raw(vlc) });
@@ -131,6 +142,10 @@ pub extern "C" fn ceammc_vlc_free(vlc: *mut vlc) {
 }
 
 #[no_mangle]
+/// get incoming messages from vlc
+/// @param vlc - vlc control handle
+/// @param on_msg - error message callback from worker thread
+/// @param on_stat - vlc status callback
 pub extern "C" fn ceammc_vlc_poll(
     vlc: Option<&mut vlc>,
     on_msg: crate::common_ffi::callback_msg,
@@ -147,6 +162,8 @@ pub extern "C" fn ceammc_vlc_poll(
 }
 
 #[no_mangle]
+/// go to next item in the playlist and play it
+/// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_next(vlc: Option<&mut vlc>) -> bool {
     if vlc.is_none() {
         error!("NULL vlc pointer");
@@ -158,7 +175,7 @@ pub extern "C" fn ceammc_vlc_next(vlc: Option<&mut vlc>) -> bool {
 }
 
 #[no_mangle]
-/// go to previous item in playlist and play it
+/// go to previous item in the playlist and play it
 /// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_prev(vlc: Option<&mut vlc>) -> bool {
     if vlc.is_none() {
@@ -174,14 +191,8 @@ pub extern "C" fn ceammc_vlc_prev(vlc: Option<&mut vlc>) -> bool {
 /// play playlist item
 /// @param vlc - vlc control handle
 /// @param id - pointer to track index, can be NULL
-pub extern "C" fn ceammc_vlc_play(vlc: Option<&mut vlc>, id: *const i16) -> bool {
-    let id = if id.is_null() {
-        None
-    } else {
-        Some(unsafe { *id })
-    };
-
-    vlc.and_then(|vlc| Some(vlc.imp.send_play(id)))
+pub extern "C" fn ceammc_vlc_play(vlc: Option<&mut vlc>, id: Option<&i16>) -> bool {
+    vlc.and_then(|vlc| Some(vlc.imp.send_play(id.map(|x| *x))))
         .or_else(|| {
             error!("NULL vlc pointer");
             Some(false)

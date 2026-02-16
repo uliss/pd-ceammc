@@ -41,6 +41,7 @@ enum class ceammc_vlc_sort_order {
     Reversed,
 };
 
+/// vlc playing state
 enum class ceammc_vlc_state {
     Unknown,
     Stopped,
@@ -66,6 +67,7 @@ struct ceammc_obs_scene_item_list;
 
 struct ceammc_obs_scene_list;
 
+/// vlc control handle
 struct ceammc_vlc;
 
 struct ceammc_obs_init {
@@ -115,7 +117,9 @@ struct ceammc_vlc_status {
 };
 
 struct ceammc_vlc_status_cb {
+    /// user data
     void *user;
+    /// callback function
     void (*cb)(void *user, const ceammc_vlc_status *status);
 };
 
@@ -377,12 +381,19 @@ void ceammc_proto_log_init();
 /// @param vlc - vlc control handle
 bool ceammc_vlc_clear(ceammc_vlc *vlc);
 
+/// create vlc control handle
+/// @param host - vlc host name or ip address, if NULL use localhost
+/// @param port - vlc http remote port
+/// @param pass - vlc http password
+/// @param notify - notification callback
 ceammc_vlc *ceammc_vlc_create(const char *host,
                               uint16_t port,
                               const char *pass,
                               ceammc_callback_msg cb,
                               ceammc_callback_notify notify);
 
+/// free vlc handle
+/// @param vlc - vlc control handle
 void ceammc_vlc_free(ceammc_vlc *vlc);
 
 /// set vlc fullscreen mode
@@ -394,6 +405,8 @@ bool ceammc_vlc_fullscreen(ceammc_vlc *vlc, const bool *value);
 /// @param vlc - vlc control handle
 bool ceammc_vlc_get_status(ceammc_vlc *vlc);
 
+/// go to next item in the playlist and play it
+/// @param vlc - vlc control handle
 bool ceammc_vlc_next(ceammc_vlc *vlc);
 
 /// pause vlc playback
@@ -406,9 +419,13 @@ bool ceammc_vlc_pause(ceammc_vlc *vlc, const bool *value);
 /// @param id - pointer to track index, can be NULL
 bool ceammc_vlc_play(ceammc_vlc *vlc, const int16_t *id);
 
+/// get incoming messages from vlc
+/// @param vlc - vlc control handle
+/// @param on_msg - error message callback from worker thread
+/// @param on_stat - vlc status callback
 bool ceammc_vlc_poll(ceammc_vlc *vlc, ceammc_callback_msg on_msg, ceammc_vlc_status_cb on_stat);
 
-/// go to previous item in playlist and play it
+/// go to previous item in the playlist and play it
 /// @param vlc - vlc control handle
 bool ceammc_vlc_prev(ceammc_vlc *vlc);
 
