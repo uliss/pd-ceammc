@@ -241,7 +241,8 @@ impl Vlc {
 
             let cli = ClientBuilder::new()
                 .timeout(Duration::from_millis(1000))
-                // .tcp_keepalive(None)
+                .pool_max_idle_per_host(0) // do not cache vlc connections
+                .tcp_keepalive(None)
                 .tcp_nodelay(true)
                 .build();
 
