@@ -84,7 +84,13 @@ pub struct vlc_status {
 }
 
 #[allow(non_camel_case_types)]
-pub struct vlc_playlist_item {}
+pub struct vlc_playlist_item {
+    pub name: *const c_char,
+    pub uri: *const c_char,
+    pub id: u64,
+    pub duration: u64,
+    pub current: bool,
+}
 
 #[allow(non_camel_case_types)]
 #[repr(C)]

@@ -47,6 +47,7 @@ struct PlaylistItem {
     duration: u64,
     name: CString,
     uri: CString,
+    current: bool,
 }
 
 #[derive(Debug, Default, Deserialize)]
@@ -62,6 +63,8 @@ struct JsonPlaylist {
     duration: u64,
     #[serde(default)]
     children: Vec<JsonPlaylist>,
+    #[serde(default)]
+    current: String,
 }
 
 impl JsonPlaylist {
@@ -105,6 +108,7 @@ impl From<&JsonPlaylist> for PlaylistItem {
             duration: value.duration,
             name: CString::new(value.name.as_str()).unwrap_or_default(),
             uri: CString::new(value.uri.as_str()).unwrap_or_default(),
+            current: value.current == "current",
         }
     }
 }
@@ -617,7 +621,13 @@ impl Vlc {
                 VlcReply::Playlist(playlist) => {
                     let items = playlist
                         .iter()
-                        .map(|x| vlc_playlist_item {})
+                        .map(|x| vlc_playlist_item {
+                            name: x.name.as_ptr(),
+                            uri: x.uri.as_ptr(),
+                            id: x.id,
+                            duration: x.duration,
+                            current: x.current,
+                        })
                         .collect::<Vec<_>>();
 
                     let pl = vlc_playlist {
