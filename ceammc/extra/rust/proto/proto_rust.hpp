@@ -76,8 +76,6 @@ struct ceammc_obs_scene_list;
 /// vlc control handle
 struct ceammc_vlc;
 
-struct ceammc_vlc_playlist_item;
-
 struct ceammc_obs_init {
     const char *host;
     const char *password;
@@ -123,6 +121,21 @@ union ceammc_rust_value {
 struct ceammc_rust_atom {
     ceammc_rust_value data;
     ceammc_rust_atom_type atom_type;
+};
+
+struct ceammc_vlc_playlist_item {
+    const char *name;
+    const char *uri;
+    uint64_t id;
+    uint64_t duration;
+    bool current;
+};
+
+struct ceammc_vlc_playlist_item_cb {
+    /// user data
+    void *user;
+    /// callback function
+    void (*cb)(void *user, const ceammc_vlc_playlist_item *item);
 };
 
 struct ceammc_vlc_status {
@@ -488,6 +501,14 @@ bool ceammc_vlc_play(ceammc_vlc *vlc, const int16_t *id);
 /// @param vlc - vlc control handle
 /// @param rate - vlc playback rate
 bool ceammc_vlc_playback_rate(ceammc_vlc *vlc, float rate);
+
+/// iterate all playlist items with given callback
+/// @param items - pointer to items
+/// @param size - playlist item count
+/// @param cb - callback called for each item
+void ceammc_vlc_playlist_iter(const ceammc_vlc_playlist_item *items,
+                              size_t len,
+                              ceammc_vlc_playlist_item_cb cb);
 
 /// get incoming messages from vlc
 /// @param vlc - vlc control handle

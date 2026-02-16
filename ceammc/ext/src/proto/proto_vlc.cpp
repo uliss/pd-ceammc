@@ -3,6 +3,7 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "datatype_dict.h"
+#include "datatype_mlist.h"
 #include "parser_vlc.h"
 
 using opt_i16 = ceammc::proto_rust::Option<std::int16_t>;
@@ -241,11 +242,29 @@ bool ProtoVlc::notify(int code)
              da->insert("length", stat->length);
              da->insert("rate", stat->rate);
 
-             obj->atomTo(1, da);
+             obj->anyTo(1, gensym("status"), da);
          } },
         { this, [](void* user, const ceammc_vlc_playlist* playlist) {
              auto obj = static_cast<ProtoVlc*>(user);
-             Error(obj) << "count: " << playlist->size;
+
+             MListAtom pl;
+             ceammc_vlc_playlist_iter(playlist->items,
+                 playlist->size,
+                 {
+                     &pl,
+                     [](void* user, const ceammc_vlc_playlist_item* item) {
+                         auto& pl = *static_cast<MListAtom*>(user);
+                         DictAtom da;
+                         da->insert("id", item->id);
+                         da->insert("name", gensym(item->name));
+                         da->insert("uri", gensym(item->uri));
+                         da->insert("duration", item->duration);
+                         da->insert("current", item->current);
+                         pl->append(da);
+                     },
+                 });
+
+             obj->anyTo(1, gensym("playlist"), pl);
          } });
 }
 

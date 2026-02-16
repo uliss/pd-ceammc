@@ -84,12 +84,48 @@ pub struct vlc_status {
 }
 
 #[allow(non_camel_case_types)]
+#[repr(C)]
 pub struct vlc_playlist_item {
     pub name: *const c_char,
     pub uri: *const c_char,
     pub id: u64,
     pub duration: u64,
     pub current: bool,
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct vlc_playlist_item_cb {
+    /// user data
+    user: *mut c_void,
+    /// callback function
+    cb: Option<extern "C" fn(user: *mut c_void, item: &vlc_playlist_item)>,
+}
+
+impl vlc_playlist_item_cb {
+    pub fn exec(&self, item: &vlc_playlist_item) {
+        self.cb.map(|cb| cb(self.user, item));
+    }
+}
+
+#[no_mangle]
+/// iterate all playlist items with given callback
+/// @param items - pointer to items
+/// @param size - playlist item count
+/// @param cb - callback called for each item
+pub extern "C" fn ceammc_vlc_playlist_iter(
+    items: *const vlc_playlist_item,
+    len: usize,
+    cb: vlc_playlist_item_cb,
+) {
+    if items.is_null() {
+        return;
+    }
+
+    let items = unsafe { std::slice::from_raw_parts(items, len) };
+    for x in items.iter() {
+        cb.exec(x);
+    }
 }
 
 #[allow(non_camel_case_types)]
