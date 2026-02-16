@@ -118,6 +118,7 @@ struct ceammc_vlc_status {
     double volume;
     double time;
     double length;
+    double rate;
 };
 
 struct ceammc_vlc_status_cb {

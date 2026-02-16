@@ -250,6 +250,7 @@ bool ProtoVlc::notify(int code)
              da->insert("volume", stat->volume);
              da->insert("time", stat->time);
              da->insert("length", stat->length);
+             da->insert("rate", stat->rate);
 
              obj->atomTo(1, da);
          } });
