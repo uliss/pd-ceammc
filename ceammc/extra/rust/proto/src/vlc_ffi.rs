@@ -81,6 +81,8 @@ pub struct vlc_status {
     pub random: bool,
     #[serde(deserialize_with = "deserialize_bool_or_false")]
     pub fullscreen: bool,
+    #[serde(default)]
+    currentplid: u64
 }
 
 #[allow(non_camel_case_types)]

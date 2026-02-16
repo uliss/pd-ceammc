@@ -241,6 +241,7 @@ bool ProtoVlc::notify(int code)
              da->insert("time", stat->time);
              da->insert("length", stat->length);
              da->insert("rate", stat->rate);
+             da->insert("current_id", stat->currentplid);
 
              obj->anyTo(1, gensym("status"), da);
          } },
