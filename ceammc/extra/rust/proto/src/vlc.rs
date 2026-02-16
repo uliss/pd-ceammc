@@ -218,13 +218,13 @@ async fn send2vlc(
         }
         VlcRequest::PlaylistAdd(uri, play) => {
             if *play {
-                url::Url::parse(&format!(
-                    "http://{host}:{port}/requests/status.json?command=in_play&input={uri}"
-                ))?
+                let mut url = make_status_url(host, port, Some("in_play"), None, None)?;
+                url.query_pairs_mut().append_pair("input", uri);
+                url
             } else {
-                url::Url::parse(&format!(
-                    "http://{host}:{port}/requests/status.json?command=in_enqueue&input={uri}"
-                ))?
+                let mut url = make_status_url(host, port, Some("in_enqueue"), None, None)?;
+                url.query_pairs_mut().append_pair("input", uri);
+                url
             }
         }
         VlcRequest::Seek(rust_atom) => match rust_atom {

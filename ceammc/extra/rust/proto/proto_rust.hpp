@@ -478,7 +478,7 @@ bool ceammc_vlc_seek(ceammc_vlc *vlc, ceammc_rust_atom seek);
 
 /// sort playlist
 /// @param vlc - vlc control handle
-/// @param sort - sort field number, not NULL!
+/// @param sort - sort field, not NULL!
 /// @param mode - sort mode: normal or reversed
 bool ceammc_vlc_sort(ceammc_vlc *vlc, const char *sort, ceammc_vlc_sort_order mode);
 

@@ -15,16 +15,12 @@ pub struct vlc {
 #[derive(Debug, PartialEq, EnumString, EnumIter, EnumMessage)]
 #[repr(C)]
 pub enum vlc_sort {
-    #[strum(serialize = "Id", serialize = "0", ascii_case_insensitive)]
-    Id,
-    #[strum(serialize = "Name", serialize = "1", ascii_case_insensitive)]
-    Name,
-    #[strum(serialize = "Author", serialize = "3", ascii_case_insensitive)]
-    Author,
-    #[strum(serialize = "Random", serialize = "5", ascii_case_insensitive)]
-    Random,
-    #[strum(serialize = "Track", serialize = "7", ascii_case_insensitive)]
-    Track,
+    duration,
+    genre,
+    artist,
+    random,
+    title,
+    albom,
 }
 
 #[allow(non_camel_case_types)]
@@ -337,7 +333,11 @@ pub extern "C" fn ceammc_vlc_playback_rate(vlc: Option<&mut vlc>, rate: f32) -> 
 /// @param vlc - vlc control handle
 /// @param uri - resource URI
 /// @param play - should immidiately play added url
-pub extern "C" fn ceammc_vlc_add_uri(vlc: Option<&mut vlc>, uri: Option<&c_char>, play: bool) -> bool {
+pub extern "C" fn ceammc_vlc_add_uri(
+    vlc: Option<&mut vlc>,
+    uri: Option<&c_char>,
+    play: bool,
+) -> bool {
     if vlc.is_none() {
         error!("NULL vlc pointer");
         return false;
@@ -377,7 +377,7 @@ pub extern "C" fn ceammc_vlc_get_status(vlc: Option<&mut vlc>) -> bool {
 #[no_mangle]
 /// sort playlist
 /// @param vlc - vlc control handle
-/// @param sort - sort field number, not NULL!
+/// @param sort - sort field, not NULL!
 /// @param mode - sort mode: normal or reversed
 pub extern "C" fn ceammc_vlc_sort(
     vlc: Option<&mut vlc>,
