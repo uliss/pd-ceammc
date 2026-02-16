@@ -6,6 +6,25 @@
 
 using opt_i16 = ceammc::proto_rust::Option<std::int16_t>;
 
+namespace {
+
+ceammc_rust_atom to_rust(const Atom& a)
+{
+    ceammc_rust_value val;
+    if (a.isFloat()) {
+        val.float_val = a.asT<t_float>();
+        return ceammc_rust_atom { val, ceammc_rust_atom_type::Float };
+    } else if (a.isSymbol()) {
+        val.str_val = a.asT<t_symbol*>()->s_name;
+        return ceammc_rust_atom { val, ceammc_rust_atom_type::String };
+    } else {
+        val.float_val = 0;
+        return ceammc_rust_atom { val, ceammc_rust_atom_type::Null };
+    }
+}
+
+} // namespace
+
 ProtoVlc::ProtoVlc(const PdArgs& args)
     : DispatchedObject<BaseObject>(args)
     , host_(nullptr)
@@ -142,39 +161,7 @@ void ProtoVlc::m_repeat(t_symbol* s, const AtomListView& lv)
 
 void ProtoVlc::m_volume(t_symbol* s, const AtomListView& lv)
 {
-    // VlcCommand cmd;
-    // cmd.code = VLC_CMD_VOLUME;
-
-    // auto conv = [](int x) -> int {
-    //     return std::round(convert::lin2lin_clip<float, -100, 100>(x, -255, 255));
-    // };
-
-    // if (lv.isInteger()) {
-    //     auto x = lv[0].asT<t_int>();
-    //     if (x >= 0) { // absolute volume
-    //         cmd.data = fmt::format("{}", conv(x));
-    //     } else // relative negative
-    //         cmd.data = fmt::format("-{}", conv(-x));
-    // } else if (lv.isSymbol()) {
-    //     auto str = lv[0].asT<t_symbol*>()->s_name;
-    //     if (str[0] != '+' && str[0] != '-') {
-    //         METHOD_ERR(s) << "VOL, +VOL or -VOL expected";
-    //         return;
-    //     }
-
-    //     try {
-    //         auto v = conv(std::stoi(str));
-    //         if (v < 0)
-    //             cmd.data = fmt::format("{}", v);
-    //         else
-    //             cmd.data = fmt::format("%2b{}", v);
-    //     } catch (std::exception& e) {
-    //         METHOD_ERR(s) << e.what();
-    //         return;
-    //     }
-    // }
-
-    // sendCommand(s, cmd);
+    ceammc_vlc_volume(vlc_.get(), to_rust(lv.atomAt(0, {})), to_rust(lv.atomAt(1, {})));
 }
 
 void ProtoVlc::m_delete(t_symbol* s, const AtomListView& lv)
@@ -350,8 +337,8 @@ void setup_proto_vlc()
     obj.addMethod("prev", &ProtoVlc::m_prev);
     obj.addMethod("repeat", &ProtoVlc::m_repeat);
     obj.addMethod("stop", &ProtoVlc::m_stop);
-
     obj.addMethod("volume", &ProtoVlc::m_volume);
+
     obj.addMethod("sort", &ProtoVlc::m_sort);
     obj.addMethod("delete", &ProtoVlc::m_delete);
     obj.addMethod("seek", &ProtoVlc::m_seek);
