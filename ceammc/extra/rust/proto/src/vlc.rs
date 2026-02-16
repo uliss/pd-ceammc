@@ -92,6 +92,8 @@ fn parse_volume(v0: &RustAtom, v1: &RustAtom) -> Result<VlcVolume, String> {
     Err(format!("volume parse error"))
 }
 
+// full vlc command list is here:
+// https://github.com/videolan/vlc/blob/master/share/lua/http/requests/README.txt
 async fn send2vlc(
     cli: &reqwest::Client,
     host: &String,
@@ -197,6 +199,15 @@ async fn send2vlc(
             },
             Err(err) => bail!("{err}"),
         },
+        VlcRequest::PlaybackRate(rate) => {
+            const MIN_RATE: f32 = 0.25;
+            const MAX_RATE: f32 = 4.0;
+            if *rate < MIN_RATE || *rate > MAX_RATE {
+                bail!("invalid playback rate: {rate}, should be in [{MIN_RATE}, {MAX_RATE}] range")
+            } else {
+                make_status_url(host, port, Some("rate"), None, Some(format!("{rate}")))
+            }
+        }
     };
 
     info!("url: {url}");
@@ -344,6 +355,10 @@ impl Vlc {
         self.send(VlcRequest::Volume(v0.as_safe_value(), v1.as_safe_value()))
     }
 
+    pub fn send_rate(self: &Self, rate: f32) -> bool {
+        self.send(VlcRequest::PlaybackRate(rate))
+    }
+
     pub fn get_status(self: &Self) -> bool {
         self.send(VlcRequest::GetStatus)
     }
@@ -406,6 +421,7 @@ enum VlcRequest {
     Loop(Option<bool>),
     Repeat(Option<bool>),
     Volume(RustAtom, RustAtom),
+    PlaybackRate(f32),
 }
 
 #[derive(Debug)]

@@ -108,7 +108,7 @@ impl RustAtom {
             _ => false,
         }
     }
-
+    
     fn is_str(self: &Self) -> bool {
         match self {
             &RustAtom::Str(_) => true,

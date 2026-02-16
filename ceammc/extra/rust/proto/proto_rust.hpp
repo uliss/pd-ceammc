@@ -445,6 +445,11 @@ bool ceammc_vlc_pause(ceammc_vlc *vlc, const bool *value);
 /// @param id - pointer to track index, can be NULL
 bool ceammc_vlc_play(ceammc_vlc *vlc, const int16_t *id);
 
+/// set vlc playback rate
+/// @param vlc - vlc control handle
+/// @param rate - vlc playback rate
+bool ceammc_vlc_playback_rate(ceammc_vlc *vlc, float rate);
+
 /// get incoming messages from vlc
 /// @param vlc - vlc control handle
 /// @param on_msg - error message callback from worker thread
@@ -471,8 +476,10 @@ bool ceammc_vlc_sort(ceammc_vlc *vlc, const char *sort, ceammc_vlc_sort_order mo
 bool ceammc_vlc_stop(ceammc_vlc *vlc);
 
 /// set vlc volume
+/// supported syntax:[+, 10], [-, 10], [100, None] etc.
 /// @param vlc - vlc control handle
-/// @param volume - vlc volume
+/// @param v0 - first arg
+/// @param v1 - second arg
 bool ceammc_vlc_volume(ceammc_vlc *vlc, ceammc_rust_atom v0, ceammc_rust_atom v1);
 
 }  // extern "C"

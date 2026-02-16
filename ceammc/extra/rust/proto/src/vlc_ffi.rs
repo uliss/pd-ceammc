@@ -304,8 +304,10 @@ pub extern "C" fn ceammc_vlc_repeat(vlc: Option<&mut vlc>, value: Option<&bool>)
 
 #[no_mangle]
 /// set vlc volume
+/// supported syntax:[+, 10], [-, 10], [100, None] etc.
 /// @param vlc - vlc control handle
-/// @param volume - vlc volume
+/// @param v0 - first arg
+/// @param v1 - second arg
 pub extern "C" fn ceammc_vlc_volume(vlc: Option<&mut vlc>, v0: rust_atom, v1: rust_atom) -> bool {
     if vlc.is_none() {
         error!("NULL vlc pointer");
@@ -314,6 +316,20 @@ pub extern "C" fn ceammc_vlc_volume(vlc: Option<&mut vlc>, v0: rust_atom, v1: ru
 
     let vlc = &mut vlc.unwrap().imp;
     return vlc.send_volume(v0, v1);
+}
+
+#[no_mangle]
+/// set vlc playback rate
+/// @param vlc - vlc control handle
+/// @param rate - vlc playback rate
+pub extern "C" fn ceammc_vlc_playback_rate(vlc: Option<&mut vlc>, rate: f32) -> bool {
+    if vlc.is_none() {
+        error!("NULL vlc pointer");
+        return false;
+    }
+
+    let vlc = &mut vlc.unwrap().imp;
+    return vlc.send_rate(rate);
 }
 
 #[no_mangle]
