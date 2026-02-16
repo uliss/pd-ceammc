@@ -179,6 +179,7 @@ void ProtoVlc::m_delete(t_symbol* s, const AtomListView& lv)
     } else if (lv.getProperty(gensym("@id"), id)) {
     } else if (lv.getProperty(gensym("@pos"), pos)) {
     } else {
+        OBJ_ERR << "item info expected: @name, @id or @pos";
     }
 }
 
