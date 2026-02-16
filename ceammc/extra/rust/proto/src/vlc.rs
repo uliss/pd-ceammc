@@ -1,4 +1,5 @@
 use anyhow::bail;
+use anyhow::Context;
 use log::debug;
 use log::error;
 use log::info;
@@ -342,7 +343,7 @@ async fn send2vlc(
             let index = if *pos >= 0 && (*pos as usize) < count {
                 *pos as usize
             } else if (pos.abs() as usize) <= count {
-                count - (*pos as usize)
+                count - (pos.abs() as usize)
             } else {
                 bail!("invalid item position: {pos}")
             };
@@ -351,7 +352,13 @@ async fn send2vlc(
                 host,
                 port,
                 Some("pl_delete"),
-                Some(playlist[index].id.to_string()),
+                Some(
+                    playlist
+                        .get(index)
+                        .context(format!("invalid index: {index}"))?
+                        .id
+                        .to_string(),
+                ),
                 None,
             )?
         }

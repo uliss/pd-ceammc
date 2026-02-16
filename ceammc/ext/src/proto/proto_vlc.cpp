@@ -177,7 +177,9 @@ void ProtoVlc::m_delete(t_symbol* s, const AtomListView& lv)
         auto str_name = to_string(name);
         ceammc_vlc_delete_by_name(vlc_.get(), to_rust(Atom(gensym(str_name.c_str()))));
     } else if (lv.getProperty(gensym("@id"), id)) {
+        ceammc_vlc_delete_by_id(vlc_.get(), id.asInt());
     } else if (lv.getProperty(gensym("@pos"), pos)) {
+        ceammc_vlc_delete_at_pos(vlc_.get(), pos.asInt());
     } else {
         OBJ_ERR << "item info expected: @name, @id or @pos";
     }
