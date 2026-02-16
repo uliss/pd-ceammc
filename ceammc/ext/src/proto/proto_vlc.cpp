@@ -296,9 +296,10 @@ void setup_proto_vlc()
     obj.addMethod("prev", &ProtoVlc::m_prev);
     obj.addMethod("repeat", &ProtoVlc::m_repeat);
     obj.addMethod("seek", &ProtoVlc::m_seek);
+    obj.addMethod("speed", &ProtoVlc::m_speed);
+    obj.addMethod("status", &ProtoVlc::m_status);
     obj.addMethod("stop", &ProtoVlc::m_stop);
     obj.addMethod("volume", &ProtoVlc::m_volume);
-    obj.addMethod("speed", &ProtoVlc::m_speed);
 
     obj.addMethod("sort", &ProtoVlc::m_sort);
     obj.addMethod("delete", &ProtoVlc::m_delete);
@@ -306,5 +307,5 @@ void setup_proto_vlc()
     obj.addMethod("add", &ProtoVlc::m_add);
     obj.addMethod("browse", &ProtoVlc::m_browse);
     obj.addMethod("playlist", &ProtoVlc::m_playlist);
-    obj.addMethod("status", &ProtoVlc::m_status);
+
 }
