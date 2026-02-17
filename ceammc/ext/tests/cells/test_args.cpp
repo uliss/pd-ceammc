@@ -113,6 +113,10 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("i", LF(1000)));
         REQUIRE(args::check_args("i", LF(-11000)));
 
+        REQUIRE(args::check_args("i?", L()));
+        REQUIRE(args::check_args("i?", LF(0)));
+        REQUIRE_FALSE(args::check_args("i?", LF(1, 2)));
+
         REQUIRE_FALSE(args::check_args("i", LF(1.5)));
         REQUIRE_FALSE(args::check_args("i", LF(-0.1)));
 
