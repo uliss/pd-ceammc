@@ -33,7 +33,7 @@
 #X obj 69 714 openpanel;
 #X msg 69 742 load \$1 to agr0 @resize;
 #X obj 50 771 snd.file;
-#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 826 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 829 ui.link @background_color 0.98039 0.98039 0.98039
@@ -42,26 +42,29 @@
 #X text 170 827 symbol;
 #X obj 268 828 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 827 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 867 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 870 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 868 @array;
 #X text 270 868 Имя массива. Тип: symbol.;
+#X obj 250 898 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 898 @prob;
 #X text 270 898 Вероятность старта гранулы во внутреннем или внешнем
 режиме синхронизации. Тип: float. Значение по умолчанию: 1\. Диапазон:
 0\...1\.;
+#X obj 250 955 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 955 @sync;
 #X text 270 955 Режим синхронизации гранул. Если «none»: запускает
 гранулы сразу после их завершения \, если «int»: запускает гранулы
 после определенного интервала (@tsync). Тип: symbol. Значение по умолчанию:
 none. Разрешённые значения: none \, int \, ext.;
+#X obj 250 1042 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1042 @tsync;
 #X text 270 1042 Интервал синхронизации гранул. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 50\. Минимальное значение: 1\.;
-#X obj 20 1109 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1109 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1114 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1115 align;
@@ -71,6 +74,7 @@ none. Разрешённые значения: none \, int \, ext.;
 \, если ".": выровнять только завершенные гранулы \, если целое значение:
 выравнивает гранулу с соответствующим #id \, если символ: выровнять
 гранулы с соответствующим тегом. Тип: atom.;
+#X obj 250 1223 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1223 append;
 #X text 270 1223 добавить гранулы. Аргументы:;
 #X obj 280 1246 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -78,6 +82,7 @@ none. Разрешённые значения: none \, int \, ext.;
 1\.;
 #X obj 280 1269 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1269 PROPS: свойства гранулы. Тип: list.;
+#X obj 250 1294 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1294 clear;
 #X text 270 1294 удалить гранулу(ы). Аргументы:;
 #X obj 280 1317 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -85,6 +90,7 @@ none. Разрешённые значения: none \, int \, ext.;
 \, если «.»: удалить только завершенные гранулы \, если целое число:
 удалить гранулу с соответствующим #id \, если символ: удалить гранулы
 с соответствующим тегом. Тип: atom.;
+#X obj 250 1402 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1402 defer;
 #X text 270 1402 отсрочить вызов метода пока не завершиться некоторое
 число гранул. Аргументы:;
@@ -96,6 +102,7 @@ none. Разрешённые значения: none \, int \, ext.;
 #X text 280 1493 METHOD: название метода. Тип: symbol.;
 #X obj 280 1516 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1516 [ARGS]: аргументы метода. Тип: list.;
+#X obj 250 1541 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1541 fill;
 #X text 270 1541 наполнить наполнить (удалить все существующие зерна
 раньше). Аргументы:;
@@ -103,10 +110,12 @@ none. Разрешённые значения: none \, int \, ext.;
 #X text 280 1579 N: число гранул. Тип: int. Минимальное значение: 1\.;
 #X obj 280 1602 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1602 PROPS: свойства гранул. Тип: list.;
+#X obj 250 1627 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1627 grain;
 #X text 270 1627 создать гранулу. Аргументы:;
 #X obj 280 1650 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1650 PROPS: свойства гранулы. Тип: list.;
+#X obj 250 1675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1675 onsets;
 #X text 270 1675 проанализировать исходный массив на атаки. Аргументы:;
 #X obj 280 1698 cnv 1 124 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -119,6 +128,7 @@ float. Единицы: 'ms'.;
 #X obj 280 1789 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1789 [SILENCE=-40]: уровень тишины. Тип: float. Единицы:
 'db'.;
+#X obj 250 1814 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1814 pause;
 #X text 270 1814 приостановить или возобновить воспроизведение гранул.
 Аргументы:;
@@ -129,6 +139,7 @@ float. Единицы: 'ms'.;
 #X obj 280 1920 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1920 [STATE]: значение вкл./выкл. Тип: int. Разрешённые
 значения: 0 \, 1\.;
+#X obj 250 1960 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1960 permutate;
 #X text 270 1960 перестановка позиций гранул (@ta и @tb). Аргументы:;
 #X obj 280 1983 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -139,12 +150,14 @@ int. Диапазон: -16…16\.;
 #X text 280 2036 [TAG]: если «*» или не указано: переставляет все гранулы
 \, если «.»: только завершенные \, если символ – гранулы с соответствующим
 тегом. Тип: symbol.;
+#X obj 250 2091 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2091 reverse;
 #X text 270 2091 reverse grain positions (@ta and @tb) values. Аргументы:;
 #X obj 280 2114 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2114 [TAG]: if '*' or omitted: reverse positions of all
 grains \, if '.': reverse positions of finished grains only \, otherwise
 reverse grains with corresponding tag. Тип: symbol.;
+#X obj 250 2184 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2184 set;
 #X text 270 2184 установить свойства гранул(ы). Аргументы:;
 #X obj 280 2207 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -153,6 +166,7 @@ reverse grains with corresponding tag. Тип: symbol.;
 указанным тегом. Тип: atom.;
 #X obj 280 2260 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2260 PROPS: свойства гранул. Тип: list.;
+#X obj 250 2285 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2285 shuffle;
 #X text 270 2285 случайно перетасовать позиции гранул (@ta и @tb).
 Аргументы:;
@@ -160,6 +174,7 @@ reverse grains with corresponding tag. Тип: symbol.;
 #X text 280 2308 [TAG]: если "*" или не указано: перетасовывает все
 гранулы \, если ".": перетасовать только завершенные гранулы \, если
 символ: перетасовать гранулы с указанным тегом. Тип: symbol.;
+#X obj 250 2378 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2378 slice;
 #X text 270 2378 нарезать указанный диапазон на указанное количество
 гранул. Аргументы:;
@@ -173,6 +188,7 @@ reverse grains with corresponding tag. Тип: symbol.;
 - использует всю продолжительность исходного массива. Тип: atom.;
 #X obj 280 2522 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2522 [GRAIN]: свойства нарезанных гранул. Тип: list.;
+#X obj 250 2547 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2547 spread;
 #X text 270 2547 равномерно расположить гранулы для заполнения заданного
 диапазона. Аргументы:;
@@ -185,7 +201,7 @@ reverse grains with corresponding tag. Тип: symbol.;
 #X text 280 2668 [TAG]: если "*" или опущено: распределяет все гранулы
 \, если ".": распределить только завершенные гранулы \, если символ
 - распределить гранулы с соответствующей меткой. Тип: symbol.;
-#X obj 20 2748 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2748 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2753 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 2754 1\.;
@@ -193,7 +209,7 @@ reverse grains with corresponding tag. Тип: symbol.;
 #X text 170 2779 bang:;
 #X text 270 2779 если @sync = 'ext': начинает воспроизведение завершенных
 гранул.;
-#X obj 20 2829 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2829 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2834 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2835 1\.;
@@ -231,7 +247,7 @@ reverse grains with corresponding tag. Тип: symbol.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 2927 pd info;
 #X connect 17 0 19 0;

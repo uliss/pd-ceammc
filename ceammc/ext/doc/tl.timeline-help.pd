@@ -44,7 +44,7 @@ last user event);
 -1;
 #X obj 290 561 sec->str @symbol @ms;
 #X symbolatom 290 589 15 0 0 0 - - -;
-#X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 626 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 629 ui.link @background_color 0.98039 0.98039 0.98039
@@ -54,7 +54,7 @@ last user event);
 #X obj 268 628 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 627 LENGTH(sec): timeline length. Type: float. Min value:
 0;
-#X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 667 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 670 ui.link @background_color 0.98039 0.98039 0.98039
@@ -62,32 +62,40 @@ last user event);
 #X msg 130 668 @length;
 #X text 270 668 (initonly) Timeline length. Type: float. Units: 'sec'.
 Default value: 60\. Min value: 0\.;
+#X obj 250 710 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 710 @loop;
 #X text 270 710 Loop mode. Type: bool. Default value: 0\.;
+#X obj 250 740 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 740 @mode;
 #X text 270 740 Timeline mode. If timeline is fixed \, when reached
 \, it outputs *end* event and stops after that. Infinite timeline never
 stops by itself. Fixed timeline can have @loop property for repeats.
 Type: symbol. Default value: fixed. Allowed values: fixed \, inf.;
+#X obj 250 827 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 827 @current?;
 #X text 270 827 (readonly) Current time. Type: float. Units: 'ms'.
 Default value: 0\.;
+#X obj 250 869 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 869 @current_sec?;
 #X text 270 869 (readonly) Current time. Type: float. Units: 'sec'.
 Default value: 0\.;
+#X obj 250 911 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 911 @events?;
 #X text 270 911 (readonly) List of event names in chronological order.
 Type: list. Default value: end.;
+#X obj 250 953 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 953 @is_running?;
 #X text 270 953 (readonly) If timeline is running. Type: bool. Default
 value: 0\.;
+#X obj 250 995 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 995 @phase?;
 #X text 270 995 (readonly) Current phase in [0-1) range. Type: float.
 Default value: 0\. Range: 0\...1\.;
+#X obj 250 1037 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1037 @size?;
 #X text 270 1037 (readonly) Number of events in timeline. Type: int.
 Default value: 1\. Min value: 0\.;
-#X obj 20 1089 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1089 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1094 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1095 add;
@@ -104,43 +112,52 @@ name is used: event1 \, event2 etc.). Type: symbol.;
 target event. Type: symbol. Allowed values: before \, after.;
 #X obj 280 1262 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1262 [REL_EVENT]: relative event name. Type: symbol.;
+#X obj 250 1287 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1287 clear;
 #X text 270 1287 remove all timeline events.;
+#X obj 250 1315 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1315 pause;
 #X text 270 1315 stops timeline at current position.;
+#X obj 250 1343 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1343 remove;
 #X text 270 1343 remove event by given index or name. [remove event1(
 or [remove 3(. Arguments are:;
 #X obj 280 1381 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1381 [NAME|IDX]: event name or index. Type: atom.;
+#X obj 250 1406 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1406 remove_at;
 #X text 270 1406 remove event at specified time. Arguments are:;
 #X obj 280 1429 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1429 [TIME]: time in supported format. See *info* section.
 Type: list.;
+#X obj 250 1469 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1469 reset;
 #X text 270 1469 reset timeline (call only when stopped).;
+#X obj 250 1497 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1497 start;
 #X text 270 1497 start timeline from current position.;
+#X obj 250 1525 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1525 stop;
 #X text 270 1525 stops timeline and reset current position to the beginning.;
+#X obj 250 1553 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1553 to_event;
 #X text 270 1553 move time to specified event. Arguments are:;
 #X obj 280 1576 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1576 [NAME|IDX]: event or index. Type: atom.;
+#X obj 250 1601 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1601 to_time;
 #X text 270 1601 move time to time. Arguments are:;
 #X obj 280 1624 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1624 [TIME]: time in supported format. See *info* section.
 Type: list.;
-#X obj 20 1674 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1674 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1679 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1680 1\.;
 #X text 170 1680 float:;
 #X text 270 1680 control inlet. Non-zero value starts timeline \, zero
 - stops.;
-#X obj 20 1715 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1715 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1720 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1721 1\.;
@@ -177,7 +194,7 @@ Type: list.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 1793 pd info;
 #X connect 13 0 14 0;

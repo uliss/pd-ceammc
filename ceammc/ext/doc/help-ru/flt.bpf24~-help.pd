@@ -29,7 +29,7 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X obj 50 471 ui.plot~ @xlabels 1 @ylabels 1 @ymin 0 @ymax 1
 @ymin_ticks 0 @ymaj_ticks 0 @n 2 @size 400 200;
 #X obj 50 687 ui.dsp~;
-#X obj 20 737 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 737 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 742 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 745 ui.link @background_color 0.98039 0.98039 0.98039
@@ -43,7 +43,7 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X obj 268 769 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 768 Q: quality factory: @freq/BANDWIDTH. Тип: float. Диапазон:
 0.01…100;
-#X obj 20 818 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 818 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 823 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 826 ui.link @background_color 0.98039 0.98039 0.98039
@@ -53,23 +53,27 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/flt_bpf24/ИМЯ_СВОЙСТВА \, в противном случае к /flt_bpf24/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 896 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 896 @osc;
 #X text 270 896 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 926 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 926 @active;
 #X text 270 926 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 968 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 968 @freq;
 #X text 270 968 Cutoff frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 1000\. Диапазон: 20\...20000\.;
+#X obj 250 1010 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1010 @q;
 #X text 270 1010 Quality factor: @freq/BANDWIDTH. Тип: float. Значение
 по умолчанию: 2\. Диапазон: 0.01\...100\.;
-#X obj 20 1062 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1062 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1067 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1068 reset;
 #X text 270 1068 reset filter state.;
-#X obj 20 1106 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1106 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1111 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1112 1\.;
@@ -79,7 +83,7 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X text 270 1137 set frequency.;
 #X text 130 1162 3\.;
 #X text 270 1162 set Q-factor.;
-#X obj 20 1197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1197 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1202 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1203 1\.;
@@ -116,7 +120,7 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1275 pd info;
 #X connect 8 0 9 0;

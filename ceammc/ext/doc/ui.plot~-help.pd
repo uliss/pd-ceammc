@@ -21,7 +21,7 @@
 #X obj 491 349 ui.plot~-log2;
 #X obj 491 392 ui.plot~-ln;
 #X obj 50 478 ui.dsp~;
-#X obj 20 528 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 528 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 533 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 130 568 Left-click;
@@ -39,7 +39,7 @@
 #X text 130 668 Right-click;
 #X text 310 668 open the Pd popup menu.;
 #X text 81 668 [Edit];
-#X obj 20 698 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 698 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 703 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 706 ui.link @background_color 0.98039 0.98039 0.98039
@@ -47,106 +47,136 @@
 #X msg 130 704 @mode;
 #X text 270 704 Draw mode. Type: symbol. Default value: lines. Allowed
 values: lines \, bars.;
+#X obj 250 746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 746 @n;
 #X text 270 746 Number of inputs. Type: int. Default value: 1\. Range:
 1\...4\.;
+#X obj 250 788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 788 @receive;
 #X text 270 788 Source of message receive. Type: symbol. Default value:
 (null).;
+#X obj 250 830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 830 @xmaj_grid;
 #X text 270 830 Draw major grid lines on x-axis. Type: bool. Default
 value: 1\.;
+#X obj 250 872 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 872 @xmaj_ticks;
 #X text 270 872 Draw minor ticks on x-axis. Type: bool. Default value:
 1\.;
+#X obj 250 902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 902 @xmin_grid;
 #X text 270 902 Draw minor grid lines on x-axis. Type: bool. Default
 value: 0\.;
+#X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 944 @xmin_ticks;
 #X text 270 944 Draw minor ticks on x-axis. Type: bool. Default value:
 1\.;
+#X obj 250 974 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 974 @yauto;
 #X text 270 974 Calculate y-axis range automatically. Type: bool. Default
 value: 0\.;
+#X obj 250 1016 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1016 @ymaj_grid;
 #X text 270 1016 Draw major grid lines on y-axis. Type: bool. Default
 value: 1\.;
+#X obj 250 1058 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1058 @ymaj_ticks;
 #X text 270 1058 Draw minor ticks on y-axis. Type: bool. Default value:
 1\.;
+#X obj 250 1088 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1088 @ymax;
 #X text 270 1088 Minimal y-axis value. Type: float. Default value:
 1\. Range: -1024\...1024\.;
+#X obj 250 1130 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1130 @ymin;
 #X text 270 1130 Minimal y-axis value. Type: float. Default value:
 -1\. Range: -1024\...1024\.;
+#X obj 250 1172 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1172 @ymin_grid;
 #X text 270 1172 Draw minor grid lines on y-axis. Type: bool. Default
 value: 0\.;
+#X obj 250 1214 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1214 @ymin_ticks;
 #X text 270 1214 Draw minor ticks on y-axis. Type: bool. Default value:
 1\.;
+#X obj 250 1244 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1244 @background_color;
 #X text 270 1244 Element background color (list of red \, green \,
 blue values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93
 1\.;
+#X obj 250 1301 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1301 @border_color;
 #X text 270 1301 Border color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
+#X obj 250 1343 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1343 @plot_color0;
 #X text 270 1343 First plot color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X obj 250 1385 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1385 @plot_color1;
 #X text 270 1385 Second color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0.75 0 1 1\.;
+#X obj 250 1427 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1427 @plot_color2;
 #X text 270 1427 Third color (list of red \, green \, blue values in
 0-1 range). Type: list. Default value: 1 0 0.75 1\.;
+#X obj 250 1469 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1469 @plot_color3;
 #X text 270 1469 Fourth color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 1 0.75 0 1\.;
+#X obj 250 1511 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1511 @xlabels;
 #X text 270 1511 Draw labels on x-axis. Type: bool. Default value:
 0\.;
+#X obj 250 1541 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1541 @xlabels;
 #X text 270 1541 Draw labels on x-axis. Type: bool. Default value:
 0\.;
+#X obj 250 1571 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1571 @xlabels;
 #X text 270 1571 Draw labels on x-axis. Type: bool. Default value:
 0\.;
+#X obj 250 1601 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1601 @ylabels;
 #X text 270 1601 Draw labels on y-axis. Type: bool. Default value:
 0\.;
+#X obj 250 1631 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1631 @fontname;
 #X text 270 1631 Font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1673 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1673 @fontsize;
 #X text 270 1673 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X obj 250 1703 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1703 @fontslant;
 #X text 270 1703 Font slant. Type: symbol. Default value: roman. Allowed
 values: roman \, italic.;
+#X obj 250 1745 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1745 @fontweight;
 #X text 270 1745 Font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
+#X obj 250 1787 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1787 @pinned;
 #X text 270 1787 Pin mode. If set to 1 \, it places the element at
 the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
+#X obj 250 1844 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1844 @size;
 #X text 270 1844 Object size (width \, height pair). Type: list. Default
 value: 200 200\.;
-#X obj 20 1896 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1896 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1901 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1902 plot;
 #X text 270 1902 Same as bang: plot default number of samples.;
+#X obj 250 1930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1930 pos;
 #X text 270 1930 set UI element position. Arguments are:;
 #X obj 280 1953 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1953 X: top left x-coord. Type: float.;
 #X obj 280 1976 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1976 Y: top right y-coord. Type: float.;
-#X obj 20 2011 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2011 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2016 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2017 1\.;
@@ -157,7 +187,7 @@ value: 200 200\.;
 #X text 270 2042 plot default number of samples.;
 #X text 170 2067 float:;
 #X text 270 2067 plot specified number of samples.;
-#X obj 20 2102 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2102 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2107 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -191,7 +221,7 @@ value: 200 200\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 2170 pd info;
 #X connect 4 0 5 0;

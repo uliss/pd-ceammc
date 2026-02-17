@@ -20,7 +20,7 @@
 -1;
 #X obj 50 305 array.bpm A1;
 #X floatatom 50 334 5 0 0 0 - - -;
-#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 371 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 374 ui.link @background_color 0.98039 0.98039 0.98039
@@ -29,20 +29,20 @@
 #X text 170 372 symbol;
 #X obj 268 373 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 372 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 412 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 415 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 413 @array;
 #X text 270 413 Имя массива. Тип: symbol.;
-#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 458 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 459 1\.;
 #X text 170 459 bang:;
 #X text 270 459 начинает вычисление.;
-#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 499 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 500 1\.;
@@ -77,7 +77,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 572 pd info;
 #X connect 6 0 8 0;

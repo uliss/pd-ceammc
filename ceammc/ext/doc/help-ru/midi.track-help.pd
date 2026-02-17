@@ -22,7 +22,7 @@
 #X obj 50 406 *~;
 #X obj 50 435 ui.hgain2~;
 #X obj 50 464 dac~;
-#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 519 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
@@ -32,49 +32,60 @@
 #X obj 268 521 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 520 TRACK: init track number. Тип: int. Минимальное значение:
 0\.;
-#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 560 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 563 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 561 @join;
 #X text 270 561 Join all tracks into one. Значение по умолчанию: 0\.;
+#X obj 250 591 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 591 @speed;
 #X text 270 591 Play speed factor. Тип: float. Значение по умолчанию:
 1\. Минимальное значение: 0.01\.;
+#X obj 250 633 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 633 @track;
 #X text 270 633 Track number. Тип: int. Значение по умолчанию: 0\.
 Минимальное значение: 0\.;
+#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 675 @current?;
 #X text 270 675 (только чтение) Current event tick index. Тип: int.
 Значение по умолчанию: 0\.;
+#X obj 250 717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 717 @nevents?;
 #X text 270 717 (только чтение) Number of events in track. Тип: int.
 Значение по умолчанию: 0\.;
+#X obj 250 759 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 759 @state?;
 #X text 270 759 (только чтение) Current state. 0: stopped \, 1: playing
 \, 2: paused. Тип: int. Значение по умолчанию: 0\. Разрешённые значения:
 0 \, 1 \, 2\.;
+#X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 816 @tempo?;
 #X text 270 816 (только чтение) Current tempo in TPQ. Тип: int. Значение
 по умолчанию: 120\.;
-#X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 873 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 874 next;
 #X text 270 874 moves playing position to next event. No output.;
+#X obj 250 902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 902 pause;
 #X text 270 902 pause playing.;
+#X obj 250 930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 930 play;
 #X text 270 930 start playing.;
+#X obj 250 958 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 958 reset;
 #X text 270 958 set current event index to zero and send All Notes
 Off event.;
+#X obj 250 986 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 986 seek;
 #X text 270 986 seek to specified tick.;
+#X obj 250 1014 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1014 stop;
 #X text 270 1014 stop playing and send All Notes Off event.;
-#X obj 20 1052 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1052 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1057 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1058 1\.;
@@ -82,7 +93,7 @@ Off event.;
 #X text 270 1058 output current event.;
 #X text 170 1083 data:;
 #X text 270 1083 MidiStream object: set new mifi file.;
-#X obj 20 1118 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1118 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1123 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1124 1\.;
@@ -118,7 +129,7 @@ Off event.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1216 pd info;
 #X connect 4 0 5 0;

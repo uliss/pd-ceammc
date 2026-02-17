@@ -32,7 +32,7 @@
 #X obj 50 432 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 461 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 498 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 501 ui.link @background_color 0.98039 0.98039 0.98039
@@ -41,14 +41,14 @@
 #X text 170 499 list;
 #X obj 268 500 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 499 VALUE: list contents. Тип: list.;
-#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 539 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 542 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 540 @value;
 #X text 270 540 List contents. Тип: list.;
-#X obj 20 580 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 580 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 585 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 586 1\.;
@@ -65,7 +65,7 @@
 #X text 130 711 2\.;
 #X text 170 711 list:;
 #X text 270 711 set haystack list.;
-#X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 751 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 752 1\.;
@@ -103,7 +103,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 824 pd info;
 #X connect 7 0 13 0;

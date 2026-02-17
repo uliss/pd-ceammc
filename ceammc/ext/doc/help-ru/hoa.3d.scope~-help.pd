@@ -19,7 +19,7 @@ field;
 #X obj 50 234 hoa.3d.encoder~ 3, f 17;
 #X obj 50 263 hoa.3d.scope~ 3 @size 123 123;
 #X obj 50 392 ui.dsp~;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 447 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 482 Right-click + ⇧;
@@ -35,7 +35,7 @@ field;
 #X text 130 562 Right-click + ⌥;
 #X text 310 562 open the properties dialog.;
 #X text 65 562 [Правка];
-#X obj 20 592 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 592 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 597 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 600 ui.link @background_color 0.98039 0.98039 0.98039
@@ -43,67 +43,87 @@ field;
 #X msg 130 598 @gain;
 #X text 270 598 Gain. Тип: float. Значение по умолчанию: 1\. Минимальное
 значение: 0\.;
+#X obj 250 640 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 640 @order;
 #X text 270 640 The order of decomposition. Тип: int. Значение по умолчанию:
 1\. Диапазон: 1\...63\.;
+#X obj 250 682 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 682 @refresh;
 #X text 270 682 Redraw time. Тип: int. Единицы: 'ms'. Значение по умолчанию:
 100\. Диапазон: 20\...1000\.;
+#X obj 250 724 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 724 @view;
 #X text 270 724 View rotation. Тип: list. Значение по умолчанию: 0
 0 0\.;
+#X obj 250 754 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 754 @background_color;
 #X text 270 754 Element background color (list of red \, green \, blue
 values in 0-1 range). Тип: list. Значение по умолчанию: 0.93 0.93 0.93
 1\.;
+#X obj 250 811 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 811 @border_color;
 #X text 270 811 Border color (list of red \, green \, blue values in
 0-1 range). Тип: list. Значение по умолчанию: 0.6 0.6 0.6 1\.;
+#X obj 250 868 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 868 @label_color;
 #X text 270 868 Label color in RGB format within 0-1 range \, for example:
 0.2 0.4 0.1\. Тип: list. Значение по умолчанию: 0 0 0 1\.;
+#X obj 250 925 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 925 @nh_color;
 #X text 270 925 Negative harmonics color. Тип: list. Значение по умолчанию:
 0 0 1 1\.;
+#X obj 250 967 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 967 @ph_color;
 #X text 270 967 Positive harmonics color. Тип: list. Значение по умолчанию:
 1 0 0 1\.;
+#X obj 250 1009 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1009 @label;
 #X text 270 1009 Label text. Тип: symbol. Значение по умолчанию: (null).;
+#X obj 250 1039 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1039 @label_align;
 #X text 270 1039 Label horizontal align. Тип: symbol. Значение по умолчанию:
 left. Разрешённые значения: left \, center \, right.;
+#X obj 250 1081 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1081 @label_inner;
 #X text 270 1081 Label position (1 - inner \, 0 - outer). Тип: bool.
 Значение по умолчанию: 0\.;
+#X obj 250 1123 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1123 @label_margins;
 #X text 270 1123 Label offset in pixels. Тип: list. Значение по умолчанию:
 0 0\.;
+#X obj 250 1165 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1165 @label_side;
 #X text 270 1165 Label snap side. Тип: symbol. Значение по умолчанию:
 top. Разрешённые значения: left \, top \, right \, bottom.;
+#X obj 250 1207 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1207 @label_valign;
 #X text 270 1207 Label vertical align. Тип: symbol. Значение по умолчанию:
 top. Разрешённые значения: top \, center \, bottom.;
+#X obj 250 1249 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1249 @fontname;
 #X text 270 1249 Fontname. Тип: symbol. Значение по умолчанию: Helvetica.
 Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1306 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1306 @fontsize;
 #X text 270 1306 Fontsize. Тип: int. Значение по умолчанию: 11\. Диапазон:
 4\...100\.;
+#X obj 250 1348 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1348 @fontslant;
 #X text 270 1348 Font slant. Тип: symbol. Значение по умолчанию: roman.
 Разрешённые значения: roman \, italic.;
+#X obj 250 1390 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1390 @fontweight;
 #X text 270 1390 Font weight. Тип: symbol. Значение по умолчанию: normal.
 Разрешённые значения: normal \, bold.;
+#X obj 250 1432 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1432 @pinned;
 #X text 270 1432 Pin mode. if 1 - put element to the lowest level.
 Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 1474 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1474 @size;
 #X text 270 1474 Element size (width \, height pair). Тип: list. Значение
 по умолчанию: 120 120\.;
-#X obj 20 1526 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1526 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1531 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1532 pos;
@@ -112,9 +132,10 @@ top. Разрешённые значения: top \, center \, bottom.;
 #X text 280 1555 X: top left x-coord. Тип: float.;
 #X obj 280 1578 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1578 Y: top right y-coord. Тип: float.;
+#X obj 250 1603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1603 dump;
 #X text 270 1603 dumps all object info to Pd console window.;
-#X obj 20 1641 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1641 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1646 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1647 1\.;
@@ -156,7 +177,7 @@ Thomas Le Meur;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1774 pd info;
 #X connect 6 0 9 0;

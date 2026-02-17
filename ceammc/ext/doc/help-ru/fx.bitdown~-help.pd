@@ -16,7 +16,7 @@
 #X obj 50 262 ui.gain~ @size 120 14;
 #X obj 280 262 ui.dsp~;
 #X obj 50 291 dac~;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 346 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,7 +30,7 @@
 #X obj 268 373 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 372 DOWNSAMP(samp): number of samples to skip. Тип: int.
 Диапазон: 1…200;
-#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 427 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 430 ui.link @background_color 0.98039 0.98039 0.98039
@@ -40,32 +40,37 @@
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/fx_bitdown/ИМЯ_СВОЙСТВА \, в противном случае к /fx_bitdown/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 515 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 515 @osc;
 #X text 270 515 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 545 @active;
 #X text 270 545 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 587 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 587 @bits;
 #X text 270 587 Output bits. Тип: int. Значение по умолчанию: 16\.
 Диапазон: 1\...16\.;
+#X obj 250 629 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 629 @bypass;
 #X text 270 629 Bypass flag. If true: bypass 'effected' signal. Тип:
 bool. Значение по умолчанию: 0\.;
+#X obj 250 671 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 671 @downsamp;
 #X text 270 671 Number samples to skip. Тип: int. Единицы: 'samp'.
 Значение по умолчанию: 1\. Диапазон: 1\...200\.;
-#X obj 20 723 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 723 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 728 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 729 reset;
 #X text 270 729 reset object.;
-#X obj 20 767 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 767 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 772 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 773 1\.;
 #X text 170 773 ~;
 #X text 270 773 left channel.;
-#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 813 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 814 1\.;
@@ -100,7 +105,7 @@ bool. Значение по умолчанию: 0\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 886 pd info;
 #X connect 4 0 5 0;

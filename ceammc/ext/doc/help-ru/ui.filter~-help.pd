@@ -16,7 +16,7 @@
 #X obj 203 291 ui.dsp~;
 #X obj 328 291 ui.dt;
 #X obj 50 320 dac~;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 375 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 410 Left-click;
@@ -27,7 +27,7 @@
 #X text 310 450 change frequency and Q/gain value.;
 #X text 130 470 Mouse-wheel;
 #X text 310 470 only for peakEq filter: change Q-factor.;
-#X obj 20 500 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 500 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 505 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 508 ui.link @background_color 0.98039 0.98039 0.98039
@@ -35,91 +35,117 @@
 #X msg 130 506 @freq;
 #X text 270 506 Filter frequency. Тип: float. Значение по умолчанию:
 1000\. Диапазон: 0\...20000\.;
+#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 548 @gain;
 #X text 270 548 Gain (for low/highshelf/peak filters). Тип: float.
 Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -24\...24\.;
+#X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 605 @mouse_events;
 #X text 270 605 Mouse events output mode. If on outputs @mouse_down
 \, @mouse_up and @mouse_drag events. Тип: bool. Значение по умолчанию:
 0\.;
+#X obj 250 662 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 662 @q;
 #X text 270 662 Quality factor. Тип: float. Значение по умолчанию:
 0.7071\. Диапазон: 0.0156\...64\.;
+#X obj 250 704 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 704 @receive;
 #X text 270 704 Источник получения сообщений. Тип: symbol. Значение
 по умолчанию: (null).;
+#X obj 250 746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 746 @scale;
 #X text 270 746 Frequency scale. Тип: symbol. Значение по умолчанию:
 lin. Разрешённые значения: lin \, log \, rad.;
+#X obj 250 788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 788 @send;
 #X text 270 788 Адрес отправки сообщений. Тип: symbol. Значение по
 умолчанию: (null).;
+#X obj 250 830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 830 @type;
 #X text 270 830 Frequency scale. Тип: symbol. Значение по умолчанию:
 lpf. Разрешённые значения: lpf \, hpf \, bpf \, bpfq \, lowshelf \,
 highshelf \, peak \, notch.;
+#X obj 250 887 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 887 @background_color;
 #X text 270 887 Цвета фона у объекта (список из красного \, зеленого
 и синего значений в диапазоне [0\..1]). Тип: list. Значение по умолчанию:
 0.93 0.93 0.93 1\.;
+#X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 944 @border_color;
 #X text 270 944 Цвет границы объекта (список из красного \, зеленого
 и синего цветов в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
 0.6 0.6 0.6 1\.;
+#X obj 250 1001 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1001 @grid_color;
 #X text 270 1001 Knob color. Тип: list. Значение по умолчанию: 0.6
 0.6 0.6 1\.;
+#X obj 250 1031 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1031 @knob_color;
 #X text 270 1031 Knob color. Тип: list. Значение по умолчанию: 0 0.75
 1 1\.;
+#X obj 250 1061 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1061 @label_color;
 #X text 270 1061 Label color in RGB format within 0-1 range \, for
 example: 0.2 0.4 0.1\. Тип: list. Значение по умолчанию: 0.6 0.6 0.6
 1\.;
+#X obj 250 1118 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1118 @plot_color;
 #X text 270 1118 Knob color. Тип: list. Значение по умолчанию: 0 0
 0 1\.;
+#X obj 250 1148 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1148 @label;
 #X text 270 1148 Текст ярлыка. Тип: symbol. Значение по умолчанию:
 (null).;
+#X obj 250 1178 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1178 @label_align;
 #X text 270 1178 Горизонтальное выравнивание ярлыка. Тип: symbol. Значение
 по умолчанию: left. Разрешённые значения: left \, center \, right.;
+#X obj 250 1235 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1235 @label_inner;
 #X text 270 1235 Положение ярлыка (1 - внутри \, 0 - снаружи объекта).
 Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 1277 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1277 @label_margins;
 #X text 270 1277 Отступы ярлыка в пикселях по осям X и Y. Тип: list.
 Значение по умолчанию: 0 0\.;
+#X obj 250 1319 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1319 @label_side;
 #X text 270 1319 Сторона прикрепления ярлыка. Тип: symbol. Значение
 по умолчанию: top. Разрешённые значения: left \, top \, right \, bottom.;
+#X obj 250 1376 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1376 @label_valign;
 #X text 270 1376 Вертикальное выравнивание ярлыка. Тип: symbol. Значение
 по умолчанию: top. Разрешённые значения: top \, center \, bottom.;
+#X obj 250 1433 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1433 @fontname;
 #X text 270 1433 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
 Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1490 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1490 @fontsize;
 #X text 270 1490 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
 Диапазон: 4\...100\.;
+#X obj 250 1532 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1532 @fontslant;
 #X text 270 1532 Наклон шрифта. Тип: symbol. Значение по умолчанию:
 roman. Разрешённые значения: roman \, italic.;
+#X obj 250 1574 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1574 @fontweight;
 #X text 270 1574 Толщину шрифта. Тип: symbol. Значение по умолчанию:
 normal. Разрешённые значения: normal \, bold.;
+#X obj 250 1616 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1616 @pinned;
 #X text 270 1616 Режим закрепления. Если 1 - помещает элемент на самый
 дальний уровень на холсте за другими элементам. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 1673 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1673 @presetname;
 #X text 270 1673 Имя пресета для использования с объектами [ui.preset]
 или [preset.storage]. Тип: symbol. Значение по умолчанию: (null).;
+#X obj 250 1730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1730 @size;
 #X text 270 1730 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
 по умолчанию: 300 100\.;
-#X obj 20 1782 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1782 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1787 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1788 biquad;
@@ -127,36 +153,42 @@ normal. Разрешённые значения: normal \, bold.;
 properties). Аргументы:;
 #X obj 280 1826 cnv 1 113 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1826 b0 b1 b2 a1 a2: coefficients. Тип: list.;
+#X obj 250 1851 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1851 clear;
 #X text 270 1851 clears specified preset. Аргументы:;
 #X obj 280 1874 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1874 IDX: preset index. Тип: int.;
+#X obj 250 1899 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1899 interp;
 #X text 270 1899 for this object acts as *load* \, no interpolation
 performed.;
+#X obj 250 1927 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1927 load;
 #X text 270 1927 loads specified preset. Аргументы:;
 #X obj 280 1950 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1950 IDX: preset index. Тип: int.;
+#X obj 250 1975 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1975 pos;
 #X text 270 1975 set UI element position. Аргументы:;
 #X obj 280 1998 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1998 X: top left x-coord. Тип: float.;
 #X obj 280 2021 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2021 Y: top right y-coord. Тип: float.;
+#X obj 250 2046 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2046 store;
 #X text 270 2046 stores specified preset. Аргументы:;
 #X obj 280 2069 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2069 IDX: preset index. Тип: int.;
+#X obj 250 2094 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2094 dump;
 #X text 270 2094 dumps all object info to Pd console window.;
-#X obj 20 2132 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2132 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2137 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 2138 1\.;
 #X text 170 2138 ~;
 #X text 270 2138 input signal.;
-#X obj 20 2173 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2173 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2178 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2179 1\.;
@@ -196,7 +228,7 @@ performed.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 2271 pd info;
 #X connect 5 0 7 0;

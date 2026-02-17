@@ -13,7 +13,7 @@
 #X obj 50 190 lfo.saw~ 46;
 #X obj 50 234 ui.scope~ @size 300 100;
 #X obj 50 349 lfo.saw~-sound;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 404 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
@@ -26,7 +26,7 @@
 #X text 170 430 bool;
 #X obj 268 431 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 430 INVERT: wave inversion. Тип: bool.;
-#X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 470 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 473 ui.link @background_color 0.98039 0.98039 0.98039
@@ -36,28 +36,34 @@
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/lfo_saw/ИМЯ_СВОЙСТВА \, в противном случае к /lfo_saw/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 543 @osc;
 #X text 270 543 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 573 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 573 @active;
 #X text 270 573 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 615 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 615 @freq;
 #X text 270 615 Initial frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 0\. Диапазон: 0\...1000\.;
+#X obj 250 657 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 657 @invert;
 #X text 270 657 Wave inversion. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 687 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 687 @pause;
 #X text 270 687 Pause oscillator at current value. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 729 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 729 @phase;
 #X text 270 729 Initial phase. Тип: float. Значение по умолчанию: 0\.
 Диапазон: 0\...1\.;
-#X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 786 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 787 reset;
 #X text 270 787 reset to initial state.;
-#X obj 20 825 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 825 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 830 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 831 1\.;
@@ -66,7 +72,7 @@
 #X text 130 856 2\.;
 #X text 170 856 bang:;
 #X text 270 856 reset phase.;
-#X obj 20 891 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 891 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 896 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 897 1\.;
@@ -105,7 +111,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 969 pd info;
 #X connect 5 0 7 0;

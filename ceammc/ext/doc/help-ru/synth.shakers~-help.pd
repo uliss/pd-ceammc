@@ -31,7 +31,7 @@ This class implements simulations of breaking sticks \, crunchy snow
 #X obj 50 582 ui.gain~ @size 120 16;
 #X obj 290 582 ui.dsp~;
 #X obj 50 610 dac~;
-#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 665 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 668 ui.link @background_color 0.98039 0.98039 0.98039
@@ -39,6 +39,7 @@ This class implements simulations of breaking sticks \, crunchy snow
 #X msg 130 666 @gate;
 #X text 270 666 Synth gate (>0 - play). Тип: float. Значение по умолчанию:
 0\. Диапазон: 0\...1\.;
+#X obj 250 708 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 708 @type;
 #X text 270 708 Instrument type. Тип: atom. Значение по умолчанию:
 maraca. Разрешённые значения: maraca \, cabasa \, sekere \, tambourine
@@ -46,13 +47,14 @@ maraca. Разрешённые значения: maraca \, cabasa \, sekere \, t
 \, crunch \, big_rocks \, little_rocks \, next_mug \, penny_mug \,
 nickle_mug \, dime_mug \, quarter_mug \, franc_mug \, peso_mug \, guiro
 \, wrench \, water_drops \, tuned_bamboo_chimes.;
+#X obj 250 826 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 826 @types?;
 #X text 270 826 (только чтение) All instrument types. Тип: list. Значение
 по умолчанию: maraca cabasa sekere tambourine sleigh_bells bamboo_chimes
 sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug
 nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops
 tuned_bamboo_chimes.;
-#X obj 20 939 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 939 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 944 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 945 cc;
@@ -61,12 +63,12 @@ tuned_bamboo_chimes.;
 #X text 280 968 CTL: control number. Тип: int.;
 #X obj 280 991 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 991 VAL: value. Тип: float.;
-#X obj 20 1026 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1026 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1031 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1032 1\.;
 #X text 270 1032 control inlet.;
-#X obj 20 1067 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1067 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1072 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1073 1\.;
@@ -101,7 +103,7 @@ tuned_bamboo_chimes.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1145 pd info;
 #X connect 9 0 10 0;

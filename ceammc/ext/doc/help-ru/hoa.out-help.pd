@@ -27,7 +27,7 @@ by a hoa.process~ object.;
 #X obj 50 350 hoa.process~ 2 hoa/hoa_in_example2 planewaves;
 #X obj 50 378 print B;
 #X obj 366 378 print C;
-#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 433 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
@@ -37,7 +37,7 @@ by a hoa.process~ object.;
 #X obj 268 435 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 434 INDEX: outlet index. Тип: int. Минимальное значение:
 1\.;
-#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 474 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
@@ -45,7 +45,7 @@ by a hoa.process~ object.;
 #X msg 130 475 @index;
 #X text 270 475 Outlet index. Тип: int. Значение по умолчанию: 1\.
 Минимальное значение: 1\.;
-#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 532 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 533 1\.;
@@ -98,7 +98,7 @@ Thomas Le Meur;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 785 pd info;
 #X connect 6 0 11 0;

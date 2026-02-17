@@ -23,7 +23,7 @@
 #X obj 405 320 route col;
 #X obj 405 349 ui.dt @display_events 0;
 #X obj 50 449 s $0-mtx;
-#X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 504 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 507 ui.link @background_color 0.98039 0.98039 0.98039
@@ -36,7 +36,7 @@
 #X text 170 530 int;
 #X obj 268 531 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 530 COLS: number of columns. Type: int. Range: 1\...64;
-#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 570 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 573 ui.link @background_color 0.98039 0.98039 0.98039
@@ -44,13 +44,15 @@
 #X msg 130 571 @cols;
 #X text 270 571 Number of columns. Type: int. Default value: 16\. Range:
 1\...64\.;
+#X obj 250 613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 613 @rows;
 #X text 270 613 Number of rows. Type: int. Default value: 16\. Range:
 1\...64\.;
+#X obj 250 655 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 655 @size?;
 #X text 270 655 (readonly) Total cell count. Type: int. Default value:
 256\.;
-#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 700 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 701 blinker;
@@ -59,12 +61,14 @@
 #X text 280 724 ROW: row. Type: int.;
 #X obj 280 747 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 747 COL: column. Type: int.;
+#X obj 250 772 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 772 block;
 #X text 270 772 adds block. Arguments are:;
 #X obj 280 795 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 795 ROW: row. Type: int.;
 #X obj 280 818 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 818 COL: column. Type: int.;
+#X obj 250 843 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 843 cell;
 #X text 270 843 sets cell value. Arguments are:;
 #X obj 280 866 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -73,49 +77,57 @@
 #X text 280 889 COL: column. Type: int.;
 #X obj 280 912 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 912 VALUE: column. Type: int.;
+#X obj 250 937 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 937 clear;
 #X text 270 937 clear all cells.;
+#X obj 250 965 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 965 glider;
 #X text 270 965 adds glider. Arguments are:;
 #X obj 280 988 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 988 ROW: row. Type: int.;
 #X obj 280 1011 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1011 COL: column. Type: int.;
+#X obj 250 1036 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1036 hive;
 #X text 270 1036 adds horizontal bee-hive. Arguments are:;
 #X obj 280 1059 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1059 ROW: row. Type: int.;
 #X obj 280 1082 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1082 COL: column. Type: int.;
+#X obj 250 1107 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1107 next;
 #X text 270 1107 generate next state.;
+#X obj 250 1135 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1135 oct2;
 #X text 270 1135 adds octagon. Arguments are:;
 #X obj 280 1158 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1158 ROW: row. Type: int.;
 #X obj 280 1181 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1181 COL: column. Type: int.;
+#X obj 250 1206 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1206 random;
 #X text 270 1206 fills with random.;
+#X obj 250 1234 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1234 rpent;
 #X text 270 1234 adds R-pentamino. Arguments are:;
 #X obj 280 1257 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1257 ROW: row. Type: int.;
 #X obj 280 1280 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1280 COL: column. Type: int.;
+#X obj 250 1305 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1305 vhive;
 #X text 270 1305 adds vertical bee-hive. Arguments are:;
 #X obj 280 1328 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1328 ROW: row. Type: int.;
 #X obj 280 1351 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1351 COL: column. Type: int.;
-#X obj 20 1386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1386 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1391 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1392 1\.;
 #X text 170 1392 bang:;
 #X text 270 1392 output all cells.;
-#X obj 20 1427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1427 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1432 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1433 1\.;
@@ -152,7 +164,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 1505 pd info;
 #X connect 4 0 7 0;

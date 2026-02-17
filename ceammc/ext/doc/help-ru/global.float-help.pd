@@ -34,7 +34,7 @@ name.;
 #X text 50 550 global dispatch name binding;
 #X msg 50 579 123;
 #X obj 50 608 s f1;
-#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 663 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 666 ui.link @background_color 0.98039 0.98039 0.98039
@@ -43,7 +43,7 @@ name.;
 #X text 170 664 symbol;
 #X obj 268 665 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 664 ID: object ID. Тип: symbol.;
-#X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 704 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 707 ui.link @background_color 0.98039 0.98039 0.98039
@@ -51,10 +51,11 @@ name.;
 #X msg 130 705 @id;
 #X text 270 705 (при инициализации) Global variable id. Тип: symbol.
 Значение по умолчанию: default.;
+#X obj 250 747 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 747 @value?;
 #X text 270 747 (только чтение) Current value. Тип: float. Значение
 по умолчанию: 0\.;
-#X obj 20 799 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 799 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 804 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 805 get;
@@ -64,21 +65,26 @@ connected object). Аргументы:;
 #X text 280 843 [NAME]: requested variable name. If ommitted: request
 the value from the current connected object \, if specified: output
 value from found global variable. Тип: symbol.;
+#X obj 250 913 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 913 set;
 #X text 270 913 sets new value without output. Аргументы:;
 #X obj 280 936 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 936 VALUE: new value. Тип: float.;
+#X obj 250 961 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 961 *;
 #X text 270 961 multiply to \, no output.;
+#X obj 250 989 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 989 +;
 #X text 270 989 add to float \, no output.;
+#X obj 250 1017 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1017 -;
 #X text 270 1017 subtract from float \, no output.;
+#X obj 250 1045 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1045 /;
 #X text 270 1045 divide by \, no output. Аргументы:;
 #X obj 280 1068 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1068 [DIV]: divider value. Тип: float.;
-#X obj 20 1103 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1103 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1108 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1109 1\.;
@@ -86,7 +92,7 @@ value from found global variable. Тип: symbol.;
 #X text 270 1109 outputs variable.;
 #X text 170 1134 float:;
 #X text 270 1134 set variable to given float and outputs new value.;
-#X obj 20 1169 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1169 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1174 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1175 1\.;
@@ -123,7 +129,7 @@ value from found global variable. Тип: symbol.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1247 pd info;
 #X connect 6 0 13 0;

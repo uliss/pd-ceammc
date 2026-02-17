@@ -11,7 +11,7 @@
 #X obj 174 176 prop @gain;
 #X floatatom 50 205 5 0 0 0 - - -;
 #X floatatom 174 205 5 0 0 0 - - -;
-#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 242 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 245 ui.link @background_color 0.98039 0.98039 0.98039
@@ -21,32 +21,41 @@
 #X obj 268 244 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 243 NAME: property name without @ (should be unique for
 current canvas). Тип: symbol.;
-#X obj 20 293 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 293 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 298 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 301 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 299 @default;
 #X text 270 299 (при инициализации) Default property value. Тип: list.;
+#X obj 250 329 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 329 @enum;
 #X text 270 329 (при инициализации) Allowed values (without default
 value) (for symbol properties only). Тип: list.;
+#X obj 250 371 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 371 @max;
 #X text 270 371 (при инициализации) Maximum value (for float and int
 properties only). Тип: float. Значение по умолчанию: +inf.;
+#X obj 250 428 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 428 @min;
 #X text 270 428 (при инициализации) Minimal value (for float and int
 properties only). Тип: float. Значение по умолчанию: -inf.;
+#X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 485 @b;
 #X text 270 485 Alias to @type bool.;
+#X obj 250 515 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 515 @f;
 #X text 270 515 Alias to @type float.;
+#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 545 @i;
 #X text 270 545 Alias to @type int.;
+#X obj 250 575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 575 @l;
 #X text 270 575 Alias to @type list.;
+#X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 605 @s;
 #X text 270 605 Alias to @type symbol.;
+#X obj 250 635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 635 @type;
 #X text 270 635 Property type. Тип: symbol. Значение по умолчанию:
 float. Разрешённые значения: float \, int \, bool \, enum \, symbol
@@ -83,7 +92,7 @@ float. Разрешённые значения: float \, int \, bool \, enum \, 
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 744 pd info;
 #X connect 6 0 8 0;

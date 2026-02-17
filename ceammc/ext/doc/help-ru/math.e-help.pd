@@ -11,13 +11,13 @@ of (1 + 1/n)^n as n approaches infinity.;
 -1;
 #X obj 50 205 math.e;
 #X floatatom 50 234 10 0 0 0 - - -;
-#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 271 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 272 1\.;
 #X text 170 272 bang:;
 #X text 270 272 outputs value.;
-#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 312 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 313 1\.;
@@ -53,7 +53,7 @@ of (1 + 1/n)^n as n approaches infinity.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 527 pd info;
 #X connect 6 0 7 0;

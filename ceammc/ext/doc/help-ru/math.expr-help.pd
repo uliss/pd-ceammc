@@ -38,7 +38,7 @@
 #X floatatom 50 622 5 0 0 0 - - -;
 #X floatatom 242 622 5 0 0 0 - - -;
 #X floatatom 443 622 5 0 0 0 - - -;
-#X obj 20 654 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 654 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 659 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 662 ui.link @background_color 0.98039 0.98039 0.98039
@@ -47,14 +47,14 @@
 #X text 170 660 list;
 #X obj 268 661 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 660 EXPR: expression. Тип: list.;
-#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 700 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 703 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 701 @expr;
 #X text 270 701 Expression. Тип: list.;
-#X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 746 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 747 1\.;
@@ -64,7 +64,7 @@
 #X text 270 772 input values (referenced as $f0 ... $f9 in expression).;
 #X text 130 797 2\.;
 #X text 270 797 change expression.;
-#X obj 20 832 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 832 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 837 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 838 1\.;
@@ -98,7 +98,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 910 pd info;
 #X connect 11 0 15 0;

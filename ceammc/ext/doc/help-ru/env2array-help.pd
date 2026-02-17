@@ -30,7 +30,7 @@
 #X array env_arr 1000 float 0;
 #X coords 0 1 1000 0 400 100 1;
 #X restore 50 334 graph;
-#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 471 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 474 ui.link @background_color 0.98039 0.98039 0.98039
@@ -39,33 +39,38 @@
 #X text 170 472 symbol;
 #X obj 268 473 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 472 ARRAY: array name. Тип: symbol.;
-#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 512 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 515 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 513 @array;
 #X text 270 513 Target array name. Тип: symbol.;
+#X obj 250 543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 543 @fit;
 #X text 270 543 Alias to @mode fit property.;
+#X obj 250 573 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 573 @mode;
 #X text 270 573 Rendering mode: *fit* to array size \, *resize* array
 to envelope length or *raw* render while enough space in array. Тип:
 symbol. Значение по умолчанию: fit. Разрешённые значения: fit \, resize
 \, raw.;
+#X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 645 @raw;
 #X text 270 645 Alias to @mode raw property.;
+#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 675 @redraw;
 #X text 270 675 Redraw after array change. Тип: bool. Значение по умолчанию:
 1\.;
+#X obj 250 717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 717 @resize;
 #X text 270 717 Alias to @mode resize property.;
-#X obj 20 757 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 757 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 762 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 763 1\.;
 #X text 270 763 *envelope* data.;
-#X obj 20 798 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 798 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 803 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 804 1\.;
@@ -102,7 +107,7 @@ was resized - output this new size.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 891 pd info;
 #X connect 6 0 9 0;

@@ -43,7 +43,7 @@
 #X obj 299 502 ui.hgain~;
 #X obj 50 531 ui.dsp~;
 #X obj 299 531 dac~;
-#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 586 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 589 ui.link @background_color 0.98039 0.98039 0.98039
@@ -69,7 +69,7 @@
 #X obj 268 708 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 707 HS(samp): размер окна (по умолчанию размер_буфера/2).
 Тип: int. Минимальное значение: 0\.;
-#X obj 20 757 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 757 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 762 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 765 ui.link @background_color 0.98039 0.98039 0.98039
@@ -77,70 +77,88 @@
 #X msg 130 763 @bs;
 #X text 270 763 (при инициализации) Размер буфера. Тип: int. Единицы:
 'samp'. Значение по умолчанию: 1024\. Минимальное значение: 64\.;
+#X obj 250 820 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 820 @array;
 #X text 270 820 Имя анализируемого массива. Тип: symbol.;
+#X obj 250 850 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 850 @awhitening;
 #X text 270 850 Адаптивное «отбеливание». Тип: bool. Значение по умолчанию:
 0\.;
+#X obj 250 892 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 892 @complex;
 #X text 270 892 Сокращение для @method complex. Метод Complex Domain.;
+#X obj 250 922 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 922 @compression;
 #X text 270 922 Лямбда логарифмический коэффициент сжатия \, 0 для
 отключения. Тип: float. Значение по умолчанию: 1\. Минимальное значение:
 0\.;
+#X obj 250 979 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 979 @delay;
 #X text 270 979 Постоянная задержка времени обнаружения. Тип: float.
 Единицы: 'ms'. Значение по умолчанию: 49.9093\. Минимальное значение:
 0\.;
+#X obj 250 1036 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1036 @energy;
 #X text 270 1036 Сокращение для @method energy. Energy based функция
 обнаружения атаки.;
+#X obj 250 1078 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1078 @hfc;
 #X text 270 1078 Сокращение для @method hfc. High Frequency Content
 функция обнаружения атаки.;
+#X obj 250 1120 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1120 @hs;
 #X text 270 1120 Размер окна. Если установлено в 0 \, означает @bs/2\.
 Тип: int. Единицы: 'samp'. Значение по умолчанию: 0\. Минимальное значение:
 0\.;
+#X obj 250 1177 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1177 @kl;
 #X text 270 1177 Сокращение для @method kl. Функция обнаружения атаки
 Kullback-Liebler.;
+#X obj 250 1219 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1219 @method;
 #X text 270 1219 Метод детекции атаки. Тип: symbol. Значение по умолчанию:
 default. Разрешённые значения: specflux \, phase \, energy \, hfc \,
 kl \, complex \, default \, specdiff \, wphase \, rolloff \, spread
 \, kurtosis \, skewness \, complexdomain \, decrease \, slope \, centroid.;
+#X obj 250 1306 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1306 @mkl;
 #X text 270 1306 Псевдоним для @method mkl. Модифицированная функция
 обнаружения атаки Kullback-Liebler.;
+#X obj 250 1348 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1348 @phase;
 #X text 270 1348 Сокращение для @method phase. Функции обнаружения
 атаки Phase Based Method.;
+#X obj 250 1390 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1390 @silence;
 #X text 270 1390 Порог тишины для обнаружения атаки. Тип: float. Единицы:
 'db'. Значение по умолчанию: -70\. Диапазон: -80\...0\.;
+#X obj 250 1447 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1447 @specdiff;
 #X text 270 1447 Сокращение для @method specdiff. Метод спектральной
 разности для обнаружения атаки.;
+#X obj 250 1489 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1489 @specflux;
 #X text 270 1489 Сокращение для @method specflux. Spectral Flux функция.;
+#X obj 250 1519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1519 @speedlim;
 #X text 270 1519 Минимальный интервал между двумя последовательными
 атаками. Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Минимальное
 значение: 1\.;
+#X obj 250 1576 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1576 @threshold;
 #X text 270 1576 Пиковый порог выбора. Тип: float. Значение по умолчанию:
 0.058\.;
+#X obj 250 1618 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1618 @wphase;
 #X text 270 1618 Сокращение для @method phase. Weighted Phase Deviation
 функция.;
-#X obj 20 1670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1670 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1675 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1676 1\.;
 #X text 170 1676 bang:;
 #X text 270 1676 анализировать массив.;
-#X obj 20 1711 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1711 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1716 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1717 1\.;
@@ -177,7 +195,7 @@ kl \, complex \, default \, specdiff \, wphase \, rolloff \, spread
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1789 pd info;
 #X connect 7 0 10 0;

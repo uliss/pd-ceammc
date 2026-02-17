@@ -27,7 +27,7 @@ https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf;
 #X obj 50 431 ui.gain~ @size 120 16;
 #X obj 280 431 ui.dsp~;
 #X obj 50 460 dac~;
-#X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 515 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 518 ui.link @background_color 0.98039 0.98039 0.98039
@@ -42,7 +42,7 @@ https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf;
 #X obj 268 557 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 556 DRYWET: proportion of mix between the original (dry)
 and 'effected' (wet) signals. Тип: float. Диапазон: 0…1;
-#X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 611 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 614 ui.link @background_color 0.98039 0.98039 0.98039
@@ -52,49 +52,61 @@ and 'effected' (wet) signals. Тип: float. Диапазон: 0…1;
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/fx_dattorro/ИМЯ_СВОЙСТВА \, в противном случае к /fx_dattorro/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 699 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 699 @osc;
 #X text 270 699 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 729 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 729 @active;
 #X text 270 729 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 771 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 771 @bw;
 #X text 270 771 Band-width filter (pre filtering). Тип: float. Значение
 по умолчанию: 0.9995\. Диапазон: 0\...1\.;
+#X obj 250 813 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 813 @bypass;
 #X text 270 813 Bypass flag. If true: bypass 'effected' signal. Тип:
 bool. Значение по умолчанию: 0\.;
+#X obj 250 855 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 855 @damp;
 #X text 270 855 High-frequency damping. No damping = 0.0\. Тип: float.
 Значение по умолчанию: 0.0005\. Диапазон: 0\...1\.;
+#X obj 250 897 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 897 @ddiff1;
 #X text 270 897 Decay diffusion factor 1\. Тип: float. Значение по
 умолчанию: 0.5\. Диапазон: 0\...1\.;
+#X obj 250 939 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 939 @ddiff2;
 #X text 270 939 Decay diffusion factor 2\. Тип: float. Значение по
 умолчанию: 0.7\. Диапазон: 0\...1\.;
+#X obj 250 981 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 981 @decay;
 #X text 270 981 Decay rate. Infinite decay = 1.0\. Тип: float. Значение
 по умолчанию: 0.5\. Диапазон: 0\...1\.;
+#X obj 250 1023 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1023 @drywet;
 #X text 270 1023 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
 0.33\. Диапазон: 0\...1\.;
+#X obj 250 1080 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1080 @idiff1;
 #X text 270 1080 Input diffusion factor 1\. Тип: float. Значение по
 умолчанию: 0.625\. Диапазон: 0\...1\.;
+#X obj 250 1122 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1122 @idiff2;
 #X text 270 1122 Input diffusion factor 2\. Тип: float. Значение по
 умолчанию: 0.75\. Диапазон: 0\...1\.;
+#X obj 250 1164 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1164 @predelay;
 #X text 270 1164 A delay operating on the 'wet' signal. Large values
 will provide the impression of a larger room. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 40\. Диапазон: 0\...100\.;
-#X obj 20 1246 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1246 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1251 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1252 reset;
 #X text 270 1252 reset reverb.;
-#X obj 20 1290 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1290 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1295 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1296 1\.;
@@ -103,7 +115,7 @@ will provide the impression of a larger room. Тип: float. Единицы:
 #X text 130 1321 2\.;
 #X text 170 1321 ~;
 #X text 270 1321 right channel.;
-#X obj 20 1356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1356 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1361 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1362 1\.;
@@ -141,7 +153,7 @@ will provide the impression of a larger room. Тип: float. Единицы:
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1454 pd info;
 #X connect 7 0 8 0;

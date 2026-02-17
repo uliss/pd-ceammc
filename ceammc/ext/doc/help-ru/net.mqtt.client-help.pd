@@ -24,55 +24,62 @@
 #X obj 50 421 ui.dt;
 #X obj 232 421 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 476 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 479 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 477 @id;
 #X text 270 477 Client id. Тип: symbol. Значение по умолчанию: pd_mqtt_client_0\.;
+#X obj 250 519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 519 @mode;
 #X text 270 519 Parsing mode for incoming/outcoming messages. If 'fudi'
 - interpret data as Pd messages \, if 'sym' - always interpret as symbols
 \, 'data' - parse ceammc data \, 'json' - convert json values to ceammc
 data. Тип: symbol. Значение по умолчанию: fudi. Разрешённые значения:
 data \, fudi \, json \, sym \, bytes.;
+#X obj 250 622 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 622 @qos;
 #X text 270 622 Quality of service. Тип: int. Значение по умолчанию:
 0\. Разрешённые значения: 0 \, 1 \, 2\.;
+#X obj 250 664 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 664 @retain;
 #X text 270 664 Retain flag. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 709 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 710 close;
 #X text 270 710 close MQTT connection.;
+#X obj 250 738 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 738 connect;
 #X text 270 738 connect to websocket server. Аргументы:;
 #X obj 280 761 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 761 URL: mqtt server url \, for ex.: mqtt://127.0.0.1:9000
 \, tcp://user:pass@127.0.0.1:9000 \, ssl://user:pass@127.0.0.1 etc.
 Тип: symbol.;
+#X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 816 publish;
 #X text 270 816 publish message to topic. Аргументы:;
 #X obj 280 839 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 839 TOPIC: topic. Тип: symbol.;
 #X obj 280 862 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 862 [ARGS]: content. Тип: list.;
+#X obj 250 887 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 887 subscribe;
 #X text 270 887 subscribe to topic. Аргументы:;
 #X obj 280 910 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 910 TOPIC: topic. Тип: symbol.;
+#X obj 250 935 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 935 unsubscribe;
 #X text 270 935 unsubscribe from topic. Аргументы:;
 #X obj 280 958 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 958 TOPIC: topic. Тип: symbol.;
-#X obj 20 993 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 993 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 998 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 999 1\.;
 #X text 270 999 message input.;
-#X obj 20 1034 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1034 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1039 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1040 1\.;
@@ -108,7 +115,7 @@ data \, fudi \, json \, sym \, bytes.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1132 pd info;
 #X connect 8 0 18 0;

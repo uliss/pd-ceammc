@@ -28,7 +28,7 @@ input \, BACKSPACE removes last character.;
 -1;
 #X obj 50 377 ui.number @size 200 40;
 #X floatatom 50 448 5 0 0 0 - - -;
-#X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 485 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 130 520 Mouse-drag;
@@ -52,7 +52,7 @@ input \, BACKSPACE removes last character.;
 #X text 130 680 Right-click;
 #X text 310 680 open the Pd popup menu.;
 #X text 81 680 [Edit];
-#X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 715 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 718 ui.link @background_color 0.98039 0.98039 0.98039
@@ -60,107 +60,135 @@ input \, BACKSPACE removes last character.;
 #X msg 130 716 @digits;
 #X text 270 716 Number of digits. If -1 - no fixed digits used. Type:
 int. Default value: -1\. Range: -1\...9\.;
+#X obj 250 758 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 758 @display_only;
 #X text 270 758 Interaction mode. If true: react only to received Pd
 messages \, but do not react to mouse/keyboard events. If false: react
 to all supported events. Type: bool. Default value: 0\.;
+#X obj 250 830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 830 @max;
 #X text 270 830 Maximum value. Type: float. Default value: +inf.;
+#X obj 250 860 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 860 @min;
 #X text 270 860 Minimum value. Type: float. Default value: -inf.;
+#X obj 250 890 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 890 @receive;
 #X text 270 890 Source of message receive. Type: symbol. Default value:
 (null).;
+#X obj 250 932 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 932 @send;
 #X text 270 932 Address for sending messages. Type: symbol. Default
 value: (null).;
+#X obj 250 974 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 974 @value;
 #X text 270 974 Widget value. Type: float. Default value: 0\.;
+#X obj 250 1004 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1004 @active_color;
 #X text 270 1004 Element active color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X obj 250 1046 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1046 @background_color;
 #X text 270 1046 Element background color (list of red \, green \,
 blue values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93
 1\.;
+#X obj 250 1103 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1103 @border_color;
 #X text 270 1103 Border color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
+#X obj 250 1145 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1145 @text_color;
 #X text 270 1145 Text color (list of red \, green \, blue values in
 0-1 range). Type: list. Default value: 0 0 0 1\.;
+#X obj 250 1187 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1187 @fontname;
 #X text 270 1187 Font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1229 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1229 @fontsize;
 #X text 270 1229 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X obj 250 1259 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1259 @fontslant;
 #X text 270 1259 Font slant. Type: symbol. Default value: roman. Allowed
 values: roman \, italic.;
+#X obj 250 1301 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1301 @fontweight;
 #X text 270 1301 Font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
+#X obj 250 1343 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1343 @pinned;
 #X text 270 1343 Pin mode. If set to 1 \, it places the element at
 the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
+#X obj 250 1400 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1400 @presetname;
 #X text 270 1400 Preset name for using with [ui.preset] or [preset.storage]
 objects. Type: symbol. Default value: (null).;
+#X obj 250 1442 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1442 @size;
 #X text 270 1442 Object size (width \, height pair). Type: list. Default
 value: 53 15\.;
-#X obj 20 1494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1494 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1499 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1500 clear;
 #X text 270 1500 clears specified preset. Arguments are:;
 #X obj 280 1523 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1523 IDX: preset index. Type: int.;
+#X obj 250 1548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1548 interp;
 #X text 270 1548 interplolates between presets. Arguments are:;
 #X obj 280 1571 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1571 IDX: preset fraction index. Type: float.;
+#X obj 250 1596 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1596 load;
 #X text 270 1596 loads specified preset. Arguments are:;
 #X obj 280 1619 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1619 IDX: preset index. Type: int.;
+#X obj 250 1644 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1644 pos;
 #X text 270 1644 set UI element position. Arguments are:;
 #X obj 280 1667 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1667 X: top left x-coord. Type: float.;
 #X obj 280 1690 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1690 Y: top right y-coord. Type: float.;
+#X obj 250 1715 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1715 set;
 #X text 270 1715 sets slider value without output. Arguments are:;
 #X obj 280 1738 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1738 V: new value. Type: float.;
+#X obj 250 1763 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1763 store;
 #X text 270 1763 stores specified preset. Arguments are:;
 #X obj 280 1786 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1786 IDX: preset index. Type: int.;
+#X obj 250 1811 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1811 *;
 #X text 270 1811 multiply slider value without output. Arguments are:;
 #X obj 280 1834 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1834 V: multiplied value. Type: float.;
+#X obj 250 1859 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1859 +;
 #X text 270 1859 add value to slider without output. Arguments are:;
 #X obj 280 1882 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1882 V: added value. Type: float.;
+#X obj 250 1907 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1907 ++;
 #X text 270 1907 increment slider value without output.;
+#X obj 250 1935 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1935 -;
 #X text 270 1935 subtract value from slider without output. Arguments
 are:;
 #X obj 280 1958 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1958 V: subtracted value. Type: float.;
+#X obj 250 1983 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1983 --;
 #X text 270 1983 decrement slider value without output.;
+#X obj 250 2011 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2011 /;
 #X text 270 2011 divide slider value without output. Arguments are:;
 #X obj 280 2034 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2034 V: denominator value. Type: float.;
-#X obj 20 2069 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2069 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2074 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2075 1\.;
@@ -170,7 +198,7 @@ are:;
 #X text 270 2100 input value.;
 #X text 170 2125 list:;
 #X text 270 2125 first element converted to float.;
-#X obj 20 2160 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2160 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2165 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2166 1\.;
@@ -207,7 +235,7 @@ are:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 2238 pd info;
 #X connect 8 0 17 0;

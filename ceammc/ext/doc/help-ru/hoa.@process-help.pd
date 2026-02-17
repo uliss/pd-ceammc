@@ -27,7 +27,7 @@ properties and get/set properties declared via [prop.declare];
 #X obj 184 451 ui.dsp~;
 #X obj 472 451 print;
 #X obj 50 479 dac~;
-#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 534 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 537 ui.link @background_color 0.98039 0.98039 0.98039
@@ -36,26 +36,32 @@ properties and get/set properties declared via [prop.declare];
 #X text 270 535 (только чтение) Current harmonic degree in hoa.process~
 instance (only in harmonics mode). Тип: int. Значение по умолчанию:
 0\.;
+#X obj 250 592 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 592 @horder?;
 #X text 270 592 (только чтение) Current harmonic order in hoa.process~
 instance (only in harmonics mode). Тип: int. Значение по умолчанию:
 0\.;
+#X obj 250 649 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 649 @index?;
 #X text 270 649 (только чтение) Current instance index starting from
 0\. Тип: int. Значение по умолчанию: 0\.;
+#X obj 250 691 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 691 @order?;
 #X text 270 691 (только чтение) Order of parent hoa.process~. Тип:
 int. Значение по умолчанию: 0\.;
+#X obj 250 733 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 733 @pmode?;
 #X text 270 733 (только чтение) Amibisonic mode. Тип: symbol. Разрешённые
 значения: 2d \, 3d.;
+#X obj 250 775 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 775 @ptype?;
 #X text 270 775 (только чтение) Amibisonic type. Тип: symbol. Разрешённые
 значения: harmonics \, planewaves.;
+#X obj 250 817 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 817 @total?;
 #X text 270 817 (только чтение) Total number of hoa.process~ instances.
 Тип: int. Значение по умолчанию: 0\.;
-#X obj 20 869 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 869 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 874 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 875 1\.;
@@ -69,7 +75,7 @@ int. Значение по умолчанию: 0\.;
 #X text 270 965 pass symbol message thru.;
 #X text 170 990 list:;
 #X text 270 990 pass list message thru.;
-#X obj 20 1025 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1025 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1030 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1031 1\.;
@@ -106,7 +112,7 @@ Thomas Le Meur;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1103 pd info;
 #X connect 13 0 14 0;

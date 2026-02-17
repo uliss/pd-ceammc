@@ -16,7 +16,7 @@ constant-Q;
 #X obj 50 176 flt.eq_peak_cq~ 3000 15 3;
 #X obj 50 205 ui.ssc~ @size 500 120 @log_scale 1;
 #X obj 50 334 ui.dsp~;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 389 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
@@ -33,7 +33,7 @@ constant-Q;
 #X text 170 440 float;
 #X obj 268 441 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 440 Q: quality factory. Тип: float. Диапазон: 0.1…100;
-#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 480 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 483 ui.link @background_color 0.98039 0.98039 0.98039
@@ -43,27 +43,32 @@ constant-Q;
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/flt_eq_peak_cq/ИМЯ_СВОЙСТВА \, в противном случае к
 /flt_eq_peak_cq/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X obj 250 568 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 568 @osc;
 #X text 270 568 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 598 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 598 @active;
 #X text 270 598 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 640 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 640 @freq;
 #X text 270 640 Center frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 1000\. Диапазон: 20\...20000\.;
+#X obj 250 682 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 682 @gain;
 #X text 270 682 Filter gain. Тип: float. Единицы: 'db'. Значение по
 умолчанию: 0\. Диапазон: -15\...15\.;
+#X obj 250 724 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 724 @q;
 #X text 270 724 Quality factor: @freq/BANDWIDTH. Тип: float. Значение
 по умолчанию: 3\. Диапазон: 0.1\...100\.;
-#X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 781 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 782 1\.;
 #X text 170 782 ~;
 #X text 270 782 input signal.;
-#X obj 20 817 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 817 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 822 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 823 1\.;
@@ -100,7 +105,7 @@ constant-Q;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 895 pd info;
 #X connect 5 0 8 0;

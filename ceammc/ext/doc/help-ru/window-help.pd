@@ -26,7 +26,7 @@
 #X array array-window 512 float 0;
 #X coords 0 1 512 0 100 100 1;
 #X restore 50 305 graph;
-#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 442 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 445 ui.link @background_color 0.98039 0.98039 0.98039
@@ -42,7 +42,7 @@
 #X obj 268 499 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 498 SIZE(samp): window size. Тип: int. Минимальное значение:
 16\.;
-#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 538 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 541 ui.link @background_color 0.98039 0.98039 0.98039
@@ -50,35 +50,46 @@
 #X msg 130 539 @type;
 #X text 270 539 Window type. See argument description. Тип: symbol.
 Значение по умолчанию: hann.;
+#X obj 250 581 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 581 @size;
 #X text 270 581 Window size. Тип: int. Единицы: 'samp'. Значение по
 умолчанию: 512\. Минимальное значение: 16\.;
-#X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 638 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 639 blackman;
 #X text 270 639 Sets Blackman window type.;
+#X obj 250 667 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 667 blackman-harris;
 #X text 270 667 Sets Blackman-Harris window type.;
+#X obj 250 695 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 695 flattop;
 #X text 270 695 Sets Flattop window type.;
+#X obj 250 723 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 723 gauss;
 #X text 270 723 Sets Gauss window type.;
+#X obj 250 751 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 751 hamming;
 #X text 270 751 Sets Hamming window type.;
+#X obj 250 779 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 779 hann;
 #X text 270 779 Sets Hann window type.;
+#X obj 250 807 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 807 nuttall;
 #X text 270 807 Sets Nuttall window type.;
+#X obj 250 835 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 835 rect;
 #X text 270 835 Sets Rectangle window type.;
+#X obj 250 863 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 863 sine;
 #X text 270 863 Sets Sine window type.;
+#X obj 250 891 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 891 tri;
 #X text 270 891 Sets Triangle window type.;
+#X obj 250 919 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 919 welch;
 #X text 270 919 Sets Welch window type.;
-#X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 962 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 963 1\.;
@@ -90,7 +101,7 @@ if invalid index given.;
 #X text 170 1028 list:;
 #X text 270 1028 pair INDEX SIZE expected. Sets windows size to SIZE.
 Output window value at given index.;
-#X obj 20 1078 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1078 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1083 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1084 1\.;
@@ -124,7 +135,7 @@ Output window value at given index.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1156 pd info;
 #X connect 7 0 19 0;

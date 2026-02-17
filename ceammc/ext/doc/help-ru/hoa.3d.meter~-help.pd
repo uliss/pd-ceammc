@@ -13,7 +13,7 @@ It computes and displays the energy and velocity vectors.;
 @title CICM documentation @url hoa/hoa.3d.meter~-help.pd;
 #X obj 50 215 hoa.3d.meter~ @view topnextbottom;
 #X text 50 287 hide;
-#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 339 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 374 Right-click;
@@ -28,7 +28,7 @@ It computes and displays the energy and velocity vectors.;
 #X text 130 454 Right-click + ⌥;
 #X text 310 454 open properties dialog.;
 #X text 65 454 [Правка];
-#X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 489 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 492 ui.link @background_color 0.98039 0.98039 0.98039
@@ -36,97 +36,127 @@ It computes and displays the energy and velocity vectors.;
 #X msg 130 490 @angles;
 #X text 270 490 Channel layout angles. Тип: list. Значение по умолчанию:
 0 90 0 -19.5 120 -19.5 240 -19.5\.;
+#X obj 250 532 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 532 @channels;
 #X text 270 532 Number of input channels. Тип: int. Значение по умолчанию:
 4\. Диапазон: 1\...64\.;
+#X obj 250 574 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 574 @clockwise;
 #X text 270 574 Clockwise channel numbering mode. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 616 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 616 @interval;
 #X text 270 616 Refresh interval. Тип: int. Единицы: 'ms'. Значение
 по умолчанию: 50\. Диапазон: 20\...1000\.;
+#X obj 250 658 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 658 @offset;
 #X text 270 658 Channel numbering offset for each axes. Тип: list.
 Значение по умолчанию: 0 0 0\.;
+#X obj 250 700 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 700 @receive;
 #X text 270 700 Receive source. Тип: symbol. Значение по умолчанию:
 (null).;
+#X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 730 @send;
 #X text 270 730 Send destination. Тип: symbol. Значение по умолчанию:
 (null).;
+#X obj 250 760 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 760 @vectors;
 #X text 270 760 Vector display mode. Тип: symbol. Значение по умолчанию:
 energy. Разрешённые значения: both \, energy \, none \, velocity.;
+#X obj 250 817 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 817 @view;
 #X text 270 817 View mode. Тип: symbol. Значение по умолчанию: top.
 Разрешённые значения: bottom \, top \, topnextbottom \, toponbottom.;
+#X obj 250 874 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 874 @background_color;
 #X text 270 874 Element background color (list of red \, green \, blue
 values in 0-1 range). Тип: list. Значение по умолчанию: 0.93 0.93 0.93
 1\.;
+#X obj 250 931 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 931 @border_color;
 #X text 270 931 Border color (list of red \, green \, blue values in
 0-1 range). Тип: list. Значение по умолчанию: 0.6 0.6 0.6 1\.;
+#X obj 250 988 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 988 @cold_color;
 #X text 270 988 Color for >=-39db. Тип: list. Значение по умолчанию:
 0 0.6 0 0.8\.;
+#X obj 250 1030 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1030 @energy_color;
 #X text 270 1030 Energy vector color. Тип: list. Значение по умолчанию:
 0 0 1 0.8\.;
+#X obj 250 1072 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1072 @hot_color;
 #X text 270 1072 Color for >=-12db. Тип: list. Значение по умолчанию:
 1 0.6 0 0.8\.;
+#X obj 250 1114 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1114 @label_color;
 #X text 270 1114 Label color in RGB format within 0-1 range \, for
 example: 0.2 0.4 0.1\. Тип: list. Значение по умолчанию: 0 0 0 1\.;
+#X obj 250 1171 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1171 @over_color;
 #X text 270 1171 Peak overload color. Тип: list. Значение по умолчанию:
 1 0 0 0.8\.;
+#X obj 250 1213 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1213 @tepid_color;
 #X text 270 1213 Color for >=-30db. Тип: list. Значение по умолчанию:
 0.6 0.73 0 0.8\.;
+#X obj 250 1255 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1255 @velocity_color;
 #X text 270 1255 Velocity vector. Тип: list. Значение по умолчанию:
 1 0 0 0.8\.;
+#X obj 250 1297 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1297 @warm_color;
 #X text 270 1297 Color for >=-21db. Тип: list. Значение по умолчанию:
 0.85 0.85 0 0.8\.;
+#X obj 250 1339 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1339 @label;
 #X text 270 1339 Label text. Тип: symbol. Значение по умолчанию: (null).;
+#X obj 250 1369 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1369 @label_align;
 #X text 270 1369 Label horizontal align. Тип: symbol. Значение по умолчанию:
 left. Разрешённые значения: left \, center \, right.;
+#X obj 250 1411 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1411 @label_inner;
 #X text 270 1411 Label position (1 - inner \, 0 - outer). Тип: bool.
 Значение по умолчанию: 0\.;
+#X obj 250 1453 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1453 @label_margins;
 #X text 270 1453 Label offset in pixels. Тип: list. Значение по умолчанию:
 0 0\.;
+#X obj 250 1495 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1495 @label_side;
 #X text 270 1495 Label snap side. Тип: symbol. Значение по умолчанию:
 top. Разрешённые значения: left \, top \, right \, bottom.;
+#X obj 250 1537 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1537 @label_valign;
 #X text 270 1537 Label vertical align. Тип: symbol. Значение по умолчанию:
 top. Разрешённые значения: top \, center \, bottom.;
+#X obj 250 1579 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1579 @fontname;
 #X text 270 1579 Fontname. Тип: symbol. Значение по умолчанию: Helvetica.
 Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1636 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1636 @fontsize;
 #X text 270 1636 Fontsize. Тип: int. Значение по умолчанию: 11\. Диапазон:
 4\...100\.;
+#X obj 250 1678 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1678 @fontslant;
 #X text 270 1678 Font slant. Тип: symbol. Значение по умолчанию: roman.
 Разрешённые значения: roman \, italic.;
+#X obj 250 1720 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1720 @fontweight;
 #X text 270 1720 Font weight. Тип: symbol. Значение по умолчанию: normal.
 Разрешённые значения: normal \, bold.;
+#X obj 250 1762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1762 @pinned;
 #X text 270 1762 Pin mode. if 1 - put element to the lowest level.
 Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 1804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1804 @size;
 #X text 270 1804 Element size (width \, height pair). Тип: list. Значение
 по умолчанию: 225 225\.;
-#X obj 20 1856 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1856 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1861 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1862 pos;
@@ -135,7 +165,7 @@ top. Разрешённые значения: top \, center \, bottom.;
 #X text 280 1885 X: top left x-coord. Тип: float.;
 #X obj 280 1908 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1908 Y: top right y-coord. Тип: float.;
-#X obj 20 1943 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1943 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1948 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1949 1\.;
@@ -150,7 +180,7 @@ mute VALUE.;
 #X text 130 2024 n.;
 #X text 170 2024 ~;
 #X text 270 2024 n-th source input.;
-#X obj 20 2059 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2059 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2064 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2065 1\.;
@@ -192,6 +222,6 @@ Thomas Le Meur;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 2177 pd info;

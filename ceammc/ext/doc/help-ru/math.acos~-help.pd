@@ -14,13 +14,13 @@ signal. The result is in the range [0 \, pi];
 #X obj 50 234 math.acos~;
 #X obj 50 263 ui.plot~ @xlabels 1 @ylabels 1 @yauto 1 @size 200 200;
 #X obj 50 479 ui.dsp~;
-#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 534 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 535 1\.;
 #X text 170 535 ~;
 #X text 270 535 input signal.;
-#X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 575 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 576 1\.;
@@ -57,7 +57,7 @@ signal. The result is in the range [0 \, pi];
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 648 pd info;
 #X connect 6 0 7 0;

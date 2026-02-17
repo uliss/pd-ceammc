@@ -22,7 +22,7 @@
 #X obj 309 234 print BEAT;
 #X obj 434 234 ui.dsp~;
 #X obj 50 262 dac~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
@@ -35,7 +35,7 @@
 #X text 170 343 symbol;
 #X obj 268 344 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 343 TSIG: time signature. Тип: symbol.;
-#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 383 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 386 ui.link @background_color 0.98039 0.98039 0.98039
@@ -45,70 +45,91 @@
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/synth_metro/ИМЯ_СВОЙСТВА \, в противном случае к /synth_metro/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 471 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 471 @osc;
 #X text 270 471 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 501 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 501 @active;
 #X text 270 501 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 543 @down.freq;
 #X text 270 543 Downbeat frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 1500\. Диапазон: 100\...5000\.;
+#X obj 250 585 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 585 @down.gain;
 #X text 270 585 Downbeat gain. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 6\. Диапазон: -12\...12\.;
+#X obj 250 627 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 627 @down.reson;
 #X text 270 627 Downbeat resonance value (Q). Тип: float. Значение
 по умолчанию: 50\. Диапазон: 5\...100\.;
+#X obj 250 669 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 669 @gain;
 #X text 270 669 Common synth gain. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 0\. Диапазон: -12\...12\.;
+#X obj 250 711 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 711 @mark.freq;
 #X text 270 711 Mark sound frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 2000\. Диапазон: 100\...5000\.;
+#X obj 250 753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 753 @mark.gain;
 #X text 270 753 Mark sound gain. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 6\. Диапазон: -12\...12\.;
+#X obj 250 795 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 795 @mark.reson;
 #X text 270 795 Mark sound resonance value (Q). Тип: float. Значение
 по умолчанию: 500\. Диапазон: 5\...500\.;
+#X obj 250 837 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 837 @off.freq;
 #X text 270 837 Off-beat frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 500\. Диапазон: 100\...5000\.;
+#X obj 250 879 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 879 @off.gain;
 #X text 270 879 Off-beat gain. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 6\. Диапазон: -12\...12\.;
+#X obj 250 921 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 921 @off.reson;
 #X text 270 921 Off-beat resonance value (Q). Тип: float. Значение
 по умолчанию: 10\. Диапазон: 5\...100\.;
+#X obj 250 963 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 963 @on.freq;
 #X text 270 963 On-beat frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 1000\. Диапазон: 100\...5000\.;
+#X obj 250 1005 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1005 @on.gain;
 #X text 270 1005 On-beat gain. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 6\. Диапазон: -12\...12\.;
+#X obj 250 1047 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1047 @on.reson;
 #X text 270 1047 On-beat resonance value (Q). Тип: float. Значение
 по умолчанию: 30\. Диапазон: 5\...100\.;
+#X obj 250 1089 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1089 @tempo;
 #X text 270 1089 Tempo. If beat division is ommitted \, using 1/4\.
 Тип: atom. Единицы: 'bpm'. Значение по умолчанию: 60|4bpm.;
+#X obj 250 1131 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1131 @tsig;
 #X text 270 1131 Metronome time signature \, can be complex like: |1/4+15/16|
 etc. Тип: symbol. Значение по умолчанию: |4/4|.;
-#X obj 20 1183 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1183 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1188 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1189 down;
 #X text 270 1189 manually play downbeat sound.;
+#X obj 250 1217 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1217 mark;
 #X text 270 1217 manually play mark sound.;
+#X obj 250 1245 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1245 off;
 #X text 270 1245 manually play offbeat sound.;
+#X obj 250 1273 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1273 on;
 #X text 270 1273 manually play onbeat sound.;
+#X obj 250 1301 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1301 reset;
 #X text 270 1301 reset metro to the beginning.;
-#X obj 20 1339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1339 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1344 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1345 1\.;
@@ -120,7 +141,7 @@ etc. Тип: symbol. Значение по умолчанию: |4/4|.;
 #X text 130 1395 3\.;
 #X text 170 1395 float:;
 #X text 270 1395 set tempo in 1/4 per minute.;
-#X obj 20 1430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1430 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1435 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1436 1\.;
@@ -158,7 +179,7 @@ etc. Тип: symbol. Значение по умолчанию: |4/4|.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1528 pd info;
 #X connect 9 0 10 0;

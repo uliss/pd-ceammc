@@ -15,7 +15,7 @@
 #X obj 50 262 @->;
 #X floatatom 50 291 5 0 0 0 - - -;
 #X obj 117 291 print;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 346 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
@@ -50,19 +50,19 @@ Sr1P Sr1T Sw0P Sw0T Sw1P Sw1T Sw2P Sw2T Sw3P Sw3T Sw4P Sw4T TB0T TB1T
 TB2T TC0C TC0D TC0E TC0F TC0J TC0P TC1C TC2C TCFC TCGC TCSA TCTD TM0P
 TM0S TMBS TP0P TPCD TW0P Th1H Ts0P Ts0S UPRC VC0C VC0c VD0R VD0r VN0R
 VN0r VP0R VP0r WKEN WVr0 WVw0 zDBG zDSF.;
-#X obj 20 897 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 897 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 902 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 903 read;
 #X text 270 903 query specified SMC key. Аргументы:;
 #X obj 280 926 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 926 KEY: SMC key. Тип: symbol.;
-#X obj 20 961 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 961 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 966 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 967 1\.;
 #X text 270 967 input.;
-#X obj 20 1002 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1002 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1007 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1008 1\.;
@@ -99,7 +99,7 @@ VN0r VP0R VP0r WKEN WVr0 WVw0 zDBG zDSF.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1080 pd info;
 #X connect 4 0 6 0;

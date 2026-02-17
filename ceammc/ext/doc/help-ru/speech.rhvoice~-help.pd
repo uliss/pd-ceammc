@@ -34,7 +34,7 @@ https://github.com/RHVoice/anna-rus;
 #X obj 299 466 ui.dsp~;
 #X obj 50 495 dac~;
 #X obj 50 524 speech.rhvoice~-extra;
-#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 579 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 582 ui.link @background_color 0.98039 0.98039 0.98039
@@ -42,32 +42,39 @@ https://github.com/RHVoice/anna-rus;
 #X msg 130 580 @pitch;
 #X text 270 580 Voice pitch. Тип: float. Значение по умолчанию: 0\.
 Диапазон: -1\...1\.;
+#X obj 250 622 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 622 @punct;
 #X text 270 622 Punctuation for pronunciation. If 'all' - pronounce
 all \, otherwise pronounce only specified punctuation characters. Тип:
 symbol.;
+#X obj 250 679 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 679 @rate;
 #X text 270 679 Speaking rate. Тип: float. Значение по умолчанию: 0\.
 Диапазон: -1\...1\.;
+#X obj 250 721 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 721 @voice;
 #X text 270 721 Voice. Тип: symbol. Значение по умолчанию: Anna.;
+#X obj 250 751 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 751 @volume;
 #X text 270 751 Voice volume. Тип: float. Значение по умолчанию: 1\.
 Диапазон: 0\...1\.;
-#X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 808 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 809 clear;
 #X text 270 809 clear TTS queue.;
+#X obj 250 837 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 837 read;
 #X text 270 837 read TTS file (text or SSML). Аргументы:;
 #X obj 280 860 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 860 FILE: absolute or relative path to the file. Тип: symbol.;
+#X obj 250 885 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 885 ssml;
 #X text 270 885 speak SSML text markup.;
+#X obj 250 913 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 913 stop;
 #X text 270 913 stops speech and clear TTS queue.;
-#X obj 20 951 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 951 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 956 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 957 1\.;
@@ -77,7 +84,7 @@ symbol.;
 #X text 270 982 speak symbol.;
 #X text 170 1007 list:;
 #X text 270 1007 speak list of symbols.;
-#X obj 20 1042 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1042 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1047 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1048 1\.;
@@ -118,7 +125,7 @@ end.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1170 pd info;
 #X connect 11 0 14 0;

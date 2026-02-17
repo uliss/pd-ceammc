@@ -35,7 +35,7 @@ a1/16 g1/16 f/4;
 #X obj 50 535 ui.hgain2~;
 #X obj 251 535 ui.dsp~;
 #X obj 50 563 dac~;
-#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 618 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 621 ui.link @background_color 0.98039 0.98039 0.98039
@@ -48,7 +48,7 @@ a1/16 g1/16 f/4;
 120bpm (120 четвертных ударов в минуту) \, 60|1/8_bpm (60 восьмых ударов
 в минуту) \, 90|4\._bpm (90 ударов в минуту \, длительностью четверть
 с точкой) и т.д. Тип: atom.;
-#X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 735 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 738 ui.link @background_color 0.98039 0.98039 0.98039
@@ -56,13 +56,13 @@ a1/16 g1/16 f/4;
 #X msg 130 736 @tempo;
 #X text 270 736 Текущий темп. Тип: atom. Единицы: 'bpm'. Значение по
 умолчанию: 60|4bpm.;
-#X obj 20 788 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 788 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 793 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 794 1\.;
 #X text 170 794 symbol:;
 #X text 270 794 Guido note.;
-#X obj 20 829 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 829 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 834 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 835 1\.;
@@ -100,7 +100,7 @@ a1/16 g1/16 f/4;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 927 pd info;
 #X connect 8 0 12 0;

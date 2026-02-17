@@ -22,7 +22,7 @@ number of bins;
 #X obj 50 292 list.enumerate @append;
 #X obj 50 320 list.repack 2;
 #X obj 50 349 tabwrite array1;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 404 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
@@ -32,7 +32,7 @@ number of bins;
 #X obj 268 406 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 405 BINS: number of histogram bins. Тип: int. Диапазон:
 2…1024;
-#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 445 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 448 ui.link @background_color 0.98039 0.98039 0.98039
@@ -40,7 +40,7 @@ number of bins;
 #X msg 130 446 @bins;
 #X text 270 446 Number of histogram bins. Тип: int. Значение по умолчанию:
 100\. Диапазон: 2\...1024\.;
-#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 503 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 504 1\.;
@@ -51,7 +51,7 @@ number of bins;
 #X text 130 554 2\.;
 #X text 170 554 int:;
 #X text 270 554 set number of bins.;
-#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 594 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 595 1\.;
@@ -87,7 +87,7 @@ number of bins;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 667 pd info;
 #X connect 7 0 9 0;

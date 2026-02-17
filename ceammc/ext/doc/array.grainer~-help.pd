@@ -32,7 +32,7 @@
 #X obj 69 714 openpanel;
 #X msg 69 742 load \$1 to agr0 @resize;
 #X obj 50 771 snd.file;
-#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 826 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 829 ui.link @background_color 0.98039 0.98039 0.98039
@@ -41,25 +41,28 @@
 #X text 170 827 symbol;
 #X obj 268 828 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 827 ARRAY: array name. Type: symbol.;
-#X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 867 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 870 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 868 @array;
 #X text 270 868 Array name. Type: symbol.;
+#X obj 250 898 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 898 @prob;
 #X text 270 898 Grain start probability in internal or external sync
 mode. ('int' or 'ext'). Type: float. Default value: 1\. Range: 0\...1\.;
+#X obj 250 955 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 955 @sync;
 #X text 270 955 Grain sync mode. If 'none': start grains right after
 they are finished \, if 'int': start grains after specified interval
 (@tsync). Type: symbol. Default value: none. Allowed values: none \,
 int \, ext.;
+#X obj 250 1027 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1027 @tsync;
 #X text 270 1027 Grain sync interval. Type: float. Units: 'ms'. Default
 value: 50\. Min value: 1\.;
-#X obj 20 1079 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1079 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1084 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1085 align;
@@ -68,18 +71,21 @@ value: 50\. Min value: 1\.;
 #X text 280 1108 [SUBJ]: if '*' or omitted: align all grains \, if
 '.': align finished grains only \, if number: align grain with corresponding
 #id \, if symbol: align grains with corresponding tag. Type: atom.;
+#X obj 250 1178 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1178 append;
 #X text 270 1178 append several grains. Arguments are:;
 #X obj 280 1201 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1201 N: number of grains. Type: int. Min value: 1\.;
 #X obj 280 1224 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1224 PROPS: grain properties. Type: list.;
+#X obj 250 1249 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1249 clear;
 #X text 270 1249 remove grain(s). Arguments are:;
 #X obj 280 1272 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1272 [SUBJ]: if '*' or omitted: remove all grains \, if
 '.': remove finished grains only \, if float: remove grain with corresponding
 #id \, if symbol: remove grains with corresponding tag. Type: atom.;
+#X obj 250 1342 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1342 defer;
 #X text 270 1342 defer method call until grains will finish. Arguments
 are:;
@@ -90,6 +96,7 @@ If not specified \, treat as 1\. Type: int. Range: 1\...255\.;
 #X text 280 1418 METHOD: method name. Type: symbol.;
 #X obj 280 1441 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1441 [ARGS]: method arguments. Type: list.;
+#X obj 250 1466 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1466 fill;
 #X text 270 1466 fill with grains (remove all existing grains before).
 Arguments are:;
@@ -97,10 +104,12 @@ Arguments are:;
 #X text 280 1504 N: number of grains. Type: int. Min value: 1\.;
 #X obj 280 1527 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1527 PROPS: grain properties. Type: list.;
+#X obj 250 1552 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1552 grain;
 #X text 270 1552 create single grain. Arguments are:;
 #X obj 280 1575 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1575 PROPS: grain properties. Type: list.;
+#X obj 250 1600 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1600 onsets;
 #X text 270 1600 analyze source array for onsets. Arguments are:;
 #X obj 280 1623 cnv 1 124 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -113,6 +122,7 @@ Units: 'ms'.;
 #X obj 280 1714 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1714 [SILENCE=-40]: silence level. Type: float. Units:
 'db'.;
+#X obj 250 1739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1739 pause;
 #X text 270 1739 pause (resume) grain(s). Arguments are:;
 #X obj 280 1762 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -122,6 +132,7 @@ tag. Type: atom.;
 #X obj 280 1815 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1815 [STATE]: on/off value. Type: int. Allowed values:
 0 \, 1\.;
+#X obj 250 1840 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1840 permutate;
 #X text 270 1840 permutate grain positions (@ta and @tb) values. Arguments
 are:;
@@ -132,6 +143,7 @@ permutation \, N<0 - N-th previous permutation. Type: int. Range: -16\...16\.;
 #X text 280 1931 [TAG]: if '*' or omitted: permutates all grains \,
 if '.': permutate positions of finished grains only \, otherwise permutates
 grains with corresponding tag. Type: symbol.;
+#X obj 250 2001 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2001 reverse;
 #X text 270 2001 reverse grain positions (@ta and @tb) values. Arguments
 are:;
@@ -139,6 +151,7 @@ are:;
 #X text 280 2024 [TAG]: if '*' or omitted: reverse positions of all
 grains \, if '.': reverse positions of finished grains only \, otherwise
 reverse grains with corresponding tag. Type: symbol.;
+#X obj 250 2094 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2094 set;
 #X text 270 2094 set grain(s) properties. Arguments are:;
 #X obj 280 2117 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -147,6 +160,7 @@ for grain with specified #id \, if symbol: set for grains with specified
 tag. Type: atom.;
 #X obj 280 2170 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2170 PROPS: grain properties. Type: list.;
+#X obj 250 2195 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2195 shuffle;
 #X text 270 2195 shuffle grain positions (@ta and @tb) values. Arguments
 are:;
@@ -154,6 +168,7 @@ are:;
 #X text 280 2218 [TAG]: if '*' or omitted: shuffle all grains \, if
 '.': shuffle finished grains only \, otherwise shuffle grains with
 corresponding tag. Type: symbol.;
+#X obj 250 2273 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2273 slice;
 #X text 270 2273 slice specified duration to specified number of grains
 and add them. Arguments are:;
@@ -166,6 +181,7 @@ millisecond. If not specified - use the whole source array duration.
 Type: atom.;
 #X obj 280 2402 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2402 [GRAIN]: properties of sliced grains. Type: list.;
+#X obj 250 2427 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2427 spread;
 #X text 270 2427 uniformly arrange grains to fill specified time space.
 Arguments are:;
@@ -178,14 +194,14 @@ Type: atom.;
 #X text 280 2533 [TAG]: if '*' or omitted: spread all grains \, if
 '.': spread finished grains only \, otherwise spread grains with corresponding
 tag. Type: symbol.;
-#X obj 20 2598 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2598 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2603 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2604 1\.;
 #X text 270 2604 control messages.;
 #X text 170 2629 bang:;
 #X text 270 2629 if @sync = 'ext': starts finished grains playback.;
-#X obj 20 2664 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2664 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2669 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2670 1\.;
@@ -223,7 +239,7 @@ tag. Type: symbol.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 2762 pd info;
 #X connect 17 0 19 0;

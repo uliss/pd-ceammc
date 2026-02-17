@@ -31,7 +31,7 @@ props \, but using internal pd method calls;
 #X text 88 531 abstraction property;
 #X obj 50 560 prop.set @p1;
 #X obj 50 589 prop.set-patch;
-#X obj 20 639 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 639 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 644 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 647 ui.link @background_color 0.98039 0.98039 0.98039
@@ -40,7 +40,7 @@ props \, but using internal pd method calls;
 #X text 170 645 list;
 #X obj 268 646 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 645 PROPS: property names. Тип: list.;
-#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 685 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 686 1\.;
@@ -49,7 +49,7 @@ props \, but using internal pd method calls;
 #X text 270 711 ... property value.;
 #X text 130 736 n.;
 #X text 270 736 n-th property value.;
-#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 776 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 777 1\.;
@@ -85,7 +85,7 @@ props \, but using internal pd method calls;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 849 pd info;
 #X connect 11 0 14 0;

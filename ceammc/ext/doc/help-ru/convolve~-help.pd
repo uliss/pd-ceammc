@@ -14,7 +14,7 @@
 #X obj 203 205 ui.dsp~;
 #X obj 50 234 ui.hgain~;
 #X obj 50 262 dac~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 317 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
@@ -22,35 +22,39 @@
 #X msg 130 318 @maxsize;
 #X text 270 318 Max impulse response size. Тип: int. Единицы: 'samp'.
 Значение по умолчанию: 50000\. Диапазон: 0\...300000\.;
+#X obj 250 360 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 360 @norm;
 #X text 270 360 Normalize impulse response. Тип: bool. Значение по
 умолчанию: 1\.;
+#X obj 250 402 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 402 @offset;
 #X text 270 402 Impulse response (IR) offset. Тип: int. Единицы: 'samp'.
 Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 459 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 460 load_array;
 #X text 270 460 load IR from array. Аргументы:;
 #X obj 280 483 cnv 1 46 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 483 ARRAY: array name. Тип: symbol.;
+#X obj 250 508 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 508 load_file;
 #X text 270 508 load IR from specified file (resamples if required
 from file samplerate to runtime samplerate). Аргументы:;
 #X obj 280 546 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 546 FILE: file name \, relative or absolute. Тип: atom.;
+#X obj 250 571 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 571 set;
 #X text 270 571 set IR from list. Аргументы:;
 #X obj 280 594 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 594 LIST: IR data. Тип: float.;
-#X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 634 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 635 1\.;
 #X text 170 635 ~;
 #X text 270 635 input signal.;
-#X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 675 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 676 1\.;
@@ -85,7 +89,7 @@ from file samplerate to runtime samplerate). Аргументы:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 748 pd info;
 #X connect 5 0 6 0;

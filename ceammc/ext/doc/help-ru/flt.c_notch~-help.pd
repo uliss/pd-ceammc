@@ -20,7 +20,7 @@
 #X obj 50 350 ui.gain~ @size 120 16;
 #X obj 50 378 dac~;
 #X obj 50 407 ui.dsp~;
-#X obj 20 457 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 457 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 462 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 465 ui.link @background_color 0.98039 0.98039 0.98039
@@ -33,7 +33,7 @@
 #X text 170 488 float;
 #X obj 268 489 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 488 Q: quality factory. Тип: float. Диапазон: 0.01…100;
-#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 528 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 531 ui.link @background_color 0.98039 0.98039 0.98039
@@ -43,23 +43,27 @@
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/flt_c_notch/ИМЯ_СВОЙСТВА \, в противном случае к /flt_c_notch/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 616 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 616 @osc;
 #X text 270 616 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 646 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 646 @active;
 #X text 270 646 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 688 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 688 @freq;
 #X text 270 688 Center frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 1000\. Диапазон: 20\...20000\.;
+#X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 730 @q;
 #X text 270 730 Quality factor: @freq/BANDWIDTH. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 0.01\...100\.;
-#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 787 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 788 1\.;
 #X text 270 788 control signal.;
-#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 828 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 829 1\.;
@@ -110,7 +114,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 981 pd info;
 #X connect 6 0 10 0;

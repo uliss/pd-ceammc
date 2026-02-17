@@ -30,23 +30,26 @@ navy olive orange pink purple red white yellow;
 #X floatatom 146 350 5 0 0 0 - - -;
 #X floatatom 194 350 5 0 0 0 - - -;
 #X obj 357 350 ui.dt;
-#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 405 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 408 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 406 @pack;
 #X text 270 406 Выводит в виде списка в первый выход.;
+#X obj 250 436 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 436 @float;
 #X text 270 436 Сокращение для @mode float. Выходные значения в диапазоне
 [0-1].;
+#X obj 250 478 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 478 @int;
 #X text 270 478 Сокращение для @mode int. Выходные значения в диапазоне
 [0-255].;
+#X obj 250 520 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 520 @mode;
 #X text 270 520 Выходной режим. Тип: symbol. Значение по умолчанию:
 int. Разрешённые значения: int \, float.;
-#X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 577 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 578 1\.;
@@ -57,7 +60,7 @@ or short (#RGB or #RGBA) format.;
 #X text 270 618 use message selector as color name.;
 #X text 170 643 data:color:;
 #X text 270 643 Color data.;
-#X obj 20 678 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 678 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 683 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 684 1\.;
@@ -98,7 +101,7 @@ red channel value.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 831 pd info;
 #X connect 8 0 14 0;

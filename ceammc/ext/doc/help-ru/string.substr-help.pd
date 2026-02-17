@@ -9,7 +9,7 @@
 #X msg 50 118 symbol PureData;
 #X obj 50 147 str.substr 4;
 #X obj 50 176 ui.dt;
-#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 231 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 234 ui.link @background_color 0.98039 0.98039 0.98039
@@ -24,7 +24,7 @@ one character from the end of stirng. Тип: int.;
 #X obj 268 273 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 272 LEN: substring length. If -1 given (by default) \,
 means 'till string end'. Тип: int. Минимальное значение: -1\.;
-#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 342 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
@@ -32,11 +32,12 @@ means 'till string end'. Тип: int. Минимальное значение: -
 #X msg 130 343 @from;
 #X text 270 343 Substring position. Can be negative - to address string
 from the end. Тип: int. Значение по умолчанию: 0\.;
+#X obj 250 385 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 385 @len;
 #X text 270 385 Substring length. If equal to -1 \, substring to the
 end of string. Тип: int. Значение по умолчанию: -1\. Минимальное значение:
 -1\.;
-#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 457 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 458 1\.;
@@ -45,7 +46,7 @@ end of string. Тип: int. Значение по умолчанию: -1\. Ми�
 #X text 270 483 from.;
 #X text 130 508 3\.;
 #X text 270 508 to.;
-#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 548 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 549 1\.;
@@ -81,7 +82,7 @@ end of string. Тип: int. Значение по умолчанию: -1\. Ми�
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 621 pd info;
 #X connect 5 0 6 0;

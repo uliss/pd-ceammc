@@ -21,7 +21,7 @@ blocks - measured bpm is not exact;
 #X msg 309 263 \; #midirealtimein 1 248;
 #X obj 606 263 ui.dsp~;
 #X obj 50 292 dac~;
-#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 347 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 350 ui.link @background_color 0.98039 0.98039 0.98039
@@ -31,7 +31,7 @@ blocks - measured bpm is not exact;
 #X obj 268 349 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 348 DIV: @div clock subdivision. Разрешённые значения:
 0 \, 4 \, 8 \, 16 \, 32\. Тип: int.;
-#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 403 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 406 ui.link @background_color 0.98039 0.98039 0.98039
@@ -41,17 +41,17 @@ blocks - measured bpm is not exact;
 message \, if 4: output every quoter note \, 8: every eight note etc.
 Тип: int. Значение по умолчанию: 0\. Разрешённые значения: 0 \, 4 \,
 8 \, 16 \, 32\.;
-#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 491 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 492 reset;
 #X text 270 492 reset beat counter.;
-#X obj 20 530 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 530 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 535 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 536 1\.;
 #X text 270 536 control input.;
-#X obj 20 571 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 571 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 576 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 577 1\.;
@@ -87,7 +87,7 @@ message \, if 4: output every quoter note \, 8: every eight note etc.
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 669 pd info;
 #X connect 6 0 8 0;

@@ -9,35 +9,40 @@
 #X obj 50 147 proto.midi.sysex-mbal;
 #X obj 50 176 proto.midi.sysex-mtune;
 #X obj 50 205 proto.midi.sysex-idreq;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 260 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 261 id_request;
 #X text 270 261 send Identity Request SysEx message.;
+#X obj 250 289 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 289 mbal:f;
 #X text 270 289 set device master balance. Аргументы:;
 #X obj 280 312 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 312 PAN: balance. Тип: float. Диапазон: -1…1\.;
+#X obj 250 337 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 337 mtune;
 #X text 270 337 set device master tuning in float semitones (combination
 of coarse and fine tune). Аргументы:;
 #X obj 280 375 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 375 V: tuning. Тип: float. Диапазон: -64…63\. Единицы:
 'semitone'.;
+#X obj 250 415 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 415 mtune.;
 #X text 270 415 set device master fine tuning in cents. Аргументы:;
 #X obj 280 438 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 438 V: tuning. Тип: int. Диапазон: -100…100\. Единицы:
 'cent'.;
+#X obj 250 463 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 463 mtune~;
 #X text 270 463 set device master coarse tuning in semitones. Аргументы:;
 #X obj 280 486 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 486 V: tuning. Тип: int. Диапазон: -64…63\. Единицы: 'semitone'.;
+#X obj 250 511 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 511 mvolume;
 #X text 270 511 set device master volume. Аргументы:;
 #X obj 280 534 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 534 LEVEL: volume level. Тип: float. Диапазон: 0…1\.;
-#X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 574 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 575 1\.;
@@ -45,7 +50,7 @@ of coarse and fine tune). Аргументы:;
 #X text 270 575 raw midi input bytes.;
 #X text 170 600 list:;
 #X text 270 600 raw midi input bytes.;
-#X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 640 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 641 1\.;
@@ -80,6 +85,6 @@ of coarse and fine tune). Аргументы:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 743 pd info;

@@ -21,7 +21,7 @@ specflux kl mkl;
 #X obj 50 358 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X floatatom 136 358 10 0 0 0 - - -;
-#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 395 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 398 ui.link @background_color 0.98039 0.98039 0.98039
@@ -43,7 +43,7 @@ specflux kl mkl;
 #X obj 268 492 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 491 HS(samp): размер окна (по умолчанию размер_буфера/2).
 Тип: int. Минимальное значение: 0\.;
-#X obj 20 541 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 541 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 546 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 549 ui.link @background_color 0.98039 0.98039 0.98039
@@ -51,76 +51,94 @@ specflux kl mkl;
 #X msg 130 547 @bs;
 #X text 270 547 (при инициализации) Размер буфера. Тип: int. Единицы:
 'samp'. Значение по умолчанию: 1024\. Минимальное значение: 64\.;
+#X obj 250 604 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 604 @active;
 #X text 270 604 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 646 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 646 @awhitening;
 #X text 270 646 Адаптивное «отбеливание». Тип: bool. Значение по умолчанию:
 0\.;
+#X obj 250 688 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 688 @complex;
 #X text 270 688 Сокращение для @method complex. Метод Complex Domain.;
+#X obj 250 718 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 718 @compression;
 #X text 270 718 Лямбда логарифмический коэффициент сжатия \, 0 для
 отключения. Тип: float. Значение по умолчанию: 1\. Минимальное значение:
 0\.;
+#X obj 250 775 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 775 @delay;
 #X text 270 775 Постоянная задержка времени обнаружения. Тип: float.
 Единицы: 'ms'. Значение по умолчанию: 49.9093\. Минимальное значение:
 0\.;
+#X obj 250 832 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 832 @energy;
 #X text 270 832 Сокращение для @method energy. Energy based функция
 обнаружения атаки.;
+#X obj 250 874 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 874 @hfc;
 #X text 270 874 Сокращение для @method hfc. High Frequency Content
 функция обнаружения атаки.;
+#X obj 250 916 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 916 @hs;
 #X text 270 916 Размер окна. 0 означает @bs/2\. Тип: int. Единицы:
 'samp'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 973 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 973 @kl;
 #X text 270 973 Сокращение для @method kl. Функция обнаружения атаки
 Kullback-Liebler.;
+#X obj 250 1015 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1015 @method;
 #X text 270 1015 Метод детекции атаки. По умолчанию hfc. Тип: symbol.
 Значение по умолчанию: default. Разрешённые значения: specflux \, phase
 \, energy \, hfc \, kl \, complex \, default \, specdiff \, wphase
 \, rolloff \, spread \, kurtosis \, skewness \, complexdomain \, decrease
 \, slope \, centroid.;
+#X obj 250 1102 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1102 @mkl;
 #X text 270 1102 Сокращение для @method mkl. Модифицированная функция
 обнаружения атаки Kullback-Liebler.;
+#X obj 250 1144 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1144 @phase;
 #X text 270 1144 Alias to @method phase. Phase Based Method onset detection
 function.;
+#X obj 250 1186 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1186 @silence;
 #X text 270 1186 Onset detection silence threshold. Тип: float. Единицы:
 'db'. Значение по умолчанию: -70\. Диапазон: -80\...0\.;
+#X obj 250 1243 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1243 @specdiff;
 #X text 270 1243 Alias to @method specdiff. Spectral difference method
 onset detection function.;
+#X obj 250 1285 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1285 @specflux;
 #X text 270 1285 Alias to @method specflux. Spectral Flux.;
+#X obj 250 1315 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1315 @speedlim;
 #X text 270 1315 Минимальный интервал между двумя последовательными
 атаками. Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Минимальное
 значение: 1\.;
+#X obj 250 1372 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1372 @threshold;
 #X text 270 1372 Peak picking threshold. Тип: float. Значение по умолчанию:
 0.058\.;
+#X obj 250 1414 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1414 @wphase;
 #X text 270 1414 Alias to @method phase. Weighted Phase Deviation onset
 detection function.;
-#X obj 20 1466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1471 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1472 reset;
 #X text 270 1472 сбрасывает последний кадр и счетчики кадров.;
-#X obj 20 1510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1510 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1515 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1516 1\.;
 #X text 170 1516 ~;
 #X text 270 1516 входной сигнал.;
-#X obj 20 1551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1551 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1556 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1557 1\.;
@@ -161,7 +179,7 @@ detection function.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1679 pd info;
 #X connect 7 0 10 0;

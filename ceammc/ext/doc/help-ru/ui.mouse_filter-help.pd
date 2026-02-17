@@ -17,7 +17,7 @@
 #X obj 50 248 ui.rslider @mouse_events 1;
 #X obj 50 277 ui.mouse_filter @down;
 #X obj 50 305 ui.display @display_type 1;
-#X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 360 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
@@ -25,45 +25,56 @@
 #X msg 130 361 @down;
 #X text 270 361 Alias to @mouse_down 1 property. Значение по умолчанию:
 0\.;
+#X obj 250 391 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 391 @drag;
 #X text 270 391 Alias to @mouse_drag 1 property. Значение по умолчанию:
 0\.;
+#X obj 250 421 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 421 @enter;
 #X text 270 421 Alias to @mouse_enter 1 property. Значение по умолчанию:
 0\.;
+#X obj 250 451 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 451 @leave;
 #X text 270 451 Alias to @mouse_leave 1 property. Значение по умолчанию:
 0\.;
+#X obj 250 481 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 481 @mouse_down;
 #X text 270 481 Passing a @mouse_down events. Тип: bool. Значение по
 умолчанию: 0\.;
+#X obj 250 523 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 523 @mouse_drag;
 #X text 270 523 Passing a @mouse_drag events. Тип: bool. Значение по
 умолчанию: 0\.;
+#X obj 250 565 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 565 @mouse_enter;
 #X text 270 565 Passing a @mouse_enter events. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 607 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 607 @mouse_leave;
 #X text 270 607 Passing a @mouse_leave events. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 649 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 649 @mouse_move;
 #X text 270 649 Passing a @mouse_move events. Тип: bool. Значение по
 умолчанию: 0\.;
+#X obj 250 691 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 691 @mouse_up;
 #X text 270 691 Passing a @mouse_up events. Тип: bool. Значение по
 умолчанию: 0\.;
+#X obj 250 733 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 733 @move;
 #X text 270 733 Alias to @mouse_move 1 property. Значение по умолчанию:
 0\.;
+#X obj 250 763 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 763 @up;
 #X text 270 763 Alias to @mouse_up 1 property. Значение по умолчанию:
 0\.;
-#X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 808 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 809 1\.;
 #X text 270 809 input messages from ui object.;
-#X obj 20 844 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 844 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 849 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 850 1\.;
@@ -101,7 +112,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 922 pd info;
 #X connect 7 0 9 0;

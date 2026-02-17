@@ -24,7 +24,7 @@
 #X obj 50 392 ui.hgain~;
 #X obj 50 421 dac~;
 #X obj 299 421 ui.dsp~;
-#X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 476 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 479 ui.link @background_color 0.98039 0.98039 0.98039
@@ -33,18 +33,19 @@
 #X text 170 477 symbol;
 #X obj 268 478 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 477 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 517 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 520 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 518 @array;
 #X text 270 518 Имя массива. Тип: symbol.;
+#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 548 @fps;
 #X text 270 548 Ожидаемая скорость потока кадров LTC. Тип: atom. Значение
 по умолчанию: auto. Разрешённые значения: auto \, 24 \, 25 \, 29.97
 \, 30\.;
-#X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 620 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 621 1\.;
@@ -53,7 +54,7 @@
 #X text 130 646 2\.;
 #X text 170 646 symbol:;
 #X text 270 646 установить исходный массив.;
-#X obj 20 681 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 681 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 686 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 687 1\.;
@@ -88,7 +89,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 759 pd info;
 #X connect 4 0 6 0;

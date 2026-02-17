@@ -24,7 +24,7 @@
 #X obj 50 406 pan.spread~ 5, f 16;
 #X obj 50 435 ui.hgain2~;
 #X obj 50 464 dac~, f 16;
-#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 519 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
@@ -39,7 +39,7 @@
 #X obj 268 546 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 545 T(ms): time interval between steps or bpm. Тип: float.
 Диапазон: 1…20000;
-#X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 600 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 603 ui.link @background_color 0.98039 0.98039 0.98039
@@ -47,52 +47,66 @@
 #X msg 130 601 @div;
 #X text 270 601 Beat subdivision. Тип: int. Значение по умолчанию:
 1\. Диапазон: 1\...64\.;
+#X obj 250 643 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 643 @dur;
 #X text 270 643 Whole sequence duration. (Recalculates @t property
 accordingly). Тип: float. Единицы: 'ms'. Значение по умолчанию: 4000\.
 Минимальное значение: 0\.;
+#X obj 250 700 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 700 @inf;
 #X text 270 700 Alias to @r -1 \, repeats infinitely.;
+#X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 730 @mode;
 #X text 270 730 Sequencer mode. 'inc': from first to last \, 'dec':
 from last to first \, 'tri': from first to last \, then back. Тип:
 symbol. Значение по умолчанию: inc. Разрешённые значения: inc \, dec
 \, tri.;
+#X obj 250 802 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 802 @n;
 #X text 270 802 Number of cols in matrix. Тип: int. Значение по умолчанию:
 16\. Минимальное значение: 0\.;
+#X obj 250 844 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 844 @once;
 #X text 270 844 Alias to @r 1 \, play once.;
+#X obj 250 874 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 874 @r;
 #X text 270 874 Number of whole sequence repeats. If -1: repeat infinitely.
 Тип: int. Значение по умолчанию: -1\. Минимальное значение: -1\.;
+#X obj 250 931 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 931 @t;
 #X text 270 931 Time between beats. Unit values like 100ms or 240bpm
 also can be used. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 250\. Диапазон: 1\...20000\.;
+#X obj 250 988 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 988 @upbeat;
 #X text 270 988 Wait specified number of beats before sequence start.
 Тип: float. Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 1045 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1045 @i?;
 #X text 270 1045 (только чтение) Current sequence iteration. Тип: int.
 Значение по умолчанию: 0\.;
+#X obj 250 1087 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1087 @ri?;
 #X text 270 1087 (только чтение) Current repeat iteration. Тип: int.
 Значение по умолчанию: 0\.;
-#X obj 20 1139 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1139 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1144 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1145 reset;
 #X text 270 1145 reset all counters and stop.;
+#X obj 250 1173 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1173 rewind;
 #X text 270 1173 reset all counters without stopping.;
+#X obj 250 1201 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1201 start;
 #X text 270 1201 start sequencer from current position.;
+#X obj 250 1229 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1229 stop;
 #X text 270 1229 stop sequencer.;
+#X obj 250 1257 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1257 tick;
 #X text 270 1257 output current sequence element and move to next.;
-#X obj 20 1295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1295 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1300 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1301 1\.;
@@ -105,7 +119,7 @@ also can be used. Тип: float. Единицы: 'ms'. Значение по у�
 #X text 270 1351 reset.;
 #X text 170 1376 float:;
 #X text 270 1376 set number of steps.;
-#X obj 20 1411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1411 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1416 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1417 1\.;
@@ -145,7 +159,7 @@ iteration or [done( when done.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1524 pd info;
 #X connect 6 0 8 0;

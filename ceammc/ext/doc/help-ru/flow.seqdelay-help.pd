@@ -38,7 +38,7 @@ inlet or with [prop.set] object;
 #X obj 50 676 pan.spread~ 4, f 21;
 #X obj 50 704 ui.hgain2~ @size 15 151;
 #X obj 50 733 dac~ 1 2, f 21;
-#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 788 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 791 ui.link @background_color 0.98039 0.98039 0.98039
@@ -47,7 +47,7 @@ inlet or with [prop.set] object;
 #X text 170 789 list;
 #X obj 268 790 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 789 T(ms): List of delay times. See @t property. Тип: list.;
-#X obj 20 824 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 824 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 829 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 832 ui.link @background_color 0.98039 0.98039 0.98039
@@ -56,15 +56,16 @@ inlet or with [prop.set] object;
 #X text 270 830 Blocking mode. If true \, discards incoming messages
 until scheduled message will output \, after that is ready to accept
 the new one. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 902 @t;
 #X text 270 902 Delay time list. Тип: list. Единицы: 'ms'. Минимальное
 значение: 0\.;
-#X obj 20 954 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 954 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 959 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 960 reset;
 #X text 270 960 reset all scheduled delays.;
-#X obj 20 998 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 998 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1003 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1004 1\.;
@@ -76,7 +77,7 @@ the new one. Тип: bool. Значение по умолчанию: 0\.;
 #X text 270 1054 'reset' - reset all scheduled delays \, '@t' - set
 @t property \, '@block' - set @block property \, 'dump' - dump object
 info to Pd window.;
-#X obj 20 1119 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1119 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1124 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1125 1\.;
@@ -116,7 +117,7 @@ info to Pd window.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1237 pd info;
 #X connect 9 0 11 0;

@@ -25,7 +25,7 @@
 #X symbolatom 443 345 10 0 0 0 - - -;
 #X obj 50 373 str.match t.+`.mp\[34\];
 #X obj 50 402 ui.dt;
-#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 457 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 460 ui.link @background_color 0.98039 0.98039 0.98039
@@ -34,21 +34,21 @@
 #X text 170 458 list;
 #X obj 268 459 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 458 RE: регулярное выражение. Тип: list.;
-#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 498 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 501 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 499 @re;
 #X text 270 499 Регулярное выражение. Тип: list.;
-#X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 544 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 545 1\.;
 #X text 270 545 входная строка или символ.;
 #X text 130 570 2\.;
 #X text 270 570 установка регулярного выражения.;
-#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 610 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 611 1\.;
@@ -83,7 +83,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 683 pd info;
 #X connect 9 0 15 0;

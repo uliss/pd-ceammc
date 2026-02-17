@@ -22,7 +22,7 @@
 #X obj 309 234 print BEAT;
 #X obj 434 234 ui.dsp~;
 #X obj 50 262 dac~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
@@ -35,7 +35,7 @@
 #X text 170 343 symbol;
 #X obj 268 344 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 343 TSIG: time signature. Type: symbol.;
-#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 383 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 386 ui.link @background_color 0.98039 0.98039 0.98039
@@ -44,70 +44,91 @@
 #X text 270 384 (initonly) OSC address id. If specified \, bind all
 properties to /ID/synth_metro/PROP_NAME osc address \, if empty bind
 to /synth_metro/PROP_NAME. Type: symbol.;
+#X obj 250 441 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 441 @osc;
 #X text 270 441 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 471 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 471 @active;
 #X text 270 471 On/off object dsp processing. Type: bool. Default value:
 1\.;
+#X obj 250 501 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 501 @down.freq;
 #X text 270 501 Downbeat frequency. Type: float. Units: 'Hz'. Default
 value: 1500\. Range: 100\...5000\.;
+#X obj 250 543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 543 @down.gain;
 #X text 270 543 Downbeat gain. Type: float. Units: 'db'. Default value:
 6\. Range: -12\...12\.;
+#X obj 250 585 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 585 @down.reson;
 #X text 270 585 Downbeat resonance value (Q). Type: float. Default
 value: 50\. Range: 5\...100\.;
+#X obj 250 627 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 627 @gain;
 #X text 270 627 Common synth gain. Type: float. Units: 'db'. Default
 value: 0\. Range: -12\...12\.;
+#X obj 250 669 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 669 @mark.freq;
 #X text 270 669 Mark sound frequency. Type: float. Units: 'Hz'. Default
 value: 2000\. Range: 100\...5000\.;
+#X obj 250 711 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 711 @mark.gain;
 #X text 270 711 Mark sound gain. Type: float. Units: 'db'. Default
 value: 6\. Range: -12\...12\.;
+#X obj 250 753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 753 @mark.reson;
 #X text 270 753 Mark sound resonance value (Q). Type: float. Default
 value: 500\. Range: 5\...500\.;
+#X obj 250 795 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 795 @off.freq;
 #X text 270 795 Off-beat frequency. Type: float. Units: 'Hz'. Default
 value: 500\. Range: 100\...5000\.;
+#X obj 250 837 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 837 @off.gain;
 #X text 270 837 Off-beat gain. Type: float. Units: 'db'. Default value:
 6\. Range: -12\...12\.;
+#X obj 250 879 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 879 @off.reson;
 #X text 270 879 Off-beat resonance value (Q). Type: float. Default
 value: 10\. Range: 5\...100\.;
+#X obj 250 921 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 921 @on.freq;
 #X text 270 921 On-beat frequency. Type: float. Units: 'Hz'. Default
 value: 1000\. Range: 100\...5000\.;
+#X obj 250 963 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 963 @on.gain;
 #X text 270 963 On-beat gain. Type: float. Units: 'db'. Default value:
 6\. Range: -12\...12\.;
+#X obj 250 1005 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1005 @on.reson;
 #X text 270 1005 On-beat resonance value (Q). Type: float. Default
 value: 30\. Range: 5\...100\.;
+#X obj 250 1047 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1047 @tempo;
 #X text 270 1047 Tempo. If beat division is ommitted \, using 1/4\.
 Type: atom. Units: 'bpm'. Default value: 60|4bpm.;
+#X obj 250 1089 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1089 @tsig;
 #X text 270 1089 Metronome time signature \, can be complex like: |1/4+15/16|
 etc. Type: symbol. Default value: |4/4|.;
-#X obj 20 1141 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1141 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1146 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1147 down;
 #X text 270 1147 manually play downbeat sound.;
+#X obj 250 1175 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1175 mark;
 #X text 270 1175 manually play mark sound.;
+#X obj 250 1203 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1203 off;
 #X text 270 1203 manually play offbeat sound.;
+#X obj 250 1231 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1231 on;
 #X text 270 1231 manually play onbeat sound.;
+#X obj 250 1259 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1259 reset;
 #X text 270 1259 reset metro to the beginning.;
-#X obj 20 1297 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1297 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1302 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1303 1\.;
@@ -119,7 +140,7 @@ etc. Type: symbol. Default value: |4/4|.;
 #X text 130 1353 3\.;
 #X text 170 1353 float:;
 #X text 270 1353 set tempo in 1/4 per minute.;
-#X obj 20 1388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1388 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1393 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1394 1\.;
@@ -157,7 +178,7 @@ etc. Type: symbol. Default value: |4/4|.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 1486 pd info;
 #X connect 9 0 10 0;

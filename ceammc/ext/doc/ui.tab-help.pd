@@ -24,7 +24,7 @@
 #X obj 50 234 ui.tab @items sin tri @size 350 15 @nosave 1;
 #X obj 50 262 print;
 #X obj 126 262 ui.dt;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 317 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 130 352 Left-click;
@@ -44,89 +44,113 @@
 #X text 130 472 Right-click + ⌥;
 #X text 310 472 open properties dialog.;
 #X text 81 472 [Edit];
-#X obj 20 502 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 502 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 507 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 510 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 508 @items;
 #X text 270 508 List of tab names. Type: list.;
+#X obj 250 538 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 538 @orientation;
 #X text 270 538 Tab orientation. 1 is vertical \, 0 is horizontal.
 Type: bool. Default value: 0\.;
+#X obj 250 580 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 580 @receive;
 #X text 270 580 Source of message receive. Type: symbol. Default value:
 (null).;
+#X obj 250 622 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 622 @send;
 #X text 270 622 Address for sending messages. Type: symbol. Default
 value: (null).;
+#X obj 250 664 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 664 @toggle;
 #X text 270 664 Toggle mode. In toggle moe multiple selection is possible.
 Type: bool. Default value: 0\.;
+#X obj 250 706 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 706 @active_color;
 #X text 270 706 Element active color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X obj 250 748 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 748 @background_color;
 #X text 270 748 Element background color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93 1\.;
+#X obj 250 805 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 805 @border_color;
 #X text 270 805 Border color (list of red \, green \, blue values in
 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
+#X obj 250 847 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 847 @hover_color;
 #X text 270 847 Hover color (list of red \, green \, blue values in
 0-1 range). Type: list. Default value: 0.5 0.5 0.5 1\.;
+#X obj 250 889 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 889 @text_color;
 #X text 270 889 Text color (list of red \, green \, blue values in
 0-1 range). Type: list. Default value: 0 0 0 1\.;
+#X obj 250 931 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 931 @fontname;
 #X text 270 931 Font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 973 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 973 @fontsize;
 #X text 270 973 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X obj 250 1003 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1003 @fontslant;
 #X text 270 1003 Font slant. Type: symbol. Default value: roman. Allowed
 values: roman \, italic.;
+#X obj 250 1045 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1045 @fontweight;
 #X text 270 1045 Font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
+#X obj 250 1087 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1087 @pinned;
 #X text 270 1087 Pin mode. If set to 1 \, it places the element at
 the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
+#X obj 250 1144 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1144 @presetname;
 #X text 270 1144 Preset name for using with [ui.preset] or [preset.storage]
 objects. Type: symbol. Default value: (null).;
+#X obj 250 1186 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1186 @size;
 #X text 270 1186 Object size (width \, height pair). Type: list. Default
 value: 100 15\.;
+#X obj 250 1228 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1228 @count?;
 #X text 270 1228 (readonly) Number of tabs. Type: int. Default value:
 0\.;
+#X obj 250 1258 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1258 @current?;
 #X text 270 1258 (readonly) Current selected index (in switch mode).
 Type: int. Default value: 0\.;
+#X obj 250 1300 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1300 @selected?;
 #X text 270 1300 (readonly) List of selected items (in toggle mode).
 Type: list.;
-#X obj 20 1352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1352 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1357 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1358 append;
 #X text 270 1358 appends new tab item. Arguments are:;
 #X obj 280 1381 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1381 ATOMS: item name. Type: list.;
+#X obj 250 1406 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1406 clear;
 #X text 270 1406 clears specified preset. Arguments are:;
 #X obj 280 1429 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1429 IDX: preset index. Type: int.;
+#X obj 250 1454 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1454 delete;
 #X text 270 1454 removes item from tab. Arguments are:;
 #X obj 280 1477 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1477 IDX: removed item index. Type: int. Min value: 0\.;
+#X obj 250 1502 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1502 erase;
 #X text 270 1502 clears all tab menu.;
+#X obj 250 1530 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1530 flip;
 #X text 270 1530 flips radio (only in checklist mode).;
+#X obj 250 1558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1558 insert;
 #X text 270 1558 inserts new tab item before specified position. Arguments
 are:;
@@ -134,53 +158,65 @@ are:;
 #X text 280 1596 IDX: item position. Type: int. Min value: 0\.;
 #X obj 280 1619 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1619 ATOM: item name. Type: atom.;
+#X obj 250 1644 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1644 interp;
 #X text 270 1644 for this object acts as *load* \, no preset interpolation
 performed.;
+#X obj 250 1684 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1684 load;
 #X text 270 1684 loads specified preset. Arguments are:;
 #X obj 280 1707 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1707 IDX: preset index. Type: int.;
+#X obj 250 1732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1732 next;
 #X text 270 1732 moves to next item until last item is reached (single
 mode only). Output new item.;
+#X obj 250 1772 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1772 pos;
 #X text 270 1772 set UI element position. Arguments are:;
 #X obj 280 1795 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1795 X: top left x-coord. Type: float.;
 #X obj 280 1818 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1818 Y: top right y-coord. Type: float.;
+#X obj 250 1843 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1843 prev;
 #X text 270 1843 moves to previous item until first item is reached
 (single mode only). Output new item.;
+#X obj 250 1883 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1883 random;
 #X text 270 1883 select random item. If called [random move( moves
 to random item (excluding the current one).;
+#X obj 250 1923 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1923 select;
 #X text 270 1923 selects specified item in tab. Arguments are:;
 #X obj 280 1946 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1946 IDX: item index. Type: int. Min value: 0\.;
+#X obj 250 1971 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1971 set;
 #X text 270 1971 silently sets tab state. Arguments are:;
 #X obj 280 1994 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1994 IDX: item index. Type: int. Min value: 0\.;
+#X obj 250 2019 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2019 set_item;
 #X text 270 2019 renames tab item. Arguments are:;
 #X obj 280 2042 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2042 IDX: item index. Type: int. Min value: 0\.;
 #X obj 280 2065 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2065 ATOMS: item name. Type: list.;
+#X obj 250 2090 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2090 store;
 #X text 270 2090 stores specified preset. Arguments are:;
 #X obj 280 2113 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2113 IDX: preset index. Type: int.;
+#X obj 250 2138 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2138 + STEP;
 #X text 270 2138 moves several steps forward on a loop (single mode
 only) \, output newly selected item.;
+#X obj 250 2178 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2178 - STEP;
 #X text 270 2178 moves several step backwards on a loop (single mode
 only) \, output newly selected item.;
-#X obj 20 2228 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2228 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2233 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2234 1\.;
@@ -194,7 +230,7 @@ list: INDEX TAB_NAME.;
 #X text 170 2344 any:;
 #X text 270 2344 selects item equal to given and output list: INDEX
 TAB_NAME.;
-#X obj 20 2379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2379 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2384 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2385 1\.;
@@ -231,7 +267,7 @@ TAB_NAME.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 2457 pd info;
 #X connect 15 0 17 0;

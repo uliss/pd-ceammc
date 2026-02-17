@@ -17,7 +17,7 @@
 #X obj 50 248 flow.multiplex2~ 2;
 #X obj 50 277 ui.hgain2~;
 #X obj 50 305 dac~;
-#X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 360 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
@@ -27,7 +27,7 @@
 #X obj 268 362 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 361 N: number of input stereo-pairs. Тип: int. Диапазон:
 2…8;
-#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 401 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 404 ui.link @background_color 0.98039 0.98039 0.98039
@@ -35,7 +35,7 @@
 #X msg 130 402 @value;
 #X text 270 402 Gain coefficients per each input. Тип: list. Значение
 по умолчанию: 1 0\.;
-#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 459 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 460 1\.;
@@ -58,7 +58,7 @@
 #X text 270 585 last right input signal.;
 #X text 130 610 n+1\.;
 #X text 270 610 multiplexer control.;
-#X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 650 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 651 1\.;
@@ -99,7 +99,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 743 pd info;
 #X connect 7 0 13 0;

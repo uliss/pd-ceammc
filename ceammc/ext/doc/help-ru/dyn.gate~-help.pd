@@ -15,7 +15,7 @@
 #X obj 50 262 ui.hgain~;
 #X obj 194 262 ui.dsp~;
 #X obj 50 291 dac~;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 346 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
@@ -41,7 +41,7 @@
 #X obj 268 483 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 482 RELEASE(ms): время освобождения = постоянная времени
 (ms) для закрытия гейта. Тип: float. Диапазон: 1…500;
-#X obj 20 532 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 532 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 537 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 540 ui.link @background_color 0.98039 0.98039 0.98039
@@ -51,33 +51,40 @@
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/dyn_gate/ИМЯ_СВОЙСТВА \, в противном случае к /dyn_gate/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 610 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 610 @osc;
 #X text 270 610 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 640 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 640 @active;
 #X text 270 640 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 682 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 682 @attack;
 #X text 270 682 Attack time = time constant (ms) for gate to open.
 Тип: float. Единицы: 'ms'. Значение по умолчанию: 0.1\. Диапазон: 0\...500\.;
+#X obj 250 739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 739 @bypass;
 #X text 270 739 Bypass flag. If true: bypass 'effected' signal. Тип:
 bool. Значение по умолчанию: 0\.;
+#X obj 250 781 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 781 @hold;
 #X text 270 781 Hold time = time (ms) gate stays open after signal
 level < threshold. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 100\. Диапазон: 1\...500\.;
+#X obj 250 838 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 838 @release;
 #X text 270 838 Release time = time constant (ms) for gate to close.
 Тип: float. Единицы: 'ms'. Значение по умолчанию: 20\. Диапазон: 1\...500\.;
+#X obj 250 895 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 895 @threshold;
 #X text 270 895 DB level threshold above which gate opens. Тип: float.
 Единицы: 'db'. Значение по умолчанию: -60\. Диапазон: -90\...0\.;
-#X obj 20 962 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 962 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 967 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 968 reset;
 #X text 270 968 reset to initial state.;
-#X obj 20 1006 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1006 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1011 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1012 1\.;
@@ -86,7 +93,7 @@ level < threshold. Тип: float. Единицы: 'ms'. Значение по у
 #X text 130 1037 2\.;
 #X text 170 1037 float:;
 #X text 270 1037 set threshold.;
-#X obj 20 1072 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1072 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1077 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1078 1\.;
@@ -123,7 +130,7 @@ level < threshold. Тип: float. Единицы: 'ms'. Значение по у
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1150 pd info;
 #X connect 5 0 6 0;

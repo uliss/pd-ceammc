@@ -16,7 +16,7 @@
 #X obj 88 291 ui.dt;
 #X obj 50 320 ui.dt;
 #X obj 50 349 route.random-chord;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 404 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
@@ -26,7 +26,7 @@
 #X obj 268 406 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 405 N: number of outlets. See @n property. Тип: int. Диапазон:
 2…64;
-#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 460 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 463 ui.link @background_color 0.98039 0.98039 0.98039
@@ -34,10 +34,11 @@
 #X msg 130 461 @n;
 #X text 270 461 (при инициализации) Number of outlets. Тип: int. Значение
 по умолчанию: 2\. Диапазон: 2\...64\.;
+#X obj 250 503 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 503 @seed;
 #X text 270 503 Generator seed. Тип: int. Значение по умолчанию: 0\.
 Минимальное значение: 0\.;
-#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 560 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 561 1\.;
@@ -51,7 +52,7 @@
 #X text 270 636 list to random outlet.;
 #X text 170 661 any:;
 #X text 270 661 any to random outlet.;
-#X obj 20 696 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 696 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 701 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 702 1\.;
@@ -89,7 +90,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 814 pd info;
 #X connect 5 0 9 0;

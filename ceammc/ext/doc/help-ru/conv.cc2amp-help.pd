@@ -16,7 +16,7 @@
 #X obj 203 219 cc->amp @from 1 @to -1;
 #X floatatom 50 248 5 0 0 0 - - -;
 #X floatatom 203 248 5 0 0 0 - - -;
-#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 285 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 288 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,7 +30,7 @@ float.;
 #X text 170 311 float;
 #X obj 268 312 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 311 TO: конечное значение выходного диапазона. Тип: float.;
-#X obj 20 346 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 346 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 351 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 354 ui.link @background_color 0.98039 0.98039 0.98039
@@ -38,16 +38,17 @@ float.;
 #X msg 130 352 @from;
 #X text 270 352 Начальное значение выходного диапазона. Тип: float.
 Значение по умолчанию: 0\.;
+#X obj 250 394 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 394 @to;
 #X text 270 394 Конечное значение выходного диапазона. Тип: float.
 Значение по умолчанию: 1\.;
-#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 451 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 452 1\.;
 #X text 170 452 float:;
 #X text 270 452 value in MIDI CC range [0\..127].;
-#X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 492 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 493 1\.;
@@ -84,7 +85,7 @@ float.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 565 pd info;
 #X connect 8 0 11 0;

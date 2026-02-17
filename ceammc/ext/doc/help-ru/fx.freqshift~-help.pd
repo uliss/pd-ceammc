@@ -14,7 +14,7 @@
 #X obj 50 234 fx.freqshift~;
 #X obj 50 262 ui.gain~ @size 120 16;
 #X obj 50 291 dac~;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 346 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
@@ -22,12 +22,12 @@
 #X msg 130 347 @active;
 #X text 270 347 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 404 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 405 reset;
 #X text 270 405 reset object.;
-#X obj 20 443 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 443 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 448 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 449 1\.;
@@ -36,7 +36,7 @@
 #X text 130 474 2\.;
 #X text 170 474 ~;
 #X text 270 474 frequency shift in Hertz. Диапазон: -10000…10000\.;
-#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 514 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 515 1\.;
@@ -74,7 +74,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 607 pd info;
 #X connect 4 0 5 0;

@@ -25,7 +25,7 @@ at high frequencies!;
 #X obj 270 346 ui.knob @min -1 @max 1;
 #X obj 50 375 ui.hgain2~ @size 16 143;
 #X obj 50 403 dac~;
-#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 458 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 461 ui.link @background_color 0.98039 0.98039 0.98039
@@ -34,7 +34,7 @@ at high frequencies!;
 #X text 170 459 float;
 #X obj 268 460 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 459 FREQ(Hz): frequency. Тип: float. Диапазон: 0…100;
-#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 499 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 502 ui.link @background_color 0.98039 0.98039 0.98039
@@ -42,35 +42,44 @@ at high frequencies!;
 #X msg 130 500 @freq;
 #X text 270 500 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
 0\. Диапазон: 0\...100\.;
+#X obj 250 542 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 542 @invert;
 #X text 270 542 Saw inversion mode. If true \, outputs descreasing
 waveform. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 584 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 584 @on;
 #X text 270 584 On/off state. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 614 @open;
 #X text 270 614 Output in open [0\..1) range \, otherwise output range
 is [0\..1]. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 656 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 656 @steps;
 #X text 270 656 Numbers of steps. Тип: int. Значение по умолчанию:
 128\. Минимальное значение: 3\.;
-#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 713 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 714 phase;
 #X text 270 714 set current phase. Аргументы:;
 #X obj 280 737 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 737 [VALUE]: new phase value. Тип: float.;
+#X obj 250 762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 762 reset;
 #X text 270 762 reset phase and stop.;
+#X obj 250 790 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 790 rewind;
 #X text 270 790 reset phase without stopping.;
+#X obj 250 818 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 818 start;
 #X text 270 818 start from current position.;
+#X obj 250 846 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 846 stop;
 #X text 270 846 stop.;
+#X obj 250 874 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 874 tick;
 #X text 270 874 output current value and move to next.;
-#X obj 20 912 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 912 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 917 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 918 1\.;
@@ -79,7 +88,7 @@ is [0\..1]. Тип: bool. Значение по умолчанию: 0\.;
 #X text 130 943 2\.;
 #X text 170 943 any:;
 #X text 270 943 reset phase to 0\.;
-#X obj 20 978 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 978 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 983 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 984 1\.;
@@ -115,7 +124,7 @@ is [0\..1]. Тип: bool. Значение по умолчанию: 0\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1076 pd info;
 #X connect 7 0 10 0;

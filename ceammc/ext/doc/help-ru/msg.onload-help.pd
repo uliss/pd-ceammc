@@ -16,12 +16,12 @@
 #X obj 88 233 print;
 #X obj 165 233 ui.dt @auto_size 0;
 #X obj 50 262 msg.onload-type;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 317 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 352 Left-click;
 #X text 310 352 send message.;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 387 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
@@ -31,10 +31,10 @@
 #X obj 268 389 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 388 ARGS: message. Comma separated messages are supported.
 Тип: list.;
-#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 443 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 469 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 470 1\.;
@@ -70,7 +70,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 542 pd info;
 #X connect 9 0 10 0;

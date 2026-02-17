@@ -38,7 +38,7 @@
 #X obj 50 522 ui.hgain~;
 #X obj 50 551 dac~;
 #X obj 299 551 ui.dsp~;
-#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 606 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 609 ui.link @background_color 0.98039 0.98039 0.98039
@@ -47,22 +47,23 @@
 #X text 170 607 symbol;
 #X obj 268 608 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 607 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 647 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 650 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 648 @array;
 #X text 270 648 Имя массива. Тип: symbol.;
+#X obj 250 678 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 678 @mix;
 #X text 270 678 Микс между прочитанным сигналом и записанным. Тип:
 float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 735 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 736 redraw;
 #X text 270 736 перерисовать массив.;
-#X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 779 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 780 1\.;
@@ -74,7 +75,7 @@ float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
 #X text 130 830 3\.;
 #X text 170 830 ~;
 #X text 270 830 индекс записи.;
-#X obj 20 865 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 865 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 870 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 871 1\.;
@@ -109,7 +110,7 @@ float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 943 pd info;
 #X connect 7 0 10 0;

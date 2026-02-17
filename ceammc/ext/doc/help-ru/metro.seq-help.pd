@@ -20,7 +20,7 @@
 #X obj 270 349 ui.dsp~;
 #X obj 50 378 ui.hgain~;
 #X obj 50 407 dac~;
-#X obj 20 457 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 457 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 462 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 465 ui.link @background_color 0.98039 0.98039 0.98039
@@ -35,7 +35,7 @@
 #X obj 268 504 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 503 PATTERN: list of 1 and 0\. Where 1 means output bang
 on this beat. Тип: list.;
-#X obj 20 553 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 553 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 558 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 561 ui.link @background_color 0.98039 0.98039 0.98039
@@ -43,13 +43,15 @@ on this beat. Тип: list.;
 #X msg 130 559 @current;
 #X text 270 559 Current pattern index. Тип: int. Значение по умолчанию:
 0\. Минимальное значение: 0\.;
+#X obj 250 601 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 601 @interval;
 #X text 270 601 Interval between beats. Тип: float. Единицы: 'ms'.
 Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 643 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 643 @pattern;
 #X text 270 643 List of 1 and 0\. Where 1 means output bang on this
 beat. Тип: list.;
-#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 700 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 701 1\.;
@@ -61,7 +63,7 @@ beat. Тип: list.;
 #X text 130 751 3\.;
 #X text 170 751 list:;
 #X text 270 751 set new pattern.;
-#X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 791 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 792 1\.;
@@ -98,7 +100,7 @@ beat. Тип: list.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 864 pd info;
 #X connect 6 0 7 0;

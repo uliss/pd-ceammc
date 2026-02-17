@@ -18,7 +18,7 @@ field;
 #X obj 50 219 hoa.3d.encoder~ 3, f 17;
 #X obj 50 248 hoa.3d.scope~ 3 @size 123 123;
 #X obj 50 377 ui.dsp~;
-#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 432 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 130 467 Right-click + ⇧;
@@ -34,71 +34,91 @@ field;
 #X text 130 547 Right-click + ⌥;
 #X text 310 547 open the properties dialog.;
 #X text 81 547 [Edit];
-#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 582 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 585 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 583 @gain;
 #X text 270 583 Gain. Type: float. Default value: 1\. Min value: 0\.;
+#X obj 250 613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 613 @order;
 #X text 270 613 The order of decomposition. Type: int. Default value:
 1\. Range: 1\...63\.;
+#X obj 250 655 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 655 @refresh;
 #X text 270 655 Redraw time. Type: int. Units: 'ms'. Default value:
 100\. Range: 20\...1000\.;
+#X obj 250 697 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 697 @view;
 #X text 270 697 View rotation. Type: list. Default value: 0 0 0\.;
+#X obj 250 727 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 727 @background_color;
 #X text 270 727 Element background color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93 1\.;
+#X obj 250 784 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 784 @border_color;
 #X text 270 784 Border color (list of red \, green \, blue values in
 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
+#X obj 250 826 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 826 @label_color;
 #X text 270 826 Label color in RGB format within 0-1 range \, for example:
 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
+#X obj 250 868 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 868 @nh_color;
 #X text 270 868 Negative harmonics color. Type: list. Default value:
 0 0 1 1\.;
+#X obj 250 910 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 910 @ph_color;
 #X text 270 910 Positive harmonics color. Type: list. Default value:
 1 0 0 1\.;
+#X obj 250 952 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 952 @label;
 #X text 270 952 Label text. Type: symbol. Default value: (null).;
+#X obj 250 982 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 982 @label_align;
 #X text 270 982 Label horizontal align. Type: symbol. Default value:
 left. Allowed values: left \, center \, right.;
+#X obj 250 1024 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1024 @label_inner;
 #X text 270 1024 Label position (1 - inner \, 0 - outer). Type: bool.
 Default value: 0\.;
+#X obj 250 1066 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1066 @label_margins;
 #X text 270 1066 Label offset in pixels. Type: list. Default value:
 0 0\.;
+#X obj 250 1096 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1096 @label_side;
 #X text 270 1096 Label snap side. Type: symbol. Default value: top.
 Allowed values: left \, top \, right \, bottom.;
+#X obj 250 1138 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1138 @label_valign;
 #X text 270 1138 Label vertical align. Type: symbol. Default value:
 top. Allowed values: top \, center \, bottom.;
+#X obj 250 1180 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1180 @fontname;
 #X text 270 1180 Fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1222 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1222 @fontsize;
 #X text 270 1222 Fontsize. Type: int. Default value: 11\. Range: 4\...100\.;
+#X obj 250 1252 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1252 @fontslant;
 #X text 270 1252 Font slant. Type: symbol. Default value: roman. Allowed
 values: roman \, italic.;
+#X obj 250 1294 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1294 @fontweight;
 #X text 270 1294 Font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
+#X obj 250 1336 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1336 @pinned;
 #X text 270 1336 Pin mode. if 1 - put element to the lowest level.
 Type: bool. Default value: 0\.;
+#X obj 250 1378 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1378 @size;
 #X text 270 1378 Element size (width \, height pair). Type: list. Default
 value: 120 120\.;
-#X obj 20 1430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1430 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1435 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1436 pos;
@@ -107,9 +127,10 @@ value: 120 120\.;
 #X text 280 1459 X: top left x-coord. Type: float.;
 #X obj 280 1482 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1482 Y: top right y-coord. Type: float.;
+#X obj 250 1507 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1507 dump;
 #X text 270 1507 dumps all object info to Pd console window.;
-#X obj 20 1545 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1545 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1550 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1551 1\.;
@@ -151,7 +172,7 @@ Thomas Le Meur;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 1678 pd info;
 #X connect 6 0 9 0;

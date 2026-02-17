@@ -31,7 +31,7 @@ to be realistic.;
 #X obj 50 507 ui.gain~ @size 120 16;
 #X obj 290 507 ui.dsp~;
 #X obj 50 536 dac~;
-#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 591 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 594 ui.link @background_color 0.98039 0.98039 0.98039
@@ -46,7 +46,7 @@ to be realistic.;
 #X obj 268 633 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 632 VOWEL: vowel. Разрешённые значения: a \, e \, i \,
 o \, u. Тип: symbol.;
-#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 687 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 690 ui.link @background_color 0.98039 0.98039 0.98039
@@ -56,53 +56,66 @@ o \, u. Тип: symbol.;
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/synth_voice_fofs/ИМЯ_СВОЙСТВА \, в противном случае
 к /synth_voice_fofs/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X obj 250 775 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 775 @osc;
 #X text 270 775 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 805 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 805 @active;
 #X text 270 805 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 847 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 847 @attack;
 #X text 270 847 Attack time. Тип: float. Единицы: 'ms'. Значение по
 умолчанию: 30\. Диапазон: 0\...1000\.;
+#X obj 250 889 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 889 @freq;
 #X text 270 889 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
 440\. Диапазон: 20\...20000.0\.;
+#X obj 250 931 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 931 @fvowel;
 #X text 270 931 Vowel index: 0=a \, 1=e \, 2=i \, 3=o \, 4=u. Float
 values can be interpoltaed. Тип: float. Значение по умолчанию: 0\.
 Диапазон: 0\...4\.;
+#X obj 250 988 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 988 @gate;
 #X text 270 988 Synth gate (>0 - play). Тип: bool. Значение по умолчанию:
 0\.;
+#X obj 250 1018 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1018 @portamento;
 #X text 270 1018 Portamento time. Тип: float. Единицы: 'ms'. Значение
 по умолчанию: 0\. Диапазон: 0\...4000\.;
+#X obj 250 1060 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1060 @release;
 #X text 270 1060 Release time. Тип: float. Единицы: 'ms'. Значение
 по умолчанию: 50\. Диапазон: 0\...1000\.;
+#X obj 250 1102 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1102 @vibr_freq;
 #X text 270 1102 Vibrato frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 6\. Диапазон: 1\...10\.;
+#X obj 250 1144 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1144 @vibr_gain;
 #X text 270 1144 Vibrato frequency. Тип: float. Значение по умолчанию:
 0.5\. Диапазон: 0\...1\.;
+#X obj 250 1186 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1186 @voice;
 #X text 270 1186 Voice type. Note: can be set by corresponding index.
 Тип: symbol. Значение по умолчанию: alto. Разрешённые значения: alto
 \, bass \, countertenor \, soprano \, tenor.;
+#X obj 250 1243 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1243 @vowel;
 #X text 270 1243 Vowel type. Note: can be set by corresponding index.
 Тип: symbol. Значение по умолчанию: a. Разрешённые значения: a \, e
 \, i \, o \, u.;
+#X obj 250 1300 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1300 @wsmooth;
 #X text 270 1300 Vowel smoothing time. Тип: float. Единицы: 'ms'. Значение
 по умолчанию: 10\. Диапазон: 0\...1000\.;
-#X obj 20 1352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1352 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1357 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1358 1\.;
 #X text 270 1358 control input.;
-#X obj 20 1393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1393 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1398 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1399 1\.;
@@ -139,7 +152,7 @@ values can be interpoltaed. Тип: float. Значение по умолчан�
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1471 pd info;
 #X connect 7 0 8 0;

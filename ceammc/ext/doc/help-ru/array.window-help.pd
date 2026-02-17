@@ -19,7 +19,7 @@
 #X obj 50 320 array.window AW1 @type tri;
 #X obj 50 349 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 386 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 389 ui.link @background_color 0.98039 0.98039 0.98039
@@ -28,59 +28,73 @@
 #X text 170 387 symbol;
 #X obj 268 388 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 387 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 427 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 430 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 428 @array;
 #X text 270 428 Имя массива. Тип: symbol.;
+#X obj 250 458 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 458 @redraw;
 #X text 270 458 Перерисовать после изменения массива. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 500 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 500 @type;
 #X text 270 500 Тип окна. Тип: symbol. Значение по умолчанию: hann.
 Разрешённые значения: tri \, welch \, hann \, sine \, rect \, hamming
 \, blackman \, nuttall \, blackman-harris \, flattop \, gauss.;
-#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 572 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 573 blackman;
 #X text 270 573 создать окно Blackman.;
+#X obj 250 601 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 601 blackman-harris;
 #X text 270 601 создать окно Blackman Harris.;
+#X obj 250 629 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 629 fit;
 #X text 270 629 уместить значения массива в диапазон 0\..1\.;
+#X obj 250 657 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 657 flattop;
 #X text 270 657 генерировать окно FlatTop.;
+#X obj 250 685 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 685 gauss;
 #X text 270 685 cоздать окно Gauss.;
+#X obj 250 713 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 713 hamming;
 #X text 270 713 cоздать окно Hamming.;
+#X obj 250 741 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 741 hann;
 #X text 270 741 cоздать окно Hann.;
+#X obj 250 769 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 769 nuttall;
 #X text 270 769 cоздать окно Nuttall.;
+#X obj 250 797 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 797 rect;
 #X text 270 797 генерировать прямоугольное окно.;
+#X obj 250 825 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 825 resize;
 #X text 270 825 изменить размер массива на указанный. Аргументы:;
 #X obj 280 848 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 848 [N]: новый размер. Тип: int. Минимальное значение:
 0\.;
+#X obj 250 873 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 873 sine;
 #X text 270 873 генерировать синусоидальное окно.;
+#X obj 250 901 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 901 tri;
 #X text 270 901 генерировать треугольное окно.;
+#X obj 250 929 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 929 welch;
 #X text 270 929 генерировать окно Уэлча.;
-#X obj 20 967 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 967 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 972 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 973 1\.;
 #X text 170 973 bang:;
 #X text 270 973 заполняет массив значениями окна.;
-#X obj 20 1008 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1008 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1013 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1014 1\.;
@@ -117,7 +131,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1086 pd info;
 #X connect 5 0 12 0;

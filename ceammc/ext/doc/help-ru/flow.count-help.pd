@@ -12,7 +12,7 @@
 #X msg 184 176 @value \$1;
 #X obj 50 205 flow.count;
 #X floatatom 50 234 5 0 0 0 - - -;
-#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 271 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 274 ui.link @background_color 0.98039 0.98039 0.98039
@@ -22,7 +22,7 @@
 #X obj 268 273 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 272 VALUE: начальное значение счетчика. Тип: int. Минимальное
 значение: 0\.;
-#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 327 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 330 ui.link @background_color 0.98039 0.98039 0.98039
@@ -31,7 +31,7 @@
 #X text 270 328 Текущее значение счетчика. Его можно установить через
 отправку сообщения на второй (!) вход или используя [prop.set] объект.
 Тип: int. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 415 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 416 1\.;
@@ -50,7 +50,7 @@
 #X text 270 541 добавить указанное значение к текущему (без вывода).;
 #X msg 170 566 - X;
 #X text 270 566 вычесть указанное значение из текущего (без вывода).;
-#X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 609 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 610 1\.;
@@ -85,7 +85,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 682 pd info;
 #X connect 4 0 5 0;

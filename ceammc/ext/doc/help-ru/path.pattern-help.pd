@@ -24,7 +24,7 @@ not exists);
 #X msg 107 509 bang;
 #X obj 50 538 path.pattern;
 #X obj 50 567 ui.dt @auto_size 0 @size 400 40;
-#X obj 20 617 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 617 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 622 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 625 ui.link @background_color 0.98039 0.98039 0.98039
@@ -33,14 +33,14 @@ not exists);
 #X text 170 623 symbol;
 #X obj 268 624 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 623 PATTERN: filename generation pattern. Тип: symbol.;
-#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 663 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 666 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 664 @pattern;
 #X text 270 664 Filename pattern. Тип: symbol.;
-#X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 709 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 710 1\.;
@@ -48,7 +48,7 @@ not exists);
 #X text 270 710 output generated filename pattern.;
 #X text 170 735 symbol:;
 #X text 270 735 set new pattern and generate filename pattern.;
-#X obj 20 770 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 770 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 775 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 776 1\.;
@@ -82,7 +82,7 @@ not exists);
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 848 pd info;
 #X connect 17 0 20 0;

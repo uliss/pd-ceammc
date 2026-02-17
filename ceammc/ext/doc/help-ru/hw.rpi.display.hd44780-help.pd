@@ -29,7 +29,7 @@ Pi;
 @rows 2;
 #X obj 50 421 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_ws2812.png;
-#X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 483 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 486 ui.link @background_color 0.98039 0.98039 0.98039
@@ -38,40 +38,48 @@ ceammc://img/conn_ws2812.png;
 #X text 270 484 (при инициализации) I²C address. Values 'default' (for
 addr 0x27) \, 'alt' (for addr 0x3f) are also accepted. Тип: int. Значение
 по умолчанию: -1\. Диапазон: -4\...119\.;
+#X obj 250 556 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 556 @i2c_bus;
 #X text 270 556 (при инициализации) Шина I²C. Тип: atom. Значение по
 умолчанию: none. Разрешённые значения: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \,
 default \, none.;
+#X obj 250 613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 613 @rows;
 #X text 270 613 (при инициализации) Number of display rows. Тип: int.
 Значение по умолчанию: 1\. Разрешённые значения: 1 \, 2 \, 4\.;
-#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 685 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 686 backlight;
 #X text 270 686 turn on/off the display backlight. Аргументы:;
 #X obj 280 709 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 709 STATE: new state. Тип: bool.;
+#X obj 250 734 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 734 char;
 #X text 270 734 write character to the display and move cursor to the
 next position. Аргументы:;
 #X obj 280 772 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 772 CHAR: char code. Тип: int. Диапазон: 0…255\.;
+#X obj 250 797 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 797 clear;
 #X text 270 797 clear all display data and set cursor position to 0
 \, 0\.;
+#X obj 250 825 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 825 clear_line;
 #X text 270 825 clear only specified line. Аргументы:;
 #X obj 280 848 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 848 LINE: line index. Тип: int. Диапазон: 0…3\.;
+#X obj 250 873 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 873 cursor_blink;
 #X text 270 873 turn on/off cursor blinking. Аргументы:;
 #X obj 280 896 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 896 STATE: new state. Тип: bool.;
+#X obj 250 921 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 921 cursor_on;
 #X text 270 921 turn on/off display cursor. Аргументы:;
 #X obj 280 944 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 944 STATE: new state. Тип: bool.;
+#X obj 250 969 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 969 cursor_pos;
 #X text 270 969 set cursor potision. Аргументы:;
 #X obj 280 992 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -80,30 +88,34 @@ next position. Аргументы:;
 #X obj 280 1015 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1015 COL: cursor line character position. Тип: int. Диапазон:
 0…20\.;
+#X obj 250 1055 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1055 font;
 #X text 270 1055 choose font.;
+#X obj 250 1083 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1083 move_cursor;
 #X text 270 1083 move cursor horizontally. Аргументы:;
 #X obj 280 1106 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1106 SHIFT: relative cursor shift. Negative values move
 the cursor leftwards \, positive values - rightwards. Тип: int.;
+#X obj 250 1161 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1161 move_display;
 #X text 270 1161 move display content horizontally. Аргументы:;
 #X obj 280 1184 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1184 SHIFT: relative display move \, not altering the display
 content. Тип: int.;
+#X obj 250 1224 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1224 write;
 #X text 270 1224 write the message at the current cursor position and
 then move the cursor to the next position after last written character.
 Аргументы:;
 #X obj 280 1277 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1277 MSG: value list. Тип: list.;
-#X obj 20 1312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1317 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1318 1\.;
 #X text 270 1318 control input.;
-#X obj 20 1353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1358 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1359 1\.;
@@ -137,7 +149,7 @@ then move the cursor to the next position after last written character.
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1431 pd info;
 #X connect 7 0 9 0;

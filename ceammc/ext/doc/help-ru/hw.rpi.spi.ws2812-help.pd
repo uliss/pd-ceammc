@@ -24,7 +24,7 @@ after almost all pixel/color operations;
 #X obj 50 363 hw.rpi.spi.ws2812 @size 16;
 #X obj 50 407 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_ws2812.png;
-#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 469 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 472 ui.link @background_color 0.98039 0.98039 0.98039
@@ -32,26 +32,31 @@ ceammc://img/conn_ws2812.png;
 #X msg 130 470 @spi_bus;
 #X text 270 470 (при инициализации) Номер шины SPI. Тип: int. Значение
 по умолчанию: -1\. Диапазон: -1\...6\.;
+#X obj 250 512 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 512 @spi_cs;
 #X text 270 512 (при инициализации) SPI CS (chip select/enable) индекс.
 В большинстве случаев вам не нужно устанавливать это свойство \, потому
 что светодиодные ленты не используют пин CS. Тип: int. Значение по
 умолчанию: 0\. Диапазон: 0\...3\.;
+#X obj 250 599 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 599 @size;
 #X text 270 599 (при инициализации) Количество светодиодов в ленте.
 Тип: int. Значение по умолчанию: 16\. Диапазон: 1\...4096\.;
+#X obj 250 656 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 656 @clear;
 #X text 270 656 Выключать все пиксели при удалении объекта. Тип: bool.
 Значение по умолчанию: 1\.;
-#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 713 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 714 brightness;
 #X text 270 714 set pixel brightness. Аргументы:;
 #X obj 280 737 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 737 LEVEL: brightness level. Тип: int. Диапазон: 0…255\.;
+#X obj 250 762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 762 clear;
 #X text 270 762 turn off all pixels.;
+#X obj 250 790 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 790 fill;
 #X text 270 790 fill all pixels with the RGB color. Аргументы:;
 #X obj 280 813 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -60,8 +65,10 @@ ceammc://img/conn_ws2812.png;
 #X text 280 836 G: greed color component. Тип: int. Диапазон: 0…255\.;
 #X obj 280 859 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 859 B: blue color component. Тип: int. Диапазон: 0…255\.;
+#X obj 250 884 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 884 flush;
 #X text 270 884 flush all pixels to the strip.;
+#X obj 250 912 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 912 fx;
 #X text 270 912 apply color generator function. Аргументы:;
 #X obj 280 935 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -74,10 +81,12 @@ rainbow.;
 #X obj 280 1019 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1019 [LENGTH]: range length. Тип: int. Минимальное значение:
 0\.;
+#X obj 250 1044 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1044 rotate;
 #X text 270 1044 shift all pixel by specified amount. Аргументы:;
 #X obj 280 1067 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1067 SHIFT: shift amount. Тип: int.;
+#X obj 250 1092 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1092 set;
 #X text 270 1092 set single pixel color. Аргументы:;
 #X obj 280 1115 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -86,6 +95,7 @@ rainbow.;
 #X text 280 1138 G: greed color component. Тип: int. Диапазон: 0…255\.;
 #X obj 280 1161 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1161 B: blue color component. Тип: int. Диапазон: 0…255\.;
+#X obj 250 1186 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1186 set_range;
 #X text 270 1186 set pixel range to the specified color. Аргументы:;
 #X obj 280 1209 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -100,6 +110,7 @@ rainbow.;
 #X text 280 1278 G: greed color component. Тип: int. Диапазон: 0…255\.;
 #X obj 280 1301 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1301 B: blue color component. Тип: int. Диапазон: 0…255\.;
+#X obj 250 1326 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1326 set_slice;
 #X text 270 1326 set pixel slice to the specified color. Аргументы:;
 #X obj 280 1349 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -116,13 +127,13 @@ rainbow.;
 #X text 280 1441 G: greed color component. Тип: int. Диапазон: 0…255\.;
 #X obj 280 1464 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1464 B: blue color component. Тип: int. Диапазон: 0…255\.;
-#X obj 20 1499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1499 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1504 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1505 1\.;
 #X text 170 1505 bang:;
 #X text 270 1505 flush pixels to the strip.;
-#X obj 20 1540 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1540 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1545 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1546 1\.;
@@ -156,7 +167,7 @@ rainbow.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1618 pd info;
 #X connect 6 0 8 0;

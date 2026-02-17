@@ -41,7 +41,7 @@ for vertical radio \, [ui.hrd*] alias for horizontal radio checklist.;
 #X msg 386 307 random move;
 #X obj 50 350 ui.radio 4;
 #X obj 50 378 ui.dt;
-#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 433 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 468 Mouse-drag;
@@ -54,7 +54,7 @@ mode.;
 #X text 130 528 Double-click + ⌘;
 #X text 310 528 changes slider orientation.;
 #X text 65 528 [Правка];
-#X obj 20 558 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 558 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 563 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 566 ui.link @background_color 0.98039 0.98039 0.98039
@@ -63,7 +63,7 @@ mode.;
 #X text 170 564 float;
 #X obj 268 565 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 564 NCELLS: number of cells. Тип: float. Диапазон: 2…128;
-#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 604 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 607 ui.link @background_color 0.98039 0.98039 0.98039
@@ -71,65 +71,82 @@ mode.;
 #X msg 130 605 @mode;
 #X text 270 605 Check list mode. If true acts as checklist. Тип: bool.
 Значение по умолчанию: 0\.;
+#X obj 250 647 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 647 @mouse_events;
 #X text 270 647 Mouse events output mode. If on outputs @mouse_down
 and @mouse_drag events. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 704 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 704 @nitems;
 #X text 270 704 Number of items. Тип: int. Значение по умолчанию: 8\.
 Диапазон: 2\...128\.;
+#X obj 250 746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 746 @receive;
 #X text 270 746 Источник получения сообщений. Тип: symbol. Значение
 по умолчанию: (null).;
+#X obj 250 788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 788 @send;
 #X text 270 788 Адрес отправки сообщений. Тип: symbol. Значение по
 умолчанию: (null).;
+#X obj 250 830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 830 @value;
 #X text 270 830 Widget value (float or list). Тип: list.;
+#X obj 250 860 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 860 @active_color;
 #X text 270 860 Цвет активного элемента (список из красного \, зеленого
 и синего цвета в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
 0 0.75 1 1\.;
+#X obj 250 917 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 917 @background_color;
 #X text 270 917 Цвета фона у объекта (список из красного \, зеленого
 и синего значений в диапазоне [0\..1]). Тип: list. Значение по умолчанию:
 0.93 0.93 0.93 1\.;
+#X obj 250 974 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 974 @border_color;
 #X text 270 974 Цвет границы объекта (список из красного \, зеленого
 и синего цветов в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
 0.6 0.6 0.6 1\.;
+#X obj 250 1031 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1031 @fontname;
 #X text 270 1031 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
 Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1088 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1088 @fontsize;
 #X text 270 1088 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
 Диапазон: 4\...100\.;
+#X obj 250 1130 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1130 @fontslant;
 #X text 270 1130 Наклон шрифта. Тип: symbol. Значение по умолчанию:
 roman. Разрешённые значения: roman \, italic.;
+#X obj 250 1172 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1172 @fontweight;
 #X text 270 1172 Толщину шрифта. Тип: symbol. Значение по умолчанию:
 normal. Разрешённые значения: normal \, bold.;
+#X obj 250 1214 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1214 @pinned;
 #X text 270 1214 Режим закрепления. Если 1 - помещает элемент на самый
 дальний уровень на холсте за другими элементам. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 1271 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1271 @presetname;
 #X text 270 1271 Имя пресета для использования с объектами [ui.preset]
 или [preset.storage]. Тип: symbol. Значение по умолчанию: (null).;
+#X obj 250 1328 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1328 @size;
 #X text 270 1328 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
 по умолчанию: 120 15\.;
-#X obj 20 1380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1380 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1385 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1386 cellsize;
 #X text 270 1386 set cell size (resize widget). Аргументы:;
 #X obj 280 1409 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1409 X: cell size in pixels. Тип: int.;
+#X obj 250 1434 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1434 clear;
 #X text 270 1434 clears specified preset. Аргументы:;
 #X obj 280 1457 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1457 IDX: preset index. Тип: int.;
+#X obj 250 1482 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1482 euclid;
 #X text 270 1482 set euclid pattern (checklist mode only). Аргументы:;
 #X obj 280 1505 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -137,56 +154,70 @@ normal. Разрешённые значения: normal \, bold.;
 #X obj 280 1528 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1528 [OFFSET]: pattern offset (rotation to the right).
 Тип: int.;
+#X obj 250 1553 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1553 flip;
 #X text 270 1553 flips radio (only in checklist mode).;
+#X obj 250 1581 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1581 hexbeat;
 #X text 270 1581 set hexbeat pattern (checklist mode only). Аргументы:;
 #X obj 280 1604 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1604 HEXSTR: hex string. For example \, 0xF1 will set 1
 1 1 1 0 0 0 1 pattern. Тип: symbol.;
+#X obj 250 1644 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1644 interp;
 #X text 270 1644 for this object acts as *load* \, no interpolation
 performed.;
+#X obj 250 1672 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1672 load;
 #X text 270 1672 loads specified preset. Аргументы:;
 #X obj 280 1695 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1695 IDX: preset index. Тип: int.;
+#X obj 250 1720 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1720 next;
 #X text 270 1720 moves to next position until last cell is reached
 (single mode only).;
+#X obj 250 1760 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1760 pos;
 #X text 270 1760 set UI element position. Аргументы:;
 #X obj 280 1783 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1783 X: top left x-coord. Тип: float.;
 #X obj 280 1806 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1806 Y: top right y-coord. Тип: float.;
+#X obj 250 1831 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1831 prev;
 #X text 270 1831 moves to previous position until first cell is reached
 (single mode only).;
+#X obj 250 1871 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1871 random;
 #X text 270 1871 select random cells. If called as [random move( moves
 to another random cell (excluding the current one).;
+#X obj 250 1911 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1911 reset;
 #X text 270 1911 reset radio (only in checklist mode).;
+#X obj 250 1939 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1939 rotate;
 #X text 270 1939 left rotate (checklist mode only). Аргументы:;
 #X obj 280 1962 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1962 STEPS: number of steps. Тип: int.;
+#X obj 250 1987 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1987 set;
 #X text 270 1987 sets radio without output. Аргументы:;
 #X obj 280 2010 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2010 V: new value. Тип: float.;
+#X obj 250 2035 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2035 store;
 #X text 270 2035 stores specified preset. Аргументы:;
 #X obj 280 2058 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2058 IDX: preset index. Тип: int.;
+#X obj 250 2083 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2083 + STEP;
 #X text 270 2083 moves several steps forward on a loop (single mode
 only).;
+#X obj 250 2111 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2111 - STEP;
 #X text 270 2111 moves several step backwards on a loop (single mode
 only).;
-#X obj 20 2149 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2149 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2154 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 2155 1\.;
@@ -196,7 +227,7 @@ only).;
 #X text 270 2180 set radio and output.;
 #X text 170 2205 list:;
 #X text 270 2205 set radio and output (only in checklist mode).;
-#X obj 20 2240 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2240 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2245 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2246 1\.;
@@ -233,7 +264,7 @@ only).;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 2318 pd info;
 #X connect 7 0 15 0;

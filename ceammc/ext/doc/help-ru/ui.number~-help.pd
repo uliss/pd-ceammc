@@ -13,7 +13,7 @@
 #X obj 50 161 phasor~ 0.1;
 #X obj 194 161 ui.dsp~;
 #X obj 50 205 ui.number~;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 260 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 295 Right-click + ⌥;
@@ -29,7 +29,7 @@
 #X text 130 375 Right-click;
 #X text 310 375 open the Pd popup menu.;
 #X text 65 375 [Правка];
-#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 410 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 413 ui.link @background_color 0.98039 0.98039 0.98039
@@ -37,43 +37,54 @@
 #X msg 130 411 @interval;
 #X text 270 411 Refresh interval. Тип: int. Единицы: 'ms'. Значение
 по умолчанию: 50\. Диапазон: 20\...1000\.;
+#X obj 250 453 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 453 @precision;
 #X text 270 453 Float precision. Тип: int. Значение по умолчанию: 6\.
 Диапазон: 0\...16\.;
+#X obj 250 495 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 495 @active_color;
 #X text 270 495 Цвет активного элемента (список из красного \, зеленого
 и синего цвета в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
 0 0.75 1 1\.;
+#X obj 250 552 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 552 @background_color;
 #X text 270 552 Element background color (list of red \, green \, blue
 values in 0-1 range). Тип: list. Значение по умолчанию: 0.3 0.3 0.3
 1\.;
+#X obj 250 609 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 609 @border_color;
 #X text 270 609 Border color (list of red \, green \, blue values in
 0-1 range). Тип: list. Значение по умолчанию: 0 0 0 1\.;
+#X obj 250 651 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 651 @text_color;
 #X text 270 651 Text color (list of red \, green \, blue values in
 0-1 range). Тип: list. Значение по умолчанию: 0.9 0.9 0.9 1\.;
+#X obj 250 693 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 693 @fontname;
 #X text 270 693 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
 Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 750 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 750 @fontsize;
 #X text 270 750 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
 Диапазон: 4\...100\.;
+#X obj 250 792 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 792 @fontslant;
 #X text 270 792 Наклон шрифта. Тип: symbol. Значение по умолчанию:
 roman. Разрешённые значения: roman \, italic.;
+#X obj 250 834 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 834 @fontweight;
 #X text 270 834 Толщину шрифта. Тип: symbol. Значение по умолчанию:
 normal. Разрешённые значения: normal \, bold.;
+#X obj 250 876 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 876 @pinned;
 #X text 270 876 Режим закрепления. Если 1 - помещает элемент на самый
 дальний уровень на холсте за другими элементам. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 933 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 933 @size;
 #X text 270 933 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
 по умолчанию: 80 15\.;
-#X obj 20 985 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 985 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 990 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 991 pos;
@@ -82,13 +93,13 @@ normal. Разрешённые значения: normal \, bold.;
 #X text 280 1014 X: top left x-coord. Тип: float.;
 #X obj 280 1037 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1037 Y: top right y-coord. Тип: float.;
-#X obj 20 1072 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1072 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1077 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1078 1\.;
 #X text 170 1078 ~;
 #X text 270 1078 input audio signal.;
-#X obj 20 1113 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1113 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1118 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1119 1\.;
@@ -126,7 +137,7 @@ normal. Разрешённые значения: normal \, bold.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1191 pd info;
 #X connect 7 0 9 0;

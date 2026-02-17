@@ -18,7 +18,7 @@
 #X obj 50 305 ui.hgain~;
 #X obj 357 305 ui.dsp~;
 #X obj 50 334 dac~ 1 2;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 389 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
@@ -27,7 +27,7 @@
 #X text 170 390 float;
 #X obj 268 391 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 390 BASE(semitone): base pitch. Тип: float. Диапазон: 10…100;
-#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 430 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 433 ui.link @background_color 0.98039 0.98039 0.98039
@@ -35,28 +35,32 @@
 #X msg 130 431 @n;
 #X text 270 431 (при инициализации) Number of bands. Тип: int. Значение
 по умолчанию: 5\.;
+#X obj 250 473 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 473 @ampexp;
 #X text 270 473 Amplitude exponent. Тип: float. Значение по умолчанию:
 2\.;
+#X obj 250 503 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 503 @base;
 #X text 270 503 Base pitch. Тип: float. Единицы: 'semitone'. Значение
 по умолчанию: 60\. Диапазон: 10\...100\.;
+#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 545 @interval;
 #X text 270 545 Interval between bands. Тип: float. Единицы: 'semitone'.
 Значение по умолчанию: 12\.;
+#X obj 250 587 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 587 @shift;
 #X text 270 587 Band shift in octaves. Тип: float. Значение по умолчанию:
 0\.;
-#X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 632 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 653 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 653 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 658 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 659 1\.;
 #X text 170 659 float:;
 #X text 270 659 glissando phase.;
-#X obj 20 694 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 694 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 699 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 700 1\.;
@@ -92,7 +96,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 792 pd info;
 #X connect 4 0 7 0;

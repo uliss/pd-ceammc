@@ -38,7 +38,7 @@
 #X obj 50 363 ui.gain~ @size 120 16;
 #X obj 328 363 ui.dsp~;
 #X obj 50 392 dac~;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 447 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
@@ -47,39 +47,47 @@
 #X text 170 448 symbol;
 #X obj 268 449 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 448 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 488 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 491 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 489 @array;
 #X text 270 489 Имя массива. Тип: symbol.;
+#X obj 250 519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 519 @begin;
 #X text 270 519 Начальное положение. Тип: int. Единицы: 'samp'. Значение
 по умолчанию: 0\.;
+#X obj 250 561 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 561 @end;
 #X text 270 561 Конечное положение. Тип: int. Единицы: 'samp'. Значение
 по умолчанию: -1\.;
+#X obj 250 603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 603 @reversed;
 #X text 270 603 Играть в обратном направлении. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 645 @speed;
 #X text 270 645 Скорость воспроизведения. Тип: float. Значение по умолчанию:
 1\. Минимальное значение: 0.1\.;
+#X obj 250 687 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 687 @abs_begin?;
 #X text 270 687 (только чтение) Абсолютное начальное положение. Тип:
 int. Единицы: 'samp'. Значение по умолчанию: 0\.;
+#X obj 250 729 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 729 @abs_end?;
 #X text 270 729 (только чтение) Абсолютное конечное положение. Тип:
 int. Единицы: 'samp'. Значение по умолчанию: 0\.;
+#X obj 250 771 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 771 @state?;
 #X text 270 771 (только чтение) Состояние воспроизведения. Тип: symbol.
 Значение по умолчанию: stop. Разрешённые значения: play \, stop.;
-#X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 843 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 844 play;
 #X text 270 844 начать воспроизведения.;
+#X obj 250 872 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 872 range;
 #X text 270 872 установить диапазон воспроизведения. Аргументы:;
 #X obj 280 895 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -94,9 +102,10 @@ ms \, sec \, phase \, sample.;
 #X obj 280 1009 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1009 UNIT: единица времени. Тип: symbol. Разрешённые значения:
 ms \, sec \, phase \, sample.;
+#X obj 250 1049 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1049 stop;
 #X text 270 1049 остановить воспроизведение.;
-#X obj 20 1087 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1087 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1092 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1093 1\.;
@@ -104,7 +113,7 @@ ms \, sec \, phase \, sample.;
 #X text 270 1093 начинает воспроизведение с самого начала.;
 #X text 170 1118 bool:;
 #X text 270 1118 1 - играть \, 0 - остановить.;
-#X obj 20 1153 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1153 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1158 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1159 1\.;
@@ -144,7 +153,7 @@ ms \, sec \, phase \, sample.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1251 pd info;
 #X connect 4 0 6 0;

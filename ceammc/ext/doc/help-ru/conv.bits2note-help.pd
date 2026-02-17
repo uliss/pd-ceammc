@@ -28,7 +28,7 @@ outlet;
 #X msg 174 432 @mode \$2;
 #X obj 50 461 bits->note 60 70 80 90 @vel 100 @poly;
 #X obj 50 490 ui.dt;
-#X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 545 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 548 ui.link @background_color 0.98039 0.98039 0.98039
@@ -37,32 +37,35 @@ outlet;
 #X text 170 546 list;
 #X obj 268 547 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 546 KEYS: список нотных значений. Тип: list.;
-#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 586 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 589 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 587 @keys;
 #X text 270 587 (при инициализации) Список нотных значений. Тип: list.;
+#X obj 250 617 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 617 @poly;
 #X text 270 617 Полифонический режим для использования с [clone] объектом.
 Значение по умолчанию: 0\.;
+#X obj 250 659 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 659 @mode;
 #X text 270 659 Режим для повторяющихся нот. Если «off» — отсылает
 событие выключения ноты перед повторной нотой \, если «tie» — игнорирует
 повторяющиеся ноты \, если «raw» — всегда отправлять события включения/выключения.
 Тип: symbol. Значение по умолчанию: off. Разрешённые значения: off
 \, tie \, raw.;
+#X obj 250 762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 762 @vel;
 #X text 270 762 Выходная сила нажатия ноты. Тип: float. Значение по
 умолчанию: 90\. Диапазон: 0\...127\.;
-#X obj 20 814 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 814 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 819 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 820 1\.;
 #X text 170 820 list:;
 #X text 270 820 input bit list.;
-#X obj 20 855 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 855 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 860 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 861 1\.;
@@ -96,7 +99,7 @@ outlet;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 933 pd info;
 #X connect 9 0 10 0;

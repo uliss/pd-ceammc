@@ -27,7 +27,7 @@
 #X obj 50 536 ui.dt;
 #X obj 146 536 ui.dt;
 #X obj 242 536 ui.dt;
-#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 591 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 592 apin_mapping?;
@@ -40,12 +40,15 @@ analog mapping query provides the information about which pins (as
 used with Firmata's pin mode message) correspond to the analog channels.
 Return sequence of messages like: [apin_mapping A# PIN#( \, where #
 is number.;
+#X obj 250 753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 753 capabilities?;
 #X text 270 753 query pin capabilities. Return sequence of messages
 like: [pin_info PIN# MODE RESOLUTION( \, where # is pin number.;
+#X obj 250 808 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 808 firmware?;
 #X text 270 808 query firmata protocol version. Returns message like:
 [firmware ARDUINO_FIRMWARE_NAME.ino MAJOR MINOR(.;
+#X obj 250 848 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 848 pin_mode;
 #X text 270 848 sets pin mode. Аргументы:;
 #X obj 280 871 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -54,6 +57,7 @@ like: [pin_info PIN# MODE RESOLUTION( \, where # is pin number.;
 #X text 280 894 MODE: pin mode. Тип: symbol. Разрешённые значения:
 INPUT \, OUTPUT \, ANALOG \, PWM \, SERVO \, SHIFT \, I2C \, ONEWIRE
 \, STEPPER \, ENCODER \, SERIAL \, PULLUP.;
+#X obj 250 949 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 949 pin_state?;
 #X text 270 949 query pin state. The pin state is any data written
 to the pin (it is important to note that pin state != pin value). For
@@ -65,6 +69,7 @@ state is the status of the pull-up resistor which is 1 if enabled \,
 where # is pin number. Аргументы:;
 #X obj 280 1093 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1093 PIN#: pin number. Тип: int.;
+#X obj 250 1118 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1118 report_apin;
 #X text 270 1118 turns on/off analog pin (A0-A6) value reporting. Аргументы:;
 #X obj 280 1141 cnv 1 83 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -73,6 +78,7 @@ where # is pin number. Аргументы:;
 #X text 280 1164 VALUE: value. If 1 - activates analog reporting \,
 messages like [apin PIN# value( are returned every sampling interval
 (by default 19ms). Тип: int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 1234 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1234 report_dport;
 #X text 270 1234 turns on/off digital port value reporting. Аргументы:;
 #X obj 280 1257 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -82,6 +88,7 @@ messages like [apin PIN# value( are returned every sampling interval
 #X text 280 1295 VALUE: value. If 1 - activates digital port reporting
 \, messages like [dport PORT# value( are returned only on pin value
 change. Тип: int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 1365 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1365 samp_interval;
 #X text 270 1365 sets sampling interval - how often analog data and
 i2c data is reported to the client. The default for the arduino implementation
@@ -90,9 +97,11 @@ any i2c devices with read continuous mode will be read. Аргументы:;
 #X obj 280 1448 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1448 TIME: time. Тип: int. Диапазон: 10…10000\. Единицы:
 'ms'.;
+#X obj 250 1473 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1473 version?;
 #X text 270 1473 query firmata protocol version. Returns message like:
 [version MAJOR MINOR(.;
+#X obj 250 1513 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1513 write_dpin;
 #X text 270 1513 write 1 or 0 to digital pin. Pin mode should be OUTPUT.
 Аргументы:;
@@ -101,6 +110,7 @@ any i2c devices with read continuous mode will be read. Аргументы:;
 #X obj 280 1574 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1574 VALUE: pin value. Тип: int. Разрешённые значения:
 0 \, 1\.;
+#X obj 250 1599 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1599 write_pwm;
 #X text 270 1599 writes PWM (Pulse Width Modulation) value to specified
 pin. Аргументы:;
@@ -108,13 +118,13 @@ pin. Аргументы:;
 #X text 280 1637 PIN#: pin number. Тип: int.;
 #X obj 280 1660 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1660 VALUE: pin value. Тип: int. Диапазон: 0…256\.;
-#X obj 20 1695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1695 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1700 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1701 1\.;
 #X text 170 1701 float:;
 #X text 270 1701 raw input of bytes from Arduino serial connection.;
-#X obj 20 1736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1736 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1741 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1742 1\.;
@@ -149,7 +159,7 @@ parsed output from Arduino.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1829 pd info;
 #X connect 6 0 7 0;

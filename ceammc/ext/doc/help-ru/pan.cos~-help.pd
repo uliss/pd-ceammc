@@ -19,7 +19,7 @@ at every pan position is 0 dB.;
 #X obj 136 307 env~;
 #X floatatom 50 335 5 0 0 0 - - -;
 #X floatatom 136 335 5 0 0 0 - - -;
-#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 372 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 375 ui.link @background_color 0.98039 0.98039 0.98039
@@ -29,7 +29,7 @@ at every pan position is 0 dB.;
 #X obj 268 374 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 373 POS: panning position. -1 means left \, 0 - center
 \, +1 - right. Тип: float. Диапазон: -1…1;
-#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 428 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 431 ui.link @background_color 0.98039 0.98039 0.98039
@@ -37,10 +37,11 @@ at every pan position is 0 dB.;
 #X msg 130 429 @smooth;
 #X text 270 429 (при инициализации) Smooth control signal to avoid
 zipping-noise. Тип: int. Значение по умолчанию: 20\. Диапазон: 0\...100\.;
+#X obj 250 486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 486 @pos;
 #X text 270 486 Panning position. -1 means left \, 0 - center \, +1
 - right. Тип: float. Значение по умолчанию: 0\. Диапазон: -1\...1\.;
-#X obj 20 553 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 553 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 558 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 559 1\.;
@@ -49,7 +50,7 @@ zipping-noise. Тип: int. Значение по умолчанию: 20\. Ди�
 #X text 130 584 2\.;
 #X text 170 584 float:;
 #X text 270 584 pan position. Диапазон: -1…1\.;
-#X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 624 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 625 1\.;
@@ -90,7 +91,7 @@ zipping-noise. Тип: int. Значение по умолчанию: 20\. Ди�
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 717 pd info;
 #X connect 6 0 7 0;

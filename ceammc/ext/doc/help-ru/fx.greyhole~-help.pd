@@ -20,7 +20,7 @@ Excels at producing spacey washes of sound.;
 #X obj 50 392 *~;
 #X obj 126 392 *~;
 #X obj 50 435 dac~;
-#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 490 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,50 +30,61 @@ Excels at producing spacey washes of sound.;
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/fx_greyhole/ИМЯ_СВОЙСТВА \, в противном случае к /fx_greyhole/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 578 @osc;
 #X text 270 578 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 608 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 608 @active;
 #X text 270 608 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 650 @bypass;
 #X text 270 650 Bypass flag. If true: bypass 'effected' signal. Тип:
 bool. Значение по умолчанию: 0\.;
+#X obj 250 692 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 692 @damping;
 #X text 270 692 Controls damping of high-frequencies as the delay decays.
 0 is no damping \, 1 is very strong damping. Тип: float. Значение по
 умолчанию: 0\. Диапазон: 0\...0.99\.;
+#X obj 250 749 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 749 @delaytime;
 #X text 270 749 Approximate delay time in seconds. Тип: float. Единицы:
 'sec'. Значение по умолчанию: 0.2\. Диапазон: 0.001\...1.45\.;
+#X obj 250 806 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 806 @diffusion;
 #X text 270 806 Shape of the diffusion unit. Values greater than 0.707
 produce smooth exponential decay. Lower values produce a slower build-up
 of echoes. Тип: float. Значение по умолчанию: 0.5\. Диапазон: 0\...0.99\.;
+#X obj 250 878 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 878 @drywet;
 #X text 270 878 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
 1\. Диапазон: 0\...1\.;
+#X obj 250 935 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 935 @feedback;
 #X text 270 935 Amount of feedback for the delay line. Тип: float.
 Значение по умолчанию: 0.9\. Диапазон: 0\...1\.;
+#X obj 250 977 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 977 @moddepth;
 #X text 270 977 Depth of delay-line modulation. Use in combination
 with *@modfreq* to set amount of chorusing within the structure. Тип:
 float. Значение по умолчанию: 0.1\. Диапазон: 0\...1\.;
+#X obj 250 1049 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1049 @modfreq;
 #X text 270 1049 Frequency of delay-line modulation. Use in combination
 with *@moddepth* to set amount of chorusing within the structure. Тип:
 float. Значение по умолчанию: 2\. Диапазон: 0\...10\.;
+#X obj 250 1121 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1121 @size;
 #X text 270 1121 Size of delay-lines within the diffusion unit \, producing
 the impression of a larger or smaller space. Values below 1 can sound
 quite metallic. Тип: float. Значение по умолчанию: 1\. Диапазон: 0.5\...3\.;
-#X obj 20 1203 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1203 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1208 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1209 reset;
 #X text 270 1209 reset to initial state.;
-#X obj 20 1247 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1247 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1252 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1253 1\.;
@@ -82,7 +93,7 @@ quite metallic. Тип: float. Значение по умолчанию: 1\. Д�
 #X text 130 1278 2\.;
 #X text 170 1278 ~;
 #X text 270 1278 right channel.;
-#X obj 20 1313 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1313 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1318 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1319 1\.;
@@ -122,7 +133,7 @@ quite metallic. Тип: float. Значение по умолчанию: 1\. Д�
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1411 pd info;
 #X connect 7 0 8 0;

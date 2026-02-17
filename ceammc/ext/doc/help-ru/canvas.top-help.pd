@@ -16,7 +16,7 @@
 #X obj 50 205 canvas.top;
 #X obj 50 234 ui.dt;
 #X obj 50 262 canvas.top-abs;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 317 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
@@ -25,33 +25,42 @@
 #X text 270 318 Если 0: использует холст самого верхнего уровня \,
 если 1: использует холст абстракции. Тип: bool. Значение по умолчанию:
 1\.;
+#X obj 250 375 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 375 @dir?;
 #X text 270 375 (только чтение) Каталог холста. Тип: symbol. Значение
 по умолчанию: /.;
+#X obj 250 417 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 417 @height?;
 #X text 270 417 (только чтение) Высота окна. Тип: int. Значение по
 умолчанию: 400\.;
+#X obj 250 459 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 459 @name?;
 #X text 270 459 (только чтение) Имя холста. Тип: symbol. Значение по
 умолчанию: test_canvas.;
+#X obj 250 501 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 501 @paths?;
 #X text 270 501 (только чтение) Пути поиска. Тип: list.;
+#X obj 250 531 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 531 @width?;
 #X text 270 531 (только чтение) Ширина окна. Тип: int. Значение по
 умолчанию: 600\.;
+#X obj 250 573 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 573 @x?;
 #X text 270 573 (только чтение) X-позиция окна. Тип: int. Значение
 по умолчанию: 0\.;
+#X obj 250 615 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 615 @y?;
 #X text 270 615 (только чтение) Y-позиция окна. Тип: int. Значение
 по умолчанию: 0\.;
+#X obj 250 657 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 657 @font?;
 #X text 270 657 (только чтение) Оконный шрифт. Тип: int. Значение по
 умолчанию: 10\.;
+#X obj 250 699 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 699 @size?;
 #X text 270 699 (только чтение) Размер окна. Тип: list. Значение по
 умолчанию: 600 400\.;
-#X obj 20 751 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 751 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 756 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 757 postscript;
@@ -59,14 +68,14 @@
 #X obj 280 780 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 780 [FNAME]: имя файла. Если не указано \, используется
 имя патча с расширением .ps. Тип: symbol.;
-#X obj 20 830 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 830 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 835 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 836 1\.;
 #X text 270 836 property request.;
 #X text 170 861 bang:;
 #X text 270 861 output as dict.;
-#X obj 20 896 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 896 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 901 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 902 1\.;
@@ -103,7 +112,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 974 pd info;
 #X connect 4 0 11 0;

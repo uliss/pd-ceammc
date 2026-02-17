@@ -20,7 +20,7 @@ lineary;
 #X obj 69 357 ui.dt;
 #X obj 50 400 list.sum;
 #X floatatom 50 428 5 0 0 0 - - -;
-#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 465 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 468 ui.link @background_color 0.98039 0.98039 0.98039
@@ -28,11 +28,13 @@ lineary;
 #X msg 130 466 @by;
 #X text 270 466 Normalization mode. Тип: symbol. Значение по умолчанию:
 sum. Разрешённые значения: sum \, range.;
+#X obj 250 508 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 508 @range;
 #X text 270 508 Alias to @by range.;
+#X obj 250 538 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 538 @sum;
 #X text 270 538 Alias to @by sum.;
-#X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 583 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 584 1\.;
@@ -40,7 +42,7 @@ sum. Разрешённые значения: sum \, range.;
 #X text 270 584 input list of floats. Non float values are rejected.;
 #X text 170 609 data:mlist:;
 #X text 270 609 same as list.;
-#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 649 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 650 1\.;
@@ -74,7 +76,7 @@ sum. Разрешённые значения: sum \, range.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 722 pd info;
 #X connect 8 0 12 0;

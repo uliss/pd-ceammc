@@ -15,7 +15,7 @@
 #X obj 50 277 print;
 #X obj 50 320 ui.link @title Connection_Scheme @url
 ceammc://img/conn_vl53l0x.png;
-#X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 382 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 385 ui.link @background_color 0.98039 0.98039 0.98039
@@ -24,11 +24,12 @@ ceammc://img/conn_vl53l0x.png;
 #X text 270 383 (при инициализации) I²C address. The value 'default'
 means default device I²C address (0x29). Тип: int. Значение по умолчанию:
 -1\. Диапазон: -4\...119\.;
+#X obj 250 440 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 440 @i2c_bus;
 #X text 270 440 (при инициализации) Шина I²C. Тип: atom. Значение по
 умолчанию: none. Разрешённые значения: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \,
 default \, none.;
-#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 512 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 513 address;
@@ -36,17 +37,18 @@ default \, none.;
 when the device is powered off. Аргументы:;
 #X obj 280 551 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 551 ADDR: new i2c address. Тип: int. Диапазон: 8…119\.;
+#X obj 250 576 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 576 poll;
 #X text 270 576 turn the sensor polling on/off. Аргументы:;
 #X obj 280 599 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 599 STATE: poll state. Тип: bool.;
-#X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 639 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 640 1\.;
 #X text 170 640 bang:;
 #X text 270 640 single distance measure.;
-#X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 680 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 681 1\.;
@@ -80,7 +82,7 @@ when the device is powered off. Аргументы:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 753 pd info;
 #X connect 6 0 7 0;

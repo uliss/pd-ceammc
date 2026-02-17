@@ -19,7 +19,7 @@ or [prop.set] object;
 #X obj 194 403 ui.dsp~;
 #X obj 50 432 dac~;
 #X obj 50 461 flow.pipe-superdirt;
-#X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 516 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 519 ui.link @background_color 0.98039 0.98039 0.98039
@@ -29,7 +29,7 @@ or [prop.set] object;
 #X obj 268 518 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 517 DELAY(ms): init @delay property. Тип: float. Минимальное
 значение: 0\.;
-#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 572 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 575 ui.link @background_color 0.98039 0.98039 0.98039
@@ -37,13 +37,15 @@ or [prop.set] object;
 #X msg 130 573 @delay;
 #X text 270 573 Delay time. Тип: float. Единицы: 'ms'. Значение по
 умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 615 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 615 @empty?;
 #X text 270 615 (только чтение) 1 if pipe is empty \, otherwise 0\.
 Тип: bool. Значение по умолчанию: 1\.;
+#X obj 250 657 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 657 @size?;
 #X text 270 657 (только чтение) Pipe size. Тип: int. Значение по умолчанию:
 0\.;
-#X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 714 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 715 1\.;
@@ -55,7 +57,7 @@ or [prop.set] object;
 #X text 270 790 flush: output and clear.;
 #X text 170 815 float:;
 #X text 270 815 set delay time. Минимальное значение: 0\.;
-#X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 855 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 856 1\.;
@@ -91,7 +93,7 @@ or [prop.set] object;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 928 pd info;
 #X connect 7 0 8 0;

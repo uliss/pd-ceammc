@@ -14,7 +14,7 @@
 #X floatatom 50 147 5 0 0 0 - - -;
 #X obj 50 176 midi.ctl->str @symbol;
 #X obj 50 205 ui.dt;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 260 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
@@ -22,13 +22,13 @@
 #X msg 130 261 @symbol;
 #X text 270 261 Output as symbol instead of string by default. Значение
 по умолчанию: 0\.;
-#X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 318 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 319 1\.;
 #X text 170 319 float:;
 #X text 270 319 Standart MIDI controller number [0-127].;
-#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 359 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 360 1\.;
@@ -62,7 +62,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 527 pd info;
 #X connect 5 0 10 0;

@@ -18,7 +18,7 @@ custom one;
 #X obj 50 292 ui.hk;
 #X obj 69 363 print;
 #X obj 50 392 ui.dt;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 447 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
@@ -32,7 +32,7 @@ names \, custom. Тип: symbol.;
 #X text 170 488 bool;
 #X obj 268 489 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 488 ON: init on/off state. Тип: bool.;
-#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 528 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 531 ui.link @background_color 0.98039 0.98039 0.98039
@@ -40,25 +40,29 @@ names \, custom. Тип: symbol.;
 #X msg 130 529 @custom;
 #X text 270 529 Custom layout (Dict data type). Тип: atom. Значение
 по умолчанию: [].;
+#X obj 250 571 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 571 @layout;
 #X text 270 571 Current layout. Тип: symbol. Значение по умолчанию:
 qwerty. Разрешённые значения: qwerty \, names \, custom.;
+#X obj 250 613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 613 @octave;
 #X text 270 613 Output octave. Тип: int. Значение по умолчанию: 4\.
 Диапазон: 0\...8\.;
+#X obj 250 655 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 655 @on;
 #X text 270 655 On/off state. Тип: bool. Значение по умолчанию: 1\.;
+#X obj 250 685 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 685 @vel;
 #X text 270 685 Output velocity. Тип: float. Значение по умолчанию:
 100\. Диапазон: 0\...127\.;
-#X obj 20 737 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 737 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 742 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 743 custom;
 #X text 270 743 set custom. Аргументы:;
 #X obj 280 766 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 766 KEYSTR: key string. Тип: symbol.;
-#X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 806 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 807 1\.;
@@ -66,7 +70,7 @@ qwerty. Разрешённые значения: qwerty \, names \, custom.;
 #X text 130 832 2\.;
 #X text 170 832 int:;
 #X text 270 832 1 or 0: turn on/off.;
-#X obj 20 867 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 867 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 872 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 873 1\.;
@@ -100,7 +104,7 @@ qwerty. Разрешённые значения: qwerty \, names \, custom.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 945 pd info;
 #X connect 6 0 9 0;

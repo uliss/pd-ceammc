@@ -21,7 +21,7 @@
 #X obj 50 349 synth.eguitar~;
 #X obj 50 378 ui.gain~ @size 120 16;
 #X obj 50 406 dac~;
-#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 461 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
@@ -31,30 +31,38 @@
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/synth_eguitar/ИМЯ_СВОЙСТВА \, в противном случае к /synth_eguitar/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 549 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 549 @osc;
 #X text 270 549 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 579 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 579 @active;
 #X text 270 579 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 621 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 621 @freq;
 #X text 270 621 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
 130.8128\.;
+#X obj 250 663 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 663 @gain;
 #X text 270 663 Pluck gain. Тип: float. Значение по умолчанию: 1\.
 Диапазон: 0\...1\.;
+#X obj 250 705 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 705 @gate;
 #X text 270 705 Play trigger - 1: on \, 0: off. Тип: float. Значение
 по умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 747 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 747 @mute;
 #X text 270 747 Mute coefficient (0 for no mute and 1 for instant mute).
 Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 804 @pitch;
 #X text 270 804 Midi pitch. Тип: float. Значение по умолчанию: 48\.
 Диапазон: 36\...84\.;
+#X obj 250 846 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 846 @pos;
 #X text 270 846 Pluck position (1 is on the bridge). Тип: float. Значение
 по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X obj 20 898 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 898 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 903 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 904 note;
@@ -63,13 +71,13 @@
 #X text 280 927 NOTE: midi note. Тип: float.;
 #X obj 280 950 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 950 VEL: velocity. Тип: float. Диапазон: 0…127\.;
-#X obj 20 985 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 985 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 990 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 991 1\.;
 #X text 170 991 list:;
 #X text 270 991 NOTE VEL.;
-#X obj 20 1026 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1026 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1031 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1032 1\.;
@@ -104,7 +112,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1104 pd info;
 #X connect 4 0 6 0;

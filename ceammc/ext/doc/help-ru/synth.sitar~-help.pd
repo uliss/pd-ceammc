@@ -15,7 +15,7 @@ on the Karplus-Strong algorithm;
 #X obj 50 306 ui.gain~ @size 120 16;
 #X obj 290 306 ui.dsp~;
 #X obj 50 335 dac~;
-#X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 390 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 393 ui.link @background_color 0.98039 0.98039 0.98039
@@ -23,13 +23,15 @@ on the Karplus-Strong algorithm;
 #X msg 130 391 @freq;
 #X text 270 391 Maximum speed of whistles. Тип: float. Единицы: 'Hz'.
 Значение по умолчанию: 220\. Диапазон: 0\...480\.;
+#X obj 250 433 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 433 @gate;
 #X text 270 433 Synth gate (>0 - play). Тип: float. Значение по умолчанию:
 0\. Диапазон: 0\...1\.;
+#X obj 250 475 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 475 @pitch;
 #X text 270 475 Midi pitch. Тип: float. Значение по умолчанию: 57\.
 Диапазон: 36\...84\.;
-#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 532 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 533 cc;
@@ -38,19 +40,20 @@ on the Karplus-Strong algorithm;
 #X text 280 556 CTL: control number. Тип: int.;
 #X obj 280 579 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 579 VAL: value. Тип: float.;
+#X obj 250 604 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 604 note;
 #X text 270 604 note on/off message. Аргументы:;
 #X obj 280 627 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 627 NOTE: midi note. Тип: float.;
 #X obj 280 650 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 650 VEL: velocity. Тип: float. Диапазон: 0…127\.;
-#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 690 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 691 1\.;
 #X text 170 691 list:;
 #X text 270 691 NOTE VEL.;
-#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 731 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 732 1\.;
@@ -85,7 +88,7 @@ on the Karplus-Strong algorithm;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 804 pd info;
 #X connect 6 0 7 0;

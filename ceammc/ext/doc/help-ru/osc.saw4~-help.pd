@@ -18,7 +18,7 @@ suppression. 4nd order interpolation.;
 #X obj 50 320 dac~;
 #X obj 136 320 ui.spectroscope~ @size 150 100;
 #X obj 50 436 ui.dsp~;
-#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 491 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 494 ui.link @background_color 0.98039 0.98039 0.98039
@@ -27,7 +27,7 @@ suppression. 4nd order interpolation.;
 #X text 170 492 float;
 #X obj 268 493 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 492 FREQ(Hz): See @freq. Тип: float. Диапазон: 0.0…22050;
-#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 532 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 535 ui.link @background_color 0.98039 0.98039 0.98039
@@ -37,18 +37,22 @@ suppression. 4nd order interpolation.;
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/osc_saw4/ИМЯ_СВОЙСТВА \, в противном случае к /osc_saw4/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 605 @osc;
 #X text 270 605 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 635 @active;
 #X text 270 635 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 677 @freq;
 #X text 270 677 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
 0\. Диапазон: 0\...22050\.;
+#X obj 250 719 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 719 @phase;
 #X text 270 719 Phase. Тип: float. Значение по умолчанию: 0\. Диапазон:
 0\...1\.;
-#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 776 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 777 1\.;
@@ -57,7 +61,7 @@ suppression. 4nd order interpolation.;
 #X text 130 802 2\.;
 #X text 170 802 bang:;
 #X text 270 802 reset phase.;
-#X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 842 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 843 1\.;
@@ -97,7 +101,7 @@ suppression. 4nd order interpolation.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 915 pd info;
 #X connect 6 0 8 0;

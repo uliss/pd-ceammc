@@ -20,7 +20,7 @@ power supply \, but the Raspberry Pi's GPIO inputs operate at 3.3V.;
 -1;
 #X obj 50 404 ui.link @title 'Connection_scheme' @url
 ceammc://img/hc_sr04.png;
-#X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 466 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 469 ui.link @background_color 0.98039 0.98039 0.98039
@@ -34,7 +34,7 @@ ceammc://img/hc_sr04.png;
 #X text 170 492 int;
 #X obj 268 493 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 492 ECHO_PIN: эхо пин GPIO. Тип: int. Диапазон: 0…255;
-#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 532 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 535 ui.link @background_color 0.98039 0.98039 0.98039
@@ -42,26 +42,28 @@ ceammc://img/hc_sr04.png;
 #X msg 130 533 @echo_pin;
 #X text 270 533 (при инициализации) Эхо пин GPIO. Тип: int. Значение
 по умолчанию: 27\. Диапазон: 0\...255\.;
+#X obj 250 575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 575 @trig_pin;
 #X text 270 575 (при инициализации) Триггерный пин GPIO. Тип: int.
 Значение по умолчанию: 17\. Диапазон: 0\...255\.;
+#X obj 250 617 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 617 @poll_interval;
 #X text 270 617 Интервал между измерениями. Тип: int. Единицы: 'ms'.
 Значение по умолчанию: 20\. Диапазон: 10\...1000\.;
-#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 674 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 675 poll;
 #X text 270 675 turn the sensor polling on/off. Аргументы:;
 #X obj 280 698 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 698 STATE: poll state. Тип: bool.;
-#X obj 20 733 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 733 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 738 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 739 1\.;
 #X text 170 739 bang:;
 #X text 270 739 single distance measure.;
-#X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 779 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 780 1\.;
@@ -97,7 +99,7 @@ ceammc://img/hc_sr04.png;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 872 pd info;
 #X connect 7 0 8 0;

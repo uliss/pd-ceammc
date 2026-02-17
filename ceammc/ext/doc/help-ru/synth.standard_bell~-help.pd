@@ -21,7 +21,7 @@ from the bottom to the top of the bell;
 #X obj 50 415 gsynth.standard_bell~;
 #X obj 50 689 ui.gain~ @size 120 16;
 #X obj 50 718 dac~;
-#X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 773 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 776 ui.link @background_color 0.98039 0.98039 0.98039
@@ -31,47 +31,57 @@ from the bottom to the top of the bell;
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/synth_standard_bell/ИМЯ_СВОЙСТВА \, в противном случае
 к /synth_standard_bell/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X obj 250 861 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 861 @osc;
 #X text 270 861 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 891 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 891 @active;
 #X text 270 891 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 933 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 933 @cutoff;
 #X text 270 933 Strike cutoff frequency. Тип: float. Единицы: 'Hz'.
 Значение по умолчанию: 4000\. Диапазон: 20\...20000\.;
+#X obj 250 975 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 975 @decay_ratio;
 #X text 270 975 Decay ratio. Тип: float. Значение по умолчанию: 1\.
 Диапазон: 0\...1\.;
+#X obj 250 1017 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1017 @decay_slope;
 #X text 270 1017 Decay slope. Тип: float. Значение по умолчанию: 3\.
 Диапазон: 0\...10\.;
+#X obj 250 1059 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1059 @gain;
 #X text 270 1059 Strike gain. Тип: float. Значение по умолчанию: 1\.
 Диапазон: 0\...1\.;
+#X obj 250 1101 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1101 @gate;
 #X text 270 1101 Play trigger - 1: on \, 0: off. Тип: float. Значение
 по умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 1143 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1143 @pos;
 #X text 270 1143 Strike position (0 is on the bottom). Тип: int. Значение
 по умолчанию: 0\. Диапазон: 0\...6\.;
+#X obj 250 1185 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1185 @sharp;
 #X text 270 1185 Strike sharpness. Тип: float. Значение по умолчанию:
 0.25\. Диапазон: 0.01\...5\.;
+#X obj 250 1227 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1227 @t60;
 #X text 270 1227 Time to decay to -60db level. Тип: float. Единицы:
 'sec'. Значение по умолчанию: 20\. Диапазон: 0.1\...30\.;
-#X obj 20 1279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1279 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1284 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1285 reset;
 #X text 270 1285 reset synth.;
-#X obj 20 1323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1323 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1328 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1329 1\.;
 #X text 170 1329 bang:;
 #X text 270 1329 play.;
-#X obj 20 1364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1364 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1369 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1370 1\.;
@@ -106,7 +116,7 @@ from the bottom to the top of the bell;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1442 pd info;
 #X connect 8 0 10 0;

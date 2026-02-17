@@ -20,7 +20,7 @@ CICM documentation @url hoa/hoa.2d.rotate~-help.pd;
 #X obj 510 276 ui.n~;
 #X obj 165 304 hoa.scope~ 5 @gain 4 @size 164 164;
 #X obj 50 477 ui.dsp~;
-#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 532 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 535 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,7 +30,7 @@ CICM documentation @url hoa/hoa.2d.rotate~-help.pd;
 #X obj 268 534 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 533 ORDER: the order of decomposition. Тип: int. Диапазон:
 1…63;
-#X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 573 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 576 ui.link @background_color 0.98039 0.98039 0.98039
@@ -38,7 +38,7 @@ CICM documentation @url hoa/hoa.2d.rotate~-help.pd;
 #X msg 130 574 @order;
 #X text 270 574 (при инициализации) The order of decomposition. Тип:
 int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
-#X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 631 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 632 1\.;
@@ -55,7 +55,7 @@ int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
 #X text 270 707 Set the angle of the rotation of the soundfield in
 radian. The rotation angle is anti-clockwise and wrapped between 0
 and 2π.;
-#X obj 20 772 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 772 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 777 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 778 1\.;
@@ -99,7 +99,7 @@ Thomas Le Meur;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 890 pd info;
 #X connect 7 0 10 0;

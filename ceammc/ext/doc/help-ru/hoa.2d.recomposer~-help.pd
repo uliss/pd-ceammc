@@ -22,7 +22,7 @@ harmonics. There's three modes \, fixe (default) \, fisheye and free.;
 #X obj 50 604 hoa.decoder~ 7 regular, f 46;
 #X obj 453 604 ui.dsp~;
 #X obj 50 633 xdac~ 1:16, f 46;
-#X obj 20 683 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 683 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 688 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 691 ui.link @background_color 0.98039 0.98039 0.98039
@@ -47,17 +47,20 @@ harmonics. There's three modes \, fixe (default) \, fisheye and free.;
 front of the scene. *free* - allows you to change the angles and the
 widening value for each channels. Разрешённые значения: fixe \, fisheye
 \, free. Тип: symbol.;
-#X obj 20 895 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 895 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 900 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 903 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 901 @fisheye;
 #X text 270 901 Alias for @mode fisheye.;
+#X obj 250 931 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 931 @fixe;
 #X text 270 931 Alias for @mode fixe.;
+#X obj 250 961 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 961 @free;
 #X text 270 961 Alias for @mode free.;
+#X obj 250 991 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 991 @mode;
 #X text 270 991 (при инициализации) Recomposition mode. There is three
 modes: *fixe* - simply recomposes a plane wave decomposition into circular
@@ -66,17 +69,20 @@ the visual "fisheye" effect by distorsion of the sound field perspective
 to the front of the scene. *free* - allows you to change the angles
 and the widening value for each channels. Тип: symbol. Значение по
 умолчанию: free. Разрешённые значения: fixe \, fisheye \, free.;
+#X obj 250 1139 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1139 @n;
 #X text 270 1139 (при инициализации) Number of channels (planewaves).
 '0' means auto-calculation. Тип: int. Значение по умолчанию: 0\. Диапазон:
 0\...128\.;
+#X obj 250 1196 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1196 @order;
 #X text 270 1196 (при инициализации) The order of decomposition. Тип:
 int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
+#X obj 250 1238 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1238 @ramp;
 #X text 270 1238 Ramp time. Тип: float. Значение по умолчанию: 100\.
 Минимальное значение: 0\.;
-#X obj 20 1290 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1290 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1295 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1296 angles;
@@ -84,12 +90,13 @@ int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
 \, wrapped between 0 and 2π. Аргументы:;
 #X obj 280 1334 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1334 VALS: list of angles. Тип: list. Единицы: 'rad'.;
+#X obj 250 1359 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1359 wide;
 #X text 270 1359 set the widening value of channels. Widening value
 is clipped between 0\. (omnidirectional) and 1\. (directional). Аргументы:;
 #X obj 280 1412 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1412 VALS: list of values per channel. Тип: list.;
-#X obj 20 1447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1447 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1452 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1453 1\.;
@@ -102,7 +109,7 @@ is clipped between 0\. (omnidirectional) and 1\. (directional). Аргумент
 #X text 170 1503 ~;
 #X text 270 1503 input harmonic. If @fisheye mode is used: fisheye
 factor [0-1] in last inlet.;
-#X obj 20 1553 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1553 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1558 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1559 1\.;
@@ -146,7 +153,7 @@ Thomas Le Meur;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1671 pd info;
 #X connect 8 0 9 0;

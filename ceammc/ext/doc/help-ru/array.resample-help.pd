@@ -22,7 +22,7 @@
 #X msg 126 234 @ratio \$1 \, bang;
 #X obj 50 262 array.resample ARS1 ARS2 @ratio 4;
 #X floatatom 50 291 5 0 0 0 - - -;
-#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 328 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 331 ui.link @background_color 0.98039 0.98039 0.98039
@@ -35,38 +35,46 @@
 #X text 170 354 symbol;
 #X obj 268 355 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 354 DEST: массив результата. Тип: symbol.;
-#X obj 20 389 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 389 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 394 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 397 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 395 @best;
 #X text 270 395 Сокращение для @quality best.;
+#X obj 250 425 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 425 @dest;
 #X text 270 425 Массив назначения. Тип: symbol.;
+#X obj 250 455 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 455 @fast;
 #X text 270 455 Сокращение для @quality fast.;
+#X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 485 @high;
 #X text 270 485 Сокращение для @quality high.;
+#X obj 250 515 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 515 @low;
 #X text 270 515 Сокращение для @quality low.;
+#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 545 @medium;
 #X text 270 545 Сокращение для @quality medium.;
+#X obj 250 575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 575 @quality;
 #X text 270 575 Качество ресемплинга. Тип: symbol. Значение по умолчанию:
 high. Разрешённые значения: high \, fast \, low \, medium \, best.;
+#X obj 250 632 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 632 @ratio;
 #X text 270 632 Соотношение ресемплинга (src/dest). Тип: float. Значение
 по умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 674 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 674 @src;
 #X text 270 674 Исходный массив. Тип: symbol.;
-#X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 719 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 720 1\.;
 #X text 170 720 bang:;
 #X text 270 720 начинает ресемплинг.;
-#X obj 20 755 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 755 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 760 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 761 1\.;
@@ -101,7 +109,7 @@ high. Разрешённые значения: high \, fast \, low \, medium \, 
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 833 pd info;
 #X connect 5 0 8 0;

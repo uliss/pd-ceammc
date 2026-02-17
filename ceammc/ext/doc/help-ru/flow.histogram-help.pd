@@ -13,7 +13,7 @@
 #X obj 50 205 flow.hist -4 4 32 @norm 1 @sync 1;
 #X obj 50 234 ui.sliders @auto_count 1;
 #X obj 50 363 flow.histogram-bins;
-#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 418 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
@@ -22,7 +22,7 @@
 #X text 170 419 list;
 #X obj 268 420 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 419 RANGE: МИН МАКС ЧИСЛО_ИНТЕРВАЛОВ?. Тип: list.;
-#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 459 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 462 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,22 +30,25 @@
 #X msg 130 460 @bins;
 #X text 270 460 Значения границ интервалов. Тип: list. Значение по
 умолчанию: 0\.;
+#X obj 250 502 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 502 @inner_bins;
 #X text 270 502 Использовать только внутренние интервалы гистограммы.
 Тип: bool. Значение по умолчанию: 1\.;
+#X obj 250 544 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 544 @norm;
 #X text 270 544 Производить нормализацию гистограммы. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 586 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 586 @sync;
 #X text 270 586 Если истинно \, перевычислять и выводить гистограмму
 после каждого входного значения. Тип: bool. Значение по умолчанию:
 1\.;
-#X obj 20 653 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 653 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 658 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 659 clear;
 #X text 270 659 очистить все данные гистограммы.;
-#X obj 20 697 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 697 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 702 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 703 1\.;
@@ -54,7 +57,7 @@
 #X text 170 728 float:;
 #X text 270 728 добавить значение в гистограмму. Вычислить и вывести
 её новое значение \, если свойство @sync истинно.;
-#X obj 20 778 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 778 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 783 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 784 1\.;
@@ -89,7 +92,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 856 pd info;
 #X connect 5 0 6 0;

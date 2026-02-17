@@ -29,7 +29,7 @@ https://en.wikipedia.org/wiki/Comb_filter;
 #X obj 50 444 ui.plot~ @xlabels 1 @ylabels 1 @ymin 0 @ymax 2
 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200;
 #X obj 50 660 ui.dsp~;
-#X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 715 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 718 ui.link @background_color 0.98039 0.98039 0.98039
@@ -39,7 +39,7 @@ https://en.wikipedia.org/wiki/Comb_filter;
 #X obj 268 717 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 716 A: scaling factor of delayed signal. Тип: float. Диапазон:
 -1…1;
-#X obj 20 766 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 766 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 771 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 774 ui.link @background_color 0.98039 0.98039 0.98039
@@ -49,20 +49,23 @@ https://en.wikipedia.org/wiki/Comb_filter;
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/flt_ff_comb/ИМЯ_СВОЙСТВА \, в противном случае к /flt_ff_comb/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 859 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 859 @osc;
 #X text 270 859 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 889 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 889 @a;
 #X text 270 889 Scaling factor of delayed signal. Тип: float. Значение
 по умолчанию: 1\. Диапазон: -1\...1\.;
+#X obj 250 931 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 931 @active;
 #X text 270 931 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 20 983 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 983 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 988 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 989 reset;
 #X text 270 989 reset filter state.;
-#X obj 20 1027 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1027 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1032 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1033 1\.;
@@ -71,7 +74,7 @@ https://en.wikipedia.org/wiki/Comb_filter;
 #X text 130 1058 2\.;
 #X text 170 1058 ~;
 #X text 270 1058 filter notch frequency.;
-#X obj 20 1093 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1093 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1098 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1099 1\.;
@@ -108,7 +111,7 @@ https://en.wikipedia.org/wiki/Comb_filter;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1171 pd info;
 #X connect 8 0 11 0;

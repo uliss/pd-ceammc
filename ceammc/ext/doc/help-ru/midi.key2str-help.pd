@@ -13,7 +13,7 @@ SPN;
 #X msg 424 118 @tonality C;
 #X obj 50 176 midi.key->str @symbol;
 #X obj 50 205 ui.dt;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 260 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
@@ -22,7 +22,7 @@ SPN;
 #X text 170 261 list;
 #X obj 268 262 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 261 TONALITY: initial tomality. Тип: list.;
-#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 301 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 304 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,16 +30,17 @@ SPN;
 #X msg 130 302 @symbol;
 #X text 270 302 Output as symbol instead of string by default. Значение
 по умолчанию: 0\.;
+#X obj 250 344 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 344 @tonality;
 #X text 270 344 Current tonality. Тип: list. Значение по умолчанию:
 C major.;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 389 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 390 1\.;
 #X text 170 390 float:;
 #X text 270 390 standart MIDI key number [0-127].;
-#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 430 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 431 1\.;
@@ -73,7 +74,7 @@ C major.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 527 pd info;
 #X connect 5 0 9 0;

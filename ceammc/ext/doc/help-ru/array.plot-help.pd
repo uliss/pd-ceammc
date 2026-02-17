@@ -16,7 +16,7 @@
 #X obj 50 277 array.plot APLT;
 #X obj 50 305 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 342 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
@@ -35,26 +35,30 @@
 #X obj 268 409 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 408 YMAX: максимальное значение y-оси. Тип: float. Диапазон:
 -2048…2048;
-#X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 463 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 466 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 464 @array;
 #X text 270 464 Имя массива. Тип: symbol.;
+#X obj 250 494 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 494 @nan;
 #X text 270 494 Значение для замены NaN на графике. Тип: float. Значение
 по умолчанию: +inf.;
+#X obj 250 536 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 536 @yauto;
 #X text 270 536 Вычислить диапазон y-оси автоматически. Тип: bool.
 Значение по умолчанию: 1\.;
+#X obj 250 578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 578 @ymax;
 #X text 270 578 Максимальное значение y-оси. Тип: float. Значение по
 умолчанию: 1\. Диапазон: -2048\...2048\.;
+#X obj 250 620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 620 @ymin;
 #X text 270 620 Минимальное значение y-оси. Тип: float. Значение по
 умолчанию: -1\. Диапазон: -2048\...2048\.;
-#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 677 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 678 1\.;
@@ -67,7 +71,7 @@
 #X text 270 728 plot all samples fitted to specified array.;
 #X text 170 753 float:;
 #X text 270 753 plot specified number of samples \, resizes array.;
-#X obj 20 788 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 788 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 793 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 794 1\.;
@@ -103,7 +107,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 866 pd info;
 #X connect 4 0 6 0;

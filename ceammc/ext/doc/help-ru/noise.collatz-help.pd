@@ -17,12 +17,12 @@
 #X msg 251 305 mode \$1;
 #X obj 50 348 noise.collatz;
 #X obj 50 377 ui.display;
-#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 432 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 435 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 458 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 459 mode;
@@ -30,22 +30,24 @@
 #X obj 280 482 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 482 MODE: mode value. 0 for Collatz \, 1 for Terras. Тип:
 int.;
+#X obj 250 507 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 507 offset;
 #X text 270 507 Аргументы:;
 #X obj 280 530 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 530 OFFSET: offset value. Тип: float.;
+#X obj 250 555 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 555 om;
 #X text 270 555 Аргументы:;
 #X obj 280 578 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 578 OM: enables output when cut or fold value is changed.
 Тип: int.;
-#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 633 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 634 1\.;
 #X text 170 634 bang:;
 #X text 270 634 output value.;
-#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 674 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 675 1\.;
@@ -79,7 +81,7 @@ int.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 747 pd info;
 #X connect 6 0 7 0;

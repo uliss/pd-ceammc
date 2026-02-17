@@ -15,7 +15,7 @@
 #X obj 50 176 ui.n~;
 #X obj 146 176 ui.n~;
 #X obj 242 176 ui.n~;
-#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 231 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 234 ui.link @background_color 0.98039 0.98039 0.98039
@@ -29,7 +29,7 @@
 #X obj 268 258 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 257 INIT: initial open/close state for all slots. Тип:
 bool.;
-#X obj 20 292 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 292 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 297 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 300 ui.link @background_color 0.98039 0.98039 0.98039
@@ -37,13 +37,15 @@ bool.;
 #X msg 130 298 @init;
 #X text 270 298 (при инициализации) Init state for all slots. If true:
 all slots are open. Тип: bool. Значение по умолчанию: true.;
+#X obj 250 355 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 355 @n;
 #X text 270 355 (при инициализации) Number of [in|out]puts. Тип: int.
 Значение по умолчанию: 1\. Диапазон: 1\...64\.;
+#X obj 250 397 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 397 @smooth;
 #X text 270 397 Gain change smooth time. Тип: float. Единицы: 'ms'.
 Значение по умолчанию: 50\. Диапазон: 0\...1000\.;
-#X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 454 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 455 1\.;
@@ -59,7 +61,7 @@ all slots are open. Тип: bool. Значение по умолчанию: true
 #X text 270 530 on/off all channels.;
 #X text 170 555 list:;
 #X text 270 555 list of 1|0 \, on/off specified channels only.;
-#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 595 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 596 1\.;
@@ -100,7 +102,7 @@ all slots are open. Тип: bool. Значение по умолчанию: true
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 708 pd info;
 #X connect 5 0 11 0;

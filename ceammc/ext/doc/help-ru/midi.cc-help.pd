@@ -11,7 +11,7 @@
 #X msg 136 147 @curve \$1;
 #X obj 50 176 midi.cc 10 @min 0 @max 1 @curve -2;
 #X obj 50 205 ui.hsl;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 260 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
@@ -28,7 +28,7 @@
 #X text 170 311 float;
 #X obj 268 312 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 311 MAX: @max value. Тип: float.;
-#X obj 20 346 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 346 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 351 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 354 ui.link @background_color 0.98039 0.98039 0.98039
@@ -36,25 +36,29 @@
 #X msg 130 352 @cc;
 #X text 270 352 Controller number. Тип: int. Значение по умолчанию:
 0\. Диапазон: 0\...127\.;
+#X obj 250 394 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 394 @ch;
 #X text 270 394 MIDI channel. Тип: int. Значение по умолчанию: 0\.
 Диапазон: 0\...16\.;
+#X obj 250 436 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 436 @curve;
 #X text 270 436 Output curve. If @curve<0: fast begin \, slow end \,
 else if @curve>0: slow begin \, fast end \, if @curve==0: linear speed.
 Тип: float. Значение по умолчанию: 0\.;
+#X obj 250 493 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 493 @max;
 #X text 270 493 Output value at midi input == 127\. Тип: float. Значение
 по умолчанию: 127\.;
+#X obj 250 535 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 535 @min;
 #X text 270 535 Output value at midi input == 0\. Тип: float. Значение
 по умолчанию: 0\.;
-#X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 592 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 593 1\.;
 #X text 270 593 control input.;
-#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 633 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 634 1\.;
@@ -88,7 +92,7 @@ else if @curve>0: slow begin \, fast end \, if @curve==0: linear speed.
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 706 pd info;
 #X connect 4 0 6 0;

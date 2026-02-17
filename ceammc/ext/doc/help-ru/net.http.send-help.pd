@@ -11,7 +11,7 @@
 #X msg 155 190 bang;
 #X floatatom 50 219 5 0 0 0 - - -;
 #X obj 136 219 ui.dt;
-#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 274 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 277 ui.link @background_color 0.98039 0.98039 0.98039
@@ -24,7 +24,7 @@
 #X text 170 300 int;
 #X obj 268 301 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 300 PORT: destination port. Тип: int. Диапазон: 1…32768;
-#X obj 20 335 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 335 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 340 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 343 ui.link @background_color 0.98039 0.98039 0.98039
@@ -32,17 +32,21 @@
 #X msg 130 341 @host;
 #X text 270 341 Destination host. Тип: symbol. Значение по умолчанию:
 localhost.;
+#X obj 250 383 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 383 @pass;
 #X text 270 383 Basic Auth password. Тип: atom.;
+#X obj 250 413 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 413 @port;
 #X text 270 413 Destination port. Тип: int. Значение по умолчанию:
 80\. Диапазон: 1\...32768\.;
+#X obj 250 455 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 455 @timeout;
 #X text 270 455 TCP connection timeout. Тип: int. Единицы: 'sec'. Значение
 по умолчанию: 1\. Диапазон: 1\...10\.;
+#X obj 250 497 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 497 @user;
 #X text 270 497 Basic Auth user name. Тип: symbol.;
-#X obj 20 537 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 537 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 542 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 543 get;
@@ -51,12 +55,12 @@ localhost.;
 #X text 280 566 PATH: request path. Тип: symbol.;
 #X obj 280 589 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 589 VALUES: list of query pairs. Тип: list.;
-#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 629 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 630 1\.;
 #X text 270 630 input.;
-#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 670 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 671 1\.;
@@ -92,7 +96,7 @@ localhost.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 763 pd info;
 #X connect 5 0 6 0;

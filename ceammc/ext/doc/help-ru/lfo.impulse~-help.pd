@@ -10,7 +10,7 @@
 #X obj 50 147 lfo.impulse~ 401;
 #X obj 50 176 ui.scope~ @size 300 100;
 #X obj 50 291 lfo.impulse~-sound;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 346 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
@@ -19,7 +19,7 @@
 #X text 170 347 float;
 #X obj 268 348 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 347 FREQ(Hz): frequency. Тип: float. Диапазон: 0…1000;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 387 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
@@ -29,15 +29,18 @@
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/lfo_impulse/ИМЯ_СВОЙСТВА \, в противном случае к /lfo_impulse/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 475 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 475 @osc;
 #X text 270 475 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 505 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 505 @active;
 #X text 270 505 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 547 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 547 @freq;
 #X text 270 547 Initial frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 0\. Диапазон: 0\...1000\.;
-#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 604 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 605 1\.;
@@ -46,7 +49,7 @@
 #X text 130 630 2\.;
 #X text 170 630 bang:;
 #X text 270 630 reset phase.;
-#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 670 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 671 1\.;
@@ -81,7 +84,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 743 pd info;
 #X connect 4 0 6 0;

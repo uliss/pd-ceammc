@@ -27,29 +27,32 @@
 #X obj 50 262 ui.dsp~;
 #X obj 232 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 317 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 318 @both;
 #X text 270 318 Сокращение для @mode both.;
+#X obj 250 348 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 348 @down;
 #X text 270 348 Сокращение для @mode down.;
+#X obj 250 378 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 378 @mode;
 #X text 270 378 Режим обнаружения края. Если 'up': выводит bang при
 изменении входного значения с низкого на высокое \, если 'down': с
 высокого на низкое \, 'both': в обоих случаях. Тип: symbol. Значение
 по умолчанию: up. Разрешённые значения: up \, down \, both.;
+#X obj 250 465 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 465 @up;
 #X text 270 465 Сокращение для @mode up.;
-#X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 510 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 511 1\.;
 #X text 170 511 float:;
 #X text 270 511 input value.;
-#X obj 20 546 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 546 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 551 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 552 1\.;
@@ -83,7 +86,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 624 pd info;
 #X connect 6 0 9 0;

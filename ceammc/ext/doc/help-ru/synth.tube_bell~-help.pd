@@ -20,7 +20,7 @@
 #X obj 50 407 ui.hgain~;
 #X obj 184 407 ui.dsp~;
 #X obj 50 436 dac~;
-#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 491 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 494 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,7 +30,7 @@
 #X obj 268 493 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 492 FREQ(Hz): main frequency. Тип: float. Минимальное значение:
 0\.;
-#X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 547 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 550 ui.link @background_color 0.98039 0.98039 0.98039
@@ -38,28 +38,35 @@
 #X msg 130 548 @adsr;
 #X text 270 548 ADSR 2 & 4 Target. Тип: int. Значение по умолчанию:
 0\. Диапазон: 0\...127\.;
+#X obj 250 590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 590 @freq;
 #X text 270 590 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
 220\. Диапазон: 0\...10000\.;
+#X obj 250 632 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 632 @gate;
 #X text 270 632 Play trigger - 1: on \, 0: off. Тип: float. Значение
 по умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 674 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 674 @lfo_depth;
 #X text 270 674 LFO delth. Тип: int. Значение по умолчанию: 0\. Диапазон:
 0\...127\.;
+#X obj 250 716 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 716 @lfo_speed;
 #X text 270 716 LFO speed in Hz. Тип: int. Значение по умолчанию: 0\.
 Диапазон: 0\...127\.;
+#X obj 250 758 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 758 @mod;
 #X text 270 758 Modulator index one. Тип: int. Значение по умолчанию:
 0\. Диапазон: 0\...127\.;
+#X obj 250 800 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 800 @pitch;
 #X text 270 800 Midi pitch. Тип: float. Значение по умолчанию: 57\.
 Диапазон: 36\...84\.;
+#X obj 250 842 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 842 @xfade;
 #X text 270 842 Crossfade of outputs. Тип: int. Значение по умолчанию:
 0\. Диапазон: 0\...127\.;
-#X obj 20 894 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 894 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 899 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 900 cc;
@@ -68,19 +75,20 @@
 #X text 280 923 CTL: control number. Тип: int.;
 #X obj 280 946 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 946 VAL: value. Тип: float.;
+#X obj 250 971 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 971 note;
 #X text 270 971 note on/off message. Аргументы:;
 #X obj 280 994 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 994 NOTE: midi note. Тип: float.;
 #X obj 280 1017 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1017 VEL: velocity. Тип: float. Диапазон: 0…127\.;
-#X obj 20 1052 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1052 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1057 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1058 1\.;
 #X text 170 1058 list:;
 #X text 270 1058 NOTE VEL.;
-#X obj 20 1093 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1093 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1098 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1099 1\.;
@@ -115,7 +123,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1171 pd info;
 #X connect 6 0 7 0;

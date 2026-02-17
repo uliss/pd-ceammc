@@ -19,26 +19,28 @@
 #X obj 50 262 ltc.in~;
 #X obj 50 291 ui.dt;
 #X obj 184 291 ui.dt;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 346 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 347 @use_date;
 #X text 270 347 Decode date. Тип: bool. Значение по умолчанию: 1\.;
+#X obj 250 377 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 377 @fps?;
 #X text 270 377 (только чтение) Current fpt rate. Тип: int. Значение
 по умолчанию: 25\.;
+#X obj 250 419 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 419 @volume?;
 #X text 270 419 (только чтение) Input signal level. Тип: float. Единицы:
 'db'. Значение по умолчанию: 0\. Диапазон: -60\...0\.;
-#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 491 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 492 1\.;
 #X text 170 492 ~;
 #X text 270 492 input signal.;
-#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 532 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 533 1\.;
@@ -76,7 +78,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 625 pd info;
 #X connect 7 0 10 0;

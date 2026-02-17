@@ -18,7 +18,7 @@ https://github.com/Sammy1Am/Moppy2;
 #X obj 50 333 proto.moppy;
 #X msg 232 333 dump;
 #X obj 50 362 hw.arduino @rate 57600;
-#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 417 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 420 ui.link @background_color 0.98039 0.98039 0.98039
@@ -26,19 +26,22 @@ https://github.com/Sammy1Am/Moppy2;
 #X msg 130 418 @device;
 #X text 270 418 Moppy device ID. Тип: int. Значение по умолчанию: 1\.
 Диапазон: 1\...255\.;
+#X obj 250 460 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 460 @floppy;
 #X text 270 460 Floppy ID on moppy device. Тип: int. Значение по умолчанию:
 1\. Диапазон: 1\...16\.;
+#X obj 250 502 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 502 @v;
 #X text 270 502 MOPPY protocol version. Тип: int. Значение по умолчанию:
 2\. Разрешённые значения: 2 \, 1\.;
-#X obj 20 554 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 554 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 559 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 560 bend:f;
 #X text 270 560 note pitchbend. Аргументы:;
 #X obj 280 583 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 583 VAL: pitch bend. Тип: float. Диапазон: -1…1\.;
+#X obj 250 608 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 608 freq;
 #X text 270 608 set floppy frequency. Note: moppy.v1 version only.
 Аргументы:;
@@ -47,8 +50,10 @@ https://github.com/Sammy1Am/Moppy2;
 Тип: int.;
 #X obj 280 669 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 669 FREQ: freq. Тип: float. Единицы: 'Hz'.;
+#X obj 250 694 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 694 note;
 #X text 270 694 see noteon.;
+#X obj 250 722 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 722 noteoff;
 #X text 270 722 note off message. Аргументы:;
 #X obj 280 745 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -56,6 +61,7 @@ https://github.com/Sammy1Am/Moppy2;
 Тип: int.;
 #X obj 280 783 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 783 NOTE: MIDI note. Тип: int. Диапазон: 24…72\.;
+#X obj 250 808 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 808 noteon;
 #X text 270 808 play note. Аргументы:;
 #X obj 280 831 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -66,6 +72,7 @@ https://github.com/Sammy1Am/Moppy2;
 #X obj 280 892 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 892 VEL: note velocity (if 0 - turns note off \, otherwise
 ignored). Тип: int. Диапазон: 0…127\.;
+#X obj 250 932 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 932 period;
 #X text 270 932 directly set floppy drive period. Note: moppy.v1 version
 only. Аргументы:;
@@ -74,18 +81,20 @@ only. Аргументы:;
 Тип: int.;
 #X obj 280 1008 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1008 TIME: period in microseconds. Тип: int.;
+#X obj 250 1033 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1033 ping;
 #X text 270 1033 send ping request to all devices.;
+#X obj 250 1061 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1061 reset;
 #X text 270 1061 reset moppy device. Аргументы:;
 #X obj 280 1084 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1084 [all]: reset all devices. Тип: symbol.;
-#X obj 20 1119 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1119 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1124 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1125 1\.;
 #X text 270 1125 commands.;
-#X obj 20 1160 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1160 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1165 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1166 1\.;
@@ -119,7 +128,7 @@ only. Аргументы:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1238 pd info;
 #X connect 6 0 8 0;

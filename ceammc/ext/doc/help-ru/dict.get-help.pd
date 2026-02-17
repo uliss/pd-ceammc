@@ -17,7 +17,7 @@
 #X symbolatom 184 335 5 0 0 0 - - -;
 #X obj 251 335 ui.dt;
 #X obj 50 378 dict.get-paths;
-#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 433 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
@@ -26,24 +26,25 @@
 #X text 170 434 list;
 #X obj 268 435 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 434 KEYS: keys. Тип: list.;
-#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 474 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 475 @keys;
 #X text 270 475 (при инициализации) Extracted keys. Тип: list.;
+#X obj 250 505 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 505 @default;
 #X text 270 505 Default value when key is not found in dictionary.
 If not specified no output is performed. Тип: atom. Значение по умолчанию:
 null.;
-#X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 577 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 578 1\.;
 #X text 170 578 data:dict:;
 #X text 270 578 input dictionary.;
-#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 618 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 619 1\.;
@@ -84,7 +85,7 @@ null.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 731 pd info;
 #X connect 6 0 7 0;

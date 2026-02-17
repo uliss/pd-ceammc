@@ -23,7 +23,7 @@
 #X obj 50 320 spat.zita6x8~, f 20;
 #X obj 50 349 dac~ 1 2 3 4 5 6 7 8, f 20;
 #X obj 347 349 ui.dsp~;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 404 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
@@ -32,113 +32,145 @@
 #X text 270 405 (initonly) OSC address id. If specified \, bind all
 properties to /ID/spat_zita6x8/PROP_NAME osc address \, if empty bind
 to /spat_zita6x8/PROP_NAME. Type: symbol.;
+#X obj 250 462 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 462 @osc;
 #X text 270 462 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 492 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 492 @a0;
 #X text 270 492 1st source panning position. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 534 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 534 @a1;
 #X text 270 534 2nd source panning position. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 576 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 576 @a2;
 #X text 270 576 3rd source panning position. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 618 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 618 @a3;
 #X text 270 618 4th source panning position. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 660 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 660 @a4;
 #X text 270 660 5th source panning position. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 702 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 702 @a5;
 #X text 270 702 6th source panning position. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 744 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 744 @active;
 #X text 270 744 On/off object dsp processing. Type: bool. Default value:
 1\.;
+#X obj 250 774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 774 @dry0;
 #X text 270 774 1st source direct sound level. Type: float. Units:
 'db'. Default value: -3\. Range: -60\...0\.;
+#X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 816 @dry1;
 #X text 270 816 2nd source direct sound level. Type: float. Units:
 'db'. Default value: -3\. Range: -60\...0\.;
+#X obj 250 858 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 858 @dry2;
 #X text 270 858 3rd source direct sound level. Type: float. Units:
 'db'. Default value: -3\. Range: -60\...0\.;
+#X obj 250 900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 900 @dry3;
 #X text 270 900 4th source direct sound level. Type: float. Units:
 'db'. Default value: -3\. Range: -60\...0\.;
+#X obj 250 942 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 942 @dry4;
 #X text 270 942 5th source direct sound level. Type: float. Units:
 'db'. Default value: -3\. Range: -60\...0\.;
+#X obj 250 984 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 984 @dry5;
 #X text 270 984 6th source direct sound level. Type: float. Units:
 'db'. Default value: -3\. Range: -60\...0\.;
+#X obj 250 1026 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1026 @r0;
 #X text 270 1026 1st source distance from circle center. Type: float.
 Default value: 1\. Range: 0\...1\.;
+#X obj 250 1068 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1068 @r1;
 #X text 270 1068 2nd source distance from circle center. Type: float.
 Default value: 1\. Range: 0\...1\.;
+#X obj 250 1110 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1110 @r2;
 #X text 270 1110 3rd source distance from circle center. Type: float.
 Default value: 1\. Range: 0\...1\.;
+#X obj 250 1152 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1152 @r3;
 #X text 270 1152 4th source distance from circle center. Type: float.
 Default value: 1\. Range: 0\...1\.;
+#X obj 250 1194 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1194 @r4;
 #X text 270 1194 5th source distance from circle center. Type: float.
 Default value: 1\. Range: 0\...1\.;
+#X obj 250 1236 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1236 @r5;
 #X text 270 1236 6th source distance from circle center. Type: float.
 Default value: 1\. Range: 0\...1\.;
+#X obj 250 1278 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1278 @t0;
 #X text 270 1278 1st source reverb time (in seconds) to decay 60dB
 in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
 2\. Range: 0\...90\.;
+#X obj 250 1335 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1335 @t1;
 #X text 270 1335 2nd source reverb time (in seconds) to decay 60dB
 in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
 2\. Range: 0\...90\.;
+#X obj 250 1392 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1392 @t2;
 #X text 270 1392 3rd source reverb time (in seconds) to decay 60dB
 in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
 2\. Range: 0\...90\.;
+#X obj 250 1449 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1449 @t3;
 #X text 270 1449 4th source reverb time (in seconds) to decay 60dB
 in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
 2\. Range: 0\...90\.;
+#X obj 250 1506 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1506 @t4;
 #X text 270 1506 5th source reverb time (in seconds) to decay 60dB
 in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
 2\. Range: 0\...90\.;
+#X obj 250 1563 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1563 @t5;
 #X text 270 1563 6th source reverb time (in seconds) to decay 60dB
 in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
 2\. Range: 0\...90\.;
+#X obj 250 1620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1620 @wet0;
 #X text 270 1620 1st source reverb sound level. Type: float. Units:
 'db'. Default value: -8\. Range: -60\...0\.;
+#X obj 250 1662 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1662 @wet1;
 #X text 270 1662 2nd source reverb sound level. Type: float. Units:
 'db'. Default value: -8\. Range: -60\...0\.;
+#X obj 250 1704 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1704 @wet2;
 #X text 270 1704 3rd source reverb sound level. Type: float. Units:
 'db'. Default value: -8\. Range: -60\...0\.;
+#X obj 250 1746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1746 @wet3;
 #X text 270 1746 4th source reverb sound level. Type: float. Units:
 'db'. Default value: -8\. Range: -60\...0\.;
+#X obj 250 1788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1788 @wet4;
 #X text 270 1788 5th source reverb sound level. Type: float. Units:
 'db'. Default value: -8\. Range: -60\...0\.;
+#X obj 250 1830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1830 @wet5;
 #X text 270 1830 6th source reverb sound level. Type: float. Units:
 'db'. Default value: -8\. Range: -60\...0\.;
-#X obj 20 1882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1882 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1887 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1888 reset;
 #X text 270 1888 reset reverb.;
-#X obj 20 1926 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1926 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1931 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1932 1\.;
@@ -159,7 +191,7 @@ in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
 #X text 130 2057 6\.;
 #X text 170 2057 ~;
 #X text 270 2057 6th source input.;
-#X obj 20 2092 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2092 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2097 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2098 1\.;
@@ -215,7 +247,7 @@ in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 2310 pd info;
 #X connect 4 0 6 0;

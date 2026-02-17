@@ -15,13 +15,13 @@ in seconds. It's simple as 60/f \, but more readable.;
 #X msg 117 191 60;
 #X obj 50 220 bpm->sec;
 #X floatatom 50 249 5 0 0 0 - - -;
-#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 286 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 287 1\.;
 #X text 170 287 float:;
 #X text 270 287 frequency in BPM.;
-#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 327 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 328 1\.;
@@ -58,7 +58,7 @@ in seconds. It's simple as 60/f \, but more readable.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 527 pd info;
 #X connect 8 0 10 0;

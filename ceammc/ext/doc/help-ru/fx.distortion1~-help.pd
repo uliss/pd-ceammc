@@ -18,7 +18,7 @@
 #X obj 50 334 ui.gain~ @size 120 16;
 #X obj 376 334 ui.dsp~;
 #X obj 50 363 dac~;
-#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 418 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
@@ -28,91 +28,116 @@
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/fx_distortion1/ИМЯ_СВОЙСТВА \, в противном случае к
 /fx_distortion1/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X obj 250 506 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 506 @osc;
 #X text 270 506 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 536 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 536 @active;
 #X text 270 536 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 578 @drive;
 #X text 270 578 Distortion amount. Тип: float. Значение по умолчанию:
 0.64\. Диапазон: 0\...1\.;
+#X obj 250 620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 620 @flt_on_off;
 #X text 270 620 Filter processing. Тип: bool. Значение по умолчанию:
 0\.;
+#X obj 250 650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 650 @gain;
 #X text 270 650 Total effect gain. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 2\. Диапазон: -10\...10\.;
+#X obj 250 692 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 692 @high_drive;
 #X text 270 692 Distortion amount on high frequencies. Тип: float.
 Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 250 734 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 734 @high_gain;
 #X text 270 734 Gain on high frequencies. Тип: float. Единицы: 'db'.
 Значение по умолчанию: 10\. Диапазон: -10\...20\.;
+#X obj 250 776 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 776 @hp_freq;
 #X text 270 776 High pass frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 130\. Диапазон: 20\...7040\.;
+#X obj 250 818 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 818 @level;
 #X text 270 818 Effect level. Тип: float. Значение по умолчанию: 0.01\.
 Диапазон: 0\...0.5\.;
+#X obj 250 860 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 860 @low_drive;
 #X text 270 860 Distortion amount on low frequencies. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 250 902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 902 @low_gain;
 #X text 270 902 Gain on low frequencies. Тип: float. Единицы: 'db'.
 Значение по умолчанию: 10\. Диапазон: -10\...20\.;
+#X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 944 @lp_freq;
 #X text 270 944 Low pass frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 5000\. Диапазон: 20\...12000\.;
+#X obj 250 986 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 986 @middle_h_drive;
 #X text 270 986 Distortion amount on middle high frequencies. Тип:
 float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 250 1028 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1028 @middle_h_gain;
 #X text 270 1028 Gain on middle high frequencies. Тип: float. Единицы:
 'db'. Значение по умолчанию: 10\. Диапазон: -10\...20\.;
+#X obj 250 1070 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1070 @middle_l_drive;
 #X text 270 1070 Distortion amount on middle low frequencies. Тип:
 float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 250 1112 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1112 @middle_l_gain;
 #X text 270 1112 Gain on middle low frequencies. Тип: float. Единицы:
 'db'. Значение по умолчанию: 10\. Диапазон: -10\...20\.;
+#X obj 250 1154 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1154 @res_on_off;
 #X text 270 1154 Resonator. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 1184 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1184 @sp_high_freq;
 #X text 270 1184 Speaker emulation high frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 5000\. Диапазон: 1000\...12000\.;
+#X obj 250 1241 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1241 @sp_low_freq;
 #X text 270 1241 Speaker emulation low frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 130\. Диапазон: 20\...1000\.;
+#X obj 250 1298 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1298 @sp_on_off;
 #X text 270 1298 Speaker emulation turn on/off. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 1340 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1340 @split_high_freq;
 #X text 270 1340 High split frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 1250\. Диапазон: 1250\...12000\.;
+#X obj 250 1382 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1382 @split_low_freq;
 #X text 270 1382 Low split frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 250\. Диапазон: 20\...600\.;
+#X obj 250 1424 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1424 @split_middle_freq;
 #X text 270 1424 Middle split frequency. Тип: float. Единицы: 'Hz'.
 Значение по умолчанию: 650\. Диапазон: 600\...1250\.;
+#X obj 250 1466 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1466 @trigger;
 #X text 270 1466 Resonator trigger. Тип: float. Значение по умолчанию:
 0.12\. Диапазон: 0\...1\.;
+#X obj 250 1508 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1508 @vibrato;
 #X text 270 1508 Resonator vibration. Тип: float. Значение по умолчанию:
 1\. Диапазон: 0\...1\.;
-#X obj 20 1560 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1560 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1565 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1566 reset;
 #X text 270 1566 reset object.;
-#X obj 20 1604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1604 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1609 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1610 1\.;
 #X text 170 1610 ~;
 #X text 270 1610 input signal.;
-#X obj 20 1645 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1645 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1650 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1651 1\.;
@@ -151,7 +176,7 @@ float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1723 pd info;
 #X connect 4 0 5 0;

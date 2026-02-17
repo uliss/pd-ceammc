@@ -36,7 +36,7 @@ one (no repeats);
 #X obj 50 625 sfizz~ \#sine;
 #X obj 50 654 ui.hgain2~;
 #X obj 50 682 dac~;
-#X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 737 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 740 ui.link @background_color 0.98039 0.98039 0.98039
@@ -46,7 +46,7 @@ one (no repeats);
 #X obj 268 739 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 738 T(ms): time between arpeggio. Тип: float. Диапазон:
 1…1000;
-#X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 778 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 781 ui.link @background_color 0.98039 0.98039 0.98039
@@ -54,26 +54,32 @@ one (no repeats);
 #X msg 130 779 @external;
 #X text 270 779 Use external clock. Тип: bool. Значение по умолчанию:
 0\.;
+#X obj 250 809 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 809 @min_notes;
 #X text 270 809 Number of minimal notes to perform arpeggio. Тип: int.
 Значение по умолчанию: 1\. Минимальное значение: 1\.;
+#X obj 250 851 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 851 @mode;
 #X text 270 851 Argpeggiator mode. Тип: symbol. Значение по умолчанию:
 up. Разрешённые значения: up \, down \, tri \, up1 \, down1 \, tri1
 \, random \, random1\.;
+#X obj 250 908 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 908 @on;
 #X text 270 908 Arpeggiator state: on/off. Тип: bool. Значение по умолчанию:
 1\.;
+#X obj 250 950 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 950 @pass;
 #X text 270 950 Bypass arpeggiator. Тип: bool. Значение по умолчанию:
 0\.;
+#X obj 250 980 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 980 @seed;
 #X text 270 980 Random seed value (to get reproducible random series).
 Тип: int. Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 1037 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1037 @t;
 #X text 270 1037 Time between arpeggio. Тип: float. Единицы: 'ms'.
 Значение по умолчанию: 100\. Диапазон: 1\...1000\.;
-#X obj 20 1089 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1089 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1094 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1095 1\.;
@@ -82,7 +88,7 @@ up. Разрешённые значения: up \, down \, tri \, up1 \, down1 \
 #X text 130 1120 2\.;
 #X text 170 1120 bang:;
 #X text 270 1120 play next note in chord \, if @external = 1\.;
-#X obj 20 1155 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1155 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1160 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1161 1\.;
@@ -118,7 +124,7 @@ up. Разрешённые значения: up \, down \, tri \, up1 \, down1 \
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1253 pd info;
 #X connect 13 0 15 0;

@@ -29,7 +29,7 @@ multichannel configuration.;
 #X obj 50 472 hoa.decoder~ 5 binaural @crop 64, f 36;
 #X obj 50 501 xdac~ 1:2, f 36;
 #X obj 50 529 ui.dsp~;
-#X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 584 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 587 ui.link @background_color 0.98039 0.98039 0.98039
@@ -49,7 +49,7 @@ multichannel configuration.;
 #X obj 268 651 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 650 NCH: number of loud speakers (minimum 2*ORDER+1 for
 ambisonic mode). Тип: int.;
-#X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 705 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 708 ui.link @background_color 0.98039 0.98039 0.98039
@@ -57,42 +57,53 @@ ambisonic mode). Тип: int.;
 #X msg 130 706 @nch;
 #X text 270 706 (при инициализации) Number of plain waves. Тип: int.
 Значение по умолчанию: 0\. Минимальное значение: 1\.;
+#X obj 250 748 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 748 @order;
 #X text 270 748 (при инициализации) The order of decomposition. Тип:
 int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
+#X obj 250 790 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 790 @angles;
 #X text 270 790 Angles of loudspeakers. Only available for @irregular
 mode. Тип: list. Единицы: 'deg'. Значение по умолчанию: 0 90 180 270\.;
+#X obj 250 847 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 847 @binaural;
 #X text 270 847 Alias for @mode binaural.;
+#X obj 250 877 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 877 @crop;
 #X text 270 877 Crop HRIR response. Only for @binaural mode. Тип: int.
 Единицы: 'samp'. Значение по умолчанию: 16\. Диапазон: 0\...512\.;
+#X obj 250 934 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 934 @irregular;
 #X text 270 934 Alias for @mode irregular.;
+#X obj 250 964 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 964 @mode;
 #X text 270 964 Decoding mode. Тип: symbol. Значение по умолчанию:
 regular. Разрешённые значения: regular \, irregular \, binaural.;
+#X obj 250 1021 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1021 @offset;
 #X text 270 1021 Rotation of loudspeakers. Only available for @regular
 and @irregular mode. Тип: float. Единицы: 'deg'. Значение по умолчанию:
 0\.;
+#X obj 250 1078 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1078 @regular;
 #X text 270 1078 Alias for @mode regular.;
+#X obj 250 1108 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1108 @nharm?;
 #X text 270 1108 (только чтение) Number of circular harmonics. Тип:
 int. Значение по умолчанию: 3\. Минимальное значение: 1\.;
+#X obj 250 1150 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1150 @pw_x?;
 #X text 270 1150 (только чтение) List of plain wave x-coordinates (abscissas).
 -1 is the left of the soundfield \, 0 is the center of the soundfield
 and 1 is the right of the soundfield. Тип: list. Единицы: 'rad'. Значение
 по умолчанию: 0 -1 0 1\. Диапазон: -1\...1\.;
+#X obj 250 1237 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1237 @pw_y?;
 #X text 270 1237 (только чтение) List of plain wave y-coordinates (ordinatas).
 -1 is the back of the soundfield \, 0 is the center of the soundfield
 and 1 is the front of the soundfield. Тип: list. Единицы: 'rad'. Значение
 по умолчанию: 1 0 -1 0\. Диапазон: -1\...1\.;
-#X obj 20 1334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1334 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1339 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1340 1\.;
@@ -104,7 +115,7 @@ and 1 is the front of the soundfield. Тип: list. Единицы: 'rad'. Зн�
 #X text 130 1390 n.;
 #X text 170 1390 ~;
 #X text 270 1390 n-th input harmonic.;
-#X obj 20 1425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1430 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1431 1\.;
@@ -148,7 +159,7 @@ Thomas Le Meur;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1543 pd info;
 #X connect 13 0 15 0;

@@ -30,7 +30,7 @@
 #X obj 50 608 ui.gain~ @size 120 16;
 #X obj 290 608 ui.dsp~;
 #X obj 50 637 dac~;
-#X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 692 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 130 727 Left-click;
@@ -60,99 +60,128 @@
 #X text 130 947 Right-click;
 #X text 310 947 opens Pd popup menu.;
 #X text 81 947 [Edit];
-#X obj 20 977 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 977 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 982 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 985 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 983 @array;
 #X text 270 983 Array name. Type: symbol.;
+#X obj 250 1013 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1013 @cursor_ms;
 #X text 270 1013 Cursor position in milliseconds. Type: float. Units:
 'ms'. Default value: 0\.;
+#X obj 250 1055 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1055 @cursor_phase;
 #X text 270 1055 Cursor position in 0-1 range. Type: float. Default
 value: 0\. Range: 0\...1\.;
+#X obj 250 1097 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1097 @cursor_samp;
 #X text 270 1097 Cursor position in samples. Type: int. Units: 'samp'.
 Default value: 0\.;
+#X obj 250 1139 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1139 @cursor_sec;
 #X text 270 1139 Cursor position in seconds. Type: float. Units: 'sec'.
 Default value: 0\.;
+#X obj 250 1181 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1181 @mouse_events;
 #X text 270 1181 Mouse events output mode. If on outputs @mouse_down
 \, @mouse_up and @mouse_drag events. Type: bool. Default value: 1\.;
+#X obj 250 1238 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1238 @receive;
 #X text 270 1238 Source of message receive. Type: symbol. Default value:
 (null).;
+#X obj 250 1280 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1280 @select_ms;
 #X text 270 1280 Selection range in milliseconds \, pair of values:
 begin \, end. Type: list. Units: 'ms'.;
+#X obj 250 1322 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1322 @select_phase;
 #X text 270 1322 Selection range noramlized to 0-1 range \, pair of
 values: begin \, end. Type: list.;
+#X obj 250 1364 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1364 @select_samp;
 #X text 270 1364 Selection range in samples \, pair of values: begin
 \, end. Type: list. Units: 'samp'.;
+#X obj 250 1406 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1406 @select_sec;
 #X text 270 1406 Selection range in seconds \, pair of values: begin
 \, end. Type: list. Units: 'sec'.;
+#X obj 250 1448 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1448 @send;
 #X text 270 1448 Address for sending messages. Type: symbol. Default
 value: (null).;
+#X obj 250 1490 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1490 @show_rms;
 #X text 270 1490 Show RMS graph. Type: bool. Default value: 0\.;
+#X obj 250 1520 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1520 @background_color;
 #X text 270 1520 Element background color (list of red \, green \,
 blue values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93
 1\.;
+#X obj 250 1577 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1577 @border_color;
 #X text 270 1577 Border color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
+#X obj 250 1619 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1619 @cursor_color;
 #X text 270 1619 Cursor color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X obj 250 1661 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1661 @selection_color;
 #X text 270 1661 Selection color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X obj 250 1703 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1703 @wave_color;
 #X text 270 1703 Wave color (list of red \, green \, blue values in
 0-1 range). Type: list. Default value: 0.3 0.3 0.3 1\.;
+#X obj 250 1745 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1745 @label_bottom;
 #X text 270 1745 Bottom right label if @show_labels is on. Type: symbol.;
+#X obj 250 1775 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1775 @label_top;
 #X text 270 1775 Top right label if @show_labels is on. Type: symbol.;
+#X obj 250 1805 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1805 @show_labels;
 #X text 270 1805 If show corner labels. Type: bool. Default value:
 0\.;
+#X obj 250 1835 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1835 @fontname;
 #X text 270 1835 Font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1877 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1877 @fontsize;
 #X text 270 1877 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X obj 250 1907 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1907 @fontslant;
 #X text 270 1907 Font slant. Type: symbol. Default value: roman. Allowed
 values: roman \, italic.;
+#X obj 250 1949 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1949 @fontweight;
 #X text 270 1949 Font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
+#X obj 250 1991 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1991 @pinned;
 #X text 270 1991 Pin mode. If set to 1 \, it places the element at
 the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
+#X obj 250 2048 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2048 @size;
 #X text 270 2048 Object size (width \, height pair). Type: list. Default
 value: 300 100\.;
+#X obj 250 2090 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2090 @size_ms?;
 #X text 270 2090 (readonly) Array size in milliseconds. Type: float.
 Units: 'ms'. Default value: 0\. Min value: 0\.;
+#X obj 250 2132 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2132 @size_samp?;
 #X text 270 2132 (readonly) Array size in samples. Type: int. Units:
 'samp'. Default value: 0\. Min value: 0\.;
+#X obj 250 2174 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2174 @size_sec?;
 #X text 270 2174 (readonly) Array size in seconds. Type: float. Units:
 'sec'. Default value: 0\. Min value: 0\.;
-#X obj 20 2226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2226 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2231 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 2232 pos;
@@ -161,17 +190,20 @@ Units: 'ms'. Default value: 0\. Min value: 0\.;
 #X text 280 2255 X: top left x-coord. Type: float.;
 #X obj 280 2278 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2278 Y: top right y-coord. Type: float.;
+#X obj 250 2303 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2303 select;
 #X text 270 2303 set selection. Arguments are:;
 #X obj 280 2326 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2326 BEGIN: selection start in samples. Type: int.;
 #X obj 280 2349 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2349 END: selection end in samples. Type: int.;
+#X obj 250 2374 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2374 update;
 #X text 270 2374 redraws view.;
+#X obj 250 2402 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2402 dump;
 #X text 270 2402 dumps all object info to Pd console window.;
-#X obj 20 2440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2440 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2445 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2446 1\.;
@@ -181,7 +213,7 @@ Units: 'ms'. Default value: 0\. Min value: 0\.;
 \, @select_phase \, @select_ms \, @select_sec \, @begin \, @end.;
 #X text 170 2516 float:;
 #X text 270 2516 move cursor to specified sample position.;
-#X obj 20 2551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2551 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2556 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2557 1\.;
@@ -215,7 +247,7 @@ Units: 'ms'. Default value: 0\. Min value: 0\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 2629 pd info;
 #X connect 4 0 6 0;

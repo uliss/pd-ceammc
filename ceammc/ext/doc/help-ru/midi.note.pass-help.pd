@@ -31,7 +31,7 @@ oct(NOTE) \, abs(X) \, sqrt(X);
 #X obj 309 532 ui.dsp~;
 #X obj 50 561 ui.hgain2~;
 #X obj 50 590 dac~;
-#X obj 20 640 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 640 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 645 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 648 ui.link @background_color 0.98039 0.98039 0.98039
@@ -40,14 +40,14 @@ oct(NOTE) \, abs(X) \, sqrt(X);
 #X text 170 646 list;
 #X obj 268 647 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 646 EXPR: init expression. Тип: list.;
-#X obj 20 681 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 681 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 686 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 689 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 687 @expr;
 #X text 270 687 Expression. Тип: list.;
-#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 732 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 733 1\.;
@@ -56,7 +56,7 @@ oct(NOTE) \, abs(X) \, sqrt(X);
 #X text 130 758 2\.;
 #X text 170 758 list:;
 #X text 270 758 set new expression.;
-#X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 798 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 799 1\.;
@@ -92,7 +92,7 @@ oct(NOTE) \, abs(X) \, sqrt(X);
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 871 pd info;
 #X connect 12 0 14 0;

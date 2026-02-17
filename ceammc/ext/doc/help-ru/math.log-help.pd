@@ -21,7 +21,7 @@ x.;
 #X obj 50 315 list.seq -1 16 0.125;
 #X obj 50 344 math.log;
 #X obj 50 373 list->array LOG;
-#X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 463 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 464 1\.;
@@ -29,7 +29,7 @@ x.;
 #X text 270 464 input value.;
 #X text 170 489 list:;
 #X text 270 489 apply to all numeric values.;
-#X obj 20 524 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 524 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 529 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 530 1\.;
@@ -65,7 +65,7 @@ x.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 602 pd info;
 #X connect 11 0 13 0;

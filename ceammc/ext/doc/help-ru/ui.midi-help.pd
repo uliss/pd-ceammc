@@ -8,7 +8,7 @@
 [ui.midi] @url ui.midi-help.pd;
 #X obj 50 118 ui.midi;
 #X obj 50 147 ui.dt;
-#X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 202 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 237 Double-click + ⌥;
@@ -23,7 +23,7 @@
 #X text 130 317 Right-click + ⇧;
 #X text 310 317 open object help.;
 #X text 65 317 [Правка];
-#X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 352 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 355 ui.link @background_color 0.98039 0.98039 0.98039
@@ -31,64 +31,82 @@
 #X msg 130 353 @cc;
 #X text 270 353 If show control change events. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 395 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 395 @hex;
 #X text 270 395 If show values in hex. Тип: bool. Значение по умолчанию:
 0\.;
+#X obj 250 425 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 425 @notes;
 #X text 270 425 If show note on/off events. Тип: bool. Значение по
 умолчанию: 1\.;
+#X obj 250 467 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 467 @pitchwheel;
 #X text 270 467 If show pitch wheel events. Тип: bool. Значение по
 умолчанию: 1\.;
+#X obj 250 509 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 509 @program;
 #X text 270 509 If show program change events. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 551 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 551 @receive;
 #X text 270 551 Источник получения сообщений. Тип: symbol. Значение
 по умолчанию: (null).;
+#X obj 250 593 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 593 @send;
 #X text 270 593 Адрес отправки сообщений. Тип: symbol. Значение по
 умолчанию: (null).;
+#X obj 250 635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 635 @sysex;
 #X text 270 635 If show sysex events. Тип: bool. Значение по умолчанию:
 1\.;
+#X obj 250 665 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 665 @touch;
 #X text 270 665 If show aftertouch (poly) events. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 707 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 707 @active_color;
 #X text 270 707 Active color (list of red \, green \, blue values in
 0-1 range). Тип: list. Значение по умолчанию: 0.63 0.88 0 1\.;
+#X obj 250 764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 764 @background_color;
 #X text 270 764 Цвета фона у объекта (список из красного \, зеленого
 и синего значений в диапазоне [0\..1]). Тип: list. Значение по умолчанию:
 0.93 0.93 0.93 1\.;
+#X obj 250 821 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 821 @border_color;
 #X text 270 821 Цвет границы объекта (список из красного \, зеленого
 и синего цветов в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
 0.6 0.6 0.6 1\.;
+#X obj 250 878 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 878 @text_color;
 #X text 270 878 Text color (list of red \, green \, blue values in
 0-1 range). Тип: list. Значение по умолчанию: 0 0 0 1\.;
+#X obj 250 920 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 920 @fontname;
 #X text 270 920 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
 Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 977 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 977 @fontsize;
 #X text 270 977 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
 Диапазон: 4\...100\.;
+#X obj 250 1019 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1019 @fontslant;
 #X text 270 1019 Наклон шрифта. Тип: symbol. Значение по умолчанию:
 roman. Разрешённые значения: roman \, italic.;
+#X obj 250 1061 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1061 @fontweight;
 #X text 270 1061 Толщину шрифта. Тип: symbol. Значение по умолчанию:
 normal. Разрешённые значения: normal \, bold.;
+#X obj 250 1103 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1103 @pinned;
 #X text 270 1103 Режим закрепления. Если 1 - помещает элемент на самый
 дальний уровень на холсте за другими элементам. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 1160 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1160 @size;
 #X text 270 1160 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
 по умолчанию: 180 15\.;
-#X obj 20 1212 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1212 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1217 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1218 pos;
@@ -97,14 +115,15 @@ normal. Разрешённые значения: normal \, bold.;
 #X text 280 1241 X: верхняя левая X-координата. Тип: float.;
 #X obj 280 1264 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1264 Y: верхняя правая Y-coord. Тип: float.;
+#X obj 250 1289 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1289 dump;
 #X text 270 1289 выводит всю информацию об объекте в окно консоли Pd.;
-#X obj 20 1327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1327 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1332 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1333 1\.;
 #X text 270 1333 control input.;
-#X obj 20 1368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1368 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1373 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1374 1\.;
@@ -138,7 +157,7 @@ normal. Разрешённые значения: normal \, bold.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1446 pd info;
 #X connect 4 0 5 0;

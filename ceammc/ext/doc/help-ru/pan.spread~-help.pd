@@ -22,7 +22,7 @@
 #X msg 376 406 @spread 1;
 #X obj 50 435 pan.spread~ 4;
 #X obj 50 464 dac~;
-#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 519 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
@@ -31,7 +31,7 @@
 #X text 170 520 int;
 #X obj 268 521 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 520 N: number of input channels. Тип: int. Диапазон: 2…16;
-#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 560 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 563 ui.link @background_color 0.98039 0.98039 0.98039
@@ -39,19 +39,23 @@
 #X msg 130 561 @n;
 #X text 270 561 (при инициализации) Number of input channels. Тип:
 int. Значение по умолчанию: 2\. Диапазон: 2\...16\.;
+#X obj 250 603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 603 @center;
 #X text 270 603 Shift the centre of the distribution. Тип: float. Значение
 по умолчанию: 0\. Диапазон: -0.5\...0.5\.;
+#X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 645 @compensate;
 #X text 270 645 Compensate output level: divide amplitude to number
 of input channels. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 687 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 687 @spread;
 #X text 270 687 For @spread = 0 \, all channels are in the centre \,
 for 1 \, they have maximum distribution. Тип: float. Значение по умолчанию:
 1\. Диапазон: 0\...1\.;
+#X obj 250 744 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 744 @coeffs?;
 #X text 270 744 (только чтение) List of gain pairs. Тип: list.;
-#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 789 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 790 1\.;
@@ -63,7 +67,7 @@ for 1 \, they have maximum distribution. Тип: float. Значение по у
 #X text 130 840 n.;
 #X text 170 840 ~;
 #X text 270 840 input signal.;
-#X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 880 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 881 1\.;
@@ -101,7 +105,7 @@ for 1 \, they have maximum distribution. Тип: float. Значение по у
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 973 pd info;
 #X connect 4 0 5 0;

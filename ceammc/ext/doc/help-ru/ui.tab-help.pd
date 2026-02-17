@@ -24,7 +24,7 @@
 #X obj 50 234 ui.tab @items sin tri @size 350 15 @nosave 1;
 #X obj 50 262 print;
 #X obj 126 262 ui.dt;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 317 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 352 Left-click;
@@ -44,94 +44,118 @@
 #X text 130 472 Right-click + ⌥;
 #X text 310 472 open properties dialog.;
 #X text 65 472 [Правка];
-#X obj 20 502 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 502 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 507 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 510 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 508 @items;
 #X text 270 508 List of tab names. Тип: list.;
+#X obj 250 538 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 538 @orientation;
 #X text 270 538 Tab orientation. 1 is vertical \, 0 is horizontal.
 Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 580 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 580 @receive;
 #X text 270 580 Источник получения сообщений. Тип: symbol. Значение
 по умолчанию: (null).;
+#X obj 250 622 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 622 @send;
 #X text 270 622 Адрес отправки сообщений. Тип: symbol. Значение по
 умолчанию: (null).;
+#X obj 250 664 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 664 @toggle;
 #X text 270 664 Toggle mode. In toggle moe multiple selection is possible.
 Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 706 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 706 @active_color;
 #X text 270 706 Цвет активного элемента (список из красного \, зеленого
 и синего цвета в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
 0 0.75 1 1\.;
+#X obj 250 763 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 763 @background_color;
 #X text 270 763 Цвета фона у объекта (список из красного \, зеленого
 и синего значений в диапазоне [0\..1]). Тип: list. Значение по умолчанию:
 0.93 0.93 0.93 1\.;
+#X obj 250 820 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 820 @border_color;
 #X text 270 820 Цвет границы объекта (список из красного \, зеленого
 и синего цветов в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
 0.6 0.6 0.6 1\.;
+#X obj 250 877 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 877 @hover_color;
 #X text 270 877 Hover color (list of red \, green \, blue values in
 0-1 range). Тип: list. Значение по умолчанию: 0.5 0.5 0.5 1\.;
+#X obj 250 919 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 919 @text_color;
 #X text 270 919 Text color (list of red \, green \, blue values in
 0-1 range). Тип: list. Значение по умолчанию: 0 0 0 1\.;
+#X obj 250 961 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 961 @fontname;
 #X text 270 961 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
 Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1018 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1018 @fontsize;
 #X text 270 1018 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
 Диапазон: 4\...100\.;
+#X obj 250 1060 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1060 @fontslant;
 #X text 270 1060 Наклон шрифта. Тип: symbol. Значение по умолчанию:
 roman. Разрешённые значения: roman \, italic.;
+#X obj 250 1102 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1102 @fontweight;
 #X text 270 1102 Толщину шрифта. Тип: symbol. Значение по умолчанию:
 normal. Разрешённые значения: normal \, bold.;
+#X obj 250 1144 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1144 @pinned;
 #X text 270 1144 Режим закрепления. Если 1 - помещает элемент на самый
 дальний уровень на холсте за другими элементам. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 1201 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1201 @presetname;
 #X text 270 1201 Имя пресета для использования с объектами [ui.preset]
 или [preset.storage]. Тип: symbol. Значение по умолчанию: (null).;
+#X obj 250 1258 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1258 @size;
 #X text 270 1258 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
 по умолчанию: 100 15\.;
+#X obj 250 1300 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1300 @count?;
 #X text 270 1300 (только чтение) Number of tabs. Тип: int. Значение
 по умолчанию: 0\.;
+#X obj 250 1342 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1342 @current?;
 #X text 270 1342 (только чтение) Current selected index (in switch
 mode). Тип: int. Значение по умолчанию: 0\.;
+#X obj 250 1384 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1384 @selected?;
 #X text 270 1384 (только чтение) List of selected items (in toggle
 mode). Тип: list.;
-#X obj 20 1436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1436 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1441 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1442 append;
 #X text 270 1442 appends new tab item. Аргументы:;
 #X obj 280 1465 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1465 ATOMS: item name. Тип: list.;
+#X obj 250 1490 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1490 clear;
 #X text 270 1490 clears specified preset. Аргументы:;
 #X obj 280 1513 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1513 IDX: preset index. Тип: int.;
+#X obj 250 1538 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1538 delete;
 #X text 270 1538 removes item from tab. Аргументы:;
 #X obj 280 1561 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1561 IDX: removed item index. Тип: int. Минимальное значение:
 0\.;
+#X obj 250 1586 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1586 erase;
 #X text 270 1586 clears all tab menu.;
+#X obj 250 1614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1614 flip;
 #X text 270 1614 flips radio (only in checklist mode).;
+#X obj 250 1642 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1642 insert;
 #X text 270 1642 inserts new tab item before specified position. Аргументы:;
 #X obj 280 1665 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -139,53 +163,65 @@ mode). Тип: list.;
 0\.;
 #X obj 280 1688 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1688 ATOM: item name. Тип: atom.;
+#X obj 250 1713 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1713 interp;
 #X text 270 1713 for this object acts as *load* \, no preset interpolation
 performed.;
+#X obj 250 1753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1753 load;
 #X text 270 1753 loads specified preset. Аргументы:;
 #X obj 280 1776 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1776 IDX: preset index. Тип: int.;
+#X obj 250 1801 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1801 next;
 #X text 270 1801 moves to next item until last item is reached (single
 mode only). Output new item.;
+#X obj 250 1841 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1841 pos;
 #X text 270 1841 set UI element position. Аргументы:;
 #X obj 280 1864 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1864 X: top left x-coord. Тип: float.;
 #X obj 280 1887 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1887 Y: top right y-coord. Тип: float.;
+#X obj 250 1912 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1912 prev;
 #X text 270 1912 moves to previous item until first item is reached
 (single mode only). Output new item.;
+#X obj 250 1952 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1952 random;
 #X text 270 1952 select random item. If called [random move( moves
 to random item (excluding the current one).;
+#X obj 250 1992 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1992 select;
 #X text 270 1992 selects specified item in tab. Аргументы:;
 #X obj 280 2015 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2015 IDX: item index. Тип: int. Минимальное значение: 0\.;
+#X obj 250 2040 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2040 set;
 #X text 270 2040 silently sets tab state. Аргументы:;
 #X obj 280 2063 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2063 IDX: item index. Тип: int. Минимальное значение: 0\.;
+#X obj 250 2088 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2088 set_item;
 #X text 270 2088 renames tab item. Аргументы:;
 #X obj 280 2111 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2111 IDX: item index. Тип: int. Минимальное значение: 0\.;
 #X obj 280 2134 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2134 ATOMS: item name. Тип: list.;
+#X obj 250 2159 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2159 store;
 #X text 270 2159 stores specified preset. Аргументы:;
 #X obj 280 2182 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2182 IDX: preset index. Тип: int.;
+#X obj 250 2207 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2207 + STEP;
 #X text 270 2207 moves several steps forward on a loop (single mode
 only) \, output newly selected item.;
+#X obj 250 2247 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2247 - STEP;
 #X text 270 2247 moves several step backwards on a loop (single mode
 only) \, output newly selected item.;
-#X obj 20 2297 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2297 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2302 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 2303 1\.;
@@ -199,7 +235,7 @@ list: INDEX TAB_NAME.;
 #X text 170 2413 any:;
 #X text 270 2413 selects item equal to given and output list: INDEX
 TAB_NAME.;
-#X obj 20 2448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2448 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2453 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2454 1\.;
@@ -236,7 +272,7 @@ TAB_NAME.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 2526 pd info;
 #X connect 15 0 17 0;

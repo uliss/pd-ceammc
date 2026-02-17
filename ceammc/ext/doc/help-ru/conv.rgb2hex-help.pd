@@ -15,23 +15,26 @@
 #X msg 50 234 color \$1 0 -1;
 #X obj 50 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 299 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 302 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 300 @sync;
 #X text 270 300 Output value on any inlet change.;
+#X obj 250 330 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 330 @float;
 #X text 270 330 Alias to @mode float. Expected input values are in
 [0-1] range.;
+#X obj 250 372 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 372 @int;
 #X text 270 372 Alias to @mode int. Expected input values are in [0-255]
 range.;
+#X obj 250 414 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 414 @mode;
 #X text 270 414 Input mode. Тип: symbol. Значение по умолчанию: int.
 Разрешённые значения: int \, float.;
-#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 471 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 472 1\.;
@@ -49,7 +52,7 @@ range.;
 #X text 270 572 blue channel value in [0-255] range.;
 #X text 170 597 float:;
 #X text 270 597 blue channel value in [0-1] range.;
-#X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 637 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 638 1\.;
@@ -83,7 +86,7 @@ range.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 710 pd info;
 #X connect 6 0 9 0;

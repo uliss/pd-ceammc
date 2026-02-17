@@ -9,12 +9,12 @@
 #X obj 126 118 xdac~ 1:6;
 #X obj 242 118 xdac~ 1:3 5 7:12;
 #X obj 50 147 xdac~-map;
-#X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 202 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 237 Left-click;
 #X text 310 237 opens audio properties dialog.;
-#X obj 20 267 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 267 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 272 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 275 ui.link @background_color 0.98039 0.98039 0.98039
@@ -25,7 +25,7 @@
 #X text 270 273 OUTS: list of output channels: single channel number
 or X:Y range \, that means from X channel to Y (including last one).
 If not specified - using 1 and 2 out channels. Тип: list.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 358 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 361 ui.link @background_color 0.98039 0.98039 0.98039
@@ -33,21 +33,24 @@ If not specified - using 1 and 2 out channels. Тип: list.;
 #X msg 130 359 @channels;
 #X text 270 359 List of mapped channels. Тип: list. Значение по умолчанию:
 1 2\.;
-#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 416 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 417 reverse;
 #X text 270 417 reverse output channels order.;
+#X obj 250 445 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 445 rotate;
 #X text 270 445 rotate output channels counter clockwise. Аргументы:;
 #X obj 280 468 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 468 N: number of rotation steps \, can be negative. Тип:
 int.;
+#X obj 250 493 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 493 shuffle;
 #X text 270 493 shuffle output channels order.;
+#X obj 250 521 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 521 side2circle;
 #X text 270 521 map left/right side pairs to counter clockwise layout.;
-#X obj 20 559 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 559 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 564 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 565 1\.;
@@ -59,7 +62,7 @@ int.;
 #X text 130 615 n.;
 #X text 170 615 ~;
 #X text 270 615 n-th specified channel.;
-#X obj 20 650 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 650 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 655 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -91,6 +94,6 @@ int.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 718 pd info;

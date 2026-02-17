@@ -27,7 +27,7 @@
 #X obj 414 349 ui.hgain~;
 #X obj 50 406 s lsys;
 #X obj 414 406 dac~;
-#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 461 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
@@ -36,26 +36,29 @@
 #X text 170 462 list;
 #X obj 268 463 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 462 INIT: init pattern. Тип: list.;
-#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 502 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 505 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 503 @init;
 #X text 270 503 Init pattern value. Тип: list.;
+#X obj 250 533 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 533 @max;
 #X text 270 533 Max generated pattern length. Тип: int. Значение по
 умолчанию: 256\. Диапазон: 1\...32768\.;
+#X obj 250 575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 575 @rule;
 #X text 270 575 Generation rule dict. Тип: atom.;
+#X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 605 @value?;
 #X text 270 605 (только чтение) Current pattern value. Тип: list.;
-#X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 650 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 651 reset;
 #X text 270 651 reset to init state.;
-#X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 694 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 695 1\.;
@@ -65,7 +68,7 @@
 #X text 270 720 set new pattern and output.;
 #X text 170 745 list:;
 #X text 270 745 output enumerated patterns for each list argument.;
-#X obj 20 780 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 780 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 785 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 786 1\.;
@@ -99,7 +102,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 858 pd info;
 #X connect 8 0 10 0;

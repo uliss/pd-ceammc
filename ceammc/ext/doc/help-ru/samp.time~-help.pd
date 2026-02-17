@@ -17,7 +17,7 @@
 #X obj 50 234 samp.t~ 0;
 #X obj 213 234 ui.dsp~;
 #X obj 50 262 ui.n~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
@@ -27,16 +27,17 @@
 #X obj 268 319 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 318 STATE: initial counter state: on or off. Разрешённые
 значения: 0 \, 1\. Тип: int.;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 373 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 374 reset;
 #X text 270 374 reset sample counter to 0\.;
+#X obj 250 402 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 402 set;
 #X text 270 402 set current value. Аргументы:;
 #X obj 280 425 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 425 [VAL=0]: new counter value. Тип: float.;
-#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 465 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 466 1\.;
@@ -47,7 +48,7 @@
 #X text 270 491 reset sample counter.;
 #X text 170 516 float:;
 #X text 270 516 set current value.;
-#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 556 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 557 1\.;
@@ -82,7 +83,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 629 pd info;
 #X connect 5 0 8 0;

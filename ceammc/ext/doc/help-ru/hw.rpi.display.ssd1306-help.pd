@@ -33,7 +33,7 @@ pixel buffer to the device;
 ceammc://img/conn_i2c_ssd1306.png;
 #X obj 50 547 ui.link @title 'SPI_connection' @url
 ceammc://img/conn_spi_ssd1306.png;
-#X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 609 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 612 ui.link @background_color 0.98039 0.98039 0.98039
@@ -43,7 +43,7 @@ ceammc://img/conn_spi_ssd1306.png;
 #X obj 268 611 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 610 MODE: режим подключения дисплея. См. @mode. Разрешённые
 значения: i2c \, spi. Тип: symbol.;
-#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 665 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 668 ui.link @background_color 0.98039 0.98039 0.98039
@@ -52,32 +52,40 @@ ceammc://img/conn_spi_ssd1306.png;
 #X text 270 666 (при инициализации) Адрес I²C. Также принимается значение
 «default» (для адреса 0x3c) и «alt» (для адреса 0x3d). Тип: int. Значение
 по умолчанию: -1\. Диапазон: -4\...119\.;
+#X obj 250 738 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 738 @i2c_bus;
 #X text 270 738 (при инициализации) Шина I²C. Тип: atom. Значение по
 умолчанию: none. Разрешённые значения: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \,
 default \, none.;
+#X obj 250 795 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 795 @mode;
 #X text 270 795 (при инициализации) Режим подключения дисплея. Тип:
 symbol. Значение по умолчанию: i2c. Разрешённые значения: i2c \, spi.;
+#X obj 250 852 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 852 @spi_bus;
 #X text 270 852 (при инициализации) Шина SPI. Тип: int. Значение по
 умолчанию: -1\. Диапазон: -1\...6\.;
+#X obj 250 894 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 894 @spi_cs;
 #X text 270 894 (при инициализации) CS (Chip Select) пин GPIO. Тип:
 int. Значение по умолчанию: -1\. Диапазон: -1\...127\.;
+#X obj 250 936 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 936 @spi_dc;
 #X text 270 936 (при инициализации) DC (data/command) пин GPIO. Тип:
 int. Значение по умолчанию: -1\. Диапазон: -1\...127\.;
+#X obj 250 978 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 978 @spi_freq;
 #X text 270 978 (при инициализации) Частота SPI. Тип: int. Единицы:
 'Hz'. Значение по умолчанию: 1000000\. Диапазон: 100000\...10000000\.;
+#X obj 250 1035 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1035 @spi_rs;
 #X text 270 1035 (при инициализации) RS (reset) пин GPIO. Тип: int.
 Значение по умолчанию: -1\. Диапазон: -1\...127\.;
+#X obj 250 1077 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1077 @size;
 #X text 270 1077 (при инициализации) Размер дисплея. Тип: list. Значение
 по умолчанию: 128 64\.;
-#X obj 20 1129 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1129 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1134 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1135 brightness;
@@ -86,26 +94,32 @@ int. Значение по умолчанию: -1\. Диапазон: -1\...127\
 #X text 280 1158 LEVEL: brightness level from 0 (lowest) to 4 (brightest).
 Normal level is 2\. Тип: int. Разрешённые значения: 0 \, 1 \, 2 \,
 3 \, 4\.;
+#X obj 250 1213 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1213 clear;
 #X text 270 1213 clear display and optionally flush internal buffer.
 Аргументы:;
 #X obj 280 1251 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1251 [FLUSH=0]: flush internal buffer to the device. Тип:
 bool.;
+#X obj 250 1276 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1276 flush;
 #X text 270 1276 flush internal buffer to the device.;
+#X obj 250 1304 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1304 font;
 #X text 270 1304 set current font. Аргументы:;
 #X obj 280 1327 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1327 FONT: font name. Тип: symbol.;
+#X obj 250 1352 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1352 invert;
 #X text 270 1352 invert display. Аргументы:;
 #X obj 280 1375 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1375 VALUE: value. Тип: bool.;
+#X obj 250 1400 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1400 mirror;
 #X text 270 1400 mirror display. Аргументы:;
 #X obj 280 1423 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1423 VALUE: value. Тип: bool.;
+#X obj 250 1448 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1448 pixel;
 #X text 270 1448 draw pixel. Аргументы:;
 #X obj 280 1471 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -116,15 +130,18 @@ bool.;
 0\.;
 #X obj 280 1547 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1547 VALUE: pixel value. Тип: bool.;
+#X obj 250 1572 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1572 rotation;
 #X text 270 1572 set display rotation. Аргументы:;
 #X obj 280 1595 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1595 [ANGLE]: rotation angle. Тип: int. Разрешённые значения:
 0 \, 90 \, 180 \, 270\.;
+#X obj 250 1635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1635 switch_on;
 #X text 270 1635 switch on display (needed for SPI connection). Аргументы:;
 #X obj 280 1658 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1658 VALUE: value. Тип: bool.;
+#X obj 250 1683 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1683 text;
 #X text 270 1683 draw text on the display. Аргументы:;
 #X obj 280 1706 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -133,6 +150,7 @@ bool.;
 #X text 280 1729 X: left text X coordinate. Тип: int.;
 #X obj 280 1752 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1752 Y: top text Y coordinate. Тип: int.;
+#X obj 250 1777 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1777 write bitmap;
 #X text 270 1777 write bitmap to the display buffer. Аргументы:;
 #X obj 280 1800 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -144,18 +162,19 @@ bool.;
 значение: 1\.;
 #X obj 280 1884 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1884 PIXELS: list of pixels (0 or 1). Тип: list.;
+#X obj 250 1909 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1909 write bytes;
 #X text 270 1909 write raw byte list to the display buffer and move
 internal cursor position. Аргументы:;
 #X obj 280 1947 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1947 BYTES: list of bytes (integers in 0\..255 range).
 Each byte describes a single column of 8 pixels in height. Тип: list.;
-#X obj 20 2012 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2012 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2017 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 2018 1\.;
 #X text 270 2018 control input.;
-#X obj 20 2053 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2053 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2058 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2059 1\.;
@@ -189,7 +208,7 @@ Each byte describes a single column of 8 pixels in height. Тип: list.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 2131 pd info;
 #X connect 8 0 10 0;

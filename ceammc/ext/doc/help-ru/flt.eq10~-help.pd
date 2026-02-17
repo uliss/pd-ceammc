@@ -20,7 +20,7 @@
 #X obj 290 435 ui.dsp~;
 #X obj 50 464 dac~;
 #X obj 117 464 s~ ssc;
-#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 519 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,47 +30,59 @@
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/flt_eq10/ИМЯ_СВОЙСТВА \, в противном случае к /flt_eq10/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 592 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 592 @osc;
 #X text 270 592 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 622 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 622 @active;
 #X text 270 622 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 664 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 664 @f1000;
 #X text 270 664 Gain at 1000Hz. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 0\. Диапазон: -70\...10\.;
+#X obj 250 706 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 706 @f125;
 #X text 270 706 Gain at 125Hz. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 0\. Диапазон: -70\...10\.;
+#X obj 250 748 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 748 @f16000;
 #X text 270 748 Gain at 16000Hz. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 0\. Диапазон: -70\...10\.;
+#X obj 250 790 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 790 @f2000;
 #X text 270 790 Gain at 2000Hz. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 0\. Диапазон: -70\...10\.;
+#X obj 250 832 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 832 @f250;
 #X text 270 832 Gain at 250Hz. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 0\. Диапазон: -70\...10\.;
+#X obj 250 874 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 874 @f31;
 #X text 270 874 Gain at 31.25Hz. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 0\. Диапазон: -70\...10\.;
+#X obj 250 916 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 916 @f4000;
 #X text 270 916 Gain at 4000Hz. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 0\. Диапазон: -70\...10\.;
+#X obj 250 958 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 958 @f500;
 #X text 270 958 Gain at 500Hz. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 0\. Диапазон: -70\...10\.;
+#X obj 250 1000 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1000 @f62;
 #X text 270 1000 Gain at 62.5Hz. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 0\. Диапазон: -70\...10\.;
+#X obj 250 1042 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1042 @f8000;
 #X text 270 1042 Gain at 8000Hz. Тип: float. Единицы: 'db'. Значение
 по умолчанию: 0\. Диапазон: -70\...10\.;
-#X obj 20 1094 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1094 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1099 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1100 reset;
 #X text 270 1100 reset filter state to default.;
-#X obj 20 1138 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1138 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1143 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1144 1\.;
@@ -78,7 +90,7 @@
 #X text 270 1144 input signal.;
 #X text 170 1169 list:;
 #X text 270 1169 sets equalizer coefficients.;
-#X obj 20 1204 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1204 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1209 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1210 1\.;
@@ -115,7 +127,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1282 pd info;
 #X connect 6 0 8 0;

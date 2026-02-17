@@ -16,7 +16,7 @@ rightmost \, this can be changed with @rev property;
 #X msg 222 205 @rev \$1;
 #X obj 50 234 bits->pos;
 #X obj 50 263 ui.dt;
-#X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 318 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 321 ui.link @background_color 0.98039 0.98039 0.98039
@@ -24,13 +24,13 @@ rightmost \, this can be changed with @rev property;
 #X msg 130 319 @rev;
 #X text 270 319 Обратный порядок битов. Тип: bool. Значение по умолчанию:
 0\.;
-#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 364 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 365 1\.;
 #X text 170 365 list:;
 #X text 270 365 input bit list.;
-#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 405 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 406 1\.;
@@ -66,7 +66,7 @@ rightmost \, this can be changed with @rev property;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 527 pd info;
 #X connect 9 0 10 0;

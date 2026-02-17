@@ -13,18 +13,18 @@
 #X obj 50 234 flt.resonbp~ 1000;
 #X obj 50 262 ui.hgain~;
 #X obj 50 291 dac~;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 346 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 381 Left-click;
 #X text 310 381 outputs single positive impulse.;
-#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 416 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 417 1\.;
 #X text 170 417 bang:;
 #X text 270 417 выводит единичный положительный импульс.;
-#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 457 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 458 1\.;
@@ -59,7 +59,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 530 pd info;
 #X connect 5 0 7 0;

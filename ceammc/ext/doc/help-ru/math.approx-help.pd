@@ -17,7 +17,7 @@
 #X obj 50 248 math.approx 50 10;
 #X text 242 248 40 <= x <= 60;
 #X floatatom 50 277 5 0 0 0 - - -;
-#X obj 20 309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 309 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 314 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 317 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,7 +30,7 @@
 #X text 170 340 float;
 #X obj 268 341 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 340 EPSILON: compare epsilon. Тип: float.;
-#X obj 20 375 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 380 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 383 ui.link @background_color 0.98039 0.98039 0.98039
@@ -38,10 +38,11 @@
 #X msg 130 381 @epsilon;
 #X text 270 381 Compare epsilon. Тип: float. Значение по умолчанию:
 0.01\.;
+#X obj 250 411 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 411 @value;
 #X text 270 411 Compare pattern. Тип: float. Значение по умолчанию:
 0\.;
-#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 456 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 457 1\.;
@@ -55,7 +56,7 @@
 #X text 130 532 3\.;
 #X text 170 532 float:;
 #X text 270 532 epsilon.;
-#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 572 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 573 1\.;
@@ -90,7 +91,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 660 pd info;
 #X connect 8 0 10 0;

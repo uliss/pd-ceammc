@@ -14,7 +14,7 @@
 #X obj 50 320 clone 7 poly.obj synth.harpsichord~;
 #X obj 50 349 ui.hgain~;
 #X obj 50 378 dac~;
-#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 433 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
@@ -24,21 +24,27 @@
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/synth_harpsichord/ИМЯ_СВОЙСТВА \, в противном случае
 к /synth_harpsichord/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X obj 250 521 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 521 @osc;
 #X text 270 521 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 551 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 551 @active;
 #X text 270 551 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 593 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 593 @freq;
 #X text 270 593 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
 130.8128\.;
+#X obj 250 635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 635 @gate;
 #X text 270 635 Play trigger - 1: on \, 0: off. Тип: float. Значение
 по умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 677 @modfreq;
 #X text 270 677 Frequency of the sine wave for the modulation of theta
 (works if @modetype=3). Тип: float. Единицы: 'Hz'. Значение по умолчанию:
 220\. Диапазон: 20\...1000\.;
+#X obj 250 734 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 734 @modtype;
 #X text 270 734 Modulation type. 0=theta is modulated by the incoming
 signal. 1=theta is modulated by the averaged incoming signal. 2=theta
@@ -46,25 +52,31 @@ is modulated by the squared incoming signal. 3=theta is modulated by
 a sine wave of frequency @modfreq. 4=theta is modulated by a sine wave
 of frequency @freq. Тип: int. Значение по умолчанию: 0\. Диапазон:
 0\...4\.;
+#X obj 250 852 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 852 @nonlin;
 #X text 270 852 Nonlinearity factor. Тип: float. Значение по умолчанию:
 0\. Диапазон: 0\...1\.;
+#X obj 250 894 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 894 @pan;
 #X text 270 894 Pan angle. Тип: float. Значение по умолчанию: 0.6\.
 Диапазон: 0\...1\.;
+#X obj 250 936 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 936 @pitch;
 #X text 270 936 Midi pitch. Тип: float. Значение по умолчанию: 48\.
 Диапазон: 12\...96\.;
+#X obj 250 978 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 978 @reverb_gain;
 #X text 270 978 Reverb gain. Тип: float. Значение по умолчанию: 0.137\.
 Диапазон: 0\...1\.;
+#X obj 250 1020 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1020 @room_size;
 #X text 270 1020 Reverb room size. Тип: float. Значение по умолчанию:
 0.36\. Диапазон: 0.005\...1\.;
+#X obj 250 1062 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1062 @width;
 #X text 270 1062 Spatialization width. Тип: float. Значение по умолчанию:
 0.5\. Диапазон: 0\...1\.;
-#X obj 20 1114 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1114 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1119 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1120 note;
@@ -73,15 +85,16 @@ of frequency @freq. Тип: int. Значение по умолчанию: 0\. �
 #X text 280 1143 NOTE: midi note. Тип: float.;
 #X obj 280 1166 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1166 VEL: velocity. Тип: float. Диапазон: 0…127\.;
+#X obj 250 1191 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1191 reset;
 #X text 270 1191 reset synth.;
-#X obj 20 1229 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1229 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1234 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1235 1\.;
 #X text 170 1235 list:;
 #X text 270 1235 NOTE VEL.;
-#X obj 20 1270 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1270 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1275 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1276 1\.;
@@ -119,7 +132,7 @@ of frequency @freq. Тип: int. Значение по умолчанию: 0\. �
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1368 pd info;
 #X connect 4 0 5 1;

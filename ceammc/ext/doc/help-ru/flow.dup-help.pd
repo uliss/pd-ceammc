@@ -16,7 +16,7 @@
 #X floatatom 117 219 5 0 0 0 - - -;
 #X obj 50 248 flow.dup 2;
 #X obj 50 277 print DUP;
-#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 332 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 335 ui.link @background_color 0.98039 0.98039 0.98039
@@ -26,7 +26,7 @@
 #X obj 268 334 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 333 N: количество повторений. Тип: int. Минимальное значение:
 0\.;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
@@ -34,7 +34,7 @@
 #X msg 130 374 @n;
 #X text 270 374 Количество повторений. Тип: int. Значение по умолчанию:
 2\. Минимальное значение: 0\.;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 431 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 432 1\.;
@@ -44,7 +44,7 @@
 #X text 170 457 int:;
 #X text 270 457 установить количество повторений. Минимальное значение:
 0\.;
-#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 497 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 498 1\.;
@@ -80,7 +80,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 570 pd info;
 #X connect 6 0 12 0;

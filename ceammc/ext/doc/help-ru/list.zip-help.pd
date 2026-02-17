@@ -20,7 +20,7 @@ list:;
 #X msg 395 215 @fold;
 #X obj 50 258 list.zip 3 @min;
 #X obj 50 287 ui.dt;
-#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 342 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
@@ -29,7 +29,7 @@ list:;
 #X text 170 343 int;
 #X obj 268 344 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 343 N: number of inputs. Тип: int. Диапазон: 2…20;
-#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 383 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 386 ui.link @background_color 0.98039 0.98039 0.98039
@@ -37,36 +37,43 @@ list:;
 #X msg 130 384 @n;
 #X text 270 384 (при инициализации) Number of inputs. Тип: int. Значение
 по умолчанию: 2\. Диапазон: 2\...20\.;
+#X obj 250 426 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 426 @clip;
 #X text 270 426 Alias for "@oversize clip" property. Pad shortest list
 with last element to conform longest list.;
+#X obj 250 468 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 468 @fold;
 #X text 270 468 Alias for "@oversize fold" property. Pad shortest list
 with repeated values from the end to the beginning \, then back and
 so on.;
+#X obj 250 525 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 525 @method;
 #X text 270 525 Behavior \, if list have different sizes. Тип: symbol.
 Значение по умолчанию: min. Разрешённые значения: min \, pad \, clip
 \, wrap \, fold.;
+#X obj 250 582 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 582 @min;
 #X text 270 582 Alias for "@oversize min" property. Truncates lists
 to minimal common size.;
+#X obj 250 624 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 624 @pad;
 #X text 270 624 Pad value for pad method of resizing. Тип: atom. Значение
 по умолчанию: 0\.;
+#X obj 250 666 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 666 @wrap;
 #X text 270 666 Alias for "@oversize wrap" property. Pad shortest list
 with repeated values from the beginning.;
+#X obj 250 708 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 708 @lists?;
 #X text 270 708 (только чтение) Input data list: list of data:mlist.
 Тип: list.;
-#X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 765 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 766 1\.;
 #X text 170 766 list:;
 #X text 270 766 input list.;
-#X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 806 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 807 1\.;
@@ -102,7 +109,7 @@ with repeated values from the beginning.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 879 pd info;
 #X connect 8 0 15 0;

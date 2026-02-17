@@ -16,7 +16,7 @@
 #X obj 50 234 ui.hgain~;
 #X obj 203 234 ui.dsp~;
 #X obj 50 262 dac~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 317 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
@@ -26,33 +26,40 @@
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/synth_snare/ИМЯ_СВОЙСТВА \, в противном случае к /synth_snare/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 405 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 405 @osc;
 #X text 270 405 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 435 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 435 @active;
 #X text 270 435 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 477 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 477 @attack;
 #X text 270 477 Attack time. Тип: float. Единицы: 'ms'. Значение по
 умолчанию: 0.5\. Диапазон: 0.3\...100\.;
+#X obj 250 519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 519 @decay;
 #X text 270 519 Decay time. Тип: float. Единицы: 'ms'. Значение по
 умолчанию: 1\. Диапазон: 1\...100\.;
+#X obj 250 561 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 561 @envwait;
 #X text 270 561 Ignore new notes until previous note is not finished
 release time. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 603 @gate;
 #X text 270 603 Play trigger >0: on \, 0: off. To set output gain to
 0.5 you can 0.5 as trigger value. Тип: float. Значение по умолчанию:
 0\. Диапазон: 0\...1\.;
+#X obj 250 660 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 660 @release;
 #X text 270 660 Release time. Тип: float. Единицы: 'ms'. Значение по
 умолчанию: 200\. Диапазон: 10\...1000\.;
-#X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 717 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 718 reset;
 #X text 270 718 reset synth.;
-#X obj 20 756 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 756 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 761 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 762 1\.;
@@ -62,7 +69,7 @@ release time. Тип: bool. Значение по умолчанию: 0\.;
 #X text 270 787 play with default duration and specified gain.;
 #X text 170 812 list:;
 #X text 270 812 GAIN(0\..1) DUR(ms) pair expected.;
-#X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 852 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 853 1\.;
@@ -99,7 +106,7 @@ release time. Тип: bool. Значение по умолчанию: 0\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 945 pd info;
 #X connect 4 0 7 0;

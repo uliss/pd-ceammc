@@ -26,7 +26,7 @@
 #X obj 50 406 noise.henon_heilles;
 #X obj 50 435 ui.display;
 #X obj 270 435 ui.display;
-#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 490 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
@@ -51,42 +51,48 @@
 #X text 170 591 float;
 #X obj 268 592 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 591 DT: dt value (optional). Тип: float.;
-#X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 631 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 632 dt;
 #X text 270 632 Аргументы:;
 #X obj 280 655 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 655 NY: dt value. Тип: float.;
+#X obj 250 680 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 680 e;
 #X text 270 680 Аргументы:;
 #X obj 280 703 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 703 NY: e value. Тип: float.;
+#X obj 250 728 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 728 reset;
 #X text 270 728 reset state.;
+#X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 756 set;
 #X text 270 756 Аргументы:;
 #X obj 280 779 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 779 SET: set to value. Тип: float.;
+#X obj 250 804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 804 x;
 #X text 270 804 Аргументы:;
 #X obj 280 827 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 827 NX: x value. Тип: float.;
+#X obj 250 852 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 852 y;
 #X text 270 852 Аргументы:;
 #X obj 280 875 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 875 NY: y value. Тип: float.;
+#X obj 250 900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 900 y';
 #X text 270 900 Аргументы:;
 #X obj 280 923 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 923 NY: y' value. Тип: float.;
-#X obj 20 958 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 958 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 963 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 964 1\.;
 #X text 170 964 bang:;
 #X text 270 964 output value.;
-#X obj 20 999 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 999 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1004 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1005 1\.;
@@ -126,7 +132,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1137 pd info;
 #X connect 6 0 7 0;

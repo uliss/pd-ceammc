@@ -36,7 +36,7 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X floatatom 50 446 5 0 0 0 - - -;
 #X floatatom 136 446 5 0 0 0 - - -;
 #X obj 290 446 ui.hsl 0 32 @active_scale 1 @show_value 1;
-#X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 501 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 504 ui.link @background_color 0.98039 0.98039 0.98039
@@ -61,7 +61,7 @@ kicks in. Type: float. Range: -60\...0;
 #X obj 268 638 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 637 RELEASE(ms): release time = time constant coming out
 of compression. Type: float. Range: 1\...500;
-#X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 692 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 695 ui.link @background_color 0.98039 0.98039 0.98039
@@ -70,55 +70,68 @@ of compression. Type: float. Range: 1\...500;
 #X text 270 693 (initonly) OSC address id. If specified \, bind all
 properties to /ID/dyn_comp_up2/PROP_NAME osc address \, if empty bind
 to /dyn_comp_up2/PROP_NAME. Type: symbol.;
+#X obj 250 750 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 750 @osc;
 #X text 270 750 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 780 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 780 @active;
 #X text 270 780 On/off object dsp processing. Type: bool. Default value:
 1\.;
+#X obj 250 810 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 810 @attack;
 #X text 270 810 Time constant when level & compression going up. Type:
 float. Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
+#X obj 250 867 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 867 @bypass;
 #X text 270 867 Bypass flag. If true: bypass 'effected' signal. Type:
 bool. Default value: 0\.;
+#X obj 250 909 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 909 @hold;
 #X text 270 909 Hold period. Type: float. Units: 'samp'. Default value:
 128\. Range: 1\...255\.;
+#X obj 250 951 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 951 @knee;
 #X text 270 951 A gradual increase in gain reduction around the threshold:
 below thresh-(knee/2) there is no gain reduction \, above thresh+(knee/2)
 there is the same gain reduction as without a knee \, and in between
 there is a gradual increase in gain reduction. Type: float. Units:
 'db'. Default value: 3\. Range: 0\...24\.;
+#X obj 250 1054 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1054 @link;
 #X text 270 1054 The amount of linkage between the channels: 0 = each
 channel is independent \, 1 = all channels have the same amount of
 gain reduction. Type: float. Default value: 1\. Range: 0\...1\.;
+#X obj 250 1126 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1126 @range;
 #X text 270 1126 Max upward compression range. Type: float. Units:
 'db'. Default value: 12\. Range: 0\...32\.;
+#X obj 250 1168 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1168 @refresh;
 #X text 270 1168 Compression level output time interval. If 0 - no
 output. Type: int. Units: 'ms'. Default value: 100\. Range: 0\...1000\.;
+#X obj 250 1225 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1225 @release;
 #X text 270 1225 Release time = time constant coming out of compression.
 Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
+#X obj 250 1282 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1282 @strength;
 #X text 270 1282 Compression strength (0: no compression \, 1: increase
 level by @range db.). Type: float. Default value: 0\. Range: 0\...1\.;
+#X obj 250 1339 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1339 @threshold;
 #X text 270 1339 Level threshold above which compression kicks in (100
 dB = max level). Type: float. Units: 'db'. Default value: -32\. Range:
 -60\...0\.;
+#X obj 250 1396 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1396 @level?;
 #X text 270 1396 (readonly) Current level of compression. Type: float.
 Units: 'db'. Default value: 0\. Range: 0\...90\.;
-#X obj 20 1448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1448 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1453 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1454 reset;
 #X text 270 1454 reset to initial state.;
-#X obj 20 1492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1492 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1497 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1498 1\.;
@@ -130,7 +143,7 @@ Units: 'db'. Default value: 0\. Range: 0\...90\.;
 #X text 130 1548 3\.;
 #X text 170 1548 float:;
 #X text 270 1548 set compression strength.;
-#X obj 20 1583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1583 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1588 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1589 1\.;
@@ -173,7 +186,7 @@ Units: 'db'. Default value: 0\. Range: 0\...90\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 1701 pd info;
 #X connect 8 0 12 0;

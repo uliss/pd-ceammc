@@ -17,7 +17,7 @@
 -1;
 #X obj 338 234 ui.dsp~;
 #X obj 50 262 dac~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
@@ -27,7 +27,7 @@
 #X obj 268 319 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 318 CAPACITY(sec): max loop time. Тип: float. Диапазон:
 0…120;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 358 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 361 ui.link @background_color 0.98039 0.98039 0.98039
@@ -35,90 +35,112 @@
 #X msg 130 359 @array;
 #X text 270 359 Use specified array for record instead of internal
 buffer. Тип: symbol.;
+#X obj 250 401 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 401 @capacity;
 #X text 270 401 Max loop time. Тип: float. Единицы: 'sec'. Значение
 по умолчанию: 5\. Диапазон: 0\...120\.;
+#X obj 250 443 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 443 @dub_to_play_time;
 #X text 270 443 Record fadeout time while transition from overdub to
 play. Тип: float. Единицы: 'ms'. Значение по умолчанию: 20\. Минимальное
 значение: 0\.;
+#X obj 250 500 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 500 @dub_to_stop_time;
 #X text 270 500 Fadeout time while transition from overdub to stop.
 Тип: float. Единицы: 'ms'. Значение по умолчанию: 20\. Минимальное
 значение: 0\.;
+#X obj 250 557 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 557 @loop_bang;
 #X text 270 557 Output bang on each loop start. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 599 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 599 @loop_smooth;
 #X text 270 599 Time of lin fadein/fadeout applied to recorded loop
 for smooth playing. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 10\. Минимальное значение: 0\.;
+#X obj 250 656 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 656 @play_to_dub_time;
 #X text 270 656 Fadein time of overdub input signal while transition
 from play mode. Тип: float. Единицы: 'ms'. Значение по умолчанию: 10\.
 Минимальное значение: 0\.;
+#X obj 250 713 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 713 @play_to_stop_time;
 #X text 270 713 Fadeout time while transition from play to stop. Тип:
 float. Единицы: 'ms'. Значение по умолчанию: 10\. Минимальное значение:
 0\.;
+#X obj 250 770 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 770 @rec_to_play_time;
 #X text 270 770 Xfade between recorded and input signal while transition
 from record to play. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 30\. Минимальное значение: 0\.;
+#X obj 250 827 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 827 @round;
 #X text 270 827 Encrease loop length to be multiple of specified value.
 If *0* - no rounding is performed. Тип: int. Единицы: 'samp'. Значение
 по умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 899 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 899 @stop_to_play_time;
 #X text 270 899 Fadein time of play while transition from stop. Тип:
 float. Единицы: 'ms'. Значение по умолчанию: 10\. Минимальное значение:
 0\.;
+#X obj 250 956 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 956 @length?;
 #X text 270 956 (только чтение) Recorded loop length. Тип: float. Единицы:
 'sec'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 1013 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1013 @play_phase?;
 #X text 270 1013 (только чтение) Current playing phase position. Тип:
 float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 1055 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1055 @play_pos?;
 #X text 270 1055 (только чтение) Current playing position. Тип: float.
 Единицы: 'sec'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 1112 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1112 @state?;
 #X text 270 1112 (только чтение) Current state. Тип: symbol. Значение
 по умолчанию: init. Разрешённые значения: init \, stop \, record \,
 play \, overdub.;
-#X obj 20 1179 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1179 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1184 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1185 adjust;
 #X text 270 1185 increase loop length. Аргументы:;
 #X obj 280 1208 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1208 [DELTA]: loop length delta. Тип: float. Единицы: 'samp'.;
+#X obj 250 1233 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1233 clear;
 #X text 270 1233 clear loop data and stops playing.;
+#X obj 250 1261 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1261 overdub;
 #X text 270 1261 start loop overdubbing while keeping it playing.;
+#X obj 250 1289 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1289 pause;
 #X text 270 1289 loop pause.;
+#X obj 250 1317 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1317 play;
 #X text 270 1317 play recorded or stopped loop.;
+#X obj 250 1345 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1345 rec;
 #X text 270 1345 same as record.;
+#X obj 250 1373 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1373 record;
 #X text 270 1373 start loop record.;
+#X obj 250 1401 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1401 smooth;
 #X text 270 1401 Аргументы:;
 #X obj 280 1424 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1424 [TIME]: apply linear fadein/fadeout to loop. Тип:
 float. Единицы: 'ms'.;
+#X obj 250 1464 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1464 stop;
 #X text 270 1464 stop played loop.;
-#X obj 20 1502 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1502 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1507 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1508 1\.;
 #X text 170 1508 ~;
 #X text 270 1508 input signal.;
-#X obj 20 1543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1543 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1548 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1549 1\.;
@@ -156,7 +178,7 @@ true.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1641 pd info;
 #X connect 4 0 10 0;

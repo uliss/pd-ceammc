@@ -43,7 +43,7 @@ For event value '1' \, event duration is 100ms \, event length is 60
 #X obj 50 555 ui.hgain~;
 #X obj 309 555 ui.dsp~;
 #X obj 50 583 dac~;
-#X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 638 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 641 ui.link @background_color 0.98039 0.98039 0.98039
@@ -53,7 +53,7 @@ For event value '1' \, event duration is 100ms \, event length is 60
 #X obj 268 640 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 639 P: sequencer pattern in beat duration units. Type:
 list.;
-#X obj 20 674 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 674 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 679 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 682 ui.link @background_color 0.98039 0.98039 0.98039
@@ -61,56 +61,71 @@ list.;
 #X msg 130 680 @div;
 #X text 270 680 Beat subdivision. Type: int. Default value: 1\. Range:
 1\...64\.;
+#X obj 250 722 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 722 @dur;
 #X text 270 722 Whole sequence duration. (Recalculates @t property
 accordingly). Type: float. Units: 'ms'. Default value: 0\. Min value:
 0\.;
+#X obj 250 779 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 779 @inf;
 #X text 270 779 Alias to @r -1 \, repeats infinitely.;
+#X obj 250 809 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 809 @length;
 #X text 270 809 Event length. In case of float or float wuth 'ms' suffix
 - event length is fixed for any event duration. In case of V% - @length
 expected to be in 0\..100 range and event length is percent of duration.
 In case of negative @length event duration is calculated as duration+@length
 \, but not less then 1\. Type: float. Default value: 75\.;
+#X obj 250 927 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 927 @mode;
 #X text 270 927 Sequencer mode. 'inc': from first to last \, 'dec':
 from last to first \, 'tri': from first to last \, then back. Type:
 symbol. Default value: inc. Allowed values: inc \, dec \, tri.;
+#X obj 250 999 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 999 @once;
 #X text 270 999 Alias to @r 1 \, play once.;
+#X obj 250 1029 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1029 @p;
 #X text 270 1029 Sequencer pattern in beat duration units. Type: list.;
+#X obj 250 1059 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1059 @r;
 #X text 270 1059 Number of whole sequence repeats. If -1: repeat infinitely.
 Type: int. Default value: 1\. Min value: -1\.;
+#X obj 250 1101 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1101 @t;
 #X text 270 1101 Time between beats. Unit values like 100ms \, 240bpm
 or 60|4bpm also can be used. Type: float. Units: 'ms'. Default value:
 100\. Range: 1\...20000\.;
+#X obj 250 1158 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1158 @upbeat;
 #X text 270 1158 Wait specified number of beats before sequence start.
 Type: float. Default value: 0\. Min value: 0\.;
+#X obj 250 1200 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1200 @i?;
 #X text 270 1200 (readonly) Current sequence iteration. Type: int.
 Default value: 0\.;
+#X obj 250 1242 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1242 @ri?;
 #X text 270 1242 (readonly) Current repeat iteration. Type: int. Default
 value: 0\.;
-#X obj 20 1294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1294 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1299 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1300 reset;
 #X text 270 1300 reset all counters and stop.;
+#X obj 250 1328 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1328 rewind;
 #X text 270 1328 reset all counters without stopping.;
+#X obj 250 1356 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1356 start;
 #X text 270 1356 start sequencer from current position.;
+#X obj 250 1384 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1384 stop;
 #X text 270 1384 stop sequencer.;
+#X obj 250 1412 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1412 tick;
 #X text 270 1412 output current sequence element and move to next.;
-#X obj 20 1450 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1450 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1455 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1456 1\.;
@@ -119,7 +134,7 @@ value: 0\.;
 #X text 130 1481 2\.;
 #X text 170 1481 list:;
 #X text 270 1481 set new pattern value.;
-#X obj 20 1516 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1516 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1521 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1522 1\.;
@@ -157,7 +172,7 @@ when done.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 1644 pd info;
 #X connect 15 0 17 0;

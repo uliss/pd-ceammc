@@ -16,7 +16,7 @@ to N-th inlet;
 #X floatatom 165 263 5 0 0 0 - - -;
 #X floatatom 222 263 5 0 0 0 - - -;
 #X floatatom 290 263 5 0 0 0 - - -;
-#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 300 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 303 ui.link @background_color 0.98039 0.98039 0.98039
@@ -26,7 +26,7 @@ to N-th inlet;
 #X obj 268 302 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 301 VALUES: compare values: list of floats in ascending
 order. Тип: list.;
-#X obj 20 351 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 351 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 356 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 359 ui.link @background_color 0.98039 0.98039 0.98039
@@ -34,13 +34,13 @@ order. Тип: list.;
 #X msg 130 357 @values;
 #X text 270 357 (при инициализации) Compare values: list of floats
 in ascending order. Тип: list.;
-#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 414 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 415 1\.;
 #X text 170 415 float:;
 #X text 270 415 input flow.;
-#X obj 20 450 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 450 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 455 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 456 1\.;
@@ -83,7 +83,7 @@ in ascending order. Тип: list.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 588 pd info;
 #X connect 7 0 8 0;

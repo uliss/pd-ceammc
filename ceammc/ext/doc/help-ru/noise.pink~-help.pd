@@ -20,7 +20,7 @@ light with this power spectrum.;
 #X obj 280 358 ui.ssc~ @size 300 120 @log_scale 1;
 #X obj 50 445 dac~;
 #X obj 50 473 ui.dsp~;
-#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 528 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 531 ui.link @background_color 0.98039 0.98039 0.98039
@@ -28,7 +28,7 @@ light with this power spectrum.;
 #X msg 130 529 @active;
 #X text 270 529 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 586 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 587 1\.;
@@ -65,7 +65,7 @@ light with this power spectrum.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 659 pd info;
 #X connect 9 0 10 0;

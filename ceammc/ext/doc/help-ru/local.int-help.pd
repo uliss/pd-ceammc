@@ -20,7 +20,7 @@ accessible even from subpatch.;
 #X obj 395 292 local.int f1;
 #X floatatom 50 321 5 0 0 0 - - -;
 #X floatatom 395 321 5 0 0 0 - - -;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 358 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 361 ui.link @background_color 0.98039 0.98039 0.98039
@@ -29,7 +29,7 @@ accessible even from subpatch.;
 #X text 170 359 symbol;
 #X obj 268 360 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 359 ID: object ID. Тип: symbol.;
-#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 399 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 402 ui.link @background_color 0.98039 0.98039 0.98039
@@ -37,23 +37,28 @@ accessible even from subpatch.;
 #X msg 130 400 @id;
 #X text 270 400 (при инициализации) Local variable id. Тип: symbol.
 Значение по умолчанию: default.;
+#X obj 250 442 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 442 @value?;
 #X text 270 442 (только чтение) Current value. Тип: int. Значение по
 умолчанию: 0\.;
-#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 499 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 500 set;
 #X text 270 500 sets new value without output.;
+#X obj 250 528 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 528 *;
 #X text 270 528 multiply to \, no output.;
+#X obj 250 556 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 556 +;
 #X text 270 556 add to int \, no output.;
+#X obj 250 584 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 584 -;
 #X text 270 584 substruct from int \, no output.;
+#X obj 250 612 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 612 /;
 #X text 270 612 divide by \, no output.;
-#X obj 20 650 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 650 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 655 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 656 1\.;
@@ -62,7 +67,7 @@ accessible even from subpatch.;
 #X text 170 681 float:;
 #X text 270 681 sets new value and outputs it ONLY at current object
 outlet.;
-#X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 721 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 722 1\.;
@@ -100,7 +105,7 @@ outlet.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 794 pd info;
 #X connect 6 0 13 0;

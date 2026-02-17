@@ -10,7 +10,7 @@
 #X msg 117 118 rotate 45;
 #X obj 50 147 ui.polar;
 #X obj 50 262 ui.display @display_type 1;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 317 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 130 352 Left-click;
@@ -26,82 +26,105 @@
 #X text 310 447 change only radius coord.;
 #X text 130 467 Mouse-wheel + ⇧;
 #X text 310 467 change precisely radius coord.;
-#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 502 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 505 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 503 @angle;
 #X text 270 503 Angle. Type: float. Default value: 0\.;
+#X obj 250 533 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 533 @clockwise;
 #X text 270 533 Clockwise positive direction. Type: bool. Default value:
 1\.;
+#X obj 250 563 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 563 @direction;
 #X text 270 563 Zero-angle direction. Type: symbol. Default value:
 N. Allowed values: N \, W \, S \, E.;
+#X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 605 @mouse_events;
 #X text 270 605 Mouse events output mode. If on outputs @mouse_down
 \, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
+#X obj 250 662 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 662 @positive;
 #X text 270 662 Use positive output angle range. For example: [0\..360)
 when using degrees \, otherwise using [-180\..180) range. Type: bool.
 Default value: 0\.;
+#X obj 250 719 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 719 @radians;
 #X text 270 719 Using radians instead of degrees. Type: bool. Default
 value: 0\.;
+#X obj 250 761 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 761 @radius;
 #X text 270 761 Radius. Type: float. Default value: 0\. Range: 0\...1\.;
+#X obj 250 791 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 791 @receive;
 #X text 270 791 Source of message receive. Type: symbol. Default value:
 (null).;
+#X obj 250 833 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 833 @send;
 #X text 270 833 Address for sending messages. Type: symbol. Default
 value: (null).;
+#X obj 250 875 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 875 @background_color;
 #X text 270 875 Element background color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93 1\.;
+#X obj 250 932 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 932 @border_color;
 #X text 270 932 Border color (list of red \, green \, blue values in
 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
+#X obj 250 974 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 974 @label;
 #X text 270 974 Label text. Type: symbol. Default value: (null).;
+#X obj 250 1004 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1004 @label_align;
 #X text 270 1004 Label horizontal align. Type: symbol. Default value:
 left. Allowed values: left \, center \, right.;
+#X obj 250 1046 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1046 @label_inner;
 #X text 270 1046 Label position (1 - inner \, 0 - outer). Type: bool.
 Default value: 0\.;
+#X obj 250 1088 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1088 @label_margins;
 #X text 270 1088 Label X Y offset in pixels. Type: list. Default value:
 0 0\.;
+#X obj 250 1118 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1118 @label_side;
 #X text 270 1118 Label attachment side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
+#X obj 250 1160 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1160 @label_valign;
 #X text 270 1160 Label vertical align. Type: symbol. Default value:
 top. Allowed values: top \, center \, bottom.;
+#X obj 250 1202 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1202 @fontname;
 #X text 270 1202 Font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1244 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1244 @fontsize;
 #X text 270 1244 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X obj 250 1274 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1274 @fontslant;
 #X text 270 1274 Font slant. Type: symbol. Default value: roman. Allowed
 values: roman \, italic.;
+#X obj 250 1316 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1316 @fontweight;
 #X text 270 1316 Font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
+#X obj 250 1358 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1358 @pinned;
 #X text 270 1358 Pin mode. If set to 1 \, it places the element at
 the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
+#X obj 250 1415 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1415 @presetname;
 #X text 270 1415 Preset name for using with [ui.preset] or [preset.storage]
 objects. Type: symbol. Default value: (null).;
+#X obj 250 1457 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1457 @size;
 #X text 270 1457 Object size (width \, height pair). Type: list. Default
 value: 100 100\.;
-#X obj 20 1509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1509 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1514 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1515 cartesian;
@@ -111,18 +134,22 @@ Arguments are:;
 #X text 280 1553 X: x-coord. Type: float. Range: -1\...1\.;
 #X obj 280 1576 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1576 Y: y-coord. Type: float. Range: -1\...1\.;
+#X obj 250 1601 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1601 clear;
 #X text 270 1601 clears specified preset. Arguments are:;
 #X obj 280 1624 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1624 IDX: preset index. Type: int.;
+#X obj 250 1649 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1649 interp;
 #X text 270 1649 interplolates between presets. Arguments are:;
 #X obj 280 1672 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1672 IDX: preset fraction index. Type: float.;
+#X obj 250 1697 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1697 load;
 #X text 270 1697 loads specified preset. Arguments are:;
 #X obj 280 1720 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1720 IDX: preset index. Type: int.;
+#X obj 250 1745 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1745 polar;
 #X text 270 1745 sets slider position in polar coords and output. Arguments
 are:;
@@ -131,19 +158,23 @@ are:;
 #X obj 280 1806 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1806 ANG: angle in degrees or radians (depends on @use_degrees
 property). Type: float.;
+#X obj 250 1846 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1846 pos;
 #X text 270 1846 set UI element position. Arguments are:;
 #X obj 280 1869 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1869 X: top left x-coord. Type: float.;
 #X obj 280 1892 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1892 Y: top right y-coord. Type: float.;
+#X obj 250 1917 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1917 random;
 #X text 270 1917 set to random value and output.;
+#X obj 250 1945 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1945 rotate;
 #X text 270 1945 rotate slider by specified angle. Arguments are:;
 #X obj 280 1968 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1968 A: angle in degrees or radians (depends on @use_degrees
 property). Type: float.;
+#X obj 250 2008 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2008 set;
 #X text 270 2008 sets slider position without output. Arguments are:;
 #X obj 280 2031 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -151,13 +182,15 @@ property). Type: float.;
 #X obj 280 2054 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2054 ANG: angle in degrees or radians (depends on @use_degrees
 property). Type: float.;
+#X obj 250 2094 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2094 store;
 #X text 270 2094 stores specified preset. Arguments are:;
 #X obj 280 2117 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2117 IDX: preset index. Type: int.;
+#X obj 250 2142 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2142 dump;
 #X text 270 2142 dumps all object info to Pd console window.;
-#X obj 20 2180 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2180 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2185 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2186 1\.;
@@ -165,7 +198,7 @@ property). Type: float.;
 #X text 270 2186 outputs slider position.;
 #X text 170 2211 list:;
 #X text 270 2211 sets slider position and outputs it.;
-#X obj 20 2246 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2246 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2251 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2252 1\.;
@@ -202,7 +235,7 @@ property). Type: float.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 2324 pd info;
 #X connect 4 0 6 0;

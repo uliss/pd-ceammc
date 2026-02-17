@@ -26,7 +26,7 @@ midi signals.;
 #X obj 242 374 noteout;
 #X obj 50 403 proto.midi.casio-rev;
 #X obj 50 432 proto.midi.casio-chorus;
-#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 487 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 490 ui.link @background_color 0.98039 0.98039 0.98039
@@ -34,34 +34,40 @@ midi signals.;
 #X msg 130 488 @model;
 #X text 270 488 Device model. Тип: symbol. Значение по умолчанию: px160\.
 Разрешённые значения: px160\.;
-#X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 545 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 546 chorus;
 #X text 270 546 set chorus fx level. Аргументы:;
 #X obj 280 569 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 569 VALUE: level. Тип: float. Диапазон: 0…1\.;
+#X obj 250 594 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 594 chorus_depth;
 #X text 270 594 set chorus depth. Аргументы:;
 #X obj 280 617 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 617 DEPTH: depth value. Тип: float. Диапазон: 0…1\.;
+#X obj 250 642 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 642 chorus_fb;
 #X text 270 642 set chorus feedback level. Аргументы:;
 #X obj 280 665 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 665 AMOUNT: level. Тип: float. Диапазон: 0…1\.;
+#X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 690 chorus_rate;
 #X text 270 690 set chorus rate. Аргументы:;
 #X obj 280 713 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 713 RATE: rate value. Тип: float. Диапазон: 0…1\.;
+#X obj 250 738 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 738 chorus_send;
 #X text 270 738 set chorus send level. Аргументы:;
 #X obj 280 761 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 761 AMOUNT: level. Тип: float. Диапазон: 0…1\.;
+#X obj 250 786 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 786 chorus_type;
 #X text 270 786 set chorus type. Аргументы:;
 #X obj 280 809 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 809 TYPE: chorus type. For PX160 - 1: chorus1 \, 2: chorus2
 \, 3: deep chorus \, 4: flanger. Тип: int. Диапазон: 1…4\.;
+#X obj 250 849 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 849 instr;
 #X text 270 849 send Note On message. Аргументы:;
 #X obj 280 872 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -74,21 +80,23 @@ piano \, epiano \, strings \, bass \, organ \, vibr \, harps.;
 \, for 'epiano': 0|1|fm|2|3|60 \, for 'strings': 0|1 \, for 'bass':
 0 \, for 'organ': pipe|jass|elec1|elec2|0\..3 \, for 'vibr' and 'haprs':
 0\. Тип: atom.;
+#X obj 250 1018 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1018 rev_time;
 #X text 270 1018 set reverb time. Аргументы:;
 #X obj 280 1041 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1041 AMOUNT: reverb time. Тип: int. Диапазон: 0…127\.;
+#X obj 250 1066 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1066 rev_type;
 #X text 270 1066 set reverb type. Аргументы:;
 #X obj 280 1089 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1089 TYPE: reverb type. For PX160 - 1: room \, 2: default
 (hall) \, 3: hall2 \, 4: stadium. Тип: int. Диапазон: 1…4\.;
-#X obj 20 1139 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1139 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1144 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1145 1\.;
 #X text 270 1145 control messages.;
-#X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1185 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1186 1\.;
@@ -122,7 +130,7 @@ piano \, epiano \, strings \, bass \, organ \, vibr \, harps.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1258 pd info;
 #X connect 9 0 10 0;

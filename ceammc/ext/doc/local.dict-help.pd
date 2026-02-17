@@ -16,12 +16,12 @@ name and available only within its patch (canvas);
 #X obj 318 234 ui.dt;
 #X obj 50 263 ui.dt;
 #X obj 50 292 local.dict-subpatch;
-#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 347 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 130 382 Left-click;
 #X text 310 382 open data editor.;
-#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 417 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 420 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,7 +30,7 @@ name and available only within its patch (canvas);
 #X text 170 418 symbol;
 #X obj 268 419 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 418 ID: object ID. Type: symbol.;
-#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 458 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 461 ui.link @background_color 0.98039 0.98039 0.98039
@@ -38,15 +38,18 @@ name and available only within its patch (canvas);
 #X msg 130 459 @id;
 #X text 270 459 (initonly) Local variable id. Type: symbol. Default
 value: default.;
+#X obj 250 501 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 501 @empty?;
 #X text 270 501 (readonly) 1 if dict is empty \, otherwise 0\. Type:
 bool. Default value: 1\.;
+#X obj 250 543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 543 @keys?;
 #X text 270 543 (readonly) Keys of dictionary. Type: list.;
+#X obj 250 573 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 573 @size?;
 #X text 270 573 (readonly) Number of entries in dictionary. Type: int.
 Default value: 0\. Min value: 0\.;
-#X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 630 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 631 add;
@@ -55,24 +58,31 @@ Default value: 0\. Min value: 0\.;
 #X text 280 654 KEY: entry key. Type: atom.;
 #X obj 280 677 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 677 VAL: single value or list. Type: list.;
+#X obj 250 702 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 702 choose;
 #X text 270 702 choose random key and output it.;
+#X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 730 clear;
 #X text 270 730 removes all dict values. No output.;
+#X obj 250 758 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 758 get_key;
 #X text 270 758 get entry from dictionary. Arguments are:;
 #X obj 280 781 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 781 KEY: entry key. Type: atom.;
+#X obj 250 806 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 806 read;
 #X text 270 806 read dict from JSON file. Arguments are:;
 #X obj 280 829 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 829 PATH: file path. Type: symbol.;
+#X obj 250 854 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 854 remove;
 #X text 270 854 remove entry from dictionary. Arguments are:;
 #X obj 280 877 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 877 KEY: entry key. Type: atom.;
+#X obj 250 902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 902 set;
 #X text 270 902 set dict content without output.;
+#X obj 250 930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 930 set_key;
 #X text 270 930 change entry in dictionary. If it's not exists \, do
 nothing. Arguments are:;
@@ -80,13 +90,15 @@ nothing. Arguments are:;
 #X text 280 968 KEY: key. Type: atom.;
 #X obj 280 991 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 991 VAL: single value or list. Type: list.;
+#X obj 250 1016 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1016 write;
 #X text 270 1016 write dict as JSON file. Arguments are:;
 #X obj 280 1039 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1039 PATH: file path. Type: symbol.;
+#X obj 250 1064 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1064 [....];
 #X text 270 1064 sets new content without output.;
-#X obj 20 1102 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1102 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1107 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1108 1\.;
@@ -97,7 +109,7 @@ nothing. Arguments are:;
 [1 2 3 4( becames dict with keys: 1 and 3 \, values: 2 and 4\. No output.;
 #X text 170 1188 data:dict:;
 #X text 270 1188 set and output new dict.;
-#X obj 20 1223 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1223 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1228 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1229 1\.;
@@ -134,7 +146,7 @@ nothing. Arguments are:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 1301 pd info;
 #X connect 8 0 9 0;

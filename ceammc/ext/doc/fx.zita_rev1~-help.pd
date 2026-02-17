@@ -32,7 +32,7 @@
 #X obj 50 478 fx.zita_rev1~ 3 4;
 #X obj 50 507 ui.hgain2~;
 #X obj 50 536 dac~;
-#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 591 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 594 ui.link @background_color 0.98039 0.98039 0.98039
@@ -52,7 +52,7 @@ mid-frequency band. Type: float. Range: 1\...60;
 #X obj 268 673 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 672 DRYWET: ratio between source signal (dry) and processed
 signal (wet). Type: float. Range: 0\...1;
-#X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 727 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 730 ui.link @background_color 0.98039 0.98039 0.98039
@@ -61,53 +61,66 @@ signal (wet). Type: float. Range: 0\...1;
 #X text 270 728 (initonly) OSC address id. If specified \, bind all
 properties to /ID/fx_zita_rev1/PROP_NAME osc address \, if empty bind
 to /fx_zita_rev1/PROP_NAME. Type: symbol.;
+#X obj 250 785 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 785 @osc;
 #X text 270 785 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 815 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 815 @active;
 #X text 270 815 On/off object dsp processing. Type: bool. Default value:
 1\.;
+#X obj 250 845 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 845 @bypass;
 #X text 270 845 Bypass flag. If true: bypass 'effected' signal. Type:
 bool. Default value: 0\.;
+#X obj 250 887 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 887 @damp_hf;
 #X text 270 887 Frequency (Hz) at which the high-frequency T60 is half
 the middle-band's T60\. Type: float. Units: 'Hz'. Default value: 6000\.
 Range: 1500\...47040\.;
+#X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 944 @decay_low;
 #X text 270 944 Time (in seconds) to decay 60dB in low-frequency band.
 Type: float. Units: 'sec'. Default value: 3\. Range: 1\...60\.;
+#X obj 250 1001 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1001 @decay_mid;
 #X text 270 1001 Time (in seconds) to decay 60dB in mid-frequency band.
 Type: float. Units: 'sec'. Default value: 2\. Range: 1\...60\.;
+#X obj 250 1058 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1058 @drywet;
 #X text 270 1058 Ratio between source signal (dry) and processed signal
 (wet). Type: float. Default value: 1\. Range: 0\...1\.;
+#X obj 250 1100 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1100 @fr_ldecay;
 #X text 270 1100 Time (in seconds) to decay 60dB in low-frequency band.
 Type: float. Units: 'sec'. Default value: 40\. Range: 0\...60\.;
+#X obj 250 1157 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1157 @fr_mdecay;
 #X text 270 1157 Time (in seconds) to decay 60dB in mid-frequency band.
 Type: float. Units: 'sec'. Default value: 40\. Range: 0\...60\.;
+#X obj 250 1214 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1214 @fr_time;
 #X text 270 1214 Length of freeze tail. Type: float. Units: 'ms'. Default
 value: 100\. Range: 0\...1000\.;
+#X obj 250 1256 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1256 @freeze;
 #X text 270 1256 Freeze reverberation tail. Type: bool. Default value:
 0\.;
+#X obj 250 1286 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1286 @freq_low;
 #X text 270 1286 Crossover frequency (Hz) separating low and middle
 frequencies. Type: float. Units: 'Hz'. Default value: 200\. Range:
 50\...1000\.;
+#X obj 250 1343 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1343 @predelay;
 #X text 270 1343 A delay operating on the 'wet' signal. Large values
 will provide the impression of a larger room. Type: float. Units: 'ms'.
 Default value: 40\. Range: 0\...100\.;
-#X obj 20 1410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1410 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1415 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1416 reset;
 #X text 270 1416 same as reset.;
-#X obj 20 1454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1454 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1459 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1460 1\.;
@@ -116,7 +129,7 @@ Default value: 40\. Range: 0\...100\.;
 #X text 130 1485 2\.;
 #X text 170 1485 ~;
 #X text 270 1485 right channel.;
-#X obj 20 1520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1520 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1525 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1526 1\.;
@@ -154,7 +167,7 @@ Default value: 40\. Range: 0\...100\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 1618 pd info;
 #X connect 4 0 7 0;

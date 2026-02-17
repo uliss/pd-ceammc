@@ -23,25 +23,29 @@ https://en.wikipedia.org/wiki/CIELAB_color_space;
 #X obj 78 276 ui.dt;
 #X obj 50 319 msg @background_color;
 #X obj 50 347 ui.t @size 40 40 @nosave 1;
-#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 402 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 405 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 403 @pack;
 #X text 270 403 Output as list (creates single outlet object).;
+#X obj 250 433 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 433 @sync;
 #X text 270 433 Output at any inlet change.;
+#X obj 250 463 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 463 @float;
 #X text 270 463 Alias to @mode float. Output float values in [0-1]
 range.;
+#X obj 250 493 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 493 @int;
 #X text 270 493 Alias to @mode int. Output integer values in [0-255]
 range.;
+#X obj 250 523 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 523 @mode;
 #X text 270 523 Output mode. Тип: symbol. Значение по умолчанию: int.
 Разрешённые значения: int \, float.;
-#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 580 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 581 1\.;
@@ -55,7 +59,7 @@ range.;
 #X text 130 656 3\.;
 #X text 170 656 float:;
 #X text 270 656 set color b*-component. Диапазон: -1…1\.;
-#X obj 20 691 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 691 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 696 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 697 1\.;
@@ -93,7 +97,7 @@ range.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 809 pd info;
 #X connect 11 0 13 0;

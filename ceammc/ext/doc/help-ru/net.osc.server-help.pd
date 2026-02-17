@@ -15,7 +15,7 @@
 #X text 50 234 send list of floats;
 #X msg 50 262 send /addr 1 2 3 4;
 #X obj 50 291 net.osc.send osc.udp://localhost:9000;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 346 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,7 +30,7 @@
 #X obj 268 388 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 387 URL: OSC server url (like udp:12345) \, see @url property.
 Тип: atom.;
-#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 442 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 445 ui.link @background_color 0.98039 0.98039 0.98039
@@ -38,28 +38,35 @@
 #X msg 130 443 @name;
 #X text 270 443 (при инициализации) OSC server name. Тип: symbol. Значение
 по умолчанию: default.;
+#X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 485 @url;
 #X text 270 485 (при инициализации) OSC server url in form: PROTO:PORT
 (udp:12345) or just PORT \, or osc.PROTO://:PORT (for ex. osc.tcp://:9001).
 Тип: atom. Значение по умолчанию: udp:9000\.;
+#X obj 250 557 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 557 @auto_start;
 #X text 270 557 Automatically start on creation. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 599 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 599 @dump;
 #X text 270 599 Dump incoming messages to Pd window. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 641 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 641 @host?;
 #X text 270 641 (только чтение) OSC server host. Тип: symbol.;
+#X obj 250 671 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 671 @path?;
 #X text 270 671 (только чтение) OSC server local socket path. Тип:
 symbol.;
+#X obj 250 701 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 701 @port?;
 #X text 270 701 (только чтение) OSC server port. Тип: int. Значение
 по умолчанию: 9000\.;
+#X obj 250 743 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 743 @proto?;
 #X text 270 743 (только чтение) OSC server proto (udp or tcp). Тип:
 symbol. Значение по умолчанию: udp.;
-#X obj 20 795 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 795 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 800 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 801 start;
@@ -67,17 +74,18 @@ symbol. Значение по умолчанию: udp.;
 #X obj 280 824 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 824 [VAL]: 1: start \, 0: stop. Тип: int. Разрешённые значения:
 0 \, 1\.;
+#X obj 250 864 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 864 stop;
 #X text 270 864 stop OSC server. Аргументы:;
 #X obj 280 887 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 887 [VAL]: 1: stop \, 0: start. Тип: int. Разрешённые значения:
 0 \, 1\.;
-#X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 942 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 943 1\.;
 #X text 270 943 ...;
-#X obj 20 978 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 978 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 983 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 984 1\.;
@@ -114,7 +122,7 @@ symbol. Значение по умолчанию: udp.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1056 pd info;
 #X connect 6 0 7 0;

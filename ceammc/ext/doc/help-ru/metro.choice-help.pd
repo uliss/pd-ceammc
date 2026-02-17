@@ -16,7 +16,7 @@
 #X obj 270 263 ui.dsp~;
 #X obj 50 292 ui.hgain~;
 #X obj 50 320 dac~;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
@@ -25,7 +25,7 @@
 #X text 170 376 list;
 #X obj 268 377 cnv 1 94 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 376 TIMESET(ms): timeset (>0). Тип: list.;
-#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 416 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 419 ui.link @background_color 0.98039 0.98039 0.98039
@@ -33,9 +33,10 @@
 #X msg 130 417 @seed;
 #X text 270 417 Generator seed. Тип: int. Значение по умолчанию: 0\.
 Минимальное значение: 0\.;
+#X obj 250 459 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 459 @timeset;
 #X text 270 459 Timeset (>0). Тип: list. Единицы: 'ms'.;
-#X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 504 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 505 1\.;
@@ -44,7 +45,7 @@
 #X text 130 530 2\.;
 #X text 170 530 list:;
 #X text 270 530 set timeset.;
-#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 570 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 571 1\.;
@@ -81,7 +82,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 643 pd info;
 #X connect 6 0 8 0;

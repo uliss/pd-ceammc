@@ -19,7 +19,7 @@ as 3.14159\.;
 #X obj 203 220 math.pi 2;
 #X floatatom 50 249 10 0 0 0 - - -;
 #X floatatom 203 249 10 0 0 0 - - -;
-#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 286 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 289 ui.link @background_color 0.98039 0.98039 0.98039
@@ -28,7 +28,7 @@ as 3.14159\.;
 #X text 170 287 float;
 #X obj 268 288 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 287 K: multiplier. default is 1\. Тип: float.;
-#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 327 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 330 ui.link @background_color 0.98039 0.98039 0.98039
@@ -36,13 +36,13 @@ as 3.14159\.;
 #X msg 130 328 @k;
 #X text 270 328 (при инициализации) Multiplier. Тип: float. Значение
 по умолчанию: 1\.;
-#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 385 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 386 1\.;
 #X text 170 386 bang:;
 #X text 270 386 outputs value.;
-#X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 426 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 427 1\.;
@@ -79,7 +79,7 @@ as 3.14159\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 527 pd info;
 #X connect 8 0 10 0;

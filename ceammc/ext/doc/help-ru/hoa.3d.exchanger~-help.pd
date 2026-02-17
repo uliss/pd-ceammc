@@ -12,7 +12,7 @@ the standard.;
 #X obj 240 138 ui.link @background_color 0.98039 0.98039 0.98039
 @title CICM documentation @url hoa/hoa.3d.exchanger~-help.pd;
 #X obj 50 215 hoa.3d.exchanger~;
-#X obj 20 265 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 265 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 270 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 273 ui.link @background_color 0.98039 0.98039 0.98039
@@ -32,7 +32,7 @@ fromFurseMalham \, fromSID \, toFurseMalham \, toSID. Тип: symbol.;
 #X obj 268 352 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 351 NORM: normalization. Разрешённые значения: SN3D \,
 fromMaxN \, fromN3D \, toMaxN \, toN3D. Тип: symbol.;
-#X obj 20 401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 401 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 406 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 409 ui.link @background_color 0.98039 0.98039 0.98039
@@ -40,23 +40,29 @@ fromMaxN \, fromN3D \, toMaxN \, toN3D. Тип: symbol.;
 #X msg 130 407 @order;
 #X text 270 407 (при инициализации) The order of decomposition. Тип:
 int. Значение по умолчанию: 1\. Диапазон: 1\...10\.;
+#X obj 250 449 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 449 @fromB;
 #X text 270 449 Alias to @num fromFurseMalham and @norm fromMaxN.;
+#X obj 250 479 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 479 @fromDaniel;
 #X text 270 479 Alias to @num fromSID and @norm fromN3D.;
+#X obj 250 509 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 509 @norm;
 #X text 270 509 Normalization. Тип: symbol. Значение по умолчанию:
 SN3D. Разрешённые значения: SN3D \, fromMaxN \, fromN3D \, toMaxN \,
 toN3D.;
+#X obj 250 566 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 566 @num;
 #X text 270 566 Numbering scheme. Тип: symbol. Значение по умолчанию:
 ACN. Разрешённые значения: ACN \, fromFurseMalham \, fromSID \, toFurseMalham
 \, toSID.;
+#X obj 250 623 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 623 @toB;
 #X text 270 623 Alias to @num toFurseMalham and @norm toMaxN.;
+#X obj 250 653 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 653 @toDaniel;
 #X text 270 653 Alias to @num toSID and @norm toN3D.;
-#X obj 20 693 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 693 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 698 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 699 1\.;
@@ -68,7 +74,7 @@ ACN. Разрешённые значения: ACN \, fromFurseMalham \, fromSID 
 #X text 130 749 n.;
 #X text 170 749 ~;
 #X text 270 749 n-th input harmonic.;
-#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 789 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 790 1\.;
@@ -112,6 +118,6 @@ Thomas Le Meur;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 902 pd info;

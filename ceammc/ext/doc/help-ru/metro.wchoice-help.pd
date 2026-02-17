@@ -15,7 +15,7 @@
 #X obj 270 205 ui.dsp~;
 #X obj 50 234 ui.hgain~;
 #X obj 50 262 dac~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
@@ -25,7 +25,7 @@
 #X obj 268 319 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 318 INIT: TIME and WEIGHT list in format: T0 W1\... Weight
 values can be floats or percent. Тип: list.;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
@@ -33,17 +33,21 @@ values can be floats or percent. Тип: list.;
 #X msg 130 374 @init;
 #X text 270 374 (при инициализации) Intermixed list of time and weights
 values. Тип: list.;
+#X obj 250 416 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 416 @seed;
 #X text 270 416 Generator seed. Тип: int. Значение по умолчанию: 0\.
 Минимальное значение: 0\.;
+#X obj 250 458 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 458 @t;
 #X text 270 458 Timeset (>0). Тип: list. Единицы: 'ms'.;
+#X obj 250 488 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 488 @w;
 #X text 270 488 Weight list \, float or percent values. Тип: list.;
+#X obj 250 518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 518 @calc_w?;
 #X text 270 518 (только чтение) Normalized list of probabilities. Тип:
 list. Значение по умолчанию: 1\.;
-#X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 575 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 576 1\.;
@@ -55,7 +59,7 @@ list. Значение по умолчанию: 1\.;
 #X text 130 626 3\.;
 #X text 170 626 list:;
 #X text 270 626 set weights.;
-#X obj 20 661 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 661 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 666 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 667 1\.;
@@ -92,7 +96,7 @@ list. Значение по умолчанию: 1\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 739 pd info;
 #X connect 4 0 7 0;

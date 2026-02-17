@@ -19,7 +19,7 @@ https://en.wikipedia.org/wiki/1176_Peak_Limiter;
 #X obj 184 304 env~;
 #X floatatom 50 333 5 0 0 0 - - -;
 #X floatatom 184 333 5 0 0 0 - - -;
-#X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 370 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 373 ui.link @background_color 0.98039 0.98039 0.98039
@@ -27,12 +27,12 @@ https://en.wikipedia.org/wiki/1176_Peak_Limiter;
 #X msg 130 371 @active;
 #X text 270 371 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 428 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 429 reset;
 #X text 270 429 reset to initial state.;
-#X obj 20 467 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 467 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 472 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 473 1\.;
@@ -41,7 +41,7 @@ https://en.wikipedia.org/wiki/1176_Peak_Limiter;
 #X text 130 498 2\.;
 #X text 170 498 ~;
 #X text 270 498 right input signal.;
-#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 538 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 539 1\.;
@@ -82,7 +82,7 @@ https://en.wikipedia.org/wiki/1176_Peak_Limiter;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 631 pd info;
 #X connect 6 0 8 0;

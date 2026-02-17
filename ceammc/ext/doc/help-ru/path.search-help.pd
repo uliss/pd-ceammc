@@ -26,7 +26,7 @@ directory.;
 #X obj 50 477 path.search;
 #X msg 155 505 not found;
 #X obj 50 534 ui.dt @size 500 35 @auto_size 0;
-#X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 589 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 592 ui.link @background_color 0.98039 0.98039 0.98039
@@ -36,7 +36,7 @@ directory.;
 #X obj 268 591 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 590 PATHS: list of paths \, can be quoted to handle whitespace.
 Тип: list.;
-#X obj 20 640 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 640 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 645 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 648 ui.link @background_color 0.98039 0.98039 0.98039
@@ -44,29 +44,36 @@ directory.;
 #X msg 130 646 @async;
 #X text 270 646 Perform async search in separate thread. Тип: bool.
 Значение по умолчанию: 1\.;
+#X obj 250 688 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 688 @depth;
 #X text 270 688 Search recursion depth (-1: infinite). Тип: int. Значение
 по умолчанию: 0\. Минимальное значение: -1\.;
+#X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 730 @home;
 #X text 270 730 Search in home directory. Тип: bool. Значение по умолчанию:
 1\.;
+#X obj 250 772 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 772 @nohome;
 #X text 270 772 Alias to @home 0 \, do not search in home directory.;
+#X obj 250 802 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 802 @nostd;
 #X text 270 802 Alias to @std 0 \, do not search in standard dirs.;
+#X obj 250 832 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 832 @paths;
 #X text 270 832 User defined search paths. Тип: list.;
+#X obj 250 862 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 862 @std;
 #X text 270 862 Search in PureData standard directory. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 904 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 904 @sync;
 #X text 270 904 Alias to @async 0\.;
-#X obj 20 944 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 944 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 949 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 950 cancel;
 #X text 270 950 cancel search process.;
-#X obj 20 988 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 988 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 993 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 994 1\.;
@@ -74,7 +81,7 @@ directory.;
 #X text 270 994 filename.;
 #X text 170 1019 data:string:;
 #X text 270 1019 filename.;
-#X obj 20 1054 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1054 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1059 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1060 1\.;
@@ -112,7 +119,7 @@ directory.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1152 pd info;
 #X connect 13 0 18 0;

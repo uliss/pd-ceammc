@@ -24,25 +24,27 @@ is thrown depends on the state of the FPU.;
 -1;
 #X obj 50 437 math.nan;
 #X floatatom 50 466 5 0 0 0 - - -;
-#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 503 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 506 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 504 @quiet;
 #X text 270 504 Alias to @type quiet.;
+#X obj 250 534 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 534 @signal;
 #X text 270 534 Alias to @type signal.;
+#X obj 250 564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 564 @type;
 #X text 270 564 Type of outputed NaN: quiet or signal. Тип: symbol.
 Значение по умолчанию: quiet. Разрешённые значения: quiet \, signal.;
-#X obj 20 631 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 631 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 636 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 637 1\.;
 #X text 170 637 bang:;
 #X text 270 637 outputs value.;
-#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 677 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 678 1\.;
@@ -79,7 +81,7 @@ is thrown depends on the state of the FPU.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 750 pd info;
 #X connect 8 0 9 0;

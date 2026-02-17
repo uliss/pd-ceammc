@@ -20,7 +20,7 @@ the sensor power supply shortage \, caused by measurement error;
 #X obj 50 387 print;
 #X obj 50 430 ui.link @title Connection_Scheme @url
 ceammc://img/conn_dht11.png;
-#X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 492 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 495 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,7 +30,7 @@ ceammc://img/conn_dht11.png;
 #X obj 268 494 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 493 PIN: GPIO пин для подключения. См. @pin. Тип: int.
 Диапазон: -1…127;
-#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 548 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 551 ui.link @background_color 0.98039 0.98039 0.98039
@@ -38,20 +38,20 @@ ceammc://img/conn_dht11.png;
 #X msg 130 549 @pin;
 #X text 270 549 (при инициализации) Пин соединения GPIO. Тип: int.
 Значение по умолчанию: -1\. Диапазон: -1\...127\.;
-#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 606 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 607 poll;
 #X text 270 607 turn the sensor polling on/off. Аргументы:;
 #X obj 280 630 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 630 STATE: poll state. Тип: bool.;
-#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 670 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 671 1\.;
 #X text 170 671 bang:;
 #X text 270 671 single distance measure.;
-#X obj 20 706 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 706 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 711 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 712 1\.;
@@ -85,7 +85,7 @@ ceammc://img/conn_dht11.png;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 784 pd info;
 #X connect 8 0 9 0;

@@ -12,7 +12,7 @@
 #X msg 194 147 symbol Chuck?;
 #X obj 50 176 string.equal Chuck;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 242 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 245 ui.link @background_color 0.98039 0.98039 0.98039
@@ -21,14 +21,14 @@
 #X text 170 243 symbol;
 #X obj 268 244 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 243 SUBJ: начальное значение второй строки. Тип: symbol.;
-#X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 283 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 286 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 284 @subj;
 #X text 270 284 Строка для сравнения. Тип: symbol.;
-#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 329 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 330 1\.;
@@ -42,7 +42,7 @@
 #X text 270 395 устанавливает строку для сравнения (свойство @subj).;
 #X text 170 420 symbol:;
 #X text 270 420 устанавливает строку для сравнения (свойство @subj).;
-#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 460 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 461 1\.;
@@ -80,7 +80,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 533 pd info;
 #X connect 5 0 6 0;

@@ -15,7 +15,7 @@
 #X obj 270 277 ui.dsp~;
 #X obj 50 305 ui.hgain~;
 #X obj 50 334 dac~;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 389 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,7 +30,7 @@
 #X obj 268 431 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 430 MAX(ms): maximum bang interval. Тип: int. Минимальное
 значение: 1\.;
-#X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 485 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 488 ui.link @background_color 0.98039 0.98039 0.98039
@@ -38,13 +38,15 @@
 #X msg 130 486 @max;
 #X text 270 486 Maximum bang interval. Тип: int. Единицы: 'ms'. Значение
 по умолчанию: 200\. Минимальное значение: 1\.;
+#X obj 250 528 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 528 @min;
 #X text 270 528 Minimal bang interval. Тип: int. Единицы: 'ms'. Значение
 по умолчанию: 100\. Минимальное значение: 1\.;
+#X obj 250 570 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 570 @seed;
 #X text 270 570 Generator seed. Тип: int. Значение по умолчанию: 0\.
 Минимальное значение: 0\.;
-#X obj 20 622 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 622 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 627 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 628 1\.;
@@ -58,7 +60,7 @@
 #X text 130 703 3\.;
 #X text 170 703 float:;
 #X text 270 703 set @max property.;
-#X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 743 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 744 1\.;
@@ -95,7 +97,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 816 pd info;
 #X connect 6 0 8 0;

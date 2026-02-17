@@ -11,7 +11,7 @@
 #X msg 251 162 symbol \$\$\$;
 #X obj 50 190 list.set -2 ABC;
 #X obj 50 219 ui.dt;
-#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 274 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 277 ui.link @background_color 0.98039 0.98039 0.98039
@@ -25,16 +25,17 @@
 #X text 170 315 atom;
 #X obj 268 316 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 315 VALUE: element value. Тип: atom.;
-#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 355 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 358 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 356 @index;
 #X text 270 356 Element index. Тип: int. Значение по умолчанию: 0\.;
+#X obj 250 386 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 386 @value;
 #X text 270 386 Element value. Тип: atom.;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 431 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 432 1\.;
@@ -48,7 +49,7 @@
 #X text 130 507 3\.;
 #X text 170 507 atom:;
 #X text 270 507 new element value.;
-#X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 547 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 548 1\.;
@@ -82,7 +83,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 620 pd info;
 #X connect 4 0 8 0;

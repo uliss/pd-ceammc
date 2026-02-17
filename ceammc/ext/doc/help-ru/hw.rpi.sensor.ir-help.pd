@@ -18,7 +18,7 @@ Pi;
 #X obj 50 277 print IR;
 #X obj 50 305 ui.link @title Connection_Scheme @url
 ceammc://img/conn_infrared.png;
-#X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 367 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 370 ui.link @background_color 0.98039 0.98039 0.98039
@@ -28,7 +28,7 @@ ceammc://img/conn_infrared.png;
 #X obj 268 369 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 368 PIN: пин соединения GPIO. См. @pin. Тип: int. Диапазон:
 -1…127;
-#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 423 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 426 ui.link @background_color 0.98039 0.98039 0.98039
@@ -36,23 +36,24 @@ ceammc://img/conn_infrared.png;
 #X msg 130 424 @pin;
 #X text 270 424 (при инициализации) Пин соединение GPIO. Тип: int.
 Значение по умолчанию: -1\. Диапазон: -1\...127\.;
+#X obj 250 466 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 466 @proto;
 #X text 270 466 Название протокола. Вы должны выключить/включить опрос
 датчика \, чтобы изменение этого свойства вступило в силу. Тип: symbol.
 Значение по умолчанию: NEC.;
-#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 538 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 539 poll;
 #X text 270 539 start/stop IR sensor polling. Аргументы:;
 #X obj 280 562 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 562 VALUE: state. Тип: bool.;
-#X obj 20 597 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 597 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 602 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 603 1\.;
 #X text 270 603 control input.;
-#X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 643 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 644 1\.;
@@ -86,7 +87,7 @@ ceammc://img/conn_infrared.png;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 716 pd info;
 #X connect 4 0 6 0;

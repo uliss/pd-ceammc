@@ -16,7 +16,7 @@
 #X msg 107 147 @clip \$1;
 #X obj 50 176 lin->lin 0 127 -1 1;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 242 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 245 ui.link @background_color 0.98039 0.98039 0.98039
@@ -37,7 +37,7 @@
 #X text 170 318 float;
 #X obj 268 319 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 318 OUT_TO: конец выходного диапазона. Тип: float.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 358 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 361 ui.link @background_color 0.98039 0.98039 0.98039
@@ -46,27 +46,35 @@
 #X text 270 359 Noclip (don't clip) max (clip ceiling) min (clip floor)
 minmax (clip both). Тип: symbol. Значение по умолчанию: minmax. Разрешённые
 значения: noclip \, min \, max \, minmax.;
+#X obj 250 431 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 431 @in_from;
 #X text 270 431 Begin of input range. Тип: float. Значение по умолчанию:
 0\.;
+#X obj 250 461 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 461 @in_to;
 #X text 270 461 End of input range. Тип: float. Значение по умолчанию:
 127\.;
+#X obj 250 491 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 491 @max;
 #X text 270 491 Alias to @clip max.;
+#X obj 250 521 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 521 @min;
 #X text 270 521 Alias to @clip min.;
+#X obj 250 551 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 551 @minmax;
 #X text 270 551 Alias to @clip minmax.;
+#X obj 250 581 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 581 @noclip;
 #X text 270 581 Alias to @clip noclip.;
+#X obj 250 611 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 611 @out_from;
 #X text 270 611 Begin of output range. Тип: float. Значение по умолчанию:
 0\.;
+#X obj 250 641 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 641 @out_to;
 #X text 270 641 End of output range. Тип: float. Значение по умолчанию:
 1\.;
-#X obj 20 681 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 681 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 686 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 687 1\.;
@@ -74,7 +82,7 @@ minmax (clip both). Тип: symbol. Значение по умолчанию: mi
 #X text 270 687 input float.;
 #X text 170 712 list:;
 #X text 270 712 input list.;
-#X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 752 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 753 1\.;
@@ -110,7 +118,7 @@ minmax (clip both). Тип: symbol. Значение по умолчанию: mi
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 825 pd info;
 #X connect 6 0 7 0;

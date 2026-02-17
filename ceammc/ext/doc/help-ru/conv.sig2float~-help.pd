@@ -18,12 +18,12 @@
 #X obj 50 190 sig->float~ 500;
 #X floatatom 50 219 5 0 0 0 - - -;
 #X obj 184 219 ui.dsp~;
-#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 274 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 309 Left-click;
 #X text 310 309 sample immediately.;
-#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 344 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 347 ui.link @background_color 0.98039 0.98039 0.98039
@@ -33,7 +33,7 @@
 #X obj 268 346 cnv 1 100 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 345 INTERVAL(ms): интервал выборки. Тип: float. Минимальное
 значение: -1\.;
-#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 400 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 403 ui.link @background_color 0.98039 0.98039 0.98039
@@ -41,10 +41,11 @@
 #X msg 130 401 @interval;
 #X text 270 401 Sampling interval. Тип: float. Единицы: 'ms'. Значение
 по умолчанию: 50\. Минимальное значение: -1\.;
+#X obj 250 443 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 443 @offset;
 #X text 270 443 Sample offset inside DSP block. Тип: int. Единицы:
 'samp'. Значение по умолчанию: 0\. Диапазон: 0\...8192\.;
-#X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 500 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 501 1\.;
@@ -55,7 +56,7 @@
 #X text 130 551 2\.;
 #X text 170 551 float:;
 #X text 270 551 set sample interval.;
-#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 591 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 592 1\.;
@@ -91,7 +92,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 664 pd info;
 #X connect 7 0 9 0;

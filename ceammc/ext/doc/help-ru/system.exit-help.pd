@@ -8,7 +8,7 @@
 #X msg 50 118 exit 0;
 #X text 136 118 WARNING: this will close PureData in 1000ms!;
 #X obj 50 162 system.exit @delay 1000;
-#X obj 20 212 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 212 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 217 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 220 ui.link @background_color 0.98039 0.98039 0.98039
@@ -18,7 +18,7 @@
 #X obj 268 219 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 218 DELAY(ms): exit delay time. Тип: float. Минимальное
 значение: 0\.;
-#X obj 20 268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 268 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 273 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 276 ui.link @background_color 0.98039 0.98039 0.98039
@@ -26,12 +26,14 @@
 #X msg 130 274 @auto;
 #X text 270 274 Close automatically \, without incoming call. Тип:
 bool. Значение по умолчанию: 0\.;
+#X obj 250 316 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 316 @delay;
 #X text 270 316 Exit PureData after specified delay time. Тип: float.
 Единицы: 'ms'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 373 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 373 @rc;
 #X text 270 373 Exit code. Тип: int. Значение по умолчанию: 0\.;
-#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 418 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 419 exit;
@@ -39,12 +41,12 @@ bool. Значение по умолчанию: 0\.;
 #X obj 280 442 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 442 [RC]: exit code \, if not specified @rc property used.
 Тип: int.;
-#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 497 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 498 1\.;
 #X text 270 498 control input.;
-#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 538 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -76,7 +78,7 @@ bool. Значение по умолчанию: 0\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 601 pd info;
 #X connect 4 0 6 0;

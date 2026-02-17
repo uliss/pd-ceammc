@@ -18,7 +18,7 @@
 #X obj 50 262 ui.gain~ @size 120 16;
 #X obj 290 262 ui.dsp~;
 #X obj 50 291 dac~;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 346 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
@@ -32,7 +32,7 @@
 #X text 170 372 float;
 #X obj 268 373 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 372 DEPTH: effect depth. Тип: float. Диапазон: 0…1;
-#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 412 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 415 ui.link @background_color 0.98039 0.98039 0.98039
@@ -42,33 +42,40 @@
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/fx_tremolo/ИМЯ_СВОЙСТВА \, в противном случае к /fx_tremolo/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
+#X obj 250 500 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 500 @osc;
 #X text 270 500 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 530 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 530 @active;
 #X text 270 530 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 572 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 572 @bypass;
 #X text 270 572 Bypass flag. If true: bypass 'effected' signal. Тип:
 bool. Значение по умолчанию: 0\.;
+#X obj 250 614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 614 @depth;
 #X text 270 614 Effect depth. Тип: float. Значение по умолчанию: 1\.
 Диапазон: 0\...1\.;
+#X obj 250 656 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 656 @drywet;
 #X text 270 656 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
 0.75\. Диапазон: 0\...1\.;
+#X obj 250 713 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 713 @freq;
 #X text 270 713 Tremolo frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 5\. Диапазон: 0.1\...50\.;
+#X obj 250 755 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 755 @src;
 #X text 270 755 Modulation source: 0 (triangle) \, 1 (sin) or 2 (square).
 Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...2\.;
-#X obj 20 822 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 822 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 827 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 828 reset;
 #X text 270 828 reset to initial state.;
-#X obj 20 866 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 866 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 871 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 872 1\.;
@@ -77,7 +84,7 @@ bool. Значение по умолчанию: 0\.;
 #X text 130 897 2\.;
 #X text 170 897 float:;
 #X text 270 897 set frequency (Hz).;
-#X obj 20 932 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 932 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 937 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 938 1\.;
@@ -112,7 +119,7 @@ bool. Значение по умолчанию: 0\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1010 pd info;
 #X connect 4 0 5 0;

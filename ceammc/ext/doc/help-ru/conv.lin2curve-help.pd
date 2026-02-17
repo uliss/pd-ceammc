@@ -27,7 +27,7 @@ the output range may include zero. If the input exceeds the input range
 #X obj 50 352 t f f, f 12;
 #X obj 50 380 lin->curve 0 256 0 1;
 #X obj 50 409 tabwrite l2c;
-#X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 464 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 467 ui.link @background_color 0.98039 0.98039 0.98039
@@ -52,7 +52,7 @@ the output range may include zero. If the input exceeds the input range
 #X text 170 565 float;
 #X obj 268 566 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 565 CURVE: форма кривой. Тип: float.;
-#X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 605 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 608 ui.link @background_color 0.98039 0.98039 0.98039
@@ -61,30 +61,39 @@ the output range may include zero. If the input exceeds the input range
 #X text 270 606 Noclip (don't clip) max (clip ceiling) min (clip floor)
 minmax (clip both). Тип: symbol. Значение по умолчанию: minmax. Разрешённые
 значения: noclip \, min \, max \, minmax.;
+#X obj 250 678 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 678 @curve;
 #X text 270 678 0 (linear) <0 (concave \, negatively curved) >0 (convex
 \, positively curved). Тип: float. Значение по умолчанию: -4\.;
+#X obj 250 735 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 735 @in_from;
 #X text 270 735 Begin of input range. Тип: float. Значение по умолчанию:
 0\.;
+#X obj 250 765 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 765 @in_to;
 #X text 270 765 End of input range. Тип: float. Значение по умолчанию:
 127\.;
+#X obj 250 795 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 795 @max;
 #X text 270 795 Alias to @clip max.;
+#X obj 250 825 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 825 @min;
 #X text 270 825 Alias to @clip min.;
+#X obj 250 855 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 855 @minmax;
 #X text 270 855 Alias to @clip minmax.;
+#X obj 250 885 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 885 @noclip;
 #X text 270 885 Alias to @clip noclip.;
+#X obj 250 915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 915 @out_from;
 #X text 270 915 Begin of output range. Тип: float. Значение по умолчанию:
 0\.;
+#X obj 250 945 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 945 @out_to;
 #X text 270 945 End of output range. Тип: float. Значение по умолчанию:
 1\.;
-#X obj 20 985 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 985 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 990 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 991 1\.;
@@ -92,7 +101,7 @@ minmax (clip both). Тип: symbol. Значение по умолчанию: mi
 #X text 270 991 input value.;
 #X text 170 1016 list:;
 #X text 270 1016 input list.;
-#X obj 20 1051 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1051 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1056 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1057 1\.;
@@ -128,7 +137,7 @@ minmax (clip both). Тип: symbol. Значение по умолчанию: mi
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1129 pd info;
 #X connect 8 0 11 0;

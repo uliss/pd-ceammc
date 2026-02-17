@@ -17,7 +17,7 @@
 #X obj 50 273 hw.printer;
 #X text 165 273 using default printer;
 #X obj 50 302 print;
-#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 357 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
@@ -27,7 +27,7 @@
 #X obj 268 359 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 358 NAME: имя принтера. Если не указано - использует системный
 принтер по умолчанию. Тип: symbol.;
-#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 413 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 416 ui.link @background_color 0.98039 0.98039 0.98039
@@ -35,7 +35,7 @@
 #X msg 130 414 @name;
 #X text 270 414 Printer name \, if empty - use default system printer.
 Тип: symbol.;
-#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 471 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 472 choose;
@@ -43,20 +43,22 @@
 #X obj 280 495 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 495 [IDX]: printer index in device list. Тип: int. Минимальное
 значение: 0\.;
+#X obj 250 535 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 535 devices;
 #X text 270 535 list printers.;
+#X obj 250 563 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 563 print;
 #X text 270 563 print file. Аргументы:;
 #X obj 280 586 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 586 FILE: file to print. Тип: symbol.;
 #X obj 280 609 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 609 [@landscape]: print in landscape mode. Тип: bool.;
-#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 649 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 650 1\.;
 #X text 270 650 input.;
-#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 690 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 691 1\.;
@@ -90,7 +92,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 763 pd info;
 #X connect 8 0 10 0;

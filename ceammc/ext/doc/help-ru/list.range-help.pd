@@ -17,21 +17,24 @@
 #X msg 50 334 -3 0 10 2 -5 11 a b c;
 #X obj 50 363 list.range @a;
 #X obj 50 392 ui.dt;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 447 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 448 @a;
 #X text 270 448 Alias to @type any \, accept all.;
+#X obj 250 478 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 478 @f;
 #X text 270 478 Alias to @type float \, accept only floats.;
+#X obj 250 508 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 508 @s;
 #X text 270 508 Alias to @type symbol \, accept only symbols.;
+#X obj 250 538 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 538 @type;
 #X text 270 538 Type of accepted atoms. Тип: symbol. Значение по умолчанию:
 float. Разрешённые значения: float \, symbol \, any.;
-#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 595 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 596 1\.;
@@ -39,7 +42,7 @@ float. Разрешённые значения: float \, symbol \, any.;
 #X text 270 596 input list.;
 #X text 170 621 data:mlist:;
 #X text 270 621 input mlist.;
-#X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 661 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 662 1\.;
@@ -77,7 +80,7 @@ second - largest.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 749 pd info;
 #X connect 7 0 8 0;

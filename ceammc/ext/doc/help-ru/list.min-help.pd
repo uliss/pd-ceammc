@@ -23,7 +23,7 @@ to using @float property.;
 #X symbolatom 251 317 8 0 0 0 - - -;
 #X obj 50 360 list.min @any;
 #X obj 50 389 ui.dt;
-#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 444 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 447 ui.link @background_color 0.98039 0.98039 0.98039
@@ -31,14 +31,17 @@ to using @float property.;
 #X msg 130 445 @any;
 #X text 270 445 Alias for @type any. Find greatest atom of any type.
 Note: symbols are greater then numbers.;
+#X obj 250 487 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 487 @float;
 #X text 270 487 Alias for @type float. Find max float element in list.;
+#X obj 250 517 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 517 @symbol;
 #X text 270 517 Alias for @type symbol. Find greatest symbol element.;
+#X obj 250 547 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 547 @type;
 #X text 270 547 Type of largest element. Тип: symbol. Значение по умолчанию:
 float. Разрешённые значения: float \, symbol \, any.;
-#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 604 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 605 1\.;
@@ -50,7 +53,7 @@ float. Разрешённые значения: float \, symbol \, any.;
 #X text 270 655 passed thru in @float or @any mode.;
 #X text 170 680 symbol:;
 #X text 270 680 passed thru in @symbol or @any mode.;
-#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 720 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 721 1\.;
@@ -87,7 +90,7 @@ float. Разрешённые значения: float \, symbol \, any.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 793 pd info;
 #X connect 7 0 11 0;

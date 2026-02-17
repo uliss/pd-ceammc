@@ -42,7 +42,7 @@ periodic basins of attraction.;
 #X msg 184 782 b \$1;
 #X obj 50 811 noise.lyapunov;
 #X obj 50 840 ui.display;
-#X obj 20 890 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 890 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 895 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 898 ui.link @background_color 0.98039 0.98039 0.98039
@@ -63,7 +63,7 @@ periodic basins of attraction.;
 #X text 170 971 float;
 #X obj 268 972 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 971 Y: y value (optional). Тип: float.;
-#X obj 20 1006 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1006 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1011 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1012 a;
@@ -80,6 +80,7 @@ periodic basins of attraction.;
 #X text 280 1127 [A4]: a[4] value. Тип: float.;
 #X obj 280 1150 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1150 [A5]: a[5] value. Тип: float.;
+#X obj 250 1175 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1175 b;
 #X text 270 1175 Аргументы:;
 #X obj 280 1198 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -94,32 +95,37 @@ periodic basins of attraction.;
 #X text 280 1290 [B4]: b[4] value. Тип: float.;
 #X obj 280 1313 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1313 [B5]: b[5] value. Тип: float.;
+#X obj 250 1338 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1338 om;
 #X text 270 1338 Аргументы:;
 #X obj 280 1361 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1361 OM: enables output when cut or fold value is changed.
 Тип: int.;
+#X obj 250 1401 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1401 reset;
 #X text 270 1401 reset state.;
+#X obj 250 1429 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1429 set;
 #X text 270 1429 Аргументы:;
 #X obj 280 1452 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1452 SET: set to value. Тип: float.;
+#X obj 250 1477 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1477 x;
 #X text 270 1477 Аргументы:;
 #X obj 280 1500 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1500 NX: x value. Тип: float.;
+#X obj 250 1525 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1525 y;
 #X text 270 1525 Аргументы:;
 #X obj 280 1548 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1548 NY: y value. Тип: float.;
-#X obj 20 1583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1583 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1588 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1589 1\.;
 #X text 170 1589 bang:;
 #X text 270 1589 output value.;
-#X obj 20 1624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1624 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1629 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1630 1\.;
@@ -155,7 +161,7 @@ periodic basins of attraction.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1722 pd info;
 #X connect 18 0 19 0;

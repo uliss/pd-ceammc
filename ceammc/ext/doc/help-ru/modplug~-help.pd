@@ -22,7 +22,7 @@
 #X obj 50 291 dac~;
 #X obj 126 291 ui.dsp~;
 #X floatatom 328 291 5 0 0 0 - - -;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 346 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,35 +30,42 @@
 #X msg 130 347 @done;
 #X text 270 347 Function called with bang when playing is finished.
 Тип: symbol.;
+#X obj 250 389 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 389 @play;
 #X text 270 389 Play state. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 419 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 419 @pos;
 #X text 270 419 Position in mod file. Тип: float. Единицы: 'ms'. Значение
 по умолчанию: -1\.;
+#X obj 250 461 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 461 @rpos;
 #X text 270 461 Relative position in mod file. Тип: float. Значение
 по умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 503 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 503 @len?;
 #X text 270 503 (только чтение) Length of mod file. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 0\.;
+#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 545 @name?;
 #X text 270 545 (только чтение) Mod name. Тип: symbol.;
-#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 590 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 591 pause;
 #X text 270 591 pause playing.;
+#X obj 250 619 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 619 play;
 #X text 270 619 play mod file.;
+#X obj 250 647 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 647 stop;
 #X text 270 647 stop playing and move play position to the end of file.;
-#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 690 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 691 1\.;
 #X text 170 691 symbol:;
 #X text 270 691 load mod file.;
-#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 731 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 732 1\.;
@@ -96,7 +103,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 824 pd info;
 #X connect 6 0 10 0;

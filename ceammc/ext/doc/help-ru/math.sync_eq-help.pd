@@ -23,7 +23,7 @@
 #X msg 270 234 100 99.99;
 #X obj 50 277 ==' @epsilon 0.1;
 #X obj 50 305 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 342 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
@@ -32,7 +32,7 @@
 #X text 170 343 float;
 #X obj 268 344 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 343 F: second number. Тип: float.;
-#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 383 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 386 ui.link @background_color 0.98039 0.98039 0.98039
@@ -41,7 +41,7 @@
 #X text 270 384 Compare epsilon. If not zero calculates expession:
 -epsilon < abs(A-B) < +epsilon. Тип: float. Значение по умолчанию:
 0\. Минимальное значение: 0\.;
-#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 456 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 457 1\.;
@@ -53,7 +53,7 @@ output result.;
 #X text 130 522 2\.;
 #X text 170 522 float:;
 #X text 270 522 change second number \, calculate and output result.;
-#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 562 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 563 1\.;
@@ -89,7 +89,7 @@ output result.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 635 pd info;
 #X connect 11 0 12 0;

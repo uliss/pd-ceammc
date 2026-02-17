@@ -24,7 +24,7 @@ all messages (including property requests) are passed thru;
 #X obj 50 508 ui.hgain2~;
 #X obj 270 508 ui.dsp~;
 #X obj 50 537 dac~;
-#X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 592 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 595 ui.link @background_color 0.98039 0.98039 0.98039
@@ -41,7 +41,7 @@ all messages (including property requests) are passed thru;
 #X text 170 643 int;
 #X obj 268 644 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 643 STEP: cycle step. Тип: int.;
-#X obj 20 678 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 678 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 683 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 686 ui.link @background_color 0.98039 0.98039 0.98039
@@ -49,15 +49,18 @@ all messages (including property requests) are passed thru;
 #X msg 130 684 @n;
 #X text 270 684 (при инициализации) Number of outlets. Тип: int. Значение
 по умолчанию: 2\. Диапазон: 1\...64\.;
+#X obj 250 726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 726 @index;
 #X text 270 726 Current outlet index. Тип: int. Значение по умолчанию:
 0\.;
+#X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 756 @offset;
 #X text 270 756 Init cycle offset. Тип: int. Значение по умолчанию:
 0\. Диапазон: -64\...64\.;
+#X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 798 @step;
 #X text 270 798 Cycle step. Тип: int. Значение по умолчанию: 1\.;
-#X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 843 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 844 1\.;
@@ -74,7 +77,7 @@ all messages (including property requests) are passed thru;
 #X text 130 969 2\.;
 #X text 170 969 bang:;
 #X text 270 969 reset to initial outlet index.;
-#X obj 20 1004 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1004 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1009 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1010 1\.;
@@ -115,7 +118,7 @@ all messages (including property requests) are passed thru;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1122 pd info;
 #X connect 6 0 7 0;

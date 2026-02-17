@@ -38,7 +38,7 @@ or [prop.set] object;
 #X obj 50 661 unpack f f;
 #X obj 126 689 flow.del 0;
 #X obj 50 718 print Z;
-#X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 773 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 776 ui.link @background_color 0.98039 0.98039 0.98039
@@ -48,7 +48,7 @@ or [prop.set] object;
 #X obj 268 775 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 774 DELAY(ms): init @delay property. Тип: float. Минимальное
 значение: 0\.;
-#X obj 20 824 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 824 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 829 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 832 ui.link @background_color 0.98039 0.98039 0.98039
@@ -58,10 +58,11 @@ or [prop.set] object;
 until scheduled message will output \, after that is ready to accept
 the new one. Otherwise acts like vanilla [del] object. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 902 @delay;
 #X text 270 902 Время задержки. Тип: float. Единицы: 'ms'. Значение
 по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 954 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 954 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 959 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 960 1\.;
@@ -74,7 +75,7 @@ the new one. Otherwise acts like vanilla [del] object. Тип: bool. Значе�
 #X text 270 1010 установить время задержки. Минимальное значение: 0\.;
 #X msg 170 1035 reset;
 #X text 270 1035 отменяет текущую задержку если она запланирована.;
-#X obj 20 1073 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1073 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1078 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1079 1\.;
@@ -110,7 +111,7 @@ the new one. Otherwise acts like vanilla [del] object. Тип: bool. Значе�
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1151 pd info;
 #X connect 9 0 11 0;

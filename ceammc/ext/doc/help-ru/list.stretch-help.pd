@@ -11,7 +11,7 @@
 #X obj 50 262 list.stretch 32;
 #X obj 50 291 ui.sliders @count 32;
 #X obj 50 406 print;
-#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 461 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
@@ -22,7 +22,7 @@
 #X text 270 462 SIZE: New size of output list. Input list will be stretched
 to the new size with linear interpolation. Тип: int. Минимальное значение:
 0\.;
-#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 532 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 535 ui.link @background_color 0.98039 0.98039 0.98039
@@ -30,7 +30,7 @@ to the new size with linear interpolation. Тип: int. Минимальное �
 #X msg 130 533 @size;
 #X text 270 533 New size. Тип: int. Значение по умолчанию: 1\. Минимальное
 значение: 0\.;
-#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 590 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 591 1\.;
@@ -40,7 +40,7 @@ to the new size with linear interpolation. Тип: int. Минимальное �
 #X text 270 616 input mlist.;
 #X text 130 641 2\.;
 #X text 270 641 new length of output list.;
-#X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 681 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 682 1\.;
@@ -76,7 +76,7 @@ to the new size with linear interpolation. Тип: int. Минимальное �
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 754 pd info;
 #X connect 4 0 6 0;

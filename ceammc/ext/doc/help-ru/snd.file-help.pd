@@ -37,7 +37,7 @@ into arrays. Various formats are supported. Supports array name patterns.;
 #X obj 242 594 snd.file-gain;
 #X obj 50 623 snd.file-pattern;
 #X obj 242 623 snd.file-pos;
-#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 678 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 681 ui.link @background_color 0.98039 0.98039 0.98039
@@ -45,25 +45,31 @@ into arrays. Various formats are supported. Supports array name patterns.;
 #X msg 130 679 @verbose;
 #X text 270 679 (при инициализации) Verbose output to Pd window. Тип:
 bool. Значение по умолчанию: 0\.;
+#X obj 250 721 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 721 @smpte_fr;
 #X text 270 721 SMPTE framerate for SMPTE offset calculations. Тип:
 float. Значение по умолчанию: 30\. Диапазон: 1\...99\.;
+#X obj 250 763 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 763 @channels?;
 #X text 270 763 (только чтение) List of loaded channels into each array.
 Тип: list.;
+#X obj 250 805 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 805 @filename?;
 #X text 270 805 (только чтение) Filename. Тип: list.;
+#X obj 250 835 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 835 @formats?;
 #X text 270 835 (только чтение) List of supported formats. Тип: list.
 Значение по умолчанию: AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1
 MACE6:1 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64
 WAV WAVEX WVE XI.;
+#X obj 250 907 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 907 @samples?;
 #X text 270 907 (только чтение) List of number of loaded samples into
 each array. Тип: list.;
+#X obj 250 949 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 949 @sr?;
 #X text 270 949 (только чтение) Source file samplerate. Тип: list.;
-#X obj 20 989 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 989 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 994 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 995 load;
@@ -109,6 +115,7 @@ of file. Deprecated \, use @begin instead. Тип: property.;
 #X text 280 1473 [@resample R?]: if R is not specified - resample from
 file samplerate to current Pd samplerate. But you can manually specify
 R as float value or integer fraction - 44100/48000\. Тип: property.;
+#X obj 250 1543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1543 save;
 #X text 270 1543 Save arrays to specified file. Аргументы:;
 #X obj 280 1566 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -156,12 +163,12 @@ are: 0(use default) \, 8 \, 16 \, 24 \, 32 \, f. Тип: property.;
 #X text 280 2069 [@raw]: RAW output format. Тип: property.;
 #X obj 280 2092 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2092 [@flac]: FLAC output format. Тип: property.;
-#X obj 20 2127 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2127 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2132 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 2133 1\.;
 #X text 270 2133 input inlet.;
-#X obj 20 2168 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2168 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2173 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2174 1\.;
@@ -195,7 +202,7 @@ are: 0(use default) \, 8 \, 16 \, 24 \, 32 \, f. Тип: property.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 2246 pd info;
 #X connect 6 0 7 0;

@@ -24,7 +24,7 @@ Root mean square @url https://en.wikipedia.org/wiki/Root_mean_square;
 #X msg 462 276 pulse 50;
 #X msg 568 276 tri 60;
 #X obj 50 333 array.fill arms;
-#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 388 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 391 ui.link @background_color 0.98039 0.98039 0.98039
@@ -33,20 +33,20 @@ Root mean square @url https://en.wikipedia.org/wiki/Root_mean_square;
 #X text 170 389 symbol;
 #X obj 268 390 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 389 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 429 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 432 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 430 @array;
 #X text 270 430 Имя массива. Тип: symbol.;
-#X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 475 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 476 1\.;
 #X text 170 476 bang:;
 #X text 270 476 вычисляет и выводит значение RMS.;
-#X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 516 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 517 1\.;
@@ -84,7 +84,7 @@ Root mean square @url https://en.wikipedia.org/wiki/Root_mean_square;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 589 pd info;
 #X connect 7 0 9 0;

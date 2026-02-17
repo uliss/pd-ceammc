@@ -35,7 +35,7 @@ output all available network service names with format [service SERVICE(;
 #X floatatom 98 686 5 0 0 0 - - -;
 #X symbolatom 194 686 16 0 0 0 - - -;
 #X obj 50 729 net.mdns-ifaces;
-#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 784 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 787 ui.link @background_color 0.98039 0.98039 0.98039
@@ -44,14 +44,16 @@ output all available network service names with format [service SERVICE(;
 #X text 270 785 If true: output full instance name (with service and
 domain suffix) \, for ex.: 'THE_SERVICE._xx.local.' format. Тип: bool.
 Значение по умолчанию: 1\.;
+#X obj 250 842 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 842 @ip;
 #X text 270 842 Restrict addresses by type. Тип: symbol. Значение по
 умолчанию: v4\. Разрешённые значения: v4 \, v6 \, any.;
-#X obj 20 894 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 894 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 899 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 900 ifaces;
 #X text 270 900 output available network interfaces and their info.;
+#X obj 250 928 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 928 register;
 #X text 270 928 register MDNS service instance. Instance will be available
 with DNS name NAME.local. Аргументы:;
@@ -68,6 +70,7 @@ or alias: #osc. Тип: symbol.;
 #X text 280 1065 [PROPS]: list of text props (TXT record) \, for example:
 @prop1 FOO @prop2 BOO will have TXT records prop1=FOO prop2=BAR. Тип:
 list.;
+#X obj 250 1120 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1120 resolve;
 #X text 270 1120 does mDNS name resolving: get service information:
 host \, ip \, port etc by SERVICE type and INSTANCE name. Аргументы:;
@@ -77,6 +80,7 @@ or alias: #osc or #http. Тип: symbol.;
 #X obj 280 1211 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1211 NAME: instance name \, for example: MY_SUPER_SERVER.
 Тип: symbol.;
+#X obj 250 1251 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1251 subscribe;
 #X text 270 1251 subscribe to service events: add \, remove and resolve.
 Аргументы:;
@@ -86,6 +90,7 @@ or alias: #osc or #all. Тип: symbol.;
 #X obj 280 1327 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1327 [ON=true]: if true: subscribe \, false: unsubscribe.
 Тип: bool.;
+#X obj 250 1352 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1352 unregister;
 #X text 270 1352 manually unregister service instance. Аргументы:;
 #X obj 280 1375 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -94,17 +99,18 @@ or alias: #osc. Тип: symbol.;
 #X obj 280 1413 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1413 NAME: instance name \, for example: MY_SUPER_SERVER.
 Тип: symbol.;
+#X obj 250 1453 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1453 unsubscribe;
 #X text 270 1453 unsubscribe from specified service events. Аргументы:;
 #X obj 280 1476 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1476 SERVICE: service name \, for example: _osc._tcp \,
 or alias: #osc or #all. Тип: symbol.;
-#X obj 20 1526 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1526 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1531 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1532 1\.;
 #X text 270 1532 input.;
-#X obj 20 1567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1567 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1572 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1573 1\.;
@@ -140,7 +146,7 @@ add|remove SERVICE \, resolve SERVICE NAME HOST PORT IP PROPERTIES.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1675 pd info;
 #X connect 19 0 21 0;

@@ -17,7 +17,7 @@
 #X obj 50 291 ui.gain~ @size 120 14;
 #X obj 280 291 ui.dsp~;
 #X obj 50 320 dac~;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
@@ -27,7 +27,7 @@
 #X obj 268 377 cnv 1 155 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 376 TRANSPOSE(semitone): transposition in semitones. Type:
 float. Range: -24\...24;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 431 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 434 ui.link @background_color 0.98039 0.98039 0.98039
@@ -40,6 +40,7 @@ use an onset detector with less of a bias toward percussive transients.
 This may give better results with certain material (e.g. relatively
 monophonic piano music). Type: symbol. Default value: compound. Allowed
 values: compound \, percussive \, soft.;
+#X obj 250 565 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 565 @formant;
 #X text 270 565 Control the handling of formant shape (spectral envelope)
 when pitch-shifting. If 'true' preserve the spectral envelope of the
@@ -48,6 +49,7 @@ so substantially affecting the perceived pitch profile of the voice
 or instrument. 'False' apply no special formant processing. The spectral
 envelope will be pitch shifted as normal. Type: bool. Default value:
 0\.;
+#X obj 250 698 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 698 @phase;
 #X text 270 698 Control the adjustment of component frequency phases
 from one analysis window to the next during non-transient segments.
@@ -57,6 +59,7 @@ neighbours. This usually results in a slightly softer \, phasier sound.
 the continuity of phase relationships between adjacent frequency bins
 whose phases are behaving in similar ways. Type: bool. Default value:
 1\.;
+#X obj 250 846 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 846 @quality;
 #X text 270 846 Method used for pitch shifting. 'speed' may sound less
 clear than 'quality' \, especially for large pitch shifts. 'quality'
@@ -67,15 +70,18 @@ two options \, this avoids discontinuities when moving across the 1.0
 pitch scale in real-time. It also consumes more CPU than the others
 in the case where the pitch scale is exactly 1.0\. Type: symbol. Default
 value: speed. Allowed values: speed \, quality \, consistency.;
+#X obj 250 1039 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1039 @scale;
 #X text 270 1039 Transposition as ratio. Type: float. Default value:
 1\. Range: 0.25\...4\.;
+#X obj 250 1081 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1081 @smooth;
 #X text 270 1081 Control the use of window-presum FFT and time-domain
 smoothing. If true result in a softer sound with some audible artifacts
 around sharp transients \, but it may be appropriate for longer stretches
 of some instruments and can mix well with @window short. Type: bool.
 Default value: 0\.;
+#X obj 250 1184 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1184 @trans;
 #X text 270 1184 Control the component frequency phase-reset mechanism
 that may be used at transient points to provide clarity and realism
@@ -94,9 +100,11 @@ phases at any point. The results will be smoother and more regular
 but may be less clear than with either of the other @trans settings.
 Type: symbol. Default value: crisp. Allowed values: crisp \, mixed
 \, smooth.;
+#X obj 250 1498 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1498 @transpose;
 #X text 270 1498 Transposition in semitones. Type: float. Units: 'semitone'.
 Default value: 0\. Range: -24\...24\.;
+#X obj 250 1540 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1540 @window;
 #X text 270 1540 The window size. 'standard' is expected to produce
 better results than the other window options in most situations. 'short'
@@ -104,10 +112,11 @@ may result in crisper sound for audio that depends strongly on its
 timing qualities. 'long' is likely to result in a smoother sound at
 the expense of clarity and timing. Type: symbol. Default value: standard.
 Allowed values: standard \, short \, long.;
+#X obj 250 1658 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1658 @latency?;
 #X text 270 1658 (readonly) Object latency. Type: float. Units: 'samp'.
 Default value: 1024\.;
-#X obj 20 1710 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1710 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1715 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1716 1\.;
@@ -115,7 +124,7 @@ Default value: 1024\.;
 #X text 270 1716 input signal.;
 #X text 130 1741 2\.;
 #X text 270 1741 pitch shift in semitones.;
-#X obj 20 1776 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1776 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1781 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1782 1\.;
@@ -150,7 +159,7 @@ Default value: 1024\.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 1854 pd info;
 #X connect 4 0 5 0;

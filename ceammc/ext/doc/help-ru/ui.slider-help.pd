@@ -26,7 +26,7 @@
 #X msg 482 263 random;
 #X obj 50 292 ui.slider @max 127;
 #X floatatom 50 421 5 0 0 0 - - -;
-#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 458 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 493 Mouse-drag;
@@ -59,7 +59,7 @@
 #X text 130 713 Right-click + ⌥;
 #X text 310 713 open properties dialog.;
 #X text 65 713 [Правка];
-#X obj 20 743 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 743 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 748 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 751 ui.link @background_color 0.98039 0.98039 0.98039
@@ -72,7 +72,7 @@
 #X text 170 774 float;
 #X obj 268 775 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 774 MAX: max value. Тип: float.;
-#X obj 20 809 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 809 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 814 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 817 ui.link @background_color 0.98039 0.98039 0.98039
@@ -80,160 +80,203 @@
 #X msg 130 815 @active_scale;
 #X text 270 815 If should draw active scale. Тип: bool. Значение по
 умолчанию: 0\.;
+#X obj 250 857 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 857 @max;
 #X text 270 857 Maximum slider value. Тип: float. Значение по умолчанию:
 1\.;
+#X obj 250 887 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 887 @min;
 #X text 270 887 Minimum slider value. Тип: float. Значение по умолчанию:
 0\.;
+#X obj 250 917 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 917 @mode;
 #X text 270 917 Relative mode. Do not jump on click to value. Тип:
 bool. Значение по умолчанию: 0\.;
+#X obj 250 959 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 959 @mouse_events;
 #X text 270 959 Mouse events output mode. If on outputs @mouse_down
 \, @mouse_up and @mouse_drag events. Тип: bool. Значение по умолчанию:
 0\.;
+#X obj 250 1016 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1016 @receive;
 #X text 270 1016 Источник получения сообщений. Тип: symbol. Значение
 по умолчанию: (null).;
+#X obj 250 1058 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1058 @scale;
 #X text 270 1058 Scale mode. Linear or logarithmic. Тип: symbol. Значение
 по умолчанию: linear. Разрешённые значения: linear \, log.;
+#X obj 250 1115 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1115 @send;
 #X text 270 1115 Адрес отправки сообщений. Тип: symbol. Значение по
 умолчанию: (null).;
+#X obj 250 1157 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1157 @show_value;
 #X text 270 1157 Show value (in horizontal mode only). Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 1199 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1199 @value;
 #X text 270 1199 Current value. Тип: float. Значение по умолчанию:
 0\.;
+#X obj 250 1229 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1229 @value_pos;
 #X text 270 1229 Value position. Тип: symbol. Значение по умолчанию:
 center. Разрешённые значения: left \, center \, right.;
+#X obj 250 1271 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1271 @value_precision;
 #X text 270 1271 Number of digits shown after decimal point. Тип: int.
 Значение по умолчанию: 2\. Диапазон: 0\...7\.;
+#X obj 250 1313 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1313 @midi_channel;
 #X text 270 1313 Привязанный канал MIDI. Если установлен в 0 - привязка
 ко всем каналам. Значения в диапазоне [1\..16] привязываются к каналам
 первого Pd MIDI устройства \, [17\..32] - к каналам второго и т.д.
 Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...255\.;
+#X obj 250 1400 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1400 @midi_control;
 #X text 270 1400 Binded MIDI controller number. -1 means not binded
 to any controller. Тип: int. Значение по умолчанию: -1\. Диапазон:
 -1\...127\.;
+#X obj 250 1457 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1457 @midi_pickup;
 #X text 270 1457 Pickup current value. If slider is binded to value
 \, first time you should pass over this value to make binding. It prevents
 from sudden value change on first control change. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 1529 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1529 @background_color;
 #X text 270 1529 Цвета фона у объекта (список из красного \, зеленого
 и синего значений в диапазоне [0\..1]). Тип: list. Значение по умолчанию:
 0.93 0.93 0.93 1\.;
+#X obj 250 1586 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1586 @border_color;
 #X text 270 1586 Цвет границы объекта (список из красного \, зеленого
 и синего цветов в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
 0.6 0.6 0.6 1\.;
+#X obj 250 1643 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1643 @knob_color;
 #X text 270 1643 Knob color (list of red \, green \, blue values in
 0-1 range). Тип: list. Значение по умолчанию: 0 0.75 1 1\.;
+#X obj 250 1685 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1685 @text_color;
 #X text 270 1685 Value text color (list of red \, green \, blue values
 in 0-1 range). Тип: list. Значение по умолчанию: 0 0 0 1\.;
+#X obj 250 1727 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1727 @label;
 #X text 270 1727 Текст ярлыка. Тип: symbol. Значение по умолчанию:
 (null).;
+#X obj 250 1757 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1757 @label_align;
 #X text 270 1757 Горизонтальное выравнивание ярлыка. Тип: symbol. Значение
 по умолчанию: left. Разрешённые значения: left \, center \, right.;
+#X obj 250 1814 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1814 @label_inner;
 #X text 270 1814 Положение ярлыка (1 - внутри \, 0 - снаружи объекта).
 Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 1856 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1856 @label_margins;
 #X text 270 1856 Отступы ярлыка в пикселях по осям X и Y. Тип: list.
 Значение по умолчанию: 0 0\.;
+#X obj 250 1898 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1898 @label_side;
 #X text 270 1898 Сторона прикрепления ярлыка. Тип: symbol. Значение
 по умолчанию: top. Разрешённые значения: left \, top \, right \, bottom.;
+#X obj 250 1955 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1955 @label_valign;
 #X text 270 1955 Вертикальное выравнивание ярлыка. Тип: symbol. Значение
 по умолчанию: top. Разрешённые значения: top \, center \, bottom.;
+#X obj 250 2012 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2012 @fontname;
 #X text 270 2012 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
 Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 2069 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2069 @fontsize;
 #X text 270 2069 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
 Диапазон: 4\...100\.;
+#X obj 250 2111 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2111 @fontslant;
 #X text 270 2111 Наклон шрифта. Тип: symbol. Значение по умолчанию:
 roman. Разрешённые значения: roman \, italic.;
+#X obj 250 2153 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2153 @fontweight;
 #X text 270 2153 Толщину шрифта. Тип: symbol. Значение по умолчанию:
 normal. Разрешённые значения: normal \, bold.;
+#X obj 250 2195 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2195 @pinned;
 #X text 270 2195 Режим закрепления. Если 1 - помещает элемент на самый
 дальний уровень на холсте за другими элементам. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 2252 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2252 @presetname;
 #X text 270 2252 Имя пресета для использования с объектами [ui.preset]
 или [preset.storage]. Тип: symbol. Значение по умолчанию: (null).;
+#X obj 250 2309 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2309 @size;
 #X text 270 2309 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
 по умолчанию: 15 120\.;
-#X obj 20 2361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2361 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2366 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 2367 clear;
 #X text 270 2367 clears specified preset. Аргументы:;
 #X obj 280 2390 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2390 IDX: preset index. Тип: int.;
+#X obj 250 2415 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2415 interp;
 #X text 270 2415 interplolates between presets. Аргументы:;
 #X obj 280 2438 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2438 IDX: preset fraction index. Тип: float.;
+#X obj 250 2463 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2463 load;
 #X text 270 2463 loads specified preset. Аргументы:;
 #X obj 280 2486 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2486 IDX: preset index. Тип: int.;
+#X obj 250 2511 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2511 pos;
 #X text 270 2511 set UI element position. Аргументы:;
 #X obj 280 2534 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2534 X: top left x-coord. Тип: float.;
 #X obj 280 2557 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2557 Y: top right y-coord. Тип: float.;
+#X obj 250 2582 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2582 random;
 #X text 270 2582 set slider to random value and output.;
+#X obj 250 2610 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2610 set;
 #X text 270 2610 sets slider value without output. Аргументы:;
 #X obj 280 2633 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2633 V: new float value or 'random'. Тип: atom.;
+#X obj 250 2658 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2658 store;
 #X text 270 2658 stores specified preset. Аргументы:;
 #X obj 280 2681 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2681 IDX: preset index. Тип: int.;
+#X obj 250 2706 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2706 *;
 #X text 270 2706 multiply slider value without output. Аргументы:;
 #X obj 280 2729 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2729 V: multiplied value. Тип: float.;
+#X obj 250 2754 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2754 +;
 #X text 270 2754 add value to slider without output. Аргументы:;
 #X obj 280 2777 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2777 V: added value. Тип: float.;
+#X obj 250 2802 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2802 ++;
 #X text 270 2802 increment slider value without output.;
+#X obj 250 2830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2830 -;
 #X text 270 2830 subtract value from slider without output. Аргументы:;
 #X obj 280 2853 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2853 V: subtracted value. Тип: float.;
+#X obj 250 2878 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2878 --;
 #X text 270 2878 decrement slider value without output.;
+#X obj 250 2906 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2906 /;
 #X text 270 2906 divide slider value without output. Аргументы:;
 #X obj 280 2929 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2929 V: denominator value. Тип: float.;
-#X obj 20 2964 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2964 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2969 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 2970 1\.;
@@ -241,7 +284,7 @@ normal. Разрешённые значения: normal \, bold.;
 #X text 270 2970 outputs current slider state.;
 #X text 170 2995 float:;
 #X text 270 2995 set slider value and output.;
-#X obj 20 3030 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3030 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 3035 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 3036 1\.;
@@ -282,7 +325,7 @@ normal. Разрешённые значения: normal \, bold.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 3108 pd info;
 #X connect 8 0 19 0;

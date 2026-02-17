@@ -27,7 +27,7 @@
 #X obj 50 406 ui.hgain2~;
 #X obj 414 406 ui.dsp~;
 #X obj 50 435 dac~;
-#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 490 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
@@ -36,282 +36,374 @@
 #X text 270 491 (initonly) OSC address id. If specified \, bind all
 properties to /ID/fx_tapiir/PROP_NAME osc address \, if empty bind
 to /fx_tapiir/PROP_NAME. Type: symbol.;
+#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 548 @osc;
 #X text 270 548 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 578 @active;
 #X text 270 578 On/off object dsp processing. Type: bool. Default value:
 1\.;
+#X obj 250 608 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 608 @delays;
 #X text 270 608 List of all tap delays. Type: list. Units: 'ms'. Default
 value: 0 0 0 0 0 0\.;
+#X obj 250 650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 650 @fbs0;
 #X text 270 650 List of all feedbacks to tap0\. Type: list. Default
 value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X obj 250 692 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 692 @fbs1;
 #X text 270 692 List of all feedbacks to tap1\. Type: list. Default
 value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X obj 250 734 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 734 @fbs2;
 #X text 270 734 List of all feedbacks to tap2\. Type: list. Default
 value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X obj 250 776 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 776 @fbs3;
 #X text 270 776 List of all feedbacks to tap3\. Type: list. Default
 value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X obj 250 818 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 818 @fbs4;
 #X text 270 818 List of all feedbacks to tap4\. Type: list. Default
 value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X obj 250 860 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 860 @fbs5;
 #X text 270 860 List of all feedbacks to tap5\. Type: list. Default
 value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X obj 250 902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 902 @gains;
 #X text 270 902 List of all tap gains. Type: list. Units: 'db'. Default
 value: 0 0 0 0 0 0\.;
+#X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 944 @ins0;
 #X text 270 944 List of all taps left channel input levels. Type: list.
 Default value: 1 1 1 1 1 1\. Range: 0\...1\.;
+#X obj 250 986 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 986 @ins1;
 #X text 270 986 List of all taps right channel input levels. Type:
 list. Default value: 1 1 1 1 1 1\. Range: 0\...1\.;
+#X obj 250 1028 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1028 @out0.gain;
 #X text 270 1028 Left channel output gain. Type: float. Units: 'db'.
 Default value: 0\. Range: -60\...0\.;
+#X obj 250 1070 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1070 @out0.in0;
 #X text 270 1070 Input left channel level to left output. Type: float.
 Default value: 0\. Range: 0\...1\.;
+#X obj 250 1112 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1112 @out0.in1;
 #X text 270 1112 Input right channel level to left output. Type: float.
 Default value: 0\. Range: 0\...1\.;
+#X obj 250 1154 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1154 @out0.tap0;
 #X text 270 1154 Tap 0 output level to left channel. Type: float. Default
 value: 0\. Range: 0\...1\.;
+#X obj 250 1196 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1196 @out0.tap1;
 #X text 270 1196 Tap 1 output level to left channel. Type: float. Default
 value: 0\. Range: 0\...1\.;
+#X obj 250 1238 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1238 @out0.tap2;
 #X text 270 1238 Tap 2 output level to left channel. Type: float. Default
 value: 0\. Range: 0\...1\.;
+#X obj 250 1280 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1280 @out0.tap3;
 #X text 270 1280 Tap 3 output level to left channel. Type: float. Default
 value: 0\. Range: 0\...1\.;
+#X obj 250 1322 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1322 @out0.tap4;
 #X text 270 1322 Tap 4 output level to left channel. Type: float. Default
 value: 0\. Range: 0\...1\.;
+#X obj 250 1364 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1364 @out0.tap5;
 #X text 270 1364 Tap 5 output level to left channel. Type: float. Default
 value: 0\. Range: 0\...1\.;
+#X obj 250 1406 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1406 @out1.gain;
 #X text 270 1406 Right channel output gain. Type: float. Units: 'db'.
 Default value: 0\. Range: -60\...0\.;
+#X obj 250 1448 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1448 @out1.in0;
 #X text 270 1448 Input left channel level to right output. Type: float.
 Default value: 0\. Range: 0\...1\.;
+#X obj 250 1490 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1490 @out1.in1;
 #X text 270 1490 Input right channel level to right output. Type: float.
 Default value: 0\. Range: 0\...1\.;
+#X obj 250 1532 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1532 @out1.tap0;
 #X text 270 1532 Tap 0 output level to right channel. Type: float.
 Default value: 0\. Range: 0\...1\.;
+#X obj 250 1574 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1574 @out1.tap1;
 #X text 270 1574 Tap 1 output level to right channel. Type: float.
 Default value: 0\. Range: 0\...1\.;
+#X obj 250 1616 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1616 @out1.tap2;
 #X text 270 1616 Tap 2 output level to right channel. Type: float.
 Default value: 0\. Range: 0\...1\.;
+#X obj 250 1658 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1658 @out1.tap3;
 #X text 270 1658 Tap 3 output level to right channel. Type: float.
 Default value: 0\. Range: 0\...1\.;
+#X obj 250 1700 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1700 @out1.tap4;
 #X text 270 1700 Tap 4 output level to right channel. Type: float.
 Default value: 0\. Range: 0\...1\.;
+#X obj 250 1742 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1742 @out1.tap5;
 #X text 270 1742 Tap 5 output level to right channel. Type: float.
 Default value: 0\. Range: 0\...1\.;
+#X obj 250 1784 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1784 @outs0;
 #X text 270 1784 List of all tap output levels to left channel. Type:
 list. Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X obj 250 1826 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1826 @outs1;
 #X text 270 1826 List of all tap output levels to right channel. Type:
 list. Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X obj 250 1868 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1868 @tap0.delay;
 #X text 270 1868 Tap0 delay time. Type: float. Units: 'ms'. Default
 value: 0\. Range: 0\...5000\.;
+#X obj 250 1910 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1910 @tap0.fb0;
 #X text 270 1910 Tap0 feedback to tap0\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 1952 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1952 @tap0.fb1;
 #X text 270 1952 Tap1 feedback to tap0\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 1994 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1994 @tap0.fb2;
 #X text 270 1994 Tap2 feedback to tap0\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2036 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2036 @tap0.fb3;
 #X text 270 2036 Tap3 feedback to tap0\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2078 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2078 @tap0.fb4;
 #X text 270 2078 Tap4 feedback to tap0\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2120 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2120 @tap0.fb5;
 #X text 270 2120 Tap5 feedback to tap0\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2162 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2162 @tap0.gain;
 #X text 270 2162 Tap0 common level. Type: float. Units: 'db'. Default
 value: 0\. Range: -60\...0\.;
+#X obj 250 2204 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2204 @tap0.in0;
 #X text 270 2204 Left input level to tap0\. Type: float. Default value:
 1\. Range: 0\...1\.;
+#X obj 250 2246 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2246 @tap0.in1;
 #X text 270 2246 Right input level to tap0\. Type: float. Default value:
 1\. Range: 0\...1\.;
+#X obj 250 2288 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2288 @tap1.delay;
 #X text 270 2288 Tap1 delay time. Type: float. Units: 'ms'. Default
 value: 0\. Range: 0\...5000\.;
+#X obj 250 2330 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2330 @tap1.fb0;
 #X text 270 2330 Tap0 feedback to tap1\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2372 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2372 @tap1.fb1;
 #X text 270 2372 Tap1 feedback to tap1\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2414 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2414 @tap1.fb2;
 #X text 270 2414 Tap2 feedback to tap1\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2456 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2456 @tap1.fb3;
 #X text 270 2456 Tap3 feedback to tap1\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2498 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2498 @tap1.fb4;
 #X text 270 2498 Tap4 feedback to tap1\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2540 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2540 @tap1.fb5;
 #X text 270 2540 Tap5 feedback to tap1\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2582 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2582 @tap1.gain;
 #X text 270 2582 Tap1 common level. Type: float. Units: 'db'. Default
 value: 0\. Range: -60\...0\.;
+#X obj 250 2624 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2624 @tap1.in0;
 #X text 270 2624 Left input level to tap1\. Type: float. Default value:
 1\. Range: 0\...1\.;
+#X obj 250 2666 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2666 @tap1.in1;
 #X text 270 2666 Right input level to tap1\. Type: float. Default value:
 1\. Range: 0\...1\.;
+#X obj 250 2708 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2708 @tap2.delay;
 #X text 270 2708 Tap2 delay time. Type: float. Units: 'ms'. Default
 value: 0\. Range: 0\...5000\.;
+#X obj 250 2750 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2750 @tap2.fb0;
 #X text 270 2750 Tap0 feedback to tap2\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2792 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2792 @tap2.fb1;
 #X text 270 2792 Tap1 feedback to tap2\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2834 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2834 @tap2.fb2;
 #X text 270 2834 Tap2 feedback to tap2\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2876 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2876 @tap2.fb3;
 #X text 270 2876 Tap3 feedback to tap2\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2918 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2918 @tap2.fb4;
 #X text 270 2918 Tap4 feedback to tap2\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 2960 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2960 @tap2.fb5;
 #X text 270 2960 Tap5 feedback to tap2\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 3002 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3002 @tap2.gain;
 #X text 270 3002 Tap2 common level. Type: float. Units: 'db'. Default
 value: 0\. Range: -60\...0\.;
+#X obj 250 3044 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3044 @tap2.in0;
 #X text 270 3044 Left input level to tap2\. Type: float. Default value:
 1\. Range: 0\...1\.;
+#X obj 250 3086 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3086 @tap2.in1;
 #X text 270 3086 Right input level to tap2\. Type: float. Default value:
 1\. Range: 0\...1\.;
+#X obj 250 3128 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3128 @tap3.delay;
 #X text 270 3128 Tap3 delay time. Type: float. Units: 'ms'. Default
 value: 0\. Range: 0\...5000\.;
+#X obj 250 3170 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3170 @tap3.fb0;
 #X text 270 3170 Tap0 feedback to tap3\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 3212 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3212 @tap3.fb1;
 #X text 270 3212 Tap1 feedback to tap3\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 3254 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3254 @tap3.fb2;
 #X text 270 3254 Tap2 feedback to tap3\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 3296 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3296 @tap3.fb3;
 #X text 270 3296 Tap3 feedback to tap3\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 3338 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3338 @tap3.fb4;
 #X text 270 3338 Tap4 feedback to tap3\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 3380 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3380 @tap3.fb5;
 #X text 270 3380 Tap5 feedback to tap3\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 3422 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3422 @tap3.gain;
 #X text 270 3422 Tap3 common level. Type: float. Units: 'db'. Default
 value: 0\. Range: -60\...0\.;
+#X obj 250 3464 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3464 @tap3.in0;
 #X text 270 3464 Left input level to tap3\. Type: float. Default value:
 1\. Range: 0\...1\.;
+#X obj 250 3506 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3506 @tap3.in1;
 #X text 270 3506 Right input level to tap3\. Type: float. Default value:
 1\. Range: 0\...1\.;
+#X obj 250 3548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3548 @tap4.delay;
 #X text 270 3548 Tap4 delay time. Type: float. Units: 'ms'. Default
 value: 0\. Range: 0\...5000\.;
+#X obj 250 3590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3590 @tap4.fb0;
 #X text 270 3590 Tap0 feedback to tap4\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 3632 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3632 @tap4.fb1;
 #X text 270 3632 Tap1 feedback to tap4\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 3674 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3674 @tap4.fb2;
 #X text 270 3674 Tap2 feedback to tap4\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 3716 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3716 @tap4.fb3;
 #X text 270 3716 Tap3 feedback to tap4\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 3758 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3758 @tap4.fb4;
 #X text 270 3758 Tap4 feedback to tap4\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 3800 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3800 @tap4.fb5;
 #X text 270 3800 Tap5 feedback to tap4\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 3842 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3842 @tap4.gain;
 #X text 270 3842 Tap4 common level. Type: float. Units: 'db'. Default
 value: 0\. Range: -60\...0\.;
+#X obj 250 3884 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3884 @tap4.in0;
 #X text 270 3884 Left input level to tap4\. Type: float. Default value:
 1\. Range: 0\...1\.;
+#X obj 250 3926 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3926 @tap4.in1;
 #X text 270 3926 Right input level to tap4\. Type: float. Default value:
 1\. Range: 0\...1\.;
+#X obj 250 3968 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 3968 @tap5.delay;
 #X text 270 3968 Tap5 delay time. Type: float. Units: 'ms'. Default
 value: 0\. Range: 0\...5000\.;
+#X obj 250 4010 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4010 @tap5.fb0;
 #X text 270 4010 Tap0 feedback to tap5\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 4052 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4052 @tap5.fb1;
 #X text 270 4052 Tap1 feedback to tap5\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 4094 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4094 @tap5.fb2;
 #X text 270 4094 Tap2 feedback to tap5\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 4136 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4136 @tap5.fb3;
 #X text 270 4136 Tap3 feedback to tap5\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 4178 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4178 @tap5.fb4;
 #X text 270 4178 Tap4 feedback to tap5\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 4220 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4220 @tap5.fb5;
 #X text 270 4220 Tap5 feedback to tap5\. Type: float. Default value:
 0\. Range: 0\...1\.;
+#X obj 250 4262 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4262 @tap5.gain;
 #X text 270 4262 Tap5 common level. Type: float. Units: 'db'. Default
 value: 0\. Range: -60\...0\.;
+#X obj 250 4304 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4304 @tap5.in0;
 #X text 270 4304 Left input level to tap5\. Type: float. Default value:
 1\. Range: 0\...1\.;
+#X obj 250 4346 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4346 @tap5.in1;
 #X text 270 4346 Right input level to tap5\. Type: float. Default value:
 1\. Range: 0\...1\.;
-#X obj 20 4398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4398 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 4403 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 4404 pingpong;
@@ -320,6 +412,7 @@ value: 0\. Range: -60\...0\.;
 #X text 280 4427 DELAY: delay time. Type: float. Units: 'ms'.;
 #X obj 280 4450 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 4450 FB: feedback value. Type: float. Range: 0\...1\.;
+#X obj 250 4475 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4475 random;
 #X text 270 4475 randomize values. Arguments are:;
 #X obj 280 4498 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -330,9 +423,10 @@ values: delays \, fb \, inputs \, outputs \, gains.;
 #X text 280 4551 [MIN]: minimal value. Type: float. Min value: 0\.;
 #X obj 280 4574 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 4574 [MAX]: maximum value. Type: float. Min value: 0\.;
+#X obj 250 4599 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4599 reset;
 #X text 270 4599 reset to initial state.;
-#X obj 20 4637 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4637 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 4642 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 4643 1\.;
@@ -341,7 +435,7 @@ values: delays \, fb \, inputs \, outputs \, gains.;
 #X text 130 4668 2\.;
 #X text 170 4668 ~;
 #X text 270 4668 right in channel.;
-#X obj 20 4703 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4703 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 4708 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 4709 1\.;
@@ -379,7 +473,7 @@ values: delays \, fb \, inputs \, outputs \, gains.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 4801 pd info;
 #X connect 4 0 6 0;

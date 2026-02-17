@@ -18,7 +18,7 @@
 -1;
 #X obj 50 277 plot.geomspace~ 2 1024;
 #X obj 50 305 array.plot~ APL1 @yauto 1;
-#X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 360 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
@@ -37,23 +37,26 @@
 #X obj 268 427 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 426 YMAX: максимальное значение y-оси. Тип: float. Диапазон:
 -1024…1024;
-#X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 481 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 484 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 482 @array;
 #X text 270 482 Имя массива. Тип: symbol.;
+#X obj 250 512 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 512 @yauto;
 #X text 270 512 Вычислить диапазон y-оси автоматически. Тип: bool.
 Значение по умолчанию: 0\.;
+#X obj 250 554 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 554 @ymax;
 #X text 270 554 Минимальное значение y-оси. Тип: float. Значение по
 умолчанию: 1\. Диапазон: -1024\...1024\.;
+#X obj 250 596 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 596 @ymin;
 #X text 270 596 Минимальное значение y-оси. Тип: float. Значение по
 умолчанию: -1\. Диапазон: -1024\...1024\.;
-#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 653 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 654 1\.;
@@ -66,7 +69,7 @@
 #X text 170 719 int:;
 #X text 270 719 строит график для указанного числа семплов \, изменяет
 размер массива.;
-#X obj 20 769 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 769 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 774 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -102,7 +105,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 837 pd info;
 #X connect 6 0 8 0;

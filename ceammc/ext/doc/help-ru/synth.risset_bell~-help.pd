@@ -16,7 +16,7 @@
 #X obj 50 291 ui.hgain~;
 #X obj 194 291 ui.dsp~;
 #X obj 50 320 dac~;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
@@ -29,7 +29,7 @@
 #X text 170 401 float;
 #X obj 268 402 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 401 DUR(ms): duration. Тип: float. Диапазон: 10…600000;
-#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 441 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 444 ui.link @background_color 0.98039 0.98039 0.98039
@@ -39,29 +39,35 @@
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/synth_risset_bell/ИМЯ_СВОЙСТВА \, в противном случае
 к /synth_risset_bell/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X obj 250 529 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 529 @osc;
 #X text 270 529 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 559 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 559 @active;
 #X text 270 559 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
+#X obj 250 601 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 601 @dur;
 #X text 270 601 Duration. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 5000\. Диапазон: 10\...600000\.;
+#X obj 250 643 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 643 @freq;
 #X text 270 643 Base frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 440\. Диапазон: 1\...10000\.;
+#X obj 250 685 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 685 @gate;
 #X text 270 685 Play trigger - 1: on \, 0: off. Тип: float. Значение
 по умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 727 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 727 @pfreq;
 #X text 270 727 Freq multiplication coefficient. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 0\...10\.;
-#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 784 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 785 reset;
 #X text 270 785 reset synth.;
-#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 828 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 829 1\.;
@@ -69,7 +75,7 @@
 #X text 270 829 play.;
 #X text 170 854 float:;
 #X text 270 854 play with specified amp.;
-#X obj 20 889 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 889 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 894 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 895 1\.;
@@ -104,7 +110,7 @@
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 967 pd info;
 #X connect 4 0 5 0;

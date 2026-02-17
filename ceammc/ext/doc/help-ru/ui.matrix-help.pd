@@ -27,7 +27,7 @@ VALUE(;
 #X obj 155 432 ui.d;
 #X obj 107 461 ui.d;
 #X obj 50 489 ui.d;
-#X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 544 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 579 Mouse-drag;
@@ -47,7 +47,7 @@ VALUE(;
 #X text 130 699 Right-click;
 #X text 310 699 open Pd popup menu.;
 #X text 65 699 [Правка];
-#X obj 20 729 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 729 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 734 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 737 ui.link @background_color 0.98039 0.98039 0.98039
@@ -60,7 +60,7 @@ VALUE(;
 #X text 170 760 int;
 #X obj 268 761 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 760 COL: matrix columns. Тип: int. Диапазон: 1…64;
-#X obj 20 795 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 795 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 800 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 803 ui.link @background_color 0.98039 0.98039 0.98039
@@ -68,83 +68,104 @@ VALUE(;
 #X msg 130 801 @cols;
 #X text 270 801 Number of matrix columns. Тип: int. Значение по умолчанию:
 8\. Диапазон: 1\...64\.;
+#X obj 250 843 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 843 @current_col;
 #X text 270 843 Current column index. -1 if not specified. This property
 is not saved in patch. Тип: int. Значение по умолчанию: -1\. Минимальное
 значение: -1\.;
+#X obj 250 900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 900 @current_row;
 #X text 270 900 Current row index. -1 if not specified. This property
 is not saved in patch. Тип: int. Значение по умолчанию: -1\. Минимальное
 значение: -1\.;
+#X obj 250 957 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 957 @receive;
 #X text 270 957 Источник получения сообщений. Тип: symbol. Значение
 по умолчанию: (null).;
+#X obj 250 999 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 999 @rows;
 #X text 270 999 Number of matrix rows. Тип: int. Значение по умолчанию:
 4\. Диапазон: 1\...64\.;
+#X obj 250 1041 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1041 @send;
 #X text 270 1041 Адрес отправки сообщений. Тип: symbol. Значение по
 умолчанию: (null).;
+#X obj 250 1083 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1083 @active_color;
 #X text 270 1083 Цвет активного элемента (список из красного \, зеленого
 и синего цвета в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
 0 0.75 1 1\.;
+#X obj 250 1140 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1140 @background_color;
 #X text 270 1140 Цвета фона у объекта (список из красного \, зеленого
 и синего значений в диапазоне [0\..1]). Тип: list. Значение по умолчанию:
 0.93 0.93 0.93 1\.;
+#X obj 250 1197 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1197 @border_color;
 #X text 270 1197 Цвет границы объекта (список из красного \, зеленого
 и синего цветов в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
 0.6 0.6 0.6 1\.;
+#X obj 250 1254 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1254 @current_color;
 #X text 270 1254 Current col/row color (list of red \, green \, blue
 values in 0-1 range). Тип: list. Значение по умолчанию: 1 0.75 0 1\.;
+#X obj 250 1311 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1311 @fontname;
 #X text 270 1311 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
 Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1368 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1368 @fontsize;
 #X text 270 1368 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
 Диапазон: 4\...100\.;
+#X obj 250 1410 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1410 @fontslant;
 #X text 270 1410 Наклон шрифта. Тип: symbol. Значение по умолчанию:
 roman. Разрешённые значения: roman \, italic.;
+#X obj 250 1452 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1452 @fontweight;
 #X text 270 1452 Толщину шрифта. Тип: symbol. Значение по умолчанию:
 normal. Разрешённые значения: normal \, bold.;
+#X obj 250 1494 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1494 @pinned;
 #X text 270 1494 Режим закрепления. Если 1 - помещает элемент на самый
 дальний уровень на холсте за другими элементам. Тип: bool. Значение
 по умолчанию: 0\.;
+#X obj 250 1551 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1551 @presetname;
 #X text 270 1551 Имя пресета для использования с объектами [ui.preset]
 или [preset.storage]. Тип: symbol. Значение по умолчанию: (null).;
+#X obj 250 1608 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1608 @size;
 #X text 270 1608 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
 по умолчанию: 105 53\.;
-#X obj 20 1660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1660 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1665 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1666 clear;
 #X text 270 1666 clears specified preset. Аргументы:;
 #X obj 280 1689 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1689 IDX: preset index. Тип: int.;
+#X obj 250 1714 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1714 flip;
 #X text 270 1714 flips all matrix cells.;
+#X obj 250 1742 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1742 flip R C;
 #X text 270 1742 flips single cell. Аргументы:;
 #X obj 280 1765 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1765 R: row index. Тип: int. Минимальное значение: 0\.;
 #X obj 280 1788 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1788 C: column index. Тип: int. Минимальное значение: 0\.;
+#X obj 250 1813 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1813 flip col N;
 #X text 270 1813 flips cells in specified column. Аргументы:;
 #X obj 280 1836 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1836 N: column index. Тип: int. Минимальное значение: 0\.;
+#X obj 250 1861 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1861 flip row N;
 #X text 270 1861 flips cells in specified row. Аргументы:;
 #X obj 280 1884 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1884 N: row index. Тип: int. Минимальное значение: 0\.;
+#X obj 250 1909 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1909 get cell R C;
 #X text 270 1909 outputs single cell value as message [cell ROW COL
 VALUE(. Аргументы:;
@@ -152,50 +173,64 @@ VALUE(. Аргументы:;
 #X text 280 1947 R: row index. Тип: int. Минимальное значение: 0\.;
 #X obj 280 1970 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1970 C: column index. Тип: int. Минимальное значение: 0\.;
+#X obj 250 1995 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1995 get cells;
 #X text 270 1995 output all cells as separate messages [cell R C VALUE(.;
+#X obj 250 2023 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2023 get col N;
 #X text 270 2023 outputs column cells as message [col N V0 V1\...(.
 Аргументы:;
 #X obj 280 2046 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2046 N: column index. Тип: int. Минимальное значение: 0\.;
+#X obj 250 2071 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2071 get cols;
 #X text 270 2071 output all columns as separate messages [col N V0
 V1\...(.;
+#X obj 250 2099 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2099 get list;
 #X text 270 2099 output all cell values as list \, row by raw. [0 1
 1 1 0\...(.;
+#X obj 250 2127 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2127 get matrix;
 #X text 270 2127 output as matrix [matrix NROWS NCOLS DATA...(.;
+#X obj 250 2155 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2155 get row N;
 #X text 270 2155 outputs row cells as message [row N V0 V1\...(. Аргументы:;
 #X obj 280 2178 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2178 N: row index. Тип: int. Минимальное значение: 0\.;
+#X obj 250 2203 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2203 get rows;
 #X text 270 2203 output all rows as separate messages [row N V0 V1\...(.;
+#X obj 250 2231 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2231 interp;
 #X text 270 2231 for this object acts as *load* \, no interpolation
 performed.;
+#X obj 250 2259 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2259 load;
 #X text 270 2259 loads specified preset. Аргументы:;
 #X obj 280 2282 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2282 IDX: preset index. Тип: int.;
+#X obj 250 2307 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2307 pos;
 #X text 270 2307 set UI element position. Аргументы:;
 #X obj 280 2330 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2330 X: top left x-coord. Тип: float.;
 #X obj 280 2353 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2353 Y: top right y-coord. Тип: float.;
+#X obj 250 2378 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2378 random;
 #X text 270 2378 fill matrix random and output.;
+#X obj 250 2406 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2406 read;
 #X text 270 2406 Аргументы:;
 #X obj 280 2429 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2429 [FNAME]: read matrix values from text file (space
 separated). If fname argument is not specified opens file chooser dialog.
 Тип: symbol.;
+#X obj 250 2484 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2484 reset;
 #X text 270 2484 uncheck all matrix cells. No output.;
+#X obj 250 2512 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2512 set col N ...;
 #X text 270 2512 set specified column without output. Аргументы:;
 #X obj 280 2535 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -203,11 +238,13 @@ separated). If fname argument is not specified opens file chooser dialog.
 #X obj 280 2558 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2558 ...: cell values (1 - checked \, 0 - unchecked). Тип:
 list.;
+#X obj 250 2583 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2583 set list ...;
 #X text 270 2583 set matrix data without output. Аргументы:;
 #X obj 280 2606 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2606 ...: cell values (1 - checked \, 0 - unchecked) \,
 row by row. Тип: list.;
+#X obj 250 2646 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2646 set matrix R C ...;
 #X text 270 2646 set matrix without output. Аргументы:;
 #X obj 280 2669 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -219,6 +256,7 @@ row by row. Тип: list.;
 #X obj 280 2745 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2745 ...: cell values (1 - checked \, 0 - unchecked). Тип:
 list.;
+#X obj 250 2770 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2770 set row N ...;
 #X text 270 2770 set specified row without output. Аргументы:;
 #X obj 280 2793 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -226,19 +264,22 @@ list.;
 #X obj 280 2816 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2816 ...: cell values (1 - checked \, 0 - unchecked). Тип:
 list.;
+#X obj 250 2841 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2841 store;
 #X text 270 2841 stores specified preset. Аргументы:;
 #X obj 280 2864 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2864 IDX: preset index. Тип: int.;
+#X obj 250 2889 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2889 write;
 #X text 270 2889 Аргументы:;
 #X obj 280 2912 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 2912 [FNAME]: write matrix values to text file (space separated).
 If fname argument is not specified opens file chooser dialog. Тип:
 symbol.;
+#X obj 250 2967 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2967 dump;
 #X text 270 2967 dumps all object info to Pd console window.;
-#X obj 20 3005 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3005 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 3010 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 3011 1\.;
@@ -247,7 +288,7 @@ symbol.;
 #X text 170 3036 list:;
 #X text 270 3036 sets matrix state. Input format: 0 and 1 \, row by
 row.;
-#X obj 20 3071 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3071 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 3076 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 3077 1\.;
@@ -286,7 +327,7 @@ row.;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 3149 pd info;
 #X connect 7 0 10 0;

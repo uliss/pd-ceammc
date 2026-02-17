@@ -27,7 +27,7 @@ complex plane and has no branch cuts;
 @ymax 1 @ymin_ticks 0 @ymax_ticks 0 @xmin_ticks 0 @xmaj_ticks 0
 @xmin_grid 1;
 #X obj 50 660 ui.dsp~;
-#X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 715 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 716 1\.;
@@ -36,7 +36,7 @@ complex plane and has no branch cuts;
 #X text 130 741 2\.;
 #X text 170 741 ~;
 #X text 270 741 imag part of input signal.;
-#X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 781 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 782 1\.;
@@ -76,7 +76,7 @@ complex plane and has no branch cuts;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
-#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 874 pd info;
 #X connect 11 0 12 0;
