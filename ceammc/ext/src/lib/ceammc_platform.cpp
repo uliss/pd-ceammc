@@ -104,15 +104,15 @@ namespace platform {
     static bool findEnvVar(const std::string& str, std::string::size_type from,
         std::string* varname, std::string::size_type* begin, std::string::size_type* end)
     {
-        std::string::size_type at1 = str.find_first_of('%', from);
+        auto at1 = str.find_first_of('%', from);
         if (std::string::npos == at1)
             return false;
 
-        std::string::size_type at2 = str.find_first_of('%', at1 + 1);
+        auto at2 = str.find_first_of('%', at1 + 1);
         if (std::string::npos == at2)
             return false;
 
-        std::string::size_type len = at2 - at1;
+        auto len = at2 - at1;
         if (len < 2)
             return false;
 
