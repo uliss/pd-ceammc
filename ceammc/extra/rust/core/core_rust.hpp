@@ -206,6 +206,19 @@ struct ceammc_mdns_service_info_register {
     ceammc_mdns_iface iface;
 };
 
+struct ceammc_ceammc_path_str_cb {
+    /**
+     * nullable
+     */
+    void *user;
+    /**
+     * not NULL
+     * NOTE: param str is valid only inside of callback call
+     * to future usage do not save str pointer, copy(!) string to elsewhere
+     */
+    void (*cb)(void *user, const char *str);
+};
+
 struct ceammc_regexp_cb_err {
     void *user;
     void (*cb)(void *user, const char *msg);
@@ -659,6 +672,57 @@ bool ceammc_net_is_ifa_v6(const ceammc_net_iface_addr *va);
  */
 __attribute__((warn_unused_result))
 ceammc_net_ifaces *ceammc_net_list_interfaces(ceammc_core_on_msg msg_cb);
+
+/**
+ * cross-platform audio directory path with '/' slashes
+ */
+bool ceammc_path_audio(ceammc_ceammc_path_str_cb cb);
+
+void ceammc_path_ceammc_doc();
+
+/**
+ * cross-platform current working directory path with '/' slashes
+ */
+bool ceammc_path_cwd(ceammc_ceammc_path_str_cb cb);
+
+/**
+ * cross-platform desktop directory path with '/' slashes
+ */
+bool ceammc_path_desktop(ceammc_ceammc_path_str_cb cb);
+
+/**
+ * cross-platform documents directory path with '/' slashes
+ */
+bool ceammc_path_documents(ceammc_ceammc_path_str_cb cb);
+
+bool ceammc_path_downloads(ceammc_ceammc_path_str_cb cb);
+
+/**
+ * cross-platform home directory path with '/' slashes
+ */
+bool ceammc_path_home(ceammc_ceammc_path_str_cb cb);
+
+/**
+ * cross-platform images directory path with '/' slashes
+ */
+bool ceammc_path_image(ceammc_ceammc_path_str_cb cb);
+
+void ceammc_path_pd_doc();
+
+/**
+ * cross-platform pd user directory path with '/' slashes
+ */
+bool ceammc_path_pd_user(ceammc_ceammc_path_str_cb cb);
+
+/**
+ * cross-platform tmp directory path with '/' slashes
+ */
+bool ceammc_path_tmp(ceammc_ceammc_path_str_cb cb);
+
+/**
+ * cross-platform video directory path with '/' slashes
+ */
+bool ceammc_path_video(ceammc_ceammc_path_str_cb cb);
 
 /**
  * create new regexp
