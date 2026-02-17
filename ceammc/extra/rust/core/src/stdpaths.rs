@@ -16,7 +16,7 @@ pub struct path_str_cb {
     /// not NULL
     /// NOTE: param str is valid only inside of callback call
     /// to future usage do not save str pointer, copy(!) string to elsewhere
-    cb: extern "C" fn(user: *mut c_void, str: *const c_char),
+    cb: extern "C" fn(user: *mut c_void, tmp_str: *const c_char),
 }
 
 fn output_path(path: PathBuf, cb: path_str_cb) -> bool {

@@ -216,7 +216,7 @@ struct ceammc_path_str_cb {
      * NOTE: param str is valid only inside of callback call
      * to future usage do not save str pointer, copy(!) string to elsewhere
      */
-    void (*cb)(void *user, const char *str);
+    void (*cb)(void *user, const char *tmp_str);
 };
 
 struct ceammc_regexp_cb_err {
