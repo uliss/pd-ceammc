@@ -9,7 +9,7 @@
 #X text 240 83 Outputs hyperbolic sine of input signal;
 #X text 240 108 sinh x = (ℯˣ - ℯ⁻ˣ)/2;
 #X obj 240 133 ui.link @background_color 0.98039 0.98039 0.98039
-@title wiki: Hyperbolic             functions @url
+@title wiki: Hyperbolic functions @url
 https://en.wikipedia.org/wiki/Hyperbolic_functions;
 #X obj 50 210 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;

@@ -7,7 +7,7 @@
 #X obj 666 11 dyn.comp2~;
 #X obj 230 78 cnv 1 535 34 empty empty empty 17 7 0 10 -257983 -1 0;
 #X obj 240 83 ui.link @background_color 0.98039 0.98039 0.98039 @title
-Dynamic range             compression @url
+Dynamic range       compression @url
 https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X obj 50 160 ui.hsl -60 20 @show_value 1;
 #X obj 174 160 ui.hsl -60 20 @show_value 1;

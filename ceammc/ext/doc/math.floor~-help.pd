@@ -8,7 +8,7 @@ input value;
 #X obj 659 11 math.floor~;
 #X obj 230 93 cnv 1 535 34 empty empty empty 17 7 0 10 -257983 -1 0;
 #X obj 240 98 ui.link @background_color 0.98039 0.98039 0.98039 @title
-wiki: Floor and             ceiling functions @url
+wiki: Floor and ceiling       functions @url
 https://en.wikipedia.org/wiki/Floor_and_ceiling_functions;
 #X msg 50 175 bang;
 #X obj 50 204 plot.linspace~ -3 3;
