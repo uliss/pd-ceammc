@@ -216,10 +216,21 @@ void ProtoVlc::m_browse(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    // VlcCommand cmd;
-    // cmd.code = VLC_CMD_BROWSE;
-    // cmd.data = to_string(lv);
-    // sendCommand(s, cmd);
+    const char* filter_type = nullptr;
+    const char* match_glob = nullptr;
+
+    AtomListView _lv;
+    if (lv.getProperty(gensym("@dir"), _lv)) {
+        filter_type = "dir";
+    } else if (lv.getProperty(gensym("@file"), _lv)) {
+        filter_type = "file";
+    }
+
+    if (lv.getProperty(gensym("@glob"), _lv)) {
+        match_glob = _lv.asSymbol()->s_name;
+    }
+
+    ceammc_vlc_browse(vlc_.get(), lv.asSymbol()->s_name, filter_type, match_glob);
 }
 
 bool ProtoVlc::notify(int code)
@@ -287,6 +298,13 @@ bool ProtoVlc::notify(int code)
                 da->insert("current", item->current);
                 obj->anyTo(1, gensym("current"), da);
             },
+        },
+        {
+            this,
+            [](void* user, const ceammc_vlc_filelist* filelist) {
+                auto obj = static_cast<ProtoVlc*>(user);
+                Error(obj) << "size: " << filelist->size;
+            },
         });
 }
 
@@ -295,6 +313,7 @@ void setup_proto_vlc()
     ObjectFactory<ProtoVlc> obj("proto.vlc");
 
     obj.addMethod("add", &ProtoVlc::m_add);
+    obj.addMethod("browse", &ProtoVlc::m_browse);
     obj.addMethod("clear", &ProtoVlc::m_clear);
     obj.addMethod("delete", &ProtoVlc::m_delete);
     obj.addMethod("fs", &ProtoVlc::m_fullscreen);
@@ -312,6 +331,4 @@ void setup_proto_vlc()
     obj.addMethod("speed", &ProtoVlc::m_speed);
     obj.addMethod("stop", &ProtoVlc::m_stop);
     obj.addMethod("volume", &ProtoVlc::m_volume);
-
-    obj.addMethod("browse", &ProtoVlc::m_browse);
 }

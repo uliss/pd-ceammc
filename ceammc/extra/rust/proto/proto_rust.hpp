@@ -42,6 +42,12 @@ enum class ceammc_rust_atom_type : uint8_t {
     Null,
 };
 
+enum class ceammc_vlc_filetype : uint8_t {
+    Dir,
+    File,
+    Unknown,
+};
+
 enum class ceammc_vlc_sort_order {
     Normal,
     Reversed,
@@ -123,6 +129,21 @@ struct ceammc_rust_atom {
     ceammc_rust_atom_type atom_type;
 };
 
+struct ceammc_vlc_fileinfo {
+    const char *uri;
+    const char *path;
+    const char *name;
+    uint64_t size;
+    ceammc_vlc_filetype type_;
+};
+
+struct ceammc_vlc_fileinfo_cb {
+    /// user data
+    void *user;
+    /// callback function
+    void (*cb)(void *user, const ceammc_vlc_fileinfo *info);
+};
+
 struct ceammc_vlc_playlist_item {
     const char *name;
     const char *uri;
@@ -170,6 +191,18 @@ struct ceammc_vlc_playlist_cb {
     void *user;
     /// callback function
     void (*cb)(void *user, const ceammc_vlc_playlist *playlist);
+};
+
+struct ceammc_vlc_filelist {
+    const ceammc_vlc_fileinfo *files;
+    size_t size;
+};
+
+struct ceammc_vlc_filelist_cb {
+    /// user data
+    void *user;
+    /// callback function
+    void (*cb)(void *user, const ceammc_vlc_filelist *item);
 };
 
 
@@ -432,6 +465,13 @@ void ceammc_proto_log_init();
 /// @param play - should immidiately play added url
 bool ceammc_vlc_add_uri(ceammc_vlc *vlc, const char *uri, bool play);
 
+/// browse vlc directories
+/// @param vlc - vlc control handle
+bool ceammc_vlc_browse(ceammc_vlc *vlc,
+                       const char *uri,
+                       const char *filter_type,
+                       const char *match_glob);
+
 /// clear current playlist
 /// @param vlc - vlc control handle
 bool ceammc_vlc_clear(ceammc_vlc *vlc);
@@ -461,6 +501,14 @@ bool ceammc_vlc_delete_by_id(ceammc_vlc *vlc, uint64_t id);
 /// @param vlc - vlc control handle
 /// @param name - playlist item name
 bool ceammc_vlc_delete_by_name(ceammc_vlc *vlc, ceammc_rust_atom name);
+
+/// iterate all filelist items with given callback
+/// @param items - pointer to items
+/// @param size - filelist size
+/// @param cb - callback called for each item
+void ceammc_vlc_filelist_iter(const ceammc_vlc_fileinfo *files,
+                              size_t len,
+                              ceammc_vlc_fileinfo_cb cb);
 
 /// free vlc handle
 /// @param vlc - vlc control handle
@@ -524,7 +572,8 @@ bool ceammc_vlc_poll(ceammc_vlc *vlc,
                      ceammc_callback_msg on_msg,
                      ceammc_vlc_status_cb on_stat,
                      ceammc_vlc_playlist_cb on_playlist,
-                     ceammc_vlc_playlist_item_cb on_current);
+                     ceammc_vlc_playlist_item_cb on_current,
+                     ceammc_vlc_filelist_cb on_filelist);
 
 /// go to previous item in the playlist and play it
 /// @param vlc - vlc control handle
