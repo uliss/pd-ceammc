@@ -76,12 +76,12 @@
       <!-- browse -->
       <method name="browse">
         <info>
-          <tr lang="en">browse resource</tr>
-          <tr lang="ru" finished="false">Просмотреть ресурс</tr>
+          <tr lang="en">browse a list of files and folders in the specified directory on the host where the VLC player is running</tr>
+          <tr lang="ru">выводит список файлов и папок в указанной директории на хосте, на котором запущен VLC плеер</tr>
         </info>
-        <param name="URI" type="symbol" required="true">
-          <tr lang="en">resource URI (file:///path)</tr>
-          <tr lang="ru">ресурс URI (file:///path)</tr>
+        <param name="DIR" type="symbol" required="true">
+          <tr lang="en">the full path to the directory on the computer where VLC is running</tr>
+          <tr lang="ru">полный путь к директории на компьютере, на котором запущен VLC</tr>
         </param>
         <param name="@dir" type="flag">
           <tr lang="en">list only subdirectories</tr>
@@ -90,6 +90,10 @@
         <param name="@file" type="flag">
           <tr lang="en">list only files</tr>
           <tr lang="ru">выводить файлы</tr>
+        </param>
+        <param name="@glob" type="symbol">
+          <tr lang="en">match pattern for files. For example: *.wav - shows all files with the .wav extension.</tr>
+          <tr lang="ru">шаблон соответствия для файлов. Например: *.wav - выводит все файлы с расширением wav.</tr>
         </param>
       </method>
       <!-- clear -->

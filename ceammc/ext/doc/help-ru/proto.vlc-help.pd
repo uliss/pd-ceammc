@@ -67,71 +67,76 @@ VLC. Тип: int. Значение по умолчанию: 8080\. Диапаз�
 #X text 280 695 GLOB: шаблон соответствия для файлов. Например: *.wav
 - добавляет все файлы с расшиением wav. Тип: symbol.;
 #X msg 130 735 browse;
-#X text 270 735 browse resource. Аргументы:;
-#X obj 280 758 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 758 URI: ресурс URI (file:///path). Тип: symbol.;
-#X obj 280 781 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 781 [@dir]: выводить только под-директории. Тип: flag.;
-#X obj 280 804 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 804 [@file]: выводить файлы. Тип: flag.;
-#X msg 130 829 clear;
-#X text 270 829 удалить все элементы из плейлиста.;
-#X msg 130 857 delete;
-#X text 270 857 delete item from playlist. Аргументы:;
-#X obj 280 880 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 880 [ID]: playlist entry id. Тип: int.;
-#X msg 130 905 fs;
-#X text 270 905 toggle VLC fullscreen mode.;
-#X msg 130 933 loop;
-#X text 270 933 toggle loop.;
-#X msg 130 961 next;
-#X text 270 961 go to the next entry on the playlist.;
-#X msg 130 989 pause;
-#X text 270 989 pause/resume playback. Аргументы:;
-#X obj 280 1012 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1012 [VAL]: 1 or omitted: pause \, 0: resume. Тип: int.
+#X text 270 735 выводит список файлов и папок в указанной директории
+на хосте \, на котором запущен VLC плеер. Аргументы:;
+#X obj 280 773 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 773 DIR: полный путь к директории на компьютере \, на котором
+запущен VLC. Тип: symbol.;
+#X obj 280 811 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 811 [@dir]: выводить только под-директории.;
+#X obj 280 834 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 834 [@file]: выводить файлы.;
+#X obj 280 857 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 857 [@glob]: шаблон соответствия для файлов. Например:
+*.wav - выводит все файлы с расширением wav. Тип: symbol.;
+#X msg 130 897 clear;
+#X text 270 897 удалить все элементы из плейлиста.;
+#X msg 130 925 delete;
+#X text 270 925 delete item from playlist. Аргументы:;
+#X obj 280 948 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 948 [ID]: playlist entry id. Тип: int.;
+#X msg 130 973 fs;
+#X text 270 973 toggle VLC fullscreen mode.;
+#X msg 130 1001 loop;
+#X text 270 1001 toggle loop.;
+#X msg 130 1029 next;
+#X text 270 1029 go to the next entry on the playlist.;
+#X msg 130 1057 pause;
+#X text 270 1057 pause/resume playback. Аргументы:;
+#X obj 280 1080 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1080 [VAL]: 1 or omitted: pause \, 0: resume. Тип: int.
 Разрешённые значения: 0 \, 1\.;
-#X msg 130 1052 play;
-#X text 270 1052 start playback.;
-#X msg 130 1080 playlist;
-#X text 270 1080 request playlist. Output as dict to second outlet.;
-#X msg 130 1108 prev;
-#X text 270 1108 go to the previous entry on the playlist.;
-#X msg 130 1136 seek;
-#X text 270 1136 seek playback position. Аргументы:;
-#X obj 280 1159 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1159 TIME: absolute time position (int value in seconds
+#X msg 130 1120 play;
+#X text 270 1120 start playback.;
+#X msg 130 1148 playlist;
+#X text 270 1148 request playlist. Output as dict to second outlet.;
+#X msg 130 1176 prev;
+#X text 270 1176 go to the previous entry on the playlist.;
+#X msg 130 1204 seek;
+#X text 270 1204 seek playback position. Аргументы:;
+#X obj 280 1227 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1227 TIME: absolute time position (int value in seconds
 or 00h:00m:00s) or relative offset (+val \, -val). Тип: atom.;
-#X msg 130 1214 status;
-#X text 270 1214 request playback status. Output as dict to second
+#X msg 130 1282 status;
+#X text 270 1282 request playback status. Output as dict to second
 outlet.;
-#X msg 130 1242 stop;
-#X text 270 1242 stop playback.;
-#X msg 130 1270 volume;
-#X text 270 1270 set playing volume. Аргументы:;
-#X obj 280 1293 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1293 VAL: absolute value in percent or relative change
+#X msg 130 1310 stop;
+#X text 270 1310 stop playback.;
+#X msg 130 1338 volume;
+#X text 270 1338 set playing volume. Аргументы:;
+#X obj 280 1361 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1361 VAL: absolute value in percent or relative change
 +VOL or -VOL. Тип: atom.;
-#X obj 20 1343 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1348 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1416 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1349 1\.;
-#X text 270 1349 commands.;
-#X obj 20 1384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1389 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1417 1\.;
+#X text 270 1417 commands.;
+#X obj 20 1452 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1457 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1390 1\.;
-#X text 270 1390 int: 1 on success \, 0 on error.;
-#X text 130 1410 2\.;
-#X text 270 1410 dict: response data.;
+#X text 130 1458 1\.;
+#X text 270 1458 int: 1 on success \, 0 on error.;
+#X text 130 1478 2\.;
+#X text 270 1478 dict: response data.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1460 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1463 библиотека: ceammc v0.9.8;
-#N canvas 10 1482 400 290 info 0;
+#X obj 1 1528 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1531 библиотека: ceammc v0.9.8;
+#N canvas 10 1550 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -155,7 +160,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1482 pd info;
+#X restore 10 1550 pd info;
 #X connect 12 0 15 0;
 #X connect 14 0 17 0;
 #X connect 15 0 19 0;
