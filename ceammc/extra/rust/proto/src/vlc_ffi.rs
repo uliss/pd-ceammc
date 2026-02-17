@@ -322,11 +322,13 @@ macro_rules! vlc_null_check {
 }
 
 #[no_mangle]
-/// get incoming messages from vlc
+/// process incoming messages from the worker thread
 /// @param vlc - vlc control handle
-/// @param on_msg - error message callback from worker thread
-/// @param on_stat - vlc status callback
-/// @param on_playlist - vlc playlist callback
+/// @param on_msg - called on error message from the worker thread
+/// @param on_stat - called when 'vlc_status' received from the worker thread
+/// @param on_playlist - called when 'playlisy' received from the worker thread
+/// @param on_current - called when 'current_item' received from the worker thread
+/// @param on_filelist - called when 'filelist' received from the worker thread
 pub extern "C" fn ceammc_vlc_poll(
     vlc: Option<&mut vlc>,
     on_msg: crate::common_ffi::callback_msg,
@@ -343,7 +345,7 @@ pub extern "C" fn ceammc_vlc_poll(
 }
 
 #[no_mangle]
-/// go to next item in the playlist and play it
+/// go to the next item in the playlist and play it
 /// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_next(vlc: Option<&mut vlc>) -> bool {
     vlc_null_check!(vlc);
@@ -352,7 +354,7 @@ pub extern "C" fn ceammc_vlc_next(vlc: Option<&mut vlc>) -> bool {
 }
 
 #[no_mangle]
-/// go to previous item in the playlist and play it
+/// go to the previous item in the playlist and play it
 /// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_prev(vlc: Option<&mut vlc>) -> bool {
     vlc_null_check!(vlc);

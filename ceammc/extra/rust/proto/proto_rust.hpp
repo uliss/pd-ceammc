@@ -538,7 +538,7 @@ bool ceammc_vlc_get_status(ceammc_vlc *vlc);
 /// @param value - loop value, if NULL toggles loop mode
 bool ceammc_vlc_loop(ceammc_vlc *vlc, const bool *value);
 
-/// go to next item in the playlist and play it
+/// go to the next item in the playlist and play it
 /// @param vlc - vlc control handle
 bool ceammc_vlc_next(ceammc_vlc *vlc);
 
@@ -565,11 +565,13 @@ void ceammc_vlc_playlist_iter(const ceammc_vlc_playlist_item *items,
                               size_t len,
                               ceammc_vlc_playlist_item_cb cb);
 
-/// get incoming messages from vlc
+/// process incoming messages from the worker thread
 /// @param vlc - vlc control handle
-/// @param on_msg - error message callback from worker thread
-/// @param on_stat - vlc status callback
-/// @param on_playlist - vlc playlist callback
+/// @param on_msg - called on error message from the worker thread
+/// @param on_stat - called when 'vlc_status' received from the worker thread
+/// @param on_playlist - called when 'playlisy' received from the worker thread
+/// @param on_current - called when 'current_item' received from the worker thread
+/// @param on_filelist - called when 'filelist' received from the worker thread
 bool ceammc_vlc_poll(ceammc_vlc *vlc,
                      ceammc_callback_msg on_msg,
                      ceammc_vlc_status_cb on_stat,
@@ -577,7 +579,7 @@ bool ceammc_vlc_poll(ceammc_vlc *vlc,
                      ceammc_vlc_playlist_item_cb on_current,
                      ceammc_vlc_filelist_cb on_filelist);
 
-/// go to previous item in the playlist and play it
+/// go to the previous item in the playlist and play it
 /// @param vlc - vlc control handle
 bool ceammc_vlc_prev(ceammc_vlc *vlc);
 
