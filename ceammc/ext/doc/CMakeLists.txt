@@ -214,7 +214,7 @@ if(TIDY AND PD_DOC_FORMAT)
                 -xml
                 --indent auto
                 --priority-attributes "name,type"
-                --indent-spaces 4
+                --indent-spaces 2
                 --indent-cdata no
                 --wrap 100
                 --wrap-sections no
