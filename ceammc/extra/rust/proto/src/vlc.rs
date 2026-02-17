@@ -22,6 +22,9 @@ use url::Url;
 
 use crate::common_ffi::callback_notify;
 use crate::rust_atom;
+use crate::vlc_ffi::vlc_fileinfo;
+use crate::vlc_ffi::vlc_filelist;
+use crate::vlc_ffi::vlc_filelist_cb;
 use crate::vlc_ffi::vlc_playlist;
 use crate::vlc_ffi::vlc_playlist_cb;
 use crate::vlc_ffi::vlc_playlist_item;
@@ -94,7 +97,7 @@ struct JsonFileInfo {
     #[serde(default)]
     uri: String,
     #[serde(default)]
-    size: usize,
+    size: u64,
 }
 
 #[derive(Debug, Default, Deserialize, Clone)]
@@ -104,30 +107,66 @@ struct JsonFileList {
 }
 
 impl JsonFileList {
-    fn filter(self: &Self, file_type: Option<&String>, glob: Option<&String>) -> Self {
-        let glob = glob.map(|x| {
-            GlobBuilder::new(x)
+    fn filter(self: &Self, file_type: Option<&String>, glob: Option<&String>) -> Vec<FileInfo> {
+        let glob = glob.and_then(|str| {
+            if let Ok(glob) = GlobBuilder::new(str)
                 .backslash_escape(false)
                 .literal_separator(true)
                 .build()
-                .unwrap()
-                .compile_matcher()
+            {
+                Some(glob.compile_matcher())
+            } else {
+                None
+            }
         });
 
+        let res = self
+            .element
+            .iter()
+            .filter(|x| match file_type {
+                Some(ft) => x.file_type == *ft,
+                None => true,
+            })
+            .filter(|x| match &glob {
+                Some(glob) => glob.is_match(x.name.clone()),
+                None => true,
+            })
+            .map(|x| x.into())
+            .collect::<Vec<FileInfo>>();
+
+        res
+    }
+}
+
+#[derive(Debug)]
+struct FileInfo {
+    file_type: CString,
+    path: CString,
+    name: CString,
+    uri: CString,
+    size: u64,
+}
+
+impl From<&JsonFileInfo> for FileInfo {
+    fn from(fi: &JsonFileInfo) -> Self {
         Self {
-            element: self
-                .element
-                .iter()
-                .filter(|x| match file_type {
-                    Some(ft) => x.file_type == *ft,
-                    None => true,
-                })
-                .filter(|x| match &glob {
-                    Some(glob) => glob.is_match(x.name.clone()),
-                    None => true,
-                })
-                .map(|x| x.clone())
-                .collect::<Vec<JsonFileInfo>>(),
+            file_type: CString::new(fi.file_type.as_str()).unwrap_or_default(),
+            path: CString::new(fi.path.as_str()).unwrap_or_default(),
+            name: CString::new(fi.name.as_str()).unwrap_or_default(),
+            uri: CString::new(fi.uri.as_str()).unwrap_or_default(),
+            size: fi.size,
+        }
+    }
+}
+
+impl From<&FileInfo> for vlc_fileinfo {
+    fn from(value: &FileInfo) -> Self {
+        Self {
+            uri: value.uri.as_ptr(),
+            path: value.path.as_ptr(),
+            name: value.name.as_ptr(),
+            size: value.size,
+            type_: value.file_type.to_string_lossy().as_ref().into(),
         }
     }
 }
@@ -550,9 +589,9 @@ async fn send2vlc(
             let filelist = request_browse(cli, host, port, pass, &uri)
                 .await?
                 .filter(opts.filter_type.as_ref(), opts.match_glob.as_ref());
-            debug!("{filelist:?}");
-            // tx.send(VlcReply::FileList)?;
-            // notify.exec();
+
+            tx.send(VlcReply::FileList(filelist))?;
+            notify.exec();
             return Ok(true);
         }
     };
@@ -805,6 +844,7 @@ impl Vlc {
         on_stat: vlc_status_cb,
         on_playlist: vlc_playlist_cb,
         on_current_id: vlc_playlist_item_cb,
+        on_filelist: vlc_filelist_cb,
     ) -> bool {
         while let Ok(msg) = self.rx.try_recv() {
             debug!("[client] {msg:?}");
@@ -842,8 +882,15 @@ impl Vlc {
                         self.client_err(format!("current item not found"));
                     }
                 }
-                VlcReply::FileList => {
-                    todo!()
+                VlcReply::FileList(info) => {
+                    let files = info.iter().map(|x| x.into()).collect::<Vec<vlc_fileinfo>>();
+
+                    let filelist = vlc_filelist {
+                        size: files.len(),
+                        files: files.as_ptr(),
+                    };
+
+                    on_filelist.exec(&filelist)
                 }
             }
         }
@@ -890,5 +937,5 @@ enum VlcReply {
     Status(vlc_status),
     Playlist(Vec<PlaylistItem>),
     CurrentId(Option<PlaylistItem>),
-    FileList,
+    FileList(Vec<FileInfo>),
 }
