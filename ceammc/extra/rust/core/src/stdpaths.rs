@@ -1,10 +1,12 @@
 use path_slash::PathBufExt as _;
 use std::{
+    env,
     ffi::{c_char, c_void, CString},
     path::PathBuf,
 };
 
 use dirs;
+use log::{error, warn};
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -17,24 +19,42 @@ pub struct ceammc_path_str_cb {
     cb: extern "C" fn(user: *mut c_void, str: *const c_char),
 }
 
-fn path2str(path: Option<PathBuf>, cb: ceammc_path_str_cb) -> bool {
+fn output_path(path: PathBuf, cb: ceammc_path_str_cb) -> bool {
+    if let Ok(str) = CString::new(path.to_slash_lossy().as_ref()) {
+        (cb.cb)(cb.user, str.as_ptr());
+        true
+    } else {
+        false
+    }
+}
+
+fn path_to_string(path: Option<PathBuf>, cb: ceammc_path_str_cb) -> bool {
     match path {
         Some(path) => {
-            if let Ok(str) = CString::new(path.to_slash_lossy().as_ref()) {
-                (cb.cb)(cb.user, str.as_ptr());
-                true
-            } else {
-                false
+            if !path.exists() {
+                error!("path not exists: '{}'", path.to_string_lossy());
+                return false;
+            }
+
+            match path.canonicalize() {
+                Ok(new_path) => output_path(new_path, cb),
+                Err(err) => {
+                    warn!("can't canonicalize path: {err}");
+                    output_path(path, cb)
+                }
             }
         }
-        None => false,
+        None => {
+            error!("path not found");
+            false
+        }
     }
 }
 
 #[no_mangle]
 /// cross-platform home directory path with '/' slashes
 pub extern "C" fn ceammc_path_home(cb: ceammc_path_str_cb) -> bool {
-    path2str(dirs::home_dir(), cb)
+    path_to_string(dirs::home_dir(), cb)
 }
 
 #[no_mangle]
@@ -45,58 +65,68 @@ pub extern "C" fn ceammc_path_pd_user(cb: ceammc_path_str_cb) -> bool {
         path.push("Pd");
         path
     });
-    path2str(path, cb)
+    path_to_string(path, cb)
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_path_pd_doc() {}
+/// cross-platform puredata doc directory path with '/' slashes
+/// using PD_DOC env variable
+pub extern "C" fn ceammc_path_pd_doc(cb: ceammc_path_str_cb) -> bool {
+    let path = env::var("PD_DOC").ok().map(|var| PathBuf::from(var));
+    path_to_string(path, cb)
+}
 
 #[no_mangle]
-pub extern "C" fn ceammc_path_ceammc_doc() {}
+/// cross-platform ceammc external doc directory path with '/' slashes
+/// using CEAMMC_DOC env variable
+pub extern "C" fn ceammc_path_ceammc_doc(cb: ceammc_path_str_cb) -> bool {
+    let path = env::var("CEAMMC_DOC").ok().map(|var| PathBuf::from(var));
+    path_to_string(path, cb)
+}
 
 #[no_mangle]
 /// cross-platform desktop directory path with '/' slashes
 pub extern "C" fn ceammc_path_desktop(cb: ceammc_path_str_cb) -> bool {
-    path2str(dirs::desktop_dir(), cb)
+    path_to_string(dirs::desktop_dir(), cb)
 }
 
 #[no_mangle]
 /// cross-platform audio directory path with '/' slashes
 pub extern "C" fn ceammc_path_audio(cb: ceammc_path_str_cb) -> bool {
-    path2str(dirs::audio_dir(), cb)
+    path_to_string(dirs::audio_dir(), cb)
 }
 
 #[no_mangle]
 /// cross-platform video directory path with '/' slashes
 pub extern "C" fn ceammc_path_video(cb: ceammc_path_str_cb) -> bool {
-    path2str(dirs::video_dir(), cb)
+    path_to_string(dirs::video_dir(), cb)
 }
 
 #[no_mangle]
 /// cross-platform images directory path with '/' slashes
 pub extern "C" fn ceammc_path_image(cb: ceammc_path_str_cb) -> bool {
-    path2str(dirs::picture_dir(), cb)
+    path_to_string(dirs::picture_dir(), cb)
 }
 
 #[no_mangle]
 /// cross-platform documents directory path with '/' slashes
 pub extern "C" fn ceammc_path_documents(cb: ceammc_path_str_cb) -> bool {
-    path2str(dirs::document_dir(), cb)
+    path_to_string(dirs::document_dir(), cb)
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_path_downloads(cb: ceammc_path_str_cb) -> bool {
-    path2str(dirs::download_dir(), cb)
+    path_to_string(dirs::download_dir(), cb)
 }
 
 #[no_mangle]
 /// cross-platform tmp directory path with '/' slashes
 pub extern "C" fn ceammc_path_tmp(cb: ceammc_path_str_cb) -> bool {
-    path2str(Some(std::env::temp_dir()), cb)
+    path_to_string(Some(std::env::temp_dir()), cb)
 }
 
 #[no_mangle]
 /// cross-platform current working directory path with '/' slashes
 pub extern "C" fn ceammc_path_cwd(cb: ceammc_path_str_cb) -> bool {
-    path2str(std::env::current_dir().ok(), cb)
+    path_to_string(std::env::current_dir().ok(), cb)
 }

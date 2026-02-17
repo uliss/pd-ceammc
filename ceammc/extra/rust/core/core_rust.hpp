@@ -678,7 +678,11 @@ ceammc_net_ifaces *ceammc_net_list_interfaces(ceammc_core_on_msg msg_cb);
  */
 bool ceammc_path_audio(ceammc_ceammc_path_str_cb cb);
 
-void ceammc_path_ceammc_doc();
+/**
+ * cross-platform ceammc external doc directory path with '/' slashes
+ * using CEAMMC_DOC env variable
+ */
+bool ceammc_path_ceammc_doc(ceammc_ceammc_path_str_cb cb);
 
 /**
  * cross-platform current working directory path with '/' slashes
@@ -707,7 +711,11 @@ bool ceammc_path_home(ceammc_ceammc_path_str_cb cb);
  */
 bool ceammc_path_image(ceammc_ceammc_path_str_cb cb);
 
-void ceammc_path_pd_doc();
+/**
+ * cross-platform puredata doc directory path with '/' slashes
+ * using PD_DOC env variable
+ */
+bool ceammc_path_pd_doc(ceammc_ceammc_path_str_cb cb);
 
 /**
  * cross-platform pd user directory path with '/' slashes
