@@ -206,7 +206,7 @@ struct ceammc_mdns_service_info_register {
     ceammc_mdns_iface iface;
 };
 
-struct ceammc_ceammc_path_str_cb {
+struct ceammc_path_str_cb {
     /**
      * nullable
      */
@@ -676,61 +676,61 @@ ceammc_net_ifaces *ceammc_net_list_interfaces(ceammc_core_on_msg msg_cb);
 /**
  * cross-platform audio directory path with '/' slashes
  */
-bool ceammc_path_audio(ceammc_ceammc_path_str_cb cb);
+bool ceammc_path_audio(ceammc_path_str_cb cb);
 
 /**
  * cross-platform ceammc external doc directory path with '/' slashes
  * using CEAMMC_DOC env variable
  */
-bool ceammc_path_ceammc_doc(ceammc_ceammc_path_str_cb cb);
+bool ceammc_path_ceammc_doc(ceammc_path_str_cb cb);
 
 /**
  * cross-platform current working directory path with '/' slashes
  */
-bool ceammc_path_cwd(ceammc_ceammc_path_str_cb cb);
+bool ceammc_path_cwd(ceammc_path_str_cb cb);
 
 /**
  * cross-platform desktop directory path with '/' slashes
  */
-bool ceammc_path_desktop(ceammc_ceammc_path_str_cb cb);
+bool ceammc_path_desktop(ceammc_path_str_cb cb);
 
 /**
  * cross-platform documents directory path with '/' slashes
  */
-bool ceammc_path_documents(ceammc_ceammc_path_str_cb cb);
+bool ceammc_path_documents(ceammc_path_str_cb cb);
 
-bool ceammc_path_downloads(ceammc_ceammc_path_str_cb cb);
+bool ceammc_path_downloads(ceammc_path_str_cb cb);
 
 /**
  * cross-platform home directory path with '/' slashes
  */
-bool ceammc_path_home(ceammc_ceammc_path_str_cb cb);
+bool ceammc_path_home(ceammc_path_str_cb cb);
 
 /**
  * cross-platform images directory path with '/' slashes
  */
-bool ceammc_path_image(ceammc_ceammc_path_str_cb cb);
+bool ceammc_path_image(ceammc_path_str_cb cb);
 
 /**
  * cross-platform puredata doc directory path with '/' slashes
  * using PD_DOC env variable
  */
-bool ceammc_path_pd_doc(ceammc_ceammc_path_str_cb cb);
+bool ceammc_path_pd_doc(ceammc_path_str_cb cb);
 
 /**
  * cross-platform pd user directory path with '/' slashes
  */
-bool ceammc_path_pd_user(ceammc_ceammc_path_str_cb cb);
+bool ceammc_path_pd_user(ceammc_path_str_cb cb);
 
 /**
  * cross-platform tmp directory path with '/' slashes
  */
-bool ceammc_path_tmp(ceammc_ceammc_path_str_cb cb);
+bool ceammc_path_tmp(ceammc_path_str_cb cb);
 
 /**
  * cross-platform video directory path with '/' slashes
  */
-bool ceammc_path_video(ceammc_ceammc_path_str_cb cb);
+bool ceammc_path_video(ceammc_path_str_cb cb);
 
 /**
  * create new regexp
