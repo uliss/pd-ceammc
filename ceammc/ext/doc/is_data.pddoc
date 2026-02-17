@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="is_data">
-        <title>is_data</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks if the input is a *data* type</tr>
-                <tr lang="ru">проверяет, является ли входное сообщение типом данных</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>predicates</category>
-            <keywords>predicate data</keywords>
-            <also>
-                <see>is_float</see>
-                <see>is_symbol</see>
-                <see>is_list</see>
-            </also>
-            <since>0.6</since>
-            <aliases>
-                <alias>ceammc/is_data</alias>
-            </aliases>
-        </meta>
-        <properties>
-            <!-- @in_list -->
-            <property name="@in_list" type="flag" default="0" access="initonly">
-                <tr lang="en">output '1' if list contains at least one data atom</tr>
-                <!-- old: выход «1», если список содержит по меньшей мере один
+  <object name="is_data">
+    <title>is_data</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks if the input is a *data* type</tr>
+        <tr lang="ru">проверяет, является ли входное сообщение типом данных</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>predicates</category>
+      <keywords>predicate data</keywords>
+      <also>
+        <see>is_float</see>
+        <see>is_symbol</see>
+        <see>is_list</see>
+      </also>
+      <since>0.6</since>
+      <aliases>
+        <alias>ceammc/is_data</alias>
+      </aliases>
+    </meta>
+    <properties>
+      <!-- @in_list -->
+      <property name="@in_list" type="flag" default="0" access="initonly">
+        <tr lang="en">output '1' if list contains at least one data atom</tr>
+        <!-- old: выход «1», если список содержит по меньшей мере один
                 атом данных -->
-                <tr lang="ru" finished="false">выход «1», если список содержит по меньшей мере один
-                атом данных</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="data">
-                    <tr lang="en">outputs '1' to 1st outlet, otherwise '0'</tr>
-                    <tr lang="ru" finished="false">выходы "1" - 1-й выход, иначе "0"</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">0 or 1</tr>
-                    <tr lang="ru" finished="false">0 или 1</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">passes *data* message</tr>
-                    <tr lang="ru" finished="false">Передает *данные* сообщение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">выход «1», если список содержит по меньшей мере один атом
+        данных</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="data">
+          <tr lang="en">outputs '1' to 1st outlet, otherwise '0'</tr>
+          <tr lang="ru" finished="false">выходы "1" - 1-й выход, иначе "0"</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">0 or 1</tr>
+          <tr lang="ru" finished="false">0 или 1</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">passes *data* message</tr>
+          <tr lang="ru" finished="false">Передает *данные* сообщение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(
 |
@@ -72,7 +72,7 @@
 |
 [B]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

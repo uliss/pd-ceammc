@@ -1,72 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.sinh">
-        <title>math.sinh</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">hyperbolic sine function</tr>
-                <tr lang="ru">гиперболическая функция синуса</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math sinh</keywords>
-            <also>
-                <see>math.acos</see>
-                <see>math.asin</see>
-                <see>math.atan</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The sinh() function computes the hyperbolic sine of x.</tr>
-                <!-- old: Функция sinh() вычисляет гиперболический синус
+  <object name="math.sinh">
+    <title>math.sinh</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">hyperbolic sine function</tr>
+        <tr lang="ru">гиперболическая функция синуса</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math sinh</keywords>
+      <also>
+        <see>math.acos</see>
+        <see>math.asin</see>
+        <see>math.atan</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The sinh() function computes the hyperbolic sine of x.</tr>
+        <!-- old: Функция sinh() вычисляет гиперболический синус
                 x. -->
-                <tr lang="ru" finished="false">Функция sinh() вычисляет гиперболический синус
-                x.</tr>
-            </par>
-            <par>
-                <tr lang="en">Special values:</tr>
-                <tr lang="ru" finished="false">Особые ценности:</tr>
-            </par>
-            <par>
-                <tr lang="en">sinh(+-0) returns +-0.</tr>
-                <tr lang="ru" finished="false">Синх (+-0) возвращается +-0.</tr>
-            </par>
-            <par>
-                <tr lang="en">sinh(+-infinity) returns +-infinity.</tr>
-                <!-- old: Синх (+-бесконечность) возвращается
+        <tr lang="ru" finished="false">Функция sinh() вычисляет гиперболический синус x.</tr>
+      </par>
+      <par>
+        <tr lang="en">Special values:</tr>
+        <tr lang="ru" finished="false">Особые ценности:</tr>
+      </par>
+      <par>
+        <tr lang="en">sinh(+-0) returns +-0.</tr>
+        <tr lang="ru" finished="false">Синх (+-0) возвращается +-0.</tr>
+      </par>
+      <par>
+        <tr lang="en">sinh(+-infinity) returns +-infinity.</tr>
+        <!-- old: Синх (+-бесконечность) возвращается
                 +-бесконечность. -->
-                <tr lang="ru" finished="false">Синх (+-бесконечность) возвращается
-                +-бесконечность.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">apply to all numeric values</tr>
-                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Синх (+-бесконечность) возвращается +-бесконечность.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">apply to all numeric values</tr>
+          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]
 |
@@ -74,7 +72,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

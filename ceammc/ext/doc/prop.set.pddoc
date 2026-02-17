@@ -1,88 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="prop.set">
-        <title>prop.set</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">set the property value for connected object, subpatch or
-                abstraction</tr>
-                <tr lang="ru">устанавливает значение свойства для подключенного объекта, субпатча
-                или абстракции</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>property</category>
-            <keywords>property</keywords>
-            <since>0.9</since>
-            <aliases>
-                <alias>p.set</alias>
-            </aliases>
-            <also>
-                <see>prop.get</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The object adds ability to change properties of flow objects that
-                should accept any incoming messages. The object should be connected to destination,
-                but it not sends pd messages to change props, but using internal pd method
-                calls</tr>
-                <tr lang="ru" finished="false">Объект добавляет возможность изменять свойства
-                потоковых объектов, которые должны принимать любые входящие сообщения. Объект
-                должен быть подключен к пункту назначения, но он не посылает сообщения pd для
-                изменения реквизита, а использует внутренние вызовы pd-метода.</tr>
-            </par>
-            <par>
-                <tr lang="en">Object can be used with patch declared user properties</tr>
-                <tr lang="ru" finished="false">Объект может быть использован с патчем объявленных
-                свойств пользователя</tr>
-            </par>
-            <par>
-                <tr lang="en">Note: you can connect to *any* destination inlet</tr>
-                <tr lang="ru" finished="false">Примечание: Вы можете подключиться к *любому* входу
-                назначения</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="PROPS" type="list">
-                <tr lang="en">property names</tr>
-                <tr lang="ru" finished="false">Имена собственности</tr>
-            </argument>
-        </arguments>
-        <inlets dynamic="true">
-            <inlet number="1">
-                <in>
-                    <tr lang="en">first property value</tr>
-                    <tr lang="ru" finished="false">Первая стоимость недвижимости</tr>
-                </in>
-            </inlet>
-            <inlet number="...">
-                <in>
-                    <tr lang="en">... property value</tr>
-                    <tr lang="ru" finished="false">стоимость имущества</tr>
-                </in>
-            </inlet>
-            <inlet number="n">
-                <in>
-                    <tr lang="en">n-th property value</tr>
-                    <tr lang="ru" finished="false">n-я стоимость имущества</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs nothing. connect to destination object(s)</tr>
-                    <tr lang="ru" finished="false">ничего не выводит. подключиться к объекту(ам)
-                    назначения</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="prop.set">
+    <title>prop.set</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">set the property value for connected object, subpatch or abstraction</tr>
+        <tr lang="ru">устанавливает значение свойства для подключенного объекта, субпатча или
+        абстракции</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>property</category>
+      <keywords>property</keywords>
+      <since>0.9</since>
+      <aliases>
+        <alias>p.set</alias>
+      </aliases>
+      <also>
+        <see>prop.get</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The object adds ability to change properties of flow objects that should
+        accept any incoming messages. The object should be connected to destination, but it not
+        sends pd messages to change props, but using internal pd method calls</tr>
+        <tr lang="ru" finished="false">Объект добавляет возможность изменять свойства потоковых
+        объектов, которые должны принимать любые входящие сообщения. Объект должен быть подключен к
+        пункту назначения, но он не посылает сообщения pd для изменения реквизита, а использует
+        внутренние вызовы pd-метода.</tr>
+      </par>
+      <par>
+        <tr lang="en">Object can be used with patch declared user properties</tr>
+        <tr lang="ru" finished="false">Объект может быть использован с патчем объявленных свойств
+        пользователя</tr>
+      </par>
+      <par>
+        <tr lang="en">Note: you can connect to *any* destination inlet</tr>
+        <tr lang="ru" finished="false">Примечание: Вы можете подключиться к *любому* входу
+        назначения</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="PROPS" type="list">
+        <tr lang="en">property names</tr>
+        <tr lang="ru" finished="false">Имена собственности</tr>
+      </argument>
+    </arguments>
+    <inlets dynamic="true">
+      <inlet number="1">
+        <in>
+          <tr lang="en">first property value</tr>
+          <tr lang="ru" finished="false">Первая стоимость недвижимости</tr>
+        </in>
+      </inlet>
+      <inlet number="...">
+        <in>
+          <tr lang="en">... property value</tr>
+          <tr lang="ru" finished="false">стоимость имущества</tr>
+        </in>
+      </inlet>
+      <inlet number="n">
+        <in>
+          <tr lang="en">n-th property value</tr>
+          <tr lang="ru" finished="false">n-я стоимость имущества</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs nothing. connect to destination object(s)</tr>
+          <tr lang="ru" finished="false">ничего не выводит. подключиться к объекту(ам)
+          назначения</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [@delay 400(/*passed thru*/  [400( [0(/*change delay time*/
 |                            |     |
@@ -107,8 +105,8 @@
 |
 [prop.set-patch {i=1}]
 ]]>
-            </pdascii>
-            <pdascii id="patch">
+      </pdascii>
+      <pdascii id="patch">
 <![CDATA[
 [inlet]
 
@@ -120,7 +118,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

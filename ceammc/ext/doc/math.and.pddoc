@@ -1,92 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.and">
-        <title>math.and</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">operation AND for multiple arguments</tr>
-                <tr lang="ru">операция И для множества аргументов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math and logic</keywords>
-            <also>
-                <see>math.or</see>
-            </also>
-            <aliases>
-                <alias>ceammc/and</alias>
-                <alias>and</alias>
-            </aliases>
-            <since>0.2</since>
-        </meta>
-        <arguments>
-            <argument name="N" type="int" minvalue="3" maxvalue="16">
-                <tr lang="en">number of arguments</tr>
-                <tr lang="ru" finished="false">Количество аргументов</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @n -->
-            <property name="@n" type="int" access="initonly" minvalue="3" maxvalue="16"
-            default="3">
-                <tr lang="en">number of arguments</tr>
-                <tr lang="ru" finished="false">Количество аргументов</tr>
-            </property>
-            <!-- @state -->
-            <property name="@state" type="list" access="readonly" default="">
-                <tr lang="en">internal logic state as list of 1 and 0</tr>
-                <tr lang="ru" finished="false">Состояние внутренней логики как список 1 и 0</tr>
-            </property>
-            <!-- @sync -->
-            <property name="@sync" type="flag" access="initonly">
-                <tr lang="en">if specified - all inlets are 'hot'</tr>
-                <tr lang="ru" finished="false">если указано - все входы "горячие"</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">resets all input states to false</tr>
-                    <tr lang="ru" finished="false">Сброс всех входных состояний на ложные</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets dynamic="true">
-            <inlet>
-                <in on="float">
-                    <tr lang="en">1 or 0</tr>
-                    <tr lang="ru" finished="false">1 или 0</tr>
-                </in>
-            </inlet>
-            <inlet number="...">
-                <in on="float">
-                    <tr lang="en">1 or 0</tr>
-                    <tr lang="ru" finished="false">1 или 0</tr>
-                </in>
-            </inlet>
-            <inlet number="n">
-                <in on="float">
-                    <tr lang="en">1 or 0</tr>
-                    <tr lang="ru" finished="false">1 или 0</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">1 - if all input values are true (1), 0 - otherwise</tr>
-                    <tr lang="ru" finished="false">1 - если все входные значения верны (1), 0 -
-                    иначе</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="math.and">
+    <title>math.and</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">operation AND for multiple arguments</tr>
+        <tr lang="ru">операция И для множества аргументов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math and logic</keywords>
+      <also>
+        <see>math.or</see>
+      </also>
+      <aliases>
+        <alias>ceammc/and</alias>
+        <alias>and</alias>
+      </aliases>
+      <since>0.2</since>
+    </meta>
+    <arguments>
+      <argument name="N" type="int" minvalue="3" maxvalue="16">
+        <tr lang="en">number of arguments</tr>
+        <tr lang="ru" finished="false">Количество аргументов</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @n -->
+      <property name="@n" type="int" access="initonly" minvalue="3" maxvalue="16" default="3">
+        <tr lang="en">number of arguments</tr>
+        <tr lang="ru" finished="false">Количество аргументов</tr>
+      </property>
+      <!-- @state -->
+      <property name="@state" type="list" access="readonly" default="">
+        <tr lang="en">internal logic state as list of 1 and 0</tr>
+        <tr lang="ru" finished="false">Состояние внутренней логики как список 1 и 0</tr>
+      </property>
+      <!-- @sync -->
+      <property name="@sync" type="flag" access="initonly">
+        <tr lang="en">if specified - all inlets are 'hot'</tr>
+        <tr lang="ru" finished="false">если указано - все входы "горячие"</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">resets all input states to false</tr>
+          <tr lang="ru" finished="false">Сброс всех входных состояний на ложные</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets dynamic="true">
+      <inlet>
+        <in on="float">
+          <tr lang="en">1 or 0</tr>
+          <tr lang="ru" finished="false">1 или 0</tr>
+        </in>
+      </inlet>
+      <inlet number="...">
+        <in on="float">
+          <tr lang="en">1 or 0</tr>
+          <tr lang="ru" finished="false">1 или 0</tr>
+        </in>
+      </inlet>
+      <inlet number="n">
+        <in on="float">
+          <tr lang="en">1 or 0</tr>
+          <tr lang="ru" finished="false">1 или 0</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">1 - if all input values are true (1), 0 - otherwise</tr>
+          <tr lang="ru" finished="false">1 - если все входные значения верны (1), 0 - иначе</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [HS]
 |
@@ -102,7 +100,7 @@
 |
 [B]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

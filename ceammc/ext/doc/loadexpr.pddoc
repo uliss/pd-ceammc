@@ -1,66 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="loadexpr">
-        <title>loadexpr</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sends the message when the patch loads</tr>
-                <tr lang="ru">отправить сообщение при загрузке патча</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>msg</category>
-            <keywords>message loadbang onload</keywords>
-            <since>0.9.2</since>
-            <also>
-                <see>loadmsg</see>
-            </also>
-            <aliases>
-                <alias>ceammc/loadexpr</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">like [loadmsg], but support expression calls and datatype</tr>
-                <!-- old: как [loadmsg], но поддерживает вызовы выражения и
+  <object name="loadexpr">
+    <title>loadexpr</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sends the message when the patch loads</tr>
+        <tr lang="ru">отправить сообщение при загрузке патча</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>msg</category>
+      <keywords>message loadbang onload</keywords>
+      <since>0.9.2</since>
+      <also>
+        <see>loadmsg</see>
+      </also>
+      <aliases>
+        <alias>ceammc/loadexpr</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">like [loadmsg], but support expression calls and datatype</tr>
+        <!-- old: как [loadmsg], но поддерживает вызовы выражения и
                 тип данных -->
-                <tr lang="ru" finished="false">как [loadmsg], но поддерживает вызовы выражения и
-                тип данных</tr>
-            </par>
-            <par>
-                <tr lang="en">Click on object sends message again</tr>
-                <!-- old: Нажмите на объект, чтобы снова отправить
+        <tr lang="ru" finished="false">как [loadmsg], но поддерживает вызовы выражения и тип
+        данных</tr>
+      </par>
+      <par>
+        <tr lang="en">Click on object sends message again</tr>
+        <!-- old: Нажмите на объект, чтобы снова отправить
                 сообщение -->
-                <tr lang="ru" finished="false">Нажмите на объект, чтобы снова отправить
-                сообщение</tr>
-            </par>
-        </info>
-        <mouse>
-            <event type="left-click" editmode="false">output again</event>
-        </mouse>
-        <arguments>
-            <argument name="ARGS" type="list">
-                <tr lang="en">message. Comma separated messages are supported</tr>
-                <!-- old: Сообщение. Поддерживаются сообщения, разделенные
+        <tr lang="ru" finished="false">Нажмите на объект, чтобы снова отправить сообщение</tr>
+      </par>
+    </info>
+    <mouse>
+      <event type="left-click" editmode="false">output again</event>
+    </mouse>
+    <arguments>
+      <argument name="ARGS" type="list">
+        <tr lang="en">message. Comma separated messages are supported</tr>
+        <!-- old: Сообщение. Поддерживаются сообщения, разделенные
                 Comma -->
-                <tr lang="ru" finished="false">Сообщение. Поддерживаются сообщения, разделенные
-                Comma</tr>
-            </argument>
-        </arguments>
-        <inlets />
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">message output</tr>
-                    <tr lang="ru" finished="false">сообщение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Сообщение. Поддерживаются сообщения, разделенные Comma</tr>
+      </argument>
+    </arguments>
+    <inlets />
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">message output</tr>
+          <tr lang="ru" finished="false">сообщение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /*click me!*/
 
@@ -72,7 +70,7 @@
 |       |
 [print] [ui.dt @auto_size 0]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

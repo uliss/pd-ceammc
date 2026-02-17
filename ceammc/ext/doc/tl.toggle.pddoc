@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="tl.toggle">
-        <title>tl.toggle</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">timeline toggle</tr>
-                <tr lang="ru">переключатель на временной шкале</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>tl</category>
-            <keywords>timeline toggle</keywords>
-            <since>0.7</since>
-            <also>
-                <see>tl.bang</see>
-                <see view="link">tl.cue</see>
-            </also>
-            <aliases>
-                <alias>tl.t</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Output 1 when cue section activated, 0 when switched to other cue
-                section</tr>
-                <tr lang="ru" finished="false">Выход 1 при активации секции сигнала, 0 при
-                переключении на другую секцию сигнала</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @cue -->
-            <property name="@cue" type="symbol" access="readonly" default="">
-                <tr lang="en">related cue</tr>
-                <tr lang="ru" finished="false">связанный сигнал</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control inlet</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">1 on cue enter, 0 on cue out</tr>
-                    <tr lang="ru" finished="false">1 на входе, 0 на выходе</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="tl.toggle">
+    <title>tl.toggle</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">timeline toggle</tr>
+        <tr lang="ru">переключатель на временной шкале</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>tl</category>
+      <keywords>timeline toggle</keywords>
+      <since>0.7</since>
+      <also>
+        <see>tl.bang</see>
+        <see view="link">tl.cue</see>
+      </also>
+      <aliases>
+        <alias>tl.t</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Output 1 when cue section activated, 0 when switched to other cue
+        section</tr>
+        <tr lang="ru" finished="false">Выход 1 при активации секции сигнала, 0 при переключении на
+        другую секцию сигнала</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @cue -->
+      <property name="@cue" type="symbol" access="readonly" default="">
+        <tr lang="en">related cue</tr>
+        <tr lang="ru" finished="false">связанный сигнал</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control inlet</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">1 on cue enter, 0 on cue out</tr>
+          <tr lang="ru" finished="false">1 на входе, 0 на выходе</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
             [tl.cue]           [tl.cue]
 
@@ -66,7 +66,7 @@
 |
 [tl.transport]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,96 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="metro.seq">
-        <title>metro.seq</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">a metronome that changes its period with each beat in the specified
-                sequence</tr>
-                <tr lang="ru">метроном изменяющий свой период при каждом ударе в указанной
-                последовательности</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>base</category>
-            <keywords>metro sequencer</keywords>
-            <also>
-                <see>metro</see>
-                <see>metro.pattern</see>
-            </also>
-            <since>0.5</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Easy way to build beat machines</tr>
-                <tr lang="ru" finished="false">Простой способ создания бит-машин</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="INTERVAL" type="float" units="millisecond" minvalue="0">
-                <tr lang="en">metro tempo in ms</tr>
-                <tr lang="ru" finished="false">темп метро в мс</tr>
-            </argument>
-            <argument name="PATTERN" type="list">
-                <tr lang="en">list of 1 and 0. Where 1 means output bang on this beat</tr>
-                <!-- old: Список 1 и 0. Где 1 означает выходной удар по этому
+  <object name="metro.seq">
+    <title>metro.seq</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">a metronome that changes its period with each beat in the specified
+        sequence</tr>
+        <tr lang="ru">метроном изменяющий свой период при каждом ударе в указанной
+        последовательности</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>base</category>
+      <keywords>metro sequencer</keywords>
+      <also>
+        <see>metro</see>
+        <see>metro.pattern</see>
+      </also>
+      <since>0.5</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Easy way to build beat machines</tr>
+        <tr lang="ru" finished="false">Простой способ создания бит-машин</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="INTERVAL" type="float" units="millisecond" minvalue="0">
+        <tr lang="en">metro tempo in ms</tr>
+        <tr lang="ru" finished="false">темп метро в мс</tr>
+      </argument>
+      <argument name="PATTERN" type="list">
+        <tr lang="en">list of 1 and 0. Where 1 means output bang on this beat</tr>
+        <!-- old: Список 1 и 0. Где 1 означает выходной удар по этому
                 биту -->
-                <tr lang="ru" finished="false">Список 1 и 0. Где 1 означает выходной удар по этому
-                биту</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @current -->
-            <property name="@current" type="int" minvalue="0" default="0">
-                <tr lang="en">current pattern index</tr>
-                <tr lang="ru" finished="false">Текущий индекс</tr>
-            </property>
-            <!-- @interval -->
-            <property name="@interval" type="float" units="millisecond" minvalue="0" default="0">
-                <tr lang="en">interval between beats</tr>
-                <tr lang="ru" finished="false">интервал между ударами</tr>
-            </property>
-            <!-- @pattern -->
-            <property name="@pattern" type="list" default="">
-                <tr lang="en">list of 1 and 0. Where 1 means output bang on this beat</tr>
-                <!-- old: Список 1 и 0. Где 1 означает выходной удар по этому
+        <tr lang="ru" finished="false">Список 1 и 0. Где 1 означает выходной удар по этому
+        биту</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @current -->
+      <property name="@current" type="int" minvalue="0" default="0">
+        <tr lang="en">current pattern index</tr>
+        <tr lang="ru" finished="false">Текущий индекс</tr>
+      </property>
+      <!-- @interval -->
+      <property name="@interval" type="float" units="millisecond" minvalue="0" default="0">
+        <tr lang="en">interval between beats</tr>
+        <tr lang="ru" finished="false">интервал между ударами</tr>
+      </property>
+      <!-- @pattern -->
+      <property name="@pattern" type="list" default="">
+        <tr lang="en">list of 1 and 0. Where 1 means output bang on this beat</tr>
+        <!-- old: Список 1 и 0. Где 1 означает выходной удар по этому
                 биту -->
-                <tr lang="ru" finished="false">Список 1 и 0. Где 1 означает выходной удар по этому
-                биту</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">starts (on 1) or stops (on 0) metro</tr>
-                    <tr lang="ru" finished="false">старты (на 1) или остановки (на 0) метро</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set new step interval</tr>
-                    <tr lang="ru" finished="false">Новый интервал шагов</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set new pattern</tr>
-                    <tr lang="ru" finished="false">Установить новый шаблон</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs *bang*</tr>
-                    <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Список 1 и 0. Где 1 означает выходной удар по этому
+        биту</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">starts (on 1) or stops (on 0) metro</tr>
+          <tr lang="ru" finished="false">старты (на 1) или остановки (на 0) метро</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set new step interval</tr>
+          <tr lang="ru" finished="false">Новый интервал шагов</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set new pattern</tr>
+          <tr lang="ru" finished="false">Установить новый шаблон</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs *bang*</tr>
+          <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 0 1 1 0 1 0 1(
 |
@@ -110,7 +110,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

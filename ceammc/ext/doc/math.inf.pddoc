@@ -1,57 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.inf">
-        <title>math.inf</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">output infinity value in the IEEE 754 standard</tr>
-                <tr lang="ru">выводит бесконечное значение в стандарте IEEE 754</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math inf</keywords>
-            <also>
-                <see>math.nan</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">IEEE 754 floating point numbers can represent positive or negative
-                infinity, and NaN (not a number). These three values arise from calculations whose
-                result is undefined or cannot be represented accurately.</tr>
-                <!-- old: Номера с плавающей точкой IEEE 754 могут
+  <object name="math.inf">
+    <title>math.inf</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">output infinity value in the IEEE 754 standard</tr>
+        <tr lang="ru">выводит бесконечное значение в стандарте IEEE 754</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math inf</keywords>
+      <also>
+        <see>math.nan</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">IEEE 754 floating point numbers can represent positive or negative infinity,
+        and NaN (not a number). These three values arise from calculations whose result is
+        undefined or cannot be represented accurately.</tr>
+        <!-- old: Номера с плавающей точкой IEEE 754 могут
                 представлять положительную или отрицательную бесконечность и NaN (не число). Эти
                 три значения возникают из вычислений, результат которых не определен или не может
                 быть представлен точно. -->
-                <tr lang="ru" finished="false">Номера с плавающей точкой IEEE 754 могут
-                представлять положительную или отрицательную бесконечность и NaN (не число). Эти
-                три значения возникают из вычислений, результат которых не определен или не может
-                быть представлен точно.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">outputs *inf* value</tr>
-                    <tr lang="ru" finished="false">значение *inf*</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output value</tr>
-                    <tr lang="ru" finished="false">выходная стоимость</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Номера с плавающей точкой IEEE 754 могут представлять
+        положительную или отрицательную бесконечность и NaN (не число). Эти три значения возникают
+        из вычислений, результат которых не определен или не может быть представлен точно.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">outputs *inf* value</tr>
+          <tr lang="ru" finished="false">значение *inf*</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output value</tr>
+          <tr lang="ru" finished="false">выходная стоимость</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -61,8 +60,8 @@
 
 [math.inf-math]
 ]]>
-            </pdascii>
-            <pdascii id="math">
+      </pdascii>
+      <pdascii id="math">
 <![CDATA[
 /*multiplication*/
 
@@ -96,7 +95,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

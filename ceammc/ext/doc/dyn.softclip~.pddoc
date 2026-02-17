@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="dyn.softclip~">
-        <title>dyn.softclip~</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-            </authors>
-            <description>
-                <tr lang="en">soft signal clip</tr>
-                <tr lang="ru">мягкое клиппирование сигнала</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>dyn</category>
-            <keywords>dyn clip limiter</keywords>
-            <since>0.1</since>
-        </meta>
-        <properties>
-            <xi:include href="props_active.xml" />
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset to initial state</tr>
-                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="dyn.softclip~">
+    <title>dyn.softclip~</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+      </authors>
+      <description>
+        <tr lang="en">soft signal clip</tr>
+        <tr lang="ru">мягкое клиппирование сигнала</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>dyn</category>
+      <keywords>dyn clip limiter</keywords>
+      <since>0.1</since>
+    </meta>
+    <properties>
+      <xi:include href="props_active.xml" />
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset to initial state</tr>
+          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [osc~ 220] [F]      [osc~ 220] [F]
 |  ._______/        |  ._______/
@@ -63,7 +63,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

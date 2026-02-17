@@ -1,117 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.mem">
-        <title>flow.mem</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">store into the memory or output the control flow messages</tr>
-                <tr lang="ru">сохраняет в памяти или выводит сообщения потока управления</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>memory store</keywords>
-            <since>0.9.1</since>
-        </meta>
-        <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="32">
-                <tr lang="en">number of memory cells</tr>
-                <tr lang="ru" finished="false">Количество клеток памяти</tr>
-            </argument>
-            <argument name="TTL" type="int" minvalue="0" maxvalue="1024">
-                <tr lang="en">see @ttl property</tr>
-                <tr lang="ru" finished="false">См. @ttl Property</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @free -->
-            <property name="@free" type="bool" default="1">
-                <tr lang="en">clear cell mode. If on - clear cell counter after zero was
-                reached.</tr>
-                <!-- old: Чистый сотовый режим. Если включено - чистый счетчик
+  <object name="flow.mem">
+    <title>flow.mem</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">store into the memory or output the control flow messages</tr>
+        <tr lang="ru">сохраняет в памяти или выводит сообщения потока управления</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>memory store</keywords>
+      <since>0.9.1</since>
+    </meta>
+    <arguments>
+      <argument name="N" type="int" minvalue="1" maxvalue="32">
+        <tr lang="en">number of memory cells</tr>
+        <tr lang="ru" finished="false">Количество клеток памяти</tr>
+      </argument>
+      <argument name="TTL" type="int" minvalue="0" maxvalue="1024">
+        <tr lang="en">see @ttl property</tr>
+        <tr lang="ru" finished="false">См. @ttl Property</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @free -->
+      <property name="@free" type="bool" default="1">
+        <tr lang="en">clear cell mode. If on - clear cell counter after zero was reached.</tr>
+        <!-- old: Чистый сотовый режим. Если включено - чистый счетчик
                 ячеек после достижения нуля. -->
-                <tr lang="ru" finished="false">Чистый сотовый режим. Если включено - чистый счетчик
-                ячеек после достижения нуля.</tr>
-            </property>
-            <!-- @n -->
-            <property name="@n" type="int" default="1" minvalue="1" maxvalue="32">
-                <tr lang="en">number of memory cells</tr>
-                <tr lang="ru" finished="false">Количество клеток памяти</tr>
-            </property>
-            <!-- @ttl -->
-            <property name="@ttl" type="int" default="0" minvalue="0" maxvalue="1024">
-                <tr lang="en">time to live counter. Each time you set new value its memory cell
-                counter is set to this. Each time memory cell is outputted individual memory cell
-                ttl counter (not this property!) is decremented until zero reached. After that if
-                @free property is on memory cell is cleared. If this property equals zero memory
-                cell never expires.</tr>
-                <!-- old: Время жить на контратаках. Каждый раз, когда вы
+        <tr lang="ru" finished="false">Чистый сотовый режим. Если включено - чистый счетчик ячеек
+        после достижения нуля.</tr>
+      </property>
+      <!-- @n -->
+      <property name="@n" type="int" default="1" minvalue="1" maxvalue="32">
+        <tr lang="en">number of memory cells</tr>
+        <tr lang="ru" finished="false">Количество клеток памяти</tr>
+      </property>
+      <!-- @ttl -->
+      <property name="@ttl" type="int" default="0" minvalue="0" maxvalue="1024">
+        <tr lang="en">time to live counter. Each time you set new value its memory cell counter is
+        set to this. Each time memory cell is outputted individual memory cell ttl counter (not
+        this property!) is decremented until zero reached. After that if @free property is on
+        memory cell is cleared. If this property equals zero memory cell never expires.</tr>
+        <!-- old: Время жить на контратаках. Каждый раз, когда вы
                 устанавливаете новое значение, счетчик ячеек памяти устанавливается на это. Каждый
                 раз, когда ячейка памяти выводится, счетчик ttl отдельных ячеек памяти (не это
                 свойство!) уменьшается до нуля. После этого, если @free свойство на ячейке памяти
                 очищается. Если это свойство равно нулю, ячейка памяти никогда не истекает. -->
-                <tr lang="ru" finished="false">Время жить на контратаках. Каждый раз, когда вы
-                устанавливаете новое значение, счетчик ячеек памяти устанавливается на это. Каждый
-                раз, когда ячейка памяти выводится, счетчик ttl отдельных ячеек памяти (не это
-                свойство!) уменьшается до нуля. После этого, если @free свойство на ячейке памяти
-                очищается. Если это свойство равно нулю, ячейка памяти никогда не истекает.</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet number="1">
-                <in>
-                    <tr lang="en">input: store in 1st memory cell</tr>
-                    <tr lang="ru" finished="false">Вход: хранение в 1-й ячейке памяти</tr>
-                </in>
-            </inlet>
-            <inlet number="...">
-                <in>
-                    <tr lang="en">input: store in ... memory cell</tr>
-                    <tr lang="ru" finished="false">Вход: хранилище в... ячейке памяти</tr>
-                </in>
-            </inlet>
-            <inlet number="n">
-                <in>
-                    <tr lang="en">input: store in n-th memory cell</tr>
-                    <tr lang="ru" finished="false">Вход: хранилище в n-й ячейке памяти</tr>
-                </in>
-            </inlet>
-            <inlet number="n+1">
-                <in on="bang">
-                    <tr lang="en">output all cells</tr>
-                    <tr lang="ru" finished="false">вывести все клетки</tr>
-                </in>
-                <in on="int">
-                    <tr lang="en">output specified cell</tr>
-                    <tr lang="ru" finished="false">выход заданной ячейки</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet number="1">
-                <out type="any">
-                    <tr lang="en">output 1st cell</tr>
-                    <tr lang="ru" finished="false">вывод 1-й ячейки</tr>
-                </out>
-            </outlet>
-            <outlet number="...">
-                <out type="any">
-                    <tr lang="en">output ... cell</tr>
-                    <tr lang="ru" finished="false">Производитель: Cell</tr>
-                </out>
-            </outlet>
-            <outlet number="n">
-                <out type="any">
-                    <tr lang="en">output n-th cell</tr>
-                    <tr lang="ru" finished="false">вывод n-й ячейки</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii id="osc~">
+        <tr lang="ru" finished="false">Время жить на контратаках. Каждый раз, когда вы
+        устанавливаете новое значение, счетчик ячеек памяти устанавливается на это. Каждый раз,
+        когда ячейка памяти выводится, счетчик ttl отдельных ячеек памяти (не это свойство!)
+        уменьшается до нуля. После этого, если @free свойство на ячейке памяти очищается. Если это
+        свойство равно нулю, ячейка памяти никогда не истекает.</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet number="1">
+        <in>
+          <tr lang="en">input: store in 1st memory cell</tr>
+          <tr lang="ru" finished="false">Вход: хранение в 1-й ячейке памяти</tr>
+        </in>
+      </inlet>
+      <inlet number="...">
+        <in>
+          <tr lang="en">input: store in ... memory cell</tr>
+          <tr lang="ru" finished="false">Вход: хранилище в... ячейке памяти</tr>
+        </in>
+      </inlet>
+      <inlet number="n">
+        <in>
+          <tr lang="en">input: store in n-th memory cell</tr>
+          <tr lang="ru" finished="false">Вход: хранилище в n-й ячейке памяти</tr>
+        </in>
+      </inlet>
+      <inlet number="n+1">
+        <in on="bang">
+          <tr lang="en">output all cells</tr>
+          <tr lang="ru" finished="false">вывести все клетки</tr>
+        </in>
+        <in on="int">
+          <tr lang="en">output specified cell</tr>
+          <tr lang="ru" finished="false">выход заданной ячейки</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet number="1">
+        <out type="any">
+          <tr lang="en">output 1st cell</tr>
+          <tr lang="ru" finished="false">вывод 1-й ячейки</tr>
+        </out>
+      </outlet>
+      <outlet number="...">
+        <out type="any">
+          <tr lang="en">output ... cell</tr>
+          <tr lang="ru" finished="false">Производитель: Cell</tr>
+        </out>
+      </outlet>
+      <outlet number="n">
+        <out type="any">
+          <tr lang="en">output n-th cell</tr>
+          <tr lang="ru" finished="false">вывод n-й ячейки</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii id="osc~">
 <![CDATA[
 [inlet]
 |
@@ -125,8 +123,8 @@
 |
 [outlet~]
 ]]>
-            </pdascii>
-            <pdascii id="main">
+      </pdascii>
+      <pdascii id="main">
 <![CDATA[
 [ui.keyboard]
 |
@@ -149,8 +147,8 @@
 
 [flow.mem-more]
 ]]>
-            </pdascii>
-            <pdascii id="more">
+      </pdascii>
+      <pdascii id="more">
 <![CDATA[
 [msg.onload 43.5 78 43 85]
 |
@@ -174,7 +172,7 @@
 *|*
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

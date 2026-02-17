@@ -1,84 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.clock">
-        <title>midi.clock</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">MIDI-clock</tr>
-                <tr lang="ru">MIDI-clock</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi clock</keywords>
-            <since>0.9.2</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Note: cause in Pd messages are processed between DSP blocks -
-                measured bpm is not exact</tr>
-                <!-- old: Примечание: причина в сообщениях Pd обрабатывается
+  <object name="midi.clock">
+    <title>midi.clock</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">MIDI-clock</tr>
+        <tr lang="ru">MIDI-clock</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi clock</keywords>
+      <since>0.9.2</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Note: cause in Pd messages are processed between DSP blocks - measured bpm is
+        not exact</tr>
+        <!-- old: Примечание: причина в сообщениях Pd обрабатывается
                 между блоками DSP - измеренный bpm не точен -->
-                <tr lang="ru" finished="false">Примечание: причина в сообщениях Pd обрабатывается
-                между блоками DSP - измеренный bpm не точен</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="DIV" type="int" enum="0 4 8 16 32">
-                <tr lang="en">@div clock subdivision</tr>
-                <tr lang="ru" finished="false">@div Часы подраздел</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @div -->
-            <property name="@div" type="int" enum="0 4 8 16 32" default="0">
-                <tr lang="en">clock subdivision. If 0: bang each incoming midi clock message, if 4:
-                output every quoter note, 8: every eight note etc.</tr>
-                <!-- old: Часовое подразделение. Если 0: ударить каждое
+        <tr lang="ru" finished="false">Примечание: причина в сообщениях Pd обрабатывается между
+        блоками DSP - измеренный bpm не точен</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="DIV" type="int" enum="0 4 8 16 32">
+        <tr lang="en">@div clock subdivision</tr>
+        <tr lang="ru" finished="false">@div Часы подраздел</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @div -->
+      <property name="@div" type="int" enum="0 4 8 16 32" default="0">
+        <tr lang="en">clock subdivision. If 0: bang each incoming midi clock message, if 4: output
+        every quoter note, 8: every eight note etc.</tr>
+        <!-- old: Часовое подразделение. Если 0: ударить каждое
                 входящее сообщение миди-часа, если 4: вывести каждую заметку цитатора, 8: каждую
                 восьмую заметку и т.д. -->
-                <tr lang="ru" finished="false">Часовое подразделение. Если 0: ударить каждое
-                входящее сообщение миди-часа, если 4: вывести каждую заметку цитатора, 8: каждую
-                восьмую заметку и т.д.</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset beat counter</tr>
-                    <tr lang="ru" finished="false">Обсуждение Beat Counter</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control input</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">bang: on specified beat</tr>
-                    <tr lang="ru" finished="false">Взрыв: определенный удар</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float: measured bpm (output every beat)</tr>
-                    <tr lang="ru" finished="false">Поплавок: измеренный bpm (выход каждого
-                    удара)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Часовое подразделение. Если 0: ударить каждое входящее
+        сообщение миди-часа, если 4: вывести каждую заметку цитатора, 8: каждую восьмую заметку и
+        т.д.</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset beat counter</tr>
+          <tr lang="ru" finished="false">Обсуждение Beat Counter</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control input</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">bang: on specified beat</tr>
+          <tr lang="ru" finished="false">Взрыв: определенный удар</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float: measured bpm (output every beat)</tr>
+          <tr lang="ru" finished="false">Поплавок: измеренный bpm (выход каждого удара)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [midi.clock 8] /*bang every eight note*/
 |        ^|
@@ -90,7 +89,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,74 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.ceil">
-        <title>math.ceil</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">round to the smallest integral value not less than input value</tr>
-                <tr lang="ru">округление до наименьшего целого значения, которое не меньше
-                входного</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math ceil</keywords>
-            <also>
-                <see>math.floor</see>
-                <see>math.round</see>
-                <see>math.trunc</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The ceil() function return the smallest integral value greater than
-                or equal to input value.</tr>
-                <!-- old: Функция ceil() возвращает наименьшее интегральное
+  <object name="math.ceil">
+    <title>math.ceil</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">round to the smallest integral value not less than input value</tr>
+        <tr lang="ru">округление до наименьшего целого значения, которое не меньше входного</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math ceil</keywords>
+      <also>
+        <see>math.floor</see>
+        <see>math.round</see>
+        <see>math.trunc</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The ceil() function return the smallest integral value greater than or equal
+        to input value.</tr>
+        <!-- old: Функция ceil() возвращает наименьшее интегральное
                 значение, большее или равное входному значению. -->
-                <tr lang="ru" finished="false">Функция ceil() возвращает наименьшее интегральное
-                значение, большее или равное входному значению.</tr>
-            </par>
-            <par>
-                <tr lang="en">Special values:</tr>
-                <tr lang="ru" finished="false">Особые ценности:</tr>
-            </par>
-            <par>
-                <tr lang="en">ceil(+-0) returns +-0.</tr>
-                <tr lang="ru" finished="false">ceil(+-0) возвращается +-0.</tr>
-            </par>
-            <par>
-                <tr lang="en">ceil(+-infinity) returns +-infinity.</tr>
-                <!-- old: Потолок (+-бесконечность) возвращает
+        <tr lang="ru" finished="false">Функция ceil() возвращает наименьшее интегральное значение,
+        большее или равное входному значению.</tr>
+      </par>
+      <par>
+        <tr lang="en">Special values:</tr>
+        <tr lang="ru" finished="false">Особые ценности:</tr>
+      </par>
+      <par>
+        <tr lang="en">ceil(+-0) returns +-0.</tr>
+        <tr lang="ru" finished="false">ceil(+-0) возвращается +-0.</tr>
+      </par>
+      <par>
+        <tr lang="en">ceil(+-infinity) returns +-infinity.</tr>
+        <!-- old: Потолок (+-бесконечность) возвращает
                 +-бесконечность. -->
-                <tr lang="ru" finished="false">Потолок (+-бесконечность) возвращает
-                +-бесконечность.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">apply to all numeric values</tr>
-                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Потолок (+-бесконечность) возвращает +-бесконечность.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">apply to all numeric values</tr>
+          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]    [2.3 3.8 5.5 -2.3 -3.8 -5.5(
 |      |
@@ -76,7 +74,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

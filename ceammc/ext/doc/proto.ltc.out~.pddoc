@@ -1,150 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="proto.ltc.out~">
-        <title>proto.ltc.out~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">LTC encoder</tr>
-                <tr lang="ru">LTC энкодер</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>proto</category>
-            <keywords>parser ltc</keywords>
-            <since>0.9.7</since>
-            <aliases>
-                <alias>ltc.out~</alias>
-            </aliases>
-            <also>
-                <see>ltc.in~</see>
-            </also>
-        </meta>
-        <properties>
-            <!-- @filter -->
-            <property name="@filter" type="float" default="0" minvalue="0" maxvalue="500">
-                <tr lang="en">output signal filtering. LTC should have a rise time of 40us+/-10 us.
-                If you want a perfect square wave, set to 0</tr>
-                <tr lang="ru" finished="false">Фильтрация выходных сигналов. Время роста LTC должно
-                составлять 40+/-10. Если вы хотите идеальную квадратную волну, установите 0</tr>
-            </property>
-            <!-- @fps -->
-            <property name="@fps" type="float" default="25">
-                <tr lang="en">frames per second rate. Supported values are: 24, 25, 29.97, 30.</tr>
-                <tr lang="ru" finished="false">Кадры в секунду. Поддерживаемые значения: 24, 25,
-                29,97, 30.</tr>
-            </property>
-            <!-- @on -->
-            <property name="@on" type="bool" default="0">
-                <tr lang="en">encoder state</tr>
-                <tr lang="ru" finished="false">государство кодер</tr>
-            </property>
-            <!-- @speed -->
-            <property name="@speed" type="float" default="1">
-                <tr lang="en">playing speed</tr>
-                <tr lang="ru" finished="false">скорость игры</tr>
-            </property>
-            <!-- @volume -->
-            <property name="@volume" type="float" default="-3" minvalue="-42" maxvalue="0"
-            units="decibel">
-                <tr lang="en">output signal level</tr>
-                <tr lang="ru" finished="false">выходной сигнал</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- date -->
-            <method name="date">
-                <info>
-                    <tr lang="en">set current date</tr>
-                    <tr lang="ru" finished="false">Установить текущую дату</tr>
-                </info>
-                <param name="YEAR" type="int" required="true" minvalue="0" maxvalue="3000">
-                    <tr lang="en">year</tr>
-                    <tr lang="ru" finished="false">год</tr>
-                </param>
-                <param name="MONTH" type="int" required="true" minvalue="1" maxvalue="12">
-                    <tr lang="en">month</tr>
-                    <tr lang="ru" finished="false">месяц</tr>
-                </param>
-                <param name="DAY" type="int" required="true" minvalue="1" maxvalue="31">
-                    <tr lang="en">day</tr>
-                    <tr lang="ru" finished="false">день</tr>
-                </param>
-                <param name="TIMEZONE" type="symbol" required="false">
-                    <tr lang="en">timezone in +HHMM format</tr>
-                    <tr lang="ru" finished="false">часовой пояс в формате +HHMM</tr>
-                </param>
-            </method>
-            <!-- seek -->
-            <method name="seek">
-                <info>
-                    <tr lang="en">time seek</tr>
-                    <tr lang="ru" finished="false">Время ищет</tr>
-                </info>
-                <param name="UNIT" type="atom" required="true">
-                    <tr lang="en">relative position seek. If float or int - seek in frames,
-                    otherwise units are expected. Supported units are: day, hour, min, sec. E.g.:
-                    1day, 3hour, 5min, 11sec etc.</tr>
-                    <tr lang="ru" finished="false">относительной позиции искать. Если плавать или
-                    int – искать в кадрах, иначе ожидаются единицы. Поддерживаются единицы: день,
-                    час, мин, сек. Например: 1 день, 3 часа, 5 минут, 11сек и т.д.</tr>
-                </param>
-            </method>
-            <!-- time -->
-            <method name="time">
-                <info>
-                    <tr lang="en">set current time</tr>
-                    <tr lang="ru" finished="false">Установить текущее время</tr>
-                </info>
-                <param name="HOUR" type="int" required="true" minvalue="0" maxvalue="23">
-                    <tr lang="en">hour</tr>
-                    <tr lang="ru" finished="false">час</tr>
-                </param>
-                <param name="MIN" type="int" required="true" minvalue="0" maxvalue="59">
-                    <tr lang="en">minute</tr>
-                    <tr lang="ru" finished="false">минута</tr>
-                </param>
-                <param name="SEC" type="int" required="true" minvalue="0" maxvalue="59">
-                    <tr lang="en">second</tr>
-                    <tr lang="ru" finished="false">второй</tr>
-                </param>
-                <param name="FRAME" type="int" required="false" minvalue="0" maxvalue="30">
-                    <tr lang="en">frame number</tr>
-                    <tr lang="ru" finished="false">число кадров</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output current time to second outlet</tr>
-                    <tr lang="ru" finished="false">выходное время для второго выхода</tr>
-                </in>
-                <in on="bool">
-                    <tr lang="en">switch on/off encoder process</tr>
-                    <tr lang="ru" finished="false">Процесс включения/выключения кодера</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">LTC signal</tr>
-                    <tr lang="ru" finished="false">сигнал LTC</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list: HOUR MINUTE SECOND FRAME</tr>
-                    <tr lang="ru" finished="false">Оригинальное название: Hour Minute Second
-                    Frame</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="proto.ltc.out~">
+    <title>proto.ltc.out~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">LTC encoder</tr>
+        <tr lang="ru">LTC энкодер</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>proto</category>
+      <keywords>parser ltc</keywords>
+      <since>0.9.7</since>
+      <aliases>
+        <alias>ltc.out~</alias>
+      </aliases>
+      <also>
+        <see>ltc.in~</see>
+      </also>
+    </meta>
+    <properties>
+      <!-- @filter -->
+      <property name="@filter" type="float" default="0" minvalue="0" maxvalue="500">
+        <tr lang="en">output signal filtering. LTC should have a rise time of 40us+/-10 us. If you
+        want a perfect square wave, set to 0</tr>
+        <tr lang="ru" finished="false">Фильтрация выходных сигналов. Время роста LTC должно
+        составлять 40+/-10. Если вы хотите идеальную квадратную волну, установите 0</tr>
+      </property>
+      <!-- @fps -->
+      <property name="@fps" type="float" default="25">
+        <tr lang="en">frames per second rate. Supported values are: 24, 25, 29.97, 30.</tr>
+        <tr lang="ru" finished="false">Кадры в секунду. Поддерживаемые значения: 24, 25, 29,97,
+        30.</tr>
+      </property>
+      <!-- @on -->
+      <property name="@on" type="bool" default="0">
+        <tr lang="en">encoder state</tr>
+        <tr lang="ru" finished="false">государство кодер</tr>
+      </property>
+      <!-- @speed -->
+      <property name="@speed" type="float" default="1">
+        <tr lang="en">playing speed</tr>
+        <tr lang="ru" finished="false">скорость игры</tr>
+      </property>
+      <!-- @volume -->
+      <property name="@volume" type="float" default="-3" minvalue="-42" maxvalue="0"
+      units="decibel">
+        <tr lang="en">output signal level</tr>
+        <tr lang="ru" finished="false">выходной сигнал</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- date -->
+      <method name="date">
+        <info>
+          <tr lang="en">set current date</tr>
+          <tr lang="ru" finished="false">Установить текущую дату</tr>
+        </info>
+        <param name="YEAR" type="int" required="true" minvalue="0" maxvalue="3000">
+          <tr lang="en">year</tr>
+          <tr lang="ru" finished="false">год</tr>
+        </param>
+        <param name="MONTH" type="int" required="true" minvalue="1" maxvalue="12">
+          <tr lang="en">month</tr>
+          <tr lang="ru" finished="false">месяц</tr>
+        </param>
+        <param name="DAY" type="int" required="true" minvalue="1" maxvalue="31">
+          <tr lang="en">day</tr>
+          <tr lang="ru" finished="false">день</tr>
+        </param>
+        <param name="TIMEZONE" type="symbol" required="false">
+          <tr lang="en">timezone in +HHMM format</tr>
+          <tr lang="ru" finished="false">часовой пояс в формате +HHMM</tr>
+        </param>
+      </method>
+      <!-- seek -->
+      <method name="seek">
+        <info>
+          <tr lang="en">time seek</tr>
+          <tr lang="ru" finished="false">Время ищет</tr>
+        </info>
+        <param name="UNIT" type="atom" required="true">
+          <tr lang="en">relative position seek. If float or int - seek in frames, otherwise units
+          are expected. Supported units are: day, hour, min, sec. E.g.: 1day, 3hour, 5min, 11sec
+          etc.</tr>
+          <tr lang="ru" finished="false">относительной позиции искать. Если плавать или int –
+          искать в кадрах, иначе ожидаются единицы. Поддерживаются единицы: день, час, мин, сек.
+          Например: 1 день, 3 часа, 5 минут, 11сек и т.д.</tr>
+        </param>
+      </method>
+      <!-- time -->
+      <method name="time">
+        <info>
+          <tr lang="en">set current time</tr>
+          <tr lang="ru" finished="false">Установить текущее время</tr>
+        </info>
+        <param name="HOUR" type="int" required="true" minvalue="0" maxvalue="23">
+          <tr lang="en">hour</tr>
+          <tr lang="ru" finished="false">час</tr>
+        </param>
+        <param name="MIN" type="int" required="true" minvalue="0" maxvalue="59">
+          <tr lang="en">minute</tr>
+          <tr lang="ru" finished="false">минута</tr>
+        </param>
+        <param name="SEC" type="int" required="true" minvalue="0" maxvalue="59">
+          <tr lang="en">second</tr>
+          <tr lang="ru" finished="false">второй</tr>
+        </param>
+        <param name="FRAME" type="int" required="false" minvalue="0" maxvalue="30">
+          <tr lang="en">frame number</tr>
+          <tr lang="ru" finished="false">число кадров</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output current time to second outlet</tr>
+          <tr lang="ru" finished="false">выходное время для второго выхода</tr>
+        </in>
+        <in on="bool">
+          <tr lang="en">switch on/off encoder process</tr>
+          <tr lang="ru" finished="false">Процесс включения/выключения кодера</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">LTC signal</tr>
+          <tr lang="ru" finished="false">сигнал LTC</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list: HOUR MINUTE SECOND FRAME</tr>
+          <tr lang="ru" finished="false">Оригинальное название: Hour Minute Second Frame</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]   [date 83 1 11(   [ui.hsl 0.5 4 @show_value 1]
 |     |                |
@@ -163,7 +162,7 @@
 
 [X y:1->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

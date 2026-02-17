@@ -1,92 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="synth.risset_arp~">
-        <title>synth.risset_arp~</title>
-        <meta>
-            <authors>
-                <author>Oliver Larkin</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">Jean-Claude Risset's harmonic arpeggio effect</tr>
-                <tr lang="ru">эффект арпеджио Жан-Клода Риссе</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>synth</category>
-            <keywords>risset arpeggio</keywords>
-            <since>0.6</since>
-        </meta>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @detune -->
-            <property name="@detune" type="float" minvalue="0" maxvalue="1000" default="5">
-                <tr lang="en">detune percent</tr>
-            </property>
-            <!-- @freq -->
-            <property name="@freq" type="float" minvalue="40" maxvalue="500" default="100">
-                <tr lang="en">base frequency</tr>
-            </property>
-            <!-- @harmonic1 -->
-            <property name="@harmonic1" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">1st harmonic amplitude</tr>
-            </property>
-            <!-- @harmonic2 -->
-            <property name="@harmonic2" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">2nd harmonic amplitude</tr>
-            </property>
-            <!-- @harmonic3 -->
-            <property name="@harmonic3" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">3rd harmonic amplitude</tr>
-            </property>
-            <!-- @harmonic4 -->
-            <property name="@harmonic4" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">4th harmonic amplitude</tr>
-            </property>
-            <!-- @harmonic5 -->
-            <property name="@harmonic5" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">5th harmonic amplitude</tr>
-            </property>
-            <!-- @harmonic6 -->
-            <property name="@harmonic6" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">6th harmonic amplitude</tr>
-            </property>
-            <!-- @harmonic7 -->
-            <property name="@harmonic7" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">7th harmonic amplitude</tr>
-            </property>
-            <!-- @harmonic8 -->
-            <property name="@harmonic8" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">8th harmonic amplitude</tr>
-            </property>
-            <!-- @spread -->
-            <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">stereo spread</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control inlet</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en" />
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en" />
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="synth.risset_arp~">
+    <title>synth.risset_arp~</title>
+    <meta>
+      <authors>
+        <author>Oliver Larkin</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">Jean-Claude Risset's harmonic arpeggio effect</tr>
+        <tr lang="ru">эффект арпеджио Жан-Клода Риссе</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>synth</category>
+      <keywords>risset arpeggio</keywords>
+      <since>0.6</since>
+    </meta>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @detune -->
+      <property name="@detune" type="float" minvalue="0" maxvalue="1000" default="5">
+        <tr lang="en">detune percent</tr>
+      </property>
+      <!-- @freq -->
+      <property name="@freq" type="float" minvalue="40" maxvalue="500" default="100">
+        <tr lang="en">base frequency</tr>
+      </property>
+      <!-- @harmonic1 -->
+      <property name="@harmonic1" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">1st harmonic amplitude</tr>
+      </property>
+      <!-- @harmonic2 -->
+      <property name="@harmonic2" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">2nd harmonic amplitude</tr>
+      </property>
+      <!-- @harmonic3 -->
+      <property name="@harmonic3" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">3rd harmonic amplitude</tr>
+      </property>
+      <!-- @harmonic4 -->
+      <property name="@harmonic4" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">4th harmonic amplitude</tr>
+      </property>
+      <!-- @harmonic5 -->
+      <property name="@harmonic5" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">5th harmonic amplitude</tr>
+      </property>
+      <!-- @harmonic6 -->
+      <property name="@harmonic6" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">6th harmonic amplitude</tr>
+      </property>
+      <!-- @harmonic7 -->
+      <property name="@harmonic7" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">7th harmonic amplitude</tr>
+      </property>
+      <!-- @harmonic8 -->
+      <property name="@harmonic8" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">8th harmonic amplitude</tr>
+      </property>
+      <!-- @spread -->
+      <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">stereo spread</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control inlet</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en" />
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en" />
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [r $0s]  [F]        [F]              [ui.sliders @size 150 80]
 |        |          |                |
@@ -102,7 +102,7 @@
                                      |
                                      [s $0s]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,104 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="random.gauss">
-        <title>random.gauss</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">gaussian random distribution</tr>
-                <tr lang="ru">гауссово случайное распределение</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>random</category>
-            <keywords>gauss random</keywords>
-            <also>
-                <see>random.float</see>
-                <see>random.int</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Generates random value that has gaussian distribution. It has the
-                shape of a bell curve and characterized by two parameters, mu and sigma.</tr>
-                <tr lang="ru" finished="false">генерирует случайное значение, имеющее гауссовое
-                распределение. Он имеет форму колокольной кривой и характеризуется двумя
-                параметрами, му и сигма.</tr>
-            </par>
-            <par>
-                <tr lang="en">The center of the density function, mu, is the mean of the random
-                variable. The spread of the density function is measured by a parameter called
-                *standard deviation* or sigma. 68.26% of all results will occur in the interval
-                with width +-SIGMA, centered by the mean; the random variable is unbounded, both as
-                above and below the mean.</tr>
-                <tr lang="ru" finished="false">Центр функции плотности, mu, является средним
-                значением случайной переменной. Распределение функции плотности измеряется
-                параметром, называемым стандартным отклонением или сигмой. 68,26% всех результатов
-                будет происходить в интервале с шириной +-SIGMA, центрированной на среднее;
-                случайная величина не ограничена, как выше, так и ниже среднего.</tr>
-            </par>
-            <par>
-                <tr lang="en">99.74% of all results fall within +-3 SIGMA.</tr>
-                <tr lang="ru" finished="false">99,74% всех результатов приходится на +-3
-                SIGMA.</tr>
-            </par>
-            <par>
-                <tr lang="en">Use @seed property to get reproducible sequences. If @seed property
-                was not explicitly set or specified, uses generator initialized with current
-                time.</tr>
-                <tr lang="ru" finished="false">Используйте свойство @seed для получения
-                воспроизводимых последовательностей. Если свойство @seed не было явно установлено
-                или указано, используется генератор, инициализированный с текущим временем.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="MU" type="float">
-                <tr lang="en">the mean</tr>
-                <tr lang="ru" finished="false">среднее значение</tr>
-            </argument>
-            <argument name="SIGMA" type="float" minvalue="0">
-                <tr lang="en">the standard deviation</tr>
-                <tr lang="ru" finished="false">Стандартное отклонение</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @mu -->
-            <property name="@mu" type="float" default="0">
-                <tr lang="en">the mean</tr>
-                <tr lang="ru" finished="false">среднее значение</tr>
-            </property>
-            <!-- @seed -->
-            <property name="@seed" type="int" minvalue="0" default="0">
-                <tr lang="en">generator seed</tr>
-                <tr lang="ru" finished="false">генератор</tr>
-            </property>
-            <!-- @sigma -->
-            <property name="@sigma" type="float" minvalue="0" default="0">
-                <tr lang="en">the standard deviation</tr>
-                <tr lang="ru" finished="false">Стандартное отклонение</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">generates random number</tr>
-                    <tr lang="ru" finished="false">генерирует случайное число</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="random.gauss">
+    <title>random.gauss</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">gaussian random distribution</tr>
+        <tr lang="ru">гауссово случайное распределение</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>random</category>
+      <keywords>gauss random</keywords>
+      <also>
+        <see>random.float</see>
+        <see>random.int</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Generates random value that has gaussian distribution. It has the shape of a
+        bell curve and characterized by two parameters, mu and sigma.</tr>
+        <tr lang="ru" finished="false">генерирует случайное значение, имеющее гауссовое
+        распределение. Он имеет форму колокольной кривой и характеризуется двумя параметрами, му и
+        сигма.</tr>
+      </par>
+      <par>
+        <tr lang="en">The center of the density function, mu, is the mean of the random variable.
+        The spread of the density function is measured by a parameter called *standard deviation*
+        or sigma. 68.26% of all results will occur in the interval with width +-SIGMA, centered by
+        the mean; the random variable is unbounded, both as above and below the mean.</tr>
+        <tr lang="ru" finished="false">Центр функции плотности, mu, является средним значением
+        случайной переменной. Распределение функции плотности измеряется параметром, называемым
+        стандартным отклонением или сигмой. 68,26% всех результатов будет происходить в интервале с
+        шириной +-SIGMA, центрированной на среднее; случайная величина не ограничена, как выше, так
+        и ниже среднего.</tr>
+      </par>
+      <par>
+        <tr lang="en">99.74% of all results fall within +-3 SIGMA.</tr>
+        <tr lang="ru" finished="false">99,74% всех результатов приходится на +-3 SIGMA.</tr>
+      </par>
+      <par>
+        <tr lang="en">Use @seed property to get reproducible sequences. If @seed property was not
+        explicitly set or specified, uses generator initialized with current time.</tr>
+        <tr lang="ru" finished="false">Используйте свойство @seed для получения воспроизводимых
+        последовательностей. Если свойство @seed не было явно установлено или указано, используется
+        генератор, инициализированный с текущим временем.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="MU" type="float">
+        <tr lang="en">the mean</tr>
+        <tr lang="ru" finished="false">среднее значение</tr>
+      </argument>
+      <argument name="SIGMA" type="float" minvalue="0">
+        <tr lang="en">the standard deviation</tr>
+        <tr lang="ru" finished="false">Стандартное отклонение</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @mu -->
+      <property name="@mu" type="float" default="0">
+        <tr lang="en">the mean</tr>
+        <tr lang="ru" finished="false">среднее значение</tr>
+      </property>
+      <!-- @seed -->
+      <property name="@seed" type="int" minvalue="0" default="0">
+        <tr lang="en">generator seed</tr>
+        <tr lang="ru" finished="false">генератор</tr>
+      </property>
+      <!-- @sigma -->
+      <property name="@sigma" type="float" minvalue="0" default="0">
+        <tr lang="en">the standard deviation</tr>
+        <tr lang="ru" finished="false">Стандартное отклонение</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">generates random number</tr>
+          <tr lang="ru" finished="false">генерирует случайное число</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -118,7 +115,7 @@
 |    ^|.                |         |
 [tabwrite array1]       [s array1 ]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

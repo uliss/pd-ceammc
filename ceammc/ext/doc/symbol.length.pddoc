@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="symbol.length">
-        <title>symbol.length</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs the number of characters in a symbol (unicode supported)</tr>
-                <tr lang="ru">выводит число символов в символьном типе (с поддержкой Unicode)</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>symbol</category>
-            <keywords>symbol length</keywords>
-            <since>0.1</since>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">input symbol. Unicode strings also supported.</tr>
-                    <tr lang="ru" finished="false">Входной символ. Поддерживаются также строки
-                    Unicode.</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">length of symbol: number of character</tr>
-                    <tr lang="ru" finished="false">Длина символа: количество символов</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="symbol.length">
+    <title>symbol.length</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs the number of characters in a symbol (unicode supported)</tr>
+        <tr lang="ru">выводит число символов в символьном типе (с поддержкой Unicode)</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>symbol</category>
+      <keywords>symbol length</keywords>
+      <since>0.1</since>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">input symbol. Unicode strings also supported.</tr>
+          <tr lang="ru" finished="false">Входной символ. Поддерживаются также строки Unicode.</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">length of symbol: number of character</tr>
+          <tr lang="ru" finished="false">Длина символа: количество символов</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol example(
 |
@@ -45,7 +44,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

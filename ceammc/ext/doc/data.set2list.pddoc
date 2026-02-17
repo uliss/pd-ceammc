@@ -1,65 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="data.set2list">
-        <title>data.set2list</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts the set to the list</tr>
-                <tr lang="ru">преобразует множество в список</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>data set list</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>ceammc/set-&gt;list</alias>
-                <alias>set-&gt;list</alias>
-            </aliases>
-            <also>
-                <see>data.set</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Note: output list is not sorted by default. You can use @sort flag to
-                get sorted output</tr>
-                <!-- old: Примечание: список вывода не сортируется по
+  <object name="data.set2list">
+    <title>data.set2list</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts the set to the list</tr>
+        <tr lang="ru">преобразует множество в список</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>data set list</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>ceammc/set-&gt;list</alias>
+        <alias>set-&gt;list</alias>
+      </aliases>
+      <also>
+        <see>data.set</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Note: output list is not sorted by default. You can use @sort flag to get
+        sorted output</tr>
+        <!-- old: Примечание: список вывода не сортируется по
                 умолчанию. Вы можете использовать флаг @sort для получения отсортированного
                 вывода -->
-                <tr lang="ru" finished="false">Примечание: список вывода не сортируется по
-                умолчанию. Вы можете использовать флаг @sort для получения отсортированного
-                вывода</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @sort -->
-            <property name="@sort" type="flag" default="0" access="initonly">
-                <tr lang="en">if specified - sort output list</tr>
-                <tr lang="ru" finished="false">Если указано - сортировать выходной список</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input set</tr>
-                    <tr lang="ru" finished="false">входной набор</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output list</tr>
-                    <tr lang="ru" finished="false">перечень мероприятий</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Примечание: список вывода не сортируется по умолчанию. Вы
+        можете использовать флаг @sort для получения отсортированного вывода</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @sort -->
+      <property name="@sort" type="flag" default="0" access="initonly">
+        <tr lang="en">if specified - sort output list</tr>
+        <tr lang="ru" finished="false">Если указано - сортировать выходной список</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input set</tr>
+          <tr lang="ru" finished="false">входной набор</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output list</tr>
+          <tr lang="ru" finished="false">перечень мероприятий</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [dump(
 |
@@ -73,7 +72,7 @@
 |           |
 [ui.dt]     [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

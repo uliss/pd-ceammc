@@ -1,98 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.distortion3~">
-        <title>fx.distortion3~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">simple distortion #3 from Guitarix effects set</tr>
-                <tr lang="ru">простой дисторшн №3 из набора эффектов Guitarix</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx distortion</keywords>
-            <since>0.7</since>
-            <also>
-                <see>fx.distortion~</see>
-                <see>fx.distortion1~</see>
-                <see>fx.distortion2~</see>
-            </also>
-        </meta>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">
-                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-                <!-- old: Обходной флаг. Если это правда, обойдите
+  <object name="fx.distortion3~">
+    <title>fx.distortion3~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">simple distortion #3 from Guitarix effects set</tr>
+        <tr lang="ru">простой дисторшн №3 из набора эффектов Guitarix</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx distortion</keywords>
+      <since>0.7</since>
+      <also>
+        <see>fx.distortion~</see>
+        <see>fx.distortion1~</see>
+        <see>fx.distortion2~</see>
+      </also>
+    </meta>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @bypass -->
+      <property name="@bypass" type="bool" default="0">
+        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+        <!-- old: Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал. -->
-                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал.</tr>
-            </property>
-            <!-- @drive -->
-            <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.5">
-                <tr lang="en">distortion amount</tr>
-                <tr lang="ru" finished="false">искажение суммы</tr>
-            </property>
-            <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
-                signals. 0 - dry signal, 1 - wet.</tr>
-                <!-- old: пропорция смеси между исходным (сухим) и «влажным»
+        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
+        сигнал.</tr>
+      </property>
+      <!-- @drive -->
+      <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.5">
+        <tr lang="en">distortion amount</tr>
+        <tr lang="ru" finished="false">искажение суммы</tr>
+      </property>
+      <!-- @drywet -->
+      <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
+        - dry signal, 1 - wet.</tr>
+        <!-- old: пропорция смеси между исходным (сухим) и «влажным»
                 сигналами. 0 - сухой сигнал, 1 - влажный. -->
-                <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
-                сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
-            </property>
-            <!-- @gain -->
-            <property name="@gain" type="float" units="decibel" default="0" minvalue="-30"
-            maxvalue="10">
-                <tr lang="en">total effect gain</tr>
-                <tr lang="ru" finished="false">Общий эффект от увеличения</tr>
-            </property>
-            <!-- @hp_freq -->
-            <property name="@hp_freq" type="float" units="hertz" default="30" minvalue="20"
-            maxvalue="2000">
-                <tr lang="en">high pass frequency</tr>
-                <tr lang="ru" finished="false">высокая частота прохождения</tr>
-            </property>
-            <!-- @lp_freq -->
-            <property name="@lp_freq" type="float" units="hertz" default="10000" minvalue="1000"
-            maxvalue="20000">
-                <tr lang="en">low pass frequency</tr>
-                <tr lang="ru" finished="false">низкая частота прохождения</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset object</tr>
-                    <tr lang="ru" finished="false">сбрасывать объект</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
+        сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
+      </property>
+      <!-- @gain -->
+      <property name="@gain" type="float" units="decibel" default="0" minvalue="-30" maxvalue="10">
+        <tr lang="en">total effect gain</tr>
+        <tr lang="ru" finished="false">Общий эффект от увеличения</tr>
+      </property>
+      <!-- @hp_freq -->
+      <property name="@hp_freq" type="float" units="hertz" default="30" minvalue="20"
+      maxvalue="2000">
+        <tr lang="en">high pass frequency</tr>
+        <tr lang="ru" finished="false">высокая частота прохождения</tr>
+      </property>
+      <!-- @lp_freq -->
+      <property name="@lp_freq" type="float" units="hertz" default="10000" minvalue="1000"
+      maxvalue="20000">
+        <tr lang="en">low pass frequency</tr>
+        <tr lang="ru" finished="false">низкая частота прохождения</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset object</tr>
+          <tr lang="ru" finished="false">сбрасывать объект</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open %CEAMMC%/guitar1.wav, 1(
 |
@@ -113,7 +112,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

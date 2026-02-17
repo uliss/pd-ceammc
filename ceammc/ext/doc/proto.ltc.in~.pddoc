@@ -1,70 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="proto.ltc.in~">
-        <title>proto.ltc.in~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">LTC decoder</tr>
-                <tr lang="ru">LTC-декодер</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>proto</category>
-            <keywords>parser ltc</keywords>
-            <since>0.9.7</since>
-            <aliases>
-                <alias>ltc.in~</alias>
-            </aliases>
-            <also>
-                <see>ltc.out~</see>
-            </also>
-        </meta>
-        <properties>
-            <!-- @fps -->
-            <property name="@fps" type="int" default="25" access="readonly">
-                <tr lang="en">current fpt rate</tr>
-                <tr lang="ru" finished="false">Текущая ставка PTP</tr>
-            </property>
-            <!-- @use_date -->
-            <property name="@use_date" type="bool" default="1">
-                <tr lang="en">decode date</tr>
-                <tr lang="ru" finished="false">декодировать дату</tr>
-            </property>
-            <!-- @volume -->
-            <property name="@volume" type="float" default="0" minvalue="-60" maxvalue="0"
-            units="decibel" access="readonly">
-                <tr lang="en">input signal level</tr>
-                <tr lang="ru" finished="false">Уровень входного сигнала</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list: HOUR MINUTE SECOND FRAME</tr>
-                    <tr lang="ru" finished="false">Оригинальное название: Hour Minute Second
-                    Frame</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list: YEAR MONTH DAY</tr>
-                    <tr lang="ru" finished="false">Название: YEAR MONTH DAY</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="proto.ltc.in~">
+    <title>proto.ltc.in~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">LTC decoder</tr>
+        <tr lang="ru">LTC-декодер</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>proto</category>
+      <keywords>parser ltc</keywords>
+      <since>0.9.7</since>
+      <aliases>
+        <alias>ltc.in~</alias>
+      </aliases>
+      <also>
+        <see>ltc.out~</see>
+      </also>
+    </meta>
+    <properties>
+      <!-- @fps -->
+      <property name="@fps" type="int" default="25" access="readonly">
+        <tr lang="en">current fpt rate</tr>
+        <tr lang="ru" finished="false">Текущая ставка PTP</tr>
+      </property>
+      <!-- @use_date -->
+      <property name="@use_date" type="bool" default="1">
+        <tr lang="en">decode date</tr>
+        <tr lang="ru" finished="false">декодировать дату</tr>
+      </property>
+      <!-- @volume -->
+      <property name="@volume" type="float" default="0" minvalue="-60" maxvalue="0" units="decibel"
+      access="readonly">
+        <tr lang="en">input signal level</tr>
+        <tr lang="ru" finished="false">Уровень входного сигнала</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list: HOUR MINUTE SECOND FRAME</tr>
+          <tr lang="ru" finished="false">Оригинальное название: Hour Minute Second Frame</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list: YEAR MONTH DAY</tr>
+          <tr lang="ru" finished="false">Название: YEAR MONTH DAY</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T] [date 83 1 11(   [ui.hsl 0.5 4]    [ui.dsp~]
 |   |                |
@@ -82,7 +81,7 @@
 
 [X y:1->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

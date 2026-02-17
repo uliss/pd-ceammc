@@ -1,123 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="lfo.mosc~">
-        <title>lfo.mosc~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">multi-oscillator with various waveforms</tr>
-                <tr lang="ru">мультиосциллятор с различными формами волн</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>lfo</category>
-            <keywords>lfo oscillator</keywords>
-            <since>0.9.3</since>
-            <also>
-                <see>lfo.square~</see>
-                <see>lfo.saw~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">switching between waveforms is interpolated and takes 50ms.</tr>
-                <!-- old: Переключение между формами волн интерполируется и
+  <object name="lfo.mosc~">
+    <title>lfo.mosc~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">multi-oscillator with various waveforms</tr>
+        <tr lang="ru">мультиосциллятор с различными формами волн</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>lfo</category>
+      <keywords>lfo oscillator</keywords>
+      <since>0.9.3</since>
+      <also>
+        <see>lfo.square~</see>
+        <see>lfo.saw~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">switching between waveforms is interpolated and takes 50ms.</tr>
+        <!-- old: Переключение между формами волн интерполируется и
                 занимает 50 мс. -->
-                <tr lang="ru" finished="false">Переключение между формами волн интерполируется и
-                занимает 50 мс.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">
-                <tr lang="en">frequency</tr>
-                <tr lang="ru" finished="false">частота</tr>
-            </argument>
-            <argument name="WAVE" type="symbol"
-            enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">
-                <tr lang="en">wave type</tr>
-                <tr lang="ru" finished="false">волновой тип</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @duty -->
-            <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">
-                <tr lang="en">duty cycle for pulse waveform</tr>
-                <tr lang="ru" finished="false">рабочий цикл для формы импульсной волны</tr>
-            </property>
-            <!-- @freq -->
-            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="1000"
-            units="hertz">
-                <tr lang="en">initial frequency</tr>
-                <tr lang="ru" finished="false">Начальная частота</tr>
-            </property>
-            <!-- @pause -->
-            <property name="@pause" type="bool" default="0">
-                <tr lang="en">pause oscillator at current value</tr>
-                <tr lang="ru" finished="false">осциллятор паузы при текущем значении</tr>
-            </property>
-            <!-- @phase -->
-            <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">initial phase</tr>
-                <tr lang="ru" finished="false">начальный этап</tr>
-            </property>
-            <!-- @wave -->
-            <property name="@wave" type="symbol" default="sin"
-            enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">
-                <tr lang="en">wave type</tr>
-                <tr lang="ru" finished="false">волновой тип</tr>
-            </property>
-            <!-- @windex -->
-            <property name="@windex" type="int" minvalue="0" maxvalue="9" default="0">
-                <tr lang="en">waveform index (counting from 0): sin, saw, tri, sqr, pulse, +sin,
-                +saw, +tri, +sqr, +pulse.</tr>
-                <!-- old: Индекс формы волны (счет от 0): sin, saw, tri, sqr,
+        <tr lang="ru" finished="false">Переключение между формами волн интерполируется и занимает
+        50 мс.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">
+        <tr lang="en">frequency</tr>
+        <tr lang="ru" finished="false">частота</tr>
+      </argument>
+      <argument name="WAVE" type="symbol" enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">
+        <tr lang="en">wave type</tr>
+        <tr lang="ru" finished="false">волновой тип</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @duty -->
+      <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">
+        <tr lang="en">duty cycle for pulse waveform</tr>
+        <tr lang="ru" finished="false">рабочий цикл для формы импульсной волны</tr>
+      </property>
+      <!-- @freq -->
+      <property name="@freq" type="float" default="0" minvalue="0" maxvalue="1000" units="hertz">
+        <tr lang="en">initial frequency</tr>
+        <tr lang="ru" finished="false">Начальная частота</tr>
+      </property>
+      <!-- @pause -->
+      <property name="@pause" type="bool" default="0">
+        <tr lang="en">pause oscillator at current value</tr>
+        <tr lang="ru" finished="false">осциллятор паузы при текущем значении</tr>
+      </property>
+      <!-- @phase -->
+      <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">initial phase</tr>
+        <tr lang="ru" finished="false">начальный этап</tr>
+      </property>
+      <!-- @wave -->
+      <property name="@wave" type="symbol" default="sin"
+      enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">
+        <tr lang="en">wave type</tr>
+        <tr lang="ru" finished="false">волновой тип</tr>
+      </property>
+      <!-- @windex -->
+      <property name="@windex" type="int" minvalue="0" maxvalue="9" default="0">
+        <tr lang="en">waveform index (counting from 0): sin, saw, tri, sqr, pulse, +sin, +saw,
+        +tri, +sqr, +pulse.</tr>
+        <!-- old: Индекс формы волны (счет от 0): sin, saw, tri, sqr,
                 пульс, +sin, +saw, +tri, +sqr, +pulse. -->
-                <tr lang="ru" finished="false">Индекс формы волны (счет от 0): sin, saw, tri, sqr,
-                пульс, +sin, +saw, +tri, +sqr, +pulse.</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset to initial state</tr>
-                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">frequency in Hz</tr>
-                    <tr lang="ru" finished="false">частота в Гц</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">reset phase</tr>
-                    <tr lang="ru" finished="false">фаза сброса</tr>
-                </in>
-                <in on="int">
-                    <tr lang="en">select waveform</tr>
-                    <tr lang="ru" finished="false">выбрать волновую форму</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">oscillator output</tr>
-                    <tr lang="ru" finished="false">выход осциллятора</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Индекс формы волны (счет от 0): sin, saw, tri, sqr, пульс,
+        +sin, +saw, +tri, +sqr, +pulse.</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset to initial state</tr>
+          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">frequency in Hz</tr>
+          <tr lang="ru" finished="false">частота в Гц</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">reset phase</tr>
+          <tr lang="ru" finished="false">фаза сброса</tr>
+        </in>
+        <in on="int">
+          <tr lang="en">select waveform</tr>
+          <tr lang="ru" finished="false">выбрать волновую форму</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">oscillator output</tr>
+          <tr lang="ru" finished="false">выход осциллятора</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]          [bang #c(     [ui.menu #b]
 |                          |
@@ -138,7 +136,7 @@
 [X c->z:1]
 [X d->z:1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

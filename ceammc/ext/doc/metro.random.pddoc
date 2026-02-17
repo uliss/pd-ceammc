@@ -1,99 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="metro.random">
-        <title>metro.random</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">a metronome with a random period selection within a specified
-                range</tr>
-                <tr lang="ru">метроном со случайным выбором периода в указанном диапазоне</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>base</category>
-            <keywords>metro random</keywords>
-            <also>
-                <see>metro</see>
-                <see>metro.pattern</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Random distribution: uniform</tr>
-                <tr lang="ru" finished="false">Случайное распределение: униформа</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="MIN" type="int" units="millisecond" minvalue="1">
-                <tr lang="en">minimal bang interval</tr>
-                <tr lang="ru" finished="false">Минимальный интервал взрыва</tr>
-            </argument>
-            <argument name="MAX" type="int" units="millisecond" minvalue="1">
-                <tr lang="en">maximum bang interval</tr>
-                <tr lang="ru" finished="false">Максимальный интервал взрыва</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @max -->
-            <property name="@max" type="int" units="millisecond" minvalue="1" default="200">
-                <tr lang="en">maximum bang interval</tr>
-                <tr lang="ru" finished="false">Максимальный интервал взрыва</tr>
-            </property>
-            <!-- @min -->
-            <property name="@min" type="int" units="millisecond" minvalue="1" default="100">
-                <tr lang="en">minimal bang interval</tr>
-                <tr lang="ru" finished="false">Минимальный интервал взрыва</tr>
-            </property>
-            <!-- @seed -->
-            <property name="@seed" type="int" minvalue="0" default="0">
-                <tr lang="en">generator seed</tr>
-                <tr lang="ru" finished="false">генератор</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">starts (on &gt; 0) or stops (on &lt;= 0) metro</tr>
-                    <!-- old: старты (на > 0) или остановки (на <= 0)
+  <object name="metro.random">
+    <title>metro.random</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">a metronome with a random period selection within a specified range</tr>
+        <tr lang="ru">метроном со случайным выбором периода в указанном диапазоне</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>base</category>
+      <keywords>metro random</keywords>
+      <also>
+        <see>metro</see>
+        <see>metro.pattern</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Random distribution: uniform</tr>
+        <tr lang="ru" finished="false">Случайное распределение: униформа</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="MIN" type="int" units="millisecond" minvalue="1">
+        <tr lang="en">minimal bang interval</tr>
+        <tr lang="ru" finished="false">Минимальный интервал взрыва</tr>
+      </argument>
+      <argument name="MAX" type="int" units="millisecond" minvalue="1">
+        <tr lang="en">maximum bang interval</tr>
+        <tr lang="ru" finished="false">Максимальный интервал взрыва</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @max -->
+      <property name="@max" type="int" units="millisecond" minvalue="1" default="200">
+        <tr lang="en">maximum bang interval</tr>
+        <tr lang="ru" finished="false">Максимальный интервал взрыва</tr>
+      </property>
+      <!-- @min -->
+      <property name="@min" type="int" units="millisecond" minvalue="1" default="100">
+        <tr lang="en">minimal bang interval</tr>
+        <tr lang="ru" finished="false">Минимальный интервал взрыва</tr>
+      </property>
+      <!-- @seed -->
+      <property name="@seed" type="int" minvalue="0" default="0">
+        <tr lang="en">generator seed</tr>
+        <tr lang="ru" finished="false">генератор</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">starts (on &gt; 0) or stops (on &lt;= 0) metro</tr>
+          <!-- old: старты (на > 0) или остановки (на <= 0)
                     метро -->
-                    <tr lang="ru" finished="false">старты (на &gt; 0) или остановки (на &lt;= 0)
-                    метро</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set @min property</tr>
-                    <tr lang="ru" finished="false">@min Недвижимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">set random range. min max pair expected.</tr>
-                    <!-- old: Установите случайный диапазон. Ожидаемая пара
+          <tr lang="ru" finished="false">старты (на &gt; 0) или остановки (на &lt;= 0) метро</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set @min property</tr>
+          <tr lang="ru" finished="false">@min Недвижимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">set random range. min max pair expected.</tr>
+          <!-- old: Установите случайный диапазон. Ожидаемая пара
                     min max. -->
-                    <tr lang="ru" finished="false">Установите случайный диапазон. Ожидаемая пара
-                    min max.</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set @max property</tr>
-                    <tr lang="ru" finished="false">Обсуждение @max Property</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs *bang*</tr>
-                    <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Установите случайный диапазон. Ожидаемая пара min
+          max.</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set @max property</tr>
+          <tr lang="ru" finished="false">Обсуждение @max Property</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs *bang*</tr>
+          <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]  [ui.rsl @min 50 @max 1000]
 |    |
@@ -109,7 +107,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

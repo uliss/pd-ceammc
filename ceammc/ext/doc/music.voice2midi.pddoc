@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="music.voice2midi">
-        <title>music.voice2midi</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert single voice music to list of MIDI pitches</tr>
-                <tr lang="ru">конвертирует одноголосную музыкальную нотацию в список нот MIDI</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv music voice</keywords>
-            <since>0.9.4</since>
-            <aliases>
-                <alias>music.v-&gt;m</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Basic syntax:</tr>
-                <tr lang="ru" finished="false">Основной синтаксис:</tr>
-            </par>
-            <par>
-                <tr lang="en">- pitch: C, D, E, F, G, A, B</tr>
-                <tr lang="ru" finished="false">- шаг: C, D, E, F, G, A, B</tr>
-            </par>
-            <par>
-                <tr lang="en">- alteration: #, ##, b or bb</tr>
-                <tr lang="ru" finished="false">- изменение: #, ##, b или b</tr>
-            </par>
-            <par>
-                <tr lang="en">- octave: -1..9 or ^, _</tr>
-                <tr lang="ru" finished="false">- октава: -1,9 или ^, _</tr>
-            </par>
-            <par>
-                <tr lang="en">- deviation in cents: (+-NUMc)</tr>
-                <tr lang="ru" finished="false">- отклонение в центах: (+-NUMc)</tr>
-            </par>
-            <par>
-                <tr lang="en">- duration: |8, |4. or |3/8</tr>
-                <tr lang="ru" finished="false">- продолжительность: |8, |4. или |3/8</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">note list</tr>
-                    <tr lang="ru" finished="false">примечание</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">MIDI values</tr>
-                    <tr lang="ru" finished="false">Значения MIDI</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii id="main">
+  <object name="music.voice2midi">
+    <title>music.voice2midi</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert single voice music to list of MIDI pitches</tr>
+        <tr lang="ru">конвертирует одноголосную музыкальную нотацию в список нот MIDI</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv music voice</keywords>
+      <since>0.9.4</since>
+      <aliases>
+        <alias>music.v-&gt;m</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Basic syntax:</tr>
+        <tr lang="ru" finished="false">Основной синтаксис:</tr>
+      </par>
+      <par>
+        <tr lang="en">- pitch: C, D, E, F, G, A, B</tr>
+        <tr lang="ru" finished="false">- шаг: C, D, E, F, G, A, B</tr>
+      </par>
+      <par>
+        <tr lang="en">- alteration: #, ##, b or bb</tr>
+        <tr lang="ru" finished="false">- изменение: #, ##, b или b</tr>
+      </par>
+      <par>
+        <tr lang="en">- octave: -1..9 or ^, _</tr>
+        <tr lang="ru" finished="false">- октава: -1,9 или ^, _</tr>
+      </par>
+      <par>
+        <tr lang="en">- deviation in cents: (+-NUMc)</tr>
+        <tr lang="ru" finished="false">- отклонение в центах: (+-NUMc)</tr>
+      </par>
+      <par>
+        <tr lang="en">- duration: |8, |4. or |3/8</tr>
+        <tr lang="ru" finished="false">- продолжительность: |8, |4. или |3/8</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">note list</tr>
+          <tr lang="ru" finished="false">примечание</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">MIDI values</tr>
+          <tr lang="ru" finished="false">Значения MIDI</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii id="main">
 <![CDATA[
 [list C|4 D R Eb F# G\(-25c) A|8(
 |
@@ -76,8 +76,8 @@
 
 [music.voice2midi-alt]   [music.voice2midi-micro]
 ]]>
-            </pdascii>
-            <pdascii id="notes">
+      </pdascii>
+      <pdascii id="notes">
 <![CDATA[
 [list C D E F G A B(
 |
@@ -85,8 +85,8 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-            <pdascii id="alt">
+      </pdascii>
+      <pdascii id="alt">
 <![CDATA[
 [list C C# C## Eb Fbb(
 |
@@ -94,8 +94,8 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-            <pdascii id="dur">
+      </pdascii>
+      <pdascii id="dur">
 <![CDATA[
 /*duration as denominator*/
 
@@ -121,8 +121,8 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-            <pdascii id="micro">
+      </pdascii>
+      <pdascii id="micro">
 <![CDATA[
 /*deviation in cents: -99..+99 range*/
 
@@ -132,8 +132,8 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-            <pdascii id="oct">
+      </pdascii>
+      <pdascii id="oct">
 <![CDATA[
 /*asbolute octave number in -1..9 range, C4=60*/
 
@@ -159,7 +159,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

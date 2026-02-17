@@ -1,73 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.any_of">
-        <title>list.any_of</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks whether at least one list element has been accepted by the
-                processing sidechain</tr>
-                <tr lang="ru">проверяет, был ли принят хотя бы один элемент списка предикатом
-                боковой цепи обработки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list predicate any</keywords>
-            <since>0.1</since>
-            <also>
-                <see>list.all_of</see>
-                <see>list.none_of</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Note: also data.mlist</tr>
-                <tr lang="ru" finished="false">Примечание: также data.mlist</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">Input list</tr>
-                    <tr lang="ru" finished="false">Список вводимых данных</tr>
-                </in>
-                <in on="data">
-                    <tr lang="en">Input mlist</tr>
-                    <tr lang="ru" finished="false">Входной млист</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float" minvalue="0" maxvalue="1">
-                    <tr lang="en">input value from predicate. "1" means accepted. "0" means
-                    reject.</tr>
-                    <!-- old: Входные значения из предиката. «1» означает
+  <object name="list.any_of">
+    <title>list.any_of</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks whether at least one list element has been accepted by the processing
+        sidechain</tr>
+        <tr lang="ru">проверяет, был ли принят хотя бы один элемент списка предикатом боковой цепи
+        обработки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list predicate any</keywords>
+      <since>0.1</since>
+      <also>
+        <see>list.all_of</see>
+        <see>list.none_of</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Note: also data.mlist</tr>
+        <tr lang="ru" finished="false">Примечание: также data.mlist</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">Input list</tr>
+          <tr lang="ru" finished="false">Список вводимых данных</tr>
+        </in>
+        <in on="data">
+          <tr lang="en">Input mlist</tr>
+          <tr lang="ru" finished="false">Входной млист</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float" minvalue="0" maxvalue="1">
+          <tr lang="en">input value from predicate. "1" means accepted. "0" means reject.</tr>
+          <!-- old: Входные значения из предиката. «1» означает
                     принятый. «0» означает отказ. -->
-                    <tr lang="ru" finished="false">Входные значения из предиката. «1» означает
-                    принятый. «0» означает отказ.</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">1 - if predicate object returns true for all the elements or list
-                    is empty or 0 otherwise.</tr>
-                    <tr lang="ru" finished="false">1 - если объект предиката возвращается истинным
-                    для всех элементов или список пуст или 0 иначе.</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">atom to predicate</tr>
-                    <tr lang="ru" finished="false">Атом предсказывает</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Входные значения из предиката. «1» означает принятый. «0»
+          означает отказ.</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">1 - if predicate object returns true for all the elements or list is empty
+          or 0 otherwise.</tr>
+          <tr lang="ru" finished="false">1 - если объект предиката возвращается истинным для всех
+          элементов или список пуст или 0 иначе.</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">atom to predicate</tr>
+          <tr lang="ru" finished="false">Атом предсказывает</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2( [1 2 3 4( [\(1 2 3 5), bang(
 |     |         |
@@ -77,7 +76,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

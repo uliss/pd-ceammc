@@ -1,243 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hw.rpi.spi.ws2812">
-        <title>hw.rpi.spi.ws2812</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">ws2812 LED strip driver for Raspberry Pi</tr>
-                <tr lang="ru">драйвер для светодиодной ленты ws2812 для Raspberry Pi</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>hw</category>
-            <keywords>display neopixel rpi ws2812 led</keywords>
-            <since>0.9.8</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Note: you should **flush** (with bang or [flush( message) after
-                almost all pixel/color operations</tr>
-                <!-- old: Примечание: вы должны **flush** (с челкой или
+  <object name="hw.rpi.spi.ws2812">
+    <title>hw.rpi.spi.ws2812</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">ws2812 LED strip driver for Raspberry Pi</tr>
+        <tr lang="ru">драйвер для светодиодной ленты ws2812 для Raspberry Pi</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>hw</category>
+      <keywords>display neopixel rpi ws2812 led</keywords>
+      <since>0.9.8</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Note: you should **flush** (with bang or [flush( message) after almost all
+        pixel/color operations</tr>
+        <!-- old: Примечание: вы должны **flush** (с челкой или
                 [flush(сообщение) после почти всех операций с пикселями/цветом) -->
-                <tr lang="ru" finished="false">Примечание: вы должны **flush** (с челкой или
-                [flush(сообщение) после почти всех операций с пикселями/цветом)</tr>
-            </par>
+        <tr lang="ru" finished="false">Примечание: вы должны **flush** (с челкой или
+        [flush(сообщение) после почти всех операций с пикселями/цветом)</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @clear -->
+      <property name="@clear" type="bool" default="1">
+        <tr lang="en">turn off all pixels when an object is removed</tr>
+        <tr lang="ru">выключать все пиксели при удалении объекта</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16"
+      access="initonly">
+        <tr lang="en">number of leds in the strip</tr>
+        <tr lang="ru">количество светодиодов в ленте</tr>
+      </property>
+      <!-- @spi_bus -->
+      <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1"
+      access="initonly">
+        <tr lang="en">SPI bus number</tr>
+        <tr lang="ru">номер шины SPI</tr>
+      </property>
+      <!-- @spi_cs -->
+      <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0" access="initonly">
+        <tr lang="en">SPI CS (chip select/enable). In most cases you don't need to set this
+        property, because LED strips are not using CS pin.</tr>
+        <tr lang="ru">SPI CS (chip select/enable) индекс. В большинстве случаев вам не нужно
+        устанавливать это свойство, потому что светодиодные ленты не используют пин CS</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- brightness -->
+      <method name="brightness">
+        <info>
+          <tr lang="en">set pixel brightness</tr>
+          <tr lang="ru" finished="false">установленная пиксельная яркость</tr>
         </info>
-        <properties>
-            <!-- @clear -->
-            <property name="@clear" type="bool" default="1">
-                <tr lang="en">turn off all pixels when an object is removed</tr>
-                <tr lang="ru">выключать все пиксели при удалении объекта</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16"
-            access="initonly">
-                <tr lang="en">number of leds in the strip</tr>
-                <tr lang="ru">количество светодиодов в ленте</tr>
-            </property>
-            <!-- @spi_bus -->
-            <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1"
-            access="initonly">
-                <tr lang="en">SPI bus number</tr>
-                <tr lang="ru">номер шины SPI</tr>
-            </property>
-            <!-- @spi_cs -->
-            <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0"
-            access="initonly">
-                <tr lang="en">SPI CS (chip select/enable). In most cases you don't need to set this
-                property, because LED strips are not using CS pin.</tr>
-                <tr lang="ru">SPI CS (chip select/enable) индекс. В большинстве случаев вам не
-                нужно устанавливать это свойство, потому что светодиодные ленты не используют пин
-                CS</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- brightness -->
-            <method name="brightness">
-                <info>
-                    <tr lang="en">set pixel brightness</tr>
-                    <tr lang="ru" finished="false">установленная пиксельная яркость</tr>
-                </info>
-                <param name="LEVEL" type="int" minvalue="0" maxvalue="255" required="true">
-                    <tr lang="en">brightness level</tr>
-                    <tr lang="ru" finished="false">уровень яркости</tr>
-                </param>
-            </method>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">turn off all pixels</tr>
-                    <tr lang="ru" finished="false">Выключите все пиксели</tr>
-                </info>
-            </method>
-            <!-- fill -->
-            <method name="fill">
-                <info>
-                    <tr lang="en">fill all pixels with the RGB color</tr>
-                    <tr lang="ru" finished="false">Заполните все пиксели цветом RGB</tr>
-                </info>
-                <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
-                    <tr lang="en">red color component</tr>
-                    <tr lang="ru" finished="false">Красный цвет компонент</tr>
-                </param>
-                <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
-                    <tr lang="en">greed color component</tr>
-                    <tr lang="ru" finished="false">Цветовой компонент жадности</tr>
-                </param>
-                <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
-                    <tr lang="en">blue color component</tr>
-                    <tr lang="ru" finished="false">Синий цвет компонент</tr>
-                </param>
-            </method>
-            <!-- flush -->
-            <method name="flush">
-                <info>
-                    <tr lang="en">flush all pixels to the strip</tr>
-                    <tr lang="ru" finished="false">смывать все пиксели в полосу</tr>
-                </info>
-            </method>
-            <!-- fx -->
-            <method name="fx">
-                <info>
-                    <tr lang="en">apply color generator function</tr>
-                    <tr lang="ru" finished="false">Функция цветового генератора</tr>
-                </info>
-                <param name="NAME" type="symbol" enum="rainbow" required="true">
-                    <tr lang="en">function name</tr>
-                    <tr lang="ru" finished="false">название функции</tr>
-                </param>
-                <param name="ARG" type="float" minvalue="0" maxvalue="1">
-                    <tr lang="en">function param</tr>
-                    <tr lang="ru" finished="false">функция пара</tr>
-                </param>
-                <param name="BEGIN" type="int">
-                    <tr lang="en">range start</tr>
-                    <tr lang="ru" finished="false">начало диапазона</tr>
-                </param>
-                <param name="LENGTH" type="int" minvalue="0">
-                    <tr lang="en">range length</tr>
-                    <tr lang="ru" finished="false">длина диапазона</tr>
-                </param>
-            </method>
-            <!-- rotate -->
-            <method name="rotate">
-                <info>
-                    <tr lang="en">shift all pixel by specified amount</tr>
-                    <!-- old: смещение всех пикселей по заданному
+        <param name="LEVEL" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">brightness level</tr>
+          <tr lang="ru" finished="false">уровень яркости</tr>
+        </param>
+      </method>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">turn off all pixels</tr>
+          <tr lang="ru" finished="false">Выключите все пиксели</tr>
+        </info>
+      </method>
+      <!-- fill -->
+      <method name="fill">
+        <info>
+          <tr lang="en">fill all pixels with the RGB color</tr>
+          <tr lang="ru" finished="false">Заполните все пиксели цветом RGB</tr>
+        </info>
+        <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">red color component</tr>
+          <tr lang="ru" finished="false">Красный цвет компонент</tr>
+        </param>
+        <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">greed color component</tr>
+          <tr lang="ru" finished="false">Цветовой компонент жадности</tr>
+        </param>
+        <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">blue color component</tr>
+          <tr lang="ru" finished="false">Синий цвет компонент</tr>
+        </param>
+      </method>
+      <!-- flush -->
+      <method name="flush">
+        <info>
+          <tr lang="en">flush all pixels to the strip</tr>
+          <tr lang="ru" finished="false">смывать все пиксели в полосу</tr>
+        </info>
+      </method>
+      <!-- fx -->
+      <method name="fx">
+        <info>
+          <tr lang="en">apply color generator function</tr>
+          <tr lang="ru" finished="false">Функция цветового генератора</tr>
+        </info>
+        <param name="NAME" type="symbol" enum="rainbow" required="true">
+          <tr lang="en">function name</tr>
+          <tr lang="ru" finished="false">название функции</tr>
+        </param>
+        <param name="ARG" type="float" minvalue="0" maxvalue="1">
+          <tr lang="en">function param</tr>
+          <tr lang="ru" finished="false">функция пара</tr>
+        </param>
+        <param name="BEGIN" type="int">
+          <tr lang="en">range start</tr>
+          <tr lang="ru" finished="false">начало диапазона</tr>
+        </param>
+        <param name="LENGTH" type="int" minvalue="0">
+          <tr lang="en">range length</tr>
+          <tr lang="ru" finished="false">длина диапазона</tr>
+        </param>
+      </method>
+      <!-- rotate -->
+      <method name="rotate">
+        <info>
+          <tr lang="en">shift all pixel by specified amount</tr>
+          <!-- old: смещение всех пикселей по заданному
                     количеству -->
-                    <tr lang="ru" finished="false">смещение всех пикселей по заданному
-                    количеству</tr>
-                </info>
-                <param name="SHIFT" type="int" required="true">
-                    <tr lang="en">shift amount</tr>
-                    <tr lang="ru" finished="false">сменная сумма</tr>
-                </param>
-            </method>
-            <!-- set -->
-            <method name="set">
-                <info>
-                    <tr lang="en">set single pixel color</tr>
-                    <tr lang="ru" finished="false">Один пиксель цвет</tr>
-                </info>
-                <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
-                    <tr lang="en">red color component</tr>
-                    <tr lang="ru" finished="false">Красный цвет компонент</tr>
-                </param>
-                <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
-                    <tr lang="en">greed color component</tr>
-                    <tr lang="ru" finished="false">Цветовой компонент жадности</tr>
-                </param>
-                <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
-                    <tr lang="en">blue color component</tr>
-                    <tr lang="ru" finished="false">Синий цвет компонент</tr>
-                </param>
-            </method>
-            <!-- set_range -->
-            <method name="set_range">
-                <info>
-                    <tr lang="en">set pixel range to the specified color</tr>
-                    <!-- old: установленный диапазон пикселей до указанного
+          <tr lang="ru" finished="false">смещение всех пикселей по заданному количеству</tr>
+        </info>
+        <param name="SHIFT" type="int" required="true">
+          <tr lang="en">shift amount</tr>
+          <tr lang="ru" finished="false">сменная сумма</tr>
+        </param>
+      </method>
+      <!-- set -->
+      <method name="set">
+        <info>
+          <tr lang="en">set single pixel color</tr>
+          <tr lang="ru" finished="false">Один пиксель цвет</tr>
+        </info>
+        <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">red color component</tr>
+          <tr lang="ru" finished="false">Красный цвет компонент</tr>
+        </param>
+        <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">greed color component</tr>
+          <tr lang="ru" finished="false">Цветовой компонент жадности</tr>
+        </param>
+        <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">blue color component</tr>
+          <tr lang="ru" finished="false">Синий цвет компонент</tr>
+        </param>
+      </method>
+      <!-- set_range -->
+      <method name="set_range">
+        <info>
+          <tr lang="en">set pixel range to the specified color</tr>
+          <!-- old: установленный диапазон пикселей до указанного
                     цвета -->
-                    <tr lang="ru" finished="false">установленный диапазон пикселей до указанного
-                    цвета</tr>
-                </info>
-                <param name="BEGIN" type="int" minvalue="0" required="true">
-                    <tr lang="en">range start</tr>
-                    <tr lang="ru" finished="false">начало диапазона</tr>
-                </param>
-                <param name="LENGTH" type="int" minvalue="1" required="true">
-                    <tr lang="en">range length</tr>
-                    <tr lang="ru" finished="false">длина диапазона</tr>
-                </param>
-                <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
-                    <tr lang="en">red color component</tr>
-                    <tr lang="ru" finished="false">Красный цвет компонент</tr>
-                </param>
-                <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
-                    <tr lang="en">greed color component</tr>
-                    <tr lang="ru" finished="false">Цветовой компонент жадности</tr>
-                </param>
-                <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
-                    <tr lang="en">blue color component</tr>
-                    <tr lang="ru" finished="false">Синий цвет компонент</tr>
-                </param>
-            </method>
-            <!-- set_slice -->
-            <method name="set_slice">
-                <info>
-                    <tr lang="en">set pixel slice to the specified color</tr>
-                    <!-- old: установленный пиксель среза на указанный
+          <tr lang="ru" finished="false">установленный диапазон пикселей до указанного цвета</tr>
+        </info>
+        <param name="BEGIN" type="int" minvalue="0" required="true">
+          <tr lang="en">range start</tr>
+          <tr lang="ru" finished="false">начало диапазона</tr>
+        </param>
+        <param name="LENGTH" type="int" minvalue="1" required="true">
+          <tr lang="en">range length</tr>
+          <tr lang="ru" finished="false">длина диапазона</tr>
+        </param>
+        <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">red color component</tr>
+          <tr lang="ru" finished="false">Красный цвет компонент</tr>
+        </param>
+        <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">greed color component</tr>
+          <tr lang="ru" finished="false">Цветовой компонент жадности</tr>
+        </param>
+        <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">blue color component</tr>
+          <tr lang="ru" finished="false">Синий цвет компонент</tr>
+        </param>
+      </method>
+      <!-- set_slice -->
+      <method name="set_slice">
+        <info>
+          <tr lang="en">set pixel slice to the specified color</tr>
+          <!-- old: установленный пиксель среза на указанный
                     цвет -->
-                    <tr lang="ru" finished="false">установленный пиксель среза на указанный
-                    цвет</tr>
-                </info>
-                <param name="BEGIN" type="int" minvalue="0" required="true">
-                    <tr lang="en">range start</tr>
-                    <tr lang="ru" finished="false">начало диапазона</tr>
-                </param>
-                <param name="END" type="int" minvalue="0" required="true">
-                    <tr lang="en">range end</tr>
-                    <tr lang="ru" finished="false">конец диапазона</tr>
-                </param>
-                <param name="STEP" type="int" minvalue="1" required="true">
-                    <tr lang="en">slice step</tr>
-                    <tr lang="ru" finished="false">шаг</tr>
-                </param>
-                <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
-                    <tr lang="en">red color component</tr>
-                    <tr lang="ru" finished="false">Красный цвет компонент</tr>
-                </param>
-                <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
-                    <tr lang="en">greed color component</tr>
-                    <tr lang="ru" finished="false">Цветовой компонент жадности</tr>
-                </param>
-                <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
-                    <tr lang="en">blue color component</tr>
-                    <tr lang="ru" finished="false">Синий цвет компонент</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">flush pixels to the strip</tr>
-                    <tr lang="ru" finished="false">Pixels to the Strip скачать</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">no output</tr>
-                    <tr lang="ru" finished="false">нет выхода</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">установленный пиксель среза на указанный цвет</tr>
+        </info>
+        <param name="BEGIN" type="int" minvalue="0" required="true">
+          <tr lang="en">range start</tr>
+          <tr lang="ru" finished="false">начало диапазона</tr>
+        </param>
+        <param name="END" type="int" minvalue="0" required="true">
+          <tr lang="en">range end</tr>
+          <tr lang="ru" finished="false">конец диапазона</tr>
+        </param>
+        <param name="STEP" type="int" minvalue="1" required="true">
+          <tr lang="en">slice step</tr>
+          <tr lang="ru" finished="false">шаг</tr>
+        </param>
+        <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">red color component</tr>
+          <tr lang="ru" finished="false">Красный цвет компонент</tr>
+        </param>
+        <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">greed color component</tr>
+          <tr lang="ru" finished="false">Цветовой компонент жадности</tr>
+        </param>
+        <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">blue color component</tr>
+          <tr lang="ru" finished="false">Синий цвет компонент</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">flush pixels to the strip</tr>
+          <tr lang="ru" finished="false">Pixels to the Strip скачать</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">no output</tr>
+          <tr lang="ru" finished="false">нет выхода</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]                    [set_range 4 4 255 0 0, bang #b(
 |
@@ -259,7 +254,7 @@
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]
 #e 8, bang
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

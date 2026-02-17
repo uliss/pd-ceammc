@@ -1,104 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.queue">
-        <title>flow.queue</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">multichannel message queue with sync capabilities</tr>
-                <tr lang="ru">многоканальная очередь сообщений с возможностью синхронизации</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>counter</keywords>
-            <since>0.9.1</since>
-        </meta>
-        <arguments>
-            <argument name="MAX_SIZE" type="int" minvalue="1" maxvalue="1024">
-                <tr lang="en">max queue lane size</tr>
-                <tr lang="ru" finished="false">максимальный размер полосы</tr>
-            </argument>
-            <argument name="N" type="int" minvalue="1" maxvalue="32">
-                <tr lang="en">number of lanes</tr>
-                <tr lang="ru" finished="false">количество полос</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @auto_pop -->
-            <property name="@auto_pop" type="bool" default="0">
-                <tr lang="en">auto pop mode. If true automatically pops oldest elements when queue
-                is full</tr>
-                <!-- old: Автопоп режим. Если правда автоматически выскакивает
+  <object name="flow.queue">
+    <title>flow.queue</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">multichannel message queue with sync capabilities</tr>
+        <tr lang="ru">многоканальная очередь сообщений с возможностью синхронизации</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>counter</keywords>
+      <since>0.9.1</since>
+    </meta>
+    <arguments>
+      <argument name="MAX_SIZE" type="int" minvalue="1" maxvalue="1024">
+        <tr lang="en">max queue lane size</tr>
+        <tr lang="ru" finished="false">максимальный размер полосы</tr>
+      </argument>
+      <argument name="N" type="int" minvalue="1" maxvalue="32">
+        <tr lang="en">number of lanes</tr>
+        <tr lang="ru" finished="false">количество полос</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @auto_pop -->
+      <property name="@auto_pop" type="bool" default="0">
+        <tr lang="en">auto pop mode. If true automatically pops oldest elements when queue is
+        full</tr>
+        <!-- old: Автопоп режим. Если правда автоматически выскакивает
                 самые старые элементы, когда очередь заполнена -->
-                <tr lang="ru" finished="false">Автопоп режим. Если правда автоматически выскакивает
-                самые старые элементы, когда очередь заполнена</tr>
-            </property>
-            <!-- @max_size -->
-            <property name="@max_size" type="int" minvalue="1" default="32" maxvalue="1024">
-                <tr lang="en">max queue lane size</tr>
-                <tr lang="ru" finished="false">максимальный размер полосы</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet number="1">
-                <in on="any">
-                    <tr lang="en">1st queue input messages</tr>
-                    <tr lang="ru" finished="false">1-я очередь Входные сообщения</tr>
-                </in>
-            </inlet>
-            <inlet number="...">
-                <in on="any">
-                    <tr lang="en">... queue input messages</tr>
-                    <tr lang="ru" finished="false">Очередь входных сообщений</tr>
-                </in>
-            </inlet>
-            <inlet number="n">
-                <in on="any">
-                    <tr lang="en">n-th queue input messages</tr>
-                    <tr lang="ru" finished="false">n-я очередь входных сообщений</tr>
-                </in>
-            </inlet>
-            <inlet number="n+1">
-                <in on="any">
-                    <tr lang="en">clear: remove all elements from all queues, output: output all
-                    element from all queues, flush: output and clear all element from all queues,
-                    bang or pop: output and remove first message in all queues</tr>
-                    <!-- old: Clear: удалите все элементы из всех очередей,
+        <tr lang="ru" finished="false">Автопоп режим. Если правда автоматически выскакивает самые
+        старые элементы, когда очередь заполнена</tr>
+      </property>
+      <!-- @max_size -->
+      <property name="@max_size" type="int" minvalue="1" default="32" maxvalue="1024">
+        <tr lang="en">max queue lane size</tr>
+        <tr lang="ru" finished="false">максимальный размер полосы</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet number="1">
+        <in on="any">
+          <tr lang="en">1st queue input messages</tr>
+          <tr lang="ru" finished="false">1-я очередь Входные сообщения</tr>
+        </in>
+      </inlet>
+      <inlet number="...">
+        <in on="any">
+          <tr lang="en">... queue input messages</tr>
+          <tr lang="ru" finished="false">Очередь входных сообщений</tr>
+        </in>
+      </inlet>
+      <inlet number="n">
+        <in on="any">
+          <tr lang="en">n-th queue input messages</tr>
+          <tr lang="ru" finished="false">n-я очередь входных сообщений</tr>
+        </in>
+      </inlet>
+      <inlet number="n+1">
+        <in on="any">
+          <tr lang="en">clear: remove all elements from all queues, output: output all element from
+          all queues, flush: output and clear all element from all queues, bang or pop: output and
+          remove first message in all queues</tr>
+          <!-- old: Clear: удалите все элементы из всех очередей,
                     output: удалите все элементы из всех очередей, flush: удалите и удалите все
                     элементы из всех очередей, bang или pop: удалите первое сообщение во всех
                     очередях -->
-                    <tr lang="ru" finished="false">Clear: удалите все элементы из всех очередей,
-                    output: удалите все элементы из всех очередей, flush: удалите и удалите все
-                    элементы из всех очередей, bang или pop: удалите первое сообщение во всех
-                    очередях</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet number="1">
-                <out type="any">
-                    <tr lang="en">1st queue output</tr>
-                    <tr lang="ru" finished="false">1-я очередь выхода</tr>
-                </out>
-            </outlet>
-            <outlet number="...">
-                <out type="any">
-                    <tr lang="en">... queue output</tr>
-                    <tr lang="ru" finished="false">... очередь выхода</tr>
-                </out>
-            </outlet>
-            <outlet number="n">
-                <out type="any">
-                    <tr lang="en">n-th queue output</tr>
-                    <tr lang="ru" finished="false">n-ый выход из очереди</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Clear: удалите все элементы из всех очередей, output:
+          удалите все элементы из всех очередей, flush: удалите и удалите все элементы из всех
+          очередей, bang или pop: удалите первое сообщение во всех очередях</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet number="1">
+        <out type="any">
+          <tr lang="en">1st queue output</tr>
+          <tr lang="ru" finished="false">1-я очередь выхода</tr>
+        </out>
+      </outlet>
+      <outlet number="...">
+        <out type="any">
+          <tr lang="en">... queue output</tr>
+          <tr lang="ru" finished="false">... очередь выхода</tr>
+        </out>
+      </outlet>
+      <outlet number="n">
+        <out type="any">
+          <tr lang="en">n-th queue output</tr>
+          <tr lang="ru" finished="false">n-ый выход из очереди</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /*single-lane sync message queue with size=5*/
 
@@ -150,7 +149,7 @@
 [X a->x:1]
 [X b->y:3]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

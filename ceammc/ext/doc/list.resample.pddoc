@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.resample">
-        <title>list.resample</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">resamples the values in the list with the specified length ratio</tr>
-                <tr lang="ru">пересемплирует значения в списке с указанным соотношением длины</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list</keywords>
-            <since>0.9</since>
-            <aliases>
-                <alias>list.r</alias>
-            </aliases>
-            <also>
-                <see>list.stretch</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="RATIO" type="float" minvalue="0" maxvalue="100">
-                <tr lang="en">resample ratio</tr>
-                <tr lang="ru" finished="false">коэффициент повторения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @ratio -->
-            <property name="@ratio" type="float" minvalue="0" maxvalue="100" default="1">
-                <tr lang="en">resample ratio (src/dest)</tr>
-                <tr lang="ru" finished="false">Соотношение повторных образцов (src/dest)</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list.</tr>
-                    <tr lang="ru" finished="false">Список входов.</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">set ratio</tr>
-                    <tr lang="ru" finished="false">установленное соотношение</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">new modified list</tr>
-                    <tr lang="ru" finished="false">Новый модифицированный список</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="list.resample">
+    <title>list.resample</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">resamples the values in the list with the specified length ratio</tr>
+        <tr lang="ru">пересемплирует значения в списке с указанным соотношением длины</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list</keywords>
+      <since>0.9</since>
+      <aliases>
+        <alias>list.r</alias>
+      </aliases>
+      <also>
+        <see>list.stretch</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="RATIO" type="float" minvalue="0" maxvalue="100">
+        <tr lang="en">resample ratio</tr>
+        <tr lang="ru" finished="false">коэффициент повторения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @ratio -->
+      <property name="@ratio" type="float" minvalue="0" maxvalue="100" default="1">
+        <tr lang="en">resample ratio (src/dest)</tr>
+        <tr lang="ru" finished="false">Соотношение повторных образцов (src/dest)</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list.</tr>
+          <tr lang="ru" finished="false">Список входов.</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">set ratio</tr>
+          <tr lang="ru" finished="false">установленное соотношение</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">new modified list</tr>
+          <tr lang="ru" finished="false">Новый модифицированный список</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.sliders]    [ui.sliders @auto_count 1 #b]
 |
@@ -78,7 +78,7 @@
 
 [X a->b]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

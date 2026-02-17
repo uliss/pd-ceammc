@@ -1,85 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="rhythm.lsystem">
-        <title>rhythm.lsystem</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">L-system pattern generator</tr>
-                <tr lang="ru">генератор ритмического рисунка на основе L-систем</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>music</category>
-            <keywords>conv rhythm lsystem</keywords>
-            <since>0.9.7</since>
-        </meta>
-        <arguments>
-            <argument name="INIT" type="list">
-                <tr lang="en">init pattern</tr>
-                <tr lang="ru" finished="false">схема init</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @init -->
-            <property name="@init" type="list" default="" access="readwrite">
-                <tr lang="en">init pattern value</tr>
-                <tr lang="ru" finished="false">значение шаблона init</tr>
-            </property>
-            <!-- @max -->
-            <property name="@max" type="int" minvalue="1" maxvalue="32768" default="256">
-                <tr lang="en">max generated pattern length</tr>
-                <tr lang="ru" finished="false">max генерируемая длина шаблона</tr>
-            </property>
-            <!-- @rule -->
-            <property name="@rule" type="atom">
-                <tr lang="en">generation rule dict</tr>
-                <tr lang="ru" finished="false">Правило поколения</tr>
-            </property>
-            <!-- @value -->
-            <property name="@value" type="list" default="" access="readonly">
-                <tr lang="en">current pattern value</tr>
-                <tr lang="ru" finished="false">Текущее значение шаблона</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset to init state</tr>
-                    <tr lang="ru" finished="false">Перезагрузка в Init State</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output last pattern</tr>
-                    <tr lang="ru" finished="false">выходной последний шаблон</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">set new pattern and output</tr>
-                    <tr lang="ru" finished="false">установить новый шаблон и выход</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">output enumerated patterns for each list argument</tr>
-                    <tr lang="ru" finished="false">Перечисленные шаблоны для каждого аргумента
-                    списка</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list output</tr>
-                    <tr lang="ru" finished="false">перечень мероприятий</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="rhythm.lsystem">
+    <title>rhythm.lsystem</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">L-system pattern generator</tr>
+        <tr lang="ru">генератор ритмического рисунка на основе L-систем</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>music</category>
+      <keywords>conv rhythm lsystem</keywords>
+      <since>0.9.7</since>
+    </meta>
+    <arguments>
+      <argument name="INIT" type="list">
+        <tr lang="en">init pattern</tr>
+        <tr lang="ru" finished="false">схема init</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @init -->
+      <property name="@init" type="list" default="" access="readwrite">
+        <tr lang="en">init pattern value</tr>
+        <tr lang="ru" finished="false">значение шаблона init</tr>
+      </property>
+      <!-- @max -->
+      <property name="@max" type="int" minvalue="1" maxvalue="32768" default="256">
+        <tr lang="en">max generated pattern length</tr>
+        <tr lang="ru" finished="false">max генерируемая длина шаблона</tr>
+      </property>
+      <!-- @rule -->
+      <property name="@rule" type="atom">
+        <tr lang="en">generation rule dict</tr>
+        <tr lang="ru" finished="false">Правило поколения</tr>
+      </property>
+      <!-- @value -->
+      <property name="@value" type="list" default="" access="readonly">
+        <tr lang="en">current pattern value</tr>
+        <tr lang="ru" finished="false">Текущее значение шаблона</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset to init state</tr>
+          <tr lang="ru" finished="false">Перезагрузка в Init State</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output last pattern</tr>
+          <tr lang="ru" finished="false">выходной последний шаблон</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">set new pattern and output</tr>
+          <tr lang="ru" finished="false">установить новый шаблон и выход</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">output enumerated patterns for each list argument</tr>
+          <tr lang="ru" finished="false">Перечисленные шаблоны для каждого аргумента списка</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list output</tr>
+          <tr lang="ru" finished="false">перечень мероприятий</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /*1: bang*/
 /*2: turn metro on*/
@@ -106,7 +105,7 @@
 #x 0 1 @rule [1: 0 1 0: 1]
 [X a->z] [X a->z:1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.split">
-        <title>list.split</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">divides the list into two parts at the specified index position</tr>
-                <tr lang="ru">разделяет список на две части по указанному индексу</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list split moses</keywords>
-            <since>0.1</since>
-            <also>
-                <see>list.at</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="AT" type="int" minvalue="0">
-                <tr lang="en">size of first list. The size of the list on the second output is the
-                size of input list - this value</tr>
-                <!-- old: Размер первого списка. Размер списка на втором
+  <object name="list.split">
+    <title>list.split</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">divides the list into two parts at the specified index position</tr>
+        <tr lang="ru">разделяет список на две части по указанному индексу</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list split moses</keywords>
+      <since>0.1</since>
+      <also>
+        <see>list.at</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="AT" type="int" minvalue="0">
+        <tr lang="en">size of first list. The size of the list on the second output is the size of
+        input list - this value</tr>
+        <!-- old: Размер первого списка. Размер списка на втором
                 выходе - это размер входного списка - это значение -->
-                <tr lang="ru" finished="false">Размер первого списка. Размер списка на втором
-                выходе - это размер входного списка - это значение</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @at -->
-            <property name="@at" type="int" minvalue="0" default="0">
-                <tr lang="en">split point</tr>
-                <tr lang="ru" finished="false">разделительная точка</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">first sub-list of given size</tr>
-                    <tr lang="ru" finished="false">Первый подсписок заданных размеров</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">second sub-list</tr>
-                    <tr lang="ru" finished="false">второй подсписок</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Размер первого списка. Размер списка на втором выходе - это
+        размер входного списка - это значение</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @at -->
+      <property name="@at" type="int" minvalue="0" default="0">
+        <tr lang="en">split point</tr>
+        <tr lang="ru" finished="false">разделительная точка</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">first sub-list of given size</tr>
+          <tr lang="ru" finished="false">Первый подсписок заданных размеров</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">second sub-list</tr>
+          <tr lang="ru" finished="false">второй подсписок</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2 3 4 5(  [@at 3(
 |            |
@@ -74,7 +74,7 @@
 |              ^|
 [ui.dt]        [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

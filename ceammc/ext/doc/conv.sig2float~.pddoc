@@ -1,89 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.sig2float~">
-        <title>conv.sig2float~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts audio signal to control numeric stream</tr>
-                <tr lang="ru">преобразует аудиосигнал в управляющий числовой поток</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv signal float snapshot</keywords>
-            <since>0.9.2</since>
-            <aliases>
-                <alias>ceammc/sig-&gt;float~</alias>
-                <alias>sig-&gt;float~</alias>
-                <alias>ceammc/s-&gt;f~</alias>
-                <alias>s-&gt;f~</alias>
-            </aliases>
-            <also>
-                <see>snapshot~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">convert signal to float via specified time intervals</tr>
-                <!-- old: Преобразовать сигнал в плавающий через заданные
+  <object name="conv.sig2float~">
+    <title>conv.sig2float~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts audio signal to control numeric stream</tr>
+        <tr lang="ru">преобразует аудиосигнал в управляющий числовой поток</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv signal float snapshot</keywords>
+      <since>0.9.2</since>
+      <aliases>
+        <alias>ceammc/sig-&gt;float~</alias>
+        <alias>sig-&gt;float~</alias>
+        <alias>ceammc/s-&gt;f~</alias>
+        <alias>s-&gt;f~</alias>
+      </aliases>
+      <also>
+        <see>snapshot~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">convert signal to float via specified time intervals</tr>
+        <!-- old: Преобразовать сигнал в плавающий через заданные
                 интервалы времени -->
-                <tr lang="ru" finished="false">Преобразовать сигнал в плавающий через заданные
-                интервалы времени</tr>
-            </par>
-        </info>
-        <mouse>
-            <event type="left-click" editmode="false">sample immediately</event>
-        </mouse>
-        <arguments>
-            <argument name="INTERVAL" type="float" minvalue="-1" units="millisecond">
-                <tr lang="en">sampling interval</tr>
-                <tr lang="ru">интервал выборки</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @interval -->
-            <property name="@interval" type="float" minvalue="-1" default="50" units="millisecond">
-                <tr lang="en">sampling interval</tr>
-                <tr lang="ru" finished="false">интервал выборки</tr>
-            </property>
-            <!-- @offset -->
-            <property name="@offset" type="int" default="0" minvalue="0" maxvalue="8192"
-            units="sample">
-                <tr lang="en">sample offset inside DSP block</tr>
-                <tr lang="ru" finished="false">Смещение образца внутри блока DSP</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-                <in on="bang">
-                    <tr lang="en">sample immediately</tr>
-                    <tr lang="ru" finished="false">образец немедленно</tr>
-                </in>
-            </inlet>
-            <inlet type="control">
-                <in on="float">
-                    <tr lang="en">set sample interval</tr>
-                    <tr lang="ru" finished="false">установленный интервал выборки</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float: sample</tr>
-                    <tr lang="ru" finished="false">Поплавок: образец</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Преобразовать сигнал в плавающий через заданные интервалы
+        времени</tr>
+      </par>
+    </info>
+    <mouse>
+      <event type="left-click" editmode="false">sample immediately</event>
+    </mouse>
+    <arguments>
+      <argument name="INTERVAL" type="float" minvalue="-1" units="millisecond">
+        <tr lang="en">sampling interval</tr>
+        <tr lang="ru">интервал выборки</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @interval -->
+      <property name="@interval" type="float" minvalue="-1" default="50" units="millisecond">
+        <tr lang="en">sampling interval</tr>
+        <tr lang="ru" finished="false">интервал выборки</tr>
+      </property>
+      <!-- @offset -->
+      <property name="@offset" type="int" default="0" minvalue="0" maxvalue="8192" units="sample">
+        <tr lang="en">sample offset inside DSP block</tr>
+        <tr lang="ru" finished="false">Смещение образца внутри блока DSP</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+        <in on="bang">
+          <tr lang="en">sample immediately</tr>
+          <tr lang="ru" finished="false">образец немедленно</tr>
+        </in>
+      </inlet>
+      <inlet type="control">
+        <in on="float">
+          <tr lang="en">set sample interval</tr>
+          <tr lang="ru" finished="false">установленный интервал выборки</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float: sample</tr>
+          <tr lang="ru" finished="false">Поплавок: образец</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [phasor~ 0.5] [bang(
 |             |
@@ -91,7 +90,7 @@
 |
 [F]           [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,169 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="proto.moppy">
-        <title>proto.moppy</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">protocol for Musical flOPPY controller</tr>
-                <tr lang="ru">nротокол для музыкального контроллера flOPPY</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>proto</category>
-            <keywords>floppy diy serial</keywords>
-            <since>0.9.5</since>
-        </meta>
+  <object name="proto.moppy">
+    <title>proto.moppy</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">protocol for Musical flOPPY controller</tr>
+        <tr lang="ru">nротокол для музыкального контроллера flOPPY</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>proto</category>
+      <keywords>floppy diy serial</keywords>
+      <since>0.9.5</since>
+    </meta>
+    <info>
+      <a href="https://github.com/Sammy1Am/Moppy2">https://github.com/Sammy1Am/Moppy2</a>
+    </info>
+    <properties>
+      <!-- @device -->
+      <property name="@device" type="int" default="1" minvalue="1" maxvalue="255">
+        <tr lang="en">moppy device ID</tr>
+        <tr lang="ru" finished="false">Moppy Device ID</tr>
+      </property>
+      <!-- @floppy -->
+      <property name="@floppy" type="int" default="1" minvalue="1" maxvalue="16">
+        <tr lang="en">floppy ID on moppy device</tr>
+        <tr lang="ru" finished="false">Floppy ID на устройстве Moppy</tr>
+      </property>
+      <!-- @v -->
+      <property name="@v" type="int" default="2" enum="2 1">
+        <tr lang="en">MOPPY protocol version</tr>
+        <tr lang="ru" finished="false">Версия протокола MOPPY</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- bend:f -->
+      <method name="bend:f">
         <info>
-            <a href="https://github.com/Sammy1Am/Moppy2">https://github.com/Sammy1Am/Moppy2</a>
+          <tr lang="en">note pitchbend</tr>
+          <tr lang="ru" finished="false">примечание pitchbend</tr>
         </info>
-        <properties>
-            <!-- @device -->
-            <property name="@device" type="int" default="1" minvalue="1" maxvalue="255">
-                <tr lang="en">moppy device ID</tr>
-                <tr lang="ru" finished="false">Moppy Device ID</tr>
-            </property>
-            <!-- @floppy -->
-            <property name="@floppy" type="int" default="1" minvalue="1" maxvalue="16">
-                <tr lang="en">floppy ID on moppy device</tr>
-                <tr lang="ru" finished="false">Floppy ID на устройстве Moppy</tr>
-            </property>
-            <!-- @v -->
-            <property name="@v" type="int" default="2" enum="2 1">
-                <tr lang="en">MOPPY protocol version</tr>
-                <tr lang="ru" finished="false">Версия протокола MOPPY</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- bend:f -->
-            <method name="bend:f">
-                <info>
-                    <tr lang="en">note pitchbend</tr>
-                    <tr lang="ru" finished="false">примечание pitchbend</tr>
-                </info>
-                <param name="VAL" type="float" required="true" minvalue="-1" maxvalue="1">
-                    <tr lang="en">pitch bend</tr>
-                    <tr lang="ru" finished="false">поворот</tr>
-                </param>
-            </method>
-            <!-- freq -->
-            <method name="freq">
-                <info>
-                    <tr lang="en">set floppy frequency. Note: moppy.v1 version only.</tr>
-                    <tr lang="ru" finished="false">Установите частоту дискет. Примечание: только
-                    версия moppy.v1.</tr>
-                </info>
-                <param name="CHAN" type="int" required="false">
-                    <tr lang="en">optional floppy id (overrides @floppy property)</tr>
-                    <tr lang="ru" finished="false">необязательный floppy id (overrides @floppy
-                    property)</tr>
-                </param>
-                <param name="FREQ" type="float" required="true" units="hertz">
-                    <tr lang="en">freq</tr>
-                    <tr lang="ru" finished="false">фрек</tr>
-                </param>
-            </method>
-            <!-- note -->
-            <method name="note">
-                <info>
-                    <tr lang="en">see noteon</tr>
-                    <tr lang="ru" finished="false">См. также Noteon</tr>
-                </info>
-            </method>
-            <!-- noteoff -->
-            <method name="noteoff">
-                <info>
-                    <tr lang="en">note off message</tr>
-                    <tr lang="ru" finished="false">Отметить сообщение</tr>
-                </info>
-                <param name="CHAN" type="int" required="false">
-                    <tr lang="en">optional floppy id (overrides @floppy property)</tr>
-                    <tr lang="ru" finished="false">необязательный floppy id (overrides @floppy
-                    property)</tr>
-                </param>
-                <param name="NOTE" type="int" required="true" minvalue="24" maxvalue="72">
-                    <tr lang="en">MIDI note</tr>
-                    <tr lang="ru" finished="false">Записка MIDI</tr>
-                </param>
-            </method>
-            <!-- noteon -->
-            <method name="noteon">
-                <info>
-                    <tr lang="en">play note</tr>
-                    <tr lang="ru" finished="false">играть в игру</tr>
-                </info>
-                <param name="CHAN" type="int" required="false">
-                    <tr lang="en">optional floppy id (overrides @floppy property)</tr>
-                    <tr lang="ru" finished="false">необязательный floppy id (overrides @floppy
-                    property)</tr>
-                </param>
-                <param name="NOTE" type="int" required="true" minvalue="24" maxvalue="72">
-                    <tr lang="en">MIDI note</tr>
-                    <tr lang="ru" finished="false">Записка MIDI</tr>
-                </param>
-                <param name="VEL" type="int" required="true" minvalue="0" maxvalue="127">
-                    <tr lang="en">note velocity (if 0 - turns note off, otherwise ignored)</tr>
-                    <tr lang="ru" finished="false">скорость ноты (если 0 - выключает ноту, иначе
-                    игнорируется)</tr>
-                </param>
-            </method>
-            <!-- period -->
-            <method name="period">
-                <info>
-                    <tr lang="en">directly set floppy drive period. Note: moppy.v1 version
-                    only.</tr>
-                    <tr lang="ru" finished="false">Установить период флоппи-драйва. Примечание:
-                    только версия moppy.v1.</tr>
-                </info>
-                <param name="CHAN" type="int" required="false">
-                    <tr lang="en">optional floppy id (overrides @floppy property)</tr>
-                    <tr lang="ru" finished="false">необязательный floppy id (overrides @floppy
-                    property)</tr>
-                </param>
-                <param name="TIME" type="int" required="true">
-                    <tr lang="en">period in microseconds</tr>
-                    <tr lang="ru" finished="false">период в микросекундах</tr>
-                </param>
-            </method>
-            <!-- ping -->
-            <method name="ping">
-                <info>
-                    <tr lang="en">send ping request to all devices</tr>
-                    <tr lang="ru" finished="false">Отправить пинг-запрос на все устройства</tr>
-                </info>
-            </method>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset moppy device.</tr>
-                    <tr lang="ru" finished="false">Перезагрузить устройство.</tr>
-                </info>
-                <param name="all" type="symbol">
-                    <tr lang="en">reset all devices</tr>
-                    <tr lang="ru" finished="false">Сбросить все устройства</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">commands</tr>
-                    <tr lang="ru" finished="false">командовать</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list: output to moppy</tr>
-                    <tr lang="ru" finished="false">Оригинальное название: output to moppy</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <param name="VAL" type="float" required="true" minvalue="-1" maxvalue="1">
+          <tr lang="en">pitch bend</tr>
+          <tr lang="ru" finished="false">поворот</tr>
+        </param>
+      </method>
+      <!-- freq -->
+      <method name="freq">
+        <info>
+          <tr lang="en">set floppy frequency. Note: moppy.v1 version only.</tr>
+          <tr lang="ru" finished="false">Установите частоту дискет. Примечание: только версия
+          moppy.v1.</tr>
+        </info>
+        <param name="CHAN" type="int" required="false">
+          <tr lang="en">optional floppy id (overrides @floppy property)</tr>
+          <tr lang="ru" finished="false">необязательный floppy id (overrides @floppy property)</tr>
+        </param>
+        <param name="FREQ" type="float" required="true" units="hertz">
+          <tr lang="en">freq</tr>
+          <tr lang="ru" finished="false">фрек</tr>
+        </param>
+      </method>
+      <!-- note -->
+      <method name="note">
+        <info>
+          <tr lang="en">see noteon</tr>
+          <tr lang="ru" finished="false">См. также Noteon</tr>
+        </info>
+      </method>
+      <!-- noteoff -->
+      <method name="noteoff">
+        <info>
+          <tr lang="en">note off message</tr>
+          <tr lang="ru" finished="false">Отметить сообщение</tr>
+        </info>
+        <param name="CHAN" type="int" required="false">
+          <tr lang="en">optional floppy id (overrides @floppy property)</tr>
+          <tr lang="ru" finished="false">необязательный floppy id (overrides @floppy property)</tr>
+        </param>
+        <param name="NOTE" type="int" required="true" minvalue="24" maxvalue="72">
+          <tr lang="en">MIDI note</tr>
+          <tr lang="ru" finished="false">Записка MIDI</tr>
+        </param>
+      </method>
+      <!-- noteon -->
+      <method name="noteon">
+        <info>
+          <tr lang="en">play note</tr>
+          <tr lang="ru" finished="false">играть в игру</tr>
+        </info>
+        <param name="CHAN" type="int" required="false">
+          <tr lang="en">optional floppy id (overrides @floppy property)</tr>
+          <tr lang="ru" finished="false">необязательный floppy id (overrides @floppy property)</tr>
+        </param>
+        <param name="NOTE" type="int" required="true" minvalue="24" maxvalue="72">
+          <tr lang="en">MIDI note</tr>
+          <tr lang="ru" finished="false">Записка MIDI</tr>
+        </param>
+        <param name="VEL" type="int" required="true" minvalue="0" maxvalue="127">
+          <tr lang="en">note velocity (if 0 - turns note off, otherwise ignored)</tr>
+          <tr lang="ru" finished="false">скорость ноты (если 0 - выключает ноту, иначе
+          игнорируется)</tr>
+        </param>
+      </method>
+      <!-- period -->
+      <method name="period">
+        <info>
+          <tr lang="en">directly set floppy drive period. Note: moppy.v1 version only.</tr>
+          <tr lang="ru" finished="false">Установить период флоппи-драйва. Примечание: только версия
+          moppy.v1.</tr>
+        </info>
+        <param name="CHAN" type="int" required="false">
+          <tr lang="en">optional floppy id (overrides @floppy property)</tr>
+          <tr lang="ru" finished="false">необязательный floppy id (overrides @floppy property)</tr>
+        </param>
+        <param name="TIME" type="int" required="true">
+          <tr lang="en">period in microseconds</tr>
+          <tr lang="ru" finished="false">период в микросекундах</tr>
+        </param>
+      </method>
+      <!-- ping -->
+      <method name="ping">
+        <info>
+          <tr lang="en">send ping request to all devices</tr>
+          <tr lang="ru" finished="false">Отправить пинг-запрос на все устройства</tr>
+        </info>
+      </method>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset moppy device.</tr>
+          <tr lang="ru" finished="false">Перезагрузить устройство.</tr>
+        </info>
+        <param name="all" type="symbol">
+          <tr lang="en">reset all devices</tr>
+          <tr lang="ru" finished="false">Сбросить все устройства</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">commands</tr>
+          <tr lang="ru" finished="false">командовать</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list: output to moppy</tr>
+          <tr lang="ru" finished="false">Оригинальное название: output to moppy</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.keyboard 60 12]
 |
@@ -182,7 +177,7 @@
 [hw.arduino @rate 57600]
 [X a->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

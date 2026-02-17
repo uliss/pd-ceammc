@@ -1,56 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.reciprocal">
-        <title>math.reciprocal</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">calculate reciprocal number</tr>
-                <tr lang="ru">вычислить обратное значение</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math reciprocal</keywords>
-            <since>0.1</since>
-            <aliases>
-                <alias>ceammc/1/x</alias>
-                <alias>1/x</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Symbols are ignored, 0 gives NAN value</tr>
-                <tr lang="ru" finished="false">Символы игнорируются, 0 дает значение NAN</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">on list input outputs a list of reciprocal values</tr>
-                    <!-- old: в списке входных выходов список взаимных
+  <object name="math.reciprocal">
+    <title>math.reciprocal</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">calculate reciprocal number</tr>
+        <tr lang="ru">вычислить обратное значение</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math reciprocal</keywords>
+      <since>0.1</since>
+      <aliases>
+        <alias>ceammc/1/x</alias>
+        <alias>1/x</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Symbols are ignored, 0 gives NAN value</tr>
+        <tr lang="ru" finished="false">Символы игнорируются, 0 дает значение NAN</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">on list input outputs a list of reciprocal values</tr>
+          <!-- old: в списке входных выходов список взаимных
                     значений -->
-                    <tr lang="ru" finished="false">в списке входных выходов список взаимных
-                    значений</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">в списке входных выходов список взаимных значений</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]  [1 2 3 4 5(      [F]
 |    |                |
@@ -60,7 +59,7 @@
                       |
                       [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

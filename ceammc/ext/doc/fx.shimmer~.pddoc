@@ -1,175 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.shimmer~">
-        <title>fx.shimmer~</title>
-        <meta>
-            <authors>
-                <author>thedrgreenthumb</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">shimmer reverb effect</tr>
-                <tr lang="ru">шиммер-эффект реверберации</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx echo shimmer reverb</keywords>
-            <since>0.9.4</since>
-        </meta>
-        <arguments>
-            <argument name="DECAY_LOW" type="float" minvalue="1" maxvalue="8" units="second">
-                <tr lang="en">time to decay 60dB in low-frequency band</tr>
-                <tr lang="ru" finished="false">Время распада 60dB в низкочастотной полосе</tr>
-            </argument>
-            <argument name="DECAY_MID" type="float" minvalue="1" maxvalue="8" units="second">
-                <tr lang="en">time to decay 60dB in mid-frequency band</tr>
-                <tr lang="ru" finished="false">Время распада 60dB в диапазоне средних частот</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">
-                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-                <!-- old: Обходной флаг. Если это правда, обойдите
+  <object name="fx.shimmer~">
+    <title>fx.shimmer~</title>
+    <meta>
+      <authors>
+        <author>thedrgreenthumb</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">shimmer reverb effect</tr>
+        <tr lang="ru">шиммер-эффект реверберации</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx echo shimmer reverb</keywords>
+      <since>0.9.4</since>
+    </meta>
+    <arguments>
+      <argument name="DECAY_LOW" type="float" minvalue="1" maxvalue="8" units="second">
+        <tr lang="en">time to decay 60dB in low-frequency band</tr>
+        <tr lang="ru" finished="false">Время распада 60dB в низкочастотной полосе</tr>
+      </argument>
+      <argument name="DECAY_MID" type="float" minvalue="1" maxvalue="8" units="second">
+        <tr lang="en">time to decay 60dB in mid-frequency band</tr>
+        <tr lang="ru" finished="false">Время распада 60dB в диапазоне средних частот</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @bypass -->
+      <property name="@bypass" type="bool" default="0">
+        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+        <!-- old: Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал. -->
-                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал.</tr>
-            </property>
-            <!-- @control -->
-            <property name="@control" type="float" minvalue="0" maxvalue="1" default="0.5">
-                <tr lang="en">envelope follower to pitch shifter influence coefficient</tr>
-                <!-- old: Последователь конверта с коэффициентом влияния
+        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
+        сигнал.</tr>
+      </property>
+      <!-- @control -->
+      <property name="@control" type="float" minvalue="0" maxvalue="1" default="0.5">
+        <tr lang="en">envelope follower to pitch shifter influence coefficient</tr>
+        <!-- old: Последователь конверта с коэффициентом влияния
                 сдвига -->
-                <tr lang="ru" finished="false">Последователь конверта с коэффициентом влияния
-                сдвига</tr>
-            </property>
-            <!-- @damp_hf -->
-            <property name="@damp_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
-            units="hertz">
-                <tr lang="en">Frequency (Hz) at which the high-frequency T60 is half the
-                middle-band's T60</tr>
-                <!-- old: Частота (Гц), при которой высокочастотный T60
+        <tr lang="ru" finished="false">Последователь конверта с коэффициентом влияния сдвига</tr>
+      </property>
+      <!-- @damp_hf -->
+      <property name="@damp_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
+      units="hertz">
+        <tr lang="en">Frequency (Hz) at which the high-frequency T60 is half the middle-band's
+        T60</tr>
+        <!-- old: Частота (Гц), при которой высокочастотный T60
                 составляет половину T60 среднего диапазона -->
-                <tr lang="ru" finished="false">Частота (Гц), при которой высокочастотный T60
-                составляет половину T60 среднего диапазона</tr>
-            </property>
-            <!-- @decay_low -->
-            <property name="@decay_low" type="float" minvalue="1" maxvalue="8" default="3"
-            units="second">
-                <tr lang="en">time (in seconds) to decay 60dB in low-frequency band</tr>
-                <!-- old: время (в секундах) распада 60dB в низкочастотном
+        <tr lang="ru" finished="false">Частота (Гц), при которой высокочастотный T60 составляет
+        половину T60 среднего диапазона</tr>
+      </property>
+      <!-- @decay_low -->
+      <property name="@decay_low" type="float" minvalue="1" maxvalue="8" default="3"
+      units="second">
+        <tr lang="en">time (in seconds) to decay 60dB in low-frequency band</tr>
+        <!-- old: время (в секундах) распада 60dB в низкочастотном
                 диапазоне -->
-                <tr lang="ru" finished="false">время (в секундах) распада 60dB в низкочастотном
-                диапазоне</tr>
-            </property>
-            <!-- @decay_mid -->
-            <property name="@decay_mid" type="float" minvalue="1" maxvalue="8" default="2"
-            units="second">
-                <tr lang="en">time (in seconds) to decay 60dB in mid-frequency band</tr>
-                <!-- old: время (в секундах) распада 60dB в диапазоне средних
+        <tr lang="ru" finished="false">время (в секундах) распада 60dB в низкочастотном
+        диапазоне</tr>
+      </property>
+      <!-- @decay_mid -->
+      <property name="@decay_mid" type="float" minvalue="1" maxvalue="8" default="2"
+      units="second">
+        <tr lang="en">time (in seconds) to decay 60dB in mid-frequency band</tr>
+        <!-- old: время (в секундах) распада 60dB в диапазоне средних
                 частот -->
-                <tr lang="ru" finished="false">время (в секундах) распада 60dB в диапазоне средних
-                частот</tr>
-            </property>
-            <!-- @depth -->
-            <property name="@depth" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">pitchshift modulation amplitude</tr>
-                <tr lang="ru" finished="false">амплитуда сдвига модуляции</tr>
-            </property>
-            <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
-                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
-                signals. 0 - dry signal, 1 - wet</tr>
-                <!-- old: пропорция смеси между исходными (сухими) и
+        <tr lang="ru" finished="false">время (в секундах) распада 60dB в диапазоне средних
+        частот</tr>
+      </property>
+      <!-- @depth -->
+      <property name="@depth" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">pitchshift modulation amplitude</tr>
+        <tr lang="ru" finished="false">амплитуда сдвига модуляции</tr>
+      </property>
+      <!-- @drywet -->
+      <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
+        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
+        - dry signal, 1 - wet</tr>
+        <!-- old: пропорция смеси между исходными (сухими) и
                 "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
-                <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
-                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
-            </property>
-            <!-- @envelope -->
-            <property name="@envelope" type="float" minvalue="0.1" maxvalue="3" default="1"
-            units="second">
-                <tr lang="en">amplitude-envelope time-constant going down</tr>
-                <tr lang="ru" finished="false">амплитудно-конвертное время, идущее вниз</tr>
-            </property>
-            <!-- @freq_low -->
-            <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
-            units="hertz">
-                <tr lang="en">Crossover frequency (Hz) separating low and middle frequencies</tr>
-                <!-- old: Перекрестная частота (Гц), разделяющая низкие и
+        <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и "влажными"
+        сигналами. 0 - сухой сигнал, 1 - влажный</tr>
+      </property>
+      <!-- @envelope -->
+      <property name="@envelope" type="float" minvalue="0.1" maxvalue="3" default="1"
+      units="second">
+        <tr lang="en">amplitude-envelope time-constant going down</tr>
+        <tr lang="ru" finished="false">амплитудно-конвертное время, идущее вниз</tr>
+      </property>
+      <!-- @freq_low -->
+      <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
+      units="hertz">
+        <tr lang="en">Crossover frequency (Hz) separating low and middle frequencies</tr>
+        <!-- old: Перекрестная частота (Гц), разделяющая низкие и
                 средние частоты -->
-                <tr lang="ru" finished="false">Перекрестная частота (Гц), разделяющая низкие и
-                средние частоты</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="int" minvalue="-3" maxvalue="3" default="0">
-                <tr lang="en">correlation between pitchshift</tr>
-                <tr lang="ru" finished="false">Корреляция между сменами тангажа</tr>
-            </property>
-            <!-- @ps_drywet -->
-            <property name="@ps_drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
-                <tr lang="en">proportion of mix between original and pitchshift signal in shimmer
-                feedback</tr>
-                <!-- old: Пропорция смеси между оригинальным и сдвига сигнала
+        <tr lang="ru" finished="false">Перекрестная частота (Гц), разделяющая низкие и средние
+        частоты</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="int" minvalue="-3" maxvalue="3" default="0">
+        <tr lang="en">correlation between pitchshift</tr>
+        <tr lang="ru" finished="false">Корреляция между сменами тангажа</tr>
+      </property>
+      <!-- @ps_drywet -->
+      <property name="@ps_drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
+        <tr lang="en">proportion of mix between original and pitchshift signal in shimmer
+        feedback</tr>
+        <!-- old: Пропорция смеси между оригинальным и сдвига сигнала
                 в мерцание обратной связи -->
-                <tr lang="ru" finished="false">Пропорция смеси между оригинальным и сдвига сигнала
-                в мерцание обратной связи</tr>
-            </property>
-            <!-- @shift -->
-            <property name="@shift" type="float" minvalue="-12" maxvalue="12" default="12"
-            units="semitone">
-                <tr lang="en">frequency shifting</tr>
-                <tr lang="ru" finished="false">смещение частоты</tr>
-            </property>
-            <!-- @speed -->
-            <property name="@speed" type="float" minvalue="0.1" maxvalue="10" default="0.1"
-            units="hertz">
-                <tr lang="en">pitchshift modulation frequency</tr>
-                <tr lang="ru" finished="false">ступенчатая частота модуляции</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset to initial state</tr>
-                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Пропорция смеси между оригинальным и сдвига сигнала в
+        мерцание обратной связи</tr>
+      </property>
+      <!-- @shift -->
+      <property name="@shift" type="float" minvalue="-12" maxvalue="12" default="12"
+      units="semitone">
+        <tr lang="en">frequency shifting</tr>
+        <tr lang="ru" finished="false">смещение частоты</tr>
+      </property>
+      <!-- @speed -->
+      <property name="@speed" type="float" minvalue="0.1" maxvalue="10" default="0.1"
+      units="hertz">
+        <tr lang="en">pitchshift modulation frequency</tr>
+        <tr lang="ru" finished="false">ступенчатая частота модуляции</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset to initial state</tr>
+          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |
@@ -189,7 +188,7 @@
 *|*
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

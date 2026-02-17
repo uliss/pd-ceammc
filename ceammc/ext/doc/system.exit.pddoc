@@ -1,76 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="system.exit">
-        <title>system.exit</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">quit PureData</tr>
-                <tr lang="ru">завершает PureData</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>system</category>
-            <keywords>quit exit</keywords>
-            <since>0.9.2</since>
-        </meta>
-        <arguments>
-            <argument name="DELAY" type="float" minvalue="0" units="millisecond">
-                <tr lang="en">exit delay time</tr>
-                <tr lang="ru" finished="false">Время задержки выхода</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @auto -->
-            <property name="@auto" type="bool" default="0">
-                <tr lang="en">close automatically, without incoming call</tr>
-                <tr lang="ru" finished="false">Закрыть автоматически, без входящего вызова</tr>
-            </property>
-            <!-- @delay -->
-            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
-                <tr lang="en">exit PureData after specified delay time</tr>
-                <tr lang="ru" finished="false">выход из PureData после определенного времени
-                задержки</tr>
-            </property>
-            <!-- @rc -->
-            <property name="@rc" type="int" default="0">
-                <tr lang="en">exit code</tr>
-                <tr lang="ru" finished="false">код выхода</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- exit -->
-            <method name="exit">
-                <info>
-                    <tr lang="en">exit PureData</tr>
-                    <tr lang="ru" finished="false">Выход PureData</tr>
-                </info>
-                <param name="RC" type="int">
-                    <tr lang="en">exit code, if not specified @rc property used</tr>
-                    <tr lang="ru" finished="false">код выхода, если не указано свойство @rc</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control input</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets />
-        <example>
-            <pdascii>
+  <object name="system.exit">
+    <title>system.exit</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">quit PureData</tr>
+        <tr lang="ru">завершает PureData</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>system</category>
+      <keywords>quit exit</keywords>
+      <since>0.9.2</since>
+    </meta>
+    <arguments>
+      <argument name="DELAY" type="float" minvalue="0" units="millisecond">
+        <tr lang="en">exit delay time</tr>
+        <tr lang="ru" finished="false">Время задержки выхода</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @auto -->
+      <property name="@auto" type="bool" default="0">
+        <tr lang="en">close automatically, without incoming call</tr>
+        <tr lang="ru" finished="false">Закрыть автоматически, без входящего вызова</tr>
+      </property>
+      <!-- @delay -->
+      <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
+        <tr lang="en">exit PureData after specified delay time</tr>
+        <tr lang="ru" finished="false">выход из PureData после определенного времени задержки</tr>
+      </property>
+      <!-- @rc -->
+      <property name="@rc" type="int" default="0">
+        <tr lang="en">exit code</tr>
+        <tr lang="ru" finished="false">код выхода</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- exit -->
+      <method name="exit">
+        <info>
+          <tr lang="en">exit PureData</tr>
+          <tr lang="ru" finished="false">Выход PureData</tr>
+        </info>
+        <param name="RC" type="int">
+          <tr lang="en">exit code, if not specified @rc property used</tr>
+          <tr lang="ru" finished="false">код выхода, если не указано свойство @rc</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control input</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets />
+    <example>
+      <pdascii>
 <![CDATA[
 [exit 0( /*WARNING: this will close PureData in 1000ms!*/
 |
 |
 [system.exit @delay 1000]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

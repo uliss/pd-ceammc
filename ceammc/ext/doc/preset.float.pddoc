@@ -1,145 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="preset.float">
-        <title>preset.float</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">load or store the float into a preset</tr>
-                <tr lang="ru">загружает или сохраняет числовое значение в пресете</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>preset</category>
-            <keywords>preset storage float</keywords>
-            <since>0.4</since>
-            <also>
-                <see>preset.storage</see>
-                <see>preset.symbol</see>
-                <see>preset.list</see>
-            </also>
-            <aliases>
-                <alias>preset.f</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Named float preset entry. Can store/load up to 256 various float
-                values</tr>
-                <!-- old: Оригинальное название: Float Preset Enterry Может
+  <object name="preset.float">
+    <title>preset.float</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">load or store the float into a preset</tr>
+        <tr lang="ru">загружает или сохраняет числовое значение в пресете</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>preset</category>
+      <keywords>preset storage float</keywords>
+      <since>0.4</since>
+      <also>
+        <see>preset.storage</see>
+        <see>preset.symbol</see>
+        <see>preset.list</see>
+      </also>
+      <aliases>
+        <alias>preset.f</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Named float preset entry. Can store/load up to 256 various float values</tr>
+        <!-- old: Оригинальное название: Float Preset Enterry Может
                 хранить/загружать до 256 различных значений -->
-                <tr lang="ru" finished="false">Оригинальное название: Float Preset Enterry Может
-                хранить/загружать до 256 различных значений</tr>
-            </par>
-        </info>
-        <mouse>
-            <event type="left-click" editmode="false">open preset editor</event>
-        </mouse>
-        <arguments>
-            <argument name="ID" type="symbol">
-                <tr lang="en">preset id (should be unique in most use cases)</tr>
-                <!-- old: предустановленный идентификатор (должен быть
+        <tr lang="ru" finished="false">Оригинальное название: Float Preset Enterry Может
+        хранить/загружать до 256 различных значений</tr>
+      </par>
+    </info>
+    <mouse>
+      <event type="left-click" editmode="false">open preset editor</event>
+    </mouse>
+    <arguments>
+      <argument name="ID" type="symbol">
+        <tr lang="en">preset id (should be unique in most use cases)</tr>
+        <!-- old: предустановленный идентификатор (должен быть
                 уникальным в большинстве случаев использования) -->
-                <tr lang="ru" finished="false">предустановленный идентификатор (должен быть
-                уникальным в большинстве случаев использования)</tr>
-            </argument>
-            <argument name="INIT" type="float">
-                <tr lang="en">preset initial value</tr>
-                <tr lang="ru" finished="false">заданное начальное значение</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @global -->
-            <property name="@global" type="flag" default="0" access="initonly">
-                <tr lang="en">use global path like /ID</tr>
-                <tr lang="ru" finished="false">Используйте глобальный путь как /ID</tr>
-            </property>
-            <!-- @id -->
-            <property name="@id" type="symbol" access="initonly" default="">
-                <tr lang="en">preset id</tr>
-                <tr lang="ru" finished="false">предустановленный</tr>
-            </property>
-            <!-- @init -->
-            <property name="@init" type="float" default="0" access="initonly">
-                <tr lang="en">init float value</tr>
-                <tr lang="ru" finished="false">значение init float</tr>
-            </property>
-            <!-- @path -->
-            <property name="@path" type="symbol" access="readonly" default="">
-                <tr lang="en">property OSC-like path that includes id, abstraction name and may be
-                subpatch name separated by slashes.</tr>
-                <!-- old: свойство OSC-подобного пути, которое включает в себя
+        <tr lang="ru" finished="false">предустановленный идентификатор (должен быть уникальным в
+        большинстве случаев использования)</tr>
+      </argument>
+      <argument name="INIT" type="float">
+        <tr lang="en">preset initial value</tr>
+        <tr lang="ru" finished="false">заданное начальное значение</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @global -->
+      <property name="@global" type="flag" default="0" access="initonly">
+        <tr lang="en">use global path like /ID</tr>
+        <tr lang="ru" finished="false">Используйте глобальный путь как /ID</tr>
+      </property>
+      <!-- @id -->
+      <property name="@id" type="symbol" access="initonly" default="">
+        <tr lang="en">preset id</tr>
+        <tr lang="ru" finished="false">предустановленный</tr>
+      </property>
+      <!-- @init -->
+      <property name="@init" type="float" default="0" access="initonly">
+        <tr lang="en">init float value</tr>
+        <tr lang="ru" finished="false">значение init float</tr>
+      </property>
+      <!-- @path -->
+      <property name="@path" type="symbol" access="readonly" default="">
+        <tr lang="en">property OSC-like path that includes id, abstraction name and may be subpatch
+        name separated by slashes.</tr>
+        <!-- old: свойство OSC-подобного пути, которое включает в себя
                 идентификатор, имя абстракции и может быть именем подпатча, разделенным
                 слэшами. -->
-                <tr lang="ru" finished="false">свойство OSC-подобного пути, которое включает в себя
-                идентификатор, имя абстракции и может быть именем подпатча, разделенным
-                слэшами.</tr>
-            </property>
-            <!-- @subpatch -->
-            <property name="@subpatch" type="flag" default="0" access="initonly">
-                <tr lang="en">include subpatch name to path</tr>
-                <tr lang="ru" finished="false">Включите имя субпатча в путь</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clear preset at specified index</tr>
-                    <tr lang="ru" finished="false">четкая предустановка по заданному индексу</tr>
-                </info>
-            </method>
-            <!-- interp -->
-            <method name="interp">
-                <info>
-                    <tr lang="en">linearly interpolate between preset indexes and output</tr>
-                    <!-- old: линейно интерполировать между предустановленными
+        <tr lang="ru" finished="false">свойство OSC-подобного пути, которое включает в себя
+        идентификатор, имя абстракции и может быть именем подпатча, разделенным слэшами.</tr>
+      </property>
+      <!-- @subpatch -->
+      <property name="@subpatch" type="flag" default="0" access="initonly">
+        <tr lang="en">include subpatch name to path</tr>
+        <tr lang="ru" finished="false">Включите имя субпатча в путь</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">clear preset at specified index</tr>
+          <tr lang="ru" finished="false">четкая предустановка по заданному индексу</tr>
+        </info>
+      </method>
+      <!-- interp -->
+      <method name="interp">
+        <info>
+          <tr lang="en">linearly interpolate between preset indexes and output</tr>
+          <!-- old: линейно интерполировать между предустановленными
                     индексами и выходом -->
-                    <tr lang="ru" finished="false">линейно интерполировать между предустановленными
-                    индексами и выходом</tr>
-                </info>
-            </method>
-            <!-- load -->
-            <method name="load">
-                <info>
-                    <tr lang="en">load preset value by specified index and output it</tr>
-                    <!-- old: заданное значение нагрузки по заданному индексу
+          <tr lang="ru" finished="false">линейно интерполировать между предустановленными индексами
+          и выходом</tr>
+        </info>
+      </method>
+      <!-- load -->
+      <method name="load">
+        <info>
+          <tr lang="en">load preset value by specified index and output it</tr>
+          <!-- old: заданное значение нагрузки по заданному индексу
                     и вывести его -->
-                    <tr lang="ru" finished="false">заданное значение нагрузки по заданному индексу
-                    и вывести его</tr>
-                </info>
-            </method>
-            <!-- store -->
-            <method name="store">
-                <info>
-                    <tr lang="en">stores preset value at specified index</tr>
-                    <!-- old: предустановленная стоимость в указанном
+          <tr lang="ru" finished="false">заданное значение нагрузки по заданному индексу и вывести
+          его</tr>
+        </info>
+      </method>
+      <!-- store -->
+      <method name="store">
+        <info>
+          <tr lang="en">stores preset value at specified index</tr>
+          <!-- old: предустановленная стоимость в указанном
                     индексе -->
-                    <tr lang="ru" finished="false">предустановленная стоимость в указанном
-                    индексе</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set preset value without output</tr>
-                    <tr lang="ru" finished="false">заданное значение без выхода</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">preset float value</tr>
-                    <tr lang="ru" finished="false">предварительно установленная стоимость</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">предустановленная стоимость в указанном индексе</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set preset value without output</tr>
+          <tr lang="ru" finished="false">заданное значение без выхода</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">preset float value</tr>
+          <tr lang="ru" finished="false">предварительно установленная стоимость</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /*change the value*/
 
@@ -158,7 +155,7 @@
 |
 [ui.preset] /*Shift+click to store preset*/
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

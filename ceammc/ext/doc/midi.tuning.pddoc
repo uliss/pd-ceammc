@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.tuning">
-        <title>midi.tuning</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">apply the tuning for notes flow</tr>
-                <tr lang="ru">применяет настройку для нотного потока</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi tuning</keywords>
-            <since>0.9.1</since>
-        </meta>
-        <arguments>
-            <argument name="DEV" type="list">
-                <tr lang="en">if symbol - set named temperament deviations, valid names are: "eq",
-                "just", "ganassi", "meantone", "kirnberger3", "pythagorean", "rameau", "valotti" or
-                "zarlino". If list: set deviation in cents per pitch</tr>
-                <!-- old: если символ - набор названных отклонений
+  <object name="midi.tuning">
+    <title>midi.tuning</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">apply the tuning for notes flow</tr>
+        <tr lang="ru">применяет настройку для нотного потока</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi tuning</keywords>
+      <since>0.9.1</since>
+    </meta>
+    <arguments>
+      <argument name="DEV" type="list">
+        <tr lang="en">if symbol - set named temperament deviations, valid names are: "eq", "just",
+        "ganassi", "meantone", "kirnberger3", "pythagorean", "rameau", "valotti" or "zarlino". If
+        list: set deviation in cents per pitch</tr>
+        <!-- old: если символ - набор названных отклонений
                 темперамента, то действительными названиями являются: "экв", "просто", "ганасси",
                 "меантоне", "кирнбергер3", "пифагореан", "рамео", "валотти" или "зарлино". Если
                 список: установленное отклонение в центах за шаг -->
-                <tr lang="ru" finished="false">если символ - набор названных отклонений
-                темперамента, то действительными названиями являются: "экв", "просто", "ганасси",
-                "меантоне", "кирнбергер3", "пифагореан", "рамео", "валотти" или "зарлино". Если
-                список: установленное отклонение в центах за шаг</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @base -->
-            <property name="@base" type="int" minvalue="0" maxvalue="11" default="9">
-                <tr lang="en">base pitch (C: 0, A: 9, etc..)</tr>
-                <tr lang="ru" finished="false">базовый шаг (C:0, A:9 и т.д.)</tr>
-            </property>
-            <!-- @dev -->
-            <property name="@dev" type="list" default="0 0 0 0 0 0 0 0 0 0 0 0">
-                <tr lang="en">list of deviations in cents</tr>
-                <tr lang="ru" finished="false">Список отклонений в центах</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">NOTE VELOCITY pair expected</tr>
-                    <tr lang="ru" finished="false">ПРИМЕЧАНИЕ: Ожидаемая пара переменчивости</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">note velocity pair</tr>
-                    <tr lang="ru" finished="false">пара скоростей</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">если символ - набор названных отклонений темперамента, то
+        действительными названиями являются: "экв", "просто", "ганасси", "меантоне", "кирнбергер3",
+        "пифагореан", "рамео", "валотти" или "зарлино". Если список: установленное отклонение в
+        центах за шаг</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @base -->
+      <property name="@base" type="int" minvalue="0" maxvalue="11" default="9">
+        <tr lang="en">base pitch (C: 0, A: 9, etc..)</tr>
+        <tr lang="ru" finished="false">базовый шаг (C:0, A:9 и т.д.)</tr>
+      </property>
+      <!-- @dev -->
+      <property name="@dev" type="list" default="0 0 0 0 0 0 0 0 0 0 0 0">
+        <tr lang="en">list of deviations in cents</tr>
+        <tr lang="ru" finished="false">Список отклонений в центах</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">NOTE VELOCITY pair expected</tr>
+          <tr lang="ru" finished="false">ПРИМЕЧАНИЕ: Ожидаемая пара переменчивости</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">note velocity pair</tr>
+          <tr lang="ru" finished="false">пара скоростей</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.keyboard]
 |
@@ -84,7 +84,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

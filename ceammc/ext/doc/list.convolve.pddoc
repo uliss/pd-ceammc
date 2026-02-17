@@ -1,113 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.convolve">
-        <title>list.convolve</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convolution for lists</tr>
-                <tr lang="ru">операция свертки для списков</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list convolve convolution</keywords>
-            <since>0.9.4</since>
-            <aliases>
-                <alias>list.conv</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Note: may perform slowly in large lists because it does not use the
-                FFT to compute the convolution</tr>
-                <!-- old: Примечание: может выполняться медленно в больших
+  <object name="list.convolve">
+    <title>list.convolve</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convolution for lists</tr>
+        <tr lang="ru">операция свертки для списков</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list convolve convolution</keywords>
+      <since>0.9.4</since>
+      <aliases>
+        <alias>list.conv</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Note: may perform slowly in large lists because it does not use the FFT to
+        compute the convolution</tr>
+        <!-- old: Примечание: может выполняться медленно в больших
                 списках, потому что он не использует FFT для вычисления свертки -->
-                <tr lang="ru" finished="false">Примечание: может выполняться медленно в больших
-                списках, потому что он не использует FFT для вычисления свертки</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="B" type="list">
-                <tr lang="en">second argument values</tr>
-                <tr lang="ru" finished="false">Вторые аргументы</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @a -->
-            <property name="@a" type="list" default="">
-                <tr lang="en">first argument</tr>
-                <tr lang="ru" finished="false">Первый аргумент</tr>
-            </property>
-            <!-- @b -->
-            <property name="@b" type="list" default="">
-                <tr lang="en">second argument</tr>
-                <tr lang="ru" finished="false">Второй аргумент</tr>
-            </property>
-            <!-- @full -->
-            <property name="@full" type="alias">
-                <tr lang="en">alias to @mode full</tr>
-                <tr lang="ru" finished="false">Скачать @mode Full</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" enum="valid same full" default="full">
-                <tr lang="en">output mode. 'full' - output the convolution at each point of
-                overlap, with an output length of (M+N-1). At the end-points of the convolution,
-                the signals do not overlap completely, and boundary effects may be seen. 'valid' -
-                output of length (max(M,N)-min(M,N)+1). The convolution product is only given for
-                points where the signals overlap completely. Values outside the signal boundary
-                have no effect. 'same' - output of length max(M,N). Boundary effects are still
-                visible</tr>
-                <!-- old: выходной режим. "полный" - вывод свертки в каждой
+        <tr lang="ru" finished="false">Примечание: может выполняться медленно в больших списках,
+        потому что он не использует FFT для вычисления свертки</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="B" type="list">
+        <tr lang="en">second argument values</tr>
+        <tr lang="ru" finished="false">Вторые аргументы</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @a -->
+      <property name="@a" type="list" default="">
+        <tr lang="en">first argument</tr>
+        <tr lang="ru" finished="false">Первый аргумент</tr>
+      </property>
+      <!-- @b -->
+      <property name="@b" type="list" default="">
+        <tr lang="en">second argument</tr>
+        <tr lang="ru" finished="false">Второй аргумент</tr>
+      </property>
+      <!-- @full -->
+      <property name="@full" type="alias">
+        <tr lang="en">alias to @mode full</tr>
+        <tr lang="ru" finished="false">Скачать @mode Full</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" enum="valid same full" default="full">
+        <tr lang="en">output mode. 'full' - output the convolution at each point of overlap, with
+        an output length of (M+N-1). At the end-points of the convolution, the signals do not
+        overlap completely, and boundary effects may be seen. 'valid' - output of length
+        (max(M,N)-min(M,N)+1). The convolution product is only given for points where the signals
+        overlap completely. Values outside the signal boundary have no effect. 'same' - output of
+        length max(M,N). Boundary effects are still visible</tr>
+        <!-- old: выходной режим. "полный" - вывод свертки в каждой
                 точке перекрытия с длиной вывода (M+N-1). В конечных точках свертки сигналы не
                 перекрываются полностью, и могут быть видны граничные эффекты. "действительный" -
                 выход длины (max(M,N)-min(M,N)+1). Продукт свертки дается только для точек, где
                 сигналы полностью перекрываются. Значения за пределами границы сигнала не имеют
                 эффекта. "одинаковый" - выход длины max(M,N). Граничные эффекты все еще видны -->
-                <tr lang="ru" finished="false">выходной режим. "полный" - вывод свертки в каждой
-                точке перекрытия с длиной вывода (M+N-1). В конечных точках свертки сигналы не
-                перекрываются полностью, и могут быть видны граничные эффекты. "действительный" -
-                выход длины (max(M,N)-min(M,N)+1). Продукт свертки дается только для точек, где
-                сигналы полностью перекрываются. Значения за пределами границы сигнала не имеют
-                эффекта. "одинаковый" - выход длины max(M,N). Граничные эффекты все еще видны</tr>
-            </property>
-            <!-- @same -->
-            <property name="@same" type="alias">
-                <tr lang="en">alias to @mode same</tr>
-                <tr lang="ru" finished="false">Название: @mode same</tr>
-            </property>
-            <!-- @valid -->
-            <property name="@valid" type="alias">
-                <tr lang="en">alias to @mode valid</tr>
-                <tr lang="ru" finished="false">псевдоним @mode valid</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">calculate convolution and output</tr>
-                    <tr lang="ru" finished="false">рассчитать свёртку и выход</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set second argument (@b property)</tr>
-                    <tr lang="ru" finished="false">Второй аргумент (@b)</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list: output result</tr>
-                    <tr lang="ru" finished="false">Список: результат</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">выходной режим. "полный" - вывод свертки в каждой точке
+        перекрытия с длиной вывода (M+N-1). В конечных точках свертки сигналы не перекрываются
+        полностью, и могут быть видны граничные эффекты. "действительный" - выход длины
+        (max(M,N)-min(M,N)+1). Продукт свертки дается только для точек, где сигналы полностью
+        перекрываются. Значения за пределами границы сигнала не имеют эффекта. "одинаковый" - выход
+        длины max(M,N). Граничные эффекты все еще видны</tr>
+      </property>
+      <!-- @same -->
+      <property name="@same" type="alias">
+        <tr lang="en">alias to @mode same</tr>
+        <tr lang="ru" finished="false">Название: @mode same</tr>
+      </property>
+      <!-- @valid -->
+      <property name="@valid" type="alias">
+        <tr lang="en">alias to @mode valid</tr>
+        <tr lang="ru" finished="false">псевдоним @mode valid</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">calculate convolution and output</tr>
+          <tr lang="ru" finished="false">рассчитать свёртку и выход</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set second argument (@b property)</tr>
+          <tr lang="ru" finished="false">Второй аргумент (@b)</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list: output result</tr>
+          <tr lang="ru" finished="false">Список: результат</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2 3(
 |
@@ -117,8 +116,8 @@
 
 [list.convolve-1]
 ]]>
-            </pdascii>
-            <pdascii id="1">
+      </pdascii>
+      <pdascii id="1">
 <![CDATA[
 [random, bang(
 |
@@ -139,7 +138,7 @@
 
 /*...*/
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

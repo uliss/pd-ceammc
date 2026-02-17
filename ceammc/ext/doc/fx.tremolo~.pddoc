@@ -1,105 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.tremolo~">
-        <title>fx.tremolo~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">tremolo effect from Guitarix project</tr>
-                <tr lang="ru">эффект тремоло от проекта Guitarix</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx tremolo</keywords>
-            <since>0.9.7</since>
-        </meta>
-        <arguments>
-            <argument name="FREQ" type="float" minvalue="0.1" maxvalue="50" units="hertz">
-                <tr lang="en">tremolo frequency</tr>
-                <tr lang="ru" finished="false">частота тремоло</tr>
-            </argument>
-            <argument name="DEPTH" type="float" minvalue="0" maxvalue="1">
-                <tr lang="en">effect depth</tr>
-                <tr lang="ru" finished="false">Эффект глубины</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">
-                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-                <!-- old: Обходной флаг. Если это правда, обойдите
+  <object name="fx.tremolo~">
+    <title>fx.tremolo~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">tremolo effect from Guitarix project</tr>
+        <tr lang="ru">эффект тремоло от проекта Guitarix</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx tremolo</keywords>
+      <since>0.9.7</since>
+    </meta>
+    <arguments>
+      <argument name="FREQ" type="float" minvalue="0.1" maxvalue="50" units="hertz">
+        <tr lang="en">tremolo frequency</tr>
+        <tr lang="ru" finished="false">частота тремоло</tr>
+      </argument>
+      <argument name="DEPTH" type="float" minvalue="0" maxvalue="1">
+        <tr lang="en">effect depth</tr>
+        <tr lang="ru" finished="false">Эффект глубины</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @bypass -->
+      <property name="@bypass" type="bool" default="0">
+        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+        <!-- old: Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал. -->
-                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал.</tr>
-            </property>
-            <!-- @depth -->
-            <property name="@depth" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">effect depth</tr>
-                <tr lang="ru" finished="false">Эффект глубины</tr>
-            </property>
-            <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.75">
-                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
-                signals. 0 - dry signal, 1 - wet</tr>
-                <!-- old: пропорция смеси между исходными (сухими) и
+        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
+        сигнал.</tr>
+      </property>
+      <!-- @depth -->
+      <property name="@depth" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">effect depth</tr>
+        <tr lang="ru" finished="false">Эффект глубины</tr>
+      </property>
+      <!-- @drywet -->
+      <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.75">
+        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
+        - dry signal, 1 - wet</tr>
+        <!-- old: пропорция смеси между исходными (сухими) и
                 "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
-                <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
-                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
-            </property>
-            <!-- @freq -->
-            <property name="@freq" type="float" minvalue="0.1" maxvalue="50" units="hertz"
-            default="5">
-                <tr lang="en">tremolo frequency</tr>
-                <tr lang="ru" finished="false">частота тремоло</tr>
-            </property>
-            <!-- @src -->
-            <property name="@src" type="int" minvalue="0" maxvalue="2" default="0">
-                <tr lang="en">modulation source: 0 (triangle), 1 (sin) or 2 (square)</tr>
-                <!-- old: Источник модуляции: 0 (треугольник), 1 (грех) или 2
+        <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и "влажными"
+        сигналами. 0 - сухой сигнал, 1 - влажный</tr>
+      </property>
+      <!-- @freq -->
+      <property name="@freq" type="float" minvalue="0.1" maxvalue="50" units="hertz" default="5">
+        <tr lang="en">tremolo frequency</tr>
+        <tr lang="ru" finished="false">частота тремоло</tr>
+      </property>
+      <!-- @src -->
+      <property name="@src" type="int" minvalue="0" maxvalue="2" default="0">
+        <tr lang="en">modulation source: 0 (triangle), 1 (sin) or 2 (square)</tr>
+        <!-- old: Источник модуляции: 0 (треугольник), 1 (грех) или 2
                 (квадрат) -->
-                <tr lang="ru" finished="false">Источник модуляции: 0 (треугольник), 1 (грех) или 2
-                (квадрат)</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset to initial state</tr>
-                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set frequency (Hz)</tr>
-                    <tr lang="ru" finished="false">установленная частота (Hz)</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Источник модуляции: 0 (треугольник), 1 (грех) или 2
+        (квадрат)</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset to initial state</tr>
+          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set frequency (Hz)</tr>
+          <tr lang="ru" finished="false">установленная частота (Hz)</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open %CEAMMC%/guitar1.wav, 1(
 |
@@ -118,7 +117,7 @@
 #b @show_value 1
 #c tri osc square @size 140 15
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

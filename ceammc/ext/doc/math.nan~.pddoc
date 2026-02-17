@@ -1,103 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.nan~">
-        <title>math.nan~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">NaN signal</tr>
-                <tr lang="ru">сигнал NaNN</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math nan</keywords>
-            <also>
-                <see>math.nan</see>
-                <see>math.inf~</see>
-            </also>
-            <since>0.9.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">In computing, NaN, standing for not a number, is a numeric data type
-                value representing an undefined or unrepresentable value, especially in
-                floating-point calculations. Systematic use of NaNs was introduced by the IEEE 754
-                floating-point standard in 1985, along with the representation of other non-finite
-                quantities like infinities.</tr>
-                <!-- old: В вычислительной технике NaN, обозначающий не число,
+  <object name="math.nan~">
+    <title>math.nan~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">NaN signal</tr>
+        <tr lang="ru">сигнал NaNN</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math nan</keywords>
+      <also>
+        <see>math.nan</see>
+        <see>math.inf~</see>
+      </also>
+      <since>0.9.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">In computing, NaN, standing for not a number, is a numeric data type value
+        representing an undefined or unrepresentable value, especially in floating-point
+        calculations. Systematic use of NaNs was introduced by the IEEE 754 floating-point standard
+        in 1985, along with the representation of other non-finite quantities like infinities.</tr>
+        <!-- old: В вычислительной технике NaN, обозначающий не число,
                 представляет собой числовой тип данных, представляющий неопределенное или
                 непредставимое значение, особенно в вычислениях с плавающей точкой. Систематическое
                 использование NaNs было введено стандартом IEEE 754 в 1985 году, наряду с
                 представлением других неконечных величин, таких как бесконечности. -->
-                <tr lang="ru" finished="false">В вычислительной технике NaN, обозначающий не число,
-                представляет собой числовой тип данных, представляющий неопределенное или
-                непредставимое значение, особенно в вычислениях с плавающей точкой. Систематическое
-                использование NaNs было введено стандартом IEEE 754 в 1985 году, наряду с
-                представлением других неконечных величин, таких как бесконечности.</tr>
-            </par>
-            <par>
-                <tr lang="en">When an operation results in a quiet NaN, there is no indication that
-                anything is unusual until the program checks the result and sees a NaN. That is,
-                computation continues without any signal from the floating point unit (FPU) or
-                library if floating-point is implemented in software. A signalling NaN will produce
-                a signal, usually in the form of exception from the FPU. Whether the exception is
-                thrown depends on the state of the FPU.</tr>
-                <!-- old: Когда операция приводит к тихому NaN, нет никаких
+        <tr lang="ru" finished="false">В вычислительной технике NaN, обозначающий не число,
+        представляет собой числовой тип данных, представляющий неопределенное или непредставимое
+        значение, особенно в вычислениях с плавающей точкой. Систематическое использование NaNs
+        было введено стандартом IEEE 754 в 1985 году, наряду с представлением других неконечных
+        величин, таких как бесконечности.</tr>
+      </par>
+      <par>
+        <tr lang="en">When an operation results in a quiet NaN, there is no indication that
+        anything is unusual until the program checks the result and sees a NaN. That is,
+        computation continues without any signal from the floating point unit (FPU) or library if
+        floating-point is implemented in software. A signalling NaN will produce a signal, usually
+        in the form of exception from the FPU. Whether the exception is thrown depends on the state
+        of the FPU.</tr>
+        <!-- old: Когда операция приводит к тихому NaN, нет никаких
                 признаков того, что что-то необычное, пока программа не проверит результат и не
                 увидит NaN. То есть вычисления продолжаются без какого-либо сигнала от блока с
                 плавающей точкой (FPU) или библиотеки, если плавающая точка реализована в
                 программном обеспечении. Сигнализация NaN будет производить сигнал, обычно в виде
                 исключения из FPU. Будет ли выброшено исключение, зависит от состояния ФПУ. -->
-                <tr lang="ru" finished="false">Когда операция приводит к тихому NaN, нет никаких
-                признаков того, что что-то необычное, пока программа не проверит результат и не
-                увидит NaN. То есть вычисления продолжаются без какого-либо сигнала от блока с
-                плавающей точкой (FPU) или библиотеки, если плавающая точка реализована в
-                программном обеспечении. Сигнализация NaN будет производить сигнал, обычно в виде
-                исключения из FPU. Будет ли выброшено исключение, зависит от состояния ФПУ.</tr>
-            </par>
-            <par>
-                <tr lang="en">Note: in Pd float point exceptions are disabled.</tr>
-                <tr lang="ru" finished="false">Примечание: в Pd плавающие точки исключены.</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @quiet -->
-            <property name="@quiet" type="alias">
-                <tr lang="en">alias to @type quiet</tr>
-                <tr lang="ru" finished="false">Исполнитель: @type quiet</tr>
-            </property>
-            <!-- @signal -->
-            <property name="@signal" type="alias">
-                <tr lang="en">alias to @type signal</tr>
-                <tr lang="ru" finished="false">alias to @type signal</tr>
-            </property>
-            <!-- @type -->
-            <property name="@type" type="symbol" default="quiet" enum="quiet signal">
-                <tr lang="en">type of outputed NaN: quiet or signal</tr>
-                <tr lang="ru" finished="false">Тип выведенного NaN: тишина или сигнал</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control input</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Когда операция приводит к тихому NaN, нет никаких признаков
+        того, что что-то необычное, пока программа не проверит результат и не увидит NaN. То есть
+        вычисления продолжаются без какого-либо сигнала от блока с плавающей точкой (FPU) или
+        библиотеки, если плавающая точка реализована в программном обеспечении. Сигнализация NaN
+        будет производить сигнал, обычно в виде исключения из FPU. Будет ли выброшено исключение,
+        зависит от состояния ФПУ.</tr>
+      </par>
+      <par>
+        <tr lang="en">Note: in Pd float point exceptions are disabled.</tr>
+        <tr lang="ru" finished="false">Примечание: в Pd плавающие точки исключены.</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @quiet -->
+      <property name="@quiet" type="alias">
+        <tr lang="en">alias to @type quiet</tr>
+        <tr lang="ru" finished="false">Исполнитель: @type quiet</tr>
+      </property>
+      <!-- @signal -->
+      <property name="@signal" type="alias">
+        <tr lang="en">alias to @type signal</tr>
+        <tr lang="ru" finished="false">alias to @type signal</tr>
+      </property>
+      <!-- @type -->
+      <property name="@type" type="symbol" default="quiet" enum="quiet signal">
+        <tr lang="en">type of outputed NaN: quiet or signal</tr>
+        <tr lang="ru" finished="false">Тип выведенного NaN: тишина или сигнал</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control input</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [math.nan~ @quiet]   [ui.dsp~]
 |
@@ -107,7 +106,7 @@
 |
 [ui.n~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

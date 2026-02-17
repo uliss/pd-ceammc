@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="string2symbol">
-        <title>string2symbol</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts the string into the symbol</tr>
-                <tr lang="ru">преобразует строку в символ</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>string</category>
-            <keywords>string symbol convert</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>ceammc/string2symbol</alias>
-                <alias>ceammc/str-&gt;sym</alias>
-                <alias>str-&gt;sym</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input string value</tr>
-                    <tr lang="ru" finished="false">значение входной строки</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">symbol output</tr>
-                    <tr lang="ru" finished="false">символьный выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="string2symbol">
+    <title>string2symbol</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts the string into the symbol</tr>
+        <tr lang="ru">преобразует строку в символ</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>string</category>
+      <keywords>string symbol convert</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>ceammc/string2symbol</alias>
+        <alias>ceammc/str-&gt;sym</alias>
+        <alias>str-&gt;sym</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input string value</tr>
+          <tr lang="ru" finished="false">значение входной строки</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">symbol output</tr>
+          <tr lang="ru" finished="false">символьный выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B] [F]    [symbol test(
 |   |      |
@@ -48,7 +48,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

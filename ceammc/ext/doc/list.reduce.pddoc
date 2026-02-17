@@ -1,84 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.reduce">
-        <title>list.reduce</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">transforms the list into a single value through side-chain
-                processing</tr>
-                <tr lang="ru">преобразование списка к единственному значению через боковую цепь
-                обработки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list min compare</keywords>
-            <since>0.1</since>
-            <aliases>
-                <alias>list.foldl</alias>
-            </aliases>
-            <also>
-                <see>list.max</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Apply function of two arguments cumulatively to the list, from left
-                to right, so as to reduce the list to a single value.</tr>
-                <!-- old: Применять функцию двух аргументов к списку, слева
+  <object name="list.reduce">
+    <title>list.reduce</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">transforms the list into a single value through side-chain processing</tr>
+        <tr lang="ru">преобразование списка к единственному значению через боковую цепь
+        обработки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list min compare</keywords>
+      <since>0.1</since>
+      <aliases>
+        <alias>list.foldl</alias>
+      </aliases>
+      <also>
+        <see>list.max</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Apply function of two arguments cumulatively to the list, from left to right,
+        so as to reduce the list to a single value.</tr>
+        <!-- old: Применять функцию двух аргументов к списку, слева
                 направо, чтобы свести список к одному значению. -->
-                <tr lang="ru" finished="false">Применять функцию двух аргументов к списку, слева
-                направо, чтобы свести список к одному значению.</tr>
-            </par>
-            <par>
-                <tr lang="en">You can imagine this process as a space replacement between elements
-                with binary function, for example: 1 2 3 4 5 becames ((((1+2)+3)+4)+5) after
-                reducing with "+".</tr>
-                <!-- old: Можно представить этот процесс как замену
+        <tr lang="ru" finished="false">Применять функцию двух аргументов к списку, слева направо,
+        чтобы свести список к одному значению.</tr>
+      </par>
+      <par>
+        <tr lang="en">You can imagine this process as a space replacement between elements with
+        binary function, for example: 1 2 3 4 5 becames ((((1+2)+3)+4)+5) after reducing with
+        "+".</tr>
+        <!-- old: Можно представить этот процесс как замену
                 пространства между элементами с двоичной функцией, например: 1 2 3 4 5 стал
                 (((1+2)+3)+4)+5) после уменьшения с «+». -->
-                <tr lang="ru" finished="false">Можно представить этот процесс как замену
-                пространства между элементами с двоичной функцией, например: 1 2 3 4 5 стал
-                (((1+2)+3)+4)+5) после уменьшения с «+».</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="any">
-                    <tr lang="en">value from binary function</tr>
-                    <tr lang="ru" finished="false">значение из двоичной функции</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output value</tr>
-                    <tr lang="ru" finished="false">выходная стоимость</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">pair value to binary function</tr>
-                    <tr lang="ru" finished="false">значение пары для бинарной функции</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Можно представить этот процесс как замену пространства между
+        элементами с двоичной функцией, например: 1 2 3 4 5 стал (((1+2)+3)+4)+5) после уменьшения
+        с «+».</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="any">
+          <tr lang="en">value from binary function</tr>
+          <tr lang="ru" finished="false">значение из двоичной функции</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output value</tr>
+          <tr lang="ru" finished="false">выходная стоимость</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">pair value to binary function</tr>
+          <tr lang="ru" finished="false">значение пары для бинарной функции</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2 3 4(              [1 2 3 4(
 |                      |
@@ -103,7 +102,7 @@
 |                      |
 [F]                    [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,56 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.abs">
-        <title>math.abs</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">absolute value function</tr>
-                <tr lang="ru">абсолютное значение</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math abs</keywords>
-            <also>
-                <see>math.floor</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The abs() function computes the absolute value of the float
-                input.</tr>
-                <!-- old: Функция abs() вычисляет абсолютное значение
+  <object name="math.abs">
+    <title>math.abs</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">absolute value function</tr>
+        <tr lang="ru">абсолютное значение</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math abs</keywords>
+      <also>
+        <see>math.floor</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The abs() function computes the absolute value of the float input.</tr>
+        <!-- old: Функция abs() вычисляет абсолютное значение
                 поплавкового входа. -->
-                <tr lang="ru" finished="false">Функция abs() вычисляет абсолютное значение
-                поплавкового входа.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">apply to all numeric values</tr>
-                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Функция abs() вычисляет абсолютное значение поплавкового
+        входа.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">apply to all numeric values</tr>
+          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]    [1 2 -5 7 d b(
 |      |
@@ -58,7 +57,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

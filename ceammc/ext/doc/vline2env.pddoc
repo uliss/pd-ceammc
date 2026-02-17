@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="vline2env">
-        <title>vline2env</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">сonverts vline messages to Env</tr>
-                <tr lang="ru">преобразование сообщений vline для Env</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>env</category>
-            <keywords>envelope vline</keywords>
-            <since>0.6</since>
-            <aliases>
-                <alias>ceammc/vline2env</alias>
-                <alias>ceammc/vline-&gt;env</alias>
-                <alias>vline-&gt;env</alias>
-            </aliases>
-            <also>
-                <see>env-&gt;vline</see>
-                <see>env-&gt;array</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output current envelope</tr>
-                    <tr lang="ru" finished="false">выходной ток</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">vline message</tr>
-                    <tr lang="ru" finished="false">сообщение</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">envelope output</tr>
-                    <tr lang="ru" finished="false">выход конверта</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="vline2env">
+    <title>vline2env</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">сonverts vline messages to Env</tr>
+        <tr lang="ru">преобразование сообщений vline для Env</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>env</category>
+      <keywords>envelope vline</keywords>
+      <since>0.6</since>
+      <aliases>
+        <alias>ceammc/vline2env</alias>
+        <alias>ceammc/vline-&gt;env</alias>
+        <alias>vline-&gt;env</alias>
+      </aliases>
+      <also>
+        <see>env-&gt;vline</see>
+        <see>env-&gt;array</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output current envelope</tr>
+          <tr lang="ru" finished="false">выходной ток</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">vline message</tr>
+          <tr lang="ru" finished="false">сообщение</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">envelope output</tr>
+          <tr lang="ru" finished="false">выход конверта</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [0, 1 200(  [1 100 50( [0, 1 300, 0 500 300(
 |           |          |
@@ -58,7 +58,7 @@
 |
 [ui.env]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

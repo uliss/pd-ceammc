@@ -1,84 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.demultiplex">
-        <title>flow.demultiplex</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">demultiplex of the control flow</tr>
-                <tr lang="ru">демультиплексор управляющего потока</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>demultiplex</keywords>
-            <aliases>
-                <alias>flow.demux</alias>
-            </aliases>
-            <since>0.6</since>
-            <also>
-                <see>flow.multiplex</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Note: you can get/set object properties only via [prop.set] and
-                [prop.get] objects</tr>
-                <tr lang="ru">Примечание: вы можете получить/установить свойства объекта только
-                через объекты [prop.set] и [prop.get]</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="24">
-                <tr lang="en">number of outlets</tr>
-                <tr lang="ru">количество выходов</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @index -->
-            <property name="@index" type="int" minvalue="0" default="0">
-                <tr lang="en">current output index</tr>
-                <tr lang="ru">текущий индекс выхода</tr>
-            </property>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="2" default="2" maxvalue="24"
-            access="initonly">
-                <tr lang="en">number of outlets</tr>
-                <tr lang="ru">количество выходов</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="any">
-                    <tr lang="en">input message flow</tr>
-                    <tr lang="ru">входной поток сообщений</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">sets the current outlet</tr>
-                    <tr lang="ru">устанавливает текущий выход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet>
-                <out type="any">
-                    <tr lang="en">demultiplexer first output</tr>
-                    <tr lang="ru">первый выход демультиплексора</tr>
-                </out>
-            </outlet>
-            <outlet number="n">
-                <out type="any">
-                    <tr lang="en">demultiplexer N-th output</tr>
-                    <tr lang="ru">N-й выход демультиплексора</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flow.demultiplex">
+    <title>flow.demultiplex</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">demultiplex of the control flow</tr>
+        <tr lang="ru">демультиплексор управляющего потока</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>demultiplex</keywords>
+      <aliases>
+        <alias>flow.demux</alias>
+      </aliases>
+      <since>0.6</since>
+      <also>
+        <see>flow.multiplex</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Note: you can get/set object properties only via [prop.set] and [prop.get]
+        objects</tr>
+        <tr lang="ru">Примечание: вы можете получить/установить свойства объекта только через
+        объекты [prop.set] и [prop.get]</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="N" type="int" minvalue="2" maxvalue="24">
+        <tr lang="en">number of outlets</tr>
+        <tr lang="ru">количество выходов</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @index -->
+      <property name="@index" type="int" minvalue="0" default="0">
+        <tr lang="en">current output index</tr>
+        <tr lang="ru">текущий индекс выхода</tr>
+      </property>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="2" default="2" maxvalue="24" access="initonly">
+        <tr lang="en">number of outlets</tr>
+        <tr lang="ru">количество выходов</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="any">
+          <tr lang="en">input message flow</tr>
+          <tr lang="ru">входной поток сообщений</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="int">
+          <tr lang="en">sets the current outlet</tr>
+          <tr lang="ru">устанавливает текущий выход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet>
+        <out type="any">
+          <tr lang="en">demultiplexer first output</tr>
+          <tr lang="ru">первый выход демультиплексора</tr>
+        </out>
+      </outlet>
+      <outlet number="n">
+        <out type="any">
+          <tr lang="en">demultiplexer N-th output</tr>
+          <tr lang="ru">N-й выход демультиплексора</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]
 |
@@ -89,7 +88,7 @@
 |   ^|   ^^|   ^^^|
 [F]  [F]   [F]   [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

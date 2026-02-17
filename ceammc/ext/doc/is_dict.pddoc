@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="is_dict">
-        <title>is_dict</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks if the input message is a dictionary</tr>
-                <tr lang="ru">проверяет, является ли входное сообщение словарём</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>predicates</category>
-            <keywords>dictionary</keywords>
-            <since>0.7</since>
-            <also>
-                <see>data.dict</see>
-            </also>
-            <aliases>
-                <alias>ceammc/is_dict</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input</tr>
-                    <tr lang="ru" finished="false">ввод</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">0 or 1</tr>
-                    <tr lang="ru" finished="false">0 или 1</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">passes *dict*</tr>
-                    <tr lang="ru" finished="false">Прохождение *dict*</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="is_dict">
+    <title>is_dict</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks if the input message is a dictionary</tr>
+        <tr lang="ru">проверяет, является ли входное сообщение словарём</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>predicates</category>
+      <keywords>dictionary</keywords>
+      <since>0.7</since>
+      <also>
+        <see>data.dict</see>
+      </also>
+      <aliases>
+        <alias>ceammc/is_dict</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input</tr>
+          <tr lang="ru" finished="false">ввод</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">0 or 1</tr>
+          <tr lang="ru" finished="false">0 или 1</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">passes *dict*</tr>
+          <tr lang="ru" finished="false">Прохождение *dict*</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [\[a: b\] \[@prop: val\] \[1: 100\], bang(
 |
@@ -55,7 +55,7 @@
 |     ^|
 [T]   [ui.d]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

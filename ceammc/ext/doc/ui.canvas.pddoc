@@ -1,835 +1,822 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="ui.canvas" type="gui">
-        <title>ui.canvas</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">canvas for drawing</tr>
-                <tr lang="ru">холст для рисования</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">ui</category>
-            <keywords>ui canvas draw</keywords>
-            <since>0.9.7</since>
-            <aliases>
-                <alias view="link">ui.cnv</alias>
-            </aliases>
-        </meta>
+  <object name="ui.canvas" type="gui">
+    <title>ui.canvas</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">canvas for drawing</tr>
+        <tr lang="ru">холст для рисования</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">ui</category>
+      <keywords>ui canvas draw</keywords>
+      <since>0.9.7</since>
+      <aliases>
+        <alias view="link">ui.cnv</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Canvas drawing methods are close to Cairo graphic library</tr>
+        <tr lang="ru" finished="false">Методы рисования холстов близки к графической библиотеке
+        Каира</tr>
+      </par>
+      <par>
+        <tr lang="en">Basic drawing workflow is:</tr>
+        <tr lang="ru" finished="false">Основным рабочим процессом рисования является:</tr>
+      </par>
+      <par>
+        <tr lang="en">- create line, shape or text</tr>
+        <tr lang="ru" finished="false">- создать строку, форму или текст</tr>
+      </par>
+      <par>
+        <tr lang="en">- stroke or fill it with color</tr>
+        <tr lang="ru" finished="false">- мазок или наполнить его цветом</tr>
+      </par>
+      <par>
+        <tr lang="en">- update image</tr>
+        <tr lang="ru" finished="false">- обновление изображения</tr>
+      </par>
+    </info>
+    <mouse>
+      <event type="double-click" editmode="false">outputs message [mouse double X Y MOD_CTL MOD_ALT
+      MOD_SHIFT MOD_CMD(</event>
+      <event type="left-click" editmode="false">outputs message [mouse down X Y MOD_CTL MOD_ALT
+      MOD_SHIFT MOD_CMD(</event>
+      <event type="drag" editmode="false">outputs message [mouse drag X Y MOD_CTL MOD_ALT MOD_SHIFT
+      MOD_CMD(</event>
+      <event type="right-click" editmode="false" keys="Shift">open object help</event>
+      <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+      <event type="right-click" editmode="true">opens Pd popup menu</event>
+      <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+      <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+    </mouse>
+    <properties>
+      <xi:include href="props_background_color.xml" />
+      <xi:include href="props_border_color.xml" />
+      <xi:include href="props_fontname.xml" />
+      <xi:include href="props_fontsize.xml" />
+      <xi:include href="props_fontslant.xml" />
+      <xi:include href="props_fontweight.xml" />
+      <xi:include href="props_label.xml" />
+      <xi:include href="props_label_align.xml" />
+      <xi:include href="props_label_color.xml" />
+      <xi:include href="props_label_inner.xml" />
+      <xi:include href="props_label_margins.xml" />
+      <xi:include href="props_label_side.xml" />
+      <xi:include href="props_label_valign.xml" />
+      <xi:include href="props_pinned.xml" />
+      <xi:include href="props_ui_receive.xml" />
+      <xi:include href="props_ui_send.xml" />
+      <!-- @size -->
+      <property name="@size" type="list" default="120 60">
+        <tr lang="en">object size (width, height pair)</tr>
+        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+      </property>
+    </properties>
+    <methods>
+      <xi:include href="method_dump.xml" />
+      <xi:include href="method_ui_pos.xml" />
+      <!-- abc -->
+      <method name="abc">
         <info>
-            <par>
-                <tr lang="en">Canvas drawing methods are close to Cairo graphic library</tr>
-                <tr lang="ru" finished="false">Методы рисования холстов близки к графической
-                библиотеке Каира</tr>
-            </par>
-            <par>
-                <tr lang="en">Basic drawing workflow is:</tr>
-                <tr lang="ru" finished="false">Основным рабочим процессом рисования является:</tr>
-            </par>
-            <par>
-                <tr lang="en">- create line, shape or text</tr>
-                <tr lang="ru" finished="false">- создать строку, форму или текст</tr>
-            </par>
-            <par>
-                <tr lang="en">- stroke or fill it with color</tr>
-                <tr lang="ru" finished="false">- мазок или наполнить его цветом</tr>
-            </par>
-            <par>
-                <tr lang="en">- update image</tr>
-                <tr lang="ru" finished="false">- обновление изображения</tr>
-            </par>
+          <tr lang="en">draw music in ABC notation.</tr>
+          <tr lang="ru" finished="false">Нарисуйте музыку в нотации ABC.</tr>
         </info>
-        <mouse>
-            <event type="double-click" editmode="false">outputs message [mouse double X Y MOD_CTL
-            MOD_ALT MOD_SHIFT MOD_CMD(</event>
-            <event type="left-click" editmode="false">outputs message [mouse down X Y MOD_CTL
-            MOD_ALT MOD_SHIFT MOD_CMD(</event>
-            <event type="drag" editmode="false">outputs message [mouse drag X Y MOD_CTL MOD_ALT
-            MOD_SHIFT MOD_CMD(</event>
-            <event type="right-click" editmode="false" keys="Shift">open object help</event>
-            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="true">opens Pd popup menu</event>
-            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
-        </mouse>
-        <properties>
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_label.xml" />
-            <xi:include href="props_label_align.xml" />
-            <xi:include href="props_label_color.xml" />
-            <xi:include href="props_label_inner.xml" />
-            <xi:include href="props_label_margins.xml" />
-            <xi:include href="props_label_side.xml" />
-            <xi:include href="props_label_valign.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
-            <!-- @size -->
-            <property name="@size" type="list" default="120 60">
-                <tr lang="en">object size (width, height pair)</tr>
-                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
-            </property>
-        </properties>
-        <methods>
-            <xi:include href="method_dump.xml" />
-            <xi:include href="method_ui_pos.xml" />
-            <!-- abc -->
-            <method name="abc">
-                <info>
-                    <tr lang="en">draw music in ABC notation.</tr>
-                    <tr lang="ru" finished="false">Нарисуйте музыку в нотации ABC.</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">left-coord in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">левый корд в пикселе или процентах ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">top-coord in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">Топ-коорд в пикселях или процентах высоты</tr>
-                </param>
-                <param name="MUSIC" type="list" required="true">
-                    <tr lang="en">ABC notation</tr>
-                    <tr lang="ru" finished="false">Номер ABC</tr>
-                </param>
-            </method>
-            <!-- arc -->
-            <method name="arc">
-                <info>
-                    <tr lang="en">draw arc</tr>
-                    <tr lang="ru" finished="false">рисовать дугу</tr>
-                </info>
-                <param name="XC" type="atom" required="true">
-                    <tr lang="en">x-center coord in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">x-center coord в пикселях или процентах
-                    ширины</tr>
-                </param>
-                <param name="YC" type="atom" required="true">
-                    <tr lang="en">y-center coord in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">y-центр в пикселе или процентах высоты</tr>
-                </param>
-                <param name="RC" type="atom" required="true">
-                    <tr lang="en">radius in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">радиус в пикселях или процентах ширины</tr>
-                </param>
-                <param name="A0" type="atom" required="true">
-                    <tr lang="en">start angle in degrees or radians</tr>
-                    <tr lang="ru" finished="false">угол старта в градусах или радианах</tr>
-                </param>
-                <param name="A1" type="atom" required="true">
-                    <tr lang="en">end angle in degrees or radians</tr>
-                    <tr lang="ru" finished="false">угол конца в градусах или радианах</tr>
-                </param>
-            </method>
-            <!-- arrow -->
-            <method name="arrow">
-                <info>
-                    <tr lang="en">creates arrow shape</tr>
-                    <tr lang="ru" finished="false">создает форму стрелы</tr>
-                </info>
-                <param name="X0" type="atom" required="true">
-                    <tr lang="en">x-coord of start point in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">x-коорд начальной точки в пикселе или процентах
-                    ширины</tr>
-                </param>
-                <param name="Y0" type="atom" required="true">
-                    <tr lang="en">y-coord of start point in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">Y-коорд точки старта в пикселе или процентах
-                    высоты</tr>
-                </param>
-                <param name="X1" type="atom" required="true">
-                    <tr lang="en">x-coord of target point in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">x-коорд целевой точки в пикселе или процентах
-                    ширины</tr>
-                </param>
-                <param name="Y1" type="atom" required="true">
-                    <tr lang="en">y-coord of target point in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">Y-коорд целевой точки в пикселе или процентах
-                    высоты</tr>
-                </param>
-                <param name="START" type="symbol" required="false" enum="A a V v X x T t O o n">
-                    <tr lang="en">start shape</tr>
-                    <tr lang="ru" finished="false">форма старта</tr>
-                </param>
-                <param name="END" type="symbol" required="false" enum="A a V v X x T t O o n">
-                    <tr lang="en">end shape</tr>
-                    <tr lang="ru" finished="false">конечная форма</tr>
-                </param>
-            </method>
-            <!-- bg -->
-            <method name="bg">
-                <info>
-                    <tr lang="en">draws background</tr>
-                    <tr lang="ru" finished="false">рисует фон</tr>
-                </info>
-                <param name="COLOR" type="list" required="false">
-                    <tr lang="en">background color</tr>
-                    <tr lang="ru" finished="false">цвет фона</tr>
-                </param>
-            </method>
-            <!-- circle -->
-            <method name="circle">
-                <info>
-                    <tr lang="en">create circle shape</tr>
-                    <tr lang="ru" finished="false">создать форму круга</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">x-coord</tr>
-                    <tr lang="ru" finished="false">х-корд</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">y-coord</tr>
-                    <tr lang="ru" finished="false">y-coord</tr>
-                </param>
-                <param name="RADIUS" type="float" required="true">
-                    <tr lang="en">radius</tr>
-                    <tr lang="ru" finished="false">радиус</tr>
-                </param>
-            </method>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clear image</tr>
-                    <tr lang="ru" finished="false">четкое изображение</tr>
-                </info>
-            </method>
-            <!-- close_path -->
-            <method name="close_path">
-                <info>
-                    <tr lang="en">close path and its subpaths</tr>
-                    <tr lang="ru" finished="false">Близкий путь и его субпаты</tr>
-                </info>
-            </method>
-            <!-- color -->
-            <method name="color">
-                <info>
-                    <tr lang="en">set current color</tr>
-                    <tr lang="ru" finished="false">Установить текущий цвет</tr>
-                </info>
-                <param name="DATA" type="list" required="true">
-                    <tr lang="en">RGB, RGBA float list or hex or named color</tr>
-                    <tr lang="ru" finished="false">RGB, RGBA или Hex или названный цвет</tr>
-                </param>
-            </method>
-            <!-- crestore -->
-            <method name="crestore">
-                <info>
-                    <tr lang="en">restore previously saved context (pen type, width, color, matrix
-                    etc.)</tr>
-                    <tr lang="ru" finished="false">восстановление ранее сохраненного контекста
-                    (тип, ширина, цвет, матрица и т.д.)</tr>
-                </info>
-            </method>
-            <!-- csave -->
-            <method name="csave">
-                <info>
-                    <tr lang="en">save current drawing context (pen type, width, color, matrix
-                    etc.)</tr>
-                    <tr lang="ru" finished="false">сохранить текущий контекст рисования (тип,
-                    ширина, цвет, матрица и т. Д.)</tr>
-                </info>
-            </method>
-            <!-- curve -->
-            <method name="curve">
-                <info>
-                    <tr lang="en">create bezier-curve shape</tr>
-                    <tr lang="ru" finished="false">создать форму кривой безье</tr>
-                </info>
-                <param name="X0" type="atom" required="true">
-                    <tr lang="en">x0-coord in pixels or percents of width</tr>
-                    <tr lang="ru" finished="false">x0-коорд в пикселях или процентах ширины</tr>
-                </param>
-                <param name="Y0" type="atom" required="true">
-                    <tr lang="en">y0-coord in pixels or percents of height</tr>
-                    <tr lang="ru" finished="false">y0-коорд в пикселях или процентах высоты</tr>
-                </param>
-                <param name="X1" type="atom" required="true">
-                    <tr lang="en">x1-coord in pixels or percents of width</tr>
-                    <tr lang="ru" finished="false">x1-coord в пикселях или процентах ширины</tr>
-                </param>
-                <param name="Y1" type="atom" required="true">
-                    <tr lang="en">y1-coord in pixels or percents of height</tr>
-                    <tr lang="ru" finished="false">y1-коорд в пикселях или процентах высоты</tr>
-                </param>
-                <param name="X2" type="atom" required="true">
-                    <tr lang="en">x2-coord in pixels or percents of width</tr>
-                    <tr lang="ru" finished="false">x2-коорд в пикселях или процентах ширины</tr>
-                </param>
-                <param name="Y2" type="atom" required="true">
-                    <tr lang="en">y2-coord in pixels or percents of height</tr>
-                    <tr lang="ru" finished="false">y2-коорд в пикселях или процентах высоты</tr>
-                </param>
-                <param name="X3" type="atom" required="true">
-                    <tr lang="en">x3-coord in pixels or percents of width</tr>
-                    <tr lang="ru" finished="false">x3-коорд в пикселях или процентах ширины</tr>
-                </param>
-                <param name="Y4" type="atom" required="true">
-                    <tr lang="en">y3-coord in pixels or percents of height</tr>
-                    <tr lang="ru" finished="false">y3-коорд в пикселях или процентах высоты</tr>
-                </param>
-            </method>
-            <!-- dash -->
-            <method name="dash">
-                <info>
-                    <tr lang="en">set line dash pattern</tr>
-                    <tr lang="ru" finished="false">Установка линии Dash pattern</tr>
-                </info>
-                <param name="PATTERN" type="list" required="true">
-                    <tr lang="en">line dash pattern. If empty - reset to solid shape</tr>
-                    <tr lang="ru" finished="false">Рисунок линии. Если пусто - перезагрузить в
-                    твердую форму</tr>
-                </param>
-            </method>
-            <!-- ellipse -->
-            <method name="ellipse">
-                <info>
-                    <tr lang="en">draw ellipse</tr>
-                    <tr lang="ru" finished="false">рисовать эллипс</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">left-coord in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">левый корд в пикселе или процентах ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">top-coord in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">Топ-коорд в пикселях или процентах высоты</tr>
-                </param>
-                <param name="WIDTH" type="atom" required="true">
-                    <tr lang="en">width</tr>
-                    <tr lang="ru" finished="false">ширина</tr>
-                </param>
-                <param name="HEIGHT" type="atom" required="true">
-                    <tr lang="en">height</tr>
-                    <tr lang="ru" finished="false">высота</tr>
-                </param>
-            </method>
-            <!-- fill -->
-            <method name="fill">
-                <info>
-                    <tr lang="en">fill shape with color</tr>
-                    <tr lang="ru" finished="false">заполнить форму цветом</tr>
-                </info>
-                <param name="COLOR" type="atom" required="true">
-                    <tr lang="en">fill color</tr>
-                    <tr lang="ru" finished="false">заполнить цвет</tr>
-                </param>
-                <param name="PRESERVE" type="atom" required="false" enum="preserve 1">
-                    <tr lang="en">preserve path after fill. You can call stroke method after
-                    that</tr>
-                    <tr lang="ru" finished="false">Сохранить путь после заполнения. После этого
-                    можно назвать метод инсульта.</tr>
-                </param>
-            </method>
-            <!-- font -->
-            <method name="font">
-                <info>
-                    <tr lang="en">set current font</tr>
-                    <tr lang="ru" finished="false">Настройка текущего шрифта</tr>
-                </info>
-                <param name="FONT" type="symbol" required="true">
-                    <tr lang="en">font family</tr>
-                    <tr lang="ru" finished="false">семейство шрифтов</tr>
-                </param>
-                <param name="SIZE" type="float" required="false">
-                    <tr lang="en">font size</tr>
-                    <tr lang="ru" finished="false">размер шрифта</tr>
-                </param>
-            </method>
-            <!-- font_size -->
-            <method name="font_size">
-                <info>
-                    <tr lang="en">set current font size</tr>
-                    <tr lang="ru" finished="false">установить текущий размер шрифта</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">font size</tr>
-                    <tr lang="ru" finished="false">размер шрифта</tr>
-                </param>
-            </method>
-            <!-- icon -->
-            <method name="icon">
-                <info>
-                    <tr lang="en">draw named icon. Pass ? as single argument to dump all icons to
-                    Pd window.</tr>
-                    <tr lang="ru" finished="false">Нарисуйте икону. В качестве единого аргумента,
-                    чтобы сбросить все иконки в окно Pd.</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">left-coord in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">левый корд в пикселе или процентах ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">top-coord in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">Топ-коорд в пикселях или процентах высоты</tr>
-                </param>
-                <param name="SIZE" type="float" required="true">
-                    <tr lang="en">font size</tr>
-                    <tr lang="ru" finished="false">размер шрифта</tr>
-                </param>
-                <param name="ICON" type="symbol" required="true">
-                    <tr lang="en">icon name. See https://fonts.google.com/icons for full list</tr>
-                    <tr lang="ru" finished="false">Имя иконы. См. https://fonts.google.com/icons
-                    для полного списка</tr>
-                </param>
-            </method>
-            <!-- image -->
-            <method name="image">
-                <info>
-                    <tr lang="en">draws image. Note: only PNG images are supported!</tr>
-                    <tr lang="ru" finished="false">рисует изображение. Примечание: поддерживаются
-                    только PNG-изображения!</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">left-coord in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">левый корд в пикселе или процентах ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">top-coord in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">Топ-коорд в пикселях или процентах высоты</tr>
-                </param>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">path to image file, full or relative to patch</tr>
-                    <tr lang="ru" finished="false">Путь к файлу изображения, полному или
-                    относительно патча</tr>
-                </param>
-                <param name="SCALE" type="float" required="false" minvalue="0">
-                    <tr lang="en">image scale</tr>
-                    <tr lang="ru" finished="false">масштаб изображения</tr>
-                </param>
-            </method>
-            <!-- line -->
-            <method name="line">
-                <info>
-                    <tr lang="en">create line shape</tr>
-                    <tr lang="ru" finished="false">создавать форму линии</tr>
-                </info>
-                <param name="X0" type="atom" required="true">
-                    <tr lang="en">x0-coord in pixels or percents of width</tr>
-                    <tr lang="ru" finished="false">x0-коорд в пикселях или процентах ширины</tr>
-                </param>
-                <param name="Y0" type="atom" required="true">
-                    <tr lang="en">y0-coord in pixels or percents of height</tr>
-                    <tr lang="ru" finished="false">y0-коорд в пикселях или процентах высоты</tr>
-                </param>
-                <param name="X1" type="atom" required="true">
-                    <tr lang="en">x1-coord in pixels or percents of width</tr>
-                    <tr lang="ru" finished="false">x1-coord в пикселях или процентах ширины</tr>
-                </param>
-                <param name="Y1" type="atom" required="true">
-                    <tr lang="en">y1-coord in pixels or percents of height</tr>
-                    <tr lang="ru" finished="false">y1-коорд в пикселях или процентах высоты</tr>
-                </param>
-            </method>
-            <!-- line_cap -->
-            <method name="line_cap">
-                <info>
-                    <tr lang="en">set line cap</tr>
-                    <tr lang="ru" finished="false">установленная линия</tr>
-                </info>
-                <param name="X" type="symbol" required="true" enum="butt round square">
-                    <tr lang="en">line cap</tr>
-                    <tr lang="ru" finished="false">линия</tr>
-                </param>
-            </method>
-            <!-- line_to -->
-            <method name="line_to">
-                <info>
-                    <tr lang="en">add line segment to line shape</tr>
-                    <tr lang="ru" finished="false">Добавить сегмент линии в форму линии</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">x-coord in pixels or percents of width</tr>
-                    <tr lang="ru" finished="false">x-coord в пикселях или процентах ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">y-coord in pixels or percents of height</tr>
-                    <tr lang="ru" finished="false">Y-коорд в пикселях или процентах высоты</tr>
-                </param>
-            </method>
-            <!-- matrix -->
-            <method name="matrix">
-                <info>
-                    <tr lang="en">set 2D transformation matrix</tr>
-                    <tr lang="ru" finished="false">2D матрица преобразования</tr>
-                </info>
-                <param name="XX" type="atom" required="true">
-                    <tr lang="en">xx component of the affine transformation</tr>
-                    <tr lang="ru" finished="false">xx компонент аффинной трансформации</tr>
-                </param>
-                <param name="YX" type="atom" required="true">
-                    <tr lang="en">yx component of the affine transformation</tr>
-                    <tr lang="ru" finished="false">yx компонент аффинной трансформации</tr>
-                </param>
-                <param name="XY" type="atom" required="true">
-                    <tr lang="en">xy component of the affine transformation</tr>
-                    <tr lang="ru" finished="false">xy компонент аффинной трансформации</tr>
-                </param>
-                <param name="YY" type="atom" required="true">
-                    <tr lang="en">yy component of the affine transformation</tr>
-                    <tr lang="ru" finished="false">yy компонент аффинной трансформации</tr>
-                </param>
-                <param name="X0" type="atom" required="true">
-                    <tr lang="en">x component of the affine transformation</tr>
-                    <tr lang="ru" finished="false">x компонент аффинной трансформации</tr>
-                </param>
-                <param name="Y0" type="atom" required="true">
-                    <tr lang="en">y component of the affine transformation</tr>
-                    <tr lang="ru" finished="false">y компонент аффинной трансформации</tr>
-                </param>
-            </method>
-            <!-- move_by -->
-            <method name="move_by">
-                <info>
-                    <tr lang="en">move current drawing point by relative offset</tr>
-                    <tr lang="ru" finished="false">перемещать текущую точку рисования по
-                    относительному смещению</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">x relative offset in pixels or percents of width</tr>
-                    <tr lang="ru" finished="false">x относительное смещение в пикселях или
-                    процентах ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">y relative offset in pixels or percents of height</tr>
-                    <tr lang="ru" finished="false">относительное смещение в пикселях или процентах
-                    высоты</tr>
-                </param>
-            </method>
-            <!-- move_to -->
-            <method name="move_to">
-                <info>
-                    <tr lang="en">move current drawing point to absolute position</tr>
-                    <tr lang="ru" finished="false">перемещать текущую точку рисования в абсолютное
-                    положение</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">x-coord in pixels or percents of width</tr>
-                    <tr lang="ru" finished="false">x-coord в пикселях или процентах ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">y-coord in pixels or percents of height</tr>
-                    <tr lang="ru" finished="false">Y-коорд в пикселях или процентах высоты</tr>
-                </param>
-            </method>
-            <!-- musicxml -->
-            <method name="musicxml">
-                <info>
-                    <tr lang="en">render MusicXML file</tr>
-                    <tr lang="ru" finished="false">Файлы MusicXML</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">x-coord in pixels or percents of width</tr>
-                    <tr lang="ru" finished="false">x-coord в пикселях или процентах ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">y-coord in pixels or percents of height</tr>
-                    <tr lang="ru" finished="false">Y-коорд в пикселях или процентах высоты</tr>
-                </param>
-                <param name="FILE" type="symbol" required="true">
-                    <tr lang="en">absolute or relative to patch filepath of MusicXML file</tr>
-                    <tr lang="ru" finished="false">абсолютный или относительный путь патча файла
-                    MusicXML</tr>
-                </param>
-            </method>
-            <!-- new_path -->
-            <method name="new_path">
-                <info>
-                    <tr lang="en">starts new path</tr>
-                    <tr lang="ru" finished="false">Начинается новый путь</tr>
-                </info>
-            </method>
-            <!-- new_subpath -->
-            <method name="new_subpath">
-                <info>
-                    <tr lang="en">starts new subpath, means no line connection between last point
-                    and new subpath shape</tr>
-                    <tr lang="ru" finished="false">запускает новый субпат, означает отсутствие
-                    линейной связи между последней точкой и новой формой субпата;</tr>
-                </info>
-            </method>
-            <!-- polar -->
-            <method name="polar">
-                <info>
-                    <tr lang="en">creates polar grid</tr>
-                    <tr lang="ru" finished="false">Создает полярную сетку</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">x-coord of center in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">x-коорд центра в пикселях или процентах
-                    ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">y-coord of center in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">y-коорд центра в пикселях или процентах
-                    высоты</tr>
-                </param>
-                <param name="ADIV" type="int" required="false" minvalue="0">
-                    <tr lang="en">number of divisions of 90 degree angle</tr>
-                    <tr lang="ru" finished="false">Количество делений под углом 90 градусов</tr>
-                </param>
-                <param name="NC" type="int" required="false" minvalue="0">
-                    <tr lang="en">number of circles</tr>
-                    <tr lang="ru" finished="false">Количество кругов</tr>
-                </param>
-                <param name="CDIST" type="int" required="false" minvalue="1">
-                    <tr lang="en">circle distance</tr>
-                    <tr lang="ru" finished="false">расстояние окружности</tr>
-                </param>
-            </method>
-            <!-- polygon -->
-            <method name="polygon">
-                <info>
-                    <tr lang="en">create polygon shape</tr>
-                    <tr lang="ru" finished="false">создать форму полигона</tr>
-                </info>
-                <param name="X0" type="atom" required="true">
-                    <tr lang="en">x0-coord in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">x0-коорд в пикселях или процентах ширины</tr>
-                </param>
-                <param name="Y0" type="atom" required="true">
-                    <tr lang="en">y0-coord in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">y0-коорд в пикселях или процентах высоты</tr>
-                </param>
-                <param name="X..." type="atom" required="true">
-                    <tr lang="en">x...-coord in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">x...-коорд в пикселях или процентах ширины</tr>
-                </param>
-                <param name="Y..." type="atom" required="true">
-                    <tr lang="en">y...-coord in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">y-coord в пикселях или процентах высоты</tr>
-                </param>
-                <param name="XN" type="atom" required="true">
-                    <tr lang="en">xn-coord in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">xn-коорд в пикселях или процентах ширины</tr>
-                </param>
-                <param name="YN" type="atom" required="true">
-                    <tr lang="en">yn-coord in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">yn-coord в пикселях или процентах высоты</tr>
-                </param>
-            </method>
-            <!-- qrcode -->
-            <method name="qrcode">
-                <info>
-                    <tr lang="en">create QR-code shape.</tr>
-                    <tr lang="ru" finished="false">Создание формы QR-кода.</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">left-coord in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">левый корд в пикселе или процентах ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">top-coord in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">Топ-коорд в пикселях или процентах высоты</tr>
-                </param>
-                <param name="PIXEL" type="int" required="true" minvalue="1">
-                    <tr lang="en">pixel size</tr>
-                    <tr lang="ru" finished="false">Размер пикселя</tr>
-                </param>
-                <param name="TEXT" type="symbol" required="true">
-                    <tr lang="en">message</tr>
-                    <tr lang="ru" finished="false">сообщение</tr>
-                </param>
-            </method>
-            <!-- rect -->
-            <method name="rect">
-                <info>
-                    <tr lang="en">create rectangle shape</tr>
-                    <tr lang="ru" finished="false">создать прямоугольную форму</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">x-coord in pixels or percents of width</tr>
-                    <tr lang="ru" finished="false">x-coord в пикселях или процентах ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">y-coord in pixels or percents of height</tr>
-                    <tr lang="ru" finished="false">Y-коорд в пикселях или процентах высоты</tr>
-                </param>
-                <param name="W" type="atom" required="true">
-                    <tr lang="en">width in pixels or percents of width</tr>
-                    <tr lang="ru" finished="false">Ширина в пикселях или процентах ширины</tr>
-                </param>
-                <param name="H" type="atom" required="true">
-                    <tr lang="en">height in pixels or percents of height</tr>
-                    <tr lang="ru" finished="false">высота в пикселях или процентах высоты</tr>
-                </param>
-            </method>
-            <!-- rotate -->
-            <method name="rotate">
-                <info>
-                    <tr lang="en">clock-wise rotatation of draw origin</tr>
-                    <tr lang="ru" finished="false">часовое вращение происхождения ничьей</tr>
-                </info>
-                <param name="X" type="float" required="true" units="degree">
-                    <tr lang="en">rotation angle</tr>
-                    <tr lang="ru" finished="false">угол поворота</tr>
-                </param>
-            </method>
-            <!-- rpolygon -->
-            <method name="rpolygon">
-                <info>
-                    <tr lang="en">create polygon shape</tr>
-                    <tr lang="ru" finished="false">создать форму полигона</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">x-coord of center in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">x-коорд центра в пикселях или процентах
-                    ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">y-coord of center in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">y-коорд центра в пикселях или процентах
-                    высоты</tr>
-                </param>
-                <param name="N" type="int" required="true">
-                    <tr lang="en">number of vertexes</tr>
-                    <tr lang="ru" finished="false">количество вершин</tr>
-                </param>
-                <param name="R" type="float" required="true">
-                    <tr lang="en">polygon radius</tr>
-                    <tr lang="ru" finished="false">радиус полигона</tr>
-                </param>
-            </method>
-            <!-- scale -->
-            <method name="scale">
-                <info>
-                    <tr lang="en">scale current draw matrix</tr>
-                    <tr lang="ru" finished="false">шкала текущая матрица</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">x</tr>
-                    <tr lang="ru" finished="false">х</tr>
-                </param>
-                <param name="Y" type="float" required="false">
-                    <tr lang="en">y. If omitted, uses X-value to scale same in both directions</tr>
-                    <tr lang="ru" finished="false">У. Если опущено, использует X-значение для
-                    масштабирования в обоих направлениях.</tr>
-                </param>
-            </method>
-            <!-- star -->
-            <method name="star">
-                <info>
-                    <tr lang="en">create star shape</tr>
-                    <tr lang="ru" finished="false">Создать звездную форму</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">x-coord of center in pixel or percents of width</tr>
-                    <tr lang="ru" finished="false">x-коорд центра в пикселях или процентах
-                    ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">y-coord of center in pixel or percents of height</tr>
-                    <tr lang="ru" finished="false">y-коорд центра в пикселях или процентах
-                    высоты</tr>
-                </param>
-                <param name="N" type="int" required="true">
-                    <tr lang="en">number of vertexes</tr>
-                    <tr lang="ru" finished="false">количество вершин</tr>
-                </param>
-                <param name="R" type="float" required="false" minvalue="0">
-                    <tr lang="en">star radius</tr>
-                    <tr lang="ru" finished="false">радиус звезды</tr>
-                </param>
-                <param name="STEP" type="int" required="false" minvalue="1">
-                    <tr lang="en">connection step. If omitted step is auto-calculated</tr>
-                    <tr lang="ru" finished="false">Шаг соединения. Если пропущенный шаг
-                    просчитывается автоматически</tr>
-                </param>
-            </method>
-            <!-- stroke -->
-            <method name="stroke">
-                <info>
-                    <tr lang="en">stroke shape with color</tr>
-                    <tr lang="ru" finished="false">форма удара с цветом</tr>
-                </info>
-                <param name="COLOR" type="atom" required="true">
-                    <tr lang="en">stroke color</tr>
-                    <tr lang="ru" finished="false">цветной цвет</tr>
-                </param>
-                <param name="PRESERVE" type="atom" required="false" enum="preserve 1">
-                    <tr lang="en">preserve path after stroke</tr>
-                    <tr lang="ru" finished="false">Сохранить путь после инсульта</tr>
-                </param>
-            </method>
-            <!-- text -->
-            <method name="text">
-                <info>
-                    <tr lang="en">set current text shape</tr>
-                    <tr lang="ru" finished="false">Установите текущую форму текста</tr>
-                </info>
-                <param name="X" type="atom" required="true">
-                    <tr lang="en">x-coord in pixels or percents of width</tr>
-                    <tr lang="ru" finished="false">x-coord в пикселях или процентах ширины</tr>
-                </param>
-                <param name="Y" type="atom" required="true">
-                    <tr lang="en">y-coord in pixels or percents of height</tr>
-                    <tr lang="ru" finished="false">Y-коорд в пикселях или процентах высоты</tr>
-                </param>
-                <param name="TXT" type="list" required="true">
-                    <tr lang="en">text content</tr>
-                    <tr lang="ru" finished="false">текстовое содержание</tr>
-                </param>
-            </method>
-            <!-- translate -->
-            <method name="translate">
-                <info>
-                    <tr lang="en">translate draw origin</tr>
-                    <tr lang="ru" finished="false">Переводное происхождение</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">x offset</tr>
-                    <tr lang="ru" finished="false">x смещения</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">y offset</tr>
-                    <tr lang="ru" finished="false">смещение</tr>
-                </param>
-            </method>
-            <!-- update -->
-            <method name="update">
-                <info>
-                    <tr lang="en">updates drawed image</tr>
-                    <tr lang="ru" finished="false">Обновления нарисованного изображения</tr>
-                </info>
-            </method>
-            <!-- width -->
-            <method name="width">
-                <info>
-                    <tr lang="en">set stroke width</tr>
-                    <tr lang="ru" finished="false">ширина хода</tr>
-                </info>
-                <param name="WIDTH" type="float" required="true">
-                    <tr lang="en">line width</tr>
-                    <tr lang="ru" finished="false">ширина линии</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">draw commands</tr>
-                    <tr lang="ru" finished="false">выполнять команды</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">message: mouse ACTION(down|up|drag) X Y MOD_CTL MOD_ALT MOD_SHIFT
-                    MOD_CMD</tr>
-                    <tr lang="ru" finished="false">сообщение: мышь ACTION(down |up |drag) X Y
-                    MOD_CTL MOD_ALT MOD_SHIFT MOD_CMD</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">left-coord in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">левый корд в пикселе или процентах ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">top-coord in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">Топ-коорд в пикселях или процентах высоты</tr>
+        </param>
+        <param name="MUSIC" type="list" required="true">
+          <tr lang="en">ABC notation</tr>
+          <tr lang="ru" finished="false">Номер ABC</tr>
+        </param>
+      </method>
+      <!-- arc -->
+      <method name="arc">
+        <info>
+          <tr lang="en">draw arc</tr>
+          <tr lang="ru" finished="false">рисовать дугу</tr>
+        </info>
+        <param name="XC" type="atom" required="true">
+          <tr lang="en">x-center coord in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">x-center coord в пикселях или процентах ширины</tr>
+        </param>
+        <param name="YC" type="atom" required="true">
+          <tr lang="en">y-center coord in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">y-центр в пикселе или процентах высоты</tr>
+        </param>
+        <param name="RC" type="atom" required="true">
+          <tr lang="en">radius in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">радиус в пикселях или процентах ширины</tr>
+        </param>
+        <param name="A0" type="atom" required="true">
+          <tr lang="en">start angle in degrees or radians</tr>
+          <tr lang="ru" finished="false">угол старта в градусах или радианах</tr>
+        </param>
+        <param name="A1" type="atom" required="true">
+          <tr lang="en">end angle in degrees or radians</tr>
+          <tr lang="ru" finished="false">угол конца в градусах или радианах</tr>
+        </param>
+      </method>
+      <!-- arrow -->
+      <method name="arrow">
+        <info>
+          <tr lang="en">creates arrow shape</tr>
+          <tr lang="ru" finished="false">создает форму стрелы</tr>
+        </info>
+        <param name="X0" type="atom" required="true">
+          <tr lang="en">x-coord of start point in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">x-коорд начальной точки в пикселе или процентах
+          ширины</tr>
+        </param>
+        <param name="Y0" type="atom" required="true">
+          <tr lang="en">y-coord of start point in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">Y-коорд точки старта в пикселе или процентах высоты</tr>
+        </param>
+        <param name="X1" type="atom" required="true">
+          <tr lang="en">x-coord of target point in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">x-коорд целевой точки в пикселе или процентах ширины</tr>
+        </param>
+        <param name="Y1" type="atom" required="true">
+          <tr lang="en">y-coord of target point in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">Y-коорд целевой точки в пикселе или процентах высоты</tr>
+        </param>
+        <param name="START" type="symbol" required="false" enum="A a V v X x T t O o n">
+          <tr lang="en">start shape</tr>
+          <tr lang="ru" finished="false">форма старта</tr>
+        </param>
+        <param name="END" type="symbol" required="false" enum="A a V v X x T t O o n">
+          <tr lang="en">end shape</tr>
+          <tr lang="ru" finished="false">конечная форма</tr>
+        </param>
+      </method>
+      <!-- bg -->
+      <method name="bg">
+        <info>
+          <tr lang="en">draws background</tr>
+          <tr lang="ru" finished="false">рисует фон</tr>
+        </info>
+        <param name="COLOR" type="list" required="false">
+          <tr lang="en">background color</tr>
+          <tr lang="ru" finished="false">цвет фона</tr>
+        </param>
+      </method>
+      <!-- circle -->
+      <method name="circle">
+        <info>
+          <tr lang="en">create circle shape</tr>
+          <tr lang="ru" finished="false">создать форму круга</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">x-coord</tr>
+          <tr lang="ru" finished="false">х-корд</tr>
+        </param>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">y-coord</tr>
+          <tr lang="ru" finished="false">y-coord</tr>
+        </param>
+        <param name="RADIUS" type="float" required="true">
+          <tr lang="en">radius</tr>
+          <tr lang="ru" finished="false">радиус</tr>
+        </param>
+      </method>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">clear image</tr>
+          <tr lang="ru" finished="false">четкое изображение</tr>
+        </info>
+      </method>
+      <!-- close_path -->
+      <method name="close_path">
+        <info>
+          <tr lang="en">close path and its subpaths</tr>
+          <tr lang="ru" finished="false">Близкий путь и его субпаты</tr>
+        </info>
+      </method>
+      <!-- color -->
+      <method name="color">
+        <info>
+          <tr lang="en">set current color</tr>
+          <tr lang="ru" finished="false">Установить текущий цвет</tr>
+        </info>
+        <param name="DATA" type="list" required="true">
+          <tr lang="en">RGB, RGBA float list or hex or named color</tr>
+          <tr lang="ru" finished="false">RGB, RGBA или Hex или названный цвет</tr>
+        </param>
+      </method>
+      <!-- crestore -->
+      <method name="crestore">
+        <info>
+          <tr lang="en">restore previously saved context (pen type, width, color, matrix etc.)</tr>
+          <tr lang="ru" finished="false">восстановление ранее сохраненного контекста (тип, ширина,
+          цвет, матрица и т.д.)</tr>
+        </info>
+      </method>
+      <!-- csave -->
+      <method name="csave">
+        <info>
+          <tr lang="en">save current drawing context (pen type, width, color, matrix etc.)</tr>
+          <tr lang="ru" finished="false">сохранить текущий контекст рисования (тип, ширина, цвет,
+          матрица и т. Д.)</tr>
+        </info>
+      </method>
+      <!-- curve -->
+      <method name="curve">
+        <info>
+          <tr lang="en">create bezier-curve shape</tr>
+          <tr lang="ru" finished="false">создать форму кривой безье</tr>
+        </info>
+        <param name="X0" type="atom" required="true">
+          <tr lang="en">x0-coord in pixels or percents of width</tr>
+          <tr lang="ru" finished="false">x0-коорд в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y0" type="atom" required="true">
+          <tr lang="en">y0-coord in pixels or percents of height</tr>
+          <tr lang="ru" finished="false">y0-коорд в пикселях или процентах высоты</tr>
+        </param>
+        <param name="X1" type="atom" required="true">
+          <tr lang="en">x1-coord in pixels or percents of width</tr>
+          <tr lang="ru" finished="false">x1-coord в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y1" type="atom" required="true">
+          <tr lang="en">y1-coord in pixels or percents of height</tr>
+          <tr lang="ru" finished="false">y1-коорд в пикселях или процентах высоты</tr>
+        </param>
+        <param name="X2" type="atom" required="true">
+          <tr lang="en">x2-coord in pixels or percents of width</tr>
+          <tr lang="ru" finished="false">x2-коорд в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y2" type="atom" required="true">
+          <tr lang="en">y2-coord in pixels or percents of height</tr>
+          <tr lang="ru" finished="false">y2-коорд в пикселях или процентах высоты</tr>
+        </param>
+        <param name="X3" type="atom" required="true">
+          <tr lang="en">x3-coord in pixels or percents of width</tr>
+          <tr lang="ru" finished="false">x3-коорд в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y4" type="atom" required="true">
+          <tr lang="en">y3-coord in pixels or percents of height</tr>
+          <tr lang="ru" finished="false">y3-коорд в пикселях или процентах высоты</tr>
+        </param>
+      </method>
+      <!-- dash -->
+      <method name="dash">
+        <info>
+          <tr lang="en">set line dash pattern</tr>
+          <tr lang="ru" finished="false">Установка линии Dash pattern</tr>
+        </info>
+        <param name="PATTERN" type="list" required="true">
+          <tr lang="en">line dash pattern. If empty - reset to solid shape</tr>
+          <tr lang="ru" finished="false">Рисунок линии. Если пусто - перезагрузить в твердую
+          форму</tr>
+        </param>
+      </method>
+      <!-- ellipse -->
+      <method name="ellipse">
+        <info>
+          <tr lang="en">draw ellipse</tr>
+          <tr lang="ru" finished="false">рисовать эллипс</tr>
+        </info>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">left-coord in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">левый корд в пикселе или процентах ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">top-coord in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">Топ-коорд в пикселях или процентах высоты</tr>
+        </param>
+        <param name="WIDTH" type="atom" required="true">
+          <tr lang="en">width</tr>
+          <tr lang="ru" finished="false">ширина</tr>
+        </param>
+        <param name="HEIGHT" type="atom" required="true">
+          <tr lang="en">height</tr>
+          <tr lang="ru" finished="false">высота</tr>
+        </param>
+      </method>
+      <!-- fill -->
+      <method name="fill">
+        <info>
+          <tr lang="en">fill shape with color</tr>
+          <tr lang="ru" finished="false">заполнить форму цветом</tr>
+        </info>
+        <param name="COLOR" type="atom" required="true">
+          <tr lang="en">fill color</tr>
+          <tr lang="ru" finished="false">заполнить цвет</tr>
+        </param>
+        <param name="PRESERVE" type="atom" required="false" enum="preserve 1">
+          <tr lang="en">preserve path after fill. You can call stroke method after that</tr>
+          <tr lang="ru" finished="false">Сохранить путь после заполнения. После этого можно назвать
+          метод инсульта.</tr>
+        </param>
+      </method>
+      <!-- font -->
+      <method name="font">
+        <info>
+          <tr lang="en">set current font</tr>
+          <tr lang="ru" finished="false">Настройка текущего шрифта</tr>
+        </info>
+        <param name="FONT" type="symbol" required="true">
+          <tr lang="en">font family</tr>
+          <tr lang="ru" finished="false">семейство шрифтов</tr>
+        </param>
+        <param name="SIZE" type="float" required="false">
+          <tr lang="en">font size</tr>
+          <tr lang="ru" finished="false">размер шрифта</tr>
+        </param>
+      </method>
+      <!-- font_size -->
+      <method name="font_size">
+        <info>
+          <tr lang="en">set current font size</tr>
+          <tr lang="ru" finished="false">установить текущий размер шрифта</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">font size</tr>
+          <tr lang="ru" finished="false">размер шрифта</tr>
+        </param>
+      </method>
+      <!-- icon -->
+      <method name="icon">
+        <info>
+          <tr lang="en">draw named icon. Pass ? as single argument to dump all icons to Pd
+          window.</tr>
+          <tr lang="ru" finished="false">Нарисуйте икону. В качестве единого аргумента, чтобы
+          сбросить все иконки в окно Pd.</tr>
+        </info>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">left-coord in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">левый корд в пикселе или процентах ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">top-coord in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">Топ-коорд в пикселях или процентах высоты</tr>
+        </param>
+        <param name="SIZE" type="float" required="true">
+          <tr lang="en">font size</tr>
+          <tr lang="ru" finished="false">размер шрифта</tr>
+        </param>
+        <param name="ICON" type="symbol" required="true">
+          <tr lang="en">icon name. See https://fonts.google.com/icons for full list</tr>
+          <tr lang="ru" finished="false">Имя иконы. См. https://fonts.google.com/icons для полного
+          списка</tr>
+        </param>
+      </method>
+      <!-- image -->
+      <method name="image">
+        <info>
+          <tr lang="en">draws image. Note: only PNG images are supported!</tr>
+          <tr lang="ru" finished="false">рисует изображение. Примечание: поддерживаются только
+          PNG-изображения!</tr>
+        </info>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">left-coord in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">левый корд в пикселе или процентах ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">top-coord in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">Топ-коорд в пикселях или процентах высоты</tr>
+        </param>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">path to image file, full or relative to patch</tr>
+          <tr lang="ru" finished="false">Путь к файлу изображения, полному или относительно
+          патча</tr>
+        </param>
+        <param name="SCALE" type="float" required="false" minvalue="0">
+          <tr lang="en">image scale</tr>
+          <tr lang="ru" finished="false">масштаб изображения</tr>
+        </param>
+      </method>
+      <!-- line -->
+      <method name="line">
+        <info>
+          <tr lang="en">create line shape</tr>
+          <tr lang="ru" finished="false">создавать форму линии</tr>
+        </info>
+        <param name="X0" type="atom" required="true">
+          <tr lang="en">x0-coord in pixels or percents of width</tr>
+          <tr lang="ru" finished="false">x0-коорд в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y0" type="atom" required="true">
+          <tr lang="en">y0-coord in pixels or percents of height</tr>
+          <tr lang="ru" finished="false">y0-коорд в пикселях или процентах высоты</tr>
+        </param>
+        <param name="X1" type="atom" required="true">
+          <tr lang="en">x1-coord in pixels or percents of width</tr>
+          <tr lang="ru" finished="false">x1-coord в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y1" type="atom" required="true">
+          <tr lang="en">y1-coord in pixels or percents of height</tr>
+          <tr lang="ru" finished="false">y1-коорд в пикселях или процентах высоты</tr>
+        </param>
+      </method>
+      <!-- line_cap -->
+      <method name="line_cap">
+        <info>
+          <tr lang="en">set line cap</tr>
+          <tr lang="ru" finished="false">установленная линия</tr>
+        </info>
+        <param name="X" type="symbol" required="true" enum="butt round square">
+          <tr lang="en">line cap</tr>
+          <tr lang="ru" finished="false">линия</tr>
+        </param>
+      </method>
+      <!-- line_to -->
+      <method name="line_to">
+        <info>
+          <tr lang="en">add line segment to line shape</tr>
+          <tr lang="ru" finished="false">Добавить сегмент линии в форму линии</tr>
+        </info>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">x-coord in pixels or percents of width</tr>
+          <tr lang="ru" finished="false">x-coord в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">y-coord in pixels or percents of height</tr>
+          <tr lang="ru" finished="false">Y-коорд в пикселях или процентах высоты</tr>
+        </param>
+      </method>
+      <!-- matrix -->
+      <method name="matrix">
+        <info>
+          <tr lang="en">set 2D transformation matrix</tr>
+          <tr lang="ru" finished="false">2D матрица преобразования</tr>
+        </info>
+        <param name="XX" type="atom" required="true">
+          <tr lang="en">xx component of the affine transformation</tr>
+          <tr lang="ru" finished="false">xx компонент аффинной трансформации</tr>
+        </param>
+        <param name="YX" type="atom" required="true">
+          <tr lang="en">yx component of the affine transformation</tr>
+          <tr lang="ru" finished="false">yx компонент аффинной трансформации</tr>
+        </param>
+        <param name="XY" type="atom" required="true">
+          <tr lang="en">xy component of the affine transformation</tr>
+          <tr lang="ru" finished="false">xy компонент аффинной трансформации</tr>
+        </param>
+        <param name="YY" type="atom" required="true">
+          <tr lang="en">yy component of the affine transformation</tr>
+          <tr lang="ru" finished="false">yy компонент аффинной трансформации</tr>
+        </param>
+        <param name="X0" type="atom" required="true">
+          <tr lang="en">x component of the affine transformation</tr>
+          <tr lang="ru" finished="false">x компонент аффинной трансформации</tr>
+        </param>
+        <param name="Y0" type="atom" required="true">
+          <tr lang="en">y component of the affine transformation</tr>
+          <tr lang="ru" finished="false">y компонент аффинной трансформации</tr>
+        </param>
+      </method>
+      <!-- move_by -->
+      <method name="move_by">
+        <info>
+          <tr lang="en">move current drawing point by relative offset</tr>
+          <tr lang="ru" finished="false">перемещать текущую точку рисования по относительному
+          смещению</tr>
+        </info>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">x relative offset in pixels or percents of width</tr>
+          <tr lang="ru" finished="false">x относительное смещение в пикселях или процентах
+          ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">y relative offset in pixels or percents of height</tr>
+          <tr lang="ru" finished="false">относительное смещение в пикселях или процентах
+          высоты</tr>
+        </param>
+      </method>
+      <!-- move_to -->
+      <method name="move_to">
+        <info>
+          <tr lang="en">move current drawing point to absolute position</tr>
+          <tr lang="ru" finished="false">перемещать текущую точку рисования в абсолютное
+          положение</tr>
+        </info>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">x-coord in pixels or percents of width</tr>
+          <tr lang="ru" finished="false">x-coord в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">y-coord in pixels or percents of height</tr>
+          <tr lang="ru" finished="false">Y-коорд в пикселях или процентах высоты</tr>
+        </param>
+      </method>
+      <!-- musicxml -->
+      <method name="musicxml">
+        <info>
+          <tr lang="en">render MusicXML file</tr>
+          <tr lang="ru" finished="false">Файлы MusicXML</tr>
+        </info>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">x-coord in pixels or percents of width</tr>
+          <tr lang="ru" finished="false">x-coord в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">y-coord in pixels or percents of height</tr>
+          <tr lang="ru" finished="false">Y-коорд в пикселях или процентах высоты</tr>
+        </param>
+        <param name="FILE" type="symbol" required="true">
+          <tr lang="en">absolute or relative to patch filepath of MusicXML file</tr>
+          <tr lang="ru" finished="false">абсолютный или относительный путь патча файла
+          MusicXML</tr>
+        </param>
+      </method>
+      <!-- new_path -->
+      <method name="new_path">
+        <info>
+          <tr lang="en">starts new path</tr>
+          <tr lang="ru" finished="false">Начинается новый путь</tr>
+        </info>
+      </method>
+      <!-- new_subpath -->
+      <method name="new_subpath">
+        <info>
+          <tr lang="en">starts new subpath, means no line connection between last point and new
+          subpath shape</tr>
+          <tr lang="ru" finished="false">запускает новый субпат, означает отсутствие линейной связи
+          между последней точкой и новой формой субпата;</tr>
+        </info>
+      </method>
+      <!-- polar -->
+      <method name="polar">
+        <info>
+          <tr lang="en">creates polar grid</tr>
+          <tr lang="ru" finished="false">Создает полярную сетку</tr>
+        </info>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">x-coord of center in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">x-коорд центра в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">y-coord of center in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">y-коорд центра в пикселях или процентах высоты</tr>
+        </param>
+        <param name="ADIV" type="int" required="false" minvalue="0">
+          <tr lang="en">number of divisions of 90 degree angle</tr>
+          <tr lang="ru" finished="false">Количество делений под углом 90 градусов</tr>
+        </param>
+        <param name="NC" type="int" required="false" minvalue="0">
+          <tr lang="en">number of circles</tr>
+          <tr lang="ru" finished="false">Количество кругов</tr>
+        </param>
+        <param name="CDIST" type="int" required="false" minvalue="1">
+          <tr lang="en">circle distance</tr>
+          <tr lang="ru" finished="false">расстояние окружности</tr>
+        </param>
+      </method>
+      <!-- polygon -->
+      <method name="polygon">
+        <info>
+          <tr lang="en">create polygon shape</tr>
+          <tr lang="ru" finished="false">создать форму полигона</tr>
+        </info>
+        <param name="X0" type="atom" required="true">
+          <tr lang="en">x0-coord in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">x0-коорд в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y0" type="atom" required="true">
+          <tr lang="en">y0-coord in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">y0-коорд в пикселях или процентах высоты</tr>
+        </param>
+        <param name="X..." type="atom" required="true">
+          <tr lang="en">x...-coord in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">x...-коорд в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y..." type="atom" required="true">
+          <tr lang="en">y...-coord in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">y-coord в пикселях или процентах высоты</tr>
+        </param>
+        <param name="XN" type="atom" required="true">
+          <tr lang="en">xn-coord in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">xn-коорд в пикселях или процентах ширины</tr>
+        </param>
+        <param name="YN" type="atom" required="true">
+          <tr lang="en">yn-coord in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">yn-coord в пикселях или процентах высоты</tr>
+        </param>
+      </method>
+      <!-- qrcode -->
+      <method name="qrcode">
+        <info>
+          <tr lang="en">create QR-code shape.</tr>
+          <tr lang="ru" finished="false">Создание формы QR-кода.</tr>
+        </info>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">left-coord in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">левый корд в пикселе или процентах ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">top-coord in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">Топ-коорд в пикселях или процентах высоты</tr>
+        </param>
+        <param name="PIXEL" type="int" required="true" minvalue="1">
+          <tr lang="en">pixel size</tr>
+          <tr lang="ru" finished="false">Размер пикселя</tr>
+        </param>
+        <param name="TEXT" type="symbol" required="true">
+          <tr lang="en">message</tr>
+          <tr lang="ru" finished="false">сообщение</tr>
+        </param>
+      </method>
+      <!-- rect -->
+      <method name="rect">
+        <info>
+          <tr lang="en">create rectangle shape</tr>
+          <tr lang="ru" finished="false">создать прямоугольную форму</tr>
+        </info>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">x-coord in pixels or percents of width</tr>
+          <tr lang="ru" finished="false">x-coord в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">y-coord in pixels or percents of height</tr>
+          <tr lang="ru" finished="false">Y-коорд в пикселях или процентах высоты</tr>
+        </param>
+        <param name="W" type="atom" required="true">
+          <tr lang="en">width in pixels or percents of width</tr>
+          <tr lang="ru" finished="false">Ширина в пикселях или процентах ширины</tr>
+        </param>
+        <param name="H" type="atom" required="true">
+          <tr lang="en">height in pixels or percents of height</tr>
+          <tr lang="ru" finished="false">высота в пикселях или процентах высоты</tr>
+        </param>
+      </method>
+      <!-- rotate -->
+      <method name="rotate">
+        <info>
+          <tr lang="en">clock-wise rotatation of draw origin</tr>
+          <tr lang="ru" finished="false">часовое вращение происхождения ничьей</tr>
+        </info>
+        <param name="X" type="float" required="true" units="degree">
+          <tr lang="en">rotation angle</tr>
+          <tr lang="ru" finished="false">угол поворота</tr>
+        </param>
+      </method>
+      <!-- rpolygon -->
+      <method name="rpolygon">
+        <info>
+          <tr lang="en">create polygon shape</tr>
+          <tr lang="ru" finished="false">создать форму полигона</tr>
+        </info>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">x-coord of center in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">x-коорд центра в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">y-coord of center in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">y-коорд центра в пикселях или процентах высоты</tr>
+        </param>
+        <param name="N" type="int" required="true">
+          <tr lang="en">number of vertexes</tr>
+          <tr lang="ru" finished="false">количество вершин</tr>
+        </param>
+        <param name="R" type="float" required="true">
+          <tr lang="en">polygon radius</tr>
+          <tr lang="ru" finished="false">радиус полигона</tr>
+        </param>
+      </method>
+      <!-- scale -->
+      <method name="scale">
+        <info>
+          <tr lang="en">scale current draw matrix</tr>
+          <tr lang="ru" finished="false">шкала текущая матрица</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">x</tr>
+          <tr lang="ru" finished="false">х</tr>
+        </param>
+        <param name="Y" type="float" required="false">
+          <tr lang="en">y. If omitted, uses X-value to scale same in both directions</tr>
+          <tr lang="ru" finished="false">У. Если опущено, использует X-значение для масштабирования
+          в обоих направлениях.</tr>
+        </param>
+      </method>
+      <!-- star -->
+      <method name="star">
+        <info>
+          <tr lang="en">create star shape</tr>
+          <tr lang="ru" finished="false">Создать звездную форму</tr>
+        </info>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">x-coord of center in pixel or percents of width</tr>
+          <tr lang="ru" finished="false">x-коорд центра в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">y-coord of center in pixel or percents of height</tr>
+          <tr lang="ru" finished="false">y-коорд центра в пикселях или процентах высоты</tr>
+        </param>
+        <param name="N" type="int" required="true">
+          <tr lang="en">number of vertexes</tr>
+          <tr lang="ru" finished="false">количество вершин</tr>
+        </param>
+        <param name="R" type="float" required="false" minvalue="0">
+          <tr lang="en">star radius</tr>
+          <tr lang="ru" finished="false">радиус звезды</tr>
+        </param>
+        <param name="STEP" type="int" required="false" minvalue="1">
+          <tr lang="en">connection step. If omitted step is auto-calculated</tr>
+          <tr lang="ru" finished="false">Шаг соединения. Если пропущенный шаг просчитывается
+          автоматически</tr>
+        </param>
+      </method>
+      <!-- stroke -->
+      <method name="stroke">
+        <info>
+          <tr lang="en">stroke shape with color</tr>
+          <tr lang="ru" finished="false">форма удара с цветом</tr>
+        </info>
+        <param name="COLOR" type="atom" required="true">
+          <tr lang="en">stroke color</tr>
+          <tr lang="ru" finished="false">цветной цвет</tr>
+        </param>
+        <param name="PRESERVE" type="atom" required="false" enum="preserve 1">
+          <tr lang="en">preserve path after stroke</tr>
+          <tr lang="ru" finished="false">Сохранить путь после инсульта</tr>
+        </param>
+      </method>
+      <!-- text -->
+      <method name="text">
+        <info>
+          <tr lang="en">set current text shape</tr>
+          <tr lang="ru" finished="false">Установите текущую форму текста</tr>
+        </info>
+        <param name="X" type="atom" required="true">
+          <tr lang="en">x-coord in pixels or percents of width</tr>
+          <tr lang="ru" finished="false">x-coord в пикселях или процентах ширины</tr>
+        </param>
+        <param name="Y" type="atom" required="true">
+          <tr lang="en">y-coord in pixels or percents of height</tr>
+          <tr lang="ru" finished="false">Y-коорд в пикселях или процентах высоты</tr>
+        </param>
+        <param name="TXT" type="list" required="true">
+          <tr lang="en">text content</tr>
+          <tr lang="ru" finished="false">текстовое содержание</tr>
+        </param>
+      </method>
+      <!-- translate -->
+      <method name="translate">
+        <info>
+          <tr lang="en">translate draw origin</tr>
+          <tr lang="ru" finished="false">Переводное происхождение</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">x offset</tr>
+          <tr lang="ru" finished="false">x смещения</tr>
+        </param>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">y offset</tr>
+          <tr lang="ru" finished="false">смещение</tr>
+        </param>
+      </method>
+      <!-- update -->
+      <method name="update">
+        <info>
+          <tr lang="en">updates drawed image</tr>
+          <tr lang="ru" finished="false">Обновления нарисованного изображения</tr>
+        </info>
+      </method>
+      <!-- width -->
+      <method name="width">
+        <info>
+          <tr lang="en">set stroke width</tr>
+          <tr lang="ru" finished="false">ширина хода</tr>
+        </info>
+        <param name="WIDTH" type="float" required="true">
+          <tr lang="en">line width</tr>
+          <tr lang="ru" finished="false">ширина линии</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">draw commands</tr>
+          <tr lang="ru" finished="false">выполнять команды</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">message: mouse ACTION(down|up|drag) X Y MOD_CTL MOD_ALT MOD_SHIFT
+          MOD_CMD</tr>
+          <tr lang="ru" finished="false">сообщение: мышь ACTION(down |up |drag) X Y MOD_CTL MOD_ALT
+          MOD_SHIFT MOD_CMD</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [clear, matrix #a(             [image #i(
 
@@ -876,8 +863,8 @@
 #k 150 160 5 30, stroke red, update
 #l 0 0 K:E L:1/4 =F4|, update
 ]]>
-            </pdascii>
-            <pdascii id="line">
+      </pdascii>
+      <pdascii id="line">
 <![CDATA[
 [clear, line_cap butt, width 10, line 10% 10% 90% 90%, stroke blue, update #a(
 
@@ -908,8 +895,8 @@
 
 [X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z]
 ]]>
-            </pdascii>
-            <pdascii id="text">
+      </pdascii>
+      <pdascii id="text">
 <![CDATA[
 [clear, matrix, translate 50% 50% #a(
 
@@ -939,8 +926,8 @@
 
 [X a->z] [X b->z] [X c->z] [X d->z] [X e->z]
 ]]>
-            </pdascii>
-            <pdascii id="color">
+      </pdascii>
+      <pdascii id="color">
 <![CDATA[
 [clear, bg \#FFAAFF, update #a( /*RGB*/
 
@@ -969,8 +956,8 @@
 [X a->z] [X b->z] [X c->z] [X d->z]
 [X e->z] [X f->z] [X g->z] [X h->z]
 ]]>
-            </pdascii>
-            <pdascii id="arrows">
+      </pdascii>
+      <pdascii id="arrows">
 <![CDATA[
 [width 1, arrow 30 30 130 160 A a, stroke red, update #a(
 
@@ -996,8 +983,8 @@
 [X a->z] [X b->z] [X c->z] [X d->z]
 [X e->z] [X f->z]
 ]]>
-            </pdascii>
-            <pdascii id="music">
+      </pdascii>
+      <pdascii id="music">
 <![CDATA[
 [clear, musicxml -100 -20 music/simple.mxml 120, update #a(
 
@@ -1017,8 +1004,8 @@
 
 [X a->z]
 ]]>
-            </pdascii>
-            <pdascii id="image">
+      </pdascii>
+      <pdascii id="image">
 <![CDATA[
 [clear, image 20 20 img/puredata-ceammc.png 0.5, update #a(
 
@@ -1047,8 +1034,8 @@
 
 [ui.link @title=See_Material_Icons @url=https://fonts.google.com/icons]
 ]]>
-            </pdascii>
-            <pdascii id="matrix">
+      </pdascii>
+      <pdascii id="matrix">
 <![CDATA[
 [loadbang]
 |
@@ -1075,8 +1062,8 @@
 #m4 clear, matrix 2 0.5 0 2 0 0, rect 50 50 100 100, stroke red, update
 [X m1->y] [X m2->y] [X m3->y] [X m4->y]
 ]]>
-            </pdascii>
-            <pdascii id="mouse">
+      </pdascii>
+      <pdascii id="mouse">
 <![CDATA[
 /*Mouse drawing: DOWN - line start point, UP - line end point*/
 
@@ -1118,7 +1105,7 @@
 
 [X b:1->c] [X b:2->d] [X d->f] [X c->f]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

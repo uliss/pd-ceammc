@@ -1,244 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="proto.obs">
-        <title>proto.obs</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">WebSocket client to control OBS studio</tr>
-                <tr lang="ru">WebSocket клиент для управления OBS studio</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>proto</category>
-            <keywords>obs video</keywords>
-            <since>0.9.8</since>
-        </meta>
-        <properties>
-            <!-- @host -->
-            <property name="@host" type="symbol" default="localhost">
-                <tr lang="en">OBS studio host name</tr>
-                <tr lang="ru" finished="false">Название студии OBS</tr>
-            </property>
-            <!-- @passwd -->
-            <property name="@passwd" type="symbol" default="">
-                <tr lang="en">OBS studio password</tr>
-                <tr lang="ru" finished="false">Пароль OBS Studio</tr>
-            </property>
-            <!-- @port -->
-            <property name="@port" type="int" default="4455" minvalue="1" maxvalue="32767">
-                <tr lang="en">OBS studio control port</tr>
-                <tr lang="ru" finished="false">Студия OBS управляет портом</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- collection current get -->
-            <method name="collection current get">
-                <info>
-                    <tr lang="en">request current collection</tr>
-                    <tr lang="ru" finished="false">Запросить текущий сбор</tr>
-                </info>
-            </method>
-            <!-- collection current set -->
-            <method name="collection current set">
-                <info>
-                    <tr lang="en">set current collection</tr>
-                    <tr lang="ru" finished="false">Текущая коллекция</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">collection name</tr>
-                    <tr lang="ru" finished="false">название коллекции</tr>
-                </param>
-            </method>
-            <!-- collection list -->
-            <method name="collection list">
-                <info>
-                    <tr lang="en">request collection list</tr>
-                    <tr lang="ru" finished="false">Список запросов</tr>
-                </info>
-            </method>
-            <!-- connect -->
-            <method name="connect">
-                <info>
-                    <tr lang="en">connect to OBS studio. Message [connected 1( is send to output on
-                    success, [connected 0( - on error.</tr>
-                    <tr lang="ru" finished="false">Подключение к студии OBS. Сообщение [подключено
-                    1(отправляется на выход по успеху, [подключено 0( - по ошибке).</tr>
-                </info>
-                <param name="PASSWD" type="symbol" required="false">
-                    <tr lang="en">if specified, temporaly overrides @passwd property</tr>
-                    <tr lang="ru" finished="false">Если указано, временное переопределяет свойство
-                    @passwd</tr>
-                </param>
-            </method>
-            <!-- disconnect -->
-            <method name="disconnect">
-                <info>
-                    <tr lang="en">disconnect from OBS studio. Message [connected 0( is send to
-                    output</tr>
-                    <tr lang="ru" finished="false">Отключение от студии OBS. Сообщение [подключено
-                    0(отправляется на выход)]</tr>
-                </info>
-            </method>
-            <!-- info -->
-            <method name="info">
-                <info>
-                    <tr lang="en">request OBS studio information: OBS version, web-socket version,
-                    RPC version and list of supported image formats. This info is outputted as
-                    messages to first outlet.</tr>
-                    <tr lang="ru" finished="false">запросить информацию о студии OBS: версия OBS,
-                    версия веб-сокета, версия RPC и список поддерживаемых форматов изображений. Эта
-                    информация выводится в виде сообщений для первого выхода.</tr>
-                </info>
-            </method>
-            <!-- item enable -->
-            <method name="item enable">
-                <info>
-                    <tr lang="en">enable/disable scene item</tr>
-                    <tr lang="ru" finished="false">включение/отключение элемента сцены</tr>
-                </info>
-                <param name="SCENE" type="symbol" required="true">
-                    <tr lang="en">scene name</tr>
-                    <tr lang="ru" finished="false">название сцены</tr>
-                </param>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">item pos</tr>
-                    <tr lang="ru" finished="false">пункт повестки дня</tr>
-                </param>
-                <param name="VALUE" type="bool" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- item list -->
-            <method name="item list">
-                <info>
-                    <tr lang="en">request list of scene items</tr>
-                    <tr lang="ru" finished="false">Запросить список элементов сцены</tr>
-                </info>
-                <param name="SCENE" type="symbol" required="true">
-                    <tr lang="en">scene name</tr>
-                    <tr lang="ru" finished="false">название сцены</tr>
-                </param>
-            </method>
-            <!-- item remove -->
-            <method name="item remove">
-                <info>
-                    <tr lang="en">remove scene item</tr>
-                    <tr lang="ru" finished="false">удалить элемент сцены</tr>
-                </info>
-                <param name="SCENE" type="symbol" required="true">
-                    <tr lang="en">scene name</tr>
-                    <tr lang="ru" finished="false">название сцены</tr>
-                </param>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">item pos</tr>
-                    <tr lang="ru" finished="false">пункт повестки дня</tr>
-                </param>
-            </method>
-            <!-- monitor list -->
-            <method name="monitor list">
-                <info>
-                    <tr lang="en">request monitor list</tr>
-                    <tr lang="ru" finished="false">Список мониторинга запроса</tr>
-                </info>
-            </method>
-            <!-- scene create -->
-            <method name="scene create">
-                <info>
-                    <tr lang="en">create new scene</tr>
-                    <tr lang="ru" finished="false">Создайте новую сцену</tr>
-                </info>
-                <param name="SCENE" type="symbol" required="true">
-                    <tr lang="en">scene name</tr>
-                    <tr lang="ru" finished="false">название сцены</tr>
-                </param>
-            </method>
-            <!-- scene current get -->
-            <method name="scene current get">
-                <info>
-                    <tr lang="en">request current scene</tr>
-                    <tr lang="ru" finished="false">Запрос текущей сцены</tr>
-                </info>
-            </method>
-            <!-- scene current set -->
-            <method name="scene current set">
-                <info>
-                    <tr lang="en">set current scene</tr>
-                    <tr lang="ru" finished="false">Сцена текущей сцены</tr>
-                </info>
-                <param name="SCENE" type="symbol" required="true">
-                    <tr lang="en">scene name</tr>
-                    <tr lang="ru" finished="false">название сцены</tr>
-                </param>
-            </method>
-            <!-- scene first -->
-            <method name="scene first">
-                <info>
-                    <tr lang="en">change to first scene</tr>
-                    <tr lang="ru" finished="false">Смена первой сцены</tr>
-                </info>
-            </method>
-            <!-- scene last -->
-            <method name="scene last">
-                <info>
-                    <tr lang="en">change to last scene</tr>
-                    <tr lang="ru" finished="false">Смена последней сцены</tr>
-                </info>
-            </method>
-            <!-- scene list -->
-            <method name="scene list">
-                <info>
-                    <tr lang="en">request scene list</tr>
-                    <tr lang="ru" finished="false">Запросить список мест</tr>
-                </info>
-            </method>
-            <!-- scene next -->
-            <method name="scene next">
-                <info>
-                    <tr lang="en">change to next scene</tr>
-                    <tr lang="ru" finished="false">Переход на следующую сцену</tr>
-                </info>
-            </method>
-            <!-- scene prev -->
-            <method name="scene prev">
-                <info>
-                    <tr lang="en">change to prev scene</tr>
-                    <tr lang="ru" finished="false">Изменить предыдущую сцену</tr>
-                </info>
-            </method>
-            <!-- scene remove -->
-            <method name="scene remove">
-                <info>
-                    <tr lang="en">remove scene</tr>
-                    <tr lang="ru" finished="false">удалить сцену</tr>
-                </info>
-                <param name="SCENE" type="symbol" required="true">
-                    <tr lang="en">scene name</tr>
-                    <tr lang="ru" finished="false">название сцены</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">raw midi input bytes</tr>
-                    <tr lang="ru" finished="false">необработанные промежуточные входные байты</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">any messages</tr>
-                    <tr lang="ru" finished="false">Любые сообщения</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="proto.obs">
+    <title>proto.obs</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">WebSocket client to control OBS studio</tr>
+        <tr lang="ru">WebSocket клиент для управления OBS studio</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>proto</category>
+      <keywords>obs video</keywords>
+      <since>0.9.8</since>
+    </meta>
+    <properties>
+      <!-- @host -->
+      <property name="@host" type="symbol" default="localhost">
+        <tr lang="en">OBS studio host name</tr>
+        <tr lang="ru" finished="false">Название студии OBS</tr>
+      </property>
+      <!-- @passwd -->
+      <property name="@passwd" type="symbol" default="">
+        <tr lang="en">OBS studio password</tr>
+        <tr lang="ru" finished="false">Пароль OBS Studio</tr>
+      </property>
+      <!-- @port -->
+      <property name="@port" type="int" default="4455" minvalue="1" maxvalue="32767">
+        <tr lang="en">OBS studio control port</tr>
+        <tr lang="ru" finished="false">Студия OBS управляет портом</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- collection current get -->
+      <method name="collection current get">
+        <info>
+          <tr lang="en">request current collection</tr>
+          <tr lang="ru" finished="false">Запросить текущий сбор</tr>
+        </info>
+      </method>
+      <!-- collection current set -->
+      <method name="collection current set">
+        <info>
+          <tr lang="en">set current collection</tr>
+          <tr lang="ru" finished="false">Текущая коллекция</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">collection name</tr>
+          <tr lang="ru" finished="false">название коллекции</tr>
+        </param>
+      </method>
+      <!-- collection list -->
+      <method name="collection list">
+        <info>
+          <tr lang="en">request collection list</tr>
+          <tr lang="ru" finished="false">Список запросов</tr>
+        </info>
+      </method>
+      <!-- connect -->
+      <method name="connect">
+        <info>
+          <tr lang="en">connect to OBS studio. Message [connected 1( is send to output on success,
+          [connected 0( - on error.</tr>
+          <tr lang="ru" finished="false">Подключение к студии OBS. Сообщение [подключено
+          1(отправляется на выход по успеху, [подключено 0( - по ошибке).</tr>
+        </info>
+        <param name="PASSWD" type="symbol" required="false">
+          <tr lang="en">if specified, temporaly overrides @passwd property</tr>
+          <tr lang="ru" finished="false">Если указано, временное переопределяет свойство
+          @passwd</tr>
+        </param>
+      </method>
+      <!-- disconnect -->
+      <method name="disconnect">
+        <info>
+          <tr lang="en">disconnect from OBS studio. Message [connected 0( is send to output</tr>
+          <tr lang="ru" finished="false">Отключение от студии OBS. Сообщение [подключено
+          0(отправляется на выход)]</tr>
+        </info>
+      </method>
+      <!-- info -->
+      <method name="info">
+        <info>
+          <tr lang="en">request OBS studio information: OBS version, web-socket version, RPC
+          version and list of supported image formats. This info is outputted as messages to first
+          outlet.</tr>
+          <tr lang="ru" finished="false">запросить информацию о студии OBS: версия OBS, версия
+          веб-сокета, версия RPC и список поддерживаемых форматов изображений. Эта информация
+          выводится в виде сообщений для первого выхода.</tr>
+        </info>
+      </method>
+      <!-- item enable -->
+      <method name="item enable">
+        <info>
+          <tr lang="en">enable/disable scene item</tr>
+          <tr lang="ru" finished="false">включение/отключение элемента сцены</tr>
+        </info>
+        <param name="SCENE" type="symbol" required="true">
+          <tr lang="en">scene name</tr>
+          <tr lang="ru" finished="false">название сцены</tr>
+        </param>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">item pos</tr>
+          <tr lang="ru" finished="false">пункт повестки дня</tr>
+        </param>
+        <param name="VALUE" type="bool" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- item list -->
+      <method name="item list">
+        <info>
+          <tr lang="en">request list of scene items</tr>
+          <tr lang="ru" finished="false">Запросить список элементов сцены</tr>
+        </info>
+        <param name="SCENE" type="symbol" required="true">
+          <tr lang="en">scene name</tr>
+          <tr lang="ru" finished="false">название сцены</tr>
+        </param>
+      </method>
+      <!-- item remove -->
+      <method name="item remove">
+        <info>
+          <tr lang="en">remove scene item</tr>
+          <tr lang="ru" finished="false">удалить элемент сцены</tr>
+        </info>
+        <param name="SCENE" type="symbol" required="true">
+          <tr lang="en">scene name</tr>
+          <tr lang="ru" finished="false">название сцены</tr>
+        </param>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">item pos</tr>
+          <tr lang="ru" finished="false">пункт повестки дня</tr>
+        </param>
+      </method>
+      <!-- monitor list -->
+      <method name="monitor list">
+        <info>
+          <tr lang="en">request monitor list</tr>
+          <tr lang="ru" finished="false">Список мониторинга запроса</tr>
+        </info>
+      </method>
+      <!-- scene create -->
+      <method name="scene create">
+        <info>
+          <tr lang="en">create new scene</tr>
+          <tr lang="ru" finished="false">Создайте новую сцену</tr>
+        </info>
+        <param name="SCENE" type="symbol" required="true">
+          <tr lang="en">scene name</tr>
+          <tr lang="ru" finished="false">название сцены</tr>
+        </param>
+      </method>
+      <!-- scene current get -->
+      <method name="scene current get">
+        <info>
+          <tr lang="en">request current scene</tr>
+          <tr lang="ru" finished="false">Запрос текущей сцены</tr>
+        </info>
+      </method>
+      <!-- scene current set -->
+      <method name="scene current set">
+        <info>
+          <tr lang="en">set current scene</tr>
+          <tr lang="ru" finished="false">Сцена текущей сцены</tr>
+        </info>
+        <param name="SCENE" type="symbol" required="true">
+          <tr lang="en">scene name</tr>
+          <tr lang="ru" finished="false">название сцены</tr>
+        </param>
+      </method>
+      <!-- scene first -->
+      <method name="scene first">
+        <info>
+          <tr lang="en">change to first scene</tr>
+          <tr lang="ru" finished="false">Смена первой сцены</tr>
+        </info>
+      </method>
+      <!-- scene last -->
+      <method name="scene last">
+        <info>
+          <tr lang="en">change to last scene</tr>
+          <tr lang="ru" finished="false">Смена последней сцены</tr>
+        </info>
+      </method>
+      <!-- scene list -->
+      <method name="scene list">
+        <info>
+          <tr lang="en">request scene list</tr>
+          <tr lang="ru" finished="false">Запросить список мест</tr>
+        </info>
+      </method>
+      <!-- scene next -->
+      <method name="scene next">
+        <info>
+          <tr lang="en">change to next scene</tr>
+          <tr lang="ru" finished="false">Переход на следующую сцену</tr>
+        </info>
+      </method>
+      <!-- scene prev -->
+      <method name="scene prev">
+        <info>
+          <tr lang="en">change to prev scene</tr>
+          <tr lang="ru" finished="false">Изменить предыдущую сцену</tr>
+        </info>
+      </method>
+      <!-- scene remove -->
+      <method name="scene remove">
+        <info>
+          <tr lang="en">remove scene</tr>
+          <tr lang="ru" finished="false">удалить сцену</tr>
+        </info>
+        <param name="SCENE" type="symbol" required="true">
+          <tr lang="en">scene name</tr>
+          <tr lang="ru" finished="false">название сцены</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">raw midi input bytes</tr>
+          <tr lang="ru" finished="false">необработанные промежуточные входные байты</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">any messages</tr>
+          <tr lang="ru" finished="false">Любые сообщения</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [connect SECRET #a(  [scene list #d(        [collection list #h(
 
@@ -261,7 +260,7 @@
 [X h->z] [X i->z] [X j->z] [X k->z]
 [X l->z] [X m->z]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

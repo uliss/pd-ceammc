@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.list2many">
-        <title>flow.list2many</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">routes the list element with the corresponding message</tr>
-                <tr lang="ru">маршрутизирует элемент списка с соответствующим сообщением</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>conv map list</keywords>
-            <since>0.9.2</since>
-            <aliases>
-                <alias>ceammc/list-&gt;many</alias>
-                <alias>list-&gt;many</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">On incoming list (l⁰ l¹ ...) outputs to corresponding outlet message:
-                [s⁰ l⁰(, [s¹ l¹( etc...</tr>
-                <!-- old: В входящем списке (l0 l1 ...) выводит
+  <object name="flow.list2many">
+    <title>flow.list2many</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">routes the list element with the corresponding message</tr>
+        <tr lang="ru">маршрутизирует элемент списка с соответствующим сообщением</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>conv map list</keywords>
+      <since>0.9.2</since>
+      <aliases>
+        <alias>ceammc/list-&gt;many</alias>
+        <alias>list-&gt;many</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">On incoming list (l⁰ l¹ ...) outputs to corresponding outlet message: [s⁰
+        l⁰(, [s¹ l¹( etc...</tr>
+        <!-- old: В входящем списке (l0 l1 ...) выводит
                 соответствующее выходное сообщение: [s0 l0(, [s1 l1( и т.д.)] -->
-                <tr lang="ru" finished="false">В входящем списке (l0 l1 ...) выводит
-                соответствующее выходное сообщение: [s0 l0(, [s1 l1( и т.д.)]</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="SEL" type="list">
-                <tr lang="en">list of selectors</tr>
-                <tr lang="ru" finished="false">Список селекторов</tr>
-            </argument>
-        </arguments>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet number="1">
-                <out type="any">
-                    <tr lang="en">first element with first selector</tr>
-                    <tr lang="ru" finished="false">Первый элемент с первым селектором</tr>
-                </out>
-            </outlet>
-            <outlet number="...">
-                <out type="any">
-                    <tr lang="en">... element with ... selector</tr>
-                    <tr lang="ru" finished="false">Элемент с ... селектором</tr>
-                </out>
-            </outlet>
-            <outlet number="n">
-                <out type="any">
-                    <tr lang="en">nth element with nth selector</tr>
-                    <tr lang="ru" finished="false">n-й элемент с n-ым селектором</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">В входящем списке (l0 l1 ...) выводит соответствующее
+        выходное сообщение: [s0 l0(, [s1 l1( и т.д.)]</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="SEL" type="list">
+        <tr lang="en">list of selectors</tr>
+        <tr lang="ru" finished="false">Список селекторов</tr>
+      </argument>
+    </arguments>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet number="1">
+        <out type="any">
+          <tr lang="en">first element with first selector</tr>
+          <tr lang="ru" finished="false">Первый элемент с первым селектором</tr>
+        </out>
+      </outlet>
+      <outlet number="...">
+        <out type="any">
+          <tr lang="en">... element with ... selector</tr>
+          <tr lang="ru" finished="false">Элемент с ... селектором</tr>
+        </out>
+      </outlet>
+      <outlet number="n">
+        <out type="any">
+          <tr lang="en">nth element with nth selector</tr>
+          <tr lang="ru" finished="false">n-й элемент с n-ым селектором</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.sliders 3 @size 100 60]     /*vanilla analogue*/
 |
@@ -81,7 +81,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

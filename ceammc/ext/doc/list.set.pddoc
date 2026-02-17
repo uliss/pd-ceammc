@@ -1,81 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.set">
-        <title>list.set</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sets the value of the list item at the specified position</tr>
-                <tr lang="ru">устанавливает значение элемента списка в указанной позиции</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list set</keywords>
-            <since>0.6</since>
-        </meta>
-        <arguments>
-            <argument name="INDEX" type="int">
-                <tr lang="en">element position. Negative indexes are supported. -1 means last
-                element</tr>
-                <!-- old: Элементная позиция. Поддерживаются отрицательные
+  <object name="list.set">
+    <title>list.set</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sets the value of the list item at the specified position</tr>
+        <tr lang="ru">устанавливает значение элемента списка в указанной позиции</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list set</keywords>
+      <since>0.6</since>
+    </meta>
+    <arguments>
+      <argument name="INDEX" type="int">
+        <tr lang="en">element position. Negative indexes are supported. -1 means last element</tr>
+        <!-- old: Элементная позиция. Поддерживаются отрицательные
                 индексы. 1 означает последний элемент -->
-                <tr lang="ru" finished="false">Элементная позиция. Поддерживаются отрицательные
-                индексы. 1 означает последний элемент</tr>
-            </argument>
-            <argument name="VALUE" type="atom">
-                <tr lang="en">element value</tr>
-                <tr lang="ru" finished="false">значение элемента</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @index -->
-            <property name="@index" type="int" default="0">
-                <tr lang="en">element index</tr>
-                <tr lang="ru" finished="false">Элементный индекс</tr>
-            </property>
-            <!-- @value -->
-            <property name="@value" type="atom">
-                <tr lang="en">element value</tr>
-                <tr lang="ru" finished="false">значение элемента</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">element index</tr>
-                    <tr lang="ru" finished="false">Элементный индекс</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="atom">
-                    <tr lang="en">new element value</tr>
-                    <tr lang="ru" finished="false">Новое значение элемента</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result list</tr>
-                    <tr lang="ru" finished="false">список результатов</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Элементная позиция. Поддерживаются отрицательные индексы. 1
+        означает последний элемент</tr>
+      </argument>
+      <argument name="VALUE" type="atom">
+        <tr lang="en">element value</tr>
+        <tr lang="ru" finished="false">значение элемента</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @index -->
+      <property name="@index" type="int" default="0">
+        <tr lang="en">element index</tr>
+        <tr lang="ru" finished="false">Элементный индекс</tr>
+      </property>
+      <!-- @value -->
+      <property name="@value" type="atom">
+        <tr lang="en">element value</tr>
+        <tr lang="ru" finished="false">значение элемента</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="int">
+          <tr lang="en">element index</tr>
+          <tr lang="ru" finished="false">Элементный индекс</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="atom">
+          <tr lang="en">new element value</tr>
+          <tr lang="ru" finished="false">Новое значение элемента</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result list</tr>
+          <tr lang="ru" finished="false">список результатов</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2 3 4 5( [1 2(
 |           |
@@ -86,7 +85,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

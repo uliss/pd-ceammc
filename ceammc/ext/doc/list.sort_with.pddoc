@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.sort_with">
-        <title>list.sort_with</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sorts the list using a side processing chain</tr>
-                <tr lang="ru">сортирует список при помощи боковой цепи обработки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list sort_with</keywords>
-            <since>0.2</since>
-            <also>
-                <see>list.sort</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">output from compare object (1 or 0)</tr>
-                    <tr lang="ru" finished="false">выход из объекта сравнения (1 или 0)</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">sorted list (or mlist)</tr>
-                    <tr lang="ru" finished="false">Сортированный список (или млист)</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output list with two element to compare side-chain</tr>
-                    <tr lang="ru" finished="false">Список вывода с двумя элементами для сравнения
-                    боковой цепи</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="list.sort_with">
+    <title>list.sort_with</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sorts the list using a side processing chain</tr>
+        <tr lang="ru">сортирует список при помощи боковой цепи обработки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list sort_with</keywords>
+      <since>0.2</since>
+      <also>
+        <see>list.sort</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="int">
+          <tr lang="en">output from compare object (1 or 0)</tr>
+          <tr lang="ru" finished="false">выход из объекта сравнения (1 или 0)</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">sorted list (or mlist)</tr>
+          <tr lang="ru" finished="false">Сортированный список (или млист)</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output list with two element to compare side-chain</tr>
+          <tr lang="ru" finished="false">Список вывода с двумя элементами для сравнения боковой
+          цепи</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [3 4 1 0 6(  [\(1 2 3 4 5\), bang(
 |            |
@@ -63,7 +63,7 @@
 |
 [ui.display @display_type 1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

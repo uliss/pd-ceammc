@@ -1,358 +1,352 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hoa.map.ui" type="gui">
-        <title>hoa.map.ui</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-                <author>Pierre Guillot</author>
-                <author>Eliott Paris</author>
-                <author>Thomas Le Meur</author>
-            </authors>
-            <description>
-                <tr lang="en">a GUI to spatialize sources on a map</tr>
-                <tr lang="ru">GUI для пространственного размещения источников</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">spat</category>
-            <keywords>hoa map</keywords>
-            <since>0.9.7</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">[hoa.map.ui] allows you to spatialize several sources on a plane to
-                control [hoa.2d.map~] or [hoa.3d.map]. You can add and remove sources, change
-                coordinates, add description and create groups.</tr>
-                <!-- old: [hoa.map.ui] позволяет расположить несколько
+  <object name="hoa.map.ui" type="gui">
+    <title>hoa.map.ui</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+        <author>Pierre Guillot</author>
+        <author>Eliott Paris</author>
+        <author>Thomas Le Meur</author>
+      </authors>
+      <description>
+        <tr lang="en">a GUI to spatialize sources on a map</tr>
+        <tr lang="ru">GUI для пространственного размещения источников</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">spat</category>
+      <keywords>hoa map</keywords>
+      <since>0.9.7</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">[hoa.map.ui] allows you to spatialize several sources on a plane to control
+        [hoa.2d.map~] or [hoa.3d.map]. You can add and remove sources, change coordinates, add
+        description and create groups.</tr>
+        <!-- old: [hoa.map.ui] позволяет расположить несколько
                 источников на плоскости для управления [hoa.2d.map~] или [hoa.3d.map]. Можно
                 добавлять и удалять источники, изменять координаты, добавлять описание и создавать
                 группы. -->
-                <tr lang="ru" finished="false">[hoa.map.ui] позволяет расположить несколько
-                источников на плоскости для управления [hoa.2d.map~] или [hoa.3d.map]. Можно
-                добавлять и удалять источники, изменять координаты, добавлять описание и создавать
-                группы.</tr>
-            </par>
-            <a href="hoa/hoa.map-help.pd">CICM documentation</a>
-        </info>
-        <mouse>
-            <event type="move" editmode="false" empty="true" />
-            <event type="wheel" editmode="false" keys="Alt">zoom the view</event>
-            <event type="left-click" editmode="false">no action</event>
-            <event type="drag" editmode="false">move selected source or group</event>
-            <event type="right-click" editmode="false">opens the popup menu for adding/remove
-            sources</event>
-            <event type="right-click" editmode="false" keys="Shift">open the object help</event>
-            <event type="right-click" editmode="false" keys="Alt">open the properties
-            dialog</event>
-            <event type="right-click" editmode="true">opens the Pd popup menu</event>
-            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
-        </mouse>
-        <properties>
-            <!-- @background_color -->
-            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
-                <tr lang="en">element background color (list of red, green, blue values in 0-1
-                range)</tr>
-                <!-- old: цвет фона элемента (список красных, зеленых, синих
+        <tr lang="ru" finished="false">[hoa.map.ui] позволяет расположить несколько источников на
+        плоскости для управления [hoa.2d.map~] или [hoa.3d.map]. Можно добавлять и удалять
+        источники, изменять координаты, добавлять описание и создавать группы.</tr>
+      </par>
+      <a href="hoa/hoa.map-help.pd">CICM documentation</a>
+    </info>
+    <mouse>
+      <event type="move" editmode="false" empty="true" />
+      <event type="wheel" editmode="false" keys="Alt">zoom the view</event>
+      <event type="left-click" editmode="false">no action</event>
+      <event type="drag" editmode="false">move selected source or group</event>
+      <event type="right-click" editmode="false">opens the popup menu for adding/remove
+      sources</event>
+      <event type="right-click" editmode="false" keys="Shift">open the object help</event>
+      <event type="right-click" editmode="false" keys="Alt">open the properties dialog</event>
+      <event type="right-click" editmode="true">opens the Pd popup menu</event>
+      <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+      <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
+    </mouse>
+    <properties>
+      <!-- @background_color -->
+      <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
+        <tr lang="en">element background color (list of red, green, blue values in 0-1 range)</tr>
+        <!-- old: цвет фона элемента (список красных, зеленых, синих
                 значений в диапазоне 0-1) -->
-                <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих
-                значений в диапазоне 0-1)</tr>
-            </property>
-            <!-- @border_color -->
-            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">
-                <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
-                <!-- old: пограничный цвет (список красных, зеленых, синих
+        <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих значений
+        в диапазоне 0-1)</tr>
+      </property>
+      <!-- @border_color -->
+      <property name="@border_color" type="list" default="0.6 0.6 0.6 1">
+        <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
+        <!-- old: пограничный цвет (список красных, зеленых, синих
                 значений в диапазоне 0-1) -->
-                <tr lang="ru" finished="false">пограничный цвет (список красных, зеленых, синих
-                значений в диапазоне 0-1)</tr>
-            </property>
-            <!-- @fontname -->
-            <property name="@fontname" type="symbol" default="Helvetica"
-            enum="Courier DejaVu Helvetica Monaco Times">
-                <tr lang="en">fontname</tr>
-                <tr lang="ru" finished="false">название шрифта</tr>
-            </property>
-            <!-- @fontsize -->
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-                <tr lang="en">fontsize</tr>
-                <tr lang="ru" finished="false">шрифт</tr>
-            </property>
-            <!-- @fontslant -->
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
-                <tr lang="en">font slant</tr>
-                <tr lang="ru" finished="false">наклон шрифта</tr>
-            </property>
-            <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
-                <tr lang="en">font weight</tr>
-                <tr lang="ru" finished="false">вес шрифта</tr>
-            </property>
-            <!-- @label -->
-            <property name="@label" type="symbol" default="(null)">
-                <tr lang="en">label text</tr>
-                <tr lang="ru" finished="false">текст этикетки</tr>
-            </property>
-            <!-- @label_align -->
-            <property name="@label_align" type="symbol" enum="left center right" default="left">
-                <tr lang="en">label horizontal align</tr>
-                <tr lang="ru" finished="false">горизонтальная маркировка</tr>
-            </property>
-            <!-- @label_color -->
-            <property name="@label_color" type="list" default="0 0 0 1">
-                <tr lang="en">label color in RGB format within 0-1 range, for example: 0.2 0.4
-                0.1</tr>
-                <!-- old: цвет этикетки в формате RGB в диапазоне 0-1,
+        <tr lang="ru" finished="false">пограничный цвет (список красных, зеленых, синих значений в
+        диапазоне 0-1)</tr>
+      </property>
+      <!-- @fontname -->
+      <property name="@fontname" type="symbol" default="Helvetica"
+      enum="Courier DejaVu Helvetica Monaco Times">
+        <tr lang="en">fontname</tr>
+        <tr lang="ru" finished="false">название шрифта</tr>
+      </property>
+      <!-- @fontsize -->
+      <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+        <tr lang="en">fontsize</tr>
+        <tr lang="ru" finished="false">шрифт</tr>
+      </property>
+      <!-- @fontslant -->
+      <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
+        <tr lang="en">font slant</tr>
+        <tr lang="ru" finished="false">наклон шрифта</tr>
+      </property>
+      <!-- @fontweight -->
+      <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
+        <tr lang="en">font weight</tr>
+        <tr lang="ru" finished="false">вес шрифта</tr>
+      </property>
+      <!-- @label -->
+      <property name="@label" type="symbol" default="(null)">
+        <tr lang="en">label text</tr>
+        <tr lang="ru" finished="false">текст этикетки</tr>
+      </property>
+      <!-- @label_align -->
+      <property name="@label_align" type="symbol" enum="left center right" default="left">
+        <tr lang="en">label horizontal align</tr>
+        <tr lang="ru" finished="false">горизонтальная маркировка</tr>
+      </property>
+      <!-- @label_color -->
+      <property name="@label_color" type="list" default="0 0 0 1">
+        <tr lang="en">label color in RGB format within 0-1 range, for example: 0.2 0.4 0.1</tr>
+        <!-- old: цвет этикетки в формате RGB в диапазоне 0-1,
                 например: 0.2 0.4 0.1 -->
-                <tr lang="ru" finished="false">цвет этикетки в формате RGB в диапазоне 0-1,
-                например: 0.2 0.4 0.1</tr>
-            </property>
-            <!-- @label_inner -->
-            <property name="@label_inner" type="bool" default="0">
-                <tr lang="en">label position (1 - inner, 0 - outer).</tr>
-                <tr lang="ru" finished="false">положение метки (1 - внутреннее, 0 - наружное).</tr>
-            </property>
-            <!-- @label_margins -->
-            <property name="@label_margins" type="list" default="0 0">
-                <tr lang="en">label offset in pixels</tr>
-                <tr lang="ru" finished="false">Смещение этикетки в пикселях</tr>
-            </property>
-            <!-- @label_side -->
-            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
-                <tr lang="en">label snap side</tr>
-                <tr lang="ru" finished="false">маркировка snap side</tr>
-            </property>
-            <!-- @label_valign -->
-            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
-                <tr lang="en">label vertical align</tr>
-                <tr lang="ru" finished="false">вертикальное обозначение</tr>
-            </property>
-            <!-- @mapname -->
-            <property name="@mapname" type="symbol" default="(null)">
-                <tr lang="en">widget name to link them between</tr>
-                <tr lang="ru" finished="false">название виджета, чтобы связать их между</tr>
-            </property>
-            <!-- @outputmode -->
-            <property name="@outputmode" type="symbol" default="polar" enum="polar cartesian">
-                <tr lang="en">output mode</tr>
-                <tr lang="ru" finished="false">выходной режим</tr>
-            </property>
-            <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">
-                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
-                <!-- old: Режим пин. если 1 - поставить элемент на самый
+        <tr lang="ru" finished="false">цвет этикетки в формате RGB в диапазоне 0-1, например: 0.2
+        0.4 0.1</tr>
+      </property>
+      <!-- @label_inner -->
+      <property name="@label_inner" type="bool" default="0">
+        <tr lang="en">label position (1 - inner, 0 - outer).</tr>
+        <tr lang="ru" finished="false">положение метки (1 - внутреннее, 0 - наружное).</tr>
+      </property>
+      <!-- @label_margins -->
+      <property name="@label_margins" type="list" default="0 0">
+        <tr lang="en">label offset in pixels</tr>
+        <tr lang="ru" finished="false">Смещение этикетки в пикселях</tr>
+      </property>
+      <!-- @label_side -->
+      <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+        <tr lang="en">label snap side</tr>
+        <tr lang="ru" finished="false">маркировка snap side</tr>
+      </property>
+      <!-- @label_valign -->
+      <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+        <tr lang="en">label vertical align</tr>
+        <tr lang="ru" finished="false">вертикальное обозначение</tr>
+      </property>
+      <!-- @mapname -->
+      <property name="@mapname" type="symbol" default="(null)">
+        <tr lang="en">widget name to link them between</tr>
+        <tr lang="ru" finished="false">название виджета, чтобы связать их между</tr>
+      </property>
+      <!-- @outputmode -->
+      <property name="@outputmode" type="symbol" default="polar" enum="polar cartesian">
+        <tr lang="en">output mode</tr>
+        <tr lang="ru" finished="false">выходной режим</tr>
+      </property>
+      <!-- @pinned -->
+      <property name="@pinned" type="bool" default="0">
+        <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
+        <!-- old: Режим пин. если 1 - поставить элемент на самый
                 низкий уровень -->
-                <tr lang="ru" finished="false">Режим пин. если 1 - поставить элемент на самый
-                низкий уровень</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
-                <!-- old: Предустановленное имя для использования с
+        <tr lang="ru" finished="false">Режим пин. если 1 - поставить элемент на самый низкий
+        уровень</tr>
+      </property>
+      <!-- @presetname -->
+      <property name="@presetname" type="symbol" default="(null)">
+        <tr lang="en">preset name for using with [ui.preset]</tr>
+        <!-- old: Предустановленное имя для использования с
                 [ui.preset] -->
-                <tr lang="ru" finished="false">Предустановленное имя для использования с
-                [ui.preset]</tr>
-            </property>
-            <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">
-                <tr lang="en">receive source</tr>
-                <tr lang="ru" finished="false">источник получения</tr>
-            </property>
-            <!-- @selection_color -->
-            <property name="@selection_color" type="list" default="0 0.75 1 1">
-                <tr lang="en">selection color (list of red, green, blue values in 0-1 range)</tr>
-                <!-- old: цвет выбора (список красных, зеленых, синих значений
+        <tr lang="ru" finished="false">Предустановленное имя для использования с [ui.preset]</tr>
+      </property>
+      <!-- @receive -->
+      <property name="@receive" type="symbol" default="(null)">
+        <tr lang="en">receive source</tr>
+        <tr lang="ru" finished="false">источник получения</tr>
+      </property>
+      <!-- @selection_color -->
+      <property name="@selection_color" type="list" default="0 0.75 1 1">
+        <tr lang="en">selection color (list of red, green, blue values in 0-1 range)</tr>
+        <!-- old: цвет выбора (список красных, зеленых, синих значений
                 в диапазоне 0-1) -->
-                <tr lang="ru" finished="false">цвет выбора (список красных, зеленых, синих значений
-                в диапазоне 0-1)</tr>
-            </property>
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
-                <tr lang="ru" finished="false">Отправить пункт назначения</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="225 225">
-                <tr lang="en">element size (width, height pair)</tr>
-                <tr lang="ru" finished="false">Размер элемента (ширина, пара высоты)</tr>
-            </property>
-            <!-- @view -->
-            <property name="@view" type="symbol" default="xy" enum="xy xz yz">
-                <tr lang="en">coordinate view</tr>
-                <tr lang="ru" finished="false">координатный вид</tr>
-            </property>
-            <!-- @zoom -->
-            <property name="@zoom" type="float" default="0.35" minvalue="0.01" maxvalue="1">
-                <tr lang="en">zoom factor</tr>
-                <tr lang="ru" finished="false">фактор масштабирования</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clears specified preset</tr>
-                    <tr lang="ru" finished="false">заданный заранее</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- clear_all -->
-            <method name="clear_all">
-                <info>
-                    <tr lang="en">remove all sources from map</tr>
-                    <tr lang="ru" finished="false">Удалить все источники с карты</tr>
-                </info>
-            </method>
-            <!-- dump -->
-            <method name="dump">
-                <info>
-                    <tr lang="en">dumps all object info to Pd console window</tr>
-                    <!-- old: сбрасывает всю информацию об объекте в окно
+        <tr lang="ru" finished="false">цвет выбора (список красных, зеленых, синих значений в
+        диапазоне 0-1)</tr>
+      </property>
+      <!-- @send -->
+      <property name="@send" type="symbol" default="(null)">
+        <tr lang="en">send destination</tr>
+        <tr lang="ru" finished="false">Отправить пункт назначения</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="225 225">
+        <tr lang="en">element size (width, height pair)</tr>
+        <tr lang="ru" finished="false">Размер элемента (ширина, пара высоты)</tr>
+      </property>
+      <!-- @view -->
+      <property name="@view" type="symbol" default="xy" enum="xy xz yz">
+        <tr lang="en">coordinate view</tr>
+        <tr lang="ru" finished="false">координатный вид</tr>
+      </property>
+      <!-- @zoom -->
+      <property name="@zoom" type="float" default="0.35" minvalue="0.01" maxvalue="1">
+        <tr lang="en">zoom factor</tr>
+        <tr lang="ru" finished="false">фактор масштабирования</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">clears specified preset</tr>
+          <tr lang="ru" finished="false">заданный заранее</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- clear_all -->
+      <method name="clear_all">
+        <info>
+          <tr lang="en">remove all sources from map</tr>
+          <tr lang="ru" finished="false">Удалить все источники с карты</tr>
+        </info>
+      </method>
+      <!-- dump -->
+      <method name="dump">
+        <info>
+          <tr lang="en">dumps all object info to Pd console window</tr>
+          <!-- old: сбрасывает всю информацию об объекте в окно
                     консоли Pd -->
-                    <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно
-                    консоли Pd</tr>
-                </info>
-            </method>
-            <!-- group -->
-            <method name="group">
-                <info>
-                    <tr lang="en">group operations</tr>
-                    <tr lang="ru" finished="false">групповые операции</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">group index</tr>
-                    <tr lang="ru" finished="false">групповой индекс</tr>
-                </param>
-                <param name="ACTION" type="symbol"
-                enum="set polar pol azimuth elevation cartesian car abscissa ordinate height relpolar relradius relazimuth relelevation mute remove description color"
-                required="true">
-                    <tr lang="en">action</tr>
-                    <tr lang="ru" finished="false">действие</tr>
-                </param>
-                <param name="ARGS" type="list" required="false">
-                    <tr lang="en">action arguments</tr>
-                    <tr lang="ru" finished="false">аргументы действия</tr>
-                </param>
-            </method>
-            <!-- info -->
-            <method name="info">
-                <info>
-                    <tr lang="en">outputs info to 3rd outlet</tr>
-                    <tr lang="ru" finished="false">выходная информация в 3rd outlet</tr>
-                </info>
-            </method>
-            <!-- interp -->
-            <method name="interp">
-                <info>
-                    <tr lang="en">for this object acts as *load*, no interpolation performed</tr>
-                    <!-- old: для этого объекта действует как *load*,
+          <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно консоли
+          Pd</tr>
+        </info>
+      </method>
+      <!-- group -->
+      <method name="group">
+        <info>
+          <tr lang="en">group operations</tr>
+          <tr lang="ru" finished="false">групповые операции</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">group index</tr>
+          <tr lang="ru" finished="false">групповой индекс</tr>
+        </param>
+        <param name="ACTION" type="symbol"
+        enum="set polar pol azimuth elevation cartesian car abscissa ordinate height relpolar relradius relazimuth relelevation mute remove description color"
+        required="true">
+          <tr lang="en">action</tr>
+          <tr lang="ru" finished="false">действие</tr>
+        </param>
+        <param name="ARGS" type="list" required="false">
+          <tr lang="en">action arguments</tr>
+          <tr lang="ru" finished="false">аргументы действия</tr>
+        </param>
+      </method>
+      <!-- info -->
+      <method name="info">
+        <info>
+          <tr lang="en">outputs info to 3rd outlet</tr>
+          <tr lang="ru" finished="false">выходная информация в 3rd outlet</tr>
+        </info>
+      </method>
+      <!-- interp -->
+      <method name="interp">
+        <info>
+          <tr lang="en">for this object acts as *load*, no interpolation performed</tr>
+          <!-- old: для этого объекта действует как *load*,
                     интерполяция не выполняется -->
-                    <tr lang="ru" finished="false">для этого объекта действует как *load*,
-                    интерполяция не выполняется</tr>
-                </info>
-            </method>
-            <!-- load -->
-            <method name="load">
-                <info>
-                    <tr lang="en">loads specified preset</tr>
-                    <tr lang="ru" finished="false">заданный заранее заданный</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- pos -->
-            <method name="pos">
-                <info>
-                    <tr lang="en">set UI element position</tr>
-                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">top left x-coord</tr>
-                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">top right y-coord</tr>
-                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
-                </param>
-            </method>
-            <!-- set -->
-            <method name="set">
-                <info>
-                    <tr lang="en">sets toggle state without output</tr>
-                    <!-- old: Устанавливает состояние переключения без
+          <tr lang="ru" finished="false">для этого объекта действует как *load*, интерполяция не
+          выполняется</tr>
+        </info>
+      </method>
+      <!-- load -->
+      <method name="load">
+        <info>
+          <tr lang="en">loads specified preset</tr>
+          <tr lang="ru" finished="false">заданный заранее заданный</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- pos -->
+      <method name="pos">
+        <info>
+          <tr lang="en">set UI element position</tr>
+          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">top left x-coord</tr>
+          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+        </param>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">top right y-coord</tr>
+          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+        </param>
+      </method>
+      <!-- set -->
+      <method name="set">
+        <info>
+          <tr lang="en">sets toggle state without output</tr>
+          <!-- old: Устанавливает состояние переключения без
                     выхода -->
-                    <tr lang="ru" finished="false">Устанавливает состояние переключения без
-                    выхода</tr>
-                </info>
-            </method>
-            <!-- source -->
-            <method name="source">
-                <info>
-                    <tr lang="en">source operations</tr>
-                    <tr lang="ru" finished="false">Исходные операции</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">source index</tr>
-                    <tr lang="ru" finished="false">Исходный индекс</tr>
-                </param>
-                <param name="ACTION" type="symbol"
-                enum="polar pol azimuth elevation cartesian car abscissa ordinate height mute remove description color"
-                required="true">
-                    <tr lang="en">action</tr>
-                    <tr lang="ru" finished="false">действие</tr>
-                </param>
-                <param name="ARGS" type="list" required="false">
-                    <tr lang="en">action arguments</tr>
-                    <tr lang="ru" finished="false">аргументы действия</tr>
-                </param>
-            </method>
-            <!-- store -->
-            <method name="store">
-                <info>
-                    <tr lang="en">stores specified preset</tr>
-                    <tr lang="ru" finished="false">магазины, указанные Preset</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output group and source info</tr>
-                    <tr lang="ru" finished="false">выходная группа и источник информации</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">source output</tr>
-                    <tr lang="ru" finished="false">источник выхода</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">group output</tr>
-                    <tr lang="ru" finished="false">групповой выход</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">info output</tr>
-                    <tr lang="ru" finished="false">выход информации</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Устанавливает состояние переключения без выхода</tr>
+        </info>
+      </method>
+      <!-- source -->
+      <method name="source">
+        <info>
+          <tr lang="en">source operations</tr>
+          <tr lang="ru" finished="false">Исходные операции</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">source index</tr>
+          <tr lang="ru" finished="false">Исходный индекс</tr>
+        </param>
+        <param name="ACTION" type="symbol"
+        enum="polar pol azimuth elevation cartesian car abscissa ordinate height mute remove description color"
+        required="true">
+          <tr lang="en">action</tr>
+          <tr lang="ru" finished="false">действие</tr>
+        </param>
+        <param name="ARGS" type="list" required="false">
+          <tr lang="en">action arguments</tr>
+          <tr lang="ru" finished="false">аргументы действия</tr>
+        </param>
+      </method>
+      <!-- store -->
+      <method name="store">
+        <info>
+          <tr lang="en">stores specified preset</tr>
+          <tr lang="ru" finished="false">магазины, указанные Preset</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output group and source info</tr>
+          <tr lang="ru" finished="false">выходная группа и источник информации</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">source output</tr>
+          <tr lang="ru" finished="false">источник выхода</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">group output</tr>
+          <tr lang="ru" finished="false">групповой выход</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">info output</tr>
+          <tr lang="ru" finished="false">выход информации</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [info(
 |
@@ -374,7 +368,7 @@
 [X z:1->b]
 [X z:2->c]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,91 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="env2array">
-        <title>env2array</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">renders the envelope into the array</tr>
-                <tr lang="ru">рендеринг огибающей в массив</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>env</category>
-            <keywords>envelope array</keywords>
-            <since>0.5</since>
-            <aliases>
-                <alias>ceammc/env2array</alias>
-                <alias>ceammc/env-&gt;array</alias>
-                <alias>env-&gt;array</alias>
-            </aliases>
-            <also>
-                <see>env-&gt;vline</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru" finished="false">имя массива</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">target array name</tr>
-                <tr lang="ru" finished="false">имя целевого массива</tr>
-            </property>
-            <!-- @fit -->
-            <property name="@fit" type="alias">
-                <tr lang="en">alias to @mode fit property</tr>
-                <tr lang="ru" finished="false">Оригинальное название: @mode fit property</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" enum="fit resize raw" default="fit">
-                <tr lang="en">rendering mode: *fit* to array size, *resize* array to envelope
-                length or *raw* render while enough space in array</tr>
-                <!-- old: Режим рендеринга: *fit* to array size, *resize*
+  <object name="env2array">
+    <title>env2array</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">renders the envelope into the array</tr>
+        <tr lang="ru">рендеринг огибающей в массив</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>env</category>
+      <keywords>envelope array</keywords>
+      <since>0.5</since>
+      <aliases>
+        <alias>ceammc/env2array</alias>
+        <alias>ceammc/env-&gt;array</alias>
+        <alias>env-&gt;array</alias>
+      </aliases>
+      <also>
+        <see>env-&gt;vline</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru" finished="false">имя массива</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">target array name</tr>
+        <tr lang="ru" finished="false">имя целевого массива</tr>
+      </property>
+      <!-- @fit -->
+      <property name="@fit" type="alias">
+        <tr lang="en">alias to @mode fit property</tr>
+        <tr lang="ru" finished="false">Оригинальное название: @mode fit property</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" enum="fit resize raw" default="fit">
+        <tr lang="en">rendering mode: *fit* to array size, *resize* array to envelope length or
+        *raw* render while enough space in array</tr>
+        <!-- old: Режим рендеринга: *fit* to array size, *resize*
                 array to envelope length или *raw* render while enough space in array -->
-                <tr lang="ru" finished="false">Режим рендеринга: *fit* to array size, *resize*
-                array to envelope length или *raw* render while enough space in array</tr>
-            </property>
-            <!-- @raw -->
-            <property name="@raw" type="alias">
-                <tr lang="en">alias to @mode raw property</tr>
-                <tr lang="ru" finished="false">Источник: @mode raw property</tr>
-            </property>
-            <!-- @redraw -->
-            <property name="@redraw" type="bool" default="1">
-                <tr lang="en">redraw after array change</tr>
-                <tr lang="ru" finished="false">Перерисовать после изменения массива</tr>
-            </property>
-            <!-- @resize -->
-            <property name="@resize" type="alias">
-                <tr lang="en">alias to @mode resize property</tr>
-                <tr lang="ru" finished="false">@mode Resize Недвижимость</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">*envelope* data</tr>
-                    <tr lang="ru" finished="false">*конвертные данные*</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output number of samples in destination array. If array was
-                    resized - output this new size</tr>
-                    <tr lang="ru" finished="false">выходное число образцов в массиве назначения.
-                    Если массив был изменен - выведите этот новый размер</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Режим рендеринга: *fit* to array size, *resize* array to
+        envelope length или *raw* render while enough space in array</tr>
+      </property>
+      <!-- @raw -->
+      <property name="@raw" type="alias">
+        <tr lang="en">alias to @mode raw property</tr>
+        <tr lang="ru" finished="false">Источник: @mode raw property</tr>
+      </property>
+      <!-- @redraw -->
+      <property name="@redraw" type="bool" default="1">
+        <tr lang="en">redraw after array change</tr>
+        <tr lang="ru" finished="false">Перерисовать после изменения массива</tr>
+      </property>
+      <!-- @resize -->
+      <property name="@resize" type="alias">
+        <tr lang="en">alias to @mode resize property</tr>
+        <tr lang="ru" finished="false">@mode Resize Недвижимость</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">*envelope* data</tr>
+          <tr lang="ru" finished="false">*конвертные данные*</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output number of samples in destination array. If array was resized -
+          output this new size</tr>
+          <tr lang="ru" finished="false">выходное число образцов в массиве назначения. Если массив
+          был изменен - выведите этот новый размер</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ar 50 400, bang(                         [bang(
 |                                         |
@@ -104,7 +104,7 @@
 
 [array env_arr size=1000 w=400 h=100 yr=0..1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

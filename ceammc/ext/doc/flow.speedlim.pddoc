@@ -1,97 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.speedlim">
-        <title>flow.speedlim</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">control stream speed limiter</tr>
-                <tr lang="ru">ограничитель скорости потока</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>speelim drop</keywords>
-            <since>0.5</since>
-            <aliases>
-                <alias>ceammc/speedlim</alias>
-                <alias>speedlim</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Passthru all control data not often then specified limit in ms. Can
-                be used for button debouncing. In initial state is opened, on first message pass it
-                and then became closed within specified time interval. All incoming messages in
-                that time are dropped. After this interval expiried goes to opened state</tr>
-                <!-- old: Все контрольные данные не часто затем указывают
+  <object name="flow.speedlim">
+    <title>flow.speedlim</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">control stream speed limiter</tr>
+        <tr lang="ru">ограничитель скорости потока</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>speelim drop</keywords>
+      <since>0.5</since>
+      <aliases>
+        <alias>ceammc/speedlim</alias>
+        <alias>speedlim</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Passthru all control data not often then specified limit in ms. Can be used
+        for button debouncing. In initial state is opened, on first message pass it and then became
+        closed within specified time interval. All incoming messages in that time are dropped.
+        After this interval expiried goes to opened state</tr>
+        <!-- old: Все контрольные данные не часто затем указывают
                 предел в мс. Может использоваться для отстегивания кнопок. В начальном состоянии
                 открывается, по первому сообщению проходит его и затем становится закрытым в
                 течение заданного временного интервала. Все входящие сообщения за это время
                 удаляются. После истечения этого интервала переходит в открытое состояние -->
-                <tr lang="ru" finished="false">Все контрольные данные не часто затем указывают
-                предел в мс. Может использоваться для отстегивания кнопок. В начальном состоянии
-                открывается, по первому сообщению проходит его и затем становится закрытым в
-                течение заданного временного интервала. Все входящие сообщения за это время
-                удаляются. После истечения этого интервала переходит в открытое состояние</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="LIMIT" type="int" minvalue="0" units="millisecond">
-                <tr lang="en">limit time</tr>
-                <tr lang="ru" finished="false">предельный срок</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @limit -->
-            <property name="@limit" type="int" minvalue="0" units="millisecond" default="0">
-                <tr lang="en">speed limit. If set to zero there is no flow limitations</tr>
-                <!-- old: ограничение скорости. При нулевом значении нет
+        <tr lang="ru" finished="false">Все контрольные данные не часто затем указывают предел в мс.
+        Может использоваться для отстегивания кнопок. В начальном состоянии открывается, по первому
+        сообщению проходит его и затем становится закрытым в течение заданного временного
+        интервала. Все входящие сообщения за это время удаляются. После истечения этого интервала
+        переходит в открытое состояние</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="LIMIT" type="int" minvalue="0" units="millisecond">
+        <tr lang="en">limit time</tr>
+        <tr lang="ru" finished="false">предельный срок</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @limit -->
+      <property name="@limit" type="int" minvalue="0" units="millisecond" default="0">
+        <tr lang="en">speed limit. If set to zero there is no flow limitations</tr>
+        <!-- old: ограничение скорости. При нулевом значении нет
                 ограничений потока -->
-                <tr lang="ru" finished="false">ограничение скорости. При нулевом значении нет
-                ограничений потока</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input flow</tr>
-                    <tr lang="ru" finished="false">входной поток</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">reset internal timer and goes to opened state</tr>
-                    <!-- old: сбросить внутренний таймер и перейти в открытое
+        <tr lang="ru" finished="false">ограничение скорости. При нулевом значении нет ограничений
+        потока</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input flow</tr>
+          <tr lang="ru" finished="false">входной поток</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">reset internal timer and goes to opened state</tr>
+          <!-- old: сбросить внутренний таймер и перейти в открытое
                     состояние -->
-                    <tr lang="ru" finished="false">сбросить внутренний таймер и перейти в открытое
-                    состояние</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">set speed limit</tr>
-                    <tr lang="ru" finished="false">установить ограничение скорости</tr>
-                </in>
-                <in>
-                    <tr lang="en">reset: reset internal timer and goes to opened state</tr>
-                    <!-- old: Reset: сброс внутреннего таймера и переходит в
+          <tr lang="ru" finished="false">сбросить внутренний таймер и перейти в открытое
+          состояние</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">set speed limit</tr>
+          <tr lang="ru" finished="false">установить ограничение скорости</tr>
+        </in>
+        <in>
+          <tr lang="en">reset: reset internal timer and goes to opened state</tr>
+          <!-- old: Reset: сброс внутреннего таймера и переходит в
                     открытое состояние -->
-                    <tr lang="ru" finished="false">Reset: сброс внутреннего таймера и переходит в
-                    открытое состояние</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output flow</tr>
-                    <tr lang="ru" finished="false">выходной поток</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Reset: сброс внутреннего таймера и переходит в открытое
+          состояние</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output flow</tr>
+          <tr lang="ru" finished="false">выходной поток</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.hsl]         [F]
 |                |.
@@ -99,7 +99,7 @@
 |
 [ui.hsl]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

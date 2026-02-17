@@ -1,196 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="synth.metro~">
-        <title>synth.metro~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">ready to use metronome synth</tr>
-                <tr lang="ru">готовый к использованию синтезатор метронома</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>synth</category>
-            <keywords>metro poly rhythm</keywords>
-            <since>0.9.7</since>
-        </meta>
-        <arguments>
-            <argument name="TEMPO" type="atom" units="bpm">
-                <tr lang="en">tempo in beats per minute</tr>
-                <tr lang="ru" finished="false">темп в ударах в минуту</tr>
-            </argument>
-            <argument name="TSIG" type="symbol">
-                <tr lang="en">time signature</tr>
-                <tr lang="ru" finished="false">время подписи</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @down.freq -->
-            <property name="@down.freq" type="float" default="1500" minvalue="100" maxvalue="5000"
-            units="hertz">
-                <tr lang="en">downbeat frequency</tr>
-                <tr lang="ru" finished="false">понижательная частота</tr>
-            </property>
-            <!-- @down.gain -->
-            <property name="@down.gain" type="float" default="6" minvalue="-12" maxvalue="12"
-            units="decibel">
-                <tr lang="en">downbeat gain</tr>
-                <tr lang="ru" finished="false">нисходящий выигрыш</tr>
-            </property>
-            <!-- @down.reson -->
-            <property name="@down.reson" type="float" default="50" minvalue="5" maxvalue="100">
-                <tr lang="en">downbeat resonance value (Q)</tr>
-                <tr lang="ru" finished="false">нисходящее резонансное значение (Q)</tr>
-            </property>
-            <!-- @gain -->
-            <property name="@gain" type="float" default="0" minvalue="-12" maxvalue="12"
-            units="decibel">
-                <tr lang="en">common synth gain</tr>
-                <tr lang="ru" finished="false">Обычный синтезатор</tr>
-            </property>
-            <!-- @mark.freq -->
-            <property name="@mark.freq" type="float" default="2000" minvalue="100" maxvalue="5000"
-            units="hertz">
-                <tr lang="en">mark sound frequency</tr>
-                <tr lang="ru" finished="false">Маркировка звуковой частоты</tr>
-            </property>
-            <!-- @mark.gain -->
-            <property name="@mark.gain" type="float" default="6" minvalue="-12" maxvalue="12"
-            units="decibel">
-                <tr lang="en">mark sound gain</tr>
-                <tr lang="ru" finished="false">Звуковая марка</tr>
-            </property>
-            <!-- @mark.reson -->
-            <property name="@mark.reson" type="float" default="500" minvalue="5" maxvalue="500">
-                <tr lang="en">mark sound resonance value (Q)</tr>
-                <tr lang="ru" finished="false">Звуковое резонансное значение (Q)</tr>
-            </property>
-            <!-- @off.freq -->
-            <property name="@off.freq" type="float" default="500" minvalue="100" maxvalue="5000"
-            units="hertz">
-                <tr lang="en">off-beat frequency</tr>
-                <tr lang="ru" finished="false">частота off-beat</tr>
-            </property>
-            <!-- @off.gain -->
-            <property name="@off.gain" type="float" default="6" minvalue="-12" maxvalue="12"
-            units="decibel">
-                <tr lang="en">off-beat gain</tr>
-                <tr lang="ru" finished="false">непобедимый выигрыш</tr>
-            </property>
-            <!-- @off.reson -->
-            <property name="@off.reson" type="float" default="10" minvalue="5" maxvalue="100">
-                <tr lang="en">off-beat resonance value (Q)</tr>
-                <tr lang="ru" finished="false">Резонансное значение off-beat (Q)</tr>
-            </property>
-            <!-- @on.freq -->
-            <property name="@on.freq" type="float" default="1000" minvalue="100" maxvalue="5000"
-            units="hertz">
-                <tr lang="en">on-beat frequency</tr>
-                <tr lang="ru" finished="false">частота на ударе</tr>
-            </property>
-            <!-- @on.gain -->
-            <property name="@on.gain" type="float" default="6" minvalue="-12" maxvalue="12"
-            units="decibel">
-                <tr lang="en">on-beat gain</tr>
-                <tr lang="ru" finished="false">выигрыш на бите</tr>
-            </property>
-            <!-- @on.reson -->
-            <property name="@on.reson" type="float" default="30" minvalue="5" maxvalue="100">
-                <tr lang="en">on-beat resonance value (Q)</tr>
-                <tr lang="ru" finished="false">Резонансное значение on-beat (Q)</tr>
-            </property>
-            <!-- @tempo -->
-            <property name="@tempo" type="atom" default="60|4bpm" units="bpm">
-                <tr lang="en">tempo. If beat division is ommitted, using 1/4</tr>
-                <tr lang="ru" finished="false">Темп. Если бит дивизион опущен, используя 1/4</tr>
-            </property>
-            <!-- @tsig -->
-            <property name="@tsig" type="symbol" default="|4/4|">
-                <tr lang="en">metronome time signature, can be complex like: |1/4+15/16| etc.</tr>
-                <tr lang="ru" finished="false">Подпись времени метронома может быть сложной,
-                например: |1/4+15/16 | и т.д.</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- down -->
-            <method name="down">
-                <info>
-                    <tr lang="en">manually play downbeat sound</tr>
-                    <tr lang="ru" finished="false">Играть Downbeat Sound</tr>
-                </info>
-            </method>
-            <!-- mark -->
-            <method name="mark">
-                <info>
-                    <tr lang="en">manually play mark sound</tr>
-                    <tr lang="ru" finished="false">вручную воспроизводить звук Mark</tr>
-                </info>
-            </method>
-            <!-- off -->
-            <method name="off">
-                <info>
-                    <tr lang="en">manually play offbeat sound</tr>
-                    <tr lang="ru" finished="false">Играть Offbeat Sound</tr>
-                </info>
-            </method>
-            <!-- on -->
-            <method name="on">
-                <info>
-                    <tr lang="en">manually play onbeat sound</tr>
-                    <tr lang="ru" finished="false">Играть Onbeat Sound</tr>
-                </info>
-            </method>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset metro to the beginning</tr>
-                    <tr lang="ru" finished="false">Перезагрузить метро до начала</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">1: start, 0: stop metronome</tr>
-                    <tr lang="ru" finished="false">1: начало, 0: остановка метронома</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">1: play downbeat, 2: play on-beat, 3: play off-beat</tr>
-                    <tr lang="ru" finished="false">1: играть на понижение, 2: играть на удар, 3:
-                    играть на поражение</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set tempo in 1/4 per minute</tr>
-                    <tr lang="ru" finished="false">Установить темп в 1/4 в минуту</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">synth output</tr>
-                    <tr lang="ru" finished="false">синтетический выход</tr>
-                </out>
-            </outlet>
-            <outlet type="control">
-                <out type="any">
-                    <tr lang="en">current beat: 1: downbeat, 2: onbeat, 3: offbeat, 4: mark</tr>
-                    <tr lang="ru" finished="false">текущий бит: 1: downbeat, 2: onbeat, 3: offbeat,
-                    4: mark</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="synth.metro~">
+    <title>synth.metro~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">ready to use metronome synth</tr>
+        <tr lang="ru">готовый к использованию синтезатор метронома</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>synth</category>
+      <keywords>metro poly rhythm</keywords>
+      <since>0.9.7</since>
+    </meta>
+    <arguments>
+      <argument name="TEMPO" type="atom" units="bpm">
+        <tr lang="en">tempo in beats per minute</tr>
+        <tr lang="ru" finished="false">темп в ударах в минуту</tr>
+      </argument>
+      <argument name="TSIG" type="symbol">
+        <tr lang="en">time signature</tr>
+        <tr lang="ru" finished="false">время подписи</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @down.freq -->
+      <property name="@down.freq" type="float" default="1500" minvalue="100" maxvalue="5000"
+      units="hertz">
+        <tr lang="en">downbeat frequency</tr>
+        <tr lang="ru" finished="false">понижательная частота</tr>
+      </property>
+      <!-- @down.gain -->
+      <property name="@down.gain" type="float" default="6" minvalue="-12" maxvalue="12"
+      units="decibel">
+        <tr lang="en">downbeat gain</tr>
+        <tr lang="ru" finished="false">нисходящий выигрыш</tr>
+      </property>
+      <!-- @down.reson -->
+      <property name="@down.reson" type="float" default="50" minvalue="5" maxvalue="100">
+        <tr lang="en">downbeat resonance value (Q)</tr>
+        <tr lang="ru" finished="false">нисходящее резонансное значение (Q)</tr>
+      </property>
+      <!-- @gain -->
+      <property name="@gain" type="float" default="0" minvalue="-12" maxvalue="12" units="decibel">
+        <tr lang="en">common synth gain</tr>
+        <tr lang="ru" finished="false">Обычный синтезатор</tr>
+      </property>
+      <!-- @mark.freq -->
+      <property name="@mark.freq" type="float" default="2000" minvalue="100" maxvalue="5000"
+      units="hertz">
+        <tr lang="en">mark sound frequency</tr>
+        <tr lang="ru" finished="false">Маркировка звуковой частоты</tr>
+      </property>
+      <!-- @mark.gain -->
+      <property name="@mark.gain" type="float" default="6" minvalue="-12" maxvalue="12"
+      units="decibel">
+        <tr lang="en">mark sound gain</tr>
+        <tr lang="ru" finished="false">Звуковая марка</tr>
+      </property>
+      <!-- @mark.reson -->
+      <property name="@mark.reson" type="float" default="500" minvalue="5" maxvalue="500">
+        <tr lang="en">mark sound resonance value (Q)</tr>
+        <tr lang="ru" finished="false">Звуковое резонансное значение (Q)</tr>
+      </property>
+      <!-- @off.freq -->
+      <property name="@off.freq" type="float" default="500" minvalue="100" maxvalue="5000"
+      units="hertz">
+        <tr lang="en">off-beat frequency</tr>
+        <tr lang="ru" finished="false">частота off-beat</tr>
+      </property>
+      <!-- @off.gain -->
+      <property name="@off.gain" type="float" default="6" minvalue="-12" maxvalue="12"
+      units="decibel">
+        <tr lang="en">off-beat gain</tr>
+        <tr lang="ru" finished="false">непобедимый выигрыш</tr>
+      </property>
+      <!-- @off.reson -->
+      <property name="@off.reson" type="float" default="10" minvalue="5" maxvalue="100">
+        <tr lang="en">off-beat resonance value (Q)</tr>
+        <tr lang="ru" finished="false">Резонансное значение off-beat (Q)</tr>
+      </property>
+      <!-- @on.freq -->
+      <property name="@on.freq" type="float" default="1000" minvalue="100" maxvalue="5000"
+      units="hertz">
+        <tr lang="en">on-beat frequency</tr>
+        <tr lang="ru" finished="false">частота на ударе</tr>
+      </property>
+      <!-- @on.gain -->
+      <property name="@on.gain" type="float" default="6" minvalue="-12" maxvalue="12"
+      units="decibel">
+        <tr lang="en">on-beat gain</tr>
+        <tr lang="ru" finished="false">выигрыш на бите</tr>
+      </property>
+      <!-- @on.reson -->
+      <property name="@on.reson" type="float" default="30" minvalue="5" maxvalue="100">
+        <tr lang="en">on-beat resonance value (Q)</tr>
+        <tr lang="ru" finished="false">Резонансное значение on-beat (Q)</tr>
+      </property>
+      <!-- @tempo -->
+      <property name="@tempo" type="atom" default="60|4bpm" units="bpm">
+        <tr lang="en">tempo. If beat division is ommitted, using 1/4</tr>
+        <tr lang="ru" finished="false">Темп. Если бит дивизион опущен, используя 1/4</tr>
+      </property>
+      <!-- @tsig -->
+      <property name="@tsig" type="symbol" default="|4/4|">
+        <tr lang="en">metronome time signature, can be complex like: |1/4+15/16| etc.</tr>
+        <tr lang="ru" finished="false">Подпись времени метронома может быть сложной, например:
+        |1/4+15/16 | и т.д.</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- down -->
+      <method name="down">
+        <info>
+          <tr lang="en">manually play downbeat sound</tr>
+          <tr lang="ru" finished="false">Играть Downbeat Sound</tr>
+        </info>
+      </method>
+      <!-- mark -->
+      <method name="mark">
+        <info>
+          <tr lang="en">manually play mark sound</tr>
+          <tr lang="ru" finished="false">вручную воспроизводить звук Mark</tr>
+        </info>
+      </method>
+      <!-- off -->
+      <method name="off">
+        <info>
+          <tr lang="en">manually play offbeat sound</tr>
+          <tr lang="ru" finished="false">Играть Offbeat Sound</tr>
+        </info>
+      </method>
+      <!-- on -->
+      <method name="on">
+        <info>
+          <tr lang="en">manually play onbeat sound</tr>
+          <tr lang="ru" finished="false">Играть Onbeat Sound</tr>
+        </info>
+      </method>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset metro to the beginning</tr>
+          <tr lang="ru" finished="false">Перезагрузить метро до начала</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">1: start, 0: stop metronome</tr>
+          <tr lang="ru" finished="false">1: начало, 0: остановка метронома</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="int">
+          <tr lang="en">1: play downbeat, 2: play on-beat, 3: play off-beat</tr>
+          <tr lang="ru" finished="false">1: играть на понижение, 2: играть на удар, 3: играть на
+          поражение</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set tempo in 1/4 per minute</tr>
+          <tr lang="ru" finished="false">Установить темп в 1/4 в минуту</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">synth output</tr>
+          <tr lang="ru" finished="false">синтетический выход</tr>
+        </out>
+      </outlet>
+      <outlet type="control">
+        <out type="any">
+          <tr lang="en">current beat: 1: downbeat, 2: onbeat, 3: offbeat, 4: mark</tr>
+          <tr lang="ru" finished="false">текущий бит: 1: downbeat, 2: onbeat, 3: offbeat, 4:
+          mark</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T] [down #a( [on #b( [off #c( [mark #d(
 |
@@ -206,7 +205,7 @@
 
 [X a->z] [X b->z] [X c->z] [X d->z]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

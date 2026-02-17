@@ -1,84 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="net.osc.receive">
-        <title>net.osc.receive</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">receiving messages from the OSC protocol</tr>
-                <tr lang="ru">получение сообщений протокола OSC</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>net</category>
-            <keywords>osc net receive</keywords>
-            <since>0.9.5</since>
-            <also>
-                <see>net.osc.server</see>
-                <see>net.osc.send</see>
-            </also>
-            <aliases>
-                <alias>net.osc.r</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="PATH" type="symbol">
-                <tr lang="en">OSC path to listen</tr>
-                <tr lang="ru" finished="false">Путь к прослушиванию</tr>
-            </argument>
-            <argument name="SERVER" type="symbol">
-                <tr lang="en">OSC server name</tr>
-                <tr lang="ru" finished="false">Название сервера SC</tr>
-            </argument>
-            <argument name="TYPES" type="symbol">
-                <tr lang="en">expected OSC type string</tr>
-                <tr lang="ru" finished="false">ожидаемая строка типа OSC</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @path -->
-            <property name="@path" type="symbol" default="">
-                <tr lang="en">OSC listen path</tr>
-                <tr lang="ru" finished="false">Слушать Path</tr>
-            </property>
-            <!-- @server -->
-            <property name="@server" type="symbol" default="default">
-                <tr lang="en">OSC server name</tr>
-                <tr lang="ru" finished="false">Название сервера SC</tr>
-            </property>
-            <!-- @types -->
-            <property name="@types" type="symbol" default="none">
-                <tr lang="en">expected OSC type string</tr>
-                <tr lang="ru" finished="false">ожидаемая строка типа OSC</tr>
-            </property>
-        </properties>
-        <methods />
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">message input</tr>
-                    <tr lang="ru" finished="false">ввод сообщения</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">set OSC listen path</tr>
-                    <tr lang="ru" finished="false">Установить путь прослушивания</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">OSC output</tr>
-                    <tr lang="ru" finished="false">выпуск ОСК</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="net.osc.receive">
+    <title>net.osc.receive</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">receiving messages from the OSC protocol</tr>
+        <tr lang="ru">получение сообщений протокола OSC</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>net</category>
+      <keywords>osc net receive</keywords>
+      <since>0.9.5</since>
+      <also>
+        <see>net.osc.server</see>
+        <see>net.osc.send</see>
+      </also>
+      <aliases>
+        <alias>net.osc.r</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="PATH" type="symbol">
+        <tr lang="en">OSC path to listen</tr>
+        <tr lang="ru" finished="false">Путь к прослушиванию</tr>
+      </argument>
+      <argument name="SERVER" type="symbol">
+        <tr lang="en">OSC server name</tr>
+        <tr lang="ru" finished="false">Название сервера SC</tr>
+      </argument>
+      <argument name="TYPES" type="symbol">
+        <tr lang="en">expected OSC type string</tr>
+        <tr lang="ru" finished="false">ожидаемая строка типа OSC</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @path -->
+      <property name="@path" type="symbol" default="">
+        <tr lang="en">OSC listen path</tr>
+        <tr lang="ru" finished="false">Слушать Path</tr>
+      </property>
+      <!-- @server -->
+      <property name="@server" type="symbol" default="default">
+        <tr lang="en">OSC server name</tr>
+        <tr lang="ru" finished="false">Название сервера SC</tr>
+      </property>
+      <!-- @types -->
+      <property name="@types" type="symbol" default="none">
+        <tr lang="en">expected OSC type string</tr>
+        <tr lang="ru" finished="false">ожидаемая строка типа OSC</tr>
+      </property>
+    </properties>
+    <methods />
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">message input</tr>
+          <tr lang="ru" finished="false">ввод сообщения</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">set OSC listen path</tr>
+          <tr lang="ru" finished="false">Установить путь прослушивания</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">OSC output</tr>
+          <tr lang="ru" finished="false">выпуск ОСК</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /*default OSC server: osc.udp://:9000*/ [net.osc.server TCP osc.tcp://:9001]
 
@@ -91,7 +91,7 @@
 |                 |                     |
 [net.osc.send osc.udp://:9000]          [net.osc.send osc.tcp://:9001]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,72 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="function" type="gui">
-        <title>function</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">the named function</tr>
-                <tr lang="ru">именованная функция</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">base</category>
-            <keywords>function</keywords>
-            <also>
-                <see>function.call</see>
-            </also>
-            <aliases>
-                <alias view="link">func</alias>
-                <alias view="link">ceammc/func</alias>
-                <alias view="link">ceammc/function</alias>
-            </aliases>
-            <since>0.3</since>
-        </meta>
-        <arguments>
-            <argument name="NAME" type="symbol">
-                <tr lang="en">function name, should be unique</tr>
-                <tr lang="ru" finished="false">имя должно быть уникальным</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @name -->
-            <property name="@name" type="symbol" default="" access="initonly">
-                <tr lang="en">function name, should be unique and non-empty</tr>
-                <tr lang="ru" finished="false">имя должно быть уникальным и непустым</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input values</tr>
-                    <tr lang="ru" finished="false">входные значения</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">value from the side-chain</tr>
-                    <tr lang="ru" finished="false">значение из боковой цепи</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">value to the side-chain</tr>
-                    <tr lang="ru" finished="false">значение для боковой цепи</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="function" type="gui">
+    <title>function</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">the named function</tr>
+        <tr lang="ru">именованная функция</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">base</category>
+      <keywords>function</keywords>
+      <also>
+        <see>function.call</see>
+      </also>
+      <aliases>
+        <alias view="link">func</alias>
+        <alias view="link">ceammc/func</alias>
+        <alias view="link">ceammc/function</alias>
+      </aliases>
+      <since>0.3</since>
+    </meta>
+    <arguments>
+      <argument name="NAME" type="symbol">
+        <tr lang="en">function name, should be unique</tr>
+        <tr lang="ru" finished="false">имя должно быть уникальным</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @name -->
+      <property name="@name" type="symbol" default="" access="initonly">
+        <tr lang="en">function name, should be unique and non-empty</tr>
+        <tr lang="ru" finished="false">имя должно быть уникальным и непустым</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input values</tr>
+          <tr lang="ru" finished="false">входные значения</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">value from the side-chain</tr>
+          <tr lang="ru" finished="false">значение из боковой цепи</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">value to the side-chain</tr>
+          <tr lang="ru" finished="false">значение для боковой цепи</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [function f1-$0 #f1]X[expr sqrt($f1 * $f1 - 1) #e1]
 
@@ -76,7 +76,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

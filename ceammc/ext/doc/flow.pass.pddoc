@@ -1,88 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.pass">
-        <title>flow.pass</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">pass specified values</tr>
-                <tr lang="ru">пропускает указанные значения</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>pass functional</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>ceammc/pass</alias>
-                <alias>pass</alias>
-            </aliases>
-            <also>
-                <see>flow.pass_if</see>
-                <see>flow.reject</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="VALUES" type="list">
-                <tr lang="en">atoms to pass</tr>
-                <tr lang="ru" finished="false">Атомы проходят</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @values -->
-            <property name="@values" type="list" default="">
-                <tr lang="en">atoms to pass</tr>
-                <tr lang="ru" finished="false">Атомы проходят</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">pass</tr>
-                    <tr lang="ru" finished="false">проход</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">pass if float found in pass list</tr>
-                    <!-- old: Пройти, если поплавок найден в списке
+  <object name="flow.pass">
+    <title>flow.pass</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">pass specified values</tr>
+        <tr lang="ru">пропускает указанные значения</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>pass functional</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>ceammc/pass</alias>
+        <alias>pass</alias>
+      </aliases>
+      <also>
+        <see>flow.pass_if</see>
+        <see>flow.reject</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="VALUES" type="list">
+        <tr lang="en">atoms to pass</tr>
+        <tr lang="ru" finished="false">Атомы проходят</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @values -->
+      <property name="@values" type="list" default="">
+        <tr lang="en">atoms to pass</tr>
+        <tr lang="ru" finished="false">Атомы проходят</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">pass</tr>
+          <tr lang="ru" finished="false">проход</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">pass if float found in pass list</tr>
+          <!-- old: Пройти, если поплавок найден в списке
                     пропусков -->
-                    <tr lang="ru" finished="false">Пройти, если поплавок найден в списке
-                    пропусков</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">pass if symbol found in pass list</tr>
-                    <tr lang="ru" finished="false">если символ найден в списке пропусков</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">pass if first atom found in pass list</tr>
-                    <tr lang="ru" finished="false">если первый атом найден в списке пропусков</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">pass if message selector found in pass list</tr>
-                    <!-- old: Pass, если селектор сообщений найден в списке
+          <tr lang="ru" finished="false">Пройти, если поплавок найден в списке пропусков</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">pass if symbol found in pass list</tr>
+          <tr lang="ru" finished="false">если символ найден в списке пропусков</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">pass if first atom found in pass list</tr>
+          <tr lang="ru" finished="false">если первый атом найден в списке пропусков</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">pass if message selector found in pass list</tr>
+          <!-- old: Pass, если селектор сообщений найден в списке
                     пропусков -->
-                    <tr lang="ru" finished="false">Pass, если селектор сообщений найден в списке
-                    пропусков</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set pass list</tr>
-                    <tr lang="ru" finished="false">Установить список</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">passed values</tr>
-                    <tr lang="ru" finished="false">переданные значения</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Pass, если селектор сообщений найден в списке
+          пропусков</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set pass list</tr>
+          <tr lang="ru" finished="false">Установить список</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">passed values</tr>
+          <tr lang="ru" finished="false">переданные значения</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]    [S]    [list 1 2 9 10(
 |      |      |
@@ -93,7 +92,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

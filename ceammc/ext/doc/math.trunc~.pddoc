@@ -1,56 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.trunc~">
-        <title>math.trunc~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">truncate to integer value</tr>
-                <tr lang="ru">усечение до целочисленного значения</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math trunc</keywords>
-            <also>
-                <see>math.trunc</see>
-                <see>math.ceil~</see>
-                <see>math.round~</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Outputs the integral value nearest to but no larger in magnitude than
-                x</tr>
-                <!-- old: Выходит интегральное значение, близкое, но не
+  <object name="math.trunc~">
+    <title>math.trunc~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">truncate to integer value</tr>
+        <tr lang="ru">усечение до целочисленного значения</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math trunc</keywords>
+      <also>
+        <see>math.trunc</see>
+        <see>math.ceil~</see>
+        <see>math.round~</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Outputs the integral value nearest to but no larger in magnitude than x</tr>
+        <!-- old: Выходит интегральное значение, близкое, но не
                 большее по величине, чем x -->
-                <tr lang="ru" finished="false">Выходит интегральное значение, близкое, но не
-                большее по величине, чем x</tr>
-            </par>
-            <a href="https://en.wikipedia.org/wiki/Floor_and_ceiling_functions">wiki: Floor and
-            ceiling functions</a>
-        </info>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">result signal</tr>
-                    <tr lang="ru" finished="false">результат сигнала</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Выходит интегральное значение, близкое, но не большее по
+        величине, чем x</tr>
+      </par>
+      <a href="https://en.wikipedia.org/wiki/Floor_and_ceiling_functions">wiki: Floor and ceiling
+      functions</a>
+    </info>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">result signal</tr>
+          <tr lang="ru" finished="false">результат сигнала</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(
 |
@@ -80,7 +79,7 @@
 [ui.dsp~]
 [X a:1->b:2]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.sin~">
-        <title>math.sin~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sine function</tr>
-                <tr lang="ru">функция синуса</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math sin</keywords>
-            <also>
-                <see>math.sin</see>
-                <see>math.cos~</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Computes the sine of input signal (in radians)</tr>
-                <tr lang="ru" finished="false">Вычисляет синус входного сигнала (в радианах)</tr>
-            </par>
-            <a href="https://en.wikipedia.org/wiki/Sine">wiki: Sine</a>
-        </info>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">result signal</tr>
-                    <tr lang="ru" finished="false">результат сигнала</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="math.sin~">
+    <title>math.sin~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sine function</tr>
+        <tr lang="ru">функция синуса</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math sin</keywords>
+      <also>
+        <see>math.sin</see>
+        <see>math.cos~</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Computes the sine of input signal (in radians)</tr>
+        <tr lang="ru" finished="false">Вычисляет синус входного сигнала (в радианах)</tr>
+      </par>
+      <a href="https://en.wikipedia.org/wiki/Sine">wiki: Sine</a>
+    </info>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">result signal</tr>
+          <tr lang="ru" finished="false">результат сигнала</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(
 |
@@ -69,7 +69,7 @@
 [ui.dsp~]
 [X a:1->b:2]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

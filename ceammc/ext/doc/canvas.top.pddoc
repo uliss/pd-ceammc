@@ -1,116 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="canvas.top">
-        <title>canvas.top</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">verbose information about top-level canvas of the object</tr>
-                <tr lang="ru">подробная информация о холсте верхнего уровня у объекта</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>patch</category>
-            <keywords>canvas</keywords>
-            <also>
-                <see>patch.args</see>
-                <see>canvas.current</see>
-            </also>
-            <since>0.4</since>
-        </meta>
-        <properties>
-            <!-- @abs -->
-            <property name="@abs" type="bool" default="1">
-                <tr lang="en">if false: using toplevel canvas, if true: using abstraction
-                canvas</tr>
-                <tr lang="ru">если 0: использует холст самого верхнего уровня, если 1: использует
-                холст абстракции</tr>
-            </property>
-            <!-- @dir -->
-            <property name="@dir" type="symbol" access="readonly" default="/">
-                <tr lang="en">canvas directory</tr>
-                <tr lang="ru">каталог холста</tr>
-            </property>
-            <!-- @font -->
-            <property name="@font" type="int" access="readonly" default="10">
-                <tr lang="en">window font</tr>
-                <tr lang="ru">оконный шрифт</tr>
-            </property>
-            <!-- @height -->
-            <property name="@height" type="int" access="readonly" default="400">
-                <tr lang="en">window height</tr>
-                <tr lang="ru">высота окна</tr>
-            </property>
-            <!-- @name -->
-            <property name="@name" type="symbol" access="readonly" default="test_canvas">
-                <tr lang="en">canvas name</tr>
-                <tr lang="ru">имя холста</tr>
-            </property>
-            <!-- @paths -->
-            <property name="@paths" type="list" access="readonly" default="">
-                <tr lang="en">search paths</tr>
-                <tr lang="ru">пути поиска</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" access="readonly" default="600 400">
-                <tr lang="en">window size</tr>
-                <tr lang="ru">размер окна</tr>
-            </property>
-            <!-- @width -->
-            <property name="@width" type="int" access="readonly" default="600">
-                <tr lang="en">window width</tr>
-                <tr lang="ru">ширина окна</tr>
-            </property>
-            <!-- @x -->
-            <property name="@x" type="int" access="readonly" default="0">
-                <tr lang="en">window x-pos</tr>
-                <tr lang="ru">x-позиция окна</tr>
-            </property>
-            <!-- @y -->
-            <property name="@y" type="int" access="readonly" default="0">
-                <tr lang="en">window y-pos</tr>
-                <tr lang="ru">y-позиция окна</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- postscript -->
-            <method name="postscript">
-                <info>
-                    <tr lang="en">save patch to postscript</tr>
-                    <tr lang="ru" finished="false">Сохранить патч для postscript</tr>
-                </info>
-                <param name="FNAME" type="symbol" required="false">
-                    <tr lang="en">file name. If not specified, the patch name with the extension
-                    .ps is used</tr>
-                    <tr lang="ru">имя файла. Если не указано, используется имя патча с расширением
-                    .ps</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">property request</tr>
-                    <tr lang="ru" finished="false">имущественный запрос</tr>
-                </in>
-                <in on="bang">
-                    <tr lang="en">output as dict</tr>
-                    <tr lang="ru" finished="false">Выход как диктовка</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">dict/property output</tr>
-                    <tr lang="ru" finished="false">дикт / вывод собственности</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="canvas.top">
+    <title>canvas.top</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">verbose information about top-level canvas of the object</tr>
+        <tr lang="ru">подробная информация о холсте верхнего уровня у объекта</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>patch</category>
+      <keywords>canvas</keywords>
+      <also>
+        <see>patch.args</see>
+        <see>canvas.current</see>
+      </also>
+      <since>0.4</since>
+    </meta>
+    <properties>
+      <!-- @abs -->
+      <property name="@abs" type="bool" default="1">
+        <tr lang="en">if false: using toplevel canvas, if true: using abstraction canvas</tr>
+        <tr lang="ru">если 0: использует холст самого верхнего уровня, если 1: использует холст
+        абстракции</tr>
+      </property>
+      <!-- @dir -->
+      <property name="@dir" type="symbol" access="readonly" default="/">
+        <tr lang="en">canvas directory</tr>
+        <tr lang="ru">каталог холста</tr>
+      </property>
+      <!-- @font -->
+      <property name="@font" type="int" access="readonly" default="10">
+        <tr lang="en">window font</tr>
+        <tr lang="ru">оконный шрифт</tr>
+      </property>
+      <!-- @height -->
+      <property name="@height" type="int" access="readonly" default="400">
+        <tr lang="en">window height</tr>
+        <tr lang="ru">высота окна</tr>
+      </property>
+      <!-- @name -->
+      <property name="@name" type="symbol" access="readonly" default="test_canvas">
+        <tr lang="en">canvas name</tr>
+        <tr lang="ru">имя холста</tr>
+      </property>
+      <!-- @paths -->
+      <property name="@paths" type="list" access="readonly" default="">
+        <tr lang="en">search paths</tr>
+        <tr lang="ru">пути поиска</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" access="readonly" default="600 400">
+        <tr lang="en">window size</tr>
+        <tr lang="ru">размер окна</tr>
+      </property>
+      <!-- @width -->
+      <property name="@width" type="int" access="readonly" default="600">
+        <tr lang="en">window width</tr>
+        <tr lang="ru">ширина окна</tr>
+      </property>
+      <!-- @x -->
+      <property name="@x" type="int" access="readonly" default="0">
+        <tr lang="en">window x-pos</tr>
+        <tr lang="ru">x-позиция окна</tr>
+      </property>
+      <!-- @y -->
+      <property name="@y" type="int" access="readonly" default="0">
+        <tr lang="en">window y-pos</tr>
+        <tr lang="ru">y-позиция окна</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- postscript -->
+      <method name="postscript">
+        <info>
+          <tr lang="en">save patch to postscript</tr>
+          <tr lang="ru" finished="false">Сохранить патч для postscript</tr>
+        </info>
+        <param name="FNAME" type="symbol" required="false">
+          <tr lang="en">file name. If not specified, the patch name with the extension .ps is
+          used</tr>
+          <tr lang="ru">имя файла. Если не указано, используется имя патча с расширением .ps</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">property request</tr>
+          <tr lang="ru" finished="false">имущественный запрос</tr>
+        </in>
+        <in on="bang">
+          <tr lang="en">output as dict</tr>
+          <tr lang="ru" finished="false">Выход как диктовка</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">dict/property output</tr>
+          <tr lang="ru" finished="false">дикт / вывод собственности</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [@name?(    [@dir?( [@width?(
 |           |       |
@@ -124,8 +122,8 @@
 
 [canvas.top-abs]
 ]]>
-            </pdascii>
-            <pdascii id="abs">
+      </pdascii>
+      <pdascii id="abs">
 <![CDATA[
 [bang(                       [bang(
 |                            |
@@ -133,8 +131,8 @@
 |                            |
 [ui.dt]                      [ui.dt]
 ]]>
-            </pdascii>
-            <pdascii id="abs0">
+      </pdascii>
+      <pdascii id="abs0">
 <![CDATA[
 [inlet]
 |
@@ -142,8 +140,8 @@
 |
 [outlet]
 ]]>
-            </pdascii>
-            <pdascii id="abs1">
+      </pdascii>
+      <pdascii id="abs1">
 <![CDATA[
 [inlet]
 |
@@ -151,7 +149,7 @@
 |
 [outlet]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,104 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="pan.sqrt~">
-        <title>pan.sqrt~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">two channel equal power square root panner</tr>
-                <tr lang="ru">двухканальное квадратичное панорамирование равной мощности</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>spat</category>
-            <keywords>pan span</keywords>
-            <since>0.5</since>
-            <also>
-                <see>pan.lin~</see>
-                <see>pan.cos~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Two channel equal power panner. About is about 3dB center reduction.
-                With linear panning ([pan.lin~]) the signal is lowered as it approaches center
-                using a straight line from (+-)1 (left or right) to 0 (center) for a 6dB reduction
-                in the middle.</tr>
-                <!-- old: Два канала равны мощности паннера. Речь идет о
+  <object name="pan.sqrt~">
+    <title>pan.sqrt~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">two channel equal power square root panner</tr>
+        <tr lang="ru">двухканальное квадратичное панорамирование равной мощности</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>spat</category>
+      <keywords>pan span</keywords>
+      <since>0.5</since>
+      <also>
+        <see>pan.lin~</see>
+        <see>pan.cos~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Two channel equal power panner. About is about 3dB center reduction. With
+        linear panning ([pan.lin~]) the signal is lowered as it approaches center using a straight
+        line from (+-)1 (left or right) to 0 (center) for a 6dB reduction in the middle.</tr>
+        <!-- old: Два канала равны мощности паннера. Речь идет о
                 сокращении 3DB центра. При линейном панорамировании ([pan.lin~]) сигнал опускается
                 по мере приближения к центру с использованием прямой линии от (+-)1 (слева или
                 справа) до 0 (в центре) для уменьшения на 6 дБ в середине. -->
-                <tr lang="ru" finished="false">Два канала равны мощности паннера. Речь идет о
-                сокращении 3DB центра. При линейном панорамировании ([pan.lin~]) сигнал опускается
-                по мере приближения к центру с использованием прямой линии от (+-)1 (слева или
-                справа) до 0 (в центре) для уменьшения на 6 дБ в середине.</tr>
-            </par>
-            <par>
-                <tr lang="en">A problem inherent to linear panning is that the perceived volume of
-                the signal drops in the middle. [pan.sqrt~] solves this.</tr>
-                <!-- old: Проблема, присущая линейному панорамированию,
+        <tr lang="ru" finished="false">Два канала равны мощности паннера. Речь идет о сокращении
+        3DB центра. При линейном панорамировании ([pan.lin~]) сигнал опускается по мере приближения
+        к центру с использованием прямой линии от (+-)1 (слева или справа) до 0 (в центре) для
+        уменьшения на 6 дБ в середине.</tr>
+      </par>
+      <par>
+        <tr lang="en">A problem inherent to linear panning is that the perceived volume of the
+        signal drops in the middle. [pan.sqrt~] solves this.</tr>
+        <!-- old: Проблема, присущая линейному панорамированию,
                 заключается в том, что воспринимаемый объем сигнала падает посередине. -->
-                <tr lang="ru" finished="false">Проблема, присущая линейному панорамированию,
-                заключается в том, что воспринимаемый объем сигнала падает посередине.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="POS" type="float" minvalue="-1" maxvalue="1">
-                <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
-                <!-- old: Позиция панорамирования. -1 означает левый, 0 -
+        <tr lang="ru" finished="false">Проблема, присущая линейному панорамированию, заключается в
+        том, что воспринимаемый объем сигнала падает посередине.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="POS" type="float" minvalue="-1" maxvalue="1">
+        <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
+        <!-- old: Позиция панорамирования. -1 означает левый, 0 -
                 центр, +1 - правый -->
-                <tr lang="ru" finished="false">Позиция панорамирования. -1 означает левый, 0 -
-                центр, +1 - правый</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @pos -->
-            <property name="@pos" type="float" minvalue="-1" maxvalue="1" default="0">
-                <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
-                <!-- old: Позиция панорамирования. -1 означает левый, 0 -
+        <tr lang="ru" finished="false">Позиция панорамирования. -1 означает левый, 0 - центр, +1 -
+        правый</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @pos -->
+      <property name="@pos" type="float" minvalue="-1" maxvalue="1" default="0">
+        <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
+        <!-- old: Позиция панорамирования. -1 означает левый, 0 -
                 центр, +1 - правый -->
-                <tr lang="ru" finished="false">Позиция панорамирования. -1 означает левый, 0 -
-                центр, +1 - правый</tr>
-            </property>
-            <!-- @smooth -->
-            <property name="@smooth" type="int" minvalue="0" maxvalue="100" default="20"
-            access="initonly">
-                <tr lang="en">smooth control signal to avoid zipping-noise</tr>
-                <tr lang="ru" finished="false">плавный сигнал управления, чтобы избежать шума</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float" minvalue="-1" maxvalue="1">
-                    <tr lang="en">pan position</tr>
-                    <tr lang="ru" finished="false">положение</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">left output channel</tr>
-                    <tr lang="ru" finished="false">левый выходной канал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">right output channel</tr>
-                    <tr lang="ru" finished="false">правильный выходной канал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Позиция панорамирования. -1 означает левый, 0 - центр, +1 -
+        правый</tr>
+      </property>
+      <!-- @smooth -->
+      <property name="@smooth" type="int" minvalue="0" maxvalue="100" default="20"
+      access="initonly">
+        <tr lang="en">smooth control signal to avoid zipping-noise</tr>
+        <tr lang="ru" finished="false">плавный сигнал управления, чтобы избежать шума</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float" minvalue="-1" maxvalue="1">
+          <tr lang="en">pan position</tr>
+          <tr lang="ru" finished="false">положение</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">left output channel</tr>
+          <tr lang="ru" finished="false">левый выходной канал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">right output channel</tr>
+          <tr lang="ru" finished="false">правильный выходной канал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [hsl]
           |
@@ -112,7 +111,7 @@
 |        |
 [F]      [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

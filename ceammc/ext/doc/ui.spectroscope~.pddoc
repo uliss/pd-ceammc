@@ -1,85 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="ui.spectroscope~" type="gui">
-        <title>ui.spectroscope~</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">spectroscope widget</tr>
-                <tr lang="ru">виджет просмотрщика спектра</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">ui</category>
-            <keywords>ui spectroscope</keywords>
-            <since>0.1</since>
-            <aliases>
-                <alias view="link">ui.ssc~</alias>
-            </aliases>
-            <also>
-                <see view="link">ui.scope~</see>
-            </also>
-        </meta>
-        <mouse>
-            <event type="right-click" editmode="false">opens popup menu to change scale
-            type</event>
-            <event type="right-click" editmode="false" keys="Shift">open object help</event>
-            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="true">opens Pd popup menu</event>
-            <event type="right-click" editmode="true" keys="Shift">open object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
-        </mouse>
-        <properties>
-            <xi:include href="props_active_color.xml" />
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_label_color.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <!-- @log_scale -->
-            <property name="@log_scale" type="bool" default="0">
-                <tr lang="en">display in log scale</tr>
-                <tr lang="ru" finished="false">отображение в бревенчатом масштабе</tr>
-            </property>
-            <!-- @refresh -->
-            <property name="@refresh" type="int" minvalue="20" maxvalue="1000" default="100"
-            units="millisecond">
-                <tr lang="en">approximate refresh rate</tr>
-                <tr lang="ru" finished="false">приблизительная частота обновления</tr>
-            </property>
-            <!-- @scale_color -->
-            <property name="@scale_color" type="list" default="0.6 0.6 0.6 1">
-                <tr lang="en">scale color (list of red, green, blue values in 0-1 range)</tr>
-                <tr lang="ru" finished="false">цвет шкалы (список красных, зеленых, синих значений
-                в диапазоне 0-1)</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="150 100">
-                <tr lang="en">object size (width, height pair)</tr>
-                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
-            </property>
-        </properties>
-        <methods>
-            <xi:include href="method_dump.xml" />
-            <xi:include href="method_ui_pos.xml" />
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">signal input</tr>
-                    <tr lang="ru" finished="false">ввод сигнала</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <example>
-            <pdascii>
+  <object name="ui.spectroscope~" type="gui">
+    <title>ui.spectroscope~</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">spectroscope widget</tr>
+        <tr lang="ru">виджет просмотрщика спектра</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">ui</category>
+      <keywords>ui spectroscope</keywords>
+      <since>0.1</since>
+      <aliases>
+        <alias view="link">ui.ssc~</alias>
+      </aliases>
+      <also>
+        <see view="link">ui.scope~</see>
+      </also>
+    </meta>
+    <mouse>
+      <event type="right-click" editmode="false">opens popup menu to change scale type</event>
+      <event type="right-click" editmode="false" keys="Shift">open object help</event>
+      <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+      <event type="right-click" editmode="true">opens Pd popup menu</event>
+      <event type="right-click" editmode="true" keys="Shift">open object help</event>
+      <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+    </mouse>
+    <properties>
+      <xi:include href="props_active_color.xml" />
+      <xi:include href="props_background_color.xml" />
+      <xi:include href="props_border_color.xml" />
+      <xi:include href="props_fontname.xml" />
+      <xi:include href="props_fontsize.xml" />
+      <xi:include href="props_fontslant.xml" />
+      <xi:include href="props_fontweight.xml" />
+      <xi:include href="props_label_color.xml" />
+      <xi:include href="props_pinned.xml" />
+      <xi:include href="props_ui_receive.xml" />
+      <!-- @log_scale -->
+      <property name="@log_scale" type="bool" default="0">
+        <tr lang="en">display in log scale</tr>
+        <tr lang="ru" finished="false">отображение в бревенчатом масштабе</tr>
+      </property>
+      <!-- @refresh -->
+      <property name="@refresh" type="int" minvalue="20" maxvalue="1000" default="100"
+      units="millisecond">
+        <tr lang="en">approximate refresh rate</tr>
+        <tr lang="ru" finished="false">приблизительная частота обновления</tr>
+      </property>
+      <!-- @scale_color -->
+      <property name="@scale_color" type="list" default="0.6 0.6 0.6 1">
+        <tr lang="en">scale color (list of red, green, blue values in 0-1 range)</tr>
+        <tr lang="ru" finished="false">цвет шкалы (список красных, зеленых, синих значений в
+        диапазоне 0-1)</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="150 100">
+        <tr lang="en">object size (width, height pair)</tr>
+        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+      </property>
+    </properties>
+    <methods>
+      <xi:include href="method_dump.xml" />
+      <xi:include href="method_ui_pos.xml" />
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">signal input</tr>
+          <tr lang="ru" finished="false">ввод сигнала</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <example>
+      <pdascii>
 <![CDATA[
          [F]             [F]
          |               |
@@ -103,7 +102,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

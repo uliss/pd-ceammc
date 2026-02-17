@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.sec2bpm">
-        <title>conv.sec2bpm</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts period in seconds to frequency in BPM</tr>
-                <tr lang="ru">преобразует период в секундах в темп BPM</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv time</keywords>
-            <also>
-                <see>conv.bpm2sec</see>
-                <see>conv.ms2bpm</see>
-            </also>
-            <since>0.9.1</since>
-            <aliases>
-                <alias>ceammc/sec-&gt;bpm</alias>
-                <alias>sec-&gt;bpm</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">period in seconds</tr>
-                    <tr lang="ru" finished="false">период в секундах</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">bpm frequency</tr>
-                    <tr lang="ru" finished="false">частота bpm</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="conv.sec2bpm">
+    <title>conv.sec2bpm</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts period in seconds to frequency in BPM</tr>
+        <tr lang="ru">преобразует период в секундах в темп BPM</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv time</keywords>
+      <also>
+        <see>conv.bpm2sec</see>
+        <see>conv.ms2bpm</see>
+      </also>
+      <since>0.9.1</since>
+      <aliases>
+        <alias>ceammc/sec-&gt;bpm</alias>
+        <alias>sec-&gt;bpm</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">period in seconds</tr>
+          <tr lang="ru" finished="false">период в секундах</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">bpm frequency</tr>
+          <tr lang="ru" finished="false">частота bpm</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1(  [2(  [0.5(
 |    |    |
@@ -49,7 +49,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

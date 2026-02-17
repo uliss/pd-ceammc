@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="patch.tree">
-        <title>patch.tree</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">output the object tree of the patch</tr>
-                <tr lang="ru">выводит дерево объектов патча</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>patch</category>
-            <keywords>patch tree</keywords>
-            <since>0.9.1</since>
-            <also>
-                <see>patch.deps</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet type="control">
-                <in on="bang">
-                    <tr lang="en">output current patch tree as Dict</tr>
-                    <tr lang="ru" finished="false">Производить текущее патч-дерево Dict</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="control">
-                <out type="any">
-                    <tr lang="en">patch tree as Dict</tr>
-                    <tr lang="ru" finished="false">Повязка дерева Dict</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="patch.tree">
+    <title>patch.tree</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">output the object tree of the patch</tr>
+        <tr lang="ru">выводит дерево объектов патча</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>patch</category>
+      <keywords>patch tree</keywords>
+      <since>0.9.1</since>
+      <also>
+        <see>patch.deps</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet type="control">
+        <in on="bang">
+          <tr lang="en">output current patch tree as Dict</tr>
+          <tr lang="ru" finished="false">Производить текущее патч-дерево Dict</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="control">
+        <out type="any">
+          <tr lang="en">patch tree as Dict</tr>
+          <tr lang="ru" finished="false">Повязка дерева Dict</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(
 |
@@ -46,8 +46,8 @@
 
 [patch.tree-abs1]
 ]]>
-            </pdascii>
-            <pdascii id="abs1">
+      </pdascii>
+      <pdascii id="abs1">
 <![CDATA[
 [patch.tree-abs2]
 
@@ -57,8 +57,8 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-            <pdascii id="abs2">
+      </pdascii>
+      <pdascii id="abs2">
 <![CDATA[
 [hsl]
 |
@@ -72,7 +72,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

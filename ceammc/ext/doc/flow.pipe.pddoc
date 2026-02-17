@@ -1,101 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.pipe">
-        <title>flow.pipe</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">enhanced version on the vanilla [pipe] object</tr>
-                <tr lang="ru">усовершенствованная версия объекта [pipe]</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>flow pipe</keywords>
-            <since>0.9.1</since>
-            <also>
-                <see>flow.delay</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Acts like vanilla [pipe] but for any messages: bangs, floats, symbols
-                etc.</tr>
-                <!-- old: Действует как ваниль, но для любых сообщений: удары,
+  <object name="flow.pipe">
+    <title>flow.pipe</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">enhanced version on the vanilla [pipe] object</tr>
+        <tr lang="ru">усовершенствованная версия объекта [pipe]</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>flow pipe</keywords>
+      <since>0.9.1</since>
+      <also>
+        <see>flow.delay</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Acts like vanilla [pipe] but for any messages: bangs, floats, symbols
+        etc.</tr>
+        <!-- old: Действует как ваниль, но для любых сообщений: удары,
                 поплавки, символы и т. Д. -->
-                <tr lang="ru" finished="false">Действует как ваниль, но для любых сообщений: удары,
-                поплавки, символы и т. Д.</tr>
-            </par>
-            <par>
-                <tr lang="en">Note: @delay property can be set only via right inlet or [prop.set]
-                object</tr>
-                <!-- old: Примечание: свойство @delay может быть установлено
+        <tr lang="ru" finished="false">Действует как ваниль, но для любых сообщений: удары,
+        поплавки, символы и т. Д.</tr>
+      </par>
+      <par>
+        <tr lang="en">Note: @delay property can be set only via right inlet or [prop.set]
+        object</tr>
+        <!-- old: Примечание: свойство @delay может быть установлено
                 только через правый вход или объект [prop.set] -->
-                <tr lang="ru" finished="false">Примечание: свойство @delay может быть установлено
-                только через правый вход или объект [prop.set]</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="DELAY" type="float" minvalue="0" units="millisecond">
-                <tr lang="en">init @delay property</tr>
-                <tr lang="ru" finished="false">Init @delay Недвижимость</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @delay -->
-            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
-                <tr lang="en">delay time</tr>
-                <tr lang="ru" finished="false">задержка времени</tr>
-            </property>
-            <!-- @empty -->
-            <property name="@empty" type="bool" default="1" access="readonly">
-                <tr lang="en">1 if pipe is empty, otherwise 0.</tr>
-                <tr lang="ru" finished="false">1 если труба пустая, то 0.</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="int" default="0" access="readonly">
-                <tr lang="en">pipe size</tr>
-                <tr lang="ru" finished="false">размер трубы</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">incoming message</tr>
-                    <tr lang="ru" finished="false">Входящее сообщение</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">clear pipe</tr>
-                    <tr lang="ru" finished="false">прозрачная труба</tr>
-                </in>
-                <in>
-                    <tr lang="en">reset: clear pipe</tr>
-                    <tr lang="ru" finished="false">Сброс: прозрачная труба</tr>
-                </in>
-                <in>
-                    <tr lang="en">flush: output and clear</tr>
-                    <tr lang="ru" finished="false">смыв: выходной и прозрачный</tr>
-                </in>
-                <in on="float" minvalue="0">
-                    <tr lang="en">set delay time</tr>
-                    <tr lang="ru" finished="false">установить время задержки</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">pipe output</tr>
-                    <tr lang="ru" finished="false">выход трубы</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii id="main">
+        <tr lang="ru" finished="false">Примечание: свойство @delay может быть установлено только
+        через правый вход или объект [prop.set]</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="DELAY" type="float" minvalue="0" units="millisecond">
+        <tr lang="en">init @delay property</tr>
+        <tr lang="ru" finished="false">Init @delay Недвижимость</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @delay -->
+      <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
+        <tr lang="en">delay time</tr>
+        <tr lang="ru" finished="false">задержка времени</tr>
+      </property>
+      <!-- @empty -->
+      <property name="@empty" type="bool" default="1" access="readonly">
+        <tr lang="en">1 if pipe is empty, otherwise 0.</tr>
+        <tr lang="ru" finished="false">1 если труба пустая, то 0.</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="int" default="0" access="readonly">
+        <tr lang="en">pipe size</tr>
+        <tr lang="ru" finished="false">размер трубы</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">incoming message</tr>
+          <tr lang="ru" finished="false">Входящее сообщение</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">clear pipe</tr>
+          <tr lang="ru" finished="false">прозрачная труба</tr>
+        </in>
+        <in>
+          <tr lang="en">reset: clear pipe</tr>
+          <tr lang="ru" finished="false">Сброс: прозрачная труба</tr>
+        </in>
+        <in>
+          <tr lang="en">flush: output and clear</tr>
+          <tr lang="ru" finished="false">смыв: выходной и прозрачный</tr>
+        </in>
+        <in on="float" minvalue="0">
+          <tr lang="en">set delay time</tr>
+          <tr lang="ru" finished="false">установить время задержки</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">pipe output</tr>
+          <tr lang="ru" finished="false">выход трубы</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii id="main">
 <![CDATA[
 [ui.keyboard]
 | |
@@ -116,8 +116,8 @@
 
 [flow.pipe-superdirt]
 ]]>
-            </pdascii>
-            <pdascii id="osc~">
+      </pdascii>
+      <pdascii id="osc~">
 <![CDATA[
 [inlet]
 |
@@ -133,8 +133,8 @@
 |
 [outlet~]
 ]]>
-            </pdascii>
-            <pdascii id="superdirt">
+      </pdascii>
+      <pdascii id="superdirt">
 <![CDATA[
 /* start SuperCollider SuperDirt synth first */
 
@@ -160,7 +160,7 @@
 |
 [T]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

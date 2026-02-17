@@ -1,70 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.s2p">
-        <title>array.s2p</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert the sample index to the phase range [0..1]</tr>
-                <tr lang="ru">преобразование индекса семпла в фазовый диапазон [0..1]</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>array phase sample</keywords>
-            <also>
-                <see>array.p2s</see>
-            </also>
-            <since>0.2</since>
-            <aliases>
-                <alias>array.s-&gt;p</alias>
-                <alias>array.sample-&gt;phase</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">with this object you can get relative position in array</tr>
-                <tr lang="ru">с этим объектом вы можете получить относительное положение в
-                массиве</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">array sample number</tr>
-                    <tr lang="ru" finished="false">образец массива</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">list of sample numbers</tr>
-                    <tr lang="ru" finished="false">Список выборочных номеров</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">relative position (non-clipped)</tr>
-                    <tr lang="ru" finished="false">относительное положение (не клип)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.s2p">
+    <title>array.s2p</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert the sample index to the phase range [0..1]</tr>
+        <tr lang="ru">преобразование индекса семпла в фазовый диапазон [0..1]</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>array phase sample</keywords>
+      <also>
+        <see>array.p2s</see>
+      </also>
+      <since>0.2</since>
+      <aliases>
+        <alias>array.s-&gt;p</alias>
+        <alias>array.sample-&gt;phase</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">with this object you can get relative position in array</tr>
+        <tr lang="ru">с этим объектом вы можете получить относительное положение в массиве</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">array sample number</tr>
+          <tr lang="ru" finished="false">образец массива</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">list of sample numbers</tr>
+          <tr lang="ru" finished="false">Список выборочных номеров</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">relative position (non-clipped)</tr>
+          <tr lang="ru" finished="false">относительное положение (не клип)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [HS min=0 max=100]       [array s2p size=100 w=200 h=130]
 |
@@ -78,7 +77,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

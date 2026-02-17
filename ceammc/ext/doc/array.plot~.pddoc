@@ -1,82 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.plot~">
-        <title>array.plot~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">plot the signal on the specified array</tr>
-                <tr lang="ru">построение графика сигнала на заданном массиве</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array plot</keywords>
-            <also>
-                <see view="link">ui.plot~</see>
-                <see>array.plot</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-            <argument name="YMIN" type="float" minvalue="-1024" maxvalue="1024">
-                <tr lang="en">minimal y-axis value</tr>
-                <tr lang="ru">минимальное значение y-оси</tr>
-            </argument>
-            <argument name="YMAX" type="float" minvalue="-1024" maxvalue="1024">
-                <tr lang="en">maximum y-axis value</tr>
-                <tr lang="ru">максимальное значение y-оси</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-            <!-- @yauto -->
-            <property name="@yauto" type="bool" default="0">
-                <tr lang="en">calculate y-axis range automatically</tr>
-                <tr lang="ru">вычислить диапазон y-оси автоматически</tr>
-            </property>
-            <!-- @ymax -->
-            <property name="@ymax" type="float" minvalue="-1024" maxvalue="1024" default="1">
-                <tr lang="en">minimal y-axis value</tr>
-                <tr lang="ru">минимальное значение y-оси</tr>
-            </property>
-            <!-- @ymin -->
-            <property name="@ymin" type="float" minvalue="-1024" maxvalue="1024" default="-1">
-                <tr lang="en">minimal y-axis value</tr>
-                <tr lang="ru">минимальное значение y-оси</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal for plotting</tr>
-                    <tr lang="ru">входной сигнал для построения графика</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">plot all samples fitted to specified array</tr>
-                    <tr lang="ru">строит график для всех семплов, которые помещающиеся в указанный массив</tr>
-                </in>
-                <in on="int">
-                    <tr lang="en">plot a specified number of samples, resizes the array</tr>
-                    <tr lang="ru">строит график для указанного числа семплов, изменяет размер массива</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets />
-        <example>
-            <pdascii>
+  <object name="array.plot~">
+    <title>array.plot~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">plot the signal on the specified array</tr>
+        <tr lang="ru">построение графика сигнала на заданном массиве</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array plot</keywords>
+      <also>
+        <see view="link">ui.plot~</see>
+        <see>array.plot</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+      <argument name="YMIN" type="float" minvalue="-1024" maxvalue="1024">
+        <tr lang="en">minimal y-axis value</tr>
+        <tr lang="ru">минимальное значение y-оси</tr>
+      </argument>
+      <argument name="YMAX" type="float" minvalue="-1024" maxvalue="1024">
+        <tr lang="en">maximum y-axis value</tr>
+        <tr lang="ru">максимальное значение y-оси</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+      <!-- @yauto -->
+      <property name="@yauto" type="bool" default="0">
+        <tr lang="en">calculate y-axis range automatically</tr>
+        <tr lang="ru">вычислить диапазон y-оси автоматически</tr>
+      </property>
+      <!-- @ymax -->
+      <property name="@ymax" type="float" minvalue="-1024" maxvalue="1024" default="1">
+        <tr lang="en">minimal y-axis value</tr>
+        <tr lang="ru">минимальное значение y-оси</tr>
+      </property>
+      <!-- @ymin -->
+      <property name="@ymin" type="float" minvalue="-1024" maxvalue="1024" default="-1">
+        <tr lang="en">minimal y-axis value</tr>
+        <tr lang="ru">минимальное значение y-оси</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal for plotting</tr>
+          <tr lang="ru">входной сигнал для построения графика</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">plot all samples fitted to specified array</tr>
+          <tr lang="ru">строит график для всех семплов, которые помещающиеся в указанный
+          массив</tr>
+        </in>
+        <in on="int">
+          <tr lang="en">plot a specified number of samples, resizes the array</tr>
+          <tr lang="ru">строит график для указанного числа семплов, изменяет размер массива</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets />
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.dsp~]             [array APL1 size=100 w=200 h=200]
 
@@ -93,7 +94,7 @@
 |   ^|.
 [array.plot~ APL1 @yauto 1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

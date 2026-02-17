@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="patch.args">
-        <title>patch.args</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">get patch or subpatch initial arguments</tr>
-                <tr lang="ru">получить начальные аргументы для патча или субпатча</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>patch</category>
-            <keywords>patch args arguments canvas</keywords>
-            <also>
-                <see>canvas.current</see>
-                <see>canvas.top</see>
-                <see>list-&gt;props</see>
-            </also>
-            <since>0.4</since>
-        </meta>
-        <arguments>
-            <argument name="FROM" type="int" minvalue="0">
-                <tr lang="en">starting args index</tr>
-                <tr lang="ru" finished="false">Стартовый индекс Args</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @from -->
-            <property name="@from" type="int" minvalue="0" default="0">
-                <tr lang="en">starting args index</tr>
-                <tr lang="ru" finished="false">Стартовый индекс Args</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output patch or subpatch arguments</tr>
-                    <tr lang="ru" finished="false">выходной патч или аргументы субпатча</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list of arguments</tr>
-                    <tr lang="ru" finished="false">Список аргументов</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="patch.args">
+    <title>patch.args</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">get patch or subpatch initial arguments</tr>
+        <tr lang="ru">получить начальные аргументы для патча или субпатча</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>patch</category>
+      <keywords>patch args arguments canvas</keywords>
+      <also>
+        <see>canvas.current</see>
+        <see>canvas.top</see>
+        <see>list-&gt;props</see>
+      </also>
+      <since>0.4</since>
+    </meta>
+    <arguments>
+      <argument name="FROM" type="int" minvalue="0">
+        <tr lang="en">starting args index</tr>
+        <tr lang="ru" finished="false">Стартовый индекс Args</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @from -->
+      <property name="@from" type="int" minvalue="0" default="0">
+        <tr lang="en">starting args index</tr>
+        <tr lang="ru" finished="false">Стартовый индекс Args</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output patch or subpatch arguments</tr>
+          <tr lang="ru" finished="false">выходной патч или аргументы субпатча</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list of arguments</tr>
+          <tr lang="ru" finished="false">Список аргументов</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -65,8 +65,8 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-            <pdascii id="ex1">
+      </pdascii>
+      <pdascii id="ex1">
 <![CDATA[
 [inlet]
 |
@@ -74,8 +74,8 @@
 |
 [outlet]
 ]]>
-            </pdascii>
-            <pdascii id="ex2">
+      </pdascii>
+      <pdascii id="ex2">
 <![CDATA[
 [inlet]
 |
@@ -83,7 +83,7 @@
 |
 [outlet]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

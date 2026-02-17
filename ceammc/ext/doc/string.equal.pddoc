@@ -1,73 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="string.equal">
-        <title>string.equal</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">check strings or symbols for equality</tr>
-                <tr lang="ru">проверка строк или символов на равенство</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>string</category>
-            <keywords>compare equal</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>str.equal</alias>
-            </aliases>
-            <also>
-                <see>string</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="SUBJ" type="symbol">
-                <tr lang="en">second string initial value</tr>
-                <tr lang="ru">начальное значение второй строки</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @subj -->
-            <property name="@subj" type="symbol" default="">
-                <tr lang="en">string to compare</tr>
-                <tr lang="ru">строка для сравнения</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="data:string">
-                    <tr lang="en">starts checking for the equality of the input string and the specified one</tr>
-                    <tr lang="ru">начинает проверку на равенство входной строки и заданной</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">begins comparing the input symbol for equality with the specified string</tr>
-                    <tr lang="ru">начинает проверку на равенство входного символа с заданной строкой</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="data:string">
-                    <tr lang="en">sets the compare subject (@subj property)</tr>
-                    <tr lang="ru">устанавливает строку для сравнения (свойство @subj)</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">sets the compare subject (@subj property)</tr>
-                    <tr lang="ru">устанавливает строку для сравнения (свойство @subj)</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="bool">
-                    <tr lang="en">outputs 1 if strings are equal, otherwise 0</tr>
-                    <tr lang="ru">выводит 1, если строки равны, в противном случае
-                    0</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="string.equal">
+    <title>string.equal</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">check strings or symbols for equality</tr>
+        <tr lang="ru">проверка строк или символов на равенство</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>string</category>
+      <keywords>compare equal</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>str.equal</alias>
+      </aliases>
+      <also>
+        <see>string</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="SUBJ" type="symbol">
+        <tr lang="en">second string initial value</tr>
+        <tr lang="ru">начальное значение второй строки</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @subj -->
+      <property name="@subj" type="symbol" default="">
+        <tr lang="en">string to compare</tr>
+        <tr lang="ru">строка для сравнения</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="data:string">
+          <tr lang="en">starts checking for the equality of the input string and the specified
+          one</tr>
+          <tr lang="ru">начинает проверку на равенство входной строки и заданной</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">begins comparing the input symbol for equality with the specified
+          string</tr>
+          <tr lang="ru">начинает проверку на равенство входного символа с заданной строкой</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="data:string">
+          <tr lang="en">sets the compare subject (@subj property)</tr>
+          <tr lang="ru">устанавливает строку для сравнения (свойство @subj)</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">sets the compare subject (@subj property)</tr>
+          <tr lang="ru">устанавливает строку для сравнения (свойство @subj)</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="bool">
+          <tr lang="en">outputs 1 if strings are equal, otherwise 0</tr>
+          <tr lang="ru">выводит 1, если строки равны, в противном случае 0</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -77,7 +78,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

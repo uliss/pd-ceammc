@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="system.getenv">
-        <title>system.getenv</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">output system environment variables</tr>
-                <tr lang="ru">выводит системные переменные окружения</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>system</category>
-            <keywords>system environment</keywords>
-            <since>0.1</since>
-            <also>
-                <see>system.hostname</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="NAME" type="symbol">
-                <tr lang="en">environment variable name</tr>
-                <tr lang="ru" finished="false">переменное имя окружающей среды</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @name -->
-            <property name="@name" type="symbol" default="">
-                <tr lang="en">environment variable name</tr>
-                <tr lang="ru" finished="false">переменное имя окружающей среды</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">outputs variable value</tr>
-                    <tr lang="ru" finished="false">выходы переменная величина</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">sets name of environment variable and outputs it value</tr>
-                    <tr lang="ru" finished="false">устанавливает имя переменной среды и выводит ее
-                    значение</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">symbol: env-variable value</tr>
-                    <tr lang="ru" finished="false">символ: переменное значение энв</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="system.getenv">
+    <title>system.getenv</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">output system environment variables</tr>
+        <tr lang="ru">выводит системные переменные окружения</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>system</category>
+      <keywords>system environment</keywords>
+      <since>0.1</since>
+      <also>
+        <see>system.hostname</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="NAME" type="symbol">
+        <tr lang="en">environment variable name</tr>
+        <tr lang="ru" finished="false">переменное имя окружающей среды</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @name -->
+      <property name="@name" type="symbol" default="">
+        <tr lang="en">environment variable name</tr>
+        <tr lang="ru" finished="false">переменное имя окружающей среды</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">outputs variable value</tr>
+          <tr lang="ru" finished="false">выходы переменная величина</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">sets name of environment variable and outputs it value</tr>
+          <tr lang="ru" finished="false">устанавливает имя переменной среды и выводит ее
+          значение</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">symbol: env-variable value</tr>
+          <tr lang="ru" finished="false">символ: переменное значение энв</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol HOME( [symbol APPDATA( [symbol PATH( [symbol USER( [symbol SHELL(
 |             |                |             |             |
@@ -66,7 +66,7 @@
 |
 [ui.display]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

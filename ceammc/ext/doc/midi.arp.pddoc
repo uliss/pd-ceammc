@@ -1,152 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.arp">
-        <title>midi.arp</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">MIDI arpeggiator</tr>
-                <tr lang="ru">MIDI арпеджиатор</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi arpeggiator</keywords>
-            <since>0.9.6</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">'up' - play notes from bottom to up</tr>
-                <tr lang="ru" finished="false">«Up» — играть в ноты снизу вверх</tr>
-            </par>
-            <par>
-                <tr lang="en">'down' - play from top to bottom</tr>
-                <tr lang="ru" finished="false">«Down» — игра сверху вниз</tr>
-            </par>
-            <par>
-                <tr lang="en">'tri' - play from bottom to up and then back</tr>
-                <tr lang="ru" finished="false">«Три» — играйте снизу вверх, а затем назад</tr>
-            </par>
-            <par>
-                <tr lang="en">'up1' - play top note, then from bottom to up</tr>
-                <!-- old: «up1» — играйте на верхней ноте, затем снизу
+  <object name="midi.arp">
+    <title>midi.arp</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">MIDI arpeggiator</tr>
+        <tr lang="ru">MIDI арпеджиатор</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi arpeggiator</keywords>
+      <since>0.9.6</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">'up' - play notes from bottom to up</tr>
+        <tr lang="ru" finished="false">«Up» — играть в ноты снизу вверх</tr>
+      </par>
+      <par>
+        <tr lang="en">'down' - play from top to bottom</tr>
+        <tr lang="ru" finished="false">«Down» — игра сверху вниз</tr>
+      </par>
+      <par>
+        <tr lang="en">'tri' - play from bottom to up and then back</tr>
+        <tr lang="ru" finished="false">«Три» — играйте снизу вверх, а затем назад</tr>
+      </par>
+      <par>
+        <tr lang="en">'up1' - play top note, then from bottom to up</tr>
+        <!-- old: «up1» — играйте на верхней ноте, затем снизу
                 вверх -->
-                <tr lang="ru" finished="false">«up1» — играйте на верхней ноте, затем снизу
-                вверх</tr>
-            </par>
-            <par>
-                <tr lang="en">'down1' - play bottom note, then from top to bottom</tr>
-                <!-- old: «down1» — играйте на нижней ноте, затем сверху
+        <tr lang="ru" finished="false">«up1» — играйте на верхней ноте, затем снизу вверх</tr>
+      </par>
+      <par>
+        <tr lang="en">'down1' - play bottom note, then from top to bottom</tr>
+        <!-- old: «down1» — играйте на нижней ноте, затем сверху
                 вниз -->
-                <tr lang="ru" finished="false">«down1» — играйте на нижней ноте, затем сверху
-                вниз</tr>
-            </par>
-            <par>
-                <tr lang="en">'tri1' - play from up to bottom, then back</tr>
-                <tr lang="ru" finished="false">«Три1» — играйте снизу, затем назад</tr>
-            </par>
-            <par>
-                <tr lang="en">'random' - play random note, excluding the current one (no
-                repeats)</tr>
-                <!-- old: «случайный» — играйте случайную ноту, исключая
+        <tr lang="ru" finished="false">«down1» — играйте на нижней ноте, затем сверху вниз</tr>
+      </par>
+      <par>
+        <tr lang="en">'tri1' - play from up to bottom, then back</tr>
+        <tr lang="ru" finished="false">«Три1» — играйте снизу, затем назад</tr>
+      </par>
+      <par>
+        <tr lang="en">'random' - play random note, excluding the current one (no repeats)</tr>
+        <!-- old: «случайный» — играйте случайную ноту, исключая
                 текущую (не повторяется) -->
-                <tr lang="ru" finished="false">«случайный» — играйте случайную ноту, исключая
-                текущую (не повторяется)</tr>
-            </par>
-            <par>
-                <tr lang="en">'random1' - play random note (there can be repeats)</tr>
-                <!-- old: «random1» — играйте случайную ноту (можно
+        <tr lang="ru" finished="false">«случайный» — играйте случайную ноту, исключая текущую (не
+        повторяется)</tr>
+      </par>
+      <par>
+        <tr lang="en">'random1' - play random note (there can be repeats)</tr>
+        <!-- old: «random1» — играйте случайную ноту (можно
                 повторить) -->
-                <tr lang="ru" finished="false">«random1» — играйте случайную ноту (можно
-                повторить)</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="T" type="float" minvalue="1" maxvalue="1000" units="millisecond">
-                <tr lang="en">time between arpeggio</tr>
-                <tr lang="ru" finished="false">Время между арпеджио</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @external -->
-            <property name="@external" type="bool" default="0">
-                <tr lang="en">use external clock</tr>
-                <tr lang="ru" finished="false">Использование внешних часов</tr>
-            </property>
-            <!-- @min_notes -->
-            <property name="@min_notes" type="int" default="1" minvalue="1">
-                <tr lang="en">number of minimal notes to perform arpeggio</tr>
-                <!-- old: Количество минимальных нот для выполнения
+        <tr lang="ru" finished="false">«random1» — играйте случайную ноту (можно повторить)</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="T" type="float" minvalue="1" maxvalue="1000" units="millisecond">
+        <tr lang="en">time between arpeggio</tr>
+        <tr lang="ru" finished="false">Время между арпеджио</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @external -->
+      <property name="@external" type="bool" default="0">
+        <tr lang="en">use external clock</tr>
+        <tr lang="ru" finished="false">Использование внешних часов</tr>
+      </property>
+      <!-- @min_notes -->
+      <property name="@min_notes" type="int" default="1" minvalue="1">
+        <tr lang="en">number of minimal notes to perform arpeggio</tr>
+        <!-- old: Количество минимальных нот для выполнения
                 арпеджио -->
-                <tr lang="ru" finished="false">Количество минимальных нот для выполнения
-                арпеджио</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" default="up"
-            enum="up down tri up1 down1 tri1 random random1">
-                <tr lang="en">argpeggiator mode</tr>
-                <tr lang="ru" finished="false">режим argpeggiator</tr>
-            </property>
-            <!-- @on -->
-            <property name="@on" type="bool" default="1">
-                <tr lang="en">arpeggiator state: on/off</tr>
-                <tr lang="ru" finished="false">Состояние арпеджиатора: on/off</tr>
-            </property>
-            <!-- @pass -->
-            <property name="@pass" type="bool" default="0">
-                <tr lang="en">bypass arpeggiator</tr>
-                <tr lang="ru" finished="false">обходной арпеггиатор</tr>
-            </property>
-            <!-- @seed -->
-            <property name="@seed" type="int" default="0" minvalue="0">
-                <tr lang="en">random seed value (to get reproducible random series)</tr>
-                <!-- old: случайное значение семян (для получения
+        <tr lang="ru" finished="false">Количество минимальных нот для выполнения арпеджио</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" default="up"
+      enum="up down tri up1 down1 tri1 random random1">
+        <tr lang="en">argpeggiator mode</tr>
+        <tr lang="ru" finished="false">режим argpeggiator</tr>
+      </property>
+      <!-- @on -->
+      <property name="@on" type="bool" default="1">
+        <tr lang="en">arpeggiator state: on/off</tr>
+        <tr lang="ru" finished="false">Состояние арпеджиатора: on/off</tr>
+      </property>
+      <!-- @pass -->
+      <property name="@pass" type="bool" default="0">
+        <tr lang="en">bypass arpeggiator</tr>
+        <tr lang="ru" finished="false">обходной арпеггиатор</tr>
+      </property>
+      <!-- @seed -->
+      <property name="@seed" type="int" default="0" minvalue="0">
+        <tr lang="en">random seed value (to get reproducible random series)</tr>
+        <!-- old: случайное значение семян (для получения
                 воспроизводимых случайных рядов) -->
-                <tr lang="ru" finished="false">случайное значение семян (для получения
-                воспроизводимых случайных рядов)</tr>
-            </property>
-            <!-- @t -->
-            <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000"
-            units="millisecond">
-                <tr lang="en">time between arpeggio</tr>
-                <tr lang="ru" finished="false">Время между арпеджио</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">NOTE VELOCITY</tr>
-                    <tr lang="ru" finished="false">Примечание - Величина</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">play next note in chord, if @external = 1</tr>
-                    <!-- old: играть следующую ноту аккордом, если @external =
+        <tr lang="ru" finished="false">случайное значение семян (для получения воспроизводимых
+        случайных рядов)</tr>
+      </property>
+      <!-- @t -->
+      <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000"
+      units="millisecond">
+        <tr lang="en">time between arpeggio</tr>
+        <tr lang="ru" finished="false">Время между арпеджио</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">NOTE VELOCITY</tr>
+          <tr lang="ru" finished="false">Примечание - Величина</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">play next note in chord, if @external = 1</tr>
+          <!-- old: играть следующую ноту аккордом, если @external =
                     1 -->
-                    <tr lang="ru" finished="false">играть следующую ноту аккордом, если @external =
-                    1</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list: NOTE VELOCITY</tr>
-                    <tr lang="ru" finished="false">Список: ПРИМЕЧАНИЕ ВЕЛИЧНОСТЬ</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int: note index in chord</tr>
-                    <tr lang="ru" finished="false">Int: Note Index в аккорде</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">играть следующую ноту аккордом, если @external = 1</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list: NOTE VELOCITY</tr>
+          <tr lang="ru" finished="false">Список: ПРИМЕЧАНИЕ ВЕЛИЧНОСТЬ</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int: note index in chord</tr>
+          <tr lang="ru" finished="false">Int: Note Index в аккорде</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [notein]       [ui.dsp~]
 | ^|.
@@ -173,7 +167,7 @@
 *|*
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,125 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="data.fifo">
-        <title>data.fifo</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">FIFO (First In First Out) - the queue data container</tr>
-                <tr lang="ru">FIFO First In First Out) - контейнер данных "очередь"</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>data fifo</keywords>
-            <since>0.1</since>
-            <also>
-                <see>data.list</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">If size argument specified - creates queue with fixed size. When
-                count of values exceed this limit, outputs and removes first value in queue.</tr>
-                <!-- old: Если размер аргумента указан - создает очередь с
+  <object name="data.fifo">
+    <title>data.fifo</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">FIFO (First In First Out) - the queue data container</tr>
+        <tr lang="ru">FIFO First In First Out) - контейнер данных "очередь"</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>data fifo</keywords>
+      <since>0.1</since>
+      <also>
+        <see>data.list</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">If size argument specified - creates queue with fixed size. When count of
+        values exceed this limit, outputs and removes first value in queue.</tr>
+        <!-- old: Если размер аргумента указан - создает очередь с
                 фиксированным размером. Когда количество значений превышает этот предел, выводит и
                 удаляет первое значение в очереди. -->
-                <tr lang="ru" finished="false">Если размер аргумента указан - создает очередь с
-                фиксированным размером. Когда количество значений превышает этот предел, выводит и
-                удаляет первое значение в очереди.</tr>
-            </par>
-        </info>
-        <mouse>
-            <event type="left-click" editmode="false">open data editor</event>
-        </mouse>
-        <arguments>
-            <argument name="SIZE" type="int" minvalue="1" maxvalue="1024">
-                <tr lang="en">if specified, creates fixed-size queue. See @size property</tr>
-                <!-- old: Если указано, то создается очередь фиксированного
+        <tr lang="ru" finished="false">Если размер аргумента указан - создает очередь с
+        фиксированным размером. Когда количество значений превышает этот предел, выводит и удаляет
+        первое значение в очереди.</tr>
+      </par>
+    </info>
+    <mouse>
+      <event type="left-click" editmode="false">open data editor</event>
+    </mouse>
+    <arguments>
+      <argument name="SIZE" type="int" minvalue="1" maxvalue="1024">
+        <tr lang="en">if specified, creates fixed-size queue. See @size property</tr>
+        <!-- old: Если указано, то создается очередь фиксированного
                 размера. См. @size property -->
-                <tr lang="ru" finished="false">Если указано, то создается очередь фиксированного
-                размера. См. @size property</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @empty -->
-            <property name="@empty" type="bool" access="readonly" default="1">
-                <tr lang="en">if queue is empty</tr>
-                <tr lang="ru" finished="false">Если очередь пуста</tr>
-            </property>
-            <!-- @filled -->
-            <property name="@filled" type="int" minvalue="0" access="readonly" default="0">
-                <tr lang="en">current number of elements in queue</tr>
-                <tr lang="ru" finished="false">Текущее количество элементов в очереди</tr>
-            </property>
-            <!-- @free -->
-            <property name="@free" type="int" minvalue="0" access="readonly" default="32">
-                <tr lang="en">number of elements you can add to queue until it full</tr>
-                <!-- old: Количество элементов, которые вы можете добавить в
+        <tr lang="ru" finished="false">Если указано, то создается очередь фиксированного размера.
+        См. @size property</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @empty -->
+      <property name="@empty" type="bool" access="readonly" default="1">
+        <tr lang="en">if queue is empty</tr>
+        <tr lang="ru" finished="false">Если очередь пуста</tr>
+      </property>
+      <!-- @filled -->
+      <property name="@filled" type="int" minvalue="0" access="readonly" default="0">
+        <tr lang="en">current number of elements in queue</tr>
+        <tr lang="ru" finished="false">Текущее количество элементов в очереди</tr>
+      </property>
+      <!-- @free -->
+      <property name="@free" type="int" minvalue="0" access="readonly" default="32">
+        <tr lang="en">number of elements you can add to queue until it full</tr>
+        <!-- old: Количество элементов, которые вы можете добавить в
                 очередь, пока она не заполнится -->
-                <tr lang="ru" finished="false">Количество элементов, которые вы можете добавить в
-                очередь, пока она не заполнится</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="int" minvalue="1" maxvalue="1024" default="32">
-                <tr lang="en">size of queue</tr>
-                <tr lang="ru" finished="false">размер очереди</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">removes all queue values</tr>
-                    <tr lang="ru" finished="false">удаляет все значения очередей</tr>
-                </info>
-            </method>
-            <!-- flush -->
-            <method name="flush">
-                <info>
-                    <tr lang="en">outputs and removes all queue values</tr>
-                    <tr lang="ru" finished="false">выводит и удаляет все значения очередей</tr>
-                </info>
-            </method>
-            <!-- pop -->
-            <method name="pop">
-                <info>
-                    <tr lang="en">outputs and removes first values in queue</tr>
-                    <tr lang="ru" finished="false">выводит и удаляет первые значения в очереди</tr>
-                </info>
-            </method>
-            <!-- resize -->
-            <method name="resize">
-                <param type="int" minvalue="0">
-                    <tr lang="en">changes queue size. All previous values (if any) are silently
-                    removed</tr>
-                    <!-- old: Изменение размера очереди. Все предыдущие
+        <tr lang="ru" finished="false">Количество элементов, которые вы можете добавить в очередь,
+        пока она не заполнится</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="int" minvalue="1" maxvalue="1024" default="32">
+        <tr lang="en">size of queue</tr>
+        <tr lang="ru" finished="false">размер очереди</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">removes all queue values</tr>
+          <tr lang="ru" finished="false">удаляет все значения очередей</tr>
+        </info>
+      </method>
+      <!-- flush -->
+      <method name="flush">
+        <info>
+          <tr lang="en">outputs and removes all queue values</tr>
+          <tr lang="ru" finished="false">выводит и удаляет все значения очередей</tr>
+        </info>
+      </method>
+      <!-- pop -->
+      <method name="pop">
+        <info>
+          <tr lang="en">outputs and removes first values in queue</tr>
+          <tr lang="ru" finished="false">выводит и удаляет первые значения в очереди</tr>
+        </info>
+      </method>
+      <!-- resize -->
+      <method name="resize">
+        <param type="int" minvalue="0">
+          <tr lang="en">changes queue size. All previous values (if any) are silently removed</tr>
+          <!-- old: Изменение размера очереди. Все предыдущие
                     значения (если таковые имеются) бесшумно удаляются. -->
-                    <tr lang="ru" finished="false">Изменение размера очереди. Все предыдущие
-                    значения (если таковые имеются) бесшумно удаляются.</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">same as *flush* message</tr>
-                    <tr lang="ru" finished="false">Сообщение *flush*</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output value</tr>
-                    <tr lang="ru" finished="false">выходная стоимость</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Изменение размера очереди. Все предыдущие значения (если
+          таковые имеются) бесшумно удаляются.</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">same as *flush* message</tr>
+          <tr lang="ru" finished="false">Сообщение *flush*</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output value</tr>
+          <tr lang="ru" finished="false">выходная стоимость</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
                  [F]
                  |
@@ -131,7 +130,7 @@
 |                |
 [ui.dt]          [print]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,88 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.eq_peak~">
-        <title>flt.eq_peak~</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">second order peaking equalizer section</tr>
-                <tr lang="ru">секция эквалайзера: пиковый фильтр второго порядка</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>filter equalizer</keywords>
-            <since>0.1</since>
-            <also>
-                <see>flt.eq_peak_cq~</see>
-                <see>flt.lowshelf~</see>
-                <see>flt.highshelf~</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
-                <tr lang="en">peak frequency</tr>
-                <tr lang="ru" finished="false">пиковая частота</tr>
-            </argument>
-            <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">
-                <tr lang="en">level at fx (boost if &gt;0 or cut if &lt;0)</tr>
-                <!-- old: уровень в fx (буст если >0 или вырезать если
+  <object name="flt.eq_peak~">
+    <title>flt.eq_peak~</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">second order peaking equalizer section</tr>
+        <tr lang="ru">секция эквалайзера: пиковый фильтр второго порядка</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>filter equalizer</keywords>
+      <since>0.1</since>
+      <also>
+        <see>flt.eq_peak_cq~</see>
+        <see>flt.lowshelf~</see>
+        <see>flt.highshelf~</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
+        <tr lang="en">peak frequency</tr>
+        <tr lang="ru" finished="false">пиковая частота</tr>
+      </argument>
+      <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">
+        <tr lang="en">level at fx (boost if &gt;0 or cut if &lt;0)</tr>
+        <!-- old: уровень в fx (буст если >0 или вырезать если
                 <0) -->
-                <tr lang="ru" finished="false">уровень в fx (буст если &gt;0 или вырезать если
-                &lt;0)</tr>
-            </argument>
-            <argument name="BANDWIDTH" type="float" units="hertz" minvalue="1" maxvalue="5000">
-                <tr lang="en">bandwidth of peak</tr>
-                <tr lang="ru" finished="false">полоса пропускания пика</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @bandwidth -->
-            <property name="@bandwidth" type="float" units="hertz" minvalue="1" maxvalue="5000"
-            default="100">
-                <tr lang="en">bandwidth of peak</tr>
-                <tr lang="ru" finished="false">полоса пропускания пика</tr>
-            </property>
-            <!-- @freq -->
-            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
-            default="1000">
-                <tr lang="en">peak frequency</tr>
-                <tr lang="ru" finished="false">пиковая частота</tr>
-            </property>
-            <!-- @gain -->
-            <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
-            default="0">
-                <tr lang="en">level at fx (boost if &gt;0 or cut if &lt;0)</tr>
-                <!-- old: уровень в fx (буст если >0 или вырезать если
+        <tr lang="ru" finished="false">уровень в fx (буст если &gt;0 или вырезать если &lt;0)</tr>
+      </argument>
+      <argument name="BANDWIDTH" type="float" units="hertz" minvalue="1" maxvalue="5000">
+        <tr lang="en">bandwidth of peak</tr>
+        <tr lang="ru" finished="false">полоса пропускания пика</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @bandwidth -->
+      <property name="@bandwidth" type="float" units="hertz" minvalue="1" maxvalue="5000"
+      default="100">
+        <tr lang="en">bandwidth of peak</tr>
+        <tr lang="ru" finished="false">полоса пропускания пика</tr>
+      </property>
+      <!-- @freq -->
+      <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
+      default="1000">
+        <tr lang="en">peak frequency</tr>
+        <tr lang="ru" finished="false">пиковая частота</tr>
+      </property>
+      <!-- @gain -->
+      <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15" default="0">
+        <tr lang="en">level at fx (boost if &gt;0 or cut if &lt;0)</tr>
+        <!-- old: уровень в fx (буст если >0 или вырезать если
                 <0) -->
-                <tr lang="ru" finished="false">уровень в fx (буст если &gt;0 или вырезать если
-                &lt;0)</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">filtered signal</tr>
-                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">уровень в fx (буст если &gt;0 или вырезать если &lt;0)</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">filtered signal</tr>
+          <tr lang="ru" finished="false">фильтрованный сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [noise~] [F]        [F]        [F]
 |        |          |          |
@@ -101,7 +98,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

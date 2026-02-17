@@ -1,88 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.ring">
-        <title>flow.ring</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">queue router for control flow</tr>
-                <tr lang="ru">маршрутизатор в виде очереди для управляющего потока</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>ring buffer dataflow</keywords>
-            <since>0.9.1</since>
-            <aliases>
-                <alias>flow.&gt;&gt;</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="LENGTH" type="int" minvalue="1" maxvalue="24">
-                <tr lang="en">buffer length</tr>
-                <tr lang="ru" finished="false">длина буфера</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @length -->
-            <property name="@length" type="int" default="2" minvalue="1" maxvalue="24"
-            access="initonly">
-                <tr lang="en">buffer length</tr>
-                <tr lang="ru" finished="false">длина буфера</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input</tr>
-                    <tr lang="ru" finished="false">ввод</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output all buffer values</tr>
-                    <tr lang="ru" finished="false">вывод всех буферных значений</tr>
-                </in>
-                <in>
-                    <tr lang="en">get IDX: output buffer value at specified index</tr>
-                    <!-- old: Получить IDX: значение буфера вывода при
+  <object name="flow.ring">
+    <title>flow.ring</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">queue router for control flow</tr>
+        <tr lang="ru">маршрутизатор в виде очереди для управляющего потока</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>ring buffer dataflow</keywords>
+      <since>0.9.1</since>
+      <aliases>
+        <alias>flow.&gt;&gt;</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="LENGTH" type="int" minvalue="1" maxvalue="24">
+        <tr lang="en">buffer length</tr>
+        <tr lang="ru" finished="false">длина буфера</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @length -->
+      <property name="@length" type="int" default="2" minvalue="1" maxvalue="24" access="initonly">
+        <tr lang="en">buffer length</tr>
+        <tr lang="ru" finished="false">длина буфера</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input</tr>
+          <tr lang="ru" finished="false">ввод</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output all buffer values</tr>
+          <tr lang="ru" finished="false">вывод всех буферных значений</tr>
+        </in>
+        <in>
+          <tr lang="en">get IDX: output buffer value at specified index</tr>
+          <!-- old: Получить IDX: значение буфера вывода при
                     заданном индексе -->
-                    <tr lang="ru" finished="false">Получить IDX: значение буфера вывода при
-                    заданном индексе</tr>
-                </in>
-                <in>
-                    <tr lang="en">fill ARGS...: fill buffer with specified values (no output)</tr>
-                    <!-- old: заполнить ARGS...: заполнить буфер с заданными
+          <tr lang="ru" finished="false">Получить IDX: значение буфера вывода при заданном
+          индексе</tr>
+        </in>
+        <in>
+          <tr lang="en">fill ARGS...: fill buffer with specified values (no output)</tr>
+          <!-- old: заполнить ARGS...: заполнить буфер с заданными
                     значениями (без выхода) -->
-                    <tr lang="ru" finished="false">заполнить ARGS...: заполнить буфер с заданными
-                    значениями (без выхода)</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet number="1">
-                <out type="any">
-                    <tr lang="en">first output</tr>
-                    <tr lang="ru" finished="false">первый выход</tr>
-                </out>
-            </outlet>
-            <outlet number="...">
-                <out type="any">
-                    <tr lang="en">... output</tr>
-                    <tr lang="ru" finished="false">... выход</tr>
-                </out>
-            </outlet>
-            <outlet number="n">
-                <out type="any">
-                    <tr lang="en">n-th output</tr>
-                    <tr lang="ru" finished="false">n-й выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">заполнить ARGS...: заполнить буфер с заданными значениями
+          (без выхода)</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet number="1">
+        <out type="any">
+          <tr lang="en">first output</tr>
+          <tr lang="ru" finished="false">первый выход</tr>
+        </out>
+      </outlet>
+      <outlet number="...">
+        <out type="any">
+          <tr lang="en">... output</tr>
+          <tr lang="ru" finished="false">... выход</tr>
+        </out>
+      </outlet>
+      <outlet number="n">
+        <out type="any">
+          <tr lang="en">n-th output</tr>
+          <tr lang="ru" finished="false">n-й выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]                             [flow.ring-sound]
 |
@@ -92,8 +91,8 @@
 |      ^|     ^^|    ^^^|
 [F]    [F]    [F]    [F ]
 ]]>
-            </pdascii>
-            <pdascii id="sound">
+      </pdascii>
+      <pdascii id="sound">
 <![CDATA[
 [T]    [F]
 |      |.
@@ -115,7 +114,7 @@
 *|*
 [dac~ {w=29}]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

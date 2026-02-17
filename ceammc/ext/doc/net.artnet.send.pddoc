@@ -1,169 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="net.artnet.send">
-        <title>net.artnet.send</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">ArtNet DMX message sender</tr>
-                <tr lang="ru">отправление сообщений ArtNet DMX</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>net</category>
-            <keywords>osc net artnet dmx</keywords>
-            <since>0.9.5</since>
-            <aliases>
-                <alias>artnet.send</alias>
-            </aliases>
-        </meta>
-        <mouse>
-            <event type="left-click" editmode="false" keys="Alt">send blackout message</event>
-        </mouse>
-        <arguments>
-            <argument name="UNIVERSE" type="int" minvalue="0" maxvalue="15">
-                <tr lang="en">ArtNet universe</tr>
-                <tr lang="ru" finished="false">Вселенная ArtNet</tr>
-            </argument>
-            <argument name="SUBNET" type="int" minvalue="0" maxvalue="15">
-                <tr lang="en">ArtNet subnet</tr>
-                <tr lang="ru" finished="false">Подсеть ArtNet</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @ip -->
-            <property name="@ip" type="symbol" default="" access="initonly">
-                <tr lang="en">bind interface IP address. If empty - use first available
-                interface.</tr>
-                <!-- old: Связать IP-адрес интерфейса. Если пуст - используйте
+  <object name="net.artnet.send">
+    <title>net.artnet.send</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">ArtNet DMX message sender</tr>
+        <tr lang="ru">отправление сообщений ArtNet DMX</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>net</category>
+      <keywords>osc net artnet dmx</keywords>
+      <since>0.9.5</since>
+      <aliases>
+        <alias>artnet.send</alias>
+      </aliases>
+    </meta>
+    <mouse>
+      <event type="left-click" editmode="false" keys="Alt">send blackout message</event>
+    </mouse>
+    <arguments>
+      <argument name="UNIVERSE" type="int" minvalue="0" maxvalue="15">
+        <tr lang="en">ArtNet universe</tr>
+        <tr lang="ru" finished="false">Вселенная ArtNet</tr>
+      </argument>
+      <argument name="SUBNET" type="int" minvalue="0" maxvalue="15">
+        <tr lang="en">ArtNet subnet</tr>
+        <tr lang="ru" finished="false">Подсеть ArtNet</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @ip -->
+      <property name="@ip" type="symbol" default="" access="initonly">
+        <tr lang="en">bind interface IP address. If empty - use first available interface.</tr>
+        <!-- old: Связать IP-адрес интерфейса. Если пуст - используйте
                 первый доступный интерфейс. -->
-                <!-- old: Связать IP-адрес интерфейса. Если пуст - используйте
+        <!-- old: Связать IP-адрес интерфейса. Если пуст - используйте
                 первый доступный интерфейс. -->
-                <tr lang="ru" finished="false">Связать IP-адрес интерфейса. Если пуст - используйте
-                первый доступный интерфейс.</tr>
-            </property>
-            <!-- @offset -->
-            <property name="@offset" type="int" default="0" minvalue="0" maxvalue="511">
-                <tr lang="en">DMX channel offset</tr>
-                <tr lang="ru" finished="false">Смещение канала DMX</tr>
-            </property>
-            <!-- @rate -->
-            <property name="@rate" type="float" units="hertz" default="44" minvalue="1"
-            maxvalue="100">
-                <tr lang="en">send framerate</tr>
-                <tr lang="ru" finished="false">посылать кадры</tr>
-            </property>
-            <!-- @subnet -->
-            <property name="@subnet" type="int" default="0" minvalue="0" maxvalue="15">
-                <tr lang="en">ArtNet subnet</tr>
-                <tr lang="ru" finished="false">Подсеть ArtNet</tr>
-            </property>
-            <!-- @sync -->
-            <property name="@sync" type="bool" default="0">
-                <tr lang="en">send mode. If true: send frame only when bang is received, otherwise
-                send frames with @rate speed with internal clock</tr>
-                <!-- old: Отправь сигнал. Если верно: отправляйте кадр только
+        <tr lang="ru" finished="false">Связать IP-адрес интерфейса. Если пуст - используйте первый
+        доступный интерфейс.</tr>
+      </property>
+      <!-- @offset -->
+      <property name="@offset" type="int" default="0" minvalue="0" maxvalue="511">
+        <tr lang="en">DMX channel offset</tr>
+        <tr lang="ru" finished="false">Смещение канала DMX</tr>
+      </property>
+      <!-- @rate -->
+      <property name="@rate" type="float" units="hertz" default="44" minvalue="1" maxvalue="100">
+        <tr lang="en">send framerate</tr>
+        <tr lang="ru" finished="false">посылать кадры</tr>
+      </property>
+      <!-- @subnet -->
+      <property name="@subnet" type="int" default="0" minvalue="0" maxvalue="15">
+        <tr lang="en">ArtNet subnet</tr>
+        <tr lang="ru" finished="false">Подсеть ArtNet</tr>
+      </property>
+      <!-- @sync -->
+      <property name="@sync" type="bool" default="0">
+        <tr lang="en">send mode. If true: send frame only when bang is received, otherwise send
+        frames with @rate speed with internal clock</tr>
+        <!-- old: Отправь сигнал. Если верно: отправляйте кадр только
                 тогда, когда получен взрыв, в противном случае отправляйте кадры со скоростью @rate
                 с внутренними часами. -->
-                <!-- old: Отправь сигнал. Если верно: отправляйте кадр только
+        <!-- old: Отправь сигнал. Если верно: отправляйте кадр только
                 тогда, когда получен взрыв, в противном случае отправляйте кадры со скоростью @rate
                 с внутренними часами. -->
-                <tr lang="ru" finished="false">Отправь сигнал. Если верно: отправляйте кадр только
-                тогда, когда получен взрыв, в противном случае отправляйте кадры со скоростью @rate
-                с внутренними часами.</tr>
-            </property>
-            <!-- @universe -->
-            <property name="@universe" type="int" default="0" minvalue="0" maxvalue="15">
-                <tr lang="en">ArtNet universe</tr>
-                <tr lang="ru" finished="false">Вселенная ArtNet</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- blackout -->
-            <method name="blackout">
-                <info>
-                    <tr lang="en">blackout (send 0 to all DMX channels)</tr>
-                    <tr lang="ru" finished="false">Отключение (отправить 0 на все каналы DMX)</tr>
-                </info>
-            </method>
-            <!-- dmx -->
-            <method name="dmx">
-                <info>
-                    <tr lang="en">set DMX channel values</tr>
-                    <tr lang="ru" finished="false">Настройка значений каналов DMX</tr>
-                </info>
-                <param name="VALUES" type="list" required="true">
-                    <tr lang="en">list of DMX values, first element sets first channel etc.</tr>
-                    <!-- old: список значений DMX, первый элемент
+        <tr lang="ru" finished="false">Отправь сигнал. Если верно: отправляйте кадр только тогда,
+        когда получен взрыв, в противном случае отправляйте кадры со скоростью @rate с внутренними
+        часами.</tr>
+      </property>
+      <!-- @universe -->
+      <property name="@universe" type="int" default="0" minvalue="0" maxvalue="15">
+        <tr lang="en">ArtNet universe</tr>
+        <tr lang="ru" finished="false">Вселенная ArtNet</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- blackout -->
+      <method name="blackout">
+        <info>
+          <tr lang="en">blackout (send 0 to all DMX channels)</tr>
+          <tr lang="ru" finished="false">Отключение (отправить 0 на все каналы DMX)</tr>
+        </info>
+      </method>
+      <!-- dmx -->
+      <method name="dmx">
+        <info>
+          <tr lang="en">set DMX channel values</tr>
+          <tr lang="ru" finished="false">Настройка значений каналов DMX</tr>
+        </info>
+        <param name="VALUES" type="list" required="true">
+          <tr lang="en">list of DMX values, first element sets first channel etc.</tr>
+          <!-- old: список значений DMX, первый элемент
                     устанавливает первый канал и т.д. -->
-                    <tr lang="ru" finished="false">список значений DMX, первый элемент
-                    устанавливает первый канал и т.д.</tr>
-                </param>
-            </method>
-            <!-- dmx_fill -->
-            <method name="dmx_fill">
-                <info>
-                    <tr lang="en">set all DMX channels to given value</tr>
-                    <!-- old: Настройка всех каналов DMX на заданное
+          <tr lang="ru" finished="false">список значений DMX, первый элемент устанавливает первый
+          канал и т.д.</tr>
+        </param>
+      </method>
+      <!-- dmx_fill -->
+      <method name="dmx_fill">
+        <info>
+          <tr lang="en">set all DMX channels to given value</tr>
+          <!-- old: Настройка всех каналов DMX на заданное
                     значение -->
-                    <tr lang="ru" finished="false">Настройка всех каналов DMX на заданное
-                    значение</tr>
-                </info>
-                <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">
-                    <tr lang="en">DMX value</tr>
-                    <tr lang="ru" finished="false">значение DMX</tr>
-                </param>
-            </method>
-            <!-- dmx_set -->
-            <method name="dmx_set">
-                <info>
-                    <tr lang="en">set DMX channel value</tr>
-                    <tr lang="ru" finished="false">значение канала DMX</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0" maxvalue="512">
-                    <tr lang="en">DMX channel</tr>
-                    <tr lang="ru" finished="false">Канал DMX</tr>
-                </param>
-                <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">
-                    <tr lang="en">DMX value</tr>
-                    <tr lang="ru" finished="false">значение DMX</tr>
-                </param>
-            </method>
-            <!-- poll -->
-            <method name="poll">
-                <info>
-                    <tr lang="en">send poll request, dump response to Pd window</tr>
-                    <!-- old: Отправьте запрос на опрос, ответ на сброс в окно
+          <tr lang="ru" finished="false">Настройка всех каналов DMX на заданное значение</tr>
+        </info>
+        <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">
+          <tr lang="en">DMX value</tr>
+          <tr lang="ru" finished="false">значение DMX</tr>
+        </param>
+      </method>
+      <!-- dmx_set -->
+      <method name="dmx_set">
+        <info>
+          <tr lang="en">set DMX channel value</tr>
+          <tr lang="ru" finished="false">значение канала DMX</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0" maxvalue="512">
+          <tr lang="en">DMX channel</tr>
+          <tr lang="ru" finished="false">Канал DMX</tr>
+        </param>
+        <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">
+          <tr lang="en">DMX value</tr>
+          <tr lang="ru" finished="false">значение DMX</tr>
+        </param>
+      </method>
+      <!-- poll -->
+      <method name="poll">
+        <info>
+          <tr lang="en">send poll request, dump response to Pd window</tr>
+          <!-- old: Отправьте запрос на опрос, ответ на сброс в окно
                     Pd -->
-                    <tr lang="ru" finished="false">Отправьте запрос на опрос, ответ на сброс в окно
-                    Pd</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input</tr>
-                    <tr lang="ru" finished="false">ввод</tr>
-                </in>
-                <in on="bang">
-                    <tr lang="en">send packet</tr>
-                    <tr lang="ru" finished="false">Отправить пакет</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Отправьте запрос на опрос, ответ на сброс в окно Pd</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input</tr>
+          <tr lang="ru" finished="false">ввод</tr>
+        </in>
+        <in on="bang">
+          <tr lang="en">send packet</tr>
+          <tr lang="ru" finished="false">Отправить пакет</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.hrd 4]        [F]
 |                 |
@@ -189,7 +185,7 @@
 [X b->x]
 #c @matrix 16 8
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,81 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.slice">
-        <title>list.slice</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs a sublist</tr>
-                <tr lang="ru">выводит подсписок</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list slice sublist</keywords>
-            <since>0.2</since>
-            <also>
-                <see>list.at</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="FROM" type="int">
-                <tr lang="en">@from property</tr>
-                <tr lang="ru" finished="false">@от собственности</tr>
-            </argument>
-            <argument name="TO" type="int">
-                <tr lang="en">@to property</tr>
-                <tr lang="ru" finished="false">@to Собственность</tr>
-            </argument>
-            <argument name="STEP" type="int" minvalue="0">
-                <tr lang="en">@step property</tr>
-                <tr lang="ru" finished="false">@step Недвижимость</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @from -->
-            <property name="@from" type="int" default="0">
-                <tr lang="en">start slice position. You can use negative index to address elements
-                from the end</tr>
-                <!-- old: Начните резать позицию. Вы можете использовать
+  <object name="list.slice">
+    <title>list.slice</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs a sublist</tr>
+        <tr lang="ru">выводит подсписок</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list slice sublist</keywords>
+      <since>0.2</since>
+      <also>
+        <see>list.at</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="FROM" type="int">
+        <tr lang="en">@from property</tr>
+        <tr lang="ru" finished="false">@от собственности</tr>
+      </argument>
+      <argument name="TO" type="int">
+        <tr lang="en">@to property</tr>
+        <tr lang="ru" finished="false">@to Собственность</tr>
+      </argument>
+      <argument name="STEP" type="int" minvalue="0">
+        <tr lang="en">@step property</tr>
+        <tr lang="ru" finished="false">@step Недвижимость</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @from -->
+      <property name="@from" type="int" default="0">
+        <tr lang="en">start slice position. You can use negative index to address elements from the
+        end</tr>
+        <!-- old: Начните резать позицию. Вы можете использовать
                 отрицательный индекс для адресации элементов с конца. -->
-                <tr lang="ru" finished="false">Начните резать позицию. Вы можете использовать
-                отрицательный индекс для адресации элементов с конца.</tr>
-            </property>
-            <!-- @step -->
-            <property name="@step" type="int" default="1" minvalue="0">
-                <tr lang="en">slice step</tr>
-                <tr lang="ru" finished="false">шаг</tr>
-            </property>
-            <!-- @to -->
-            <property name="@to" type="int" default="-1">
-                <tr lang="en">end slice position. You can use negative index to address elements
-                from the end</tr>
-                <!-- old: Положение конца среза. Вы можете использовать
+        <tr lang="ru" finished="false">Начните резать позицию. Вы можете использовать отрицательный
+        индекс для адресации элементов с конца.</tr>
+      </property>
+      <!-- @step -->
+      <property name="@step" type="int" default="1" minvalue="0">
+        <tr lang="en">slice step</tr>
+        <tr lang="ru" finished="false">шаг</tr>
+      </property>
+      <!-- @to -->
+      <property name="@to" type="int" default="-1">
+        <tr lang="en">end slice position. You can use negative index to address elements from the
+        end</tr>
+        <!-- old: Положение конца среза. Вы можете использовать
                 отрицательный индекс для адресации элементов с конца. -->
-                <tr lang="ru" finished="false">Положение конца среза. Вы можете использовать
-                отрицательный индекс для адресации элементов с конца.</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output sublist</tr>
-                    <tr lang="ru" finished="false">выходной подсписок</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Положение конца среза. Вы можете использовать отрицательный
+        индекс для адресации элементов с конца.</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output sublist</tr>
+          <tr lang="ru" finished="false">выходной подсписок</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [list A B C D E(    [list A B C D E(   [list A B C D E(
 |                   |                  |
@@ -89,7 +89,7 @@
 |                   |
 [ui.dt]             [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

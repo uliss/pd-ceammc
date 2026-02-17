@@ -1,78 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.vocoder~">
-        <title>fx.vocoder~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">simple vocoder where the spectrum of the modulation signal is
-                analyzed using a 32-band filter bank</tr>
-                <tr lang="ru">простой вокодер, в котором спектр модулирующего сигнала анализируется
-                с помощью 32-диапазонного фильтра</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>vocoder</keywords>
-            <since>0.7</since>
-        </meta>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @attack -->
-            <property name="@attack" type="float" minvalue="0.1" maxvalue="100" default="5"
-            units="millisecond">
-                <tr lang="en">attack time</tr>
-                <tr lang="ru" finished="false">Время атаки</tr>
-            </property>
-            <!-- @bwratio -->
-            <property name="@bwratio" type="float" minvalue="0.1" maxvalue="2" default="0.5">
-                <tr lang="en">coefficient to adjust the bandwidth of each band</tr>
-                <tr lang="ru" finished="false">коэффициент для регулировки полосы пропускания
-                каждой полосы</tr>
-            </property>
-            <!-- @release -->
-            <property name="@release" type="float" minvalue="0.1" maxvalue="100" default="5"
-            units="millisecond">
-                <tr lang="en">release time</tr>
-                <tr lang="ru" finished="false">Время освобождения</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset object</tr>
-                    <tr lang="ru" finished="false">сбрасывать объект</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">modulation signal</tr>
-                    <tr lang="ru" finished="false">сигнал модуляции</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">excitation/carrier signal</tr>
-                    <tr lang="ru" finished="false">сигнал возбуждения/несущего</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en" />
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="fx.vocoder~">
+    <title>fx.vocoder~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">simple vocoder where the spectrum of the modulation signal is analyzed using
+        a 32-band filter bank</tr>
+        <tr lang="ru">простой вокодер, в котором спектр модулирующего сигнала анализируется с
+        помощью 32-диапазонного фильтра</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>vocoder</keywords>
+      <since>0.7</since>
+    </meta>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @attack -->
+      <property name="@attack" type="float" minvalue="0.1" maxvalue="100" default="5"
+      units="millisecond">
+        <tr lang="en">attack time</tr>
+        <tr lang="ru" finished="false">Время атаки</tr>
+      </property>
+      <!-- @bwratio -->
+      <property name="@bwratio" type="float" minvalue="0.1" maxvalue="2" default="0.5">
+        <tr lang="en">coefficient to adjust the bandwidth of each band</tr>
+        <tr lang="ru" finished="false">коэффициент для регулировки полосы пропускания каждой
+        полосы</tr>
+      </property>
+      <!-- @release -->
+      <property name="@release" type="float" minvalue="0.1" maxvalue="100" default="5"
+      units="millisecond">
+        <tr lang="en">release time</tr>
+        <tr lang="ru" finished="false">Время освобождения</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset object</tr>
+          <tr lang="ru" finished="false">сбрасывать объект</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">modulation signal</tr>
+          <tr lang="ru" finished="false">сигнал модуляции</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">excitation/carrier signal</tr>
+          <tr lang="ru" finished="false">сигнал возбуждения/несущего</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en" />
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open %DOC%/sound/voice.wav, 1 #a(
 |
@@ -88,7 +88,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

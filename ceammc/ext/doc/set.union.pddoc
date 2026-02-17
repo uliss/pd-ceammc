@@ -1,58 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="set.union">
-        <title>set.union</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">union of sets</tr>
-                <tr lang="ru">объединение множеств</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>data union set</keywords>
-            <since>0.3</since>
-            <also>
-                <see>data.set</see>
-                <see>set.intersect</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="ARGS" type="any">
-                <tr lang="en">right set elements</tr>
-                <tr lang="ru" finished="false">Правильный набор элементов</tr>
-            </argument>
-        </arguments>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">first set or list (converted to set), other values are
-                    ignored</tr>
-                    <tr lang="ru" finished="false">первый набор или список (преобразуется в набор),
-                    другие значения игнорируются;</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">second set or list (converted to set)</tr>
-                    <tr lang="ru" finished="false">Второй набор или список (преобразуется в
-                    набор)</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output union of given sets</tr>
-                    <tr lang="ru" finished="false">Производственный союз заданных наборов</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="set.union">
+    <title>set.union</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">union of sets</tr>
+        <tr lang="ru">объединение множеств</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>data union set</keywords>
+      <since>0.3</since>
+      <also>
+        <see>data.set</see>
+        <see>set.intersect</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="ARGS" type="any">
+        <tr lang="en">right set elements</tr>
+        <tr lang="ru" finished="false">Правильный набор элементов</tr>
+      </argument>
+    </arguments>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">first set or list (converted to set), other values are ignored</tr>
+          <tr lang="ru" finished="false">первый набор или список (преобразуется в набор), другие
+          значения игнорируются;</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">second set or list (converted to set)</tr>
+          <tr lang="ru" finished="false">Второй набор или список (преобразуется в набор)</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output union of given sets</tr>
+          <tr lang="ru" finished="false">Производственный союз заданных наборов</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -64,7 +62,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

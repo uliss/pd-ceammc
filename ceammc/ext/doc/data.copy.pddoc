@@ -1,49 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="data.copy">
-        <title>data.copy</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">makes a copy for any data type: MList, Set etc...</tr>
-                <tr lang="ru">делает копии любых типов данных: MList, Set и т.д.</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>data copy</keywords>
-            <since>0.9.2</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Data types, such as MList, are passed by reference, not by
-                value.</tr>
-                <!-- old: Типы данных, такие как MList, передаются по ссылке,
+  <object name="data.copy">
+    <title>data.copy</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">makes a copy for any data type: MList, Set etc...</tr>
+        <tr lang="ru">делает копии любых типов данных: MList, Set и т.д.</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>data copy</keywords>
+      <since>0.9.2</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Data types, such as MList, are passed by reference, not by value.</tr>
+        <!-- old: Типы данных, такие как MList, передаются по ссылке,
                 а не по значению. -->
-                <tr lang="ru" finished="false">Типы данных, такие как MList, передаются по ссылке,
-                а не по значению.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="data">
-                    <tr lang="en">input data</tr>
-                    <tr lang="ru" finished="false">входные данные</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">data copy</tr>
-                    <tr lang="ru" finished="false">копия данных</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Типы данных, такие как MList, передаются по ссылке, а не по
+        значению.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="data">
+          <tr lang="en">input data</tr>
+          <tr lang="ru" finished="false">входные данные</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">data copy</tr>
+          <tr lang="ru" finished="false">копия данных</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /*without copy*/
 
@@ -70,7 +69,7 @@
 [X f->d:1]
 [X d:1->e]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

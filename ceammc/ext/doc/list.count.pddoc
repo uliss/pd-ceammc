@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.count">
-        <title>list.count</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">output the number of items that equal to specified value</tr>
-                <tr lang="ru">выводить количество элементов, равных заданному значению</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list count</keywords>
-            <since>0.1</since>
-            <also>
-                <see>list.count_if</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="PATTERN" type="atom">
-                <tr lang="en">count pattern value</tr>
-                <tr lang="ru" finished="false">значение паттерна</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @pattern -->
-            <property name="@pattern" type="atom">
-                <tr lang="en">new pattern value</tr>
-                <tr lang="ru" finished="false">Новая модель ценности</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">Input list</tr>
-                    <tr lang="ru" finished="false">Список вводимых данных</tr>
-                </in>
-                <in on="data">
-                    <tr lang="en">Input mlist</tr>
-                    <tr lang="ru" finished="false">Входной млист</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">change pattern value</tr>
-                    <tr lang="ru" finished="false">значение изменения шаблона</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">count of found elements</tr>
-                    <tr lang="ru" finished="false">Количество найденных элементов</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="list.count">
+    <title>list.count</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">output the number of items that equal to specified value</tr>
+        <tr lang="ru">выводить количество элементов, равных заданному значению</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list count</keywords>
+      <since>0.1</since>
+      <also>
+        <see>list.count_if</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="PATTERN" type="atom">
+        <tr lang="en">count pattern value</tr>
+        <tr lang="ru" finished="false">значение паттерна</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @pattern -->
+      <property name="@pattern" type="atom">
+        <tr lang="en">new pattern value</tr>
+        <tr lang="ru" finished="false">Новая модель ценности</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">Input list</tr>
+          <tr lang="ru" finished="false">Список вводимых данных</tr>
+        </in>
+        <in on="data">
+          <tr lang="en">Input mlist</tr>
+          <tr lang="ru" finished="false">Входной млист</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">change pattern value</tr>
+          <tr lang="ru" finished="false">значение изменения шаблона</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">count of found elements</tr>
+          <tr lang="ru" finished="false">Количество найденных элементов</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
           [@pattern c(  [list a b c c(
           |             |
@@ -69,7 +69,7 @@
 |        |
 [F]      [print]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

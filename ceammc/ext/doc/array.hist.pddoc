@@ -1,91 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.hist">
-        <title>array.hist</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">calculate the array histogram</tr>
-                <tr lang="ru">вычисление гистограммы массива</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array histogram</keywords>
-            <since>0.7.1</since>
-            <also>
-                <see>list.histogram</see>
-            </also>
-            <aliases>
-                <alias>array.histogram</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Values outside of range @min...@max are ignored</tr>
-                <tr lang="ru">Значения вне диапазона @min...@max игнорируются</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-            <argument name="BINS" type="int" minvalue="2" maxvalue="1000">
-                <tr lang="en">number of bins</tr>
-                <tr lang="ru">количество бинов</tr>
-            </argument>
-            <argument name="MIN" type="float">
-                <tr lang="en">minimal value</tr>
-                <tr lang="ru">минимальное значение</tr>
-            </argument>
-            <argument name="MAX" type="float">
-                <tr lang="en">maximum value</tr>
-                <tr lang="ru">максимальное значение</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-            <!-- @bins -->
-            <property name="@bins" type="int" minvalue="2" maxvalue="1000" default="100">
-                <tr lang="en">number of bins</tr>
-                <tr lang="ru">количество бинов</tr>
-            </property>
-            <!-- @max -->
-            <property name="@max" type="float" default="1">
-                <tr lang="en">maximum value</tr>
-                <tr lang="ru">максимальное значение</tr>
-            </property>
-            <!-- @min -->
-            <property name="@min" type="float" default="-1">
-                <tr lang="en">minimal value</tr>
-                <tr lang="ru">минимальное значение</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">calculates and outputs histogram</tr>
-                    <tr lang="ru">вычисляет и выводит гистограмму</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="list">
-                    <tr lang="en">histogram values (length = number of @bins)</tr>
-                    <tr lang="ru">значения гистограммы (длина = число @bins)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.hist">
+    <title>array.hist</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">calculate the array histogram</tr>
+        <tr lang="ru">вычисление гистограммы массива</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array histogram</keywords>
+      <since>0.7.1</since>
+      <also>
+        <see>list.histogram</see>
+      </also>
+      <aliases>
+        <alias>array.histogram</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Values outside of range @min...@max are ignored</tr>
+        <tr lang="ru">Значения вне диапазона @min...@max игнорируются</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+      <argument name="BINS" type="int" minvalue="2" maxvalue="1000">
+        <tr lang="en">number of bins</tr>
+        <tr lang="ru">количество бинов</tr>
+      </argument>
+      <argument name="MIN" type="float">
+        <tr lang="en">minimal value</tr>
+        <tr lang="ru">минимальное значение</tr>
+      </argument>
+      <argument name="MAX" type="float">
+        <tr lang="en">maximum value</tr>
+        <tr lang="ru">максимальное значение</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+      <!-- @bins -->
+      <property name="@bins" type="int" minvalue="2" maxvalue="1000" default="100">
+        <tr lang="en">number of bins</tr>
+        <tr lang="ru">количество бинов</tr>
+      </property>
+      <!-- @max -->
+      <property name="@max" type="float" default="1">
+        <tr lang="en">maximum value</tr>
+        <tr lang="ru">максимальное значение</tr>
+      </property>
+      <!-- @min -->
+      <property name="@min" type="float" default="-1">
+        <tr lang="en">minimal value</tr>
+        <tr lang="ru">минимальное значение</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">calculates and outputs histogram</tr>
+          <tr lang="ru">вычисляет и выводит гистограмму</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="list">
+          <tr lang="en">histogram values (length = number of @bins)</tr>
+          <tr lang="ru">значения гистограммы (длина = число @bins)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [array ahist size=512 w=330 h=100] [ui.sliders #sl]
 
@@ -113,7 +113,7 @@
 
 #sl @size 40 100 @receive ahist-r @auto_count 1 @auto_range_mode max
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

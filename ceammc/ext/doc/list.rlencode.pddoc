@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.rlencode">
-        <title>list.rlencode</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">run-length encoding for lists</tr>
-                <tr lang="ru">кодирование повторов в списках</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list functional</keywords>
-            <since>0.1</since>
-            <also>
-                <see>list.rldecode</see>
-            </also>
-            <aliases>
-                <alias>list.wrap</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">First list: list entries without repetitions. For example 1 1 2 2
-                    2 1 1 becomes 1 2 1</tr>
-                    <tr lang="ru" finished="false">Первый список: список записей без повторений.
-                    Например, 1 1 2 2 2 1 1 становится 1 2 1</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">Second list: count of entries</tr>
-                    <tr lang="ru" finished="false">Второй список: количество записей</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="list.rlencode">
+    <title>list.rlencode</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">run-length encoding for lists</tr>
+        <tr lang="ru">кодирование повторов в списках</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list functional</keywords>
+      <since>0.1</since>
+      <also>
+        <see>list.rldecode</see>
+      </also>
+      <aliases>
+        <alias>list.wrap</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">First list: list entries without repetitions. For example 1 1 2 2 2 1 1
+          becomes 1 2 1</tr>
+          <tr lang="ru" finished="false">Первый список: список записей без повторений. Например, 1
+          1 2 2 2 1 1 становится 1 2 1</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">Second list: count of entries</tr>
+          <tr lang="ru" finished="false">Второй список: количество записей</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 1 2 2 2 1 3(
 |
@@ -58,7 +58,7 @@
            |
            [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

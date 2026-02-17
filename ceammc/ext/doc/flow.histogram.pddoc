@@ -1,86 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.histogram">
-        <title>flow.histogram</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">histogram for numeric control flow</tr>
-                <tr lang="ru">гистограмма для числового потока управления</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>histogram</keywords>
-            <since>0.9.8</since>
-            <aliases>
-                <alias>flow.hist</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="RANGE" type="list">
-                <tr lang="en">MIN MAX NUM_BINS?</tr>
-                <tr lang="ru">МИН МАКС ЧИСЛО_ИНТЕРВАЛОВ?</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @bins -->
-            <property name="@bins" type="list" default="0">
-                <tr lang="en">bins border values</tr>
-                <tr lang="ru">значения границ интервалов</tr>
-            </property>
-            <!-- @inner_bins -->
-            <property name="@inner_bins" type="bool" default="1">
-                <tr lang="en">user only inner histogram bins</tr>
-                <tr lang="ru">использовать только внутренние интервалы гистограммы</tr>
-            </property>
-            <!-- @norm -->
-            <property name="@norm" type="bool" default="1">
-                <tr lang="en">do the histogram normalization</tr>
-                <tr lang="ru">производить нормализацию гистограммы</tr>
-            </property>
-            <!-- @sync -->
-            <property name="@sync" type="bool" default="1">
-                <tr lang="en">if true, recalculate and output histogram on every input value</tr>
-                <tr lang="ru">если истинно, перевычислять и выводить гистограмму после каждого
-                входного значения</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clear all histogram data</tr>
-                    <tr lang="ru">очистить все данные гистограммы</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">calculates histogram and outputs current bin values</tr>
-                    <tr lang="ru">вычисляет гистограмму и выводит текущие значения интервалов</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">add value to the histogram. Calculate and output a new histogram
-                    value if @sync property is true</tr>
-                    <tr lang="ru">добавить значение в гистограмму. Вычислить и вывести её новое
-                    значение, если свойство @sync истинно</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="list">
-                    <tr lang="en">bin values</tr>
-                    <tr lang="ru">значения интервалов гистограммы</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flow.histogram">
+    <title>flow.histogram</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">histogram for numeric control flow</tr>
+        <tr lang="ru">гистограмма для числового потока управления</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>histogram</keywords>
+      <since>0.9.8</since>
+      <aliases>
+        <alias>flow.hist</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="RANGE" type="list">
+        <tr lang="en">MIN MAX NUM_BINS?</tr>
+        <tr lang="ru">МИН МАКС ЧИСЛО_ИНТЕРВАЛОВ?</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @bins -->
+      <property name="@bins" type="list" default="0">
+        <tr lang="en">bins border values</tr>
+        <tr lang="ru">значения границ интервалов</tr>
+      </property>
+      <!-- @inner_bins -->
+      <property name="@inner_bins" type="bool" default="1">
+        <tr lang="en">user only inner histogram bins</tr>
+        <tr lang="ru">использовать только внутренние интервалы гистограммы</tr>
+      </property>
+      <!-- @norm -->
+      <property name="@norm" type="bool" default="1">
+        <tr lang="en">do the histogram normalization</tr>
+        <tr lang="ru">производить нормализацию гистограммы</tr>
+      </property>
+      <!-- @sync -->
+      <property name="@sync" type="bool" default="1">
+        <tr lang="en">if true, recalculate and output histogram on every input value</tr>
+        <tr lang="ru">если истинно, перевычислять и выводить гистограмму после каждого входного
+        значения</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">clear all histogram data</tr>
+          <tr lang="ru">очистить все данные гистограммы</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">calculates histogram and outputs current bin values</tr>
+          <tr lang="ru">вычисляет гистограмму и выводит текущие значения интервалов</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">add value to the histogram. Calculate and output a new histogram value if
+          @sync property is true</tr>
+          <tr lang="ru">добавить значение в гистограмму. Вычислить и вывести её новое значение,
+          если свойство @sync истинно</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="list">
+          <tr lang="en">bin values</tr>
+          <tr lang="ru">значения интервалов гистограммы</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |
@@ -101,8 +101,8 @@
 
 [flow.histogram-bins]
 ]]>
-            </pdascii>
-            <pdascii id="bins">
+      </pdascii>
+      <pdascii id="bins">
 <![CDATA[
 /*manual bins*/
 
@@ -116,7 +116,7 @@
 |
 [flow.hist @bins seq(1 100 2)]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

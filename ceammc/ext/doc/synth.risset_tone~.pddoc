@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="synth.risset_tone~">
-        <title>synth.risset_tone~</title>
-        <meta>
-            <authors>
-                <author>Oliver Larkin</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">Jean-Claude Risset's endless glissando</tr>
-                <tr lang="ru">бесконечное глиссандо Жан-Клода Риссе</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>synth</category>
-            <keywords>risset</keywords>
-            <since>0.5</since>
-        </meta>
-        <arguments>
-            <argument name="CENTROID" type="float" minvalue="20" maxvalue="120">
-                <tr lang="en">main frequency (MIDI pitch)</tr>
-                <tr lang="ru" finished="false">Основная частота (MIDI pitch)</tr>
-            </argument>
-            <argument name="RATE" type="float" minvalue="-2" maxvalue="2">
-                <tr lang="en">glissanso speed</tr>
-                <tr lang="ru" finished="false">скорость глиссансо</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @centroid -->
-            <property name="@centroid" type="float" minvalue="20" maxvalue="120" default="60">
-                <tr lang="en">main frequency. Units: MIDI note</tr>
-                <tr lang="ru" finished="false">Основная частота. Единицы: записка MIDI</tr>
-            </property>
-            <!-- @range -->
-            <property name="@range" type="float" minvalue="1" maxvalue="120" default="120">
-                <tr lang="en">glissando range in MIDI note units</tr>
-                <tr lang="ru" finished="false">Диапазон глиссандо в единицах нот MIDI</tr>
-            </property>
-            <!-- @rate -->
-            <property name="@rate" type="float" minvalue="-2" maxvalue="2" default="0.01">
-                <tr lang="en">glissanso speed</tr>
-                <tr lang="ru" finished="false">скорость глиссансо</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset to start position</tr>
-                    <tr lang="ru" finished="false">Перезагрузить, чтобы начать позицию</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">reset to start position</tr>
-                    <tr lang="ru" finished="false">Перезагрузить, чтобы начать позицию</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="synth.risset_tone~">
+    <title>synth.risset_tone~</title>
+    <meta>
+      <authors>
+        <author>Oliver Larkin</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">Jean-Claude Risset's endless glissando</tr>
+        <tr lang="ru">бесконечное глиссандо Жан-Клода Риссе</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>synth</category>
+      <keywords>risset</keywords>
+      <since>0.5</since>
+    </meta>
+    <arguments>
+      <argument name="CENTROID" type="float" minvalue="20" maxvalue="120">
+        <tr lang="en">main frequency (MIDI pitch)</tr>
+        <tr lang="ru" finished="false">Основная частота (MIDI pitch)</tr>
+      </argument>
+      <argument name="RATE" type="float" minvalue="-2" maxvalue="2">
+        <tr lang="en">glissanso speed</tr>
+        <tr lang="ru" finished="false">скорость глиссансо</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @centroid -->
+      <property name="@centroid" type="float" minvalue="20" maxvalue="120" default="60">
+        <tr lang="en">main frequency. Units: MIDI note</tr>
+        <tr lang="ru" finished="false">Основная частота. Единицы: записка MIDI</tr>
+      </property>
+      <!-- @range -->
+      <property name="@range" type="float" minvalue="1" maxvalue="120" default="120">
+        <tr lang="en">glissando range in MIDI note units</tr>
+        <tr lang="ru" finished="false">Диапазон глиссандо в единицах нот MIDI</tr>
+      </property>
+      <!-- @rate -->
+      <property name="@rate" type="float" minvalue="-2" maxvalue="2" default="0.01">
+        <tr lang="en">glissanso speed</tr>
+        <tr lang="ru" finished="false">скорость глиссансо</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset to start position</tr>
+          <tr lang="ru" finished="false">Перезагрузить, чтобы начать позицию</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">reset to start position</tr>
+          <tr lang="ru" finished="false">Перезагрузить, чтобы начать позицию</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]              [bang #a(
 |
@@ -93,7 +93,7 @@
 [X a->x] [X a->y] [X a->z]
 [X b->x] [X b->y] [X b->z]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

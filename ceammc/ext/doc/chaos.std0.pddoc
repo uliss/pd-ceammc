@@ -1,98 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="chaos.std0">
-        <title>chaos.std0</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">standard map chaotic generator</tr>
-                <tr lang="ru">хаотический генератор на основе стандартного отображения</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>chaos</category>
-            <keywords>chaos standard map</keywords>
-            <since>0.9</since>
-            <also>
-                <see>chaos.std0~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
-                <!-- old: Неинтерполирующий генератор, основанный на
+  <object name="chaos.std0">
+    <title>chaos.std0</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">standard map chaotic generator</tr>
+        <tr lang="ru">хаотический генератор на основе стандартного отображения</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>chaos</category>
+      <keywords>chaos standard map</keywords>
+      <since>0.9</since>
+      <also>
+        <see>chaos.std0~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
+        <!-- old: Неинтерполирующий генератор, основанный на
                 разностных уравнениях: -->
-                <tr lang="ru" finished="false">Неинтерполирующий генератор, основанный на
-                разностных уравнениях:</tr>
-            </par>
-            <par>
-                <tr lang="en">y(n+1) = (y(n) + k * sin(x(n))) % 2pi</tr>
-                <tr lang="ru" finished="false">y(n+1) = (y(n) + k* sin(x(n))) % 2pi</tr>
-            </par>
-            <par>
-                <tr lang="en">x(n+1) = (x(n) + y(n+1)) % 2pi</tr>
-                <tr lang="ru" finished="false">x(n+1) = (x(n) + y(n+1) % 2pi</tr>
-            </par>
-            <a href="https://en.wikipedia.org/wiki/Standard_map">wiki: Standard map</a>
-            <par>
-                <tr lang="en">The properties of chaos of the standard map were established by Boris
-                Chirikov in 1969</tr>
-                <!-- old: Свойства хаоса стандартной карты были установлены
+        <tr lang="ru" finished="false">Неинтерполирующий генератор, основанный на разностных
+        уравнениях:</tr>
+      </par>
+      <par>
+        <tr lang="en">y(n+1) = (y(n) + k * sin(x(n))) % 2pi</tr>
+        <tr lang="ru" finished="false">y(n+1) = (y(n) + k* sin(x(n))) % 2pi</tr>
+      </par>
+      <par>
+        <tr lang="en">x(n+1) = (x(n) + y(n+1)) % 2pi</tr>
+        <tr lang="ru" finished="false">x(n+1) = (x(n) + y(n+1) % 2pi</tr>
+      </par>
+      <a href="https://en.wikipedia.org/wiki/Standard_map">wiki: Standard map</a>
+      <par>
+        <tr lang="en">The properties of chaos of the standard map were established by Boris
+        Chirikov in 1969</tr>
+        <!-- old: Свойства хаоса стандартной карты были установлены
                 Борисом Чириковым в 1969 году. -->
-                <tr lang="ru" finished="false">Свойства хаоса стандартной карты были установлены
-                Борисом Чириковым в 1969 году.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="K" type="float">
-                <tr lang="en">k value, default 1</tr>
-                <tr lang="ru" finished="false">k значение, по умолчанию 1</tr>
-            </argument>
-            <argument name="X" type="float">
-                <tr lang="en">initial x value, default 0.5</tr>
-                <tr lang="ru" finished="false">начальное значение x, по умолчанию 0,5</tr>
-            </argument>
-            <argument name="Y" type="float">
-                <tr lang="en">initial y value, default 0</tr>
-                <tr lang="ru" finished="false">начальное значение y, по умолчанию 0</tr>
-            </argument>
-        </arguments>
-        <properties />
-        <methods />
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">generates and outputs next x-value</tr>
-                    <tr lang="ru" finished="false">генерирует и выводит следующее x-значение</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set k value</tr>
-                    <tr lang="ru" finished="false">значение k</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs x-value mapped to [-1..1] range</tr>
-                    <tr lang="ru" finished="false">выходы x-значения, отображаемые в [-1..1]
-                    диапазоне</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs y-value mapped to [-1..1] range</tr>
-                    <tr lang="ru" finished="false">выходы y-значения, отображаемые в [-1..1]
-                    диапазоне</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Свойства хаоса стандартной карты были установлены Борисом
+        Чириковым в 1969 году.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="K" type="float">
+        <tr lang="en">k value, default 1</tr>
+        <tr lang="ru" finished="false">k значение, по умолчанию 1</tr>
+      </argument>
+      <argument name="X" type="float">
+        <tr lang="en">initial x value, default 0.5</tr>
+        <tr lang="ru" finished="false">начальное значение x, по умолчанию 0,5</tr>
+      </argument>
+      <argument name="Y" type="float">
+        <tr lang="en">initial y value, default 0</tr>
+        <tr lang="ru" finished="false">начальное значение y, по умолчанию 0</tr>
+      </argument>
+    </arguments>
+    <properties />
+    <methods />
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">generates and outputs next x-value</tr>
+          <tr lang="ru" finished="false">генерирует и выводит следующее x-значение</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set k value</tr>
+          <tr lang="ru" finished="false">значение k</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs x-value mapped to [-1..1] range</tr>
+          <tr lang="ru" finished="false">выходы x-значения, отображаемые в [-1..1] диапазоне</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs y-value mapped to [-1..1] range</tr>
+          <tr lang="ru" finished="false">выходы y-значения, отображаемые в [-1..1] диапазоне</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]             [ui.dsp~]  [r~ std0]
 |                          |
@@ -122,7 +120,7 @@
 | \
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,217 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="seq.life">
-        <title>seq.life</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">Conway game of life sequencer</tr>
-                <tr lang="ru">секвенсер для игры Life Джона Конвея</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>seq</category>
-            <keywords>seq conway life game</keywords>
-            <since>0.9.2</since>
-            <also>
-                <see>seq.b</see>
-                <see>seq.t</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="ROWS" type="int" minvalue="1" maxvalue="64">
-                <tr lang="en">number of rows</tr>
-                <tr lang="ru" finished="false">количество строк</tr>
-            </argument>
-            <argument name="COLS" type="int" minvalue="1" maxvalue="64">
-                <tr lang="en">number of columns</tr>
-                <tr lang="ru" finished="false">Количество колонок</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @cols -->
-            <property name="@cols" type="int" minvalue="1" maxvalue="64" default="16">
-                <tr lang="en">number of columns</tr>
-                <tr lang="ru" finished="false">Количество колонок</tr>
-            </property>
-            <!-- @rows -->
-            <property name="@rows" type="int" minvalue="1" maxvalue="64" default="16">
-                <tr lang="en">number of rows</tr>
-                <tr lang="ru" finished="false">количество строк</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="int" access="readonly" default="256">
-                <tr lang="en">total cell count</tr>
-                <tr lang="ru" finished="false">общее количество клеток</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- blinker -->
-            <method name="blinker">
-                <info>
-                    <tr lang="en">adds blinker</tr>
-                    <tr lang="ru" finished="false">Добавить Blinker</tr>
-                </info>
-                <param name="ROW" type="int" required="true">
-                    <tr lang="en">row</tr>
-                    <tr lang="ru" finished="false">ряд</tr>
-                </param>
-                <param name="COL" type="int" required="true">
-                    <tr lang="en">column</tr>
-                    <tr lang="ru" finished="false">колонка</tr>
-                </param>
-            </method>
-            <!-- block -->
-            <method name="block">
-                <info>
-                    <tr lang="en">adds block</tr>
-                    <tr lang="ru" finished="false">Добавить блок</tr>
-                </info>
-                <param name="ROW" type="int" required="true">
-                    <tr lang="en">row</tr>
-                    <tr lang="ru" finished="false">ряд</tr>
-                </param>
-                <param name="COL" type="int" required="true">
-                    <tr lang="en">column</tr>
-                    <tr lang="ru" finished="false">колонка</tr>
-                </param>
-            </method>
-            <!-- cell -->
-            <method name="cell">
-                <info>
-                    <tr lang="en">sets cell value</tr>
-                    <tr lang="ru" finished="false">значение ячейки</tr>
-                </info>
-                <param name="ROW" type="int" required="true">
-                    <tr lang="en">row</tr>
-                    <tr lang="ru" finished="false">ряд</tr>
-                </param>
-                <param name="COL" type="int" required="true">
-                    <tr lang="en">column</tr>
-                    <tr lang="ru" finished="false">колонка</tr>
-                </param>
-                <param name="VALUE" type="int" required="true">
-                    <tr lang="en">column</tr>
-                    <tr lang="ru" finished="false">колонка</tr>
-                </param>
-            </method>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clear all cells</tr>
-                    <tr lang="ru" finished="false">очистить все клетки</tr>
-                </info>
-            </method>
-            <!-- glider -->
-            <method name="glider">
-                <info>
-                    <tr lang="en">adds glider</tr>
-                    <tr lang="ru" finished="false">Добавить глайдер</tr>
-                </info>
-                <param name="ROW" type="int" required="true">
-                    <tr lang="en">row</tr>
-                    <tr lang="ru" finished="false">ряд</tr>
-                </param>
-                <param name="COL" type="int" required="true">
-                    <tr lang="en">column</tr>
-                    <tr lang="ru" finished="false">колонка</tr>
-                </param>
-            </method>
-            <!-- hive -->
-            <method name="hive">
-                <info>
-                    <tr lang="en">adds horizontal bee-hive</tr>
-                    <tr lang="ru" finished="false">Горизонтальный пчелиный улей</tr>
-                </info>
-                <param name="ROW" type="int" required="true">
-                    <tr lang="en">row</tr>
-                    <tr lang="ru" finished="false">ряд</tr>
-                </param>
-                <param name="COL" type="int" required="true">
-                    <tr lang="en">column</tr>
-                    <tr lang="ru" finished="false">колонка</tr>
-                </param>
-            </method>
-            <!-- next -->
-            <method name="next">
-                <info>
-                    <tr lang="en">generate next state</tr>
-                    <tr lang="ru" finished="false">Создать следующее государство</tr>
-                </info>
-            </method>
-            <!-- oct2 -->
-            <method name="oct2">
-                <info>
-                    <tr lang="en">adds octagon</tr>
-                    <tr lang="ru" finished="false">Добавить октагон</tr>
-                </info>
-                <param name="ROW" type="int" required="true">
-                    <tr lang="en">row</tr>
-                    <tr lang="ru" finished="false">ряд</tr>
-                </param>
-                <param name="COL" type="int" required="true">
-                    <tr lang="en">column</tr>
-                    <tr lang="ru" finished="false">колонка</tr>
-                </param>
-            </method>
-            <!-- random -->
-            <method name="random">
-                <info>
-                    <tr lang="en">fills with random</tr>
-                    <tr lang="ru" finished="false">заполненный случайным</tr>
-                </info>
-            </method>
-            <!-- rpent -->
-            <method name="rpent">
-                <info>
-                    <tr lang="en">adds R-pentamino</tr>
-                    <tr lang="ru" finished="false">Добавлено R-пентамино</tr>
-                </info>
-                <param name="ROW" type="int" required="true">
-                    <tr lang="en">row</tr>
-                    <tr lang="ru" finished="false">ряд</tr>
-                </param>
-                <param name="COL" type="int" required="true">
-                    <tr lang="en">column</tr>
-                    <tr lang="ru" finished="false">колонка</tr>
-                </param>
-            </method>
-            <!-- vhive -->
-            <method name="vhive">
-                <info>
-                    <tr lang="en">adds vertical bee-hive</tr>
-                    <tr lang="ru" finished="false">Вертикальный пчелиный улей</tr>
-                </info>
-                <param name="ROW" type="int" required="true">
-                    <tr lang="en">row</tr>
-                    <tr lang="ru" finished="false">ряд</tr>
-                </param>
-                <param name="COL" type="int" required="true">
-                    <tr lang="en">column</tr>
-                    <tr lang="ru" finished="false">колонка</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output all cells</tr>
-                    <tr lang="ru" finished="false">вывести все клетки</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list of all cells in row by row order</tr>
-                    <tr lang="ru" finished="false">Список всех ячеек по порядку строк</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="seq.life">
+    <title>seq.life</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">Conway game of life sequencer</tr>
+        <tr lang="ru">секвенсер для игры Life Джона Конвея</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>seq</category>
+      <keywords>seq conway life game</keywords>
+      <since>0.9.2</since>
+      <also>
+        <see>seq.b</see>
+        <see>seq.t</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="ROWS" type="int" minvalue="1" maxvalue="64">
+        <tr lang="en">number of rows</tr>
+        <tr lang="ru" finished="false">количество строк</tr>
+      </argument>
+      <argument name="COLS" type="int" minvalue="1" maxvalue="64">
+        <tr lang="en">number of columns</tr>
+        <tr lang="ru" finished="false">Количество колонок</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @cols -->
+      <property name="@cols" type="int" minvalue="1" maxvalue="64" default="16">
+        <tr lang="en">number of columns</tr>
+        <tr lang="ru" finished="false">Количество колонок</tr>
+      </property>
+      <!-- @rows -->
+      <property name="@rows" type="int" minvalue="1" maxvalue="64" default="16">
+        <tr lang="en">number of rows</tr>
+        <tr lang="ru" finished="false">количество строк</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="int" access="readonly" default="256">
+        <tr lang="en">total cell count</tr>
+        <tr lang="ru" finished="false">общее количество клеток</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- blinker -->
+      <method name="blinker">
+        <info>
+          <tr lang="en">adds blinker</tr>
+          <tr lang="ru" finished="false">Добавить Blinker</tr>
+        </info>
+        <param name="ROW" type="int" required="true">
+          <tr lang="en">row</tr>
+          <tr lang="ru" finished="false">ряд</tr>
+        </param>
+        <param name="COL" type="int" required="true">
+          <tr lang="en">column</tr>
+          <tr lang="ru" finished="false">колонка</tr>
+        </param>
+      </method>
+      <!-- block -->
+      <method name="block">
+        <info>
+          <tr lang="en">adds block</tr>
+          <tr lang="ru" finished="false">Добавить блок</tr>
+        </info>
+        <param name="ROW" type="int" required="true">
+          <tr lang="en">row</tr>
+          <tr lang="ru" finished="false">ряд</tr>
+        </param>
+        <param name="COL" type="int" required="true">
+          <tr lang="en">column</tr>
+          <tr lang="ru" finished="false">колонка</tr>
+        </param>
+      </method>
+      <!-- cell -->
+      <method name="cell">
+        <info>
+          <tr lang="en">sets cell value</tr>
+          <tr lang="ru" finished="false">значение ячейки</tr>
+        </info>
+        <param name="ROW" type="int" required="true">
+          <tr lang="en">row</tr>
+          <tr lang="ru" finished="false">ряд</tr>
+        </param>
+        <param name="COL" type="int" required="true">
+          <tr lang="en">column</tr>
+          <tr lang="ru" finished="false">колонка</tr>
+        </param>
+        <param name="VALUE" type="int" required="true">
+          <tr lang="en">column</tr>
+          <tr lang="ru" finished="false">колонка</tr>
+        </param>
+      </method>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">clear all cells</tr>
+          <tr lang="ru" finished="false">очистить все клетки</tr>
+        </info>
+      </method>
+      <!-- glider -->
+      <method name="glider">
+        <info>
+          <tr lang="en">adds glider</tr>
+          <tr lang="ru" finished="false">Добавить глайдер</tr>
+        </info>
+        <param name="ROW" type="int" required="true">
+          <tr lang="en">row</tr>
+          <tr lang="ru" finished="false">ряд</tr>
+        </param>
+        <param name="COL" type="int" required="true">
+          <tr lang="en">column</tr>
+          <tr lang="ru" finished="false">колонка</tr>
+        </param>
+      </method>
+      <!-- hive -->
+      <method name="hive">
+        <info>
+          <tr lang="en">adds horizontal bee-hive</tr>
+          <tr lang="ru" finished="false">Горизонтальный пчелиный улей</tr>
+        </info>
+        <param name="ROW" type="int" required="true">
+          <tr lang="en">row</tr>
+          <tr lang="ru" finished="false">ряд</tr>
+        </param>
+        <param name="COL" type="int" required="true">
+          <tr lang="en">column</tr>
+          <tr lang="ru" finished="false">колонка</tr>
+        </param>
+      </method>
+      <!-- next -->
+      <method name="next">
+        <info>
+          <tr lang="en">generate next state</tr>
+          <tr lang="ru" finished="false">Создать следующее государство</tr>
+        </info>
+      </method>
+      <!-- oct2 -->
+      <method name="oct2">
+        <info>
+          <tr lang="en">adds octagon</tr>
+          <tr lang="ru" finished="false">Добавить октагон</tr>
+        </info>
+        <param name="ROW" type="int" required="true">
+          <tr lang="en">row</tr>
+          <tr lang="ru" finished="false">ряд</tr>
+        </param>
+        <param name="COL" type="int" required="true">
+          <tr lang="en">column</tr>
+          <tr lang="ru" finished="false">колонка</tr>
+        </param>
+      </method>
+      <!-- random -->
+      <method name="random">
+        <info>
+          <tr lang="en">fills with random</tr>
+          <tr lang="ru" finished="false">заполненный случайным</tr>
+        </info>
+      </method>
+      <!-- rpent -->
+      <method name="rpent">
+        <info>
+          <tr lang="en">adds R-pentamino</tr>
+          <tr lang="ru" finished="false">Добавлено R-пентамино</tr>
+        </info>
+        <param name="ROW" type="int" required="true">
+          <tr lang="en">row</tr>
+          <tr lang="ru" finished="false">ряд</tr>
+        </param>
+        <param name="COL" type="int" required="true">
+          <tr lang="en">column</tr>
+          <tr lang="ru" finished="false">колонка</tr>
+        </param>
+      </method>
+      <!-- vhive -->
+      <method name="vhive">
+        <info>
+          <tr lang="en">adds vertical bee-hive</tr>
+          <tr lang="ru" finished="false">Вертикальный пчелиный улей</tr>
+        </info>
+        <param name="ROW" type="int" required="true">
+          <tr lang="en">row</tr>
+          <tr lang="ru" finished="false">ряд</tr>
+        </param>
+        <param name="COL" type="int" required="true">
+          <tr lang="en">column</tr>
+          <tr lang="ru" finished="false">колонка</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output all cells</tr>
+          <tr lang="ru" finished="false">вывести все клетки</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list of all cells in row by row order</tr>
+          <tr lang="ru" finished="false">Список всех ячеек по порядку строк</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]          [glider 2 3, bang #b( [rpent 5 7, bang #e(
 |
@@ -243,7 +243,7 @@
 [X d->z]
 [X e->z]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

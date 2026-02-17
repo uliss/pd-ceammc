@@ -1,74 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.pass">
-        <title>list.pass</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">leave in list only specified elements</tr>
-                <tr lang="ru">оставлять в списке только указанные элементы</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list pass filter</keywords>
-            <since>0.9.5</since>
-            <also>
-                <see>list.pass_if</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="ARGS" type="list">
-                <tr lang="en">list of passed value</tr>
-                <tr lang="ru" finished="false">Перечень пройденной стоимости</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @args -->
-            <property name="@args" type="list" default="">
-                <tr lang="en">list of passed value</tr>
-                <tr lang="ru" finished="false">Перечень пройденной стоимости</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input float</tr>
-                    <tr lang="ru" finished="false">входной поплавок</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">input symbol</tr>
-                    <tr lang="ru" finished="false">входной символ</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set passed values</tr>
-                    <tr lang="ru" finished="false">установленные значения</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output list with passed elements</tr>
-                    <tr lang="ru" finished="false">Список результатов с пропущенными
-                    элементами</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="list.pass">
+    <title>list.pass</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">leave in list only specified elements</tr>
+        <tr lang="ru">оставлять в списке только указанные элементы</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list pass filter</keywords>
+      <since>0.9.5</since>
+      <also>
+        <see>list.pass_if</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="ARGS" type="list">
+        <tr lang="en">list of passed value</tr>
+        <tr lang="ru" finished="false">Перечень пройденной стоимости</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @args -->
+      <property name="@args" type="list" default="">
+        <tr lang="en">list of passed value</tr>
+        <tr lang="ru" finished="false">Перечень пройденной стоимости</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input float</tr>
+          <tr lang="ru" finished="false">входной поплавок</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">input symbol</tr>
+          <tr lang="ru" finished="false">входной символ</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set passed values</tr>
+          <tr lang="ru" finished="false">установленные значения</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output list with passed elements</tr>
+          <tr lang="ru" finished="false">Список результатов с пропущенными элементами</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]   [S digits=16]
 |     |
@@ -80,7 +79,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

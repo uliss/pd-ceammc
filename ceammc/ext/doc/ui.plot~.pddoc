@@ -1,189 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="ui.plot~" type="gui">
-        <title>ui.plot~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">signal plotter</tr>
-                <tr lang="ru">построитель графика для сигналов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">ui</category>
-            <keywords>plot</keywords>
-            <also>
-                <see>array.plot~</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <mouse>
-            <event type="left-click" editmode="false">a click on buttons changes display
-            modes</event>
-            <event type="right-click" editmode="false" keys="Alt">open the properties
-            dialog</event>
-            <event type="right-click" editmode="false" keys="Shift">open the object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
-            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
-            <event type="right-click" editmode="true">open the Pd popup menu</event>
-        </mouse>
-        <properties>
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <!-- @mode -->
-            <property name="@mode" type="symbol" default="lines" enum="lines bars">
-                <tr lang="en">draw mode</tr>
-                <tr lang="ru" finished="false">режим рисования</tr>
-            </property>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="1" maxvalue="4" default="1">
-                <tr lang="en">number of inputs</tr>
-                <tr lang="ru" finished="false">Количество входов</tr>
-            </property>
-            <!-- @plot_color0 -->
-            <property name="@plot_color0" type="list" default="0 0.75 1 1">
-                <tr lang="en">first plot color (list of red, green, blue values in 0-1 range)</tr>
-                <tr lang="ru" finished="false">первый цвет участка (список красных, зеленых, синих
-                значений в диапазоне 0-1)</tr>
-            </property>
-            <!-- @plot_color1 -->
-            <property name="@plot_color1" type="list" default="0.75 0 1 1">
-                <tr lang="en">second color (list of red, green, blue values in 0-1 range)</tr>
-                <tr lang="ru" finished="false">второй цвет (список красного, зеленого, синего
-                значений в диапазоне 0-1)</tr>
-            </property>
-            <!-- @plot_color2 -->
-            <property name="@plot_color2" type="list" default="1 0 0.75 1">
-                <tr lang="en">third color (list of red, green, blue values in 0-1 range)</tr>
-                <tr lang="ru" finished="false">третий цвет (список красных, зеленых, синих значений
-                в диапазоне 0-1)</tr>
-            </property>
-            <!-- @plot_color3 -->
-            <property name="@plot_color3" type="list" default="1 0.75 0 1">
-                <tr lang="en">fourth color (list of red, green, blue values in 0-1 range)</tr>
-                <tr lang="ru" finished="false">четвертый цвет (лист красного, зеленого, синего
-                значений в диапазоне 0-1)</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="200 200">
-                <tr lang="en">object size (width, height pair)</tr>
-                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
-            </property>
-            <!-- @xlabels -->
-            <property name="@xlabels" type="bool" default="0">
-                <tr lang="en">draw labels on x-axis</tr>
-            </property>
-            <!-- @xlabels -->
-            <property name="@xlabels" type="bool" default="0">
-                <tr lang="en">draw labels on x-axis</tr>
-            </property>
-            <!-- @xlabels -->
-            <property name="@xlabels" type="bool" default="0">
-                <tr lang="en">draw labels on x-axis</tr>
-            </property>
-            <!-- @xmaj_grid -->
-            <property name="@xmaj_grid" type="bool" default="1">
-                <tr lang="en">draw major grid lines on x-axis</tr>
-            </property>
-            <!-- @xmaj_ticks -->
-            <property name="@xmaj_ticks" type="bool" default="1">
-                <tr lang="en">draw minor ticks on x-axis</tr>
-            </property>
-            <!-- @xmin_grid -->
-            <property name="@xmin_grid" type="bool" default="0">
-                <tr lang="en">draw minor grid lines on x-axis</tr>
-            </property>
-            <!-- @xmin_ticks -->
-            <property name="@xmin_ticks" type="bool" default="1">
-                <tr lang="en">draw minor ticks on x-axis</tr>
-            </property>
-            <!-- @yauto -->
-            <property name="@yauto" type="bool" default="0">
-                <tr lang="en">calculate y-axis range automatically</tr>
-            </property>
-            <!-- @ylabels -->
-            <property name="@ylabels" type="bool" default="0">
-                <tr lang="en">draw labels on y-axis</tr>
-            </property>
-            <!-- @ymaj_grid -->
-            <property name="@ymaj_grid" type="bool" default="1">
-                <tr lang="en">draw major grid lines on y-axis</tr>
-            </property>
-            <!-- @ymaj_ticks -->
-            <property name="@ymaj_ticks" type="bool" default="1">
-                <tr lang="en">draw minor ticks on y-axis</tr>
-            </property>
-            <!-- @ymax -->
-            <property name="@ymax" type="float" minvalue="-1024" maxvalue="1024" default="1">
-                <tr lang="en">minimal y-axis value</tr>
-            </property>
-            <!-- @ymin -->
-            <property name="@ymin" type="float" minvalue="-1024" maxvalue="1024" default="-1">
-                <tr lang="en">minimal y-axis value</tr>
-            </property>
-            <!-- @ymin_grid -->
-            <property name="@ymin_grid" type="bool" default="0">
-                <tr lang="en">draw minor grid lines on y-axis</tr>
-            </property>
-            <!-- @ymin_ticks -->
-            <property name="@ymin_ticks" type="bool" default="1">
-                <tr lang="en">draw minor ticks on y-axis</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- plot -->
-            <method name="plot">
-                <info>
-                    <tr lang="en">Same as bang: plot default number of samples</tr>
-                    <tr lang="ru" finished="false">То же, что и Bang: количество образцов по
-                    умолчанию</tr>
-                </info>
-            </method>
-            <!-- pos -->
-            <method name="pos">
-                <info>
-                    <tr lang="en">set UI element position</tr>
-                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">top left x-coord</tr>
-                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">top right y-coord</tr>
-                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets dynamic="true">
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">plot default number of samples</tr>
-                    <tr lang="ru" finished="false">План по умолчанию Количество образцов</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">plot specified number of samples</tr>
-                    <tr lang="ru" finished="false">участок заданное количество образцов</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets />
-        <example>
-            <pdascii>
+  <object name="ui.plot~" type="gui">
+    <title>ui.plot~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">signal plotter</tr>
+        <tr lang="ru">построитель графика для сигналов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">ui</category>
+      <keywords>plot</keywords>
+      <also>
+        <see>array.plot~</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <mouse>
+      <event type="left-click" editmode="false">a click on buttons changes display modes</event>
+      <event type="right-click" editmode="false" keys="Alt">open the properties dialog</event>
+      <event type="right-click" editmode="false" keys="Shift">open the object help</event>
+      <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
+      <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+      <event type="right-click" editmode="true">open the Pd popup menu</event>
+    </mouse>
+    <properties>
+      <xi:include href="props_background_color.xml" />
+      <xi:include href="props_border_color.xml" />
+      <xi:include href="props_fontname.xml" />
+      <xi:include href="props_fontsize.xml" />
+      <xi:include href="props_fontslant.xml" />
+      <xi:include href="props_fontweight.xml" />
+      <xi:include href="props_pinned.xml" />
+      <xi:include href="props_ui_receive.xml" />
+      <!-- @mode -->
+      <property name="@mode" type="symbol" default="lines" enum="lines bars">
+        <tr lang="en">draw mode</tr>
+        <tr lang="ru" finished="false">режим рисования</tr>
+      </property>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="1" maxvalue="4" default="1">
+        <tr lang="en">number of inputs</tr>
+        <tr lang="ru" finished="false">Количество входов</tr>
+      </property>
+      <!-- @plot_color0 -->
+      <property name="@plot_color0" type="list" default="0 0.75 1 1">
+        <tr lang="en">first plot color (list of red, green, blue values in 0-1 range)</tr>
+        <tr lang="ru" finished="false">первый цвет участка (список красных, зеленых, синих значений
+        в диапазоне 0-1)</tr>
+      </property>
+      <!-- @plot_color1 -->
+      <property name="@plot_color1" type="list" default="0.75 0 1 1">
+        <tr lang="en">second color (list of red, green, blue values in 0-1 range)</tr>
+        <tr lang="ru" finished="false">второй цвет (список красного, зеленого, синего значений в
+        диапазоне 0-1)</tr>
+      </property>
+      <!-- @plot_color2 -->
+      <property name="@plot_color2" type="list" default="1 0 0.75 1">
+        <tr lang="en">third color (list of red, green, blue values in 0-1 range)</tr>
+        <tr lang="ru" finished="false">третий цвет (список красных, зеленых, синих значений в
+        диапазоне 0-1)</tr>
+      </property>
+      <!-- @plot_color3 -->
+      <property name="@plot_color3" type="list" default="1 0.75 0 1">
+        <tr lang="en">fourth color (list of red, green, blue values in 0-1 range)</tr>
+        <tr lang="ru" finished="false">четвертый цвет (лист красного, зеленого, синего значений в
+        диапазоне 0-1)</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="200 200">
+        <tr lang="en">object size (width, height pair)</tr>
+        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+      </property>
+      <!-- @xlabels -->
+      <property name="@xlabels" type="bool" default="0">
+        <tr lang="en">draw labels on x-axis</tr>
+      </property>
+      <!-- @xlabels -->
+      <property name="@xlabels" type="bool" default="0">
+        <tr lang="en">draw labels on x-axis</tr>
+      </property>
+      <!-- @xlabels -->
+      <property name="@xlabels" type="bool" default="0">
+        <tr lang="en">draw labels on x-axis</tr>
+      </property>
+      <!-- @xmaj_grid -->
+      <property name="@xmaj_grid" type="bool" default="1">
+        <tr lang="en">draw major grid lines on x-axis</tr>
+      </property>
+      <!-- @xmaj_ticks -->
+      <property name="@xmaj_ticks" type="bool" default="1">
+        <tr lang="en">draw minor ticks on x-axis</tr>
+      </property>
+      <!-- @xmin_grid -->
+      <property name="@xmin_grid" type="bool" default="0">
+        <tr lang="en">draw minor grid lines on x-axis</tr>
+      </property>
+      <!-- @xmin_ticks -->
+      <property name="@xmin_ticks" type="bool" default="1">
+        <tr lang="en">draw minor ticks on x-axis</tr>
+      </property>
+      <!-- @yauto -->
+      <property name="@yauto" type="bool" default="0">
+        <tr lang="en">calculate y-axis range automatically</tr>
+      </property>
+      <!-- @ylabels -->
+      <property name="@ylabels" type="bool" default="0">
+        <tr lang="en">draw labels on y-axis</tr>
+      </property>
+      <!-- @ymaj_grid -->
+      <property name="@ymaj_grid" type="bool" default="1">
+        <tr lang="en">draw major grid lines on y-axis</tr>
+      </property>
+      <!-- @ymaj_ticks -->
+      <property name="@ymaj_ticks" type="bool" default="1">
+        <tr lang="en">draw minor ticks on y-axis</tr>
+      </property>
+      <!-- @ymax -->
+      <property name="@ymax" type="float" minvalue="-1024" maxvalue="1024" default="1">
+        <tr lang="en">minimal y-axis value</tr>
+      </property>
+      <!-- @ymin -->
+      <property name="@ymin" type="float" minvalue="-1024" maxvalue="1024" default="-1">
+        <tr lang="en">minimal y-axis value</tr>
+      </property>
+      <!-- @ymin_grid -->
+      <property name="@ymin_grid" type="bool" default="0">
+        <tr lang="en">draw minor grid lines on y-axis</tr>
+      </property>
+      <!-- @ymin_ticks -->
+      <property name="@ymin_ticks" type="bool" default="1">
+        <tr lang="en">draw minor ticks on y-axis</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- plot -->
+      <method name="plot">
+        <info>
+          <tr lang="en">Same as bang: plot default number of samples</tr>
+          <tr lang="ru" finished="false">То же, что и Bang: количество образцов по умолчанию</tr>
+        </info>
+      </method>
+      <!-- pos -->
+      <method name="pos">
+        <info>
+          <tr lang="en">set UI element position</tr>
+          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">top left x-coord</tr>
+          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+        </param>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">top right y-coord</tr>
+          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets dynamic="true">
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">plot default number of samples</tr>
+          <tr lang="ru" finished="false">План по умолчанию Количество образцов</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">plot specified number of samples</tr>
+          <tr lang="ru" finished="false">участок заданное количество образцов</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets />
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -213,7 +210,7 @@
 [ui.dsp~]
 [X a:1->b:4]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

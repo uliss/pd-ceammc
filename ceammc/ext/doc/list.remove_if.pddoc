@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.remove_if">
-        <title>list.remove_if</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">remove list elements by the side-chain predicate</tr>
-                <tr lang="ru">удалить элементы списка при помощи предиката боковой цепи</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list remove predicate</keywords>
-            <since>0.1</since>
-            <also>
-                <see>list.count_if</see>
-                <see>list.pass_if</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Predicate object should accept atom and output 0 (leave element) or 1
-                (remove).</tr>
-                <!-- old: Предикатный объект должен принимать атом и выводить
+  <object name="list.remove_if">
+    <title>list.remove_if</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">remove list elements by the side-chain predicate</tr>
+        <tr lang="ru">удалить элементы списка при помощи предиката боковой цепи</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list remove predicate</keywords>
+      <since>0.1</since>
+      <also>
+        <see>list.count_if</see>
+        <see>list.pass_if</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Predicate object should accept atom and output 0 (leave element) or 1
+        (remove).</tr>
+        <!-- old: Предикатный объект должен принимать атом и выводить
                 0 (оставной элемент) или 1 (удалить). -->
-                <tr lang="ru" finished="false">Предикатный объект должен принимать атом и выводить
-                0 (оставной элемент) или 1 (удалить).</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">value from predicate</tr>
-                    <tr lang="ru" finished="false">значение из предиката</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output list (or mlist) with some removed elements</tr>
-                    <tr lang="ru" finished="false">список вывода (или млист) с некоторыми
-                    удаленными элементами</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">atom to predicate</tr>
-                    <tr lang="ru" finished="false">Атом предсказывает</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Предикатный объект должен принимать атом и выводить 0
+        (оставной элемент) или 1 (удалить).</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">value from predicate</tr>
+          <tr lang="ru" finished="false">значение из предиката</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output list (or mlist) with some removed elements</tr>
+          <tr lang="ru" finished="false">список вывода (или млист) с некоторыми удаленными
+          элементами</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">atom to predicate</tr>
+          <tr lang="ru" finished="false">Атом предсказывает</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [10(                      [10(
 |                         |
@@ -76,7 +76,7 @@
 |                         |
 [ui.dt]                   [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

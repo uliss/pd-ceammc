@@ -1,55 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="dict.each">
-        <title>dict.each</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">map each value in dictionary with the side-chain function</tr>
-                <tr lang="ru">отображение каждого значения в словаре с помощью боковой цепи
-                обработки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>each iterate dictionary</keywords>
-            <since>0.7</since>
-            <also>
-                <see>data.dict</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="data:dict">
-                    <tr lang="en">input dictionary</tr>
-                    <tr lang="ru" finished="false">словарь входного словаря</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">new key value from sidechain</tr>
-                    <tr lang="ru" finished="false">Новая ключевая ценность от Sidechain</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">processed dict</tr>
-                    <tr lang="ru" finished="false">обработанный дикт</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">send value to sidechain</tr>
-                    <tr lang="ru" finished="false">Отправить ценность в Sidechain</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="dict.each">
+    <title>dict.each</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">map each value in dictionary with the side-chain function</tr>
+        <tr lang="ru">отображение каждого значения в словаре с помощью боковой цепи обработки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>each iterate dictionary</keywords>
+      <since>0.7</since>
+      <also>
+        <see>data.dict</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="data:dict">
+          <tr lang="en">input dictionary</tr>
+          <tr lang="ru" finished="false">словарь входного словаря</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">new key value from sidechain</tr>
+          <tr lang="ru" finished="false">Новая ключевая ценность от Sidechain</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">processed dict</tr>
+          <tr lang="ru" finished="false">обработанный дикт</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">send value to sidechain</tr>
+          <tr lang="ru" finished="false">Отправить ценность в Sidechain</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [\[a: 1 c: 2 e: 3\], bang(
 |
@@ -59,7 +58,7 @@
 |
 [ui.d]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

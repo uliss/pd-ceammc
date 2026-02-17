@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.edge2bang">
-        <title>conv.edge2bang</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">edge detector for numeric stream</tr>
-                <tr lang="ru">детектор перехода для численного потока</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv edge detector</keywords>
-            <since>0.9.4</since>
-            <aliases>
-                <alias>ceammc/edge-&gt;bang</alias>
-                <alias>edge-&gt;bang</alias>
-            </aliases>
-        </meta>
-        <properties>
-            <!-- @both -->
-            <property name="@both" type="alias">
-                <tr lang="en">alias to @mode both</tr>
-                <tr lang="ru">сокращение для @mode both</tr>
-            </property>
-            <!-- @down -->
-            <property name="@down" type="alias">
-                <tr lang="en">alias to @mode down</tr>
-                <tr lang="ru">сокращение для @mode down</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" enum="up down both" default="up">
-                <tr lang="en">edge detection mode</tr>
-                <tr lang="ru">режим обнаружения края. Если 'up': выводит bang при изменении
-                входного значения с низкого на высокое, если 'down': с высокого на низкое, 'both':
-                в обоих случаях</tr>
-            </property>
-            <!-- @up -->
-            <property name="@up" type="alias">
-                <tr lang="en">alias to @mode up</tr>
-                <tr lang="ru">сокращение для @mode up</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">bang: on edge</tr>
-                    <tr lang="ru" finished="false">Исполнитель: Bang: Edge</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="conv.edge2bang">
+    <title>conv.edge2bang</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">edge detector for numeric stream</tr>
+        <tr lang="ru">детектор перехода для численного потока</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv edge detector</keywords>
+      <since>0.9.4</since>
+      <aliases>
+        <alias>ceammc/edge-&gt;bang</alias>
+        <alias>edge-&gt;bang</alias>
+      </aliases>
+    </meta>
+    <properties>
+      <!-- @both -->
+      <property name="@both" type="alias">
+        <tr lang="en">alias to @mode both</tr>
+        <tr lang="ru">сокращение для @mode both</tr>
+      </property>
+      <!-- @down -->
+      <property name="@down" type="alias">
+        <tr lang="en">alias to @mode down</tr>
+        <tr lang="ru">сокращение для @mode down</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" enum="up down both" default="up">
+        <tr lang="en">edge detection mode</tr>
+        <tr lang="ru">режим обнаружения края. Если 'up': выводит bang при изменении входного
+        значения с низкого на высокое, если 'down': с высокого на низкое, 'both': в обоих
+        случаях</tr>
+      </property>
+      <!-- @up -->
+      <property name="@up" type="alias">
+        <tr lang="en">alias to @mode up</tr>
+        <tr lang="ru">сокращение для @mode up</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">bang: on edge</tr>
+          <tr lang="ru" finished="false">Исполнитель: Bang: Edge</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [phasor~ 0.5]      [phasor~ 0.5]     [lfo.tri~ 0.5]
 |                  |                 |
@@ -75,7 +75,7 @@
                    |
 [ui.dsp~]          [B]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

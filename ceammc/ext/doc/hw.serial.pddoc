@@ -1,101 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hw.serial">
-        <title>hw.serial</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">serial port device</tr>
-                <tr lang="ru">серийный порт устройства</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>hw</category>
-            <keywords>serial</keywords>
-            <since>0.5</since>
-        </meta>
-        <arguments>
-            <argument name="RATE" type="int"
-            enum="110 115200 1200 128000 14400 19200 2400 256000 300 38400 4800 56000 57600 600 9600">
-
-                <tr lang="en">serial baud rate</tr>
-                <tr lang="ru" finished="false">серийный бауд</tr>
-            </argument>
-            <argument name="PORT" type="symbol">
-                <tr lang="en">serial device or port name, eg.: COM3 on Windows, /dev/ttyACM0 on
-                Linux and /dev/cu.usbmodem411 on MacOSX</tr>
-                <tr lang="ru">последовательное устройство или название порта, например: COM3 на
-                Windows, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @devices -->
-            <property name="@devices" type="list" access="readonly" default="">
-                <tr lang="en">list of found serial devices</tr>
-                <tr lang="ru">список найденных серийных устройств</tr>
-            </property>
-            <!-- @port -->
-            <property name="@port" type="symbol" default="">
-                <tr lang="en">name of serial port, eg.: COM3 on Windows, /dev/ttyACM0 on Linux and
-                /dev/cu.usbmodem411 on MacOSX</tr>
-                <tr lang="ru">последовательное устройство или название порта: COM3 на Windows,
-                /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX</tr>
-            </property>
-            <!-- @rate -->
-            <property name="@rate" type="int" default="57600"
-            enum="110 300 600 1200 2400 4800 9600 14400 19200 38400 56000 57600 115200 128000 256000">
-
-                <tr lang="en">serial baud rate</tr>
-                <tr lang="ru">скорость передачи</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- close -->
-            <method name="close">
-                <info>
-                    <tr lang="en">disconnect from device</tr>
-                    <tr lang="ru" finished="false">отключение от устройства</tr>
-                </info>
-            </method>
-            <!-- open -->
-            <method name="open">
-                <info>
-                    <tr lang="en">connect to device</tr>
-                    <tr lang="ru" finished="false">подключаться к устройству</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">sends float value in byte range [0-255] to serial port</tr>
-                    <!-- old: посылает значение плавания в байтовом диапазоне
+  <object name="hw.serial">
+    <title>hw.serial</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">serial port device</tr>
+        <tr lang="ru">серийный порт устройства</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>hw</category>
+      <keywords>serial</keywords>
+      <since>0.5</since>
+    </meta>
+    <arguments>
+      <argument name="RATE" type="int"
+      enum="110 115200 1200 128000 14400 19200 2400 256000 300 38400 4800 56000 57600 600 9600">
+        <tr lang="en">serial baud rate</tr>
+        <tr lang="ru" finished="false">серийный бауд</tr>
+      </argument>
+      <argument name="PORT" type="symbol">
+        <tr lang="en">serial device or port name, eg.: COM3 on Windows, /dev/ttyACM0 on Linux and
+        /dev/cu.usbmodem411 on MacOSX</tr>
+        <tr lang="ru">последовательное устройство или название порта, например: COM3 на Windows,
+        /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @devices -->
+      <property name="@devices" type="list" access="readonly" default="">
+        <tr lang="en">list of found serial devices</tr>
+        <tr lang="ru">список найденных серийных устройств</tr>
+      </property>
+      <!-- @port -->
+      <property name="@port" type="symbol" default="">
+        <tr lang="en">name of serial port, eg.: COM3 on Windows, /dev/ttyACM0 on Linux and
+        /dev/cu.usbmodem411 on MacOSX</tr>
+        <tr lang="ru">последовательное устройство или название порта: COM3 на Windows, /dev/ttyACM0
+        на Linux и /dev/cu.usbmodem411 на MacOSX</tr>
+      </property>
+      <!-- @rate -->
+      <property name="@rate" type="int" default="57600"
+      enum="110 300 600 1200 2400 4800 9600 14400 19200 38400 56000 57600 115200 128000 256000">
+        <tr lang="en">serial baud rate</tr>
+        <tr lang="ru">скорость передачи</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- close -->
+      <method name="close">
+        <info>
+          <tr lang="en">disconnect from device</tr>
+          <tr lang="ru" finished="false">отключение от устройства</tr>
+        </info>
+      </method>
+      <!-- open -->
+      <method name="open">
+        <info>
+          <tr lang="en">connect to device</tr>
+          <tr lang="ru" finished="false">подключаться к устройству</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">sends float value in byte range [0-255] to serial port</tr>
+          <!-- old: посылает значение плавания в байтовом диапазоне
                     [0-255] в последовательный порт -->
-                    <tr lang="ru" finished="false">посылает значение плавания в байтовом диапазоне
-                    [0-255] в последовательный порт</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">sends list of floats in byte range [0-255] to serial port</tr>
-                    <!-- old: Отправляет список поплавков в байтовом диапазоне
+          <tr lang="ru" finished="false">посылает значение плавания в байтовом диапазоне [0-255] в
+          последовательный порт</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">sends list of floats in byte range [0-255] to serial port</tr>
+          <!-- old: Отправляет список поплавков в байтовом диапазоне
                     [0-255] в последовательный порт -->
-                    <tr lang="ru" finished="false">Отправляет список поплавков в байтовом диапазоне
-                    [0-255] в последовательный порт</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs received byte from serial port</tr>
-                    <tr lang="ru" finished="false">выходы, полученные байтом из последовательного
-                    порта</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Отправляет список поплавков в байтовом диапазоне [0-255] в
+          последовательный порт</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs received byte from serial port</tr>
+          <tr lang="ru" finished="false">выходы, полученные байтом из последовательного порта</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [@devices?(
 |
@@ -103,7 +100,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,243 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.looper~">
-        <title>fx.looper~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">a single track looper</tr>
-                <tr lang="ru">однодорожечный лупер</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx looper</keywords>
-            <since>0.5</since>
-        </meta>
-        <arguments>
-            <argument name="CAPACITY" type="float" units="second" minvalue="0" maxvalue="120">
-                <tr lang="en">max loop time</tr>
-                <tr lang="ru" finished="false">Максимальное время цикла</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">use specified array for record instead of internal buffer</tr>
-                <!-- old: использовать заданный массив для записи вместо
+  <object name="fx.looper~">
+    <title>fx.looper~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">a single track looper</tr>
+        <tr lang="ru">однодорожечный лупер</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx looper</keywords>
+      <since>0.5</since>
+    </meta>
+    <arguments>
+      <argument name="CAPACITY" type="float" units="second" minvalue="0" maxvalue="120">
+        <tr lang="en">max loop time</tr>
+        <tr lang="ru" finished="false">Максимальное время цикла</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">use specified array for record instead of internal buffer</tr>
+        <!-- old: использовать заданный массив для записи вместо
                 внутреннего буфера; -->
-                <tr lang="ru" finished="false">использовать заданный массив для записи вместо
-                внутреннего буфера;</tr>
-            </property>
-            <!-- @capacity -->
-            <property name="@capacity" type="float" minvalue="0" maxvalue="120" default="5"
-            units="second">
-                <tr lang="en">max loop time</tr>
-                <tr lang="ru" finished="false">Максимальное время цикла</tr>
-            </property>
-            <!-- @dub_to_play_time -->
-            <property name="@dub_to_play_time" type="float" units="millisecond" default="20"
-            minvalue="0">
-                <tr lang="en">record fadeout time while transition from overdub to play</tr>
-                <!-- old: время записи выцветания при переходе от овердаба к
+        <tr lang="ru" finished="false">использовать заданный массив для записи вместо внутреннего
+        буфера;</tr>
+      </property>
+      <!-- @capacity -->
+      <property name="@capacity" type="float" minvalue="0" maxvalue="120" default="5"
+      units="second">
+        <tr lang="en">max loop time</tr>
+        <tr lang="ru" finished="false">Максимальное время цикла</tr>
+      </property>
+      <!-- @dub_to_play_time -->
+      <property name="@dub_to_play_time" type="float" units="millisecond" default="20"
+      minvalue="0">
+        <tr lang="en">record fadeout time while transition from overdub to play</tr>
+        <!-- old: время записи выцветания при переходе от овердаба к
                 игре -->
-                <tr lang="ru" finished="false">время записи выцветания при переходе от овердаба к
-                игре</tr>
-            </property>
-            <!-- @dub_to_stop_time -->
-            <property name="@dub_to_stop_time" type="float" units="millisecond" default="20"
-            minvalue="0">
-                <tr lang="en">fadeout time while transition from overdub to stop</tr>
-                <!-- old: Время выцветания при переходе от овердаба к
+        <tr lang="ru" finished="false">время записи выцветания при переходе от овердаба к игре</tr>
+      </property>
+      <!-- @dub_to_stop_time -->
+      <property name="@dub_to_stop_time" type="float" units="millisecond" default="20"
+      minvalue="0">
+        <tr lang="en">fadeout time while transition from overdub to stop</tr>
+        <!-- old: Время выцветания при переходе от овердаба к
                 остановке -->
-                <tr lang="ru" finished="false">Время выцветания при переходе от овердаба к
-                остановке</tr>
-            </property>
-            <!-- @length -->
-            <property name="@length" type="float" units="second" minvalue="0" default="0"
-            access="readonly">
-                <tr lang="en">recorded loop length</tr>
-                <tr lang="ru" finished="false">зарегистрированная длина петли</tr>
-            </property>
-            <!-- @loop_bang -->
-            <property name="@loop_bang" type="bool" default="1">
-                <tr lang="en">output bang on each loop start</tr>
-                <!-- old: Взрыв выходного сигнала для каждого запуска
+        <tr lang="ru" finished="false">Время выцветания при переходе от овердаба к остановке</tr>
+      </property>
+      <!-- @length -->
+      <property name="@length" type="float" units="second" minvalue="0" default="0"
+      access="readonly">
+        <tr lang="en">recorded loop length</tr>
+        <tr lang="ru" finished="false">зарегистрированная длина петли</tr>
+      </property>
+      <!-- @loop_bang -->
+      <property name="@loop_bang" type="bool" default="1">
+        <tr lang="en">output bang on each loop start</tr>
+        <!-- old: Взрыв выходного сигнала для каждого запуска
                 цикла -->
-                <tr lang="ru" finished="false">Взрыв выходного сигнала для каждого запуска
-                цикла</tr>
-            </property>
-            <!-- @loop_smooth -->
-            <property name="@loop_smooth" type="float" units="millisecond" default="10"
-            minvalue="0">
-                <tr lang="en">time of lin fadein/fadeout applied to recorded loop for smooth
-                playing</tr>
-                <!-- old: время lin fadein/fadeout, применяемое к записанной
+        <tr lang="ru" finished="false">Взрыв выходного сигнала для каждого запуска цикла</tr>
+      </property>
+      <!-- @loop_smooth -->
+      <property name="@loop_smooth" type="float" units="millisecond" default="10" minvalue="0">
+        <tr lang="en">time of lin fadein/fadeout applied to recorded loop for smooth playing</tr>
+        <!-- old: время lin fadein/fadeout, применяемое к записанной
                 петле для плавной игры -->
-                <tr lang="ru" finished="false">время lin fadein/fadeout, применяемое к записанной
-                петле для плавной игры</tr>
-            </property>
-            <!-- @play_phase -->
-            <property name="@play_phase" type="float" minvalue="0" maxvalue="1" default="0"
-            access="readonly">
-                <tr lang="en">current playing phase position</tr>
-                <tr lang="ru" finished="false">Текущая фазовая позиция игры</tr>
-            </property>
-            <!-- @play_pos -->
-            <property name="@play_pos" type="float" units="second" minvalue="0" default="0"
-            access="readonly">
-                <tr lang="en">current playing position</tr>
-                <tr lang="ru" finished="false">Текущая игровая позиция</tr>
-            </property>
-            <!-- @play_to_dub_time -->
-            <property name="@play_to_dub_time" type="float" units="millisecond" default="10"
-            minvalue="0">
-                <tr lang="en">fadein time of overdub input signal while transition from play
-                mode</tr>
-                <!-- old: время выцветания входного сигнала overdub при
+        <tr lang="ru" finished="false">время lin fadein/fadeout, применяемое к записанной петле для
+        плавной игры</tr>
+      </property>
+      <!-- @play_phase -->
+      <property name="@play_phase" type="float" minvalue="0" maxvalue="1" default="0"
+      access="readonly">
+        <tr lang="en">current playing phase position</tr>
+        <tr lang="ru" finished="false">Текущая фазовая позиция игры</tr>
+      </property>
+      <!-- @play_pos -->
+      <property name="@play_pos" type="float" units="second" minvalue="0" default="0"
+      access="readonly">
+        <tr lang="en">current playing position</tr>
+        <tr lang="ru" finished="false">Текущая игровая позиция</tr>
+      </property>
+      <!-- @play_to_dub_time -->
+      <property name="@play_to_dub_time" type="float" units="millisecond" default="10"
+      minvalue="0">
+        <tr lang="en">fadein time of overdub input signal while transition from play mode</tr>
+        <!-- old: время выцветания входного сигнала overdub при
                 переходе из режима воспроизведения -->
-                <tr lang="ru" finished="false">время выцветания входного сигнала overdub при
-                переходе из режима воспроизведения</tr>
-            </property>
-            <!-- @play_to_stop_time -->
-            <property name="@play_to_stop_time" type="float" units="millisecond" default="10"
-            minvalue="0">
-                <tr lang="en">fadeout time while transition from play to stop</tr>
-                <!-- old: Время вымирания при переходе от игры к
+        <tr lang="ru" finished="false">время выцветания входного сигнала overdub при переходе из
+        режима воспроизведения</tr>
+      </property>
+      <!-- @play_to_stop_time -->
+      <property name="@play_to_stop_time" type="float" units="millisecond" default="10"
+      minvalue="0">
+        <tr lang="en">fadeout time while transition from play to stop</tr>
+        <!-- old: Время вымирания при переходе от игры к
                 остановке -->
-                <tr lang="ru" finished="false">Время вымирания при переходе от игры к
-                остановке</tr>
-            </property>
-            <!-- @rec_to_play_time -->
-            <property name="@rec_to_play_time" type="float" units="millisecond" default="30"
-            minvalue="0">
-                <tr lang="en">xfade between recorded and input signal while transition from record
-                to play</tr>
-                <!-- old: xfade между записанным и входным сигналом при
+        <tr lang="ru" finished="false">Время вымирания при переходе от игры к остановке</tr>
+      </property>
+      <!-- @rec_to_play_time -->
+      <property name="@rec_to_play_time" type="float" units="millisecond" default="30"
+      minvalue="0">
+        <tr lang="en">xfade between recorded and input signal while transition from record to
+        play</tr>
+        <!-- old: xfade между записанным и входным сигналом при
                 переходе от записи к игре -->
-                <tr lang="ru" finished="false">xfade между записанным и входным сигналом при
-                переходе от записи к игре</tr>
-            </property>
-            <!-- @round -->
-            <property name="@round" type="int" units="sample" default="0" minvalue="0">
-                <tr lang="en">encrease loop length to be multiple of specified value. If *0* - no
-                rounding is performed</tr>
-                <!-- old: Увеличить длину петли, чтобы быть кратным заданному
+        <tr lang="ru" finished="false">xfade между записанным и входным сигналом при переходе от
+        записи к игре</tr>
+      </property>
+      <!-- @round -->
+      <property name="@round" type="int" units="sample" default="0" minvalue="0">
+        <tr lang="en">encrease loop length to be multiple of specified value. If *0* - no rounding
+        is performed</tr>
+        <!-- old: Увеличить длину петли, чтобы быть кратным заданному
                 значению. Если *0* - не выполняется округление -->
-                <tr lang="ru" finished="false">Увеличить длину петли, чтобы быть кратным заданному
-                значению. Если *0* - не выполняется округление</tr>
-            </property>
-            <!-- @state -->
-            <property name="@state" type="symbol" enum="init stop record play overdub"
-            access="readonly" default="init">
-                <tr lang="en">current state</tr>
-                <tr lang="ru" finished="false">текущее состояние</tr>
-            </property>
-            <!-- @stop_to_play_time -->
-            <property name="@stop_to_play_time" type="float" units="millisecond" default="10"
-            minvalue="0">
-                <tr lang="en">fadein time of play while transition from stop</tr>
-                <tr lang="ru" finished="false">время игры, переход от остановки</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- adjust -->
-            <method name="adjust">
-                <info>
-                    <tr lang="en">increase loop length</tr>
-                    <tr lang="ru" finished="false">увеличение длины петли</tr>
-                </info>
-                <param name="DELTA" type="float" units="sample">
-                    <tr lang="en">loop length delta</tr>
-                    <tr lang="ru" finished="false">Длина петли дельта</tr>
-                </param>
-            </method>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clear loop data and stops playing</tr>
-                    <tr lang="ru" finished="false">Чистые данные цикла и перестает играть</tr>
-                </info>
-            </method>
-            <!-- overdub -->
-            <method name="overdub">
-                <info>
-                    <tr lang="en">start loop overdubbing while keeping it playing</tr>
-                    <!-- old: Начать цикл overdubbing, сохраняя его
+        <tr lang="ru" finished="false">Увеличить длину петли, чтобы быть кратным заданному
+        значению. Если *0* - не выполняется округление</tr>
+      </property>
+      <!-- @state -->
+      <property name="@state" type="symbol" enum="init stop record play overdub" access="readonly"
+      default="init">
+        <tr lang="en">current state</tr>
+        <tr lang="ru" finished="false">текущее состояние</tr>
+      </property>
+      <!-- @stop_to_play_time -->
+      <property name="@stop_to_play_time" type="float" units="millisecond" default="10"
+      minvalue="0">
+        <tr lang="en">fadein time of play while transition from stop</tr>
+        <tr lang="ru" finished="false">время игры, переход от остановки</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- adjust -->
+      <method name="adjust">
+        <info>
+          <tr lang="en">increase loop length</tr>
+          <tr lang="ru" finished="false">увеличение длины петли</tr>
+        </info>
+        <param name="DELTA" type="float" units="sample">
+          <tr lang="en">loop length delta</tr>
+          <tr lang="ru" finished="false">Длина петли дельта</tr>
+        </param>
+      </method>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">clear loop data and stops playing</tr>
+          <tr lang="ru" finished="false">Чистые данные цикла и перестает играть</tr>
+        </info>
+      </method>
+      <!-- overdub -->
+      <method name="overdub">
+        <info>
+          <tr lang="en">start loop overdubbing while keeping it playing</tr>
+          <!-- old: Начать цикл overdubbing, сохраняя его
                     играть -->
-                    <tr lang="ru" finished="false">Начать цикл overdubbing, сохраняя его
-                    играть</tr>
-                </info>
-            </method>
-            <!-- pause -->
-            <method name="pause">
-                <info>
-                    <tr lang="en">loop pause</tr>
-                    <tr lang="ru" finished="false">петлевая пауза</tr>
-                </info>
-            </method>
-            <!-- play -->
-            <method name="play">
-                <info>
-                    <tr lang="en">play recorded or stopped loop</tr>
-                    <tr lang="ru" finished="false">играть записанный или остановленный цикл</tr>
-                </info>
-            </method>
-            <!-- rec -->
-            <method name="rec">
-                <info>
-                    <tr lang="en">same as record</tr>
-                    <tr lang="ru" finished="false">Тот же рекорд</tr>
-                </info>
-            </method>
-            <!-- record -->
-            <method name="record">
-                <info>
-                    <tr lang="en">start loop record</tr>
-                    <tr lang="ru" finished="false">Запись стартового цикла</tr>
-                </info>
-            </method>
-            <!-- smooth -->
-            <method name="smooth">
-                <param name="TIME" type="float" units="millisecond">
-                    <tr lang="en">apply linear fadein/fadeout to loop</tr>
-                    <tr lang="ru" finished="false">применять линейный блектин/фадеут к циклу</tr>
-                </param>
-            </method>
-            <!-- stop -->
-            <method name="stop">
-                <info>
-                    <tr lang="en">stop played loop</tr>
-                    <tr lang="ru" finished="false">Играть Stop Play</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">bang on each loop start if @loop_bang property is true</tr>
-                    <tr lang="ru" finished="false">@loop_bang свойство @loop_bang истинно</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Начать цикл overdubbing, сохраняя его играть</tr>
+        </info>
+      </method>
+      <!-- pause -->
+      <method name="pause">
+        <info>
+          <tr lang="en">loop pause</tr>
+          <tr lang="ru" finished="false">петлевая пауза</tr>
+        </info>
+      </method>
+      <!-- play -->
+      <method name="play">
+        <info>
+          <tr lang="en">play recorded or stopped loop</tr>
+          <tr lang="ru" finished="false">играть записанный или остановленный цикл</tr>
+        </info>
+      </method>
+      <!-- rec -->
+      <method name="rec">
+        <info>
+          <tr lang="en">same as record</tr>
+          <tr lang="ru" finished="false">Тот же рекорд</tr>
+        </info>
+      </method>
+      <!-- record -->
+      <method name="record">
+        <info>
+          <tr lang="en">start loop record</tr>
+          <tr lang="ru" finished="false">Запись стартового цикла</tr>
+        </info>
+      </method>
+      <!-- smooth -->
+      <method name="smooth">
+        <param name="TIME" type="float" units="millisecond">
+          <tr lang="en">apply linear fadein/fadeout to loop</tr>
+          <tr lang="ru" finished="false">применять линейный блектин/фадеут к циклу</tr>
+        </param>
+      </method>
+      <!-- stop -->
+      <method name="stop">
+        <info>
+          <tr lang="en">stop played loop</tr>
+          <tr lang="ru" finished="false">Играть Stop Play</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">bang on each loop start if @loop_bang property is true</tr>
+          <tr lang="ru" finished="false">@loop_bang свойство @loop_bang истинно</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [adc~ 1]
 |
@@ -251,7 +243,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

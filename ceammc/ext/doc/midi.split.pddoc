@@ -1,83 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.split">
-        <title>midi.split</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">MIDI note range splitter</tr>
-                <tr lang="ru">разбивает MIDI ноты на диапазоны</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi note splitter</keywords>
-            <since>0.9.5</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Split midi note messages at specified pitch values</tr>
-                <!-- old: Сплит-сообщения Midi Notes с заданными значениями
+  <object name="midi.split">
+    <title>midi.split</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">MIDI note range splitter</tr>
+        <tr lang="ru">разбивает MIDI ноты на диапазоны</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi note splitter</keywords>
+      <since>0.9.5</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Split midi note messages at specified pitch values</tr>
+        <!-- old: Сплит-сообщения Midi Notes с заданными значениями
                 шага -->
-                <tr lang="ru" finished="false">Сплит-сообщения Midi Notes с заданными значениями
-                шага</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="NOTES" type="list">
-                <tr lang="en">list of note values (split points)</tr>
-                <tr lang="ru" finished="false">Список значений нот (сплит-точки)</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @points -->
-            <property name="@points" type="list" access="readonly" default="">
-                <tr lang="en">split points. Should be in strict ascending order</tr>
-                <tr lang="ru" finished="false">разделять точки. Должно быть в строгом порядке</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">NOTE VELOCITY [DUR] list</tr>
-                    <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet number="1">
-                <out type="any">
-                    <tr lang="en">midi pitches that are less than first split point</tr>
-                    <tr lang="ru" finished="false">Миди-точки, которые меньше первой точки
-                    разделения</tr>
-                </out>
-            </outlet>
-            <outlet number="...">
-                <out type="any">
-                    <tr lang="en">...</tr>
-                    <tr lang="ru" finished="false">...</tr>
-                </out>
-            </outlet>
-            <outlet number="n">
-                <out type="any">
-                    <tr lang="en">midi pitches that are greater or equal than N-th split point and
-                    less then N+1</tr>
-                    <tr lang="ru" finished="false">миди-точки, которые больше или равны N-й точке
-                    сплита и меньше N+1</tr>
-                </out>
-            </outlet>
-            <outlet number="n+1">
-                <out type="any">
-                    <tr lang="en">notes that are greater or equal last split point</tr>
-                    <tr lang="ru" finished="false">ноты, которые больше или равны последней точке
-                    разделения</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Сплит-сообщения Midi Notes с заданными значениями шага</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="NOTES" type="list">
+        <tr lang="en">list of note values (split points)</tr>
+        <tr lang="ru" finished="false">Список значений нот (сплит-точки)</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @points -->
+      <property name="@points" type="list" access="readonly" default="">
+        <tr lang="en">split points. Should be in strict ascending order</tr>
+        <tr lang="ru" finished="false">разделять точки. Должно быть в строгом порядке</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">NOTE VELOCITY [DUR] list</tr>
+          <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet number="1">
+        <out type="any">
+          <tr lang="en">midi pitches that are less than first split point</tr>
+          <tr lang="ru" finished="false">Миди-точки, которые меньше первой точки разделения</tr>
+        </out>
+      </outlet>
+      <outlet number="...">
+        <out type="any">
+          <tr lang="en">...</tr>
+          <tr lang="ru" finished="false">...</tr>
+        </out>
+      </outlet>
+      <outlet number="n">
+        <out type="any">
+          <tr lang="en">midi pitches that are greater or equal than N-th split point and less then
+          N+1</tr>
+          <tr lang="ru" finished="false">миди-точки, которые больше или равны N-й точке сплита и
+          меньше N+1</tr>
+        </out>
+      </outlet>
+      <outlet number="n+1">
+        <out type="any">
+          <tr lang="en">notes that are greater or equal last split point</tr>
+          <tr lang="ru" finished="false">ноты, которые больше или равны последней точке
+          разделения</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.keyboard]
 |
@@ -98,7 +96,7 @@
 [X x:2->c]
 [X x:3->d]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

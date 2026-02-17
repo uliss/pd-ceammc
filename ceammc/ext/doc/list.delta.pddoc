@@ -1,117 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.delta">
-        <title>list.delta</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs and saves the list of differences between the current and the
-                previously saved list</tr>
-                <tr lang="ru">выводит и сохраняет список разностей между текущим и предыдущим
-                сохраненным списком</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list delta</keywords>
-            <since>0.1</since>
-            <also>
-                <see>list.integrator</see>
-            </also>
-        </meta>
-        <properties>
-            <!-- @clip -->
-            <property name="@clip" type="alias">
-                <tr lang="en">alias for "@oversize min" property. Truncates lists to minimal common
-                size.</tr>
-                <!-- old: alias for "@oversize min" property. Усеченные списки
+  <object name="list.delta">
+    <title>list.delta</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs and saves the list of differences between the current and the
+        previously saved list</tr>
+        <tr lang="ru">выводит и сохраняет список разностей между текущим и предыдущим сохраненным
+        списком</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list delta</keywords>
+      <since>0.1</since>
+      <also>
+        <see>list.integrator</see>
+      </also>
+    </meta>
+    <properties>
+      <!-- @clip -->
+      <property name="@clip" type="alias">
+        <tr lang="en">alias for "@oversize min" property. Truncates lists to minimal common
+        size.</tr>
+        <!-- old: alias for "@oversize min" property. Усеченные списки
                 до минимального общего размера. -->
-                <tr lang="ru" finished="false">alias for "@oversize min" property. Усеченные списки
-                до минимального общего размера.</tr>
-            </property>
-            <!-- @clip -->
-            <property name="@clip" type="alias">
-                <tr lang="en">alias for "@oversize clip" property. Pad shortest list with last
-                element to conform longest list</tr>
-                <!-- old: alias for "@oversize clip" property. Самый короткий
+        <tr lang="ru" finished="false">alias for "@oversize min" property. Усеченные списки до
+        минимального общего размера.</tr>
+      </property>
+      <!-- @clip -->
+      <property name="@clip" type="alias">
+        <tr lang="en">alias for "@oversize clip" property. Pad shortest list with last element to
+        conform longest list</tr>
+        <!-- old: alias for "@oversize clip" property. Самый короткий
                 список с последним элементом, чтобы соответствовать самому длинному списку -->
-                <tr lang="ru" finished="false">alias for "@oversize clip" property. Самый короткий
-                список с последним элементом, чтобы соответствовать самому длинному списку</tr>
-            </property>
-            <!-- @fold -->
-            <property name="@fold" type="alias">
-                <tr lang="en">alias for "@oversize fold" property. Pad shortest list with repeated
-                values from the end to the beginning, then back and so on.</tr>
-                <!-- old: alias for "@oversize fold" property. Самый короткий
+        <tr lang="ru" finished="false">alias for "@oversize clip" property. Самый короткий список с
+        последним элементом, чтобы соответствовать самому длинному списку</tr>
+      </property>
+      <!-- @fold -->
+      <property name="@fold" type="alias">
+        <tr lang="en">alias for "@oversize fold" property. Pad shortest list with repeated values
+        from the end to the beginning, then back and so on.</tr>
+        <!-- old: alias for "@oversize fold" property. Самый короткий
                 список с повторяющимися значениями от конца до начала, затем назад и так
                 далее. -->
-                <tr lang="ru" finished="false">alias for "@oversize fold" property. Самый короткий
-                список с повторяющимися значениями от конца до начала, затем назад и так
-                далее.</tr>
-            </property>
-            <!-- @min -->
-            <property name="@min" type="alias">
-                <tr lang="en">alias for "@oversize min" property. Truncates lists to minimal common
-                size</tr>
-                <!-- old: alias for "@oversize min" property. Усеченные списки
+        <tr lang="ru" finished="false">alias for "@oversize fold" property. Самый короткий список с
+        повторяющимися значениями от конца до начала, затем назад и так далее.</tr>
+      </property>
+      <!-- @min -->
+      <property name="@min" type="alias">
+        <tr lang="en">alias for "@oversize min" property. Truncates lists to minimal common
+        size</tr>
+        <!-- old: alias for "@oversize min" property. Усеченные списки
                 до минимального общего размера -->
-                <tr lang="ru" finished="false">alias for "@oversize min" property. Усеченные списки
-                до минимального общего размера</tr>
-            </property>
-            <!-- @oversize -->
-            <property name="@oversize" type="symbol" enum="min padz clip wrap fold" default="padz">
-                <tr lang="en">behavior, if list have different sizes</tr>
-                <tr lang="ru" finished="false">Поведение, если список имеет разные размеры</tr>
-            </property>
-            <!-- @padz -->
-            <property name="@padz" type="alias">
-                <tr lang="en">alias for "@oversize padz" property. Pad shortest list with
-                zeroes.</tr>
-                <!-- old: alias for "@oversize padz" property. Самый короткий
+        <tr lang="ru" finished="false">alias for "@oversize min" property. Усеченные списки до
+        минимального общего размера</tr>
+      </property>
+      <!-- @oversize -->
+      <property name="@oversize" type="symbol" enum="min padz clip wrap fold" default="padz">
+        <tr lang="en">behavior, if list have different sizes</tr>
+        <tr lang="ru" finished="false">Поведение, если список имеет разные размеры</tr>
+      </property>
+      <!-- @padz -->
+      <property name="@padz" type="alias">
+        <tr lang="en">alias for "@oversize padz" property. Pad shortest list with zeroes.</tr>
+        <!-- old: alias for "@oversize padz" property. Самый короткий
                 список с нулями. -->
-                <tr lang="ru" finished="false">alias for "@oversize padz" property. Самый короткий
-                список с нулями.</tr>
-            </property>
-            <!-- @wrap -->
-            <property name="@wrap" type="alias">
-                <tr lang="en">alias for "@oversize wrap" property. Pad shortest list with repeated
-                values from the beginning.</tr>
-                <!-- old: alias for "@oversize wrap" property. Самый короткий
+        <tr lang="ru" finished="false">alias for "@oversize padz" property. Самый короткий список с
+        нулями.</tr>
+      </property>
+      <!-- @wrap -->
+      <property name="@wrap" type="alias">
+        <tr lang="en">alias for "@oversize wrap" property. Pad shortest list with repeated values
+        from the beginning.</tr>
+        <!-- old: alias for "@oversize wrap" property. Самый короткий
                 список с повторяющимися значениями с самого начала. -->
-                <tr lang="ru" finished="false">alias for "@oversize wrap" property. Самый короткий
-                список с повторяющимися значениями с самого начала.</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">sets to empty list current state</tr>
-                    <tr lang="ru" finished="false">Пустой список текущего состояния</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">Input float list</tr>
-                    <tr lang="ru" finished="false">Список входных поплавков</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">delta list</tr>
-                    <tr lang="ru" finished="false">дельта-лист</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">alias for "@oversize wrap" property. Самый короткий список с
+        повторяющимися значениями с самого начала.</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">sets to empty list current state</tr>
+          <tr lang="ru" finished="false">Пустой список текущего состояния</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">Input float list</tr>
+          <tr lang="ru" finished="false">Список входных поплавков</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">delta list</tr>
+          <tr lang="ru" finished="false">дельта-лист</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
              [B]   [F]
              |     |
@@ -131,7 +129,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

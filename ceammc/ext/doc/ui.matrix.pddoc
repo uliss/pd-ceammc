@@ -1,418 +1,412 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="ui.matrix" type="gui">
-        <title>ui.matrix</title>
-        <meta>
-            <authors>
-                <author>Pierre Guillot</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">toggle matrix</tr>
-                <tr lang="ru">матрица переключателей</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">ui</category>
-            <keywords>ui matrix</keywords>
-            <since>0.1</since>
-            <also>
-                <see view="link">ui.radio</see>
-                <see view="link">ui.toggle</see>
-            </also>
-        </meta>
+  <object name="ui.matrix" type="gui">
+    <title>ui.matrix</title>
+    <meta>
+      <authors>
+        <author>Pierre Guillot</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">toggle matrix</tr>
+        <tr lang="ru">матрица переключателей</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">ui</category>
+      <keywords>ui matrix</keywords>
+      <since>0.1</since>
+      <also>
+        <see view="link">ui.radio</see>
+        <see view="link">ui.toggle</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Rectangle matrix of toggles. Note: all matrix operations have following cell
+        address format - ROW COL.</tr>
+        <tr lang="ru" finished="false">Прямоугольная матрица переключателей. Примечание: все
+        операции матрицы имеют следующий формат адреса ячейки - ROW COL.</tr>
+      </par>
+      <par>
+        <tr lang="en">On click outputs message with format [cell ROW COL VALUE(</tr>
+        <tr lang="ru" finished="false">На клик выводит сообщение с форматом [cell ROW COL
+        VALUE()</tr>
+      </par>
+    </info>
+    <mouse>
+      <event type="drag" editmode="false">toggle cells under cursor</event>
+      <event type="left-click" editmode="false">toggle cell under cursor</event>
+      <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+      <event type="right-click" editmode="false" keys="Shift">open object help</event>
+      <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+      <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+      <event type="right-click" editmode="true">open Pd popup menu</event>
+    </mouse>
+    <arguments>
+      <argument name="ROW" type="int" minvalue="1" maxvalue="64">
+        <tr lang="en">matrix rows</tr>
+        <tr lang="ru" finished="false">Матричные ряды</tr>
+      </argument>
+      <argument name="COL" type="int" minvalue="1" maxvalue="64">
+        <tr lang="en">matrix columns</tr>
+        <tr lang="ru" finished="false">столбцы матрицы</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_active_color.xml" />
+      <xi:include href="props_background_color.xml" />
+      <xi:include href="props_border_color.xml" />
+      <xi:include href="props_fontname.xml" />
+      <xi:include href="props_fontsize.xml" />
+      <xi:include href="props_fontslant.xml" />
+      <xi:include href="props_fontweight.xml" />
+      <xi:include href="props_pinned.xml" />
+      <xi:include href="props_ui_receive.xml" />
+      <xi:include href="props_ui_send.xml" />
+      <xi:include href="props_preset.xml" />
+      <!-- @cols -->
+      <property name="@cols" type="int" minvalue="1" maxvalue="64" default="8">
+        <tr lang="en">number of matrix columns</tr>
+        <tr lang="ru" finished="false">Количество столбцов матрицы</tr>
+      </property>
+      <!-- @current_col -->
+      <property name="@current_col" type="int" minvalue="-1" default="-1">
+        <tr lang="en">current column index. -1 if not specified. This property is not saved in
+        patch</tr>
+        <tr lang="ru" finished="false">Текущий индекс столбца. 1 если не указано. Это свойство не
+        сохраняется в патче</tr>
+      </property>
+      <!-- @current_color -->
+      <property name="@current_color" type="list" default="1 0.75 0 1">
+        <tr lang="en">current col/row color (list of red, green, blue values in 0-1 range)</tr>
+        <tr lang="ru" finished="false">текущий цвет col/row (список красных, зеленых, синих
+        значений в диапазоне 0-1)</tr>
+      </property>
+      <!-- @current_row -->
+      <property name="@current_row" type="int" minvalue="-1" default="-1">
+        <tr lang="en">current row index. -1 if not specified. This property is not saved in
+        patch</tr>
+        <tr lang="ru" finished="false">Текущий индекс строки. 1 если не указано. Это свойство не
+        сохраняется в патче</tr>
+      </property>
+      <!-- @rows -->
+      <property name="@rows" type="int" minvalue="1" maxvalue="64" default="4">
+        <tr lang="en">number of matrix rows</tr>
+        <tr lang="ru" finished="false">Количество строк матрицы</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="105 53">
+        <tr lang="en">object size (width, height pair)</tr>
+        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- clear -->
+      <method name="clear">
         <info>
-            <par>
-                <tr lang="en">Rectangle matrix of toggles. Note: all matrix operations have
-                following cell address format - ROW COL.</tr>
-                <tr lang="ru" finished="false">Прямоугольная матрица переключателей. Примечание:
-                все операции матрицы имеют следующий формат адреса ячейки - ROW COL.</tr>
-            </par>
-            <par>
-                <tr lang="en">On click outputs message with format [cell ROW COL VALUE(</tr>
-                <tr lang="ru" finished="false">На клик выводит сообщение с форматом [cell ROW COL
-                VALUE()</tr>
-            </par>
+          <tr lang="en">clears specified preset</tr>
+          <tr lang="ru" finished="false">заданный заранее</tr>
         </info>
-        <mouse>
-            <event type="drag" editmode="false">toggle cells under cursor</event>
-            <event type="left-click" editmode="false">toggle cell under cursor</event>
-            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="false" keys="Shift">open object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
-            <event type="right-click" editmode="true">open Pd popup menu</event>
-        </mouse>
-        <arguments>
-            <argument name="ROW" type="int" minvalue="1" maxvalue="64">
-                <tr lang="en">matrix rows</tr>
-                <tr lang="ru" finished="false">Матричные ряды</tr>
-            </argument>
-            <argument name="COL" type="int" minvalue="1" maxvalue="64">
-                <tr lang="en">matrix columns</tr>
-                <tr lang="ru" finished="false">столбцы матрицы</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_active_color.xml" />
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
-            <xi:include href="props_preset.xml" />
-            <!-- @cols -->
-            <property name="@cols" type="int" minvalue="1" maxvalue="64" default="8">
-                <tr lang="en">number of matrix columns</tr>
-                <tr lang="ru" finished="false">Количество столбцов матрицы</tr>
-            </property>
-            <!-- @current_col -->
-            <property name="@current_col" type="int" minvalue="-1" default="-1">
-                <tr lang="en">current column index. -1 if not specified. This property is not saved
-                in patch</tr>
-                <tr lang="ru" finished="false">Текущий индекс столбца. 1 если не указано. Это
-                свойство не сохраняется в патче</tr>
-            </property>
-            <!-- @current_color -->
-            <property name="@current_color" type="list" default="1 0.75 0 1">
-                <tr lang="en">current col/row color (list of red, green, blue values in 0-1
-                range)</tr>
-                <tr lang="ru" finished="false">текущий цвет col/row (список красных, зеленых, синих
-                значений в диапазоне 0-1)</tr>
-            </property>
-            <!-- @current_row -->
-            <property name="@current_row" type="int" minvalue="-1" default="-1">
-                <tr lang="en">current row index. -1 if not specified. This property is not saved in
-                patch</tr>
-                <tr lang="ru" finished="false">Текущий индекс строки. 1 если не указано. Это
-                свойство не сохраняется в патче</tr>
-            </property>
-            <!-- @rows -->
-            <property name="@rows" type="int" minvalue="1" maxvalue="64" default="4">
-                <tr lang="en">number of matrix rows</tr>
-                <tr lang="ru" finished="false">Количество строк матрицы</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="105 53">
-                <tr lang="en">object size (width, height pair)</tr>
-                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clears specified preset</tr>
-                    <tr lang="ru" finished="false">заданный заранее</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- dump -->
-            <method name="dump">
-                <info>
-                    <tr lang="en">dumps all object info to Pd console window.</tr>
-                    <tr lang="ru" finished="false">Сбрасывает всю информацию об объекте в окно
-                    консоли Pd.</tr>
-                </info>
-            </method>
-            <!-- flip -->
-            <method name="flip">
-                <info>
-                    <tr lang="en">flips all matrix cells</tr>
-                    <tr lang="ru" finished="false">Переворачивает все матричные клетки</tr>
-                </info>
-            </method>
-            <!-- flip R C -->
-            <method name="flip R C">
-                <info>
-                    <tr lang="en">flips single cell</tr>
-                    <tr lang="ru" finished="false">переворачивание одиночной клетки</tr>
-                </info>
-                <param name="R" type="int" minvalue="0" required="true">
-                    <tr lang="en">row index</tr>
-                    <tr lang="ru" finished="false">строковый индекс</tr>
-                </param>
-                <param name="C" type="int" minvalue="0" required="true">
-                    <tr lang="en">column index</tr>
-                    <tr lang="ru" finished="false">колоночный индекс</tr>
-                </param>
-            </method>
-            <!-- flip col N -->
-            <method name="flip col N">
-                <info>
-                    <tr lang="en">flips cells in specified column.</tr>
-                    <tr lang="ru" finished="false">Переворачивает ячейки в указанную колонку.</tr>
-                </info>
-                <param name="N" type="int" minvalue="0" required="true">
-                    <tr lang="en">column index</tr>
-                    <tr lang="ru" finished="false">колоночный индекс</tr>
-                </param>
-            </method>
-            <!-- flip row N -->
-            <method name="flip row N">
-                <info>
-                    <tr lang="en">flips cells in specified row.</tr>
-                    <tr lang="ru" finished="false">Переворачивает ячейки в указанном ряду.</tr>
-                </info>
-                <param name="N" type="int" minvalue="0" required="true">
-                    <tr lang="en">row index</tr>
-                    <tr lang="ru" finished="false">строковый индекс</tr>
-                </param>
-            </method>
-            <!-- get cell R C -->
-            <method name="get cell R C">
-                <info>
-                    <tr lang="en">outputs single cell value as message [cell ROW COL VALUE(</tr>
-                    <tr lang="ru" finished="false">выводит значение одиночной ячейки в виде
-                    сообщения [ЦЕЛЬ ROW COL ячейки()</tr>
-                </info>
-                <param name="R" type="int" minvalue="0" required="true">
-                    <tr lang="en">row index</tr>
-                    <tr lang="ru" finished="false">строковый индекс</tr>
-                </param>
-                <param name="C" type="int" minvalue="0" required="true">
-                    <tr lang="en">column index</tr>
-                    <tr lang="ru" finished="false">колоночный индекс</tr>
-                </param>
-            </method>
-            <!-- get cells -->
-            <method name="get cells">
-                <info>
-                    <tr lang="en">output all cells as separate messages [cell R C VALUE(</tr>
-                    <tr lang="ru" finished="false">вывод всех ячеек в виде отдельных сообщений
-                    [ячейка R C VALUE]</tr>
-                </info>
-            </method>
-            <!-- get col N -->
-            <method name="get col N">
-                <info>
-                    <tr lang="en">outputs column cells as message [col N V0 V1...(</tr>
-                    <tr lang="ru" finished="false">выводит ячейки столбцов в виде сообщения [col N
-                    V0 V1...]</tr>
-                </info>
-                <param name="N" type="int" minvalue="0" required="true">
-                    <tr lang="en">column index</tr>
-                    <tr lang="ru" finished="false">колоночный индекс</tr>
-                </param>
-            </method>
-            <!-- get cols -->
-            <method name="get cols">
-                <info>
-                    <tr lang="en">output all columns as separate messages [col N V0 V1...(</tr>
-                    <tr lang="ru" finished="false">выводить все столбцы в виде отдельных сообщений
-                    [col N V0 V1...]</tr>
-                </info>
-            </method>
-            <!-- get list -->
-            <method name="get list">
-                <info>
-                    <tr lang="en">output all cell values as list, row by raw. [0 1 1 1 0...(</tr>
-                    <tr lang="ru" finished="false">выводить все значения ячеек в виде списка,
-                    строки в сыром виде. [0 1 1 1 0 ...]</tr>
-                </info>
-            </method>
-            <!-- get matrix -->
-            <method name="get matrix">
-                <info>
-                    <tr lang="en">output as matrix [matrix NROWS NCOLS DATA...(</tr>
-                    <tr lang="ru" finished="false">выход в виде матрицы [матрица NROWS NCOLS
-                    DATA...]</tr>
-                </info>
-            </method>
-            <!-- get row N -->
-            <method name="get row N">
-                <info>
-                    <tr lang="en">outputs row cells as message [row N V0 V1...(</tr>
-                    <tr lang="ru" finished="false">выводит строковые ячейки в виде сообщения [ряд N
-                    V0 V1...]</tr>
-                </info>
-                <param name="N" type="int" minvalue="0" required="true">
-                    <tr lang="en">row index</tr>
-                    <tr lang="ru" finished="false">строковый индекс</tr>
-                </param>
-            </method>
-            <!-- get rows -->
-            <method name="get rows">
-                <info>
-                    <tr lang="en">output all rows as separate messages [row N V0 V1...(</tr>
-                    <tr lang="ru" finished="false">выводит все строки в виде отдельных сообщений
-                    [ряд N V0 V1...]</tr>
-                </info>
-            </method>
-            <!-- interp -->
-            <method name="interp">
-                <info>
-                    <tr lang="en">for this object acts as *load*, no interpolation performed</tr>
-                    <tr lang="ru" finished="false">для этого объекта действует как *load*,
-                    интерполяция не выполняется</tr>
-                </info>
-            </method>
-            <!-- load -->
-            <method name="load">
-                <info>
-                    <tr lang="en">loads specified preset</tr>
-                    <tr lang="ru" finished="false">заданный заранее заданный</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- pos -->
-            <method name="pos">
-                <info>
-                    <tr lang="en">set UI element position</tr>
-                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">top left x-coord</tr>
-                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">top right y-coord</tr>
-                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
-                </param>
-            </method>
-            <!-- random -->
-            <method name="random">
-                <info>
-                    <tr lang="en">fill matrix random and output</tr>
-                    <tr lang="ru" finished="false">заполнить матрицу случайной и выходной</tr>
-                </info>
-            </method>
-            <!-- read -->
-            <method name="read">
-                <param name="FNAME" type="symbol">
-                    <tr lang="en">read matrix values from text file (space separated). If fname
-                    argument is not specified opens file chooser dialog</tr>
-                    <tr lang="ru" finished="false">считывать значения матрицы из текстового файла
-                    (разделенное пространство). Если аргумент имени не указан, открывается диалог
-                    выбора файла</tr>
-                </param>
-            </method>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">uncheck all matrix cells. No output</tr>
-                    <tr lang="ru" finished="false">Отключите все матричные клетки. Нет выхода</tr>
-                </info>
-            </method>
-            <!-- set col N ... -->
-            <method name="set col N ...">
-                <info>
-                    <tr lang="en">set specified column without output</tr>
-                    <tr lang="ru" finished="false">установленный столбец без выхода</tr>
-                </info>
-                <param name="N" type="int" minvalue="0" required="true">
-                    <tr lang="en">column index</tr>
-                    <tr lang="ru" finished="false">колоночный индекс</tr>
-                </param>
-                <param name="..." type="list" required="true">
-                    <tr lang="en">cell values (1 - checked, 0 - unchecked)</tr>
-                    <tr lang="ru" finished="false">Значения ячеек (1 - проверено, 0 -
-                    непроверено)</tr>
-                </param>
-            </method>
-            <!-- set list ... -->
-            <method name="set list ...">
-                <info>
-                    <tr lang="en">set matrix data without output</tr>
-                    <tr lang="ru" finished="false">Настройка матрицы данных без вывода</tr>
-                </info>
-                <param name="..." type="list" required="true">
-                    <tr lang="en">cell values (1 - checked, 0 - unchecked), row by row</tr>
-                    <tr lang="ru" finished="false">значения ячеек (1 - проверено, 0 - непроверено),
-                    ряд за рядом</tr>
-                </param>
-            </method>
-            <!-- set matrix R C ... -->
-            <method name="set matrix R C ...">
-                <info>
-                    <tr lang="en">set matrix without output</tr>
-                    <tr lang="ru" finished="false">установленная матрица без вывода</tr>
-                </info>
-                <param name="R" type="int" minvalue="1" required="true">
-                    <tr lang="en">number of rows in matrix</tr>
-                    <tr lang="ru" finished="false">Количество строк в матрице</tr>
-                </param>
-                <param name="C" type="int" minvalue="1" required="true">
-                    <tr lang="en">number of columns in matrix</tr>
-                    <tr lang="ru" finished="false">Количество столбцов в матрице</tr>
-                </param>
-                <param name="..." type="list" required="true">
-                    <tr lang="en">cell values (1 - checked, 0 - unchecked)</tr>
-                    <tr lang="ru" finished="false">Значения ячеек (1 - проверено, 0 -
-                    непроверено)</tr>
-                </param>
-            </method>
-            <!-- set row N ... -->
-            <method name="set row N ...">
-                <info>
-                    <tr lang="en">set specified row without output</tr>
-                    <tr lang="ru" finished="false">установленный ряд без выхода</tr>
-                </info>
-                <param name="N" type="int" minvalue="0" required="true">
-                    <tr lang="en">row index</tr>
-                    <tr lang="ru" finished="false">строковый индекс</tr>
-                </param>
-                <param name="..." type="list" required="true">
-                    <tr lang="en">cell values (1 - checked, 0 - unchecked)</tr>
-                    <tr lang="ru" finished="false">Значения ячеек (1 - проверено, 0 -
-                    непроверено)</tr>
-                </param>
-            </method>
-            <!-- store -->
-            <method name="store">
-                <info>
-                    <tr lang="en">stores specified preset</tr>
-                    <tr lang="ru" finished="false">магазины, указанные Preset</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- write -->
-            <method name="write">
-                <param name="FNAME" type="symbol">
-                    <tr lang="en">write matrix values to text file (space separated). If fname
-                    argument is not specified opens file chooser dialog</tr>
-                    <tr lang="ru" finished="false">записывать значения матрицы в текстовый файл
-                    (раздельное пространство). Если аргумент имени не указан, открывается диалог
-                    выбора файла</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output all cells. Same as [get cells(</tr>
-                    <tr lang="ru" finished="false">вывести все ячейки. Как [получить клетки]</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">sets matrix state. Input format: 0 and 1, row by row</tr>
-                    <tr lang="ru" finished="false">Устанавливает состояние матрицы. Формат ввода: 0
-                    и 1, строка за строкой</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- dump -->
+      <method name="dump">
+        <info>
+          <tr lang="en">dumps all object info to Pd console window.</tr>
+          <tr lang="ru" finished="false">Сбрасывает всю информацию об объекте в окно консоли
+          Pd.</tr>
+        </info>
+      </method>
+      <!-- flip -->
+      <method name="flip">
+        <info>
+          <tr lang="en">flips all matrix cells</tr>
+          <tr lang="ru" finished="false">Переворачивает все матричные клетки</tr>
+        </info>
+      </method>
+      <!-- flip R C -->
+      <method name="flip R C">
+        <info>
+          <tr lang="en">flips single cell</tr>
+          <tr lang="ru" finished="false">переворачивание одиночной клетки</tr>
+        </info>
+        <param name="R" type="int" minvalue="0" required="true">
+          <tr lang="en">row index</tr>
+          <tr lang="ru" finished="false">строковый индекс</tr>
+        </param>
+        <param name="C" type="int" minvalue="0" required="true">
+          <tr lang="en">column index</tr>
+          <tr lang="ru" finished="false">колоночный индекс</tr>
+        </param>
+      </method>
+      <!-- flip col N -->
+      <method name="flip col N">
+        <info>
+          <tr lang="en">flips cells in specified column.</tr>
+          <tr lang="ru" finished="false">Переворачивает ячейки в указанную колонку.</tr>
+        </info>
+        <param name="N" type="int" minvalue="0" required="true">
+          <tr lang="en">column index</tr>
+          <tr lang="ru" finished="false">колоночный индекс</tr>
+        </param>
+      </method>
+      <!-- flip row N -->
+      <method name="flip row N">
+        <info>
+          <tr lang="en">flips cells in specified row.</tr>
+          <tr lang="ru" finished="false">Переворачивает ячейки в указанном ряду.</tr>
+        </info>
+        <param name="N" type="int" minvalue="0" required="true">
+          <tr lang="en">row index</tr>
+          <tr lang="ru" finished="false">строковый индекс</tr>
+        </param>
+      </method>
+      <!-- get cell R C -->
+      <method name="get cell R C">
+        <info>
+          <tr lang="en">outputs single cell value as message [cell ROW COL VALUE(</tr>
+          <tr lang="ru" finished="false">выводит значение одиночной ячейки в виде сообщения [ЦЕЛЬ
+          ROW COL ячейки()</tr>
+        </info>
+        <param name="R" type="int" minvalue="0" required="true">
+          <tr lang="en">row index</tr>
+          <tr lang="ru" finished="false">строковый индекс</tr>
+        </param>
+        <param name="C" type="int" minvalue="0" required="true">
+          <tr lang="en">column index</tr>
+          <tr lang="ru" finished="false">колоночный индекс</tr>
+        </param>
+      </method>
+      <!-- get cells -->
+      <method name="get cells">
+        <info>
+          <tr lang="en">output all cells as separate messages [cell R C VALUE(</tr>
+          <tr lang="ru" finished="false">вывод всех ячеек в виде отдельных сообщений [ячейка R C
+          VALUE]</tr>
+        </info>
+      </method>
+      <!-- get col N -->
+      <method name="get col N">
+        <info>
+          <tr lang="en">outputs column cells as message [col N V0 V1...(</tr>
+          <tr lang="ru" finished="false">выводит ячейки столбцов в виде сообщения [col N V0
+          V1...]</tr>
+        </info>
+        <param name="N" type="int" minvalue="0" required="true">
+          <tr lang="en">column index</tr>
+          <tr lang="ru" finished="false">колоночный индекс</tr>
+        </param>
+      </method>
+      <!-- get cols -->
+      <method name="get cols">
+        <info>
+          <tr lang="en">output all columns as separate messages [col N V0 V1...(</tr>
+          <tr lang="ru" finished="false">выводить все столбцы в виде отдельных сообщений [col N V0
+          V1...]</tr>
+        </info>
+      </method>
+      <!-- get list -->
+      <method name="get list">
+        <info>
+          <tr lang="en">output all cell values as list, row by raw. [0 1 1 1 0...(</tr>
+          <tr lang="ru" finished="false">выводить все значения ячеек в виде списка, строки в сыром
+          виде. [0 1 1 1 0 ...]</tr>
+        </info>
+      </method>
+      <!-- get matrix -->
+      <method name="get matrix">
+        <info>
+          <tr lang="en">output as matrix [matrix NROWS NCOLS DATA...(</tr>
+          <tr lang="ru" finished="false">выход в виде матрицы [матрица NROWS NCOLS DATA...]</tr>
+        </info>
+      </method>
+      <!-- get row N -->
+      <method name="get row N">
+        <info>
+          <tr lang="en">outputs row cells as message [row N V0 V1...(</tr>
+          <tr lang="ru" finished="false">выводит строковые ячейки в виде сообщения [ряд N V0
+          V1...]</tr>
+        </info>
+        <param name="N" type="int" minvalue="0" required="true">
+          <tr lang="en">row index</tr>
+          <tr lang="ru" finished="false">строковый индекс</tr>
+        </param>
+      </method>
+      <!-- get rows -->
+      <method name="get rows">
+        <info>
+          <tr lang="en">output all rows as separate messages [row N V0 V1...(</tr>
+          <tr lang="ru" finished="false">выводит все строки в виде отдельных сообщений [ряд N V0
+          V1...]</tr>
+        </info>
+      </method>
+      <!-- interp -->
+      <method name="interp">
+        <info>
+          <tr lang="en">for this object acts as *load*, no interpolation performed</tr>
+          <tr lang="ru" finished="false">для этого объекта действует как *load*, интерполяция не
+          выполняется</tr>
+        </info>
+      </method>
+      <!-- load -->
+      <method name="load">
+        <info>
+          <tr lang="en">loads specified preset</tr>
+          <tr lang="ru" finished="false">заданный заранее заданный</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- pos -->
+      <method name="pos">
+        <info>
+          <tr lang="en">set UI element position</tr>
+          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">top left x-coord</tr>
+          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+        </param>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">top right y-coord</tr>
+          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+        </param>
+      </method>
+      <!-- random -->
+      <method name="random">
+        <info>
+          <tr lang="en">fill matrix random and output</tr>
+          <tr lang="ru" finished="false">заполнить матрицу случайной и выходной</tr>
+        </info>
+      </method>
+      <!-- read -->
+      <method name="read">
+        <param name="FNAME" type="symbol">
+          <tr lang="en">read matrix values from text file (space separated). If fname argument is
+          not specified opens file chooser dialog</tr>
+          <tr lang="ru" finished="false">считывать значения матрицы из текстового файла
+          (разделенное пространство). Если аргумент имени не указан, открывается диалог выбора
+          файла</tr>
+        </param>
+      </method>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">uncheck all matrix cells. No output</tr>
+          <tr lang="ru" finished="false">Отключите все матричные клетки. Нет выхода</tr>
+        </info>
+      </method>
+      <!-- set col N ... -->
+      <method name="set col N ...">
+        <info>
+          <tr lang="en">set specified column without output</tr>
+          <tr lang="ru" finished="false">установленный столбец без выхода</tr>
+        </info>
+        <param name="N" type="int" minvalue="0" required="true">
+          <tr lang="en">column index</tr>
+          <tr lang="ru" finished="false">колоночный индекс</tr>
+        </param>
+        <param name="..." type="list" required="true">
+          <tr lang="en">cell values (1 - checked, 0 - unchecked)</tr>
+          <tr lang="ru" finished="false">Значения ячеек (1 - проверено, 0 - непроверено)</tr>
+        </param>
+      </method>
+      <!-- set list ... -->
+      <method name="set list ...">
+        <info>
+          <tr lang="en">set matrix data without output</tr>
+          <tr lang="ru" finished="false">Настройка матрицы данных без вывода</tr>
+        </info>
+        <param name="..." type="list" required="true">
+          <tr lang="en">cell values (1 - checked, 0 - unchecked), row by row</tr>
+          <tr lang="ru" finished="false">значения ячеек (1 - проверено, 0 - непроверено), ряд за
+          рядом</tr>
+        </param>
+      </method>
+      <!-- set matrix R C ... -->
+      <method name="set matrix R C ...">
+        <info>
+          <tr lang="en">set matrix without output</tr>
+          <tr lang="ru" finished="false">установленная матрица без вывода</tr>
+        </info>
+        <param name="R" type="int" minvalue="1" required="true">
+          <tr lang="en">number of rows in matrix</tr>
+          <tr lang="ru" finished="false">Количество строк в матрице</tr>
+        </param>
+        <param name="C" type="int" minvalue="1" required="true">
+          <tr lang="en">number of columns in matrix</tr>
+          <tr lang="ru" finished="false">Количество столбцов в матрице</tr>
+        </param>
+        <param name="..." type="list" required="true">
+          <tr lang="en">cell values (1 - checked, 0 - unchecked)</tr>
+          <tr lang="ru" finished="false">Значения ячеек (1 - проверено, 0 - непроверено)</tr>
+        </param>
+      </method>
+      <!-- set row N ... -->
+      <method name="set row N ...">
+        <info>
+          <tr lang="en">set specified row without output</tr>
+          <tr lang="ru" finished="false">установленный ряд без выхода</tr>
+        </info>
+        <param name="N" type="int" minvalue="0" required="true">
+          <tr lang="en">row index</tr>
+          <tr lang="ru" finished="false">строковый индекс</tr>
+        </param>
+        <param name="..." type="list" required="true">
+          <tr lang="en">cell values (1 - checked, 0 - unchecked)</tr>
+          <tr lang="ru" finished="false">Значения ячеек (1 - проверено, 0 - непроверено)</tr>
+        </param>
+      </method>
+      <!-- store -->
+      <method name="store">
+        <info>
+          <tr lang="en">stores specified preset</tr>
+          <tr lang="ru" finished="false">магазины, указанные Preset</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- write -->
+      <method name="write">
+        <param name="FNAME" type="symbol">
+          <tr lang="en">write matrix values to text file (space separated). If fname argument is
+          not specified opens file chooser dialog</tr>
+          <tr lang="ru" finished="false">записывать значения матрицы в текстовый файл (раздельное
+          пространство). Если аргумент имени не указан, открывается диалог выбора файла</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output all cells. Same as [get cells(</tr>
+          <tr lang="ru" finished="false">вывести все ячейки. Как [получить клетки]</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">sets matrix state. Input format: 0 and 1, row by row</tr>
+          <tr lang="ru" finished="false">Устанавливает состояние матрицы. Формат ввода: 0 и 1,
+          строка за строкой</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
           [F]          [F]
 [dump(    |            |
@@ -437,7 +431,7 @@
 [ui.d]
 [X a->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,105 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="data.int">
-        <title>data.int</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">a multi-functional integer object</tr>
-                <tr lang="ru">многофункциональный объект целого числа</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>data int</keywords>
-            <since>0.6</since>
-            <also>
-                <see>data.float</see>
-            </also>
-            <aliases>
-                <alias>.int</alias>
-                <alias>.i</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="VALUE" type="int">
-                <tr lang="en">set initial value</tr>
-                <tr lang="ru" finished="false">заданная начальная величина</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @value -->
-            <property name="@value" type="int" access="readonly" default="0">
-                <tr lang="en">current value</tr>
-                <tr lang="ru" finished="false">Текущая стоимость</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- * -->
-            <method name="*">
-                <info>
-                    <tr lang="en">multiply to, no output</tr>
-                    <tr lang="ru" finished="false">Умножить на, не выход</tr>
-                </info>
-            </method>
-            <!-- + -->
-            <method name="+">
-                <info>
-                    <tr lang="en">add to int, no output</tr>
-                    <tr lang="ru" finished="false">Добавить int, no output</tr>
-                </info>
-            </method>
-            <method name="-">
-                <info>
-                    <tr lang="en">subtract from int, no output</tr>
-                    <tr lang="ru" finished="false">вычитать из int, не выводить</tr>
-                </info>
-            </method>
-            <!-- / -->
-            <method name="/">
-                <info>
-                    <tr lang="en">divide by, no output</tr>
-                    <tr lang="ru" finished="false">делить на, не выход</tr>
-                </info>
-            </method>
-            <!-- set -->
-            <method name="set">
-                <info>
-                    <tr lang="en">sets new value without output</tr>
-                    <tr lang="ru" finished="false">Новая стоимость без выхода</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output value</tr>
-                    <tr lang="ru" finished="false">выходная стоимость</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">set new value and outputs</tr>
-                    <tr lang="ru" finished="false">установить новые значения и выходы</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">set new value without output</tr>
-                    <tr lang="ru" finished="false">установить новую стоимость без выхода</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">set output</tr>
-                    <tr lang="ru" finished="false">заданный выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="data.int">
+    <title>data.int</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">a multi-functional integer object</tr>
+        <tr lang="ru">многофункциональный объект целого числа</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>data int</keywords>
+      <since>0.6</since>
+      <also>
+        <see>data.float</see>
+      </also>
+      <aliases>
+        <alias>.int</alias>
+        <alias>.i</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="VALUE" type="int">
+        <tr lang="en">set initial value</tr>
+        <tr lang="ru" finished="false">заданная начальная величина</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @value -->
+      <property name="@value" type="int" access="readonly" default="0">
+        <tr lang="en">current value</tr>
+        <tr lang="ru" finished="false">Текущая стоимость</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- * -->
+      <method name="*">
+        <info>
+          <tr lang="en">multiply to, no output</tr>
+          <tr lang="ru" finished="false">Умножить на, не выход</tr>
+        </info>
+      </method>
+      <!-- + -->
+      <method name="+">
+        <info>
+          <tr lang="en">add to int, no output</tr>
+          <tr lang="ru" finished="false">Добавить int, no output</tr>
+        </info>
+      </method>
+      <method name="-">
+        <info>
+          <tr lang="en">subtract from int, no output</tr>
+          <tr lang="ru" finished="false">вычитать из int, не выводить</tr>
+        </info>
+      </method>
+      <!-- / -->
+      <method name="/">
+        <info>
+          <tr lang="en">divide by, no output</tr>
+          <tr lang="ru" finished="false">делить на, не выход</tr>
+        </info>
+      </method>
+      <!-- set -->
+      <method name="set">
+        <info>
+          <tr lang="en">sets new value without output</tr>
+          <tr lang="ru" finished="false">Новая стоимость без выхода</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output value</tr>
+          <tr lang="ru" finished="false">выходная стоимость</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">set new value and outputs</tr>
+          <tr lang="ru" finished="false">установить новые значения и выходы</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">set new value without output</tr>
+          <tr lang="ru" finished="false">установить новую стоимость без выхода</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">set output</tr>
+          <tr lang="ru" finished="false">заданный выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]
 |
@@ -113,7 +113,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

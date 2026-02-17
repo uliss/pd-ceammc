@@ -1,72 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.convolve">
-        <title>array.convolve</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">FFT convolution of the array</tr>
-                <tr lang="ru">FFT свертка массива</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array fft convolution</keywords>
-            <since>0.9.5</since>
-        </meta>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">target array</tr>
-                <tr lang="ru">целевой массив</tr>
-            </argument>
-            <argument name="IR" type="symbol">
-                <tr lang="en">array with impulse response</tr>
-                <tr lang="ru">массив с импульсным откликом</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">target array</tr>
-                <tr lang="ru">целевой массив</tr>
-            </property>
-            <!-- @ir -->
-            <property name="@ir" type="symbol" default="">
-                <tr lang="en">impulse response source array</tr>
-                <tr lang="ru">массив с импульсным откликом</tr>
-            </property>
-            <!-- @norm -->
-            <property name="@norm" type="bool" default="0">
-                <tr lang="en">impulse response normalization</tr>
-                <tr lang="ru">нормализация импульсного отклика</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">start convolution process</tr>
-                    <tr lang="ru">начинает процесс свертки</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">sets the array name</tr>
-                    <tr lang="ru">устанавливает имя массива</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="bang">
-                    <tr lang="en">on done</tr>
-                    <tr lang="ru">при завершении свертки</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.convolve">
+    <title>array.convolve</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">FFT convolution of the array</tr>
+        <tr lang="ru">FFT свертка массива</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array fft convolution</keywords>
+      <since>0.9.5</since>
+    </meta>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">target array</tr>
+        <tr lang="ru">целевой массив</tr>
+      </argument>
+      <argument name="IR" type="symbol">
+        <tr lang="en">array with impulse response</tr>
+        <tr lang="ru">массив с импульсным откликом</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">target array</tr>
+        <tr lang="ru">целевой массив</tr>
+      </property>
+      <!-- @ir -->
+      <property name="@ir" type="symbol" default="">
+        <tr lang="en">impulse response source array</tr>
+        <tr lang="ru">массив с импульсным откликом</tr>
+      </property>
+      <!-- @norm -->
+      <property name="@norm" type="bool" default="0">
+        <tr lang="en">impulse response normalization</tr>
+        <tr lang="ru">нормализация импульсного отклика</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">start convolution process</tr>
+          <tr lang="ru">начинает процесс свертки</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">sets the array name</tr>
+          <tr lang="ru">устанавливает имя массива</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="bang">
+          <tr lang="en">on done</tr>
+          <tr lang="ru">при завершении свертки</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [array A-CONV #a]      [array A-IR size=10 w=40 h=130]
 
@@ -86,7 +86,7 @@
 [B]
 #a size=100 w=200 h=130
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

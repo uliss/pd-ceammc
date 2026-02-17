@@ -1,58 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.bpm2ms">
-        <title>conv.bpm2ms</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts the BPM tempo into a beat period in milliseconds</tr>
-                <tr lang="ru">преобразует темп BPM в период между ударными долями в
-                миллисекундах</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv time</keywords>
-            <also>
-                <see>conv.bpm2sec</see>
-                <see>conv.bpm2hz</see>
-            </also>
-            <since>0.1</since>
-            <aliases>
-                <alias>ceammc/bpm-&gt;ms</alias>
-                <alias>bpm-&gt;ms</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Converts frequency from BPM (beats per minute) to period in ms. It is
-                simple as (60 / f) * 1000, but more readable.</tr>
-                <!-- old: Преобразует частоту от BPM (бит в минуту) до периода
+  <object name="conv.bpm2ms">
+    <title>conv.bpm2ms</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts the BPM tempo into a beat period in milliseconds</tr>
+        <tr lang="ru">преобразует темп BPM в период между ударными долями в миллисекундах</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv time</keywords>
+      <also>
+        <see>conv.bpm2sec</see>
+        <see>conv.bpm2hz</see>
+      </also>
+      <since>0.1</since>
+      <aliases>
+        <alias>ceammc/bpm-&gt;ms</alias>
+        <alias>bpm-&gt;ms</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Converts frequency from BPM (beats per minute) to period in ms. It is simple
+        as (60 / f) * 1000, but more readable.</tr>
+        <!-- old: Преобразует частоту от BPM (бит в минуту) до периода
                 в мс. Она проста как (60/f)*1000, но более читаема. -->
-                <tr lang="ru" finished="false">Преобразует частоту от BPM (бит в минуту) до периода
-                в мс. Она проста как (60/f)*1000, но более читаема.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">frequency in BPM</tr>
-                    <tr lang="ru" finished="false">Частота в BPM</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">period in milliseconds</tr>
-                    <tr lang="ru" finished="false">период в миллисекундах</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Преобразует частоту от BPM (бит в минуту) до периода в мс.
+        Она проста как (60/f)*1000, но более читаема.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">frequency in BPM</tr>
+          <tr lang="ru" finished="false">Частота в BPM</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">period in milliseconds</tr>
+          <tr lang="ru" finished="false">период в миллисекундах</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
         [F]     /* tempo */
         |
@@ -72,7 +71,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

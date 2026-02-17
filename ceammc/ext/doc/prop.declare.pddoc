@@ -1,91 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="prop.declare">
-        <title>prop.declare</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">declare the named property for a subpatch or an abstraction</tr>
-                <tr lang="ru">объявляет именованное свойство для субпатча или абстракции</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>property</category>
-            <keywords>property declare</keywords>
-            <since>0.7</since>
-            <also>
-                <see>prop</see>
-                <see>patch.props</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="NAME" type="symbol">
-                <tr lang="en">property name without @ (should be unique for current canvas)</tr>
-                <tr lang="ru" finished="false">Имя собственности без @ (должно быть уникальным для
-                текущего холста)</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @b -->
-            <property name="@b" type="alias">
-                <tr lang="en">alias to @type bool</tr>
-                <tr lang="ru" finished="false">Исполнитель: @type Bool</tr>
-            </property>
-            <!-- @default -->
-            <property name="@default" type="list" access="initonly" default="">
-                <tr lang="en">default property value</tr>
-                <tr lang="ru" finished="false">Стоимость недвижимости по умолчанию</tr>
-            </property>
-            <!-- @enum -->
-            <property name="@enum" type="list" access="initonly" default="">
-                <tr lang="en">allowed values (without default value) (for symbol properties
-                only)</tr>
-                <tr lang="ru" finished="false">разрешенные значения (без значения по умолчанию)
-                (только для свойств символа)</tr>
-            </property>
-            <!-- @f -->
-            <property name="@f" type="alias">
-                <tr lang="en">alias to @type float</tr>
-                <tr lang="ru" finished="false">Исполнитель: @type Float</tr>
-            </property>
-            <!-- @i -->
-            <property name="@i" type="alias">
-                <tr lang="en">alias to @type int</tr>
-                <tr lang="ru" finished="false">Исполнитель: @type Int</tr>
-            </property>
-            <!-- @l -->
-            <property name="@l" type="alias">
-                <tr lang="en">alias to @type list</tr>
-                <tr lang="ru" finished="false">Источник: @type list</tr>
-            </property>
-            <!-- @max -->
-            <property name="@max" type="float" default="+inf" access="initonly">
-                <tr lang="en">maximum value (for float and int properties only)</tr>
-                <tr lang="ru" finished="false">Максимальное значение (только для свойств float и
-                int)</tr>
-            </property>
-            <!-- @min -->
-            <property name="@min" type="float" default="-inf" access="initonly">
-                <tr lang="en">minimal value (for float and int properties only)</tr>
-                <tr lang="ru" finished="false">Минимальное значение (только для поплавковых и
-                инт-свойств)</tr>
-            </property>
-            <!-- @s -->
-            <property name="@s" type="alias">
-                <tr lang="en">alias to @type symbol</tr>
-                <tr lang="ru" finished="false">псевдоним @type symbol</tr>
-            </property>
-            <!-- @type -->
-            <property name="@type" type="symbol" enum="float int bool enum symbol list"
-            default="float">
-                <tr lang="en">property type</tr>
-                <tr lang="ru" finished="false">Тип собственности</tr>
-            </property>
-        </properties>
-        <example>
-            <pdascii>
+  <object name="prop.declare">
+    <title>prop.declare</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">declare the named property for a subpatch or an abstraction</tr>
+        <tr lang="ru">объявляет именованное свойство для субпатча или абстракции</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>property</category>
+      <keywords>property declare</keywords>
+      <since>0.7</since>
+      <also>
+        <see>prop</see>
+        <see>patch.props</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="NAME" type="symbol">
+        <tr lang="en">property name without @ (should be unique for current canvas)</tr>
+        <tr lang="ru" finished="false">Имя собственности без @ (должно быть уникальным для текущего
+        холста)</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @b -->
+      <property name="@b" type="alias">
+        <tr lang="en">alias to @type bool</tr>
+        <tr lang="ru" finished="false">Исполнитель: @type Bool</tr>
+      </property>
+      <!-- @default -->
+      <property name="@default" type="list" access="initonly" default="">
+        <tr lang="en">default property value</tr>
+        <tr lang="ru" finished="false">Стоимость недвижимости по умолчанию</tr>
+      </property>
+      <!-- @enum -->
+      <property name="@enum" type="list" access="initonly" default="">
+        <tr lang="en">allowed values (without default value) (for symbol properties only)</tr>
+        <tr lang="ru" finished="false">разрешенные значения (без значения по умолчанию) (только для
+        свойств символа)</tr>
+      </property>
+      <!-- @f -->
+      <property name="@f" type="alias">
+        <tr lang="en">alias to @type float</tr>
+        <tr lang="ru" finished="false">Исполнитель: @type Float</tr>
+      </property>
+      <!-- @i -->
+      <property name="@i" type="alias">
+        <tr lang="en">alias to @type int</tr>
+        <tr lang="ru" finished="false">Исполнитель: @type Int</tr>
+      </property>
+      <!-- @l -->
+      <property name="@l" type="alias">
+        <tr lang="en">alias to @type list</tr>
+        <tr lang="ru" finished="false">Источник: @type list</tr>
+      </property>
+      <!-- @max -->
+      <property name="@max" type="float" default="+inf" access="initonly">
+        <tr lang="en">maximum value (for float and int properties only)</tr>
+        <tr lang="ru" finished="false">Максимальное значение (только для свойств float и int)</tr>
+      </property>
+      <!-- @min -->
+      <property name="@min" type="float" default="-inf" access="initonly">
+        <tr lang="en">minimal value (for float and int properties only)</tr>
+        <tr lang="ru" finished="false">Минимальное значение (только для поплавковых и
+        инт-свойств)</tr>
+      </property>
+      <!-- @s -->
+      <property name="@s" type="alias">
+        <tr lang="en">alias to @type symbol</tr>
+        <tr lang="ru" finished="false">псевдоним @type symbol</tr>
+      </property>
+      <!-- @type -->
+      <property name="@type" type="symbol" enum="float int bool enum symbol list" default="float">
+        <tr lang="en">property type</tr>
+        <tr lang="ru" finished="false">Тип собственности</tr>
+      </property>
+    </properties>
+    <example>
+      <pdascii>
 <![CDATA[
 [prop.declare freq @min 20 @max 20000 @default 1000]
 
@@ -95,7 +92,7 @@
 |            |
 [F]          [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="canvas.name">
-        <title>canvas.name</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">output the current canvas name of the object</tr>
-                <tr lang="ru">выводит имя текущего холста у объекта</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>patch</category>
-            <keywords>canvas name</keywords>
-            <also>
-                <see>canvas.current</see>
-            </also>
-            <since>0.8</since>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output current canvas name</tr>
-                    <tr lang="ru" finished="false">Имя текущего canvas</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">current canvas name</tr>
-                    <tr lang="ru" finished="false">Текущее имя Canvas</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="canvas.name">
+    <title>canvas.name</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">output the current canvas name of the object</tr>
+        <tr lang="ru">выводит имя текущего холста у объекта</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>patch</category>
+      <keywords>canvas name</keywords>
+      <also>
+        <see>canvas.current</see>
+      </also>
+      <since>0.8</since>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output current canvas name</tr>
+          <tr lang="ru" finished="false">Имя текущего canvas</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">current canvas name</tr>
+          <tr lang="ru" finished="false">Текущее имя Canvas</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -44,7 +44,7 @@
 |
 [S digits=20]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

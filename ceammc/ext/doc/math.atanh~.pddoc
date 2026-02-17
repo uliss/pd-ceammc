@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.atanh~">
-        <title>math.atanh~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">hyperbolic arc tangent for signals</tr>
-                <tr lang="ru">обратный гиперболический тангенс для сигналов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math hyperbolic arc tangent</keywords>
-            <also>
-                <see>math.sinh~</see>
-                <see>math.asinh</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Outputs the principle value of the hyperbolic arc tangent of input
-                signal</tr>
-                <!-- old: Выходит принципиальное значение тангенса
+  <object name="math.atanh~">
+    <title>math.atanh~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">hyperbolic arc tangent for signals</tr>
+        <tr lang="ru">обратный гиперболический тангенс для сигналов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math hyperbolic arc tangent</keywords>
+      <also>
+        <see>math.sinh~</see>
+        <see>math.asinh</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Outputs the principle value of the hyperbolic arc tangent of input
+        signal</tr>
+        <!-- old: Выходит принципиальное значение тангенса
                 гиперболической дуги входного сигнала -->
-                <tr lang="ru" finished="false">Выходит принципиальное значение тангенса
-                гиперболической дуги входного сигнала</tr>
-            </par>
-            <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions">wiki: Inverse
-            hyperbolic functions</a>
-        </info>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">result signal</tr>
-                    <tr lang="ru" finished="false">результат сигнала</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Выходит принципиальное значение тангенса гиперболической
+        дуги входного сигнала</tr>
+      </par>
+      <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions">wiki: Inverse hyperbolic
+      functions</a>
+    </info>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">result signal</tr>
+          <tr lang="ru" finished="false">результат сигнала</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -74,7 +74,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

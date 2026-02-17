@@ -1,71 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="noise.lfreq0~">
-        <title>noise.lfreq0~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sampled/held noise (piecewise constant)</tr>
-                <tr lang="ru">семплированный/удержанный шум (кусочно постоянный)</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>noise</category>
-            <keywords>noise white</keywords>
-            <since>0.6</since>
-            <also>
-                <see>noise.lfreq~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">new random number every int(SR/freq) samples or so</tr>
-                <!-- old: новое случайное число в каждой выборке int
+  <object name="noise.lfreq0~">
+    <title>noise.lfreq0~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sampled/held noise (piecewise constant)</tr>
+        <tr lang="ru">семплированный/удержанный шум (кусочно постоянный)</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>noise</category>
+      <keywords>noise white</keywords>
+      <since>0.6</since>
+      <also>
+        <see>noise.lfreq~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">new random number every int(SR/freq) samples or so</tr>
+        <!-- old: новое случайное число в каждой выборке int
                 (SR/freq) -->
-                <tr lang="ru" finished="false">новое случайное число в каждой выборке int
-                (SR/freq)</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="FREQ" type="float" minvalue="0.5" maxvalue="22050" units="hertz">
-                <tr lang="en">noise generation freq</tr>
-                <tr lang="ru" finished="false">генерация шума freq</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @freq -->
-            <property name="@freq" type="float" minvalue="0.5" maxvalue="22050" default="1000"
-            units="hertz">
-                <tr lang="en">noise generation freq. New random number every int(SR/freq)</tr>
-                <!-- old: генерация шума freq. Новое случайное число каждый
+        <tr lang="ru" finished="false">новое случайное число в каждой выборке int (SR/freq)</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="FREQ" type="float" minvalue="0.5" maxvalue="22050" units="hertz">
+        <tr lang="en">noise generation freq</tr>
+        <tr lang="ru" finished="false">генерация шума freq</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @freq -->
+      <property name="@freq" type="float" minvalue="0.5" maxvalue="22050" default="1000"
+      units="hertz">
+        <tr lang="en">noise generation freq. New random number every int(SR/freq)</tr>
+        <!-- old: генерация шума freq. Новое случайное число каждый
                 int (SR/freq) -->
-                <tr lang="ru" finished="false">генерация шума freq. Новое случайное число каждый
-                int (SR/freq)</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set average frequency</tr>
-                    <tr lang="ru" finished="false">Установить среднюю частоту</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">генерация шума freq. Новое случайное число каждый int
+        (SR/freq)</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set average frequency</tr>
+          <tr lang="ru" finished="false">Установить среднюю частоту</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [@freq 200( [@freq 2000(
 |           |
@@ -86,7 +85,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

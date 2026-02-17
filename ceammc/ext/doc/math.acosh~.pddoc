@@ -1,57 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.acosh~">
-        <title>math.acosh~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">hyperbolic arc cosine for signals</tr>
-                <tr lang="ru">обратный гиперболический косинус для сигналов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math hyperbolic arc cosine</keywords>
-            <also>
-                <see>math.cosh~</see>
-                <see>math.acosh</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Outputs the principle value of the hyperbolic arc cosine of input
-                signal. Input signal expected to be &gt;= 1, otherwise output will be NAN</tr>
-                <!-- old: Выходит принципиальное значение косинуса
+  <object name="math.acosh~">
+    <title>math.acosh~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">hyperbolic arc cosine for signals</tr>
+        <tr lang="ru">обратный гиперболический косинус для сигналов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math hyperbolic arc cosine</keywords>
+      <also>
+        <see>math.cosh~</see>
+        <see>math.acosh</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Outputs the principle value of the hyperbolic arc cosine of input signal.
+        Input signal expected to be &gt;= 1, otherwise output will be NAN</tr>
+        <!-- old: Выходит принципиальное значение косинуса
                 гиперболической дуги входного сигнала. Входной сигнал должен быть >= 1, иначе
                 выход будет NAN -->
-                <tr lang="ru" finished="false">Выходит принципиальное значение косинуса
-                гиперболической дуги входного сигнала. Входной сигнал должен быть &gt;= 1, иначе
-                выход будет NAN</tr>
-            </par>
-            <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions">wiki: Inverse
-            hyperbolic functions</a>
-        </info>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">result signal</tr>
-                    <tr lang="ru" finished="false">результат сигнала</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Выходит принципиальное значение косинуса гиперболической
+        дуги входного сигнала. Входной сигнал должен быть &gt;= 1, иначе выход будет NAN</tr>
+      </par>
+      <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions">wiki: Inverse hyperbolic
+      functions</a>
+    </info>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">result signal</tr>
+          <tr lang="ru" finished="false">результат сигнала</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -76,7 +75,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.hex2int">
-        <title>conv.hex2int</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts hex symbol into an integer value</tr>
-                <tr lang="ru">конвертирует шестнадцатеричный символ в целочисленное значение</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv int hex</keywords>
-            <since>0.9.1</since>
-            <aliases>
-                <alias>ceammc/hex-&gt;int</alias>
-                <alias>hex-&gt;int</alias>
-            </aliases>
-        </meta>
-        <properties>
-            <!-- @strict -->
-            <property name="@strict" type="flag" access="initonly">
-                <tr lang="en">ignore parsing errors</tr>
-                <tr lang="ru">игнорировать ошибки парсинга</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">input values</tr>
-                    <tr lang="ru" finished="false">входные значения</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">converted value: int</tr>
-                    <tr lang="ru" finished="false">Преобразованная стоимость: int</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="conv.hex2int">
+    <title>conv.hex2int</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts hex symbol into an integer value</tr>
+        <tr lang="ru">конвертирует шестнадцатеричный символ в целочисленное значение</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv int hex</keywords>
+      <since>0.9.1</since>
+      <aliases>
+        <alias>ceammc/hex-&gt;int</alias>
+        <alias>hex-&gt;int</alias>
+      </aliases>
+    </meta>
+    <properties>
+      <!-- @strict -->
+      <property name="@strict" type="flag" access="initonly">
+        <tr lang="en">ignore parsing errors</tr>
+        <tr lang="ru">игнорировать ошибки парсинга</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">input values</tr>
+          <tr lang="ru" finished="false">входные значения</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">converted value: int</tr>
+          <tr lang="ru" finished="false">Преобразованная стоимость: int</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol 0xFF(
 |
@@ -62,7 +62,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

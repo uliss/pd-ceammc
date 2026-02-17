@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="is_pointer">
-        <title>is_pointer</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks if input message is a *pointer*</tr>
-                <tr lang="ru">проверка, является ли входное сообщение указателем</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>predicates</category>
-            <keywords>predicate pointer</keywords>
-            <also>
-                <see>is_any</see>
-                <see>is_float</see>
-                <see>is_symbol</see>
-                <see>is_list</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="pointer">
-                    <tr lang="en">outputs '1' to 1st outlet, otherwise '0'</tr>
-                    <tr lang="ru" finished="false">выходы "1" - 1-й выход, иначе "0"</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">0 or 1</tr>
-                    <tr lang="ru" finished="false">0 или 1</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">passes *pointer* message</tr>
-                    <tr lang="ru" finished="false">Прохождение *pointer* message</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="is_pointer">
+    <title>is_pointer</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks if input message is a *pointer*</tr>
+        <tr lang="ru">проверка, является ли входное сообщение указателем</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>predicates</category>
+      <keywords>predicate pointer</keywords>
+      <also>
+        <see>is_any</see>
+        <see>is_float</see>
+        <see>is_symbol</see>
+        <see>is_list</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="pointer">
+          <tr lang="en">outputs '1' to 1st outlet, otherwise '0'</tr>
+          <tr lang="ru" finished="false">выходы "1" - 1-й выход, иначе "0"</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">0 or 1</tr>
+          <tr lang="ru" finished="false">0 или 1</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">passes *pointer* message</tr>
+          <tr lang="ru" finished="false">Прохождение *pointer* message</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [traverse pd-pointer, bang(     [pd pointer]
 |
@@ -55,7 +55,7 @@
 |       ^|
 [_]     [print passed]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,72 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.shift">
-        <title>list.shift</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">cyclic shift of a list by a real number with a linear
-                Interpolation</tr>
-                <tr lang="ru">циклический сдвиг списка на вещественное число с линейной
-                интерполяцией</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list</keywords>
-            <since>0.1</since>
-            <also>
-                <see>list.rotate</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="SHIFT" type="float">
-                <tr lang="en">shift amount. Float values cause linear interpolation. Can be
-                negative.</tr>
-                <!-- old: Размер сдвига. Поплавковые значения вызывают
+  <object name="list.shift">
+    <title>list.shift</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">cyclic shift of a list by a real number with a linear Interpolation</tr>
+        <tr lang="ru">циклический сдвиг списка на вещественное число с линейной интерполяцией</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list</keywords>
+      <since>0.1</since>
+      <also>
+        <see>list.rotate</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="SHIFT" type="float">
+        <tr lang="en">shift amount. Float values cause linear interpolation. Can be negative.</tr>
+        <!-- old: Размер сдвига. Поплавковые значения вызывают
                 линейную интерполяцию. Может быть отрицательным. -->
-                <tr lang="ru" finished="false">Размер сдвига. Поплавковые значения вызывают
-                линейную интерполяцию. Может быть отрицательным.</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @shift -->
-            <property name="@shift" type="float" default="0">
-                <tr lang="en">shift amount</tr>
-                <tr lang="ru" finished="false">сменная сумма</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">shift value</tr>
-                    <tr lang="ru" finished="false">значение смещения</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">new modified list</tr>
-                    <tr lang="ru" finished="false">Новый модифицированный список</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Размер сдвига. Поплавковые значения вызывают линейную
+        интерполяцию. Может быть отрицательным.</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @shift -->
+      <property name="@shift" type="float" default="0">
+        <tr lang="en">shift amount</tr>
+        <tr lang="ru" finished="false">сменная сумма</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">shift value</tr>
+          <tr lang="ru" finished="false">значение смещения</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">new modified list</tr>
+          <tr lang="ru" finished="false">Новый модифицированный список</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]  [0, 30 2000(
 |    |
@@ -90,7 +87,7 @@
 
 [X a:1->b:1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

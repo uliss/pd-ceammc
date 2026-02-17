@@ -1,90 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="msg">
-        <title>msg</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">message constructor</tr>
-                <tr lang="ru">конструктор сообщений</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>msg</category>
-            <keywords>msg message</keywords>
-            <aliases>
-                <alias>ceammc/msg</alias>
-                <alias>ceammc/m</alias>
-                <alias>m</alias>
-                <alias>ceammc/prepend</alias>
-                <alias>prepend</alias>
-            </aliases>
-            <since>0.1</since>
-        </meta>
-        <arguments>
-            <argument name="NAME" type="symbol">
-                <tr lang="en">message selector</tr>
-                <tr lang="ru" finished="false">Селектор сообщений</tr>
-            </argument>
-            <argument name="X" type="any">
-                <tr lang="en">message content</tr>
-                <tr lang="ru" finished="false">контент сообщения</tr>
-            </argument>
-        </arguments>
-        <inlets>
-            <inlet>
-                <in on="any">
-                    <tr lang="en">appends all atoms to message content and outputs it</tr>
-                    <!-- old: Добавляет все атомы к содержанию сообщения и
+  <object name="msg">
+    <title>msg</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">message constructor</tr>
+        <tr lang="ru">конструктор сообщений</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>msg</category>
+      <keywords>msg message</keywords>
+      <aliases>
+        <alias>ceammc/msg</alias>
+        <alias>ceammc/m</alias>
+        <alias>m</alias>
+        <alias>ceammc/prepend</alias>
+        <alias>prepend</alias>
+      </aliases>
+      <since>0.1</since>
+    </meta>
+    <arguments>
+      <argument name="NAME" type="symbol">
+        <tr lang="en">message selector</tr>
+        <tr lang="ru" finished="false">Селектор сообщений</tr>
+      </argument>
+      <argument name="X" type="any">
+        <tr lang="en">message content</tr>
+        <tr lang="ru" finished="false">контент сообщения</tr>
+      </argument>
+    </arguments>
+    <inlets>
+      <inlet>
+        <in on="any">
+          <tr lang="en">appends all atoms to message content and outputs it</tr>
+          <!-- old: Добавляет все атомы к содержанию сообщения и
                     выводит его -->
-                    <tr lang="ru" finished="false">Добавляет все атомы к содержанию сообщения и
-                    выводит его</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">appends input list to message content and outputs it</tr>
-                    <!-- old: Добавляет список ввода к содержанию сообщения и
+          <tr lang="ru" finished="false">Добавляет все атомы к содержанию сообщения и выводит
+          его</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">appends input list to message content and outputs it</tr>
+          <!-- old: Добавляет список ввода к содержанию сообщения и
                     выводит его -->
-                    <tr lang="ru" finished="false">Добавляет список ввода к содержанию сообщения и
-                    выводит его</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">appends float to message content and outputs it</tr>
-                    <!-- old: Добавляет поплавок к контенту сообщения и
+          <tr lang="ru" finished="false">Добавляет список ввода к содержанию сообщения и выводит
+          его</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">appends float to message content and outputs it</tr>
+          <!-- old: Добавляет поплавок к контенту сообщения и
                     выводит его -->
-                    <tr lang="ru" finished="false">Добавляет поплавок к контенту сообщения и
-                    выводит его</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">appends symbol to message content and outputs it</tr>
-                    <!-- old: Добавляет символ к содержанию сообщения и
+          <tr lang="ru" finished="false">Добавляет поплавок к контенту сообщения и выводит его</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">appends symbol to message content and outputs it</tr>
+          <!-- old: Добавляет символ к содержанию сообщения и
                     выводит его -->
-                    <tr lang="ru" finished="false">Добавляет символ к содержанию сообщения и
-                    выводит его</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">change message selector</tr>
-                    <tr lang="ru" finished="false">Изменить селектор сообщений</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">change message selector and first atoms</tr>
-                    <tr lang="ru" finished="false">Изменить селектор сообщений и первые атомы</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">message output</tr>
-                    <tr lang="ru" finished="false">сообщение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Добавляет символ к содержанию сообщения и выводит его</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">change message selector</tr>
+          <tr lang="ru" finished="false">Изменить селектор сообщений</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">change message selector and first atoms</tr>
+          <tr lang="ru" finished="false">Изменить селектор сообщений и первые атомы</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">message output</tr>
+          <tr lang="ru" finished="false">сообщение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]   [F]     [F]     [F]       [F]         [F]
 |     |       |       |         |           |
@@ -117,7 +115,7 @@
 |      |       |       |         |           |
 [ui.display                   @display_type 1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

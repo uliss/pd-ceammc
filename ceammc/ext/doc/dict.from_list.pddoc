@@ -1,72 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="dict.from_list">
-        <title>dict.from_list</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">creates dictionary from the list</tr>
-                <tr lang="ru">создает словарь из списка</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>dictionary</keywords>
-            <since>0.7</since>
-            <also>
-                <see>data.dict</see>
-            </also>
-            <aliases>
-                <alias>ceammc/list-&gt;dict</alias>
-                <alias>list-&gt;dict</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Convertion depends on property @step, which means a length of
-                key/value pair. First element of the pair becames a key, and other elements becames
-                value.</tr>
-                <!-- old: Конвертация зависит от свойства @step, что означает
+  <object name="dict.from_list">
+    <title>dict.from_list</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">creates dictionary from the list</tr>
+        <tr lang="ru">создает словарь из списка</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>dictionary</keywords>
+      <since>0.7</since>
+      <also>
+        <see>data.dict</see>
+      </also>
+      <aliases>
+        <alias>ceammc/list-&gt;dict</alias>
+        <alias>list-&gt;dict</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Convertion depends on property @step, which means a length of key/value pair.
+        First element of the pair becames a key, and other elements becames value.</tr>
+        <!-- old: Конвертация зависит от свойства @step, что означает
                 длину пары ключ/значение. Первый элемент пары становится ключом, а другие элементы
                 — ценностью. -->
-                <tr lang="ru" finished="false">Конвертация зависит от свойства @step, что означает
-                длину пары ключ/значение. Первый элемент пары становится ключом, а другие элементы
-                — ценностью.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="STEP" type="int" minvalue="2">
-                <tr lang="en">key/value length in input list</tr>
-                <tr lang="ru" finished="false">длина ключа/значения во входном списке</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @step -->
-            <property name="@step" type="int" minvalue="2" default="2">
-                <tr lang="en">key/value length in input list</tr>
-                <tr lang="ru" finished="false">длина ключа/значения во входном списке</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input</tr>
-                    <tr lang="ru" finished="false">ввод</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">dict output</tr>
-                    <tr lang="ru" finished="false">выход диктовки</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Конвертация зависит от свойства @step, что означает длину
+        пары ключ/значение. Первый элемент пары становится ключом, а другие элементы —
+        ценностью.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="STEP" type="int" minvalue="2">
+        <tr lang="en">key/value length in input list</tr>
+        <tr lang="ru" finished="false">длина ключа/значения во входном списке</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @step -->
+      <property name="@step" type="int" minvalue="2" default="2">
+        <tr lang="en">key/value length in input list</tr>
+        <tr lang="ru" finished="false">длина ключа/значения во входном списке</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input</tr>
+          <tr lang="ru" finished="false">ввод</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">dict output</tr>
+          <tr lang="ru" finished="false">выход диктовки</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [list a b c d e f g h j k  (
 |                          |
@@ -76,7 +75,7 @@
 |                          |
 [ui.d]                     [ui.d]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

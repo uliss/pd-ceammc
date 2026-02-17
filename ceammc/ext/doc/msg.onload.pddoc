@@ -1,61 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="msg.onload">
-        <title>msg.onload</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">send the specified message upon patch loading</tr>
-                <tr lang="ru">отправить указанное сообщение при загрузе патча</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>msg</category>
-            <keywords>message loadbang onload</keywords>
-            <aliases>
-                <alias>ceammc/loadmsg</alias>
-                <alias>loadmsg</alias>
-            </aliases>
-            <since>0.7</since>
-            <also>
-                <!--                <see>msg.oninit</see>-->
-                <see>msg.onclose</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">like [loadbang], but with message and click support.</tr>
-                <!-- old: Как [loadbang], но с поддержкой сообщений и
+  <object name="msg.onload">
+    <title>msg.onload</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">send the specified message upon patch loading</tr>
+        <tr lang="ru">отправить указанное сообщение при загрузе патча</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>msg</category>
+      <keywords>message loadbang onload</keywords>
+      <aliases>
+        <alias>ceammc/loadmsg</alias>
+        <alias>loadmsg</alias>
+      </aliases>
+      <since>0.7</since>
+      <also>
+        <!--                <see>msg.oninit</see>-->
+        <see>msg.onclose</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">like [loadbang], but with message and click support.</tr>
+        <!-- old: Как [loadbang], но с поддержкой сообщений и
                 кликов. -->
-                <tr lang="ru" finished="false">Как [loadbang], но с поддержкой сообщений и
-                кликов.</tr>
-            </par>
-        </info>
-        <mouse>
-            <event type="left-click" editmode="false">send message</event>
-        </mouse>
-        <arguments>
-            <argument name="ARGS" type="list">
-                <tr lang="en">message. Comma separated messages are supported</tr>
-                <!-- old: Сообщение. Поддерживаются сообщения, разделенные
+        <tr lang="ru" finished="false">Как [loadbang], но с поддержкой сообщений и кликов.</tr>
+      </par>
+    </info>
+    <mouse>
+      <event type="left-click" editmode="false">send message</event>
+    </mouse>
+    <arguments>
+      <argument name="ARGS" type="list">
+        <tr lang="en">message. Comma separated messages are supported</tr>
+        <!-- old: Сообщение. Поддерживаются сообщения, разделенные
                 Comma -->
-                <tr lang="ru" finished="false">Сообщение. Поддерживаются сообщения, разделенные
-                Comma</tr>
-            </argument>
-        </arguments>
-        <inlets />
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">message output</tr>
-                    <tr lang="ru" finished="false">сообщение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Сообщение. Поддерживаются сообщения, разделенные Comma</tr>
+      </argument>
+    </arguments>
+    <inlets />
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">message output</tr>
+          <tr lang="ru" finished="false">сообщение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /*click me!*/
 
@@ -66,8 +64,8 @@
 
 [msg.onload-type]
 ]]>
-            </pdascii>
-            <pdascii id="type">
+      </pdascii>
+      <pdascii id="type">
 <![CDATA[
 [msg.onload]             [msg.onload \$0]
 |                        |
@@ -101,7 +99,7 @@
 |
 [print]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

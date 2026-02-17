@@ -1,96 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="lfo.+pulse~">
-        <title>lfo.+pulse~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">unit-amplitude nonnegative low frequency pulse train</tr>
-                <tr lang="ru">прямоугольная низкочастотная волна единичной амплитуды в диапазоне
-                [0,+1]</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>lfo</category>
-            <keywords>lfo oscillator pulse train</keywords>
-            <since>0.7</since>
-            <also>
-                <see>lfo.pulse~</see>
-                <see>lfo.+square~</see>
-                <see>lfo.impulse~</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="FREQ" type="float" minvalue="0.0" maxvalue="1000.0" units="hertz">
-                <tr lang="en">frequency</tr>
-                <tr lang="ru" finished="false">частота</tr>
-            </argument>
-            <argument name="DUTY" type="float" minvalue="0" maxvalue="1">
-                <tr lang="en">duty cycle</tr>
-                <tr lang="ru" finished="false">дежурный цикл</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @duty -->
-            <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">
-                <tr lang="en">duty cycle</tr>
-                <tr lang="ru" finished="false">дежурный цикл</tr>
-            </property>
-            <!-- @freq -->
-            <property name="@freq" type="float" minvalue="0.0" maxvalue="1000.0" default="0.0"
-            units="hertz" access="readwrite">
-                <tr lang="en">frequency</tr>
-                <tr lang="ru" finished="false">частота</tr>
-            </property>
-            <!-- @pause -->
-            <property name="@pause" type="bool" default="0">
-                <tr lang="en">pause oscillator at current value</tr>
-                <tr lang="ru" finished="false">осциллятор паузы при текущем значении</tr>
-            </property>
-            <!-- @phase -->
-            <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">initial phase</tr>
-                <tr lang="ru" finished="false">начальный этап</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset to initial state</tr>
-                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">frequency in Hz</tr>
-                    <tr lang="ru" finished="false">частота в Гц</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">reset phase</tr>
-                    <tr lang="ru" finished="false">фаза сброса</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">pulsetrain wave in [0-1] range</tr>
-                    <tr lang="ru" finished="false">импульсная волна в диапазоне [0-1]</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="lfo.+pulse~">
+    <title>lfo.+pulse~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">unit-amplitude nonnegative low frequency pulse train</tr>
+        <tr lang="ru">прямоугольная низкочастотная волна единичной амплитуды в диапазоне
+        [0,+1]</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>lfo</category>
+      <keywords>lfo oscillator pulse train</keywords>
+      <since>0.7</since>
+      <also>
+        <see>lfo.pulse~</see>
+        <see>lfo.+square~</see>
+        <see>lfo.impulse~</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="FREQ" type="float" minvalue="0.0" maxvalue="1000.0" units="hertz">
+        <tr lang="en">frequency</tr>
+        <tr lang="ru" finished="false">частота</tr>
+      </argument>
+      <argument name="DUTY" type="float" minvalue="0" maxvalue="1">
+        <tr lang="en">duty cycle</tr>
+        <tr lang="ru" finished="false">дежурный цикл</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @duty -->
+      <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">
+        <tr lang="en">duty cycle</tr>
+        <tr lang="ru" finished="false">дежурный цикл</tr>
+      </property>
+      <!-- @freq -->
+      <property name="@freq" type="float" minvalue="0.0" maxvalue="1000.0" default="0.0"
+      units="hertz" access="readwrite">
+        <tr lang="en">frequency</tr>
+        <tr lang="ru" finished="false">частота</tr>
+      </property>
+      <!-- @pause -->
+      <property name="@pause" type="bool" default="0">
+        <tr lang="en">pause oscillator at current value</tr>
+        <tr lang="ru" finished="false">осциллятор паузы при текущем значении</tr>
+      </property>
+      <!-- @phase -->
+      <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">initial phase</tr>
+        <tr lang="ru" finished="false">начальный этап</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset to initial state</tr>
+          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">frequency in Hz</tr>
+          <tr lang="ru" finished="false">частота в Гц</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">reset phase</tr>
+          <tr lang="ru" finished="false">фаза сброса</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">pulsetrain wave in [0-1] range</tr>
+          <tr lang="ru" finished="false">импульсная волна в диапазоне [0-1]</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [osc.saw~ 1200] [F]    [ui.knob] [ui.dsp~]
 |               |      |
@@ -105,7 +105,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

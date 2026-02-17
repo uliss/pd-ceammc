@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.once">
-        <title>flow.once</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">pass the only message</tr>
-                <tr lang="ru">пропускает единственное сообщение</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>once pass</keywords>
-            <since>0.6</since>
-            <also>
-                <see>flow.gate</see>
-            </also>
-            <aliases>
-                <alias>ceammc/once</alias>
-                <alias>once</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="PASS" type="bool">
-                <tr lang="en">set init state</tr>
-                <tr lang="ru" finished="false">установленное состояние</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @pass -->
-            <property name="@pass" type="bool" default="1">
-                <tr lang="en">open state</tr>
-                <tr lang="ru" finished="false">Открытое государство</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="any">
-                    <tr lang="en">input flow</tr>
-                    <tr lang="ru" finished="false">входной поток</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">reset to opened state</tr>
-                    <tr lang="ru" finished="false">Перезагрузка в открытое государство</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output flow</tr>
-                    <tr lang="ru" finished="false">выходной поток</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flow.once">
+    <title>flow.once</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">pass the only message</tr>
+        <tr lang="ru">пропускает единственное сообщение</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>once pass</keywords>
+      <since>0.6</since>
+      <also>
+        <see>flow.gate</see>
+      </also>
+      <aliases>
+        <alias>ceammc/once</alias>
+        <alias>once</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="PASS" type="bool">
+        <tr lang="en">set init state</tr>
+        <tr lang="ru" finished="false">установленное состояние</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @pass -->
+      <property name="@pass" type="bool" default="1">
+        <tr lang="en">open state</tr>
+        <tr lang="ru" finished="false">Открытое государство</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="any">
+          <tr lang="en">input flow</tr>
+          <tr lang="ru" finished="false">входной поток</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">reset to opened state</tr>
+          <tr lang="ru" finished="false">Перезагрузка в открытое государство</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output flow</tr>
+          <tr lang="ru" finished="false">выходной поток</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]       [bang(
 |         |.
@@ -67,7 +67,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

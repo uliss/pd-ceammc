@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="system.screen_size">
-        <title>system.screen_size</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs the current screen size in pixels</tr>
-                <tr lang="ru">выводит размер активного экрана в пикселях</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>system</category>
-            <keywords>screen info</keywords>
-            <since>0.1</since>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">outputs screen size in pixels</tr>
-                    <tr lang="ru" finished="false">Размер экрана в пикселях</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list of two values: width and height</tr>
-                    <tr lang="ru" finished="false">Список из двух значений: ширина и высота</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="system.screen_size">
+    <title>system.screen_size</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs the current screen size in pixels</tr>
+        <tr lang="ru">выводит размер активного экрана в пикселях</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>system</category>
+      <keywords>screen info</keywords>
+      <since>0.1</since>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">outputs screen size in pixels</tr>
+          <tr lang="ru" finished="false">Размер экрана в пикселях</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list of two values: width and height</tr>
+          <tr lang="ru" finished="false">Список из двух значений: ширина и высота</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bng]
 |
@@ -42,7 +42,7 @@
 |
 [ui.display]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

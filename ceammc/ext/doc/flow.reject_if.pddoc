@@ -1,84 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.reject_if">
-        <title>flow.reject_if</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">reject the message, accepted by the predicate side-chain</tr>
-                <tr lang="ru">не пропускает значение, принятое предикатом боковой цепи
-                обработки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>reject functional</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>ceammc/reject_if</alias>
-                <alias>reject_if</alias>
-            </aliases>
-            <also>
-                <see>flow.pass_if</see>
-                <see>flow.reject</see>
-                <see>is_even</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">conditional value reject according to *predicate* object. *predicate*
-                should accept value and ouput 0 or 1, for value passing.</tr>
-                <!-- old: Условная величина отклоняется согласно *предикату*
+  <object name="flow.reject_if">
+    <title>flow.reject_if</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">reject the message, accepted by the predicate side-chain</tr>
+        <tr lang="ru">не пропускает значение, принятое предикатом боковой цепи обработки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>reject functional</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>ceammc/reject_if</alias>
+        <alias>reject_if</alias>
+      </aliases>
+      <also>
+        <see>flow.pass_if</see>
+        <see>flow.reject</see>
+        <see>is_even</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">conditional value reject according to *predicate* object. *predicate* should
+        accept value and ouput 0 or 1, for value passing.</tr>
+        <!-- old: Условная величина отклоняется согласно *предикату*
                 объекта. *предикат* должен принимать значение и выдавать 0 или 1, для прохождения
                 значения. -->
-                <tr lang="ru" finished="false">Условная величина отклоняется согласно *предикату*
-                объекта. *предикат* должен принимать значение и выдавать 0 или 1, для прохождения
-                значения.</tr>
-            </par>
-            <par>
-                <tr lang="en">[&lt;] [is_even] [is_list] - examples of predicates.</tr>
-                <!-- old: [<] [is_even] [is_list] — примеры
+        <tr lang="ru" finished="false">Условная величина отклоняется согласно *предикату* объекта.
+        *предикат* должен принимать значение и выдавать 0 или 1, для прохождения значения.</tr>
+      </par>
+      <par>
+        <tr lang="en">[&lt;] [is_even] [is_list] - examples of predicates.</tr>
+        <!-- old: [<] [is_even] [is_list] — примеры
                 предикатов. -->
-                <tr lang="ru" finished="false">[&lt;] [is_even] [is_list] — примеры
-                предикатов.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">value from predicate (0 or 1). If *1* reject value, if *0* -
-                    pass.</tr>
-                    <!-- old: значение из предиката (0 или 1). Если *1*
+        <tr lang="ru" finished="false">[&lt;] [is_even] [is_list] — примеры предикатов.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="int">
+          <tr lang="en">value from predicate (0 or 1). If *1* reject value, if *0* - pass.</tr>
+          <!-- old: значение из предиката (0 или 1). Если *1*
                     отклонить значение, если *0* - пройти. -->
-                    <tr lang="ru" finished="false">значение из предиката (0 или 1). Если *1*
-                    отклонить значение, если *0* - пройти.</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">passed values</tr>
-                    <tr lang="ru" finished="false">переданные значения</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output value to predicate</tr>
-                    <tr lang="ru" finished="false">выходное значение для предиката</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">значение из предиката (0 или 1). Если *1* отклонить
+          значение, если *0* - пройти.</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">passed values</tr>
+          <tr lang="ru" finished="false">переданные значения</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output value to predicate</tr>
+          <tr lang="ru" finished="false">выходное значение для предиката</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]
 |
@@ -86,7 +82,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

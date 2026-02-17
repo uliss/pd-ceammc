@@ -1,101 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="convolve~">
-        <title>convolve~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">real-time FFT convolution</tr>
-                <tr lang="ru">свёртка FFT в реальном времени</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>base</category>
-            <keywords>fft convolution IR impulse response</keywords>
-            <since>0.9.7</since>
-            <aliases>
-                <alias>ceammc/convolve~</alias>
-            </aliases>
-        </meta>
-        <properties>
-            <!-- @maxsize -->
-            <property name="@maxsize" type="int" default="50000" maxvalue="300000" units="sample"
-            minvalue="0">
-                <tr lang="en">max impulse response size</tr>
-                <tr lang="ru" finished="false">Максимальный размер импульсной реакции</tr>
-            </property>
-            <!-- @norm -->
-            <property name="@norm" type="bool" default="1">
-                <tr lang="en">normalize impulse response</tr>
-                <tr lang="ru" finished="false">нормализовать импульсную реакцию</tr>
-            </property>
-            <!-- @offset -->
-            <property name="@offset" type="int" default="0" minvalue="0" units="sample">
-                <tr lang="en">impulse response (IR) offset</tr>
-                <tr lang="ru" finished="false">Смещение импульсной реакции (IR)</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- load_array -->
-            <method name="load_array">
-                <info>
-                    <tr lang="en">load IR from array</tr>
-                    <tr lang="ru" finished="false">IR из массива</tr>
-                </info>
-                <param name="ARRAY" type="symbol" required="true">
-                    <tr lang="en">array name</tr>
-                    <tr lang="ru" finished="false">имя массива</tr>
-                </param>
-            </method>
-            <!-- load_file -->
-            <method name="load_file">
-                <info>
-                    <tr lang="en">load IR from specified file (resamples if required from file
-                    samplerate to runtime samplerate)</tr>
-                    <!-- old: Загрузить IR из заданного файла (при
+  <object name="convolve~">
+    <title>convolve~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">real-time FFT convolution</tr>
+        <tr lang="ru">свёртка FFT в реальном времени</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>base</category>
+      <keywords>fft convolution IR impulse response</keywords>
+      <since>0.9.7</since>
+      <aliases>
+        <alias>ceammc/convolve~</alias>
+      </aliases>
+    </meta>
+    <properties>
+      <!-- @maxsize -->
+      <property name="@maxsize" type="int" default="50000" maxvalue="300000" units="sample"
+      minvalue="0">
+        <tr lang="en">max impulse response size</tr>
+        <tr lang="ru" finished="false">Максимальный размер импульсной реакции</tr>
+      </property>
+      <!-- @norm -->
+      <property name="@norm" type="bool" default="1">
+        <tr lang="en">normalize impulse response</tr>
+        <tr lang="ru" finished="false">нормализовать импульсную реакцию</tr>
+      </property>
+      <!-- @offset -->
+      <property name="@offset" type="int" default="0" minvalue="0" units="sample">
+        <tr lang="en">impulse response (IR) offset</tr>
+        <tr lang="ru" finished="false">Смещение импульсной реакции (IR)</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- load_array -->
+      <method name="load_array">
+        <info>
+          <tr lang="en">load IR from array</tr>
+          <tr lang="ru" finished="false">IR из массива</tr>
+        </info>
+        <param name="ARRAY" type="symbol" required="true">
+          <tr lang="en">array name</tr>
+          <tr lang="ru" finished="false">имя массива</tr>
+        </param>
+      </method>
+      <!-- load_file -->
+      <method name="load_file">
+        <info>
+          <tr lang="en">load IR from specified file (resamples if required from file samplerate to
+          runtime samplerate)</tr>
+          <!-- old: Загрузить IR из заданного файла (при
                     необходимости образцы из выборочного файла в выборочный файл во время
                     выполнения) -->
-                    <tr lang="ru" finished="false">Загрузить IR из заданного файла (при
-                    необходимости образцы из выборочного файла в выборочный файл во время
-                    выполнения)</tr>
-                </info>
-                <param name="FILE" type="atom" required="true">
-                    <tr lang="en">file name, relative or absolute</tr>
-                    <tr lang="ru" finished="false">имя файла, относительное или абсолютное</tr>
-                </param>
-            </method>
-            <!-- set -->
-            <method name="set">
-                <info>
-                    <tr lang="en">set IR from list</tr>
-                    <tr lang="ru" finished="false">Установить IR из списка</tr>
-                </info>
-                <param name="LIST" type="float" required="true">
-                    <tr lang="en">IR data</tr>
-                    <tr lang="ru" finished="false">ИК-данные</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Загрузить IR из заданного файла (при необходимости образцы
+          из выборочного файла в выборочный файл во время выполнения)</tr>
+        </info>
+        <param name="FILE" type="atom" required="true">
+          <tr lang="en">file name, relative or absolute</tr>
+          <tr lang="ru" finished="false">имя файла, относительное или абсолютное</tr>
+        </param>
+      </method>
+      <!-- set -->
+      <method name="set">
+        <info>
+          <tr lang="en">set IR from list</tr>
+          <tr lang="ru" finished="false">Установить IR из списка</tr>
+        </info>
+        <param name="LIST" type="float" required="true">
+          <tr lang="en">IR data</tr>
+          <tr lang="ru" finished="false">ИК-данные</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open %CEAMMC%/guitar1.wav, 1(
 |
@@ -109,7 +108,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

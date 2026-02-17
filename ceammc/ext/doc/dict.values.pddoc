@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="dict.values">
-        <title>dict.values</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">output the dictionary values as MList</tr>
-                <tr lang="ru">выводит значения словаря в виде многоуровневого списка (MList)</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>size dictionary</keywords>
-            <since>0.6</since>
-            <also>
-                <see>data.dict</see>
-                <see>data.mlist</see>
-                <see>dict.keys</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="data">
-                    <tr lang="en">data.dict</tr>
-                    <tr lang="ru" finished="false">data.dict.</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">mlist of values</tr>
-                    <tr lang="ru" finished="false">Миллист ценностей</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="dict.values">
+    <title>dict.values</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">output the dictionary values as MList</tr>
+        <tr lang="ru">выводит значения словаря в виде многоуровневого списка (MList)</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>size dictionary</keywords>
+      <since>0.6</since>
+      <also>
+        <see>data.dict</see>
+        <see>data.mlist</see>
+        <see>dict.keys</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="data">
+          <tr lang="en">data.dict</tr>
+          <tr lang="ru" finished="false">data.dict.</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">mlist of values</tr>
+          <tr lang="ru" finished="false">Миллист ценностей</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -50,7 +50,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

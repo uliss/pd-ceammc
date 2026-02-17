@@ -1,56 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.dbfs2amp~">
-        <title>conv.dbfs2amp~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert decibel full scale to amplitude</tr>
-                <tr lang="ru">преобразование децибел полной шкалы в амплитуду</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv amp dbfs decibel</keywords>
-            <since>0.6</since>
-            <also>
-                <see>amp-&gt;dbfs~</see>
-                <see>dbfs-&gt;amp</see>
-            </also>
-            <aliases>
-                <alias>ceammc/dbfs-&gt;amp~</alias>
-                <alias>dbfs-&gt;amp~</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Note: db values &lt;= -144 are converted to 0</tr>
-                <!-- old: Примечание: значения db <= -144 преобразуются в
+  <object name="conv.dbfs2amp~">
+    <title>conv.dbfs2amp~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert decibel full scale to amplitude</tr>
+        <tr lang="ru">преобразование децибел полной шкалы в амплитуду</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv amp dbfs decibel</keywords>
+      <since>0.6</since>
+      <also>
+        <see>amp-&gt;dbfs~</see>
+        <see>dbfs-&gt;amp</see>
+      </also>
+      <aliases>
+        <alias>ceammc/dbfs-&gt;amp~</alias>
+        <alias>dbfs-&gt;amp~</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Note: db values &lt;= -144 are converted to 0</tr>
+        <!-- old: Примечание: значения db <= -144 преобразуются в
                 0 -->
-                <tr lang="ru" finished="false">Примечание: значения db &lt;= -144 преобразуются в
-                0</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">converted signal</tr>
-                    <tr lang="ru" finished="false">преобразованный сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Примечание: значения db &lt;= -144 преобразуются в 0</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">converted signal</tr>
+          <tr lang="ru" finished="false">преобразованный сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.hsl @min -144 @max 6]
 |
@@ -60,7 +59,7 @@
 |
 [ui.n~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

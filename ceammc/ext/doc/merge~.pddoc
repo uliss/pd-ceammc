@@ -1,81 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="merge~">
-        <title>merge~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">merge audio signals</tr>
-                <tr lang="ru">слияние аудиосигналов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>base</category>
-            <keywords>merge split</keywords>
-            <since>0.9.7</since>
-            <aliases>
-                <alias>ceammc/merge~</alias>
-            </aliases>
-            <also>
-                <see>split~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">mostly syntax sugar for clear schemes, but can be used in dynamic
-                pathing</tr>
-                <!-- old: В основном синтаксический сахар для четких схем, но
+  <object name="merge~">
+    <title>merge~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">merge audio signals</tr>
+        <tr lang="ru">слияние аудиосигналов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>base</category>
+      <keywords>merge split</keywords>
+      <since>0.9.7</since>
+      <aliases>
+        <alias>ceammc/merge~</alias>
+      </aliases>
+      <also>
+        <see>split~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">mostly syntax sugar for clear schemes, but can be used in dynamic
+        pathing</tr>
+        <!-- old: В основном синтаксический сахар для четких схем, но
                 может использоваться в динамических дорожках. -->
-                <tr lang="ru" finished="false">В основном синтаксический сахар для четких схем, но
-                может использоваться в динамических дорожках.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="64">
-                <tr lang="en">number of inputs</tr>
-                <tr lang="ru" finished="false">Количество входов</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="2" maxvalue="64" default="2"
-            access="initonly">
-                <tr lang="en">number of inputs</tr>
-                <tr lang="ru" finished="false">Количество входов</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet type="audio" number="1">
-                <in>
-                    <tr lang="en">first input signal</tr>
-                    <tr lang="ru" finished="false">Первый входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="...">
-                <in>
-                    <tr lang="en">... input signal</tr>
-                    <tr lang="ru" finished="false">... входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="n">
-                <in>
-                    <tr lang="en">n-th input signal</tr>
-                    <tr lang="ru" finished="false">n-й входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">В основном синтаксический сахар для четких схем, но может
+        использоваться в динамических дорожках.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="N" type="int" minvalue="2" maxvalue="64">
+        <tr lang="en">number of inputs</tr>
+        <tr lang="ru" finished="false">Количество входов</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="2" maxvalue="64" default="2" access="initonly">
+        <tr lang="en">number of inputs</tr>
+        <tr lang="ru" finished="false">Количество входов</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet type="audio" number="1">
+        <in>
+          <tr lang="en">first input signal</tr>
+          <tr lang="ru" finished="false">Первый входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="...">
+        <in>
+          <tr lang="en">... input signal</tr>
+          <tr lang="ru" finished="false">... входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="n">
+        <in>
+          <tr lang="en">n-th input signal</tr>
+          <tr lang="ru" finished="false">n-й входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [sig~ 1] [sig~ 2] [sig~ 3] [ui.hrd* 3]
 |        |.       |..      |...
@@ -87,7 +86,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

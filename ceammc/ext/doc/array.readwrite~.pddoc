@@ -1,88 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.readwrite~">
-        <title>array.readwrite~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">simultaneous read/write signals to the array</tr>
-                <tr lang="ru">одновременное чтение/запись сигналов в массив</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array ltc play</keywords>
-            <since>0.9.7</since>
-            <aliases>
-                <alias>array.rw~</alias>
-            </aliases>
-        </meta>
+  <object name="array.readwrite~">
+    <title>array.readwrite~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">simultaneous read/write signals to the array</tr>
+        <tr lang="ru">одновременное чтение/запись сигналов в массив</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array ltc play</keywords>
+      <since>0.9.7</since>
+      <aliases>
+        <alias>array.rw~</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Performes these array operations in order: read, write, output</tr>
+        <tr lang="ru">Упорядоченное выполнение операций в следующем порядке: чтение, запись,
+        вывод</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+      <!-- @mix -->
+      <property name="@mix" type="float" default="0" minvalue="0" maxvalue="1">
+        <tr lang="en">mix amount between read signal and written</tr>
+        <tr lang="ru">микс между прочитанным сигналом и записанным</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- redraw -->
+      <method name="redraw">
         <info>
-            <par>
-                <tr lang="en">Performes these array operations in order: read, write, output</tr>
-                <tr lang="ru">Упорядоченное выполнение операций в следующем порядке: чтение,
-                запись, вывод</tr>
-            </par>
+          <tr lang="en">redraw array</tr>
+          <tr lang="ru">перерисовать массив</tr>
         </info>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-            <!-- @mix -->
-            <property name="@mix" type="float" default="0" minvalue="0" maxvalue="1">
-                <tr lang="en">mix amount between read signal and written</tr>
-                <tr lang="ru">микс между прочитанным сигналом и записанным</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- redraw -->
-            <method name="redraw">
-                <info>
-                    <tr lang="en">redraw array</tr>
-                    <tr lang="ru">перерисовать массив</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">reading index</tr>
-                    <tr lang="ru">индекс чтения</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">signal to write</tr>
-                    <tr lang="ru">сигнал для записи</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">write index</tr>
-                    <tr lang="ru">индекс записи</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">reading output</tr>
-                    <tr lang="ru">выход чтения</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">reading index</tr>
+          <tr lang="ru">индекс чтения</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">signal to write</tr>
+          <tr lang="ru">сигнал для записи</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">write index</tr>
+          <tr lang="ru">индекс записи</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">reading output</tr>
+          <tr lang="ru">выход чтения</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]         [msg.onload symbol %CEAMMC%/guitar1.wav] [array arw 100]
 |           |
@@ -114,7 +114,7 @@
 
 [X a->x] [X b:2->c] [X c->y:1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

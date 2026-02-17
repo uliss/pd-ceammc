@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.stddev">
-        <title>array.stddev</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">calculates standard deviation for array values</tr>
-                <tr lang="ru">вычисляет стандартное отклонение для значений массива</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array deviation</keywords>
-            <since>0.7.1</since>
-            <also>
-                <see>array.variance</see>
-            </also>
-        </meta>
-        <info>
-            <wiki name="Standard_deviation">Standard deviation</wiki>
-        </info>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">calculates and outputs standard deviation</tr>
-                    <tr lang="ru">начинает вычисление и выводит стандартное отклонение</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="float">
-                    <tr lang="en">standard deviation value</tr>
-                    <tr lang="ru">значение стандартного отклонения</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.stddev">
+    <title>array.stddev</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">calculates standard deviation for array values</tr>
+        <tr lang="ru">вычисляет стандартное отклонение для значений массива</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array deviation</keywords>
+      <since>0.7.1</since>
+      <also>
+        <see>array.variance</see>
+      </also>
+    </meta>
+    <info>
+      <wiki name="Standard_deviation">Standard deviation</wiki>
+    </info>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">calculates and outputs standard deviation</tr>
+          <tr lang="ru">начинает вычисление и выводит стандартное отклонение</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="float">
+          <tr lang="en">standard deviation value</tr>
+          <tr lang="ru">значение стандартного отклонения</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]                            [array astddev size=200 w=200 h=100]
 |
@@ -66,7 +66,7 @@
 |             |          |
 [array.fill       astddev]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,93 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="pan.cos~">
-        <title>pan.cos~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">two channel equal power sine/cosine panner</tr>
-                <tr lang="ru">двухканальное косинусное панорамирование равной мощности</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>spat</category>
-            <keywords>pan span</keywords>
-            <since>0.5</since>
-            <also>
-                <see>pan.lin~</see>
-                <see>pan.sqrt~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Two channel equal power panner. The center pan position is boosted by
-                3 dB compared to linear panning, and the total power at every pan position is 0
-                dB.</tr>
-                <!-- old: Два канала равны мощности паннера. Положение
+  <object name="pan.cos~">
+    <title>pan.cos~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">two channel equal power sine/cosine panner</tr>
+        <tr lang="ru">двухканальное косинусное панорамирование равной мощности</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>spat</category>
+      <keywords>pan span</keywords>
+      <since>0.5</since>
+      <also>
+        <see>pan.lin~</see>
+        <see>pan.sqrt~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Two channel equal power panner. The center pan position is boosted by 3 dB
+        compared to linear panning, and the total power at every pan position is 0 dB.</tr>
+        <!-- old: Два канала равны мощности паннера. Положение
                 центральной панели увеличивается на 3 дБ по сравнению с линейным панорамированием,
                 а общая мощность в каждой позиции панели составляет 0 дБ. -->
-                <tr lang="ru" finished="false">Два канала равны мощности паннера. Положение
-                центральной панели увеличивается на 3 дБ по сравнению с линейным панорамированием,
-                а общая мощность в каждой позиции панели составляет 0 дБ.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="POS" type="float" minvalue="-1" maxvalue="1">
-                <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
-                <!-- old: Позиция панорамирования. -1 означает левый, 0 -
+        <tr lang="ru" finished="false">Два канала равны мощности паннера. Положение центральной
+        панели увеличивается на 3 дБ по сравнению с линейным панорамированием, а общая мощность в
+        каждой позиции панели составляет 0 дБ.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="POS" type="float" minvalue="-1" maxvalue="1">
+        <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
+        <!-- old: Позиция панорамирования. -1 означает левый, 0 -
                 центр, +1 - правый -->
-                <tr lang="ru" finished="false">Позиция панорамирования. -1 означает левый, 0 -
-                центр, +1 - правый</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @pos -->
-            <property name="@pos" type="float" minvalue="-1" maxvalue="1" default="0">
-                <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
-                <!-- old: Позиция панорамирования. -1 означает левый, 0 -
+        <tr lang="ru" finished="false">Позиция панорамирования. -1 означает левый, 0 - центр, +1 -
+        правый</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @pos -->
+      <property name="@pos" type="float" minvalue="-1" maxvalue="1" default="0">
+        <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
+        <!-- old: Позиция панорамирования. -1 означает левый, 0 -
                 центр, +1 - правый -->
-                <tr lang="ru" finished="false">Позиция панорамирования. -1 означает левый, 0 -
-                центр, +1 - правый</tr>
-            </property>
-            <!-- @smooth -->
-            <property name="@smooth" type="int" minvalue="0" maxvalue="100" default="20"
-            access="initonly">
-                <tr lang="en">smooth control signal to avoid zipping-noise</tr>
-                <tr lang="ru" finished="false">плавный сигнал управления, чтобы избежать шума</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float" minvalue="-1" maxvalue="1">
-                    <tr lang="en">pan position</tr>
-                    <tr lang="ru" finished="false">положение</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">left output channel</tr>
-                    <tr lang="ru" finished="false">левый выходной канал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">right output channel</tr>
-                    <tr lang="ru" finished="false">правильный выходной канал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Позиция панорамирования. -1 означает левый, 0 - центр, +1 -
+        правый</tr>
+      </property>
+      <!-- @smooth -->
+      <property name="@smooth" type="int" minvalue="0" maxvalue="100" default="20"
+      access="initonly">
+        <tr lang="en">smooth control signal to avoid zipping-noise</tr>
+        <tr lang="ru" finished="false">плавный сигнал управления, чтобы избежать шума</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float" minvalue="-1" maxvalue="1">
+          <tr lang="en">pan position</tr>
+          <tr lang="ru" finished="false">положение</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">left output channel</tr>
+          <tr lang="ru" finished="false">левый выходной канал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">right output channel</tr>
+          <tr lang="ru" finished="false">правильный выходной канал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
           [hsl]
           |
@@ -101,7 +100,7 @@
 |        |
 [F]      [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

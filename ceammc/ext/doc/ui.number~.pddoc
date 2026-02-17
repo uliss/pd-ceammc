@@ -1,126 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="ui.number~" type="gui">
-        <title>ui.number~</title>
-        <meta>
-            <authors>
-                <author>Pierre Guillot</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">number viewport for signals</tr>
-                <tr lang="ru">просмотр числовых значений сигнала</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">ui</category>
-            <keywords>ui number</keywords>
-            <since>0.1</since>
-            <aliases>
-                <alias view="link">ui.n~</alias>
-            </aliases>
-            <also>
-                <see view="link">ui.number</see>
-            </also>
-        </meta>
+  <object name="ui.number~" type="gui">
+    <title>ui.number~</title>
+    <meta>
+      <authors>
+        <author>Pierre Guillot</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">number viewport for signals</tr>
+        <tr lang="ru">просмотр числовых значений сигнала</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">ui</category>
+      <keywords>ui number</keywords>
+      <since>0.1</since>
+      <aliases>
+        <alias view="link">ui.n~</alias>
+      </aliases>
+      <also>
+        <see view="link">ui.number</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Shows one sample from input block via specified interval</tr>
+        <tr lang="ru" finished="false">Показывает один образец из блока ввода через заданный
+        интервал</tr>
+      </par>
+    </info>
+    <mouse>
+      <event type="right-click" editmode="false" keys="Alt">open the properties dialog</event>
+      <event type="right-click" editmode="false" keys="Shift">open the object help</event>
+      <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
+      <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+      <event type="right-click" editmode="true">open the Pd popup menu</event>
+    </mouse>
+    <properties>
+      <xi:include href="props_active_color.xml" />
+      <xi:include href="props_fontname.xml" />
+      <xi:include href="props_fontsize.xml" />
+      <xi:include href="props_fontslant.xml" />
+      <xi:include href="props_fontweight.xml" />
+      <xi:include href="props_pinned.xml" />
+      <!-- @background_color -->
+      <property name="@background_color" type="list" default="0.3 0.3 0.3 1">
+        <tr lang="en">element background color (list of red, green, blue values in 0-1 range)</tr>
+        <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих значений
+        в диапазоне 0-1)</tr>
+      </property>
+      <!-- @border_color -->
+      <property name="@border_color" type="list" default="0 0 0 1">
+        <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
+        <tr lang="ru" finished="false">пограничный цвет (список красных, зеленых, синих значений в
+        диапазоне 0-1)</tr>
+      </property>
+      <!-- @interval -->
+      <property name="@interval" type="int" default="50" minvalue="20" maxvalue="1000"
+      units="millisecond">
+        <tr lang="en">refresh interval</tr>
+        <tr lang="ru" finished="false">интервал обновления</tr>
+      </property>
+      <!-- @precision -->
+      <property name="@precision" type="int" minvalue="0" maxvalue="16" default="6">
+        <tr lang="en">float precision</tr>
+        <tr lang="ru" finished="false">точность плавания</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="80 15">
+        <tr lang="en">object size (width, height pair)</tr>
+        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+      </property>
+      <!-- @text_color -->
+      <property name="@text_color" type="list" default="0.9 0.9 0.9 1">
+        <tr lang="en">text color (list of red, green, blue values in 0-1 range)</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- pos -->
+      <method name="pos">
         <info>
-            <par>
-                <tr lang="en">Shows one sample from input block via specified interval</tr>
-                <tr lang="ru" finished="false">Показывает один образец из блока ввода через
-                заданный интервал</tr>
-            </par>
+          <tr lang="en">set UI element position</tr>
+          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
         </info>
-        <mouse>
-            <event type="right-click" editmode="false" keys="Alt">open the properties
-            dialog</event>
-            <event type="right-click" editmode="false" keys="Shift">open the object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
-            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
-            <event type="right-click" editmode="true">open the Pd popup menu</event>
-        </mouse>
-        <properties>
-            <xi:include href="props_active_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_pinned.xml" />
-            <!-- @background_color -->
-            <property name="@background_color" type="list" default="0.3 0.3 0.3 1">
-                <tr lang="en">element background color (list of red, green, blue values in 0-1
-                range)</tr>
-                <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих
-                значений в диапазоне 0-1)</tr>
-            </property>
-            <!-- @border_color -->
-            <property name="@border_color" type="list" default="0 0 0 1">
-                <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
-                <tr lang="ru" finished="false">пограничный цвет (список красных, зеленых, синих
-                значений в диапазоне 0-1)</tr>
-            </property>
-            <!-- @interval -->
-            <property name="@interval" type="int" default="50" minvalue="20" maxvalue="1000"
-            units="millisecond">
-                <tr lang="en">refresh interval</tr>
-                <tr lang="ru" finished="false">интервал обновления</tr>
-            </property>
-            <!-- @precision -->
-            <property name="@precision" type="int" minvalue="0" maxvalue="16" default="6">
-                <tr lang="en">float precision</tr>
-                <tr lang="ru" finished="false">точность плавания</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="80 15">
-                <tr lang="en">object size (width, height pair)</tr>
-                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
-            </property>
-            <!-- @text_color -->
-            <property name="@text_color" type="list" default="0.9 0.9 0.9 1">
-                <tr lang="en">text color (list of red, green, blue values in 0-1 range)</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- pos -->
-            <method name="pos">
-                <info>
-                    <tr lang="en">set UI element position</tr>
-                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">top left x-coord</tr>
-                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">top right y-coord</tr>
-                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input audio signal</tr>
-                    <tr lang="ru" finished="false">входной звуковой сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">signal pass thru</tr>
-                    <tr lang="ru" finished="false">сигнал проходит через</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <param name="X" type="float" required="true">
+          <tr lang="en">top left x-coord</tr>
+          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+        </param>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">top right y-coord</tr>
+          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input audio signal</tr>
+          <tr lang="ru" finished="false">входной звуковой сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">signal pass thru</tr>
+          <tr lang="ru" finished="false">сигнал проходит через</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [phasor~ 0.1]  [ui.dsp~]
 |
 |
 [ui.number~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

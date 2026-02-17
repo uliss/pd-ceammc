@@ -1,64 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.freqshift~">
-        <title>fx.freqshift~</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">frequency shifter or the single-sideband ring modulation</tr>
-                <tr lang="ru">сдвиг частоты или однополосный кольцевой модулятор</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx freqshift</keywords>
-            <since>0.1</since>
-        </meta>
-        <properties>
-            <xi:include href="props_active.xml" />
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset object</tr>
-                    <tr lang="ru" finished="false">сбрасывать объект</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in minvalue="-10000" maxvalue="10000">
-                    <tr lang="en">frequency shift in Hertz</tr>
-                    <tr lang="ru" finished="false">Сдвиг частоты в Герце</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal (freq + shift)</tr>
-                    <tr lang="ru" finished="false">выходной сигнал (freq + shift)</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal (freq - shift)</tr>
-                    <tr lang="ru" finished="false">выходной сигнал (freq - shift)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="fx.freqshift~">
+    <title>fx.freqshift~</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">frequency shifter or the single-sideband ring modulation</tr>
+        <tr lang="ru">сдвиг частоты или однополосный кольцевой модулятор</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx freqshift</keywords>
+      <since>0.1</since>
+    </meta>
+    <properties>
+      <xi:include href="props_active.xml" />
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset object</tr>
+          <tr lang="ru" finished="false">сбрасывать объект</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in minvalue="-10000" maxvalue="10000">
+          <tr lang="en">frequency shift in Hertz</tr>
+          <tr lang="ru" finished="false">Сдвиг частоты в Герце</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal (freq + shift)</tr>
+          <tr lang="ru" finished="false">выходной сигнал (freq + shift)</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal (freq - shift)</tr>
+          <tr lang="ru" finished="false">выходной сигнал (freq - shift)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]
 |
@@ -74,7 +74,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

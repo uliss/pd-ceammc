@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.mean">
-        <title>array.mean</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">calculates the array arithmetic mean value</tr>
-                <tr lang="ru">вычисляет среднее арифметическое значение массива</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array mean</keywords>
-            <since>0.8</since>
-            <also>
-                <see>array.sum</see>
-            </also>
-        </meta>
-        <info>
-            <wiki name="Arithmetic_mean">Arithmetic mean</wiki>
-        </info>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">calculates and outputs mean value</tr>
-                    <tr lang="ru">начинает вычисление, а затем выводит среднее значение</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="float">
-                    <tr lang="en">mean value</tr>
-                    <tr lang="ru">среднее значение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.mean">
+    <title>array.mean</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">calculates the array arithmetic mean value</tr>
+        <tr lang="ru">вычисляет среднее арифметическое значение массива</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array mean</keywords>
+      <since>0.8</since>
+      <also>
+        <see>array.sum</see>
+      </also>
+    </meta>
+    <info>
+      <wiki name="Arithmetic_mean">Arithmetic mean</wiki>
+    </info>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">calculates and outputs mean value</tr>
+          <tr lang="ru">начинает вычисление, а затем выводит среднее значение</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="float">
+          <tr lang="en">mean value</tr>
+          <tr lang="ru">среднее значение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]                            [array amean size=10 w=180 h=130]
 |
@@ -64,7 +64,7 @@
 |         |
 [array.fill amean]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

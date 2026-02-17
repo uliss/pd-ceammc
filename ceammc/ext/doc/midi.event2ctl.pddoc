@@ -1,49 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.event2ctl">
-        <title>midi.event2ctl</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts the MidiEvent message into the controller channel/value
-                pair</tr>
-                <tr lang="ru">конвертирует сообщение MidiEvent в пару канал/значение</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi event control</keywords>
-            <since>0.4</since>
-            <aliases>
-                <alias>midi.ev-&gt;ctl</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">MidiEvent message</tr>
-                    <tr lang="ru" finished="false">Сообщение MidiEvent</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output pair: controller number, value</tr>
-                    <tr lang="ru" finished="false">выходная пара: номер контроллера, значение</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">track number</tr>
-                    <tr lang="ru" finished="false">номер трека</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="midi.event2ctl">
+    <title>midi.event2ctl</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts the MidiEvent message into the controller channel/value pair</tr>
+        <tr lang="ru">конвертирует сообщение MidiEvent в пару канал/значение</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi event control</keywords>
+      <since>0.4</since>
+      <aliases>
+        <alias>midi.ev-&gt;ctl</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">MidiEvent message</tr>
+          <tr lang="ru" finished="false">Сообщение MidiEvent</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output pair: controller number, value</tr>
+          <tr lang="ru" finished="false">выходная пара: номер контроллера, значение</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">track number</tr>
+          <tr lang="ru" finished="false">номер трека</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -61,7 +60,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

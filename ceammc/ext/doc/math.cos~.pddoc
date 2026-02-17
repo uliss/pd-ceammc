@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.cos~">
-        <title>math.cos~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">cosine function</tr>
-                <tr lang="ru">функция косинуса</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math cos</keywords>
-            <also>
-                <see>math.cos</see>
-                <see>math.sin~</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Computes the cosine of input signal (in radians)</tr>
-                <tr lang="ru" finished="false">Вычисляет косинус входного сигнала (в радианах)</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">result signal</tr>
-                    <tr lang="ru" finished="false">результат сигнала</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="math.cos~">
+    <title>math.cos~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">cosine function</tr>
+        <tr lang="ru">функция косинуса</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math cos</keywords>
+      <also>
+        <see>math.cos</see>
+        <see>math.sin~</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Computes the cosine of input signal (in radians)</tr>
+        <tr lang="ru" finished="false">Вычисляет косинус входного сигнала (в радианах)</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">result signal</tr>
+          <tr lang="ru" finished="false">результат сигнала</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(
 |
@@ -68,7 +68,7 @@
 [ui.dsp~]
 [X a:1->b:2]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

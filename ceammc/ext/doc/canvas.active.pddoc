@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="canvas.active">
-        <title>canvas.active</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks if the canvas of the object is on the top and active</tr>
-                <tr lang="ru">проверяет, активно ли окно холста объекта и расположено ли оно поверх
-                других</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>patch</category>
-            <keywords>canvas</keywords>
-            <also>
-                <see>patch.args</see>
-                <see>canvas.top</see>
-            </also>
-            <since>0.9.6</since>
-            <aliases>
-                <alias>ceammc/canvas.active</alias>
-            </aliases>
-        </meta>
-        <properties>
-            <!-- @abs -->
-            <property name="@abs" type="bool" default="0">
-                <tr lang="en">use canvas for abstractions</tr>
-                <tr lang="ru">проверка внутри абстракции</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output canvas active state</tr>
-                    <tr lang="ru" finished="false">выходной холст активное состояние</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int: 1 or 0</tr>
-                    <tr lang="ru" finished="false">Инт: 1 или 0</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="canvas.active">
+    <title>canvas.active</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks if the canvas of the object is on the top and active</tr>
+        <tr lang="ru">проверяет, активно ли окно холста объекта и расположено ли оно поверх
+        других</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>patch</category>
+      <keywords>canvas</keywords>
+      <also>
+        <see>patch.args</see>
+        <see>canvas.top</see>
+      </also>
+      <since>0.9.6</since>
+      <aliases>
+        <alias>ceammc/canvas.active</alias>
+      </aliases>
+    </meta>
+    <properties>
+      <!-- @abs -->
+      <property name="@abs" type="bool" default="0">
+        <tr lang="en">use canvas for abstractions</tr>
+        <tr lang="ru">проверка внутри абстракции</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output canvas active state</tr>
+          <tr lang="ru" finished="false">выходной холст активное состояние</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int: 1 or 0</tr>
+          <tr lang="ru" finished="false">Инт: 1 или 0</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B] /*after pressing change active window*/
 |
@@ -60,8 +60,8 @@
 
 [canvas.active-abs]
 ]]>
-            </pdascii>
-            <pdascii id="abs">
+      </pdascii>
+      <pdascii id="abs">
 <![CDATA[
 [B]         [T]
 |           |
@@ -71,7 +71,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

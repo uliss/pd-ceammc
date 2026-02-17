@@ -1,62 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="lfo.impulse~">
-        <title>lfo.impulse~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">unit-amplitude low-frequency impulse train</tr>
-                <tr lang="ru">низкочастотный импульсный осциллятор единичной амплитуды</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>lfo</category>
-            <keywords>lfo oscillator</keywords>
-            <since>0.1</since>
-        </meta>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">
-                <tr lang="en">frequency</tr>
-                <tr lang="ru" finished="false">частота</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @freq -->
-            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="1000"
-            units="hertz">
-                <tr lang="en">initial frequency</tr>
-                <tr lang="ru" finished="false">Начальная частота</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in on="float">
-                    <tr lang="en">frequency in Hz</tr>
-                    <tr lang="ru" finished="false">частота в Гц</tr>
-                </in>
-            </inlet>
-            <inlet type="control">
-                <in on="bang">
-                    <tr lang="en">reset phase</tr>
-                    <tr lang="ru" finished="false">фаза сброса</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="lfo.impulse~">
+    <title>lfo.impulse~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">unit-amplitude low-frequency impulse train</tr>
+        <tr lang="ru">низкочастотный импульсный осциллятор единичной амплитуды</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>lfo</category>
+      <keywords>lfo oscillator</keywords>
+      <since>0.1</since>
+    </meta>
+    <arguments>
+      <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">
+        <tr lang="en">frequency</tr>
+        <tr lang="ru" finished="false">частота</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @freq -->
+      <property name="@freq" type="float" default="0" minvalue="0" maxvalue="1000" units="hertz">
+        <tr lang="en">initial frequency</tr>
+        <tr lang="ru" finished="false">Начальная частота</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in on="float">
+          <tr lang="en">frequency in Hz</tr>
+          <tr lang="ru" finished="false">частота в Гц</tr>
+        </in>
+      </inlet>
+      <inlet type="control">
+        <in on="bang">
+          <tr lang="en">reset phase</tr>
+          <tr lang="ru" finished="false">фаза сброса</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]                 [ui.dsp~]
 |
@@ -72,8 +71,8 @@
 
 [lfo.impulse~-sound]
 ]]>
-            </pdascii>
-            <pdascii id="sound">
+      </pdascii>
+      <pdascii id="sound">
 <![CDATA[
 [F]                [ui.dsp~]
 |
@@ -83,7 +82,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

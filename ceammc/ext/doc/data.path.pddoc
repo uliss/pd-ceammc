@@ -1,133 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="data.path">
-        <title>data.path</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">filesystem path datatype</tr>
-                <tr lang="ru">тип данных: путь в файловой системе</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>data map container path file</keywords>
-            <since>0.9.8</since>
-        </meta>
-        <arguments>
-            <argument name="PATH" type="atom">
-                <tr lang="en">See @path</tr>
-                <tr lang="ru" finished="false">См. @path</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @async -->
-            <property name="@async" type="bool" default="1">
-                <tr lang="en">use async operations</tr>
-                <tr lang="ru" finished="false">Использование операций Sync</tr>
-            </property>
-            <!-- @norm -->
-            <property name="@norm" type="bool" default="1">
-                <tr lang="en">normalize path</tr>
-                <tr lang="ru" finished="false">нормализовать путь</tr>
-            </property>
-            <!-- @path -->
-            <property name="@path" type="atom" default="">
-                <tr lang="en">current path value</tr>
-                <tr lang="ru" finished="false">Текущая стоимость пути</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- exists -->
-            <method name="exists">
-                <info>
-                    <tr lang="en">checks if path exists. Output [exists VALUE( message</tr>
-                    <!-- old: Проверить, существует ли путь. Результат
+  <object name="data.path">
+    <title>data.path</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">filesystem path datatype</tr>
+        <tr lang="ru">тип данных: путь в файловой системе</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>data map container path file</keywords>
+      <since>0.9.8</since>
+    </meta>
+    <arguments>
+      <argument name="PATH" type="atom">
+        <tr lang="en">See @path</tr>
+        <tr lang="ru" finished="false">См. @path</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @async -->
+      <property name="@async" type="bool" default="1">
+        <tr lang="en">use async operations</tr>
+        <tr lang="ru" finished="false">Использование операций Sync</tr>
+      </property>
+      <!-- @norm -->
+      <property name="@norm" type="bool" default="1">
+        <tr lang="en">normalize path</tr>
+        <tr lang="ru" finished="false">нормализовать путь</tr>
+      </property>
+      <!-- @path -->
+      <property name="@path" type="atom" default="">
+        <tr lang="en">current path value</tr>
+        <tr lang="ru" finished="false">Текущая стоимость пути</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- exists -->
+      <method name="exists">
+        <info>
+          <tr lang="en">checks if path exists. Output [exists VALUE( message</tr>
+          <!-- old: Проверить, существует ли путь. Результат
                     [существует Ценность] -->
-                    <tr lang="ru" finished="false">Проверить, существует ли путь. Результат
-                    [существует Ценность]</tr>
-                </info>
-            </method>
-            <!-- info -->
-            <method name="info">
-                <info>
-                    <tr lang="en">request path information. Output [info DICT(</tr>
-                    <!-- old: запросить информацию о пути. Выход [информация
+          <tr lang="ru" finished="false">Проверить, существует ли путь. Результат [существует
+          Ценность]</tr>
+        </info>
+      </method>
+      <!-- info -->
+      <method name="info">
+        <info>
+          <tr lang="en">request path information. Output [info DICT(</tr>
+          <!-- old: запросить информацию о пути. Выход [информация
                     DICT() -->
-                    <tr lang="ru" finished="false">запросить информацию о пути. Выход [информация
-                    DICT()</tr>
-                </info>
-            </method>
-            <!-- permissions -->
-            <method name="permissions">
-                <info>
-                    <tr lang="en">request path permissions. Output [permissions VALUE(</tr>
-                    <!-- old: Запросить разрешения пути. Результат [разрешение
+          <tr lang="ru" finished="false">запросить информацию о пути. Выход [информация DICT()</tr>
+        </info>
+      </method>
+      <!-- permissions -->
+      <method name="permissions">
+        <info>
+          <tr lang="en">request path permissions. Output [permissions VALUE(</tr>
+          <!-- old: Запросить разрешения пути. Результат [разрешение
                     Ценность() -->
-                    <tr lang="ru" finished="false">Запросить разрешения пути. Результат [разрешение
-                    Ценность()</tr>
-                </info>
-            </method>
-            <!-- size -->
-            <method name="size">
-                <info>
-                    <tr lang="en">request file size in bytes. Output [size BYTES(</tr>
-                    <!-- old: Запрос размера файла в байтах. Выход [размер
+          <tr lang="ru" finished="false">Запросить разрешения пути. Результат [разрешение
+          Ценность()</tr>
+        </info>
+      </method>
+      <!-- size -->
+      <method name="size">
+        <info>
+          <tr lang="en">request file size in bytes. Output [size BYTES(</tr>
+          <!-- old: Запрос размера файла в байтах. Выход [размер
                     BYTES() -->
-                    <tr lang="ru" finished="false">Запрос размера файла в байтах. Выход [размер
-                    BYTES()</tr>
-                </info>
-            </method>
-            <!-- type -->
-            <method name="type">
-                <info>
-                    <tr lang="en">request path type. Output [type TYPE( message, where type is one
-                    of: regular, dir, symlink, char, block, fifo, socket</tr>
-                    <!-- old: Тип пути запроса. Выход [тип TYPE(сообщение, где
+          <tr lang="ru" finished="false">Запрос размера файла в байтах. Выход [размер BYTES()</tr>
+        </info>
+      </method>
+      <!-- type -->
+      <method name="type">
+        <info>
+          <tr lang="en">request path type. Output [type TYPE( message, where type is one of:
+          regular, dir, symlink, char, block, fifo, socket</tr>
+          <!-- old: Тип пути запроса. Выход [тип TYPE(сообщение, где
                     тип один из: обычный, dir, symlink, char, block, fifo, socket) -->
-                    <tr lang="ru" finished="false">Тип пути запроса. Выход [тип TYPE(сообщение, где
-                    тип один из: обычный, dir, symlink, char, block, fifo, socket)</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output current path</tr>
-                    <tr lang="ru" finished="false">Выходной текущий путь</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">set current path and output</tr>
-                    <tr lang="ru" finished="false">Установить текущий путь и выход</tr>
-                </in>
-                <in on="data">
-                    <tr lang="en">set current path and output</tr>
-                    <tr lang="ru" finished="false">Установить текущий путь и выход</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">set current path and without output</tr>
-                    <tr lang="ru" finished="false">установить текущий путь и без выхода</tr>
-                </in>
-                <in on="data">
-                    <tr lang="en">set current path and without output</tr>
-                    <tr lang="ru" finished="false">установить текущий путь и без выхода</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">data output</tr>
-                    <tr lang="ru" finished="false">выход данных</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Тип пути запроса. Выход [тип TYPE(сообщение, где тип один
+          из: обычный, dir, symlink, char, block, fifo, socket)</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output current path</tr>
+          <tr lang="ru" finished="false">Выходной текущий путь</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">set current path and output</tr>
+          <tr lang="ru" finished="false">Установить текущий путь и выход</tr>
+        </in>
+        <in on="data">
+          <tr lang="en">set current path and output</tr>
+          <tr lang="ru" finished="false">Установить текущий путь и выход</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">set current path and without output</tr>
+          <tr lang="ru" finished="false">установить текущий путь и без выхода</tr>
+        </in>
+        <in on="data">
+          <tr lang="en">set current path and without output</tr>
+          <tr lang="ru" finished="false">установить текущий путь и без выхода</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">data output</tr>
+          <tr lang="ru" finished="false">выход данных</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [exists( [info #a( [type #b( [permissions #c( [size #d(
 |
@@ -144,7 +142,7 @@
 
 [X a->x] [X b->x] [X c->x] [X d->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

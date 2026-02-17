@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="mlist.flatten">
-        <title>mlist.flatten</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts a multi-level list into a single-level list</tr>
-                <tr lang="ru">преобразует многоуровневый список в одноуровневый</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>flatten list</keywords>
-            <since>0.6</since>
-            <also>
-                <see>data.mlist</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">list of mlists</tr>
-                    <tr lang="ru" finished="false">Список млистов</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">mlist input</tr>
-                    <tr lang="ru" finished="false">млечный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">mlist output</tr>
-                    <tr lang="ru" finished="false">объем производства</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="mlist.flatten">
+    <title>mlist.flatten</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts a multi-level list into a single-level list</tr>
+        <tr lang="ru">преобразует многоуровневый список в одноуровневый</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>flatten list</keywords>
+      <since>0.6</since>
+      <also>
+        <see>data.mlist</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">list of mlists</tr>
+          <tr lang="ru" finished="false">Список млистов</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">mlist input</tr>
+          <tr lang="ru" finished="false">млечный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">mlist output</tr>
+          <tr lang="ru" finished="false">объем производства</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [\(\(\) 1 2 \(3 \(4 5\)\) \(\(\(\(6\)\)\)\) 7\), bang(
 |
@@ -50,7 +50,7 @@
 |
 [ui.display @display_type 1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

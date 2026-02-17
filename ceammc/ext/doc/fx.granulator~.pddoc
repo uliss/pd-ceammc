@@ -1,143 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.granulator~">
-        <title>fx.granulator~</title>
-        <meta>
-            <authors>
-                <author>Lukas Hartmann</author>
-                <author>Luca Hilbrich</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">input stream granulator</tr>
-                <tr lang="ru">гранулятор входного потока</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx bits granulator</keywords>
-            <since>0.7</since>
-        </meta>
+  <object name="fx.granulator~">
+    <title>fx.granulator~</title>
+    <meta>
+      <authors>
+        <author>Lukas Hartmann</author>
+        <author>Luca Hilbrich</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">input stream granulator</tr>
+        <tr lang="ru">гранулятор входного потока</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx bits granulator</keywords>
+      <since>0.7</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The granulator contains two lines: A and B</tr>
+        <tr lang="ru" finished="false">Гранулятор содержит две линии: A и B.</tr>
+      </par>
+      <par>
+        <tr lang="en">Input buffer size: ~3 seconds</tr>
+        <tr lang="ru" finished="false">Размер входного буфера: ~3 секунды</tr>
+      </par>
+    </info>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @delay -->
+      <property name="@delay" type="float" units="millisecond" minvalue="500" maxvalue="3000"
+      default="3000" access="readwrite">
+        <tr lang="en">grain delay</tr>
+        <tr lang="ru" finished="false">задержка зерна</tr>
+      </property>
+      <!-- @density -->
+      <property name="@density" type="float" minvalue="1.0" maxvalue="16.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">number of grains</tr>
+        <tr lang="ru" finished="false">Количество зерен</tr>
+      </property>
+      <!-- @gainAL -->
+      <property name="@gainAL" type="float" minvalue="0.0" maxvalue="1.0" default="0.75"
+      access="readwrite">
+        <tr lang="en">A-channel left output gain</tr>
+        <tr lang="ru" finished="false">А. - левоканальный выходной коэффициент</tr>
+      </property>
+      <!-- @gainAR -->
+      <property name="@gainAR" type="float" minvalue="0.0" maxvalue="1.0" default="0.25"
+      access="readwrite">
+        <tr lang="en">A-channel right ouptut gain</tr>
+        <tr lang="ru" finished="false">А. -channel right uptut gain</tr>
+      </property>
+      <!-- @gainBL -->
+      <property name="@gainBL" type="float" minvalue="0.0" maxvalue="1.0" default="0.25"
+      access="readwrite">
+        <tr lang="en">B-channel left output gain</tr>
+        <tr lang="ru" finished="false">B - левоканальный выходной коэффициент</tr>
+      </property>
+      <!-- @gainBR -->
+      <property name="@gainBR" type="float" minvalue="0.0" maxvalue="1.0" default="0.75"
+      access="readwrite">
+        <tr lang="en">B-channel right output gain</tr>
+        <tr lang="ru" finished="false">B - правильный выходной канал</tr>
+      </property>
+      <!-- @hpfA -->
+      <property name="@hpfA" type="float" minvalue="50.0" maxvalue="10000.0" default="100.0"
+      units="hertz" access="readwrite">
+        <tr lang="en">A-channel HPF corner frequency</tr>
+        <tr lang="ru" finished="false">А. Угловая частота HPF</tr>
+      </property>
+      <!-- @hpfB -->
+      <property name="@hpfB" type="float" minvalue="50.0" maxvalue="10000.0" default="100.0"
+      units="hertz" access="readwrite">
+        <tr lang="en">B-channel HPF corner frequency</tr>
+        <tr lang="ru" finished="false">B Угловая частота HPF</tr>
+      </property>
+      <!-- @pitchA -->
+      <property name="@pitchA" type="float" minvalue="-4.0" maxvalue="4.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">A-channel pitch shift</tr>
+        <tr lang="ru" finished="false">А. Канальный сдвиг шага</tr>
+      </property>
+      <!-- @pitchB -->
+      <property name="@pitchB" type="float" minvalue="-4.0" maxvalue="4.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">B-channel pitchshift</tr>
+        <tr lang="ru" finished="false">B-канал переключения передач</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="float" units="millisecond" minvalue="10" maxvalue="1000"
+      default="100" access="readwrite">
+        <tr lang="en">grain size for both lines</tr>
+        <tr lang="ru" finished="false">Размер зерна для обеих линий</tr>
+      </property>
+      <!-- @spread -->
+      <property name="@spread" type="float" minvalue="0.05" maxvalue="1.0" default="0.5"
+      access="readwrite">
+        <tr lang="en">grain spread in the input buffer</tr>
+        <tr lang="ru" finished="false">Распределение зерна во входном буфере</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
         <info>
-            <par>
-                <tr lang="en">The granulator contains two lines: A and B</tr>
-                <tr lang="ru" finished="false">Гранулятор содержит две линии: A и B.</tr>
-            </par>
-            <par>
-                <tr lang="en">Input buffer size: ~3 seconds</tr>
-                <tr lang="ru" finished="false">Размер входного буфера: ~3 секунды</tr>
-            </par>
+          <tr lang="en">reset object state</tr>
+          <tr lang="ru" finished="false">Сброс состояния объекта</tr>
         </info>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @delay -->
-            <property name="@delay" type="float" units="millisecond" minvalue="500" maxvalue="3000"
-            default="3000" access="readwrite">
-                <tr lang="en">grain delay</tr>
-                <tr lang="ru" finished="false">задержка зерна</tr>
-            </property>
-            <!-- @density -->
-            <property name="@density" type="float" minvalue="1.0" maxvalue="16.0" default="1.0"
-            access="readwrite">
-                <tr lang="en">number of grains</tr>
-                <tr lang="ru" finished="false">Количество зерен</tr>
-            </property>
-            <!-- @gainAL -->
-            <property name="@gainAL" type="float" minvalue="0.0" maxvalue="1.0" default="0.75"
-            access="readwrite">
-                <tr lang="en">A-channel left output gain</tr>
-                <tr lang="ru" finished="false">А. - левоканальный выходной коэффициент</tr>
-            </property>
-            <!-- @gainAR -->
-            <property name="@gainAR" type="float" minvalue="0.0" maxvalue="1.0" default="0.25"
-            access="readwrite">
-                <tr lang="en">A-channel right ouptut gain</tr>
-                <tr lang="ru" finished="false">А. -channel right uptut gain</tr>
-            </property>
-            <!-- @gainBL -->
-            <property name="@gainBL" type="float" minvalue="0.0" maxvalue="1.0" default="0.25"
-            access="readwrite">
-                <tr lang="en">B-channel left output gain</tr>
-                <tr lang="ru" finished="false">B - левоканальный выходной коэффициент</tr>
-            </property>
-            <!-- @gainBR -->
-            <property name="@gainBR" type="float" minvalue="0.0" maxvalue="1.0" default="0.75"
-            access="readwrite">
-                <tr lang="en">B-channel right output gain</tr>
-                <tr lang="ru" finished="false">B - правильный выходной канал</tr>
-            </property>
-            <!-- @hpfA -->
-            <property name="@hpfA" type="float" minvalue="50.0" maxvalue="10000.0" default="100.0"
-            units="hertz" access="readwrite">
-                <tr lang="en">A-channel HPF corner frequency</tr>
-                <tr lang="ru" finished="false">А. Угловая частота HPF</tr>
-            </property>
-            <!-- @hpfB -->
-            <property name="@hpfB" type="float" minvalue="50.0" maxvalue="10000.0" default="100.0"
-            units="hertz" access="readwrite">
-                <tr lang="en">B-channel HPF corner frequency</tr>
-                <tr lang="ru" finished="false">B Угловая частота HPF</tr>
-            </property>
-            <!-- @pitchA -->
-            <property name="@pitchA" type="float" minvalue="-4.0" maxvalue="4.0" default="1.0"
-            access="readwrite">
-                <tr lang="en">A-channel pitch shift</tr>
-                <tr lang="ru" finished="false">А. Канальный сдвиг шага</tr>
-            </property>
-            <!-- @pitchB -->
-            <property name="@pitchB" type="float" minvalue="-4.0" maxvalue="4.0" default="1.0"
-            access="readwrite">
-                <tr lang="en">B-channel pitchshift</tr>
-                <tr lang="ru" finished="false">B-канал переключения передач</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="float" units="millisecond" minvalue="10" maxvalue="1000"
-            default="100" access="readwrite">
-                <tr lang="en">grain size for both lines</tr>
-                <tr lang="ru" finished="false">Размер зерна для обеих линий</tr>
-            </property>
-            <!-- @spread -->
-            <property name="@spread" type="float" minvalue="0.05" maxvalue="1.0" default="0.5"
-            access="readwrite">
-                <tr lang="en">grain spread in the input buffer</tr>
-                <tr lang="ru" finished="false">Распределение зерна во входном буфере</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset object state</tr>
-                    <tr lang="ru" finished="false">Сброс состояния объекта</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">left output</tr>
-                    <tr lang="ru" finished="false">левый выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">right output</tr>
-                    <tr lang="ru" finished="false">правильный выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">left output</tr>
+          <tr lang="ru" finished="false">левый выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">right output</tr>
+          <tr lang="ru" finished="false">правильный выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open %CEAMMC%/sound/loop_breakbeat.flac, 1 #a(
 |
@@ -173,7 +173,7 @@
 #r @show_value 1 @min -4 @max 4
 #t @show_value 1 @min -4 @max 4
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

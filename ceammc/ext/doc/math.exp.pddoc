@@ -1,91 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.exp">
-        <title>math.exp</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">base-e exponential function</tr>
-                <tr lang="ru">экспоненциальная функция на основе числа e</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math exp</keywords>
-            <also>
-                <see>math.log</see>
-                <see>math.exp2</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The exp() function computes e**x, the base-e exponential of x.</tr>
-                <!-- old: Функция exp() вычисляет e**x, экспоненциальное
+  <object name="math.exp">
+    <title>math.exp</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">base-e exponential function</tr>
+        <tr lang="ru">экспоненциальная функция на основе числа e</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math exp</keywords>
+      <also>
+        <see>math.log</see>
+        <see>math.exp2</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The exp() function computes e**x, the base-e exponential of x.</tr>
+        <!-- old: Функция exp() вычисляет e**x, экспоненциальное
                 основание e x. -->
-                <tr lang="ru" finished="false">Функция exp() вычисляет e**x, экспоненциальное
-                основание e x.</tr>
-            </par>
-            <par>
-                <tr lang="en">If x is nearly zero, then the common expression exp(x) - 1.0 will
-                suffer from catastrophic cancellation and the result will have little or no
-                precision.</tr>
-                <!-- old: Если x почти равен нулю, то общее выражение exp(x) -
+        <tr lang="ru" finished="false">Функция exp() вычисляет e**x, экспоненциальное основание e
+        x.</tr>
+      </par>
+      <par>
+        <tr lang="en">If x is nearly zero, then the common expression exp(x) - 1.0 will suffer from
+        catastrophic cancellation and the result will have little or no precision.</tr>
+        <!-- old: Если x почти равен нулю, то общее выражение exp(x) -
                 1.0 будет страдать от катастрофической отмены и результат будет иметь небольшую
                 точность или вообще не будет. -->
-                <tr lang="ru" finished="false">Если x почти равен нулю, то общее выражение exp(x) -
-                1.0 будет страдать от катастрофической отмены и результат будет иметь небольшую
-                точность или вообще не будет.</tr>
-            </par>
-            <par>
-                <tr lang="en">Special values:</tr>
-                <tr lang="ru" finished="false">Особые ценности:</tr>
-            </par>
-            <par>
-                <tr lang="en">exp(+-0) return 1.</tr>
-                <tr lang="ru" finished="false">exp(+-0) Return 1.</tr>
-            </par>
-            <par>
-                <tr lang="en">exp(-infinity) return +0.</tr>
-                <tr lang="ru" finished="false">exp(-infinity) возврат +0.</tr>
-            </par>
-            <par>
-                <tr lang="en">exp(+infinity) return +infinity.</tr>
-                <tr lang="ru" finished="false">exp(+infinity) Возвращение +infinity.</tr>
-            </par>
-            <par>
-                <tr lang="en">For all these functions, a range error occurs if the magnitude of x
-                is too large.</tr>
-                <!-- old: Для всех этих функций возникает ошибка диапазона,
+        <tr lang="ru" finished="false">Если x почти равен нулю, то общее выражение exp(x) - 1.0
+        будет страдать от катастрофической отмены и результат будет иметь небольшую точность или
+        вообще не будет.</tr>
+      </par>
+      <par>
+        <tr lang="en">Special values:</tr>
+        <tr lang="ru" finished="false">Особые ценности:</tr>
+      </par>
+      <par>
+        <tr lang="en">exp(+-0) return 1.</tr>
+        <tr lang="ru" finished="false">exp(+-0) Return 1.</tr>
+      </par>
+      <par>
+        <tr lang="en">exp(-infinity) return +0.</tr>
+        <tr lang="ru" finished="false">exp(-infinity) возврат +0.</tr>
+      </par>
+      <par>
+        <tr lang="en">exp(+infinity) return +infinity.</tr>
+        <tr lang="ru" finished="false">exp(+infinity) Возвращение +infinity.</tr>
+      </par>
+      <par>
+        <tr lang="en">For all these functions, a range error occurs if the magnitude of x is too
+        large.</tr>
+        <!-- old: Для всех этих функций возникает ошибка диапазона,
                 если величина x слишком велика. -->
-                <tr lang="ru" finished="false">Для всех этих функций возникает ошибка диапазона,
-                если величина x слишком велика.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">apply to all numeric values</tr>
-                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Для всех этих функций возникает ошибка диапазона, если
+        величина x слишком велика.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">apply to all numeric values</tr>
+          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]
 |
@@ -93,7 +92,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

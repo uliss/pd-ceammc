@@ -1,118 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="spat.pan8~">
-        <title>spat.pan8~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">GMEM SPAT: 8-outputs spatializer</tr>
-                <tr lang="ru">GMEM SPAT: управление 8 канальным пространственным звуком</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>spat</category>
-            <keywords>spat pan</keywords>
-            <since>0.6</since>
-            <aliases>
-                <alias>ceammc/pan8~</alias>
-                <alias>pan8~</alias>
-            </aliases>
-            <also>
-                <see>pan4~</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="RADIUS" type="float" minvalue="0" maxvalue="1">
-                <tr lang="en">panning radius</tr>
-                <tr lang="ru" finished="false">радиус панорамирования</tr>
-            </argument>
-            <argument name="ANGLE" type="float" minvalue="0" maxvalue="2π" units="radian">
-                <tr lang="en">circle panning position in radians</tr>
-                <tr lang="ru" finished="false">положение кругового панорамирования в радианах</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @angle -->
-            <property name="@angle" type="float" minvalue="0" default="0" maxvalue="2π"
-            units="radian">
-                <tr lang="en">panning position in radians</tr>
-                <tr lang="ru" finished="false">положение в радианах</tr>
-            </property>
-            <!-- @radius -->
-            <property name="@radius" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">distance from circle center</tr>
-                <tr lang="ru" finished="false">Расстояние до центра круга</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">set radius and angle</tr>
-                    <tr lang="ru" finished="false">установленный радиус и угол</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">1st output channel</tr>
-                    <tr lang="ru" finished="false">1-й выходной канал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">2nd output channel</tr>
-                    <tr lang="ru" finished="false">2-й выходной канал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">3rd output channel</tr>
-                    <tr lang="ru" finished="false">3-й выходной канал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">4th output channel</tr>
-                    <tr lang="ru" finished="false">4-й выходной канал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">5th output channel</tr>
-                    <tr lang="ru" finished="false">5-й выходной канал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">6th output channel</tr>
-                    <tr lang="ru" finished="false">6-й выходной канал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">7th output channel</tr>
-                    <tr lang="ru" finished="false">7-й выходной канал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">8th output channel</tr>
-                    <tr lang="ru" finished="false">8-й выходной канал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="spat.pan8~">
+    <title>spat.pan8~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">GMEM SPAT: 8-outputs spatializer</tr>
+        <tr lang="ru">GMEM SPAT: управление 8 канальным пространственным звуком</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>spat</category>
+      <keywords>spat pan</keywords>
+      <since>0.6</since>
+      <aliases>
+        <alias>ceammc/pan8~</alias>
+        <alias>pan8~</alias>
+      </aliases>
+      <also>
+        <see>pan4~</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="RADIUS" type="float" minvalue="0" maxvalue="1">
+        <tr lang="en">panning radius</tr>
+        <tr lang="ru" finished="false">радиус панорамирования</tr>
+      </argument>
+      <argument name="ANGLE" type="float" minvalue="0" maxvalue="2π" units="radian">
+        <tr lang="en">circle panning position in radians</tr>
+        <tr lang="ru" finished="false">положение кругового панорамирования в радианах</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @angle -->
+      <property name="@angle" type="float" minvalue="0" default="0" maxvalue="2π" units="radian">
+        <tr lang="en">panning position in radians</tr>
+        <tr lang="ru" finished="false">положение в радианах</tr>
+      </property>
+      <!-- @radius -->
+      <property name="@radius" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">distance from circle center</tr>
+        <tr lang="ru" finished="false">Расстояние до центра круга</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">set radius and angle</tr>
+          <tr lang="ru" finished="false">установленный радиус и угол</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">1st output channel</tr>
+          <tr lang="ru" finished="false">1-й выходной канал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">2nd output channel</tr>
+          <tr lang="ru" finished="false">2-й выходной канал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">3rd output channel</tr>
+          <tr lang="ru" finished="false">3-й выходной канал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">4th output channel</tr>
+          <tr lang="ru" finished="false">4-й выходной канал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">5th output channel</tr>
+          <tr lang="ru" finished="false">5-й выходной канал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">6th output channel</tr>
+          <tr lang="ru" finished="false">6-й выходной канал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">7th output channel</tr>
+          <tr lang="ru" finished="false">7-й выходной канал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">8th output channel</tr>
+          <tr lang="ru" finished="false">8-й выходной канал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [osc~ 1000] [ui.knob]     [ui.knob]
 |           |             |
@@ -136,7 +135,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

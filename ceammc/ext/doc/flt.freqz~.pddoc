@@ -1,88 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.freqz~">
-        <title>flt.freqz~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">compute the frequency response of a digital filter</tr>
-                <tr lang="ru">вычисляет частотный отклик цифрового фильтра</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>filter calc bode frequence response phase plot</keywords>
-            <since>0.9</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Given the M-order numerator b and N-order denominator a of a digital
-                filter, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(eʲʷ) =
-                (b⁰+b¹e⁻ʲʷ+...+bᴹe⁻ʲʷᴹ)/(1+a¹e⁻ʲʷ+...+aᴺe⁻ʲʷᴺ)</tr>
-                <!-- old: Учитывая числитель M-порядка b и знаменатель
+  <object name="flt.freqz~">
+    <title>flt.freqz~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">compute the frequency response of a digital filter</tr>
+        <tr lang="ru">вычисляет частотный отклик цифрового фильтра</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>filter calc bode frequence response phase plot</keywords>
+      <since>0.9</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Given the M-order numerator b and N-order denominator a of a digital filter,
+        compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(eʲʷ) =
+        (b⁰+b¹e⁻ʲʷ+...+bᴹe⁻ʲʷᴹ)/(1+a¹e⁻ʲʷ+...+aᴺe⁻ʲʷᴺ)</tr>
+        <!-- old: Учитывая числитель M-порядка b и знаменатель
                 N-порядка a цифрового фильтра, вычислите его частотный отклик: H(ejw) =
                 B(ejw)/A(ejw) = (b0+b1e−jw+...+bMe−jwM)/(1+a1e−jw+...+aNe−jwN) -->
-                <tr lang="ru" finished="false">Учитывая числитель M-порядка b и знаменатель
-                N-порядка a цифрового фильтра, вычислите его частотный отклик: H(ejw) =
-                B(ejw)/A(ejw) = (b0+b1e−jw+...+bMe−jwM)/(1+a1e−jw+...+aNe−jwN)</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @a -->
-            <property name="@a" type="list" default="">
-                <tr lang="en">denominator (poles) coefficients. 'a0' always implicitly set to 1,
-                property value set a1...an coefficients</tr>
-                <!-- old: Коэффициенты знаменателя (полюса). a0 всегда неявно
+        <tr lang="ru" finished="false">Учитывая числитель M-порядка b и знаменатель N-порядка a
+        цифрового фильтра, вычислите его частотный отклик: H(ejw) = B(ejw)/A(ejw) =
+        (b0+b1e−jw+...+bMe−jwM)/(1+a1e−jw+...+aNe−jwN)</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @a -->
+      <property name="@a" type="list" default="">
+        <tr lang="en">denominator (poles) coefficients. 'a0' always implicitly set to 1, property
+        value set a1...an coefficients</tr>
+        <!-- old: Коэффициенты знаменателя (полюса). a0 всегда неявно
                 устанавливается на 1, значение свойства устанавливается a1 ... коэффициенты -->
-                <tr lang="ru" finished="false">Коэффициенты знаменателя (полюса). a0 всегда неявно
-                устанавливается на 1, значение свойства устанавливается a1 ... коэффициенты</tr>
-            </property>
-            <!-- @b -->
-            <property name="@b" type="list" default="1">
-                <tr lang="en">numerator (zeros) coefficients</tr>
-                <tr lang="ru" finished="false">числитель (зеро) коэффициенты</tr>
-            </property>
-            <!-- @db -->
-            <property name="@db" type="bool" default="0">
-                <tr lang="en">output amp response in db scale</tr>
-                <tr lang="ru" finished="false">выходной отклик усилителя в db-шкале</tr>
-            </property>
-            <!-- @sr -->
-            <property name="@sr" type="bool" default="0">
-                <tr lang="en">normalize using current samplerate</tr>
-                <tr lang="ru" finished="false">нормализовать использование текущей выборки</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input frequency in radians [0, π] or in hertz [0 sr/2] if @sr
-                    property is true</tr>
-                    <!-- old: входная частота в радианах [0, π] или в герцах
+        <tr lang="ru" finished="false">Коэффициенты знаменателя (полюса). a0 всегда неявно
+        устанавливается на 1, значение свойства устанавливается a1 ... коэффициенты</tr>
+      </property>
+      <!-- @b -->
+      <property name="@b" type="list" default="1">
+        <tr lang="en">numerator (zeros) coefficients</tr>
+        <tr lang="ru" finished="false">числитель (зеро) коэффициенты</tr>
+      </property>
+      <!-- @db -->
+      <property name="@db" type="bool" default="0">
+        <tr lang="en">output amp response in db scale</tr>
+        <tr lang="ru" finished="false">выходной отклик усилителя в db-шкале</tr>
+      </property>
+      <!-- @sr -->
+      <property name="@sr" type="bool" default="0">
+        <tr lang="en">normalize using current samplerate</tr>
+        <tr lang="ru" finished="false">нормализовать использование текущей выборки</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input frequency in radians [0, π] or in hertz [0 sr/2] if @sr property is
+          true</tr>
+          <!-- old: входная частота в радианах [0, π] или в герцах
                     [0 sr/2], если свойство @sr истинно -->
-                    <tr lang="ru" finished="false">входная частота в радианах [0, π] или в герцах
-                    [0 sr/2], если свойство @sr истинно</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">amplitude frequency response signal</tr>
-                    <tr lang="ru" finished="false">амплитудный частотный ответный сигнал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">phase frequency response signal</tr>
-                    <tr lang="ru" finished="false">фазовый частотный сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">входная частота в радианах [0, π] или в герцах [0 sr/2],
+          если свойство @sr истинно</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">amplitude frequency response signal</tr>
+          <tr lang="ru" finished="false">амплитудный частотный ответный сигнал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">phase frequency response signal</tr>
+          <tr lang="ru" finished="false">фазовый частотный сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(
 |
@@ -117,7 +117,7 @@
 [ui.dsp~]
 [X a:1->b:2]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

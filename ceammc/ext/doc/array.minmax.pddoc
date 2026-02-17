@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.minmax">
-        <title>array.minmax</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">find minimal and max values in the array</tr>
-                <tr lang="ru">поиск минимального и максимального значения в массиве</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array minmax</keywords>
-            <since>0.3</since>
-        </meta>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">perform search in current array</tr>
-                    <tr lang="ru">ваполняет поиск в текущем массиве</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">set new array and perform search</tr>
-                    <tr lang="ru">устанавливает новый массив, а затем выполняет поиск</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="list">
-                    <tr lang="en">minimal and maximum value</tr>
-                    <tr lang="ru">минимальное и максимальное значение</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="list">
-                    <tr lang="en">indexes of found values</tr>
-                    <tr lang="ru">индексы найденных значений</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.minmax">
+    <title>array.minmax</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">find minimal and max values in the array</tr>
+        <tr lang="ru">поиск минимального и максимального значения в массиве</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array minmax</keywords>
+      <since>0.3</since>
+    </meta>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">perform search in current array</tr>
+          <tr lang="ru">ваполняет поиск в текущем массиве</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">set new array and perform search</tr>
+          <tr lang="ru">устанавливает новый массив, а затем выполняет поиск</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="list">
+          <tr lang="en">minimal and maximum value</tr>
+          <tr lang="ru">минимальное и максимальное значение</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="list">
+          <tr lang="en">indexes of found values</tr>
+          <tr lang="ru">индексы найденных значений</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]                            [array amm size=100 w=180 h=130]
 |
@@ -70,7 +70,7 @@
 #a @float_width 3 @auto_size 0 @size 100 20
 #b @auto_size 0 @size 100 20
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

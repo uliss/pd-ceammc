@@ -1,150 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="lang.faust~" type="gui">
-        <title>lang.faust~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">real-time compilation of Faust DSP Language code</tr>
-                <tr lang="ru">компиляция кода Faust DSP Language в реальном времени</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">lang</category>
-            <keywords>faust</keywords>
-            <since>0.9.2</since>
-        </meta>
+  <object name="lang.faust~" type="gui">
+    <title>lang.faust~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">real-time compilation of Faust DSP Language code</tr>
+        <tr lang="ru">компиляция кода Faust DSP Language в реальном времени</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">lang</category>
+      <keywords>faust</keywords>
+      <since>0.9.2</since>
+    </meta>
+    <info>
+      <a href="https://faust.grame.fr/">https://faust.grame.fr/</a>
+    </info>
+    <mouse>
+      <event type="left-click" editmode="0" keys="Alt">open Faust code editor</event>
+    </mouse>
+    <arguments>
+      <argument name="LOAD" type="symbol">
+        <tr lang="en">initial file to load after object creation</tr>
+        <tr lang="ru" finished="false">Загрузка исходного файла после создания объекта</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @active -->
+      <property name="@active" type="bool" default="1">
+        <tr lang="en">on/off dsp processing</tr>
+        <tr lang="ru" finished="false">Обработка in/off</tr>
+      </property>
+      <!-- @include -->
+      <property name="@include" type="list" default="">
+        <tr lang="en">list of faust include directories</tr>
+        <tr lang="ru" finished="false">Список faust включает каталоги</tr>
+      </property>
+      <!-- @load -->
+      <property name="@load" type="symbol" default="" access="initonly">
+        <tr lang="en">initial file to load after object creation</tr>
+        <tr lang="ru" finished="false">Загрузка исходного файла после создания объекта</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- open -->
+      <method name="open">
         <info>
-            <a href="https://faust.grame.fr/">https://faust.grame.fr/</a>
+          <tr lang="en">open editor window</tr>
+          <tr lang="ru" finished="false">Открытое окно редактора</tr>
         </info>
-        <mouse>
-            <event type="left-click" editmode="0" keys="Alt">open Faust code editor</event>
-        </mouse>
-        <arguments>
-            <argument name="LOAD" type="symbol">
-                <tr lang="en">initial file to load after object creation</tr>
-                <tr lang="ru" finished="false">Загрузка исходного файла после создания объекта</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
-                <tr lang="ru" finished="false">Обработка in/off</tr>
-            </property>
-            <!-- @include -->
-            <property name="@include" type="list" default="">
-                <tr lang="en">list of faust include directories</tr>
-                <tr lang="ru" finished="false">Список faust включает каталоги</tr>
-            </property>
-            <!-- @load -->
-            <property name="@load" type="symbol" default="" access="initonly">
-                <tr lang="en">initial file to load after object creation</tr>
-                <tr lang="ru" finished="false">Загрузка исходного файла после создания объекта</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- open -->
-            <method name="open">
-                <info>
-                    <tr lang="en">open editor window</tr>
-                    <tr lang="ru" finished="false">Открытое окно редактора</tr>
-                </info>
-            </method>
-            <!-- read -->
-            <method name="read">
-                <info>
-                    <tr lang="en">read Faust code from file and compile it.</tr>
-                    <!-- old: Прочитайте код Faust из файла и скомпилируйте
+      </method>
+      <!-- read -->
+      <method name="read">
+        <info>
+          <tr lang="en">read Faust code from file and compile it.</tr>
+          <!-- old: Прочитайте код Faust из файла и скомпилируйте
                     его. -->
-                    <tr lang="ru" finished="false">Прочитайте код Faust из файла и скомпилируйте
-                    его.</tr>
-                </info>
-                <param name="FILE" type="symbol" required="true">
-                    <tr lang="en">file path, absolute or relative to patch, include
-                    directories</tr>
-                    <!-- old: Путь файла, абсолютный или относительный с
+          <tr lang="ru" finished="false">Прочитайте код Faust из файла и скомпилируйте его.</tr>
+        </info>
+        <param name="FILE" type="symbol" required="true">
+          <tr lang="en">file path, absolute or relative to patch, include directories</tr>
+          <!-- old: Путь файла, абсолютный или относительный с
                     патчем, включает каталоги -->
-                    <tr lang="ru" finished="false">Путь файла, абсолютный или относительный с
-                    патчем, включает каталоги</tr>
-                </param>
-            </method>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset object state</tr>
-                    <tr lang="ru" finished="false">Сброс состояния объекта</tr>
-                </info>
-            </method>
-            <!-- write -->
-            <method name="write">
-                <info>
-                    <tr lang="en">write Faust code to file.</tr>
-                    <tr lang="ru" finished="false">Запишите код Фауста в файл.</tr>
-                </info>
-                <param name="FILE" type="symbol" required="true">
-                    <tr lang="en">file path, absolute or relative to patch</tr>
-                    <!-- old: Путь файла, абсолютный или относительный для
+          <tr lang="ru" finished="false">Путь файла, абсолютный или относительный с патчем,
+          включает каталоги</tr>
+        </param>
+      </method>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset object state</tr>
+          <tr lang="ru" finished="false">Сброс состояния объекта</tr>
+        </info>
+      </method>
+      <!-- write -->
+      <method name="write">
+        <info>
+          <tr lang="en">write Faust code to file.</tr>
+          <tr lang="ru" finished="false">Запишите код Фауста в файл.</tr>
+        </info>
+        <param name="FILE" type="symbol" required="true">
+          <tr lang="en">file path, absolute or relative to patch</tr>
+          <!-- old: Путь файла, абсолютный или относительный для
                     патча -->
-                    <tr lang="ru" finished="false">Путь файла, абсолютный или относительный для
-                    патча</tr>
-                </param>
-                <param name="@force" type="property" required="false">
-                    <tr lang="en">overwrite existing files</tr>
-                    <tr lang="ru" finished="false">перезаписывать существующие файлы</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets dynamic="true">
-            <inlet number="1">
-                <in>
-                    <tr lang="en">control input</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="2">
-                <in>
-                    <tr lang="en">first faust input</tr>
-                    <tr lang="ru" finished="false">Первый ввод фауста</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="...">
-                <in>
-                    <tr lang="en">... faust input</tr>
-                    <tr lang="ru" finished="false">Фаустный вход</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="n+1">
-                <in>
-                    <tr lang="en">n-th faust input</tr>
-                    <tr lang="ru" finished="false">n-й фаустный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet type="audio" number="1">
-                <out type="any">
-                    <tr lang="en">first faust output</tr>
-                    <tr lang="ru" finished="false">Первый выпуск фауста</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="...">
-                <out type="any">
-                    <tr lang="en">... faust output</tr>
-                    <tr lang="ru" finished="false">Фаустовый выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="n">
-                <out type="any">
-                    <tr lang="en">n-th faust output</tr>
-                    <tr lang="ru" finished="false">n-й выход фауста</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Путь файла, абсолютный или относительный для патча</tr>
+        </param>
+        <param name="@force" type="property" required="false">
+          <tr lang="en">overwrite existing files</tr>
+          <tr lang="ru" finished="false">перезаписывать существующие файлы</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets dynamic="true">
+      <inlet number="1">
+        <in>
+          <tr lang="en">control input</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="2">
+        <in>
+          <tr lang="en">first faust input</tr>
+          <tr lang="ru" finished="false">Первый ввод фауста</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="...">
+        <in>
+          <tr lang="en">... faust input</tr>
+          <tr lang="ru" finished="false">Фаустный вход</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="n+1">
+        <in>
+          <tr lang="en">n-th faust input</tr>
+          <tr lang="ru" finished="false">n-й фаустный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet type="audio" number="1">
+        <out type="any">
+          <tr lang="en">first faust output</tr>
+          <tr lang="ru" finished="false">Первый выпуск фауста</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="...">
+        <out type="any">
+          <tr lang="en">... faust output</tr>
+          <tr lang="ru" finished="false">Фаустовый выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="n">
+        <out type="any">
+          <tr lang="en">n-th faust output</tr>
+          <tr lang="ru" finished="false">n-й выход фауста</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open(  [ui.knob #x] [ui.knob #y]
 |       |            |
@@ -165,7 +162,7 @@
 #x @min 0 @max 0.5
 #y @min 0 @max 10
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

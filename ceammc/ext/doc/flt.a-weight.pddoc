@@ -1,55 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.a-weight">
-        <title>flt.a-weight</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert frequency to A-weight value</tr>
-                <tr lang="ru">вычисляет А-взвешенное значение для данной частоты</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>filter weight A</keywords>
-            <since>0.9.5</since>
-        </meta>
-        <properties>
-            <!-- @db -->
-            <property name="@db" type="flag" default="0" access="initonly">
-                <tr lang="en">output in decibels</tr>
-                <tr lang="ru" finished="false">выход в децибелах</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input frequency in Herz</tr>
-                    <tr lang="ru" finished="false">Вводная частота в Герце</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">list of input frequencies in Herz, non float types are
-                    ignored</tr>
-                    <!-- old: Список входных частот в Герце, непоплавковые
+  <object name="flt.a-weight">
+    <title>flt.a-weight</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert frequency to A-weight value</tr>
+        <tr lang="ru">вычисляет А-взвешенное значение для данной частоты</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>filter weight A</keywords>
+      <since>0.9.5</since>
+    </meta>
+    <properties>
+      <!-- @db -->
+      <property name="@db" type="flag" default="0" access="initonly">
+        <tr lang="en">output in decibels</tr>
+        <tr lang="ru" finished="false">выход в децибелах</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input frequency in Herz</tr>
+          <tr lang="ru" finished="false">Вводная частота в Герце</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">list of input frequencies in Herz, non float types are ignored</tr>
+          <!-- old: Список входных частот в Герце, непоплавковые
                     типы игнорируются. -->
-                    <tr lang="ru" finished="false">Список входных частот в Герце, непоплавковые
-                    типы игнорируются.</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float or list A-weight amplitudes or decibel values</tr>
-                    <tr lang="ru" finished="false">Поплавать или перечислить А-весовые амплитуды
-                    или децибелы</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Список входных частот в Герце, непоплавковые типы
+          игнорируются.</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float or list A-weight amplitudes or decibel values</tr>
+          <tr lang="ru" finished="false">Поплавать или перечислить А-весовые амплитуды или
+          децибелы</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(                  [array A-WEIGHT w=400 yr=0..1]
 |
@@ -59,7 +58,7 @@
 |
 [list->array A-WEIGHT]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

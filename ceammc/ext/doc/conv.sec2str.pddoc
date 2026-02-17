@@ -1,68 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.sec2str">
-        <title>conv.sec2str</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">formats time in seconds to symbol or string</tr>
-                <tr lang="ru">форматирует время в секундах в символ или строку</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv time</keywords>
-            <also>
-                <see>conv.str2sec</see>
-            </also>
-            <since>0.1</since>
-            <aliases>
-                <alias>ceammc/sec-&gt;str</alias>
-                <alias>sec-&gt;str</alias>
-            </aliases>
-        </meta>
-        <properties>
-            <!-- @ms -->
-            <property name="@ms" type="flag" default="0" access="initonly">
-                <tr lang="en">output milliseconds</tr>
-                <tr lang="ru" finished="false">выход миллисекунд</tr>
-            </property>
-            <!-- @symbol -->
-            <property name="@symbol" type="flag" default="0" access="initonly">
-                <tr lang="en">if specified - output formatted time as symbol, otherwise as
-                string.</tr>
-                <!-- old: Если указано - выходное отформатированное время как
+  <object name="conv.sec2str">
+    <title>conv.sec2str</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">formats time in seconds to symbol or string</tr>
+        <tr lang="ru">форматирует время в секундах в символ или строку</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv time</keywords>
+      <also>
+        <see>conv.str2sec</see>
+      </also>
+      <since>0.1</since>
+      <aliases>
+        <alias>ceammc/sec-&gt;str</alias>
+        <alias>sec-&gt;str</alias>
+      </aliases>
+    </meta>
+    <properties>
+      <!-- @ms -->
+      <property name="@ms" type="flag" default="0" access="initonly">
+        <tr lang="en">output milliseconds</tr>
+        <tr lang="ru" finished="false">выход миллисекунд</tr>
+      </property>
+      <!-- @symbol -->
+      <property name="@symbol" type="flag" default="0" access="initonly">
+        <tr lang="en">if specified - output formatted time as symbol, otherwise as string.</tr>
+        <!-- old: Если указано - выходное отформатированное время как
                 символ, иначе как строка. -->
-                <!-- old: Если указано - выходное отформатированное время как
+        <!-- old: Если указано - выходное отформатированное время как
                 символ, иначе как строка. -->
-                <tr lang="ru" finished="false">Если указано - выходное отформатированное время как
-                символ, иначе как строка.</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">converts float value in seconds to formatted symbol</tr>
-                    <!-- old: Преобразует значение плавания в секундах в
+        <tr lang="ru" finished="false">Если указано - выходное отформатированное время как символ,
+        иначе как строка.</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">converts float value in seconds to formatted symbol</tr>
+          <!-- old: Преобразует значение плавания в секундах в
                     отформатированный символ -->
-                    <tr lang="ru" finished="false">Преобразует значение плавания в секундах в
-                    отформатированный символ</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">time in format "HH:MM::SS" or "HH:MM:SS.XXX"</tr>
-                    <tr lang="ru" finished="false">время в формате «HH:MM::SS» или
-                    «HH:MM:SS.XXX»</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Преобразует значение плавания в секундах в
+          отформатированный символ</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">time in format "HH:MM::SS" or "HH:MM:SS.XXX"</tr>
+          <tr lang="ru" finished="false">время в формате «HH:MM::SS» или «HH:MM:SS.XXX»</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]                   [F]
 |                     |
@@ -74,7 +72,7 @@
 |                     |
 [S digits=12]         [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

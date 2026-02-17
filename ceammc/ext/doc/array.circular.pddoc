@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.circular">
-        <title>array.circular</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">read/write to the array as circular buffer</tr>
-                <tr lang="ru">чтение/запись в массив, как в кольцевой буфер</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array circular</keywords>
-            <since>0.9.5</since>
-            <also>
-                <see>array.circular~</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-            <!-- @redraw -->
-            <property name="@redraw" type="bool" default="1">
-                <tr lang="en">array redraw after change</tr>
-                <tr lang="ru">перерисовка массива после изменения</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">push back new float</tr>
-                    <tr lang="ru">добавляет новое число в конец массива</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="float">
-                    <tr lang="en">popped front element</tr>
-                    <tr lang="ru">вытолкнутый передний элемент массива</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.circular">
+    <title>array.circular</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">read/write to the array as circular buffer</tr>
+        <tr lang="ru">чтение/запись в массив, как в кольцевой буфер</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array circular</keywords>
+      <since>0.9.5</since>
+      <also>
+        <see>array.circular~</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+      <!-- @redraw -->
+      <property name="@redraw" type="bool" default="1">
+        <tr lang="en">array redraw after change</tr>
+        <tr lang="ru">перерисовка массива после изменения</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">push back new float</tr>
+          <tr lang="ru">добавляет новое число в конец массива</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="float">
+          <tr lang="en">popped front element</tr>
+          <tr lang="ru">вытолкнутый передний элемент массива</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]                     [array A-CIRC size=100 w=180 h=130 yr=0..1]
 |
@@ -66,7 +66,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

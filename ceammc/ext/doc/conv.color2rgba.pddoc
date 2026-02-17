@@ -1,116 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.color2rgba">
-        <title>conv.color2rgba</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts the named or hex color into separate RGBA values</tr>
-                <tr lang="ru">преобразует именованный или шестнадцатеричный цвет в отдельные
-                значения RGBA</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv color hex rgb rgba</keywords>
-            <since>0.9.7</since>
-            <aliases>
-                <alias>ceammc/color-&gt;rgba</alias>
-                <alias>color-&gt;rgba</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Supported named colors are: black blue cyan gold gray green lime
-                magenta navy olive orange pink purple red white yellow</tr>
-                <!-- old: Поддерживаются названные цвета: черный синий голубой
+  <object name="conv.color2rgba">
+    <title>conv.color2rgba</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts the named or hex color into separate RGBA values</tr>
+        <tr lang="ru">преобразует именованный или шестнадцатеричный цвет в отдельные значения
+        RGBA</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv color hex rgb rgba</keywords>
+      <since>0.9.7</since>
+      <aliases>
+        <alias>ceammc/color-&gt;rgba</alias>
+        <alias>color-&gt;rgba</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Supported named colors are: black blue cyan gold gray green lime magenta navy
+        olive orange pink purple red white yellow</tr>
+        <!-- old: Поддерживаются названные цвета: черный синий голубой
                 серо-зеленый лайм magenta Navy оливковый оранжево-розовый фиолетовый красный белый
                 желтый -->
-                <tr lang="ru" finished="false">Поддерживаются названные цвета: черный синий голубой
-                серо-зеленый лайм magenta Navy оливковый оранжево-розовый фиолетовый красный белый
-                желтый</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @float -->
-            <property name="@float" type="alias">
-                <tr lang="en">alias to @mode float. Output values in [0-1] range</tr>
-                <tr lang="ru">сокращение для @mode float. Выходные значения в диапазоне [0-1]</tr>
-            </property>
-            <!-- @int -->
-            <property name="@int" type="alias">
-                <tr lang="en">alias to @mode int. Output values in [0-255] range</tr>
-                <tr lang="ru">сокращение для @mode int. Выходные значения в диапазоне [0-255]</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" default="int" enum="int float">
-                <tr lang="en">output mode</tr>
-                <tr lang="ru">выходной режим</tr>
-            </property>
-            <!-- @pack -->
-            <property name="@pack" type="flag" access="initonly">
-                <tr lang="en">output as list to first outlet</tr>
-                <tr lang="ru">выводит в виде списка в первый выход</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">color name or hex value in full (#RRGGBB or #RRGGBBAA) or short
-                    (#RGB or #RGBA) format</tr>
-                    <!-- old: Цветовое имя или шестнадцатеричное значение в
+        <tr lang="ru" finished="false">Поддерживаются названные цвета: черный синий голубой
+        серо-зеленый лайм magenta Navy оливковый оранжево-розовый фиолетовый красный белый
+        желтый</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @float -->
+      <property name="@float" type="alias">
+        <tr lang="en">alias to @mode float. Output values in [0-1] range</tr>
+        <tr lang="ru">сокращение для @mode float. Выходные значения в диапазоне [0-1]</tr>
+      </property>
+      <!-- @int -->
+      <property name="@int" type="alias">
+        <tr lang="en">alias to @mode int. Output values in [0-255] range</tr>
+        <tr lang="ru">сокращение для @mode int. Выходные значения в диапазоне [0-255]</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" default="int" enum="int float">
+        <tr lang="en">output mode</tr>
+        <tr lang="ru">выходной режим</tr>
+      </property>
+      <!-- @pack -->
+      <property name="@pack" type="flag" access="initonly">
+        <tr lang="en">output as list to first outlet</tr>
+        <tr lang="ru">выводит в виде списка в первый выход</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">color name or hex value in full (#RRGGBB or #RRGGBBAA) or short (#RGB or
+          #RGBA) format</tr>
+          <!-- old: Цветовое имя или шестнадцатеричное значение в
                     полном (#RRGGBB или #RRGGBBAA) или коротком (#RGB или #RGBA) формате -->
-                    <tr lang="ru" finished="false">Цветовое имя или шестнадцатеричное значение в
-                    полном (#RRGGBB или #RRGGBBAA) или коротком (#RGB или #RGBA) формате</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">use message selector as color name</tr>
-                    <!-- old: Используйте селектор сообщений в качестве
+          <tr lang="ru" finished="false">Цветовое имя или шестнадцатеричное значение в полном
+          (#RRGGBB или #RRGGBBAA) или коротком (#RGB или #RGBA) формате</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">use message selector as color name</tr>
+          <!-- old: Используйте селектор сообщений в качестве
                     цветового имени -->
-                    <tr lang="ru" finished="false">Используйте селектор сообщений в качестве
-                    цветового имени</tr>
-                </in>
-                <in on="data:color">
-                    <tr lang="en">Color data</tr>
-                    <tr lang="ru" finished="false">Цветовые данные</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list if @pack flag specified or int[0-255] or float[0-1]: red
-                    channel value</tr>
-                    <tr lang="ru" finished="false">Список, если @pack флаг указан или int [0-255]
-                    или плавать [0-1]: значение красного канала</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int[0-255] or float[0-1]: green channel value</tr>
-                    <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение зеленого
-                    канала</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int[0-255] or float[0-1]: blue channel value</tr>
-                    <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение синего
-                    канала</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int[0-255] or float[0-1]: alpha channel value</tr>
-                    <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение
-                    альфа-канала</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Используйте селектор сообщений в качестве цветового
+          имени</tr>
+        </in>
+        <in on="data:color">
+          <tr lang="en">Color data</tr>
+          <tr lang="ru" finished="false">Цветовые данные</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet>
+        <out type="any">
+          <tr lang="en">list if @pack flag specified or int[0-255] or float[0-1]: red channel
+          value</tr>
+          <tr lang="ru" finished="false">Список, если @pack флаг указан или int [0-255] или плавать
+          [0-1]: значение красного канала</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int[0-255] or float[0-1]: green channel value</tr>
+          <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение зеленого канала</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int[0-255] or float[0-1]: blue channel value</tr>
+          <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение синего канала</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int[0-255] or float[0-1]: alpha channel value</tr>
+          <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение альфа-канала</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.menu black blue cyan gold gray green lime magenta navy olive orange pink purple red white yellow]
 |
@@ -130,7 +127,7 @@
 [X d->x]
 [X e->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

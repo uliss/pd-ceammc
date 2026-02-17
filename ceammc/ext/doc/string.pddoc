@@ -1,94 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="string">
-        <title>string</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">constructs the string</tr>
-                <tr lang="ru">создание строки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>string</category>
-            <keywords>string data</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>ceammc/string</alias>
-                <alias>ceammc/str</alias>
-                <alias>str</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="VALUE" type="list">
-                <tr lang="en">initial string</tr>
-                <tr lang="ru">начальная строка</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @value -->
-            <property name="@value" type="list" default="">
-                <tr lang="en">string value</tr>
-                <tr lang="ru">значение строки</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- append -->
-            <method name="append">
-                <info>
-                    <tr lang="en">append values to the end of string</tr>
-                    <tr lang="ru">добавить значения в конец строки</tr>
-                </info>
-            </method>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clear string without output</tr>
-                    <tr lang="ru">очистить строку без вывода</tr>
-                </info>
-            </method>
-            <!-- set -->
-            <method name="set">
-                <info>
-                    <tr lang="en">set string content without output</tr>
-                    <tr lang="ru">установить содержимое строки без вывода</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">outputs string value</tr>
-                    <tr lang="ru">вывести значение строки</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">convert float to string and outputs value</tr>
-                    <tr lang="ru">конвертировать числовое значение в строку и вывести её</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">convert symbol to string and outputs value</tr>
-                    <tr lang="ru">преобразовать символ в строку и вывести её</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">convert list to string (separated with spaces) and outputs
-                    value</tr>
-                    <tr lang="ru">преобразовать список в строку (разделенную с
-                    пробелами) и вывести её</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="data:string">
-                    <tr lang="en">string data</tr>
-                    <tr lang="ru">строковые данные</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="string">
+    <title>string</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">constructs the string</tr>
+        <tr lang="ru">создание строки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>string</category>
+      <keywords>string data</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>ceammc/string</alias>
+        <alias>ceammc/str</alias>
+        <alias>str</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="VALUE" type="list">
+        <tr lang="en">initial string</tr>
+        <tr lang="ru">начальная строка</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @value -->
+      <property name="@value" type="list" default="">
+        <tr lang="en">string value</tr>
+        <tr lang="ru">значение строки</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- append -->
+      <method name="append">
+        <info>
+          <tr lang="en">append values to the end of string</tr>
+          <tr lang="ru">добавить значения в конец строки</tr>
+        </info>
+      </method>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">clear string without output</tr>
+          <tr lang="ru">очистить строку без вывода</tr>
+        </info>
+      </method>
+      <!-- set -->
+      <method name="set">
+        <info>
+          <tr lang="en">set string content without output</tr>
+          <tr lang="ru">установить содержимое строки без вывода</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">outputs string value</tr>
+          <tr lang="ru">вывести значение строки</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">convert float to string and outputs value</tr>
+          <tr lang="ru">конвертировать числовое значение в строку и вывести её</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">convert symbol to string and outputs value</tr>
+          <tr lang="ru">преобразовать символ в строку и вывести её</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">convert list to string (separated with spaces) and outputs value</tr>
+          <tr lang="ru">преобразовать список в строку (разделенную с пробелами) и вывести её</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="data:string">
+          <tr lang="en">string data</tr>
+          <tr lang="ru">строковые данные</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B] [F]   [symbol ABC(
 |   |     |
@@ -101,7 +99,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,113 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="path.pattern">
-        <title>path.pattern</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">pattern filename generator</tr>
-                <tr lang="ru">генерирует имя файла по данному шаблону</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>path</category>
-            <keywords>path environment pattern filename</keywords>
-            <since>0.9.5</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Note: generate NEW filename (checks that generated filename not
-                exists)</tr>
-                <!-- old: Примечание: генерировать новое имя файла (проверки,
+  <object name="path.pattern">
+    <title>path.pattern</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">pattern filename generator</tr>
+        <tr lang="ru">генерирует имя файла по данному шаблону</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>path</category>
+      <keywords>path environment pattern filename</keywords>
+      <since>0.9.5</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Note: generate NEW filename (checks that generated filename not exists)</tr>
+        <!-- old: Примечание: генерировать новое имя файла (проверки,
                 что генерируемое имя файла не существует) -->
-                <tr lang="ru" finished="false">Примечание: генерировать новое имя файла (проверки,
-                что генерируемое имя файла не существует)</tr>
-            </par>
-            <par>
-                <tr lang="en">### sequence is replaced with number</tr>
-                <tr lang="ru" finished="false">### Последовательность заменяется числом</tr>
-            </par>
-            <par>
-                <tr lang="en">Following variables in pattern expanded:</tr>
-                <tr lang="ru" finished="false">Следующие переменные в паттерне расширены:</tr>
-            </par>
-            <par>
-                <tr lang="en">• %YEAR% - current year (4-digits)</tr>
-                <tr lang="ru" finished="false">%YEAR% - текущий год (4 цифры)</tr>
-            </par>
-            <par>
-                <tr lang="en">• %MONTH% - current month (2-digits)</tr>
-                <tr lang="ru" finished="false">%MONTH% - текущий месяц (2 цифры)</tr>
-            </par>
-            <par>
-                <tr lang="en">• %DAY% - current day (2-digits)</tr>
-                <tr lang="ru" finished="false">%DAY% - текущий день (2 цифры)</tr>
-            </par>
-            <par>
-                <tr lang="en">• %HOUR% - current hour (2-digits)</tr>
-                <tr lang="ru" finished="false">%HOUR% — текущий час (2 цифры)</tr>
-            </par>
-            <par>
-                <tr lang="en">• %MIN% - current minute (2-digits)</tr>
-                <tr lang="ru" finished="false">%MIN% - текущая минута (2 цифры)</tr>
-            </par>
-            <par>
-                <tr lang="en">• %SEC% - current second (2-digits)</tr>
-                <tr lang="ru" finished="false">%SEC% - текущая секунда (2 цифры)</tr>
-            </par>
-            <par>
-                <tr lang="en">• %TIME% - current time: %HOUR%-%MIN%-%SEC%</tr>
-                <tr lang="ru" finished="false">% Time% - текущее время: %HOUR%-%MIN%%SEC%</tr>
-            </par>
-            <par>
-                <tr lang="en">• %DATE% - current date: %YEAR%-%MONTH%-%DAY%</tr>
-                <tr lang="ru" finished="false">%DATE% - текущая дата: %YEAR%-%MONTH%%DAY%</tr>
-            </par>
-            <par>
-                <tr lang="en">• %NOW% - current datetime: %DATE%_%TIME%</tr>
-                <tr lang="ru" finished="false">%NOW% - текущее время: %Date%_%TIME%</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="PATTERN" type="symbol">
-                <tr lang="en">filename generation pattern</tr>
-                <tr lang="ru" finished="false">шаблон генерации файлов</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @pattern -->
-            <property name="@pattern" type="symbol" default="">
-                <tr lang="en">filename pattern</tr>
-                <tr lang="ru" finished="false">имя файла</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output generated filename pattern</tr>
-                    <tr lang="ru" finished="false">сгенерированный шаблон имени файла</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">set new pattern and generate filename pattern</tr>
-                    <!-- old: установить новый шаблон и создать шаблон имени
+        <tr lang="ru" finished="false">Примечание: генерировать новое имя файла (проверки, что
+        генерируемое имя файла не существует)</tr>
+      </par>
+      <par>
+        <tr lang="en">### sequence is replaced with number</tr>
+        <tr lang="ru" finished="false">### Последовательность заменяется числом</tr>
+      </par>
+      <par>
+        <tr lang="en">Following variables in pattern expanded:</tr>
+        <tr lang="ru" finished="false">Следующие переменные в паттерне расширены:</tr>
+      </par>
+      <par>
+        <tr lang="en">• %YEAR% - current year (4-digits)</tr>
+        <tr lang="ru" finished="false">%YEAR% - текущий год (4 цифры)</tr>
+      </par>
+      <par>
+        <tr lang="en">• %MONTH% - current month (2-digits)</tr>
+        <tr lang="ru" finished="false">%MONTH% - текущий месяц (2 цифры)</tr>
+      </par>
+      <par>
+        <tr lang="en">• %DAY% - current day (2-digits)</tr>
+        <tr lang="ru" finished="false">%DAY% - текущий день (2 цифры)</tr>
+      </par>
+      <par>
+        <tr lang="en">• %HOUR% - current hour (2-digits)</tr>
+        <tr lang="ru" finished="false">%HOUR% — текущий час (2 цифры)</tr>
+      </par>
+      <par>
+        <tr lang="en">• %MIN% - current minute (2-digits)</tr>
+        <tr lang="ru" finished="false">%MIN% - текущая минута (2 цифры)</tr>
+      </par>
+      <par>
+        <tr lang="en">• %SEC% - current second (2-digits)</tr>
+        <tr lang="ru" finished="false">%SEC% - текущая секунда (2 цифры)</tr>
+      </par>
+      <par>
+        <tr lang="en">• %TIME% - current time: %HOUR%-%MIN%-%SEC%</tr>
+        <tr lang="ru" finished="false">% Time% - текущее время: %HOUR%-%MIN%%SEC%</tr>
+      </par>
+      <par>
+        <tr lang="en">• %DATE% - current date: %YEAR%-%MONTH%-%DAY%</tr>
+        <tr lang="ru" finished="false">%DATE% - текущая дата: %YEAR%-%MONTH%%DAY%</tr>
+      </par>
+      <par>
+        <tr lang="en">• %NOW% - current datetime: %DATE%_%TIME%</tr>
+        <tr lang="ru" finished="false">%NOW% - текущее время: %Date%_%TIME%</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="PATTERN" type="symbol">
+        <tr lang="en">filename generation pattern</tr>
+        <tr lang="ru" finished="false">шаблон генерации файлов</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @pattern -->
+      <property name="@pattern" type="symbol" default="">
+        <tr lang="en">filename pattern</tr>
+        <tr lang="ru" finished="false">имя файла</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output generated filename pattern</tr>
+          <tr lang="ru" finished="false">сгенерированный шаблон имени файла</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">set new pattern and generate filename pattern</tr>
+          <!-- old: установить новый шаблон и создать шаблон имени
                     файла -->
-                    <tr lang="ru" finished="false">установить новый шаблон и создать шаблон имени
-                    файла</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">symbol: filename</tr>
-                    <tr lang="ru" finished="false">Символ: Filename</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">установить новый шаблон и создать шаблон имени файла</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">symbol: filename</tr>
+          <tr lang="ru" finished="false">Символ: Filename</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol file-###.wav(
 |
@@ -119,7 +117,7 @@
 |
 [ui.dt @auto_size 0 @size 400 40]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

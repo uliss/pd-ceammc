@@ -1,100 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.jcrev~">
-        <title>fx.jcrev~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">Schroeder quad reverberator from 1972</tr>
-                <tr lang="ru">квадрофонический ревербератор Шрёдера из 1972 года</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx room reverb schroeder</keywords>
-            <since>0.9.6</since>
-        </meta>
-        <arguments>
-            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
-                <tr lang="en">drywet mix</tr>
-                <tr lang="ru" finished="false">сухая смесь</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">
-                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-                <!-- old: Обходной флаг. Если это правда, обойдите
+  <object name="fx.jcrev~">
+    <title>fx.jcrev~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">Schroeder quad reverberator from 1972</tr>
+        <tr lang="ru">квадрофонический ревербератор Шрёдера из 1972 года</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx room reverb schroeder</keywords>
+      <since>0.9.6</since>
+    </meta>
+    <arguments>
+      <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
+        <tr lang="en">drywet mix</tr>
+        <tr lang="ru" finished="false">сухая смесь</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @bypass -->
+      <property name="@bypass" type="bool" default="0">
+        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+        <!-- old: Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал. -->
-                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал.</tr>
-            </property>
-            <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.4">
-                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
-                signals. 0 - dry signal, 1 - wet</tr>
-                <!-- old: пропорция смеси между исходными (сухими) и
+        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
+        сигнал.</tr>
+      </property>
+      <!-- @drywet -->
+      <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.4">
+        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
+        - dry signal, 1 - wet</tr>
+        <!-- old: пропорция смеси между исходными (сухими) и
                 "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
-                <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
-                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset to initial state</tr>
-                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set drywet</tr>
-                    <tr lang="ru" finished="false">установленный сухой</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">first output signal</tr>
-                    <tr lang="ru" finished="false">Первый выходной сигнал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">second output signal</tr>
-                    <tr lang="ru" finished="false">второй выходной сигнал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">third output signal</tr>
-                    <tr lang="ru" finished="false">Третий выходной сигнал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">fourth output signal</tr>
-                    <tr lang="ru" finished="false">Четвертый выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и "влажными"
+        сигналами. 0 - сухой сигнал, 1 - влажный</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset to initial state</tr>
+          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set drywet</tr>
+          <tr lang="ru" finished="false">установленный сухой</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">first output signal</tr>
+          <tr lang="ru" finished="false">Первый выходной сигнал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">second output signal</tr>
+          <tr lang="ru" finished="false">второй выходной сигнал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">third output signal</tr>
+          <tr lang="ru" finished="false">Третий выходной сигнал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">fourth output signal</tr>
+          <tr lang="ru" finished="false">Четвертый выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]                [ui.dsp~]
 |
@@ -119,7 +119,7 @@
 [dac~ 1 2 3 4 {w=20}]
 [X a->x:4]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

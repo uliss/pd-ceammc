@@ -1,104 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.space">
-        <title>flow.space</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">spaces in time messages received at the same logical time</tr>
-                <tr lang="ru">распределить во времени сообщения, полученные одновременно</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>space</keywords>
-            <since>0.9.1</since>
-        </meta>
-        <arguments>
-            <argument name="DELAY" type="float" units="millisecond" minvalue="1">
-                <tr lang="en">time space between messages</tr>
-                <tr lang="ru" finished="false">Пространство времени между сообщениями</tr>
-            </argument>
-            <argument name="DONE" type="int" minvalue="0">
-                <tr lang="en">time space = N*space after last outputted message</tr>
-                <!-- old: Пространство времени = N* Пространство после
+  <object name="flow.space">
+    <title>flow.space</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">spaces in time messages received at the same logical time</tr>
+        <tr lang="ru">распределить во времени сообщения, полученные одновременно</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>space</keywords>
+      <since>0.9.1</since>
+    </meta>
+    <arguments>
+      <argument name="DELAY" type="float" units="millisecond" minvalue="1">
+        <tr lang="en">time space between messages</tr>
+        <tr lang="ru" finished="false">Пространство времени между сообщениями</tr>
+      </argument>
+      <argument name="DONE" type="int" minvalue="0">
+        <tr lang="en">time space = N*space after last outputted message</tr>
+        <!-- old: Пространство времени = N* Пространство после
                 последнего выведенного сообщения -->
-                <tr lang="ru" finished="false">Пространство времени = N* Пространство после
-                последнего выведенного сообщения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @delay -->
-            <property name="@delay" type="float" default="1" minvalue="1" units="millisecond">
-                <tr lang="en">time-space between messages</tr>
-                <tr lang="ru" finished="false">Пространство времени между сообщениями</tr>
-            </property>
-            <!-- @dev -->
-            <property name="@dev" type="float" default="0" minvalue="0" maxvalue="1">
-                <tr lang="en">random deviation</tr>
-                <tr lang="ru" finished="false">случайное отклонение</tr>
-            </property>
-            <!-- @done -->
-            <property name="@done" type="int" default="1" minvalue="0">
-                <tr lang="en">time space (=@done*@delay) after last outputted message. After that
-                delay output bang to second outlet</tr>
-                <!-- old: Пространство времени (=@done*@delay) после
+        <tr lang="ru" finished="false">Пространство времени = N* Пространство после последнего
+        выведенного сообщения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @delay -->
+      <property name="@delay" type="float" default="1" minvalue="1" units="millisecond">
+        <tr lang="en">time-space between messages</tr>
+        <tr lang="ru" finished="false">Пространство времени между сообщениями</tr>
+      </property>
+      <!-- @dev -->
+      <property name="@dev" type="float" default="0" minvalue="0" maxvalue="1">
+        <tr lang="en">random deviation</tr>
+        <tr lang="ru" finished="false">случайное отклонение</tr>
+      </property>
+      <!-- @done -->
+      <property name="@done" type="int" default="1" minvalue="0">
+        <tr lang="en">time space (=@done*@delay) after last outputted message. After that delay
+        output bang to second outlet</tr>
+        <!-- old: Пространство времени (=@done*@delay) после
                 последнего отправленного сообщения. После этого отсрочка выхода Bang на вторую
                 розетку -->
-                <tr lang="ru" finished="false">Пространство времени (=@done*@delay) после
-                последнего отправленного сообщения. После этого отсрочка выхода Bang на вторую
-                розетку</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">messages</tr>
-                    <tr lang="ru" finished="false">сообщения</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set space interval (ms)</tr>
-                    <tr lang="ru" finished="false">установленный интервал пространства (ms)</tr>
-                </in>
-                <in>
-                    <tr lang="en">reset: cancel all scheduled outputs and clear message queue</tr>
-                    <!-- old: Сброс: отменить все запланированные выходы и
+        <tr lang="ru" finished="false">Пространство времени (=@done*@delay) после последнего
+        отправленного сообщения. После этого отсрочка выхода Bang на вторую розетку</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">messages</tr>
+          <tr lang="ru" finished="false">сообщения</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set space interval (ms)</tr>
+          <tr lang="ru" finished="false">установленный интервал пространства (ms)</tr>
+        </in>
+        <in>
+          <tr lang="en">reset: cancel all scheduled outputs and clear message queue</tr>
+          <!-- old: Сброс: отменить все запланированные выходы и
                     четкую очередь сообщений -->
-                    <tr lang="ru" finished="false">Сброс: отменить все запланированные выходы и
-                    четкую очередь сообщений</tr>
-                </in>
-                <in>
-                    <tr lang="en">@delay: set @delay property</tr>
-                    <tr lang="ru" finished="false">@delay: set @delay property</tr>
-                </in>
-                <in>
-                    <tr lang="en">@done: set @done property</tr>
-                    <tr lang="ru" finished="false">Оригинальное название: Set @done Property</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">bang on finish (after @delay*@done ms after last outputted
-                    message)</tr>
-                    <tr lang="ru" finished="false">bang on finish (после @delay*@done ms после
-                    последнего отправленного сообщения)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Сброс: отменить все запланированные выходы и четкую
+          очередь сообщений</tr>
+        </in>
+        <in>
+          <tr lang="en">@delay: set @delay property</tr>
+          <tr lang="ru" finished="false">@delay: set @delay property</tr>
+        </in>
+        <in>
+          <tr lang="en">@done: set @done property</tr>
+          <tr lang="ru" finished="false">Оригинальное название: Set @done Property</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">bang on finish (after @delay*@done ms after last outputted message)</tr>
+          <tr lang="ru" finished="false">bang on finish (после @delay*@done ms после последнего
+          отправленного сообщения)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1, 2, 3, 4, 5(
 |
@@ -133,8 +131,8 @@
 
 [X b:1->a]
 ]]>
-            </pdascii>
-            <pdascii id="done">
+      </pdascii>
+      <pdascii id="done">
 <![CDATA[
 [3 #a(       [ui.hrd]
 |            |
@@ -152,7 +150,7 @@
 
 [X b:1->a]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

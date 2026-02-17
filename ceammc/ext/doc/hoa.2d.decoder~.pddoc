@@ -1,222 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hoa.2d.decoder~">
-        <title>hoa.2d.decoder~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-                <author>Pierre Guillot</author>
-                <author>Eliott Paris</author>
-                <author>Thomas Le Meur</author>
-            </authors>
-            <description>
-                <tr lang="en">2D decoder of higher order ambisonics</tr>
-                <tr lang="ru">двумерный декодер амбисоников высоких порядков</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>spat</category>
-            <keywords>hoa decoder</keywords>
-            <since>0.8</since>
-            <also>
-                <see>hoa.encoder~</see>
-            </also>
-            <aliases>
-                <alias>hoa.decoder~</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Decodes an ambisonics soundfield for several loudspeakers
-                configuration or for headphones.</tr>
-                <!-- old: Декодирует звуковое поле амбисоники для нескольких
+  <object name="hoa.2d.decoder~">
+    <title>hoa.2d.decoder~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+        <author>Pierre Guillot</author>
+        <author>Eliott Paris</author>
+        <author>Thomas Le Meur</author>
+      </authors>
+      <description>
+        <tr lang="en">2D decoder of higher order ambisonics</tr>
+        <tr lang="ru">двумерный декодер амбисоников высоких порядков</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>spat</category>
+      <keywords>hoa decoder</keywords>
+      <since>0.8</since>
+      <also>
+        <see>hoa.encoder~</see>
+      </also>
+      <aliases>
+        <alias>hoa.decoder~</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Decodes an ambisonics soundfield for several loudspeakers configuration or
+        for headphones.</tr>
+        <!-- old: Декодирует звуковое поле амбисоники для нескольких
                 конфигураций громкоговорителей или для наушников. -->
-                <tr lang="ru" finished="false">Декодирует звуковое поле амбисоники для нескольких
-                конфигураций громкоговорителей или для наушников.</tr>
-            </par>
-            <par>
-                <tr lang="en">Mode:</tr>
-                <tr lang="ru" finished="false">Режим:</tr>
-            </par>
-            <par indent="1">
-                <tr lang="en">• regular for a regular loudspeakers repartition over a circle.</tr>
-                <!-- old: • регулярное перераспределение громкоговорителей по
+        <tr lang="ru" finished="false">Декодирует звуковое поле амбисоники для нескольких
+        конфигураций громкоговорителей или для наушников.</tr>
+      </par>
+      <par>
+        <tr lang="en">Mode:</tr>
+        <tr lang="ru" finished="false">Режим:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• regular for a regular loudspeakers repartition over a circle.</tr>
+        <!-- old: • регулярное перераспределение громкоговорителей по
                 кругу. -->
-                <tr lang="ru" finished="false">• регулярное перераспределение громкоговорителей по
-                кругу.</tr>
-            </par>
-            <par indent="1">
-                <tr lang="en">• irregular if the loudspeakers are not equally spaced on a
-                circle.</tr>
-                <!-- old: • нерегулярные, если громкоговорители не расположены
+        <tr lang="ru" finished="false">• регулярное перераспределение громкоговорителей по
+        кругу.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• irregular if the loudspeakers are not equally spaced on a circle.</tr>
+        <!-- old: • нерегулярные, если громкоговорители не расположены
                 одинаково на окружности. -->
-                <tr lang="ru" finished="false">• нерегулярные, если громкоговорители не расположены
-                одинаково на окружности.</tr>
-            </par>
-            <par indent="1">
-                <tr lang="en">• binaural for headphones</tr>
-                <tr lang="ru" finished="false">• бинауральные для наушников</tr>
-            </par>
-            <par>
-                <tr lang="en">The default mode is regular for an array of 2 * order + 2
-                loudspeakers. The default irregular configuration is 5.1 standard multichannel
-                configuration.</tr>
-                <!-- old: Режим по умолчанию является регулярным для массива
+        <tr lang="ru" finished="false">• нерегулярные, если громкоговорители не расположены
+        одинаково на окружности.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• binaural for headphones</tr>
+        <tr lang="ru" finished="false">• бинауральные для наушников</tr>
+      </par>
+      <par>
+        <tr lang="en">The default mode is regular for an array of 2 * order + 2 loudspeakers. The
+        default irregular configuration is 5.1 standard multichannel configuration.</tr>
+        <!-- old: Режим по умолчанию является регулярным для массива
                 громкоговорителей 2 * заказ + 2. Неправильная конфигурация по умолчанию является
                 5.1 стандартной многоканальной конфигурацией. -->
-                <tr lang="ru" finished="false">Режим по умолчанию является регулярным для массива
-                громкоговорителей 2 * заказ + 2. Неправильная конфигурация по умолчанию является
-                5.1 стандартной многоканальной конфигурацией.</tr>
-            </par>
-            <a href="hoa/hoa.2d.decoder~-help.pd">CICM documentation</a>
-        </info>
-        <arguments>
-            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
-                <tr lang="en">the order of decomposition</tr>
-                <tr lang="ru" finished="false">Порядок разложения</tr>
-            </argument>
-            <argument name="MODE" type="symbol" enum="binaural irregular regular">
-                <tr lang="en">decoding mode</tr>
-                <tr lang="ru" finished="false">режим декодирования</tr>
-            </argument>
-            <argument name="NCH" type="int">
-                <tr lang="en">number of loud speakers (minimum 2*ORDER+1 for ambisonic mode)</tr>
-                <!-- old: Количество громкоговорителей (минимум 2*ORDER+1 для
+        <tr lang="ru" finished="false">Режим по умолчанию является регулярным для массива
+        громкоговорителей 2 * заказ + 2. Неправильная конфигурация по умолчанию является 5.1
+        стандартной многоканальной конфигурацией.</tr>
+      </par>
+      <a href="hoa/hoa.2d.decoder~-help.pd">CICM documentation</a>
+    </info>
+    <arguments>
+      <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
+        <tr lang="en">the order of decomposition</tr>
+        <tr lang="ru" finished="false">Порядок разложения</tr>
+      </argument>
+      <argument name="MODE" type="symbol" enum="binaural irregular regular">
+        <tr lang="en">decoding mode</tr>
+        <tr lang="ru" finished="false">режим декодирования</tr>
+      </argument>
+      <argument name="NCH" type="int">
+        <tr lang="en">number of loud speakers (minimum 2*ORDER+1 for ambisonic mode)</tr>
+        <!-- old: Количество громкоговорителей (минимум 2*ORDER+1 для
                 амбисонического режима) -->
-                <tr lang="ru" finished="false">Количество громкоговорителей (минимум 2*ORDER+1 для
-                амбисонического режима)</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @angles -->
-            <property name="@angles" type="list" units="degree" default="0 90 180 270">
-                <tr lang="en">angles of loudspeakers. Only available for @irregular mode.</tr>
-                <!-- old: Углы громкоговорителей. Доступен только для
+        <tr lang="ru" finished="false">Количество громкоговорителей (минимум 2*ORDER+1 для
+        амбисонического режима)</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @angles -->
+      <property name="@angles" type="list" units="degree" default="0 90 180 270">
+        <tr lang="en">angles of loudspeakers. Only available for @irregular mode.</tr>
+        <!-- old: Углы громкоговорителей. Доступен только для
                 @irregular mode. -->
-                <tr lang="ru" finished="false">Углы громкоговорителей. Доступен только для
-                @irregular mode.</tr>
-            </property>
-            <!-- @binaural -->
-            <property name="@binaural" type="alias">
-                <tr lang="en">alias for @mode binaural</tr>
-                <tr lang="ru" finished="false">Оригинальное название: @mode binaural</tr>
-            </property>
-            <!-- @crop -->
-            <property name="@crop" type="int" minvalue="0" units="sample" maxvalue="512"
-            default="16">
-                <tr lang="en">crop HRIR response. Only for @binaural mode.</tr>
-                <tr lang="ru" finished="false">Ответ HRIR. Только для @binaural mode.</tr>
-            </property>
-            <!-- @irregular -->
-            <property name="@irregular" type="alias">
-                <tr lang="en">alias for @mode irregular</tr>
-                <tr lang="ru" finished="false">Оригинальное название: @mode irregular</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" default="regular"
-            enum="regular irregular binaural">
-                <tr lang="en">decoding mode</tr>
-                <tr lang="ru" finished="false">режим декодирования</tr>
-            </property>
-            <!-- @nch -->
-            <property name="@nch" type="int" minvalue="1" access="initonly" default="0">
-                <tr lang="en">number of plain waves.</tr>
-                <tr lang="ru" finished="false">Количество простых волн.</tr>
-            </property>
-            <!-- @nharm -->
-            <property name="@nharm" type="int" minvalue="1" access="readonly" default="3">
-                <tr lang="en">number of circular harmonics.</tr>
-                <tr lang="ru" finished="false">Количество круговых гармоник.</tr>
-            </property>
-            <!-- @offset -->
-            <property name="@offset" type="float" units="degree" default="0">
-                <tr lang="en">rotation of loudspeakers. Only available for @regular and @irregular
-                mode.</tr>
-                <!-- old: Вращение громкоговорителей. Доступен только для
+        <tr lang="ru" finished="false">Углы громкоговорителей. Доступен только для @irregular
+        mode.</tr>
+      </property>
+      <!-- @binaural -->
+      <property name="@binaural" type="alias">
+        <tr lang="en">alias for @mode binaural</tr>
+        <tr lang="ru" finished="false">Оригинальное название: @mode binaural</tr>
+      </property>
+      <!-- @crop -->
+      <property name="@crop" type="int" minvalue="0" units="sample" maxvalue="512" default="16">
+        <tr lang="en">crop HRIR response. Only for @binaural mode.</tr>
+        <tr lang="ru" finished="false">Ответ HRIR. Только для @binaural mode.</tr>
+      </property>
+      <!-- @irregular -->
+      <property name="@irregular" type="alias">
+        <tr lang="en">alias for @mode irregular</tr>
+        <tr lang="ru" finished="false">Оригинальное название: @mode irregular</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" default="regular" enum="regular irregular binaural">
+        <tr lang="en">decoding mode</tr>
+        <tr lang="ru" finished="false">режим декодирования</tr>
+      </property>
+      <!-- @nch -->
+      <property name="@nch" type="int" minvalue="1" access="initonly" default="0">
+        <tr lang="en">number of plain waves.</tr>
+        <tr lang="ru" finished="false">Количество простых волн.</tr>
+      </property>
+      <!-- @nharm -->
+      <property name="@nharm" type="int" minvalue="1" access="readonly" default="3">
+        <tr lang="en">number of circular harmonics.</tr>
+        <tr lang="ru" finished="false">Количество круговых гармоник.</tr>
+      </property>
+      <!-- @offset -->
+      <property name="@offset" type="float" units="degree" default="0">
+        <tr lang="en">rotation of loudspeakers. Only available for @regular and @irregular
+        mode.</tr>
+        <!-- old: Вращение громкоговорителей. Доступен только для
                 @regular и @irregular. -->
-                <tr lang="ru" finished="false">Вращение громкоговорителей. Доступен только для
-                @regular и @irregular.</tr>
-            </property>
-            <!-- @order -->
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="initonly">
-                <tr lang="en">the order of decomposition</tr>
-                <tr lang="ru" finished="false">Порядок разложения</tr>
-            </property>
-            <!-- @pw_x -->
-            <property name="@pw_x" type="list" units="radian" minvalue="-1" maxvalue="1"
-            access="readonly" default="0 -1 0 1">
-                <tr lang="en">list of plain wave x-coordinates (abscissas). -1 is the left of the
-                soundfield, 0 is the center of the soundfield and 1 is the right of the
-                soundfield.</tr>
-                <!-- old: Список простых волновых x-координатов (абсцисса). -1
+        <tr lang="ru" finished="false">Вращение громкоговорителей. Доступен только для @regular и
+        @irregular.</tr>
+      </property>
+      <!-- @order -->
+      <property name="@order" type="int" minvalue="1" maxvalue="63" default="1" access="initonly">
+        <tr lang="en">the order of decomposition</tr>
+        <tr lang="ru" finished="false">Порядок разложения</tr>
+      </property>
+      <!-- @pw_x -->
+      <property name="@pw_x" type="list" units="radian" minvalue="-1" maxvalue="1"
+      access="readonly" default="0 -1 0 1">
+        <tr lang="en">list of plain wave x-coordinates (abscissas). -1 is the left of the
+        soundfield, 0 is the center of the soundfield and 1 is the right of the soundfield.</tr>
+        <!-- old: Список простых волновых x-координатов (абсцисса). -1
                 находится слева от звукового поля, 0 - в центре звукового поля и 1 - справа от
                 звукового поля. -->
-                <tr lang="ru" finished="false">Список простых волновых x-координатов (абсцисса). -1
-                находится слева от звукового поля, 0 - в центре звукового поля и 1 - справа от
-                звукового поля.</tr>
-            </property>
-            <!-- @pw_y -->
-            <property name="@pw_y" type="list" units="radian" minvalue="-1" maxvalue="1"
-            access="readonly" default="1 0 -1 0">
-                <tr lang="en">list of plain wave y-coordinates (ordinatas). -1 is the back of the
-                soundfield, 0 is the center of the soundfield and 1 is the front of the
-                soundfield.</tr>
-                <!-- old: Список простых волновых Y-координатов (ординат). -1
+        <tr lang="ru" finished="false">Список простых волновых x-координатов (абсцисса). -1
+        находится слева от звукового поля, 0 - в центре звукового поля и 1 - справа от звукового
+        поля.</tr>
+      </property>
+      <!-- @pw_y -->
+      <property name="@pw_y" type="list" units="radian" minvalue="-1" maxvalue="1"
+      access="readonly" default="1 0 -1 0">
+        <tr lang="en">list of plain wave y-coordinates (ordinatas). -1 is the back of the
+        soundfield, 0 is the center of the soundfield and 1 is the front of the soundfield.</tr>
+        <!-- old: Список простых волновых Y-координатов (ординат). -1
                 - задняя часть звукового поля, 0 - центр звукового поля и 1 - передняя часть
                 звукового поля. -->
-                <tr lang="ru" finished="false">Список простых волновых Y-координатов (ординат). -1
-                - задняя часть звукового поля, 0 - центр звукового поля и 1 - передняя часть
-                звукового поля.</tr>
-            </property>
-            <!-- @regular -->
-            <property name="@regular" type="alias">
-                <tr lang="en">alias for @mode regular</tr>
-                <tr lang="ru" finished="false">Оригинальное название: @mode regular</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">first input harmonic</tr>
-                    <tr lang="ru" finished="false">Первый вход гармоничный</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="...">
-                <in>
-                    <tr lang="en">... input harmonic</tr>
-                    <tr lang="ru" finished="false">Входная гармоника</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="n">
-                <in>
-                    <tr lang="en">n-th input harmonic</tr>
-                    <tr lang="ru" finished="false">n-я входная гармоника</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">first loudspeaker output</tr>
-                    <tr lang="ru" finished="false">первый громкоговоритель выходной</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="...">
-                <out type="any">
-                    <tr lang="en">... loudspeaker output</tr>
-                    <tr lang="ru" finished="false">... громкоговоритель выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="n">
-                <out type="any">
-                    <tr lang="en">n-th loudspeaker output</tr>
-                    <tr lang="ru" finished="false">n-й выход громкоговорителя</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Список простых волновых Y-координатов (ординат). -1 - задняя
+        часть звукового поля, 0 - центр звукового поля и 1 - передняя часть звукового поля.</tr>
+      </property>
+      <!-- @regular -->
+      <property name="@regular" type="alias">
+        <tr lang="en">alias for @mode regular</tr>
+        <tr lang="ru" finished="false">Оригинальное название: @mode regular</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet type="audio">
+        <in>
+          <tr lang="en">first input harmonic</tr>
+          <tr lang="ru" finished="false">Первый вход гармоничный</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="...">
+        <in>
+          <tr lang="en">... input harmonic</tr>
+          <tr lang="ru" finished="false">Входная гармоника</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="n">
+        <in>
+          <tr lang="en">n-th input harmonic</tr>
+          <tr lang="ru" finished="false">n-я входная гармоника</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">first loudspeaker output</tr>
+          <tr lang="ru" finished="false">первый громкоговоритель выходной</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="...">
+        <out type="any">
+          <tr lang="en">... loudspeaker output</tr>
+          <tr lang="ru" finished="false">... громкоговоритель выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="n">
+        <out type="any">
+          <tr lang="en">n-th loudspeaker output</tr>
+          <tr lang="ru" finished="false">n-й выход громкоговорителя</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [hoa/hoa.soundgrain]               [lfo.saw~ 0.15]
 |                                  |
@@ -230,7 +222,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

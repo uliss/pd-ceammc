@@ -1,84 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.cexp~">
-        <title>math.cexp~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">exponent of a complex signals</tr>
-                <tr lang="ru">комплексная экспонента для сигналов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math complex magnitude module</keywords>
-            <aliases>
-                <alias>ceammc/cexp~</alias>
-                <alias>cexp~</alias>
-            </aliases>
-            <since>0.9</since>
-            <also>
-                <see>math.carg~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Base-e exponential of complex signal, that is e (Euler's number,
-                2.7182818) raised to the complex signal power</tr>
-                <!-- old: База e экспоненциальна сложному сигналу, то есть e
+  <object name="math.cexp~">
+    <title>math.cexp~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">exponent of a complex signals</tr>
+        <tr lang="ru">комплексная экспонента для сигналов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math complex magnitude module</keywords>
+      <aliases>
+        <alias>ceammc/cexp~</alias>
+        <alias>cexp~</alias>
+      </aliases>
+      <since>0.9</since>
+      <also>
+        <see>math.carg~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Base-e exponential of complex signal, that is e (Euler's number, 2.7182818)
+        raised to the complex signal power</tr>
+        <!-- old: База e экспоненциальна сложному сигналу, то есть e
                 (число Эйлера, 2.7182818) повышена до мощности сложного сигнала -->
-                <tr lang="ru" finished="false">База e экспоненциальна сложному сигналу, то есть e
-                (число Эйлера, 2.7182818) повышена до мощности сложного сигнала</tr>
-            </par>
-            <par>
-                <tr lang="en">The complex exponential function e^z for z = x+jy equals e^x (cos(y)
-                + j sin(y))</tr>
-                <!-- old: Сложная экспоненциальная функция e^z для z = x+jy
+        <tr lang="ru" finished="false">База e экспоненциальна сложному сигналу, то есть e (число
+        Эйлера, 2.7182818) повышена до мощности сложного сигнала</tr>
+      </par>
+      <par>
+        <tr lang="en">The complex exponential function e^z for z = x+jy equals e^x (cos(y) + j
+        sin(y))</tr>
+        <!-- old: Сложная экспоненциальная функция e^z для z = x+jy
                 равна e^x (cos(y) + j sin(y)) -->
-                <tr lang="ru" finished="false">Сложная экспоненциальная функция e^z для z = x+jy
-                равна e^x (cos(y) + j sin(y))</tr>
-            </par>
-            <par>
-                <tr lang="en">The exponential function is an entire function in the complex plane
-                and has no branch cuts</tr>
-                <!-- old: Экспоненциальная функция является целой функцией в
+        <tr lang="ru" finished="false">Сложная экспоненциальная функция e^z для z = x+jy равна e^x
+        (cos(y) + j sin(y))</tr>
+      </par>
+      <par>
+        <tr lang="en">The exponential function is an entire function in the complex plane and has
+        no branch cuts</tr>
+        <!-- old: Экспоненциальная функция является целой функцией в
                 комплексной плоскости и не имеет разрезов ветвей. -->
-                <tr lang="ru" finished="false">Экспоненциальная функция является целой функцией в
-                комплексной плоскости и не имеет разрезов ветвей.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">real part of input signal</tr>
-                    <tr lang="ru" finished="false">Реальная часть входного сигнала</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">imag part of input signal</tr>
-                    <tr lang="ru" finished="false">Имаг часть входного сигнала</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">real part of result</tr>
-                    <tr lang="ru" finished="false">Реальная часть результата</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">imag part of result</tr>
-                    <tr lang="ru" finished="false">Имаг часть результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Экспоненциальная функция является целой функцией в
+        комплексной плоскости и не имеет разрезов ветвей.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">real part of input signal</tr>
+          <tr lang="ru" finished="false">Реальная часть входного сигнала</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">imag part of input signal</tr>
+          <tr lang="ru" finished="false">Имаг часть входного сигнала</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">real part of result</tr>
+          <tr lang="ru" finished="false">Реальная часть результата</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">imag part of result</tr>
+          <tr lang="ru" finished="false">Имаг часть результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /* Plot FIR frequency response: |H(w)| = 0.5 + 0.5e^-jw */
 
@@ -110,7 +110,7 @@
 [ui.dsp~]
 [X a:1->b:1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

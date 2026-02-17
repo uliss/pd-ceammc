@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.runsum">
-        <title>list.runsum</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs the list of positional sums which is updated upon each
-                incoming list</tr>
-                <tr lang="ru">выводит список позиционных сумм, который обновляется при каждом
-                входящем списке</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list running total sum partial cumulative</keywords>
-            <since>0.9.4</since>
-            <also>
-                <see>list.rundiff</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Computes the partial sums of the elements in the subranges of the
-                input list</tr>
-                <!-- old: Вычисляет частичные суммы элементов в поддиапазонах
+  <object name="list.runsum">
+    <title>list.runsum</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs the list of positional sums which is updated upon each incoming
+        list</tr>
+        <tr lang="ru">выводит список позиционных сумм, который обновляется при каждом входящем
+        списке</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list running total sum partial cumulative</keywords>
+      <since>0.9.4</since>
+      <also>
+        <see>list.rundiff</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Computes the partial sums of the elements in the subranges of the input
+        list</tr>
+        <!-- old: Вычисляет частичные суммы элементов в поддиапазонах
                 входного списка -->
-                <tr lang="ru" finished="false">Вычисляет частичные суммы элементов в поддиапазонах
-                входного списка</tr>
-            </par>
-            <par>
-                <tr lang="en">• y0 = x0</tr>
-                <tr lang="ru" finished="false">• y0 = x0</tr>
-            </par>
-            <par>
-                <tr lang="en">• y1 = x0 + x1</tr>
-                <tr lang="ru" finished="false">• y1 = x0 + x1</tr>
-            </par>
-            <par>
-                <tr lang="en">• y2 = x0 + x1 + x2</tr>
-                <tr lang="ru" finished="false">• y2 = x0 + x1 + x2</tr>
-            </par>
-            <par>
-                <tr lang="en">• y3 = x0 + x1 + x2 + x3</tr>
-                <tr lang="ru" finished="false">• y3 = x0 + x1 + x2 + x3</tr>
-            </par>
-            <par>
-                <tr lang="en">etc...</tr>
-                <tr lang="ru" finished="false">и т.д. ...</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result list</tr>
-                    <tr lang="ru" finished="false">список результатов</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Вычисляет частичные суммы элементов в поддиапазонах входного
+        списка</tr>
+      </par>
+      <par>
+        <tr lang="en">• y0 = x0</tr>
+        <tr lang="ru" finished="false">• y0 = x0</tr>
+      </par>
+      <par>
+        <tr lang="en">• y1 = x0 + x1</tr>
+        <tr lang="ru" finished="false">• y1 = x0 + x1</tr>
+      </par>
+      <par>
+        <tr lang="en">• y2 = x0 + x1 + x2</tr>
+        <tr lang="ru" finished="false">• y2 = x0 + x1 + x2</tr>
+      </par>
+      <par>
+        <tr lang="en">• y3 = x0 + x1 + x2 + x3</tr>
+        <tr lang="ru" finished="false">• y3 = x0 + x1 + x2 + x3</tr>
+      </par>
+      <par>
+        <tr lang="en">etc...</tr>
+        <tr lang="ru" finished="false">и т.д. ...</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result list</tr>
+          <tr lang="ru" finished="false">список результатов</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.sliders @size 150 80]
 |
@@ -80,7 +80,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

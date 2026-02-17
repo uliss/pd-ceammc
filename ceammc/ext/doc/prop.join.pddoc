@@ -1,69 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="prop.join">
-        <title>prop.join</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">inject properties into the main data flow</tr>
-                <tr lang="ru">добавляет свойства в основной поток данных</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>property</category>
-            <keywords>property</keywords>
-            <since>0.9</since>
-            <aliases>
-                <alias>prop&lt;-</alias>
-            </aliases>
-            <also>
-                <see>prop-&gt;</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Injects properties into data stream. Values from first inlet are
-                passed unchanged and named property values added to stream. Note: all property
-                inlets are *hot*, i.e. if object receives new value on inlet it immediately outputs
-                it.</tr>
-                <tr lang="ru" finished="false">Вводим свойства в поток данных. Значения от первого
-                входа передаются без изменений и называются значениями свойств, добавленными в
-                поток. Примечание: все входы свойств являются горячими, то есть, если объект
-                получает новое значение на входе, он немедленно выводит его.</tr>
-            </par>
-        </info>
-        <inlets dynamic="true">
-            <inlet>
-                <in>
-                    <tr lang="en">data stream</tr>
-                    <tr lang="ru" finished="false">поток данных</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">property value</tr>
-                    <tr lang="ru" finished="false">стоимость имущества</tr>
-                </in>
-            </inlet>
-            <inlet number="...">
-                <in>
-                    <tr lang="en">property value</tr>
-                    <tr lang="ru" finished="false">стоимость имущества</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output values</tr>
-                    <tr lang="ru" finished="false">выходные значения</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="prop.join">
+    <title>prop.join</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">inject properties into the main data flow</tr>
+        <tr lang="ru">добавляет свойства в основной поток данных</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>property</category>
+      <keywords>property</keywords>
+      <since>0.9</since>
+      <aliases>
+        <alias>prop&lt;-</alias>
+      </aliases>
+      <also>
+        <see>prop-&gt;</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Injects properties into data stream. Values from first inlet are passed
+        unchanged and named property values added to stream. Note: all property inlets are *hot*,
+        i.e. if object receives new value on inlet it immediately outputs it.</tr>
+        <tr lang="ru" finished="false">Вводим свойства в поток данных. Значения от первого входа
+        передаются без изменений и называются значениями свойств, добавленными в поток. Примечание:
+        все входы свойств являются горячими, то есть, если объект получает новое значение на входе,
+        он немедленно выводит его.</tr>
+      </par>
+    </info>
+    <inlets dynamic="true">
+      <inlet>
+        <in>
+          <tr lang="en">data stream</tr>
+          <tr lang="ru" finished="false">поток данных</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">property value</tr>
+          <tr lang="ru" finished="false">стоимость имущества</tr>
+        </in>
+      </inlet>
+      <inlet number="...">
+        <in>
+          <tr lang="en">property value</tr>
+          <tr lang="ru" finished="false">стоимость имущества</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output values</tr>
+          <tr lang="ru" finished="false">выходные значения</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]      [F]
 |        |
@@ -77,7 +76,7 @@
 |      ^|                          ^^|
 [F]    [ui.dt]                     [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

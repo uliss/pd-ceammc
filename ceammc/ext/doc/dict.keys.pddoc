@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="dict.keys">
-        <title>dict.keys</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">output the list of dictionary keys</tr>
-                <tr lang="ru">выводит список ключей словаря</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>list keys dictionary</keywords>
-            <since>0.6</since>
-            <also>
-                <see>data.dict</see>
-                <see>dict.values</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="data">
-                    <tr lang="en">data.dict</tr>
-                    <tr lang="ru" finished="false">data.dict.</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list of dict keys</tr>
-                    <tr lang="ru" finished="false">Список клавиш dict</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="dict.keys">
+    <title>dict.keys</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">output the list of dictionary keys</tr>
+        <tr lang="ru">выводит список ключей словаря</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>list keys dictionary</keywords>
+      <since>0.6</since>
+      <also>
+        <see>data.dict</see>
+        <see>dict.values</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="data">
+          <tr lang="en">data.dict</tr>
+          <tr lang="ru" finished="false">data.dict.</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list of dict keys</tr>
+          <tr lang="ru" finished="false">Список клавиш dict</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -47,7 +47,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

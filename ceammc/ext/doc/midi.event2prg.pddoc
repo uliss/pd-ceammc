@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.event2prg">
-        <title>midi.event2prg</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts the MidiEvent message into the program change</tr>
-                <tr lang="ru">конвертирует сообщение MidiEvent в MIDI: изменение программы</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi program</keywords>
-            <since>0.4</since>
-            <aliases>
-                <alias>midi.ev-&gt;prg</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">MidiEvent message</tr>
-                    <tr lang="ru" finished="false">Сообщение MidiEvent</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int: MIDI program change value</tr>
-                    <tr lang="ru" finished="false">Инт: программа MIDI меняет значение</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int: MIDI track</tr>
-                    <tr lang="ru" finished="false">Оригинальное название: MIDI Track</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="midi.event2prg">
+    <title>midi.event2prg</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts the MidiEvent message into the program change</tr>
+        <tr lang="ru">конвертирует сообщение MidiEvent в MIDI: изменение программы</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi program</keywords>
+      <since>0.4</since>
+      <aliases>
+        <alias>midi.ev-&gt;prg</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">MidiEvent message</tr>
+          <tr lang="ru" finished="false">Сообщение MidiEvent</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int: MIDI program change value</tr>
+          <tr lang="ru" finished="false">Инт: программа MIDI меняет значение</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int: MIDI track</tr>
+          <tr lang="ru" finished="false">Оригинальное название: MIDI Track</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -60,7 +60,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

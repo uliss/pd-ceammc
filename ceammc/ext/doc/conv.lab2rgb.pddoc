@@ -1,119 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.lab2rgb">
-        <title>conv.lab2rgb</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert LAB color values to RGB</tr>
-                <tr lang="ru">преобразование цветовых значений из LAB в RGB</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv color lab rgb</keywords>
-            <since>0.9.7</since>
-            <aliases>
-                <alias>ceammc/lab-&gt;rgb</alias>
-                <alias>lab-&gt;rgb</alias>
-            </aliases>
-        </meta>
-        <info>
-            <wiki name="CIELAB_color_space">CIELAB color space</wiki>
-        </info>
-        <properties>
-            <!-- @float -->
-            <property name="@float" type="alias">
-                <tr lang="en">alias to @mode float. Output float values in [0-1] range</tr>
-                <!-- old: Оригинальное название: Mode Float. Значения
+  <object name="conv.lab2rgb">
+    <title>conv.lab2rgb</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert LAB color values to RGB</tr>
+        <tr lang="ru">преобразование цветовых значений из LAB в RGB</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv color lab rgb</keywords>
+      <since>0.9.7</since>
+      <aliases>
+        <alias>ceammc/lab-&gt;rgb</alias>
+        <alias>lab-&gt;rgb</alias>
+      </aliases>
+    </meta>
+    <info>
+      <wiki name="CIELAB_color_space">CIELAB color space</wiki>
+    </info>
+    <properties>
+      <!-- @float -->
+      <property name="@float" type="alias">
+        <tr lang="en">alias to @mode float. Output float values in [0-1] range</tr>
+        <!-- old: Оригинальное название: Mode Float. Значения
                 выходного поплавка в [0-1] диапазоне -->
-                <!-- old: Оригинальное название: Mode Float. Значения
+        <!-- old: Оригинальное название: Mode Float. Значения
                 выходного поплавка в [0-1] диапазоне -->
-                <tr lang="ru" finished="false">Оригинальное название: Mode Float. Значения
-                выходного поплавка в [0-1] диапазоне</tr>
-            </property>
-            <!-- @int -->
-            <property name="@int" type="alias">
-                <tr lang="en">alias to @mode int. Output integer values in [0-255] range</tr>
-                <!-- old: @mode int. Вывод целых чисел в диапазоне
+        <tr lang="ru" finished="false">Оригинальное название: Mode Float. Значения выходного
+        поплавка в [0-1] диапазоне</tr>
+      </property>
+      <!-- @int -->
+      <property name="@int" type="alias">
+        <tr lang="en">alias to @mode int. Output integer values in [0-255] range</tr>
+        <!-- old: @mode int. Вывод целых чисел в диапазоне
                 [0-255] -->
-                <!-- old: @mode int. Вывод целых чисел в диапазоне
+        <!-- old: @mode int. Вывод целых чисел в диапазоне
                 [0-255] -->
-                <tr lang="ru" finished="false">@mode int. Вывод целых чисел в диапазоне
-                [0-255]</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" default="int" enum="int float">
-                <tr lang="en">output mode</tr>
-                <tr lang="ru" finished="false">выходной режим</tr>
-            </property>
-            <!-- @pack -->
-            <property name="@pack" type="flag" access="initonly">
-                <tr lang="en">output as list (creates single outlet object)</tr>
-                <!-- old: вывод в виде списка (создает единый выходной
+        <tr lang="ru" finished="false">@mode int. Вывод целых чисел в диапазоне [0-255]</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" default="int" enum="int float">
+        <tr lang="en">output mode</tr>
+        <tr lang="ru" finished="false">выходной режим</tr>
+      </property>
+      <!-- @pack -->
+      <property name="@pack" type="flag" access="initonly">
+        <tr lang="en">output as list (creates single outlet object)</tr>
+        <!-- old: вывод в виде списка (создает единый выходной
                 объект) -->
-                <!-- old: вывод в виде списка (создает единый выходной
+        <!-- old: вывод в виде списка (создает единый выходной
                 объект) -->
-                <tr lang="ru" finished="false">вывод в виде списка (создает единый выходной
-                объект)</tr>
-            </property>
-            <!-- @sync -->
-            <property name="@sync" type="flag" access="initonly">
-                <tr lang="en">output at any inlet change</tr>
-                <tr lang="ru" finished="false">выход при любом входном изменении</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output current value</tr>
-                    <tr lang="ru" finished="false">текущая стоимость выпуска</tr>
-                </in>
-                <in on="float" minvalue="0" maxvalue="1">
-                    <tr lang="en">set color L-component and output</tr>
-                    <tr lang="ru" finished="false">установить цвет L-компонента и выход</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float" minvalue="-1" maxvalue="1">
-                    <tr lang="en">set color a*-component</tr>
-                    <tr lang="ru" finished="false">Установочный цвет a*-компонент</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float" minvalue="-1" maxvalue="1">
-                    <tr lang="en">set color b*-component</tr>
-                    <tr lang="ru" finished="false">Цветовой компонент b*</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list: R G B or red channel value (int[0-255] or float[0-1])</tr>
-                    <tr lang="ru" finished="false">R G B или значение красного канала (int[0-255]
-                    или float[0-1])</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int[0-255] or float[0-1]: green channel value</tr>
-                    <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение зеленого
-                    канала</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int[0-255] or float[0-1]: blue channel value</tr>
-                    <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение синего
-                    канала</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">вывод в виде списка (создает единый выходной объект)</tr>
+      </property>
+      <!-- @sync -->
+      <property name="@sync" type="flag" access="initonly">
+        <tr lang="en">output at any inlet change</tr>
+        <tr lang="ru" finished="false">выход при любом входном изменении</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output current value</tr>
+          <tr lang="ru" finished="false">текущая стоимость выпуска</tr>
+        </in>
+        <in on="float" minvalue="0" maxvalue="1">
+          <tr lang="en">set color L-component and output</tr>
+          <tr lang="ru" finished="false">установить цвет L-компонента и выход</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float" minvalue="-1" maxvalue="1">
+          <tr lang="en">set color a*-component</tr>
+          <tr lang="ru" finished="false">Установочный цвет a*-компонент</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float" minvalue="-1" maxvalue="1">
+          <tr lang="en">set color b*-component</tr>
+          <tr lang="ru" finished="false">Цветовой компонент b*</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet>
+        <out type="any">
+          <tr lang="en">list: R G B or red channel value (int[0-255] or float[0-1])</tr>
+          <tr lang="ru" finished="false">R G B или значение красного канала (int[0-255] или
+          float[0-1])</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int[0-255] or float[0-1]: green channel value</tr>
+          <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение зеленого канала</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int[0-255] or float[0-1]: blue channel value</tr>
+          <tr lang="ru" finished="false">int[0-255] или float[0-1]: значение синего канала</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.hsl #L]
 
@@ -138,7 +134,7 @@
 #A -1 1 @label a*   @label_inner 1 @show_value 1 @label_color 0.1 0.25 1
 #B -1 1 @label b*   @label_inner 1 @show_value 1 @label_color 0.1 0.25 1
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,78 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="metro.choice">
-        <title>metro.choice</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">a metronome that randomly selects a period for each beat from a given
-                set</tr>
-                <tr lang="ru">метроном со случайным выбором периода при каждом ударе из заданного
-                списка</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>base</category>
-            <keywords>metro random</keywords>
-            <also>
-                <see>metro.random</see>
-                <see>metro.pattern</see>
-            </also>
-            <since>0.9.7</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Random distribution: uniform</tr>
-                <tr lang="ru" finished="false">Случайное распределение: униформа</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="TIMESET" type="list" units="millisecond">
-                <tr lang="en">timeset (&gt;0)</tr>
-                <tr lang="ru" finished="false">Время (&gt;0)</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @seed -->
-            <property name="@seed" type="int" minvalue="0" default="0">
-                <tr lang="en">generator seed</tr>
-                <tr lang="ru" finished="false">генератор</tr>
-            </property>
-            <!-- @timeset -->
-            <property name="@timeset" type="list" units="millisecond" default="">
-                <tr lang="en">timeset (&gt;0)</tr>
-                <tr lang="ru" finished="false">Время (&gt;0)</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">starts (on &gt;0) or stops (on &lt;=0) metro</tr>
-                    <!-- old: старты (на >0) или остановки (на <=0)
+  <object name="metro.choice">
+    <title>metro.choice</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">a metronome that randomly selects a period for each beat from a given
+        set</tr>
+        <tr lang="ru">метроном со случайным выбором периода при каждом ударе из заданного
+        списка</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>base</category>
+      <keywords>metro random</keywords>
+      <also>
+        <see>metro.random</see>
+        <see>metro.pattern</see>
+      </also>
+      <since>0.9.7</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Random distribution: uniform</tr>
+        <tr lang="ru" finished="false">Случайное распределение: униформа</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="TIMESET" type="list" units="millisecond">
+        <tr lang="en">timeset (&gt;0)</tr>
+        <tr lang="ru" finished="false">Время (&gt;0)</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @seed -->
+      <property name="@seed" type="int" minvalue="0" default="0">
+        <tr lang="en">generator seed</tr>
+        <tr lang="ru" finished="false">генератор</tr>
+      </property>
+      <!-- @timeset -->
+      <property name="@timeset" type="list" units="millisecond" default="">
+        <tr lang="en">timeset (&gt;0)</tr>
+        <tr lang="ru" finished="false">Время (&gt;0)</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">starts (on &gt;0) or stops (on &lt;=0) metro</tr>
+          <!-- old: старты (на >0) или остановки (на <=0)
                     метро -->
-                    <tr lang="ru" finished="false">старты (на &gt;0) или остановки (на &lt;=0)
-                    метро</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set timeset</tr>
-                    <tr lang="ru" finished="false">установленное время</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs *bang*</tr>
-                    <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">старты (на &gt;0) или остановки (на &lt;=0) метро</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set timeset</tr>
+          <tr lang="ru" finished="false">установленное время</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs *bang*</tr>
+          <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]                [L]
 |                  |.
@@ -86,7 +85,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

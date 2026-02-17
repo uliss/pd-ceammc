@@ -1,90 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.stutter~">
-        <title>fx.stutter~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">stutter effect</tr>
-                <tr lang="ru">эффект заикания</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx stutter glitch</keywords>
-            <since>0.9.6</since>
-        </meta>
-        <arguments>
-            <argument name="T" type="float" minvalue="1" maxvalue="1000" units="millisecond">
-                <tr lang="en">stutter period</tr>
-                <tr lang="ru" finished="false">период заикания</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @env -->
-            <property name="@env" type="atom">
-                <tr lang="en">stutter envelope</tr>
-                <tr lang="ru" finished="false">заикающийся конверт</tr>
-            </property>
-            <!-- @maxsize -->
-            <property name="@maxsize" type="float" minvalue="1" maxvalue="10000" default="1000"
-            units="millisecond" access="initonly">
-                <tr lang="en">max stutter period</tr>
-                <tr lang="ru" finished="false">максимальный период заикания</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" enum="fwd back tri" default="fwd">
-                <tr lang="en">stutter mode. If 'fwd': play loop fragment forwards, 'back': play
-                loop fragment backwards, 'tri': play loop fragment in both directions</tr>
-                <!-- old: режим заикания. Если «fwd»: фрагмент петли игры
+  <object name="fx.stutter~">
+    <title>fx.stutter~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">stutter effect</tr>
+        <tr lang="ru">эффект заикания</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx stutter glitch</keywords>
+      <since>0.9.6</since>
+    </meta>
+    <arguments>
+      <argument name="T" type="float" minvalue="1" maxvalue="1000" units="millisecond">
+        <tr lang="en">stutter period</tr>
+        <tr lang="ru" finished="false">период заикания</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @env -->
+      <property name="@env" type="atom">
+        <tr lang="en">stutter envelope</tr>
+        <tr lang="ru" finished="false">заикающийся конверт</tr>
+      </property>
+      <!-- @maxsize -->
+      <property name="@maxsize" type="float" minvalue="1" maxvalue="10000" default="1000"
+      units="millisecond" access="initonly">
+        <tr lang="en">max stutter period</tr>
+        <tr lang="ru" finished="false">максимальный период заикания</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" enum="fwd back tri" default="fwd">
+        <tr lang="en">stutter mode. If 'fwd': play loop fragment forwards, 'back': play loop
+        fragment backwards, 'tri': play loop fragment in both directions</tr>
+        <!-- old: режим заикания. Если «fwd»: фрагмент петли игры
                 вперед, «back»: фрагмент петли игры назад, «tri»: фрагмент петли игры в обоих
                 направлениях -->
-                <tr lang="ru" finished="false">режим заикания. Если «fwd»: фрагмент петли игры
-                вперед, «back»: фрагмент петли игры назад, «tri»: фрагмент петли игры в обоих
-                направлениях</tr>
-            </property>
-            <!-- @speed -->
-            <property name="@speed" type="float" minvalue="0.25" maxvalue="4" default="1">
-                <tr lang="en">loop fragment playing speed</tr>
-                <tr lang="ru" finished="false">Фрагмент петли, играющий скорость</tr>
-            </property>
-            <!-- @t -->
-            <property name="@t" type="float" minvalue="1" maxvalue="1000" default="50"
-            units="millisecond">
-                <tr lang="en">stutter period</tr>
-                <tr lang="ru" finished="false">период заикания</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="control">
-                <in on="bang">
-                    <tr lang="en">turn on effect for 3 periods</tr>
-                    <tr lang="ru" finished="false">Включите эффект на 3 периода</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">1: turn on, 0: turn off</tr>
-                    <tr lang="ru" finished="false">1: включить, 0: выключить</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">режим заикания. Если «fwd»: фрагмент петли игры вперед,
+        «back»: фрагмент петли игры назад, «tri»: фрагмент петли игры в обоих направлениях</tr>
+      </property>
+      <!-- @speed -->
+      <property name="@speed" type="float" minvalue="0.25" maxvalue="4" default="1">
+        <tr lang="en">loop fragment playing speed</tr>
+        <tr lang="ru" finished="false">Фрагмент петли, играющий скорость</tr>
+      </property>
+      <!-- @t -->
+      <property name="@t" type="float" minvalue="1" maxvalue="1000" default="50"
+      units="millisecond">
+        <tr lang="en">stutter period</tr>
+        <tr lang="ru" finished="false">период заикания</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="control">
+        <in on="bang">
+          <tr lang="en">turn on effect for 3 periods</tr>
+          <tr lang="ru" finished="false">Включите эффект на 3 периода</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">1: turn on, 0: turn off</tr>
+          <tr lang="ru" finished="false">1: включить, 0: выключить</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open %CEAMMC%/guitar1.wav, 1 #c(
 |
@@ -101,7 +100,7 @@
 [X a:1->c]
 [X b->a]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

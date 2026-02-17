@@ -1,194 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.fill">
-        <title>array.fill</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">fill the array with the single value, pattern or function</tr>
-                <tr lang="ru">заполнение массива одним значением, шаблоном или функцией</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array fill</keywords>
-            <also>
-                <see>array.each</see>
-            </also>
-            <since>0.3</since>
-        </meta>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-            <!-- @redraw -->
-            <property name="@redraw" type="bool" default="1">
-                <tr lang="en">redraw after array change</tr>
-                <tr lang="ru">перерисовать после изменения массива</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- fill -->
-            <method name="fill">
-                <info>
-                    <tr lang="en">fill all array with specified value or pattern</tr>
-                    <tr lang="ru">заполнить весь массив заданным значением или шаблоном</tr>
-                </info>
-                <param name="@from" type="int">
-                    <tr lang="en">fill range begin index. If not specified set to 0.</tr>
-                    <tr lang="ru">индекс начала заполнения. Если не указано, используется 0.</tr>
-                </param>
-                <param name="@to" type="int">
-                    <tr lang="en">fill range end index. Can be negative - to address from array
-                    end. For example: -1 means till last element (not including). If not specified
-                    set to array length.</tr>
-                    <tr lang="ru">конечный индекс заполнения. Может быть отрицательным - для
-                    адресации с конца массива. Например: -1 означает последний элемент (не
-                    включая). Если не указана заполняет массив до конца.</tr>
-                </param>
-                <param name="VAL1" type="float" required="true">
-                    <tr lang="en">value 1</tr>
-                    <tr lang="ru">первое значение</tr>
-                </param>
-                <param name="VAL..." type="float">
-                    <tr lang="en">other values..</tr>
-                    <tr lang="ru">другие значения...</tr>
-                </param>
-            </method>
-            <!-- gauss -->
-            <method name="gauss">
-                <info>
-                    <tr lang="en">fill all array with random value with normal (gauss)
-                    distribution</tr>
-                    <tr lang="ru">заполнить весь массив случайным значением с нормальным
-                    (гауссовым) распределением</tr>
-                </info>
-                <param name="MEAN" type="float" default="0">
-                    <tr lang="en">mean value</tr>
-                    <tr lang="ru">среднее значение</tr>
-                </param>
-                <param name="SIGMA" type="float" default="1" minvalue="0">
-                    <tr lang="en">standard deviation</tr>
-                    <tr lang="ru">стандартное отклонение</tr>
-                </param>
-            </method>
-            <!-- pulse -->
-            <method name="pulse">
-                <info>
-                    <tr lang="en">fill all array with pulse wave</tr>
-                    <tr lang="ru">заполнить весь массив прямоугольной волной</tr>
-                </info>
-                <param name="T" type="float" required="true" minvalue="1" units="sample">
-                    <tr lang="en">wave period</tr>
-                    <tr lang="ru">период волны</tr>
-                </param>
-                <param name="A" type="float" default="1">
-                    <tr lang="en">wave amplitude</tr>
-                    <tr lang="ru">амплитуда волны</tr>
-                </param>
-                <param name="D" type="float" default="0.5" minvalue="0.001" maxvalue="0.999">
-                    <tr lang="en">duty cycle</tr>
-                    <tr lang="ru">процент заполнения</tr>
-                </param>
-            </method>
-            <!-- saw -->
-            <method name="saw">
-                <info>
-                    <tr lang="en">fill all array with saw wave</tr>
-                    <tr lang="ru">заполнить весь массив пилообразной волной</tr>
-                </info>
-                <param name="T" type="float" required="true" minvalue="1" units="sample">
-                    <tr lang="en">wave period</tr>
-                    <tr lang="ru">период волны</tr>
-                </param>
-                <param name="A" type="float" default="1">
-                    <tr lang="en">wave amplitude</tr>
-                    <tr lang="ru">амплитуда волны</tr>
-                </param>
-                <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">
-                    <tr lang="en">wave phase</tr>
-                    <tr lang="ru">фаза волны</tr>
-                </param>
-            </method>
-            <!-- sin -->
-            <method name="sin">
-                <info>
-                    <tr lang="en">fill all array with sine wave</tr>
-                    <tr lang="ru">заполнить весь массив синусоидальной волной</tr>
-                </info>
-                <param name="T" type="float" minvalue="0" required="true" units="sample">
-                    <tr lang="en">wave period. Should be &gt;0</tr>
-                    <tr lang="ru">период волны. Должен быть &gt;0</tr>
-                </param>
-                <param name="A" type="float" default="1">
-                    <tr lang="en">amplitude</tr>
-                    <tr lang="ru">амплитуда</tr>
-                </param>
-                <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">
-                    <tr lang="en">phase in 0...1 range</tr>
-                    <tr lang="ru">фаза в диапазоне 0...1</tr>
-                </param>
-            </method>
-            <!-- tri -->
-            <method name="tri">
-                <info>
-                    <tr lang="en">fill all array with triangle wave</tr>
-                    <tr lang="ru">заполнить весь массив треугольной волной</tr>
-                </info>
-                <param name="T" type="float" required="true" minvalue="1" units="sample">
-                    <tr lang="en">wave period</tr>
-                    <tr lang="ru">период волны</tr>
-                </param>
-                <param name="AMP" type="float" default="1">
-                    <tr lang="en">wave amplitude</tr>
-                    <tr lang="ru">амплитуда волны</tr>
-                </param>
-            </method>
-            <!-- uniform -->
-            <method name="uniform">
-                <info>
-                    <tr lang="en">fill all array with random value with uniform distribution</tr>
-                    <tr lang="ru">заполнить весь массив случайным значением с равномерным
-                    распределением</tr>
-                </info>
-                <param name="A" type="float" default="0">
-                    <tr lang="en">min value</tr>
-                    <tr lang="ru">минимальная значение</tr>
-                </param>
-                <param name="B" type="float" default="1">
-                    <tr lang="en">max value</tr>
-                    <tr lang="ru">максимальное значение</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">set the array name</tr>
-                    <tr lang="ru">установить имя массива</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="bang">
-                    <tr lang="en">on done</tr>
-                    <tr lang="ru">после завершения операции</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.fill">
+    <title>array.fill</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">fill the array with the single value, pattern or function</tr>
+        <tr lang="ru">заполнение массива одним значением, шаблоном или функцией</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array fill</keywords>
+      <also>
+        <see>array.each</see>
+      </also>
+      <since>0.3</since>
+    </meta>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+      <!-- @redraw -->
+      <property name="@redraw" type="bool" default="1">
+        <tr lang="en">redraw after array change</tr>
+        <tr lang="ru">перерисовать после изменения массива</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- fill -->
+      <method name="fill">
+        <info>
+          <tr lang="en">fill all array with specified value or pattern</tr>
+          <tr lang="ru">заполнить весь массив заданным значением или шаблоном</tr>
+        </info>
+        <param name="@from" type="int">
+          <tr lang="en">fill range begin index. If not specified set to 0.</tr>
+          <tr lang="ru">индекс начала заполнения. Если не указано, используется 0.</tr>
+        </param>
+        <param name="@to" type="int">
+          <tr lang="en">fill range end index. Can be negative - to address from array end. For
+          example: -1 means till last element (not including). If not specified set to array
+          length.</tr>
+          <tr lang="ru">конечный индекс заполнения. Может быть отрицательным - для адресации с
+          конца массива. Например: -1 означает последний элемент (не включая). Если не указана
+          заполняет массив до конца.</tr>
+        </param>
+        <param name="VAL1" type="float" required="true">
+          <tr lang="en">value 1</tr>
+          <tr lang="ru">первое значение</tr>
+        </param>
+        <param name="VAL..." type="float">
+          <tr lang="en">other values..</tr>
+          <tr lang="ru">другие значения...</tr>
+        </param>
+      </method>
+      <!-- gauss -->
+      <method name="gauss">
+        <info>
+          <tr lang="en">fill all array with random value with normal (gauss) distribution</tr>
+          <tr lang="ru">заполнить весь массив случайным значением с нормальным (гауссовым)
+          распределением</tr>
+        </info>
+        <param name="MEAN" type="float" default="0">
+          <tr lang="en">mean value</tr>
+          <tr lang="ru">среднее значение</tr>
+        </param>
+        <param name="SIGMA" type="float" default="1" minvalue="0">
+          <tr lang="en">standard deviation</tr>
+          <tr lang="ru">стандартное отклонение</tr>
+        </param>
+      </method>
+      <!-- pulse -->
+      <method name="pulse">
+        <info>
+          <tr lang="en">fill all array with pulse wave</tr>
+          <tr lang="ru">заполнить весь массив прямоугольной волной</tr>
+        </info>
+        <param name="T" type="float" required="true" minvalue="1" units="sample">
+          <tr lang="en">wave period</tr>
+          <tr lang="ru">период волны</tr>
+        </param>
+        <param name="A" type="float" default="1">
+          <tr lang="en">wave amplitude</tr>
+          <tr lang="ru">амплитуда волны</tr>
+        </param>
+        <param name="D" type="float" default="0.5" minvalue="0.001" maxvalue="0.999">
+          <tr lang="en">duty cycle</tr>
+          <tr lang="ru">процент заполнения</tr>
+        </param>
+      </method>
+      <!-- saw -->
+      <method name="saw">
+        <info>
+          <tr lang="en">fill all array with saw wave</tr>
+          <tr lang="ru">заполнить весь массив пилообразной волной</tr>
+        </info>
+        <param name="T" type="float" required="true" minvalue="1" units="sample">
+          <tr lang="en">wave period</tr>
+          <tr lang="ru">период волны</tr>
+        </param>
+        <param name="A" type="float" default="1">
+          <tr lang="en">wave amplitude</tr>
+          <tr lang="ru">амплитуда волны</tr>
+        </param>
+        <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">
+          <tr lang="en">wave phase</tr>
+          <tr lang="ru">фаза волны</tr>
+        </param>
+      </method>
+      <!-- sin -->
+      <method name="sin">
+        <info>
+          <tr lang="en">fill all array with sine wave</tr>
+          <tr lang="ru">заполнить весь массив синусоидальной волной</tr>
+        </info>
+        <param name="T" type="float" minvalue="0" required="true" units="sample">
+          <tr lang="en">wave period. Should be &gt;0</tr>
+          <tr lang="ru">период волны. Должен быть &gt;0</tr>
+        </param>
+        <param name="A" type="float" default="1">
+          <tr lang="en">amplitude</tr>
+          <tr lang="ru">амплитуда</tr>
+        </param>
+        <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">
+          <tr lang="en">phase in 0...1 range</tr>
+          <tr lang="ru">фаза в диапазоне 0...1</tr>
+        </param>
+      </method>
+      <!-- tri -->
+      <method name="tri">
+        <info>
+          <tr lang="en">fill all array with triangle wave</tr>
+          <tr lang="ru">заполнить весь массив треугольной волной</tr>
+        </info>
+        <param name="T" type="float" required="true" minvalue="1" units="sample">
+          <tr lang="en">wave period</tr>
+          <tr lang="ru">период волны</tr>
+        </param>
+        <param name="AMP" type="float" default="1">
+          <tr lang="en">wave amplitude</tr>
+          <tr lang="ru">амплитуда волны</tr>
+        </param>
+      </method>
+      <!-- uniform -->
+      <method name="uniform">
+        <info>
+          <tr lang="en">fill all array with random value with uniform distribution</tr>
+          <tr lang="ru">заполнить весь массив случайным значением с равномерным распределением</tr>
+        </info>
+        <param name="A" type="float" default="0">
+          <tr lang="en">min value</tr>
+          <tr lang="ru">минимальная значение</tr>
+        </param>
+        <param name="B" type="float" default="1">
+          <tr lang="en">max value</tr>
+          <tr lang="ru">максимальное значение</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">set the array name</tr>
+          <tr lang="ru">установить имя массива</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="bang">
+          <tr lang="en">on done</tr>
+          <tr lang="ru">после завершения операции</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [array afill size=300 w=300 h=90]
 
@@ -226,7 +224,7 @@
 [X a9->b]
 [X a10->b]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

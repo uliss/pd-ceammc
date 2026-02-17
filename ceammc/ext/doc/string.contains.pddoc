@@ -1,74 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="string.contains">
-        <title>string.contains</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks if the string contains specified substring</tr>
-                <tr lang="ru">проверяет, содержит ли строка указанную подстроку</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>string</category>
-            <keywords>contains search</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>str.contains</alias>
-            </aliases>
-            <also>
-                <see>str.ends_with</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="SUBJ" type="symbol">
-                <tr lang="en">searched substring</tr>
-                <tr lang="ru">искомая подстрока</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @subj -->
-            <property name="@subj" type="symbol" default="">
-                <tr lang="en">searched substring</tr>
-                <tr lang="ru">искомая подстрока</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="data:string">
-                    <tr lang="en">starts search in input string</tr>
-                    <tr lang="ru">начинает поиск во входной строке</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">starts search in input symbol</tr>
-                    <tr lang="ru">начинает поиск во входном символе</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">search substring</tr>
-                    <tr lang="ru">задает искомую подстроку</tr>
-                </in>
-                <in on="data:string">
-                    <tr lang="en">search substring</tr>
-                    <tr lang="ru">задает искомую подстроку</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="bool">
-                    <tr lang="en">output 1 if input string contains specified substring, otherwise
-                    0</tr>
-                    <tr lang="ru">выводит 1, если входная строка содержит указанную
-                    подстроку, иначе 0</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="string.contains">
+    <title>string.contains</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks if the string contains specified substring</tr>
+        <tr lang="ru">проверяет, содержит ли строка указанную подстроку</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>string</category>
+      <keywords>contains search</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>str.contains</alias>
+      </aliases>
+      <also>
+        <see>str.ends_with</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="SUBJ" type="symbol">
+        <tr lang="en">searched substring</tr>
+        <tr lang="ru">искомая подстрока</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @subj -->
+      <property name="@subj" type="symbol" default="">
+        <tr lang="en">searched substring</tr>
+        <tr lang="ru">искомая подстрока</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="data:string">
+          <tr lang="en">starts search in input string</tr>
+          <tr lang="ru">начинает поиск во входной строке</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">starts search in input symbol</tr>
+          <tr lang="ru">начинает поиск во входном символе</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">search substring</tr>
+          <tr lang="ru">задает искомую подстроку</tr>
+        </in>
+        <in on="data:string">
+          <tr lang="en">search substring</tr>
+          <tr lang="ru">задает искомую подстроку</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="bool">
+          <tr lang="en">output 1 if input string contains specified substring, otherwise 0</tr>
+          <tr lang="ru">выводит 1, если входная строка содержит указанную подстроку, иначе 0</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -80,7 +78,7 @@
 |
 [T]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

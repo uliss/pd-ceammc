@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="tl.transport">
-        <title>tl.transport</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">timeline transport control</tr>
-                <tr lang="ru">управление временной шкалой</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>tl</category>
-            <keywords>timeline transport</keywords>
-            <since>0.1</since>
-            <also>
-                <see view="link">tl.cue</see>
-            </also>
-        </meta>
-        <methods>
-            <!-- cue -->
-            <method name="cue">
-                <info>
-                    <tr lang="en">sets cue index</tr>
-                    <tr lang="ru" finished="false">Устанавливает индекс Cue</tr>
-                </info>
-                <param name="N" type="int" minvalue="0">
-                    <tr lang="en">cue index</tr>
-                    <tr lang="ru" finished="false">индекс сигнала</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control input</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets />
-        <example>
-            <pdascii>
+  <object name="tl.transport">
+    <title>tl.transport</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">timeline transport control</tr>
+        <tr lang="ru">управление временной шкалой</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>tl</category>
+      <keywords>timeline transport</keywords>
+      <since>0.1</since>
+      <also>
+        <see view="link">tl.cue</see>
+      </also>
+    </meta>
+    <methods>
+      <!-- cue -->
+      <method name="cue">
+        <info>
+          <tr lang="en">sets cue index</tr>
+          <tr lang="ru" finished="false">Устанавливает индекс Cue</tr>
+        </info>
+        <param name="N" type="int" minvalue="0">
+          <tr lang="en">cue index</tr>
+          <tr lang="ru" finished="false">индекс сигнала</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control input</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets />
+    <example>
+      <pdascii>
 <![CDATA[
 [tl.cue]           [tl.cue]
 
@@ -53,7 +53,7 @@
 |                                         |
 [tl.transport]                            [B]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

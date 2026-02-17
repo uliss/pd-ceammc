@@ -1,126 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hw.rpi.rotenc">
-        <title>hw.rpi.rotenc</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">rotary encoder for Raspberry Pi</tr>
-                <tr lang="ru">поворотный энкодер для Raspberry Pi</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>hw</category>
-            <keywords>display gpio raspberry rotary encoder</keywords>
-            <since>0.9.8</since>
-        </meta>
-        <properties>
-            <!-- @btn -->
-            <property name="@btn" type="int" default="-1" access="initonly" minvalue="-1"
-            maxvalue="127">
-                <tr lang="en">BTN GPIO pin</tr>
-                <tr lang="ru">пин BTN GPIO</tr>
-            </property>
-            <!-- @clk -->
-            <property name="@clk" type="int" default="-1" access="initonly" minvalue="-1"
-            maxvalue="127">
-                <tr lang="en">CLK GPIO pin</tr>
-                <tr lang="ru">пин CLK GPIO</tr>
-            </property>
-            <!-- @dt -->
-            <property name="@dt" type="int" default="-1" access="initonly" minvalue="-1"
-            maxvalue="127">
-                <tr lang="en">DT GPIO pin</tr>
-                <tr lang="ru">пин DT GPIO</tr>
-            </property>
-            <!-- @init -->
-            <property name="@init" type="float" default="0" access="initonly">
-                <tr lang="en">init encoder value</tr>
-                <tr lang="ru">начальное значение энкодера</tr>
-            </property>
-            <!-- @max -->
-            <property name="@max" type="float" default="100">
-                <tr lang="en">max encoder value</tr>
-                <tr lang="ru">максимальное значение энкодера</tr>
-            </property>
-            <!-- @min -->
-            <property name="@min" type="float" default="-100">
-                <tr lang="en">min encoder value</tr>
-                <tr lang="ru">минимальное значение энкодера</tr>
-            </property>
-            <!-- @step -->
-            <property name="@step" type="float" default="1">
-                <tr lang="en">encoder step</tr>
-                <tr lang="ru">шаг энкодера</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- get -->
-            <method name="get">
-                <info>
-                    <tr lang="en">request current value output</tr>
-                    <tr lang="ru" finished="false">запросить текущую стоимость</tr>
-                </info>
-            </method>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset current value to @init</tr>
-                    <tr lang="ru" finished="false">Сброс текущей стоимости на @init</tr>
-                </info>
-            </method>
-            <!-- set -->
-            <method name="set">
-                <info>
-                    <tr lang="en">set current value without output</tr>
-                    <tr lang="ru" finished="false">Установить текущее значение без выхода</tr>
-                </info>
-                <param name="VAL" type="float" required="true">
-                    <tr lang="en">new value</tr>
-                    <tr lang="ru" finished="false">Новая стоимость</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output current value</tr>
-                    <tr lang="ru" finished="false">текущая стоимость выпуска</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">set current value and output</tr>
-                    <tr lang="ru" finished="false">установить текущую стоимость и выход</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">reset value to @init</tr>
-                    <tr lang="ru" finished="false">Перезагрузить значение @init</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">set current value without output</tr>
-                    <tr lang="ru" finished="false">Установить текущее значение без выхода</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float: current encoder value</tr>
-                    <tr lang="ru" finished="false">Float: текущее значение кодера</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">[dir -1|1( or [btn 1|0( messages</tr>
-                    <tr lang="ru" finished="false">[dir -1 | 1 (или [btn 1 | 0) сообщения]</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="hw.rpi.rotenc">
+    <title>hw.rpi.rotenc</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">rotary encoder for Raspberry Pi</tr>
+        <tr lang="ru">поворотный энкодер для Raspberry Pi</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>hw</category>
+      <keywords>display gpio raspberry rotary encoder</keywords>
+      <since>0.9.8</since>
+    </meta>
+    <properties>
+      <!-- @btn -->
+      <property name="@btn" type="int" default="-1" access="initonly" minvalue="-1" maxvalue="127">
+        <tr lang="en">BTN GPIO pin</tr>
+        <tr lang="ru">пин BTN GPIO</tr>
+      </property>
+      <!-- @clk -->
+      <property name="@clk" type="int" default="-1" access="initonly" minvalue="-1" maxvalue="127">
+        <tr lang="en">CLK GPIO pin</tr>
+        <tr lang="ru">пин CLK GPIO</tr>
+      </property>
+      <!-- @dt -->
+      <property name="@dt" type="int" default="-1" access="initonly" minvalue="-1" maxvalue="127">
+        <tr lang="en">DT GPIO pin</tr>
+        <tr lang="ru">пин DT GPIO</tr>
+      </property>
+      <!-- @init -->
+      <property name="@init" type="float" default="0" access="initonly">
+        <tr lang="en">init encoder value</tr>
+        <tr lang="ru">начальное значение энкодера</tr>
+      </property>
+      <!-- @max -->
+      <property name="@max" type="float" default="100">
+        <tr lang="en">max encoder value</tr>
+        <tr lang="ru">максимальное значение энкодера</tr>
+      </property>
+      <!-- @min -->
+      <property name="@min" type="float" default="-100">
+        <tr lang="en">min encoder value</tr>
+        <tr lang="ru">минимальное значение энкодера</tr>
+      </property>
+      <!-- @step -->
+      <property name="@step" type="float" default="1">
+        <tr lang="en">encoder step</tr>
+        <tr lang="ru">шаг энкодера</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- get -->
+      <method name="get">
+        <info>
+          <tr lang="en">request current value output</tr>
+          <tr lang="ru" finished="false">запросить текущую стоимость</tr>
+        </info>
+      </method>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset current value to @init</tr>
+          <tr lang="ru" finished="false">Сброс текущей стоимости на @init</tr>
+        </info>
+      </method>
+      <!-- set -->
+      <method name="set">
+        <info>
+          <tr lang="en">set current value without output</tr>
+          <tr lang="ru" finished="false">Установить текущее значение без выхода</tr>
+        </info>
+        <param name="VAL" type="float" required="true">
+          <tr lang="en">new value</tr>
+          <tr lang="ru" finished="false">Новая стоимость</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output current value</tr>
+          <tr lang="ru" finished="false">текущая стоимость выпуска</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">set current value and output</tr>
+          <tr lang="ru" finished="false">установить текущую стоимость и выход</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">reset value to @init</tr>
+          <tr lang="ru" finished="false">Перезагрузить значение @init</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">set current value without output</tr>
+          <tr lang="ru" finished="false">Установить текущее значение без выхода</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float: current encoder value</tr>
+          <tr lang="ru" finished="false">Float: текущее значение кодера</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">[dir -1|1( or [btn 1|0( messages</tr>
+          <tr lang="ru" finished="false">[dir -1 | 1 (или [btn 1 | 0) сообщения]</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [@step 0.5 #a(
 
@@ -136,7 +133,7 @@
 [ui.link @url=ceammc://img/conn_rotenc.png @title='Connection_scheme']
 [X a->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

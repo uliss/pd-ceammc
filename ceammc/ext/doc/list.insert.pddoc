@@ -1,83 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.insert">
-        <title>list.insert</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">insert elements into the specified list position</tr>
-                <tr lang="ru">вставляет элементы в указанную позицию в списке</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list insert</keywords>
-            <since>0.6</since>
-            <also>
-                <see>list.append</see>
-                <see>list.prepend</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Works with data atoms</tr>
-                <tr lang="ru" finished="false">Работа с атомами данных</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="VALUE" type="list">
-                <tr lang="en">list content</tr>
-                <tr lang="ru" finished="false">Список контента</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @index -->
-            <property name="@index" type="int" default="0" minvalue="0">
-                <tr lang="en">insert element index</tr>
-                <tr lang="ru" finished="false">вставить элемент индекса</tr>
-            </property>
-            <!-- @value -->
-            <property name="@value" type="list" default="">
-                <tr lang="en">list content</tr>
-                <tr lang="ru" finished="false">Список контента</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set inserted atom or list</tr>
-                    <tr lang="ru" finished="false">Вставленный атом или список</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set insert position</tr>
-                    <tr lang="ru" finished="false">положение вставки</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output result list or mlist</tr>
-                    <tr lang="ru" finished="false">Список конечных результатов или млист</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="list.insert">
+    <title>list.insert</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">insert elements into the specified list position</tr>
+        <tr lang="ru">вставляет элементы в указанную позицию в списке</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list insert</keywords>
+      <since>0.6</since>
+      <also>
+        <see>list.append</see>
+        <see>list.prepend</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Works with data atoms</tr>
+        <tr lang="ru" finished="false">Работа с атомами данных</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="VALUE" type="list">
+        <tr lang="en">list content</tr>
+        <tr lang="ru" finished="false">Список контента</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @index -->
+      <property name="@index" type="int" default="0" minvalue="0">
+        <tr lang="en">insert element index</tr>
+        <tr lang="ru" finished="false">вставить элемент индекса</tr>
+      </property>
+      <!-- @value -->
+      <property name="@value" type="list" default="">
+        <tr lang="en">list content</tr>
+        <tr lang="ru" finished="false">Список контента</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set inserted atom or list</tr>
+          <tr lang="ru" finished="false">Вставленный атом или список</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set insert position</tr>
+          <tr lang="ru" finished="false">положение вставки</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output result list or mlist</tr>
+          <tr lang="ru" finished="false">Список конечных результатов или млист</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2 3 4(
 |
@@ -88,7 +88,7 @@
 |
 [ui.display @display_type 1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

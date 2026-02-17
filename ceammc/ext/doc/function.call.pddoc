@@ -1,64 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="function.call">
-        <title>function.call</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">calls the named function</tr>
-                <tr lang="ru">вызывает именованную функцию</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>base</category>
-            <keywords>function call</keywords>
-            <aliases>
-                <alias>func.call</alias>
-            </aliases>
-            <also>
-                <see view="link">function</see>
-            </also>
-            <since>0.3</since>
-        </meta>
-        <arguments>
-            <argument name="NAME" type="symbol">
-                <tr lang="en">function name</tr>
-                <tr lang="ru" finished="false">название функции</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @name -->
-            <property name="@name" type="symbol" default="">
-                <tr lang="en">function name</tr>
-                <tr lang="ru" finished="false">название функции</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">change function name</tr>
-                    <tr lang="ru" finished="false">Изменение названия функции</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">function result</tr>
-                    <tr lang="ru" finished="false">Функция Результат</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="function.call">
+    <title>function.call</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">calls the named function</tr>
+        <tr lang="ru">вызывает именованную функцию</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>base</category>
+      <keywords>function call</keywords>
+      <aliases>
+        <alias>func.call</alias>
+      </aliases>
+      <also>
+        <see view="link">function</see>
+      </also>
+      <since>0.3</since>
+    </meta>
+    <arguments>
+      <argument name="NAME" type="symbol">
+        <tr lang="en">function name</tr>
+        <tr lang="ru" finished="false">название функции</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @name -->
+      <property name="@name" type="symbol" default="">
+        <tr lang="en">function name</tr>
+        <tr lang="ru" finished="false">название функции</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">change function name</tr>
+          <tr lang="ru" finished="false">Изменение названия функции</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">function result</tr>
+          <tr lang="ru" finished="false">Функция Результат</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [function f1]X[sin]
 
@@ -70,7 +70,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

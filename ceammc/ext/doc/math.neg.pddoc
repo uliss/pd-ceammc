@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.neg">
-        <title>math.neg</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">negate function</tr>
-                <tr lang="ru">отрицательная функция</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math negate</keywords>
-            <since>0.1</since>
-            <aliases>
-                <alias>ceammc/-x</alias>
-                <alias>-x</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Returns value with opposite sign</tr>
-                <tr lang="ru" finished="false">Возврат значения с противоположным знаком</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">list of numbers</tr>
-                    <tr lang="ru" finished="false">Список номеров</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result</tr>
-                    <tr lang="ru" finished="false">результат</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="math.neg">
+    <title>math.neg</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">negate function</tr>
+        <tr lang="ru">отрицательная функция</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math negate</keywords>
+      <since>0.1</since>
+      <aliases>
+        <alias>ceammc/-x</alias>
+        <alias>-x</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Returns value with opposite sign</tr>
+        <tr lang="ru" finished="false">Возврат значения с противоположным знаком</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">list of numbers</tr>
+          <tr lang="ru" finished="false">Список номеров</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result</tr>
+          <tr lang="ru" finished="false">результат</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]  [-2 -1 0 1 2(
 |    |
@@ -55,7 +55,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

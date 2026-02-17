@@ -1,85 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.bits2bang">
-        <title>conv.bits2bang</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert list of bits to bang events</tr>
-                <tr lang="ru">конвертирует список битов в пустые события</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv bits bangs</keywords>
-            <since>0.9.2</since>
-            <aliases>
-                <alias>ceammc/bits-&gt;bang</alias>
-                <alias>bits-&gt;bang</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">in default mode if bit is on - sends bang to corresponding
-                outlet</tr>
-                <!-- old: в режиме по умолчанию, если бит включен - отправляет
+  <object name="conv.bits2bang">
+    <title>conv.bits2bang</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert list of bits to bang events</tr>
+        <tr lang="ru">конвертирует список битов в пустые события</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv bits bangs</keywords>
+      <since>0.9.2</since>
+      <aliases>
+        <alias>ceammc/bits-&gt;bang</alias>
+        <alias>bits-&gt;bang</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">in default mode if bit is on - sends bang to corresponding outlet</tr>
+        <!-- old: в режиме по умолчанию, если бит включен - отправляет
                 удар в соответствующую розетку -->
-                <tr lang="ru" finished="false">в режиме по умолчанию, если бит включен - отправляет
-                удар в соответствующую розетку</tr>
-            </par>
-            <par>
-                <tr lang="en">in @poly mode if bit is on - send list (BIT_IDX bang) to single
-                outlet</tr>
-                <!-- old: в режиме @poly, если бит включен - отправьте список
+        <tr lang="ru" finished="false">в режиме по умолчанию, если бит включен - отправляет удар в
+        соответствующую розетку</tr>
+      </par>
+      <par>
+        <tr lang="en">in @poly mode if bit is on - send list (BIT_IDX bang) to single outlet</tr>
+        <!-- old: в режиме @poly, если бит включен - отправьте список
                 (BIT_IDX bang) в одну точку -->
-                <tr lang="ru" finished="false">в режиме @poly, если бит включен - отправьте список
-                (BIT_IDX bang) в одну точку</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="64">
-                <tr lang="en">number of outlets</tr>
-                <tr lang="ru">количество выходов</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="1" maxvalue="64" default="8"
-            access="initonly">
-                <tr lang="en">number of outlets</tr>
-                <tr lang="ru">количество выходов</tr>
-            </property>
-            <!-- @poly -->
-            <property name="@poly" type="flag" access="initonly">
-                <tr lang="en">polyphonic mode for using with [clone] object</tr>
-                <tr lang="ru">полифонический режим для использования с объектом [clone]</tr>
-            </property>
-            <!-- @rev -->
-            <property name="@rev" type="bool" default="0">
-                <tr lang="en">reversed bit order</tr>
-                <tr lang="ru">обратный порядок битов</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input bit list</tr>
-                    <tr lang="ru" finished="false">Список входных бит</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">в режиме @poly, если бит включен - отправьте список (BIT_IDX
+        bang) в одну точку</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="N" type="int" minvalue="1" maxvalue="64">
+        <tr lang="en">number of outlets</tr>
+        <tr lang="ru">количество выходов</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="1" maxvalue="64" default="8" access="initonly">
+        <tr lang="en">number of outlets</tr>
+        <tr lang="ru">количество выходов</tr>
+      </property>
+      <!-- @poly -->
+      <property name="@poly" type="flag" access="initonly">
+        <tr lang="en">polyphonic mode for using with [clone] object</tr>
+        <tr lang="ru">полифонический режим для использования с объектом [clone]</tr>
+      </property>
+      <!-- @rev -->
+      <property name="@rev" type="bool" default="0">
+        <tr lang="en">reversed bit order</tr>
+        <tr lang="ru">обратный порядок битов</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input bit list</tr>
+          <tr lang="ru" finished="false">Список входных бит</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet>
+        <out type="any">
+          <tr lang="en">output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [random(
 |
@@ -118,8 +115,8 @@
 #c 50 500
 #d 50 500
 ]]>
-            </pdascii>
-            <pdascii id="osc~">
+      </pdascii>
+      <pdascii id="osc~">
 <![CDATA[
 [inlet] [loadbang]
 |       |
@@ -133,7 +130,7 @@
 |
 [outlet~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

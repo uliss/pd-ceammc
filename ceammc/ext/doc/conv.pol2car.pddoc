@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.pol2car">
-        <title>conv.pol2car</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert from polar coordinates to cartesian</tr>
-                <tr lang="ru">преобразование из полярных координат в картезианские</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv polar cartesian</keywords>
-            <since>0.8</since>
-            <also>
-                <see>conv.car2pol</see>
-            </also>
-            <aliases>
-                <alias>ceammc/pol-&gt;car</alias>
-                <alias>pol-&gt;car</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">radius and angle (in radians) pair</tr>
-                    <tr lang="ru" finished="false">радиус и угол (в радианах)</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">x, y coordinates pair</tr>
-                    <tr lang="ru" finished="false">x, y - пара координат</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="conv.pol2car">
+    <title>conv.pol2car</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert from polar coordinates to cartesian</tr>
+        <tr lang="ru">преобразование из полярных координат в картезианские</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv polar cartesian</keywords>
+      <since>0.8</since>
+      <also>
+        <see>conv.car2pol</see>
+      </also>
+      <aliases>
+        <alias>ceammc/pol-&gt;car</alias>
+        <alias>pol-&gt;car</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">radius and angle (in radians) pair</tr>
+          <tr lang="ru" finished="false">радиус и угол (в радианах)</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">x, y coordinates pair</tr>
+          <tr lang="ru" finished="false">x, y - пара координат</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.knob]
 |
@@ -61,7 +61,7 @@
 
 /*.*/
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

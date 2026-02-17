@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.exp2~">
-        <title>math.exp2~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">base-2 exponential for signal</tr>
-                <tr lang="ru">экспоненциальная функция на основе 2 для сигналов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math exp2</keywords>
-            <also>
-                <see>math.log2~</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The exp2() function computes 2**x, the base-2 exponential of x.</tr>
-                <!-- old: Функция exp2() вычисляет 2**x, основание-2
+  <object name="math.exp2~">
+    <title>math.exp2~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">base-2 exponential for signal</tr>
+        <tr lang="ru">экспоненциальная функция на основе 2 для сигналов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math exp2</keywords>
+      <also>
+        <see>math.log2~</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The exp2() function computes 2**x, the base-2 exponential of x.</tr>
+        <!-- old: Функция exp2() вычисляет 2**x, основание-2
                 экспоненциально x. -->
-                <tr lang="ru" finished="false">Функция exp2() вычисляет 2**x, основание-2
-                экспоненциально x.</tr>
-            </par>
-            <par>
-                <tr lang="en">Special values:</tr>
-                <tr lang="ru" finished="false">Особые ценности:</tr>
-            </par>
-            <par>
-                <tr lang="en">exp2(+-0) return 1.</tr>
-                <tr lang="ru" finished="false">exp2(+-0) Return 1.</tr>
-            </par>
-            <par>
-                <tr lang="en">exp2(-infinity) return +0.</tr>
-                <tr lang="ru" finished="false">exp2(-infinity) возврат +0.</tr>
-            </par>
-            <par>
-                <tr lang="en">exp2(+infinity) return +infinity.</tr>
-                <tr lang="ru" finished="false">exp2(+infinity) Возвращение +infinity.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet type="audio">
-                <in on="float">
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Функция exp2() вычисляет 2**x, основание-2 экспоненциально
+        x.</tr>
+      </par>
+      <par>
+        <tr lang="en">Special values:</tr>
+        <tr lang="ru" finished="false">Особые ценности:</tr>
+      </par>
+      <par>
+        <tr lang="en">exp2(+-0) return 1.</tr>
+        <tr lang="ru" finished="false">exp2(+-0) Return 1.</tr>
+      </par>
+      <par>
+        <tr lang="en">exp2(-infinity) return +0.</tr>
+        <tr lang="ru" finished="false">exp2(-infinity) возврат +0.</tr>
+      </par>
+      <par>
+        <tr lang="en">exp2(+infinity) return +infinity.</tr>
+        <tr lang="ru" finished="false">exp2(+infinity) Возвращение +infinity.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet type="audio">
+        <in on="float">
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -86,7 +86,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

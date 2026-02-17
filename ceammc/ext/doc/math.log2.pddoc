@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.log2">
-        <title>math.log2</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">base-2 logarithm</tr>
-                <tr lang="ru">логарифм по основанию 2</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math log2</keywords>
-            <also>
-                <see>math.exp</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The log2() function computes the value of the logarithm of argument x
-                to base 2.</tr>
-                <!-- old: Функция log2() вычисляет значение логарифма
+  <object name="math.log2">
+    <title>math.log2</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">base-2 logarithm</tr>
+        <tr lang="ru">логарифм по основанию 2</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math log2</keywords>
+      <also>
+        <see>math.exp</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The log2() function computes the value of the logarithm of argument x to base
+        2.</tr>
+        <!-- old: Функция log2() вычисляет значение логарифма
                 аргумента x к основанию 2. -->
-                <tr lang="ru" finished="false">Функция log2() вычисляет значение логарифма
-                аргумента x к основанию 2.</tr>
-            </par>
-            <par>
-                <tr lang="en">Special values:</tr>
-                <tr lang="ru" finished="false">Особые ценности:</tr>
-            </par>
-            <par>
-                <tr lang="en">log2(1) return +0.</tr>
-                <tr lang="ru" finished="false">log2(1) возврат +0.</tr>
-            </par>
-            <par>
-                <tr lang="en">log2(+infinity) return +infinity.</tr>
-                <tr lang="ru" finished="false">log2(+infinity) Возвращение +infinity.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">apply to all numeric values</tr>
-                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Функция log2() вычисляет значение логарифма аргумента x к
+        основанию 2.</tr>
+      </par>
+      <par>
+        <tr lang="en">Special values:</tr>
+        <tr lang="ru" finished="false">Особые ценности:</tr>
+      </par>
+      <par>
+        <tr lang="en">log2(1) return +0.</tr>
+        <tr lang="ru" finished="false">log2(1) возврат +0.</tr>
+      </par>
+      <par>
+        <tr lang="en">log2(+infinity) return +infinity.</tr>
+        <tr lang="ru" finished="false">log2(+infinity) Возвращение +infinity.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">apply to all numeric values</tr>
+          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(                  [array LOG2 yr=-4..4 w=320]
 |
@@ -72,7 +72,7 @@
 |
 [list->array LOG2]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

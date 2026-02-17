@@ -1,76 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.each">
-        <title>array.each</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">process each array elements via side-chain</tr>
-                <tr lang="ru">обработка каждого элемента массива через боковую цепь</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array each</keywords>
-            <also>
-                <see>list.each</see>
-            </also>
-            <since>0.3</since>
-        </meta>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-            <!-- @redraw -->
-            <property name="@redraw" type="bool" default="1">
-                <tr lang="en">redraw after array change</tr>
-                <tr lang="ru">перерисовать после изменения массива</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">starts processing</tr>
-                    <tr lang="ru">начинает обработку</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">set the new array, then process each element</tr>
-                    <tr lang="ru">установить новый массив, затем обработать его</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">processed float value from side-chain</tr>
-                    <tr lang="ru">обработанное значение из боковой цепи</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="bang">
-                    <tr lang="en">on iteration done</tr>
-                    <tr lang="ru">при завершении итерации</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="float">
-                    <tr lang="en">array sample value</tr>
-                    <tr lang="ru">значение семпла массива</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.each">
+    <title>array.each</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">process each array elements via side-chain</tr>
+        <tr lang="ru">обработка каждого элемента массива через боковую цепь</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array each</keywords>
+      <also>
+        <see>list.each</see>
+      </also>
+      <since>0.3</since>
+    </meta>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+      <!-- @redraw -->
+      <property name="@redraw" type="bool" default="1">
+        <tr lang="en">redraw after array change</tr>
+        <tr lang="ru">перерисовать после изменения массива</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">starts processing</tr>
+          <tr lang="ru">начинает обработку</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">set the new array, then process each element</tr>
+          <tr lang="ru">установить новый массив, затем обработать его</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">processed float value from side-chain</tr>
+          <tr lang="ru">обработанное значение из боковой цепи</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="bang">
+          <tr lang="en">on iteration done</tr>
+          <tr lang="ru">при завершении итерации</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="float">
+          <tr lang="en">array sample value</tr>
+          <tr lang="ru">значение семпла массива</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]                            [array array1 size=100 w=130 h=100]
 |
@@ -80,7 +80,7 @@
 |
 [s array1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

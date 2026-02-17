@@ -1,67 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.str2sec">
-        <title>conv.str2sec</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts the formatted time to a float value in seconds</tr>
-                <tr lang="ru">преобразует отформатированное время в числовое значение в
-                секундах</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv time</keywords>
-            <also>
-                <see>conv.sec2str</see>
-            </also>
-            <since>0.1</since>
-            <aliases>
-                <alias>ceammc/str-&gt;sec</alias>
-                <alias>str-&gt;sec</alias>
-            </aliases>
-        </meta>
-        <properties>
-            <!-- @on_err -->
-            <property name="@on_err" type="float" default="-1">
-                <tr lang="en">value returned when unrecognized symbol given</tr>
-                <!-- old: значение возвращается, когда непризнанный
+  <object name="conv.str2sec">
+    <title>conv.str2sec</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts the formatted time to a float value in seconds</tr>
+        <tr lang="ru">преобразует отформатированное время в числовое значение в секундах</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv time</keywords>
+      <also>
+        <see>conv.sec2str</see>
+      </also>
+      <since>0.1</since>
+      <aliases>
+        <alias>ceammc/str-&gt;sec</alias>
+        <alias>str-&gt;sec</alias>
+      </aliases>
+    </meta>
+    <properties>
+      <!-- @on_err -->
+      <property name="@on_err" type="float" default="-1">
+        <tr lang="en">value returned when unrecognized symbol given</tr>
+        <!-- old: значение возвращается, когда непризнанный
                 символ -->
-                <!-- old: значение возвращается, когда непризнанный
+        <!-- old: значение возвращается, когда непризнанный
                 символ -->
-                <tr lang="ru" finished="false">значение возвращается, когда непризнанный
-                символ</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">Time in format: "HH:MM::SS[.XXX]"</tr>
-                    <tr lang="ru" finished="false">Время в формате: «HH:MM::SS[.XXX]»</tr>
-                </in>
-                <in on="data">
-                    <tr lang="en">String time in format: "HH:MM::SS[.XXX]"</tr>
-                    <tr lang="ru" finished="false">Время струн в формате: «HH:MM::SS[.XXX]»</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">Time in format: "HH:MM::SS[.XXX]"</tr>
-                    <tr lang="ru" finished="false">Время в формате: «HH:MM::SS[.XXX]»</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">time in seconds</tr>
-                    <tr lang="ru" finished="false">Время в секундах</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">значение возвращается, когда непризнанный символ</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">Time in format: "HH:MM::SS[.XXX]"</tr>
+          <tr lang="ru" finished="false">Время в формате: «HH:MM::SS[.XXX]»</tr>
+        </in>
+        <in on="data">
+          <tr lang="en">String time in format: "HH:MM::SS[.XXX]"</tr>
+          <tr lang="ru" finished="false">Время струн в формате: «HH:MM::SS[.XXX]»</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">Time in format: "HH:MM::SS[.XXX]"</tr>
+          <tr lang="ru" finished="false">Время в формате: «HH:MM::SS[.XXX]»</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">time in seconds</tr>
+          <tr lang="ru" finished="false">Время в секундах</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [0:59(  [2:01( [0:01.5( [1:03:45(
 |       |      |        |
@@ -75,7 +73,7 @@
 |
 [S digits=12]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

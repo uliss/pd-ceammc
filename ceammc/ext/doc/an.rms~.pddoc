@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="an.rms~">
-        <title>an.rms~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">root mean square of the signal with moving-average algorithm</tr>
-                <tr lang="ru">среднее квадратичное сигнала с алгоритмом скользящего среднего</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>an</category>
-            <keywords>rms root mean square</keywords>
-            <since>0.9.1</since>
-        </meta>
-        <arguments>
-            <argument name="PERIOD" type="float" minvalue="1" maxvalue="1000" units="millisecond">
-                <tr lang="en">averaging window period</tr>
-                <tr lang="ru">период окна усреднения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @period -->
-            <property name="@period" type="float" minvalue="1" maxvalue="1000" default="200"
-            units="millisecond">
-                <tr lang="en">averaging window period</tr>
-                <tr lang="ru">период окна усреднения</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">clear averaging data</tr>
-                    <tr lang="ru">сбросить средние данные</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">rms level</tr>
-                    <tr lang="ru">уровень rms</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="an.rms~">
+    <title>an.rms~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">root mean square of the signal with moving-average algorithm</tr>
+        <tr lang="ru">среднее квадратичное сигнала с алгоритмом скользящего среднего</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>an</category>
+      <keywords>rms root mean square</keywords>
+      <since>0.9.1</since>
+    </meta>
+    <arguments>
+      <argument name="PERIOD" type="float" minvalue="1" maxvalue="1000" units="millisecond">
+        <tr lang="en">averaging window period</tr>
+        <tr lang="ru">период окна усреднения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @period -->
+      <property name="@period" type="float" minvalue="1" maxvalue="1000" default="200"
+      units="millisecond">
+        <tr lang="en">averaging window period</tr>
+        <tr lang="ru">период окна усреднения</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">clear averaging data</tr>
+          <tr lang="ru">сбросить средние данные</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">rms level</tr>
+          <tr lang="ru">уровень rms</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [sig~ 1]  [osc~ 440]
 |         |
@@ -73,7 +73,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

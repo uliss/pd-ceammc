@@ -1,74 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.sync_mul">
-        <title>math.sync_mul</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sync multiplication</tr>
-                <tr lang="ru">синхронное умножение</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math mul sync</keywords>
-            <aliases>
-                <alias>math.*'</alias>
-                <alias>ceammc/*'</alias>
-                <alias>*'</alias>
-            </aliases>
-            <since>0.8</since>
-        </meta>
-        <arguments>
-            <argument name="MUL" type="float">
-                <tr lang="en">multiplicand</tr>
-                <tr lang="ru" finished="false">мультипликационный</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @int -->
-            <property name="@int" type="flag" default="0" access="initonly">
-                <tr lang="en">operate on integers only</tr>
-                <tr lang="ru" finished="false">работать только на целых числах</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set multiplier, calculate and output result</tr>
-                    <tr lang="ru" finished="false">множитель, вычисление и выходной результат</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">pair: set multipliers and multiplicand, calculate and output
-                    result</tr>
-                    <!-- old: пара: множество множителей и множитель,
+  <object name="math.sync_mul">
+    <title>math.sync_mul</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sync multiplication</tr>
+        <tr lang="ru">синхронное умножение</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math mul sync</keywords>
+      <aliases>
+        <alias>math.*'</alias>
+        <alias>ceammc/*'</alias>
+        <alias>*'</alias>
+      </aliases>
+      <since>0.8</since>
+    </meta>
+    <arguments>
+      <argument name="MUL" type="float">
+        <tr lang="en">multiplicand</tr>
+        <tr lang="ru" finished="false">мультипликационный</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @int -->
+      <property name="@int" type="flag" default="0" access="initonly">
+        <tr lang="en">operate on integers only</tr>
+        <tr lang="ru" finished="false">работать только на целых числах</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set multiplier, calculate and output result</tr>
+          <tr lang="ru" finished="false">множитель, вычисление и выходной результат</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">pair: set multipliers and multiplicand, calculate and output result</tr>
+          <!-- old: пара: множество множителей и множитель,
                     вычисление и выходной результат -->
-                    <tr lang="ru" finished="false">пара: множество множителей и множитель,
-                    вычисление и выходной результат</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">change multiplicand, calculate and output result</tr>
-                    <!-- old: изменение мультипликатора, вычисление и
+          <tr lang="ru" finished="false">пара: множество множителей и множитель, вычисление и
+          выходной результат</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">change multiplicand, calculate and output result</tr>
+          <!-- old: изменение мультипликатора, вычисление и
                     результат -->
-                    <tr lang="ru" finished="false">изменение мультипликатора, вычисление и
-                    результат</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">multiplication result</tr>
-                    <tr lang="ru" finished="false">результат умножения</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">изменение мультипликатора, вычисление и результат</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">multiplication result</tr>
+          <tr lang="ru" finished="false">результат умножения</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]   [F]   /*same as:*/ [F]  [F]
 |     |                  |    |
@@ -85,7 +83,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

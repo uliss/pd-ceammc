@@ -1,259 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="ui.polar" type="gui">
-        <title>ui.polar</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">2D slider in polar coordinates</tr>
-                <tr lang="ru">2D слайдер в полярных координатах</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">ui</category>
-            <keywords>ui slider polar</keywords>
-            <since>0.8</since>
-            <also>
-                <see view="link">ui.slider2d</see>
-            </also>
-        </meta>
-        <mouse>
-            <event type="left-click" editmode="false">jump to coord under mouse pointer</event>
-            <event type="right-click" editmode="false">opens popup menu for quick settings of
-            position: center, left, right, top, bottom</event>
-            <event type="drag" editmode="false">change slider coords</event>
-            <event type="drag" editmode="false" keys="Alt">change only angle coord</event>
-            <event type="wheel" editmode="false">change only radius coord</event>
-            <event type="wheel" editmode="false" keys="Shift">change precisely radius coord</event>
-        </mouse>
-        <properties>
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_label.xml" />
-            <xi:include href="props_label_align.xml" />
-            <xi:include href="props_label_inner.xml" />
-            <xi:include href="props_label_margins.xml" />
-            <xi:include href="props_label_side.xml" />
-            <xi:include href="props_label_valign.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
-            <xi:include href="props_preset.xml" />
-            <!-- @angle -->
-            <property name="@angle" type="float" default="0">
-                <tr lang="en">angle</tr>
-                <tr lang="ru" finished="false">угол</tr>
-            </property>
-            <!-- @clockwise -->
-            <property name="@clockwise" type="bool" default="1">
-                <tr lang="en">clockwise positive direction</tr>
-                <tr lang="ru" finished="false">по часовой стрелке положительное направление</tr>
-            </property>
-            <!-- @direction -->
-            <property name="@direction" type="symbol" default="N" enum="N W S E">
-                <tr lang="en">zero-angle direction</tr>
-                <tr lang="ru" finished="false">направление нулевого угла</tr>
-            </property>
-            <!-- @mouse_events -->
-            <property name="@mouse_events" type="bool" default="0">
-                <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
-                @mouse_drag events</tr>
-                <tr lang="ru" finished="false">Режим вывода событий мыши. Если на выходе
-                @mouse_down, @mouse_up и @mouse_drag события</tr>
-            </property>
-            <!-- @positive -->
-            <property name="@positive" type="bool" default="0">
-                <tr lang="en">use positive output angle range. For example: [0..360) when using
-                degrees, otherwise using [-180..180) range.</tr>
-                <tr lang="ru" finished="false">Используйте положительный диапазон угла выхода.
-                Например: [0,360] при использовании степеней, в противном случае используется
-                диапазон [-180,180].</tr>
-            </property>
-            <!-- @radians -->
-            <property name="@radians" type="bool" default="0">
-                <tr lang="en">using radians instead of degrees</tr>
-                <tr lang="ru" finished="false">Использование радианов вместо градусов</tr>
-            </property>
-            <!-- @radius -->
-            <property name="@radius" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">radius</tr>
-                <tr lang="ru" finished="false">радиус</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="100 100">
-                <tr lang="en">object size (width, height pair)</tr>
-                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- cartesian -->
-            <method name="cartesian">
-                <info>
-                    <tr lang="en">sets slider position in cartesian coords and output</tr>
-                    <tr lang="ru" finished="false">устанавливает положение ползунка в картезианских
-                    коордах и выходе</tr>
-                </info>
-                <param name="X" type="float" minvalue="-1" maxvalue="1" required="true">
-                    <tr lang="en">x-coord</tr>
-                    <tr lang="ru" finished="false">х-корд</tr>
-                </param>
-                <param name="Y" type="float" minvalue="-1" maxvalue="1" required="true">
-                    <tr lang="en">y-coord</tr>
-                    <tr lang="ru" finished="false">y-coord</tr>
-                </param>
-            </method>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clears specified preset</tr>
-                    <tr lang="ru" finished="false">заданный заранее</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- dump -->
-            <method name="dump">
-                <info>
-                    <tr lang="en">dumps all object info to Pd console window</tr>
-                    <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно
-                    консоли Pd</tr>
-                </info>
-            </method>
-            <!-- interp -->
-            <method name="interp">
-                <info>
-                    <tr lang="en">interplolates between presets</tr>
-                    <tr lang="ru" finished="false">Интерплолаты между предустановленными</tr>
-                </info>
-                <param name="IDX" type="float" required="true">
-                    <tr lang="en">preset fraction index</tr>
-                    <tr lang="ru" finished="false">предустановленный дробный индекс</tr>
-                </param>
-            </method>
-            <!-- load -->
-            <method name="load">
-                <info>
-                    <tr lang="en">loads specified preset</tr>
-                    <tr lang="ru" finished="false">заданный заранее заданный</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- polar -->
-            <method name="polar">
-                <info>
-                    <tr lang="en">sets slider position in polar coords and output</tr>
-                    <tr lang="ru" finished="false">устанавливает положение ползунка в полярных
-                    коордах и выходе</tr>
-                </info>
-                <param name="RAD" type="float" minvalue="0" maxvalue="1" required="true">
-                    <tr lang="en">radius</tr>
-                    <tr lang="ru" finished="false">радиус</tr>
-                </param>
-                <param name="ANG" type="float" required="true">
-                    <tr lang="en">angle in degrees or radians (depends on @use_degrees
-                    property)</tr>
-                    <tr lang="ru" finished="false">угол в градусах или радианах (зависит от
-                    свойства @use_degrees)</tr>
-                </param>
-            </method>
-            <!-- pos -->
-            <method name="pos">
-                <info>
-                    <tr lang="en">set UI element position</tr>
-                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">top left x-coord</tr>
-                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">top right y-coord</tr>
-                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
-                </param>
-            </method>
-            <!-- random -->
-            <method name="random">
-                <info>
-                    <tr lang="en">set to random value and output</tr>
-                    <tr lang="ru" finished="false">Настройка на случайное значение и выход</tr>
-                </info>
-            </method>
-            <!-- rotate -->
-            <method name="rotate">
-                <info>
-                    <tr lang="en">rotate slider by specified angle</tr>
-                    <tr lang="ru" finished="false">вращающийся ползунок с заданным углом</tr>
-                </info>
-                <param name="A" type="float" required="true">
-                    <tr lang="en">angle in degrees or radians (depends on @use_degrees
-                    property)</tr>
-                    <tr lang="ru" finished="false">угол в градусах или радианах (зависит от
-                    свойства @use_degrees)</tr>
-                </param>
-            </method>
-            <!-- set -->
-            <method name="set">
-                <info>
-                    <tr lang="en">sets slider position without output</tr>
-                    <tr lang="ru" finished="false">устанавливает положение ползунка без вывода</tr>
-                </info>
-                <param name="RAD" type="float" minvalue="0" maxvalue="1" required="true">
-                    <tr lang="en">radius</tr>
-                    <tr lang="ru" finished="false">радиус</tr>
-                </param>
-                <param name="ANG" type="float" required="true">
-                    <tr lang="en">angle in degrees or radians (depends on @use_degrees
-                    property)</tr>
-                    <tr lang="ru" finished="false">угол в градусах или радианах (зависит от
-                    свойства @use_degrees)</tr>
-                </param>
-            </method>
-            <!-- store -->
-            <method name="store">
-                <info>
-                    <tr lang="en">stores specified preset</tr>
-                    <tr lang="ru" finished="false">магазины, указанные Preset</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">outputs slider position</tr>
-                    <tr lang="ru" finished="false">выходное положение слайдера</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">sets slider position and outputs it</tr>
-                    <tr lang="ru" finished="false">устанавливает положение слайдера и выводит
-                    его</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list output of two values: RADIUS and ANGLE</tr>
-                    <tr lang="ru" finished="false">Список выходных значений: RADIUS и ANGLE</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="ui.polar" type="gui">
+    <title>ui.polar</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">2D slider in polar coordinates</tr>
+        <tr lang="ru">2D слайдер в полярных координатах</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">ui</category>
+      <keywords>ui slider polar</keywords>
+      <since>0.8</since>
+      <also>
+        <see view="link">ui.slider2d</see>
+      </also>
+    </meta>
+    <mouse>
+      <event type="left-click" editmode="false">jump to coord under mouse pointer</event>
+      <event type="right-click" editmode="false">opens popup menu for quick settings of position:
+      center, left, right, top, bottom</event>
+      <event type="drag" editmode="false">change slider coords</event>
+      <event type="drag" editmode="false" keys="Alt">change only angle coord</event>
+      <event type="wheel" editmode="false">change only radius coord</event>
+      <event type="wheel" editmode="false" keys="Shift">change precisely radius coord</event>
+    </mouse>
+    <properties>
+      <xi:include href="props_background_color.xml" />
+      <xi:include href="props_border_color.xml" />
+      <xi:include href="props_fontname.xml" />
+      <xi:include href="props_fontsize.xml" />
+      <xi:include href="props_fontslant.xml" />
+      <xi:include href="props_fontweight.xml" />
+      <xi:include href="props_label.xml" />
+      <xi:include href="props_label_align.xml" />
+      <xi:include href="props_label_inner.xml" />
+      <xi:include href="props_label_margins.xml" />
+      <xi:include href="props_label_side.xml" />
+      <xi:include href="props_label_valign.xml" />
+      <xi:include href="props_pinned.xml" />
+      <xi:include href="props_ui_receive.xml" />
+      <xi:include href="props_ui_send.xml" />
+      <xi:include href="props_preset.xml" />
+      <!-- @angle -->
+      <property name="@angle" type="float" default="0">
+        <tr lang="en">angle</tr>
+        <tr lang="ru" finished="false">угол</tr>
+      </property>
+      <!-- @clockwise -->
+      <property name="@clockwise" type="bool" default="1">
+        <tr lang="en">clockwise positive direction</tr>
+        <tr lang="ru" finished="false">по часовой стрелке положительное направление</tr>
+      </property>
+      <!-- @direction -->
+      <property name="@direction" type="symbol" default="N" enum="N W S E">
+        <tr lang="en">zero-angle direction</tr>
+        <tr lang="ru" finished="false">направление нулевого угла</tr>
+      </property>
+      <!-- @mouse_events -->
+      <property name="@mouse_events" type="bool" default="0">
+        <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
+        @mouse_drag events</tr>
+        <tr lang="ru" finished="false">Режим вывода событий мыши. Если на выходе @mouse_down,
+        @mouse_up и @mouse_drag события</tr>
+      </property>
+      <!-- @positive -->
+      <property name="@positive" type="bool" default="0">
+        <tr lang="en">use positive output angle range. For example: [0..360) when using degrees,
+        otherwise using [-180..180) range.</tr>
+        <tr lang="ru" finished="false">Используйте положительный диапазон угла выхода. Например:
+        [0,360] при использовании степеней, в противном случае используется диапазон
+        [-180,180].</tr>
+      </property>
+      <!-- @radians -->
+      <property name="@radians" type="bool" default="0">
+        <tr lang="en">using radians instead of degrees</tr>
+        <tr lang="ru" finished="false">Использование радианов вместо градусов</tr>
+      </property>
+      <!-- @radius -->
+      <property name="@radius" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">radius</tr>
+        <tr lang="ru" finished="false">радиус</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="100 100">
+        <tr lang="en">object size (width, height pair)</tr>
+        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- cartesian -->
+      <method name="cartesian">
+        <info>
+          <tr lang="en">sets slider position in cartesian coords and output</tr>
+          <tr lang="ru" finished="false">устанавливает положение ползунка в картезианских коордах и
+          выходе</tr>
+        </info>
+        <param name="X" type="float" minvalue="-1" maxvalue="1" required="true">
+          <tr lang="en">x-coord</tr>
+          <tr lang="ru" finished="false">х-корд</tr>
+        </param>
+        <param name="Y" type="float" minvalue="-1" maxvalue="1" required="true">
+          <tr lang="en">y-coord</tr>
+          <tr lang="ru" finished="false">y-coord</tr>
+        </param>
+      </method>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">clears specified preset</tr>
+          <tr lang="ru" finished="false">заданный заранее</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- dump -->
+      <method name="dump">
+        <info>
+          <tr lang="en">dumps all object info to Pd console window</tr>
+          <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно консоли
+          Pd</tr>
+        </info>
+      </method>
+      <!-- interp -->
+      <method name="interp">
+        <info>
+          <tr lang="en">interplolates between presets</tr>
+          <tr lang="ru" finished="false">Интерплолаты между предустановленными</tr>
+        </info>
+        <param name="IDX" type="float" required="true">
+          <tr lang="en">preset fraction index</tr>
+          <tr lang="ru" finished="false">предустановленный дробный индекс</tr>
+        </param>
+      </method>
+      <!-- load -->
+      <method name="load">
+        <info>
+          <tr lang="en">loads specified preset</tr>
+          <tr lang="ru" finished="false">заданный заранее заданный</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- polar -->
+      <method name="polar">
+        <info>
+          <tr lang="en">sets slider position in polar coords and output</tr>
+          <tr lang="ru" finished="false">устанавливает положение ползунка в полярных коордах и
+          выходе</tr>
+        </info>
+        <param name="RAD" type="float" minvalue="0" maxvalue="1" required="true">
+          <tr lang="en">radius</tr>
+          <tr lang="ru" finished="false">радиус</tr>
+        </param>
+        <param name="ANG" type="float" required="true">
+          <tr lang="en">angle in degrees or radians (depends on @use_degrees property)</tr>
+          <tr lang="ru" finished="false">угол в градусах или радианах (зависит от свойства
+          @use_degrees)</tr>
+        </param>
+      </method>
+      <!-- pos -->
+      <method name="pos">
+        <info>
+          <tr lang="en">set UI element position</tr>
+          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">top left x-coord</tr>
+          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+        </param>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">top right y-coord</tr>
+          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+        </param>
+      </method>
+      <!-- random -->
+      <method name="random">
+        <info>
+          <tr lang="en">set to random value and output</tr>
+          <tr lang="ru" finished="false">Настройка на случайное значение и выход</tr>
+        </info>
+      </method>
+      <!-- rotate -->
+      <method name="rotate">
+        <info>
+          <tr lang="en">rotate slider by specified angle</tr>
+          <tr lang="ru" finished="false">вращающийся ползунок с заданным углом</tr>
+        </info>
+        <param name="A" type="float" required="true">
+          <tr lang="en">angle in degrees or radians (depends on @use_degrees property)</tr>
+          <tr lang="ru" finished="false">угол в градусах или радианах (зависит от свойства
+          @use_degrees)</tr>
+        </param>
+      </method>
+      <!-- set -->
+      <method name="set">
+        <info>
+          <tr lang="en">sets slider position without output</tr>
+          <tr lang="ru" finished="false">устанавливает положение ползунка без вывода</tr>
+        </info>
+        <param name="RAD" type="float" minvalue="0" maxvalue="1" required="true">
+          <tr lang="en">radius</tr>
+          <tr lang="ru" finished="false">радиус</tr>
+        </param>
+        <param name="ANG" type="float" required="true">
+          <tr lang="en">angle in degrees or radians (depends on @use_degrees property)</tr>
+          <tr lang="ru" finished="false">угол в градусах или радианах (зависит от свойства
+          @use_degrees)</tr>
+        </param>
+      </method>
+      <!-- store -->
+      <method name="store">
+        <info>
+          <tr lang="en">stores specified preset</tr>
+          <tr lang="ru" finished="false">магазины, указанные Preset</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">outputs slider position</tr>
+          <tr lang="ru" finished="false">выходное положение слайдера</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">sets slider position and outputs it</tr>
+          <tr lang="ru" finished="false">устанавливает положение слайдера и выводит его</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list output of two values: RADIUS and ANGLE</tr>
+          <tr lang="ru" finished="false">Список выходных значений: RADIUS и ANGLE</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 45( [rotate 45(
 |      |
@@ -267,7 +263,7 @@
 |
 [ui.display @display_type 1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

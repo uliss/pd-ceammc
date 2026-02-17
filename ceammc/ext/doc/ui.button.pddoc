@@ -1,90 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="ui.button" type="gui">
-        <title>ui.button</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">on/off button widget</tr>
-                <tr lang="ru">виджет кнопки c двумя состояниями</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">ui</category>
-            <keywords>ui button</keywords>
-            <since>0.9.2</since>
-            <aliases>
-                <alias view="link">ui.btn</alias>
-            </aliases>
-            <also>
-                <see view="link">ui.toggle</see>
-            </also>
-        </meta>
-        <mouse>
-            <event type="left-click" editmode="false">outputs @on_value on mouse down and
-            @off_value on mouse up</event>
-            <event type="right-click" editmode="false" keys="Shift">open object help</event>
-            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="true">opens Pd popup menu</event>
-            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
-        </mouse>
-        <properties>
-            <xi:include href="props_active_color.xml" />
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
-            <!-- @off_value -->
-            <property name="@off_value" type="float" default="0">
-                <tr lang="en">off value</tr>
-                <tr lang="ru" finished="false">вне стоимости</tr>
-            </property>
-            <!-- @on_value -->
-            <property name="@on_value" type="float" default="1">
-                <tr lang="en">on value</tr>
-                <tr lang="ru" finished="false">на стоимость</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="15 15">
-                <tr lang="en">object size (width, height pair)</tr>
-                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
-            </property>
-        </properties>
-        <methods>
-            <xi:include href="method_dump.xml" />
-            <xi:include href="method_ui_pos.xml" />
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">if *0* given, sets state to unchecked and outputs @off_value. On
-                    any other number sets to checked state and outputs @on_value</tr>
-                    <tr lang="ru" finished="false">Если дано *0*, задает состояние без проверки и
-                    выводит @off_value. На любых других наборах чисел для проверенного состояния и
-                    выходов @on_value</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs @on_value on mouse down and @off_value on mouse up
-                    (default 1 and 0)</tr>
-                    <tr lang="ru" finished="false">выводит @on_value на мышь вниз и @off_value на
-                    мышь вверх (по умолчанию 1 и 0)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="ui.button" type="gui">
+    <title>ui.button</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">on/off button widget</tr>
+        <tr lang="ru">виджет кнопки c двумя состояниями</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">ui</category>
+      <keywords>ui button</keywords>
+      <since>0.9.2</since>
+      <aliases>
+        <alias view="link">ui.btn</alias>
+      </aliases>
+      <also>
+        <see view="link">ui.toggle</see>
+      </also>
+    </meta>
+    <mouse>
+      <event type="left-click" editmode="false">outputs @on_value on mouse down and @off_value on
+      mouse up</event>
+      <event type="right-click" editmode="false" keys="Shift">open object help</event>
+      <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+      <event type="right-click" editmode="true">opens Pd popup menu</event>
+      <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+      <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+    </mouse>
+    <properties>
+      <xi:include href="props_active_color.xml" />
+      <xi:include href="props_background_color.xml" />
+      <xi:include href="props_border_color.xml" />
+      <xi:include href="props_fontname.xml" />
+      <xi:include href="props_fontsize.xml" />
+      <xi:include href="props_fontslant.xml" />
+      <xi:include href="props_fontweight.xml" />
+      <xi:include href="props_pinned.xml" />
+      <xi:include href="props_ui_receive.xml" />
+      <xi:include href="props_ui_send.xml" />
+      <!-- @off_value -->
+      <property name="@off_value" type="float" default="0">
+        <tr lang="en">off value</tr>
+        <tr lang="ru" finished="false">вне стоимости</tr>
+      </property>
+      <!-- @on_value -->
+      <property name="@on_value" type="float" default="1">
+        <tr lang="en">on value</tr>
+        <tr lang="ru" finished="false">на стоимость</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="15 15">
+        <tr lang="en">object size (width, height pair)</tr>
+        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+      </property>
+    </properties>
+    <methods>
+      <xi:include href="method_dump.xml" />
+      <xi:include href="method_ui_pos.xml" />
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">if *0* given, sets state to unchecked and outputs @off_value. On any other
+          number sets to checked state and outputs @on_value</tr>
+          <tr lang="ru" finished="false">Если дано *0*, задает состояние без проверки и выводит
+          @off_value. На любых других наборах чисел для проверенного состояния и выходов
+          @on_value</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs @on_value on mouse down and @off_value on mouse up (default 1 and
+          0)</tr>
+          <tr lang="ru" finished="false">выводит @on_value на мышь вниз и @off_value на мышь вверх
+          (по умолчанию 1 и 0)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.button @size 50 50 @nosave 1]
 |
@@ -92,7 +92,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

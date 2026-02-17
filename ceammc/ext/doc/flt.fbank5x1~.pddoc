@@ -1,164 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.fbank5x1~">
-        <title>flt.fbank5x1~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">5 band one octave Butterworth filterbank</tr>
-                <tr lang="ru">5-полосный банк однооктавных фильтров Баттерворта</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>filter filterbank</keywords>
-            <since>0.9.2</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Split the input signal into a bank of parallel signals, one for each
-                spectral band</tr>
-                <!-- old: Разделите входной сигнал на банк параллельных
+  <object name="flt.fbank5x1~">
+    <title>flt.fbank5x1~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">5 band one octave Butterworth filterbank</tr>
+        <tr lang="ru">5-полосный банк однооктавных фильтров Баттерворта</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>filter filterbank</keywords>
+      <since>0.9.2</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Split the input signal into a bank of parallel signals, one for each spectral
+        band</tr>
+        <!-- old: Разделите входной сигнал на банк параллельных
                 сигналов, по одному для каждой спектральной полосы. -->
-                <tr lang="ru" finished="false">Разделите входной сигнал на банк параллельных
-                сигналов, по одному для каждой спектральной полосы.</tr>
-            </par>
-            <par>
-                <tr lang="en">Contains: lowpass, 3 bandbass and highpass filter</tr>
-                <tr lang="ru" finished="false">Содержит: Lowpass, 3 Bandbass и Highpass фильтр</tr>
-            </par>
-            <par>
-                <tr lang="en">A Filter-Bank is a signal bandsplitter having the property that
-                summing its output signals gives an allpass-filtered version of the filter-bank
-                input signal. A more conventional term for this is an "allpass-complementary filter
-                bank"</tr>
-                <!-- old: Фильтр-банк - это полоса сигнала, обладающая
+        <tr lang="ru" finished="false">Разделите входной сигнал на банк параллельных сигналов, по
+        одному для каждой спектральной полосы.</tr>
+      </par>
+      <par>
+        <tr lang="en">Contains: lowpass, 3 bandbass and highpass filter</tr>
+        <tr lang="ru" finished="false">Содержит: Lowpass, 3 Bandbass и Highpass фильтр</tr>
+      </par>
+      <par>
+        <tr lang="en">A Filter-Bank is a signal bandsplitter having the property that summing its
+        output signals gives an allpass-filtered version of the filter-bank input signal. A more
+        conventional term for this is an "allpass-complementary filter bank"</tr>
+        <!-- old: Фильтр-банк - это полоса сигнала, обладающая
                 свойством, которое суммирование его выходных сигналов дает фильтрованную версию
                 входного сигнала фильтр-банка. Более традиционным термином для этого является «банк
                 фильтров с комплексным комплементарным фильтром». -->
-                <tr lang="ru" finished="false">Фильтр-банк - это полоса сигнала, обладающая
-                свойством, которое суммирование его выходных сигналов дает фильтрованную версию
-                входного сигнала фильтр-банка. Более традиционным термином для этого является «банк
-                фильтров с комплексным комплементарным фильтром».</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="F250" type="float" units="decibel" minvalue="-6" maxvalue="6">
-                <tr lang="en">@f250 property init value</tr>
-                <tr lang="ru" finished="false">@f250 стоимость недвижимости init</tr>
-            </argument>
-            <argument name="F500" type="float" units="decibel" minvalue="-6" maxvalue="6">
-                <tr lang="en">@f500 property init value</tr>
-                <tr lang="ru" finished="false">@f500 Стоимость недвижимости</tr>
-            </argument>
-            <argument name="F1000" type="float" units="decibel" minvalue="-6" maxvalue="6">
-                <tr lang="en">@f1000 property init value</tr>
-                <tr lang="ru" finished="false">@f1000 стоимость недвижимости</tr>
-            </argument>
-            <argument name="F2000" type="float" units="decibel" minvalue="-6" maxvalue="6">
-                <tr lang="en">@f2000 property init value</tr>
-                <tr lang="ru" finished="false">@f2000 Стоимость недвижимости</tr>
-            </argument>
-            <argument name="F4000" type="float" units="decibel" minvalue="-6" maxvalue="6">
-                <tr lang="en">@f4000 property init value</tr>
-                <tr lang="ru" finished="false">@f4000 стоимость недвижимости</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @f1000 -->
-            <property name="@f1000" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">
-                <tr lang="en">third filter (bandpass) gain at 1000Hz</tr>
-                <tr lang="ru" finished="false">Третий фильтр (диапазон пропускания) на 1000 Гц</tr>
-            </property>
-            <!-- @f2000 -->
-            <property name="@f2000" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">
-                <tr lang="en">fourth filter (bandpass) gain at 2000Hz</tr>
-                <!-- old: Четвертый фильтр (диапазон пропускания) на частоте
+        <tr lang="ru" finished="false">Фильтр-банк - это полоса сигнала, обладающая свойством,
+        которое суммирование его выходных сигналов дает фильтрованную версию входного сигнала
+        фильтр-банка. Более традиционным термином для этого является «банк фильтров с комплексным
+        комплементарным фильтром».</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="F250" type="float" units="decibel" minvalue="-6" maxvalue="6">
+        <tr lang="en">@f250 property init value</tr>
+        <tr lang="ru" finished="false">@f250 стоимость недвижимости init</tr>
+      </argument>
+      <argument name="F500" type="float" units="decibel" minvalue="-6" maxvalue="6">
+        <tr lang="en">@f500 property init value</tr>
+        <tr lang="ru" finished="false">@f500 Стоимость недвижимости</tr>
+      </argument>
+      <argument name="F1000" type="float" units="decibel" minvalue="-6" maxvalue="6">
+        <tr lang="en">@f1000 property init value</tr>
+        <tr lang="ru" finished="false">@f1000 стоимость недвижимости</tr>
+      </argument>
+      <argument name="F2000" type="float" units="decibel" minvalue="-6" maxvalue="6">
+        <tr lang="en">@f2000 property init value</tr>
+        <tr lang="ru" finished="false">@f2000 Стоимость недвижимости</tr>
+      </argument>
+      <argument name="F4000" type="float" units="decibel" minvalue="-6" maxvalue="6">
+        <tr lang="en">@f4000 property init value</tr>
+        <tr lang="ru" finished="false">@f4000 стоимость недвижимости</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @f1000 -->
+      <property name="@f1000" type="float" minvalue="-6" maxvalue="6" default="0" units="decibel">
+        <tr lang="en">third filter (bandpass) gain at 1000Hz</tr>
+        <tr lang="ru" finished="false">Третий фильтр (диапазон пропускания) на 1000 Гц</tr>
+      </property>
+      <!-- @f2000 -->
+      <property name="@f2000" type="float" minvalue="-6" maxvalue="6" default="0" units="decibel">
+        <tr lang="en">fourth filter (bandpass) gain at 2000Hz</tr>
+        <!-- old: Четвертый фильтр (диапазон пропускания) на частоте
                 2000 Гц -->
-                <tr lang="ru" finished="false">Четвертый фильтр (диапазон пропускания) на частоте
-                2000 Гц</tr>
-            </property>
-            <!-- @f250 -->
-            <property name="@f250" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">
-                <tr lang="en">first filter (lowpass) gain at 250Hz</tr>
-                <tr lang="ru" finished="false">Первый фильтр (lowpass) на 250 Гц</tr>
-            </property>
-            <!-- @f4000 -->
-            <property name="@f4000" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">
-                <tr lang="en">fifth filter (highpass) gain at 4000Hz</tr>
-                <tr lang="ru" finished="false">Пятый фильтр (highpass) на 4000 Гц</tr>
-            </property>
-            <!-- @f500 -->
-            <property name="@f500" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">
-                <tr lang="en">second filter (bandpass) gain at 500Hz</tr>
-                <tr lang="ru" finished="false">второй фильтр (диапазон пропускания) на 500 Гц</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset filter state</tr>
-                    <tr lang="ru" finished="false">состояние фильтра сброса</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">5 element list of db gains</tr>
-                    <tr lang="ru" finished="false">5 Элементный список прироста db</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">lpf: 250Hz</tr>
-                    <tr lang="ru" finished="false">lpf: 250 Гц</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">bpf: 500Hz</tr>
-                    <tr lang="ru" finished="false">bpf: 500 Гц</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">bpf: 1000Hz</tr>
-                    <tr lang="ru" finished="false">bpf: 1000 Гц</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">bpf: 2000Hz</tr>
-                    <tr lang="ru" finished="false">bpf: 2000Hz</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">hpf: 4000Hz</tr>
-                    <tr lang="ru" finished="false">hpf: 4000 Гц</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Четвертый фильтр (диапазон пропускания) на частоте 2000
+        Гц</tr>
+      </property>
+      <!-- @f250 -->
+      <property name="@f250" type="float" minvalue="-6" maxvalue="6" default="0" units="decibel">
+        <tr lang="en">first filter (lowpass) gain at 250Hz</tr>
+        <tr lang="ru" finished="false">Первый фильтр (lowpass) на 250 Гц</tr>
+      </property>
+      <!-- @f4000 -->
+      <property name="@f4000" type="float" minvalue="-6" maxvalue="6" default="0" units="decibel">
+        <tr lang="en">fifth filter (highpass) gain at 4000Hz</tr>
+        <tr lang="ru" finished="false">Пятый фильтр (highpass) на 4000 Гц</tr>
+      </property>
+      <!-- @f500 -->
+      <property name="@f500" type="float" minvalue="-6" maxvalue="6" default="0" units="decibel">
+        <tr lang="en">second filter (bandpass) gain at 500Hz</tr>
+        <tr lang="ru" finished="false">второй фильтр (диапазон пропускания) на 500 Гц</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset filter state</tr>
+          <tr lang="ru" finished="false">состояние фильтра сброса</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">5 element list of db gains</tr>
+          <tr lang="ru" finished="false">5 Элементный список прироста db</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">lpf: 250Hz</tr>
+          <tr lang="ru" finished="false">lpf: 250 Гц</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">bpf: 500Hz</tr>
+          <tr lang="ru" finished="false">bpf: 500 Гц</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">bpf: 1000Hz</tr>
+          <tr lang="ru" finished="false">bpf: 1000 Гц</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">bpf: 2000Hz</tr>
+          <tr lang="ru" finished="false">bpf: 2000Hz</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">hpf: 4000Hz</tr>
+          <tr lang="ru" finished="false">hpf: 4000 Гц</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang #a(          [msg.onload fill 0]
 |                  |
@@ -186,7 +180,7 @@
 [X a->b:1]
 [X c->d]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,74 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.tan">
-        <title>math.tan</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">tangent function</tr>
-                <tr lang="ru">тангенс</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math tan</keywords>
-            <also>
-                <see>math.acos</see>
-                <see>math.asin</see>
-                <see>math.atan</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The tan() function computes the tangent of x (measured in
-                radians).</tr>
-                <!-- old: Функция tan() вычисляет тангенс x (измеряется в
+  <object name="math.tan">
+    <title>math.tan</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">tangent function</tr>
+        <tr lang="ru">тангенс</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math tan</keywords>
+      <also>
+        <see>math.acos</see>
+        <see>math.asin</see>
+        <see>math.atan</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The tan() function computes the tangent of x (measured in radians).</tr>
+        <!-- old: Функция tan() вычисляет тангенс x (измеряется в
                 радианах). -->
-                <tr lang="ru" finished="false">Функция tan() вычисляет тангенс x (измеряется в
-                радианах).</tr>
-            </par>
-            <par>
-                <tr lang="en">Special values:</tr>
-                <tr lang="ru" finished="false">Особые ценности:</tr>
-            </par>
-            <par>
-                <tr lang="en">tan(+-0) returns +-0.</tr>
-                <tr lang="ru" finished="false">tan(+-0) возвращается +-0.</tr>
-            </par>
-            <par>
-                <tr lang="en">tan(+-infinity) returns a NaN and raises the "invalid" floating-point
-                exception.</tr>
-                <!-- old: Загар (+-бесконечность) возвращает NaN и поднимает
+        <tr lang="ru" finished="false">Функция tan() вычисляет тангенс x (измеряется в
+        радианах).</tr>
+      </par>
+      <par>
+        <tr lang="en">Special values:</tr>
+        <tr lang="ru" finished="false">Особые ценности:</tr>
+      </par>
+      <par>
+        <tr lang="en">tan(+-0) returns +-0.</tr>
+        <tr lang="ru" finished="false">tan(+-0) возвращается +-0.</tr>
+      </par>
+      <par>
+        <tr lang="en">tan(+-infinity) returns a NaN and raises the "invalid" floating-point
+        exception.</tr>
+        <!-- old: Загар (+-бесконечность) возвращает NaN и поднимает
                 «недействительное» исключение из плавающей точки. -->
-                <tr lang="ru" finished="false">Загар (+-бесконечность) возвращает NaN и поднимает
-                «недействительное» исключение из плавающей точки.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">apply to all numeric values</tr>
-                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Загар (+-бесконечность) возвращает NaN и поднимает
+        «недействительное» исключение из плавающей точки.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">apply to all numeric values</tr>
+          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]
 |
@@ -76,7 +75,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

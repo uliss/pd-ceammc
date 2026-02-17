@@ -1,78 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="patch.props">
-        <title>patch.props</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">get or set the patch properties</tr>
-                <tr lang="ru">получение или установка свойств патча</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>property</category>
-            <keywords>property</keywords>
-            <since>0.7</since>
-            <also>
-                <see>prop.declare</see>
-                <see>prop</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Property should be declared with [prop.declare]</tr>
-                <!-- old: Имущество должно быть объявлено с
+  <object name="patch.props">
+    <title>patch.props</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">get or set the patch properties</tr>
+        <tr lang="ru">получение или установка свойств патча</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>property</category>
+      <keywords>property</keywords>
+      <since>0.7</since>
+      <also>
+        <see>prop.declare</see>
+        <see>prop</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Property should be declared with [prop.declare]</tr>
+        <!-- old: Имущество должно быть объявлено с
                 [prop.declare] -->
-                <tr lang="ru" finished="false">Имущество должно быть объявлено с
-                [prop.declare]</tr>
-            </par>
+        <tr lang="ru" finished="false">Имущество должно быть объявлено с [prop.declare]</tr>
+      </par>
+    </info>
+    <methods>
+      <!-- @*? -->
+      <method name="@*?">
+        <info>
+          <tr lang="en">output all patch properties as list</tr>
+          <tr lang="ru" finished="false">Выведите все свойства патча в список</tr>
         </info>
-        <methods>
-            <!-- @*? -->
-            <method name="@*?">
-                <info>
-                    <tr lang="en">output all patch properties as list</tr>
-                    <tr lang="ru" finished="false">Выведите все свойства патча в список</tr>
-                </info>
-            </method>
-            <!-- default -->
-            <method name="default">
-                <info>
-                    <tr lang="en">reset all props to default value and output</tr>
-                    <!-- old: Сбросить все реквизиты до значения по умолчанию
+      </method>
+      <!-- default -->
+      <method name="default">
+        <info>
+          <tr lang="en">reset all props to default value and output</tr>
+          <!-- old: Сбросить все реквизиты до значения по умолчанию
                     и выхода -->
-                    <tr lang="ru" finished="false">Сбросить все реквизиты до значения по умолчанию
-                    и выхода</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output all properties in [prop] objects</tr>
-                    <tr lang="ru" finished="false">Вывод всех свойств в [prop] объектах</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">get/set property value and output it</tr>
-                    <!-- old: получить/установить стоимость имущества и
+          <tr lang="ru" finished="false">Сбросить все реквизиты до значения по умолчанию и
+          выхода</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output all properties in [prop] objects</tr>
+          <tr lang="ru" finished="false">Вывод всех свойств в [prop] объектах</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">get/set property value and output it</tr>
+          <!-- old: получить/установить стоимость имущества и
                     выпустить его -->
-                    <tr lang="ru" finished="false">получить/установить стоимость имущества и
-                    выпустить его</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output value</tr>
-                    <tr lang="ru" finished="false">выходная стоимость</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">получить/установить стоимость имущества и выпустить
+          его</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output value</tr>
+          <tr lang="ru" finished="false">выходная стоимость</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [prop.declare freq @min 20 @max 20000 @default 1000]
 
@@ -90,7 +89,7 @@
 |            |
 [F]          [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

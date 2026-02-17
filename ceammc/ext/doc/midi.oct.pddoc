@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.oct">
-        <title>midi.oct</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">MIDI octave transposition</tr>
-                <tr lang="ru">октавная MIDI транспозиция</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi octave transpose</keywords>
-            <since>0.9.2</since>
-        </meta>
-        <arguments>
-            <argument name="OCT" type="int" minvalue="-11" maxvalue="11">
-                <tr lang="en">octave transposition</tr>
-                <tr lang="ru" finished="false">октавная транспозиция</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" default="transpose" enum="transpose set">
-                <tr lang="en">octave mode</tr>
-                <tr lang="ru" finished="false">октавный режим</tr>
-            </property>
-            <!-- @oct -->
-            <property name="@oct" type="int" minvalue="-11" maxvalue="11" default="0">
-                <tr lang="en">octave transposition</tr>
-                <tr lang="ru" finished="false">октавная транспозиция</tr>
-            </property>
-            <!-- @random -->
-            <property name="@random" type="list" default="">
-                <tr lang="en">random octave range. Arguments are: MIN MAX.</tr>
-                <tr lang="ru" finished="false">случайный диапазон октав. Аргументы: Мин Макс.</tr>
-            </property>
-            <!-- @set -->
-            <property name="@set" type="alias">
-                <tr lang="en">alias to @mode set</tr>
-                <tr lang="ru" finished="false">Оригинальное название: @mode set</tr>
-            </property>
-            <!-- @transpose -->
-            <property name="@transpose" type="alias">
-                <tr lang="en">alias to @mode transpose</tr>
-                <tr lang="ru" finished="false">Оригинальное название: @mode transpose</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">note value</tr>
-                    <tr lang="ru" finished="false">примечание</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">NOTE VELOCITY [DUR] list</tr>
-                    <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set @oct value</tr>
-                    <tr lang="ru" finished="false">значение @oct</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">transposed NOTE VELOCITY [DUR] list</tr>
-                    <tr lang="ru" finished="false">Перечень ПРИМЕЧАНИЯ ВЕЛИЧНОСТИ [ДУР]</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="midi.oct">
+    <title>midi.oct</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">MIDI octave transposition</tr>
+        <tr lang="ru">октавная MIDI транспозиция</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi octave transpose</keywords>
+      <since>0.9.2</since>
+    </meta>
+    <arguments>
+      <argument name="OCT" type="int" minvalue="-11" maxvalue="11">
+        <tr lang="en">octave transposition</tr>
+        <tr lang="ru" finished="false">октавная транспозиция</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" default="transpose" enum="transpose set">
+        <tr lang="en">octave mode</tr>
+        <tr lang="ru" finished="false">октавный режим</tr>
+      </property>
+      <!-- @oct -->
+      <property name="@oct" type="int" minvalue="-11" maxvalue="11" default="0">
+        <tr lang="en">octave transposition</tr>
+        <tr lang="ru" finished="false">октавная транспозиция</tr>
+      </property>
+      <!-- @random -->
+      <property name="@random" type="list" default="">
+        <tr lang="en">random octave range. Arguments are: MIN MAX.</tr>
+        <tr lang="ru" finished="false">случайный диапазон октав. Аргументы: Мин Макс.</tr>
+      </property>
+      <!-- @set -->
+      <property name="@set" type="alias">
+        <tr lang="en">alias to @mode set</tr>
+        <tr lang="ru" finished="false">Оригинальное название: @mode set</tr>
+      </property>
+      <!-- @transpose -->
+      <property name="@transpose" type="alias">
+        <tr lang="en">alias to @mode transpose</tr>
+        <tr lang="ru" finished="false">Оригинальное название: @mode transpose</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">note value</tr>
+          <tr lang="ru" finished="false">примечание</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">NOTE VELOCITY [DUR] list</tr>
+          <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set @oct value</tr>
+          <tr lang="ru" finished="false">значение @oct</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">transposed NOTE VELOCITY [DUR] list</tr>
+          <tr lang="ru" finished="false">Перечень ПРИМЕЧАНИЯ ВЕЛИЧНОСТИ [ДУР]</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |
@@ -94,7 +94,7 @@
 *|*
 [midiout]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,73 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.asinh">
-        <title>math.asinh</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">inverse hyperbolic sine function</tr>
-                <tr lang="ru">обратный гиперболический синус</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math asinh</keywords>
-            <also>
-                <see>math.acosh</see>
-                <see>math.atanh</see>
-                <see>math.exp</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The asinh() function computes the inverse hyperbolic sine of the real
-                argument</tr>
-                <!-- old: Функция asinh() вычисляет обратный гиперболический
+  <object name="math.asinh">
+    <title>math.asinh</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">inverse hyperbolic sine function</tr>
+        <tr lang="ru">обратный гиперболический синус</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math asinh</keywords>
+      <also>
+        <see>math.acosh</see>
+        <see>math.atanh</see>
+        <see>math.exp</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The asinh() function computes the inverse hyperbolic sine of the real
+        argument</tr>
+        <!-- old: Функция asinh() вычисляет обратный гиперболический
                 синус реального аргумента. -->
-                <tr lang="ru" finished="false">Функция asinh() вычисляет обратный гиперболический
-                синус реального аргумента.</tr>
-            </par>
-            <par>
-                <tr lang="en">Special values:</tr>
-                <tr lang="ru" finished="false">Особые ценности:</tr>
-            </par>
-            <par>
-                <tr lang="en">asinh(+-0) returns +-0.</tr>
-                <tr lang="ru" finished="false">Asinh (+-0) возвращается +-0.</tr>
-            </par>
-            <par>
-                <tr lang="en">asinh(+-infinity) returns +-infinity.</tr>
-                <!-- old: Асинх (+-бесконечность) возвращает
+        <tr lang="ru" finished="false">Функция asinh() вычисляет обратный гиперболический синус
+        реального аргумента.</tr>
+      </par>
+      <par>
+        <tr lang="en">Special values:</tr>
+        <tr lang="ru" finished="false">Особые ценности:</tr>
+      </par>
+      <par>
+        <tr lang="en">asinh(+-0) returns +-0.</tr>
+        <tr lang="ru" finished="false">Asinh (+-0) возвращается +-0.</tr>
+      </par>
+      <par>
+        <tr lang="en">asinh(+-infinity) returns +-infinity.</tr>
+        <!-- old: Асинх (+-бесконечность) возвращает
                 +-бесконечность. -->
-                <tr lang="ru" finished="false">Асинх (+-бесконечность) возвращает
-                +-бесконечность.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">apply to all numeric values</tr>
-                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Асинх (+-бесконечность) возвращает +-бесконечность.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">apply to all numeric values</tr>
+          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]
 |
@@ -75,7 +74,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

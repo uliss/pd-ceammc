@@ -1,91 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.sync_mod">
-        <title>math.sync_mod</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sync remainder of modulo division (float or integer)</tr>
-                <tr lang="ru">синхронный остаток от деления по модулю (с плавающей точкой или
-                целое)</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math modulo sync</keywords>
-            <aliases>
-                <alias>math.%'</alias>
-                <alias>ceammc/%'</alias>
-                <alias>%'</alias>
-            </aliases>
-            <since>0.8</since>
-            <also>
-                <see>math.sync_div</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">on division by zero outputs nothing: just put error message into
-                console</tr>
-                <!-- old: на деление на ноль ничего не выводит: просто
+  <object name="math.sync_mod">
+    <title>math.sync_mod</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sync remainder of modulo division (float or integer)</tr>
+        <tr lang="ru">синхронный остаток от деления по модулю (с плавающей точкой или целое)</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math modulo sync</keywords>
+      <aliases>
+        <alias>math.%'</alias>
+        <alias>ceammc/%'</alias>
+        <alias>%'</alias>
+      </aliases>
+      <since>0.8</since>
+      <also>
+        <see>math.sync_div</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">on division by zero outputs nothing: just put error message into console</tr>
+        <!-- old: на деление на ноль ничего не выводит: просто
                 поместите сообщение об ошибке в консоль -->
-                <tr lang="ru" finished="false">на деление на ноль ничего не выводит: просто
-                поместите сообщение об ошибке в консоль</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="DIV" type="float">
-                <tr lang="en">modulo divisor</tr>
-                <tr lang="ru" finished="false">модульный делитель</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @int -->
-            <property name="@int" type="flag" default="0" access="initonly">
-                <tr lang="en">operate on integers only</tr>
-                <tr lang="ru" finished="false">работать только на целых числах</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set modulo divident, calculate and output remainder</tr>
-                    <!-- old: установить модульный делитель, рассчитать и
+        <tr lang="ru" finished="false">на деление на ноль ничего не выводит: просто поместите
+        сообщение об ошибке в консоль</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="DIV" type="float">
+        <tr lang="en">modulo divisor</tr>
+        <tr lang="ru" finished="false">модульный делитель</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @int -->
+      <property name="@int" type="flag" default="0" access="initonly">
+        <tr lang="en">operate on integers only</tr>
+        <tr lang="ru" finished="false">работать только на целых числах</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set modulo divident, calculate and output remainder</tr>
+          <!-- old: установить модульный делитель, рассчитать и
                     вывести остаток -->
-                    <tr lang="ru" finished="false">установить модульный делитель, рассчитать и
-                    вывести остаток</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">pair: set modulo divident and divisor, calculate and output
-                    remainder</tr>
-                    <!-- old: пара: установить модульный делитель и делитель,
+          <tr lang="ru" finished="false">установить модульный делитель, рассчитать и вывести
+          остаток</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">pair: set modulo divident and divisor, calculate and output remainder</tr>
+          <!-- old: пара: установить модульный делитель и делитель,
                     рассчитать и вывести остаток -->
-                    <tr lang="ru" finished="false">пара: установить модульный делитель и делитель,
-                    рассчитать и вывести остаток</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">change divisor, calculate and output result</tr>
-                    <!-- old: изменение делителя, вычисление и выходной
+          <tr lang="ru" finished="false">пара: установить модульный делитель и делитель, рассчитать
+          и вывести остаток</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">change divisor, calculate and output result</tr>
+          <!-- old: изменение делителя, вычисление и выходной
                     результат -->
-                    <tr lang="ru" finished="false">изменение делителя, вычисление и выходной
-                    результат</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">remainder signed as first number</tr>
-                    <tr lang="ru" finished="false">Остаток подписан первым номером</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">изменение делителя, вычисление и выходной результат</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">remainder signed as first number</tr>
+          <tr lang="ru" finished="false">Остаток подписан первым номером</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]   [F]   /*same as:*/ [F]  [F]
 |     |                  |    |
@@ -102,7 +98,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

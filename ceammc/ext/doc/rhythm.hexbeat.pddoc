@@ -1,72 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="rhythm.hexbeat">
-        <title>rhythm.hexbeat</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">hexbeat pattern generator</tr>
-                <tr lang="ru">генератор ритмического паттерна по шестнадцатиричным значениям</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>music</category>
-            <keywords>conv rhythm hexbeat</keywords>
-            <since>0.9.7</since>
-        </meta>
-        <arguments>
-            <argument name="HEX" type="symbol">
-                <tr lang="en">init pattern value</tr>
-                <tr lang="ru" finished="false">значение шаблона init</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @hex -->
-            <property name="@hex" type="symbol" default="">
-                <tr lang="en">hex pattern</tr>
-                <tr lang="ru" finished="false">хекс-паттерн</tr>
-            </property>
-            <!-- @pattern -->
-            <property name="@pattern" type="list" default="" access="readonly">
-                <tr lang="en">list pattern</tr>
-                <tr lang="ru" finished="false">шаблон списка</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output last pattern</tr>
-                    <tr lang="ru" finished="false">выходной последний шаблон</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">set new pattern and output</tr>
-                    <tr lang="ru" finished="false">установить новый шаблон и выход</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">output enumerated patterns for each list argument</tr>
-                    <tr lang="ru" finished="false">Перечисленные шаблоны для каждого аргумента
-                    списка</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">set new pattern</tr>
-                    <tr lang="ru" finished="false">Установить новый шаблон</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list output</tr>
-                    <tr lang="ru" finished="false">перечень мероприятий</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="rhythm.hexbeat">
+    <title>rhythm.hexbeat</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">hexbeat pattern generator</tr>
+        <tr lang="ru">генератор ритмического паттерна по шестнадцатиричным значениям</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>music</category>
+      <keywords>conv rhythm hexbeat</keywords>
+      <since>0.9.7</since>
+    </meta>
+    <arguments>
+      <argument name="HEX" type="symbol">
+        <tr lang="en">init pattern value</tr>
+        <tr lang="ru" finished="false">значение шаблона init</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @hex -->
+      <property name="@hex" type="symbol" default="">
+        <tr lang="en">hex pattern</tr>
+        <tr lang="ru" finished="false">хекс-паттерн</tr>
+      </property>
+      <!-- @pattern -->
+      <property name="@pattern" type="list" default="" access="readonly">
+        <tr lang="en">list pattern</tr>
+        <tr lang="ru" finished="false">шаблон списка</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output last pattern</tr>
+          <tr lang="ru" finished="false">выходной последний шаблон</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">set new pattern and output</tr>
+          <tr lang="ru" finished="false">установить новый шаблон и выход</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">output enumerated patterns for each list argument</tr>
+          <tr lang="ru" finished="false">Перечисленные шаблоны для каждого аргумента списка</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">set new pattern</tr>
+          <tr lang="ru" finished="false">Установить новый шаблон</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list output</tr>
+          <tr lang="ru" finished="false">перечень мероприятий</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B] [symbol \#CEA4(             [T]
 |   |                           |
@@ -86,8 +85,8 @@
 
 [rhythm.hexbeat-list]
 ]]>
-            </pdascii>
-            <pdascii id="list">
+      </pdascii>
+      <pdascii id="list">
 <![CDATA[
 [list \#1 \#2 \#4 \#8(
 |
@@ -97,7 +96,7 @@
 |
 [ui.matrix 4 4]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

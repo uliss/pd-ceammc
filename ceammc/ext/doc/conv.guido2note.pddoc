@@ -1,73 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.guido2note">
-        <title>conv.guido2note</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert the Guido notation into a MIDI pitch and duration</tr>
-                <tr lang="ru">конвертер из Guido-нотации в MIDI ноту и длительность</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv guido midi</keywords>
-            <since>0.9.8</since>
-            <also>
-                <see>conv.note2guido</see>
-            </also>
-            <aliases>
-                <alias>ceammc/guido-&gt;note</alias>
-                <alias>guido-&gt;note</alias>
-            </aliases>
-        </meta>
-        <info>
-            <a href="https://en.wikipedia.org/wiki/GUIDO_music_notation">GUIDO music notation</a>
-        </info>
-        <arguments>
-            <argument name="TEMPO" type="atom" units="bpm">
-                <tr lang="en">current tempo, if number - treat as quarter-per-minute, if symbol -
-                BPM format is expected, for example: 120bpm, 60|1/8_bpm, 90|4._bpm etc.</tr>
-                <tr lang="ru">текущий темп, если число - рассматривать как четверть в минуту, если
-                символ - ожидается формат BPM, например: 120bpm (120 четвертных ударов в минуту),
-                60|1/8_bpm (60 восьмых ударов в минуту), 90|4._bpm (90 ударов в минуту,
-                длительностью четверть с точкой) и т.д.</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @tempo -->
-            <property name="@tempo" type="atom" default="60|4bpm" units="bpm">
-                <tr lang="en">current tempo</tr>
-                <tr lang="ru">текущий темп</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">Guido note</tr>
-                    <tr lang="ru" finished="false">Нота Гвидо</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int: MIDI pitch</tr>
-                    <tr lang="ru" finished="false">Оригинальное название: MIDI pitch</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float: note duration in milliseconds</tr>
-                    <tr lang="ru" finished="false">Поплавок: продолжительность ноты в
-                    миллисекундах</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="conv.guido2note">
+    <title>conv.guido2note</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert the Guido notation into a MIDI pitch and duration</tr>
+        <tr lang="ru">конвертер из Guido-нотации в MIDI ноту и длительность</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv guido midi</keywords>
+      <since>0.9.8</since>
+      <also>
+        <see>conv.note2guido</see>
+      </also>
+      <aliases>
+        <alias>ceammc/guido-&gt;note</alias>
+        <alias>guido-&gt;note</alias>
+      </aliases>
+    </meta>
+    <info>
+      <a href="https://en.wikipedia.org/wiki/GUIDO_music_notation">GUIDO music notation</a>
+    </info>
+    <arguments>
+      <argument name="TEMPO" type="atom" units="bpm">
+        <tr lang="en">current tempo, if number - treat as quarter-per-minute, if symbol - BPM
+        format is expected, for example: 120bpm, 60|1/8_bpm, 90|4._bpm etc.</tr>
+        <tr lang="ru">текущий темп, если число - рассматривать как четверть в минуту, если символ -
+        ожидается формат BPM, например: 120bpm (120 четвертных ударов в минуту), 60|1/8_bpm (60
+        восьмых ударов в минуту), 90|4._bpm (90 ударов в минуту, длительностью четверть с точкой) и
+        т.д.</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @tempo -->
+      <property name="@tempo" type="atom" default="60|4bpm" units="bpm">
+        <tr lang="en">current tempo</tr>
+        <tr lang="ru">текущий темп</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">Guido note</tr>
+          <tr lang="ru" finished="false">Нота Гвидо</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int: MIDI pitch</tr>
+          <tr lang="ru" finished="false">Оригинальное название: MIDI pitch</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float: note duration in milliseconds</tr>
+          <tr lang="ru" finished="false">Поплавок: продолжительность ноты в миллисекундах</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol c#0/4.(    [F]   [60( [120(
 |                  |     |    |
@@ -102,7 +101,7 @@
 [X b:1->d:1] [X b:1->c] [X e->a] [X c->e]
 #x @tempo 144
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

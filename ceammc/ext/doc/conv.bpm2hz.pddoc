@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.bpm2hz">
-        <title>conv.bpm2hz</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts BPM tempo into a frequency in hertz</tr>
-                <tr lang="ru">преобразует темп BPM в частоту в герцах</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv time</keywords>
-            <also>
-                <see>conv.bpm2ms</see>
-            </also>
-            <since>0.1</since>
-            <aliases>
-                <alias>ceammc/bpm-&gt;hz</alias>
-                <alias>bpm-&gt;hz</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Converts frequency from BPM (beats per minute) to hertz. It's simple
-                as /60, but more readable</tr>
-                <!-- old: Преобразует частоту от BPM (бит в минуту) в герц.
+  <object name="conv.bpm2hz">
+    <title>conv.bpm2hz</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts BPM tempo into a frequency in hertz</tr>
+        <tr lang="ru">преобразует темп BPM в частоту в герцах</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv time</keywords>
+      <also>
+        <see>conv.bpm2ms</see>
+      </also>
+      <since>0.1</since>
+      <aliases>
+        <alias>ceammc/bpm-&gt;hz</alias>
+        <alias>bpm-&gt;hz</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Converts frequency from BPM (beats per minute) to hertz. It's simple as /60,
+        but more readable</tr>
+        <!-- old: Преобразует частоту от BPM (бит в минуту) в герц.
                 Простой как /60, но более читаемый -->
-                <tr lang="ru" finished="false">Преобразует частоту от BPM (бит в минуту) в герц.
-                Простой как /60, но более читаемый</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">frequency in BPM</tr>
-                    <tr lang="ru" finished="false">Частота в BPM</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">frequency in hertz</tr>
-                    <tr lang="ru" finished="false">частота в герце</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Преобразует частоту от BPM (бит в минуту) в герц. Простой
+        как /60, но более читаемый</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">frequency in BPM</tr>
+          <tr lang="ru" finished="false">Частота в BPM</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">frequency in hertz</tr>
+          <tr lang="ru" finished="false">частота в герце</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [120(
 |
@@ -68,7 +68,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,89 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.pitchshift_s~">
-        <title>fx.pitchshift_s~</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">signal version of [fx.pitchshift~]</tr>
-                <tr lang="ru">сигнальная версия [fx.pitchshift~]</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx pitchshift</keywords>
-            <since>0.9</since>
-        </meta>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">
-                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-                <!-- old: Обходной флаг. Если это правда, обойдите
+  <object name="fx.pitchshift_s~">
+    <title>fx.pitchshift_s~</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">signal version of [fx.pitchshift~]</tr>
+        <tr lang="ru">сигнальная версия [fx.pitchshift~]</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx pitchshift</keywords>
+      <since>0.9</since>
+    </meta>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @bypass -->
+      <property name="@bypass" type="bool" default="0">
+        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+        <!-- old: Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал. -->
-                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал.</tr>
-            </property>
-            <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
-                signals. 0 - dry signal, 1 - wet.</tr>
-                <!-- old: пропорция смеси между исходным (сухим) и «влажным»
+        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
+        сигнал.</tr>
+      </property>
+      <!-- @drywet -->
+      <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
+        - dry signal, 1 - wet.</tr>
+        <!-- old: пропорция смеси между исходным (сухим) и «влажным»
                 сигналами. 0 - сухой сигнал, 1 - влажный. -->
-                <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
-                сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
-            </property>
-            <!-- @fade -->
-            <property name="@fade" type="float" units="millisecond" minvalue="0" maxvalue="1000"
-            default="100">
-                <tr lang="en">crossfade duration</tr>
-                <tr lang="ru" finished="false">продолжительность кроссфейда</tr>
-            </property>
-            <!-- @window -->
-            <property name="@window" type="float" units="millisecond" minvalue="10" maxvalue="2000"
-            default="200">
-                <tr lang="en">the window size</tr>
-                <tr lang="ru" finished="false">Размер окна</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset object state</tr>
-                    <tr lang="ru" finished="false">Сброс состояния объекта</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">pitch shift in semitones</tr>
-                    <tr lang="ru" finished="false">смещение шага в полутонах</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
+        сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
+      </property>
+      <!-- @fade -->
+      <property name="@fade" type="float" units="millisecond" minvalue="0" maxvalue="1000"
+      default="100">
+        <tr lang="en">crossfade duration</tr>
+        <tr lang="ru" finished="false">продолжительность кроссфейда</tr>
+      </property>
+      <!-- @window -->
+      <property name="@window" type="float" units="millisecond" minvalue="10" maxvalue="2000"
+      default="200">
+        <tr lang="en">the window size</tr>
+        <tr lang="ru" finished="false">Размер окна</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset object state</tr>
+          <tr lang="ru" finished="false">Сброс состояния объекта</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">pitch shift in semitones</tr>
+          <tr lang="ru" finished="false">смещение шага в полутонах</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open %CEAMMC%/guitar1.wav, 1(
 |
@@ -99,7 +99,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,134 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.pack">
-        <title>flow.pack</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">packs atoms from multiple stream into the single one</tr>
-                <tr lang="ru">упаковка атомов из нескольких потоков в один</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>flow pack</keywords>
-            <since>0.8</since>
-            <also>
-                <see>pack</see>
-                <see>flow.sync</see>
-                <see>flow.sync_pack</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="255">
-                <tr lang="en">number of inputs</tr>
-                <tr lang="ru" finished="false">Количество входов</tr>
-            </argument>
-            <argument name="INIT" type="list">
-                <tr lang="en">default values for all inlets. If not enough default values given it
-                sets to 0.</tr>
-                <!-- old: Значения по умолчанию для всех входов. Если не
+  <object name="flow.pack">
+    <title>flow.pack</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">packs atoms from multiple stream into the single one</tr>
+        <tr lang="ru">упаковка атомов из нескольких потоков в один</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>flow pack</keywords>
+      <since>0.8</since>
+      <also>
+        <see>pack</see>
+        <see>flow.sync</see>
+        <see>flow.sync_pack</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="N" type="int" minvalue="1" maxvalue="255">
+        <tr lang="en">number of inputs</tr>
+        <tr lang="ru" finished="false">Количество входов</tr>
+      </argument>
+      <argument name="INIT" type="list">
+        <tr lang="en">default values for all inlets. If not enough default values given it sets to
+        0.</tr>
+        <!-- old: Значения по умолчанию для всех входов. Если не
                 достаточно значений по умолчанию, то он устанавливается на 0. -->
-                <tr lang="ru" finished="false">Значения по умолчанию для всех входов. Если не
-                достаточно значений по умолчанию, то он устанавливается на 0.</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @init -->
-            <property name="@init" type="list" access="initonly" default="">
-                <tr lang="en">default init values</tr>
-                <tr lang="ru" finished="false">значения init по умолчанию</tr>
-            </property>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="1" default="1" maxvalue="255"
-            access="initonly">
-                <tr lang="en">number of inlets</tr>
-                <tr lang="ru" finished="false">Количество входов</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet number="1">
-                <in on="bang">
-                    <tr lang="en">output current value</tr>
-                    <tr lang="ru" finished="false">текущая стоимость выпуска</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">change first packed value and output</tr>
-                    <!-- old: изменение первого упакованного значения и
+        <tr lang="ru" finished="false">Значения по умолчанию для всех входов. Если не достаточно
+        значений по умолчанию, то он устанавливается на 0.</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @init -->
+      <property name="@init" type="list" access="initonly" default="">
+        <tr lang="en">default init values</tr>
+        <tr lang="ru" finished="false">значения init по умолчанию</tr>
+      </property>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="1" default="1" maxvalue="255" access="initonly">
+        <tr lang="en">number of inlets</tr>
+        <tr lang="ru" finished="false">Количество входов</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet number="1">
+        <in on="bang">
+          <tr lang="en">output current value</tr>
+          <tr lang="ru" finished="false">текущая стоимость выпуска</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">change first packed value and output</tr>
+          <!-- old: изменение первого упакованного значения и
                     выхода -->
-                    <tr lang="ru" finished="false">изменение первого упакованного значения и
-                    выхода</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">change first packed value and output</tr>
-                    <!-- old: изменение первого упакованного значения и
+          <tr lang="ru" finished="false">изменение первого упакованного значения и выхода</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">change first packed value and output</tr>
+          <!-- old: изменение первого упакованного значения и
                     выхода -->
-                    <tr lang="ru" finished="false">изменение первого упакованного значения и
-                    выхода</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">propagate list values to other inlets and output</tr>
-                    <!-- old: распространять значения списка на другие входы и
+          <tr lang="ru" finished="false">изменение первого упакованного значения и выхода</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">propagate list values to other inlets and output</tr>
+          <!-- old: распространять значения списка на другие входы и
                     выход -->
-                    <tr lang="ru" finished="false">распространять значения списка на другие входы и
-                    выход</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">propagate message values to other inlets and output</tr>
-                    <!-- old: распространять значения сообщений на другие
+          <tr lang="ru" finished="false">распространять значения списка на другие входы и
+          выход</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">propagate message values to other inlets and output</tr>
+          <!-- old: распространять значения сообщений на другие
                     входы и выход -->
-                    <tr lang="ru" finished="false">распространять значения сообщений на другие
-                    входы и выход</tr>
-                </in>
-            </inlet>
-            <inlet number="...">
-                <in on="float">
-                    <tr lang="en">change ... packed value</tr>
-                    <tr lang="ru" finished="false">Изменение... упакованная стоимость</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">change ... packed value</tr>
-                    <tr lang="ru" finished="false">Изменение... упакованная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">propagate ... list values among rest inlets</tr>
-                    <!-- old: Распространение ... списки значений среди входов
+          <tr lang="ru" finished="false">распространять значения сообщений на другие входы и
+          выход</tr>
+        </in>
+      </inlet>
+      <inlet number="...">
+        <in on="float">
+          <tr lang="en">change ... packed value</tr>
+          <tr lang="ru" finished="false">Изменение... упакованная стоимость</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">change ... packed value</tr>
+          <tr lang="ru" finished="false">Изменение... упакованная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">propagate ... list values among rest inlets</tr>
+          <!-- old: Распространение ... списки значений среди входов
                     отдыха -->
-                    <tr lang="ru" finished="false">Распространение ... списки значений среди входов
-                    отдыха</tr>
-                </in>
-            </inlet>
-            <inlet number="n">
-                <in on="float">
-                    <tr lang="en">change n-th packed value</tr>
-                    <tr lang="ru" finished="false">изменение n-го упакованного значения</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">change n-th packed value</tr>
-                    <tr lang="ru" finished="false">изменение n-го упакованного значения</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">propagate n-th list values among rest inlets</tr>
-                    <!-- old: распространять значения n-го списка среди входов
+          <tr lang="ru" finished="false">Распространение ... списки значений среди входов
+          отдыха</tr>
+        </in>
+      </inlet>
+      <inlet number="n">
+        <in on="float">
+          <tr lang="en">change n-th packed value</tr>
+          <tr lang="ru" finished="false">изменение n-го упакованного значения</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">change n-th packed value</tr>
+          <tr lang="ru" finished="false">изменение n-го упакованного значения</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">propagate n-th list values among rest inlets</tr>
+          <!-- old: распространять значения n-го списка среди входов
                     для отдыха -->
-                    <tr lang="ru" finished="false">распространять значения n-го списка среди входов
-                    для отдыха</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">packed list or message (if message input)</tr>
-                    <tr lang="ru" finished="false">упакованный список или сообщение (если вводится
-                    сообщение)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">распространять значения n-го списка среди входов для
+          отдыха</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">packed list or message (if message input)</tr>
+          <tr lang="ru" finished="false">упакованный список или сообщение (если вводится
+          сообщение)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]  [F]   [F]  [1 2(   [1 2 3( [F]
 |    |     |    |       |       |
@@ -143,7 +140,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

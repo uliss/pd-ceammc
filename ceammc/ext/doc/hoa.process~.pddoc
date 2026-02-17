@@ -1,218 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hoa.process~">
-        <title>hoa.process~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-                <author>Pierre Guillot</author>
-                <author>Eliott Paris</author>
-                <author>Thomas Le Meur</author>
-            </authors>
-            <description>
-                <tr lang="en">patcher loader for multichannel processing</tr>
-                <tr lang="ru">загрузчик патчей для многоканальной обработки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>spat</category>
-            <keywords>hoa process 2d</keywords>
-            <since>0.8</since>
-            <aliases>
-                <alias>hoa.2d.process~</alias>
-                <alias>hoa.3d.process~</alias>
-            </aliases>
-            <also>
-                <see>hoa.2d.decoder~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">hoa.process~ helps the modularization of patches for ambisonic or
-                plane waves processing.</tr>
-                <!-- old: hoa.process помогает модуляризации патчей для
+  <object name="hoa.process~">
+    <title>hoa.process~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+        <author>Pierre Guillot</author>
+        <author>Eliott Paris</author>
+        <author>Thomas Le Meur</author>
+      </authors>
+      <description>
+        <tr lang="en">patcher loader for multichannel processing</tr>
+        <tr lang="ru">загрузчик патчей для многоканальной обработки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>spat</category>
+      <keywords>hoa process 2d</keywords>
+      <since>0.8</since>
+      <aliases>
+        <alias>hoa.2d.process~</alias>
+        <alias>hoa.3d.process~</alias>
+      </aliases>
+      <also>
+        <see>hoa.2d.decoder~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">hoa.process~ helps the modularization of patches for ambisonic or plane waves
+        processing.</tr>
+        <!-- old: hoa.process помогает модуляризации патчей для
                 обработки амбисонических или плоских волн. -->
-                <tr lang="ru" finished="false">hoa.process помогает модуляризации патчей для
-                обработки амбисонических или плоских волн.</tr>
-            </par>
-            <par>
-                <tr lang="en">hoa.process~ is a kind of poly~ object particulary suitable for
-                multichannel ambisonic or plane wave processing. Create a patch/effect/operator,
-                then parallelize it with the hoa.process~</tr>
-                <!-- old: hoa.process - это тип поли-объекта, подходящий для
+        <tr lang="ru" finished="false">hoa.process помогает модуляризации патчей для обработки
+        амбисонических или плоских волн.</tr>
+      </par>
+      <par>
+        <tr lang="en">hoa.process~ is a kind of poly~ object particulary suitable for multichannel
+        ambisonic or plane wave processing. Create a patch/effect/operator, then parallelize it
+        with the hoa.process~</tr>
+        <!-- old: hoa.process - это тип поли-объекта, подходящий для
                 многоканальной амбисонической или плосковолновой обработки. Создайте
                 патч/эффект/оператор, затем параллелизируйте его с hoa.process -->
-                <tr lang="ru" finished="false">hoa.process - это тип поли-объекта, подходящий для
-                многоканальной амбисонической или плосковолновой обработки. Создайте
-                патч/эффект/оператор, затем параллелизируйте его с hoa.process</tr>
-            </par>
-            <par>
-                <tr lang="en">Target selector examples:</tr>
-                <tr lang="ru" finished="false">Примеры выбора цели:</tr>
-            </par>
-            <par>
-                <tr lang="en">#* send to all instances</tr>
-                <tr lang="ru" finished="false"># * Отправить во все инстанции</tr>
-            </par>
-            <par>
-                <tr lang="en">#: send list values spreaded amoung all instances, one value per
-                instance</tr>
-                <!-- old: # : отправьте значения списка, распределенные по
+        <tr lang="ru" finished="false">hoa.process - это тип поли-объекта, подходящий для
+        многоканальной амбисонической или плосковолновой обработки. Создайте патч/эффект/оператор,
+        затем параллелизируйте его с hoa.process</tr>
+      </par>
+      <par>
+        <tr lang="en">Target selector examples:</tr>
+        <tr lang="ru" finished="false">Примеры выбора цели:</tr>
+      </par>
+      <par>
+        <tr lang="en">#* send to all instances</tr>
+        <tr lang="ru" finished="false"># * Отправить во все инстанции</tr>
+      </par>
+      <par>
+        <tr lang="en">#: send list values spreaded amoung all instances, one value per
+        instance</tr>
+        <!-- old: # : отправьте значения списка, распределенные по
                 всем экземплярам, по одному значению на экземпляр -->
-                <tr lang="ru" finished="false"># : отправьте значения списка, распределенные по
-                всем экземплярам, по одному значению на экземпляр</tr>
-            </par>
-            <par>
-                <tr lang="en">#:2 send list values spreaded amoung instances with id&gt;=2</tr>
-                <!-- old: # :2 отправить список значений, распределенных
+        <tr lang="ru" finished="false"># : отправьте значения списка, распределенные по всем
+        экземплярам, по одному значению на экземпляр</tr>
+      </par>
+      <par>
+        <tr lang="en">#:2 send list values spreaded amoung instances with id&gt;=2</tr>
+        <!-- old: # :2 отправить список значений, распределенных
                 amoung экземпляров с id>=2 -->
-                <tr lang="ru" finished="false"># :2 отправить список значений, распределенных
-                amoung экземпляров с id&gt;=2</tr>
-            </par>
-            <par>
-                <tr lang="en">#1 send to second instance</tr>
-                <tr lang="ru" finished="false"># 1 отправить во вторую инстанцию</tr>
-            </par>
-            <par>
-                <tr lang="en">#&lt;2 send to instance #0 and #1</tr>
-                <tr lang="ru" finished="false"># &lt;2 отправить в экземпляр #0 и #1</tr>
-            </par>
-            <par>
-                <tr lang="en">#&gt;2 send to instances with id&gt;2</tr>
-                <tr lang="ru" finished="false"># &gt;2 отправить в экземпляры с id&gt;2</tr>
-            </par>
-            <par>
-                <tr lang="en">#2-4 send to instances with id in [2, 4] range</tr>
-                <!-- old: #2-4 отправьте в экземпляры с идентификатором в [2,
+        <tr lang="ru" finished="false"># :2 отправить список значений, распределенных amoung
+        экземпляров с id&gt;=2</tr>
+      </par>
+      <par>
+        <tr lang="en">#1 send to second instance</tr>
+        <tr lang="ru" finished="false"># 1 отправить во вторую инстанцию</tr>
+      </par>
+      <par>
+        <tr lang="en">#&lt;2 send to instance #0 and #1</tr>
+        <tr lang="ru" finished="false"># &lt;2 отправить в экземпляр #0 и #1</tr>
+      </par>
+      <par>
+        <tr lang="en">#&gt;2 send to instances with id&gt;2</tr>
+        <tr lang="ru" finished="false"># &gt;2 отправить в экземпляры с id&gt;2</tr>
+      </par>
+      <par>
+        <tr lang="en">#2-4 send to instances with id in [2, 4] range</tr>
+        <!-- old: #2-4 отправьте в экземпляры с идентификатором в [2,
                 4] диапазоне -->
-                <tr lang="ru" finished="false">#2-4 отправьте в экземпляры с идентификатором в [2,
-                4] диапазоне</tr>
-            </par>
-            <a href="hoa/hoa.2d.process~-help.pd">CICM documentation</a>
-        </info>
-        <mouse>
-            <event type="left-click" editmode="false">open process patch window</event>
-        </mouse>
-        <arguments>
-            <argument name="N" type="int" minvalue="0">
-                <tr lang="en">the order of decomposition</tr>
-                <tr lang="ru" finished="false">Порядок разложения</tr>
-            </argument>
-            <argument name="PATCH" type="symbol">
-                <tr lang="en">patch name</tr>
-                <tr lang="ru" finished="false">имя патча</tr>
-            </argument>
-            <argument name="DOMAIN" type="symbol" enum="harmonics planewaves">
-                <tr lang="en">process domain: harmonics or planewaves</tr>
-                <tr lang="ru" finished="false">Домен процесса: гармоники или плоские волны</tr>
-            </argument>
-            <argument name="ARGS" type="list">
-                <tr lang="en">instance arguments</tr>
-                <tr lang="ru" finished="false">Примеры аргументов</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @args -->
-            <property name="@args" type="list" access="initonly" default="">
-                <tr lang="en">arguments passed to instances</tr>
-                <tr lang="ru" finished="false">Аргументы, переданные в инстанции</tr>
-            </property>
-            <!-- @domain -->
-            <property name="@domain" type="symbol" access="initonly" default="harmonics"
-            enum="harmonics planewaves">
-                <tr lang="en">process domain: harmonics or planewaves</tr>
-                <tr lang="ru" finished="false">Домен процесса: гармоники или плоские волны</tr>
-            </property>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
-            access="initonly">
-                <tr lang="en">the order of decomposition/number of planewaves</tr>
-                <tr lang="ru" finished="false">Порядок разложения/число плоских волн</tr>
-            </property>
-            <!-- @patch -->
-            <property name="@patch" type="symbol" access="initonly" default="">
-                <tr lang="en">patch name</tr>
-                <tr lang="ru" finished="false">имя патча</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- dump -->
-            <method name="dump">
-                <info>
-                    <tr lang="en">dumps all object info to Pd console window.</tr>
-                    <!-- old: Сбрасывает всю информацию об объекте в окно
+        <tr lang="ru" finished="false">#2-4 отправьте в экземпляры с идентификатором в [2, 4]
+        диапазоне</tr>
+      </par>
+      <a href="hoa/hoa.2d.process~-help.pd">CICM documentation</a>
+    </info>
+    <mouse>
+      <event type="left-click" editmode="false">open process patch window</event>
+    </mouse>
+    <arguments>
+      <argument name="N" type="int" minvalue="0">
+        <tr lang="en">the order of decomposition</tr>
+        <tr lang="ru" finished="false">Порядок разложения</tr>
+      </argument>
+      <argument name="PATCH" type="symbol">
+        <tr lang="en">patch name</tr>
+        <tr lang="ru" finished="false">имя патча</tr>
+      </argument>
+      <argument name="DOMAIN" type="symbol" enum="harmonics planewaves">
+        <tr lang="en">process domain: harmonics or planewaves</tr>
+        <tr lang="ru" finished="false">Домен процесса: гармоники или плоские волны</tr>
+      </argument>
+      <argument name="ARGS" type="list">
+        <tr lang="en">instance arguments</tr>
+        <tr lang="ru" finished="false">Примеры аргументов</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @args -->
+      <property name="@args" type="list" access="initonly" default="">
+        <tr lang="en">arguments passed to instances</tr>
+        <tr lang="ru" finished="false">Аргументы, переданные в инстанции</tr>
+      </property>
+      <!-- @domain -->
+      <property name="@domain" type="symbol" access="initonly" default="harmonics"
+      enum="harmonics planewaves">
+        <tr lang="en">process domain: harmonics or planewaves</tr>
+        <tr lang="ru" finished="false">Домен процесса: гармоники или плоские волны</tr>
+      </property>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="0" maxvalue="63" default="0" access="initonly">
+        <tr lang="en">the order of decomposition/number of planewaves</tr>
+        <tr lang="ru" finished="false">Порядок разложения/число плоских волн</tr>
+      </property>
+      <!-- @patch -->
+      <property name="@patch" type="symbol" access="initonly" default="">
+        <tr lang="en">patch name</tr>
+        <tr lang="ru" finished="false">имя патча</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- dump -->
+      <method name="dump">
+        <info>
+          <tr lang="en">dumps all object info to Pd console window.</tr>
+          <!-- old: Сбрасывает всю информацию об объекте в окно
                     консоли Pd. -->
-                    <tr lang="ru" finished="false">Сбрасывает всю информацию об объекте в окно
-                    консоли Pd.</tr>
-                </info>
-            </method>
-            <!-- on -->
-            <method name="on">
-                <info>
-                    <tr lang="en">switch on/off DSP instance processing. Usage: on all 0|1 - turn
-                    on/off all instances, on IDX 0|1 - turn on/off specified instance.</tr>
-                    <!-- old: Включить/выключить обработку экземпляров DSP.
+          <tr lang="ru" finished="false">Сбрасывает всю информацию об объекте в окно консоли
+          Pd.</tr>
+        </info>
+      </method>
+      <!-- on -->
+      <method name="on">
+        <info>
+          <tr lang="en">switch on/off DSP instance processing. Usage: on all 0|1 - turn on/off all
+          instances, on IDX 0|1 - turn on/off specified instance.</tr>
+          <!-- old: Включить/выключить обработку экземпляров DSP.
                     Использование: на всех 0 | 1 - включить / выключить все экземпляры, на IDX 0 |
                     1 - включить / выключить указанный экземпляр. -->
-                    <tr lang="ru" finished="false">Включить/выключить обработку экземпляров DSP.
-                    Использование: на всех 0 | 1 - включить / выключить все экземпляры, на IDX 0 |
-                    1 - включить / выключить указанный экземпляр.</tr>
-                </info>
-            </method>
-            <!-- open -->
-            <method name="open">
-                <info>
-                    <tr lang="en">open Pd window for specified instance</tr>
-                    <tr lang="ru" finished="false">открытый Pd окно для конкретного случая</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">instance index</tr>
-                    <tr lang="ru" finished="false">Примерный индекс</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets dynamic="true">
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">first input harmonic/planewave</tr>
-                    <tr lang="ru" finished="false">Первая входная гармоника/самоволновка</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="...">
-                <in>
-                    <tr lang="en">... input harmonic/planewave</tr>
-                    <tr lang="ru" finished="false">...входная гармоника /planewave</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="n">
-                <in>
-                    <tr lang="en">n-th input harmonic/planewave</tr>
-                    <tr lang="ru" finished="false">n-я входная гармоника/плановая волна</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">first harmonic/planewave output</tr>
-                    <tr lang="ru" finished="false">Первый выход гармоники/плосковолновки</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="...">
-                <out type="any">
-                    <tr lang="en">... harmonic/planewave output</tr>
-                    <tr lang="ru" finished="false">... гармонический/плосковолновый выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="n">
-                <out type="any">
-                    <tr lang="en">n-th harmonic/planewave output</tr>
-                    <tr lang="ru" finished="false">n-й гармонический/плосковолновый выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Включить/выключить обработку экземпляров DSP.
+          Использование: на всех 0 | 1 - включить / выключить все экземпляры, на IDX 0 | 1 -
+          включить / выключить указанный экземпляр.</tr>
+        </info>
+      </method>
+      <!-- open -->
+      <method name="open">
+        <info>
+          <tr lang="en">open Pd window for specified instance</tr>
+          <tr lang="ru" finished="false">открытый Pd окно для конкретного случая</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">instance index</tr>
+          <tr lang="ru" finished="false">Примерный индекс</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets dynamic="true">
+      <inlet type="audio">
+        <in>
+          <tr lang="en">first input harmonic/planewave</tr>
+          <tr lang="ru" finished="false">Первая входная гармоника/самоволновка</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="...">
+        <in>
+          <tr lang="en">... input harmonic/planewave</tr>
+          <tr lang="ru" finished="false">...входная гармоника /planewave</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="n">
+        <in>
+          <tr lang="en">n-th input harmonic/planewave</tr>
+          <tr lang="ru" finished="false">n-я входная гармоника/плановая волна</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">first harmonic/planewave output</tr>
+          <tr lang="ru" finished="false">Первый выход гармоники/плосковолновки</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="...">
+        <out type="any">
+          <tr lang="en">... harmonic/planewave output</tr>
+          <tr lang="ru" finished="false">... гармонический/плосковолновый выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="n">
+        <out type="any">
+          <tr lang="en">n-th harmonic/planewave output</tr>
+          <tr lang="ru" finished="false">n-й гармонический/плосковолновый выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [hoa/hoa.soundrone]     [phasor~ 0.15]   [ui.sliders #a]
 |                       |                |
@@ -264,8 +263,8 @@
 [X b->z:11]
 #a @count 11 @min -60 @max 0 @size 200 55
 ]]>
-            </pdascii>
-            <pdascii id="dsp">
+      </pdascii>
+      <pdascii id="dsp">
 <![CDATA[
 [ui.hrd* 6]
 |
@@ -283,7 +282,7 @@
 *|*
 [dac~ {w=45}]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

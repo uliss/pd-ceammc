@@ -1,63 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.gamma">
-        <title>math.gamma</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">gamma function</tr>
-                <tr lang="ru">гамма-функция</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math gamma factorial</keywords>
-            <also>
-                <see>math.gamma</see>
-                <see>math.lgamma~</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Extension of factorial function to real numbers</tr>
-                <!-- old: Расширение факториальной функции на реальные
+  <object name="math.gamma">
+    <title>math.gamma</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">gamma function</tr>
+        <tr lang="ru">гамма-функция</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math gamma factorial</keywords>
+      <also>
+        <see>math.gamma</see>
+        <see>math.lgamma~</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Extension of factorial function to real numbers</tr>
+        <!-- old: Расширение факториальной функции на реальные
                 числа -->
-                <tr lang="ru" finished="false">Расширение факториальной функции на реальные
-                числа</tr>
-            </par>
-            <par>
-                <tr lang="en">For any positive integer n, Γ(n) = (n−1)!</tr>
-                <!-- old: Для любого положительного целого числа n, Γ(n) =
+        <tr lang="ru" finished="false">Расширение факториальной функции на реальные числа</tr>
+      </par>
+      <par>
+        <tr lang="en">For any positive integer n, Γ(n) = (n−1)!</tr>
+        <!-- old: Для любого положительного целого числа n, Γ(n) =
                 (n−1)! -->
-                <tr lang="ru" finished="false">Для любого положительного целого числа n, Γ(n) =
-                (n−1)!</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">apply to all numeric values</tr>
-                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value or list</tr>
-                    <tr lang="ru" finished="false">значение результата или список</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Для любого положительного целого числа n, Γ(n) = (n−1)!</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">apply to all numeric values</tr>
+          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value or list</tr>
+          <tr lang="ru" finished="false">значение результата или список</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(                   [array GAMMA size=161 w=300 h=150 yr=-40..40]
 |
@@ -75,7 +73,7 @@
 [tabwrite GAMMA]
 [X a:1->b] [X c->a:1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

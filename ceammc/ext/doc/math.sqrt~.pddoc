@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.sqrt~">
-        <title>math.sqrt~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">square root for signal</tr>
-                <tr lang="ru">квадратный корень для сигнала</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math exp2</keywords>
-            <also>
-                <see>math.squared~</see>
-                <see>math.sqrt</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">outputs NAN if input signal &lt;0</tr>
-                <tr lang="ru" finished="false">выходы NAN, если входной сигнал &lt;0</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet type="audio">
-                <in on="float">
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="math.sqrt~">
+    <title>math.sqrt~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">square root for signal</tr>
+        <tr lang="ru">квадратный корень для сигнала</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math exp2</keywords>
+      <also>
+        <see>math.squared~</see>
+        <see>math.sqrt</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">outputs NAN if input signal &lt;0</tr>
+        <tr lang="ru" finished="false">выходы NAN, если входной сигнал &lt;0</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet type="audio">
+        <in on="float">
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -68,7 +68,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

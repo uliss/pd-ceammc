@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.dup">
-        <title>flow.dup</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">duplicate messages</tr>
-                <tr lang="ru">дупликатор сообщений</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>flow duplicate repeat</keywords>
-            <since>0.9.1</since>
-            <also>
-                <see>flow.mem</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">outputs the incoming message the specified number of times</tr>
-                <tr lang="ru">выводит входящее сообщение указанное количество раз</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="N" type="int" minvalue="0">
-                <tr lang="en">number of repeats</tr>
-                <tr lang="ru">количество повторений</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="0" default="2">
-                <tr lang="en">number of repeats</tr>
-                <tr lang="ru">количество повторений</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="any">
-                    <tr lang="en">incoming message</tr>
-                    <tr lang="ru">входящее сообщение</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="int" minvalue="0">
-                    <tr lang="en">set number of repeats</tr>
-                    <tr lang="ru">установить количество повторений</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru">выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flow.dup">
+    <title>flow.dup</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">duplicate messages</tr>
+        <tr lang="ru">дупликатор сообщений</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>flow duplicate repeat</keywords>
+      <since>0.9.1</since>
+      <also>
+        <see>flow.mem</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">outputs the incoming message the specified number of times</tr>
+        <tr lang="ru">выводит входящее сообщение указанное количество раз</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="N" type="int" minvalue="0">
+        <tr lang="en">number of repeats</tr>
+        <tr lang="ru">количество повторений</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="0" default="2">
+        <tr lang="en">number of repeats</tr>
+        <tr lang="ru">количество повторений</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="any">
+          <tr lang="en">incoming message</tr>
+          <tr lang="ru">входящее сообщение</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="int" minvalue="0">
+          <tr lang="en">set number of repeats</tr>
+          <tr lang="ru">установить количество повторений</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output</tr>
+          <tr lang="ru">выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B] [F #a] [symbol ABC #b( [1 2 3 #c( [@prop 4 5 6 #d(
 |
@@ -77,7 +77,7 @@
 [X c->z]
 [X d->z]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

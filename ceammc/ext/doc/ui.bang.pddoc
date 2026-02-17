@@ -1,104 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="ui.bang" type="gui">
-        <title>ui.bang</title>
-        <meta>
-            <authors>
-                <author>Pierre Guillot</author>
-            </authors>
-            <description>
-                <tr lang="en">a button that sends an empty event (bang)</tr>
-                <tr lang="ru">кнопка отправляющая пустое событие (bang)</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">ui</category>
-            <keywords>ui bang</keywords>
-            <since>0.1</since>
-            <aliases>
-                <alias view="link">ui.b</alias>
-            </aliases>
-            <also>
-                <see view="link">ui.toggle</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Bang on steroids: bind to MIDI and keyboard</tr>
-                <tr lang="ru">Bang на стероидах: привязки к MIDI и клавиатуре</tr>
-            </par>
-        </info>
-        <mouse>
-            <event type="left-click" editmode="false">outputs bang on mouse down</event>
-            <event type="right-click" editmode="false" keys="Shift">open object help</event>
-            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="true">opens Pd popup menu</event>
-            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
-        </mouse>
-        <properties>
-            <xi:include href="props_active_color.xml" />
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_label.xml" />
-            <xi:include href="props_label_align.xml" />
-            <xi:include href="props_label_color.xml" />
-            <xi:include href="props_label_inner.xml" />
-            <xi:include href="props_label_margins.xml" />
-            <xi:include href="props_label_side.xml" />
-            <xi:include href="props_label_valign.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
-            <!-- @bind -->
-            <property name="@bind" type="list" default="">
-                <tr lang="en">MIDI/keyboard bind expression</tr>
-                <tr lang="ru">привязка к MIDI/клавиатуре</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="15 15">
-                <tr lang="en">object size (width, height pair)</tr>
-                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
-            </property>
-        </properties>
-        <methods>
-            <xi:include href="method_dump.xml" />
-            <xi:include href="method_ui_pos.xml" />
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">outputs bang</tr>
-                    <tr lang="ru">выводит пустое событие</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">outputs bang</tr>
-                    <tr lang="ru">выводит пустое событие</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">outputs bang</tr>
-                    <tr lang="ru">выводит пустое событие</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">outputs bang</tr>
-                    <tr lang="ru">выводит пустое событие</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="bang">
-                    <tr lang="en">bang output</tr>
-                    <tr lang="ru">вывод пустого события</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="ui.bang" type="gui">
+    <title>ui.bang</title>
+    <meta>
+      <authors>
+        <author>Pierre Guillot</author>
+      </authors>
+      <description>
+        <tr lang="en">a button that sends an empty event (bang)</tr>
+        <tr lang="ru">кнопка отправляющая пустое событие (bang)</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">ui</category>
+      <keywords>ui bang</keywords>
+      <since>0.1</since>
+      <aliases>
+        <alias view="link">ui.b</alias>
+      </aliases>
+      <also>
+        <see view="link">ui.toggle</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Bang on steroids: bind to MIDI and keyboard</tr>
+        <tr lang="ru">Bang на стероидах: привязки к MIDI и клавиатуре</tr>
+      </par>
+    </info>
+    <mouse>
+      <event type="left-click" editmode="false">outputs bang on mouse down</event>
+      <event type="right-click" editmode="false" keys="Shift">open object help</event>
+      <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+      <event type="right-click" editmode="true">opens Pd popup menu</event>
+      <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+      <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+    </mouse>
+    <properties>
+      <xi:include href="props_active_color.xml" />
+      <xi:include href="props_background_color.xml" />
+      <xi:include href="props_border_color.xml" />
+      <xi:include href="props_fontname.xml" />
+      <xi:include href="props_fontsize.xml" />
+      <xi:include href="props_fontslant.xml" />
+      <xi:include href="props_fontweight.xml" />
+      <xi:include href="props_label.xml" />
+      <xi:include href="props_label_align.xml" />
+      <xi:include href="props_label_color.xml" />
+      <xi:include href="props_label_inner.xml" />
+      <xi:include href="props_label_margins.xml" />
+      <xi:include href="props_label_side.xml" />
+      <xi:include href="props_label_valign.xml" />
+      <xi:include href="props_pinned.xml" />
+      <xi:include href="props_ui_receive.xml" />
+      <xi:include href="props_ui_send.xml" />
+      <!-- @bind -->
+      <property name="@bind" type="list" default="">
+        <tr lang="en">MIDI/keyboard bind expression</tr>
+        <tr lang="ru">привязка к MIDI/клавиатуре</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="15 15">
+        <tr lang="en">object size (width, height pair)</tr>
+        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+      </property>
+    </properties>
+    <methods>
+      <xi:include href="method_dump.xml" />
+      <xi:include href="method_ui_pos.xml" />
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">outputs bang</tr>
+          <tr lang="ru">выводит пустое событие</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">outputs bang</tr>
+          <tr lang="ru">выводит пустое событие</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">outputs bang</tr>
+          <tr lang="ru">выводит пустое событие</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">outputs bang</tr>
+          <tr lang="ru">выводит пустое событие</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="bang">
+          <tr lang="en">bang output</tr>
+          <tr lang="ru">вывод пустого события</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [dump(
 |
@@ -108,8 +108,8 @@
 |      |
 [B]    [s b_in]           [ui.bang-bind]
 ]]>
-            </pdascii>
-            <pdascii id="bind">
+      </pdascii>
+      <pdascii id="bind">
 <![CDATA[
 [ui.midi]
 
@@ -145,7 +145,7 @@
 #e @size 40 40 @bind keycode\[alt\]=32
 #f @size 40 40 @bind keycode\[shift\]=32
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

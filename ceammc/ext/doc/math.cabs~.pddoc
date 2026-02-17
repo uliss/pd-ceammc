@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.cabs~">
-        <title>math.cabs~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">magnitude of a complex signals</tr>
-                <tr lang="ru">абсолютное значение комплексного сигнала</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math complex magnitude module</keywords>
-            <aliases>
-                <alias>ceammc/cabs~</alias>
-                <alias>cabs~</alias>
-            </aliases>
-            <since>0.9</since>
-            <also>
-                <see>math.carg~</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">real part of input signal</tr>
-                    <tr lang="ru" finished="false">Реальная часть входного сигнала</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">imag part of input signal</tr>
-                    <tr lang="ru" finished="false">Имаг часть входного сигнала</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">signal magnitude</tr>
-                    <tr lang="ru" finished="false">величина сигнала</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="math.cabs~">
+    <title>math.cabs~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">magnitude of a complex signals</tr>
+        <tr lang="ru">абсолютное значение комплексного сигнала</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math complex magnitude module</keywords>
+      <aliases>
+        <alias>ceammc/cabs~</alias>
+        <alias>cabs~</alias>
+      </aliases>
+      <since>0.9</since>
+      <also>
+        <see>math.carg~</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">real part of input signal</tr>
+          <tr lang="ru" finished="false">Реальная часть входного сигнала</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">imag part of input signal</tr>
+          <tr lang="ru" finished="false">Имаг часть входного сигнала</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">signal magnitude</tr>
+          <tr lang="ru" finished="false">величина сигнала</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.slider2d @show_grid 1 @size 100 100]
 |
@@ -64,7 +64,7 @@
 |
 [ui.n~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

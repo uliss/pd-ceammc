@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.lcm">
-        <title>math.lcm</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">calculates the least common multiple</tr>
-                <tr lang="ru">вычисляет наименьшее общее кратное</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math lcm</keywords>
-            <also>
-                <see>math.gcd</see>
-            </also>
-            <since>0.3</since>
-        </meta>
-        <arguments>
-            <argument name="ARG2" type="int">
-                <tr lang="en">second argument</tr>
-                <tr lang="ru" finished="false">Второй аргумент</tr>
-            </argument>
-        </arguments>
-        <inlets>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">sets first argument and outputs calculated LCM value</tr>
-                    <!-- old: устанавливает первый аргумент и вычисляет
+  <object name="math.lcm">
+    <title>math.lcm</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">calculates the least common multiple</tr>
+        <tr lang="ru">вычисляет наименьшее общее кратное</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math lcm</keywords>
+      <also>
+        <see>math.gcd</see>
+      </also>
+      <since>0.3</since>
+    </meta>
+    <arguments>
+      <argument name="ARG2" type="int">
+        <tr lang="en">second argument</tr>
+        <tr lang="ru" finished="false">Второй аргумент</tr>
+      </argument>
+    </arguments>
+    <inlets>
+      <inlet>
+        <in on="int">
+          <tr lang="en">sets first argument and outputs calculated LCM value</tr>
+          <!-- old: устанавливает первый аргумент и вычисляет
                     значение LCM -->
-                    <tr lang="ru" finished="false">устанавливает первый аргумент и вычисляет
-                    значение LCM</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">sets first argument and second arguments, then output calculated
-                    LCM value</tr>
-                    <!-- old: устанавливает первый аргумент и второй аргумент,
+          <tr lang="ru" finished="false">устанавливает первый аргумент и вычисляет значение
+          LCM</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">sets first argument and second arguments, then output calculated LCM
+          value</tr>
+          <!-- old: устанавливает первый аргумент и второй аргумент,
                     затем вывод вычисляется значением LCM -->
-                    <tr lang="ru" finished="false">устанавливает первый аргумент и второй аргумент,
-                    затем вывод вычисляется значением LCM</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">sets second value</tr>
-                    <tr lang="ru" finished="false">Устанавливает второе значение</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">LCM value</tr>
-                    <tr lang="ru" finished="false">Значение LCM</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">устанавливает первый аргумент и второй аргумент, затем
+          вывод вычисляется значением LCM</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="int">
+          <tr lang="en">sets second value</tr>
+          <tr lang="ru" finished="false">Устанавливает второе значение</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">LCM value</tr>
+          <tr lang="ru" finished="false">Значение LCM</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]  [F]
 |    |.
@@ -69,7 +69,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

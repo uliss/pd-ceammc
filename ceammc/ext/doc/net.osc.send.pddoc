@@ -1,294 +1,291 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="net.osc.send">
-        <title>net.osc.send</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sending messages via the OSC protocol</tr>
-                <tr lang="ru">отправка сообщений протокола OSC</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>net</category>
-            <keywords>osc net send</keywords>
-            <since>0.9.5</since>
-            <also>
-                <see>net.osc.server</see>
-                <see>net.osc.receive</see>
-            </also>
-            <aliases>
-                <alias>net.osc.s</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="URL" type="atom">
-                <tr lang="en">OSC server url (like osc.udp://localhost:12345)</tr>
-                <!-- old: URL сервера OSC (например,
+  <object name="net.osc.send">
+    <title>net.osc.send</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sending messages via the OSC protocol</tr>
+        <tr lang="ru">отправка сообщений протокола OSC</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>net</category>
+      <keywords>osc net send</keywords>
+      <since>0.9.5</since>
+      <also>
+        <see>net.osc.server</see>
+        <see>net.osc.receive</see>
+      </also>
+      <aliases>
+        <alias>net.osc.s</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="URL" type="atom">
+        <tr lang="en">OSC server url (like osc.udp://localhost:12345)</tr>
+        <!-- old: URL сервера OSC (например,
                 osc.udp://localhost:12345) -->
-                <!-- old: URL сервера OSC (например,
+        <!-- old: URL сервера OSC (например,
                 osc.udp://localhost:12345) -->
-                <tr lang="ru" finished="false">URL сервера OSC (например,
-                osc.udp://localhost:12345)</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @host -->
-            <property name="@host" type="symbol" default="" access="readonly">
-                <tr lang="en">destination host</tr>
-                <tr lang="ru" finished="false">место назначения</tr>
-            </property>
-            <!-- @path -->
-            <property name="@path" type="symbol" default="" access="readonly">
-                <tr lang="en">socket filesystem path (if using unix proto)</tr>
-                <!-- old: путь файловой системы сокет (при использовании UNIX
+        <tr lang="ru" finished="false">URL сервера OSC (например, osc.udp://localhost:12345)</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @host -->
+      <property name="@host" type="symbol" default="" access="readonly">
+        <tr lang="en">destination host</tr>
+        <tr lang="ru" finished="false">место назначения</tr>
+      </property>
+      <!-- @path -->
+      <property name="@path" type="symbol" default="" access="readonly">
+        <tr lang="en">socket filesystem path (if using unix proto)</tr>
+        <!-- old: путь файловой системы сокет (при использовании UNIX
                 Proto) -->
-                <!-- old: путь файловой системы сокет (при использовании UNIX
+        <!-- old: путь файловой системы сокет (при использовании UNIX
                 Proto) -->
-                <tr lang="ru" finished="false">путь файловой системы сокет (при использовании UNIX
-                Proto)</tr>
-            </property>
-            <!-- @port -->
-            <property name="@port" type="int" default="0" access="readonly">
-                <tr lang="en">destination port</tr>
-                <tr lang="ru" finished="false">порт назначения</tr>
-            </property>
-            <!-- @proto -->
-            <property name="@proto" type="symbol" default="udp" access="readonly">
-                <tr lang="en">sending protocol</tr>
-                <tr lang="ru" finished="false">Отправка протокола</tr>
-            </property>
-            <!-- @url -->
-            <property name="@url" type="atom" default="">
-                <tr lang="en">destination url</tr>
-                <tr lang="ru" finished="false">пункт назначения url</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- send -->
-            <method name="send">
-                <info>
-                    <tr lang="en">send input values (autotyped)</tr>
-                    <tr lang="ru" finished="false">вводимые значения (автотип)</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">OSC path</tr>
-                    <tr lang="ru" finished="false">Путь ОСК</tr>
-                </param>
-                <param name="VALUES" type="list" required="true">
-                    <tr lang="en">values</tr>
-                    <tr lang="ru" finished="false">значения</tr>
-                </param>
-            </method>
-            <!-- send_blob -->
-            <method name="send_blob">
-                <info>
-                    <tr lang="en">send character</tr>
-                    <tr lang="ru" finished="false">присылать символ</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">OSC path</tr>
-                    <tr lang="ru" finished="false">Путь ОСК</tr>
-                </param>
-                <param name="VAL" type="list" required="true">
-                    <tr lang="en">list of bytes</tr>
-                    <tr lang="ru" finished="false">Список байтов</tr>
-                </param>
-            </method>
-            <!-- send_bool -->
-            <method name="send_bool">
-                <info>
-                    <tr lang="en">send boolean value</tr>
-                    <tr lang="ru" finished="false">отправить булеву стоимость</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">OSC path</tr>
-                    <tr lang="ru" finished="false">Путь ОСК</tr>
-                </param>
-                <param name="VAL" type="int" enum="0 1" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- send_char -->
-            <method name="send_char">
-                <info>
-                    <tr lang="en">send character</tr>
-                    <tr lang="ru" finished="false">присылать символ</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">OSC path</tr>
-                    <tr lang="ru" finished="false">Путь ОСК</tr>
-                </param>
-                <param name="VAL" type="atom" required="true">
-                    <tr lang="en">ASCII code in 0-127 range or single symbol</tr>
-                    <tr lang="ru" finished="false">ASCII код в диапазоне 0-127 или один символ</tr>
-                </param>
-            </method>
-            <!-- send_double -->
-            <method name="send_double">
-                <info>
-                    <tr lang="en">send double value</tr>
-                    <tr lang="ru" finished="false">отправить двойную стоимость</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">OSC path</tr>
-                    <tr lang="ru" finished="false">Путь ОСК</tr>
-                </param>
-                <param name="VAL" type="float" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- send_float -->
-            <method name="send_float">
-                <info>
-                    <tr lang="en">send float value</tr>
-                    <tr lang="ru" finished="false">отправить стоимость</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">OSC path</tr>
-                    <tr lang="ru" finished="false">Путь ОСК</tr>
-                </param>
-                <param name="VAL" type="float" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- send_i32 -->
-            <method name="send_i32">
-                <info>
-                    <tr lang="en">send int32 value</tr>
-                    <tr lang="ru" finished="false">Отправить значение int32</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">OSC path</tr>
-                    <tr lang="ru" finished="false">Путь ОСК</tr>
-                </param>
-                <param name="VAL" type="int" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- send_i64 -->
-            <method name="send_i64">
-                <info>
-                    <tr lang="en">send int64 value</tr>
-                    <tr lang="ru" finished="false">отправить значение int64</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">OSC path</tr>
-                    <tr lang="ru" finished="false">Путь ОСК</tr>
-                </param>
-                <param name="VAL" type="int" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- send_inf -->
-            <method name="send_inf">
-                <info>
-                    <tr lang="en">send inf value</tr>
-                    <tr lang="ru" finished="false">Отправить значение f</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">OSC path</tr>
-                    <tr lang="ru" finished="false">Путь ОСК</tr>
-                </param>
-            </method>
-            <!-- send_midi -->
-            <method name="send_midi">
-                <info>
-                    <tr lang="en">send midi message (4 bytes)</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение Midi (4 байта)</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">OSC path</tr>
-                    <tr lang="ru" finished="false">Путь ОСК</tr>
-                </param>
-                <param name="VAL" type="list" required="true">
-                    <tr lang="en">hex symbol (0xAAFF1122) or list of 4 bytes</tr>
-                    <!-- old: шестнадцатеричный символ (0xAAFF1122) или список
+        <tr lang="ru" finished="false">путь файловой системы сокет (при использовании UNIX
+        Proto)</tr>
+      </property>
+      <!-- @port -->
+      <property name="@port" type="int" default="0" access="readonly">
+        <tr lang="en">destination port</tr>
+        <tr lang="ru" finished="false">порт назначения</tr>
+      </property>
+      <!-- @proto -->
+      <property name="@proto" type="symbol" default="udp" access="readonly">
+        <tr lang="en">sending protocol</tr>
+        <tr lang="ru" finished="false">Отправка протокола</tr>
+      </property>
+      <!-- @url -->
+      <property name="@url" type="atom" default="">
+        <tr lang="en">destination url</tr>
+        <tr lang="ru" finished="false">пункт назначения url</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- send -->
+      <method name="send">
+        <info>
+          <tr lang="en">send input values (autotyped)</tr>
+          <tr lang="ru" finished="false">вводимые значения (автотип)</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">OSC path</tr>
+          <tr lang="ru" finished="false">Путь ОСК</tr>
+        </param>
+        <param name="VALUES" type="list" required="true">
+          <tr lang="en">values</tr>
+          <tr lang="ru" finished="false">значения</tr>
+        </param>
+      </method>
+      <!-- send_blob -->
+      <method name="send_blob">
+        <info>
+          <tr lang="en">send character</tr>
+          <tr lang="ru" finished="false">присылать символ</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">OSC path</tr>
+          <tr lang="ru" finished="false">Путь ОСК</tr>
+        </param>
+        <param name="VAL" type="list" required="true">
+          <tr lang="en">list of bytes</tr>
+          <tr lang="ru" finished="false">Список байтов</tr>
+        </param>
+      </method>
+      <!-- send_bool -->
+      <method name="send_bool">
+        <info>
+          <tr lang="en">send boolean value</tr>
+          <tr lang="ru" finished="false">отправить булеву стоимость</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">OSC path</tr>
+          <tr lang="ru" finished="false">Путь ОСК</tr>
+        </param>
+        <param name="VAL" type="int" enum="0 1" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- send_char -->
+      <method name="send_char">
+        <info>
+          <tr lang="en">send character</tr>
+          <tr lang="ru" finished="false">присылать символ</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">OSC path</tr>
+          <tr lang="ru" finished="false">Путь ОСК</tr>
+        </param>
+        <param name="VAL" type="atom" required="true">
+          <tr lang="en">ASCII code in 0-127 range or single symbol</tr>
+          <tr lang="ru" finished="false">ASCII код в диапазоне 0-127 или один символ</tr>
+        </param>
+      </method>
+      <!-- send_double -->
+      <method name="send_double">
+        <info>
+          <tr lang="en">send double value</tr>
+          <tr lang="ru" finished="false">отправить двойную стоимость</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">OSC path</tr>
+          <tr lang="ru" finished="false">Путь ОСК</tr>
+        </param>
+        <param name="VAL" type="float" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- send_float -->
+      <method name="send_float">
+        <info>
+          <tr lang="en">send float value</tr>
+          <tr lang="ru" finished="false">отправить стоимость</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">OSC path</tr>
+          <tr lang="ru" finished="false">Путь ОСК</tr>
+        </param>
+        <param name="VAL" type="float" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- send_i32 -->
+      <method name="send_i32">
+        <info>
+          <tr lang="en">send int32 value</tr>
+          <tr lang="ru" finished="false">Отправить значение int32</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">OSC path</tr>
+          <tr lang="ru" finished="false">Путь ОСК</tr>
+        </param>
+        <param name="VAL" type="int" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- send_i64 -->
+      <method name="send_i64">
+        <info>
+          <tr lang="en">send int64 value</tr>
+          <tr lang="ru" finished="false">отправить значение int64</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">OSC path</tr>
+          <tr lang="ru" finished="false">Путь ОСК</tr>
+        </param>
+        <param name="VAL" type="int" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- send_inf -->
+      <method name="send_inf">
+        <info>
+          <tr lang="en">send inf value</tr>
+          <tr lang="ru" finished="false">Отправить значение f</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">OSC path</tr>
+          <tr lang="ru" finished="false">Путь ОСК</tr>
+        </param>
+      </method>
+      <!-- send_midi -->
+      <method name="send_midi">
+        <info>
+          <tr lang="en">send midi message (4 bytes)</tr>
+          <tr lang="ru" finished="false">Отправить сообщение Midi (4 байта)</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">OSC path</tr>
+          <tr lang="ru" finished="false">Путь ОСК</tr>
+        </param>
+        <param name="VAL" type="list" required="true">
+          <tr lang="en">hex symbol (0xAAFF1122) or list of 4 bytes</tr>
+          <!-- old: шестнадцатеричный символ (0xAAFF1122) или список
                     из 4 байтов -->
-                    <tr lang="ru" finished="false">шестнадцатеричный символ (0xAAFF1122) или список
-                    из 4 байтов</tr>
-                </param>
-            </method>
-            <!-- send_null -->
-            <method name="send_null">
-                <info>
-                    <tr lang="en">send null value</tr>
-                    <tr lang="ru" finished="false">Отправить нулевое значение</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">OSC path</tr>
-                    <tr lang="ru" finished="false">Путь ОСК</tr>
-                </param>
-            </method>
-            <!-- send_string -->
-            <method name="send_string">
-                <info>
-                    <tr lang="en">send string value</tr>
-                    <tr lang="ru" finished="false">отправить строку значение</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">OSC path</tr>
-                    <tr lang="ru" finished="false">Путь ОСК</tr>
-                </param>
-                <param name="VAL" type="list" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- send_typed -->
-            <method name="send_typed">
-                <info>
-                    <tr lang="en">send list of typed values</tr>
-                    <tr lang="ru" finished="false">Отправить список типизированных значений</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">OSC path</tr>
-                    <tr lang="ru" finished="false">Путь ОСК</tr>
-                </param>
-                <param name="TYPES" type="symbol" required="true">
-                    <tr lang="en">type string, 'i': int32, 'f': 32-bit float, 's': string, 'h':
-                    int64, 'd': 64-bit float, 'T': #true value, 'F': #false value, 'N': #null
-                    value, 'I': #inf value</tr>
-                    <!-- old: строка типа, 'i': int32, 'f': 32-разрядный
+          <tr lang="ru" finished="false">шестнадцатеричный символ (0xAAFF1122) или список из 4
+          байтов</tr>
+        </param>
+      </method>
+      <!-- send_null -->
+      <method name="send_null">
+        <info>
+          <tr lang="en">send null value</tr>
+          <tr lang="ru" finished="false">Отправить нулевое значение</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">OSC path</tr>
+          <tr lang="ru" finished="false">Путь ОСК</tr>
+        </param>
+      </method>
+      <!-- send_string -->
+      <method name="send_string">
+        <info>
+          <tr lang="en">send string value</tr>
+          <tr lang="ru" finished="false">отправить строку значение</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">OSC path</tr>
+          <tr lang="ru" finished="false">Путь ОСК</tr>
+        </param>
+        <param name="VAL" type="list" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- send_typed -->
+      <method name="send_typed">
+        <info>
+          <tr lang="en">send list of typed values</tr>
+          <tr lang="ru" finished="false">Отправить список типизированных значений</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">OSC path</tr>
+          <tr lang="ru" finished="false">Путь ОСК</tr>
+        </param>
+        <param name="TYPES" type="symbol" required="true">
+          <tr lang="en">type string, 'i': int32, 'f': 32-bit float, 's': string, 'h': int64, 'd':
+          64-bit float, 'T': #true value, 'F': #false value, 'N': #null value, 'I': #inf value</tr>
+          <!-- old: строка типа, 'i': int32, 'f': 32-разрядный
                     поплавок, 's': строка, 'h': int64, 'd': 64-разрядный поплавок, 'T': # истинное
                     значение, 'F': # ложное значение, 'N': #нулевое значение, 'I': #inf
                     значение -->
-                    <tr lang="ru" finished="false">строка типа, 'i': int32, 'f': 32-разрядный
-                    поплавок, 's': строка, 'h': int64, 'd': 64-разрядный поплавок, 'T': # истинное
-                    значение, 'F': # ложное значение, 'N': #нулевое значение, 'I': #inf
-                    значение</tr>
-                </param>
-                <param name="VAL" type="list" required="true">
-                    <tr lang="en">values</tr>
-                    <tr lang="ru" finished="false">значения</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">message input</tr>
-                    <tr lang="ru" finished="false">ввод сообщения</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">none</tr>
-                    <tr lang="ru" finished="false">ни одного</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">строка типа, 'i': int32, 'f': 32-разрядный поплавок, 's':
+          строка, 'h': int64, 'd': 64-разрядный поплавок, 'T': # истинное значение, 'F': # ложное
+          значение, 'N': #нулевое значение, 'I': #inf значение</tr>
+        </param>
+        <param name="VAL" type="list" required="true">
+          <tr lang="en">values</tr>
+          <tr lang="ru" finished="false">значения</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">message input</tr>
+          <tr lang="ru" finished="false">ввод сообщения</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">none</tr>
+          <tr lang="ru" finished="false">ни одного</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /*default receive OSC server: osc.udp://:9000*/
 
@@ -326,7 +323,7 @@
 [X i->x]
 [X j->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

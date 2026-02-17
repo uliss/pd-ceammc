@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.atan~">
-        <title>math.atan~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">arc tangent for signals</tr>
-                <tr lang="ru">арктангенс для сигналов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math asin</keywords>
-            <also>
-                <see>math.atan</see>
-                <see>math.acos~</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Outputs arc tangent of input signal. The result is in the range
-                [-π/2, +π/2]</tr>
-                <!-- old: Выходы дугового касания входного сигнала. Результат
+  <object name="math.atan~">
+    <title>math.atan~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">arc tangent for signals</tr>
+        <tr lang="ru">арктангенс для сигналов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math asin</keywords>
+      <also>
+        <see>math.atan</see>
+        <see>math.acos~</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Outputs arc tangent of input signal. The result is in the range [-π/2,
+        +π/2]</tr>
+        <!-- old: Выходы дугового касания входного сигнала. Результат
                 находится в диапазоне [-π/2, +π/2] -->
-                <tr lang="ru" finished="false">Выходы дугового касания входного сигнала. Результат
-                находится в диапазоне [-π/2, +π/2]</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">result signal</tr>
-                    <tr lang="ru" finished="false">результат сигнала</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Выходы дугового касания входного сигнала. Результат
+        находится в диапазоне [-π/2, +π/2]</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">result signal</tr>
+          <tr lang="ru" finished="false">результат сигнала</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -72,7 +72,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

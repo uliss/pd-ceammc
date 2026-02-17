@@ -1,139 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="ui.cmeter~" type="gui">
-        <title>ui.cmeter~</title>
-        <meta>
-            <authors>
-                <author>Pierre Guillot</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">multichannel circular signal meter</tr>
-                <tr lang="ru">многоканальный круговой измеритель уровня сигнала</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">ui</category>
-            <keywords>ui meter</keywords>
-            <since>0.9.7</since>
-            <aliases>
-                <alias view="link">ui.cm~</alias>
-                <alias view="link">hoa.2d.meter~</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Full meter range is 39 db.</tr>
-                <tr lang="ru" finished="false">Дальность полного метра составляет 39 дБ.</tr>
-            </par>
-            <par>
-                <tr lang="en">Values &gt;-3db are red, range [-12, -3) db is hot, [-21, -12) db is
-                warm, [-30, -21) is tepid, values &lt;-30 are cold.</tr>
-                <tr lang="ru" finished="false">Значения &gt;-3db красные, диапазон [-12, -3) db
-                горячий, [-21, -12) db теплый, [-30, -21) прохладный, значения &lt;-30
-                холодные.</tr>
-            </par>
-        </info>
-        <mouse>
-            <event type="right-click" editmode="false" keys="Shift">open object help</event>
-            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="true">opens Pd popup menu</event>
-            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
-        </mouse>
-        <properties>
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
-            <!-- @angles -->
-            <property name="@angles" type="list" default="">
-                <tr lang="en">channel angle positions</tr>
-                <tr lang="ru" finished="false">угол наклона канала</tr>
-            </property>
-            <!-- @clockwise -->
-            <property name="@clockwise" type="bool" default="0">
-                <tr lang="en">clockwise channel numbering</tr>
-                <tr lang="ru" finished="false">номер канала по часовой стрелке</tr>
-            </property>
-            <!-- @cold_color -->
-            <property name="@cold_color" type="list" default="0 0.6 0 1">
-                <tr lang="en">extra low-level signal color &lt;-31db (list of red, green, blue
-                values in 0-1 range)</tr>
-                <tr lang="ru" finished="false">дополнительный низкоуровневый цвет сигнала &lt;-31db
-                (список значений красного, зеленого, синего в диапазоне 0-1)</tr>
-            </property>
-            <!-- @hot_color -->
-            <property name="@hot_color" type="list" default="1 0.6 0 1">
-                <tr lang="en">loud level signal color &lt;-3db (list of red, green, blue values in
-                0-1 range)</tr>
-                <tr lang="ru" finished="false">цвет сигнала громкого уровня &lt;-3db (список
-                красных, зеленых, синих значений в диапазоне 0-1)</tr>
-            </property>
-            <!-- @interval -->
-            <property name="@interval" type="int" units="millisecond" minvalue="20" default="100">
-                <tr lang="en">refresh interval</tr>
-                <tr lang="ru" finished="false">интервал обновления</tr>
-            </property>
-            <!-- @nch -->
-            <property name="@nch" type="int" default="2" minvalue="1" maxvalue="64">
-                <tr lang="en">number of channels</tr>
-                <tr lang="ru" finished="false">Количество каналов</tr>
-            </property>
-            <!-- @offset -->
-            <property name="@offset" type="int" default="0" minvalue="-63" maxvalue="63">
-                <tr lang="en">channel numbering offset</tr>
-                <tr lang="ru" finished="false">смещение нумерации каналов</tr>
-            </property>
-            <!-- @over_color -->
-            <property name="@over_color" type="list" default="1 0 0 1">
-                <tr lang="en">extra-loud level signal color &gt;-3db (list of red, green, blue
-                values in 0-1 range)</tr>
-                <tr lang="ru" finished="false">цвет сигнала сверхгромкого уровня &gt;-3db (список
-                красных, зеленых, синих значений в диапазоне 0-1)</tr>
-            </property>
-            <!-- @rotation -->
-            <property name="@rotation" type="float" default="0" minvalue="-360" maxvalue="360"
-            units="degree">
-                <tr lang="en">source channels rotation (anticlockwise)</tr>
-                <tr lang="ru" finished="false">Вращение каналов-источников (антиклоклюв)</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="120 120">
-                <tr lang="en">object size (width, height pair)</tr>
-                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
-            </property>
-            <!-- @tepid_color -->
-            <property name="@tepid_color" type="list" default="0.6 0.73 0 1">
-                <tr lang="en">low-level signal color &lt;-21db (list of red, green, blue values in
-                0-1 range)</tr>
-            </property>
-            <!-- @warm_color -->
-            <property name="@warm_color" type="list" default="0.85 0.85 0 1">
-                <tr lang="en">normal level signal color &lt;-9db (list of red, green, blue values
-                in 0-1 range)</tr>
-            </property>
-        </properties>
-        <methods>
-            <xi:include href="method_dump.xml" />
-            <xi:include href="method_ui_pos.xml" />
-        </methods>
-        <inlets dynamic="true">
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets />
-        <example>
-            <pdascii>
+  <object name="ui.cmeter~" type="gui">
+    <title>ui.cmeter~</title>
+    <meta>
+      <authors>
+        <author>Pierre Guillot</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">multichannel circular signal meter</tr>
+        <tr lang="ru">многоканальный круговой измеритель уровня сигнала</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">ui</category>
+      <keywords>ui meter</keywords>
+      <since>0.9.7</since>
+      <aliases>
+        <alias view="link">ui.cm~</alias>
+        <alias view="link">hoa.2d.meter~</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Full meter range is 39 db.</tr>
+        <tr lang="ru" finished="false">Дальность полного метра составляет 39 дБ.</tr>
+      </par>
+      <par>
+        <tr lang="en">Values &gt;-3db are red, range [-12, -3) db is hot, [-21, -12) db is warm,
+        [-30, -21) is tepid, values &lt;-30 are cold.</tr>
+        <tr lang="ru" finished="false">Значения &gt;-3db красные, диапазон [-12, -3) db горячий,
+        [-21, -12) db теплый, [-30, -21) прохладный, значения &lt;-30 холодные.</tr>
+      </par>
+    </info>
+    <mouse>
+      <event type="right-click" editmode="false" keys="Shift">open object help</event>
+      <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+      <event type="right-click" editmode="true">opens Pd popup menu</event>
+      <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+      <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+    </mouse>
+    <properties>
+      <xi:include href="props_background_color.xml" />
+      <xi:include href="props_border_color.xml" />
+      <xi:include href="props_fontname.xml" />
+      <xi:include href="props_fontsize.xml" />
+      <xi:include href="props_fontslant.xml" />
+      <xi:include href="props_fontweight.xml" />
+      <xi:include href="props_pinned.xml" />
+      <xi:include href="props_ui_receive.xml" />
+      <xi:include href="props_ui_send.xml" />
+      <!-- @angles -->
+      <property name="@angles" type="list" default="">
+        <tr lang="en">channel angle positions</tr>
+        <tr lang="ru" finished="false">угол наклона канала</tr>
+      </property>
+      <!-- @clockwise -->
+      <property name="@clockwise" type="bool" default="0">
+        <tr lang="en">clockwise channel numbering</tr>
+        <tr lang="ru" finished="false">номер канала по часовой стрелке</tr>
+      </property>
+      <!-- @cold_color -->
+      <property name="@cold_color" type="list" default="0 0.6 0 1">
+        <tr lang="en">extra low-level signal color &lt;-31db (list of red, green, blue values in
+        0-1 range)</tr>
+        <tr lang="ru" finished="false">дополнительный низкоуровневый цвет сигнала &lt;-31db (список
+        значений красного, зеленого, синего в диапазоне 0-1)</tr>
+      </property>
+      <!-- @hot_color -->
+      <property name="@hot_color" type="list" default="1 0.6 0 1">
+        <tr lang="en">loud level signal color &lt;-3db (list of red, green, blue values in 0-1
+        range)</tr>
+        <tr lang="ru" finished="false">цвет сигнала громкого уровня &lt;-3db (список красных,
+        зеленых, синих значений в диапазоне 0-1)</tr>
+      </property>
+      <!-- @interval -->
+      <property name="@interval" type="int" units="millisecond" minvalue="20" default="100">
+        <tr lang="en">refresh interval</tr>
+        <tr lang="ru" finished="false">интервал обновления</tr>
+      </property>
+      <!-- @nch -->
+      <property name="@nch" type="int" default="2" minvalue="1" maxvalue="64">
+        <tr lang="en">number of channels</tr>
+        <tr lang="ru" finished="false">Количество каналов</tr>
+      </property>
+      <!-- @offset -->
+      <property name="@offset" type="int" default="0" minvalue="-63" maxvalue="63">
+        <tr lang="en">channel numbering offset</tr>
+        <tr lang="ru" finished="false">смещение нумерации каналов</tr>
+      </property>
+      <!-- @over_color -->
+      <property name="@over_color" type="list" default="1 0 0 1">
+        <tr lang="en">extra-loud level signal color &gt;-3db (list of red, green, blue values in
+        0-1 range)</tr>
+        <tr lang="ru" finished="false">цвет сигнала сверхгромкого уровня &gt;-3db (список красных,
+        зеленых, синих значений в диапазоне 0-1)</tr>
+      </property>
+      <!-- @rotation -->
+      <property name="@rotation" type="float" default="0" minvalue="-360" maxvalue="360"
+      units="degree">
+        <tr lang="en">source channels rotation (anticlockwise)</tr>
+        <tr lang="ru" finished="false">Вращение каналов-источников (антиклоклюв)</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="120 120">
+        <tr lang="en">object size (width, height pair)</tr>
+        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+      </property>
+      <!-- @tepid_color -->
+      <property name="@tepid_color" type="list" default="0.6 0.73 0 1">
+        <tr lang="en">low-level signal color &lt;-21db (list of red, green, blue values in 0-1
+        range)</tr>
+      </property>
+      <!-- @warm_color -->
+      <property name="@warm_color" type="list" default="0.85 0.85 0 1">
+        <tr lang="en">normal level signal color &lt;-9db (list of red, green, blue values in 0-1
+        range)</tr>
+      </property>
+    </properties>
+    <methods>
+      <xi:include href="method_dump.xml" />
+      <xi:include href="method_ui_pos.xml" />
+    </methods>
+    <inlets dynamic="true">
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets />
+    <example>
+      <pdascii>
 <![CDATA[
 [nsig~ 5 0 0.06 0.15 0.5 0.9 {o=5}] [T] [ui.n #n1]  [ui.knob #k1]
 *|*                                 |   |
@@ -154,7 +153,7 @@
 
 /*...*/
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

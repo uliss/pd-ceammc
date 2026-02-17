@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.moog_vcf~">
-        <title>flt.moog_vcf~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">Moog Voltage Controlled Filter</tr>
-                <tr lang="ru">управляемый напряжением фильтр Муга</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>moog vcf</keywords>
-            <since>0.6</since>
-        </meta>
-        <arguments>
-            <argument name="RES" type="float" minvalue="0" maxvalue="1">
-                <tr lang="en">normalized amount of corner-resonance</tr>
-                <tr lang="ru" finished="false">нормализованное количество углового резонанса</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @res -->
-            <property name="@res" type="float" minvalue="0" maxvalue="1" default="0.4">
-                <tr lang="en">normalized amount of corner-resonance</tr>
-                <tr lang="ru" finished="false">нормализованное количество углового резонанса</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset object state</tr>
-                    <tr lang="ru" finished="false">Сброс состояния объекта</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">filter center frequency in Hz</tr>
-                    <tr lang="ru" finished="false">частота центра фильтра в Гц</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">filtered signal</tr>
-                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flt.moog_vcf~">
+    <title>flt.moog_vcf~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">Moog Voltage Controlled Filter</tr>
+        <tr lang="ru">управляемый напряжением фильтр Муга</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>moog vcf</keywords>
+      <since>0.6</since>
+    </meta>
+    <arguments>
+      <argument name="RES" type="float" minvalue="0" maxvalue="1">
+        <tr lang="en">normalized amount of corner-resonance</tr>
+        <tr lang="ru" finished="false">нормализованное количество углового резонанса</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @res -->
+      <property name="@res" type="float" minvalue="0" maxvalue="1" default="0.4">
+        <tr lang="en">normalized amount of corner-resonance</tr>
+        <tr lang="ru" finished="false">нормализованное количество углового резонанса</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset object state</tr>
+          <tr lang="ru" finished="false">Сброс состояния объекта</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">filter center frequency in Hz</tr>
+          <tr lang="ru" finished="false">частота центра фильтра в Гц</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">filtered signal</tr>
+          <tr lang="ru" finished="false">фильтрованный сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]                          [ui.knob @size 32 32]
 |                            |
@@ -78,7 +78,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

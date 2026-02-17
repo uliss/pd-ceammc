@@ -1,105 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.c_notch~">
-        <title>flt.c_notch~</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">band-reject filter coefficients calculator for [flt.biquad~]</tr>
-                <tr lang="ru">калькулятор коэффициентов режекторного фильтра для [flt.biquad~]</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>filter biquad notch reject</keywords>
-            <since>0.1</since>
-            <also>
-                <see>flt.c_bpf~</see>
-                <see>flt.notch~</see>
-                <see>flt.biquad~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ +
-                b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²)</tr>
-                <!-- old: Расчет коэффициентов для функции переноса: H(z)=(b0
+  <object name="flt.c_notch~">
+    <title>flt.c_notch~</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">band-reject filter coefficients calculator for [flt.biquad~]</tr>
+        <tr lang="ru">калькулятор коэффициентов режекторного фильтра для [flt.biquad~]</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>filter biquad notch reject</keywords>
+      <since>0.1</since>
+      <also>
+        <see>flt.c_bpf~</see>
+        <see>flt.notch~</see>
+        <see>flt.biquad~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1
+        + a1*z⁻¹ + a2*z⁻²)</tr>
+        <!-- old: Расчет коэффициентов для функции переноса: H(z)=(b0
                 + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2) -->
-                <tr lang="ru" finished="false">Расчет коэффициентов для функции переноса: H(z)=(b0
-                + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2)</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
-                <tr lang="en">center frequency</tr>
-                <tr lang="ru" finished="false">центральная частота</tr>
-            </argument>
-            <argument name="Q" type="float" minvalue="0.01" maxvalue="100">
-                <tr lang="en">quality factory</tr>
-                <tr lang="ru" finished="false">Качественный завод</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @freq -->
-            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
-            units="hertz">
-                <tr lang="en">center frequency</tr>
-                <tr lang="ru" finished="false">центральная частота</tr>
-            </property>
-            <!-- @q -->
-            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="1">
-                <tr lang="en">quality factor: @freq/BANDWIDTH</tr>
-                <tr lang="ru" finished="false">Коэффициент качества: @freq/BANDWIDTH</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control signal</tr>
-                    <tr lang="ru" finished="false">управляющий сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">b0</tr>
-                    <tr lang="ru" finished="false">b0</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">b1</tr>
-                    <tr lang="ru" finished="false">b1</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">b2</tr>
-                    <tr lang="ru" finished="false">b2</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">a1</tr>
-                    <tr lang="ru" finished="false">а1</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">a2</tr>
-                    <tr lang="ru" finished="false">а2</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Расчет коэффициентов для функции переноса: H(z)=(b0 + b1*z−1
+        + b2*z−2)/(1 + a1*z−1 + a2*z−2)</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
+        <tr lang="en">center frequency</tr>
+        <tr lang="ru" finished="false">центральная частота</tr>
+      </argument>
+      <argument name="Q" type="float" minvalue="0.01" maxvalue="100">
+        <tr lang="en">quality factory</tr>
+        <tr lang="ru" finished="false">Качественный завод</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @freq -->
+      <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
+      units="hertz">
+        <tr lang="en">center frequency</tr>
+        <tr lang="ru" finished="false">центральная частота</tr>
+      </property>
+      <!-- @q -->
+      <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="1">
+        <tr lang="en">quality factor: @freq/BANDWIDTH</tr>
+        <tr lang="ru" finished="false">Коэффициент качества: @freq/BANDWIDTH</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control signal</tr>
+          <tr lang="ru" finished="false">управляющий сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">b0</tr>
+          <tr lang="ru" finished="false">b0</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">b1</tr>
+          <tr lang="ru" finished="false">b1</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">b2</tr>
+          <tr lang="ru" finished="false">b2</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">a1</tr>
+          <tr lang="ru" finished="false">а1</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">a2</tr>
+          <tr lang="ru" finished="false">а2</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [osc~ 300    ] [T] [F]        [F]
 |        ._____/   |          |
@@ -118,7 +118,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

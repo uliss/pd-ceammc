@@ -1,117 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="ui.midi" type="gui">
-        <title>ui.midi</title>
-        <meta>
-            <authors>
-                <author>Pierre Guillot</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">incoming MIDI message viewport</tr>
-                <tr lang="ru">окно просмотра MIDI сообщений</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">ui</category>
-            <keywords>ui menu</keywords>
-            <since>0.9.2</since>
-        </meta>
-        <mouse>
-            <event type="double-click" editmode="false" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="false" keys="Shift">open object help</event>
-            <event type="right-click" editmode="false">open popup menu with MIDI settings
-            item</event>
-            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="true" keys="Shift">open object help</event>
-        </mouse>
-        <properties>
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
-            <!-- @active_color -->
-            <property name="@active_color" type="list" default="0.63 0.88 0 1">
-                <tr lang="en">active color (list of red, green, blue values in 0-1 range)</tr>
-                <tr lang="ru" finished="false">активный цвет (список красных, зеленых, синих
-                значений в диапазоне 0-1)</tr>
-            </property>
-            <!-- @cc -->
-            <property name="@cc" type="bool" default="1">
-                <tr lang="en">if show control change events</tr>
-                <tr lang="ru" finished="false">Если контроль изменяет события</tr>
-            </property>
-            <!-- @hex -->
-            <property name="@hex" type="bool" default="0">
-                <tr lang="en">if show values in hex</tr>
-                <tr lang="ru" finished="false">Если показать значения в Hex</tr>
-            </property>
-            <!-- @notes -->
-            <property name="@notes" type="bool" default="1">
-                <tr lang="en">if show note on/off events</tr>
-                <tr lang="ru" finished="false">Примечания к событиям / Off</tr>
-            </property>
-            <!-- @pitchwheel -->
-            <property name="@pitchwheel" type="bool" default="1">
-                <tr lang="en">if show pitch wheel events</tr>
-                <tr lang="ru" finished="false">Если вы показываете движение колеса</tr>
-            </property>
-            <!-- @program -->
-            <property name="@program" type="bool" default="1">
-                <tr lang="en">if show program change events</tr>
-                <tr lang="ru" finished="false">Если программа меняет события</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="180 15">
-                <tr lang="en">object size (width, height pair)</tr>
-                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
-            </property>
-            <!-- @sysex -->
-            <property name="@sysex" type="bool" default="1">
-                <tr lang="en">if show sysex events</tr>
-            </property>
-            <!-- @text_color -->
-            <property name="@text_color" type="list" default="0 0 0 1">
-                <tr lang="en">text color (list of red, green, blue values in 0-1 range)</tr>
-            </property>
-            <!-- @touch -->
-            <property name="@touch" type="bool" default="1">
-                <tr lang="en">if show aftertouch (poly) events</tr>
-            </property>
-        </properties>
-        <methods>
-            <xi:include href="method_dump.xml" />
-            <xi:include href="method_ui_pos.xml" />
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control input</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">MIDI output</tr>
-                    <tr lang="ru" finished="false">MIDI выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="ui.midi" type="gui">
+    <title>ui.midi</title>
+    <meta>
+      <authors>
+        <author>Pierre Guillot</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">incoming MIDI message viewport</tr>
+        <tr lang="ru">окно просмотра MIDI сообщений</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">ui</category>
+      <keywords>ui menu</keywords>
+      <since>0.9.2</since>
+    </meta>
+    <mouse>
+      <event type="double-click" editmode="false" keys="Alt">open properties dialog</event>
+      <event type="right-click" editmode="false" keys="Shift">open object help</event>
+      <event type="right-click" editmode="false">open popup menu with MIDI settings item</event>
+      <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+      <event type="right-click" editmode="true" keys="Shift">open object help</event>
+    </mouse>
+    <properties>
+      <xi:include href="props_background_color.xml" />
+      <xi:include href="props_border_color.xml" />
+      <xi:include href="props_fontname.xml" />
+      <xi:include href="props_fontsize.xml" />
+      <xi:include href="props_fontslant.xml" />
+      <xi:include href="props_fontweight.xml" />
+      <xi:include href="props_pinned.xml" />
+      <xi:include href="props_ui_receive.xml" />
+      <xi:include href="props_ui_send.xml" />
+      <!-- @active_color -->
+      <property name="@active_color" type="list" default="0.63 0.88 0 1">
+        <tr lang="en">active color (list of red, green, blue values in 0-1 range)</tr>
+        <tr lang="ru" finished="false">активный цвет (список красных, зеленых, синих значений в
+        диапазоне 0-1)</tr>
+      </property>
+      <!-- @cc -->
+      <property name="@cc" type="bool" default="1">
+        <tr lang="en">if show control change events</tr>
+        <tr lang="ru" finished="false">Если контроль изменяет события</tr>
+      </property>
+      <!-- @hex -->
+      <property name="@hex" type="bool" default="0">
+        <tr lang="en">if show values in hex</tr>
+        <tr lang="ru" finished="false">Если показать значения в Hex</tr>
+      </property>
+      <!-- @notes -->
+      <property name="@notes" type="bool" default="1">
+        <tr lang="en">if show note on/off events</tr>
+        <tr lang="ru" finished="false">Примечания к событиям / Off</tr>
+      </property>
+      <!-- @pitchwheel -->
+      <property name="@pitchwheel" type="bool" default="1">
+        <tr lang="en">if show pitch wheel events</tr>
+        <tr lang="ru" finished="false">Если вы показываете движение колеса</tr>
+      </property>
+      <!-- @program -->
+      <property name="@program" type="bool" default="1">
+        <tr lang="en">if show program change events</tr>
+        <tr lang="ru" finished="false">Если программа меняет события</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="180 15">
+        <tr lang="en">object size (width, height pair)</tr>
+        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+      </property>
+      <!-- @sysex -->
+      <property name="@sysex" type="bool" default="1">
+        <tr lang="en">if show sysex events</tr>
+      </property>
+      <!-- @text_color -->
+      <property name="@text_color" type="list" default="0 0 0 1">
+        <tr lang="en">text color (list of red, green, blue values in 0-1 range)</tr>
+      </property>
+      <!-- @touch -->
+      <property name="@touch" type="bool" default="1">
+        <tr lang="en">if show aftertouch (poly) events</tr>
+      </property>
+    </properties>
+    <methods>
+      <xi:include href="method_dump.xml" />
+      <xi:include href="method_ui_pos.xml" />
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control input</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">MIDI output</tr>
+          <tr lang="ru" finished="false">MIDI выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.midi]
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

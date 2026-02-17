@@ -1,571 +1,565 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="proto.midi.cc">
-        <title>proto.midi.cc</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">raw midi CC encoder/parser</tr>
-                <tr lang="ru">декодер/энкодер исходных сообщений MIDI СС</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>proto</category>
-            <keywords>parser midi</keywords>
-            <since>0.9.4</since>
-        </meta>
-        <properties>
-            <!-- @list -->
-            <property name="@list" type="flag" access="initonly">
-                <tr lang="en">output as list</tr>
-                <tr lang="ru" finished="false">выход в виде списка</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- bank -->
-            <method name="bank">
-                <info>
-                    <tr lang="en">send CC Bank Select</tr>
-                    <tr lang="ru" finished="false">Выберите CC Bank Select</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="BANK" type="int" minvalue="0" maxvalue="16384" required="true">
-                    <tr lang="en">bank</tr>
-                    <tr lang="ru" finished="false">банк</tr>
-                </param>
-            </method>
-            <!-- bank:i -->
-            <method name="bank:i">
-                <info>
-                    <tr lang="en">same as [bank(</tr>
-                    <tr lang="ru" finished="false">То же, что [банк]</tr>
-                </info>
-            </method>
-            <!-- bank:lsb -->
-            <method name="bank:lsb">
-                <info>
-                    <tr lang="en">send CC Bank Select LSB</tr>
-                    <tr lang="ru" finished="false">Отправить CC Bank Select LSB</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="BANK" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">bank LSB</tr>
-                    <tr lang="ru" finished="false">Банк LSB</tr>
-                </param>
-            </method>
-            <!-- bank:msb -->
-            <method name="bank:msb">
-                <info>
-                    <tr lang="en">send CC Bank Select MSB</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение CC Bank Select MSB</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="BANK" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">bank MSB</tr>
-                    <tr lang="ru" finished="false">Банк MSB</tr>
-                </param>
-            </method>
-            <!-- bendsens -->
-            <method name="bendsens">
-                <info>
-                    <tr lang="en">send Pitch bend sensitivity message</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение о чувствительности
-                    Pitch</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-            </method>
-            <!-- exp. -->
-            <method name="exp.">
-                <info>
-                    <tr lang="en">send fine CC Expression message</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение CC Expression</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="VAL" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">expression value</tr>
-                    <tr lang="ru" finished="false">выражение ценности</tr>
-                </param>
-            </method>
-            <!-- exp:f -->
-            <method name="exp:f">
-                <info>
-                    <tr lang="en">send CC normalized Expression message</tr>
-                    <tr lang="ru" finished="false">CC нормализованное экспрессионное сообщение</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="VAL" type="float" minvalue="0" maxvalue="1" required="true">
-                    <tr lang="en">expression value</tr>
-                    <tr lang="ru" finished="false">выражение ценности</tr>
-                </param>
-            </method>
-            <!-- exp:i -->
-            <method name="exp:i">
-                <info>
-                    <tr lang="en">send 14-bit CC Expression message</tr>
-                    <tr lang="ru" finished="false">14-битное сообщение CC Expression</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="VAL" type="int" minvalue="0" maxvalue="16384" required="true">
-                    <tr lang="en">expression</tr>
-                    <tr lang="ru" finished="false">выражение</tr>
-                </param>
-            </method>
-            <!-- exp~ -->
-            <method name="exp~">
-                <info>
-                    <tr lang="en">send coarse CC Expression message</tr>
-                    <tr lang="ru" finished="false">Отправить грубое сообщение CC Expression</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="VAL" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">expression value</tr>
-                    <tr lang="ru" finished="false">выражение ценности</tr>
-                </param>
-            </method>
-            <!-- hold -->
-            <method name="hold">
-                <info>
-                    <tr lang="en">send CC Hold pedal message</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение CC Hold Pedal</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="BOOL" type="int" enum="0 1" required="true">
-                    <tr lang="en">on/off value</tr>
-                    <tr lang="ru" finished="false">валовая стоимость</tr>
-                </param>
-            </method>
-            <!-- mod. -->
-            <method name="mod.">
-                <info>
-                    <tr lang="en">send fine CC Modulation message</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение CC Modulation</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="VAL" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">modulation value</tr>
-                    <tr lang="ru" finished="false">значение модуляции</tr>
-                </param>
-            </method>
-            <!-- mod:f -->
-            <method name="mod:f">
-                <info>
-                    <tr lang="en">send CC normalized Modulation message</tr>
-                    <tr lang="ru" finished="false">CC нормализованное сообщение модуляции</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="VAL" type="float" minvalue="0" maxvalue="1" required="true">
-                    <tr lang="en">modulation value</tr>
-                    <tr lang="ru" finished="false">значение модуляции</tr>
-                </param>
-            </method>
-            <!-- mod:i -->
-            <method name="mod:i">
-                <info>
-                    <tr lang="en">send 14-bit CC Modulation message</tr>
-                    <tr lang="ru" finished="false">14-битное сообщение модуляции CC</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="VAL" type="int" minvalue="0" maxvalue="16384" required="true">
-                    <tr lang="en">modulation</tr>
-                    <tr lang="ru" finished="false">модуляция</tr>
-                </param>
-            </method>
-            <!-- mod~ -->
-            <method name="mod~">
-                <info>
-                    <tr lang="en">send coarse CC Modulation message</tr>
-                    <tr lang="ru" finished="false">Отправить грубое сообщение модуляции CC</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="VAL" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">modulation value</tr>
-                    <tr lang="ru" finished="false">значение модуляции</tr>
-                </param>
-            </method>
-            <!-- notes_off -->
-            <method name="notes_off">
-                <info>
-                    <tr lang="en">send All Notes Off message</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение All Notes Off</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel. if missing or -1: send to all channels</tr>
-                    <tr lang="ru" finished="false">Midi-канал, если отсутствует или -1: отправляйте
-                    на все каналы</tr>
-                </param>
-            </method>
-            <!-- pan. -->
-            <method name="pan.">
-                <info>
-                    <tr lang="en">send Pan CC fine message</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение Pan CC</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="PAN" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">pan value</tr>
-                    <tr lang="ru" finished="false">общая стоимость</tr>
-                </param>
-            </method>
-            <!-- pan:f -->
-            <method name="pan:f">
-                <info>
-                    <tr lang="en">send CC Pan messages (coarse and fine)</tr>
-                    <tr lang="ru" finished="false">Отправка сообщений CC Pan (грубые и тонкие)</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="PAN" type="float" minvalue="-1" maxvalue="1" required="true">
-                    <tr lang="en">pan value. -1 means left, 0: center, +1: right</tr>
-                    <tr lang="ru" finished="false">Пан-ценность. -1 означает левый, 0: центр,
-                    +1:правый</tr>
-                </param>
-            </method>
-            <!-- pan:i -->
-            <method name="pan:i">
-                <info>
-                    <tr lang="en">send Pan CC message. Args: CHAN PAN(0..0x3fff) or CHAN
-                    MSB(0..127) LSB(0..127). In case of 14 bit value 0 means left, 0x2000: center
-                    and 0x3fff: right</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение Pan CC. Арг: CHAN PAN
-                    (0..0x3fff) или CHAN MSB (0..127) LSB (0..127). В случае 14-битного значения 0
-                    означает слева, 0x2000: центр и 0x3fff: справа.</tr>
-                </info>
-            </method>
-            <!-- panic -->
-            <method name="panic">
-                <info>
-                    <tr lang="en">send All Notes Off message</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение All Notes Off</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel. if missing or -1: send to all channels</tr>
-                    <tr lang="ru" finished="false">Midi-канал, если отсутствует или -1: отправляйте
-                    на все каналы</tr>
-                </param>
-            </method>
-            <!-- pan~ -->
-            <method name="pan~">
-                <info>
-                    <tr lang="en">send Pan CC coarse message</tr>
-                    <tr lang="ru" finished="false">Обсуждение Pan CC Coarse Message</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="PAN" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">pan value</tr>
-                    <tr lang="ru" finished="false">общая стоимость</tr>
-                </param>
-            </method>
-            <!-- portamento -->
-            <method name="portamento">
-                <info>
-                    <tr lang="en">send CC portamento message</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение CC Portamento</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="VALUE" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">portamento amount</tr>
-                    <tr lang="ru" finished="false">размер портамента</tr>
-                </param>
-            </method>
-            <!-- portswitch -->
-            <method name="portswitch">
-                <info>
-                    <tr lang="en">send CC portamento switch message</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение CC portamento switch</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="BOOL" type="int" enum="0 1" required="true">
-                    <tr lang="en">on/off value</tr>
-                    <tr lang="ru" finished="false">валовая стоимость</tr>
-                </param>
-            </method>
-            <!-- sostenuto -->
-            <method name="sostenuto">
-                <info>
-                    <tr lang="en">send CC sostenuto pedal message</tr>
-                    <tr lang="ru" finished="false">CC sostenuto Педаль сообщения</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="BOOL" type="int" enum="0 1" required="true">
-                    <tr lang="en">on/off value</tr>
-                    <tr lang="ru" finished="false">валовая стоимость</tr>
-                </param>
-            </method>
-            <!-- sound_off -->
-            <method name="sound_off">
-                <info>
-                    <tr lang="en">send All Sound Off message</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение All Sound Off</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel. if missing or -1: send to all channels</tr>
-                    <tr lang="ru" finished="false">Midi-канал, если отсутствует или -1: отправляйте
-                    на все каналы</tr>
-                </param>
-            </method>
-            <!-- tune. -->
-            <method name="tune.">
-                <info>
-                    <tr lang="en">send RPN fine tuning request (in cents)</tr>
-                    <tr lang="ru" finished="false">Отправить запрос на тонкую настройку RPN (в
-                    центах)</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="CENTS" type="float" minvalue="-100" maxvalue="100" required="true">
-                    <tr lang="en">tuning in cents</tr>
-                    <tr lang="ru" finished="false">тюнинг в центах</tr>
-                </param>
-            </method>
-            <!-- tune:c -->
-            <method name="tune:c">
-                <info>
-                    <tr lang="en">send RPN fine tuning request (in cents)</tr>
-                    <tr lang="ru" finished="false">Отправить запрос на тонкую настройку RPN (в
-                    центах)</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="CENTS" type="float" minvalue="-100" maxvalue="100" required="true">
-                    <tr lang="en">tuning in cents</tr>
-                    <tr lang="ru" finished="false">тюнинг в центах</tr>
-                </param>
-            </method>
-            <!-- tune:s -->
-            <method name="tune:s">
-                <info>
-                    <tr lang="en">send RPN tuning request in semitones</tr>
-                    <tr lang="ru" finished="false">Отправить запрос на тюнинг RPN в полутонах</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="SEMI" type="float" minvalue="-64" maxvalue="63" required="true">
-                    <tr lang="en">tuning in semitones</tr>
-                    <tr lang="ru" finished="false">тюнинг в полутонах</tr>
-                </param>
-            </method>
-            <!-- tunebank -->
-            <method name="tunebank">
-                <info>
-                    <tr lang="en">send RPN tune bank select</tr>
-                    <tr lang="ru" finished="false">Скачать RPN tune bank select</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="BANK" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">tuning bank</tr>
-                    <tr lang="ru" finished="false">тюнинг-банк</tr>
-                </param>
-            </method>
-            <!-- tuneprog -->
-            <method name="tuneprog">
-                <info>
-                    <tr lang="en">send RPN tune prog change</tr>
-                    <tr lang="ru" finished="false">Скачать RPN tune prog change</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="PROG" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">tuning program</tr>
-                    <tr lang="ru" finished="false">программа тюнинга</tr>
-                </param>
-            </method>
-            <!-- tunesel -->
-            <method name="tunesel">
-                <info>
-                    <tr lang="en">send RPN tune select</tr>
-                    <tr lang="ru" finished="false">Скачать RPN tune select</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="BANK" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">tuning bank</tr>
-                    <tr lang="ru" finished="false">тюнинг-банк</tr>
-                </param>
-                <param name="PROG" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">tuning program</tr>
-                    <tr lang="ru" finished="false">программа тюнинга</tr>
-                </param>
-            </method>
-            <!-- tune~ -->
-            <method name="tune~">
-                <info>
-                    <tr lang="en">send RPN coarse tuning request (in semitones)</tr>
-                    <tr lang="ru" finished="false">отправить запрос на грубую настройку RPN (в
-                    полутонах)</tr>
-                </info>
-                <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="SEMI" type="int" minvalue="-64" maxvalue="63" required="true">
-                    <tr lang="en">tuning in semitones</tr>
-                    <tr lang="ru" finished="false">тюнинг в полутонах</tr>
-                </param>
-            </method>
-            <!-- volume. -->
-            <method name="volume.">
-                <info>
-                    <tr lang="en">send fine CC Volume message</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение CC Volume</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="VOL" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">pan value</tr>
-                    <tr lang="ru" finished="false">общая стоимость</tr>
-                </param>
-            </method>
-            <!-- volume:f -->
-            <method name="volume:f">
-                <info>
-                    <tr lang="en">send CC normalized Volume message</tr>
-                    <tr lang="ru" finished="false">Отправить сообщение CC normalized Volume</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="VOL" type="float" minvalue="0" maxvalue="1" required="true">
-                    <tr lang="en">volume value</tr>
-                    <tr lang="ru" finished="false">объемная стоимость</tr>
-                </param>
-            </method>
-            <!-- volume:i -->
-            <method name="volume:i">
-                <info>
-                    <tr lang="en">send 14-bit CC Volume message</tr>
-                    <tr lang="ru" finished="false">14-битное сообщение CC Volume</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="VOL" type="int" minvalue="0" maxvalue="16384" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- volume~ -->
-            <method name="volume~">
-                <info>
-                    <tr lang="en">send coarse CC Volume message</tr>
-                    <tr lang="ru" finished="false">Отправить грубое сообщение CC Volume</tr>
-                </info>
-                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                    <tr lang="en">midi channel</tr>
-                    <tr lang="ru" finished="false">канал Midi</tr>
-                </param>
-                <param name="VOL" type="int" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">pan value</tr>
-                    <tr lang="ru" finished="false">общая стоимость</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">raw midi input bytes</tr>
-                    <tr lang="ru" finished="false">необработанные промежуточные входные байты</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">raw midi input bytes</tr>
-                    <tr lang="ru" finished="false">необработанные промежуточные входные байты</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float: raw midi output or parsed messages with selector (output
-                    format is the same as for corresponding methods)</tr>
-                    <tr lang="ru" finished="false">Поплавок: необработанный вывод миди или
-                    парсированные сообщения с селектором (формат вывода такой же, как и для
-                    соответствующих методов)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="proto.midi.cc">
+    <title>proto.midi.cc</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">raw midi CC encoder/parser</tr>
+        <tr lang="ru">декодер/энкодер исходных сообщений MIDI СС</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>proto</category>
+      <keywords>parser midi</keywords>
+      <since>0.9.4</since>
+    </meta>
+    <properties>
+      <!-- @list -->
+      <property name="@list" type="flag" access="initonly">
+        <tr lang="en">output as list</tr>
+        <tr lang="ru" finished="false">выход в виде списка</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- bank -->
+      <method name="bank">
+        <info>
+          <tr lang="en">send CC Bank Select</tr>
+          <tr lang="ru" finished="false">Выберите CC Bank Select</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="BANK" type="int" minvalue="0" maxvalue="16384" required="true">
+          <tr lang="en">bank</tr>
+          <tr lang="ru" finished="false">банк</tr>
+        </param>
+      </method>
+      <!-- bank:i -->
+      <method name="bank:i">
+        <info>
+          <tr lang="en">same as [bank(</tr>
+          <tr lang="ru" finished="false">То же, что [банк]</tr>
+        </info>
+      </method>
+      <!-- bank:lsb -->
+      <method name="bank:lsb">
+        <info>
+          <tr lang="en">send CC Bank Select LSB</tr>
+          <tr lang="ru" finished="false">Отправить CC Bank Select LSB</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="BANK" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">bank LSB</tr>
+          <tr lang="ru" finished="false">Банк LSB</tr>
+        </param>
+      </method>
+      <!-- bank:msb -->
+      <method name="bank:msb">
+        <info>
+          <tr lang="en">send CC Bank Select MSB</tr>
+          <tr lang="ru" finished="false">Отправить сообщение CC Bank Select MSB</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="BANK" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">bank MSB</tr>
+          <tr lang="ru" finished="false">Банк MSB</tr>
+        </param>
+      </method>
+      <!-- bendsens -->
+      <method name="bendsens">
+        <info>
+          <tr lang="en">send Pitch bend sensitivity message</tr>
+          <tr lang="ru" finished="false">Отправить сообщение о чувствительности Pitch</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+      </method>
+      <!-- exp. -->
+      <method name="exp.">
+        <info>
+          <tr lang="en">send fine CC Expression message</tr>
+          <tr lang="ru" finished="false">Отправить сообщение CC Expression</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="VAL" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">expression value</tr>
+          <tr lang="ru" finished="false">выражение ценности</tr>
+        </param>
+      </method>
+      <!-- exp:f -->
+      <method name="exp:f">
+        <info>
+          <tr lang="en">send CC normalized Expression message</tr>
+          <tr lang="ru" finished="false">CC нормализованное экспрессионное сообщение</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="VAL" type="float" minvalue="0" maxvalue="1" required="true">
+          <tr lang="en">expression value</tr>
+          <tr lang="ru" finished="false">выражение ценности</tr>
+        </param>
+      </method>
+      <!-- exp:i -->
+      <method name="exp:i">
+        <info>
+          <tr lang="en">send 14-bit CC Expression message</tr>
+          <tr lang="ru" finished="false">14-битное сообщение CC Expression</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="VAL" type="int" minvalue="0" maxvalue="16384" required="true">
+          <tr lang="en">expression</tr>
+          <tr lang="ru" finished="false">выражение</tr>
+        </param>
+      </method>
+      <!-- exp~ -->
+      <method name="exp~">
+        <info>
+          <tr lang="en">send coarse CC Expression message</tr>
+          <tr lang="ru" finished="false">Отправить грубое сообщение CC Expression</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="VAL" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">expression value</tr>
+          <tr lang="ru" finished="false">выражение ценности</tr>
+        </param>
+      </method>
+      <!-- hold -->
+      <method name="hold">
+        <info>
+          <tr lang="en">send CC Hold pedal message</tr>
+          <tr lang="ru" finished="false">Отправить сообщение CC Hold Pedal</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="BOOL" type="int" enum="0 1" required="true">
+          <tr lang="en">on/off value</tr>
+          <tr lang="ru" finished="false">валовая стоимость</tr>
+        </param>
+      </method>
+      <!-- mod. -->
+      <method name="mod.">
+        <info>
+          <tr lang="en">send fine CC Modulation message</tr>
+          <tr lang="ru" finished="false">Отправить сообщение CC Modulation</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="VAL" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">modulation value</tr>
+          <tr lang="ru" finished="false">значение модуляции</tr>
+        </param>
+      </method>
+      <!-- mod:f -->
+      <method name="mod:f">
+        <info>
+          <tr lang="en">send CC normalized Modulation message</tr>
+          <tr lang="ru" finished="false">CC нормализованное сообщение модуляции</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="VAL" type="float" minvalue="0" maxvalue="1" required="true">
+          <tr lang="en">modulation value</tr>
+          <tr lang="ru" finished="false">значение модуляции</tr>
+        </param>
+      </method>
+      <!-- mod:i -->
+      <method name="mod:i">
+        <info>
+          <tr lang="en">send 14-bit CC Modulation message</tr>
+          <tr lang="ru" finished="false">14-битное сообщение модуляции CC</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="VAL" type="int" minvalue="0" maxvalue="16384" required="true">
+          <tr lang="en">modulation</tr>
+          <tr lang="ru" finished="false">модуляция</tr>
+        </param>
+      </method>
+      <!-- mod~ -->
+      <method name="mod~">
+        <info>
+          <tr lang="en">send coarse CC Modulation message</tr>
+          <tr lang="ru" finished="false">Отправить грубое сообщение модуляции CC</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="VAL" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">modulation value</tr>
+          <tr lang="ru" finished="false">значение модуляции</tr>
+        </param>
+      </method>
+      <!-- notes_off -->
+      <method name="notes_off">
+        <info>
+          <tr lang="en">send All Notes Off message</tr>
+          <tr lang="ru" finished="false">Отправить сообщение All Notes Off</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel. if missing or -1: send to all channels</tr>
+          <tr lang="ru" finished="false">Midi-канал, если отсутствует или -1: отправляйте на все
+          каналы</tr>
+        </param>
+      </method>
+      <!-- pan. -->
+      <method name="pan.">
+        <info>
+          <tr lang="en">send Pan CC fine message</tr>
+          <tr lang="ru" finished="false">Отправить сообщение Pan CC</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="PAN" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">pan value</tr>
+          <tr lang="ru" finished="false">общая стоимость</tr>
+        </param>
+      </method>
+      <!-- pan:f -->
+      <method name="pan:f">
+        <info>
+          <tr lang="en">send CC Pan messages (coarse and fine)</tr>
+          <tr lang="ru" finished="false">Отправка сообщений CC Pan (грубые и тонкие)</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="PAN" type="float" minvalue="-1" maxvalue="1" required="true">
+          <tr lang="en">pan value. -1 means left, 0: center, +1: right</tr>
+          <tr lang="ru" finished="false">Пан-ценность. -1 означает левый, 0: центр, +1:правый</tr>
+        </param>
+      </method>
+      <!-- pan:i -->
+      <method name="pan:i">
+        <info>
+          <tr lang="en">send Pan CC message. Args: CHAN PAN(0..0x3fff) or CHAN MSB(0..127)
+          LSB(0..127). In case of 14 bit value 0 means left, 0x2000: center and 0x3fff: right</tr>
+          <tr lang="ru" finished="false">Отправить сообщение Pan CC. Арг: CHAN PAN (0..0x3fff) или
+          CHAN MSB (0..127) LSB (0..127). В случае 14-битного значения 0 означает слева, 0x2000:
+          центр и 0x3fff: справа.</tr>
+        </info>
+      </method>
+      <!-- panic -->
+      <method name="panic">
+        <info>
+          <tr lang="en">send All Notes Off message</tr>
+          <tr lang="ru" finished="false">Отправить сообщение All Notes Off</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel. if missing or -1: send to all channels</tr>
+          <tr lang="ru" finished="false">Midi-канал, если отсутствует или -1: отправляйте на все
+          каналы</tr>
+        </param>
+      </method>
+      <!-- pan~ -->
+      <method name="pan~">
+        <info>
+          <tr lang="en">send Pan CC coarse message</tr>
+          <tr lang="ru" finished="false">Обсуждение Pan CC Coarse Message</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="PAN" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">pan value</tr>
+          <tr lang="ru" finished="false">общая стоимость</tr>
+        </param>
+      </method>
+      <!-- portamento -->
+      <method name="portamento">
+        <info>
+          <tr lang="en">send CC portamento message</tr>
+          <tr lang="ru" finished="false">Отправить сообщение CC Portamento</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="VALUE" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">portamento amount</tr>
+          <tr lang="ru" finished="false">размер портамента</tr>
+        </param>
+      </method>
+      <!-- portswitch -->
+      <method name="portswitch">
+        <info>
+          <tr lang="en">send CC portamento switch message</tr>
+          <tr lang="ru" finished="false">Отправить сообщение CC portamento switch</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="BOOL" type="int" enum="0 1" required="true">
+          <tr lang="en">on/off value</tr>
+          <tr lang="ru" finished="false">валовая стоимость</tr>
+        </param>
+      </method>
+      <!-- sostenuto -->
+      <method name="sostenuto">
+        <info>
+          <tr lang="en">send CC sostenuto pedal message</tr>
+          <tr lang="ru" finished="false">CC sostenuto Педаль сообщения</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="BOOL" type="int" enum="0 1" required="true">
+          <tr lang="en">on/off value</tr>
+          <tr lang="ru" finished="false">валовая стоимость</tr>
+        </param>
+      </method>
+      <!-- sound_off -->
+      <method name="sound_off">
+        <info>
+          <tr lang="en">send All Sound Off message</tr>
+          <tr lang="ru" finished="false">Отправить сообщение All Sound Off</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel. if missing or -1: send to all channels</tr>
+          <tr lang="ru" finished="false">Midi-канал, если отсутствует или -1: отправляйте на все
+          каналы</tr>
+        </param>
+      </method>
+      <!-- tune. -->
+      <method name="tune.">
+        <info>
+          <tr lang="en">send RPN fine tuning request (in cents)</tr>
+          <tr lang="ru" finished="false">Отправить запрос на тонкую настройку RPN (в центах)</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="CENTS" type="float" minvalue="-100" maxvalue="100" required="true">
+          <tr lang="en">tuning in cents</tr>
+          <tr lang="ru" finished="false">тюнинг в центах</tr>
+        </param>
+      </method>
+      <!-- tune:c -->
+      <method name="tune:c">
+        <info>
+          <tr lang="en">send RPN fine tuning request (in cents)</tr>
+          <tr lang="ru" finished="false">Отправить запрос на тонкую настройку RPN (в центах)</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="CENTS" type="float" minvalue="-100" maxvalue="100" required="true">
+          <tr lang="en">tuning in cents</tr>
+          <tr lang="ru" finished="false">тюнинг в центах</tr>
+        </param>
+      </method>
+      <!-- tune:s -->
+      <method name="tune:s">
+        <info>
+          <tr lang="en">send RPN tuning request in semitones</tr>
+          <tr lang="ru" finished="false">Отправить запрос на тюнинг RPN в полутонах</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="SEMI" type="float" minvalue="-64" maxvalue="63" required="true">
+          <tr lang="en">tuning in semitones</tr>
+          <tr lang="ru" finished="false">тюнинг в полутонах</tr>
+        </param>
+      </method>
+      <!-- tunebank -->
+      <method name="tunebank">
+        <info>
+          <tr lang="en">send RPN tune bank select</tr>
+          <tr lang="ru" finished="false">Скачать RPN tune bank select</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="BANK" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">tuning bank</tr>
+          <tr lang="ru" finished="false">тюнинг-банк</tr>
+        </param>
+      </method>
+      <!-- tuneprog -->
+      <method name="tuneprog">
+        <info>
+          <tr lang="en">send RPN tune prog change</tr>
+          <tr lang="ru" finished="false">Скачать RPN tune prog change</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="PROG" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">tuning program</tr>
+          <tr lang="ru" finished="false">программа тюнинга</tr>
+        </param>
+      </method>
+      <!-- tunesel -->
+      <method name="tunesel">
+        <info>
+          <tr lang="en">send RPN tune select</tr>
+          <tr lang="ru" finished="false">Скачать RPN tune select</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="BANK" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">tuning bank</tr>
+          <tr lang="ru" finished="false">тюнинг-банк</tr>
+        </param>
+        <param name="PROG" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">tuning program</tr>
+          <tr lang="ru" finished="false">программа тюнинга</tr>
+        </param>
+      </method>
+      <!-- tune~ -->
+      <method name="tune~">
+        <info>
+          <tr lang="en">send RPN coarse tuning request (in semitones)</tr>
+          <tr lang="ru" finished="false">отправить запрос на грубую настройку RPN (в
+          полутонах)</tr>
+        </info>
+        <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="SEMI" type="int" minvalue="-64" maxvalue="63" required="true">
+          <tr lang="en">tuning in semitones</tr>
+          <tr lang="ru" finished="false">тюнинг в полутонах</tr>
+        </param>
+      </method>
+      <!-- volume. -->
+      <method name="volume.">
+        <info>
+          <tr lang="en">send fine CC Volume message</tr>
+          <tr lang="ru" finished="false">Отправить сообщение CC Volume</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="VOL" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">pan value</tr>
+          <tr lang="ru" finished="false">общая стоимость</tr>
+        </param>
+      </method>
+      <!-- volume:f -->
+      <method name="volume:f">
+        <info>
+          <tr lang="en">send CC normalized Volume message</tr>
+          <tr lang="ru" finished="false">Отправить сообщение CC normalized Volume</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="VOL" type="float" minvalue="0" maxvalue="1" required="true">
+          <tr lang="en">volume value</tr>
+          <tr lang="ru" finished="false">объемная стоимость</tr>
+        </param>
+      </method>
+      <!-- volume:i -->
+      <method name="volume:i">
+        <info>
+          <tr lang="en">send 14-bit CC Volume message</tr>
+          <tr lang="ru" finished="false">14-битное сообщение CC Volume</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="VOL" type="int" minvalue="0" maxvalue="16384" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- volume~ -->
+      <method name="volume~">
+        <info>
+          <tr lang="en">send coarse CC Volume message</tr>
+          <tr lang="ru" finished="false">Отправить грубое сообщение CC Volume</tr>
+        </info>
+        <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+          <tr lang="en">midi channel</tr>
+          <tr lang="ru" finished="false">канал Midi</tr>
+        </param>
+        <param name="VOL" type="int" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">pan value</tr>
+          <tr lang="ru" finished="false">общая стоимость</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">raw midi input bytes</tr>
+          <tr lang="ru" finished="false">необработанные промежуточные входные байты</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">raw midi input bytes</tr>
+          <tr lang="ru" finished="false">необработанные промежуточные входные байты</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float: raw midi output or parsed messages with selector (output format is
+          the same as for corresponding methods)</tr>
+          <tr lang="ru" finished="false">Поплавок: необработанный вывод миди или парсированные
+          сообщения с селектором (формат вывода такой же, как и для соответствующих методов)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [proto.midi.cc-pan]
 
 [proto.midi.cc-vol]
 ]]>
-            </pdascii>
-            <pdascii id="pan">
+      </pdascii>
+      <pdascii id="pan">
 <![CDATA[
 [T]                  [ui.k @min -1 @max 1 @show_value 1]
 |                    |
@@ -585,8 +579,8 @@
 *|*
 [dac~]
 ]]>
-            </pdascii>
-            <pdascii id="vol">
+      </pdascii>
+      <pdascii id="vol">
 <![CDATA[
 [T]                  [ui.k @min 0 @max 1 @show_value 1]
 |                    |
@@ -606,7 +600,7 @@
 *|*
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

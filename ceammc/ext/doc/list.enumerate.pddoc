@@ -1,64 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.enumerate">
-        <title>list.enumerate</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">enumerates list elements</tr>
-                <tr lang="ru">нумерует элементы списка</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list enumerate</keywords>
-            <since>0.3</since>
-        </meta>
-        <arguments>
-            <argument name="FROM" type="int">
-                <tr lang="en">enumeration start index</tr>
-                <tr lang="ru" finished="false">Перечислительный стартовый индекс</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @append -->
-            <property name="@append" type="flag" default="0" access="initonly">
-                <tr lang="en">put element index after element value</tr>
-                <!-- old: поставить индекс элемента после значения
+  <object name="list.enumerate">
+    <title>list.enumerate</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">enumerates list elements</tr>
+        <tr lang="ru">нумерует элементы списка</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list enumerate</keywords>
+      <since>0.3</since>
+    </meta>
+    <arguments>
+      <argument name="FROM" type="int">
+        <tr lang="en">enumeration start index</tr>
+        <tr lang="ru" finished="false">Перечислительный стартовый индекс</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @append -->
+      <property name="@append" type="flag" default="0" access="initonly">
+        <tr lang="en">put element index after element value</tr>
+        <!-- old: поставить индекс элемента после значения
                 элемента -->
-                <tr lang="ru" finished="false">поставить индекс элемента после значения
-                элемента</tr>
-            </property>
-            <!-- @from -->
-            <property name="@from" type="int" default="0">
-                <tr lang="en">enumeration start index</tr>
-                <tr lang="ru" finished="false">Перечислительный стартовый индекс</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output list</tr>
-                    <tr lang="ru" finished="false">перечень мероприятий</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">поставить индекс элемента после значения элемента</tr>
+      </property>
+      <!-- @from -->
+      <property name="@from" type="int" default="0">
+        <tr lang="en">enumeration start index</tr>
+        <tr lang="ru" finished="false">Перечислительный стартовый индекс</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output list</tr>
+          <tr lang="ru" finished="false">перечень мероприятий</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [list A B C D E(
 |
@@ -70,7 +69,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

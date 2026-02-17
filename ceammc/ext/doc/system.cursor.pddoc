@@ -1,88 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="system.cursor">
-        <title>system.cursor</title>
-        <meta>
-            <authors>
-                <author>Hans-Christoph Steiner</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs the cursor motion, mousewheel and button clicks</tr>
-                <tr lang="ru">выводит положение курсора, нажатия кнопок мыши и колеса
-                прокрутки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>system</category>
-            <keywords>cursor mouse mousewheel</keywords>
-            <since>0.1</since>
-        </meta>
-        <properties>
-            <!-- @clip -->
-            <property name="@clip" type="bool" default="0">
-                <tr lang="en">clip mode. If true clip a cursor XY values to the [0..1] range in
-                normalized mode, to the window width/height relative mode, otherwise to the screen
-                width/height</tr>
-                <tr lang="ru" finished="false">Режим клипа. Если истинный клип курсора XY значения
-                в диапазоне [0..1] в нормализованном режиме, к ширине окна/высота относительный
-                режим, в противном случае к ширине экрана/высота</tr>
-            </property>
-            <!-- @norm -->
-            <property name="@norm" type="bool" default="0">
-                <tr lang="en">cursor x/y coordinates normalization by screen (or window)
-                width/height</tr>
-                <tr lang="ru" finished="false">Курсор x/y координирует нормализацию по
-                ширине/высоте экрана (или окна)</tr>
-            </property>
-            <!-- @relative -->
-            <property name="@relative" type="bool" default="0">
-                <tr lang="en">relative output mode: if on output coords relative to the root
-                window, otherwise output screen coordinates</tr>
-                <tr lang="ru" finished="false">относительный режим вывода: если на выходе коорды
-                относительно корневого окна, в противном случае на выходе экрана координаты</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- polltime -->
-            <method name="polltime">
-                <info>
-                    <tr lang="en">sets global cursor polling time</tr>
-                    <tr lang="ru" finished="false">устанавливает глобальное время опроса
-                    курсора</tr>
-                </info>
-                <param name="T" type="float" units="millisecond" minvalue="10" maxvalue="1000"
-                required="true">
-                    <tr lang="en">polling time</tr>
-                    <tr lang="ru" finished="false">время опроса</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output cursor position</tr>
-                    <tr lang="ru" finished="false">выходное положение курсора</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">when 1 is received - turns on cursor polling (position and
-                    buttons), when 0 is received - turns it off</tr>
-                    <tr lang="ru" finished="false">когда получено 1 - включается опрос курсора
-                    (позиция и кнопки), когда получено 0 - выключает его</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">messages: motion X Y, mousewheel DELTA, button IDX STATE</tr>
-                    <tr lang="ru" finished="false">сообщения: движение X Y, колесо мыши DELTA,
-                    кнопка IDX STATE</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="system.cursor">
+    <title>system.cursor</title>
+    <meta>
+      <authors>
+        <author>Hans-Christoph Steiner</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs the cursor motion, mousewheel and button clicks</tr>
+        <tr lang="ru">выводит положение курсора, нажатия кнопок мыши и колеса прокрутки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>system</category>
+      <keywords>cursor mouse mousewheel</keywords>
+      <since>0.1</since>
+    </meta>
+    <properties>
+      <!-- @clip -->
+      <property name="@clip" type="bool" default="0">
+        <tr lang="en">clip mode. If true clip a cursor XY values to the [0..1] range in normalized
+        mode, to the window width/height relative mode, otherwise to the screen width/height</tr>
+        <tr lang="ru" finished="false">Режим клипа. Если истинный клип курсора XY значения в
+        диапазоне [0..1] в нормализованном режиме, к ширине окна/высота относительный режим, в
+        противном случае к ширине экрана/высота</tr>
+      </property>
+      <!-- @norm -->
+      <property name="@norm" type="bool" default="0">
+        <tr lang="en">cursor x/y coordinates normalization by screen (or window) width/height</tr>
+        <tr lang="ru" finished="false">Курсор x/y координирует нормализацию по ширине/высоте экрана
+        (или окна)</tr>
+      </property>
+      <!-- @relative -->
+      <property name="@relative" type="bool" default="0">
+        <tr lang="en">relative output mode: if on output coords relative to the root window,
+        otherwise output screen coordinates</tr>
+        <tr lang="ru" finished="false">относительный режим вывода: если на выходе коорды
+        относительно корневого окна, в противном случае на выходе экрана координаты</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- polltime -->
+      <method name="polltime">
+        <info>
+          <tr lang="en">sets global cursor polling time</tr>
+          <tr lang="ru" finished="false">устанавливает глобальное время опроса курсора</tr>
+        </info>
+        <param name="T" type="float" units="millisecond" minvalue="10" maxvalue="1000"
+        required="true">
+          <tr lang="en">polling time</tr>
+          <tr lang="ru" finished="false">время опроса</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output cursor position</tr>
+          <tr lang="ru" finished="false">выходное положение курсора</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">when 1 is received - turns on cursor polling (position and buttons), when 0
+          is received - turns it off</tr>
+          <tr lang="ru" finished="false">когда получено 1 - включается опрос курсора (позиция и
+          кнопки), когда получено 0 - выключает его</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">messages: motion X Y, mousewheel DELTA, button IDX STATE</tr>
+          <tr lang="ru" finished="false">сообщения: движение X Y, колесо мыши DELTA, кнопка IDX
+          STATE</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]       [T]            [T]        [T]         [system.cursor-abs]
 |         |              |          |
@@ -100,8 +96,8 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-            <pdascii id="1">
+      </pdascii>
+      <pdascii id="1">
 <![CDATA[
 [inlet]
 |
@@ -109,8 +105,8 @@
 |
 [outlet]
 ]]>
-            </pdascii>
-            <pdascii id="abs">
+      </pdascii>
+      <pdascii id="abs">
 <![CDATA[
 [T]       [T]            [T]        [T]
 |         |              |          |
@@ -128,8 +124,8 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-            <pdascii id="osc~">
+      </pdascii>
+      <pdascii id="osc~">
 <![CDATA[
 [T]
 |
@@ -147,7 +143,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

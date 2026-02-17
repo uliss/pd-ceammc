@@ -1,95 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hw.gamepad">
-        <title>hw.gamepad</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">gamepad controller</tr>
-                <tr lang="ru">геймпад контроллеры</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>hw</category>
-            <keywords>gamepad</keywords>
-            <since>0.9.8</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">button names: south, east, north, west, ltrig, ltrig2, rtrig, rtrig2,
-                select, start, mode, lthumb, rthumb, up, down, left, right, unknown.</tr>
-                <!-- old: Названия кнопок: юг, восток, север, запад, ltrig,
+  <object name="hw.gamepad">
+    <title>hw.gamepad</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">gamepad controller</tr>
+        <tr lang="ru">геймпад контроллеры</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>hw</category>
+      <keywords>gamepad</keywords>
+      <since>0.9.8</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">button names: south, east, north, west, ltrig, ltrig2, rtrig, rtrig2, select,
+        start, mode, lthumb, rthumb, up, down, left, right, unknown.</tr>
+        <!-- old: Названия кнопок: юг, восток, север, запад, ltrig,
                 ltrig2, rtrig, rtrig2, выберите, запустите, режим, lthumb, rthumb, вверх, вниз,
                 слева, справа, неизвестно. -->
-                <tr lang="ru" finished="false">Названия кнопок: юг, восток, север, запад, ltrig,
-                ltrig2, rtrig, rtrig2, выберите, запустите, режим, lthumb, rthumb, вверх, вниз,
-                слева, справа, неизвестно.</tr>
-            </par>
-            <par>
-                <tr lang="en">button events: pressed, released, repeated, changed</tr>
-                <!-- old: события кнопки: нажаты, выпущены, повторены,
+        <tr lang="ru" finished="false">Названия кнопок: юг, восток, север, запад, ltrig, ltrig2,
+        rtrig, rtrig2, выберите, запустите, режим, lthumb, rthumb, вверх, вниз, слева, справа,
+        неизвестно.</tr>
+      </par>
+      <par>
+        <tr lang="en">button events: pressed, released, repeated, changed</tr>
+        <!-- old: события кнопки: нажаты, выпущены, повторены,
                 изменены -->
-                <tr lang="ru" finished="false">события кнопки: нажаты, выпущены, повторены,
-                изменены</tr>
-            </par>
-            <par>
-                <tr lang="en">axis names: lstickx, lsticky, rstickx, rsticky, leftz, rightz</tr>
-                <!-- old: названия осей: lstickx, lsticky, rstickx, rsticky,
+        <tr lang="ru" finished="false">события кнопки: нажаты, выпущены, повторены, изменены</tr>
+      </par>
+      <par>
+        <tr lang="en">axis names: lstickx, lsticky, rstickx, rsticky, leftz, rightz</tr>
+        <!-- old: названия осей: lstickx, lsticky, rstickx, rsticky,
                 leftz, rightz -->
-                <tr lang="ru" finished="false">названия осей: lstickx, lsticky, rstickx, rsticky,
-                leftz, rightz</tr>
-            </par>
-        </info>
-        <methods>
-            <!-- devices -->
-            <method name="devices">
-                <info>
-                    <tr lang="en">output devices info as data:Dict into third outlet</tr>
-                    <!-- old: выводить информацию об устройствах в виде
+        <tr lang="ru" finished="false">названия осей: lstickx, lsticky, rstickx, rsticky, leftz,
+        rightz</tr>
+      </par>
+    </info>
+    <methods>
+      <!-- devices -->
+      <method name="devices">
+        <info>
+          <tr lang="en">output devices info as data:Dict into third outlet</tr>
+          <!-- old: выводить информацию об устройствах в виде
                     данных: Дикт в третью точку -->
-                    <tr lang="ru" finished="false">выводить информацию об устройствах в виде
-                    данных: Дикт в третью точку</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input</tr>
-                    <tr lang="ru" finished="false">ввод</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">button output: list GAMEPAD_ID BUTTON_NAME BUTTON_EVENT
-                    VALUE</tr>
-                    <tr lang="ru" finished="false">Вывод кнопки: список GAMEPAD_ID BUTTON_NAME
-                    BUTTON_EVENT VALUE</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">axis output: list GAMEPAD_ID AXIS_NAME VALUE</tr>
-                    <tr lang="ru" finished="false">Результат по оси: список GAMEPAD_ID AXIS_NAME
-                    VALUE</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">[device DICT( - connected device information, [connected ID( -
-                    when device connected, [disconnected ID( - when device disconnected</tr>
-                    <tr lang="ru" finished="false">[устройство DICT( - информация о подключенном
-                    устройстве, [подключенный идентификатор( - когда устройство подключено,
-                    [подключенный идентификатор( - когда устройство отключено)]]</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">выводить информацию об устройствах в виде данных: Дикт в
+          третью точку</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input</tr>
+          <tr lang="ru" finished="false">ввод</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">button output: list GAMEPAD_ID BUTTON_NAME BUTTON_EVENT VALUE</tr>
+          <tr lang="ru" finished="false">Вывод кнопки: список GAMEPAD_ID BUTTON_NAME BUTTON_EVENT
+          VALUE</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">axis output: list GAMEPAD_ID AXIS_NAME VALUE</tr>
+          <tr lang="ru" finished="false">Результат по оси: список GAMEPAD_ID AXIS_NAME VALUE</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">[device DICT( - connected device information, [connected ID( - when device
+          connected, [disconnected ID( - when device disconnected</tr>
+          <tr lang="ru" finished="false">[устройство DICT( - информация о подключенном устройстве,
+          [подключенный идентификатор( - когда устройство подключено, [подключенный идентификатор(
+          - когда устройство отключено)]]</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [devices(
 |
@@ -116,7 +113,7 @@
 [X x:2->b] [X x:0->c]   [X x:1->f]
 [X x:1->n] [X m:1->k:1] [X m:2->l:0] [X m:3->l:1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

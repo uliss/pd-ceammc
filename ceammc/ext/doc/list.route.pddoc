@@ -1,109 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.route">
-        <title>list.route</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">routes the list by the first element, like [route] object</tr>
-                <tr lang="ru">маршрутизирует список по первому элементу, как объект [route]</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list route</keywords>
-            <since>0.5</since>
-            <also>
-                <see>route</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Outputs float, symbol or list to matched outlet or to last outlet if
-                no match</tr>
-                <!-- old: Выходы плавают, символ или список для
+  <object name="list.route">
+    <title>list.route</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">routes the list by the first element, like [route] object</tr>
+        <tr lang="ru">маршрутизирует список по первому элементу, как объект [route]</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list route</keywords>
+      <since>0.5</since>
+      <also>
+        <see>route</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Outputs float, symbol or list to matched outlet or to last outlet if no
+        match</tr>
+        <!-- old: Выходы плавают, символ или список для
                 соответствующей розетки или последней розетки, если нет совпадения -->
-                <tr lang="ru" finished="false">Выходы плавают, символ или список для
-                соответствующей розетки или последней розетки, если нет совпадения</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="ARGS" type="list">
-                <tr lang="en">list of matched atoms</tr>
-                <tr lang="ru" finished="false">Список совпадающих атомов</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @args -->
-            <property name="@args" type="list" access="initonly" default="">
-                <tr lang="en">matching atoms</tr>
-                <tr lang="ru" finished="false">совпадающие атомы</tr>
-            </property>
-            <!-- @as_any -->
-            <property name="@as_any" type="flag" default="0" access="initonly">
-                <tr lang="en">trim list or symbol selector on output</tr>
-                <tr lang="ru" finished="false">Список отделки или селектор символов на выходе</tr>
-            </property>
-            <!-- @simplify -->
-            <property name="@simplify" type="bool" default="1">
-                <tr lang="en">one element list simplification - transform them to floats or
-                symbols</tr>
-                <!-- old: упрощение списка элементов - преобразование их в
+        <tr lang="ru" finished="false">Выходы плавают, символ или список для соответствующей
+        розетки или последней розетки, если нет совпадения</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="ARGS" type="list">
+        <tr lang="en">list of matched atoms</tr>
+        <tr lang="ru" finished="false">Список совпадающих атомов</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @args -->
+      <property name="@args" type="list" access="initonly" default="">
+        <tr lang="en">matching atoms</tr>
+        <tr lang="ru" finished="false">совпадающие атомы</tr>
+      </property>
+      <!-- @as_any -->
+      <property name="@as_any" type="flag" default="0" access="initonly">
+        <tr lang="en">trim list or symbol selector on output</tr>
+        <tr lang="ru" finished="false">Список отделки или селектор символов на выходе</tr>
+      </property>
+      <!-- @simplify -->
+      <property name="@simplify" type="bool" default="1">
+        <tr lang="en">one element list simplification - transform them to floats or symbols</tr>
+        <!-- old: упрощение списка элементов - преобразование их в
                 поплавки или символы -->
-                <tr lang="ru" finished="false">упрощение списка элементов - преобразование их в
-                поплавки или символы</tr>
-            </property>
-            <!-- @trim -->
-            <property name="@trim" type="flag" default="0" access="initonly">
-                <tr lang="en">cut first element from list, transform float or symbol to bang</tr>
-                <!-- old: вырезать первый элемент из списка, преобразовать
+        <tr lang="ru" finished="false">упрощение списка элементов - преобразование их в поплавки
+        или символы</tr>
+      </property>
+      <!-- @trim -->
+      <property name="@trim" type="flag" default="0" access="initonly">
+        <tr lang="en">cut first element from list, transform float or symbol to bang</tr>
+        <!-- old: вырезать первый элемент из списка, преобразовать
                 поплавок или символ в удар -->
-                <tr lang="ru" finished="false">вырезать первый элемент из списка, преобразовать
-                поплавок или символ в удар</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet number="0">
-                <out type="any">
-                    <tr lang="en">first match</tr>
-                    <tr lang="ru" finished="false">Первый матч</tr>
-                </out>
-            </outlet>
-            <outlet number="1">
-                <out type="any">
-                    <tr lang="en">second match</tr>
-                    <tr lang="ru" finished="false">Второй матч</tr>
-                </out>
-            </outlet>
-            <outlet number="...">
-                <out type="any">
-                    <tr lang="en">nth match</tr>
-                    <tr lang="ru" finished="false">матч</tr>
-                </out>
-            </outlet>
-            <outlet number="n">
-                <out type="any">
-                    <tr lang="en">unmatched element (without changes)</tr>
-                    <tr lang="ru" finished="false">Непревзойденный элемент (без изменений)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">вырезать первый элемент из списка, преобразовать поплавок
+        или символ в удар</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet number="0">
+        <out type="any">
+          <tr lang="en">first match</tr>
+          <tr lang="ru" finished="false">Первый матч</tr>
+        </out>
+      </outlet>
+      <outlet number="1">
+        <out type="any">
+          <tr lang="en">second match</tr>
+          <tr lang="ru" finished="false">Второй матч</tr>
+        </out>
+      </outlet>
+      <outlet number="...">
+        <out type="any">
+          <tr lang="en">nth match</tr>
+          <tr lang="ru" finished="false">матч</tr>
+        </out>
+      </outlet>
+      <outlet number="n">
+        <out type="any">
+          <tr lang="en">unmatched element (without changes)</tr>
+          <tr lang="ru" finished="false">Непревзойденный элемент (без изменений)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [100 #x( [symbol A #a( [list A #d(
 
@@ -148,7 +147,7 @@
 [X x2->r2]
 [X y2->r2]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

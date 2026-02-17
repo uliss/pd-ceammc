@@ -1,87 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="string.join">
-        <title>string.join</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">joins the list into a string with the element separator</tr>
-                <tr lang="ru">объединяет список в строку с указанным разделителем элементов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>string</category>
-            <keywords>join</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>str.join</alias>
-            </aliases>
-            <also>
-                <see>string.split</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">To set a space as separator, use either the escape character (\ ) or quotes (" ").</tr>
-                <tr lang="ru">Чтобы установить пробел как разделитель, используйте или символ экранирования (\ ) или кавычки (" ").</tr>
-            </par>
-            <par>
-                <tr lang="en">To set an empty string as separator, use quotes ("")</tr>
-                <tr lang="ru">Чтобы установить пустую строку как разделитель, используйте кавычки ("").</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="SEP" type="list">
-                <tr lang="en">separator. For space use quotes.</tr>
-                <tr lang="ru">разделитель</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @sep -->
-            <property name="@sep" type="list" default="">
-                <tr lang="en">separator</tr>
-                <tr lang="ru">разделитель</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">symbol passed untouched</tr>
-                    <tr lang="ru">символ пропускается без изменений</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">a list of items to join into a string</tr>
-                    <tr lang="ru">список элементов для объединения в строку</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">a multilevel list of items to join into a string</tr>
-                    <tr lang="ru">многоуровневый список элементов для объединения в строку</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">sets the separator from symbol</tr>
-                    <tr lang="ru">установить разделитель</tr>
-                </in>
-                <in on="data:string">
-                    <tr lang="en">sets the separator from string</tr>
-                    <tr lang="ru">установить разделитель</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="data:string">
-                    <tr lang="en">result String</tr>
-                    <tr lang="ru">строка результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="string.join">
+    <title>string.join</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">joins the list into a string with the element separator</tr>
+        <tr lang="ru">объединяет список в строку с указанным разделителем элементов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>string</category>
+      <keywords>join</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>str.join</alias>
+      </aliases>
+      <also>
+        <see>string.split</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">To set a space as separator, use either the escape character (\ ) or quotes
+        (" ").</tr>
+        <tr lang="ru">Чтобы установить пробел как разделитель, используйте или символ экранирования
+        (\ ) или кавычки (" ").</tr>
+      </par>
+      <par>
+        <tr lang="en">To set an empty string as separator, use quotes ("")</tr>
+        <tr lang="ru">Чтобы установить пустую строку как разделитель, используйте кавычки
+        ("").</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="SEP" type="list">
+        <tr lang="en">separator. For space use quotes.</tr>
+        <tr lang="ru">разделитель</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @sep -->
+      <property name="@sep" type="list" default="">
+        <tr lang="en">separator</tr>
+        <tr lang="ru">разделитель</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">symbol passed untouched</tr>
+          <tr lang="ru">символ пропускается без изменений</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">a list of items to join into a string</tr>
+          <tr lang="ru">список элементов для объединения в строку</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">a multilevel list of items to join into a string</tr>
+          <tr lang="ru">многоуровневый список элементов для объединения в строку</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">sets the separator from symbol</tr>
+          <tr lang="ru">установить разделитель</tr>
+        </in>
+        <in on="data:string">
+          <tr lang="en">sets the separator from string</tr>
+          <tr lang="ru">установить разделитель</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="data:string">
+          <tr lang="en">result String</tr>
+          <tr lang="ru">строка результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [list A B C 1 2 3(
 |
@@ -105,7 +108,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,477 +1,469 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hw.motu.avb">
-        <title>hw.motu.avb</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">controls Motu AVB devices over HTTP requests</tr>
-                <tr lang="ru">управление устройствами Motu AVB по HTTP</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>hw</category>
-            <keywords>motu avb</keywords>
-            <since>0.9.5</since>
-        </meta>
+  <object name="hw.motu.avb">
+    <title>hw.motu.avb</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">controls Motu AVB devices over HTTP requests</tr>
+        <tr lang="ru">управление устройствами Motu AVB по HTTP</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>hw</category>
+      <keywords>motu avb</keywords>
+      <since>0.9.5</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Only basic support at this moment</tr>
+        <tr lang="ru" finished="false">Только базовая поддержка на данный момент</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="DEV" type="symbol">
+        <tr lang="en">Motu device id</tr>
+        <tr lang="ru">идентификатор устройства Motu</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @dev -->
+      <property name="@dev" type="symbol" default="">
+        <tr lang="en">Motu device id</tr>
+        <tr lang="ru">идентификатор устройства Motu</tr>
+      </property>
+      <!-- @host -->
+      <property name="@host" type="symbol" default="localhost">
+        <tr lang="en">Motu HTTP host</tr>
+        <tr lang="ru">Motu HTTP-хост</tr>
+      </property>
+      <!-- @port -->
+      <property name="@port" type="int" default="1280">
+        <tr lang="en">Motu HTTP port</tr>
+        <tr lang="ru">Motu HTTP порт</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- comp_input_name -->
+      <method name="comp_input_name">
         <info>
-            <par>
-                <tr lang="en">Only basic support at this moment</tr>
-                <tr lang="ru" finished="false">Только базовая поддержка на данный момент</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="DEV" type="symbol">
-                <tr lang="en">Motu device id</tr>
-                <tr lang="ru">идентификатор устройства Motu</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @dev -->
-            <property name="@dev" type="symbol" default="">
-                <tr lang="en">Motu device id</tr>
-                <tr lang="ru">идентификатор устройства Motu</tr>
-            </property>
-            <!-- @host -->
-            <property name="@host" type="symbol" default="localhost">
-                <tr lang="en">Motu HTTP host</tr>
-                <tr lang="ru">Motu HTTP-хост</tr>
-            </property>
-            <!-- @port -->
-            <property name="@port" type="int" default="1280">
-                <tr lang="en">Motu HTTP port</tr>
-                <tr lang="ru">Motu HTTP порт</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- comp_input_name -->
-            <method name="comp_input_name">
-                <info>
-                    <tr lang="en">set input from computer channel name</tr>
-                    <!-- old: Набор входных данных из имени компьютерного
+          <tr lang="en">set input from computer channel name</tr>
+          <!-- old: Набор входных данных из имени компьютерного
                     канала -->
-                    <tr lang="ru" finished="false">Набор входных данных из имени компьютерного
-                    канала</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">канал (нулевой)</tr>
-                </param>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">channel name</tr>
-                    <tr lang="ru" finished="false">название канала</tr>
-                </param>
-            </method>
-            <!-- guitar->comp -->
-            <method name="guitar-&gt;comp">
-                <info>
-                    <tr lang="en">set guitar input to computer routing</tr>
-                    <!-- old: Настройка гитарного ввода в компьютерную
+          <tr lang="ru" finished="false">Набор входных данных из имени компьютерного канала</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">channel (zero-based)</tr>
+          <tr lang="ru" finished="false">канал (нулевой)</tr>
+        </param>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">channel name</tr>
+          <tr lang="ru" finished="false">название канала</tr>
+        </param>
+      </method>
+      <!-- guitar->comp -->
+      <method name="guitar-&gt;comp">
+        <info>
+          <tr lang="en">set guitar input to computer routing</tr>
+          <!-- old: Настройка гитарного ввода в компьютерную
                     маршрутизацию -->
-                    <tr lang="ru" finished="false">Настройка гитарного ввода в компьютерную
-                    маршрутизацию</tr>
-                </info>
-                <param name="INCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">guitar input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">Гитарный входной канал (нулевой)</tr>
-                </param>
-                <param name="OUTCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">computer input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">Компьютерный входной канал (нулевой)</tr>
-                </param>
-                <param name="STATE" type="int" required="true" enum="0 1">
-                    <tr lang="en">enable/disable routing</tr>
-                    <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
-                </param>
-            </method>
-            <!-- guitar->mix -->
-            <method name="guitar-&gt;mix">
-                <info>
-                    <tr lang="en">set guitar input to mixer routing</tr>
-                    <!-- old: Настройка гитарного ввода для микшерной
+          <tr lang="ru" finished="false">Настройка гитарного ввода в компьютерную
+          маршрутизацию</tr>
+        </info>
+        <param name="INCH" type="int" required="true" minvalue="0">
+          <tr lang="en">guitar input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">Гитарный входной канал (нулевой)</tr>
+        </param>
+        <param name="OUTCH" type="int" required="true" minvalue="0">
+          <tr lang="en">computer input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">Компьютерный входной канал (нулевой)</tr>
+        </param>
+        <param name="STATE" type="int" required="true" enum="0 1">
+          <tr lang="en">enable/disable routing</tr>
+          <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
+        </param>
+      </method>
+      <!-- guitar->mix -->
+      <method name="guitar-&gt;mix">
+        <info>
+          <tr lang="en">set guitar input to mixer routing</tr>
+          <!-- old: Настройка гитарного ввода для микшерной
                     маршрутизации -->
-                    <tr lang="ru" finished="false">Настройка гитарного ввода для микшерной
-                    маршрутизации</tr>
-                </info>
-                <param name="INCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">guitar input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">Гитарный входной канал (нулевой)</tr>
-                </param>
-                <param name="OUTCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">mixer input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">канал ввода смесителя (на нулевой основе)</tr>
-                </param>
-                <param name="STATE" type="int" required="true" enum="0 1">
-                    <tr lang="en">enable/disable routing</tr>
-                    <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
-                </param>
-            </method>
-            <!-- guitar->output -->
-            <method name="guitar-&gt;output">
-                <info>
-                    <tr lang="en">set guitar input to analogue output routing</tr>
-                    <!-- old: установить вход гитары в аналоговую выходную
+          <tr lang="ru" finished="false">Настройка гитарного ввода для микшерной маршрутизации</tr>
+        </info>
+        <param name="INCH" type="int" required="true" minvalue="0">
+          <tr lang="en">guitar input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">Гитарный входной канал (нулевой)</tr>
+        </param>
+        <param name="OUTCH" type="int" required="true" minvalue="0">
+          <tr lang="en">mixer input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">канал ввода смесителя (на нулевой основе)</tr>
+        </param>
+        <param name="STATE" type="int" required="true" enum="0 1">
+          <tr lang="en">enable/disable routing</tr>
+          <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
+        </param>
+      </method>
+      <!-- guitar->output -->
+      <method name="guitar-&gt;output">
+        <info>
+          <tr lang="en">set guitar input to analogue output routing</tr>
+          <!-- old: установить вход гитары в аналоговую выходную
                     маршрутизацию -->
-                    <tr lang="ru" finished="false">установить вход гитары в аналоговую выходную
-                    маршрутизацию</tr>
-                </info>
-                <param name="INCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">guitar input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">Гитарный входной канал (нулевой)</tr>
-                </param>
-                <param name="OUTCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">analogue output channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">аналоговый выходной канал (нулевой)</tr>
-                </param>
-                <param name="STATE" type="int" required="true" enum="0 1">
-                    <tr lang="en">enable/disable routing</tr>
-                    <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
-                </param>
-            </method>
-            <!-- guitar_gain -->
-            <method name="guitar_gain">
-                <info>
-                    <tr lang="en">set guitar gain</tr>
-                    <tr lang="ru" finished="false">Обсуждение Guitar Get</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">guitar channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">гитарный канал (нулевой)</tr>
-                </param>
-                <param name="DB" type="float" units="decibel" required="true" minvalue="0"
-                maxvalue="60">
-                    <tr lang="en">value in decibel</tr>
-                    <tr lang="ru" finished="false">значение в децибеле</tr>
-                </param>
-            </method>
-            <!-- guitar_name -->
-            <method name="guitar_name">
-                <info>
-                    <tr lang="en">set guitar channel name</tr>
-                    <tr lang="ru" finished="false">Набор гитарных каналов</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">канал (нулевой)</tr>
-                </param>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">channel name</tr>
-                    <tr lang="ru" finished="false">название канала</tr>
-                </param>
-            </method>
-            <!-- guitar_phase -->
-            <method name="guitar_phase">
-                <info>
-                    <tr lang="en">set guitar phase invert</tr>
-                    <tr lang="ru" finished="false">Инвертированная фаза гитары</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">guitar channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">гитарный канал (нулевой)</tr>
-                </param>
-                <param name="VAL" type="int" required="true" enum="0 1">
-                    <tr lang="en">state</tr>
-                    <tr lang="ru" finished="false">государство</tr>
-                </param>
-            </method>
-            <!-- input->comp -->
-            <method name="input-&gt;comp">
-                <info>
-                    <tr lang="en">set analogue input to computer routing</tr>
-                    <!-- old: установить аналоговый вход в компьютерную
+          <tr lang="ru" finished="false">установить вход гитары в аналоговую выходную
+          маршрутизацию</tr>
+        </info>
+        <param name="INCH" type="int" required="true" minvalue="0">
+          <tr lang="en">guitar input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">Гитарный входной канал (нулевой)</tr>
+        </param>
+        <param name="OUTCH" type="int" required="true" minvalue="0">
+          <tr lang="en">analogue output channel (zero-based)</tr>
+          <tr lang="ru" finished="false">аналоговый выходной канал (нулевой)</tr>
+        </param>
+        <param name="STATE" type="int" required="true" enum="0 1">
+          <tr lang="en">enable/disable routing</tr>
+          <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
+        </param>
+      </method>
+      <!-- guitar_gain -->
+      <method name="guitar_gain">
+        <info>
+          <tr lang="en">set guitar gain</tr>
+          <tr lang="ru" finished="false">Обсуждение Guitar Get</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">guitar channel (zero-based)</tr>
+          <tr lang="ru" finished="false">гитарный канал (нулевой)</tr>
+        </param>
+        <param name="DB" type="float" units="decibel" required="true" minvalue="0" maxvalue="60">
+          <tr lang="en">value in decibel</tr>
+          <tr lang="ru" finished="false">значение в децибеле</tr>
+        </param>
+      </method>
+      <!-- guitar_name -->
+      <method name="guitar_name">
+        <info>
+          <tr lang="en">set guitar channel name</tr>
+          <tr lang="ru" finished="false">Набор гитарных каналов</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">channel (zero-based)</tr>
+          <tr lang="ru" finished="false">канал (нулевой)</tr>
+        </param>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">channel name</tr>
+          <tr lang="ru" finished="false">название канала</tr>
+        </param>
+      </method>
+      <!-- guitar_phase -->
+      <method name="guitar_phase">
+        <info>
+          <tr lang="en">set guitar phase invert</tr>
+          <tr lang="ru" finished="false">Инвертированная фаза гитары</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">guitar channel (zero-based)</tr>
+          <tr lang="ru" finished="false">гитарный канал (нулевой)</tr>
+        </param>
+        <param name="VAL" type="int" required="true" enum="0 1">
+          <tr lang="en">state</tr>
+          <tr lang="ru" finished="false">государство</tr>
+        </param>
+      </method>
+      <!-- input->comp -->
+      <method name="input-&gt;comp">
+        <info>
+          <tr lang="en">set analogue input to computer routing</tr>
+          <!-- old: установить аналоговый вход в компьютерную
                     маршрутизацию -->
-                    <tr lang="ru" finished="false">установить аналоговый вход в компьютерную
-                    маршрутизацию</tr>
-                </info>
-                <param name="INCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">analogue input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">аналоговый входной канал (нулевой)</tr>
-                </param>
-                <param name="OUTCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">computer input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">Компьютерный входной канал (нулевой)</tr>
-                </param>
-                <param name="STATE" type="int" required="true" enum="0 1">
-                    <tr lang="en">enable/disable routing</tr>
-                    <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
-                </param>
-            </method>
-            <!-- input->mix -->
-            <method name="input-&gt;mix">
-                <info>
-                    <tr lang="en">set analogue input to mixer routing</tr>
-                    <!-- old: установить аналоговый вход для маршрутизации
+          <tr lang="ru" finished="false">установить аналоговый вход в компьютерную
+          маршрутизацию</tr>
+        </info>
+        <param name="INCH" type="int" required="true" minvalue="0">
+          <tr lang="en">analogue input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">аналоговый входной канал (нулевой)</tr>
+        </param>
+        <param name="OUTCH" type="int" required="true" minvalue="0">
+          <tr lang="en">computer input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">Компьютерный входной канал (нулевой)</tr>
+        </param>
+        <param name="STATE" type="int" required="true" enum="0 1">
+          <tr lang="en">enable/disable routing</tr>
+          <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
+        </param>
+      </method>
+      <!-- input->mix -->
+      <method name="input-&gt;mix">
+        <info>
+          <tr lang="en">set analogue input to mixer routing</tr>
+          <!-- old: установить аналоговый вход для маршрутизации
                     микшера -->
-                    <tr lang="ru" finished="false">установить аналоговый вход для маршрутизации
-                    микшера</tr>
-                </info>
-                <param name="INCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">analogue input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">аналоговый входной канал (нулевой)</tr>
-                </param>
-                <param name="OUTCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">mixer input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">канал ввода смесителя (на нулевой основе)</tr>
-                </param>
-                <param name="STATE" type="int" required="true" enum="0 1">
-                    <tr lang="en">enable/disable routing</tr>
-                    <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
-                </param>
-            </method>
-            <!-- input->output -->
-            <method name="input-&gt;output">
-                <info>
-                    <tr lang="en">set analogue input to analog output routing</tr>
-                    <!-- old: установить аналоговый вход в маршрутизацию
+          <tr lang="ru" finished="false">установить аналоговый вход для маршрутизации микшера</tr>
+        </info>
+        <param name="INCH" type="int" required="true" minvalue="0">
+          <tr lang="en">analogue input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">аналоговый входной канал (нулевой)</tr>
+        </param>
+        <param name="OUTCH" type="int" required="true" minvalue="0">
+          <tr lang="en">mixer input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">канал ввода смесителя (на нулевой основе)</tr>
+        </param>
+        <param name="STATE" type="int" required="true" enum="0 1">
+          <tr lang="en">enable/disable routing</tr>
+          <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
+        </param>
+      </method>
+      <!-- input->output -->
+      <method name="input-&gt;output">
+        <info>
+          <tr lang="en">set analogue input to analog output routing</tr>
+          <!-- old: установить аналоговый вход в маршрутизацию
                     аналогового выхода -->
-                    <tr lang="ru" finished="false">установить аналоговый вход в маршрутизацию
-                    аналогового выхода</tr>
-                </info>
-                <param name="INCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">analogue input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">аналоговый входной канал (нулевой)</tr>
-                </param>
-                <param name="OUTCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">analogue output channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">аналоговый выходной канал (нулевой)</tr>
-                </param>
-                <param name="STATE" type="int" required="true" enum="0 1">
-                    <tr lang="en">enable/disable routing</tr>
-                    <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
-                </param>
-            </method>
-            <!-- input_gain -->
-            <method name="input_gain">
-                <info>
-                    <tr lang="en">set input gain</tr>
-                    <tr lang="ru" finished="false">заданный входной коэффициент</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">входной канал (нулевой)</tr>
-                </param>
-                <param name="DB" type="float" units="decibel" required="true">
-                    <tr lang="en">value in decibel</tr>
-                    <tr lang="ru" finished="false">значение в децибеле</tr>
-                </param>
-            </method>
-            <!-- input_name -->
-            <method name="input_name">
-                <info>
-                    <tr lang="en">set analogue input channel name</tr>
-                    <tr lang="ru" finished="false">имя аналогового входного канала</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">канал (нулевой)</tr>
-                </param>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">channel name</tr>
-                    <tr lang="ru" finished="false">название канала</tr>
-                </param>
-            </method>
-            <!-- main_gain -->
-            <method name="main_gain">
-                <info>
-                    <tr lang="en">set main output gain</tr>
-                    <tr lang="ru" finished="false">установленный основной выходной прирост</tr>
-                </info>
-                <param name="DB" type="float" units="decibel" required="true" minvalue="-127"
-                maxvalue="0">
-                    <tr lang="en">value in decibel</tr>
-                    <tr lang="ru" finished="false">значение в децибеле</tr>
-                </param>
-            </method>
-            <!-- mic->comp -->
-            <method name="mic-&gt;comp">
-                <info>
-                    <tr lang="en">set microphone input to computer routing</tr>
-                    <!-- old: установить вход микрофона в компьютерную
+          <tr lang="ru" finished="false">установить аналоговый вход в маршрутизацию аналогового
+          выхода</tr>
+        </info>
+        <param name="INCH" type="int" required="true" minvalue="0">
+          <tr lang="en">analogue input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">аналоговый входной канал (нулевой)</tr>
+        </param>
+        <param name="OUTCH" type="int" required="true" minvalue="0">
+          <tr lang="en">analogue output channel (zero-based)</tr>
+          <tr lang="ru" finished="false">аналоговый выходной канал (нулевой)</tr>
+        </param>
+        <param name="STATE" type="int" required="true" enum="0 1">
+          <tr lang="en">enable/disable routing</tr>
+          <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
+        </param>
+      </method>
+      <!-- input_gain -->
+      <method name="input_gain">
+        <info>
+          <tr lang="en">set input gain</tr>
+          <tr lang="ru" finished="false">заданный входной коэффициент</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">входной канал (нулевой)</tr>
+        </param>
+        <param name="DB" type="float" units="decibel" required="true">
+          <tr lang="en">value in decibel</tr>
+          <tr lang="ru" finished="false">значение в децибеле</tr>
+        </param>
+      </method>
+      <!-- input_name -->
+      <method name="input_name">
+        <info>
+          <tr lang="en">set analogue input channel name</tr>
+          <tr lang="ru" finished="false">имя аналогового входного канала</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">channel (zero-based)</tr>
+          <tr lang="ru" finished="false">канал (нулевой)</tr>
+        </param>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">channel name</tr>
+          <tr lang="ru" finished="false">название канала</tr>
+        </param>
+      </method>
+      <!-- main_gain -->
+      <method name="main_gain">
+        <info>
+          <tr lang="en">set main output gain</tr>
+          <tr lang="ru" finished="false">установленный основной выходной прирост</tr>
+        </info>
+        <param name="DB" type="float" units="decibel" required="true" minvalue="-127" maxvalue="0">
+          <tr lang="en">value in decibel</tr>
+          <tr lang="ru" finished="false">значение в децибеле</tr>
+        </param>
+      </method>
+      <!-- mic->comp -->
+      <method name="mic-&gt;comp">
+        <info>
+          <tr lang="en">set microphone input to computer routing</tr>
+          <!-- old: установить вход микрофона в компьютерную
                     маршрутизацию -->
-                    <tr lang="ru" finished="false">установить вход микрофона в компьютерную
-                    маршрутизацию</tr>
-                </info>
-                <param name="INCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">microphone input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">Входной канал микрофона (нулевой)</tr>
-                </param>
-                <param name="OUTCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">computer channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">Компьютерный канал (нулевой)</tr>
-                </param>
-                <param name="STATE" type="int" required="true" enum="0 1">
-                    <tr lang="en">enable/disable routing</tr>
-                    <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
-                </param>
-            </method>
-            <!-- mic->mix -->
-            <method name="mic-&gt;mix">
-                <info>
-                    <tr lang="en">set microphone input to mixer routing</tr>
-                    <!-- old: установить вход микрофона для маршрутизации
+          <tr lang="ru" finished="false">установить вход микрофона в компьютерную
+          маршрутизацию</tr>
+        </info>
+        <param name="INCH" type="int" required="true" minvalue="0">
+          <tr lang="en">microphone input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">Входной канал микрофона (нулевой)</tr>
+        </param>
+        <param name="OUTCH" type="int" required="true" minvalue="0">
+          <tr lang="en">computer channel (zero-based)</tr>
+          <tr lang="ru" finished="false">Компьютерный канал (нулевой)</tr>
+        </param>
+        <param name="STATE" type="int" required="true" enum="0 1">
+          <tr lang="en">enable/disable routing</tr>
+          <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
+        </param>
+      </method>
+      <!-- mic->mix -->
+      <method name="mic-&gt;mix">
+        <info>
+          <tr lang="en">set microphone input to mixer routing</tr>
+          <!-- old: установить вход микрофона для маршрутизации
                     микшера -->
-                    <tr lang="ru" finished="false">установить вход микрофона для маршрутизации
-                    микшера</tr>
-                </info>
-                <param name="INCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">microphone input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">Входной канал микрофона (нулевой)</tr>
-                </param>
-                <param name="OUTCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">mixer input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">канал ввода смесителя (на нулевой основе)</tr>
-                </param>
-                <param name="STATE" type="int" required="true" enum="0 1">
-                    <tr lang="en">enable/disable routing</tr>
-                    <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
-                </param>
-            </method>
-            <!-- mic->output -->
-            <method name="mic-&gt;output">
-                <info>
-                    <tr lang="en">set microphone input to analog output routing</tr>
-                    <!-- old: установить вход микрофона в аналоговую выходную
+          <tr lang="ru" finished="false">установить вход микрофона для маршрутизации микшера</tr>
+        </info>
+        <param name="INCH" type="int" required="true" minvalue="0">
+          <tr lang="en">microphone input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">Входной канал микрофона (нулевой)</tr>
+        </param>
+        <param name="OUTCH" type="int" required="true" minvalue="0">
+          <tr lang="en">mixer input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">канал ввода смесителя (на нулевой основе)</tr>
+        </param>
+        <param name="STATE" type="int" required="true" enum="0 1">
+          <tr lang="en">enable/disable routing</tr>
+          <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
+        </param>
+      </method>
+      <!-- mic->output -->
+      <method name="mic-&gt;output">
+        <info>
+          <tr lang="en">set microphone input to analog output routing</tr>
+          <!-- old: установить вход микрофона в аналоговую выходную
                     маршрутизацию -->
-                    <tr lang="ru" finished="false">установить вход микрофона в аналоговую выходную
-                    маршрутизацию</tr>
-                </info>
-                <param name="INCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">microphone input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">Входной канал микрофона (нулевой)</tr>
-                </param>
-                <param name="OUTCH" type="int" required="true" minvalue="0">
-                    <tr lang="en">analogue output channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">аналоговый выходной канал (нулевой)</tr>
-                </param>
-                <param name="STATE" type="int" required="true" enum="0 1">
-                    <tr lang="en">enable/disable routing</tr>
-                    <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
-                </param>
-            </method>
-            <!-- mic_gain -->
-            <method name="mic_gain">
-                <info>
-                    <tr lang="en">set mic gain</tr>
-                    <tr lang="ru" finished="false">Установить MIC-прибыль</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">mic channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">Микроканал (нулевой)</tr>
-                </param>
-                <param name="DB" type="float" units="decibel" required="true" minvalue="0"
-                maxvalue="60">
-                    <tr lang="en">value in decibel</tr>
-                    <tr lang="ru" finished="false">значение в децибеле</tr>
-                </param>
-            </method>
-            <!-- mic_name -->
-            <method name="mic_name">
-                <info>
-                    <tr lang="en">set microphone channel name</tr>
-                    <tr lang="ru" finished="false">Настройка микрофонного канала</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">канал (нулевой)</tr>
-                </param>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">channel name</tr>
-                    <tr lang="ru" finished="false">название канала</tr>
-                </param>
-            </method>
-            <!-- mic_pad -->
-            <method name="mic_pad">
-                <info>
-                    <tr lang="en">set mic -20db padding</tr>
-                    <tr lang="ru" finished="false">Установка mic -20db</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">mic channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">Микроканал (нулевой)</tr>
-                </param>
-                <param name="VAL" type="int" required="true" enum="0 1">
-                    <tr lang="en">state</tr>
-                    <tr lang="ru" finished="false">государство</tr>
-                </param>
-            </method>
-            <!-- mic_phase -->
-            <method name="mic_phase">
-                <info>
-                    <tr lang="en">set mic phase invert</tr>
-                    <tr lang="ru" finished="false">Установить MIC фазу Invert</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">mic channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">Микроканал (нулевой)</tr>
-                </param>
-                <param name="VAL" type="int" required="true" enum="0 1">
-                    <tr lang="en">state</tr>
-                    <tr lang="ru" finished="false">государство</tr>
-                </param>
-            </method>
-            <!-- output_gain -->
-            <method name="output_gain">
-                <info>
-                    <tr lang="en">set input gain</tr>
-                    <tr lang="ru" finished="false">заданный входной коэффициент</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">input channel (zero-based)</tr>
-                    <tr lang="ru" finished="false">входной канал (нулевой)</tr>
-                </param>
-                <param name="DB" type="float" units="decibel" required="true">
-                    <tr lang="en">value in decibel</tr>
-                    <tr lang="ru" finished="false">значение в децибеле</tr>
-                </param>
-            </method>
-            <!-- phantom -->
-            <method name="phantom">
-                <info>
-                    <tr lang="en">turns phantom on/off</tr>
-                    <tr lang="ru" finished="false">Фантом включен/выключен</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">phantom channel</tr>
-                    <tr lang="ru" finished="false">Фантомный канал</tr>
-                </param>
-                <param name="VAL" type="int" required="true" enum="0 1">
-                    <tr lang="en">phantom state</tr>
-                    <tr lang="ru" finished="false">фантомное состояние</tr>
-                </param>
-            </method>
-            <!-- phones_gain -->
-            <method name="phones_gain">
-                <info>
-                    <tr lang="en">set phones output gain</tr>
-                    <tr lang="ru" finished="false">Набор телефонов выходной доход</tr>
-                </info>
-                <param name="DB" type="float" units="decibel" required="true" minvalue="-127"
-                maxvalue="0">
-                    <tr lang="en">value in decibel</tr>
-                    <tr lang="ru" finished="false">значение в децибеле</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input</tr>
-                    <tr lang="ru" finished="false">ввод</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">properties output</tr>
-                    <tr lang="ru" finished="false">Свойства вывода</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">установить вход микрофона в аналоговую выходную
+          маршрутизацию</tr>
+        </info>
+        <param name="INCH" type="int" required="true" minvalue="0">
+          <tr lang="en">microphone input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">Входной канал микрофона (нулевой)</tr>
+        </param>
+        <param name="OUTCH" type="int" required="true" minvalue="0">
+          <tr lang="en">analogue output channel (zero-based)</tr>
+          <tr lang="ru" finished="false">аналоговый выходной канал (нулевой)</tr>
+        </param>
+        <param name="STATE" type="int" required="true" enum="0 1">
+          <tr lang="en">enable/disable routing</tr>
+          <tr lang="ru" finished="false">включение/отключение маршрутизации</tr>
+        </param>
+      </method>
+      <!-- mic_gain -->
+      <method name="mic_gain">
+        <info>
+          <tr lang="en">set mic gain</tr>
+          <tr lang="ru" finished="false">Установить MIC-прибыль</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">mic channel (zero-based)</tr>
+          <tr lang="ru" finished="false">Микроканал (нулевой)</tr>
+        </param>
+        <param name="DB" type="float" units="decibel" required="true" minvalue="0" maxvalue="60">
+          <tr lang="en">value in decibel</tr>
+          <tr lang="ru" finished="false">значение в децибеле</tr>
+        </param>
+      </method>
+      <!-- mic_name -->
+      <method name="mic_name">
+        <info>
+          <tr lang="en">set microphone channel name</tr>
+          <tr lang="ru" finished="false">Настройка микрофонного канала</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">channel (zero-based)</tr>
+          <tr lang="ru" finished="false">канал (нулевой)</tr>
+        </param>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">channel name</tr>
+          <tr lang="ru" finished="false">название канала</tr>
+        </param>
+      </method>
+      <!-- mic_pad -->
+      <method name="mic_pad">
+        <info>
+          <tr lang="en">set mic -20db padding</tr>
+          <tr lang="ru" finished="false">Установка mic -20db</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">mic channel (zero-based)</tr>
+          <tr lang="ru" finished="false">Микроканал (нулевой)</tr>
+        </param>
+        <param name="VAL" type="int" required="true" enum="0 1">
+          <tr lang="en">state</tr>
+          <tr lang="ru" finished="false">государство</tr>
+        </param>
+      </method>
+      <!-- mic_phase -->
+      <method name="mic_phase">
+        <info>
+          <tr lang="en">set mic phase invert</tr>
+          <tr lang="ru" finished="false">Установить MIC фазу Invert</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">mic channel (zero-based)</tr>
+          <tr lang="ru" finished="false">Микроканал (нулевой)</tr>
+        </param>
+        <param name="VAL" type="int" required="true" enum="0 1">
+          <tr lang="en">state</tr>
+          <tr lang="ru" finished="false">государство</tr>
+        </param>
+      </method>
+      <!-- output_gain -->
+      <method name="output_gain">
+        <info>
+          <tr lang="en">set input gain</tr>
+          <tr lang="ru" finished="false">заданный входной коэффициент</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">input channel (zero-based)</tr>
+          <tr lang="ru" finished="false">входной канал (нулевой)</tr>
+        </param>
+        <param name="DB" type="float" units="decibel" required="true">
+          <tr lang="en">value in decibel</tr>
+          <tr lang="ru" finished="false">значение в децибеле</tr>
+        </param>
+      </method>
+      <!-- phantom -->
+      <method name="phantom">
+        <info>
+          <tr lang="en">turns phantom on/off</tr>
+          <tr lang="ru" finished="false">Фантом включен/выключен</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">phantom channel</tr>
+          <tr lang="ru" finished="false">Фантомный канал</tr>
+        </param>
+        <param name="VAL" type="int" required="true" enum="0 1">
+          <tr lang="en">phantom state</tr>
+          <tr lang="ru" finished="false">фантомное состояние</tr>
+        </param>
+      </method>
+      <!-- phones_gain -->
+      <method name="phones_gain">
+        <info>
+          <tr lang="en">set phones output gain</tr>
+          <tr lang="ru" finished="false">Набор телефонов выходной доход</tr>
+        </info>
+        <param name="DB" type="float" units="decibel" required="true" minvalue="-127" maxvalue="0">
+          <tr lang="en">value in decibel</tr>
+          <tr lang="ru" finished="false">значение в децибеле</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input</tr>
+          <tr lang="ru" finished="false">ввод</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">properties output</tr>
+          <tr lang="ru" finished="false">Свойства вывода</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /*Enter device ID*/
 
@@ -487,7 +479,7 @@
 [hw.motu.avb      #z]
 [X a->z]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

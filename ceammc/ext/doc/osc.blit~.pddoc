@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="osc.blit~">
-        <title>osc.blit~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">bandlimited oscillator with controllable harmonics</tr>
-                <tr lang="ru">генератор с ограниченным спектром и управлением гармониками</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>osc</category>
-            <keywords>oscillator band-limited</keywords>
-            <since>0.6</since>
-            <also>
-                <see>osc.saw~</see>
-                <see>osc.square~</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="0">
-                <tr lang="en">default frequency (440hz if not specified)</tr>
-                <tr lang="ru" finished="false">Частота по умолчанию (440 Гц, если не указано)</tr>
-            </argument>
-            <argument name="HARMONICS" type="int" minvalue="0">
-                <tr lang="en">number of harmonics. Missing or 0 means all available harmonics until
-                SR/2</tr>
-                <!-- old: Количество гармоник. Отсутствие или 0 означает все
+  <object name="osc.blit~">
+    <title>osc.blit~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">bandlimited oscillator with controllable harmonics</tr>
+        <tr lang="ru">генератор с ограниченным спектром и управлением гармониками</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>osc</category>
+      <keywords>oscillator band-limited</keywords>
+      <since>0.6</since>
+      <also>
+        <see>osc.saw~</see>
+        <see>osc.square~</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="FREQ" type="float" units="hertz" minvalue="0">
+        <tr lang="en">default frequency (440hz if not specified)</tr>
+        <tr lang="ru" finished="false">Частота по умолчанию (440 Гц, если не указано)</tr>
+      </argument>
+      <argument name="HARMONICS" type="int" minvalue="0">
+        <tr lang="en">number of harmonics. Missing or 0 means all available harmonics until
+        SR/2</tr>
+        <!-- old: Количество гармоник. Отсутствие или 0 означает все
                 доступные гармоники до SR/2. -->
-                <tr lang="ru" finished="false">Количество гармоник. Отсутствие или 0 означает все
-                доступные гармоники до SR/2.</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @harmonics -->
-            <property name="@harmonics" type="int" minvalue="0" default="0">
-                <tr lang="en">number of harmonics. 0 means all available harmonics until SR/2</tr>
-                <tr lang="ru" finished="false">0 означает все доступные гармоники до SR/2</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">frequency in Hz</tr>
-                    <tr lang="ru" finished="false">частота в Гц</tr>
-                </in>
-            </inlet>
-            <inlet type="control">
-                <in on="bang">
-                    <tr lang="en">reset phase</tr>
-                    <tr lang="ru" finished="false">фаза сброса</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Количество гармоник. Отсутствие или 0 означает все доступные
+        гармоники до SR/2.</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @harmonics -->
+      <property name="@harmonics" type="int" minvalue="0" default="0">
+        <tr lang="en">number of harmonics. 0 means all available harmonics until SR/2</tr>
+        <tr lang="ru" finished="false">0 означает все доступные гармоники до SR/2</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">frequency in Hz</tr>
+          <tr lang="ru" finished="false">частота в Гц</tr>
+        </in>
+      </inlet>
+      <inlet type="control">
+        <in on="bang">
+          <tr lang="en">reset phase</tr>
+          <tr lang="ru" finished="false">фаза сброса</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F digits=10]    [F]    [3(  [6( [0(
 |                |      |    |   |
@@ -84,7 +84,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

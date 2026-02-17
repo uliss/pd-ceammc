@@ -1,178 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="net.http.client">
-        <title>net.http.client</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">HTTP client</tr>
-                <tr lang="ru">HTTP клиент</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>net</category>
-            <keywords>net http</keywords>
-            <since>0.9.8</since>
-            <aliases>
-                <alias>http.client</alias>
-            </aliases>
-        </meta>
-        <methods>
-            <!-- download -->
-            <method name="download">
-                <info>
-                    <tr lang="en">download file</tr>
-                    <tr lang="ru" finished="false">скачать файл</tr>
-                </info>
-                <param name="URL" type="symbol" required="true">
-                    <tr lang="en">download URL</tr>
-                    <tr lang="ru" finished="false">скачать URL</tr>
-                </param>
-                <param name="FILE" type="symbol" required="false">
-                    <tr lang="en">save filename. If not specified, use HTTP document filename</tr>
-                    <!-- old: Сохранить имя файла. Если не указано,
+  <object name="net.http.client">
+    <title>net.http.client</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">HTTP client</tr>
+        <tr lang="ru">HTTP клиент</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>net</category>
+      <keywords>net http</keywords>
+      <since>0.9.8</since>
+      <aliases>
+        <alias>http.client</alias>
+      </aliases>
+    </meta>
+    <methods>
+      <!-- download -->
+      <method name="download">
+        <info>
+          <tr lang="en">download file</tr>
+          <tr lang="ru" finished="false">скачать файл</tr>
+        </info>
+        <param name="URL" type="symbol" required="true">
+          <tr lang="en">download URL</tr>
+          <tr lang="ru" finished="false">скачать URL</tr>
+        </param>
+        <param name="FILE" type="symbol" required="false">
+          <tr lang="en">save filename. If not specified, use HTTP document filename</tr>
+          <!-- old: Сохранить имя файла. Если не указано,
                     используйте имя файла HTTP -->
-                    <tr lang="ru" finished="false">Сохранить имя файла. Если не указано,
-                    используйте имя файла HTTP</tr>
-                </param>
-                <param name="@PARAMS" type="list" required="false">
-                    <tr lang="en">see get method parameters</tr>
-                    <tr lang="ru" finished="false">См. параметры метода</tr>
-                </param>
-            </method>
-            <!-- get -->
-            <method name="get">
-                <info>
-                    <tr lang="en">send GET request</tr>
-                    <tr lang="ru" finished="false">Отправить запрос GET</tr>
-                </info>
-                <param name="URL" type="symbol" required="true">
-                    <tr lang="en">request URL</tr>
-                    <tr lang="ru" finished="false">Запросить URL</tr>
-                </param>
-                <param name="@header" type="list" required="false">
-                    <tr lang="en">additional http header: @header NAME VALUE</tr>
-                    <!-- old: Дополнительный заголовок http: @header NAME
+          <tr lang="ru" finished="false">Сохранить имя файла. Если не указано, используйте имя
+          файла HTTP</tr>
+        </param>
+        <param name="@PARAMS" type="list" required="false">
+          <tr lang="en">see get method parameters</tr>
+          <tr lang="ru" finished="false">См. параметры метода</tr>
+        </param>
+      </method>
+      <!-- get -->
+      <method name="get">
+        <info>
+          <tr lang="en">send GET request</tr>
+          <tr lang="ru" finished="false">Отправить запрос GET</tr>
+        </info>
+        <param name="URL" type="symbol" required="true">
+          <tr lang="en">request URL</tr>
+          <tr lang="ru" finished="false">Запросить URL</tr>
+        </param>
+        <param name="@header" type="list" required="false">
+          <tr lang="en">additional http header: @header NAME VALUE</tr>
+          <!-- old: Дополнительный заголовок http: @header NAME
                     VALUE -->
-                    <tr lang="ru" finished="false">Дополнительный заголовок http: @header NAME
-                    VALUE</tr>
-                </param>
-                <param name="@form" type="list" required="false">
-                    <tr lang="en">form key-value pair: @form KEY VALUE. For
-                    application/x-www-form-urlencoded MIME type.</tr>
-                    <!-- old: @form Ключевая ценность. Для
+          <tr lang="ru" finished="false">Дополнительный заголовок http: @header NAME VALUE</tr>
+        </param>
+        <param name="@form" type="list" required="false">
+          <tr lang="en">form key-value pair: @form KEY VALUE. For application/x-www-form-urlencoded
+          MIME type.</tr>
+          <!-- old: @form Ключевая ценность. Для
                     приложения/x-www-form-urlen-coded MIME type. -->
-                    <tr lang="ru" finished="false">@form Ключевая ценность. Для
-                    приложения/x-www-form-urlen-coded MIME type.</tr>
-                </param>
-                <param name="@auth" type="list" required="false">
-                    <tr lang="en">basic auth username/password: @auth USER PASS</tr>
-                    <!-- old: Основное имя пользователя / пароль auth: @auth
+          <tr lang="ru" finished="false">@form Ключевая ценность. Для
+          приложения/x-www-form-urlen-coded MIME type.</tr>
+        </param>
+        <param name="@auth" type="list" required="false">
+          <tr lang="en">basic auth username/password: @auth USER PASS</tr>
+          <!-- old: Основное имя пользователя / пароль auth: @auth
                     USER PASS -->
-                    <tr lang="ru" finished="false">Основное имя пользователя / пароль auth: @auth
-                    USER PASS</tr>
-                </param>
-                <param name="@css" type="list" required="false">
-                    <tr lang="en">apply CSS selector to the request body: @css SEL OUTPUT_TYPE,
-                    where OUTPUT_TYPE is one of: 'html', 'inner', 'text', 'href', 'none'. 'html' -
-                    returns selected elenent HTML content, 'inner' - returns inner HTML content,
-                    without element surrounding tags, 'text' returns element text without tags,
-                    'href' - return href attribute of selected element, 'none' - returns empty
-                    string</tr>
-                    <!-- old: @css SEL OUTPUT_TYPE, где OUTPUT_TYPE является
+          <tr lang="ru" finished="false">Основное имя пользователя / пароль auth: @auth USER
+          PASS</tr>
+        </param>
+        <param name="@css" type="list" required="false">
+          <tr lang="en">apply CSS selector to the request body: @css SEL OUTPUT_TYPE, where
+          OUTPUT_TYPE is one of: 'html', 'inner', 'text', 'href', 'none'. 'html' - returns selected
+          elenent HTML content, 'inner' - returns inner HTML content, without element surrounding
+          tags, 'text' returns element text without tags, 'href' - return href attribute of
+          selected element, 'none' - returns empty string</tr>
+          <!-- old: @css SEL OUTPUT_TYPE, где OUTPUT_TYPE является
                     одним из: "html", "внутренний", "текст", "фреф", "нет". «html» — возвращает
                     выбранный эленентный HTML-контент, «внутренний» — возвращает внутренний
                     HTML-контент, без элементов, окружающих теги, «текст» возвращает текст элемента
                     без тегов, «href» — возвращает атрибут href выбранного элемента, «none» —
                     возвращает пустую строку -->
-                    <tr lang="ru" finished="false">@css SEL OUTPUT_TYPE, где OUTPUT_TYPE является
-                    одним из: "html", "внутренний", "текст", "фреф", "нет". «html» — возвращает
-                    выбранный эленентный HTML-контент, «внутренний» — возвращает внутренний
-                    HTML-контент, без элементов, окружающих теги, «текст» возвращает текст элемента
-                    без тегов, «href» — возвращает атрибут href выбранного элемента, «none» —
-                    возвращает пустую строку</tr>
-                </param>
-                <param name="@strip_ws" type="symbol" required="false">
-                    <tr lang="en">replace multiple whitespaces/newlines/tabs with single space</tr>
-                    <!-- old: Замените несколько белых пространств / новых
+          <tr lang="ru" finished="false">@css SEL OUTPUT_TYPE, где OUTPUT_TYPE является одним из:
+          "html", "внутренний", "текст", "фреф", "нет". «html» — возвращает выбранный эленентный
+          HTML-контент, «внутренний» — возвращает внутренний HTML-контент, без элементов,
+          окружающих теги, «текст» возвращает текст элемента без тегов, «href» — возвращает атрибут
+          href выбранного элемента, «none» — возвращает пустую строку</tr>
+        </param>
+        <param name="@strip_ws" type="symbol" required="false">
+          <tr lang="en">replace multiple whitespaces/newlines/tabs with single space</tr>
+          <!-- old: Замените несколько белых пространств / новых
                     линий / вкладок одним пространством -->
-                    <tr lang="ru" finished="false">Замените несколько белых пространств / новых
-                    линий / вкладок одним пространством</tr>
-                </param>
-                <param name="@json" type="symbol" required="false">
-                    <tr lang="en">parse result as Json and output it as data:Dict()</tr>
-                    <!-- old: Результат разбора как Json и вывод его как
+          <tr lang="ru" finished="false">Замените несколько белых пространств / новых линий /
+          вкладок одним пространством</tr>
+        </param>
+        <param name="@json" type="symbol" required="false">
+          <tr lang="en">parse result as Json and output it as data:Dict()</tr>
+          <!-- old: Результат разбора как Json и вывод его как
                     данные: -->
-                    <tr lang="ru" finished="false">Результат разбора как Json и вывод его как
-                    данные:</tr>
-                </param>
-            </method>
-            <!-- post -->
-            <method name="post">
-                <info>
-                    <tr lang="en">send POST request</tr>
-                    <tr lang="ru" finished="false">Отправить запрос POST</tr>
-                </info>
-                <param name="URL" type="symbol" required="true">
-                    <tr lang="en">request URL</tr>
-                    <tr lang="ru" finished="false">Запросить URL</tr>
-                </param>
-                <param name="@PARAMS" type="list" required="false">
-                    <tr lang="en">see get method parameters</tr>
-                    <tr lang="ru" finished="false">См. параметры метода</tr>
-                </param>
-            </method>
-            <!-- upload -->
-            <method name="upload">
-                <info>
-                    <tr lang="en">updload file for the form</tr>
-                    <tr lang="ru" finished="false">Скачать файл для формы</tr>
-                </info>
-                <param name="URL" type="symbol" required="true">
-                    <tr lang="en">upload URL</tr>
-                    <tr lang="ru" finished="false">Скачать URL</tr>
-                </param>
-                <param name="FILE" type="symbol" required="true">
-                    <tr lang="en">upload file path in the filesystem</tr>
-                    <tr lang="ru" finished="false">Путь загрузки файлов в файловой системе</tr>
-                </param>
-                <param name="FORM_KEY" type="symbol" required="true">
-                    <tr lang="en">form entry key</tr>
-                    <tr lang="ru" finished="false">Форма входного ключа</tr>
-                </param>
-                <param name="@PARAMS" type="list" required="false">
-                    <tr lang="en">see get method parameters</tr>
-                    <tr lang="ru" finished="false">См. параметры метода</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input</tr>
-                    <tr lang="ru" finished="false">ввод</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int: HTTP status code</tr>
-                    <tr lang="ru" finished="false">Оригинальное название: HTTP Status Code</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">data:String: HTTP body or content of selected element</tr>
-                    <tr lang="ru" finished="false">String: HTTP-тело или содержимое выбранного
-                    элемента</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Результат разбора как Json и вывод его как данные:</tr>
+        </param>
+      </method>
+      <!-- post -->
+      <method name="post">
+        <info>
+          <tr lang="en">send POST request</tr>
+          <tr lang="ru" finished="false">Отправить запрос POST</tr>
+        </info>
+        <param name="URL" type="symbol" required="true">
+          <tr lang="en">request URL</tr>
+          <tr lang="ru" finished="false">Запросить URL</tr>
+        </param>
+        <param name="@PARAMS" type="list" required="false">
+          <tr lang="en">see get method parameters</tr>
+          <tr lang="ru" finished="false">См. параметры метода</tr>
+        </param>
+      </method>
+      <!-- upload -->
+      <method name="upload">
+        <info>
+          <tr lang="en">updload file for the form</tr>
+          <tr lang="ru" finished="false">Скачать файл для формы</tr>
+        </info>
+        <param name="URL" type="symbol" required="true">
+          <tr lang="en">upload URL</tr>
+          <tr lang="ru" finished="false">Скачать URL</tr>
+        </param>
+        <param name="FILE" type="symbol" required="true">
+          <tr lang="en">upload file path in the filesystem</tr>
+          <tr lang="ru" finished="false">Путь загрузки файлов в файловой системе</tr>
+        </param>
+        <param name="FORM_KEY" type="symbol" required="true">
+          <tr lang="en">form entry key</tr>
+          <tr lang="ru" finished="false">Форма входного ключа</tr>
+        </param>
+        <param name="@PARAMS" type="list" required="false">
+          <tr lang="en">see get method parameters</tr>
+          <tr lang="ru" finished="false">См. параметры метода</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input</tr>
+          <tr lang="ru" finished="false">ввод</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int: HTTP status code</tr>
+          <tr lang="ru" finished="false">Оригинальное название: HTTP Status Code</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">data:String: HTTP body or content of selected element</tr>
+          <tr lang="ru" finished="false">String: HTTP-тело или содержимое выбранного элемента</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [get http://puredata.info/ @css title text @strip_ws(
 |
@@ -188,7 +183,7 @@
 
 [X a->z]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

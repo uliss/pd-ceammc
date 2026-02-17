@@ -1,279 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hoa.2d.space" type="gui">
-        <title>hoa.2d.space</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-                <author>Pierre Guillot</author>
-                <author>Eliott Paris</author>
-                <author>Thomas Le Meur</author>
-            </authors>
-            <description>
-                <tr lang="en">2D planewaves amplitude control</tr>
-                <tr lang="ru">контроль амплитуды двумерных плоских волн</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">spat</category>
-            <keywords>hoa space ui control circular</keywords>
-            <since>0.9.7</since>
-            <aliases>
-                <alias view="link">hoa.space</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The graphical user interface that facilitates the control of
-                processing in the plane wave domain.</tr>
-                <!-- old: Графический пользовательский интерфейс, облегчающий
+  <object name="hoa.2d.space" type="gui">
+    <title>hoa.2d.space</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+        <author>Pierre Guillot</author>
+        <author>Eliott Paris</author>
+        <author>Thomas Le Meur</author>
+      </authors>
+      <description>
+        <tr lang="en">2D planewaves amplitude control</tr>
+        <tr lang="ru">контроль амплитуды двумерных плоских волн</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">spat</category>
+      <keywords>hoa space ui control circular</keywords>
+      <since>0.9.7</since>
+      <aliases>
+        <alias view="link">hoa.space</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The graphical user interface that facilitates the control of processing in
+        the plane wave domain.</tr>
+        <!-- old: Графический пользовательский интерфейс, облегчающий
                 управление обработкой в плосковолновом домене. -->
-                <tr lang="ru" finished="false">Графический пользовательский интерфейс, облегчающий
-                управление обработкой в плосковолновом домене.</tr>
-            </par>
-            <a href="hoa/hoa.2d.space-help.pd">CICM documentation</a>
-        </info>
-        <mouse>
-            <event type="drag" editmode="false">change the single amp value</event>
-            <event type="drag" editmode="false" keys="Shift">change the all amp values</event>
-            <event type="drag" editmode="false" keys="Alt">rotate all values</event>
-            <event type="right-click" editmode="false">open popup menu</event>
-            <event type="right-click" editmode="false" keys="Shift">open object help</event>
-            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
-            <event type="drag" editmode="true" keys="Cmd">change the single amp value</event>
-            <event type="right-click" editmode="true" keys="Shift">open object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
-        </mouse>
-        <arguments>
-            <argument name="N" type="int" minvalue="1">
-                <tr lang="en">number of planewave channels</tr>
-                <tr lang="ru" finished="false">Количество плосковолновых каналов</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @background_color -->
-            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
-                <tr lang="en">element background color (list of red, green, blue values in 0-1
-                range)</tr>
-                <!-- old: цвет фона элемента (список красных, зеленых, синих
+        <tr lang="ru" finished="false">Графический пользовательский интерфейс, облегчающий
+        управление обработкой в плосковолновом домене.</tr>
+      </par>
+      <a href="hoa/hoa.2d.space-help.pd">CICM documentation</a>
+    </info>
+    <mouse>
+      <event type="drag" editmode="false">change the single amp value</event>
+      <event type="drag" editmode="false" keys="Shift">change the all amp values</event>
+      <event type="drag" editmode="false" keys="Alt">rotate all values</event>
+      <event type="right-click" editmode="false">open popup menu</event>
+      <event type="right-click" editmode="false" keys="Shift">open object help</event>
+      <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+      <event type="drag" editmode="true" keys="Cmd">change the single amp value</event>
+      <event type="right-click" editmode="true" keys="Shift">open object help</event>
+      <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+    </mouse>
+    <arguments>
+      <argument name="N" type="int" minvalue="1">
+        <tr lang="en">number of planewave channels</tr>
+        <tr lang="ru" finished="false">Количество плосковолновых каналов</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @background_color -->
+      <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
+        <tr lang="en">element background color (list of red, green, blue values in 0-1 range)</tr>
+        <!-- old: цвет фона элемента (список красных, зеленых, синих
                 значений в диапазоне 0-1) -->
-                <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих
-                значений в диапазоне 0-1)</tr>
-            </property>
-            <!-- @border_color -->
-            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">
-                <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
-                <!-- old: пограничный цвет (список красных, зеленых, синих
+        <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих значений
+        в диапазоне 0-1)</tr>
+      </property>
+      <!-- @border_color -->
+      <property name="@border_color" type="list" default="0.6 0.6 0.6 1">
+        <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
+        <!-- old: пограничный цвет (список красных, зеленых, синих
                 значений в диапазоне 0-1) -->
-                <tr lang="ru" finished="false">пограничный цвет (список красных, зеленых, синих
-                значений в диапазоне 0-1)</tr>
-            </property>
-            <!-- @fontname -->
-            <property name="@fontname" type="symbol" default="Helvetica"
-            enum="Courier DejaVu Helvetica Monaco Times">
-                <tr lang="en">fontname</tr>
-                <tr lang="ru" finished="false">название шрифта</tr>
-            </property>
-            <!-- @fontsize -->
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-                <tr lang="en">fontsize</tr>
-                <tr lang="ru" finished="false">шрифт</tr>
-            </property>
-            <!-- @fontslant -->
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
-                <tr lang="en">font slant</tr>
-                <tr lang="ru" finished="false">наклон шрифта</tr>
-            </property>
-            <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
-                <tr lang="en">font weight</tr>
-                <tr lang="ru" finished="false">вес шрифта</tr>
-            </property>
-            <!-- @label -->
-            <property name="@label" type="symbol" default="(null)">
-                <tr lang="en">label text</tr>
-                <tr lang="ru" finished="false">текст этикетки</tr>
-            </property>
-            <!-- @label_align -->
-            <property name="@label_align" type="symbol" enum="left center right" default="left">
-                <tr lang="en">label horizontal align</tr>
-                <tr lang="ru" finished="false">горизонтальная маркировка</tr>
-            </property>
-            <!-- @label_color -->
-            <property name="@label_color" type="list" default="0 0 0 1">
-                <tr lang="en">label color in RGB format within 0-1 range, for example: 0.2 0.4
-                0.1</tr>
-                <!-- old: цвет этикетки в формате RGB в диапазоне 0-1,
+        <tr lang="ru" finished="false">пограничный цвет (список красных, зеленых, синих значений в
+        диапазоне 0-1)</tr>
+      </property>
+      <!-- @fontname -->
+      <property name="@fontname" type="symbol" default="Helvetica"
+      enum="Courier DejaVu Helvetica Monaco Times">
+        <tr lang="en">fontname</tr>
+        <tr lang="ru" finished="false">название шрифта</tr>
+      </property>
+      <!-- @fontsize -->
+      <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+        <tr lang="en">fontsize</tr>
+        <tr lang="ru" finished="false">шрифт</tr>
+      </property>
+      <!-- @fontslant -->
+      <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
+        <tr lang="en">font slant</tr>
+        <tr lang="ru" finished="false">наклон шрифта</tr>
+      </property>
+      <!-- @fontweight -->
+      <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
+        <tr lang="en">font weight</tr>
+        <tr lang="ru" finished="false">вес шрифта</tr>
+      </property>
+      <!-- @label -->
+      <property name="@label" type="symbol" default="(null)">
+        <tr lang="en">label text</tr>
+        <tr lang="ru" finished="false">текст этикетки</tr>
+      </property>
+      <!-- @label_align -->
+      <property name="@label_align" type="symbol" enum="left center right" default="left">
+        <tr lang="en">label horizontal align</tr>
+        <tr lang="ru" finished="false">горизонтальная маркировка</tr>
+      </property>
+      <!-- @label_color -->
+      <property name="@label_color" type="list" default="0 0 0 1">
+        <tr lang="en">label color in RGB format within 0-1 range, for example: 0.2 0.4 0.1</tr>
+        <!-- old: цвет этикетки в формате RGB в диапазоне 0-1,
                 например: 0.2 0.4 0.1 -->
-                <tr lang="ru" finished="false">цвет этикетки в формате RGB в диапазоне 0-1,
-                например: 0.2 0.4 0.1</tr>
-            </property>
-            <!-- @label_inner -->
-            <property name="@label_inner" type="bool" default="0">
-                <tr lang="en">label position (1 - inner, 0 - outer).</tr>
-                <tr lang="ru" finished="false">положение метки (1 - внутреннее, 0 - наружное).</tr>
-            </property>
-            <!-- @label_margins -->
-            <property name="@label_margins" type="list" default="0 0">
-                <tr lang="en">label offset in pixels</tr>
-                <tr lang="ru" finished="false">Смещение этикетки в пикселях</tr>
-            </property>
-            <!-- @label_side -->
-            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
-                <tr lang="en">label snap side</tr>
-                <tr lang="ru" finished="false">маркировка snap side</tr>
-            </property>
-            <!-- @label_valign -->
-            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
-                <tr lang="en">label vertical align</tr>
-                <tr lang="ru" finished="false">вертикальное обозначение</tr>
-            </property>
-            <!-- @max -->
-            <property name="@max" type="float" default="1">
-                <tr lang="en">maximum amp value</tr>
-                <tr lang="ru" finished="false">Максимальное значение amp</tr>
-            </property>
-            <!-- @min -->
-            <property name="@min" type="float" default="0">
-                <tr lang="en">minimum amp value</tr>
-                <tr lang="ru" finished="false">Минимальное значение amp</tr>
-            </property>
-            <!-- @nch -->
-            <property name="@nch" type="int" minvalue="1" maxvalue="128" default="4">
-                <tr lang="en">number of channels</tr>
-                <tr lang="ru" finished="false">Количество каналов</tr>
-            </property>
-            <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">
-                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
-                <!-- old: Режим пин. если 1 - поставить элемент на самый
+        <tr lang="ru" finished="false">цвет этикетки в формате RGB в диапазоне 0-1, например: 0.2
+        0.4 0.1</tr>
+      </property>
+      <!-- @label_inner -->
+      <property name="@label_inner" type="bool" default="0">
+        <tr lang="en">label position (1 - inner, 0 - outer).</tr>
+        <tr lang="ru" finished="false">положение метки (1 - внутреннее, 0 - наружное).</tr>
+      </property>
+      <!-- @label_margins -->
+      <property name="@label_margins" type="list" default="0 0">
+        <tr lang="en">label offset in pixels</tr>
+        <tr lang="ru" finished="false">Смещение этикетки в пикселях</tr>
+      </property>
+      <!-- @label_side -->
+      <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+        <tr lang="en">label snap side</tr>
+        <tr lang="ru" finished="false">маркировка snap side</tr>
+      </property>
+      <!-- @label_valign -->
+      <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+        <tr lang="en">label vertical align</tr>
+        <tr lang="ru" finished="false">вертикальное обозначение</tr>
+      </property>
+      <!-- @max -->
+      <property name="@max" type="float" default="1">
+        <tr lang="en">maximum amp value</tr>
+        <tr lang="ru" finished="false">Максимальное значение amp</tr>
+      </property>
+      <!-- @min -->
+      <property name="@min" type="float" default="0">
+        <tr lang="en">minimum amp value</tr>
+        <tr lang="ru" finished="false">Минимальное значение amp</tr>
+      </property>
+      <!-- @nch -->
+      <property name="@nch" type="int" minvalue="1" maxvalue="128" default="4">
+        <tr lang="en">number of channels</tr>
+        <tr lang="ru" finished="false">Количество каналов</tr>
+      </property>
+      <!-- @pinned -->
+      <property name="@pinned" type="bool" default="0">
+        <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
+        <!-- old: Режим пин. если 1 - поставить элемент на самый
                 низкий уровень -->
-                <tr lang="ru" finished="false">Режим пин. если 1 - поставить элемент на самый
-                низкий уровень</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" category="basic" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
-                <!-- old: Предустановленное имя для использования с
+        <tr lang="ru" finished="false">Режим пин. если 1 - поставить элемент на самый низкий
+        уровень</tr>
+      </property>
+      <!-- @presetname -->
+      <property name="@presetname" type="symbol" category="basic" default="(null)">
+        <tr lang="en">preset name for using with [ui.preset]</tr>
+        <!-- old: Предустановленное имя для использования с
                 [ui.preset] -->
-                <tr lang="ru" finished="false">Предустановленное имя для использования с
-                [ui.preset]</tr>
-            </property>
-            <!-- @pt_color -->
-            <property name="@pt_color" type="list" default="0 0 0 1">
-                <tr lang="en">point color</tr>
-                <tr lang="ru" finished="false">точечный цвет</tr>
-            </property>
-            <!-- @receive -->
-            <property name="@receive" type="symbol" category="basic" default="(null)">
-                <tr lang="en">receive source</tr>
-                <tr lang="ru" finished="false">источник получения</tr>
-            </property>
-            <!-- @send -->
-            <property name="@send" type="symbol" category="basic" default="(null)">
-                <tr lang="en">send destination</tr>
-                <tr lang="ru" finished="false">Отправить пункт назначения</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="120 120">
-                <tr lang="en">element size (width, height pair)</tr>
-                <tr lang="ru" finished="false">Размер элемента (ширина, пара высоты)</tr>
-            </property>
-            <!-- @sp_color -->
-            <property name="@sp_color" type="list" default="0.27 0.43 0.54 1">
-                <tr lang="en">space color</tr>
-                <tr lang="ru" finished="false">Цвет пространства</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- clear -->
-            <method name="clear" category="preset">
-                <info>
-                    <tr lang="en">clears specified preset</tr>
-                    <tr lang="ru" finished="false">заданный заранее</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- dump -->
-            <method name="dump">
-                <info>
-                    <tr lang="en">dumps all object info to Pd console window.</tr>
-                    <!-- old: Сбрасывает всю информацию об объекте в окно
+        <tr lang="ru" finished="false">Предустановленное имя для использования с [ui.preset]</tr>
+      </property>
+      <!-- @pt_color -->
+      <property name="@pt_color" type="list" default="0 0 0 1">
+        <tr lang="en">point color</tr>
+        <tr lang="ru" finished="false">точечный цвет</tr>
+      </property>
+      <!-- @receive -->
+      <property name="@receive" type="symbol" category="basic" default="(null)">
+        <tr lang="en">receive source</tr>
+        <tr lang="ru" finished="false">источник получения</tr>
+      </property>
+      <!-- @send -->
+      <property name="@send" type="symbol" category="basic" default="(null)">
+        <tr lang="en">send destination</tr>
+        <tr lang="ru" finished="false">Отправить пункт назначения</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="120 120">
+        <tr lang="en">element size (width, height pair)</tr>
+        <tr lang="ru" finished="false">Размер элемента (ширина, пара высоты)</tr>
+      </property>
+      <!-- @sp_color -->
+      <property name="@sp_color" type="list" default="0.27 0.43 0.54 1">
+        <tr lang="en">space color</tr>
+        <tr lang="ru" finished="false">Цвет пространства</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- clear -->
+      <method name="clear" category="preset">
+        <info>
+          <tr lang="en">clears specified preset</tr>
+          <tr lang="ru" finished="false">заданный заранее</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- dump -->
+      <method name="dump">
+        <info>
+          <tr lang="en">dumps all object info to Pd console window.</tr>
+          <!-- old: Сбрасывает всю информацию об объекте в окно
                     консоли Pd. -->
-                    <tr lang="ru" finished="false">Сбрасывает всю информацию об объекте в окно
-                    консоли Pd.</tr>
-                </info>
-            </method>
-            <!-- interp -->
-            <method name="interp">
-                <info>
-                    <tr lang="en">interplolates between presets</tr>
-                    <tr lang="ru" finished="false">Интерплолаты между предустановленными</tr>
-                </info>
-                <param name="IDX" type="float" required="true">
-                    <tr lang="en">preset fraction index</tr>
-                    <tr lang="ru" finished="false">предустановленный дробный индекс</tr>
-                </param>
-            </method>
-            <!-- load -->
-            <method name="load" category="preset">
-                <info>
-                    <tr lang="en">loads specified preset</tr>
-                    <tr lang="ru" finished="false">заданный заранее заданный</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- pos -->
-            <method name="pos">
-                <info>
-                    <tr lang="en">set UI element position</tr>
-                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">top left x-coord</tr>
-                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">top right y-coord</tr>
-                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
-                </param>
-            </method>
-            <!-- store -->
-            <method name="store" category="preset">
-                <info>
-                    <tr lang="en">stores specified preset</tr>
-                    <tr lang="ru" finished="false">магазины, указанные Preset</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">list: amp values</tr>
-                    <tr lang="ru" finished="false">Список: значения amp</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list: amp values</tr>
-                    <tr lang="ru" finished="false">Список: значения amp</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Сбрасывает всю информацию об объекте в окно консоли
+          Pd.</tr>
+        </info>
+      </method>
+      <!-- interp -->
+      <method name="interp">
+        <info>
+          <tr lang="en">interplolates between presets</tr>
+          <tr lang="ru" finished="false">Интерплолаты между предустановленными</tr>
+        </info>
+        <param name="IDX" type="float" required="true">
+          <tr lang="en">preset fraction index</tr>
+          <tr lang="ru" finished="false">предустановленный дробный индекс</tr>
+        </param>
+      </method>
+      <!-- load -->
+      <method name="load" category="preset">
+        <info>
+          <tr lang="en">loads specified preset</tr>
+          <tr lang="ru" finished="false">заданный заранее заданный</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- pos -->
+      <method name="pos">
+        <info>
+          <tr lang="en">set UI element position</tr>
+          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">top left x-coord</tr>
+          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+        </param>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">top right y-coord</tr>
+          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+        </param>
+      </method>
+      <!-- store -->
+      <method name="store" category="preset">
+        <info>
+          <tr lang="en">stores specified preset</tr>
+          <tr lang="ru" finished="false">магазины, указанные Preset</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">list: amp values</tr>
+          <tr lang="ru" finished="false">Список: значения amp</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list: amp values</tr>
+          <tr lang="ru" finished="false">Список: значения amp</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [hoa.2d.space 8 {0:]
 |
@@ -288,7 +285,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

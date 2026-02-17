@@ -1,77 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.highshelf~">
-        <title>flt.highshelf~</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">gain boost|cut above some frequency</tr>
-                <tr lang="ru">усиление или ослабление частот выше указанной</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>filter highshelf</keywords>
-            <since>0.1</since>
-            <also>
-                <see>flt.lowshelf~</see>
-                <see>flt.c_highshelf~</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
-                <tr lang="en">starting frequency for the shelf</tr>
-                <tr lang="ru" finished="false">Стартовая частота для полки</tr>
-            </argument>
-            <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">
-                <tr lang="en">amount of boost or cut apply to the signal</tr>
-                <!-- old: величина наддува или разреза применяется к
+  <object name="flt.highshelf~">
+    <title>flt.highshelf~</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">gain boost|cut above some frequency</tr>
+        <tr lang="ru">усиление или ослабление частот выше указанной</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>filter highshelf</keywords>
+      <since>0.1</since>
+      <also>
+        <see>flt.lowshelf~</see>
+        <see>flt.c_highshelf~</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
+        <tr lang="en">starting frequency for the shelf</tr>
+        <tr lang="ru" finished="false">Стартовая частота для полки</tr>
+      </argument>
+      <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">
+        <tr lang="en">amount of boost or cut apply to the signal</tr>
+        <!-- old: величина наддува или разреза применяется к
                 сигналу -->
-                <tr lang="ru" finished="false">величина наддува или разреза применяется к
-                сигналу</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @freq -->
-            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
-            default="10000">
-                <tr lang="en">starting frequency for the shelf</tr>
-                <tr lang="ru" finished="false">Стартовая частота для полки</tr>
-            </property>
-            <!-- @gain -->
-            <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
-            default="0">
-                <tr lang="en">amount of boost or cut apply to the signal</tr>
-                <!-- old: величина наддува или разреза применяется к
+        <tr lang="ru" finished="false">величина наддува или разреза применяется к сигналу</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @freq -->
+      <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
+      default="10000">
+        <tr lang="en">starting frequency for the shelf</tr>
+        <tr lang="ru" finished="false">Стартовая частота для полки</tr>
+      </property>
+      <!-- @gain -->
+      <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15" default="0">
+        <tr lang="en">amount of boost or cut apply to the signal</tr>
+        <!-- old: величина наддува или разреза применяется к
                 сигналу -->
-                <tr lang="ru" finished="false">величина наддува или разреза применяется к
-                сигналу</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">filtered signal</tr>
-                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">величина наддува или разреза применяется к сигналу</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">filtered signal</tr>
+          <tr lang="ru" finished="false">фильтрованный сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [noise~]   [F]         [F]
 |          |           |
@@ -85,7 +82,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

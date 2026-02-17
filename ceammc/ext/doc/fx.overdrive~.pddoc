@@ -1,86 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.overdrive~">
-        <title>fx.overdrive~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">overdrive effect</tr>
-                <tr lang="ru">эффект перегрузки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx overdrive</keywords>
-            <since>0.9.7</since>
-        </meta>
-        <arguments>
-            <argument name="GAIN" type="float" minvalue="1" maxvalue="5">
-                <tr lang="en">input gain</tr>
-                <tr lang="ru" finished="false">входной доход</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">
-                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-                <!-- old: Обходной флаг. Если это правда, обойдите
+  <object name="fx.overdrive~">
+    <title>fx.overdrive~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">overdrive effect</tr>
+        <tr lang="ru">эффект перегрузки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx overdrive</keywords>
+      <since>0.9.7</since>
+    </meta>
+    <arguments>
+      <argument name="GAIN" type="float" minvalue="1" maxvalue="5">
+        <tr lang="en">input gain</tr>
+        <tr lang="ru" finished="false">входной доход</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @bypass -->
+      <property name="@bypass" type="bool" default="0">
+        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+        <!-- old: Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал. -->
-                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал.</tr>
-            </property>
-            <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">Ratio between processed signal (wet) and source signal</tr>
-                <!-- old: Соотношение между обработанным сигналом (мокрым) и
+        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
+        сигнал.</tr>
+      </property>
+      <!-- @drywet -->
+      <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">Ratio between processed signal (wet) and source signal</tr>
+        <!-- old: Соотношение между обработанным сигналом (мокрым) и
                 исходным сигналом -->
-                <tr lang="ru" finished="false">Соотношение между обработанным сигналом (мокрым) и
-                исходным сигналом</tr>
-            </property>
-            <!-- @gain -->
-            <property name="@gain" type="float" minvalue="1" maxvalue="5" default="1">
-                <tr lang="en">input gain</tr>
-                <tr lang="ru" finished="false">входной доход</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset object</tr>
-                    <tr lang="ru" finished="false">сбрасывать объект</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">gain value</tr>
-                    <tr lang="ru" finished="false">прибыль</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Соотношение между обработанным сигналом (мокрым) и исходным
+        сигналом</tr>
+      </property>
+      <!-- @gain -->
+      <property name="@gain" type="float" minvalue="1" maxvalue="5" default="1">
+        <tr lang="en">input gain</tr>
+        <tr lang="ru" finished="false">входной доход</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset object</tr>
+          <tr lang="ru" finished="false">сбрасывать объект</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">gain value</tr>
+          <tr lang="ru" finished="false">прибыль</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open %CEAMMC%/guitar1.wav, 1(
 |
@@ -96,7 +96,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

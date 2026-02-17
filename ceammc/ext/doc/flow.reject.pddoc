@@ -1,89 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.reject">
-        <title>flow.reject</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">reject specified values</tr>
-                <tr lang="ru">не пропускает указанные значения</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>reject functional</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>ceammc/reject</alias>
-                <alias>reject</alias>
-                <alias>flow.!</alias>
-            </aliases>
-            <also>
-                <see>flow.reject_if</see>
-                <see>flow.pass</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="VALUES" type="list">
-                <tr lang="en">list of atoms to reject</tr>
-                <tr lang="ru" finished="false">Список атомов для отклонения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @values -->
-            <property name="@values" type="list" default="">
-                <tr lang="en">atoms to reject</tr>
-                <tr lang="ru" finished="false">Атомы отвергают</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">pass</tr>
-                    <tr lang="ru" finished="false">проход</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">reject if float is in reject list</tr>
-                    <tr lang="ru" finished="false">Отклонить, если в списке отклонить</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">reject if symbol is in reject list</tr>
-                    <tr lang="ru" finished="false">Отклонить, если символ в списке отклонений</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">reject if first atom is in reject list</tr>
-                    <!-- old: Если первый атом находится в списке
+  <object name="flow.reject">
+    <title>flow.reject</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">reject specified values</tr>
+        <tr lang="ru">не пропускает указанные значения</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>reject functional</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>ceammc/reject</alias>
+        <alias>reject</alias>
+        <alias>flow.!</alias>
+      </aliases>
+      <also>
+        <see>flow.reject_if</see>
+        <see>flow.pass</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="VALUES" type="list">
+        <tr lang="en">list of atoms to reject</tr>
+        <tr lang="ru" finished="false">Список атомов для отклонения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @values -->
+      <property name="@values" type="list" default="">
+        <tr lang="en">atoms to reject</tr>
+        <tr lang="ru" finished="false">Атомы отвергают</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">pass</tr>
+          <tr lang="ru" finished="false">проход</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">reject if float is in reject list</tr>
+          <tr lang="ru" finished="false">Отклонить, если в списке отклонить</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">reject if symbol is in reject list</tr>
+          <tr lang="ru" finished="false">Отклонить, если символ в списке отклонений</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">reject if first atom is in reject list</tr>
+          <!-- old: Если первый атом находится в списке
                     отклонений -->
-                    <tr lang="ru" finished="false">Если первый атом находится в списке
-                    отклонений</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">reject if message selector is in reject list</tr>
-                    <!-- old: Отклонить, если селектор сообщения находится в
+          <tr lang="ru" finished="false">Если первый атом находится в списке отклонений</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">reject if message selector is in reject list</tr>
+          <!-- old: Отклонить, если селектор сообщения находится в
                     списке отклонений -->
-                    <tr lang="ru" finished="false">Отклонить, если селектор сообщения находится в
-                    списке отклонений</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set reject list</tr>
-                    <tr lang="ru" finished="false">Отклонить список</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">passed values</tr>
-                    <tr lang="ru" finished="false">переданные значения</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Отклонить, если селектор сообщения находится в списке
+          отклонений</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set reject list</tr>
+          <tr lang="ru" finished="false">Отклонить список</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">passed values</tr>
+          <tr lang="ru" finished="false">переданные значения</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]
 |
@@ -93,7 +92,7 @@
 |
 [F digits=12]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

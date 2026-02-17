@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="metro.pattern">
-        <title>metro.pattern</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">metronome with rhythmic patterns</tr>
-                <tr lang="ru">метроном с ритмическими паттернами</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>base</category>
-            <keywords>metro pattern rhythm</keywords>
-            <also>
-                <see>metro</see>
-                <see>metro.seq</see>
-            </also>
-            <since>0.5</since>
-        </meta>
-        <arguments>
-            <argument name="PATTERN" type="list">
-                <tr lang="en">list of time intervals (in ms)</tr>
-                <tr lang="ru" finished="false">Список временных интервалов (в мс)</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @current -->
-            <property name="@current" type="int" minvalue="0" default="0">
-                <tr lang="en">current pattern index</tr>
-                <tr lang="ru" finished="false">Текущий индекс</tr>
-            </property>
-            <!-- @pattern -->
-            <property name="@pattern" type="list" default="">
-                <tr lang="en">time intervals (in ms) performed in a loop</tr>
-                <tr lang="ru" finished="false">интервалы времени (в мс), выполненные в петле</tr>
-            </property>
-            <!-- @sync -->
-            <property name="@sync" type="bool" default="0">
-                <tr lang="en">sync mode - change pattern after full cycle</tr>
-                <!-- old: Режим синхронизации - изменение шаблона после
+  <object name="metro.pattern">
+    <title>metro.pattern</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">metronome with rhythmic patterns</tr>
+        <tr lang="ru">метроном с ритмическими паттернами</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>base</category>
+      <keywords>metro pattern rhythm</keywords>
+      <also>
+        <see>metro</see>
+        <see>metro.seq</see>
+      </also>
+      <since>0.5</since>
+    </meta>
+    <arguments>
+      <argument name="PATTERN" type="list">
+        <tr lang="en">list of time intervals (in ms)</tr>
+        <tr lang="ru" finished="false">Список временных интервалов (в мс)</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @current -->
+      <property name="@current" type="int" minvalue="0" default="0">
+        <tr lang="en">current pattern index</tr>
+        <tr lang="ru" finished="false">Текущий индекс</tr>
+      </property>
+      <!-- @pattern -->
+      <property name="@pattern" type="list" default="">
+        <tr lang="en">time intervals (in ms) performed in a loop</tr>
+        <tr lang="ru" finished="false">интервалы времени (в мс), выполненные в петле</tr>
+      </property>
+      <!-- @sync -->
+      <property name="@sync" type="bool" default="0">
+        <tr lang="en">sync mode - change pattern after full cycle</tr>
+        <!-- old: Режим синхронизации - изменение шаблона после
                 полного цикла -->
-                <tr lang="ru" finished="false">Режим синхронизации - изменение шаблона после
-                полного цикла</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">starts (on 1) or stops (on 0) metro</tr>
-                    <tr lang="ru" finished="false">старты (на 1) или остановки (на 0) метро</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set new pattern</tr>
-                    <tr lang="ru" finished="false">Установить новый шаблон</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs *bang*</tr>
-                    <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs current pattern index and bang on each cycle</tr>
-                    <tr lang="ru" finished="false">выводит текущий индекс шаблона и удар по каждому
-                    циклу</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Режим синхронизации - изменение шаблона после полного
+        цикла</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">starts (on 1) or stops (on 0) metro</tr>
+          <tr lang="ru" finished="false">старты (на 1) или остановки (на 0) метро</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set new pattern</tr>
+          <tr lang="ru" finished="false">Установить новый шаблон</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs *bang*</tr>
+          <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs current pattern index and bang on each cycle</tr>
+          <tr lang="ru" finished="false">выводит текущий индекс шаблона и удар по каждому
+          циклу</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [@pattern 100 290 110 70(
 |
@@ -92,7 +92,7 @@
 | \
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

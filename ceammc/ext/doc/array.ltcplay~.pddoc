@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.ltcplay~">
-        <title>array.ltcplay~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">array player controlled by LTC</tr>
-                <tr lang="ru">проигрывание звуковой таблицы, с управлением по LTC</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array ltc play</keywords>
-            <since>0.9.7</since>
-        </meta>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-            <!-- @fps -->
-            <property name="@fps" type="atom" enum="auto 24 25 29.97 30" default="auto">
-                <tr lang="en">expected LTC stream framerate</tr>
-                <tr lang="ru">ожидаемая скорость потока кадров LTC</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">LTC input signal</tr>
-                    <tr lang="ru">входной сигнал LTC</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">set the source array</tr>
-                    <tr lang="ru">установить исходный массив</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">playback output</tr>
-                    <tr lang="ru">выход воспроизведения</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.ltcplay~">
+    <title>array.ltcplay~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">array player controlled by LTC</tr>
+        <tr lang="ru">проигрывание звуковой таблицы, с управлением по LTC</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array ltc play</keywords>
+      <since>0.9.7</since>
+    </meta>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+      <!-- @fps -->
+      <property name="@fps" type="atom" enum="auto 24 25 29.97 30" default="auto">
+        <tr lang="en">expected LTC stream framerate</tr>
+        <tr lang="ru">ожидаемая скорость потока кадров LTC</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">LTC input signal</tr>
+          <tr lang="ru">входной сигнал LTC</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">set the source array</tr>
+          <tr lang="ru">установить исходный массив</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">playback output</tr>
+          <tr lang="ru">выход воспроизведения</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]         [msg.onload symbol %CEAMMC%/guitar1.wav]
 |           |
@@ -82,7 +82,7 @@
 |\
 [dac~]                    [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

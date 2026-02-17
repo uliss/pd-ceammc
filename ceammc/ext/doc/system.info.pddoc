@@ -1,58 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="system.info">
-        <title>system.info</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">retrieve system information: CPU and temperature</tr>
-                <tr lang="ru">получение информации о системе: ЦПУ и температура</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>system</category>
-            <keywords>system info cpu</keywords>
-            <since>0.9.8</since>
-        </meta>
-        <methods>
-            <!-- cpu -->
-            <method name="cpu">
-                <info>
-                    <tr lang="en">request information about system cpus</tr>
-                    <tr lang="ru" finished="false">Запрос информации о системе cpus</tr>
-                </info>
-            </method>
-            <!-- temp -->
-            <method name="temp">
-                <info>
-                    <tr lang="en">request system temperature information. Output in format: temp
-                    SENSOR_NAME VALUE</tr>
-                    <tr lang="ru" finished="false">запросить информацию о температуре системы.
-                    Выход в формате: temp SENSOR_NAME VALUE</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control input</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output [temp SENSOR_NAME VALUE( or [cpu INFO_DICT(</tr>
-                    <tr lang="ru" finished="false">[temp SENSOR_NAME VALUE (или [cpu
-                    INFO_DICT]]</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="system.info">
+    <title>system.info</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">retrieve system information: CPU and temperature</tr>
+        <tr lang="ru">получение информации о системе: ЦПУ и температура</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>system</category>
+      <keywords>system info cpu</keywords>
+      <since>0.9.8</since>
+    </meta>
+    <methods>
+      <!-- cpu -->
+      <method name="cpu">
+        <info>
+          <tr lang="en">request information about system cpus</tr>
+          <tr lang="ru" finished="false">Запрос информации о системе cpus</tr>
+        </info>
+      </method>
+      <!-- temp -->
+      <method name="temp">
+        <info>
+          <tr lang="en">request system temperature information. Output in format: temp SENSOR_NAME
+          VALUE</tr>
+          <tr lang="ru" finished="false">запросить информацию о температуре системы. Выход в
+          формате: temp SENSOR_NAME VALUE</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control input</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output [temp SENSOR_NAME VALUE( or [cpu INFO_DICT(</tr>
+          <tr lang="ru" finished="false">[temp SENSOR_NAME VALUE (или [cpu INFO_DICT]]</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [temp(
 |
@@ -63,7 +62,7 @@
 |
 [print INFO]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,43 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="set.size">
-        <title>set.size</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs the number of elements in a set</tr>
-                <tr lang="ru">выводит количество элементов в множестве</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>data set size</keywords>
-            <since>0.3</since>
-            <also>
-                <see>data.set</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input set. Other values are ignored</tr>
-                    <tr lang="ru" finished="false">Набор входных данных. Другие ценности
-                    игнорируются</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">number of element in set</tr>
-                    <tr lang="ru" finished="false">Количество элементов в наборе</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="set.size">
+    <title>set.size</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs the number of elements in a set</tr>
+        <tr lang="ru">выводит количество элементов в множестве</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>data set size</keywords>
+      <since>0.3</since>
+      <also>
+        <see>data.set</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input set. Other values are ignored</tr>
+          <tr lang="ru" finished="false">Набор входных данных. Другие ценности игнорируются</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">number of element in set</tr>
+          <tr lang="ru" finished="false">Количество элементов в наборе</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]   [1 2 3 4(
 |     |
@@ -49,7 +48,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

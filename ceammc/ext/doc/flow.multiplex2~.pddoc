@@ -1,103 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.multiplex2~">
-        <title>flow.multiplex2~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">audio stream stereo multiplexer</tr>
-                <tr lang="ru">мультиплексор стерео аудиопотока</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>flow multiplex</keywords>
-            <since>0.6</since>
-            <aliases>
-                <alias>flow.mux2~</alias>
-                <alias>ceammc/mux2~</alias>
-                <alias>mux2~</alias>
-            </aliases>
-            <also>
-                <see>flow.multiplex~</see>
-                <see>flow.multiplex</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="8">
-                <tr lang="en">number of input stereo-pairs</tr>
-                <tr lang="ru" finished="false">Количество входных стереопар</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @value -->
-            <property name="@value" type="list" default="1 0">
-                <tr lang="en">gain coefficients per each input</tr>
-                <tr lang="ru" finished="false">коэффициенты усиления на каждый вход</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet type="audio" number="1">
-                <in>
-                    <tr lang="en">first left input signal</tr>
-                    <tr lang="ru" finished="false">Первый левый входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="2">
-                <in>
-                    <tr lang="en">first right input signal</tr>
-                    <tr lang="ru" finished="false">Первый правый входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="...">
-                <in>
-                    <tr lang="en">... left input signal</tr>
-                    <tr lang="ru" finished="false">левый входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="...">
-                <in>
-                    <tr lang="en">... right input signal</tr>
-                    <tr lang="ru" finished="false">Правильный входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="n">
-                <in>
-                    <tr lang="en">last left input signal</tr>
-                    <tr lang="ru" finished="false">Последний левый входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="n">
-                <in>
-                    <tr lang="en">last right input signal</tr>
-                    <tr lang="ru" finished="false">Последний правильный входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="control" number="n+1">
-                <in>
-                    <tr lang="en">multiplexer control</tr>
-                    <tr lang="ru" finished="false">управление мультиплексором</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">left output</tr>
-                    <tr lang="ru" finished="false">левый выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">right output</tr>
-                    <tr lang="ru" finished="false">правильный выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flow.multiplex2~">
+    <title>flow.multiplex2~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">audio stream stereo multiplexer</tr>
+        <tr lang="ru">мультиплексор стерео аудиопотока</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>flow multiplex</keywords>
+      <since>0.6</since>
+      <aliases>
+        <alias>flow.mux2~</alias>
+        <alias>ceammc/mux2~</alias>
+        <alias>mux2~</alias>
+      </aliases>
+      <also>
+        <see>flow.multiplex~</see>
+        <see>flow.multiplex</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="N" type="int" minvalue="2" maxvalue="8">
+        <tr lang="en">number of input stereo-pairs</tr>
+        <tr lang="ru" finished="false">Количество входных стереопар</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @value -->
+      <property name="@value" type="list" default="1 0">
+        <tr lang="en">gain coefficients per each input</tr>
+        <tr lang="ru" finished="false">коэффициенты усиления на каждый вход</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet type="audio" number="1">
+        <in>
+          <tr lang="en">first left input signal</tr>
+          <tr lang="ru" finished="false">Первый левый входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="2">
+        <in>
+          <tr lang="en">first right input signal</tr>
+          <tr lang="ru" finished="false">Первый правый входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="...">
+        <in>
+          <tr lang="en">... left input signal</tr>
+          <tr lang="ru" finished="false">левый входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="...">
+        <in>
+          <tr lang="en">... right input signal</tr>
+          <tr lang="ru" finished="false">Правильный входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="n">
+        <in>
+          <tr lang="en">last left input signal</tr>
+          <tr lang="ru" finished="false">Последний левый входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="n">
+        <in>
+          <tr lang="en">last right input signal</tr>
+          <tr lang="ru" finished="false">Последний правильный входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="control" number="n+1">
+        <in>
+          <tr lang="en">multiplexer control</tr>
+          <tr lang="ru" finished="false">управление мультиплексором</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">left output</tr>
+          <tr lang="ru" finished="false">левый выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">right output</tr>
+          <tr lang="ru" finished="false">правильный выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [osc~ 440]             [ui.radio @nitems 2] [ui.dsp~]
 |                      |
@@ -114,7 +114,7 @@
 *|*
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

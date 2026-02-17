@@ -1,128 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="dyn.gate~">
-        <title>dyn.gate~</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">mono signal gate</tr>
-                <tr lang="ru">моно-сигнальный гейт</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>dyn</category>
-            <keywords>gate</keywords>
-            <since>0.1</since>
-            <also>
-                <see>dyn.gate2~</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="THRESHOLD" type="float" units="decibel" minvalue="-90" maxvalue="0">
-                <tr lang="en">dB level threshold above which gate opens</tr>
-                <tr lang="ru">пороговый уровень дБ, выше которого открывается гейт</tr>
-            </argument>
-            <argument name="ATTACK" type="float" units="millisecond" minvalue="0" maxvalue="500">
-                <tr lang="en">attack time = time constant (ms) for gate to open</tr>
-                <tr lang="ru">время атаки = постоянная времени (ms) для открытия гейта</tr>
-            </argument>
-            <argument name="HOLD" type="float" units="millisecond" minvalue="1" maxvalue="500">
-                <tr lang="en">hold time = time (ms) gate stays open after signal level &lt;
-                threshold</tr>
-                <tr lang="ru">время удержания = время (ms), которое гейт остается открытым после
-                уровня сигнала &lt; порог</tr>
-            </argument>
-            <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
-                <tr lang="en">release time = time constant (ms) for gate to close</tr>
-                <tr lang="ru">время освобождения = постоянная времени (ms) для закрытия гейта</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @attack -->
-            <property name="@attack" type="float" units="millisecond" minvalue="0" maxvalue="500"
-            default="0.1">
-                <tr lang="en">attack time = time constant (ms) for gate to open</tr>
-                <!-- old: Время атаки = постоянная времени (ms) для открытия
+  <object name="dyn.gate~">
+    <title>dyn.gate~</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">mono signal gate</tr>
+        <tr lang="ru">моно-сигнальный гейт</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>dyn</category>
+      <keywords>gate</keywords>
+      <since>0.1</since>
+      <also>
+        <see>dyn.gate2~</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="THRESHOLD" type="float" units="decibel" minvalue="-90" maxvalue="0">
+        <tr lang="en">dB level threshold above which gate opens</tr>
+        <tr lang="ru">пороговый уровень дБ, выше которого открывается гейт</tr>
+      </argument>
+      <argument name="ATTACK" type="float" units="millisecond" minvalue="0" maxvalue="500">
+        <tr lang="en">attack time = time constant (ms) for gate to open</tr>
+        <tr lang="ru">время атаки = постоянная времени (ms) для открытия гейта</tr>
+      </argument>
+      <argument name="HOLD" type="float" units="millisecond" minvalue="1" maxvalue="500">
+        <tr lang="en">hold time = time (ms) gate stays open after signal level &lt; threshold</tr>
+        <tr lang="ru">время удержания = время (ms), которое гейт остается открытым после уровня
+        сигнала &lt; порог</tr>
+      </argument>
+      <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
+        <tr lang="en">release time = time constant (ms) for gate to close</tr>
+        <tr lang="ru">время освобождения = постоянная времени (ms) для закрытия гейта</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @attack -->
+      <property name="@attack" type="float" units="millisecond" minvalue="0" maxvalue="500"
+      default="0.1">
+        <tr lang="en">attack time = time constant (ms) for gate to open</tr>
+        <!-- old: Время атаки = постоянная времени (ms) для открытия
                 ворот -->
-                <tr lang="ru" finished="false">Время атаки = постоянная времени (ms) для открытия
-                ворот</tr>
-            </property>
-            <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">
-                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-                <!-- old: Обходной флаг. Если это правда, обойдите
+        <tr lang="ru" finished="false">Время атаки = постоянная времени (ms) для открытия
+        ворот</tr>
+      </property>
+      <!-- @bypass -->
+      <property name="@bypass" type="bool" default="0">
+        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+        <!-- old: Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал. -->
-                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал.</tr>
-            </property>
-            <!-- @hold -->
-            <property name="@hold" type="float" units="millisecond" minvalue="1" maxvalue="500"
-            default="100">
-                <tr lang="en">hold time = time (ms) gate stays open after signal level &lt;
-                threshold</tr>
-                <!-- old: время ожидания = время (ms) ворот остается открытым
+        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
+        сигнал.</tr>
+      </property>
+      <!-- @hold -->
+      <property name="@hold" type="float" units="millisecond" minvalue="1" maxvalue="500"
+      default="100">
+        <tr lang="en">hold time = time (ms) gate stays open after signal level &lt; threshold</tr>
+        <!-- old: время ожидания = время (ms) ворот остается открытым
                 после уровня сигнала < порог -->
-                <tr lang="ru" finished="false">время ожидания = время (ms) ворот остается открытым
-                после уровня сигнала &lt; порог</tr>
-            </property>
-            <!-- @release -->
-            <property name="@release" type="float" units="millisecond" default="20" minvalue="1"
-            maxvalue="500">
-                <tr lang="en">release time = time constant (ms) for gate to close</tr>
-                <!-- old: Время выпуска = постоянная времени (ms) для закрытия
+        <tr lang="ru" finished="false">время ожидания = время (ms) ворот остается открытым после
+        уровня сигнала &lt; порог</tr>
+      </property>
+      <!-- @release -->
+      <property name="@release" type="float" units="millisecond" default="20" minvalue="1"
+      maxvalue="500">
+        <tr lang="en">release time = time constant (ms) for gate to close</tr>
+        <!-- old: Время выпуска = постоянная времени (ms) для закрытия
                 ворот -->
-                <tr lang="ru" finished="false">Время выпуска = постоянная времени (ms) для закрытия
-                ворот</tr>
-            </property>
-            <!-- @threshold -->
-            <property name="@threshold" type="float" units="decibel" minvalue="-90" maxvalue="0"
-            default="-60">
-                <tr lang="en">dB level threshold above which gate opens</tr>
-                <!-- old: порог уровня дБ, выше которого открывается
+        <tr lang="ru" finished="false">Время выпуска = постоянная времени (ms) для закрытия
+        ворот</tr>
+      </property>
+      <!-- @threshold -->
+      <property name="@threshold" type="float" units="decibel" minvalue="-90" maxvalue="0"
+      default="-60">
+        <tr lang="en">dB level threshold above which gate opens</tr>
+        <!-- old: порог уровня дБ, выше которого открывается
                 затвор -->
-                <tr lang="ru" finished="false">порог уровня дБ, выше которого открывается
-                затвор</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset to initial state</tr>
-                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set threshold</tr>
-                    <tr lang="ru" finished="false">установленный порог</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">порог уровня дБ, выше которого открывается затвор</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset to initial state</tr>
+          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set threshold</tr>
+          <tr lang="ru" finished="false">установленный порог</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [osc~ 440]     [ui.hsl -60 0 @show_value 1]
 |              |
@@ -140,7 +137,7 @@
 
 [X a->b:1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

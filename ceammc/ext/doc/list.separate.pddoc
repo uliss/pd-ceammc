@@ -1,75 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.separate">
-        <title>list.separate</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs each list item in turn as a separate message</tr>
-                <tr lang="ru">поочередно выводит каждый элемент списка в виде отдельного
-                сообщения</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list separate</keywords>
-            <since>0.3</since>
-            <also>
-                <see>list.repack</see>
-                <see>list.unpack</see>
-            </also>
-            <aliases>
-                <alias>list.sep</alias>
-            </aliases>
-        </meta>
-        <properties>
-            <!-- @enumerate -->
-            <property name="@enumerate" type="bool" default="0">
-                <tr lang="en">enumeration mode. If enumeration is active output pairs: INDEX ATOM,
-                otherwise single atoms</tr>
-                <!-- old: Режим перечисления. Если перечисление является парой
+  <object name="list.separate">
+    <title>list.separate</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs each list item in turn as a separate message</tr>
+        <tr lang="ru">поочередно выводит каждый элемент списка в виде отдельного сообщения</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list separate</keywords>
+      <since>0.3</since>
+      <also>
+        <see>list.repack</see>
+        <see>list.unpack</see>
+      </also>
+      <aliases>
+        <alias>list.sep</alias>
+      </aliases>
+    </meta>
+    <properties>
+      <!-- @enumerate -->
+      <property name="@enumerate" type="bool" default="0">
+        <tr lang="en">enumeration mode. If enumeration is active output pairs: INDEX ATOM,
+        otherwise single atoms</tr>
+        <!-- old: Режим перечисления. Если перечисление является парой
                 активного выхода: INDEX ATOM, в противном случае одиночные атомы -->
-                <tr lang="ru" finished="false">Режим перечисления. Если перечисление является парой
-                активного выхода: INDEX ATOM, в противном случае одиночные атомы</tr>
-            </property>
-            <!-- @from -->
-            <property name="@from" type="int" default="0">
-                <tr lang="en">enumeration starting index</tr>
-                <tr lang="ru" finished="false">Перечислительный стартовый индекс</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outlet for single atoms (or pair: IDX ATOM in enumeration
-                    mode)</tr>
-                    <tr lang="ru" finished="false">выход для одиночных атомов (или пары: IDX ATOM в
-                    режиме перечисления)</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs bang after last element in the list</tr>
-                    <tr lang="ru" finished="false">Взрывы после последнего элемента в списке</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Режим перечисления. Если перечисление является парой
+        активного выхода: INDEX ATOM, в противном случае одиночные атомы</tr>
+      </property>
+      <!-- @from -->
+      <property name="@from" type="int" default="0">
+        <tr lang="en">enumeration starting index</tr>
+        <tr lang="ru" finished="false">Перечислительный стартовый индекс</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outlet for single atoms (or pair: IDX ATOM in enumeration mode)</tr>
+          <tr lang="ru" finished="false">выход для одиночных атомов (или пары: IDX ATOM в режиме
+          перечисления)</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs bang after last element in the list</tr>
+          <tr lang="ru" finished="false">Взрывы после последнего элемента в списке</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2 3 4 5( [\(a b c d e\), bang(
 |           |
@@ -81,7 +79,7 @@
 |
 [print SEPARATE]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

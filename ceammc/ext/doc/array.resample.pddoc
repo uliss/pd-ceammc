@@ -1,100 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.resample">
-        <title>array.resample</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">resampling the array</tr>
-                <tr lang="ru">пересемплирование массива</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array resample</keywords>
-            <since>0.9</since>
-            <aliases>
-                <alias>array.r</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="SRC" type="symbol">
-                <tr lang="en">source array</tr>
-                <tr lang="ru">исходный массив</tr>
-            </argument>
-            <argument name="DEST" type="symbol">
-                <tr lang="en">destination array</tr>
-                <tr lang="ru">массив результата</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @best -->
-            <property name="@best" type="alias">
-                <tr lang="en">alias to @quality best</tr>
-                <tr lang="ru">сокращение для @quality best</tr>
-            </property>
-            <!-- @dest -->
-            <property name="@dest" type="symbol" default="">
-                <tr lang="en">destination array</tr>
-                <tr lang="ru">массив назначения</tr>
-            </property>
-            <!-- @fast -->
-            <property name="@fast" type="alias">
-                <tr lang="en">alias to @quality fast</tr>
-                <tr lang="ru">сокращение для @quality fast</tr>
-            </property>
-            <!-- @high -->
-            <property name="@high" type="alias">
-                <tr lang="en">alias to @quality high</tr>
-                <tr lang="ru">сокращение для @quality high</tr>
-            </property>
-            <!-- @low -->
-            <property name="@low" type="alias">
-                <tr lang="en">alias to @quality low</tr>
-                <tr lang="ru">сокращение для @quality low</tr>
-            </property>
-            <!-- @medium -->
-            <property name="@medium" type="alias">
-                <tr lang="en">alias to @quality medium</tr>
-                <tr lang="ru">сокращение для @quality medium</tr>
-            </property>
-            <!-- @quality -->
-            <property name="@quality" type="symbol" enum="high fast low medium best"
-            default="high">
-                <tr lang="en">resample quality</tr>
-                <tr lang="ru">качество ресемплинга</tr>
-            </property>
-            <!-- @ratio -->
-            <property name="@ratio" type="float" minvalue="0" default="0">
-                <tr lang="en">resample ratio (src/dest)</tr>
-                <tr lang="ru">соотношение ресемплинга (src/dest)</tr>
-            </property>
-            <!-- @src -->
-            <property name="@src" type="symbol" default="">
-                <tr lang="en">source array</tr>
-                <tr lang="ru">исходный массив</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">starts resampling</tr>
-                    <tr lang="ru">начинает ресемплинг</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="int">
-                    <tr lang="en">number of samples after resampling</tr>
-                    <tr lang="ru">число семплов после ресемплинга</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.resample">
+    <title>array.resample</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">resampling the array</tr>
+        <tr lang="ru">пересемплирование массива</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array resample</keywords>
+      <since>0.9</since>
+      <aliases>
+        <alias>array.r</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="SRC" type="symbol">
+        <tr lang="en">source array</tr>
+        <tr lang="ru">исходный массив</tr>
+      </argument>
+      <argument name="DEST" type="symbol">
+        <tr lang="en">destination array</tr>
+        <tr lang="ru">массив результата</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @best -->
+      <property name="@best" type="alias">
+        <tr lang="en">alias to @quality best</tr>
+        <tr lang="ru">сокращение для @quality best</tr>
+      </property>
+      <!-- @dest -->
+      <property name="@dest" type="symbol" default="">
+        <tr lang="en">destination array</tr>
+        <tr lang="ru">массив назначения</tr>
+      </property>
+      <!-- @fast -->
+      <property name="@fast" type="alias">
+        <tr lang="en">alias to @quality fast</tr>
+        <tr lang="ru">сокращение для @quality fast</tr>
+      </property>
+      <!-- @high -->
+      <property name="@high" type="alias">
+        <tr lang="en">alias to @quality high</tr>
+        <tr lang="ru">сокращение для @quality high</tr>
+      </property>
+      <!-- @low -->
+      <property name="@low" type="alias">
+        <tr lang="en">alias to @quality low</tr>
+        <tr lang="ru">сокращение для @quality low</tr>
+      </property>
+      <!-- @medium -->
+      <property name="@medium" type="alias">
+        <tr lang="en">alias to @quality medium</tr>
+        <tr lang="ru">сокращение для @quality medium</tr>
+      </property>
+      <!-- @quality -->
+      <property name="@quality" type="symbol" enum="high fast low medium best" default="high">
+        <tr lang="en">resample quality</tr>
+        <tr lang="ru">качество ресемплинга</tr>
+      </property>
+      <!-- @ratio -->
+      <property name="@ratio" type="float" minvalue="0" default="0">
+        <tr lang="en">resample ratio (src/dest)</tr>
+        <tr lang="ru">соотношение ресемплинга (src/dest)</tr>
+      </property>
+      <!-- @src -->
+      <property name="@src" type="symbol" default="">
+        <tr lang="en">source array</tr>
+        <tr lang="ru">исходный массив</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">starts resampling</tr>
+          <tr lang="ru">начинает ресемплинг</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="int">
+          <tr lang="en">number of samples after resampling</tr>
+          <tr lang="ru">число семплов после ресемплинга</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [msg.onload]            [array ARS1 #a]     [array ARS2 #b]
 |
@@ -113,7 +112,7 @@
 #a w=160 h=100 style=point size=7
 #b w=160 h=100 style=point
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

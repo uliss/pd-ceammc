@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.rad2phase~">
-        <title>conv.rad2phase~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert radians value to phase [0-1)</tr>
-                <tr lang="ru">преобразование значения радианов в фазу [0-1)</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv phase radians</keywords>
-            <since>0.8</since>
-            <also>
-                <see>conv.phase2rad~</see>
-            </also>
-            <aliases>
-                <alias>ceammc/rad-&gt;phase~</alias>
-                <alias>rad-&gt;phase~</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">converted value</tr>
-                    <tr lang="ru" finished="false">преобразованная стоимость</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="conv.rad2phase~">
+    <title>conv.rad2phase~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert radians value to phase [0-1)</tr>
+        <tr lang="ru">преобразование значения радианов в фазу [0-1)</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv phase radians</keywords>
+      <since>0.8</since>
+      <also>
+        <see>conv.phase2rad~</see>
+      </also>
+      <aliases>
+        <alias>ceammc/rad-&gt;phase~</alias>
+        <alias>rad-&gt;phase~</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">converted value</tr>
+          <tr lang="ru" finished="false">преобразованная стоимость</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [lfo.saw~ 0.1]  [ui.dsp~]
 |
@@ -50,7 +50,7 @@
 |
 [ui.scope~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,101 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.map">
-        <title>list.map</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">map list values by specified dictionary</tr>
-                <tr lang="ru" finished="false">Значения списка карт в указанном словаре</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list map dict</keywords>
-            <since>0.9.5</since>
-            <also>
-                <see>data.dict</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="DICT" type="list">
-                <tr lang="en">mapping dictionary, see @dict property</tr>
-                <tr lang="ru" finished="false">Картографический словарь, см. @dict property</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @def -->
-            <property name="@def" type="list" default="">
-                <tr lang="en">default value to replace missing keys. If empty (by default), missing
-                keys are ignored.</tr>
-                <!-- old: значение по умолчанию для замены отсутствующих
+  <object name="list.map">
+    <title>list.map</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">map list values by specified dictionary</tr>
+        <tr lang="ru" finished="false">Значения списка карт в указанном словаре</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list map dict</keywords>
+      <since>0.9.5</since>
+      <also>
+        <see>data.dict</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="DICT" type="list">
+        <tr lang="en">mapping dictionary, see @dict property</tr>
+        <tr lang="ru" finished="false">Картографический словарь, см. @dict property</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @def -->
+      <property name="@def" type="list" default="">
+        <tr lang="en">default value to replace missing keys. If empty (by default), missing keys
+        are ignored.</tr>
+        <!-- old: значение по умолчанию для замены отсутствующих
                 ключей. Если пустые (по умолчанию), пропущенные ключи игнорируются. -->
-                <tr lang="ru" finished="false">значение по умолчанию для замены отсутствующих
-                ключей. Если пустые (по умолчанию), пропущенные ключи игнорируются.</tr>
-            </property>
-            <!-- @dict -->
-            <property name="@dict" type="list" default="[]">
-                <tr lang="en">mapping dictionary, the syntax is [KEY: VALUES...], for example: [1:
-                "one" 2: "two" k: "map values"]</tr>
-                <!-- old: Словарь отображения, синтаксис [KEY: VALUES...],
+        <tr lang="ru" finished="false">значение по умолчанию для замены отсутствующих ключей. Если
+        пустые (по умолчанию), пропущенные ключи игнорируются.</tr>
+      </property>
+      <!-- @dict -->
+      <property name="@dict" type="list" default="[]">
+        <tr lang="en">mapping dictionary, the syntax is [KEY: VALUES...], for example: [1: "one" 2:
+        "two" k: "map values"]</tr>
+        <!-- old: Словарь отображения, синтаксис [KEY: VALUES...],
                 например: [1: «один» 2: «два» k: «значения карты»] -->
-                <tr lang="ru" finished="false">Словарь отображения, синтаксис [KEY: VALUES...],
-                например: [1: «один» 2: «два» k: «значения карты»]</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input float, no output if not in dict</tr>
-                    <!-- old: Входной поплавок, нет выхода, если не в
+        <tr lang="ru" finished="false">Словарь отображения, синтаксис [KEY: VALUES...], например:
+        [1: «один» 2: «два» k: «значения карты»]</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input float, no output if not in dict</tr>
+          <!-- old: Входной поплавок, нет выхода, если не в
                     дикте -->
-                    <tr lang="ru" finished="false">Входной поплавок, нет выхода, если не в
-                    дикте</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">input symbol, no output if not in dict</tr>
-                    <tr lang="ru" finished="false">Входной символ, не выход, если не в дикте</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">input list, output always at least empty list</tr>
-                    <!-- old: Список входов, выход всегда, по крайней мере,
+          <tr lang="ru" finished="false">Входной поплавок, нет выхода, если не в дикте</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">input symbol, no output if not in dict</tr>
+          <tr lang="ru" finished="false">Входной символ, не выход, если не в дикте</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">input list, output always at least empty list</tr>
+          <!-- old: Список входов, выход всегда, по крайней мере,
                     пустой список -->
-                    <tr lang="ru" finished="false">Список входов, выход всегда, по крайней мере,
-                    пустой список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input list, output always at least empty list</tr>
-                    <!-- old: Список входов, выход всегда, по крайней мере,
+          <tr lang="ru" finished="false">Список входов, выход всегда, по крайней мере, пустой
+          список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input list, output always at least empty list</tr>
+          <!-- old: Список входов, выход всегда, по крайней мере,
                     пустой список -->
-                    <tr lang="ru" finished="false">Список входов, выход всегда, по крайней мере,
-                    пустой список</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="data:dict">
-                    <tr lang="en">set mapping dictionary</tr>
-                    <tr lang="ru" finished="false">Настройка картографического словаря</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list or data:mlist mapped list</tr>
-                    <tr lang="ru" finished="false">Список или данные: список карт</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">atom: missing keys</tr>
-                    <tr lang="ru" finished="false">Атом: недостающие ключи</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Список входов, выход всегда, по крайней мере, пустой
+          список</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="data:dict">
+          <tr lang="en">set mapping dictionary</tr>
+          <tr lang="ru" finished="false">Настройка картографического словаря</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list or data:mlist mapped list</tr>
+          <tr lang="ru" finished="false">Список или данные: список карт</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">atom: missing keys</tr>
+          <tr lang="ru" finished="false">Атом: недостающие ключи</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.keyboard 24]
 |
@@ -113,7 +112,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

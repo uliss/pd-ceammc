@@ -1,84 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="synth.birds~">
-        <title>synth.birds~</title>
-        <meta>
-            <authors>
-                <author>Pierre Cochard</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">bird singing generator</tr>
-                <tr lang="ru">генератор пения птиц</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>synth</category>
-            <keywords>birds</keywords>
-            <since>0.6</since>
-        </meta>
-        <arguments>
-            <argument name="SPEED" type="float" minvalue="120" maxvalue="480">
-                <tr lang="en">maximum speed of whistles if @auto enabled</tr>
-                <tr lang="ru" finished="false">Максимальная скорость свистка при включении
-                @auto</tr>
-            </argument>
-            <argument name="PROBABILITY" type="float" minvalue="25" maxvalue="100" units="percent">
-                <tr lang="en">whistles probability if @auto enabled</tr>
-                <tr lang="ru" finished="false">Вероятность свистка, если @auto включен</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @auto -->
-            <property name="@auto" type="bool" default="0">
-                <tr lang="en">auto playing mode</tr>
-                <tr lang="ru" finished="false">режим автоматической игры</tr>
-            </property>
-            <!-- @gate -->
-            <property name="@gate" type="bool" default="0">
-                <tr lang="en">play trigger. Starts playing on release</tr>
-                <tr lang="ru" finished="false">играть в триггер. Начал играть на релизе</tr>
-            </property>
-            <!-- @probability -->
-            <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50"
-            units="percent">
-                <tr lang="en">whistles probability if @auto enabled</tr>
-                <tr lang="ru" finished="false">Вероятность свистка, если @auto включен</tr>
-            </property>
-            <!-- @speed -->
-            <property name="@speed" type="float" minvalue="120" maxvalue="480" default="240">
-                <tr lang="en">maximum speed of whistles if @auto enabled</tr>
-                <tr lang="ru" finished="false">Максимальная скорость свистка при включении
-                @auto</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">play</tr>
-                    <tr lang="ru" finished="false">играть</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">synth left channel</tr>
-                    <tr lang="ru" finished="false">Синт левый канал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">synth right channel</tr>
-                    <tr lang="ru" finished="false">Синтез правого канала</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="synth.birds~">
+    <title>synth.birds~</title>
+    <meta>
+      <authors>
+        <author>Pierre Cochard</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">bird singing generator</tr>
+        <tr lang="ru">генератор пения птиц</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>synth</category>
+      <keywords>birds</keywords>
+      <since>0.6</since>
+    </meta>
+    <arguments>
+      <argument name="SPEED" type="float" minvalue="120" maxvalue="480">
+        <tr lang="en">maximum speed of whistles if @auto enabled</tr>
+        <tr lang="ru" finished="false">Максимальная скорость свистка при включении @auto</tr>
+      </argument>
+      <argument name="PROBABILITY" type="float" minvalue="25" maxvalue="100" units="percent">
+        <tr lang="en">whistles probability if @auto enabled</tr>
+        <tr lang="ru" finished="false">Вероятность свистка, если @auto включен</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @auto -->
+      <property name="@auto" type="bool" default="0">
+        <tr lang="en">auto playing mode</tr>
+        <tr lang="ru" finished="false">режим автоматической игры</tr>
+      </property>
+      <!-- @gate -->
+      <property name="@gate" type="bool" default="0">
+        <tr lang="en">play trigger. Starts playing on release</tr>
+        <tr lang="ru" finished="false">играть в триггер. Начал играть на релизе</tr>
+      </property>
+      <!-- @probability -->
+      <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50"
+      units="percent">
+        <tr lang="en">whistles probability if @auto enabled</tr>
+        <tr lang="ru" finished="false">Вероятность свистка, если @auto включен</tr>
+      </property>
+      <!-- @speed -->
+      <property name="@speed" type="float" minvalue="120" maxvalue="480" default="240">
+        <tr lang="en">maximum speed of whistles if @auto enabled</tr>
+        <tr lang="ru" finished="false">Максимальная скорость свистка при включении @auto</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">play</tr>
+          <tr lang="ru" finished="false">играть</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">synth left channel</tr>
+          <tr lang="ru" finished="false">Синт левый канал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">synth right channel</tr>
+          <tr lang="ru" finished="false">Синтез правого канала</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [gsynth.birds~   {i=2,o=2}]
 *|*
@@ -96,7 +94,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

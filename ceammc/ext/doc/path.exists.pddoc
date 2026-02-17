@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="path.exists">
-        <title>path.exists</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks if the given path exists</tr>
-                <tr lang="ru">проверка существования пути</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>path</category>
-            <keywords>path exists</keywords>
-            <since>0.1</since>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">checks if given path exists</tr>
-                    <tr lang="ru" finished="false">Проверка наличия данного пути</tr>
-                </in>
-                <in on="data">
-                    <tr lang="en">If string given - checks if path exists</tr>
-                    <!-- old: Если дана строка - проверяет, существует ли
+  <object name="path.exists">
+    <title>path.exists</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks if the given path exists</tr>
+        <tr lang="ru">проверка существования пути</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>path</category>
+      <keywords>path exists</keywords>
+      <since>0.1</since>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">checks if given path exists</tr>
+          <tr lang="ru" finished="false">Проверка наличия данного пути</tr>
+        </in>
+        <in on="data">
+          <tr lang="en">If string given - checks if path exists</tr>
+          <!-- old: Если дана строка - проверяет, существует ли
                     путь -->
-                    <tr lang="ru" finished="false">Если дана строка - проверяет, существует ли
-                    путь</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">1 - on success, 0 - if not exists</tr>
-                    <tr lang="ru" finished="false">1 - на успех, 0 - если не существует</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Если дана строка - проверяет, существует ли путь</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">1 - on success, 0 - if not exists</tr>
+          <tr lang="ru" finished="false">1 - на успех, 0 - если не существует</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol .( [symbol ABC( [B]
 |          |            |
@@ -50,7 +49,7 @@
 |
 [T]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.event2note">
-        <title>midi.event2note</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts the MidiEvent message into the midi note/velocity pair</tr>
-                <tr lang="ru">конвертирует сообщение MidiEvent в пару нота/сила нажатия</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi track</keywords>
-            <since>0.4</since>
-            <aliases>
-                <alias>midi.ev-&gt;note</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">MidiEvent message</tr>
-                    <tr lang="ru" finished="false">Сообщение MidiEvent</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">pair: note, velocity</tr>
-                    <tr lang="ru" finished="false">пара: примечание, скорость</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">note duration in milliseconds</tr>
-                    <tr lang="ru" finished="false">Продолжительность записи в миллисекундах</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">note track</tr>
-                    <tr lang="ru" finished="false">примечание</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="midi.event2note">
+    <title>midi.event2note</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts the MidiEvent message into the midi note/velocity pair</tr>
+        <tr lang="ru">конвертирует сообщение MidiEvent в пару нота/сила нажатия</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi track</keywords>
+      <since>0.4</since>
+      <aliases>
+        <alias>midi.ev-&gt;note</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">MidiEvent message</tr>
+          <tr lang="ru" finished="false">Сообщение MidiEvent</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">pair: note, velocity</tr>
+          <tr lang="ru" finished="false">пара: примечание, скорость</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">note duration in milliseconds</tr>
+          <tr lang="ru" finished="false">Продолжительность записи в миллисекундах</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">note track</tr>
+          <tr lang="ru" finished="false">примечание</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -73,7 +73,7 @@
 *|*
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="is_file">
-        <title>is_file</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks if the file exists and accessible</tr>
-                <tr lang="ru">проверка существования и доступности файла</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>predicates</category>
-            <keywords>predicate filesystem</keywords>
-            <since>0.2</since>
-            <aliases>
-                <alias>ceammc/is_file</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">If relative path is given file searched under patch directory</tr>
-                <!-- old: Если относительный путь задан, файл ищется в
+  <object name="is_file">
+    <title>is_file</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks if the file exists and accessible</tr>
+        <tr lang="ru">проверка существования и доступности файла</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>predicates</category>
+      <keywords>predicate filesystem</keywords>
+      <since>0.2</since>
+      <aliases>
+        <alias>ceammc/is_file</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">If relative path is given file searched under patch directory</tr>
+        <!-- old: Если относительный путь задан, файл ищется в
                 каталоге патчей -->
-                <tr lang="ru" finished="false">Если относительный путь задан, файл ищется в
-                каталоге патчей</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">outputs '1' if file exists and can be opened, otherwise '0'</tr>
-                    <!-- old: выходы 1 если файл существует и может быть
+        <tr lang="ru" finished="false">Если относительный путь задан, файл ищется в каталоге
+        патчей</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">outputs '1' if file exists and can be opened, otherwise '0'</tr>
+          <!-- old: выходы 1 если файл существует и может быть
                     открыт, в противном случае 0 -->
-                    <tr lang="ru" finished="false">выходы 1 если файл существует и может быть
-                    открыт, в противном случае 0</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">0 or 1</tr>
-                    <tr lang="ru" finished="false">0 или 1</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">symbol os String: pass filename if file exists</tr>
-                    <tr lang="ru" finished="false">Символ os String: передайте имя файла, если файл
-                    существует</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">выходы 1 если файл существует и может быть открыт, в
+          противном случае 0</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">0 or 1</tr>
+          <tr lang="ru" finished="false">0 или 1</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">symbol os String: pass filename if file exists</tr>
+          <tr lang="ru" finished="false">Символ os String: передайте имя файла, если файл
+          существует</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol is_file-help.pd(
 |
@@ -65,7 +65,7 @@
 |
 [_]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,245 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="snd.play~">
-        <title>snd.play~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sound file player with additional capabilities</tr>
-                <tr lang="ru">проигрыватель звуковых файлов с дополнительными возможностями</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>snd</category>
-            <keywords>play sound</keywords>
-            <since>0.9.7</since>
-        </meta>
+  <object name="snd.play~">
+    <title>snd.play~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sound file player with additional capabilities</tr>
+        <tr lang="ru">проигрыватель звуковых файлов с дополнительными возможностями</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>snd</category>
+      <keywords>play sound</keywords>
+      <since>0.9.7</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Supports variable speed playing, pausing, seeking, time-stretching and
+        resampling</tr>
+        <tr lang="ru" finished="false">Поддерживает переменную скорость игры, паузу, поиск,
+        растяжку времени и повторную выборку</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="N" type="int" minvalue="1" maxvalue="32">
+        <tr lang="en">number of output channels</tr>
+        <tr lang="ru" finished="false">Количество выходных каналов</tr>
+      </argument>
+      <argument name="NAME" type="symbol">
+        <tr lang="en">absolute or relative to patch sound file name</tr>
+        <tr lang="ru" finished="false">Абсолютное или относительное имя звукового файла патча</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @begin -->
+      <property name="@begin" type="atom" default="0" units="sample sec msec smpte">
+        <tr lang="en">start playing position</tr>
+        <tr lang="ru" finished="false">Начать играть на позиции</tr>
+      </property>
+      <!-- @end -->
+      <property name="@end" type="atom" default="-1" units="sample sec msec smpte">
+        <tr lang="en">end playing position</tr>
+        <tr lang="ru" finished="false">Конец игровой позиции</tr>
+      </property>
+      <!-- @loop -->
+      <property name="@loop" type="bool" default="0">
+        <tr lang="en">play in the loop</tr>
+        <tr lang="ru" finished="false">играть в петле</tr>
+      </property>
+      <!-- @n -->
+      <property name="@n" type="int" access="initonly" default="2" minvalue="1" maxvalue="32">
+        <tr lang="en">number of output channels</tr>
+        <tr lang="ru" finished="false">Количество выходных каналов</tr>
+      </property>
+      <!-- @name -->
+      <property name="@name" type="symbol" default="">
+        <tr lang="en">absolute or relative to patch soundfile name</tr>
+        <tr lang="ru" finished="false">Абсолютный или относительный патч саундфиль</tr>
+      </property>
+      <!-- @on_err -->
+      <property name="@on_err" type="symbol" default="">
+        <tr lang="en">the error send destination. For example, if soundfile was not found, the
+        message [not_found( will be send to this global name</tr>
+        <tr lang="ru" finished="false">Ошибка посылает пункт назначения. Например, если звуковой
+        файл не был найден, сообщение [not_found] будет отправлено на это глобальное имя.</tr>
+      </property>
+      <!-- @pitch -->
+      <property name="@pitch" type="float" default="1" minvalue="0.25" maxvalue="4">
+        <tr lang="en">pitch-shift correction. Used only if @stretch mode enabled.</tr>
+        <tr lang="ru" finished="false">коррекция смены шага. Используется только при включенном
+        режиме @stretch.</tr>
+      </property>
+      <!-- @speed -->
+      <property name="@speed" type="float" default="1" minvalue="0.25" maxvalue="4">
+        <tr lang="en">playing speed. If @stretch mode is disabled (default): changes playing speed
+        (also with pitch change respectively) in real time. If @stretch mode is enabled: can only
+        change speed (without pitch change) only on the next playing cycle</tr>
+        <tr lang="ru" finished="false">Скорость игры. Если режим @stretch отключен (по умолчанию):
+        изменяется скорость игры (также с изменением шага соответственно) в режиме реального
+        времени. Если включен режим @stretch: можно изменить скорость (без изменения шага) только
+        на следующем игровом цикле</tr>
+      </property>
+      <!-- @stretch -->
+      <property name="@stretch" type="bool" default="0">
+        <tr lang="en">stretch mode. If true: use timestretch and pitch-shifting</tr>
+        <tr lang="ru" finished="false">Режим растяжки. Если это правда: используйте таймстретч и
+        смещение шага</tr>
+      </property>
+      <!-- @sync -->
+      <property name="@sync" type="symbol" default="now" enum="now defer wait">
+        <tr lang="en">sync mode. 'now': immediately starts playing (abort previous) after receiving
+        start message. 'defer': wait until previous playing will be done, that starts new. 'wait':
+        do not playing until previous playing will not finished</tr>
+        <tr lang="ru" finished="false">режим синхронизации. «сейчас»: немедленно начинает играть
+        (аборт предыдущий) после получения сообщения о старте. «отсрочка»: подождите, пока
+        предыдущая игра не будет завершена, что начинается новый.</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- ff -->
+      <method name="ff">
         <info>
-            <par>
-                <tr lang="en">Supports variable speed playing, pausing, seeking, time-stretching
-                and resampling</tr>
-                <tr lang="ru" finished="false">Поддерживает переменную скорость игры, паузу, поиск,
-                растяжку времени и повторную выборку</tr>
-            </par>
+          <tr lang="en">fast forward by specified amount of time</tr>
+          <tr lang="ru" finished="false">быстрое движение вперед по заданному времени</tr>
         </info>
-        <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="32">
-                <tr lang="en">number of output channels</tr>
-                <tr lang="ru" finished="false">Количество выходных каналов</tr>
-            </argument>
-            <argument name="NAME" type="symbol">
-                <tr lang="en">absolute or relative to patch sound file name</tr>
-                <tr lang="ru" finished="false">Абсолютное или относительное имя звукового файла
-                патча</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @begin -->
-            <property name="@begin" type="atom" default="0" units="sample sec msec smpte">
-                <tr lang="en">start playing position</tr>
-                <tr lang="ru" finished="false">Начать играть на позиции</tr>
-            </property>
-            <!-- @end -->
-            <property name="@end" type="atom" default="-1" units="sample sec msec smpte">
-                <tr lang="en">end playing position</tr>
-                <tr lang="ru" finished="false">Конец игровой позиции</tr>
-            </property>
-            <!-- @loop -->
-            <property name="@loop" type="bool" default="0">
-                <tr lang="en">play in the loop</tr>
-                <tr lang="ru" finished="false">играть в петле</tr>
-            </property>
-            <!-- @n -->
-            <property name="@n" type="int" access="initonly" default="2" minvalue="1"
-            maxvalue="32">
-                <tr lang="en">number of output channels</tr>
-                <tr lang="ru" finished="false">Количество выходных каналов</tr>
-            </property>
-            <!-- @name -->
-            <property name="@name" type="symbol" default="">
-                <tr lang="en">absolute or relative to patch soundfile name</tr>
-                <tr lang="ru" finished="false">Абсолютный или относительный патч саундфиль</tr>
-            </property>
-            <!-- @on_err -->
-            <property name="@on_err" type="symbol" default="">
-                <tr lang="en">the error send destination. For example, if soundfile was not found,
-                the message [not_found( will be send to this global name</tr>
-                <tr lang="ru" finished="false">Ошибка посылает пункт назначения. Например, если
-                звуковой файл не был найден, сообщение [not_found] будет отправлено на это
-                глобальное имя.</tr>
-            </property>
-            <!-- @pitch -->
-            <property name="@pitch" type="float" default="1" minvalue="0.25" maxvalue="4">
-                <tr lang="en">pitch-shift correction. Used only if @stretch mode enabled.</tr>
-                <tr lang="ru" finished="false">коррекция смены шага. Используется только при
-                включенном режиме @stretch.</tr>
-            </property>
-            <!-- @speed -->
-            <property name="@speed" type="float" default="1" minvalue="0.25" maxvalue="4">
-                <tr lang="en">playing speed. If @stretch mode is disabled (default): changes
-                playing speed (also with pitch change respectively) in real time. If @stretch mode
-                is enabled: can only change speed (without pitch change) only on the next playing
-                cycle</tr>
-                <tr lang="ru" finished="false">Скорость игры. Если режим @stretch отключен (по
-                умолчанию): изменяется скорость игры (также с изменением шага соответственно) в
-                режиме реального времени. Если включен режим @stretch: можно изменить скорость (без
-                изменения шага) только на следующем игровом цикле</tr>
-            </property>
-            <!-- @stretch -->
-            <property name="@stretch" type="bool" default="0">
-                <tr lang="en">stretch mode. If true: use timestretch and pitch-shifting</tr>
-                <tr lang="ru" finished="false">Режим растяжки. Если это правда: используйте
-                таймстретч и смещение шага</tr>
-            </property>
-            <!-- @sync -->
-            <property name="@sync" type="symbol" default="now" enum="now defer wait">
-                <tr lang="en">sync mode. 'now': immediately starts playing (abort previous) after
-                receiving start message. 'defer': wait until previous playing will be done, that
-                starts new. 'wait': do not playing until previous playing will not finished</tr>
-                <tr lang="ru" finished="false">режим синхронизации. «сейчас»: немедленно начинает
-                играть (аборт предыдущий) после получения сообщения о старте. «отсрочка»:
-                подождите, пока предыдущая игра не будет завершена, что начинается новый.</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- ff -->
-            <method name="ff">
-                <info>
-                    <tr lang="en">fast forward by specified amount of time</tr>
-                    <tr lang="ru" finished="false">быстрое движение вперед по заданному
-                    времени</tr>
-                </info>
-                <param name="TIME" type="atom" required="false">
-                    <tr lang="en">time amount. Can't be in seconds, milliseconds, samples, SMPTE.
-                    If the time unit is not specified treat float values as samples. If argument is
-                    not specified: jump one second forward.</tr>
-                    <tr lang="ru" finished="false">Количество времени. Не может быть в секундах,
-                    миллисекундах, образцах, СМПТЕ. Если единица времени не указана, то
-                    рассматривать значения поплавка как образцы. Если аргумент не указан: прыгните
-                    на секунду вперед.</tr>
-                </param>
-            </method>
-            <!-- open -->
-            <method name="open">
-                <info>
-                    <tr lang="en">sets @name property</tr>
-                    <tr lang="ru" finished="false">Имя собственности @name Property</tr>
-                </info>
-                <param name="FILENAME" type="symbol" required="true">
-                    <tr lang="en">absolute or relative to patch soundfile name</tr>
-                    <tr lang="ru" finished="false">Абсолютный или относительный патч саундфиль</tr>
-                </param>
-            </method>
-            <!-- pause -->
-            <method name="pause">
-                <info>
-                    <tr lang="en">pause</tr>
-                    <tr lang="ru" finished="false">пауза</tr>
-                </info>
-                <param name="FLAG" type="bool" required="false">
-                    <tr lang="en">pause/resume flag. If true or omitted: pause, if false:
-                    resume.</tr>
-                    <tr lang="ru" finished="false">Флаг паузы/резюме. Если верно или опущено:
-                    пауза, если ложно: резюме.</tr>
-                </param>
-            </method>
-            <!-- rewind -->
-            <method name="rewind">
-                <info>
-                    <tr lang="en">move backwards by specified amount of time (relative value)</tr>
-                    <tr lang="ru" finished="false">движение назад по заданному времени
-                    (относительному значению)</tr>
-                </info>
-                <param name="TIME" type="atom" required="false">
-                    <tr lang="en">time amount. Can't be in seconds, milliseconds, samples, SMPTE.
-                    If the time unit is not specified treat float values as milliseconds. If
-                    arguments is not specified jump: one second backward.</tr>
-                    <tr lang="ru" finished="false">Количество времени. Не может быть в секундах,
-                    миллисекундах, образцах, СМПТЕ. Если временная единица не указана, обработайте
-                    значения поплавка как миллисекунды. Если аргументы не указаны, прыжок: одну
-                    секунду назад.</tr>
-                </param>
-            </method>
-            <!-- seek -->
-            <method name="seek">
-                <info>
-                    <tr lang="en">move to specified time (absolute value)</tr>
-                    <tr lang="ru" finished="false">переход к заданному времени (абсолютное
-                    значение)</tr>
-                </info>
-                <param name="TIME" type="atom" required="false">
-                    <tr lang="en">Time position. Can't be in seconds, milliseconds, samples, SMPTE.
-                    If the time unit is not specified treat float values as milliseconds. If
-                    arguments is not specified jump: seek to the beginning</tr>
-                    <tr lang="ru" finished="false">Положение во времени. Не может быть в секундах,
-                    миллисекундах, образцах, СМПТЕ. Если временная единица не указана, обработайте
-                    значения поплавка как миллисекунды. Если аргументы не указаны скачок:
-                    стремитесь к началу</tr>
-                </param>
-            </method>
-            <!-- start -->
-            <method name="start">
-                <info>
-                    <tr lang="en">start playing</tr>
-                    <tr lang="ru" finished="false">Начать играть</tr>
-                </info>
-                <param name="FLAG" type="bool" required="false">
-                    <tr lang="en">start/stop flag. If true or omitted: start, if false: stop.</tr>
-                    <tr lang="ru" finished="false">Флаг старт/стоп. Если верно или опущено:
-                    начните, если ложно: остановитесь.</tr>
-                </param>
-            </method>
-            <!-- stop -->
-            <method name="stop">
-                <info>
-                    <tr lang="en">stop playing</tr>
-                    <tr lang="ru" finished="false">Хватит играть</tr>
-                </info>
-                <param name="FLAG" type="bool" required="false">
-                    <tr lang="en">start/stop flag. If true or omitted: stop, if false: start.</tr>
-                    <tr lang="ru" finished="false">Флаг старт/стоп. Если верно или опущено:
-                    остановитесь, если ложно: начните.</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="control">
-                <in on="float">
-                    <tr lang="en">1: start playing, 0: stop</tr>
-                    <tr lang="ru" finished="false">1: начать играть, 0: остановиться</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet type="audio" number="1">
-                <out type="any">
-                    <tr lang="en">first output channel</tr>
-                    <tr lang="ru" finished="false">Первый выходной канал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="...">
-                <out type="any">
-                    <tr lang="en">... output channel</tr>
-                    <tr lang="ru" finished="false">выходной канал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="n">
-                <out type="any">
-                    <tr lang="en">n-th output channel</tr>
-                    <tr lang="ru" finished="false">n-й выходной канал</tr>
-                </out>
-            </outlet>
-            <outlet type="control" number="n+1">
-                <out type="any">
-                    <tr lang="en">control output</tr>
-                    <tr lang="ru" finished="false">контрольный выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <param name="TIME" type="atom" required="false">
+          <tr lang="en">time amount. Can't be in seconds, milliseconds, samples, SMPTE. If the time
+          unit is not specified treat float values as samples. If argument is not specified: jump
+          one second forward.</tr>
+          <tr lang="ru" finished="false">Количество времени. Не может быть в секундах,
+          миллисекундах, образцах, СМПТЕ. Если единица времени не указана, то рассматривать
+          значения поплавка как образцы. Если аргумент не указан: прыгните на секунду вперед.</tr>
+        </param>
+      </method>
+      <!-- open -->
+      <method name="open">
+        <info>
+          <tr lang="en">sets @name property</tr>
+          <tr lang="ru" finished="false">Имя собственности @name Property</tr>
+        </info>
+        <param name="FILENAME" type="symbol" required="true">
+          <tr lang="en">absolute or relative to patch soundfile name</tr>
+          <tr lang="ru" finished="false">Абсолютный или относительный патч саундфиль</tr>
+        </param>
+      </method>
+      <!-- pause -->
+      <method name="pause">
+        <info>
+          <tr lang="en">pause</tr>
+          <tr lang="ru" finished="false">пауза</tr>
+        </info>
+        <param name="FLAG" type="bool" required="false">
+          <tr lang="en">pause/resume flag. If true or omitted: pause, if false: resume.</tr>
+          <tr lang="ru" finished="false">Флаг паузы/резюме. Если верно или опущено: пауза, если
+          ложно: резюме.</tr>
+        </param>
+      </method>
+      <!-- rewind -->
+      <method name="rewind">
+        <info>
+          <tr lang="en">move backwards by specified amount of time (relative value)</tr>
+          <tr lang="ru" finished="false">движение назад по заданному времени (относительному
+          значению)</tr>
+        </info>
+        <param name="TIME" type="atom" required="false">
+          <tr lang="en">time amount. Can't be in seconds, milliseconds, samples, SMPTE. If the time
+          unit is not specified treat float values as milliseconds. If arguments is not specified
+          jump: one second backward.</tr>
+          <tr lang="ru" finished="false">Количество времени. Не может быть в секундах,
+          миллисекундах, образцах, СМПТЕ. Если временная единица не указана, обработайте значения
+          поплавка как миллисекунды. Если аргументы не указаны, прыжок: одну секунду назад.</tr>
+        </param>
+      </method>
+      <!-- seek -->
+      <method name="seek">
+        <info>
+          <tr lang="en">move to specified time (absolute value)</tr>
+          <tr lang="ru" finished="false">переход к заданному времени (абсолютное значение)</tr>
+        </info>
+        <param name="TIME" type="atom" required="false">
+          <tr lang="en">Time position. Can't be in seconds, milliseconds, samples, SMPTE. If the
+          time unit is not specified treat float values as milliseconds. If arguments is not
+          specified jump: seek to the beginning</tr>
+          <tr lang="ru" finished="false">Положение во времени. Не может быть в секундах,
+          миллисекундах, образцах, СМПТЕ. Если временная единица не указана, обработайте значения
+          поплавка как миллисекунды. Если аргументы не указаны скачок: стремитесь к началу</tr>
+        </param>
+      </method>
+      <!-- start -->
+      <method name="start">
+        <info>
+          <tr lang="en">start playing</tr>
+          <tr lang="ru" finished="false">Начать играть</tr>
+        </info>
+        <param name="FLAG" type="bool" required="false">
+          <tr lang="en">start/stop flag. If true or omitted: start, if false: stop.</tr>
+          <tr lang="ru" finished="false">Флаг старт/стоп. Если верно или опущено: начните, если
+          ложно: остановитесь.</tr>
+        </param>
+      </method>
+      <!-- stop -->
+      <method name="stop">
+        <info>
+          <tr lang="en">stop playing</tr>
+          <tr lang="ru" finished="false">Хватит играть</tr>
+        </info>
+        <param name="FLAG" type="bool" required="false">
+          <tr lang="en">start/stop flag. If true or omitted: stop, if false: start.</tr>
+          <tr lang="ru" finished="false">Флаг старт/стоп. Если верно или опущено: остановитесь,
+          если ложно: начните.</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="control">
+        <in on="float">
+          <tr lang="en">1: start playing, 0: stop</tr>
+          <tr lang="ru" finished="false">1: начать играть, 0: остановиться</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet type="audio" number="1">
+        <out type="any">
+          <tr lang="en">first output channel</tr>
+          <tr lang="ru" finished="false">Первый выходной канал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="...">
+        <out type="any">
+          <tr lang="en">... output channel</tr>
+          <tr lang="ru" finished="false">выходной канал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="n">
+        <out type="any">
+          <tr lang="en">n-th output channel</tr>
+          <tr lang="ru" finished="false">n-й выходной канал</tr>
+        </out>
+      </outlet>
+      <outlet type="control" number="n+1">
+        <out type="any">
+          <tr lang="en">control output</tr>
+          <tr lang="ru" finished="false">контрольный выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -273,8 +263,8 @@
 
 [X a->x] [X b->x]  [X d->z]  [X x->z]
 ]]>
-            </pdascii>
-            <pdascii id="seek">
+      </pdascii>
+      <pdascii id="seek">
 <![CDATA[
 [symbol #c(                [msg.onclose bang]
 |                          |
@@ -293,8 +283,8 @@
 #c %CEAMMC%/guitar1.wav, 1
 [X a->z] [X b->z]
 ]]>
-            </pdascii>
-            <pdascii id="resamp">
+      </pdascii>
+      <pdascii id="resamp">
 <![CDATA[
 /*change in Audio Preferences samplerate, then play both variants*/
 
@@ -315,8 +305,8 @@
 
 #c %CEAMMC%/guitar1.wav, 1
 ]]>
-            </pdascii>
-            <pdascii id="err">
+      </pdascii>
+      <pdascii id="err">
 <![CDATA[
 [r snd-err]
 |
@@ -326,7 +316,7 @@
 |
 [snd.play~ 1 @on_err snd-err]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

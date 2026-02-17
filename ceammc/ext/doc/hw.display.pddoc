@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hw.display">
-        <title>hw.display</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">get/set display properties</tr>
-                <tr lang="ru">получение/установка свойств дисплея</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>hw</category>
-            <keywords>display brightness</keywords>
-            <since>0.7.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">At this moment supports only MacOSX</tr>
-                <tr lang="ru" finished="false">На данный момент поддерживается только MacOSX.</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @brightness -->
-            <property name="@brightness" type="float" minvalue="0" maxvalue="1" default="0.313477">
-                <tr lang="en">display brightness</tr>
-                <tr lang="ru">яркость дисплея</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input</tr>
-                    <tr lang="ru" finished="false">ввод</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">properties output</tr>
-                    <tr lang="ru" finished="false">Свойства вывода</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="hw.display">
+    <title>hw.display</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">get/set display properties</tr>
+        <tr lang="ru">получение/установка свойств дисплея</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>hw</category>
+      <keywords>display brightness</keywords>
+      <since>0.7.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">At this moment supports only MacOSX</tr>
+        <tr lang="ru" finished="false">На данный момент поддерживается только MacOSX.</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @brightness -->
+      <property name="@brightness" type="float" minvalue="0" maxvalue="1" default="0.313477">
+        <tr lang="en">display brightness</tr>
+        <tr lang="ru">яркость дисплея</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input</tr>
+          <tr lang="ru" finished="false">ввод</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">properties output</tr>
+          <tr lang="ru" finished="false">Свойства вывода</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.slider @size 120 12]
 |
@@ -56,7 +56,7 @@
 |
 [ui.d]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

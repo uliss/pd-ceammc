@@ -1,83 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.bitdown~">
-        <title>fx.bitdown~</title>
-        <meta>
-            <authors>
-                <author>Viacheslav Lotsmanov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">a bit downer and downsampler effect</tr>
-                <tr lang="ru">понижение разрядности входного сигнала и эффект даунсемплинга</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx bits downsample</keywords>
-            <since>0.7</since>
-        </meta>
-        <arguments>
-            <argument name="BITS" type="int" minvalue="1" maxvalue="16">
-                <tr lang="en">number of bits</tr>
-                <tr lang="ru" finished="false">Количество бит</tr>
-            </argument>
-            <argument name="DOWNSAMP" type="int" minvalue="1" maxvalue="200" units="sample">
-                <tr lang="en">number of samples to skip</tr>
-                <tr lang="ru" finished="false">Количество образцов для пропуска</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @bits -->
-            <property name="@bits" type="int" minvalue="1" maxvalue="16" default="16">
-                <tr lang="en">output bits</tr>
-                <tr lang="ru" finished="false">выходные биты</tr>
-            </property>
-            <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">
-                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-                <!-- old: Обходной флаг. Если это правда, обойдите
+  <object name="fx.bitdown~">
+    <title>fx.bitdown~</title>
+    <meta>
+      <authors>
+        <author>Viacheslav Lotsmanov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">a bit downer and downsampler effect</tr>
+        <tr lang="ru">понижение разрядности входного сигнала и эффект даунсемплинга</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx bits downsample</keywords>
+      <since>0.7</since>
+    </meta>
+    <arguments>
+      <argument name="BITS" type="int" minvalue="1" maxvalue="16">
+        <tr lang="en">number of bits</tr>
+        <tr lang="ru" finished="false">Количество бит</tr>
+      </argument>
+      <argument name="DOWNSAMP" type="int" minvalue="1" maxvalue="200" units="sample">
+        <tr lang="en">number of samples to skip</tr>
+        <tr lang="ru" finished="false">Количество образцов для пропуска</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @bits -->
+      <property name="@bits" type="int" minvalue="1" maxvalue="16" default="16">
+        <tr lang="en">output bits</tr>
+        <tr lang="ru" finished="false">выходные биты</tr>
+      </property>
+      <!-- @bypass -->
+      <property name="@bypass" type="bool" default="0">
+        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+        <!-- old: Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал. -->
-                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал.</tr>
-            </property>
-            <!-- @downsamp -->
-            <property name="@downsamp" type="int" minvalue="1" maxvalue="200" default="1"
-            units="sample">
-                <tr lang="en">number samples to skip</tr>
-                <tr lang="ru" finished="false">Количество образцов для пропуска</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset object</tr>
-                    <tr lang="ru" finished="false">сбрасывать объект</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">left channel</tr>
-                    <tr lang="ru" finished="false">левый канал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
+        сигнал.</tr>
+      </property>
+      <!-- @downsamp -->
+      <property name="@downsamp" type="int" minvalue="1" maxvalue="200" default="1" units="sample">
+        <tr lang="en">number samples to skip</tr>
+        <tr lang="ru" finished="false">Количество образцов для пропуска</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset object</tr>
+          <tr lang="ru" finished="false">сбрасывать объект</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">left channel</tr>
+          <tr lang="ru" finished="false">левый канал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open %CEAMMC%/guitar1.wav, 1(
 |
@@ -93,7 +92,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

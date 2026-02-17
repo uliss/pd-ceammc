@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.samp2sec">
-        <title>conv.samp2sec</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert samples to seconds according to sample rate</tr>
-                <tr lang="ru">преобразовывает семплы в секунды в соответствии со скоростью
-                семплирования</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv samp</keywords>
-            <since>0.2</since>
-            <aliases>
-                <alias>ceammc/samp-&gt;sec</alias>
-                <alias>samp-&gt;sec</alias>
-            </aliases>
-            <also>
-                <see>conv.sec2samp</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">number of samples</tr>
-                    <tr lang="ru" finished="false">количество образцов</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">list of number of samples</tr>
-                    <tr lang="ru" finished="false">Список количества образцов</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">converted value (float or list)</tr>
-                    <tr lang="ru" finished="false">конвертируемое значение (флот или список)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="conv.samp2sec">
+    <title>conv.samp2sec</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert samples to seconds according to sample rate</tr>
+        <tr lang="ru">преобразовывает семплы в секунды в соответствии со скоростью
+        семплирования</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv samp</keywords>
+      <since>0.2</since>
+      <aliases>
+        <alias>ceammc/samp-&gt;sec</alias>
+        <alias>samp-&gt;sec</alias>
+      </aliases>
+      <also>
+        <see>conv.sec2samp</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="int">
+          <tr lang="en">number of samples</tr>
+          <tr lang="ru" finished="false">количество образцов</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">list of number of samples</tr>
+          <tr lang="ru" finished="false">Список количества образцов</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">converted value (float or list)</tr>
+          <tr lang="ru" finished="false">конвертируемое значение (флот или список)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [44100(  [20 1000 5000 20000(
 |        |
@@ -53,7 +53,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

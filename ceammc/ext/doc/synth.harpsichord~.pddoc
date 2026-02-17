@@ -1,135 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="synth.harpsichord~">
-        <title>synth.harpsichord~</title>
-        <meta>
-            <authors>
-                <author>Romain Michon</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">waveguide commuted harpsichord</tr>
-                <tr lang="ru">синтезатор клавесина на основе техники волноводного синтеза</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>synth</category>
-            <keywords>model synth harpsichord</keywords>
-            <since>0.9.2</since>
-        </meta>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @freq -->
-            <property name="@freq" type="float" units="hertz" default="130.8128">
-                <tr lang="en">frequency</tr>
-                <tr lang="ru" finished="false">частота</tr>
-            </property>
-            <!-- @gate -->
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">play trigger - 1: on, 0: off</tr>
-                <tr lang="ru" finished="false">играть триггер - 1: on, 0: off</tr>
-            </property>
-            <!-- @modfreq -->
-            <property name="@modfreq" type="float" minvalue="20" maxvalue="1000" default="220"
-            units="hertz">
-                <tr lang="en">frequency of the sine wave for the modulation of theta (works if
-                @modetype=3)</tr>
-                <tr lang="ru" finished="false">Частота синусоидальной волны для модуляции теты
-                (работает, если @modetype=3)</tr>
-            </property>
-            <!-- @modtype -->
-            <property name="@modtype" type="int" minvalue="0" maxvalue="4" default="0">
-                <tr lang="en">modulation type. 0=theta is modulated by the incoming signal. 1=theta
-                is modulated by the averaged incoming signal. 2=theta is modulated by the squared
-                incoming signal. 3=theta is modulated by a sine wave of frequency @modfreq. 4=theta
-                is modulated by a sine wave of frequency @freq</tr>
-                <tr lang="ru" finished="false">Тип модуляции. 0=тета модулируется поступающим
-                сигналом. 1 = тета модулируется усредненным входящим сигналом. 2 = тета
-                модулируется квадратным входным сигналом. 3=theta модулируется синусоидальной
-                волной частоты @modfreq. 4=theta модулируется синусоидальной волной частоты
-                @freq</tr>
-            </property>
-            <!-- @nonlin -->
-            <property name="@nonlin" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">nonlinearity factor</tr>
-                <tr lang="ru" finished="false">нелинейный фактор</tr>
-            </property>
-            <!-- @pan -->
-            <property name="@pan" type="float" minvalue="0" maxvalue="1" default="0.6">
-                <tr lang="en">pan angle</tr>
-                <tr lang="ru" finished="false">угол наклона</tr>
-            </property>
-            <!-- @pitch -->
-            <property name="@pitch" type="float" minvalue="12" maxvalue="96" default="48">
-                <tr lang="en">midi pitch</tr>
-                <tr lang="ru" finished="false">миди-питч</tr>
-            </property>
-            <!-- @reverb_gain -->
-            <property name="@reverb_gain" type="float" minvalue="0" maxvalue="1" default="0.137">
-                <tr lang="en">reverb gain</tr>
-                <tr lang="ru" finished="false">реверберация прибыль</tr>
-            </property>
-            <!-- @room_size -->
-            <property name="@room_size" type="float" minvalue="0.005" maxvalue="1" default="0.36">
-                <tr lang="en">reverb room size</tr>
-                <tr lang="ru" finished="false">размер комнаты реверберации</tr>
-            </property>
-            <!-- @width -->
-            <property name="@width" type="float" minvalue="0" maxvalue="1" default="0.5">
-                <tr lang="en">spatialization width</tr>
-                <tr lang="ru" finished="false">ширина пространства</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- note -->
-            <method name="note">
-                <info>
-                    <tr lang="en">note on/off message</tr>
-                    <tr lang="ru" finished="false">примечание/выключение сообщения</tr>
-                </info>
-                <param name="NOTE" type="float" required="true">
-                    <tr lang="en">midi note</tr>
-                    <tr lang="ru" finished="false">нота миди</tr>
-                </param>
-                <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">velocity</tr>
-                    <tr lang="ru" finished="false">скорость</tr>
-                </param>
-            </method>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset synth</tr>
-                    <tr lang="ru" finished="false">Сбросить синтезатор</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">NOTE VEL</tr>
-                    <tr lang="ru" finished="false">Примечание VEL</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">left output</tr>
-                    <tr lang="ru" finished="false">левый выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">right output</tr>
-                    <tr lang="ru" finished="false">правильный выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="synth.harpsichord~">
+    <title>synth.harpsichord~</title>
+    <meta>
+      <authors>
+        <author>Romain Michon</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">waveguide commuted harpsichord</tr>
+        <tr lang="ru">синтезатор клавесина на основе техники волноводного синтеза</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>synth</category>
+      <keywords>model synth harpsichord</keywords>
+      <since>0.9.2</since>
+    </meta>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @freq -->
+      <property name="@freq" type="float" units="hertz" default="130.8128">
+        <tr lang="en">frequency</tr>
+        <tr lang="ru" finished="false">частота</tr>
+      </property>
+      <!-- @gate -->
+      <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">play trigger - 1: on, 0: off</tr>
+        <tr lang="ru" finished="false">играть триггер - 1: on, 0: off</tr>
+      </property>
+      <!-- @modfreq -->
+      <property name="@modfreq" type="float" minvalue="20" maxvalue="1000" default="220"
+      units="hertz">
+        <tr lang="en">frequency of the sine wave for the modulation of theta (works if
+        @modetype=3)</tr>
+        <tr lang="ru" finished="false">Частота синусоидальной волны для модуляции теты (работает,
+        если @modetype=3)</tr>
+      </property>
+      <!-- @modtype -->
+      <property name="@modtype" type="int" minvalue="0" maxvalue="4" default="0">
+        <tr lang="en">modulation type. 0=theta is modulated by the incoming signal. 1=theta is
+        modulated by the averaged incoming signal. 2=theta is modulated by the squared incoming
+        signal. 3=theta is modulated by a sine wave of frequency @modfreq. 4=theta is modulated by
+        a sine wave of frequency @freq</tr>
+        <tr lang="ru" finished="false">Тип модуляции. 0=тета модулируется поступающим сигналом. 1 =
+        тета модулируется усредненным входящим сигналом. 2 = тета модулируется квадратным входным
+        сигналом. 3=theta модулируется синусоидальной волной частоты @modfreq. 4=theta модулируется
+        синусоидальной волной частоты @freq</tr>
+      </property>
+      <!-- @nonlin -->
+      <property name="@nonlin" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">nonlinearity factor</tr>
+        <tr lang="ru" finished="false">нелинейный фактор</tr>
+      </property>
+      <!-- @pan -->
+      <property name="@pan" type="float" minvalue="0" maxvalue="1" default="0.6">
+        <tr lang="en">pan angle</tr>
+        <tr lang="ru" finished="false">угол наклона</tr>
+      </property>
+      <!-- @pitch -->
+      <property name="@pitch" type="float" minvalue="12" maxvalue="96" default="48">
+        <tr lang="en">midi pitch</tr>
+        <tr lang="ru" finished="false">миди-питч</tr>
+      </property>
+      <!-- @reverb_gain -->
+      <property name="@reverb_gain" type="float" minvalue="0" maxvalue="1" default="0.137">
+        <tr lang="en">reverb gain</tr>
+        <tr lang="ru" finished="false">реверберация прибыль</tr>
+      </property>
+      <!-- @room_size -->
+      <property name="@room_size" type="float" minvalue="0.005" maxvalue="1" default="0.36">
+        <tr lang="en">reverb room size</tr>
+        <tr lang="ru" finished="false">размер комнаты реверберации</tr>
+      </property>
+      <!-- @width -->
+      <property name="@width" type="float" minvalue="0" maxvalue="1" default="0.5">
+        <tr lang="en">spatialization width</tr>
+        <tr lang="ru" finished="false">ширина пространства</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- note -->
+      <method name="note">
+        <info>
+          <tr lang="en">note on/off message</tr>
+          <tr lang="ru" finished="false">примечание/выключение сообщения</tr>
+        </info>
+        <param name="NOTE" type="float" required="true">
+          <tr lang="en">midi note</tr>
+          <tr lang="ru" finished="false">нота миди</tr>
+        </param>
+        <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">velocity</tr>
+          <tr lang="ru" finished="false">скорость</tr>
+        </param>
+      </method>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset synth</tr>
+          <tr lang="ru" finished="false">Сбросить синтезатор</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">NOTE VEL</tr>
+          <tr lang="ru" finished="false">Примечание VEL</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">left output</tr>
+          <tr lang="ru" finished="false">левый выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">right output</tr>
+          <tr lang="ru" finished="false">правильный выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |.
@@ -151,7 +150,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

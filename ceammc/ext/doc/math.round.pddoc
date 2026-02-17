@@ -1,79 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.round">
-        <title>math.round</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">round to integral value, regardless of rounding direction</tr>
-                <tr lang="ru">округление до ближайшего целого значения</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math round</keywords>
-            <aliases>
-                <alias>round</alias>
-                <alias>ceammc/round</alias>
-            </aliases>
-            <also>
-                <see>math.ceil</see>
-                <see>math.floor</see>
-                <see>math.trunc</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The round() functions return the integral value nearest to x rounding
-                half-way cases away from zero, regardless of the current rounding direction.</tr>
-                <!-- old: Функции раунда () возвращают интегральное значение,
+  <object name="math.round">
+    <title>math.round</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">round to integral value, regardless of rounding direction</tr>
+        <tr lang="ru">округление до ближайшего целого значения</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math round</keywords>
+      <aliases>
+        <alias>round</alias>
+        <alias>ceammc/round</alias>
+      </aliases>
+      <also>
+        <see>math.ceil</see>
+        <see>math.floor</see>
+        <see>math.trunc</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The round() functions return the integral value nearest to x rounding
+        half-way cases away from zero, regardless of the current rounding direction.</tr>
+        <!-- old: Функции раунда () возвращают интегральное значение,
                 ближайшее к x округляющим полушариям, от нуля, независимо от текущего направления
                 округления. -->
-                <tr lang="ru" finished="false">Функции раунда () возвращают интегральное значение,
-                ближайшее к x округляющим полушариям, от нуля, независимо от текущего направления
-                округления.</tr>
-            </par>
-            <par>
-                <tr lang="en">Special values:</tr>
-                <tr lang="ru" finished="false">Особые ценности:</tr>
-            </par>
-            <par>
-                <tr lang="en">round(+-0) returns +-0.</tr>
-                <tr lang="ru" finished="false">раунд (+-0) возвращается +-0.</tr>
-            </par>
-            <par>
-                <tr lang="en">round(+-infinity) returns +-infinity.</tr>
-                <!-- old: Круг (+-бесконечность) возвращает
+        <tr lang="ru" finished="false">Функции раунда () возвращают интегральное значение,
+        ближайшее к x округляющим полушариям, от нуля, независимо от текущего направления
+        округления.</tr>
+      </par>
+      <par>
+        <tr lang="en">Special values:</tr>
+        <tr lang="ru" finished="false">Особые ценности:</tr>
+      </par>
+      <par>
+        <tr lang="en">round(+-0) returns +-0.</tr>
+        <tr lang="ru" finished="false">раунд (+-0) возвращается +-0.</tr>
+      </par>
+      <par>
+        <tr lang="en">round(+-infinity) returns +-infinity.</tr>
+        <!-- old: Круг (+-бесконечность) возвращает
                 +-бесконечность. -->
-                <tr lang="ru" finished="false">Круг (+-бесконечность) возвращает
-                +-бесконечность.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">apply to all numeric values</tr>
-                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Круг (+-бесконечность) возвращает +-бесконечность.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">apply to all numeric values</tr>
+          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]  [2.3 3.8 5.5 -2.3 -3.8 -5.5(
 |    |
@@ -81,7 +80,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,141 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hoa.3d.exchanger~">
-        <title>hoa.3d.exchanger~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-                <author>Pierre Guillot</author>
-                <author>Eliott Paris</author>
-                <author>Thomas Le Meur</author>
-            </authors>
-            <description>
-                <tr lang="en">renumbers and normalizes the channels</tr>
-                <tr lang="ru">перенумерование и нормализация каналов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>spat</category>
-            <keywords>hoa exchanger</keywords>
-            <since>0.9.7</since>
-            <also>
-                <see>hoa.2d.exchanger~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The library default normalization is SN3D and the numbering is ACN
-                (cf tutorials). The exchangers will always convert from or to the standard.</tr>
-                <!-- old: Нормализация библиотеки по умолчанию - SN3D, а
+  <object name="hoa.3d.exchanger~">
+    <title>hoa.3d.exchanger~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+        <author>Pierre Guillot</author>
+        <author>Eliott Paris</author>
+        <author>Thomas Le Meur</author>
+      </authors>
+      <description>
+        <tr lang="en">renumbers and normalizes the channels</tr>
+        <tr lang="ru">перенумерование и нормализация каналов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>spat</category>
+      <keywords>hoa exchanger</keywords>
+      <since>0.9.7</since>
+      <also>
+        <see>hoa.2d.exchanger~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The library default normalization is SN3D and the numbering is ACN (cf
+        tutorials). The exchangers will always convert from or to the standard.</tr>
+        <!-- old: Нормализация библиотеки по умолчанию - SN3D, а
                 нумерация - ACN (cf учебные пособия). Обменники всегда конвертируются из или в
                 стандарт. -->
-                <tr lang="ru" finished="false">Нормализация библиотеки по умолчанию - SN3D, а
-                нумерация - ACN (cf учебные пособия). Обменники всегда конвертируются из или в
-                стандарт.</tr>
-            </par>
-            <a href="hoa/hoa.3d.exchanger~-help.pd">CICM documentation</a>
-        </info>
-        <arguments>
-            <argument name="ORDER" type="int" minvalue="1" maxvalue="10">
-                <tr lang="en">the order of decomposition</tr>
-                <tr lang="ru" finished="false">Порядок разложения</tr>
-            </argument>
-            <argument name="NUM" type="symbol"
-            enum="ACN fromFurseMalham fromSID toFurseMalham toSID">
-                <tr lang="en">numbering scheme</tr>
-                <tr lang="ru" finished="false">схема нумерации</tr>
-            </argument>
-            <argument name="NORM" type="symbol" enum="SN3D fromMaxN fromN3D toMaxN toN3D">
-                <tr lang="en">normalization</tr>
-                <tr lang="ru" finished="false">нормализация</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @fromB -->
-            <property name="@fromB" type="alias">
-                <tr lang="en">alias to @num fromFurseMalham and @norm fromMaxN</tr>
-                <tr lang="ru" finished="false">@num fromFurseMalham и @norm fromMaxN</tr>
-            </property>
-            <!-- @fromDaniel -->
-            <property name="@fromDaniel" type="alias">
-                <tr lang="en">alias to @num fromSID and @norm fromN3D</tr>
-                <tr lang="ru" finished="false">alias to @num fromSID и @norm fromN3D</tr>
-            </property>
-            <!-- @norm -->
-            <property name="@norm" type="symbol" default="SN3D"
-            enum="SN3D fromMaxN fromN3D toMaxN toN3D">
-                <tr lang="en">normalization</tr>
-                <tr lang="ru" finished="false">нормализация</tr>
-            </property>
-            <!-- @num -->
-            <property name="@num" type="symbol" default="ACN"
-            enum="ACN fromFurseMalham fromSID toFurseMalham toSID">
-                <tr lang="en">numbering scheme</tr>
-                <tr lang="ru" finished="false">схема нумерации</tr>
-            </property>
-            <!-- @order -->
-            <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
-            access="initonly">
-                <tr lang="en">the order of decomposition</tr>
-                <tr lang="ru" finished="false">Порядок разложения</tr>
-            </property>
-            <!-- @toB -->
-            <property name="@toB" type="alias">
-                <tr lang="en">alias to @num toFurseMalham and @norm toMaxN</tr>
-                <tr lang="ru" finished="false">@num toFurseMalham и @norm toMaxN</tr>
-            </property>
-            <!-- @toDaniel -->
-            <property name="@toDaniel" type="alias">
-                <tr lang="en">alias to @num toSID and @norm toN3D</tr>
-                <tr lang="ru" finished="false">alias to @num toSID and @norm toN3D</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">first input harmonic</tr>
-                    <tr lang="ru" finished="false">Первый вход гармоничный</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="...">
-                <in>
-                    <tr lang="en">... input harmonic</tr>
-                    <tr lang="ru" finished="false">Входная гармоника</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="n">
-                <in>
-                    <tr lang="en">n-th input harmonic</tr>
-                    <tr lang="ru" finished="false">n-я входная гармоника</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">first loudspeaker output</tr>
-                    <tr lang="ru" finished="false">первый громкоговоритель выходной</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="...">
-                <out type="any">
-                    <tr lang="en">... loudspeaker output</tr>
-                    <tr lang="ru" finished="false">... громкоговоритель выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="n">
-                <out type="any">
-                    <tr lang="en">n-th loudspeaker output</tr>
-                    <tr lang="ru" finished="false">n-й выход громкоговорителя</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Нормализация библиотеки по умолчанию - SN3D, а нумерация -
+        ACN (cf учебные пособия). Обменники всегда конвертируются из или в стандарт.</tr>
+      </par>
+      <a href="hoa/hoa.3d.exchanger~-help.pd">CICM documentation</a>
+    </info>
+    <arguments>
+      <argument name="ORDER" type="int" minvalue="1" maxvalue="10">
+        <tr lang="en">the order of decomposition</tr>
+        <tr lang="ru" finished="false">Порядок разложения</tr>
+      </argument>
+      <argument name="NUM" type="symbol" enum="ACN fromFurseMalham fromSID toFurseMalham toSID">
+        <tr lang="en">numbering scheme</tr>
+        <tr lang="ru" finished="false">схема нумерации</tr>
+      </argument>
+      <argument name="NORM" type="symbol" enum="SN3D fromMaxN fromN3D toMaxN toN3D">
+        <tr lang="en">normalization</tr>
+        <tr lang="ru" finished="false">нормализация</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @fromB -->
+      <property name="@fromB" type="alias">
+        <tr lang="en">alias to @num fromFurseMalham and @norm fromMaxN</tr>
+        <tr lang="ru" finished="false">@num fromFurseMalham и @norm fromMaxN</tr>
+      </property>
+      <!-- @fromDaniel -->
+      <property name="@fromDaniel" type="alias">
+        <tr lang="en">alias to @num fromSID and @norm fromN3D</tr>
+        <tr lang="ru" finished="false">alias to @num fromSID и @norm fromN3D</tr>
+      </property>
+      <!-- @norm -->
+      <property name="@norm" type="symbol" default="SN3D"
+      enum="SN3D fromMaxN fromN3D toMaxN toN3D">
+        <tr lang="en">normalization</tr>
+        <tr lang="ru" finished="false">нормализация</tr>
+      </property>
+      <!-- @num -->
+      <property name="@num" type="symbol" default="ACN"
+      enum="ACN fromFurseMalham fromSID toFurseMalham toSID">
+        <tr lang="en">numbering scheme</tr>
+        <tr lang="ru" finished="false">схема нумерации</tr>
+      </property>
+      <!-- @order -->
+      <property name="@order" type="int" minvalue="1" maxvalue="10" default="1" access="initonly">
+        <tr lang="en">the order of decomposition</tr>
+        <tr lang="ru" finished="false">Порядок разложения</tr>
+      </property>
+      <!-- @toB -->
+      <property name="@toB" type="alias">
+        <tr lang="en">alias to @num toFurseMalham and @norm toMaxN</tr>
+        <tr lang="ru" finished="false">@num toFurseMalham и @norm toMaxN</tr>
+      </property>
+      <!-- @toDaniel -->
+      <property name="@toDaniel" type="alias">
+        <tr lang="en">alias to @num toSID and @norm toN3D</tr>
+        <tr lang="ru" finished="false">alias to @num toSID and @norm toN3D</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet type="audio">
+        <in>
+          <tr lang="en">first input harmonic</tr>
+          <tr lang="ru" finished="false">Первый вход гармоничный</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="...">
+        <in>
+          <tr lang="en">... input harmonic</tr>
+          <tr lang="ru" finished="false">Входная гармоника</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="n">
+        <in>
+          <tr lang="en">n-th input harmonic</tr>
+          <tr lang="ru" finished="false">n-я входная гармоника</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">first loudspeaker output</tr>
+          <tr lang="ru" finished="false">первый громкоговоритель выходной</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="...">
+        <out type="any">
+          <tr lang="en">... loudspeaker output</tr>
+          <tr lang="ru" finished="false">... громкоговоритель выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="n">
+        <out type="any">
+          <tr lang="en">n-th loudspeaker output</tr>
+          <tr lang="ru" finished="false">n-й выход громкоговорителя</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [hoa.3d.exchanger~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

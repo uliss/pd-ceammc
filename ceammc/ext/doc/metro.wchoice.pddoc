@@ -1,97 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="metro.wchoice">
-        <title>metro.wchoice</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">a metronome with a random selection of period at each beat from a
-                specified list with weighted coefficients</tr>
-                <tr lang="ru">метроном со случайным выбором периода при каждом ударе из заданного
-                списка с весовыми коэффициентами</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>base</category>
-            <keywords>metro random weight</keywords>
-            <also>
-                <see>metro.choice</see>
-                <see>metro.random</see>
-            </also>
-            <since>0.9.7</since>
-        </meta>
-        <arguments>
-            <argument name="INIT" type="list">
-                <tr lang="en">TIME and WEIGHT list in format: T0 W1... Weight values can be floats
-                or percent</tr>
-                <!-- old: Список времени и времени в формате: T0 W1 Значения
+  <object name="metro.wchoice">
+    <title>metro.wchoice</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">a metronome with a random selection of period at each beat from a specified
+        list with weighted coefficients</tr>
+        <tr lang="ru">метроном со случайным выбором периода при каждом ударе из заданного списка с
+        весовыми коэффициентами</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>base</category>
+      <keywords>metro random weight</keywords>
+      <also>
+        <see>metro.choice</see>
+        <see>metro.random</see>
+      </also>
+      <since>0.9.7</since>
+    </meta>
+    <arguments>
+      <argument name="INIT" type="list">
+        <tr lang="en">TIME and WEIGHT list in format: T0 W1... Weight values can be floats or
+        percent</tr>
+        <!-- old: Список времени и времени в формате: T0 W1 Значения
                 веса могут быть плавающими или процентами. -->
-                <tr lang="ru" finished="false">Список времени и времени в формате: T0 W1 Значения
-                веса могут быть плавающими или процентами.</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @calc_w -->
-            <property name="@calc_w" type="list" default="1" access="readonly">
-                <tr lang="en">normalized list of probabilities</tr>
-                <tr lang="ru" finished="false">Нормализованный список вероятностей</tr>
-            </property>
-            <!-- @init -->
-            <property name="@init" type="list" default="" access="initonly">
-                <tr lang="en">intermixed list of time and weights values</tr>
-                <tr lang="ru" finished="false">Перемешанный список значений времени и весов</tr>
-            </property>
-            <!-- @seed -->
-            <property name="@seed" type="int" minvalue="0" default="0">
-                <tr lang="en">generator seed</tr>
-                <tr lang="ru" finished="false">генератор</tr>
-            </property>
-            <!-- @t -->
-            <property name="@t" type="list" units="millisecond" default="">
-                <tr lang="en">timeset (&gt;0)</tr>
-                <tr lang="ru" finished="false">Время (&gt;0)</tr>
-            </property>
-            <!-- @w -->
-            <property name="@w" type="list" default="">
-                <tr lang="en">weight list, float or percent values</tr>
-                <tr lang="ru" finished="false">весовой список, значения поплавка или процента</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">starts (on &gt;0) or stops (on &lt;=0) metro</tr>
-                    <!-- old: старты (на >0) или остановки (на <=0)
+        <tr lang="ru" finished="false">Список времени и времени в формате: T0 W1 Значения веса
+        могут быть плавающими или процентами.</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @calc_w -->
+      <property name="@calc_w" type="list" default="1" access="readonly">
+        <tr lang="en">normalized list of probabilities</tr>
+        <tr lang="ru" finished="false">Нормализованный список вероятностей</tr>
+      </property>
+      <!-- @init -->
+      <property name="@init" type="list" default="" access="initonly">
+        <tr lang="en">intermixed list of time and weights values</tr>
+        <tr lang="ru" finished="false">Перемешанный список значений времени и весов</tr>
+      </property>
+      <!-- @seed -->
+      <property name="@seed" type="int" minvalue="0" default="0">
+        <tr lang="en">generator seed</tr>
+        <tr lang="ru" finished="false">генератор</tr>
+      </property>
+      <!-- @t -->
+      <property name="@t" type="list" units="millisecond" default="">
+        <tr lang="en">timeset (&gt;0)</tr>
+        <tr lang="ru" finished="false">Время (&gt;0)</tr>
+      </property>
+      <!-- @w -->
+      <property name="@w" type="list" default="">
+        <tr lang="en">weight list, float or percent values</tr>
+        <tr lang="ru" finished="false">весовой список, значения поплавка или процента</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">starts (on &gt;0) or stops (on &lt;=0) metro</tr>
+          <!-- old: старты (на >0) или остановки (на <=0)
                     метро -->
-                    <tr lang="ru" finished="false">старты (на &gt;0) или остановки (на &lt;=0)
-                    метро</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set timeset</tr>
-                    <tr lang="ru" finished="false">установленное время</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set weights</tr>
-                    <tr lang="ru" finished="false">установленный вес</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs *bang*</tr>
-                    <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">старты (на &gt;0) или остановки (на &lt;=0) метро</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set timeset</tr>
+          <tr lang="ru" finished="false">установленное время</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set weights</tr>
+          <tr lang="ru" finished="false">установленный вес</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs *bang*</tr>
+          <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]        [L]              [L]
 |          |.               |..
@@ -105,7 +104,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

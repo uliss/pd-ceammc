@@ -1,295 +1,293 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hw.rpi.display.ssd1306">
-        <title>hw.rpi.display.ssd1306</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">driver for OLED display on ssd1306 chip for Raspberry Pi</tr>
-                <tr lang="ru">драйвер для OLED дисплея на чипе ssd1306 для Raspberry Pi</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>hw</category>
-            <keywords>display ssd1306 spi i2c rpi</keywords>
-            <since>0.9.8</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Both I²C and SPI connections are supported. I²C connection is not
-                fast.</tr>
-                <!-- old: Поддерживаются соединения I2C и SPI. Подключение к
+  <object name="hw.rpi.display.ssd1306">
+    <title>hw.rpi.display.ssd1306</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">driver for OLED display on ssd1306 chip for Raspberry Pi</tr>
+        <tr lang="ru">драйвер для OLED дисплея на чипе ssd1306 для Raspberry Pi</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>hw</category>
+      <keywords>display ssd1306 spi i2c rpi</keywords>
+      <since>0.9.8</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Both I²C and SPI connections are supported. I²C connection is not fast.</tr>
+        <!-- old: Поддерживаются соединения I2C и SPI. Подключение к
                 I2C не является быстрым. -->
-                <tr lang="ru" finished="false">Поддерживаются соединения I2C и SPI. Подключение к
-                I2C не является быстрым.</tr>
-            </par>
-            <par>
-                <tr lang="en">Note: you should send [flush( message to transfer internal pixel
-                buffer to the device</tr>
-                <!-- old: Примечание: вы должны отправить [flush(сообщение для
+        <tr lang="ru" finished="false">Поддерживаются соединения I2C и SPI. Подключение к I2C не
+        является быстрым.</tr>
+      </par>
+      <par>
+        <tr lang="en">Note: you should send [flush( message to transfer internal pixel buffer to
+        the device</tr>
+        <!-- old: Примечание: вы должны отправить [flush(сообщение для
                 передачи внутреннего буфера пикселей на устройство)] -->
-                <tr lang="ru" finished="false">Примечание: вы должны отправить [flush(сообщение для
-                передачи внутреннего буфера пикселей на устройство)]</tr>
-            </par>
+        <tr lang="ru" finished="false">Примечание: вы должны отправить [flush(сообщение для
+        передачи внутреннего буфера пикселей на устройство)]</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="MODE" type="symbol" enum="i2c spi">
+        <tr lang="en">display connection mode. See @mode</tr>
+        <tr lang="ru">режим подключения дисплея. См. @mode</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @i2c_addr -->
+      <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
+      maxvalue="119">
+        <tr lang="en">I²C address. Also 'default' value is accepted (for addr 0x3c) and 'alt' (for
+        addr 0x3d)</tr>
+        <tr lang="ru">Адрес I²C. Также принимается значение «default» (для адреса 0x3c) и «alt»
+        (для адреса 0x3d).</tr>
+      </property>
+      <!-- @i2c_bus -->
+      <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+      access="initonly">
+        <tr lang="en">I²C bus</tr>
+        <tr lang="ru">шина I²C</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" default="i2c" enum="i2c spi" access="initonly">
+        <tr lang="en">display connection mode</tr>
+        <tr lang="ru">режим подключения дисплея</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="128 64" access="initonly">
+        <tr lang="en">display size</tr>
+        <tr lang="ru">размер дисплея</tr>
+      </property>
+      <!-- @spi_bus -->
+      <property name="@spi_bus" type="int" default="-1" minvalue="-1" maxvalue="6"
+      access="initonly">
+        <tr lang="en">SPI bus</tr>
+        <tr lang="ru">шина SPI</tr>
+      </property>
+      <!-- @spi_cs -->
+      <property name="@spi_cs" type="int" default="-1" minvalue="-1" maxvalue="127"
+      access="initonly">
+        <tr lang="en">CS (chip select) GPIO pin</tr>
+        <tr lang="ru">CS (Chip Select) пин GPIO</tr>
+      </property>
+      <!-- @spi_dc -->
+      <property name="@spi_dc" type="int" default="-1" minvalue="-1" maxvalue="127"
+      access="initonly">
+        <tr lang="en">DC (data/command) GPIO pin</tr>
+        <tr lang="ru">DC (data/command) пин GPIO</tr>
+      </property>
+      <!-- @spi_freq -->
+      <property name="@spi_freq" type="int" default="1000000" units="hertz" minvalue="100000"
+      maxvalue="10000000" access="initonly">
+        <tr lang="en">SPI frequency</tr>
+        <tr lang="ru">частота SPI</tr>
+      </property>
+      <!-- @spi_rs -->
+      <property name="@spi_rs" type="int" default="-1" minvalue="-1" maxvalue="127"
+      access="initonly">
+        <tr lang="en">RS (reset) GPIO pin</tr>
+        <tr lang="ru">RS (reset) пин GPIO</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- brightness -->
+      <method name="brightness">
+        <info>
+          <tr lang="en">set display brightness</tr>
+          <tr lang="ru" finished="false">Настройка отображения яркости</tr>
         </info>
-        <arguments>
-            <argument name="MODE" type="symbol" enum="i2c spi">
-                <tr lang="en">display connection mode. See @mode</tr>
-                <tr lang="ru">режим подключения дисплея. См. @mode</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @i2c_addr -->
-            <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
-            maxvalue="119">
-                <tr lang="en">I²C address. Also 'default' value is accepted (for addr 0x3c) and
-                'alt' (for addr 0x3d)</tr>
-                <tr lang="ru">Адрес I²C. Также принимается значение «default» (для адреса 0x3c) и
-                «alt» (для адреса 0x3d).</tr>
-            </property>
-            <!-- @i2c_bus -->
-            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
-            access="initonly">
-                <tr lang="en">I²C bus</tr>
-                <tr lang="ru">шина I²C</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" default="i2c" enum="i2c spi" access="initonly">
-                <tr lang="en">display connection mode</tr>
-                <tr lang="ru">режим подключения дисплея</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="128 64" access="initonly">
-                <tr lang="en">display size</tr>
-                <tr lang="ru">размер дисплея</tr>
-            </property>
-            <!-- @spi_bus -->
-            <property name="@spi_bus" type="int" default="-1" minvalue="-1" maxvalue="6"
-            access="initonly">
-                <tr lang="en">SPI bus</tr>
-                <tr lang="ru">шина SPI</tr>
-            </property>
-            <!-- @spi_cs -->
-            <property name="@spi_cs" type="int" default="-1" minvalue="-1" maxvalue="127"
-            access="initonly">
-                <tr lang="en">CS (chip select) GPIO pin</tr>
-                <tr lang="ru">CS (Chip Select) пин GPIO</tr>
-            </property>
-            <!-- @spi_dc -->
-            <property name="@spi_dc" type="int" default="-1" minvalue="-1" maxvalue="127"
-            access="initonly">
-                <tr lang="en">DC (data/command) GPIO pin</tr>
-                <tr lang="ru">DC (data/command) пин GPIO</tr>
-            </property>
-            <!-- @spi_freq -->
-            <property name="@spi_freq" type="int" default="1000000" units="hertz" minvalue="100000"
-            maxvalue="10000000" access="initonly">
-                <tr lang="en">SPI frequency</tr>
-                <tr lang="ru">частота SPI</tr>
-            </property>
-            <!-- @spi_rs -->
-            <property name="@spi_rs" type="int" default="-1" minvalue="-1" maxvalue="127"
-            access="initonly">
-                <tr lang="en">RS (reset) GPIO pin</tr>
-                <tr lang="ru">RS (reset) пин GPIO</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- brightness -->
-            <method name="brightness">
-                <info>
-                    <tr lang="en">set display brightness</tr>
-                    <tr lang="ru" finished="false">Настройка отображения яркости</tr>
-                </info>
-                <param name="LEVEL" type="int" enum="0 1 2 3 4" required="true">
-                    <tr lang="en">brightness level from 0 (lowest) to 4 (brightest). Normal level
-                    is 2.</tr>
-                    <!-- old: Уровень яркости от 0 (самый низкий) до 4 (самый
+        <param name="LEVEL" type="int" enum="0 1 2 3 4" required="true">
+          <tr lang="en">brightness level from 0 (lowest) to 4 (brightest). Normal level is 2.</tr>
+          <!-- old: Уровень яркости от 0 (самый низкий) до 4 (самый
                     яркий). Нормальный уровень 2. -->
-                    <tr lang="ru" finished="false">Уровень яркости от 0 (самый низкий) до 4 (самый
-                    яркий). Нормальный уровень 2.</tr>
-                </param>
-            </method>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clear display and optionally flush internal buffer</tr>
-                    <!-- old: четкий дисплей и необязательно смывной
+          <tr lang="ru" finished="false">Уровень яркости от 0 (самый низкий) до 4 (самый яркий).
+          Нормальный уровень 2.</tr>
+        </param>
+      </method>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">clear display and optionally flush internal buffer</tr>
+          <!-- old: четкий дисплей и необязательно смывной
                     внутренний буфер -->
-                    <tr lang="ru" finished="false">четкий дисплей и необязательно смывной
-                    внутренний буфер</tr>
-                </info>
-                <param name="FLUSH" type="bool" default="0" required="false">
-                    <tr lang="en">flush internal buffer to the device</tr>
-                    <tr lang="ru" finished="false">смывной внутренний буфер к устройству</tr>
-                </param>
-            </method>
-            <!-- flush -->
-            <method name="flush">
-                <info>
-                    <tr lang="en">flush internal buffer to the device</tr>
-                    <tr lang="ru" finished="false">смывной внутренний буфер к устройству</tr>
-                </info>
-            </method>
-            <!-- font -->
-            <method name="font">
-                <info>
-                    <tr lang="en">set current font</tr>
-                    <tr lang="ru" finished="false">Настройка текущего шрифта</tr>
-                </info>
-                <param name="FONT" type="symbol" required="true">
-                    <tr lang="en">font name</tr>
-                    <tr lang="ru" finished="false">название шрифта</tr>
-                </param>
-            </method>
-            <!-- invert -->
-            <method name="invert">
-                <info>
-                    <tr lang="en">invert display</tr>
-                    <tr lang="ru" finished="false">инвертированный дисплей</tr>
-                </info>
-                <param name="VALUE" type="bool" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- mirror -->
-            <method name="mirror">
-                <info>
-                    <tr lang="en">mirror display</tr>
-                    <tr lang="ru" finished="false">зеркальный дисплей</tr>
-                </info>
-                <param name="VALUE" type="bool" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- pixel -->
-            <method name="pixel">
-                <info>
-                    <tr lang="en">draw pixel</tr>
-                    <tr lang="ru" finished="false">рисовать пиксель</tr>
-                </info>
-                <param name="X" type="int" minvalue="0" required="true">
-                    <tr lang="en">X coord (from the left)</tr>
-                    <tr lang="ru" finished="false">X coord (слева)</tr>
-                </param>
-                <param name="Y" type="int" minvalue="0" required="true">
-                    <tr lang="en">Y coord (from the top)</tr>
-                    <tr lang="ru" finished="false">Y coord (сверху)</tr>
-                </param>
-                <param name="VALUE" type="bool" required="true">
-                    <tr lang="en">pixel value</tr>
-                    <tr lang="ru" finished="false">значение пикселя</tr>
-                </param>
-            </method>
-            <!-- rotation -->
-            <method name="rotation">
-                <info>
-                    <tr lang="en">set display rotation</tr>
-                    <tr lang="ru" finished="false">Настройка поворота</tr>
-                </info>
-                <param name="ANGLE" type="int" enum="0 90 180 270">
-                    <tr lang="en">rotation angle</tr>
-                    <tr lang="ru" finished="false">угол поворота</tr>
-                </param>
-            </method>
-            <!-- switch_on -->
-            <method name="switch_on">
-                <info>
-                    <tr lang="en">switch on display (needed for SPI connection)</tr>
-                    <!-- old: переключение на дисплей (необходимо для
+          <tr lang="ru" finished="false">четкий дисплей и необязательно смывной внутренний
+          буфер</tr>
+        </info>
+        <param name="FLUSH" type="bool" default="0" required="false">
+          <tr lang="en">flush internal buffer to the device</tr>
+          <tr lang="ru" finished="false">смывной внутренний буфер к устройству</tr>
+        </param>
+      </method>
+      <!-- flush -->
+      <method name="flush">
+        <info>
+          <tr lang="en">flush internal buffer to the device</tr>
+          <tr lang="ru" finished="false">смывной внутренний буфер к устройству</tr>
+        </info>
+      </method>
+      <!-- font -->
+      <method name="font">
+        <info>
+          <tr lang="en">set current font</tr>
+          <tr lang="ru" finished="false">Настройка текущего шрифта</tr>
+        </info>
+        <param name="FONT" type="symbol" required="true">
+          <tr lang="en">font name</tr>
+          <tr lang="ru" finished="false">название шрифта</tr>
+        </param>
+      </method>
+      <!-- invert -->
+      <method name="invert">
+        <info>
+          <tr lang="en">invert display</tr>
+          <tr lang="ru" finished="false">инвертированный дисплей</tr>
+        </info>
+        <param name="VALUE" type="bool" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- mirror -->
+      <method name="mirror">
+        <info>
+          <tr lang="en">mirror display</tr>
+          <tr lang="ru" finished="false">зеркальный дисплей</tr>
+        </info>
+        <param name="VALUE" type="bool" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- pixel -->
+      <method name="pixel">
+        <info>
+          <tr lang="en">draw pixel</tr>
+          <tr lang="ru" finished="false">рисовать пиксель</tr>
+        </info>
+        <param name="X" type="int" minvalue="0" required="true">
+          <tr lang="en">X coord (from the left)</tr>
+          <tr lang="ru" finished="false">X coord (слева)</tr>
+        </param>
+        <param name="Y" type="int" minvalue="0" required="true">
+          <tr lang="en">Y coord (from the top)</tr>
+          <tr lang="ru" finished="false">Y coord (сверху)</tr>
+        </param>
+        <param name="VALUE" type="bool" required="true">
+          <tr lang="en">pixel value</tr>
+          <tr lang="ru" finished="false">значение пикселя</tr>
+        </param>
+      </method>
+      <!-- rotation -->
+      <method name="rotation">
+        <info>
+          <tr lang="en">set display rotation</tr>
+          <tr lang="ru" finished="false">Настройка поворота</tr>
+        </info>
+        <param name="ANGLE" type="int" enum="0 90 180 270">
+          <tr lang="en">rotation angle</tr>
+          <tr lang="ru" finished="false">угол поворота</tr>
+        </param>
+      </method>
+      <!-- switch_on -->
+      <method name="switch_on">
+        <info>
+          <tr lang="en">switch on display (needed for SPI connection)</tr>
+          <!-- old: переключение на дисплей (необходимо для
                     подключения SPI) -->
-                    <tr lang="ru" finished="false">переключение на дисплей (необходимо для
-                    подключения SPI)</tr>
-                </info>
-                <param name="VALUE" type="bool" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- text -->
-            <method name="text">
-                <info>
-                    <tr lang="en">draw text on the display</tr>
-                    <tr lang="ru" finished="false">Нарисуйте текст на дисплее</tr>
-                </info>
-                <param name="TXT" type="symbol" required="true">
-                    <tr lang="en">text</tr>
-                    <tr lang="ru" finished="false">текст</tr>
-                </param>
-                <param name="X" type="int" required="true">
-                    <tr lang="en">left text X coordinate</tr>
-                    <tr lang="ru" finished="false">левый текст X координата</tr>
-                </param>
-                <param name="Y" type="int" required="true">
-                    <tr lang="en">top text Y coordinate</tr>
-                    <tr lang="ru" finished="false">верхняя строка Y координата</tr>
-                </param>
-            </method>
-            <!-- write bitmap -->
-            <method name="write bitmap">
-                <info>
-                    <tr lang="en">write bitmap to the display buffer</tr>
-                    <tr lang="ru" finished="false">Записать bitmap в буфер дисплея</tr>
-                </info>
-                <param name="X" type="int" required="true">
-                    <tr lang="en">bitmap X coordinate</tr>
-                    <tr lang="ru" finished="false">Координатная карта X</tr>
-                </param>
-                <param name="Y" type="int" required="true">
-                    <tr lang="en">bitmap Y coordinate</tr>
-                    <tr lang="ru" finished="false">Координатная карта Y</tr>
-                </param>
-                <param name="WIDTH" type="int" minvalue="1" required="true">
-                    <tr lang="en">bitmap width in pixels</tr>
-                    <tr lang="ru" finished="false">ширина растрового изображения в пикселях</tr>
-                </param>
-                <param name="PIXELS" type="list" required="true">
-                    <tr lang="en">list of pixels (0 or 1)</tr>
-                    <tr lang="ru" finished="false">Список пикселей (0 или 1)</tr>
-                </param>
-            </method>
-            <!-- write bytes -->
-            <method name="write bytes">
-                <info>
-                    <tr lang="en">write raw byte list to the display buffer and move internal
-                    cursor position</tr>
-                    <!-- old: напишите список байтов в буфер дисплея и
+          <tr lang="ru" finished="false">переключение на дисплей (необходимо для подключения
+          SPI)</tr>
+        </info>
+        <param name="VALUE" type="bool" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- text -->
+      <method name="text">
+        <info>
+          <tr lang="en">draw text on the display</tr>
+          <tr lang="ru" finished="false">Нарисуйте текст на дисплее</tr>
+        </info>
+        <param name="TXT" type="symbol" required="true">
+          <tr lang="en">text</tr>
+          <tr lang="ru" finished="false">текст</tr>
+        </param>
+        <param name="X" type="int" required="true">
+          <tr lang="en">left text X coordinate</tr>
+          <tr lang="ru" finished="false">левый текст X координата</tr>
+        </param>
+        <param name="Y" type="int" required="true">
+          <tr lang="en">top text Y coordinate</tr>
+          <tr lang="ru" finished="false">верхняя строка Y координата</tr>
+        </param>
+      </method>
+      <!-- write bitmap -->
+      <method name="write bitmap">
+        <info>
+          <tr lang="en">write bitmap to the display buffer</tr>
+          <tr lang="ru" finished="false">Записать bitmap в буфер дисплея</tr>
+        </info>
+        <param name="X" type="int" required="true">
+          <tr lang="en">bitmap X coordinate</tr>
+          <tr lang="ru" finished="false">Координатная карта X</tr>
+        </param>
+        <param name="Y" type="int" required="true">
+          <tr lang="en">bitmap Y coordinate</tr>
+          <tr lang="ru" finished="false">Координатная карта Y</tr>
+        </param>
+        <param name="WIDTH" type="int" minvalue="1" required="true">
+          <tr lang="en">bitmap width in pixels</tr>
+          <tr lang="ru" finished="false">ширина растрового изображения в пикселях</tr>
+        </param>
+        <param name="PIXELS" type="list" required="true">
+          <tr lang="en">list of pixels (0 or 1)</tr>
+          <tr lang="ru" finished="false">Список пикселей (0 или 1)</tr>
+        </param>
+      </method>
+      <!-- write bytes -->
+      <method name="write bytes">
+        <info>
+          <tr lang="en">write raw byte list to the display buffer and move internal cursor
+          position</tr>
+          <!-- old: напишите список байтов в буфер дисплея и
                     переместите внутреннюю позицию курсора -->
-                    <tr lang="ru" finished="false">напишите список байтов в буфер дисплея и
-                    переместите внутреннюю позицию курсора</tr>
-                </info>
-                <param name="BYTES" type="list" required="true">
-                    <tr lang="en">list of bytes (integers in 0..255 range). Each byte describes a
-                    single column of 8 pixels in height</tr>
-                    <!-- old: список байтов (интегралы в диапазоне 0,255).
+          <tr lang="ru" finished="false">напишите список байтов в буфер дисплея и переместите
+          внутреннюю позицию курсора</tr>
+        </info>
+        <param name="BYTES" type="list" required="true">
+          <tr lang="en">list of bytes (integers in 0..255 range). Each byte describes a single
+          column of 8 pixels in height</tr>
+          <!-- old: список байтов (интегралы в диапазоне 0,255).
                     Каждый байт описывает один столбец высотой 8 пикселей. -->
-                    <tr lang="ru" finished="false">список байтов (интегралы в диапазоне 0,255).
-                    Каждый байт описывает один столбец высотой 8 пикселей.</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control input</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">no output</tr>
-                    <tr lang="ru" finished="false">нет выхода</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">список байтов (интегралы в диапазоне 0,255). Каждый байт
+          описывает один столбец высотой 8 пикселей.</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control input</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">no output</tr>
+          <tr lang="ru" finished="false">нет выхода</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /*I²C connection example:*/
 
@@ -320,7 +318,7 @@
 #g 255 127 63 31 15 7 3 1, flush
 #k @nitems 4
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

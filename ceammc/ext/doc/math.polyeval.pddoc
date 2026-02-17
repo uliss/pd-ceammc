@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.polyeval">
-        <title>math.polyeval</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">evaluates the polynomial described by the coefficients list</tr>
-                <tr lang="ru">вычисляет многочлен, описанный списком коэффициентов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math polynomial</keywords>
-            <since>0.6</since>
-        </meta>
-        <arguments>
-            <argument name="COEFFS" type="list">
-                <tr lang="en">coefficient list</tr>
-                <tr lang="ru" finished="false">список коэффициентов</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @coeffs -->
-            <property name="@coeffs" type="list" default="">
-                <tr lang="en">coefficient list</tr>
-                <tr lang="ru" finished="false">список коэффициентов</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">evalute polynomial</tr>
-                    <tr lang="ru" finished="false">эвалютный полином</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">evalute each value in list</tr>
-                    <tr lang="ru" finished="false">Оценить каждое значение в списке</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">sets polynomial coefficients</tr>
-                    <tr lang="ru" finished="false">устанавливает полиномиальные коэффициенты</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">calculated value</tr>
-                    <tr lang="ru" finished="false">расчетная величина</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="math.polyeval">
+    <title>math.polyeval</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">evaluates the polynomial described by the coefficients list</tr>
+        <tr lang="ru">вычисляет многочлен, описанный списком коэффициентов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math polynomial</keywords>
+      <since>0.6</since>
+    </meta>
+    <arguments>
+      <argument name="COEFFS" type="list">
+        <tr lang="en">coefficient list</tr>
+        <tr lang="ru" finished="false">список коэффициентов</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @coeffs -->
+      <property name="@coeffs" type="list" default="">
+        <tr lang="en">coefficient list</tr>
+        <tr lang="ru" finished="false">список коэффициентов</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">evalute polynomial</tr>
+          <tr lang="ru" finished="false">эвалютный полином</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">evalute each value in list</tr>
+          <tr lang="ru" finished="false">Оценить каждое значение в списке</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">sets polynomial coefficients</tr>
+          <tr lang="ru" finished="false">устанавливает полиномиальные коэффициенты</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">calculated value</tr>
+          <tr lang="ru" finished="false">расчетная величина</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]   [14 28(
 |     |
@@ -66,7 +66,7 @@
 |
 [ui.display]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

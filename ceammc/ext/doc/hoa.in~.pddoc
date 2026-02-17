@@ -1,69 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hoa.in~">
-        <title>hoa.in~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-                <author>Pierre Guillot</author>
-                <author>Eliott Paris</author>
-                <author>Thomas Le Meur</author>
-            </authors>
-            <description>
-                <tr lang="en">signal inlet for a patcher loaded by [hoa.process~] object</tr>
-                <tr lang="ru">сигнальный вход для патча, загружаемого объектом [hoa.process~]</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>spat</category>
-            <keywords>hoa inlet</keywords>
-            <since>0.8</since>
-            <also>
-                <see>hoa.in</see>
-                <see>hoa.out</see>
-                <see>hoa.out~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">defines a signal inlet for a patcher loaded by a hoa.process~
-                object</tr>
-                <!-- old: определяет вход сигнала для патчера, загруженного
+  <object name="hoa.in~">
+    <title>hoa.in~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+        <author>Pierre Guillot</author>
+        <author>Eliott Paris</author>
+        <author>Thomas Le Meur</author>
+      </authors>
+      <description>
+        <tr lang="en">signal inlet for a patcher loaded by [hoa.process~] object</tr>
+        <tr lang="ru">сигнальный вход для патча, загружаемого объектом [hoa.process~]</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>spat</category>
+      <keywords>hoa inlet</keywords>
+      <since>0.8</since>
+      <also>
+        <see>hoa.in</see>
+        <see>hoa.out</see>
+        <see>hoa.out~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">defines a signal inlet for a patcher loaded by a hoa.process~ object</tr>
+        <!-- old: определяет вход сигнала для патчера, загруженного
                 hoa.process~ объектом -->
-                <tr lang="ru" finished="false">определяет вход сигнала для патчера, загруженного
-                hoa.process~ объектом</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="EXTRA" type="int" minvalue="0">
-                <tr lang="en">shortcut for @extra property</tr>
-                <tr lang="ru" finished="false">Скриншоты для @extra Property</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @extra -->
-            <property name="@extra" type="int" minvalue="0" default="0">
-                <tr lang="en">extra inlet. Extra inlet are added to the "normal" instance inlet and
-                can be used to send signal to all instances</tr>
-                <!-- old: дополнительный вход. Дополнительный вход добавляется
+        <tr lang="ru" finished="false">определяет вход сигнала для патчера, загруженного
+        hoa.process~ объектом</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="EXTRA" type="int" minvalue="0">
+        <tr lang="en">shortcut for @extra property</tr>
+        <tr lang="ru" finished="false">Скриншоты для @extra Property</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @extra -->
+      <property name="@extra" type="int" minvalue="0" default="0">
+        <tr lang="en">extra inlet. Extra inlet are added to the "normal" instance inlet and can be
+        used to send signal to all instances</tr>
+        <!-- old: дополнительный вход. Дополнительный вход добавляется
                 к входу «нормального» экземпляра и может использоваться для отправки сигнала во все
                 экземпляры. -->
-                <tr lang="ru" finished="false">дополнительный вход. Дополнительный вход добавляется
-                к входу «нормального» экземпляра и может использоваться для отправки сигнала во все
-                экземпляры.</tr>
-            </property>
-        </properties>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal from a hoa.process~ object's inlet</tr>
-                    <tr lang="ru" finished="false">выходной сигнал от hoa.process ~ вход
-                    объекта</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">дополнительный вход. Дополнительный вход добавляется к входу
+        «нормального» экземпляра и может использоваться для отправки сигнала во все
+        экземпляры.</tr>
+      </property>
+    </properties>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal from a hoa.process~ object's inlet</tr>
+          <tr lang="ru" finished="false">выходной сигнал от hoa.process ~ вход объекта</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open 0 #a( [open 1 #b(           [F]
                                   |
@@ -76,7 +74,7 @@
 [X a->z]
 [X b->z]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

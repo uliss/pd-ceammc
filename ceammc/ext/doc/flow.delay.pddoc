@@ -1,115 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.delay">
-        <title>flow.delay</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">enhanced version of the vanilla [delay] object</tr>
-                <tr lang="ru">усовершенствованная версия объекта [delay]</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>flow delay</keywords>
-            <since>0.9.1</since>
-            <aliases>
-                <alias>flow.del</alias>
-            </aliases>
-            <also>
-                <see>delay</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Delay any incoming message by specified time. If @block=0 acts like
-                vanilla [delay] if new message has arrived while delay time is not expired, old
-                message is discarded and new delay time is set from current moment.</tr>
-                <!-- old: Задержка любого входящего сообщения по указанному
+  <object name="flow.delay">
+    <title>flow.delay</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">enhanced version of the vanilla [delay] object</tr>
+        <tr lang="ru">усовершенствованная версия объекта [delay]</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>flow delay</keywords>
+      <since>0.9.1</since>
+      <aliases>
+        <alias>flow.del</alias>
+      </aliases>
+      <also>
+        <see>delay</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Delay any incoming message by specified time. If @block=0 acts like vanilla
+        [delay] if new message has arrived while delay time is not expired, old message is
+        discarded and new delay time is set from current moment.</tr>
+        <!-- old: Задержка любого входящего сообщения по указанному
                 времени. Если @block=0 действует как ванильная [задержка], если новое сообщение
                 пришло, а время задержки не истекло, старое сообщение отбрасывается и новое время
                 задержки устанавливается с текущего момента. -->
-                <tr lang="ru" finished="false">Задержка любого входящего сообщения по указанному
-                времени. Если @block=0 действует как ванильная [задержка], если новое сообщение
-                пришло, а время задержки не истекло, старое сообщение отбрасывается и новое время
-                задержки устанавливается с текущего момента.</tr>
-            </par>
-            <par>
-                <tr lang="en">Zero delay time means output message on next Pd runloop iteration (as
-                soon as possible)</tr>
-                <!-- old: Нулевое время задержки означает выходное сообщение
+        <tr lang="ru" finished="false">Задержка любого входящего сообщения по указанному времени.
+        Если @block=0 действует как ванильная [задержка], если новое сообщение пришло, а время
+        задержки не истекло, старое сообщение отбрасывается и новое время задержки устанавливается
+        с текущего момента.</tr>
+      </par>
+      <par>
+        <tr lang="en">Zero delay time means output message on next Pd runloop iteration (as soon as
+        possible)</tr>
+        <!-- old: Нулевое время задержки означает выходное сообщение
                 на следующей итерации рулона Pd (как можно скорее). -->
-                <tr lang="ru" finished="false">Нулевое время задержки означает выходное сообщение
-                на следующей итерации рулона Pd (как можно скорее).</tr>
-            </par>
-            <par>
-                <tr lang="en">Note: @delay property can be set only via right inlet or [prop.set]
-                object</tr>
-                <!-- old: Примечание: свойство @delay может быть установлено
+        <tr lang="ru" finished="false">Нулевое время задержки означает выходное сообщение на
+        следующей итерации рулона Pd (как можно скорее).</tr>
+      </par>
+      <par>
+        <tr lang="en">Note: @delay property can be set only via right inlet or [prop.set]
+        object</tr>
+        <!-- old: Примечание: свойство @delay может быть установлено
                 только через правый вход или объект [prop.set] -->
-                <tr lang="ru" finished="false">Примечание: свойство @delay может быть установлено
-                только через правый вход или объект [prop.set]</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="DELAY" type="float" minvalue="0" units="millisecond">
-                <tr lang="en">init @delay property</tr>
-                <tr lang="ru" finished="false">Init @delay Недвижимость</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @block -->
-            <property name="@block" type="bool" default="0">
-                <tr lang="en">blocking mode. If true, discards incoming messages until scheduled
-                message will output, after that is ready to accept the new one. Otherwise acts like
-                vanilla [del] object.</tr>
-                <!-- old: Режим блокировки. Если это правда, отбрасывает
+        <tr lang="ru" finished="false">Примечание: свойство @delay может быть установлено только
+        через правый вход или объект [prop.set]</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="DELAY" type="float" minvalue="0" units="millisecond">
+        <tr lang="en">init @delay property</tr>
+        <tr lang="ru" finished="false">Init @delay Недвижимость</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @block -->
+      <property name="@block" type="bool" default="0">
+        <tr lang="en">blocking mode. If true, discards incoming messages until scheduled message
+        will output, after that is ready to accept the new one. Otherwise acts like vanilla [del]
+        object.</tr>
+        <!-- old: Режим блокировки. Если это правда, отбрасывает
                 входящие сообщения до выхода запланированного сообщения, после чего готов принять
                 новое. В остальном действует как ваниль [дель] объект. -->
-                <tr lang="ru" finished="false">Режим блокировки. Если это правда, отбрасывает
-                входящие сообщения до выхода запланированного сообщения, после чего готов принять
-                новое. В остальном действует как ваниль [дель] объект.</tr>
-            </property>
-            <!-- @delay -->
-            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
-                <tr lang="en">delay time</tr>
-                <tr lang="ru">время задержки</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="any">
-                    <tr lang="en">incoming message</tr>
-                    <tr lang="ru">входящее сообщение</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">cancels the current delay if it was scheduled</tr>
-                    <tr lang="ru">отменяет текущую задержку если она была запланирована</tr>
-                </in>
-                <in on="float" minvalue="0">
-                    <tr lang="en">set delay time</tr>
-                    <tr lang="ru">установить время задержки</tr>
-                </in>
-                <in on="any" selector="reset">
-                    <tr lang="en">cancels the current delay if it is scheduled</tr>
-                    <tr lang="ru">отменяет текущую задержку если она запланирована</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs delayed messages</tr>
-                    <tr lang="ru">выводит сообщения с задержкой</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Режим блокировки. Если это правда, отбрасывает входящие
+        сообщения до выхода запланированного сообщения, после чего готов принять новое. В остальном
+        действует как ваниль [дель] объект.</tr>
+      </property>
+      <!-- @delay -->
+      <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
+        <tr lang="en">delay time</tr>
+        <tr lang="ru">время задержки</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="any">
+          <tr lang="en">incoming message</tr>
+          <tr lang="ru">входящее сообщение</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">cancels the current delay if it was scheduled</tr>
+          <tr lang="ru">отменяет текущую задержку если она была запланирована</tr>
+        </in>
+        <in on="float" minvalue="0">
+          <tr lang="en">set delay time</tr>
+          <tr lang="ru">установить время задержки</tr>
+        </in>
+        <in on="any" selector="reset">
+          <tr lang="en">cancels the current delay if it is scheduled</tr>
+          <tr lang="ru">отменяет текущую задержку если она запланирована</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs delayed messages</tr>
+          <tr lang="ru">выводит сообщения с задержкой</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [@freq 1000( [@freq 2000(
 |            |
@@ -143,7 +143,7 @@
 |    |  |
 [print Z]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

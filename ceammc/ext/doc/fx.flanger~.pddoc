@@ -1,101 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.flanger~">
-        <title>fx.flanger~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">mono flanging effect</tr>
-                <tr lang="ru">одноканальный фленжер эффект</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx flanger</keywords>
-            <since>0.2</since>
-        </meta>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">
-                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-                <!-- old: Обходной флаг. Если это правда, обойдите
+  <object name="fx.flanger~">
+    <title>fx.flanger~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">mono flanging effect</tr>
+        <tr lang="ru">одноканальный фленжер эффект</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx flanger</keywords>
+      <since>0.2</since>
+    </meta>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @bypass -->
+      <property name="@bypass" type="bool" default="0">
+        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+        <!-- old: Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал. -->
-                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал.</tr>
-            </property>
-            <!-- @delay -->
-            <property name="@delay" type="float" minvalue="0" maxvalue="20" units="millisecond"
-            default="10">
-                <tr lang="en">flange delay</tr>
-                <tr lang="ru" finished="false">задержка</tr>
-            </property>
-            <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
-                signals. 0 - dry signal, 1 - wet.</tr>
-                <!-- old: пропорция смеси между исходным (сухим) и «влажным»
+        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
+        сигнал.</tr>
+      </property>
+      <!-- @delay -->
+      <property name="@delay" type="float" minvalue="0" maxvalue="20" units="millisecond"
+      default="10">
+        <tr lang="en">flange delay</tr>
+        <tr lang="ru" finished="false">задержка</tr>
+      </property>
+      <!-- @drywet -->
+      <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
+        - dry signal, 1 - wet.</tr>
+        <!-- old: пропорция смеси между исходным (сухим) и «влажным»
                 сигналами. 0 - сухой сигнал, 1 - влажный. -->
-                <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
-                сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
-            </property>
-            <!-- @feedback -->
-            <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">feedback gain</tr>
-                <tr lang="ru" finished="false">Обратная связь</tr>
-            </property>
-            <!-- @invert -->
-            <property name="@invert" type="bool" default="0">
-                <tr lang="en">0 for normal, 1 to invert sign of flanging sum</tr>
-                <!-- old: 0 для нормального, 1 для инвертирования знака
+        <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
+        сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
+      </property>
+      <!-- @feedback -->
+      <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">feedback gain</tr>
+        <tr lang="ru" finished="false">Обратная связь</tr>
+      </property>
+      <!-- @invert -->
+      <property name="@invert" type="bool" default="0">
+        <tr lang="en">0 for normal, 1 to invert sign of flanging sum</tr>
+        <!-- old: 0 для нормального, 1 для инвертирования знака
                 фланцевой суммы -->
-                <tr lang="ru" finished="false">0 для нормального, 1 для инвертирования знака
-                фланцевой суммы</tr>
-            </property>
-            <!-- @offset -->
-            <property name="@offset" type="float" minvalue="0" maxvalue="20" units="millisecond"
-            default="1">
-                <tr lang="en">flange delay offset</tr>
-                <tr lang="ru" finished="false">смещение задержек фланца</tr>
-            </property>
-            <!-- @speed -->
-            <property name="@speed" type="float" minvalue="0" maxvalue="10" default="0.5"
-            units="hertz">
-                <tr lang="en">flanger frequency</tr>
-                <tr lang="ru" finished="false">частота фланцев</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset object</tr>
-                    <tr lang="ru" finished="false">сбрасывать объект</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">0 для нормального, 1 для инвертирования знака фланцевой
+        суммы</tr>
+      </property>
+      <!-- @offset -->
+      <property name="@offset" type="float" minvalue="0" maxvalue="20" units="millisecond"
+      default="1">
+        <tr lang="en">flange delay offset</tr>
+        <tr lang="ru" finished="false">смещение задержек фланца</tr>
+      </property>
+      <!-- @speed -->
+      <property name="@speed" type="float" minvalue="0" maxvalue="10" default="0.5" units="hertz">
+        <tr lang="en">flanger frequency</tr>
+        <tr lang="ru" finished="false">частота фланцев</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset object</tr>
+          <tr lang="ru" finished="false">сбрасывать объект</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |
@@ -123,7 +122,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.remove">
-        <title>list.remove</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">remove list elements at specified positions</tr>
-                <tr lang="ru">удалить элементы списка по указанным позициям</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list remove</keywords>
-            <since>0.6</since>
-            <also>
-                <see>list.insert</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="INDEXES" type="list">
-                <tr lang="en">list of indexes to remove. Negative indexes are also supported</tr>
-                <!-- old: Список индексов для удаления. Негативные индексы
+  <object name="list.remove">
+    <title>list.remove</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">remove list elements at specified positions</tr>
+        <tr lang="ru">удалить элементы списка по указанным позициям</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list remove</keywords>
+      <since>0.6</since>
+      <also>
+        <see>list.insert</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="INDEXES" type="list">
+        <tr lang="en">list of indexes to remove. Negative indexes are also supported</tr>
+        <!-- old: Список индексов для удаления. Негативные индексы
                 также поддерживаются. -->
-                <tr lang="ru" finished="false">Список индексов для удаления. Негативные индексы
-                также поддерживаются.</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @indexes -->
-            <property name="@indexes" type="list" default="">
-                <tr lang="en">indexes to remove</tr>
-                <tr lang="ru" finished="false">Индексы для удаления</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set remove indexes</tr>
-                    <tr lang="ru" finished="false">Удалить индексы</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output list</tr>
-                    <tr lang="ru" finished="false">перечень мероприятий</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Список индексов для удаления. Негативные индексы также
+        поддерживаются.</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @indexes -->
+      <property name="@indexes" type="list" default="">
+        <tr lang="en">indexes to remove</tr>
+        <tr lang="ru" finished="false">Индексы для удаления</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set remove indexes</tr>
+          <tr lang="ru" finished="false">Удалить индексы</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output list</tr>
+          <tr lang="ru" finished="false">перечень мероприятий</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2 3 4 5 6(      [\(a b c d e\), bang(
 |                  |
@@ -74,7 +74,7 @@
 |
 [ui.display @display_type 1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

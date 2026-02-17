@@ -1,96 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.each">
-        <title>list.each</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">maps an each list value via an external side-chain</tr>
-                <tr lang="ru">отображает каждое значение списка через внешнюю боковую цепь
-                обработки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list functional map iterate</keywords>
-            <since>0.1</since>
-            <also>
-                <see>list.do</see>
-                <see>list.apply_to</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Each @step elements are passed via righmost outlet to extenal object,
-                that suppose to return it back to rightmost inlet. So various mapping and filtering
-                are possible.</tr>
-                <!-- old: Каждый элемент @step передается через самую высокую
+  <object name="list.each">
+    <title>list.each</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">maps an each list value via an external side-chain</tr>
+        <tr lang="ru">отображает каждое значение списка через внешнюю боковую цепь обработки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list functional map iterate</keywords>
+      <since>0.1</since>
+      <also>
+        <see>list.do</see>
+        <see>list.apply_to</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Each @step elements are passed via righmost outlet to extenal object, that
+        suppose to return it back to rightmost inlet. So various mapping and filtering are
+        possible.</tr>
+        <!-- old: Каждый элемент @step передается через самую высокую
                 розетку на экстенальный объект, который, как предполагается, возвращает его обратно
                 в самую правую розетку. Таким образом, возможны различные картографирование и
                 фильтрация. -->
-                <tr lang="ru" finished="false">Каждый элемент @step передается через самую высокую
-                розетку на экстенальный объект, который, как предполагается, возвращает его обратно
-                в самую правую розетку. Таким образом, возможны различные картографирование и
-                фильтрация.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="STEP" type="int" minvalue="1" maxvalue="1024">
-                <tr lang="en">see @step property</tr>
-                <tr lang="ru" finished="false">См. @step property</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @step -->
-            <property name="@step" type="int" minvalue="1" maxvalue="1024" default="1">
-                <tr lang="en">number of elements outputted to rightmost outlet on each
-                iteration</tr>
-                <!-- old: количество элементов, выводимых в самую правильную
+        <tr lang="ru" finished="false">Каждый элемент @step передается через самую высокую розетку
+        на экстенальный объект, который, как предполагается, возвращает его обратно в самую правую
+        розетку. Таким образом, возможны различные картографирование и фильтрация.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="STEP" type="int" minvalue="1" maxvalue="1024">
+        <tr lang="en">see @step property</tr>
+        <tr lang="ru" finished="false">См. @step property</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @step -->
+      <property name="@step" type="int" minvalue="1" maxvalue="1024" default="1">
+        <tr lang="en">number of elements outputted to rightmost outlet on each iteration</tr>
+        <!-- old: количество элементов, выводимых в самую правильную
                 точку на каждой итерации -->
-                <tr lang="ru" finished="false">количество элементов, выводимых в самую правильную
-                точку на каждой итерации</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">Input list</tr>
-                    <tr lang="ru" finished="false">Список вводимых данных</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">Input mlist</tr>
-                    <tr lang="ru" finished="false">Входной млист</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">New modified value from applied object.</tr>
-                    <!-- old: Новое модифицированное значение от прикладного
+        <tr lang="ru" finished="false">количество элементов, выводимых в самую правильную точку на
+        каждой итерации</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">Input list</tr>
+          <tr lang="ru" finished="false">Список вводимых данных</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">Input mlist</tr>
+          <tr lang="ru" finished="false">Входной млист</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">New modified value from applied object.</tr>
+          <!-- old: Новое модифицированное значение от прикладного
                     объекта. -->
-                    <tr lang="ru" finished="false">Новое модифицированное значение от прикладного
-                    объекта.</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">New modified list (or mlist)</tr>
-                    <tr lang="ru" finished="false">Новый измененный список (или млист)</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">single element or list of values (if @step property &gt; 1)</tr>
-                    <tr lang="ru" finished="false">один элемент или список значений (если @step
-                    свойство &gt; 1)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Новое модифицированное значение от прикладного
+          объекта.</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">New modified list (or mlist)</tr>
+          <tr lang="ru" finished="false">Новый измененный список (или млист)</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">single element or list of values (if @step property &gt; 1)</tr>
+          <tr lang="ru" finished="false">один элемент или список значений (если @step свойство &gt;
+          1)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2 3 4 5 6 7 8 9(   [1 2 3 4 5 6 7 8 9(
 |                     |
@@ -110,7 +107,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

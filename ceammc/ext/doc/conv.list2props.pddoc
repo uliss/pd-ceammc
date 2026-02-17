@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.list2props">
-        <title>conv.list2props</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts list to series of property messages</tr>
-                <tr lang="ru">преобразует список в серию свойств-сообщений</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv properties</keywords>
-            <since>0.7</since>
-            <aliases>
-                <alias>ceammc/list-&gt;props</alias>
-                <alias>list-&gt;props</alias>
-                <alias>ceammc/any-&gt;props</alias>
-                <alias>any-&gt;props</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">list of properties</tr>
-                    <tr lang="ru" finished="false">Список свойств</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">list of properties</tr>
-                    <tr lang="ru" finished="false">Список свойств</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">sequence of @prop messages</tr>
-                    <tr lang="ru" finished="false">Последовательность сообщений @prop</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list of non prop arguments</tr>
-                    <tr lang="ru" finished="false">Список аргументов non prop</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="conv.list2props">
+    <title>conv.list2props</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts list to series of property messages</tr>
+        <tr lang="ru">преобразует список в серию свойств-сообщений</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv properties</keywords>
+      <since>0.7</since>
+      <aliases>
+        <alias>ceammc/list-&gt;props</alias>
+        <alias>list-&gt;props</alias>
+        <alias>ceammc/any-&gt;props</alias>
+        <alias>any-&gt;props</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">list of properties</tr>
+          <tr lang="ru" finished="false">Список свойств</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">list of properties</tr>
+          <tr lang="ru" finished="false">Список свойств</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">sequence of @prop messages</tr>
+          <tr lang="ru" finished="false">Последовательность сообщений @prop</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list of non prop arguments</tr>
+          <tr lang="ru" finished="false">Список аргументов non prop</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [list 1 2 3 @prop1 100 @prop2 A B C @prop3(
 |
@@ -59,7 +59,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

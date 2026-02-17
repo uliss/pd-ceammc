@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.rms">
-        <title>array.rms</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">calculates the root mean square value for the array</tr>
-                <tr lang="ru">вычисляет среднее квадратичное значение для массива</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array mean rms square</keywords>
-            <since>0.7.1</since>
-            <also>
-                <see>array.mean</see>
-                <see>array.sum2</see>
-            </also>
-        </meta>
-        <info>
-            <wiki name="Root_mean_square">Root mean square</wiki>
-        </info>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">calculates and outputs RMS value</tr>
-                    <tr lang="ru">вычисляет и выводит значение RMS</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="float">
-                    <tr lang="en">RMS value</tr>
-                    <tr lang="ru">среднее квадратичное значение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.rms">
+    <title>array.rms</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">calculates the root mean square value for the array</tr>
+        <tr lang="ru">вычисляет среднее квадратичное значение для массива</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array mean rms square</keywords>
+      <since>0.7.1</since>
+      <also>
+        <see>array.mean</see>
+        <see>array.sum2</see>
+      </also>
+    </meta>
+    <info>
+      <wiki name="Root_mean_square">Root mean square</wiki>
+    </info>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">calculates and outputs RMS value</tr>
+          <tr lang="ru">вычисляет и выводит значение RMS</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="float">
+          <tr lang="en">RMS value</tr>
+          <tr lang="ru">среднее квадратичное значение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]                       [array arms size=300 w=300 h=100]
 |
@@ -69,7 +69,7 @@
 |         |         |             |        |          |
 [array.fill                                       arms]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

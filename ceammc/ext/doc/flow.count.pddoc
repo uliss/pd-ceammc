@@ -1,81 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.count">
-        <title>flow.count</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">control flow event counter</tr>
-                <tr lang="ru">счетчик числа сообщений в управляющем потоке</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>counter</keywords>
-            <since>0.4</since>
-        </meta>
-        <arguments>
-            <argument name="VALUE" type="int" minvalue="0">
-                <tr lang="en">counter initial value</tr>
-                <tr lang="ru">начальное значение счетчика</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @value -->
-            <property name="@value" type="int" minvalue="0" default="0">
-                <tr lang="en">current counter value. It can be set via the message to the second(!)
-                inlet or using [prop.set] object.</tr>
-                <tr lang="ru">текущее значение счетчика. Его можно установить через отправку
-                сообщения на второй (!) вход или используя [prop.set] объект.</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="any">
-                    <tr lang="en">input messages</tr>
-                    <tr lang="ru">входные сообщения</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">reset the counter to the init value (no output)</tr>
-                    <tr lang="ru">сбрасывает счетчик на начальное значение (без вывода)</tr>
-                </in>
-                <in on="int">
-                    <tr lang="en">sets the current value (no output)</tr>
-                    <tr lang="ru">устанавливает текущее значение (без вывода)</tr>
-                </in>
-                <in on="any" selector="@value X">
-                    <tr lang="en">sets the current value (no output)</tr>
-                    <tr lang="ru">установить текущее значение (без вывода)</tr>
-                </in>
-                <in on="any" selector="@value?">
-                    <tr lang="en">outputs the current value</tr>
-                    <tr lang="ru">выводит текущее значение</tr>
-                </in>
-                <in on="any" selector="+ X">
-                    <tr lang="en">add the specified value to the current one (no output)</tr>
-                    <tr lang="ru">добавить указанное значение к текущему (без вывода)</tr>
-                </in>
-                <in on="any" selector="- X">
-                    <tr lang="en">subtract the specified value from the current one (no
-                    output)</tr>
-                    <tr lang="ru">вычесть указанное значение из текущего (без вывода)</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="int">
-                    <tr lang="en">outputs the counter value</tr>
-                    <tr lang="ru">выводит значение счетчика</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flow.count">
+    <title>flow.count</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">control flow event counter</tr>
+        <tr lang="ru">счетчик числа сообщений в управляющем потоке</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>counter</keywords>
+      <since>0.4</since>
+    </meta>
+    <arguments>
+      <argument name="VALUE" type="int" minvalue="0">
+        <tr lang="en">counter initial value</tr>
+        <tr lang="ru">начальное значение счетчика</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @value -->
+      <property name="@value" type="int" minvalue="0" default="0">
+        <tr lang="en">current counter value. It can be set via the message to the second(!) inlet
+        or using [prop.set] object.</tr>
+        <tr lang="ru">текущее значение счетчика. Его можно установить через отправку сообщения на
+        второй (!) вход или используя [prop.set] объект.</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="any">
+          <tr lang="en">input messages</tr>
+          <tr lang="ru">входные сообщения</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">reset the counter to the init value (no output)</tr>
+          <tr lang="ru">сбрасывает счетчик на начальное значение (без вывода)</tr>
+        </in>
+        <in on="int">
+          <tr lang="en">sets the current value (no output)</tr>
+          <tr lang="ru">устанавливает текущее значение (без вывода)</tr>
+        </in>
+        <in on="any" selector="@value X">
+          <tr lang="en">sets the current value (no output)</tr>
+          <tr lang="ru">установить текущее значение (без вывода)</tr>
+        </in>
+        <in on="any" selector="@value?">
+          <tr lang="en">outputs the current value</tr>
+          <tr lang="ru">выводит текущее значение</tr>
+        </in>
+        <in on="any" selector="+ X">
+          <tr lang="en">add the specified value to the current one (no output)</tr>
+          <tr lang="ru">добавить указанное значение к текущему (без вывода)</tr>
+        </in>
+        <in on="any" selector="- X">
+          <tr lang="en">subtract the specified value from the current one (no output)</tr>
+          <tr lang="ru">вычесть указанное значение из текущего (без вывода)</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="int">
+          <tr lang="en">outputs the counter value</tr>
+          <tr lang="ru">выводит значение счетчика</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |
@@ -87,7 +86,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,84 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.sync_xor">
-        <title>math.sync_xor</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sync logical XOR operation</tr>
-                <tr lang="ru">логическая операция исключающее ИЛИ</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math sync logical xor</keywords>
-            <aliases>
-                <alias>math.^'</alias>
-                <alias>ceammc/^'</alias>
-                <alias>^'</alias>
-            </aliases>
-            <since>0.8</since>
-            <also>
-                <see>math.||'</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Only 1 and 0 values are accepted. Any other number treat as 1, but
-                print error to console.</tr>
-                <!-- old: Принимаются только значения 1 и 0. Любое другое
+  <object name="math.sync_xor">
+    <title>math.sync_xor</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sync logical XOR operation</tr>
+        <tr lang="ru">логическая операция исключающее ИЛИ</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math sync logical xor</keywords>
+      <aliases>
+        <alias>math.^'</alias>
+        <alias>ceammc/^'</alias>
+        <alias>^'</alias>
+      </aliases>
+      <since>0.8</since>
+      <also>
+        <see>math.||'</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Only 1 and 0 values are accepted. Any other number treat as 1, but print
+        error to console.</tr>
+        <!-- old: Принимаются только значения 1 и 0. Любое другое
                 число рассматривается как 1, но ошибка печати для консоли. -->
-                <tr lang="ru" finished="false">Принимаются только значения 1 и 0. Любое другое
-                число рассматривается как 1, но ошибка печати для консоли.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="V" type="int" enum="0 1">
-                <tr lang="en">second value</tr>
-                <tr lang="ru" finished="false">второе значение</tr>
-            </argument>
-        </arguments>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set first value, calculate and output result</tr>
-                    <!-- old: установить первое значение, вычислить и получить
+        <tr lang="ru" finished="false">Принимаются только значения 1 и 0. Любое другое число
+        рассматривается как 1, но ошибка печати для консоли.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="V" type="int" enum="0 1">
+        <tr lang="en">second value</tr>
+        <tr lang="ru" finished="false">второе значение</tr>
+      </argument>
+    </arguments>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set first value, calculate and output result</tr>
+          <!-- old: установить первое значение, вычислить и получить
                     результат -->
-                    <tr lang="ru" finished="false">установить первое значение, вычислить и получить
-                    результат</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">pair: set first and second values, calculate and output
-                    result</tr>
-                    <!-- old: пара: установить первое и второе значения,
+          <tr lang="ru" finished="false">установить первое значение, вычислить и получить
+          результат</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">pair: set first and second values, calculate and output result</tr>
+          <!-- old: пара: установить первое и второе значения,
                     вычислить и вывести результат -->
-                    <tr lang="ru" finished="false">пара: установить первое и второе значения,
-                    вычислить и вывести результат</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">change second value, calculate and output result</tr>
-                    <!-- old: изменение второго значения, вычисление и
+          <tr lang="ru" finished="false">пара: установить первое и второе значения, вычислить и
+          вывести результат</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">change second value, calculate and output result</tr>
+          <!-- old: изменение второго значения, вычисление и
                     выходной результат -->
-                    <tr lang="ru" finished="false">изменение второго значения, вычисление и
-                    выходной результат</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output 1 or 0, according logical XOR operation</tr>
-                    <tr lang="ru" finished="false">выход 1 или 0 согласно логической операции
-                    XOR</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">изменение второго значения, вычисление и выходной
+          результат</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output 1 or 0, according logical XOR operation</tr>
+          <tr lang="ru" finished="false">выход 1 или 0 согласно логической операции XOR</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [_]   [_]   /*0 0 | 0*/
 |     |
@@ -88,7 +86,7 @@
 |
 [_]         /*1 1 | 0*/
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

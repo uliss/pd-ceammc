@@ -1,76 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="path.lsdir">
-        <title>path.lsdir</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">list directory contents</tr>
-                <tr lang="ru">cписок содержимого каталога</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>path</category>
-            <keywords>path list</keywords>
-            <since>0.2</since>
-            <aliases>
-                <alias>path.ls</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="PATH" type="list">
-                <tr lang="en">init directory value</tr>
-                <tr lang="ru" finished="false">значение каталога init</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @match -->
-            <property name="@match" type="symbol" default="">
-                <tr lang="en">match mask: for example *.wav for all wav files</tr>
-                <tr lang="ru" finished="false">Матч маска: например *.wav для всех файлов wav</tr>
-            </property>
-            <!-- @path -->
-            <property name="@path" type="list" default="">
-                <tr lang="en">current path</tr>
-                <tr lang="ru" finished="false">Текущий путь</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output directory content</tr>
-                    <tr lang="ru" finished="false">выходное содержимое каталога</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">set directory path (symbol or string) and output it content. If
-                    not absolute path is given list current patch directory</tr>
-                    <!-- old: установить путь каталога (символ или строка) и
+  <object name="path.lsdir">
+    <title>path.lsdir</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">list directory contents</tr>
+        <tr lang="ru">cписок содержимого каталога</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>path</category>
+      <keywords>path list</keywords>
+      <since>0.2</since>
+      <aliases>
+        <alias>path.ls</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="PATH" type="list">
+        <tr lang="en">init directory value</tr>
+        <tr lang="ru" finished="false">значение каталога init</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @match -->
+      <property name="@match" type="symbol" default="">
+        <tr lang="en">match mask: for example *.wav for all wav files</tr>
+        <tr lang="ru" finished="false">Матч маска: например *.wav для всех файлов wav</tr>
+      </property>
+      <!-- @path -->
+      <property name="@path" type="list" default="">
+        <tr lang="en">current path</tr>
+        <tr lang="ru" finished="false">Текущий путь</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output directory content</tr>
+          <tr lang="ru" finished="false">выходное содержимое каталога</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">set directory path (symbol or string) and output it content. If not
+          absolute path is given list current patch directory</tr>
+          <!-- old: установить путь каталога (символ или строка) и
                     вывести его содержимое. Если не абсолютный путь дан список текущий каталог
                     патчей -->
-                    <tr lang="ru" finished="false">установить путь каталога (символ или строка) и
-                    вывести его содержимое. Если не абсолютный путь дан список текущий каталог
-                    патчей</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">set @match property</tr>
-                    <tr lang="ru" finished="false">Обсуждение @match Property</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list of strings</tr>
-                    <tr lang="ru" finished="false">Список строк</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">установить путь каталога (символ или строка) и вывести его
+          содержимое. Если не абсолютный путь дан список текущий каталог патчей</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">set @match property</tr>
+          <tr lang="ru" finished="false">Обсуждение @match Property</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list of strings</tr>
+          <tr lang="ru" finished="false">Список строк</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(     [symbol /(     [B]              [S digits=10]
 |          |              |                |.
@@ -80,7 +79,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

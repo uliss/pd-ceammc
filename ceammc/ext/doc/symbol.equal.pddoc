@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="symbol.equal">
-        <title>symbol.equal</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">check symbols for equality</tr>
-                <tr lang="ru">проверка символов на равенство</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>symbol</category>
-            <keywords>symbol compare</keywords>
-            <since>0.1</since>
-        </meta>
-        <arguments>
-            <argument name="CMP" type="symbol">
-                <tr lang="en">compare symbol</tr>
-                <tr lang="ru" finished="false">Сравнительный символ</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @cmp -->
-            <property name="@cmp" type="symbol" default="">
-                <tr lang="en">symbol to compare with</tr>
-                <tr lang="ru" finished="false">Символ для сравнения с</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">first symbol</tr>
-                    <tr lang="ru" finished="false">Первый символ</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">second symbol</tr>
-                    <tr lang="ru" finished="false">Второй символ</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs 1 if symbols are equal, otherwise 0</tr>
-                    <tr lang="ru" finished="false">1 если символы равны, в противном случае 0</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="symbol.equal">
+    <title>symbol.equal</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">check symbols for equality</tr>
+        <tr lang="ru">проверка символов на равенство</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>symbol</category>
+      <keywords>symbol compare</keywords>
+      <since>0.1</since>
+    </meta>
+    <arguments>
+      <argument name="CMP" type="symbol">
+        <tr lang="en">compare symbol</tr>
+        <tr lang="ru" finished="false">Сравнительный символ</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @cmp -->
+      <property name="@cmp" type="symbol" default="">
+        <tr lang="en">symbol to compare with</tr>
+        <tr lang="ru" finished="false">Символ для сравнения с</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">first symbol</tr>
+          <tr lang="ru" finished="false">Первый символ</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">second symbol</tr>
+          <tr lang="ru" finished="false">Второй символ</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs 1 if symbols are equal, otherwise 0</tr>
+          <tr lang="ru" finished="false">1 если символы равны, в противном случае 0</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol a( [symbol b( [symbol c(
 |          |          |
@@ -63,7 +63,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

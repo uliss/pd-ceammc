@@ -1,90 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="rtree.to_list">
-        <title>rtree.to_list</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert OpenMusic-like rhythm tree to list of fractions</tr>
-                <tr lang="ru">преобразует OpenMusic-подобное ритмическое дерево в список
-                дробей</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>rhythm rtree openmusic pattern</keywords>
-            <since>0.9.1</since>
-            <aliases>
-                <alias>ceammc/rtree-&gt;list</alias>
-                <alias>rtree-&gt;list</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">rhythm tree is structure to define complex rhythmic patterns</tr>
-                <tr lang="ru" finished="false">Ритмовое дерево — это структура, определяющая
-                сложные ритмические паттерны.</tr>
-            </par>
-            <par>
-                <tr lang="en">Examples: (1 1 1) - triplet, (2 1) - swing</tr>
-                <tr lang="ru" finished="false">Примеры: (1 1 1) - триплет, (2 1) - качели</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="DUR" type="float">
-                <tr lang="en">total pattern duration</tr>
-                <tr lang="ru" finished="false">общая продолжительность картины</tr>
-            </argument>
-            <argument name="RTREE" type="atom">
-                <tr lang="en">rhythm tree</tr>
-                <tr lang="ru" finished="false">ритмическое дерево</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @dur -->
-            <property name="@dur" type="float" default="1">
-                <tr lang="en">total pattern duration</tr>
-                <tr lang="ru" finished="false">общая продолжительность картины</tr>
-            </property>
-            <!-- @rtree -->
-            <property name="@rtree" type="atom" default="()">
-                <tr lang="en">rhythm tree. (MList)</tr>
-                <tr lang="ru" finished="false">Ритмовое дерево. (Список)</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">set @dur and output</tr>
-                    <tr lang="ru" finished="false">Set @dur и выход</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">set @rtree, no output</tr>
-                    <tr lang="ru" finished="false">Set @rtree, нет выхода</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">parse message and set @rtree, no output</tr>
-                    <tr lang="ru" finished="false">parse message and set @rtree, no output
-                    (недоступная ссылка)</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list output</tr>
-                    <tr lang="ru" finished="false">перечень мероприятий</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="rtree.to_list">
+    <title>rtree.to_list</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert OpenMusic-like rhythm tree to list of fractions</tr>
+        <tr lang="ru">преобразует OpenMusic-подобное ритмическое дерево в список дробей</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>rhythm rtree openmusic pattern</keywords>
+      <since>0.9.1</since>
+      <aliases>
+        <alias>ceammc/rtree-&gt;list</alias>
+        <alias>rtree-&gt;list</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">rhythm tree is structure to define complex rhythmic patterns</tr>
+        <tr lang="ru" finished="false">Ритмовое дерево — это структура, определяющая сложные
+        ритмические паттерны.</tr>
+      </par>
+      <par>
+        <tr lang="en">Examples: (1 1 1) - triplet, (2 1) - swing</tr>
+        <tr lang="ru" finished="false">Примеры: (1 1 1) - триплет, (2 1) - качели</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="DUR" type="float">
+        <tr lang="en">total pattern duration</tr>
+        <tr lang="ru" finished="false">общая продолжительность картины</tr>
+      </argument>
+      <argument name="RTREE" type="atom">
+        <tr lang="en">rhythm tree</tr>
+        <tr lang="ru" finished="false">ритмическое дерево</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @dur -->
+      <property name="@dur" type="float" default="1">
+        <tr lang="en">total pattern duration</tr>
+        <tr lang="ru" finished="false">общая продолжительность картины</tr>
+      </property>
+      <!-- @rtree -->
+      <property name="@rtree" type="atom" default="()">
+        <tr lang="en">rhythm tree. (MList)</tr>
+        <tr lang="ru" finished="false">Ритмовое дерево. (Список)</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">set @dur and output</tr>
+          <tr lang="ru" finished="false">Set @dur и выход</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">set @rtree, no output</tr>
+          <tr lang="ru" finished="false">Set @rtree, нет выхода</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">parse message and set @rtree, no output</tr>
+          <tr lang="ru" finished="false">parse message and set @rtree, no output (недоступная
+          ссылка)</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list output</tr>
+          <tr lang="ru" finished="false">перечень мероприятий</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang( [F]  [\(1 2 2 1\), bang( [\(2 1 1\), bang( [\(3 1\), bang(
 |      |    |                   |                 |
@@ -110,7 +109,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

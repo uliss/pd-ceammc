@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="obj.props">
-        <title>obj.props</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">exctract object properties from the connected object</tr>
-                <tr lang="ru">извлекает свойства из подключенного объекта</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>base</category>
-            <keywords>property</keywords>
-            <since>0.7</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">extract properties from object, connected to second outlet</tr>
-                <!-- old: извлекать свойства из объекта, подключенного ко
+  <object name="obj.props">
+    <title>obj.props</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">exctract object properties from the connected object</tr>
+        <tr lang="ru">извлекает свойства из подключенного объекта</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>base</category>
+      <keywords>property</keywords>
+      <since>0.7</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">extract properties from object, connected to second outlet</tr>
+        <!-- old: извлекать свойства из объекта, подключенного ко
                 второй розетке -->
-                <tr lang="ru" finished="false">извлекать свойства из объекта, подключенного ко
-                второй розетке</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output extracted properties to first outlet</tr>
-                    <tr lang="ru" finished="false">вывод извлеченных свойств на первый выход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">property output (data:dict)</tr>
-                    <tr lang="ru" finished="false">Свойства вывода (data:dict)</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">connect to examined object</tr>
-                    <tr lang="ru" finished="false">Подключение к исследуемому объекту</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">извлекать свойства из объекта, подключенного ко второй
+        розетке</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output extracted properties to first outlet</tr>
+          <tr lang="ru" finished="false">вывод извлеченных свойств на первый выход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">property output (data:dict)</tr>
+          <tr lang="ru" finished="false">Свойства вывода (data:dict)</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">connect to examined object</tr>
+          <tr lang="ru" finished="false">Подключение к исследуемому объекту</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -61,7 +61,7 @@
 
 /* ... */
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

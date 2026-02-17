@@ -1,83 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="synth.shakers~">
-        <title>synth.shakers~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">various percussion sounds from STK library</tr>
-                <tr lang="ru">различные перкуссионные звуки из библиотеки STK</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>synth</category>
-            <keywords>shakers percussion</keywords>
-            <since>0.6</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">PhISEM (Physically Informed Stochastic Event Modeling) is an
-                algorithmic approach for simulating collisions of multiple independent sound
-                producing objects. This class is a meta-model that can simulate a Maraca, Sekere,
-                Cabasa, Bamboo Wind Chimes, Water Drops, Tambourine, Sleighbells, and a Guiro.</tr>
-            </par>
-            <par>
-                <tr lang="en">PhOLIES (Physically-Oriented Library of Imitated Environmental
-                Sounds) is a similar approach for the synthesis of environmental sounds. This class
-                implements simulations of breaking sticks, crunchy snow (or not), a wrench,
-                sandpaper, and more.</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @gate -->
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">synth gate (&gt;0 - play)</tr>
-            </property>
-            <!-- @type -->
-            <property name="@type" type="atom"
-            enum="maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes"
-            default="maraca">
-                <tr lang="en">instrument type</tr>
-            </property>
-            <!-- @types -->
-            <property name="@types" type="list" access="readonly"
-            default="maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes">
+  <object name="synth.shakers~">
+    <title>synth.shakers~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">various percussion sounds from STK library</tr>
+        <tr lang="ru">различные перкуссионные звуки из библиотеки STK</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>synth</category>
+      <keywords>shakers percussion</keywords>
+      <since>0.6</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic
+        approach for simulating collisions of multiple independent sound producing objects. This
+        class is a meta-model that can simulate a Maraca, Sekere, Cabasa, Bamboo Wind Chimes, Water
+        Drops, Tambourine, Sleighbells, and a Guiro.</tr>
+      </par>
+      <par>
+        <tr lang="en">PhOLIES (Physically-Oriented Library of Imitated Environmental Sounds) is a
+        similar approach for the synthesis of environmental sounds. This class implements
+        simulations of breaking sticks, crunchy snow (or not), a wrench, sandpaper, and more.</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @gate -->
+      <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">synth gate (&gt;0 - play)</tr>
+      </property>
+      <!-- @type -->
+      <property name="@type" type="atom"
+      enum="maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes"
+      default="maraca">
+        <tr lang="en">instrument type</tr>
+      </property>
+      <!-- @types -->
+      <property name="@types" type="list" access="readonly"
+      default="maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes">
 
-                <tr lang="en">all instrument types</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- cc -->
-            <method name="cc">
-                <info>
-                    <tr lang="en">Control change</tr>
-                </info>
-                <param name="CTL" type="int" required="true">
-                    <tr lang="en">control number</tr>
-                </param>
-                <param name="VAL" type="float" required="true">
-                    <tr lang="en">value</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control inlet</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en" />
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="en">all instrument types</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- cc -->
+      <method name="cc">
+        <info>
+          <tr lang="en">Control change</tr>
+        </info>
+        <param name="CTL" type="int" required="true">
+          <tr lang="en">control number</tr>
+        </param>
+        <param name="VAL" type="float" required="true">
+          <tr lang="en">value</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control inlet</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en" />
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.icon get_app] [loadbang] [r menu]
 |                 |          |
@@ -101,7 +100,7 @@
 | \
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

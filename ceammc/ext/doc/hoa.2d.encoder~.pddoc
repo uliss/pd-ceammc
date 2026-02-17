@@ -1,91 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hoa.2d.encoder~">
-        <title>hoa.2d.encoder~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-                <author>Pierre Guillot</author>
-                <author>Eliott Paris</author>
-                <author>Thomas Le Meur</author>
-            </authors>
-            <description>
-                <tr lang="en">2D decoder of higher order ambisonics</tr>
-                <tr lang="ru">двумерный кодировщик амбисоников высоких порядков</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>spat</category>
-            <keywords>hoa encoder</keywords>
-            <since>0.8</since>
-            <also>
-                <see>hoa.2d.decoder~</see>
-            </also>
-            <aliases>
-                <alias>hoa.encoder~</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Creates the circular harmonics of a signal depending of a given order
-                and a position on a circle given in radians (θ).</tr>
-                <!-- old: Создает круговые гармоники сигнала в зависимости от
+  <object name="hoa.2d.encoder~">
+    <title>hoa.2d.encoder~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+        <author>Pierre Guillot</author>
+        <author>Eliott Paris</author>
+        <author>Thomas Le Meur</author>
+      </authors>
+      <description>
+        <tr lang="en">2D decoder of higher order ambisonics</tr>
+        <tr lang="ru">двумерный кодировщик амбисоников высоких порядков</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>spat</category>
+      <keywords>hoa encoder</keywords>
+      <since>0.8</since>
+      <also>
+        <see>hoa.2d.decoder~</see>
+      </also>
+      <aliases>
+        <alias>hoa.encoder~</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Creates the circular harmonics of a signal depending of a given order and a
+        position on a circle given in radians (θ).</tr>
+        <!-- old: Создает круговые гармоники сигнала в зависимости от
                 заданного порядка и положения на круге, заданном в радианах (θ). -->
-                <tr lang="ru" finished="false">Создает круговые гармоники сигнала в зависимости от
-                заданного порядка и положения на круге, заданном в радианах (θ).</tr>
-            </par>
-            <a href="hoa/hoa.2d.encoder~-help.pd">CICM documentation</a>
-        </info>
-        <arguments>
-            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
-                <tr lang="en">the order of decomposition</tr>
-                <tr lang="ru" finished="false">Порядок разложения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @order -->
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="initonly">
-                <tr lang="en">the order of decomposition</tr>
-                <tr lang="ru" finished="false">Порядок разложения</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">position on a circle in radians</tr>
-                    <tr lang="ru" finished="false">Положение на круге в радианах</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">first circular harmonics output</tr>
-                    <tr lang="ru" finished="false">Первая круговая гармоника выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="...">
-                <out type="any">
-                    <tr lang="en">... circular harmonics output</tr>
-                    <tr lang="ru" finished="false">... круглые гармоники выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="n">
-                <out type="any">
-                    <tr lang="en">n-th circular harmonics output</tr>
-                    <tr lang="ru" finished="false">n-я круговая гармоника выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Создает круговые гармоники сигнала в зависимости от
+        заданного порядка и положения на круге, заданном в радианах (θ).</tr>
+      </par>
+      <a href="hoa/hoa.2d.encoder~-help.pd">CICM documentation</a>
+    </info>
+    <arguments>
+      <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
+        <tr lang="en">the order of decomposition</tr>
+        <tr lang="ru" finished="false">Порядок разложения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @order -->
+      <property name="@order" type="int" minvalue="1" maxvalue="63" default="1" access="initonly">
+        <tr lang="en">the order of decomposition</tr>
+        <tr lang="ru" finished="false">Порядок разложения</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">position on a circle in radians</tr>
+          <tr lang="ru" finished="false">Положение на круге в радианах</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">first circular harmonics output</tr>
+          <tr lang="ru" finished="false">Первая круговая гармоника выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="...">
+        <out type="any">
+          <tr lang="en">... circular harmonics output</tr>
+          <tr lang="ru" finished="false">... круглые гармоники выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="n">
+        <out type="any">
+          <tr lang="en">n-th circular harmonics output</tr>
+          <tr lang="ru" finished="false">n-я круговая гармоника выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [lfo.square~ 1]                    [phasor~ 0.15]
 |                                  |
@@ -108,7 +107,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

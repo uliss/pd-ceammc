@@ -1,83 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="osc.saw4~">
-        <title>osc.saw4~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">bandlimited sawtooth wave</tr>
-                <tr lang="ru">осциллятор пилообразного сигнала с ограниченным спектром</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>osc</category>
-            <keywords>oscillator band-limited</keywords>
-            <since>0.7</since>
-            <also>
-                <see>osc.saw~</see>
-                <see>osc.tri~</see>
-                <see>osc.square~</see>
-                <see>lfo.tri~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Differentiated Polynomial Waves (DPW) used for aliasing suppression.
-                4nd order interpolation.</tr>
-                <!-- old: Дифференцированные полиномиальные волны (DPW),
+  <object name="osc.saw4~">
+    <title>osc.saw4~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">bandlimited sawtooth wave</tr>
+        <tr lang="ru">осциллятор пилообразного сигнала с ограниченным спектром</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>osc</category>
+      <keywords>oscillator band-limited</keywords>
+      <since>0.7</since>
+      <also>
+        <see>osc.saw~</see>
+        <see>osc.tri~</see>
+        <see>osc.square~</see>
+        <see>lfo.tri~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Differentiated Polynomial Waves (DPW) used for aliasing suppression. 4nd
+        order interpolation.</tr>
+        <!-- old: Дифференцированные полиномиальные волны (DPW),
                 используемые для псевдонима подавления. 4-й порядок интерполяции. -->
-                <tr lang="ru" finished="false">Дифференцированные полиномиальные волны (DPW),
-                используемые для псевдонима подавления. 4-й порядок интерполяции.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050" units="hertz">
-                <tr lang="en">See @freq</tr>
-                <tr lang="ru" finished="false">См. @freq</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @freq -->
-            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050"
-            units="hertz">
-                <tr lang="en">frequency</tr>
-                <tr lang="ru" finished="false">частота</tr>
-            </property>
-            <!-- @phase -->
-            <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">phase</tr>
-                <tr lang="ru" finished="false">фаза</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in on="float">
-                    <tr lang="en">frequency in Hz</tr>
-                    <tr lang="ru" finished="false">частота в Гц</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">reset phase</tr>
-                    <tr lang="ru" finished="false">фаза сброса</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Дифференцированные полиномиальные волны (DPW), используемые
+        для псевдонима подавления. 4-й порядок интерполяции.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050" units="hertz">
+        <tr lang="en">See @freq</tr>
+        <tr lang="ru" finished="false">См. @freq</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @freq -->
+      <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050" units="hertz">
+        <tr lang="en">frequency</tr>
+        <tr lang="ru" finished="false">частота</tr>
+      </property>
+      <!-- @phase -->
+      <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">phase</tr>
+        <tr lang="ru" finished="false">фаза</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in on="float">
+          <tr lang="en">frequency in Hz</tr>
+          <tr lang="ru" finished="false">частота в Гц</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">reset phase</tr>
+          <tr lang="ru" finished="false">фаза сброса</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]      [ui.dsp~]
 |
@@ -99,7 +98,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

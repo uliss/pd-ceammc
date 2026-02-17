@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="path.basename">
-        <title>path.basename</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs the filename portion of the pathname</tr>
-                <tr lang="ru">выводит имя файла из пути к файлу</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>path</category>
-            <keywords>path environment</keywords>
-            <since>0.1</since>
-            <also>
-                <see>path.dirname</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">outputs filename portion of pathname</tr>
-                    <tr lang="ru" finished="false">выводит часть имени файла Pathname</tr>
-                </in>
-                <in on="data:string">
-                    <tr lang="en">outputs directory portion of pathname</tr>
-                    <tr lang="ru" finished="false">Выходит часть каталога Pathname</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">filename</tr>
-                    <tr lang="ru" finished="false">имя файла</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="path.basename">
+    <title>path.basename</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs the filename portion of the pathname</tr>
+        <tr lang="ru">выводит имя файла из пути к файлу</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>path</category>
+      <keywords>path environment</keywords>
+      <since>0.1</since>
+      <also>
+        <see>path.dirname</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">outputs filename portion of pathname</tr>
+          <tr lang="ru" finished="false">выводит часть имени файла Pathname</tr>
+        </in>
+        <in on="data:string">
+          <tr lang="en">outputs directory portion of pathname</tr>
+          <tr lang="ru" finished="false">Выходит часть каталога Pathname</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">filename</tr>
+          <tr lang="ru" finished="false">имя файла</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol HOME(
 |
@@ -57,7 +57,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

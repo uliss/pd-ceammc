@@ -1,205 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hoa.2d.recomposer~">
-        <title>hoa.2d.recomposer~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-                <author>Pierre Guillot</author>
-                <author>Eliott Paris</author>
-                <author>Thomas Le Meur</author>
-            </authors>
-            <description>
-                <tr lang="en">recomposes a 2d plane wave decomposition into circular harmonics</tr>
-                <tr lang="ru">декомпозиция плоских двумерных волн в сферические гармоники</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>spat</category>
-            <keywords>hoa recomposer</keywords>
-            <since>0.8</since>
-            <also>
-                <see>hoa.2d.projector~</see>
-            </also>
-            <aliases>
-                <alias>hoa.recomposer~</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Recomposes a plane wave decomposition into circular harmonics.
-                There's three modes, fixe (default), fisheye and free.</tr>
-                <!-- old: Разложение плоской волны в круговые гармоники. Есть
+  <object name="hoa.2d.recomposer~">
+    <title>hoa.2d.recomposer~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+        <author>Pierre Guillot</author>
+        <author>Eliott Paris</author>
+        <author>Thomas Le Meur</author>
+      </authors>
+      <description>
+        <tr lang="en">recomposes a 2d plane wave decomposition into circular harmonics</tr>
+        <tr lang="ru">декомпозиция плоских двумерных волн в сферические гармоники</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>spat</category>
+      <keywords>hoa recomposer</keywords>
+      <since>0.8</since>
+      <also>
+        <see>hoa.2d.projector~</see>
+      </also>
+      <aliases>
+        <alias>hoa.recomposer~</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Recomposes a plane wave decomposition into circular harmonics. There's three
+        modes, fixe (default), fisheye and free.</tr>
+        <!-- old: Разложение плоской волны в круговые гармоники. Есть
                 три режима: фиксированный (по умолчанию), Fisheye и бесплатный. -->
-                <tr lang="ru" finished="false">Разложение плоской волны в круговые гармоники. Есть
-                три режима: фиксированный (по умолчанию), Fisheye и бесплатный.</tr>
-            </par>
-            <a href="hoa/hoa.2d.recomposer~-help.pd">CICM documentation</a>
-        </info>
-        <arguments>
-            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
-                <tr lang="en">the order of decomposition.</tr>
-                <tr lang="ru" finished="false">Порядок разложения.</tr>
-            </argument>
-            <argument name="N" type="int" minvalue="0" maxvalue="128">
-                <tr lang="en">number of channels. '0' means auto-calculation.</tr>
-                <!-- old: Количество каналов. 0 означает автоматический
+        <tr lang="ru" finished="false">Разложение плоской волны в круговые гармоники. Есть три
+        режима: фиксированный (по умолчанию), Fisheye и бесплатный.</tr>
+      </par>
+      <a href="hoa/hoa.2d.recomposer~-help.pd">CICM documentation</a>
+    </info>
+    <arguments>
+      <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
+        <tr lang="en">the order of decomposition.</tr>
+        <tr lang="ru" finished="false">Порядок разложения.</tr>
+      </argument>
+      <argument name="N" type="int" minvalue="0" maxvalue="128">
+        <tr lang="en">number of channels. '0' means auto-calculation.</tr>
+        <!-- old: Количество каналов. 0 означает автоматический
                 расчет. -->
-                <tr lang="ru" finished="false">Количество каналов. 0 означает автоматический
-                расчет.</tr>
-            </argument>
-            <argument name="MODE" type="symbol" enum="fixe fisheye free">
-                <tr lang="en">recomposition mode. There is three modes: *fixe* - simply recomposes
-                a plane wave decomposition into circular harmonics. *fisheye* - allows you to
-                perform an operation similar to the visual "fisheye" effect by distorsion of the
-                sound field perspective to the front of the scene. *free* - allows you to change
-                the angles and the widening value for each channels.</tr>
-                <!-- old: Режим рекомпозиции. Существует три режима: *fixe* —
+        <tr lang="ru" finished="false">Количество каналов. 0 означает автоматический расчет.</tr>
+      </argument>
+      <argument name="MODE" type="symbol" enum="fixe fisheye free">
+        <tr lang="en">recomposition mode. There is three modes: *fixe* - simply recomposes a plane
+        wave decomposition into circular harmonics. *fisheye* - allows you to perform an operation
+        similar to the visual "fisheye" effect by distorsion of the sound field perspective to the
+        front of the scene. *free* - allows you to change the angles and the widening value for
+        each channels.</tr>
+        <!-- old: Режим рекомпозиции. Существует три режима: *fixe* —
                 просто перекомпоновывает разложение плоской волны в круговые гармоники. *fisheye* —
                 позволяет выполнить операцию, аналогичную эффекту визуального «рыбий глаз», путем
                 искажения перспективы звукового поля к передней части сцены. *free* - позволяет
                 изменять углы и расширяющееся значение для каждого канала. -->
-                <tr lang="ru" finished="false">Режим рекомпозиции. Существует три режима: *fixe* —
-                просто перекомпоновывает разложение плоской волны в круговые гармоники. *fisheye* —
-                позволяет выполнить операцию, аналогичную эффекту визуального «рыбий глаз», путем
-                искажения перспективы звукового поля к передней части сцены. *free* - позволяет
-                изменять углы и расширяющееся значение для каждого канала.</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @fisheye -->
-            <property name="@fisheye" type="alias" access="initonly">
-                <tr lang="en">alias for @mode fisheye</tr>
-                <tr lang="ru" finished="false">Оригинальное название: Mode Fisheye</tr>
-            </property>
-            <!-- @fixe -->
-            <property name="@fixe" type="alias" access="initonly">
-                <tr lang="en">alias for @mode fixe</tr>
-                <tr lang="ru" finished="false">Оригинальное название: @mode fixe</tr>
-            </property>
-            <!-- @free -->
-            <property name="@free" type="alias" access="initonly">
-                <tr lang="en">alias for @mode free</tr>
-                <tr lang="ru" finished="false">@mode free скачать</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" enum="fixe fisheye free" default="free"
-            access="initonly">
-                <tr lang="en">recomposition mode. There is three modes: *fixe* - simply recomposes
-                a plane wave decomposition into circular harmonics. *fisheye* - allows you to
-                perform an operation similar to the visual "fisheye" effect by distorsion of the
-                sound field perspective to the front of the scene. *free* - allows you to change
-                the angles and the widening value for each channels.</tr>
-                <!-- old: Режим рекомпозиции. Существует три режима: *fixe* —
+        <tr lang="ru" finished="false">Режим рекомпозиции. Существует три режима: *fixe* — просто
+        перекомпоновывает разложение плоской волны в круговые гармоники. *fisheye* — позволяет
+        выполнить операцию, аналогичную эффекту визуального «рыбий глаз», путем искажения
+        перспективы звукового поля к передней части сцены. *free* - позволяет изменять углы и
+        расширяющееся значение для каждого канала.</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @fisheye -->
+      <property name="@fisheye" type="alias" access="initonly">
+        <tr lang="en">alias for @mode fisheye</tr>
+        <tr lang="ru" finished="false">Оригинальное название: Mode Fisheye</tr>
+      </property>
+      <!-- @fixe -->
+      <property name="@fixe" type="alias" access="initonly">
+        <tr lang="en">alias for @mode fixe</tr>
+        <tr lang="ru" finished="false">Оригинальное название: @mode fixe</tr>
+      </property>
+      <!-- @free -->
+      <property name="@free" type="alias" access="initonly">
+        <tr lang="en">alias for @mode free</tr>
+        <tr lang="ru" finished="false">@mode free скачать</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" enum="fixe fisheye free" default="free"
+      access="initonly">
+        <tr lang="en">recomposition mode. There is three modes: *fixe* - simply recomposes a plane
+        wave decomposition into circular harmonics. *fisheye* - allows you to perform an operation
+        similar to the visual "fisheye" effect by distorsion of the sound field perspective to the
+        front of the scene. *free* - allows you to change the angles and the widening value for
+        each channels.</tr>
+        <!-- old: Режим рекомпозиции. Существует три режима: *fixe* —
                 просто перекомпоновывает разложение плоской волны в круговые гармоники. *fisheye* —
                 позволяет выполнить операцию, аналогичную эффекту визуального «рыбий глаз», путем
                 искажения перспективы звукового поля к передней части сцены. *free* - позволяет
                 изменять углы и расширяющееся значение для каждого канала. -->
-                <tr lang="ru" finished="false">Режим рекомпозиции. Существует три режима: *fixe* —
-                просто перекомпоновывает разложение плоской волны в круговые гармоники. *fisheye* —
-                позволяет выполнить операцию, аналогичную эффекту визуального «рыбий глаз», путем
-                искажения перспективы звукового поля к передней части сцены. *free* - позволяет
-                изменять углы и расширяющееся значение для каждого канала.</tr>
-            </property>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="0" maxvalue="128" default="0"
-            access="initonly">
-                <tr lang="en">number of channels (planewaves). '0' means auto-calculation.</tr>
-                <!-- old: Количество каналов (плановых волн). 0 означает
+        <tr lang="ru" finished="false">Режим рекомпозиции. Существует три режима: *fixe* — просто
+        перекомпоновывает разложение плоской волны в круговые гармоники. *fisheye* — позволяет
+        выполнить операцию, аналогичную эффекту визуального «рыбий глаз», путем искажения
+        перспективы звукового поля к передней части сцены. *free* - позволяет изменять углы и
+        расширяющееся значение для каждого канала.</tr>
+      </property>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="0" maxvalue="128" default="0" access="initonly">
+        <tr lang="en">number of channels (planewaves). '0' means auto-calculation.</tr>
+        <!-- old: Количество каналов (плановых волн). 0 означает
                 автоматический расчет. -->
-                <tr lang="ru" finished="false">Количество каналов (плановых волн). 0 означает
-                автоматический расчет.</tr>
-            </property>
-            <!-- @order -->
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="initonly">
-                <tr lang="en">the order of decomposition</tr>
-                <tr lang="ru" finished="false">Порядок разложения</tr>
-            </property>
-            <!-- @ramp -->
-            <property name="@ramp" type="float" default="100" minvalue="0">
-                <tr lang="en">ramp time</tr>
-                <tr lang="ru" finished="false">время</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- angles -->
-            <method name="angles">
-                <info>
-                    <tr lang="en">set the angles of channels. Angles are in radians, wrapped
-                    between 0 and 2π</tr>
-                    <!-- old: Установите углы каналов. Углы находятся в
+        <tr lang="ru" finished="false">Количество каналов (плановых волн). 0 означает
+        автоматический расчет.</tr>
+      </property>
+      <!-- @order -->
+      <property name="@order" type="int" minvalue="1" maxvalue="63" default="1" access="initonly">
+        <tr lang="en">the order of decomposition</tr>
+        <tr lang="ru" finished="false">Порядок разложения</tr>
+      </property>
+      <!-- @ramp -->
+      <property name="@ramp" type="float" default="100" minvalue="0">
+        <tr lang="en">ramp time</tr>
+        <tr lang="ru" finished="false">время</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- angles -->
+      <method name="angles">
+        <info>
+          <tr lang="en">set the angles of channels. Angles are in radians, wrapped between 0 and
+          2π</tr>
+          <!-- old: Установите углы каналов. Углы находятся в
                     радианах, завернутых между 0 и 2π -->
-                    <tr lang="ru" finished="false">Установите углы каналов. Углы находятся в
-                    радианах, завернутых между 0 и 2π</tr>
-                </info>
-                <param name="VALS" type="list" required="true" units="radian">
-                    <tr lang="en">list of angles</tr>
-                    <tr lang="ru" finished="false">Список углов</tr>
-                </param>
-            </method>
-            <!-- wide -->
-            <method name="wide">
-                <info>
-                    <tr lang="en">set the widening value of channels. Widening value is clipped
-                    between 0. (omnidirectional) and 1. (directional)</tr>
-                    <!-- old: Расширение значения каналов. Расширяющееся
+          <tr lang="ru" finished="false">Установите углы каналов. Углы находятся в радианах,
+          завернутых между 0 и 2π</tr>
+        </info>
+        <param name="VALS" type="list" required="true" units="radian">
+          <tr lang="en">list of angles</tr>
+          <tr lang="ru" finished="false">Список углов</tr>
+        </param>
+      </method>
+      <!-- wide -->
+      <method name="wide">
+        <info>
+          <tr lang="en">set the widening value of channels. Widening value is clipped between 0.
+          (omnidirectional) and 1. (directional)</tr>
+          <!-- old: Расширение значения каналов. Расширяющееся
                     значение обрезается между 0. (всенаправленный) и 1. (направленный) -->
-                    <tr lang="ru" finished="false">Расширение значения каналов. Расширяющееся
-                    значение обрезается между 0. (всенаправленный) и 1. (направленный)</tr>
-                </info>
-                <param name="VALS" type="list" required="true">
-                    <tr lang="en">list of values per channel</tr>
-                    <tr lang="ru" finished="false">Список значений на канал</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets dynamic="true">
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input harmonic</tr>
-                    <tr lang="ru" finished="false">входная гармоника</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="...">
-                <in>
-                    <tr lang="en">input harmonic</tr>
-                    <tr lang="ru" finished="false">входная гармоника</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="n">
-                <in>
-                    <tr lang="en">input harmonic. If @fisheye mode is used: fisheye factor [0-1] in
-                    last inlet</tr>
-                    <!-- old: Входная гармоника. Если используется режим
+          <tr lang="ru" finished="false">Расширение значения каналов. Расширяющееся значение
+          обрезается между 0. (всенаправленный) и 1. (направленный)</tr>
+        </info>
+        <param name="VALS" type="list" required="true">
+          <tr lang="en">list of values per channel</tr>
+          <tr lang="ru" finished="false">Список значений на канал</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets dynamic="true">
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input harmonic</tr>
+          <tr lang="ru" finished="false">входная гармоника</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="...">
+        <in>
+          <tr lang="en">input harmonic</tr>
+          <tr lang="ru" finished="false">входная гармоника</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="n">
+        <in>
+          <tr lang="en">input harmonic. If @fisheye mode is used: fisheye factor [0-1] in last
+          inlet</tr>
+          <!-- old: Входная гармоника. Если используется режим
                     @fisheye: фактор Fisheye [0-1] в последнем входе -->
-                    <tr lang="ru" finished="false">Входная гармоника. Если используется режим
-                    @fisheye: фактор Fisheye [0-1] в последнем входе</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">first planewave output</tr>
-                    <tr lang="ru" finished="false">Первая волна самолёта</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="...">
-                <out type="any">
-                    <tr lang="en">... planewave output</tr>
-                    <tr lang="ru" finished="false">Производитель: planewave output</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="n">
-                <out type="any">
-                    <tr lang="en">n-th planewave output</tr>
-                    <tr lang="ru" finished="false">n-я плоскостная волна</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Входная гармоника. Если используется режим @fisheye:
+          фактор Fisheye [0-1] в последнем входе</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">first planewave output</tr>
+          <tr lang="ru" finished="false">Первая волна самолёта</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="...">
+        <out type="any">
+          <tr lang="en">... planewave output</tr>
+          <tr lang="ru" finished="false">Производитель: planewave output</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="n">
+        <out type="any">
+          <tr lang="en">n-th planewave output</tr>
+          <tr lang="ru" finished="false">n-я плоскостная волна</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [hoa/hoa.soundgrain]
 |
@@ -232,7 +229,7 @@
 *|*
 [xdac~ 1:16 {w=46,i=16}]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

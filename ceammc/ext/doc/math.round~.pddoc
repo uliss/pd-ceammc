@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.round~">
-        <title>math.round~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">signal round</tr>
-                <tr lang="ru">округление сигнала до ближайшего целого значения</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math round~</keywords>
-            <aliases>
-                <alias>round~</alias>
-                <alias>ceammc/round~</alias>
-            </aliases>
-            <also>
-                <see>math.round</see>
-            </also>
-            <since>0.4</since>
-        </meta>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output rounded signal</tr>
-                    <tr lang="ru" finished="false">выходной округленный сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="math.round~">
+    <title>math.round~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">signal round</tr>
+        <tr lang="ru">округление сигнала до ближайшего целого значения</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math round~</keywords>
+      <aliases>
+        <alias>round~</alias>
+        <alias>ceammc/round~</alias>
+      </aliases>
+      <also>
+        <see>math.round</see>
+      </also>
+      <since>0.4</since>
+    </meta>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output rounded signal</tr>
+          <tr lang="ru" finished="false">выходной округленный сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [osc~ 440]
 |
@@ -54,7 +54,7 @@
 | \
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

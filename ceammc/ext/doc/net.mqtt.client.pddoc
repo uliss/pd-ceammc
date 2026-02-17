@@ -1,144 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="net.mqtt.client">
-        <title>net.mqtt.client</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">MQTT client</tr>
-                <tr lang="ru">MQTT клиент</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>net</category>
-            <keywords>mqtt net client</keywords>
-            <since>0.9.8</since>
-            <aliases>
-                <alias>mqtt.client</alias>
-            </aliases>
-        </meta>
-        <properties>
-            <!-- @id -->
-            <property name="@id" type="symbol" default="pd_mqtt_client_0">
-                <tr lang="en">client id</tr>
-                <tr lang="ru" finished="false">клиентский ID</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym bytes">
-                <tr lang="en">parsing mode for incoming/outcoming messages. If 'fudi' - interpret
-                data as Pd messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc
-                data, 'json' - convert json values to ceammc data.</tr>
-                <!-- old: Режим разбора входящих/выходных сообщений. Если
+  <object name="net.mqtt.client">
+    <title>net.mqtt.client</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">MQTT client</tr>
+        <tr lang="ru">MQTT клиент</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>net</category>
+      <keywords>mqtt net client</keywords>
+      <since>0.9.8</since>
+      <aliases>
+        <alias>mqtt.client</alias>
+      </aliases>
+    </meta>
+    <properties>
+      <!-- @id -->
+      <property name="@id" type="symbol" default="pd_mqtt_client_0">
+        <tr lang="en">client id</tr>
+        <tr lang="ru" finished="false">клиентский ID</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym bytes">
+        <tr lang="en">parsing mode for incoming/outcoming messages. If 'fudi' - interpret data as
+        Pd messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc data, 'json' -
+        convert json values to ceammc data.</tr>
+        <!-- old: Режим разбора входящих/выходных сообщений. Если
                 «fudi» — интерпретировать данные как Pd-сообщения, если «sym» — всегда
                 интерпретировать как символы, «data» — разбирать данные ceammc, «json» —
                 преобразовывать значения json в данные ceammc. -->
-                <!-- old: Режим разбора входящих/выходных сообщений. Если
+        <!-- old: Режим разбора входящих/выходных сообщений. Если
                 «fudi» — интерпретировать данные как Pd-сообщения, если «sym» — всегда
                 интерпретировать как символы, «data» — разбирать данные ceammc, «json» —
                 преобразовывать значения json в данные ceammc. -->
-                <tr lang="ru" finished="false">Режим разбора входящих/выходных сообщений. Если
-                «fudi» — интерпретировать данные как Pd-сообщения, если «sym» — всегда
-                интерпретировать как символы, «data» — разбирать данные ceammc, «json» —
-                преобразовывать значения json в данные ceammc.</tr>
-            </property>
-            <!-- @qos -->
-            <property name="@qos" type="int" default="0" enum="0 1 2">
-                <tr lang="en">quality of service</tr>
-                <tr lang="ru" finished="false">качество обслуживания</tr>
-            </property>
-            <!-- @retain -->
-            <property name="@retain" type="bool" default="0">
-                <tr lang="en">retain flag</tr>
-                <tr lang="ru" finished="false">сохранить флаг</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- close -->
-            <method name="close">
-                <info>
-                    <tr lang="en">close MQTT connection</tr>
-                    <tr lang="ru" finished="false">Закрыть MQTT соединение</tr>
-                </info>
-            </method>
-            <!-- connect -->
-            <method name="connect">
-                <info>
-                    <tr lang="en">connect to websocket server</tr>
-                    <tr lang="ru" finished="false">Подключение к серверу websocket</tr>
-                </info>
-                <param name="URL" type="symbol" required="true">
-                    <tr lang="en">mqtt server url, for ex.: mqtt://127.0.0.1:9000,
-                    tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1 etc.</tr>
-                    <!-- old: mqtt server url, for ex.: mqtt://127.0.0.1:9000,
+        <tr lang="ru" finished="false">Режим разбора входящих/выходных сообщений. Если «fudi» —
+        интерпретировать данные как Pd-сообщения, если «sym» — всегда интерпретировать как символы,
+        «data» — разбирать данные ceammc, «json» — преобразовывать значения json в данные
+        ceammc.</tr>
+      </property>
+      <!-- @qos -->
+      <property name="@qos" type="int" default="0" enum="0 1 2">
+        <tr lang="en">quality of service</tr>
+        <tr lang="ru" finished="false">качество обслуживания</tr>
+      </property>
+      <!-- @retain -->
+      <property name="@retain" type="bool" default="0">
+        <tr lang="en">retain flag</tr>
+        <tr lang="ru" finished="false">сохранить флаг</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- close -->
+      <method name="close">
+        <info>
+          <tr lang="en">close MQTT connection</tr>
+          <tr lang="ru" finished="false">Закрыть MQTT соединение</tr>
+        </info>
+      </method>
+      <!-- connect -->
+      <method name="connect">
+        <info>
+          <tr lang="en">connect to websocket server</tr>
+          <tr lang="ru" finished="false">Подключение к серверу websocket</tr>
+        </info>
+        <param name="URL" type="symbol" required="true">
+          <tr lang="en">mqtt server url, for ex.: mqtt://127.0.0.1:9000,
+          tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1 etc.</tr>
+          <!-- old: mqtt server url, for ex.: mqtt://127.0.0.1:9000,
                     tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1 и т.д. -->
-                    <tr lang="ru" finished="false">mqtt server url, for ex.: mqtt://127.0.0.1:9000,
-                    tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1 и т.д.</tr>
-                </param>
-            </method>
-            <!-- publish -->
-            <method name="publish">
-                <info>
-                    <tr lang="en">publish message to topic</tr>
-                    <tr lang="ru" finished="false">Опубликовать сообщение на тему</tr>
-                </info>
-                <param name="TOPIC" type="symbol" required="true">
-                    <tr lang="en">topic</tr>
-                    <tr lang="ru" finished="false">тема</tr>
-                </param>
-                <param name="ARGS" type="list" required="false">
-                    <tr lang="en">content</tr>
-                    <tr lang="ru" finished="false">содержание</tr>
-                </param>
-            </method>
-            <!-- subscribe -->
-            <method name="subscribe">
-                <info>
-                    <tr lang="en">subscribe to topic</tr>
-                    <tr lang="ru" finished="false">Подписаться на тему</tr>
-                </info>
-                <param name="TOPIC" type="symbol" required="true">
-                    <tr lang="en">topic</tr>
-                    <tr lang="ru" finished="false">тема</tr>
-                </param>
-            </method>
-            <!-- unsubscribe -->
-            <method name="unsubscribe">
-                <info>
-                    <tr lang="en">unsubscribe from topic</tr>
-                    <tr lang="ru" finished="false">Отписаться от темы</tr>
-                </info>
-                <param name="TOPIC" type="symbol" required="true">
-                    <tr lang="en">topic</tr>
-                    <tr lang="ru" finished="false">тема</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">message input</tr>
-                    <tr lang="ru" finished="false">ввод сообщения</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output messages: topic data</tr>
-                    <tr lang="ru" finished="false">выходные сообщения: тематические данные</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">bang: on ping message</tr>
-                    <tr lang="ru" finished="false">Исполнитель: On Ping Message</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">mqtt server url, for ex.: mqtt://127.0.0.1:9000,
+          tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1 и т.д.</tr>
+        </param>
+      </method>
+      <!-- publish -->
+      <method name="publish">
+        <info>
+          <tr lang="en">publish message to topic</tr>
+          <tr lang="ru" finished="false">Опубликовать сообщение на тему</tr>
+        </info>
+        <param name="TOPIC" type="symbol" required="true">
+          <tr lang="en">topic</tr>
+          <tr lang="ru" finished="false">тема</tr>
+        </param>
+        <param name="ARGS" type="list" required="false">
+          <tr lang="en">content</tr>
+          <tr lang="ru" finished="false">содержание</tr>
+        </param>
+      </method>
+      <!-- subscribe -->
+      <method name="subscribe">
+        <info>
+          <tr lang="en">subscribe to topic</tr>
+          <tr lang="ru" finished="false">Подписаться на тему</tr>
+        </info>
+        <param name="TOPIC" type="symbol" required="true">
+          <tr lang="en">topic</tr>
+          <tr lang="ru" finished="false">тема</tr>
+        </param>
+      </method>
+      <!-- unsubscribe -->
+      <method name="unsubscribe">
+        <info>
+          <tr lang="en">unsubscribe from topic</tr>
+          <tr lang="ru" finished="false">Отписаться от темы</tr>
+        </info>
+        <param name="TOPIC" type="symbol" required="true">
+          <tr lang="en">topic</tr>
+          <tr lang="ru" finished="false">тема</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">message input</tr>
+          <tr lang="ru" finished="false">ввод сообщения</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output messages: topic data</tr>
+          <tr lang="ru" finished="false">выходные сообщения: тематические данные</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">bang: on ping message</tr>
+          <tr lang="ru" finished="false">Исполнитель: On Ping Message</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /*you can start testing mqtt server with command: 'nanomq -start'*/
 
@@ -166,7 +166,7 @@
 [X b->x] [X c->x] [X d->x] [X k->x] [X l->x]
 [X e->x] [X f->x] [X g->x] [X h->x] [X i->x] [X j->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

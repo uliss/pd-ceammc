@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="system.hostname">
-        <title>system.hostname</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs system hostname</tr>
-                <tr lang="ru">выводит имя хоста системы</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>system</category>
-            <keywords>system hostname</keywords>
-            <since>0.1</since>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">outputs hostname</tr>
-                    <tr lang="ru" finished="false">Имя хоста / hostname</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">symbol: hostname</tr>
-                    <tr lang="ru" finished="false">Символ: hostname</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="system.hostname">
+    <title>system.hostname</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs system hostname</tr>
+        <tr lang="ru">выводит имя хоста системы</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>system</category>
+      <keywords>system hostname</keywords>
+      <since>0.1</since>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">outputs hostname</tr>
+          <tr lang="ru" finished="false">Имя хоста / hostname</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">symbol: hostname</tr>
+          <tr lang="ru" finished="false">Символ: hostname</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -41,7 +41,7 @@
 |
 [S digits=20]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

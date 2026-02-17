@@ -1,99 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hoa.out">
-        <title>hoa.out</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-                <author>Pierre Guillot</author>
-                <author>Eliott Paris</author>
-                <author>Thomas Le Meur</author>
-            </authors>
-            <description>
-                <tr lang="en">message outlet for a patcher loaded by hoa.process~</tr>
-                <tr lang="ru">контрольный выход для патча, загружаемого объектом
-                [hoa.process~]</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>spat</category>
-            <keywords>hoa outlet</keywords>
-            <since>0.8</since>
-            <also>
-                <see>hoa.out~</see>
-                <see>hoa.in</see>
-                <see>hoa.in~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">hoa.out defines a message outlet for a patcher loaded by a
-                hoa.process~ object.</tr>
-                <!-- old: hoa.out определяет выход сообщения для патчера,
+  <object name="hoa.out">
+    <title>hoa.out</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+        <author>Pierre Guillot</author>
+        <author>Eliott Paris</author>
+        <author>Thomas Le Meur</author>
+      </authors>
+      <description>
+        <tr lang="en">message outlet for a patcher loaded by hoa.process~</tr>
+        <tr lang="ru">контрольный выход для патча, загружаемого объектом [hoa.process~]</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>spat</category>
+      <keywords>hoa outlet</keywords>
+      <since>0.8</since>
+      <also>
+        <see>hoa.out~</see>
+        <see>hoa.in</see>
+        <see>hoa.in~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">hoa.out defines a message outlet for a patcher loaded by a hoa.process~
+        object.</tr>
+        <!-- old: hoa.out определяет выход сообщения для патчера,
                 загруженного hoa.process~ объектом. -->
-                <tr lang="ru" finished="false">hoa.out определяет выход сообщения для патчера,
-                загруженного hoa.process~ объектом.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="INDEX" type="int" minvalue="1">
-                <tr lang="en">outlet index</tr>
-                <tr lang="ru" finished="false">выходной индекс</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @index -->
-            <property name="@index" type="int" minvalue="1" default="1">
-                <tr lang="en">outlet index</tr>
-                <tr lang="ru" finished="false">выходной индекс</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output bang message in the corresponding hoa.process~ object's
-                    message outlet</tr>
-                    <!-- old: выходное сообщение bang в соответствующем
+        <tr lang="ru" finished="false">hoa.out определяет выход сообщения для патчера, загруженного
+        hoa.process~ объектом.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="INDEX" type="int" minvalue="1">
+        <tr lang="en">outlet index</tr>
+        <tr lang="ru" finished="false">выходной индекс</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @index -->
+      <property name="@index" type="int" minvalue="1" default="1">
+        <tr lang="en">outlet index</tr>
+        <tr lang="ru" finished="false">выходной индекс</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output bang message in the corresponding hoa.process~ object's message
+          outlet</tr>
+          <!-- old: выходное сообщение bang в соответствующем
                     hoa.process~ выходе сообщения объекта -->
-                    <tr lang="ru" finished="false">выходное сообщение bang в соответствующем
-                    hoa.process~ выходе сообщения объекта</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">output float message in the corresponding hoa.process~ object's
-                    message outlet</tr>
-                    <!-- old: выходное поплавковое сообщение в соответствующем
+          <tr lang="ru" finished="false">выходное сообщение bang в соответствующем hoa.process~
+          выходе сообщения объекта</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">output float message in the corresponding hoa.process~ object's message
+          outlet</tr>
+          <!-- old: выходное поплавковое сообщение в соответствующем
                     выпуске сообщения hoa.process~ object -->
-                    <tr lang="ru" finished="false">выходное поплавковое сообщение в соответствующем
-                    выпуске сообщения hoa.process~ object</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">output symbol message in the corresponding hoa.process~ object's
-                    message outlet</tr>
-                    <!-- old: вывод символьного сообщения в соответствующем
+          <tr lang="ru" finished="false">выходное поплавковое сообщение в соответствующем выпуске
+          сообщения hoa.process~ object</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">output symbol message in the corresponding hoa.process~ object's message
+          outlet</tr>
+          <!-- old: вывод символьного сообщения в соответствующем
                     hoa.process~ выходе сообщения объекта -->
-                    <tr lang="ru" finished="false">вывод символьного сообщения в соответствующем
-                    hoa.process~ выходе сообщения объекта</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">output list message in the corresponding hoa.process~ object's
-                    message outlet</tr>
-                    <!-- old: сообщение списка вывода в соответствующем
+          <tr lang="ru" finished="false">вывод символьного сообщения в соответствующем hoa.process~
+          выходе сообщения объекта</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">output list message in the corresponding hoa.process~ object's message
+          outlet</tr>
+          <!-- old: сообщение списка вывода в соответствующем
                     выпуске сообщения hoa.process~ object -->
-                    <tr lang="ru" finished="false">сообщение списка вывода в соответствующем
-                    выпуске сообщения hoa.process~ object</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">output any message in the corresponding hoa.process~ object's
-                    message outlet</tr>
-                    <!-- old: вывод любого сообщения в соответствующем выпуске
+          <tr lang="ru" finished="false">сообщение списка вывода в соответствующем выпуске
+          сообщения hoa.process~ object</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">output any message in the corresponding hoa.process~ object's message
+          outlet</tr>
+          <!-- old: вывод любого сообщения в соответствующем выпуске
                     сообщения hoa.process~ object -->
-                    <tr lang="ru" finished="false">вывод любого сообщения в соответствующем выпуске
-                    сообщения hoa.process~ object</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">вывод любого сообщения в соответствующем выпуске сообщения
+          hoa.process~ object</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open 0( [open 1(  [42( [\#0 43( [\#1 44(
 |        |         |    |        |
@@ -110,7 +109,7 @@
 |                                ^|
 [print B]                        [print C]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,92 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="plot.response~">
-        <title>plot.response~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">produces the amplitude, phase, and frequency responses to the input
-                signal</tr>
-                <tr lang="ru">выводит амплитудный, фазовый и частотный отклики на входной
-                сигнал</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array histogram</keywords>
-            <also>
-                <see>plot.linspace~</see>
-                <see>plot.geomspace~</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <arguments>
-            <argument name="N" type="int" minvalue="32" maxvalue="8192">
-                <tr lang="en">@n property</tr>
-                <tr lang="ru" finished="false">@n имущество</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @db -->
-            <property name="@db" type="bool" default="0">
-                <tr lang="en">decibel mode. It true outputs amplitude in decibels</tr>
-                <!-- old: Режим децибел. Истинная амплитуда выходов в
+  <object name="plot.response~">
+    <title>plot.response~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">produces the amplitude, phase, and frequency responses to the input
+        signal</tr>
+        <tr lang="ru">выводит амплитудный, фазовый и частотный отклики на входной сигнал</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array histogram</keywords>
+      <also>
+        <see>plot.linspace~</see>
+        <see>plot.geomspace~</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <arguments>
+      <argument name="N" type="int" minvalue="32" maxvalue="8192">
+        <tr lang="en">@n property</tr>
+        <tr lang="ru" finished="false">@n имущество</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @db -->
+      <property name="@db" type="bool" default="0">
+        <tr lang="en">decibel mode. It true outputs amplitude in decibels</tr>
+        <!-- old: Режим децибел. Истинная амплитуда выходов в
                 децибелах -->
-                <tr lang="ru" finished="false">Режим децибел. Истинная амплитуда выходов в
-                децибелах</tr>
-            </property>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="32" maxvalue="8192" default="512">
-                <tr lang="en">number of processed samples</tr>
-                <tr lang="ru" finished="false">Количество обработанных образцов</tr>
-            </property>
-            <!-- @sr -->
-            <property name="@sr" type="bool" default="0">
-                <tr lang="en">using samplerate. If true output in [0..SR/2] instead of [0..pi]</tr>
-                <!-- old: Использование сэмплрейта. Если истинный выход в
+        <tr lang="ru" finished="false">Режим децибел. Истинная амплитуда выходов в децибелах</tr>
+      </property>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="32" maxvalue="8192" default="512">
+        <tr lang="en">number of processed samples</tr>
+        <tr lang="ru" finished="false">Количество обработанных образцов</tr>
+      </property>
+      <!-- @sr -->
+      <property name="@sr" type="bool" default="0">
+        <tr lang="en">using samplerate. If true output in [0..SR/2] instead of [0..pi]</tr>
+        <!-- old: Использование сэмплрейта. Если истинный выход в
                 [0..SR/2] вместо [0..pi] -->
-                <tr lang="ru" finished="false">Использование сэмплрейта. Если истинный выход в
-                [0..SR/2] вместо [0..pi]</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">starts response calculation</tr>
-                    <tr lang="ru" finished="false">Начинается расчет ответа</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">frequency response</tr>
-                    <tr lang="ru" finished="false">Частотный ответ</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">phase response</tr>
-                    <tr lang="ru" finished="false">фазовый ответ</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output to [array.plot~] or [ui.plot~]</tr>
-                    <tr lang="ru" finished="false">[array.plot~] или [ui.plot~]</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Использование сэмплрейта. Если истинный выход в [0..SR/2]
+        вместо [0..pi]</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">starts response calculation</tr>
+          <tr lang="ru" finished="false">Начинается расчет ответа</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">frequency response</tr>
+          <tr lang="ru" finished="false">Частотный ответ</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">phase response</tr>
+          <tr lang="ru" finished="false">фазовый ответ</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output to [array.plot~] or [ui.plot~]</tr>
+          <tr lang="ru" finished="false">[array.plot~] или [ui.plot~]</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang #a(
 |
@@ -116,7 +114,7 @@
 [X a->b:1]
 #z @size 400 200 @xlabels 1 @ylabels 1 @xmin_grid 1 @ymin_ticks 0 @ymaj_ticks 0 @xmin_ticks 0 @ymin -2 @ymax 2 @n 2
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

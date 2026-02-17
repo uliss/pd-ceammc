@@ -1,111 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.bpf24~">
-        <title>flt.bpf24~</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">four pole band-pass Butterworth filter</tr>
-                <tr lang="ru">четырехполюсный полосовой фильтр Баттерворта</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>filter biquad bpf</keywords>
-            <since>0.1</since>
-            <also>
-                <see>flt.bpf12~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Band-pass filter passes frequencies within a certain range and
-                rejects frequencies outside that range.</tr>
-                <!-- old: оркестр Пропускной фильтр проходит частоты в
+  <object name="flt.bpf24~">
+    <title>flt.bpf24~</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">four pole band-pass Butterworth filter</tr>
+        <tr lang="ru">четырехполюсный полосовой фильтр Баттерворта</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>filter biquad bpf</keywords>
+      <since>0.1</since>
+      <also>
+        <see>flt.bpf12~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Band-pass filter passes frequencies within a certain range and rejects
+        frequencies outside that range.</tr>
+        <!-- old: оркестр Пропускной фильтр проходит частоты в
                 определенном диапазоне и отклоняет частоты за пределами этого диапазона. -->
-                <tr lang="ru" finished="false">оркестр Пропускной фильтр проходит частоты в
-                определенном диапазоне и отклоняет частоты за пределами этого диапазона.</tr>
-            </par>
-            <par>
-                <tr lang="en">Butterworth filter is a type of filter designed to have a frequency
-                response as flat as possible in the passband.</tr>
-                <!-- old: Фильтр Баттерворта — это тип фильтра,
+        <tr lang="ru" finished="false">оркестр Пропускной фильтр проходит частоты в определенном
+        диапазоне и отклоняет частоты за пределами этого диапазона.</tr>
+      </par>
+      <par>
+        <tr lang="en">Butterworth filter is a type of filter designed to have a frequency response
+        as flat as possible in the passband.</tr>
+        <!-- old: Фильтр Баттерворта — это тип фильтра,
                 предназначенный для того, чтобы иметь как можно более плоскую частотную реакцию в
                 полосе пропускания. -->
-                <tr lang="ru" finished="false">Фильтр Баттерворта — это тип фильтра,
-                предназначенный для того, чтобы иметь как можно более плоскую частотную реакцию в
-                полосе пропускания.</tr>
-            </par>
-            <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
+        <tr lang="ru" finished="false">Фильтр Баттерворта — это тип фильтра, предназначенный для
+        того, чтобы иметь как можно более плоскую частотную реакцию в полосе пропускания.</tr>
+      </par>
+      <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
+    </info>
+    <arguments>
+      <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
+        <tr lang="en">center frequency</tr>
+        <tr lang="ru" finished="false">центральная частота</tr>
+      </argument>
+      <argument name="Q" type="float" minvalue="0.01" maxvalue="100">
+        <tr lang="en">quality factory: @freq/BANDWIDTH</tr>
+        <tr lang="ru" finished="false">Производитель: @freq/BANDWIDTH</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @freq -->
+      <property name="@freq" type="float" units="hertz" default="1000" minvalue="20"
+      maxvalue="20000">
+        <tr lang="en">cutoff frequency</tr>
+        <tr lang="ru" finished="false">частота отключения</tr>
+      </property>
+      <!-- @q -->
+      <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="2">
+        <tr lang="en">quality factor: @freq/BANDWIDTH</tr>
+        <tr lang="ru" finished="false">Коэффициент качества: @freq/BANDWIDTH</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset filter state</tr>
+          <tr lang="ru" finished="false">состояние фильтра сброса</tr>
         </info>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
-                <tr lang="en">center frequency</tr>
-                <tr lang="ru" finished="false">центральная частота</tr>
-            </argument>
-            <argument name="Q" type="float" minvalue="0.01" maxvalue="100">
-                <tr lang="en">quality factory: @freq/BANDWIDTH</tr>
-                <tr lang="ru" finished="false">Производитель: @freq/BANDWIDTH</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @freq -->
-            <property name="@freq" type="float" units="hertz" default="1000" minvalue="20"
-            maxvalue="20000">
-                <tr lang="en">cutoff frequency</tr>
-                <tr lang="ru" finished="false">частота отключения</tr>
-            </property>
-            <!-- @q -->
-            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="2">
-                <tr lang="en">quality factor: @freq/BANDWIDTH</tr>
-                <tr lang="ru" finished="false">Коэффициент качества: @freq/BANDWIDTH</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset filter state</tr>
-                    <tr lang="ru" finished="false">состояние фильтра сброса</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">set frequency</tr>
-                    <tr lang="ru" finished="false">установленная частота</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">set Q-factor</tr>
-                    <tr lang="ru" finished="false">Настройка Q-фактора</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">filtered signal</tr>
-                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">set frequency</tr>
+          <tr lang="ru" finished="false">установленная частота</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">set Q-factor</tr>
+          <tr lang="ru" finished="false">Настройка Q-фактора</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">filtered signal</tr>
+          <tr lang="ru" finished="false">фильтрованный сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.tab 100 500 1000 5000 10000 15000 20000 @size 300 15]
 |
@@ -151,7 +150,7 @@
 #h @sr 1
 #z @xlabels 1 @ylabels 1 @ymin 0 @ymax 1 @ymin_ticks 0 @ymaj_ticks 0 @n 2 @size 400 200
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

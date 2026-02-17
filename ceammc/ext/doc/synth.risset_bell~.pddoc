@@ -1,89 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="synth.risset_bell~">
-        <title>synth.risset_bell~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">Jean-Claude Risset's bell synth</tr>
-                <tr lang="ru">колокол Жан-Клода Риссе</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>synth</category>
-            <keywords>risset bell</keywords>
-            <since>0.9.4</since>
-        </meta>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="1" maxvalue="10000">
-                <tr lang="en">main frequency</tr>
-                <tr lang="ru" finished="false">Основная частота</tr>
-            </argument>
-            <argument name="DUR" type="float" units="millisecond" minvalue="10" maxvalue="600000">
-                <tr lang="en">duration</tr>
-                <tr lang="ru" finished="false">продолжительность</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @dur -->
-            <property name="@dur" type="float" minvalue="10" maxvalue="600000" default="5000"
-            units="millisecond">
-                <tr lang="en">duration</tr>
-                <tr lang="ru" finished="false">продолжительность</tr>
-            </property>
-            <!-- @freq -->
-            <property name="@freq" type="float" minvalue="1" maxvalue="10000" default="440"
-            units="hertz">
-                <tr lang="en">base frequency</tr>
-                <tr lang="ru" finished="false">базовая частота</tr>
-            </property>
-            <!-- @gate -->
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">play trigger - 1: on, 0: off</tr>
-                <tr lang="ru" finished="false">играть триггер - 1: on, 0: off</tr>
-            </property>
-            <!-- @pfreq -->
-            <property name="@pfreq" type="float" minvalue="0" maxvalue="10" default="1">
-                <tr lang="en">freq multiplication coefficient</tr>
-                <tr lang="ru" finished="false">коэффициент умножения freq</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset synth</tr>
-                    <tr lang="ru" finished="false">Сбросить синтезатор</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">play</tr>
-                    <tr lang="ru" finished="false">играть</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">play with specified amp</tr>
-                    <tr lang="ru" finished="false">играть с определенным усилителем</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="synth.risset_bell~">
+    <title>synth.risset_bell~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">Jean-Claude Risset's bell synth</tr>
+        <tr lang="ru">колокол Жан-Клода Риссе</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>synth</category>
+      <keywords>risset bell</keywords>
+      <since>0.9.4</since>
+    </meta>
+    <arguments>
+      <argument name="FREQ" type="float" units="hertz" minvalue="1" maxvalue="10000">
+        <tr lang="en">main frequency</tr>
+        <tr lang="ru" finished="false">Основная частота</tr>
+      </argument>
+      <argument name="DUR" type="float" units="millisecond" minvalue="10" maxvalue="600000">
+        <tr lang="en">duration</tr>
+        <tr lang="ru" finished="false">продолжительность</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @dur -->
+      <property name="@dur" type="float" minvalue="10" maxvalue="600000" default="5000"
+      units="millisecond">
+        <tr lang="en">duration</tr>
+        <tr lang="ru" finished="false">продолжительность</tr>
+      </property>
+      <!-- @freq -->
+      <property name="@freq" type="float" minvalue="1" maxvalue="10000" default="440"
+      units="hertz">
+        <tr lang="en">base frequency</tr>
+        <tr lang="ru" finished="false">базовая частота</tr>
+      </property>
+      <!-- @gate -->
+      <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">play trigger - 1: on, 0: off</tr>
+        <tr lang="ru" finished="false">играть триггер - 1: on, 0: off</tr>
+      </property>
+      <!-- @pfreq -->
+      <property name="@pfreq" type="float" minvalue="0" maxvalue="10" default="1">
+        <tr lang="en">freq multiplication coefficient</tr>
+        <tr lang="ru" finished="false">коэффициент умножения freq</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset synth</tr>
+          <tr lang="ru" finished="false">Сбросить синтезатор</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">play</tr>
+          <tr lang="ru" finished="false">играть</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">play with specified amp</tr>
+          <tr lang="ru" finished="false">играть с определенным усилителем</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |
@@ -101,7 +101,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

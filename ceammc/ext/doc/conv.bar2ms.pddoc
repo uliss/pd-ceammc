@@ -1,117 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.bar2ms">
-        <title>conv.bar2ms</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">calculates bar and beat duration</tr>
-                <tr lang="ru">вычисляет продолжительность такта и ударной доли</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv time duration tempo bpm</keywords>
-            <also>
-                <see>conv.bpm2ms</see>
-            </also>
-            <since>0.9.7</since>
-            <aliases>
-                <alias>ceammc/bar-&gt;ms</alias>
-                <alias>bar-&gt;ms</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Example tempo values: 60, 120bpm, 90|4bpm, 80|3/8bpm</tr>
-                <!-- old: Примеры значений темпа: 60, 120bpm, 90 | 4bpm, 80 |
+  <object name="conv.bar2ms">
+    <title>conv.bar2ms</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">calculates bar and beat duration</tr>
+        <tr lang="ru">вычисляет продолжительность такта и ударной доли</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv time duration tempo bpm</keywords>
+      <also>
+        <see>conv.bpm2ms</see>
+      </also>
+      <since>0.9.7</since>
+      <aliases>
+        <alias>ceammc/bar-&gt;ms</alias>
+        <alias>bar-&gt;ms</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Example tempo values: 60, 120bpm, 90|4bpm, 80|3/8bpm</tr>
+        <!-- old: Примеры значений темпа: 60, 120bpm, 90 | 4bpm, 80 |
                 3 / 8bpm -->
-                <tr lang="ru" finished="false">Примеры значений темпа: 60, 120bpm, 90 | 4bpm, 80 |
-                3 / 8bpm</tr>
-            </par>
-            <par>
-                <tr lang="en">Example time signature values: |3/8|, |1/4+3/16|</tr>
-                <!-- old: Примерные значения времени подписи: |3/8 |,
+        <tr lang="ru" finished="false">Примеры значений темпа: 60, 120bpm, 90 | 4bpm, 80 | 3 /
+        8bpm</tr>
+      </par>
+      <par>
+        <tr lang="en">Example time signature values: |3/8|, |1/4+3/16|</tr>
+        <!-- old: Примерные значения времени подписи: |3/8 |,
                 |1/4+3/16 | -->
-                <tr lang="ru" finished="false">Примерные значения времени подписи: |3/8 |,
-                |1/4+3/16 |</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="BPM" type="atom" units="bpm">
-                <tr lang="en">initial tempo value</tr>
-                <tr lang="ru">начальное значение темпа</tr>
-            </argument>
-            <argument name="TSIG" type="symbol">
-                <tr lang="en">initial time signature value</tr>
-                <tr lang="ru">начальное значение тактового размера</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @bpm -->
-            <property name="@bpm" type="atom" default="60|4bpm" units="bpm">
-                <tr lang="en">tempo bpm value</tr>
-                <tr lang="ru">значение темпа</tr>
-            </property>
-            <!-- @tsig -->
-            <property name="@tsig" type="symbol" default="|4/4|">
-                <tr lang="en">time signature value</tr>
-                <tr lang="ru">значение тактового размера</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output bar and beat duration</tr>
-                    <tr lang="ru" finished="false">выходной бар и продолжительность бита</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">set tempo BPM (in quarters) and output</tr>
-                    <!-- old: установленный темп BPM (в кварталах) и
+        <tr lang="ru" finished="false">Примерные значения времени подписи: |3/8 |, |1/4+3/16 |</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="BPM" type="atom" units="bpm">
+        <tr lang="en">initial tempo value</tr>
+        <tr lang="ru">начальное значение темпа</tr>
+      </argument>
+      <argument name="TSIG" type="symbol">
+        <tr lang="en">initial time signature value</tr>
+        <tr lang="ru">начальное значение тактового размера</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @bpm -->
+      <property name="@bpm" type="atom" default="60|4bpm" units="bpm">
+        <tr lang="en">tempo bpm value</tr>
+        <tr lang="ru">значение темпа</tr>
+      </property>
+      <!-- @tsig -->
+      <property name="@tsig" type="symbol" default="|4/4|">
+        <tr lang="en">time signature value</tr>
+        <tr lang="ru">значение тактового размера</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output bar and beat duration</tr>
+          <tr lang="ru" finished="false">выходной бар и продолжительность бита</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">set tempo BPM (in quarters) and output</tr>
+          <!-- old: установленный темп BPM (в кварталах) и
                     выход -->
-                    <tr lang="ru" finished="false">установленный темп BPM (в кварталах) и
-                    выход</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">set tempo BPM (like "120|8bpm") and output</tr>
-                    <!-- old: установить темп BPM (например, «120 | 8bpm») и
+          <tr lang="ru" finished="false">установленный темп BPM (в кварталах) и выход</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">set tempo BPM (like "120|8bpm") and output</tr>
+          <!-- old: установить темп BPM (например, «120 | 8bpm») и
                     выход -->
-                    <tr lang="ru" finished="false">установить темп BPM (например, «120 | 8bpm») и
-                    выход</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">set tempo BPM and time signature, then output</tr>
-                    <!-- old: установить темп BPM и время подписи, затем
+          <tr lang="ru" finished="false">установить темп BPM (например, «120 | 8bpm») и выход</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">set tempo BPM and time signature, then output</tr>
+          <!-- old: установить темп BPM и время подписи, затем
                     выход -->
-                    <tr lang="ru" finished="false">установить темп BPM и время подписи, затем
-                    выход</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">set time signature</tr>
-                    <tr lang="ru" finished="false">Время подписи</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">bar period in milliseconds</tr>
-                    <tr lang="ru" finished="false">барный период в миллисекундах</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">beat period in milliseconds</tr>
-                    <tr lang="ru" finished="false">период удара в миллисекундах</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">установить темп BPM и время подписи, затем выход</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">set time signature</tr>
+          <tr lang="ru" finished="false">Время подписи</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">bar period in milliseconds</tr>
+          <tr lang="ru" finished="false">барный период в миллисекундах</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">beat period in milliseconds</tr>
+          <tr lang="ru" finished="false">период удара в миллисекундах</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]                      [symbol |7/8|(
 |                        |
@@ -123,7 +119,7 @@
               |
               [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

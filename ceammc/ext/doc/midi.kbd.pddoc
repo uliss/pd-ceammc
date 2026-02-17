@@ -1,105 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.kbd">
-        <title>midi.kdb</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">computer keyboard MIDI emulator</tr>
-                <tr lang="ru">эмулятор MIDI клавиатуры c помощью клавиатуры компьютера</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi keyboard</keywords>
-            <since>0.9.3</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Default keyboard layout is QWERTY, but you can specify custom
-                one</tr>
-                <!-- old: Компоновка клавиатуры по умолчанию QWERTY, но вы
+  <object name="midi.kbd">
+    <title>midi.kdb</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">computer keyboard MIDI emulator</tr>
+        <tr lang="ru">эмулятор MIDI клавиатуры c помощью клавиатуры компьютера</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi keyboard</keywords>
+      <since>0.9.3</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Default keyboard layout is QWERTY, but you can specify custom one</tr>
+        <!-- old: Компоновка клавиатуры по умолчанию QWERTY, но вы
                 можете указать пользовательский -->
-                <tr lang="ru" finished="false">Компоновка клавиатуры по умолчанию QWERTY, но вы
-                можете указать пользовательский</tr>
-            </par>
+        <tr lang="ru" finished="false">Компоновка клавиатуры по умолчанию QWERTY, но вы можете
+        указать пользовательский</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="LAYOUT" type="symbol" enum="qwerty names custom">
+        <tr lang="en">layout name</tr>
+        <tr lang="ru" finished="false">название макета</tr>
+      </argument>
+      <argument name="ON" type="bool">
+        <tr lang="en">init on/off state</tr>
+        <tr lang="ru" finished="false">состояние in/off</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @custom -->
+      <property name="@custom" type="atom" default="[]">
+        <tr lang="en">custom layout (Dict data type)</tr>
+        <tr lang="ru" finished="false">пользовательский макет (тип данных Дикта)</tr>
+      </property>
+      <!-- @layout -->
+      <property name="@layout" type="symbol" enum="qwerty names custom" default="qwerty">
+        <tr lang="en">current layout</tr>
+        <tr lang="ru" finished="false">Текущая планировка</tr>
+      </property>
+      <!-- @octave -->
+      <property name="@octave" type="int" default="4" minvalue="0" maxvalue="8">
+        <tr lang="en">output octave</tr>
+        <tr lang="ru" finished="false">выходная октава</tr>
+      </property>
+      <!-- @on -->
+      <property name="@on" type="bool" default="1">
+        <tr lang="en">on/off state</tr>
+        <tr lang="ru" finished="false">в/вне состояния</tr>
+      </property>
+      <!-- @vel -->
+      <property name="@vel" type="float" minvalue="0" maxvalue="127" default="100">
+        <tr lang="en">output velocity</tr>
+        <tr lang="ru" finished="false">выходная скорость</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- custom -->
+      <method name="custom">
+        <info>
+          <tr lang="en">set custom</tr>
+          <tr lang="ru" finished="false">обычай</tr>
         </info>
-        <arguments>
-            <argument name="LAYOUT" type="symbol" enum="qwerty names custom">
-                <tr lang="en">layout name</tr>
-                <tr lang="ru" finished="false">название макета</tr>
-            </argument>
-            <argument name="ON" type="bool">
-                <tr lang="en">init on/off state</tr>
-                <tr lang="ru" finished="false">состояние in/off</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @custom -->
-            <property name="@custom" type="atom" default="[]">
-                <tr lang="en">custom layout (Dict data type)</tr>
-                <tr lang="ru" finished="false">пользовательский макет (тип данных Дикта)</tr>
-            </property>
-            <!-- @layout -->
-            <property name="@layout" type="symbol" enum="qwerty names custom" default="qwerty">
-                <tr lang="en">current layout</tr>
-                <tr lang="ru" finished="false">Текущая планировка</tr>
-            </property>
-            <!-- @octave -->
-            <property name="@octave" type="int" default="4" minvalue="0" maxvalue="8">
-                <tr lang="en">output octave</tr>
-                <tr lang="ru" finished="false">выходная октава</tr>
-            </property>
-            <!-- @on -->
-            <property name="@on" type="bool" default="1">
-                <tr lang="en">on/off state</tr>
-                <tr lang="ru" finished="false">в/вне состояния</tr>
-            </property>
-            <!-- @vel -->
-            <property name="@vel" type="float" minvalue="0" maxvalue="127" default="100">
-                <tr lang="en">output velocity</tr>
-                <tr lang="ru" finished="false">выходная скорость</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- custom -->
-            <method name="custom">
-                <info>
-                    <tr lang="en">set custom</tr>
-                    <tr lang="ru" finished="false">обычай</tr>
-                </info>
-                <param name="KEYSTR" type="symbol" required="true">
-                    <tr lang="en">key string</tr>
-                    <tr lang="ru" finished="false">ключевая строка</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control input</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">1 or 0: turn on/off</tr>
-                    <tr lang="ru" finished="false">1 или 0: включить/выключить</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">MIDI output: NOTE VEL</tr>
-                    <tr lang="ru" finished="false">Вывод MIDI: Примечание VEL</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <param name="KEYSTR" type="symbol" required="true">
+          <tr lang="en">key string</tr>
+          <tr lang="ru" finished="false">ключевая строка</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control input</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="int">
+          <tr lang="en">1 or 0: turn on/off</tr>
+          <tr lang="ru" finished="false">1 или 0: включить/выключить</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">MIDI output: NOTE VEL</tr>
+          <tr lang="ru" finished="false">Вывод MIDI: Примечание VEL</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.tab qwerty names custom @size 200 15]
 |
@@ -119,7 +118,7 @@
 [ui.dt]
 [X a->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

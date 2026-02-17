@@ -1,96 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.sync">
-        <title>flow.sync</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sync multichannel bus</tr>
-                <tr lang="ru">синхронная многоканальная шина</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>flow control</keywords>
-            <since>0.1</since>
-            <aliases>
-                <alias>flow.'</alias>
-            </aliases>
-            <also>
-                <see>flow.pack'</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Sync data flow. All inlets are 'hot'. When float, symbol or list
-                arrives to inlet, it's value stored. Then output all stored values from all inlets
-                from rightmost to leftmost</tr>
-                <!-- old: Синхронизация потока данных. Все входы «горячие».
+  <object name="flow.sync">
+    <title>flow.sync</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sync multichannel bus</tr>
+        <tr lang="ru">синхронная многоканальная шина</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>flow control</keywords>
+      <since>0.1</since>
+      <aliases>
+        <alias>flow.'</alias>
+      </aliases>
+      <also>
+        <see>flow.pack'</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Sync data flow. All inlets are 'hot'. When float, symbol or list arrives to
+        inlet, it's value stored. Then output all stored values from all inlets from rightmost to
+        leftmost</tr>
+        <!-- old: Синхронизация потока данных. Все входы «горячие».
                 Когда поплавок, символ или список поступает на вход, это значение сохраняется.
                 Затем выведите все сохраненные значения из всех входов справа налево. -->
-                <tr lang="ru" finished="false">Синхронизация потока данных. Все входы «горячие».
-                Когда поплавок, символ или список поступает на вход, это значение сохраняется.
-                Затем выведите все сохраненные значения из всех входов справа налево.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="16">
-                <tr lang="en">Number of input/outputs</tr>
-                <tr lang="ru" finished="false">Количество входов/выходов</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="2" maxvalue="16" default="2"
-            access="initonly">
-                <tr lang="en">number of inputs/outputs</tr>
-                <tr lang="ru" finished="false">Количество входов/выходов</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet>
-                <in>
-                    <tr lang="en">first inlet</tr>
-                    <tr lang="ru" finished="false">первый вход</tr>
-                </in>
-            </inlet>
-            <inlet number="...">
-                <in>
-                    <tr lang="en">...</tr>
-                    <tr lang="ru" finished="false">...</tr>
-                </in>
-            </inlet>
-            <inlet number="n">
-                <in>
-                    <tr lang="en">Nth inlet</tr>
-                    <tr lang="ru" finished="false">N-й вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet>
-                <out type="any">
-                    <tr lang="en">first outlet</tr>
-                    <tr lang="ru" finished="false">первый выход</tr>
-                </out>
-            </outlet>
-            <outlet number="...">
-                <out type="any">
-                    <tr lang="en">... outlet</tr>
-                    <tr lang="ru" finished="false">... выход</tr>
-                </out>
-            </outlet>
-            <outlet number="n">
-                <out type="any">
-                    <tr lang="en">Nth outlet</tr>
-                    <tr lang="ru" finished="false">N-й выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Синхронизация потока данных. Все входы «горячие». Когда
+        поплавок, символ или список поступает на вход, это значение сохраняется. Затем выведите все
+        сохраненные значения из всех входов справа налево.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="N" type="int" minvalue="2" maxvalue="16">
+        <tr lang="en">Number of input/outputs</tr>
+        <tr lang="ru" finished="false">Количество входов/выходов</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="2" maxvalue="16" default="2" access="initonly">
+        <tr lang="en">number of inputs/outputs</tr>
+        <tr lang="ru" finished="false">Количество входов/выходов</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet>
+        <in>
+          <tr lang="en">first inlet</tr>
+          <tr lang="ru" finished="false">первый вход</tr>
+        </in>
+      </inlet>
+      <inlet number="...">
+        <in>
+          <tr lang="en">...</tr>
+          <tr lang="ru" finished="false">...</tr>
+        </in>
+      </inlet>
+      <inlet number="n">
+        <in>
+          <tr lang="en">Nth inlet</tr>
+          <tr lang="ru" finished="false">N-й вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet>
+        <out type="any">
+          <tr lang="en">first outlet</tr>
+          <tr lang="ru" finished="false">первый выход</tr>
+        </out>
+      </outlet>
+      <outlet number="...">
+        <out type="any">
+          <tr lang="en">... outlet</tr>
+          <tr lang="ru" finished="false">... выход</tr>
+        </out>
+      </outlet>
+      <outlet number="n">
+        <out type="any">
+          <tr lang="en">Nth outlet</tr>
+          <tr lang="ru" finished="false">N-й выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [HS]
 |
@@ -106,7 +105,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

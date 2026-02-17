@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.amp2dbfs">
-        <title>conv.amp2dbfs</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert from the amplitude to a decibel full scale</tr>
-                <tr lang="ru">преобразование из амплитуды в децибелы полной шкалы</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv amp dbfs decibel</keywords>
-            <since>0.6</since>
-            <also>
-                <see>dbfs-&gt;amp</see>
-            </also>
-            <aliases>
-                <alias>ceammc/amp-&gt;dbfs</alias>
-                <alias>amp-&gt;dbfs</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Note: amplitude value 0 is converted to -144 db (24-bit range)</tr>
-                <!-- old: Примечание: значение амплитуды 0 преобразуется в
+  <object name="conv.amp2dbfs">
+    <title>conv.amp2dbfs</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert from the amplitude to a decibel full scale</tr>
+        <tr lang="ru">преобразование из амплитуды в децибелы полной шкалы</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv amp dbfs decibel</keywords>
+      <since>0.6</since>
+      <also>
+        <see>dbfs-&gt;amp</see>
+      </also>
+      <aliases>
+        <alias>ceammc/amp-&gt;dbfs</alias>
+        <alias>amp-&gt;dbfs</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Note: amplitude value 0 is converted to -144 db (24-bit range)</tr>
+        <!-- old: Примечание: значение амплитуды 0 преобразуется в
                 -144 дБ (24-битный диапазон) -->
-                <tr lang="ru" finished="false">Примечание: значение амплитуды 0 преобразуется в
-                -144 дБ (24-битный диапазон)</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">input values</tr>
-                    <tr lang="ru" finished="false">входные значения</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">converted value</tr>
-                    <tr lang="ru" finished="false">преобразованная стоимость</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Примечание: значение амплитуды 0 преобразуется в -144 дБ
+        (24-битный диапазон)</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">input values</tr>
+          <tr lang="ru" finished="false">входные значения</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">converted value</tr>
+          <tr lang="ru" finished="false">преобразованная стоимость</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.hsl]
 |
@@ -69,7 +69,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

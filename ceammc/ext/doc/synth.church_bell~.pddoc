@@ -1,113 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="synth.church_bell~">
-        <title>synth.church_bell~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">generic church bell modal model</tr>
-                <tr lang="ru">модовая модель церковного колокола</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>synth</category>
-            <keywords>bell church</keywords>
-            <since>0.6</since>
-        </meta>
+  <object name="synth.church_bell~">
+    <title>synth.church_bell~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">generic church bell modal model</tr>
+        <tr lang="ru">модовая модель церковного колокола</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>synth</category>
+      <keywords>bell church</keywords>
+      <since>0.6</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Modeled after T. Rossing and R. Perrin, Vibrations of Bells, Applied
+        Acoustics 2, 1987</tr>
+        <tr lang="ru" finished="false">По образцу Т. Россинга и Р. Перрина, Вибрации колоколов,
+        Прикладная акустика 2, 1987</tr>
+      </par>
+      <par>
+        <tr lang="en">Model height is 301 mm</tr>
+        <tr lang="ru" finished="false">Высота модели 301 мм</tr>
+      </par>
+      <par>
+        <tr lang="en">This model contains 7 excitation positions going linearly from the bottom to
+        the top of the bell</tr>
+        <tr lang="ru" finished="false">Эта модель содержит 7 положений возбуждения, линейно идущих
+        от низа к верхней части колокола.</tr>
+      </par>
+    </info>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @cutoff -->
+      <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="6500"
+      units="hertz">
+        <tr lang="en">cutoff coefficent</tr>
+        <tr lang="ru" finished="false">эффективный</tr>
+      </property>
+      <!-- @decay_ratio -->
+      <property name="@decay_ratio" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">decay ratio</tr>
+        <tr lang="ru" finished="false">коэффициент разложения</tr>
+      </property>
+      <!-- @decay_slope -->
+      <property name="@decay_slope" type="float" minvalue="0" maxvalue="10" default="2.5">
+        <tr lang="en">decay slope</tr>
+        <tr lang="ru" finished="false">склон</tr>
+      </property>
+      <!-- @gain -->
+      <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">pluck gain</tr>
+        <tr lang="ru" finished="false">pluck gain</tr>
+      </property>
+      <!-- @gate -->
+      <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">play trigger - 1: on, 0: off</tr>
+        <tr lang="ru" finished="false">играть триггер - 1: on, 0: off</tr>
+      </property>
+      <!-- @pos -->
+      <property name="@pos" type="int" minvalue="0" maxvalue="6" default="0">
+        <tr lang="en">strike position (0 is on the bottom)</tr>
+        <tr lang="ru" finished="false">Ударная позиция (0 находится внизу)</tr>
+      </property>
+      <!-- @sharp -->
+      <property name="@sharp" type="float" minvalue="0.01" maxvalue="5" default="0.5">
+        <tr lang="en">strike sharpness</tr>
+        <tr lang="ru" finished="false">резкость удара</tr>
+      </property>
+      <!-- @t60 -->
+      <property name="@t60" type="float" minvalue="0.1" maxvalue="30" default="20" units="second">
+        <tr lang="en">time to decay to -60db level</tr>
+        <tr lang="ru" finished="false">Время распада до уровня -60 дБ</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
         <info>
-            <par>
-                <tr lang="en">Modeled after T. Rossing and R. Perrin, Vibrations of Bells, Applied
-                Acoustics 2, 1987</tr>
-                <tr lang="ru" finished="false">По образцу Т. Россинга и Р. Перрина, Вибрации
-                колоколов, Прикладная акустика 2, 1987</tr>
-            </par>
-            <par>
-                <tr lang="en">Model height is 301 mm</tr>
-                <tr lang="ru" finished="false">Высота модели 301 мм</tr>
-            </par>
-            <par>
-                <tr lang="en">This model contains 7 excitation positions going linearly from the
-                bottom to the top of the bell</tr>
-                <tr lang="ru" finished="false">Эта модель содержит 7 положений возбуждения, линейно
-                идущих от низа к верхней части колокола.</tr>
-            </par>
+          <tr lang="en">reset synth</tr>
+          <tr lang="ru" finished="false">Сбросить синтезатор</tr>
         </info>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @cutoff -->
-            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="6500"
-            units="hertz">
-                <tr lang="en">cutoff coefficent</tr>
-                <tr lang="ru" finished="false">эффективный</tr>
-            </property>
-            <!-- @decay_ratio -->
-            <property name="@decay_ratio" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">decay ratio</tr>
-                <tr lang="ru" finished="false">коэффициент разложения</tr>
-            </property>
-            <!-- @decay_slope -->
-            <property name="@decay_slope" type="float" minvalue="0" maxvalue="10" default="2.5">
-                <tr lang="en">decay slope</tr>
-                <tr lang="ru" finished="false">склон</tr>
-            </property>
-            <!-- @gain -->
-            <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">pluck gain</tr>
-                <tr lang="ru" finished="false">pluck gain</tr>
-            </property>
-            <!-- @gate -->
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">play trigger - 1: on, 0: off</tr>
-                <tr lang="ru" finished="false">играть триггер - 1: on, 0: off</tr>
-            </property>
-            <!-- @pos -->
-            <property name="@pos" type="int" minvalue="0" maxvalue="6" default="0">
-                <tr lang="en">strike position (0 is on the bottom)</tr>
-                <tr lang="ru" finished="false">Ударная позиция (0 находится внизу)</tr>
-            </property>
-            <!-- @sharp -->
-            <property name="@sharp" type="float" minvalue="0.01" maxvalue="5" default="0.5">
-                <tr lang="en">strike sharpness</tr>
-                <tr lang="ru" finished="false">резкость удара</tr>
-            </property>
-            <!-- @t60 -->
-            <property name="@t60" type="float" minvalue="0.1" maxvalue="30" default="20"
-            units="second">
-                <tr lang="en">time to decay to -60db level</tr>
-                <tr lang="ru" finished="false">Время распада до уровня -60 дБ</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset synth</tr>
-                    <tr lang="ru" finished="false">Сбросить синтезатор</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">play</tr>
-                    <tr lang="ru" finished="false">играть</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">synth output</tr>
-                    <tr lang="ru" finished="false">синтетический выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">play</tr>
+          <tr lang="ru" finished="false">играть</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">synth output</tr>
+          <tr lang="ru" finished="false">синтетический выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]            [ui.dsp~]
 |
@@ -142,7 +141,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

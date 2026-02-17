@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="proto.feelworld">
-        <title>proto.feelworld</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">controlling the FeelWorld LivePro L1 HDMI mixer</tr>
-                <tr lang="ru">управление видео-микшером FeelWorld LivePro L1 HDMI</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>proto</category>
-            <keywords>video mixer fellworld</keywords>
-            <since>0.9.5</since>
-        </meta>
-        <properties />
-        <methods>
-            <!-- input -->
-            <method name="input">
-                <info>
-                    <tr lang="en">select HDMI input</tr>
-                    <tr lang="ru" finished="false">Выберите HDMI вход</tr>
-                </info>
-                <param name="N" type="int" required="true" minvalue="0" maxvalue="3">
-                    <tr lang="en">input index</tr>
-                    <tr lang="ru" finished="false">входной индекс</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">commands</tr>
-                    <tr lang="ru" finished="false">командовать</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list: bytes to send to UDP port 1000</tr>
-                    <tr lang="ru" finished="false">Байты для отправки в порт UDP 1000</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="proto.feelworld">
+    <title>proto.feelworld</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">controlling the FeelWorld LivePro L1 HDMI mixer</tr>
+        <tr lang="ru">управление видео-микшером FeelWorld LivePro L1 HDMI</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>proto</category>
+      <keywords>video mixer fellworld</keywords>
+      <since>0.9.5</since>
+    </meta>
+    <properties />
+    <methods>
+      <!-- input -->
+      <method name="input">
+        <info>
+          <tr lang="en">select HDMI input</tr>
+          <tr lang="ru" finished="false">Выберите HDMI вход</tr>
+        </info>
+        <param name="N" type="int" required="true" minvalue="0" maxvalue="3">
+          <tr lang="en">input index</tr>
+          <tr lang="ru" finished="false">входной индекс</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">commands</tr>
+          <tr lang="ru" finished="false">командовать</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list: bytes to send to UDP port 1000</tr>
+          <tr lang="ru" finished="false">Байты для отправки в порт UDP 1000</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.hrd 4]
 |
@@ -65,7 +65,7 @@
 |
 [T]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

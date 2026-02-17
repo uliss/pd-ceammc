@@ -1,115 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="synth.kick2~">
-        <title>synth.kick2~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">low-kick synth from Faust libraries</tr>
-                <tr lang="ru">синтезатор бочки из библиотеки Faust</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>synth</category>
-            <keywords>synth kick</keywords>
-            <since>0.9.5</since>
-            <also>
-                <see>synth.kick~</see>
-            </also>
-        </meta>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @attack -->
-            <property name="@attack" type="float" minvalue="5" maxvalue="400" default="20"
-            units="millisecond">
-                <tr lang="en">attack time</tr>
-                <tr lang="ru" finished="false">Время атаки</tr>
-            </property>
-            <!-- @click -->
-            <property name="@click" type="float" default="20" minvalue="5" maxvalue="1000"
-            units="millisecond">
-                <tr lang="en">speed of the pitch envelope</tr>
-                <tr lang="ru" finished="false">Скорость движения конверта</tr>
-            </property>
-            <!-- @drive -->
-            <property name="@drive" type="float" default="2.5" minvalue="1" maxvalue="10">
-                <tr lang="en">gain multiplier going into the saturator</tr>
-                <tr lang="ru" finished="false">множитель усиления, идущий в насыщенный</tr>
-            </property>
-            <!-- @envwait -->
-            <property name="@envwait" type="bool" default="0">
-                <tr lang="en">ignore new notes until previous note is not finished release
-                time</tr>
-                <tr lang="ru" finished="false">игнорировать новые ноты до тех пор, пока предыдущая
-                нота не закончит время выпуска.</tr>
-            </property>
-            <!-- @freq -->
-            <property name="@freq" type="float" default="44" minvalue="10" maxvalue="5000"
-            units="hertz">
-                <tr lang="en">base frequency</tr>
-                <tr lang="ru" finished="false">базовая частота</tr>
-            </property>
-            <!-- @gate -->
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">play trigger &gt;0: on, 0: off. To set output gain to 0.5 you can 0.5
-                as trigger value</tr>
-                <tr lang="ru" finished="false">играть триггер &gt;0: on, 0: off. Чтобы установить
-                выходной коэффициент усиления до 0,5, вы можете 0,5 как триггерное значение.</tr>
-            </property>
-            <!-- @release -->
-            <property name="@release" type="float" minvalue="5" maxvalue="4000" default="100"
-            units="millisecond">
-                <tr lang="en">release time</tr>
-                <tr lang="ru" finished="false">Время освобождения</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset synth</tr>
-                    <tr lang="ru" finished="false">Сбросить синтезатор</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">play with default duration and full gain</tr>
-                    <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и
-                    полным выигрышем</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">play with default duration and specified gain</tr>
-                    <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и
-                    определенным выигрышем</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">GAIN(0..1) DUR(ms) pair expected</tr>
-                    <tr lang="ru" finished="false">ГАИН(0) ..1) Ожидаемая пара DUR(ms)</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">synth output</tr>
-                    <tr lang="ru" finished="false">синтетический выход</tr>
-                </out>
-            </outlet>
-            <outlet type="control">
-                <out type="any">
-                    <tr lang="en">bang after release finished</tr>
-                    <tr lang="ru" finished="false">Альбом: After Release Complete</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="synth.kick2~">
+    <title>synth.kick2~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">low-kick synth from Faust libraries</tr>
+        <tr lang="ru">синтезатор бочки из библиотеки Faust</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>synth</category>
+      <keywords>synth kick</keywords>
+      <since>0.9.5</since>
+      <also>
+        <see>synth.kick~</see>
+      </also>
+    </meta>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @attack -->
+      <property name="@attack" type="float" minvalue="5" maxvalue="400" default="20"
+      units="millisecond">
+        <tr lang="en">attack time</tr>
+        <tr lang="ru" finished="false">Время атаки</tr>
+      </property>
+      <!-- @click -->
+      <property name="@click" type="float" default="20" minvalue="5" maxvalue="1000"
+      units="millisecond">
+        <tr lang="en">speed of the pitch envelope</tr>
+        <tr lang="ru" finished="false">Скорость движения конверта</tr>
+      </property>
+      <!-- @drive -->
+      <property name="@drive" type="float" default="2.5" minvalue="1" maxvalue="10">
+        <tr lang="en">gain multiplier going into the saturator</tr>
+        <tr lang="ru" finished="false">множитель усиления, идущий в насыщенный</tr>
+      </property>
+      <!-- @envwait -->
+      <property name="@envwait" type="bool" default="0">
+        <tr lang="en">ignore new notes until previous note is not finished release time</tr>
+        <tr lang="ru" finished="false">игнорировать новые ноты до тех пор, пока предыдущая нота не
+        закончит время выпуска.</tr>
+      </property>
+      <!-- @freq -->
+      <property name="@freq" type="float" default="44" minvalue="10" maxvalue="5000" units="hertz">
+        <tr lang="en">base frequency</tr>
+        <tr lang="ru" finished="false">базовая частота</tr>
+      </property>
+      <!-- @gate -->
+      <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">play trigger &gt;0: on, 0: off. To set output gain to 0.5 you can 0.5 as
+        trigger value</tr>
+        <tr lang="ru" finished="false">играть триггер &gt;0: on, 0: off. Чтобы установить выходной
+        коэффициент усиления до 0,5, вы можете 0,5 как триггерное значение.</tr>
+      </property>
+      <!-- @release -->
+      <property name="@release" type="float" minvalue="5" maxvalue="4000" default="100"
+      units="millisecond">
+        <tr lang="en">release time</tr>
+        <tr lang="ru" finished="false">Время освобождения</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset synth</tr>
+          <tr lang="ru" finished="false">Сбросить синтезатор</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">play with default duration and full gain</tr>
+          <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и полным
+          выигрышем</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">play with default duration and specified gain</tr>
+          <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и определенным
+          выигрышем</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">GAIN(0..1) DUR(ms) pair expected</tr>
+          <tr lang="ru" finished="false">ГАИН(0) ..1) Ожидаемая пара DUR(ms)</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">synth output</tr>
+          <tr lang="ru" finished="false">синтетический выход</tr>
+        </out>
+      </outlet>
+      <outlet type="control">
+        <out type="any">
+          <tr lang="en">bang after release finished</tr>
+          <tr lang="ru" finished="false">Альбом: After Release Complete</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]    [F]   [ui.k #a]  [ui.k #b]    [ui.k #c]     [ui.k #d]   [ui.k #e]
 |      |.    |          |            |             |           |
@@ -133,7 +131,7 @@
 #d 1 10  @show_value 1
 #e 5 100 @show_value 1
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

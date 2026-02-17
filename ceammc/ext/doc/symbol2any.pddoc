@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="symbol2any">
-        <title>symbol2any</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts symbol or string into a message</tr>
-                <tr lang="ru">преобразует символ или строку в сообщение</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>symbol</category>
-            <keywords>symbol any</keywords>
-            <since>0.9.1</since>
-            <aliases>
-                <alias>ceammc/symbol2any</alias>
-                <alias>ceammc/sym-&gt;any</alias>
-                <alias>ceammc/str-&gt;any</alias>
-                <alias>ceammc/string2any</alias>
-                <alias>sym-&gt;any</alias>
-                <alias>str-&gt;any</alias>
-                <alias>string2any</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">symbol</tr>
-                    <tr lang="ru" finished="false">символ</tr>
-                </in>
-                <in on="data:string">
-                    <tr lang="en">string</tr>
-                    <tr lang="ru" finished="false">струна</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output message</tr>
-                    <tr lang="ru" finished="false">выходное сообщение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="symbol2any">
+    <title>symbol2any</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts symbol or string into a message</tr>
+        <tr lang="ru">преобразует символ или строку в сообщение</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>symbol</category>
+      <keywords>symbol any</keywords>
+      <since>0.9.1</since>
+      <aliases>
+        <alias>ceammc/symbol2any</alias>
+        <alias>ceammc/sym-&gt;any</alias>
+        <alias>ceammc/str-&gt;any</alias>
+        <alias>ceammc/string2any</alias>
+        <alias>sym-&gt;any</alias>
+        <alias>str-&gt;any</alias>
+        <alias>string2any</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">symbol</tr>
+          <tr lang="ru" finished="false">символ</tr>
+        </in>
+        <in on="data:string">
+          <tr lang="en">string</tr>
+          <tr lang="ru" finished="false">струна</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output message</tr>
+          <tr lang="ru" finished="false">выходное сообщение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /* enter some words separated by spaces */
 
@@ -56,7 +56,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

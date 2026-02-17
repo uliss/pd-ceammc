@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="dyn.limit2~">
-        <title>dyn.limit2~</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">stereo 1176LN Peak Limiter</tr>
-                <tr lang="ru">пиковый стерео-ограничитель сигнала в схемотехнике 1176LN</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>dyn</category>
-            <keywords>limiter</keywords>
-            <since>0.1</since>
-            <also>
-                <see>dyn.limit~</see>
-                <see>dyn.comp~</see>
-            </also>
-        </meta>
+  <object name="dyn.limit2~">
+    <title>dyn.limit2~</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">stereo 1176LN Peak Limiter</tr>
+        <tr lang="ru">пиковый стерео-ограничитель сигнала в схемотехнике 1176LN</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>dyn</category>
+      <keywords>limiter</keywords>
+      <since>0.1</since>
+      <also>
+        <see>dyn.limit~</see>
+        <see>dyn.comp~</see>
+      </also>
+    </meta>
+    <info>
+      <a href="https://en.wikipedia.org/wiki/1176_Peak_Limiter">1176 Peak Limiter</a>
+    </info>
+    <properties>
+      <xi:include href="props_active.xml" />
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
         <info>
-            <a href="https://en.wikipedia.org/wiki/1176_Peak_Limiter">1176 Peak Limiter</a>
+          <tr lang="en">reset to initial state</tr>
+          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
         </info>
-        <properties>
-            <xi:include href="props_active.xml" />
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset to initial state</tr>
-                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">left input signal</tr>
-                    <tr lang="ru" finished="false">левый входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">right input signal</tr>
-                    <tr lang="ru" finished="false">правильный входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">left output signal</tr>
-                    <tr lang="ru" finished="false">левый выходной сигнал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">right output signal</tr>
-                    <tr lang="ru" finished="false">правильный выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">left input signal</tr>
+          <tr lang="ru" finished="false">левый входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">right input signal</tr>
+          <tr lang="ru" finished="false">правильный входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">left output signal</tr>
+          <tr lang="ru" finished="false">левый выходной сигнал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">right output signal</tr>
+          <tr lang="ru" finished="false">правильный выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [osc~ 440]  [floatatom]
 |           |.
@@ -81,7 +81,7 @@
 |             |
 [floatatom]   [floatatom]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

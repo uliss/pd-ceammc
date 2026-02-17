@@ -1,113 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="plot.linspace~">
-        <title>plot.linspace~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">generates a sequence of numbers that are uniformly distributed within
-                the specified interval</tr>
-                <tr lang="ru">выводит последовательность равномерно распределенных в заданном
-                интервале числе</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array linear scale</keywords>
-            <also>
-                <see>plot.geomspace~</see>
-                <see>plot.logspace~</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <arguments>
-            <argument name="START" type="float">
-                <tr lang="en">@start property</tr>
-                <tr lang="ru" finished="false">@Start Недвижимость</tr>
-            </argument>
-            <argument name="STOP" type="float">
-                <tr lang="en">@stop property</tr>
-                <tr lang="ru" finished="false">@stop Недвижимость</tr>
-            </argument>
-            <argument name="N" type="int" minvalue="4" maxvalue="1024">
-                <tr lang="en">@n property</tr>
-                <tr lang="ru" finished="false">@n имущество</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @base -->
-            <property name="@base" type="atom" enum="0 pi" default="0">
-                <tr lang="en">x-axis scale base</tr>
-                <tr lang="ru" finished="false">x-осевая шкала</tr>
-            </property>
-            <!-- @endpoint -->
-            <property name="@endpoint" type="bool" default="1">
-                <tr lang="en">include @stop to interval</tr>
-                <tr lang="ru" finished="false">Включите @stop в интервал</tr>
-            </property>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="4" maxvalue="1024" default="256">
-                <tr lang="en">number of points</tr>
-                <tr lang="ru" finished="false">количество точек</tr>
-            </property>
-            <!-- @pi -->
-            <property name="@pi" type="atom">
-                <tr lang="en">alias to @base pi</tr>
-                <tr lang="ru" finished="false">Исполнитель: @base Pi</tr>
-            </property>
-            <!-- @start -->
-            <property name="@start" type="float" default="0">
-                <tr lang="en">the starting value of the sequence</tr>
-                <tr lang="ru" finished="false">начальное значение последовательности</tr>
-            </property>
-            <!-- @stop -->
-            <property name="@stop" type="float" default="255">
-                <tr lang="en">the final value of the sequence, unless @endpoint is false. In that
-                case, @n + 1 values are spaced over the interval in lin-space, of which all but the
-                last (a sequence of length @n) are returned.</tr>
-                <!-- old: Окончательное значение последовательности, если
+  <object name="plot.linspace~">
+    <title>plot.linspace~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">generates a sequence of numbers that are uniformly distributed within the
+        specified interval</tr>
+        <tr lang="ru">выводит последовательность равномерно распределенных в заданном интервале
+        числе</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array linear scale</keywords>
+      <also>
+        <see>plot.geomspace~</see>
+        <see>plot.logspace~</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <arguments>
+      <argument name="START" type="float">
+        <tr lang="en">@start property</tr>
+        <tr lang="ru" finished="false">@Start Недвижимость</tr>
+      </argument>
+      <argument name="STOP" type="float">
+        <tr lang="en">@stop property</tr>
+        <tr lang="ru" finished="false">@stop Недвижимость</tr>
+      </argument>
+      <argument name="N" type="int" minvalue="4" maxvalue="1024">
+        <tr lang="en">@n property</tr>
+        <tr lang="ru" finished="false">@n имущество</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @base -->
+      <property name="@base" type="atom" enum="0 pi" default="0">
+        <tr lang="en">x-axis scale base</tr>
+        <tr lang="ru" finished="false">x-осевая шкала</tr>
+      </property>
+      <!-- @endpoint -->
+      <property name="@endpoint" type="bool" default="1">
+        <tr lang="en">include @stop to interval</tr>
+        <tr lang="ru" finished="false">Включите @stop в интервал</tr>
+      </property>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="4" maxvalue="1024" default="256">
+        <tr lang="en">number of points</tr>
+        <tr lang="ru" finished="false">количество точек</tr>
+      </property>
+      <!-- @pi -->
+      <property name="@pi" type="atom">
+        <tr lang="en">alias to @base pi</tr>
+        <tr lang="ru" finished="false">Исполнитель: @base Pi</tr>
+      </property>
+      <!-- @start -->
+      <property name="@start" type="float" default="0">
+        <tr lang="en">the starting value of the sequence</tr>
+        <tr lang="ru" finished="false">начальное значение последовательности</tr>
+      </property>
+      <!-- @stop -->
+      <property name="@stop" type="float" default="255">
+        <tr lang="en">the final value of the sequence, unless @endpoint is false. In that case, @n
+        + 1 values are spaced over the interval in lin-space, of which all but the last (a sequence
+        of length @n) are returned.</tr>
+        <!-- old: Окончательное значение последовательности, если
                 @endpoint не является ложным. В этом случае значения @n + 1 размещаются через
                 интервал в lin-пространстве, из которого возвращаются все, кроме последнего
                 (последовательность длины @n). -->
-                <tr lang="ru" finished="false">Окончательное значение последовательности, если
-                @endpoint не является ложным. В этом случае значения @n + 1 размещаются через
-                интервал в lin-пространстве, из которого возвращаются все, кроме последнего
-                (последовательность длины @n).</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">starts output</tr>
-                    <tr lang="ru" finished="false">Начинается вывод</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">output specified number of values, change @n property valuue</tr>
-                    <!-- old: выход заданного количества значений, изменение
+        <tr lang="ru" finished="false">Окончательное значение последовательности, если @endpoint не
+        является ложным. В этом случае значения @n + 1 размещаются через интервал в
+        lin-пространстве, из которого возвращаются все, кроме последнего (последовательность длины
+        @n).</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">starts output</tr>
+          <tr lang="ru" finished="false">Начинается вывод</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">output specified number of values, change @n property valuue</tr>
+          <!-- old: выход заданного количества значений, изменение
                     @n стоимости имущества -->
-                    <tr lang="ru" finished="false">выход заданного количества значений, изменение
-                    @n стоимости имущества</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">signal output</tr>
-                    <tr lang="ru" finished="false">выход сигнала</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output to [array.plot~] or [ui.plot~]</tr>
-                    <tr lang="ru" finished="false">[array.plot~] или [ui.plot~]</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">выход заданного количества значений, изменение @n
+          стоимости имущества</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">signal output</tr>
+          <tr lang="ru" finished="false">выход сигнала</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output to [array.plot~] or [ui.plot~]</tr>
+          <tr lang="ru" finished="false">[array.plot~] или [ui.plot~]</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -127,7 +127,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,69 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.sync_rshift">
-        <title>math.sync_rshift</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sync signed bit right shift</tr>
-                <tr lang="ru">синхронный битовый сдвиг вправо</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math shift sync</keywords>
-            <aliases>
-                <alias>math.&gt;&gt;'</alias>
-                <alias>ceammc/&gt;&gt;'</alias>
-                <alias>&gt;&gt;'</alias>
-            </aliases>
-            <since>0.9.1</since>
-            <also>
-                <see>math.sync_lshift</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="SHIFT" type="int">
-                <tr lang="en">shift amount</tr>
-                <tr lang="ru" finished="false">сменная сумма</tr>
-            </argument>
-        </arguments>
-        <inlets>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">set value, calculate and output result</tr>
-                    <!-- old: заданное значение, вычисление и выходной
+  <object name="math.sync_rshift">
+    <title>math.sync_rshift</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sync signed bit right shift</tr>
+        <tr lang="ru">синхронный битовый сдвиг вправо</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math shift sync</keywords>
+      <aliases>
+        <alias>math.&gt;&gt;'</alias>
+        <alias>ceammc/&gt;&gt;'</alias>
+        <alias>&gt;&gt;'</alias>
+      </aliases>
+      <since>0.9.1</since>
+      <also>
+        <see>math.sync_lshift</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="SHIFT" type="int">
+        <tr lang="en">shift amount</tr>
+        <tr lang="ru" finished="false">сменная сумма</tr>
+      </argument>
+    </arguments>
+    <inlets>
+      <inlet>
+        <in on="int">
+          <tr lang="en">set value, calculate and output result</tr>
+          <!-- old: заданное значение, вычисление и выходной
                     результат -->
-                    <tr lang="ru" finished="false">заданное значение, вычисление и выходной
-                    результат</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">pair: set value and shift, calculate and output result</tr>
-                    <!-- old: пара: заданное значение и сдвиг, вычисление и
+          <tr lang="ru" finished="false">заданное значение, вычисление и выходной результат</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">pair: set value and shift, calculate and output result</tr>
+          <!-- old: пара: заданное значение и сдвиг, вычисление и
                     выходной результат -->
-                    <tr lang="ru" finished="false">пара: заданное значение и сдвиг, вычисление и
-                    выходной результат</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">change shift, calculate and output result</tr>
-                    <tr lang="ru" finished="false">изменение смещения, вычисления и результата</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result output</tr>
-                    <tr lang="ru" finished="false">результативность</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">пара: заданное значение и сдвиг, вычисление и выходной
+          результат</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="int">
+          <tr lang="en">change shift, calculate and output result</tr>
+          <tr lang="ru" finished="false">изменение смещения, вычисления и результата</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result output</tr>
+          <tr lang="ru" finished="false">результативность</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]   [F]   /*same as:*/ [F]  [F]
 |     |                  |    |
@@ -73,7 +72,7 @@
 |                        |
 [F]                      [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

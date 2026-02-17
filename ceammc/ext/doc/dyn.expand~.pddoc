@@ -1,183 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="dyn.expand~">
-        <title>dyn.expand~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">mono dynamic range expander</tr>
-                <tr lang="ru">расширение динамического моно-диапазона</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>dyn</category>
-            <keywords>expander mono</keywords>
-            <since>0.9.7</since>
-            <also>
-                <see>dyn.expand2~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">It uses a strength parameter instead of the traditional ratio</tr>
-                <!-- old: Он использует параметр силы вместо традиционного
+  <object name="dyn.expand~">
+    <title>dyn.expand~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">mono dynamic range expander</tr>
+        <tr lang="ru">расширение динамического моно-диапазона</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>dyn</category>
+      <keywords>expander mono</keywords>
+      <since>0.9.7</since>
+      <also>
+        <see>dyn.expand2~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">It uses a strength parameter instead of the traditional ratio</tr>
+        <!-- old: Он использует параметр силы вместо традиционного
                 соотношения. -->
-                <tr lang="ru" finished="false">Он использует параметр силы вместо традиционного
-                соотношения.</tr>
-            </par>
-            <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range
-            compression</a>
-        </info>
-        <arguments>
-            <argument name="STRENGTH" type="float" minvalue="0" maxvalue="10">
-                <tr lang="en">expander strength (0: no expanding, 10: almost gating)</tr>
-                <tr lang="ru">сила экспандера (0: без расширения, 10: практически гейт)</tr>
-            </argument>
-            <argument name="THRESHOLD" type="float" minvalue="-60" maxvalue="0" units="decibel">
-                <tr lang="en">level threshold below which expander kicks in</tr>
-                <tr lang="ru">пороговый уровень, ниже которого срабатывает экспандер</tr>
-            </argument>
-            <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
-                <tr lang="en">attack time = time constant when expander is turning on</tr>
-                <tr lang="ru">время атаки - время включения экспандера</tr>
-            </argument>
-            <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
-                <tr lang="en">release time = time constant coming out of expanding</tr>
-                <tr lang="ru">время спада - время выключения экспандера</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @attack -->
-            <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
-            maxvalue="100">
-                <tr lang="en">time constant when expander is turning on</tr>
-                <tr lang="ru" finished="false">Постоянная времени, когда экспандер включается</tr>
-            </property>
-            <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">
-                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-                <!-- old: Обходной флаг. Если это правда, обойдите
+        <tr lang="ru" finished="false">Он использует параметр силы вместо традиционного
+        соотношения.</tr>
+      </par>
+      <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range
+      compression</a>
+    </info>
+    <arguments>
+      <argument name="STRENGTH" type="float" minvalue="0" maxvalue="10">
+        <tr lang="en">expander strength (0: no expanding, 10: almost gating)</tr>
+        <tr lang="ru">сила экспандера (0: без расширения, 10: практически гейт)</tr>
+      </argument>
+      <argument name="THRESHOLD" type="float" minvalue="-60" maxvalue="0" units="decibel">
+        <tr lang="en">level threshold below which expander kicks in</tr>
+        <tr lang="ru">пороговый уровень, ниже которого срабатывает экспандер</tr>
+      </argument>
+      <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
+        <tr lang="en">attack time = time constant when expander is turning on</tr>
+        <tr lang="ru">время атаки - время включения экспандера</tr>
+      </argument>
+      <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
+        <tr lang="en">release time = time constant coming out of expanding</tr>
+        <tr lang="ru">время спада - время выключения экспандера</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @attack -->
+      <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
+      maxvalue="100">
+        <tr lang="en">time constant when expander is turning on</tr>
+        <tr lang="ru" finished="false">Постоянная времени, когда экспандер включается</tr>
+      </property>
+      <!-- @bypass -->
+      <property name="@bypass" type="bool" default="0">
+        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+        <!-- old: Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал. -->
-                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал.</tr>
-            </property>
-            <!-- @hold -->
-            <property name="@hold" type="float" units="sample" default="128" minvalue="1"
-            maxvalue="255">
-                <tr lang="en">hold period</tr>
-                <tr lang="ru" finished="false">Период ожидания</tr>
-            </property>
-            <!-- @knee -->
-            <property name="@knee" type="float" units="decibel" default="3" minvalue="0"
-            maxvalue="6">
-                <tr lang="en">a gradual increase in gain reduction around the threshold: below
-                thresh-(knee/2) there is no gain reduction, above thresh+(knee/2) there is the same
-                gain reduction as without a knee, and in between there is a gradual increase in
-                gain reduction</tr>
-                <!-- old: постепенное увеличение снижения прироста вокруг
+        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
+        сигнал.</tr>
+      </property>
+      <!-- @hold -->
+      <property name="@hold" type="float" units="sample" default="128" minvalue="1" maxvalue="255">
+        <tr lang="en">hold period</tr>
+        <tr lang="ru" finished="false">Период ожидания</tr>
+      </property>
+      <!-- @knee -->
+      <property name="@knee" type="float" units="decibel" default="3" minvalue="0" maxvalue="6">
+        <tr lang="en">a gradual increase in gain reduction around the threshold: below
+        thresh-(knee/2) there is no gain reduction, above thresh+(knee/2) there is the same gain
+        reduction as without a knee, and in between there is a gradual increase in gain
+        reduction</tr>
+        <!-- old: постепенное увеличение снижения прироста вокруг
                 порога: ниже треш-(knee/2) нет снижения прироста, выше треш+(knee/2) есть такое же
                 снижение прироста, как и без колена, и между ними есть постепенное увеличение
                 снижения прироста -->
-                <tr lang="ru" finished="false">постепенное увеличение снижения прироста вокруг
-                порога: ниже треш-(knee/2) нет снижения прироста, выше треш+(knee/2) есть такое же
-                снижение прироста, как и без колена, и между ними есть постепенное увеличение
-                снижения прироста</tr>
-            </property>
-            <!-- @level -->
-            <property name="@level" type="float" units="decibel" default="0" minvalue="0"
-            maxvalue="90" access="readonly">
-                <tr lang="en">current expander level</tr>
-                <tr lang="ru" finished="false">текущий уровень расширения</tr>
-            </property>
-            <!-- @range -->
-            <property name="@range" type="float" units="decibel" default="-120" minvalue="-120"
-            maxvalue="0">
-                <tr lang="en">max expand range</tr>
-                <tr lang="ru" finished="false">Максимальный диапазон расширения</tr>
-            </property>
-            <!-- @refresh -->
-            <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
-            units="millisecond">
-                <tr lang="en">expander level output time interval. If 0 - no output</tr>
-                <!-- old: Расширитель уровня выходного интервала. Если 0 -
+        <tr lang="ru" finished="false">постепенное увеличение снижения прироста вокруг порога: ниже
+        треш-(knee/2) нет снижения прироста, выше треш+(knee/2) есть такое же снижение прироста,
+        как и без колена, и между ними есть постепенное увеличение снижения прироста</tr>
+      </property>
+      <!-- @level -->
+      <property name="@level" type="float" units="decibel" default="0" minvalue="0" maxvalue="90"
+      access="readonly">
+        <tr lang="en">current expander level</tr>
+        <tr lang="ru" finished="false">текущий уровень расширения</tr>
+      </property>
+      <!-- @range -->
+      <property name="@range" type="float" units="decibel" default="-120" minvalue="-120"
+      maxvalue="0">
+        <tr lang="en">max expand range</tr>
+        <tr lang="ru" finished="false">Максимальный диапазон расширения</tr>
+      </property>
+      <!-- @refresh -->
+      <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
+      units="millisecond">
+        <tr lang="en">expander level output time interval. If 0 - no output</tr>
+        <!-- old: Расширитель уровня выходного интервала. Если 0 -
                 выход отсутствует -->
-                <tr lang="ru" finished="false">Расширитель уровня выходного интервала. Если 0 -
-                выход отсутствует</tr>
-            </property>
-            <!-- @release -->
-            <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
-            maxvalue="500">
-                <tr lang="en">release time = time constant coming out of expanding</tr>
-                <!-- old: Время высвобождения = постоянная времени, выходящая
+        <tr lang="ru" finished="false">Расширитель уровня выходного интервала. Если 0 - выход
+        отсутствует</tr>
+      </property>
+      <!-- @release -->
+      <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
+      maxvalue="500">
+        <tr lang="en">release time = time constant coming out of expanding</tr>
+        <!-- old: Время высвобождения = постоянная времени, выходящая
                 из расширения -->
-                <tr lang="ru" finished="false">Время высвобождения = постоянная времени, выходящая
-                из расширения</tr>
-            </property>
-            <!-- @strength -->
-            <property name="@strength" type="float" default="0" minvalue="0" maxvalue="10">
-                <tr lang="en">expander strength (0: no expanding, 1: increase level by @range
-                db.)</tr>
-                <!-- old: Прочность экспандера (0: без расширения, 1:
+        <tr lang="ru" finished="false">Время высвобождения = постоянная времени, выходящая из
+        расширения</tr>
+      </property>
+      <!-- @strength -->
+      <property name="@strength" type="float" default="0" minvalue="0" maxvalue="10">
+        <tr lang="en">expander strength (0: no expanding, 1: increase level by @range db.)</tr>
+        <!-- old: Прочность экспандера (0: без расширения, 1:
                 повышение уровня на @range db.) -->
-                <tr lang="ru" finished="false">Прочность экспандера (0: без расширения, 1:
-                повышение уровня на @range db.)</tr>
-            </property>
-            <!-- @threshold -->
-            <property name="@threshold" type="float" units="decibel" default="-48" minvalue="-60"
-            maxvalue="0">
-                <tr lang="en">level threshold above which compression kicks in (100 dB = max
-                level)</tr>
-                <!-- old: порог уровня, выше которого начинается сжатие (100
+        <tr lang="ru" finished="false">Прочность экспандера (0: без расширения, 1: повышение уровня
+        на @range db.)</tr>
+      </property>
+      <!-- @threshold -->
+      <property name="@threshold" type="float" units="decibel" default="-48" minvalue="-60"
+      maxvalue="0">
+        <tr lang="en">level threshold above which compression kicks in (100 dB = max level)</tr>
+        <!-- old: порог уровня, выше которого начинается сжатие (100
                 дБ = максимальный уровень) -->
-                <tr lang="ru" finished="false">порог уровня, выше которого начинается сжатие (100
-                дБ = максимальный уровень)</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset to initial state</tr>
-                    <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set expander strength</tr>
-                    <tr lang="ru" finished="false">Установить силу расширения</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output expanded signal</tr>
-                    <tr lang="ru" finished="false">выходной расширенный сигнал</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float: output current expander level in db</tr>
-                    <tr lang="ru" finished="false">Float: уровень экспандера выходного тока в
-                    db</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">порог уровня, выше которого начинается сжатие (100 дБ =
+        максимальный уровень)</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset to initial state</tr>
+          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set expander strength</tr>
+          <tr lang="ru" finished="false">Установить силу расширения</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output expanded signal</tr>
+          <tr lang="ru" finished="false">выходной расширенный сигнал</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float: output current expander level in db</tr>
+          <tr lang="ru" finished="false">Float: уровень экспандера выходного тока в db</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.hsl #a]              [ui.dsp~]
 |
@@ -199,7 +193,7 @@
 
 #a -60 0 @show_value 1
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

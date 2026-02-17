@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.tramp~">
-        <title>array.tramp~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">triggered ramp index generator for the array</tr>
-                <tr lang="ru">запускаемый генератор линейного индекса для массива</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array ramp trigger</keywords>
-            <since>0.9.7</since>
-        </meta>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-            <argument name="SPEED" type="float">
-                <tr lang="en">playing speed</tr>
-                <tr lang="ru">скорость воспроизведения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-            <!-- @from -->
-            <property name="@from" type="float" minvalue="0" default="0" maxvalue="1">
-                <tr lang="en">normalized to [0-1] range ramp start</tr>
-                <tr lang="ru">нормализованное до [0-1] начало линейной функции</tr>
-            </property>
-            <!-- @range -->
-            <property name="@range" type="list" default="0 1">
-                <tr lang="en">ramp range</tr>
-                <tr lang="ru">диапазон линейной функции</tr>
-            </property>
-            <!-- @speed -->
-            <property name="@speed" type="float" default="1">
-                <tr lang="en">ramp speed</tr>
-                <tr lang="ru">скорость линейной функции</tr>
-            </property>
-            <!-- @to -->
-            <property name="@to" type="float" minvalue="0" default="1" maxvalue="1">
-                <tr lang="en">normalized to [0-1] range ramp end</tr>
-                <tr lang="ru">нормализованное до [0-1] конец линейной функции</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">start of the ramp signal for array reading</tr>
-                    <tr lang="ru">старт линейного сигнала для чтения массива</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">ramp signal</tr>
-                    <tr lang="ru">линейный сигнал</tr>
-                </out>
-            </outlet>
-            <outlet type="control">
-                <out type="bang">
-                    <tr lang="en">after reaching the final value</tr>
-                    <tr lang="ru">после достижении финального значения</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.tramp~">
+    <title>array.tramp~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">triggered ramp index generator for the array</tr>
+        <tr lang="ru">запускаемый генератор линейного индекса для массива</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array ramp trigger</keywords>
+      <since>0.9.7</since>
+    </meta>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+      <argument name="SPEED" type="float">
+        <tr lang="en">playing speed</tr>
+        <tr lang="ru">скорость воспроизведения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+      <!-- @from -->
+      <property name="@from" type="float" minvalue="0" default="0" maxvalue="1">
+        <tr lang="en">normalized to [0-1] range ramp start</tr>
+        <tr lang="ru">нормализованное до [0-1] начало линейной функции</tr>
+      </property>
+      <!-- @range -->
+      <property name="@range" type="list" default="0 1">
+        <tr lang="en">ramp range</tr>
+        <tr lang="ru">диапазон линейной функции</tr>
+      </property>
+      <!-- @speed -->
+      <property name="@speed" type="float" default="1">
+        <tr lang="en">ramp speed</tr>
+        <tr lang="ru">скорость линейной функции</tr>
+      </property>
+      <!-- @to -->
+      <property name="@to" type="float" minvalue="0" default="1" maxvalue="1">
+        <tr lang="en">normalized to [0-1] range ramp end</tr>
+        <tr lang="ru">нормализованное до [0-1] конец линейной функции</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">start of the ramp signal for array reading</tr>
+          <tr lang="ru">старт линейного сигнала для чтения массива</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">ramp signal</tr>
+          <tr lang="ru">линейный сигнал</tr>
+        </out>
+      </outlet>
+      <outlet type="control">
+        <out type="bang">
+          <tr lang="en">after reaching the final value</tr>
+          <tr lang="ru">после достижении финального значения</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [loadmsg load guitar1.wav to ARAMP @resize]  [table ARAMP 44100]
 |
@@ -99,7 +99,7 @@
 *|*
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

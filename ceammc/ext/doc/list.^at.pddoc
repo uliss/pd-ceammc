@@ -1,125 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.^at">
-        <title>list.^at</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs elements from a predefined list based on an input list of
-                indices</tr>
-                <tr lang="ru">выводит элементы предварительно заданного списка по входящему списку
-                индексов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list at</keywords>
-            <since>0.6</since>
-            <also>
-                <see>list.at</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="VALUE" type="list">
-                <tr lang="en">list contents</tr>
-                <tr lang="ru" finished="false">список содержимого</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @clip -->
-            <property name="@clip" type="alias">
-                <tr lang="en">alias to @method clip. If index &lt; 0 - return first element. If
-                index greater or equal list size - return last element</tr>
-                <!-- old: @method клип. Если индекс < 0 - возвращайте
+  <object name="list.^at">
+    <title>list.^at</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs elements from a predefined list based on an input list of
+        indices</tr>
+        <tr lang="ru">выводит элементы предварительно заданного списка по входящему списку
+        индексов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list at</keywords>
+      <since>0.6</since>
+      <also>
+        <see>list.at</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="VALUE" type="list">
+        <tr lang="en">list contents</tr>
+        <tr lang="ru" finished="false">список содержимого</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @clip -->
+      <property name="@clip" type="alias">
+        <tr lang="en">alias to @method clip. If index &lt; 0 - return first element. If index
+        greater or equal list size - return last element</tr>
+        <!-- old: @method клип. Если индекс < 0 - возвращайте
                 первый элемент. Если индекс больше или равный размер списка - возвращайте последний
                 элемент -->
-                <tr lang="ru" finished="false">@method клип. Если индекс &lt; 0 - возвращайте
-                первый элемент. Если индекс больше или равный размер списка - возвращайте последний
-                элемент</tr>
-            </property>
-            <!-- @default -->
-            <property name="@default" type="atom" default="None">
-                <tr lang="en">default output value if element was not found</tr>
-                <!-- old: выходное значение по умолчанию, если элемент не
+        <tr lang="ru" finished="false">@method клип. Если индекс &lt; 0 - возвращайте первый
+        элемент. Если индекс больше или равный размер списка - возвращайте последний элемент</tr>
+      </property>
+      <!-- @default -->
+      <property name="@default" type="atom" default="None">
+        <tr lang="en">default output value if element was not found</tr>
+        <!-- old: выходное значение по умолчанию, если элемент не
                 найден -->
-                <tr lang="ru" finished="false">выходное значение по умолчанию, если элемент не
-                найден</tr>
-            </property>
-            <!-- @fold -->
-            <property name="@fold" type="alias">
-                <tr lang="en">alias to @method fold. In range [0, LIST_SIZE) ordinal elements are
-                returned. [LIST_SIZE, 2*LIST_SIZE) - returned in negative order etc.</tr>
-                <!-- old: Оригинальное название: @method fold. В диапазоне [0,
+        <tr lang="ru" finished="false">выходное значение по умолчанию, если элемент не найден</tr>
+      </property>
+      <!-- @fold -->
+      <property name="@fold" type="alias">
+        <tr lang="en">alias to @method fold. In range [0, LIST_SIZE) ordinal elements are returned.
+        [LIST_SIZE, 2*LIST_SIZE) - returned in negative order etc.</tr>
+        <!-- old: Оригинальное название: @method fold. В диапазоне [0,
                 LIST_SIZE] порядковые элементы возвращаются. [LIST_SIZE, 2*LIST_SIZE) -
                 возвращаются в отрицательном порядке и т.д. -->
-                <tr lang="ru" finished="false">Оригинальное название: @method fold. В диапазоне [0,
-                LIST_SIZE] порядковые элементы возвращаются. [LIST_SIZE, 2*LIST_SIZE) -
-                возвращаются в отрицательном порядке и т.д.</tr>
-            </property>
-            <!-- @method -->
-            <property name="@method" type="symbol" enum="rel clip fold wrap" default="rel">
-                <tr lang="en">methods of processing of negative/invalid indexes</tr>
-                <!-- old: Методы обработки отрицательных/инвалидных
+        <tr lang="ru" finished="false">Оригинальное название: @method fold. В диапазоне [0,
+        LIST_SIZE] порядковые элементы возвращаются. [LIST_SIZE, 2*LIST_SIZE) - возвращаются в
+        отрицательном порядке и т.д.</tr>
+      </property>
+      <!-- @method -->
+      <property name="@method" type="symbol" enum="rel clip fold wrap" default="rel">
+        <tr lang="en">methods of processing of negative/invalid indexes</tr>
+        <!-- old: Методы обработки отрицательных/инвалидных
                 индексов -->
-                <tr lang="ru" finished="false">Методы обработки отрицательных/инвалидных
-                индексов</tr>
-            </property>
-            <!-- @rel -->
-            <property name="@rel" type="alias">
-                <tr lang="en">alias to @method rel. Negative index means position from the end of
-                the list</tr>
-                <!-- old: @method rel. Отрицательный индекс означает позицию в
+        <tr lang="ru" finished="false">Методы обработки отрицательных/инвалидных индексов</tr>
+      </property>
+      <!-- @rel -->
+      <property name="@rel" type="alias">
+        <tr lang="en">alias to @method rel. Negative index means position from the end of the
+        list</tr>
+        <!-- old: @method rel. Отрицательный индекс означает позицию в
                 конце списка. -->
-                <tr lang="ru" finished="false">@method rel. Отрицательный индекс означает позицию в
-                конце списка.</tr>
-            </property>
-            <!-- @value -->
-            <property name="@value" type="list" default="">
-                <tr lang="en">list contents</tr>
-                <tr lang="ru" finished="false">список содержимого</tr>
-            </property>
-            <!-- @wrap -->
-            <property name="@wrap" type="alias">
-                <tr lang="en">alias to @method wrap. In range [0, LIST_SIZE) ordinal elements are
-                returned. Other indexes are wrapped by modulo division.</tr>
-                <!-- old: Оригинальное название: @method wrap В диапазоне [0,
+        <tr lang="ru" finished="false">@method rel. Отрицательный индекс означает позицию в конце
+        списка.</tr>
+      </property>
+      <!-- @value -->
+      <property name="@value" type="list" default="">
+        <tr lang="en">list contents</tr>
+        <tr lang="ru" finished="false">список содержимого</tr>
+      </property>
+      <!-- @wrap -->
+      <property name="@wrap" type="alias">
+        <tr lang="en">alias to @method wrap. In range [0, LIST_SIZE) ordinal elements are returned.
+        Other indexes are wrapped by modulo division.</tr>
+        <!-- old: Оригинальное название: @method wrap В диапазоне [0,
                 LIST_SIZE] порядковые элементы возвращаются. Другие индексы обернуты модульным
                 делением. -->
-                <tr lang="ru" finished="false">Оригинальное название: @method wrap В диапазоне [0,
-                LIST_SIZE] порядковые элементы возвращаются. Другие индексы обернуты модульным
-                делением.</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">element index</tr>
-                    <tr lang="ru" finished="false">Элементный индекс</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">list of indexes</tr>
-                    <tr lang="ru" finished="false">Список индексов</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set list content</tr>
-                    <tr lang="ru" finished="false">Содержание списка</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">element(s) at the input index position(s)</tr>
-                    <tr lang="ru" finished="false">элемент(ы) в позиции(ах) входного индекса</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Оригинальное название: @method wrap В диапазоне [0,
+        LIST_SIZE] порядковые элементы возвращаются. Другие индексы обернуты модульным
+        делением.</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="int">
+          <tr lang="en">element index</tr>
+          <tr lang="ru" finished="false">Элементный индекс</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">list of indexes</tr>
+          <tr lang="ru" finished="false">Список индексов</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set list content</tr>
+          <tr lang="ru" finished="false">Содержание списка</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">element(s) at the input index position(s)</tr>
+          <tr lang="ru" finished="false">элемент(ы) в позиции(ах) входного индекса</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]  [1 3 5 -1(
 |    |
@@ -127,7 +124,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

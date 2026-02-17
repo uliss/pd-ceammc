@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="dict.pass">
-        <title>dict.pass</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">passes only specified keys in the dictionary</tr>
-                <tr lang="ru">пропускает (фильтрует) только указанные ключи в словаре</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>pass dictionary</keywords>
-            <since>0.7</since>
-            <also>
-                <see>data.dict</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="KEYS" type="list">
-                <tr lang="en">keys</tr>
-                <tr lang="ru" finished="false">ключи</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @keys -->
-            <property name="@keys" type="list" default="">
-                <tr lang="en">passed keys</tr>
-                <tr lang="ru" finished="false">Пропущенные ключи</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="data:dict">
-                    <tr lang="en">input dictionary</tr>
-                    <tr lang="ru" finished="false">словарь входного словаря</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">set passed keys</tr>
-                    <tr lang="ru" finished="false">Пропущенные ключи</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">dict with passed keys</tr>
-                    <tr lang="ru" finished="false">диктовка с пропущенными ключами</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="dict.pass">
+    <title>dict.pass</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">passes only specified keys in the dictionary</tr>
+        <tr lang="ru">пропускает (фильтрует) только указанные ключи в словаре</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>pass dictionary</keywords>
+      <since>0.7</since>
+      <also>
+        <see>data.dict</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="KEYS" type="list">
+        <tr lang="en">keys</tr>
+        <tr lang="ru" finished="false">ключи</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @keys -->
+      <property name="@keys" type="list" default="">
+        <tr lang="en">passed keys</tr>
+        <tr lang="ru" finished="false">Пропущенные ключи</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="data:dict">
+          <tr lang="en">input dictionary</tr>
+          <tr lang="ru" finished="false">словарь входного словаря</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">set passed keys</tr>
+          <tr lang="ru" finished="false">Пропущенные ключи</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">dict with passed keys</tr>
+          <tr lang="ru" finished="false">диктовка с пропущенными ключами</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [\[a: b c: d e: f\], bang(
 |
@@ -65,7 +65,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

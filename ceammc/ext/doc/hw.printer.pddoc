@@ -1,108 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hw.printer">
-        <title>hw.printer</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">basic document printing support</tr>
-                <tr lang="ru">базовая поддержка печати документов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>hw</category>
-            <keywords>display brightness</keywords>
-            <since>0.9.8</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">MacOs: supports only text, PDF and images files.</tr>
-                <!-- old: MacO: поддерживает только текст, PDF и файлы
+  <object name="hw.printer">
+    <title>hw.printer</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">basic document printing support</tr>
+        <tr lang="ru">базовая поддержка печати документов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>hw</category>
+      <keywords>display brightness</keywords>
+      <since>0.9.8</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">MacOs: supports only text, PDF and images files.</tr>
+        <!-- old: MacO: поддерживает только текст, PDF и файлы
                 изображений. -->
-                <tr lang="ru" finished="false">MacO: поддерживает только текст, PDF и файлы
-                изображений.</tr>
-            </par>
-            <par>
-                <tr lang="en">Windows: supports only PDF files.</tr>
-                <tr lang="ru" finished="false">Windows поддерживает только PDF-файлы.</tr>
-            </par>
+        <tr lang="ru" finished="false">MacO: поддерживает только текст, PDF и файлы
+        изображений.</tr>
+      </par>
+      <par>
+        <tr lang="en">Windows: supports only PDF files.</tr>
+        <tr lang="ru" finished="false">Windows поддерживает только PDF-файлы.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="NAME" type="symbol">
+        <tr lang="en">printer name. If not specified, it uses the default system printer.</tr>
+        <tr lang="ru">имя принтера. Если не указано - использует системный принтер по
+        умолчанию</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @name -->
+      <property name="@name" type="symbol" default="">
+        <tr lang="en">printer name, if empty - use default system printer</tr>
+        <!-- old: Имя принтера, если пусто - используйте системный
+                принтер по умолчанию -->
+        <!-- old: Имя принтера, если пусто - используйте системный
+                принтер по умолчанию -->
+        <tr lang="ru" finished="false">Имя принтера, если пусто - используйте системный принтер по
+        умолчанию</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- choose -->
+      <method name="choose">
+        <info>
+          <tr lang="en">choose printer by index</tr>
+          <tr lang="ru" finished="false">Выберите принтер по индексу</tr>
         </info>
-        <arguments>
-            <argument name="NAME" type="symbol">
-                <tr lang="en">printer name. If not specified, it uses the default system
-                printer.</tr>
-                <tr lang="ru">имя принтера. Если не указано - использует системный принтер по
-                умолчанию</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @name -->
-            <property name="@name" type="symbol" default="">
-                <tr lang="en">printer name, if empty - use default system printer</tr>
-                <!-- old: Имя принтера, если пусто - используйте системный
-                принтер по умолчанию -->
-                <!-- old: Имя принтера, если пусто - используйте системный
-                принтер по умолчанию -->
-                <tr lang="ru" finished="false">Имя принтера, если пусто - используйте системный
-                принтер по умолчанию</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- choose -->
-            <method name="choose">
-                <info>
-                    <tr lang="en">choose printer by index</tr>
-                    <tr lang="ru" finished="false">Выберите принтер по индексу</tr>
-                </info>
-                <param name="IDX" type="int" minvalue="0">
-                    <tr lang="en">printer index in device list</tr>
-                    <tr lang="ru" finished="false">Индекс принтера в списке устройств</tr>
-                </param>
-            </method>
-            <!-- devices -->
-            <method name="devices">
-                <info>
-                    <tr lang="en">list printers</tr>
-                    <tr lang="ru" finished="false">Список принтеров</tr>
-                </info>
-            </method>
-            <!-- print -->
-            <method name="print">
-                <info>
-                    <tr lang="en">print file</tr>
-                    <tr lang="ru" finished="false">печатный файл</tr>
-                </info>
-                <param name="FILE" type="symbol" required="true">
-                    <tr lang="en">file to print</tr>
-                    <tr lang="ru" finished="false">Файл для печати</tr>
-                </param>
-                <param name="@landscape" type="bool" required="false">
-                    <tr lang="en">print in landscape mode</tr>
-                    <tr lang="ru" finished="false">Печать в ландшафтном режиме</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input</tr>
-                    <tr lang="ru" finished="false">ввод</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">dict: printer info output</tr>
-                    <tr lang="ru" finished="false">dict: Printer info output (недоступная
-                    ссылка)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <param name="IDX" type="int" minvalue="0">
+          <tr lang="en">printer index in device list</tr>
+          <tr lang="ru" finished="false">Индекс принтера в списке устройств</tr>
+        </param>
+      </method>
+      <!-- devices -->
+      <method name="devices">
+        <info>
+          <tr lang="en">list printers</tr>
+          <tr lang="ru" finished="false">Список принтеров</tr>
+        </info>
+      </method>
+      <!-- print -->
+      <method name="print">
+        <info>
+          <tr lang="en">print file</tr>
+          <tr lang="ru" finished="false">печатный файл</tr>
+        </info>
+        <param name="FILE" type="symbol" required="true">
+          <tr lang="en">file to print</tr>
+          <tr lang="ru" finished="false">Файл для печати</tr>
+        </param>
+        <param name="@landscape" type="bool" required="false">
+          <tr lang="en">print in landscape mode</tr>
+          <tr lang="ru" finished="false">Печать в ландшафтном режиме</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input</tr>
+          <tr lang="ru" finished="false">ввод</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">dict: printer info output</tr>
+          <tr lang="ru" finished="false">dict: Printer info output (недоступная ссылка)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [devices(  [B]
 |          |
@@ -114,7 +112,7 @@
 |
 [print]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

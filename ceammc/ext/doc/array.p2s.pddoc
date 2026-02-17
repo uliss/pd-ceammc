@@ -1,75 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.p2s">
-        <title>array.p2s</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converting the array phase [0..1] to the sample index</tr>
-                <tr lang="ru">преобразование фазы массива [0..1] в индекс семпла</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>array phase sample</keywords>
-            <also>
-                <see>array.s2p</see>
-            </also>
-            <since>0.2</since>
-            <aliases>
-                <alias>array.p-&gt;s</alias>
-                <alias>array.phase-&gt;sample</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">this object allows to get relative access to array</tr>
-                <tr lang="ru">позволяет получить относительный доступ к массиву</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">value between 0 and 1, where 0 maps to begin of array, 1 - to
-                    end</tr>
-                    <tr lang="ru" finished="false">значение между 0 и 1, где 0 карт для начала
-                    массива, 1 - для конца</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">list of array phases</tr>
-                    <tr lang="ru">список фаз для массива</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="float">
-                    <tr lang="en">sample index when input value is float</tr>
-                    <tr lang="ru">индекс семпла, когда входное значение - число</tr>
-                </out>
-                <out type="list">
-                    <tr lang="en">sample indexes when input value is list of floats</tr>
-                    <tr lang="ru">индексы семплов, когда входное значение - список чисел</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.p2s">
+    <title>array.p2s</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converting the array phase [0..1] to the sample index</tr>
+        <tr lang="ru">преобразование фазы массива [0..1] в индекс семпла</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>array phase sample</keywords>
+      <also>
+        <see>array.s2p</see>
+      </also>
+      <since>0.2</since>
+      <aliases>
+        <alias>array.p-&gt;s</alias>
+        <alias>array.phase-&gt;sample</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">this object allows to get relative access to array</tr>
+        <tr lang="ru">позволяет получить относительный доступ к массиву</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">value between 0 and 1, where 0 maps to begin of array, 1 - to end</tr>
+          <tr lang="ru" finished="false">значение между 0 и 1, где 0 карт для начала массива, 1 -
+          для конца</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">list of array phases</tr>
+          <tr lang="ru">список фаз для массива</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="float">
+          <tr lang="en">sample index when input value is float</tr>
+          <tr lang="ru">индекс семпла, когда входное значение - число</tr>
+        </out>
+        <out type="list">
+          <tr lang="en">sample indexes when input value is list of floats</tr>
+          <tr lang="ru">индексы семплов, когда входное значение - список чисел</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [HS min=0 max=1]       [array p2s size=100 w=200 h=150]
 |
@@ -87,7 +86,7 @@
 |
 [s p2s]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

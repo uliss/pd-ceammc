@@ -1,85 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.demultiplex~">
-        <title>flow.demultiplex~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">audio stream demultiplexer</tr>
-                <tr lang="ru">демультиплексор аудиопотока</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>flow demultiplex</keywords>
-            <since>0.6</since>
-            <aliases>
-                <alias>flow.demux~</alias>
-                <alias>ceammc/demux~</alias>
-                <alias>demux~</alias>
-            </aliases>
-            <also>
-                <see>flow.demultiplex2~</see>
-                <see>flow.demultiplex</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="16">
-                <tr lang="en">number of signals outputs</tr>
-                <tr lang="ru" finished="false">Количество выходов сигналов</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="2" default="2" maxvalue="16"
-            access="initonly">
-                <tr lang="en">number of outlets</tr>
-                <tr lang="ru" finished="false">количество торговых точек</tr>
-            </property>
-            <!-- @value -->
-            <property name="@value" type="list" default="">
-                <tr lang="en">gain coefficients per each output</tr>
-                <tr lang="ru" finished="false">коэффициенты усиления на каждый выход</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="control">
-                <in>
-                    <tr lang="en">demultiplexer control</tr>
-                    <tr lang="ru" finished="false">контроль демультиплекса</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet type="audio" number="1">
-                <out type="any">
-                    <tr lang="en">first output</tr>
-                    <tr lang="ru" finished="false">первый выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="...">
-                <out type="any">
-                    <tr lang="en">... output</tr>
-                    <tr lang="ru" finished="false">... выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="n">
-                <out type="any">
-                    <tr lang="en">n-th output</tr>
-                    <tr lang="ru" finished="false">n-й выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flow.demultiplex~">
+    <title>flow.demultiplex~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">audio stream demultiplexer</tr>
+        <tr lang="ru">демультиплексор аудиопотока</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>flow demultiplex</keywords>
+      <since>0.6</since>
+      <aliases>
+        <alias>flow.demux~</alias>
+        <alias>ceammc/demux~</alias>
+        <alias>demux~</alias>
+      </aliases>
+      <also>
+        <see>flow.demultiplex2~</see>
+        <see>flow.demultiplex</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="N" type="int" minvalue="2" maxvalue="16">
+        <tr lang="en">number of signals outputs</tr>
+        <tr lang="ru" finished="false">Количество выходов сигналов</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="2" default="2" maxvalue="16" access="initonly">
+        <tr lang="en">number of outlets</tr>
+        <tr lang="ru" finished="false">количество торговых точек</tr>
+      </property>
+      <!-- @value -->
+      <property name="@value" type="list" default="">
+        <tr lang="en">gain coefficients per each output</tr>
+        <tr lang="ru" finished="false">коэффициенты усиления на каждый выход</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="control">
+        <in>
+          <tr lang="en">demultiplexer control</tr>
+          <tr lang="ru" finished="false">контроль демультиплекса</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet type="audio" number="1">
+        <out type="any">
+          <tr lang="en">first output</tr>
+          <tr lang="ru" finished="false">первый выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="...">
+        <out type="any">
+          <tr lang="en">... output</tr>
+          <tr lang="ru" finished="false">... выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="n">
+        <out type="any">
+          <tr lang="en">n-th output</tr>
+          <tr lang="ru" finished="false">n-й выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [osc~ 440]    [ui.radio @nitems 4] [ui.dsp~]
 |             |
@@ -99,7 +98,7 @@
 [X a:2->c]
 [X a:3->d]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

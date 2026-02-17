@@ -1,120 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.match">
-        <title>flow.match</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">routes the control flow by the regular expression match</tr>
-                <tr lang="ru">маршрутизатор управляющего потока с помощью совпадений с регулярным
-                выражением</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>regexp</keywords>
-            <since>0.7.1</since>
-            <also>
-                <see>string.match</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Use backtick ` instead of backslash in regexp syntax</tr>
-                <tr lang="ru" finished="false">Используйте backtick вместо backslash в синтаксисе
-                regexp</tr>
-            </par>
-            <par>
-                <tr lang="en">if you want to match property - use double quotes in arg list:
-                "@prop+"</tr>
-                <!-- old: если вы хотите сопоставить недвижимость -
+  <object name="flow.match">
+    <title>flow.match</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">routes the control flow by the regular expression match</tr>
+        <tr lang="ru">маршрутизатор управляющего потока с помощью совпадений с регулярным
+        выражением</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>regexp</keywords>
+      <since>0.7.1</since>
+      <also>
+        <see>string.match</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Use backtick ` instead of backslash in regexp syntax</tr>
+        <tr lang="ru" finished="false">Используйте backtick вместо backslash в синтаксисе
+        regexp</tr>
+      </par>
+      <par>
+        <tr lang="en">if you want to match property - use double quotes in arg list: "@prop+"</tr>
+        <!-- old: если вы хотите сопоставить недвижимость -
                 используйте двойные котировки в списке arg: "@prop+" -->
-                <tr lang="ru" finished="false">если вы хотите сопоставить недвижимость -
-                используйте двойные котировки в списке arg: "@prop+"</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="PATTERNS" type="list" required="true">
-                <tr lang="en">list of regular expressions</tr>
-                <tr lang="ru">cписок регулярных выражений</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @cut -->
-            <property name="@cut" type="bool" default="0">
-                <tr lang="en">cut or pass message selector</tr>
-                <tr lang="ru" finished="false">Вырезать или передать селектор сообщений</tr>
-            </property>
-            <!-- @patterns -->
-            <property name="@patterns" type="list" access="initonly" default="">
-                <tr lang="en">list of regular expressions</tr>
-                <tr lang="ru">cписок регулярных выражений</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet number="1">
-                <in on="any">
-                    <tr lang="en">input message</tr>
-                    <tr lang="ru">входное сообщение</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">input symbol</tr>
-                    <tr lang="ru">входной символ</tr>
-                </in>
-                <in on="data:string">
-                    <tr lang="en">input symbol</tr>
-                    <tr lang="ru">входной символ</tr>
-                </in>
-            </inlet>
-            <inlet number="2">
-                <in on="symbol">
-                    <tr lang="en">set first regexp</tr>
-                    <tr lang="ru">установить первое регулярное выражение</tr>
-                </in>
-            </inlet>
-            <inlet number="...">
-                <in on="symbol">
-                    <tr lang="en">set ... regexp</tr>
-                    <tr lang="ru">установить ... регулярное выражение</tr>
-                </in>
-            </inlet>
-            <inlet number="n+1">
-                <in on="symbol">
-                    <tr lang="en">set n-th regexp</tr>
-                    <tr lang="ru">установить N-е регулярное выражение</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet number="1">
-                <out type="any">
-                    <tr lang="en">output match to first regexp</tr>
-                    <tr lang="ru">вывод совпадений для первого регулярного выражение</tr>
-                </out>
-            </outlet>
-            <outlet number="...">
-                <out type="any">
-                    <tr lang="en">output match to ... regexp</tr>
-                    <tr lang="ru">вывод совпадений для ... регулярного выражение</tr>
-                </out>
-            </outlet>
-            <outlet number="n">
-                <out type="any">
-                    <tr lang="en">output match to n-th regexp</tr>
-                    <tr lang="ru">вывод совпадений для N-ого регулярного выражение</tr>
-                </out>
-            </outlet>
-            <outlet number="n+1">
-                <out type="any">
-                    <tr lang="en">unmatched output</tr>
-                    <tr lang="ru">выход для сообщений, которым не найдено соответствий</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">если вы хотите сопоставить недвижимость - используйте
+        двойные котировки в списке arg: "@prop+"</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="PATTERNS" type="list" required="true">
+        <tr lang="en">list of regular expressions</tr>
+        <tr lang="ru">cписок регулярных выражений</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @cut -->
+      <property name="@cut" type="bool" default="0">
+        <tr lang="en">cut or pass message selector</tr>
+        <tr lang="ru" finished="false">Вырезать или передать селектор сообщений</tr>
+      </property>
+      <!-- @patterns -->
+      <property name="@patterns" type="list" access="initonly" default="">
+        <tr lang="en">list of regular expressions</tr>
+        <tr lang="ru">cписок регулярных выражений</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet number="1">
+        <in on="any">
+          <tr lang="en">input message</tr>
+          <tr lang="ru">входное сообщение</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">input symbol</tr>
+          <tr lang="ru">входной символ</tr>
+        </in>
+        <in on="data:string">
+          <tr lang="en">input symbol</tr>
+          <tr lang="ru">входной символ</tr>
+        </in>
+      </inlet>
+      <inlet number="2">
+        <in on="symbol">
+          <tr lang="en">set first regexp</tr>
+          <tr lang="ru">установить первое регулярное выражение</tr>
+        </in>
+      </inlet>
+      <inlet number="...">
+        <in on="symbol">
+          <tr lang="en">set ... regexp</tr>
+          <tr lang="ru">установить ... регулярное выражение</tr>
+        </in>
+      </inlet>
+      <inlet number="n+1">
+        <in on="symbol">
+          <tr lang="en">set n-th regexp</tr>
+          <tr lang="ru">установить N-е регулярное выражение</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet number="1">
+        <out type="any">
+          <tr lang="en">output match to first regexp</tr>
+          <tr lang="ru">вывод совпадений для первого регулярного выражение</tr>
+        </out>
+      </outlet>
+      <outlet number="...">
+        <out type="any">
+          <tr lang="en">output match to ... regexp</tr>
+          <tr lang="ru">вывод совпадений для ... регулярного выражение</tr>
+        </out>
+      </outlet>
+      <outlet number="n">
+        <out type="any">
+          <tr lang="en">output match to n-th regexp</tr>
+          <tr lang="ru">вывод совпадений для N-ого регулярного выражение</tr>
+        </out>
+      </outlet>
+      <outlet number="n+1">
+        <out type="any">
+          <tr lang="en">unmatched output</tr>
+          <tr lang="ru">выход для сообщений, которым не найдено соответствий</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [amp2( [amp3( [freq0( [freq1( [unmatched(     [F]
 |      |      |       |       |               |
@@ -132,8 +131,8 @@
 
 [flow.match-syntax]
 ]]>
-            </pdascii>
-            <pdascii id="syntax">
+      </pdascii>
+      <pdascii id="syntax">
 <![CDATA[
 /***general***/
 
@@ -192,7 +191,7 @@
 /*`w */             /*word characters (≡ [0-9A-Za-z_])           */
 /*`W */             /*not word characters (≡ [^0-9A-Za-z_])      */
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

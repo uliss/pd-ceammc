@@ -1,96 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.^contains">
-        <title>list.^contains</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks whether the predefined list contains the input element</tr>
-                <tr lang="ru">проверяет, содержит ли предварительно заданный список входной
-                элемент</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list predicate any</keywords>
-            <since>0.6</since>
-            <also>
-                <see>list.contains</see>
-                <see>list.all_of</see>
-                <see>list.none_of</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Outputs 1 if contains, otherwise 0</tr>
-                <tr lang="ru" finished="false">Выходы 1 если содержат, иначе 0</tr>
-            </par>
-            <par>
-                <tr lang="en">Different arguments order then in [list.^contains]</tr>
-                <tr lang="ru" finished="false">Разные аргументы в порядке [список.]</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="VALUE" type="list">
-                <tr lang="en">list contents</tr>
-                <tr lang="ru" finished="false">список содержимого</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @value -->
-            <property name="@value" type="list" default="">
-                <tr lang="en">list contents</tr>
-                <tr lang="ru" finished="false">список содержимого</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">checks if given float is found the list</tr>
-                    <!-- old: Проверить, найден ли данный поплавок в
+  <object name="list.^contains">
+    <title>list.^contains</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks whether the predefined list contains the input element</tr>
+        <tr lang="ru">проверяет, содержит ли предварительно заданный список входной элемент</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list predicate any</keywords>
+      <since>0.6</since>
+      <also>
+        <see>list.contains</see>
+        <see>list.all_of</see>
+        <see>list.none_of</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Outputs 1 if contains, otherwise 0</tr>
+        <tr lang="ru" finished="false">Выходы 1 если содержат, иначе 0</tr>
+      </par>
+      <par>
+        <tr lang="en">Different arguments order then in [list.^contains]</tr>
+        <tr lang="ru" finished="false">Разные аргументы в порядке [список.]</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="VALUE" type="list">
+        <tr lang="en">list contents</tr>
+        <tr lang="ru" finished="false">список содержимого</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @value -->
+      <property name="@value" type="list" default="">
+        <tr lang="en">list contents</tr>
+        <tr lang="ru" finished="false">список содержимого</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">checks if given float is found the list</tr>
+          <!-- old: Проверить, найден ли данный поплавок в
                     списке -->
-                    <tr lang="ru" finished="false">Проверить, найден ли данный поплавок в
-                    списке</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">checks if given symbol is found the list</tr>
-                    <tr lang="ru" finished="false">Проверьте, найден ли данный символ в списке</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">check is given list is subseqence of list</tr>
-                    <!-- old: Check is given list является подсеквенцией
+          <tr lang="ru" finished="false">Проверить, найден ли данный поплавок в списке</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">checks if given symbol is found the list</tr>
+          <tr lang="ru" finished="false">Проверьте, найден ли данный символ в списке</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">check is given list is subseqence of list</tr>
+          <!-- old: Check is given list является подсеквенцией
                     списка -->
-                    <tr lang="ru" finished="false">Check is given list является подсеквенцией
-                    списка</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">as list</tr>
-                    <tr lang="ru" finished="false">как список</tr>
-                </in>
-                <in on="data">
-                    <tr lang="en">checks if given data is found the list</tr>
-                    <tr lang="ru" finished="false">Проверяет, найдены ли данные в списке</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set haystack list</tr>
-                    <tr lang="ru" finished="false">Установить список стогов сена</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">1 on success, otherwise 0</tr>
-                    <tr lang="ru" finished="false">1 на успех, в противном случае 0</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Check is given list является подсеквенцией списка</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">as list</tr>
+          <tr lang="ru" finished="false">как список</tr>
+        </in>
+        <in on="data">
+          <tr lang="en">checks if given data is found the list</tr>
+          <tr lang="ru" finished="false">Проверяет, найдены ли данные в списке</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set haystack list</tr>
+          <tr lang="ru" finished="false">Установить список стогов сена</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">1 on success, otherwise 0</tr>
+          <tr lang="ru" finished="false">1 на успех, в противном случае 0</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]  [2 3 4( [4 5 6( [symbol A( [list A B(
 |    |       |       |          |
@@ -112,7 +109,7 @@
 |
 [B]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

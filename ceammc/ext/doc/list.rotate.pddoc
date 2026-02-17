@@ -1,86 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.rotate">
-        <title>list.rotate</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">a cyclic list rotation by an integer number of steps</tr>
-                <tr lang="ru">циклическое вращение списка на целое число шагов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list rotate</keywords>
-            <since>0.1</since>
-            <also>
-                <see>list.choice</see>
-            </also>
-            <aliases>
-                <alias>list.&lt;&lt;</alias>
-                <alias>list.&gt;&gt;</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">[list.rotate] and [list.&lt;&lt;] rotate list left. [list.&gt;&gt;
-                rotates right.</tr>
-                <!-- old: [list.rotate] и [list. Перевернуть список влево.
+  <object name="list.rotate">
+    <title>list.rotate</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">a cyclic list rotation by an integer number of steps</tr>
+        <tr lang="ru">циклическое вращение списка на целое число шагов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list rotate</keywords>
+      <since>0.1</since>
+      <also>
+        <see>list.choice</see>
+      </also>
+      <aliases>
+        <alias>list.&lt;&lt;</alias>
+        <alias>list.&gt;&gt;</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">[list.rotate] and [list.&lt;&lt;] rotate list left. [list.&gt;&gt; rotates
+        right.</tr>
+        <!-- old: [list.rotate] и [list. Перевернуть список влево.
                 [список.] Повернуть вправо. -->
-                <tr lang="ru" finished="false">[list.rotate] и [list. Перевернуть список влево.
-                [список.] Повернуть вправо.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="STEP" type="int">
-                <tr lang="en">rotate step. Negative step changes rotation direction</tr>
-                <!-- old: Поворотный шаг. Отрицательный шаг меняет направление
+        <tr lang="ru" finished="false">[list.rotate] и [list. Перевернуть список влево. [список.]
+        Повернуть вправо.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="STEP" type="int">
+        <tr lang="en">rotate step. Negative step changes rotation direction</tr>
+        <!-- old: Поворотный шаг. Отрицательный шаг меняет направление
                 вращения -->
-                <tr lang="ru" finished="false">Поворотный шаг. Отрицательный шаг меняет направление
-                вращения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @step -->
-            <property name="@step" type="int" default="1">
-                <tr lang="en">rotate step. Negative value change rotation direction to
-                opposite</tr>
-                <!-- old: Поворотный шаг. Отрицательное значение изменяет
+        <tr lang="ru" finished="false">Поворотный шаг. Отрицательный шаг меняет направление
+        вращения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @step -->
+      <property name="@step" type="int" default="1">
+        <tr lang="en">rotate step. Negative value change rotation direction to opposite</tr>
+        <!-- old: Поворотный шаг. Отрицательное значение изменяет
                 направление вращения на противоположное -->
-                <tr lang="ru" finished="false">Поворотный шаг. Отрицательное значение изменяет
-                направление вращения на противоположное</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">rotation step</tr>
-                    <tr lang="ru" finished="false">шаг поворота</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">rotated list</tr>
-                    <tr lang="ru" finished="false">ротационный список</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Поворотный шаг. Отрицательное значение изменяет направление
+        вращения на противоположное</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="int">
+          <tr lang="en">rotation step</tr>
+          <tr lang="ru" finished="false">шаг поворота</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">rotated list</tr>
+          <tr lang="ru" finished="false">ротационный список</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -94,7 +93,7 @@
 
 [X r->l:1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

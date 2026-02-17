@@ -1,154 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hoa.2d.optim~">
-        <title>hoa.2d.optim~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-                <author>Pierre Guillot</author>
-                <author>Eliott Paris</author>
-                <author>Thomas Le Meur</author>
-            </authors>
-            <description>
-                <tr lang="en">a 2D ambisonic optimization tool</tr>
-                <tr lang="ru">оптимизация двумерных амбисоников</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>spat</category>
-            <keywords>hoa optim 2d</keywords>
-            <since>0.8</since>
-            <also>
-                <see>hoa.2d.decoder~</see>
-            </also>
-            <aliases>
-                <alias>hoa.optim~</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Weights the circular harmonics signals depending on the ambisonic
-                optimization. It can be "basic" for no optimization, "maxre" or "inphase".</tr>
-                <!-- old: Вес круговых гармонических сигналов зависит от
+  <object name="hoa.2d.optim~">
+    <title>hoa.2d.optim~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+        <author>Pierre Guillot</author>
+        <author>Eliott Paris</author>
+        <author>Thomas Le Meur</author>
+      </authors>
+      <description>
+        <tr lang="en">a 2D ambisonic optimization tool</tr>
+        <tr lang="ru">оптимизация двумерных амбисоников</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>spat</category>
+      <keywords>hoa optim 2d</keywords>
+      <since>0.8</since>
+      <also>
+        <see>hoa.2d.decoder~</see>
+      </also>
+      <aliases>
+        <alias>hoa.optim~</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Weights the circular harmonics signals depending on the ambisonic
+        optimization. It can be "basic" for no optimization, "maxre" or "inphase".</tr>
+        <!-- old: Вес круговых гармонических сигналов зависит от
                 амбисонической оптимизации. Он может быть «базовым» без оптимизации, «максимальным»
                 или «инфазным». -->
-                <tr lang="ru" finished="false">Вес круговых гармонических сигналов зависит от
-                амбисонической оптимизации. Он может быть «базовым» без оптимизации, «максимальным»
-                или «инфазным».</tr>
-            </par>
-            <par>
-                <tr lang="en">If no optimization mode is specified, the default mode will be
-                inphase.</tr>
-                <!-- old: Если режим оптимизации не указан, режим по умолчанию
+        <tr lang="ru" finished="false">Вес круговых гармонических сигналов зависит от
+        амбисонической оптимизации. Он может быть «базовым» без оптимизации, «максимальным» или
+        «инфазным».</tr>
+      </par>
+      <par>
+        <tr lang="en">If no optimization mode is specified, the default mode will be inphase.</tr>
+        <!-- old: Если режим оптимизации не указан, режим по умолчанию
                 будет в фазе. -->
-                <tr lang="ru" finished="false">Если режим оптимизации не указан, режим по умолчанию
-                будет в фазе.</tr>
-            </par>
-            <par>
-                <tr lang="en">Maxre optimization is used when audience is confined to the center of
-                the circle.</tr>
-                <!-- old: Оптимизация Максра используется, когда аудитория
+        <tr lang="ru" finished="false">Если режим оптимизации не указан, режим по умолчанию будет в
+        фазе.</tr>
+      </par>
+      <par>
+        <tr lang="en">Maxre optimization is used when audience is confined to the center of the
+        circle.</tr>
+        <!-- old: Оптимизация Максра используется, когда аудитория
                 ограничена центром круга. -->
-                <tr lang="ru" finished="false">Оптимизация Максра используется, когда аудитория
-                ограничена центром круга.</tr>
-            </par>
-            <par>
-                <tr lang="en">Inphase optimization is used when the audience covers all the
-                circle.</tr>
-                <!-- old: Инфазная оптимизация используется, когда аудитория
+        <tr lang="ru" finished="false">Оптимизация Максра используется, когда аудитория ограничена
+        центром круга.</tr>
+      </par>
+      <par>
+        <tr lang="en">Inphase optimization is used when the audience covers all the circle.</tr>
+        <!-- old: Инфазная оптимизация используется, когда аудитория
                 охватывает весь круг. -->
-                <tr lang="ru" finished="false">Инфазная оптимизация используется, когда аудитория
-                охватывает весь круг.</tr>
-            </par>
-            <par>
-                <tr lang="en">NB: This is theoretical, the best choice is to trust your ears.</tr>
-                <!-- old: NB: Это теоретически, лучший выбор - доверять своим
+        <tr lang="ru" finished="false">Инфазная оптимизация используется, когда аудитория
+        охватывает весь круг.</tr>
+      </par>
+      <par>
+        <tr lang="en">NB: This is theoretical, the best choice is to trust your ears.</tr>
+        <!-- old: NB: Это теоретически, лучший выбор - доверять своим
                 ушам. -->
-                <tr lang="ru" finished="false">NB: Это теоретически, лучший выбор - доверять своим
-                ушам.</tr>
-            </par>
-            <a href="hoa/hoa.2d.optim~-help.pd">CICM documentation</a>
-        </info>
-        <arguments>
-            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
-                <tr lang="en">the order of decomposition</tr>
-                <tr lang="ru" finished="false">Порядок разложения</tr>
-            </argument>
-            <argument name="MODE" type="symbol" enum="basic maxre inphase">
-                <tr lang="en">optimization mode</tr>
-                <tr lang="ru" finished="false">режим оптимизации</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @basic -->
-            <property name="@basic" type="alias">
-                <tr lang="en">alias for @mode basic (no optimization)</tr>
-                <tr lang="ru" finished="false">alias for @mode basic (без оптимизации)</tr>
-            </property>
-            <!-- @inphase -->
-            <property name="@inphase" type="alias">
-                <tr lang="en">alias for @mode inphase.</tr>
-                <tr lang="ru" finished="false">Оригинальное название: @mode inphase</tr>
-            </property>
-            <!-- @maxre -->
-            <property name="@maxre" type="alias">
-                <tr lang="en">alias for @mode maxre.</tr>
-                <tr lang="ru" finished="false">Оригинальное название: @mode maxre</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" enum="basic maxre inphase" default="basic">
-                <tr lang="en">optimization mode</tr>
-                <tr lang="ru" finished="false">режим оптимизации</tr>
-            </property>
-            <!-- @order -->
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="initonly">
-                <tr lang="en">the order of decomposition</tr>
-                <tr lang="ru" finished="false">Порядок разложения</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">first input harmonic</tr>
-                    <tr lang="ru" finished="false">Первый вход гармоничный</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="...">
-                <in>
-                    <tr lang="en">... input harmonic</tr>
-                    <tr lang="ru" finished="false">Входная гармоника</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="n">
-                <in>
-                    <tr lang="en">n-th input harmonic</tr>
-                    <tr lang="ru" finished="false">n-я входная гармоника</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">first harmonic output</tr>
-                    <tr lang="ru" finished="false">Первый гармонический выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="...">
-                <out type="any">
-                    <tr lang="en">... harmonic output</tr>
-                    <tr lang="ru" finished="false">Гармонический выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="n">
-                <out type="any">
-                    <tr lang="en">n-th harmonic output</tr>
-                    <tr lang="ru" finished="false">n-й гармонический выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">NB: Это теоретически, лучший выбор - доверять своим
+        ушам.</tr>
+      </par>
+      <a href="hoa/hoa.2d.optim~-help.pd">CICM documentation</a>
+    </info>
+    <arguments>
+      <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
+        <tr lang="en">the order of decomposition</tr>
+        <tr lang="ru" finished="false">Порядок разложения</tr>
+      </argument>
+      <argument name="MODE" type="symbol" enum="basic maxre inphase">
+        <tr lang="en">optimization mode</tr>
+        <tr lang="ru" finished="false">режим оптимизации</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @basic -->
+      <property name="@basic" type="alias">
+        <tr lang="en">alias for @mode basic (no optimization)</tr>
+        <tr lang="ru" finished="false">alias for @mode basic (без оптимизации)</tr>
+      </property>
+      <!-- @inphase -->
+      <property name="@inphase" type="alias">
+        <tr lang="en">alias for @mode inphase.</tr>
+        <tr lang="ru" finished="false">Оригинальное название: @mode inphase</tr>
+      </property>
+      <!-- @maxre -->
+      <property name="@maxre" type="alias">
+        <tr lang="en">alias for @mode maxre.</tr>
+        <tr lang="ru" finished="false">Оригинальное название: @mode maxre</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" enum="basic maxre inphase" default="basic">
+        <tr lang="en">optimization mode</tr>
+        <tr lang="ru" finished="false">режим оптимизации</tr>
+      </property>
+      <!-- @order -->
+      <property name="@order" type="int" minvalue="1" maxvalue="63" default="1" access="initonly">
+        <tr lang="en">the order of decomposition</tr>
+        <tr lang="ru" finished="false">Порядок разложения</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet type="audio">
+        <in>
+          <tr lang="en">first input harmonic</tr>
+          <tr lang="ru" finished="false">Первый вход гармоничный</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="...">
+        <in>
+          <tr lang="en">... input harmonic</tr>
+          <tr lang="ru" finished="false">Входная гармоника</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="n">
+        <in>
+          <tr lang="en">n-th input harmonic</tr>
+          <tr lang="ru" finished="false">n-я входная гармоника</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">first harmonic output</tr>
+          <tr lang="ru" finished="false">Первый гармонический выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="...">
+        <out type="any">
+          <tr lang="en">... harmonic output</tr>
+          <tr lang="ru" finished="false">Гармонический выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="n">
+        <out type="any">
+          <tr lang="en">n-th harmonic output</tr>
+          <tr lang="ru" finished="false">n-й гармонический выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [hoa/hoa.soundrone]     [phasor~ 0.15]
 |                       |
@@ -176,7 +173,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

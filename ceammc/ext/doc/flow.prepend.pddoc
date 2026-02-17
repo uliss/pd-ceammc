@@ -1,64 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.prepend">
-        <title>flow.prepend</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">inject the message before the current one</tr>
-                <tr lang="ru">вставляет сообщение перед текущим</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>flow prepend</keywords>
-            <since>0.9.7</since>
-            <also>
-                <see>flow.append</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="MSG" type="list">
-                <tr lang="en">init value for prepended message</tr>
-                <!-- old: значение init для заранее подготовленного
+  <object name="flow.prepend">
+    <title>flow.prepend</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">inject the message before the current one</tr>
+        <tr lang="ru">вставляет сообщение перед текущим</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>flow prepend</keywords>
+      <since>0.9.7</since>
+      <also>
+        <see>flow.append</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="MSG" type="list">
+        <tr lang="en">init value for prepended message</tr>
+        <!-- old: значение init для заранее подготовленного
                 сообщения -->
-                <tr lang="ru" finished="false">значение init для заранее подготовленного
-                сообщения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @msg -->
-            <property name="@msg" type="list" default="">
-                <tr lang="en">prepended message</tr>
-                <tr lang="ru" finished="false">предварительное сообщение</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="any">
-                    <tr lang="en">input message</tr>
-                    <tr lang="ru" finished="false">вводное сообщение</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="any">
-                    <tr lang="en">set prepend value</tr>
-                    <tr lang="ru" finished="false">Устанавливать предоплаченную стоимость</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output message</tr>
-                    <tr lang="ru" finished="false">выходное сообщение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">значение init для заранее подготовленного сообщения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @msg -->
+      <property name="@msg" type="list" default="">
+        <tr lang="en">prepended message</tr>
+        <tr lang="ru" finished="false">предварительное сообщение</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="any">
+          <tr lang="en">input message</tr>
+          <tr lang="ru" finished="false">вводное сообщение</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="any">
+          <tr lang="en">set prepend value</tr>
+          <tr lang="ru" finished="false">Устанавливать предоплаченную стоимость</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output message</tr>
+          <tr lang="ru" finished="false">выходное сообщение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]
 |
@@ -70,7 +69,7 @@
 |
 [print]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

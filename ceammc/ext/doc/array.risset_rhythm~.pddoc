@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.risset_rhythm~">
-        <title>array.risset_rhythm~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">Risset rhythm: accelerando or ritardando</tr>
-                <tr lang="ru">ритм Риссет: ускорение или замедление</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array risset rhythm</keywords>
-            <since>0.9.5</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">not finished yet</tr>
-                <tr lang="ru" finished="false">еще не закончено</tr>
-            </par>
-        </info>
-        <properties />
-        <methods />
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">change array name</tr>
-                    <tr lang="ru" finished="false">изменить имя файла</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.risset_rhythm~">
+    <title>array.risset_rhythm~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">Risset rhythm: accelerando or ritardando</tr>
+        <tr lang="ru">ритм Риссет: ускорение или замедление</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array risset rhythm</keywords>
+      <since>0.9.5</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">not finished yet</tr>
+        <tr lang="ru" finished="false">еще не закончено</tr>
+      </par>
+    </info>
+    <properties />
+    <methods />
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">change array name</tr>
+          <tr lang="ru" finished="false">изменить имя файла</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [loadmsg load %CEAMMC%/guitar1.wav to ARR @resize] [table ARR]
 |
@@ -59,7 +59,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="color.mix">
-        <title>color.mix</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">color mixer</tr>
-                <tr lang="ru">смешивание цветов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>data color</keywords>
-            <since>0.9.7</since>
-        </meta>
-        <arguments>
-            <argument name="C0" type="atom">
-                <tr lang="en">first color</tr>
-                <tr lang="ru" finished="false">Первый цвет</tr>
-            </argument>
-            <argument name="C1" type="atom">
-                <tr lang="en">second value</tr>
-                <tr lang="ru" finished="false">второе значение</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @c0 -->
-            <property name="@c0" type="atom">
-                <tr lang="en">first color</tr>
-                <tr lang="ru" finished="false">Первый цвет</tr>
-            </property>
-            <!-- @c1 -->
-            <property name="@c1" type="atom">
-                <tr lang="en">second color</tr>
-                <tr lang="ru" finished="false">Второй цвет</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float" minvalue="0" maxvalue="1">
-                    <tr lang="en">calculate color mix and output</tr>
-                    <tr lang="ru" finished="false">Рассчитать цветовую смесь и выход</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="data:color">
-                    <tr lang="en">set color and output</tr>
-                    <tr lang="ru" finished="false">Установить цвет и выход</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="data:color">
-                    <tr lang="en">set color without output</tr>
-                    <tr lang="ru" finished="false">цвет без выхода</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">data:color output</tr>
-                    <tr lang="ru" finished="false">Данные: Цветовой выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="color.mix">
+    <title>color.mix</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">color mixer</tr>
+        <tr lang="ru">смешивание цветов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>data color</keywords>
+      <since>0.9.7</since>
+    </meta>
+    <arguments>
+      <argument name="C0" type="atom">
+        <tr lang="en">first color</tr>
+        <tr lang="ru" finished="false">Первый цвет</tr>
+      </argument>
+      <argument name="C1" type="atom">
+        <tr lang="en">second value</tr>
+        <tr lang="ru" finished="false">второе значение</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @c0 -->
+      <property name="@c0" type="atom">
+        <tr lang="en">first color</tr>
+        <tr lang="ru" finished="false">Первый цвет</tr>
+      </property>
+      <!-- @c1 -->
+      <property name="@c1" type="atom">
+        <tr lang="en">second color</tr>
+        <tr lang="ru" finished="false">Второй цвет</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float" minvalue="0" maxvalue="1">
+          <tr lang="en">calculate color mix and output</tr>
+          <tr lang="ru" finished="false">Рассчитать цветовую смесь и выход</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="data:color">
+          <tr lang="en">set color and output</tr>
+          <tr lang="ru" finished="false">Установить цвет и выход</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="data:color">
+          <tr lang="en">set color without output</tr>
+          <tr lang="ru" finished="false">цвет без выхода</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">data:color output</tr>
+          <tr lang="ru" finished="false">Данные: Цветовой выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.hsl @show_value 1]
 |
@@ -79,7 +79,7 @@
 |
 [ui.hsl @nosave 1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

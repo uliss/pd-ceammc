@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="dict.to_list">
-        <title>dict.to_list</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts dictionary to plain list</tr>
-                <tr lang="ru">конвертирует словарь в простой одномерный список</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>dictionary</keywords>
-            <since>0.7</since>
-            <also>
-                <see>data.dict</see>
-            </also>
-            <aliases>
-                <alias>ceammc/dict-&gt;list</alias>
-                <alias>dict-&gt;list</alias>
-            </aliases>
-        </meta>
-        <properties>
-            <!-- @props -->
-            <property name="@props" type="flag" access="initonly">
-                <tr lang="en">output as list of properties: @key1 vals.. @key2 vals2...</tr>
-                <tr lang="ru" finished="false">@key1 vals.. @key2 vals2 ...</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="data:dict">
-                    <tr lang="en">input</tr>
-                    <tr lang="ru" finished="false">ввод</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list output</tr>
-                    <tr lang="ru" finished="false">перечень мероприятий</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="dict.to_list">
+    <title>dict.to_list</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts dictionary to plain list</tr>
+        <tr lang="ru">конвертирует словарь в простой одномерный список</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>dictionary</keywords>
+      <since>0.7</since>
+      <also>
+        <see>data.dict</see>
+      </also>
+      <aliases>
+        <alias>ceammc/dict-&gt;list</alias>
+        <alias>dict-&gt;list</alias>
+      </aliases>
+    </meta>
+    <properties>
+      <!-- @props -->
+      <property name="@props" type="flag" access="initonly">
+        <tr lang="en">output as list of properties: @key1 vals.. @key2 vals2...</tr>
+        <tr lang="ru" finished="false">@key1 vals.. @key2 vals2 ...</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="data:dict">
+          <tr lang="en">input</tr>
+          <tr lang="ru" finished="false">ввод</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list output</tr>
+          <tr lang="ru" finished="false">перечень мероприятий</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [\[a: b c: d e f\], bang(
 |
@@ -63,7 +63,7 @@
 
 [X a->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.tee~">
-        <title>flow.tee~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">extracts control messages from audio connections</tr>
-                <tr lang="ru">извлекает управляющие сообщения из аудиосоединений</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>flow tee separate</keywords>
-            <since>0.4</since>
-            <aliases>
-                <alias>ceammc/tee~</alias>
-                <alias>tee~</alias>
-                <alias>ceammc/~-&gt;</alias>
-                <alias>~-&gt;</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">mixed stream</tr>
-                    <tr lang="ru" finished="false">смешанный поток</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">audio stream</tr>
-                    <tr lang="ru" finished="false">аудио поток</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">control stream</tr>
-                    <tr lang="ru" finished="false">поток управления</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flow.tee~">
+    <title>flow.tee~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">extracts control messages from audio connections</tr>
+        <tr lang="ru">извлекает управляющие сообщения из аудиосоединений</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>flow tee separate</keywords>
+      <since>0.4</since>
+      <aliases>
+        <alias>ceammc/tee~</alias>
+        <alias>tee~</alias>
+        <alias>ceammc/~-&gt;</alias>
+        <alias>~-&gt;</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">mixed stream</tr>
+          <tr lang="ru" finished="false">смешанный поток</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">audio stream</tr>
+          <tr lang="ru" finished="false">аудио поток</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">control stream</tr>
+          <tr lang="ru" finished="false">поток управления</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [osc~ 440]  [ui.dsp~]
 |
@@ -61,7 +61,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

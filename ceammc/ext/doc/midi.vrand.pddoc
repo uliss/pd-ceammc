@@ -1,122 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.vrand">
-        <title>midi.vrand</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">midi velocity randomizer</tr>
-                <tr lang="ru">рандомизатор силы нажатия MIDI</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi velocity random</keywords>
-            <since>0.9.2</since>
-        </meta>
-        <arguments>
-            <argument name="MIN" type="float">
-                <tr lang="en">min random range</tr>
-                <tr lang="ru" finished="false">min случайный диапазон</tr>
-            </argument>
-            <argument name="MAX" type="float">
-                <tr lang="en">max random range</tr>
-                <tr lang="ru" finished="false">max случайный диапазон</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @add -->
-            <property name="@add" type="alias">
-                <tr lang="en">alias to @mode add</tr>
-                <tr lang="ru" finished="false">Скачать @mode add</tr>
-            </property>
-            <!-- @assign -->
-            <property name="@assign" type="alias">
-                <tr lang="en">alias to @mode assign</tr>
-                <tr lang="ru" finished="false">Оригинальное название: @mode assign</tr>
-            </property>
-            <!-- @dist -->
-            <property name="@dist" type="symbol" default="uniform"
-            enum="uniform gauss linup lindown cmin cmax cmean">
-                <tr lang="en">random distribution. *uniform* - generate uniformly distributed
-                value, *gauss* - mean=(@max+@min)/2, sigma=(@max-@max)/3, *linup* - linear
-                distribution with prob=0 at @min and prob=1 at @max, *lindown* - linear
-                distribution with prob=1 at @min and prob=0 at @max, *cmin* - constant @min value,
-                *cmax* - constant @max value, *cmean* - constant (@max+@min)/2 value</tr>
-                <!-- old: случайное распределение. *uniform* - генерировать
+  <object name="midi.vrand">
+    <title>midi.vrand</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">midi velocity randomizer</tr>
+        <tr lang="ru">рандомизатор силы нажатия MIDI</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi velocity random</keywords>
+      <since>0.9.2</since>
+    </meta>
+    <arguments>
+      <argument name="MIN" type="float">
+        <tr lang="en">min random range</tr>
+        <tr lang="ru" finished="false">min случайный диапазон</tr>
+      </argument>
+      <argument name="MAX" type="float">
+        <tr lang="en">max random range</tr>
+        <tr lang="ru" finished="false">max случайный диапазон</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @add -->
+      <property name="@add" type="alias">
+        <tr lang="en">alias to @mode add</tr>
+        <tr lang="ru" finished="false">Скачать @mode add</tr>
+      </property>
+      <!-- @assign -->
+      <property name="@assign" type="alias">
+        <tr lang="en">alias to @mode assign</tr>
+        <tr lang="ru" finished="false">Оригинальное название: @mode assign</tr>
+      </property>
+      <!-- @dist -->
+      <property name="@dist" type="symbol" default="uniform"
+      enum="uniform gauss linup lindown cmin cmax cmean">
+        <tr lang="en">random distribution. *uniform* - generate uniformly distributed value,
+        *gauss* - mean=(@max+@min)/2, sigma=(@max-@max)/3, *linup* - linear distribution with
+        prob=0 at @min and prob=1 at @max, *lindown* - linear distribution with prob=1 at @min and
+        prob=0 at @max, *cmin* - constant @min value, *cmax* - constant @max value, *cmean* -
+        constant (@max+@min)/2 value</tr>
+        <!-- old: случайное распределение. *uniform* - генерировать
                 равномерно распределенное значение, *gauss* - среднее=(@max+@min)/2,
                 sigma=(@max-@max)/3, *linup* - линейное распределение с prob=0 по @min и prob=1 по
                 @max, *lindown* - линейное распределение с prob=1 по @min и prob=0 по @max, *cmin*
                 - постоянное значение @min, *cmax* - постоянное значение @max, *cmean* - постоянное
                 (@max+@min)/2 значение -->
-                <tr lang="ru" finished="false">случайное распределение. *uniform* - генерировать
-                равномерно распределенное значение, *gauss* - среднее=(@max+@min)/2,
-                sigma=(@max-@max)/3, *linup* - линейное распределение с prob=0 по @min и prob=1 по
-                @max, *lindown* - линейное распределение с prob=1 по @min и prob=0 по @max, *cmin*
-                - постоянное значение @min, *cmax* - постоянное значение @max, *cmean* - постоянное
-                (@max+@min)/2 значение</tr>
-            </property>
-            <!-- @max -->
-            <property name="@max" type="float" default="127">
-                <tr lang="en">max random range</tr>
-                <tr lang="ru" finished="false">max случайный диапазон</tr>
-            </property>
-            <!-- @min -->
-            <property name="@min" type="float" default="0">
-                <tr lang="en">min random range</tr>
-                <tr lang="ru" finished="false">min случайный диапазон</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" default="assign" enum="assign add sub">
-                <tr lang="en">assign mode. If *assign* - replace origin velocity with random new
-                one (default), if *add* - adds random value to origin velocity, if *sub* - subtract
-                random value from origin velocity.</tr>
-                <!-- old: Установить режим. Если *назначить* - заменить
+        <tr lang="ru" finished="false">случайное распределение. *uniform* - генерировать равномерно
+        распределенное значение, *gauss* - среднее=(@max+@min)/2, sigma=(@max-@max)/3, *linup* -
+        линейное распределение с prob=0 по @min и prob=1 по @max, *lindown* - линейное
+        распределение с prob=1 по @min и prob=0 по @max, *cmin* - постоянное значение @min, *cmax*
+        - постоянное значение @max, *cmean* - постоянное (@max+@min)/2 значение</tr>
+      </property>
+      <!-- @max -->
+      <property name="@max" type="float" default="127">
+        <tr lang="en">max random range</tr>
+        <tr lang="ru" finished="false">max случайный диапазон</tr>
+      </property>
+      <!-- @min -->
+      <property name="@min" type="float" default="0">
+        <tr lang="en">min random range</tr>
+        <tr lang="ru" finished="false">min случайный диапазон</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" default="assign" enum="assign add sub">
+        <tr lang="en">assign mode. If *assign* - replace origin velocity with random new one
+        (default), if *add* - adds random value to origin velocity, if *sub* - subtract random
+        value from origin velocity.</tr>
+        <!-- old: Установить режим. Если *назначить* - заменить
                 скорость начала на случайную новую (по умолчанию), если *добавить* - добавить
                 случайное значение к скорости начала, если *sub* - вычесть случайное значение из
                 скорости начала. -->
-                <tr lang="ru" finished="false">Установить режим. Если *назначить* - заменить
-                скорость начала на случайную новую (по умолчанию), если *добавить* - добавить
-                случайное значение к скорости начала, если *sub* - вычесть случайное значение из
-                скорости начала.</tr>
-            </property>
-            <!-- @seed -->
-            <property name="@seed" type="int" default="0" minvalue="0">
-                <tr lang="en">random seed</tr>
-                <tr lang="ru" finished="false">случайное семя</tr>
-            </property>
-            <!-- @sub -->
-            <property name="@sub" type="alias">
-                <tr lang="en">alias to @mode sub</tr>
-                <tr lang="ru" finished="false">Исполнитель: @mode sub</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">note value</tr>
-                    <tr lang="ru" finished="false">примечание</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">NOTE VELOCITY [DUR] list</tr>
-                    <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs NOTE VELOCITY [DUR] list with randomized VELOCITY
-                    value</tr>
-                    <tr lang="ru" finished="false">ВЫВОДЫ ПРИМЕЧАНИЕ ВЕЛИЧНОСТЬ [DUR] список с
-                    рандомизированным значением ВЕЛИЧНОСТИ</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Установить режим. Если *назначить* - заменить скорость
+        начала на случайную новую (по умолчанию), если *добавить* - добавить случайное значение к
+        скорости начала, если *sub* - вычесть случайное значение из скорости начала.</tr>
+      </property>
+      <!-- @seed -->
+      <property name="@seed" type="int" default="0" minvalue="0">
+        <tr lang="en">random seed</tr>
+        <tr lang="ru" finished="false">случайное семя</tr>
+      </property>
+      <!-- @sub -->
+      <property name="@sub" type="alias">
+        <tr lang="en">alias to @mode sub</tr>
+        <tr lang="ru" finished="false">Исполнитель: @mode sub</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">note value</tr>
+          <tr lang="ru" finished="false">примечание</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">NOTE VELOCITY [DUR] list</tr>
+          <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs NOTE VELOCITY [DUR] list with randomized VELOCITY value</tr>
+          <tr lang="ru" finished="false">ВЫВОДЫ ПРИМЕЧАНИЕ ВЕЛИЧНОСТЬ [DUR] список с
+          рандомизированным значением ВЕЛИЧНОСТИ</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |
@@ -134,7 +131,7 @@
 *|*
 [midiout]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

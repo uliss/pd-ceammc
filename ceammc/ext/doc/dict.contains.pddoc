@@ -1,64 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="dict.contains">
-        <title>dict.contains</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">check if the dictionary contains the key</tr>
-                <tr lang="ru">проверка, содержит ли словарь указанный ключ</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>contains dictionary</keywords>
-            <since>0.6</since>
-            <also>
-                <see>data.dict</see>
-                <see>dict.keys</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="KEYS" type="list">
-                <tr lang="en">checked keys</tr>
-                <tr lang="ru" finished="false">Проверенные ключи</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @keys -->
-            <property name="@keys" type="list" default="">
-                <tr lang="en">checked keys</tr>
-                <tr lang="ru" finished="false">Проверенные ключи</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="data">
-                    <tr lang="en">Data.dict expected</tr>
-                    <tr lang="ru" finished="false">Data.dict ожидаемый</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set searched keys</tr>
-                    <tr lang="ru" finished="false">Настройка поиска ключей</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output list of 1 and 0. One means dict contains key, zero -
-                    not</tr>
-                    <tr lang="ru" finished="false">Список результатов 1 и 0. Одно означает, что
-                    дикт содержит ключ, ноль - нет</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="dict.contains">
+    <title>dict.contains</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">check if the dictionary contains the key</tr>
+        <tr lang="ru">проверка, содержит ли словарь указанный ключ</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>contains dictionary</keywords>
+      <since>0.6</since>
+      <also>
+        <see>data.dict</see>
+        <see>dict.keys</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="KEYS" type="list">
+        <tr lang="en">checked keys</tr>
+        <tr lang="ru" finished="false">Проверенные ключи</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @keys -->
+      <property name="@keys" type="list" default="">
+        <tr lang="en">checked keys</tr>
+        <tr lang="ru" finished="false">Проверенные ключи</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="data">
+          <tr lang="en">Data.dict expected</tr>
+          <tr lang="ru" finished="false">Data.dict ожидаемый</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set searched keys</tr>
+          <tr lang="ru" finished="false">Настройка поиска ключей</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output list of 1 and 0. One means dict contains key, zero - not</tr>
+          <tr lang="ru" finished="false">Список результатов 1 и 0. Одно означает, что дикт содержит
+          ключ, ноль - нет</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -68,7 +67,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="click~">
-        <title>click~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs a single impulse on a bang input</tr>
-                <tr lang="ru">выводит единичный импульс при пустом входном событии</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>misc</category>
-            <keywords>click</keywords>
-            <since>0.4</since>
-            <aliases>
-                <alias>ceammc/click~</alias>
-            </aliases>
-        </meta>
-        <mouse>
-            <event type="left-click" editmode="false">outputs single positive impulse</event>
-        </mouse>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">outputs single positive impulse</tr>
-                    <tr lang="ru">выводит единичный положительный импульс</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="click~">
+    <title>click~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs a single impulse on a bang input</tr>
+        <tr lang="ru">выводит единичный импульс при пустом входном событии</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>misc</category>
+      <keywords>click</keywords>
+      <since>0.4</since>
+      <aliases>
+        <alias>ceammc/click~</alias>
+      </aliases>
+    </meta>
+    <mouse>
+      <event type="left-click" editmode="false">outputs single positive impulse</event>
+    </mouse>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">outputs single positive impulse</tr>
+          <tr lang="ru">выводит единичный положительный импульс</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]           [ui.dsp~]
 |
@@ -55,7 +55,7 @@
 |\    
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

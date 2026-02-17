@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.interval">
-        <title>flow.interval</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">measure the time between messages</tr>
-                <tr lang="ru">измерение времени между сообщениями</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>time interval</keywords>
-            <since>0.6</since>
-            <also>
-                <see>timer</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="any">
-                    <tr lang="en">input flow</tr>
-                    <tr lang="ru" finished="false">входной поток</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output time between the current and the previous message in
-                    milliseconds</tr>
-                    <tr lang="ru" finished="false">время вывода между текущим и предыдущим
-                    сообщением в миллисекундах</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flow.interval">
+    <title>flow.interval</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">measure the time between messages</tr>
+        <tr lang="ru">измерение времени между сообщениями</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>time interval</keywords>
+      <since>0.6</since>
+      <also>
+        <see>timer</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="any">
+          <tr lang="en">input flow</tr>
+          <tr lang="ru" finished="false">входной поток</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output time between the current and the previous message in
+          milliseconds</tr>
+          <tr lang="ru" finished="false">время вывода между текущим и предыдущим сообщением в
+          миллисекундах</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]      [F]
 |        |.
@@ -50,7 +50,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

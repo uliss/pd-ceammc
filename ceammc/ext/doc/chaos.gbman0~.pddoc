@@ -1,82 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="chaos.gbman0~">
-        <title>chaos.gbman0~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">gingerbreadman map chaotic generator</tr>
-                <tr lang="ru">хаотический генератор на основе отображения Пряничного человечка</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>chaos</category>
-            <keywords>chaos</keywords>
-            <since>0.9</since>
-            <also>
-                <see>chaos.gbman0</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">A non-interpolating sound generator based on the difference
-                equations:</tr>
-                <!-- old: Неинтерполирующий звуковой генератор, основанный на
+  <object name="chaos.gbman0~">
+    <title>chaos.gbman0~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">gingerbreadman map chaotic generator</tr>
+        <tr lang="ru">хаотический генератор на основе отображения Пряничного человечка</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>chaos</category>
+      <keywords>chaos</keywords>
+      <since>0.9</since>
+      <also>
+        <see>chaos.gbman0</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">A non-interpolating sound generator based on the difference equations:</tr>
+        <!-- old: Неинтерполирующий звуковой генератор, основанный на
                 разностных уравнениях: -->
-                <tr lang="ru" finished="false">Неинтерполирующий звуковой генератор, основанный на
-                разностных уравнениях:</tr>
-            </par>
-            <par>
-                <tr lang="en">x(n+1) = 1 - y(n) + |x(n)|</tr>
-                <tr lang="ru" finished="false">x(n+1) = 1 - y(n) + |x(n) |</tr>
-            </par>
-            <par>
-                <tr lang="en">y(n+1) = x(n)</tr>
-                <tr lang="ru" finished="false">y(n+1) = x(n)</tr>
-            </par>
-            <a href="https://en.wikipedia.org/wiki/Gingerbreadman_map">wiki: Gingerbreadman map</a>
-        </info>
-        <arguments>
-            <argument name="X" type="float">
-                <tr lang="en">initial x value, default 1.2</tr>
-                <tr lang="ru" finished="false">начальное значение x, по умолчанию 1.2</tr>
-            </argument>
-            <argument name="Y" type="float">
-                <tr lang="en">initial y value, default 2.1</tr>
-                <tr lang="ru" finished="false">начальное значение y, по умолчанию 2.1</tr>
-            </argument>
-        </arguments>
-        <properties />
-        <methods />
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">generation frequency, minimal value 0.001Hz</tr>
-                    <!-- old: частота генерации, минимальное значение 0,001
+        <tr lang="ru" finished="false">Неинтерполирующий звуковой генератор, основанный на
+        разностных уравнениях:</tr>
+      </par>
+      <par>
+        <tr lang="en">x(n+1) = 1 - y(n) + |x(n)|</tr>
+        <tr lang="ru" finished="false">x(n+1) = 1 - y(n) + |x(n) |</tr>
+      </par>
+      <par>
+        <tr lang="en">y(n+1) = x(n)</tr>
+        <tr lang="ru" finished="false">y(n+1) = x(n)</tr>
+      </par>
+      <a href="https://en.wikipedia.org/wiki/Gingerbreadman_map">wiki: Gingerbreadman map</a>
+    </info>
+    <arguments>
+      <argument name="X" type="float">
+        <tr lang="en">initial x value, default 1.2</tr>
+        <tr lang="ru" finished="false">начальное значение x, по умолчанию 1.2</tr>
+      </argument>
+      <argument name="Y" type="float">
+        <tr lang="en">initial y value, default 2.1</tr>
+        <tr lang="ru" finished="false">начальное значение y, по умолчанию 2.1</tr>
+      </argument>
+    </arguments>
+    <properties />
+    <methods />
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">generation frequency, minimal value 0.001Hz</tr>
+          <!-- old: частота генерации, минимальное значение 0,001
                     Гц -->
-                    <tr lang="ru" finished="false">частота генерации, минимальное значение 0,001
-                    Гц</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">outputs x value</tr>
-                    <tr lang="ru" finished="false">выходы x значение</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">outputs y value</tr>
-                    <tr lang="ru" finished="false">выходы y значение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">частота генерации, минимальное значение 0,001 Гц</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">outputs x value</tr>
+          <tr lang="ru" finished="false">выходы x значение</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">outputs y value</tr>
+          <tr lang="ru" finished="false">выходы y значение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [10( [100( [20000( [ui.dsp~] [sig~ 35]
 |    |     |                 |
@@ -90,7 +88,7 @@
 |\                           |\
 [dac~]                       [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

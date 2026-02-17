@@ -1,624 +1,624 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="synth.dx7~">
-        <title>synth.dx7~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">dx7 implementation from Faust libraries</tr>
-                <tr lang="ru">реализация синтезатора DX7 из библиотеки Faust</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>synth</category>
-            <keywords>dx7 synth fm</keywords>
-            <since>0.6</since>
-        </meta>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @algorithm -->
-            <property name="@algorithm" type="int" minvalue="0" maxvalue="31" default="0"
-            access="readwrite">
-                <tr lang="en">FM algorithm number (0-based)</tr>
-                <tr lang="ru" finished="false">Номер алгоритма FM (0-based)</tr>
-            </property>
-            <!-- @feedback -->
-            <property name="@feedback" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">@feedback</tr>
-                <tr lang="ru" finished="false">@feedback</tr>
-            </property>
-            <!-- @freq -->
-            <property name="@freq" type="float" default="130.8127899169922" units="hertz"
-            access="readwrite">
-                <tr lang="en">synth frequency</tr>
-                <tr lang="ru" finished="false">Синтетическая частота</tr>
-            </property>
-            <!-- @gain -->
-            <property name="@gain" type="float" minvalue="0.0" maxvalue="1.0"
-            default="0.800000011920929" access="readwrite">
-                <tr lang="en">output gain</tr>
-                <tr lang="ru" finished="false">выходной прирост</tr>
-            </property>
-            <!-- @gate -->
-            <property name="@gate" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">note on/off signal</tr>
-                <tr lang="ru" finished="false">сигнал примечания/выключения</tr>
-            </property>
-            <!-- @op0:L1 -->
-            <property name="@op0:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op0: Envelope Generator Level 1</tr>
-                <tr lang="ru" finished="false">op0: Envelope Generator Level 1</tr>
-            </property>
-            <!-- @op0:L2 -->
-            <property name="@op0:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op0: Envelope Generator Level 2</tr>
-                <tr lang="ru" finished="false">op0: Envelope Generator Level 2</tr>
-            </property>
-            <!-- @op0:L3 -->
-            <property name="@op0:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op0: Envelope Generator Level 3</tr>
-                <tr lang="ru" finished="false">op0: Envelope Generator Level 3</tr>
-            </property>
-            <!-- @op0:L4 -->
-            <property name="@op0:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op0: Envelope Generator Level 4</tr>
-                <tr lang="ru" finished="false">op0: Envelope Generator Level 4</tr>
-            </property>
-            <!-- @op0:R1 -->
-            <property name="@op0:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op0: Envelope Generator Rate 1</tr>
-                <tr lang="ru" finished="false">op0: Envelope Generator Rate 1</tr>
-            </property>
-            <!-- @op0:R2 -->
-            <property name="@op0:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op0: Envelope Generator Rate 2</tr>
-                <tr lang="ru" finished="false">op0: Envelope Generator Rate 2</tr>
-            </property>
-            <!-- @op0:R3 -->
-            <property name="@op0:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op0: Envelope Generator Rate 3</tr>
-                <tr lang="ru" finished="false">op0: Envelope Generator Rate 3</tr>
-            </property>
-            <!-- @op0:R4 -->
-            <property name="@op0:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op0: Envelope Generator Rate 4</tr>
-                <tr lang="ru" finished="false">op0: Envelope Generator Rate 4</tr>
-            </property>
-            <!-- @op0:detune -->
-            <property name="@op0:detune" type="float" minvalue="-10.0" maxvalue="10.0"
-            default="1.0" access="readwrite">
-                <tr lang="en">op0: detune</tr>
-                <tr lang="ru" finished="false">op0: разъем</tr>
-            </property>
-            <!-- @op0:freq -->
-            <property name="@op0:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
-            units="hertz" access="readwrite">
-                <tr lang="en">op0: frequency</tr>
-                <tr lang="ru" finished="false">op0: частота</tr>
-            </property>
-            <!-- @op0:level -->
-            <property name="@op0:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
-            access="readwrite">
-                <tr lang="en">op0: output level</tr>
-                <tr lang="ru" finished="false">op0: выходной уровень</tr>
-            </property>
-            <!-- @op0:opMode -->
-            <property name="@op0:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op0: opMode</tr>
-                <tr lang="ru" finished="false">op0: opMode</tr>
-            </property>
-            <!-- @op0:rate -->
-            <property name="@op0:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op0: rate</tr>
-                <tr lang="ru" finished="false">op0: ставка</tr>
-            </property>
-            <!-- @op0:vel -->
-            <property name="@op0:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
-            access="readwrite">
-                <tr lang="en">op0: keyboard velocity sensivity</tr>
-                <tr lang="ru" finished="false">op0: чувствительность к скорости клавиатуры</tr>
-            </property>
-            <!-- @op1:L1 -->
-            <property name="@op1:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op1: Envelope Generator Level 1</tr>
-                <tr lang="ru" finished="false">op1: Envelope Generator Level 1</tr>
-            </property>
-            <!-- @op1:L2 -->
-            <property name="@op1:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op1: Envelope Generator Level 2</tr>
-                <tr lang="ru" finished="false">op1: Envelope Generator Level 2</tr>
-            </property>
-            <!-- @op1:L3 -->
-            <property name="@op1:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op1: Envelope Generator Level 3</tr>
-                <tr lang="ru" finished="false">op1: Envelope Generator Level 3</tr>
-            </property>
-            <!-- @op1:L4 -->
-            <property name="@op1:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op1: Envelope Generator Level 4</tr>
-                <tr lang="ru" finished="false">op1: Envelope Generator Level 4</tr>
-            </property>
-            <!-- @op1:R1 -->
-            <property name="@op1:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op1: Envelope Generator Rate 1</tr>
-                <tr lang="ru" finished="false">op1: Envelope Generator Rate 1</tr>
-            </property>
-            <!-- @op1:R2 -->
-            <property name="@op1:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op1: Envelope Generator Rate 2</tr>
-                <tr lang="ru" finished="false">op1: Envelope Generator Rate 2</tr>
-            </property>
-            <!-- @op1:R3 -->
-            <property name="@op1:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op1: Envelope Generator Rate 3</tr>
-                <tr lang="ru" finished="false">op1: Envelope Generator Rate 3</tr>
-            </property>
-            <!-- @op1:R4 -->
-            <property name="@op1:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op1: Envelope Generator Rate 4</tr>
-                <tr lang="ru" finished="false">op1: Envelope Generator Rate 4</tr>
-            </property>
-            <!-- @op1:detune -->
-            <property name="@op1:detune" type="float" minvalue="-10.0" maxvalue="10.0"
-            default="1.0" access="readwrite">
-                <tr lang="en">op1: detune</tr>
-                <tr lang="ru" finished="false">op1: разъединить</tr>
-            </property>
-            <!-- @op1:freq -->
-            <property name="@op1:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
-            units="hertz" access="readwrite">
-                <tr lang="en">op1: frequency</tr>
-                <tr lang="ru" finished="false">op1: частота</tr>
-            </property>
-            <!-- @op1:level -->
-            <property name="@op1:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
-            access="readwrite">
-                <tr lang="en">op1: output level</tr>
-                <tr lang="ru" finished="false">op1: выходной уровень</tr>
-            </property>
-            <!-- @op1:opMode -->
-            <property name="@op1:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op1: FreqRatio or FreqFixed mode</tr>
-                <tr lang="ru" finished="false">op1: FreqRatio или FreqFixed</tr>
-            </property>
-            <!-- @op1:rate -->
-            <property name="@op1:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op1:rate</tr>
-                <tr lang="ru" finished="false">op1:rate</tr>
-            </property>
-            <!-- @op1:vel -->
-            <property name="@op1:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
-            access="readwrite">
-                <tr lang="en">op1: keyboard velocity sensivity</tr>
-                <tr lang="ru" finished="false">op1: чувствительность к скорости клавиатуры</tr>
-            </property>
-            <!-- @op2:L1 -->
-            <property name="@op2:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op2: Envelope Generator Level 1</tr>
-                <tr lang="ru" finished="false">op2: Envelope Generator Level 1</tr>
-            </property>
-            <!-- @op2:L2 -->
-            <property name="@op2:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op2: Envelope Generator Level 2</tr>
-                <tr lang="ru" finished="false">op2: Envelope Generator Level 2</tr>
-            </property>
-            <!-- @op2:L3 -->
-            <property name="@op2:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op2: Envelope Generator Level 3</tr>
-                <tr lang="ru" finished="false">op2: Envelope Generator Level 3</tr>
-            </property>
-            <!-- @op2:L4 -->
-            <property name="@op2:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op2: Envelope Generator Level 4</tr>
-                <tr lang="ru" finished="false">op2: Envelope Generator Level 4</tr>
-            </property>
-            <!-- @op2:R1 -->
-            <property name="@op2:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op2: Envelope Generator Rate 1</tr>
-                <tr lang="ru" finished="false">op2: Envelope Generator Rate 1</tr>
-            </property>
-            <!-- @op2:R2 -->
-            <property name="@op2:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op2: Envelope Generator Rate 2</tr>
-                <tr lang="ru" finished="false">op2: Envelope Generator Rate 2</tr>
-            </property>
-            <!-- @op2:R3 -->
-            <property name="@op2:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op2: Envelope Generator Rate 3</tr>
-                <tr lang="ru" finished="false">op2: Envelope Generator Rate 3</tr>
-            </property>
-            <!-- @op2:R4 -->
-            <property name="@op2:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op2: Envelope Generator Rate 4</tr>
-                <tr lang="ru" finished="false">op2: Envelope Generator Rate 4</tr>
-            </property>
-            <!-- @op2:detune -->
-            <property name="@op2:detune" type="float" minvalue="-10.0" maxvalue="10.0"
-            default="1.0" access="readwrite">
-                <tr lang="en">op2: detune</tr>
-                <tr lang="ru" finished="false">op2: разъем</tr>
-            </property>
-            <!-- @op2:freq -->
-            <property name="@op2:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
-            units="hertz" access="readwrite">
-                <tr lang="en">op2: frequency</tr>
-                <tr lang="ru" finished="false">op2: частота</tr>
-            </property>
-            <!-- @op2:level -->
-            <property name="@op2:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
-            access="readwrite">
-                <tr lang="en">op2: output level</tr>
-                <tr lang="ru" finished="false">op2: выходной уровень</tr>
-            </property>
-            <!-- @op2:opMode -->
-            <property name="@op2:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op2: FreqRatio or FreqFixed mode</tr>
-                <tr lang="ru" finished="false">op2: FreqRatio или FreqFixed</tr>
-            </property>
-            <!-- @op2:rate -->
-            <property name="@op2:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op2: rate</tr>
-                <tr lang="ru" finished="false">op2: ставка</tr>
-            </property>
-            <!-- @op2:vel -->
-            <property name="@op2:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
-            access="readwrite">
-                <tr lang="en">op2: keyboard velocity sensivity</tr>
-                <tr lang="ru" finished="false">op2: чувствительность к скорости клавиатуры</tr>
-            </property>
-            <!-- @op3:L1 -->
-            <property name="@op3:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op3: Envelope Generator Level 1</tr>
-                <tr lang="ru" finished="false">op3: Генератор контуров Уровень 1</tr>
-            </property>
-            <!-- @op3:L2 -->
-            <property name="@op3:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op3: Envelope Generator Level 2</tr>
-                <tr lang="ru" finished="false">op3: Envelope Generator Level 2</tr>
-            </property>
-            <!-- @op3:L3 -->
-            <property name="@op3:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op3: Envelope Generator Level 3</tr>
-                <tr lang="ru" finished="false">op3: Envelope Generator Level 3</tr>
-            </property>
-            <!-- @op3:L4 -->
-            <property name="@op3:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op3: Envelope Generator Level 4</tr>
-                <tr lang="ru" finished="false">op3: Envelope Generator Level 4</tr>
-            </property>
-            <!-- @op3:R1 -->
-            <property name="@op3:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op3: Envelope Generator Rate 1</tr>
-                <tr lang="ru" finished="false">op3: Коэффициент мощности генератора</tr>
-            </property>
-            <!-- @op3:R2 -->
-            <property name="@op3:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op3: Envelope Generator Rate 2</tr>
-                <tr lang="ru" finished="false">op3: Envelope Generator Rate 2</tr>
-            </property>
-            <!-- @op3:R3 -->
-            <property name="@op3:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op3: Envelope Generator Rate 3</tr>
-                <tr lang="ru" finished="false">op3: Envelope Generator Rate 3</tr>
-            </property>
-            <!-- @op3:R4 -->
-            <property name="@op3:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op3: Envelope Generator Rate 4</tr>
-                <tr lang="ru" finished="false">op3: Envelope Generator Rate 4</tr>
-            </property>
-            <!-- @op3:detune -->
-            <property name="@op3:detune" type="float" minvalue="-10.0" maxvalue="10.0"
-            default="1.0" access="readwrite">
-                <tr lang="en">op3: detune</tr>
-                <tr lang="ru" finished="false">op3: разъем</tr>
-            </property>
-            <!-- @op3:freq -->
-            <property name="@op3:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
-            units="hertz" access="readwrite">
-                <tr lang="en">op3: frequency</tr>
-                <tr lang="ru" finished="false">op3: частота</tr>
-            </property>
-            <!-- @op3:level -->
-            <property name="@op3:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
-            access="readwrite">
-                <tr lang="en">op3: output level</tr>
-                <tr lang="ru" finished="false">op3: выходной уровень</tr>
-            </property>
-            <!-- @op3:opMode -->
-            <property name="@op3:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op3: FreqRatio or FreqFixed mode</tr>
-                <tr lang="ru" finished="false">op3: FreqRatio или FreqFixed</tr>
-            </property>
-            <!-- @op3:rate -->
-            <property name="@op3:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op3: rate</tr>
-                <tr lang="ru" finished="false">op3: ставка</tr>
-            </property>
-            <!-- @op3:vel -->
-            <property name="@op3:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
-            access="readwrite">
-                <tr lang="en">op3: keyboard velocity sensivity</tr>
-                <tr lang="ru" finished="false">op3: чувствительность к скорости клавиатуры</tr>
-            </property>
-            <!-- @op4:L1 -->
-            <property name="@op4:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op4: Envelope Generator Level 1</tr>
-                <tr lang="ru" finished="false">op4: Envelope Generator Level 1</tr>
-            </property>
-            <!-- @op4:L2 -->
-            <property name="@op4:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op4: Envelope Generator Level 2</tr>
-                <tr lang="ru" finished="false">op4: Envelope Generator Level 2</tr>
-            </property>
-            <!-- @op4:L3 -->
-            <property name="@op4:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op4: Envelope Generator Level 3</tr>
-                <tr lang="ru" finished="false">op4: Envelope Generator Level 3</tr>
-            </property>
-            <!-- @op4:L4 -->
-            <property name="@op4:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op4: Envelope Generator Level 4</tr>
-                <tr lang="ru" finished="false">op4: Envelope Generator Level 4</tr>
-            </property>
-            <!-- @op4:R1 -->
-            <property name="@op4:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op4: Envelope Generator Rate 1</tr>
-                <tr lang="ru" finished="false">op4: Envelope Generator Rate 1</tr>
-            </property>
-            <!-- @op4:R2 -->
-            <property name="@op4:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op4: Envelope Generator Rate 2</tr>
-                <tr lang="ru" finished="false">op4: Envelope Generator Rate 2</tr>
-            </property>
-            <!-- @op4:R3 -->
-            <property name="@op4:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op4: Envelope Generator Rate 3</tr>
-                <tr lang="ru" finished="false">op4: Envelope Generator Rate 3</tr>
-            </property>
-            <!-- @op4:R4 -->
-            <property name="@op4:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op4: Envelope Generator Rate 4</tr>
-                <tr lang="ru" finished="false">op4: Envelope Generator Rate 4</tr>
-            </property>
-            <!-- @op4:detune -->
-            <property name="@op4:detune" type="float" minvalue="-10.0" maxvalue="10.0"
-            default="1.0" access="readwrite">
-                <tr lang="en">op4: detune</tr>
-                <tr lang="ru" finished="false">op4: разъем</tr>
-            </property>
-            <!-- @op4:freq -->
-            <property name="@op4:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
-            units="hertz" access="readwrite">
-                <tr lang="en">op4: frequency</tr>
-                <tr lang="ru" finished="false">op4: частота</tr>
-            </property>
-            <!-- @op4:level -->
-            <property name="@op4:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
-            access="readwrite">
-                <tr lang="en">op4: output level</tr>
-                <tr lang="ru" finished="false">op4: уровень выпуска</tr>
-            </property>
-            <!-- @op4:opMode -->
-            <property name="@op4:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op4: FreqRatio or FreqFixed mode</tr>
-                <tr lang="ru" finished="false">op4: FreqRatio или FreqFixed</tr>
-            </property>
-            <!-- @op4:rate -->
-            <property name="@op4:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op4: rate</tr>
-                <tr lang="ru" finished="false">op4: ставка</tr>
-            </property>
-            <!-- @op4:vel -->
-            <property name="@op4:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
-            access="readwrite">
-                <tr lang="en">op4: keyboard velocity sensivity</tr>
-                <tr lang="ru" finished="false">op4: чувствительность к скорости клавиатуры</tr>
-            </property>
-            <!-- @op5:L1 -->
-            <property name="@op5:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op5: Envelope Generator Level 1</tr>
-                <tr lang="ru" finished="false">op5: Генератор контуров Уровень 1</tr>
-            </property>
-            <!-- @op5:L2 -->
-            <property name="@op5:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op5: Envelope Generator Level 2</tr>
-                <tr lang="ru" finished="false">op5: Envelope Generator Level 2</tr>
-            </property>
-            <!-- @op5:L3 -->
-            <property name="@op5:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op5: Envelope Generator Level 3</tr>
-                <tr lang="ru" finished="false">op5: Envelope Generator Level 3</tr>
-            </property>
-            <!-- @op5:L4 -->
-            <property name="@op5:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op5: Envelope Generator Level 4</tr>
-                <tr lang="ru" finished="false">op5: Envelope Generator Level 4</tr>
-            </property>
-            <!-- @op5:R1 -->
-            <property name="@op5:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op5: Envelope Generator Rate 1</tr>
-                <tr lang="ru" finished="false">op5: Коэффициент мощности генератора</tr>
-            </property>
-            <!-- @op5:R2 -->
-            <property name="@op5:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op5: Envelope Generator Rate 2</tr>
-                <tr lang="ru" finished="false">op5: Envelope Generator Rate 2</tr>
-            </property>
-            <!-- @op5:R3 -->
-            <property name="@op5:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op5: Envelope Generator Rate 3</tr>
-                <tr lang="ru" finished="false">op5: Envelope Generator Rate 3</tr>
-            </property>
-            <!-- @op5:R4 -->
-            <property name="@op5:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
-            access="readwrite">
-                <tr lang="en">op5: Envelope Generator Rate 4</tr>
-                <tr lang="ru" finished="false">op5: Envelope Generator Rate 4</tr>
-            </property>
-            <!-- @op5:detune -->
-            <property name="@op5:detune" type="float" minvalue="-10.0" maxvalue="10.0"
-            default="1.0" access="readwrite">
-                <tr lang="en">op5: detune</tr>
-                <tr lang="ru" finished="false">op5: разъем</tr>
-            </property>
-            <!-- @op5:freq -->
-            <property name="@op5:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
-            units="hertz" access="readwrite">
-                <tr lang="en">op5: frequency</tr>
-                <tr lang="ru" finished="false">op5: частота</tr>
-            </property>
-            <!-- @op5:level -->
-            <property name="@op5:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
-            access="readwrite">
-                <tr lang="en">op5: outut level</tr>
-                <tr lang="ru" finished="false">op5: внешний уровень</tr>
-            </property>
-            <!-- @op5:opMode -->
-            <property name="@op5:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op5: FreqRatio or FreqFixed mode</tr>
-                <tr lang="ru" finished="false">op5: FreqRatio или FreqFixed</tr>
-            </property>
-            <!-- @op5:rate -->
-            <property name="@op5:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
-            access="readwrite">
-                <tr lang="en">op5: rate</tr>
-                <tr lang="ru" finished="false">op5: ставка</tr>
-            </property>
-            <!-- @op5:vel -->
-            <property name="@op5:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
-            access="readwrite">
-                <tr lang="en">op5: keyboard velocity sensivity</tr>
-                <tr lang="ru" finished="false">op5: чувствительность к скорости клавиатуры</tr>
-            </property>
-            <!-- @pitch -->
-            <property name="@pitch" type="float" minvalue="24" maxvalue="84" default="48">
-                <tr lang="en">midi pitch</tr>
-                <tr lang="ru" finished="false">миди-питч</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- load -->
-            <method name="load">
-                <info>
-                    <tr lang="en">load the preset from a previously loaded sysex file</tr>
-                    <tr lang="ru" finished="false">Загрузить предустановленное из ранее
-                    загруженного файла sysex</tr>
-                </info>
-                <param name="IDX" type="int" minvalue="0" maxvalue="31">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- note -->
-            <method name="note">
-                <info>
-                    <tr lang="en">note on/off message</tr>
-                    <tr lang="ru" finished="false">примечание/выключение сообщения</tr>
-                </info>
-                <param name="NOTE" type="float" required="true">
-                    <tr lang="en">midi note</tr>
-                    <tr lang="ru" finished="false">нота миди</tr>
-                </param>
-                <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
-                    <tr lang="en">velocity</tr>
-                    <tr lang="ru" finished="false">скорость</tr>
-                </param>
-            </method>
-            <!-- read -->
-            <method name="read">
-                <info>
-                    <tr lang="en">reads the DX7 sysex preset file</tr>
-                    <tr lang="ru" finished="false">DX7 sysex предустановленный файл</tr>
-                </info>
-                <param name="PATH" type="symbol">
-                    <tr lang="en">relative or absolute path to the DX sysex preset file</tr>
-                    <tr lang="ru" finished="false">относительный или абсолютный путь к заданному
-                    файлу DX sysex</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">NOTE VEL</tr>
-                    <tr lang="ru" finished="false">Примечание VEL</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">synth output</tr>
-                    <tr lang="ru" finished="false">синтетический выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="synth.dx7~">
+    <title>synth.dx7~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">dx7 implementation from Faust libraries</tr>
+        <tr lang="ru">реализация синтезатора DX7 из библиотеки Faust</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>synth</category>
+      <keywords>dx7 synth fm</keywords>
+      <since>0.6</since>
+    </meta>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @algorithm -->
+      <property name="@algorithm" type="int" minvalue="0" maxvalue="31" default="0"
+      access="readwrite">
+        <tr lang="en">FM algorithm number (0-based)</tr>
+        <tr lang="ru" finished="false">Номер алгоритма FM (0-based)</tr>
+      </property>
+      <!-- @feedback -->
+      <property name="@feedback" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">@feedback</tr>
+        <tr lang="ru" finished="false">@feedback</tr>
+      </property>
+      <!-- @freq -->
+      <property name="@freq" type="float" default="130.8127899169922" units="hertz"
+      access="readwrite">
+        <tr lang="en">synth frequency</tr>
+        <tr lang="ru" finished="false">Синтетическая частота</tr>
+      </property>
+      <!-- @gain -->
+      <property name="@gain" type="float" minvalue="0.0" maxvalue="1.0" default="0.800000011920929"
+      access="readwrite">
+        <tr lang="en">output gain</tr>
+        <tr lang="ru" finished="false">выходной прирост</tr>
+      </property>
+      <!-- @gate -->
+      <property name="@gate" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">note on/off signal</tr>
+        <tr lang="ru" finished="false">сигнал примечания/выключения</tr>
+      </property>
+      <!-- @op0:L1 -->
+      <property name="@op0:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op0: Envelope Generator Level 1</tr>
+        <tr lang="ru" finished="false">op0: Envelope Generator Level 1</tr>
+      </property>
+      <!-- @op0:L2 -->
+      <property name="@op0:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op0: Envelope Generator Level 2</tr>
+        <tr lang="ru" finished="false">op0: Envelope Generator Level 2</tr>
+      </property>
+      <!-- @op0:L3 -->
+      <property name="@op0:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op0: Envelope Generator Level 3</tr>
+        <tr lang="ru" finished="false">op0: Envelope Generator Level 3</tr>
+      </property>
+      <!-- @op0:L4 -->
+      <property name="@op0:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op0: Envelope Generator Level 4</tr>
+        <tr lang="ru" finished="false">op0: Envelope Generator Level 4</tr>
+      </property>
+      <!-- @op0:R1 -->
+      <property name="@op0:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op0: Envelope Generator Rate 1</tr>
+        <tr lang="ru" finished="false">op0: Envelope Generator Rate 1</tr>
+      </property>
+      <!-- @op0:R2 -->
+      <property name="@op0:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op0: Envelope Generator Rate 2</tr>
+        <tr lang="ru" finished="false">op0: Envelope Generator Rate 2</tr>
+      </property>
+      <!-- @op0:R3 -->
+      <property name="@op0:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op0: Envelope Generator Rate 3</tr>
+        <tr lang="ru" finished="false">op0: Envelope Generator Rate 3</tr>
+      </property>
+      <!-- @op0:R4 -->
+      <property name="@op0:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op0: Envelope Generator Rate 4</tr>
+        <tr lang="ru" finished="false">op0: Envelope Generator Rate 4</tr>
+      </property>
+      <!-- @op0:detune -->
+      <property name="@op0:detune" type="float" minvalue="-10.0" maxvalue="10.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">op0: detune</tr>
+        <tr lang="ru" finished="false">op0: разъем</tr>
+      </property>
+      <!-- @op0:freq -->
+      <property name="@op0:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
+      units="hertz" access="readwrite">
+        <tr lang="en">op0: frequency</tr>
+        <tr lang="ru" finished="false">op0: частота</tr>
+      </property>
+      <!-- @op0:level -->
+      <property name="@op0:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
+      access="readwrite">
+        <tr lang="en">op0: output level</tr>
+        <tr lang="ru" finished="false">op0: выходной уровень</tr>
+      </property>
+      <!-- @op0:opMode -->
+      <property name="@op0:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op0: opMode</tr>
+        <tr lang="ru" finished="false">op0: opMode</tr>
+      </property>
+      <!-- @op0:rate -->
+      <property name="@op0:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op0: rate</tr>
+        <tr lang="ru" finished="false">op0: ставка</tr>
+      </property>
+      <!-- @op0:vel -->
+      <property name="@op0:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">op0: keyboard velocity sensivity</tr>
+        <tr lang="ru" finished="false">op0: чувствительность к скорости клавиатуры</tr>
+      </property>
+      <!-- @op1:L1 -->
+      <property name="@op1:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op1: Envelope Generator Level 1</tr>
+        <tr lang="ru" finished="false">op1: Envelope Generator Level 1</tr>
+      </property>
+      <!-- @op1:L2 -->
+      <property name="@op1:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op1: Envelope Generator Level 2</tr>
+        <tr lang="ru" finished="false">op1: Envelope Generator Level 2</tr>
+      </property>
+      <!-- @op1:L3 -->
+      <property name="@op1:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op1: Envelope Generator Level 3</tr>
+        <tr lang="ru" finished="false">op1: Envelope Generator Level 3</tr>
+      </property>
+      <!-- @op1:L4 -->
+      <property name="@op1:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op1: Envelope Generator Level 4</tr>
+        <tr lang="ru" finished="false">op1: Envelope Generator Level 4</tr>
+      </property>
+      <!-- @op1:R1 -->
+      <property name="@op1:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op1: Envelope Generator Rate 1</tr>
+        <tr lang="ru" finished="false">op1: Envelope Generator Rate 1</tr>
+      </property>
+      <!-- @op1:R2 -->
+      <property name="@op1:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op1: Envelope Generator Rate 2</tr>
+        <tr lang="ru" finished="false">op1: Envelope Generator Rate 2</tr>
+      </property>
+      <!-- @op1:R3 -->
+      <property name="@op1:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op1: Envelope Generator Rate 3</tr>
+        <tr lang="ru" finished="false">op1: Envelope Generator Rate 3</tr>
+      </property>
+      <!-- @op1:R4 -->
+      <property name="@op1:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op1: Envelope Generator Rate 4</tr>
+        <tr lang="ru" finished="false">op1: Envelope Generator Rate 4</tr>
+      </property>
+      <!-- @op1:detune -->
+      <property name="@op1:detune" type="float" minvalue="-10.0" maxvalue="10.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">op1: detune</tr>
+        <tr lang="ru" finished="false">op1: разъединить</tr>
+      </property>
+      <!-- @op1:freq -->
+      <property name="@op1:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
+      units="hertz" access="readwrite">
+        <tr lang="en">op1: frequency</tr>
+        <tr lang="ru" finished="false">op1: частота</tr>
+      </property>
+      <!-- @op1:level -->
+      <property name="@op1:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
+      access="readwrite">
+        <tr lang="en">op1: output level</tr>
+        <tr lang="ru" finished="false">op1: выходной уровень</tr>
+      </property>
+      <!-- @op1:opMode -->
+      <property name="@op1:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op1: FreqRatio or FreqFixed mode</tr>
+        <tr lang="ru" finished="false">op1: FreqRatio или FreqFixed</tr>
+      </property>
+      <!-- @op1:rate -->
+      <property name="@op1:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op1:rate</tr>
+        <tr lang="ru" finished="false">op1:rate</tr>
+      </property>
+      <!-- @op1:vel -->
+      <property name="@op1:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">op1: keyboard velocity sensivity</tr>
+        <tr lang="ru" finished="false">op1: чувствительность к скорости клавиатуры</tr>
+      </property>
+      <!-- @op2:L1 -->
+      <property name="@op2:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op2: Envelope Generator Level 1</tr>
+        <tr lang="ru" finished="false">op2: Envelope Generator Level 1</tr>
+      </property>
+      <!-- @op2:L2 -->
+      <property name="@op2:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op2: Envelope Generator Level 2</tr>
+        <tr lang="ru" finished="false">op2: Envelope Generator Level 2</tr>
+      </property>
+      <!-- @op2:L3 -->
+      <property name="@op2:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op2: Envelope Generator Level 3</tr>
+        <tr lang="ru" finished="false">op2: Envelope Generator Level 3</tr>
+      </property>
+      <!-- @op2:L4 -->
+      <property name="@op2:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op2: Envelope Generator Level 4</tr>
+        <tr lang="ru" finished="false">op2: Envelope Generator Level 4</tr>
+      </property>
+      <!-- @op2:R1 -->
+      <property name="@op2:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op2: Envelope Generator Rate 1</tr>
+        <tr lang="ru" finished="false">op2: Envelope Generator Rate 1</tr>
+      </property>
+      <!-- @op2:R2 -->
+      <property name="@op2:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op2: Envelope Generator Rate 2</tr>
+        <tr lang="ru" finished="false">op2: Envelope Generator Rate 2</tr>
+      </property>
+      <!-- @op2:R3 -->
+      <property name="@op2:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op2: Envelope Generator Rate 3</tr>
+        <tr lang="ru" finished="false">op2: Envelope Generator Rate 3</tr>
+      </property>
+      <!-- @op2:R4 -->
+      <property name="@op2:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op2: Envelope Generator Rate 4</tr>
+        <tr lang="ru" finished="false">op2: Envelope Generator Rate 4</tr>
+      </property>
+      <!-- @op2:detune -->
+      <property name="@op2:detune" type="float" minvalue="-10.0" maxvalue="10.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">op2: detune</tr>
+        <tr lang="ru" finished="false">op2: разъем</tr>
+      </property>
+      <!-- @op2:freq -->
+      <property name="@op2:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
+      units="hertz" access="readwrite">
+        <tr lang="en">op2: frequency</tr>
+        <tr lang="ru" finished="false">op2: частота</tr>
+      </property>
+      <!-- @op2:level -->
+      <property name="@op2:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
+      access="readwrite">
+        <tr lang="en">op2: output level</tr>
+        <tr lang="ru" finished="false">op2: выходной уровень</tr>
+      </property>
+      <!-- @op2:opMode -->
+      <property name="@op2:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op2: FreqRatio or FreqFixed mode</tr>
+        <tr lang="ru" finished="false">op2: FreqRatio или FreqFixed</tr>
+      </property>
+      <!-- @op2:rate -->
+      <property name="@op2:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op2: rate</tr>
+        <tr lang="ru" finished="false">op2: ставка</tr>
+      </property>
+      <!-- @op2:vel -->
+      <property name="@op2:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">op2: keyboard velocity sensivity</tr>
+        <tr lang="ru" finished="false">op2: чувствительность к скорости клавиатуры</tr>
+      </property>
+      <!-- @op3:L1 -->
+      <property name="@op3:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op3: Envelope Generator Level 1</tr>
+        <tr lang="ru" finished="false">op3: Генератор контуров Уровень 1</tr>
+      </property>
+      <!-- @op3:L2 -->
+      <property name="@op3:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op3: Envelope Generator Level 2</tr>
+        <tr lang="ru" finished="false">op3: Envelope Generator Level 2</tr>
+      </property>
+      <!-- @op3:L3 -->
+      <property name="@op3:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op3: Envelope Generator Level 3</tr>
+        <tr lang="ru" finished="false">op3: Envelope Generator Level 3</tr>
+      </property>
+      <!-- @op3:L4 -->
+      <property name="@op3:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op3: Envelope Generator Level 4</tr>
+        <tr lang="ru" finished="false">op3: Envelope Generator Level 4</tr>
+      </property>
+      <!-- @op3:R1 -->
+      <property name="@op3:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op3: Envelope Generator Rate 1</tr>
+        <tr lang="ru" finished="false">op3: Коэффициент мощности генератора</tr>
+      </property>
+      <!-- @op3:R2 -->
+      <property name="@op3:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op3: Envelope Generator Rate 2</tr>
+        <tr lang="ru" finished="false">op3: Envelope Generator Rate 2</tr>
+      </property>
+      <!-- @op3:R3 -->
+      <property name="@op3:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op3: Envelope Generator Rate 3</tr>
+        <tr lang="ru" finished="false">op3: Envelope Generator Rate 3</tr>
+      </property>
+      <!-- @op3:R4 -->
+      <property name="@op3:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op3: Envelope Generator Rate 4</tr>
+        <tr lang="ru" finished="false">op3: Envelope Generator Rate 4</tr>
+      </property>
+      <!-- @op3:detune -->
+      <property name="@op3:detune" type="float" minvalue="-10.0" maxvalue="10.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">op3: detune</tr>
+        <tr lang="ru" finished="false">op3: разъем</tr>
+      </property>
+      <!-- @op3:freq -->
+      <property name="@op3:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
+      units="hertz" access="readwrite">
+        <tr lang="en">op3: frequency</tr>
+        <tr lang="ru" finished="false">op3: частота</tr>
+      </property>
+      <!-- @op3:level -->
+      <property name="@op3:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
+      access="readwrite">
+        <tr lang="en">op3: output level</tr>
+        <tr lang="ru" finished="false">op3: выходной уровень</tr>
+      </property>
+      <!-- @op3:opMode -->
+      <property name="@op3:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op3: FreqRatio or FreqFixed mode</tr>
+        <tr lang="ru" finished="false">op3: FreqRatio или FreqFixed</tr>
+      </property>
+      <!-- @op3:rate -->
+      <property name="@op3:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op3: rate</tr>
+        <tr lang="ru" finished="false">op3: ставка</tr>
+      </property>
+      <!-- @op3:vel -->
+      <property name="@op3:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">op3: keyboard velocity sensivity</tr>
+        <tr lang="ru" finished="false">op3: чувствительность к скорости клавиатуры</tr>
+      </property>
+      <!-- @op4:L1 -->
+      <property name="@op4:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op4: Envelope Generator Level 1</tr>
+        <tr lang="ru" finished="false">op4: Envelope Generator Level 1</tr>
+      </property>
+      <!-- @op4:L2 -->
+      <property name="@op4:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op4: Envelope Generator Level 2</tr>
+        <tr lang="ru" finished="false">op4: Envelope Generator Level 2</tr>
+      </property>
+      <!-- @op4:L3 -->
+      <property name="@op4:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op4: Envelope Generator Level 3</tr>
+        <tr lang="ru" finished="false">op4: Envelope Generator Level 3</tr>
+      </property>
+      <!-- @op4:L4 -->
+      <property name="@op4:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op4: Envelope Generator Level 4</tr>
+        <tr lang="ru" finished="false">op4: Envelope Generator Level 4</tr>
+      </property>
+      <!-- @op4:R1 -->
+      <property name="@op4:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op4: Envelope Generator Rate 1</tr>
+        <tr lang="ru" finished="false">op4: Envelope Generator Rate 1</tr>
+      </property>
+      <!-- @op4:R2 -->
+      <property name="@op4:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op4: Envelope Generator Rate 2</tr>
+        <tr lang="ru" finished="false">op4: Envelope Generator Rate 2</tr>
+      </property>
+      <!-- @op4:R3 -->
+      <property name="@op4:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op4: Envelope Generator Rate 3</tr>
+        <tr lang="ru" finished="false">op4: Envelope Generator Rate 3</tr>
+      </property>
+      <!-- @op4:R4 -->
+      <property name="@op4:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op4: Envelope Generator Rate 4</tr>
+        <tr lang="ru" finished="false">op4: Envelope Generator Rate 4</tr>
+      </property>
+      <!-- @op4:detune -->
+      <property name="@op4:detune" type="float" minvalue="-10.0" maxvalue="10.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">op4: detune</tr>
+        <tr lang="ru" finished="false">op4: разъем</tr>
+      </property>
+      <!-- @op4:freq -->
+      <property name="@op4:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
+      units="hertz" access="readwrite">
+        <tr lang="en">op4: frequency</tr>
+        <tr lang="ru" finished="false">op4: частота</tr>
+      </property>
+      <!-- @op4:level -->
+      <property name="@op4:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
+      access="readwrite">
+        <tr lang="en">op4: output level</tr>
+        <tr lang="ru" finished="false">op4: уровень выпуска</tr>
+      </property>
+      <!-- @op4:opMode -->
+      <property name="@op4:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op4: FreqRatio or FreqFixed mode</tr>
+        <tr lang="ru" finished="false">op4: FreqRatio или FreqFixed</tr>
+      </property>
+      <!-- @op4:rate -->
+      <property name="@op4:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op4: rate</tr>
+        <tr lang="ru" finished="false">op4: ставка</tr>
+      </property>
+      <!-- @op4:vel -->
+      <property name="@op4:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">op4: keyboard velocity sensivity</tr>
+        <tr lang="ru" finished="false">op4: чувствительность к скорости клавиатуры</tr>
+      </property>
+      <!-- @op5:L1 -->
+      <property name="@op5:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op5: Envelope Generator Level 1</tr>
+        <tr lang="ru" finished="false">op5: Генератор контуров Уровень 1</tr>
+      </property>
+      <!-- @op5:L2 -->
+      <property name="@op5:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op5: Envelope Generator Level 2</tr>
+        <tr lang="ru" finished="false">op5: Envelope Generator Level 2</tr>
+      </property>
+      <!-- @op5:L3 -->
+      <property name="@op5:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op5: Envelope Generator Level 3</tr>
+        <tr lang="ru" finished="false">op5: Envelope Generator Level 3</tr>
+      </property>
+      <!-- @op5:L4 -->
+      <property name="@op5:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op5: Envelope Generator Level 4</tr>
+        <tr lang="ru" finished="false">op5: Envelope Generator Level 4</tr>
+      </property>
+      <!-- @op5:R1 -->
+      <property name="@op5:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op5: Envelope Generator Rate 1</tr>
+        <tr lang="ru" finished="false">op5: Коэффициент мощности генератора</tr>
+      </property>
+      <!-- @op5:R2 -->
+      <property name="@op5:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op5: Envelope Generator Rate 2</tr>
+        <tr lang="ru" finished="false">op5: Envelope Generator Rate 2</tr>
+      </property>
+      <!-- @op5:R3 -->
+      <property name="@op5:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op5: Envelope Generator Rate 3</tr>
+        <tr lang="ru" finished="false">op5: Envelope Generator Rate 3</tr>
+      </property>
+      <!-- @op5:R4 -->
+      <property name="@op5:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+      access="readwrite">
+        <tr lang="en">op5: Envelope Generator Rate 4</tr>
+        <tr lang="ru" finished="false">op5: Envelope Generator Rate 4</tr>
+      </property>
+      <!-- @op5:detune -->
+      <property name="@op5:detune" type="float" minvalue="-10.0" maxvalue="10.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">op5: detune</tr>
+        <tr lang="ru" finished="false">op5: разъем</tr>
+      </property>
+      <!-- @op5:freq -->
+      <property name="@op5:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
+      units="hertz" access="readwrite">
+        <tr lang="en">op5: frequency</tr>
+        <tr lang="ru" finished="false">op5: частота</tr>
+      </property>
+      <!-- @op5:level -->
+      <property name="@op5:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
+      access="readwrite">
+        <tr lang="en">op5: outut level</tr>
+        <tr lang="ru" finished="false">op5: внешний уровень</tr>
+      </property>
+      <!-- @op5:opMode -->
+      <property name="@op5:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op5: FreqRatio or FreqFixed mode</tr>
+        <tr lang="ru" finished="false">op5: FreqRatio или FreqFixed</tr>
+      </property>
+      <!-- @op5:rate -->
+      <property name="@op5:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
+      access="readwrite">
+        <tr lang="en">op5: rate</tr>
+        <tr lang="ru" finished="false">op5: ставка</tr>
+      </property>
+      <!-- @op5:vel -->
+      <property name="@op5:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
+      access="readwrite">
+        <tr lang="en">op5: keyboard velocity sensivity</tr>
+        <tr lang="ru" finished="false">op5: чувствительность к скорости клавиатуры</tr>
+      </property>
+      <!-- @pitch -->
+      <property name="@pitch" type="float" minvalue="24" maxvalue="84" default="48">
+        <tr lang="en">midi pitch</tr>
+        <tr lang="ru" finished="false">миди-питч</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- load -->
+      <method name="load">
+        <info>
+          <tr lang="en">load the preset from a previously loaded sysex file</tr>
+          <tr lang="ru" finished="false">Загрузить предустановленное из ранее загруженного файла
+          sysex</tr>
+        </info>
+        <param name="IDX" type="int" minvalue="0" maxvalue="31">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- note -->
+      <method name="note">
+        <info>
+          <tr lang="en">note on/off message</tr>
+          <tr lang="ru" finished="false">примечание/выключение сообщения</tr>
+        </info>
+        <param name="NOTE" type="float" required="true">
+          <tr lang="en">midi note</tr>
+          <tr lang="ru" finished="false">нота миди</tr>
+        </param>
+        <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
+          <tr lang="en">velocity</tr>
+          <tr lang="ru" finished="false">скорость</tr>
+        </param>
+      </method>
+      <!-- read -->
+      <method name="read">
+        <info>
+          <tr lang="en">reads the DX7 sysex preset file</tr>
+          <tr lang="ru" finished="false">DX7 sysex предустановленный файл</tr>
+        </info>
+        <param name="PATH" type="symbol">
+          <tr lang="en">relative or absolute path to the DX sysex preset file</tr>
+          <tr lang="ru" finished="false">относительный или абсолютный путь к заданному файлу DX
+          sysex</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">NOTE VEL</tr>
+          <tr lang="ru" finished="false">Примечание VEL</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">synth output</tr>
+          <tr lang="ru" finished="false">синтетический выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.keyboard]
 |
@@ -639,7 +639,7 @@
 [dac~]
 [X a->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

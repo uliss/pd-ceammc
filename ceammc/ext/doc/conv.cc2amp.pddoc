@@ -1,78 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.cc2amp">
-        <title>conv.cc2amp</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts from MIDI Control Change range</tr>
-                <tr lang="ru">конвертирует из диапазона MIDI Control Change</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv cc amp</keywords>
-            <since>0.3</since>
-            <also>
-                <see>lin-&gt;lin</see>
-                <see>lin-&gt;curve</see>
-            </also>
-            <aliases>
-                <alias>ceammc/cc-&gt;amp</alias>
-                <alias>cc-&gt;amp</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">By default converts from [0..127] to [0..1]</tr>
-                <!-- old: По умолчанию конвертируется из [0..127] в
+  <object name="conv.cc2amp">
+    <title>conv.cc2amp</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts from MIDI Control Change range</tr>
+        <tr lang="ru">конвертирует из диапазона MIDI Control Change</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv cc amp</keywords>
+      <since>0.3</since>
+      <also>
+        <see>lin-&gt;lin</see>
+        <see>lin-&gt;curve</see>
+      </also>
+      <aliases>
+        <alias>ceammc/cc-&gt;amp</alias>
+        <alias>cc-&gt;amp</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">By default converts from [0..127] to [0..1]</tr>
+        <!-- old: По умолчанию конвертируется из [0..127] в
                 [0..1] -->
-                <tr lang="ru" finished="false">По умолчанию конвертируется из [0..127] в
-                [0..1]</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="FROM" type="float">
-                <tr lang="en">start value of output range</tr>
-                <tr lang="ru">начальное значение выходного диапазона</tr>
-            </argument>
-            <argument name="TO" type="float">
-                <tr lang="en">end value of output range</tr>
-                <tr lang="ru">конечное значение выходного диапазона</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @from -->
-            <property name="@from" type="float" default="0">
-                <tr lang="en">start value of output range</tr>
-                <tr lang="ru">начальное значение выходного диапазона</tr>
-            </property>
-            <!-- @to -->
-            <property name="@to" type="float" default="1">
-                <tr lang="en">end value of output range</tr>
-                <tr lang="ru">конечное значение выходного диапазона</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">value in MIDI CC range [0..127]</tr>
-                    <tr lang="ru" finished="false">значение в диапазоне MIDI CC [0,127]</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">converted value</tr>
-                    <tr lang="ru" finished="false">преобразованная стоимость</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">По умолчанию конвертируется из [0..127] в [0..1]</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="FROM" type="float">
+        <tr lang="en">start value of output range</tr>
+        <tr lang="ru">начальное значение выходного диапазона</tr>
+      </argument>
+      <argument name="TO" type="float">
+        <tr lang="en">end value of output range</tr>
+        <tr lang="ru">конечное значение выходного диапазона</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @from -->
+      <property name="@from" type="float" default="0">
+        <tr lang="en">start value of output range</tr>
+        <tr lang="ru">начальное значение выходного диапазона</tr>
+      </property>
+      <!-- @to -->
+      <property name="@to" type="float" default="1">
+        <tr lang="en">end value of output range</tr>
+        <tr lang="ru">конечное значение выходного диапазона</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">value in MIDI CC range [0..127]</tr>
+          <tr lang="ru" finished="false">значение в диапазоне MIDI CC [0,127]</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">converted value</tr>
+          <tr lang="ru" finished="false">преобразованная стоимость</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F min=0 max=127]
 |
@@ -82,7 +81,7 @@
 |               |
 [F]             [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

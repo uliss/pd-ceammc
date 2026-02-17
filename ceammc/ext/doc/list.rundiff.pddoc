@@ -1,69 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.rundiff">
-        <title>list.rundiff</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">сomputes the difference between the adjacent elements of the input
-                list</tr>
-                <tr lang="ru">вычисляет разницу между соседними элементами входного списка</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list running difference partial cumulative</keywords>
-            <since>0.9.4</since>
-            <also>
-                <see>list.runsum</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">calculation flow:</tr>
-                <tr lang="ru" finished="false">Расчетный поток:</tr>
-            </par>
-            <par>
-                <tr lang="en">• y0 = x0</tr>
-                <tr lang="ru" finished="false">• y0 = x0</tr>
-            </par>
-            <par>
-                <tr lang="en">• y1 = x1 - x0</tr>
-                <tr lang="ru" finished="false">• y1 = x1 - x0</tr>
-            </par>
-            <par>
-                <tr lang="en">• y2 = x2 - x1</tr>
-                <tr lang="ru" finished="false">• y2 = x2 - x1</tr>
-            </par>
-            <par>
-                <tr lang="en">• y3 = x3 - x2</tr>
-                <tr lang="ru" finished="false">• y3 = x3 - x2</tr>
-            </par>
-            <par>
-                <tr lang="en">etc...</tr>
-                <tr lang="ru" finished="false">и т.д. ...</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result list</tr>
-                    <tr lang="ru" finished="false">список результатов</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="list.rundiff">
+    <title>list.rundiff</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">сomputes the difference between the adjacent elements of the input list</tr>
+        <tr lang="ru">вычисляет разницу между соседними элементами входного списка</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list running difference partial cumulative</keywords>
+      <since>0.9.4</since>
+      <also>
+        <see>list.runsum</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">calculation flow:</tr>
+        <tr lang="ru" finished="false">Расчетный поток:</tr>
+      </par>
+      <par>
+        <tr lang="en">• y0 = x0</tr>
+        <tr lang="ru" finished="false">• y0 = x0</tr>
+      </par>
+      <par>
+        <tr lang="en">• y1 = x1 - x0</tr>
+        <tr lang="ru" finished="false">• y1 = x1 - x0</tr>
+      </par>
+      <par>
+        <tr lang="en">• y2 = x2 - x1</tr>
+        <tr lang="ru" finished="false">• y2 = x2 - x1</tr>
+      </par>
+      <par>
+        <tr lang="en">• y3 = x3 - x2</tr>
+        <tr lang="ru" finished="false">• y3 = x3 - x2</tr>
+      </par>
+      <par>
+        <tr lang="en">etc...</tr>
+        <tr lang="ru" finished="false">и т.д. ...</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result list</tr>
+          <tr lang="ru" finished="false">список результатов</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 1 1 1 #a( [1 2 3 4 #b( [1 3 5 7 #d( [1 2 3 2 1 #c(
 
@@ -87,7 +86,7 @@
 [ui.dt]
 /*.*/
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

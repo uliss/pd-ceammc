@@ -1,112 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="canvas.current">
-        <title>canvas.current</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">get the information about the current canvas of the object</tr>
-                <tr lang="ru">получение информации о текущем холста объекта</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>patch</category>
-            <keywords>canvas</keywords>
-            <also>
-                <see>patch.args</see>
-                <see>canvas.top</see>
-            </also>
-            <since>0.4</since>
-        </meta>
-        <properties>
-            <!-- @abstraction -->
-            <property name="@abstraction" type="bool" access="readonly" default="1">
-                <tr lang="en">1 if canvas is abstraction</tr>
-                <tr lang="ru">1 если холст является абстракцией</tr>
-            </property>
-            <!-- @args -->
-            <property name="@args" type="list" access="readonly" default="">
-                <tr lang="en">canvas creation arguments</tr>
-                <tr lang="ru">аргументы при создании холста</tr>
-            </property>
-            <!-- @dir -->
-            <property name="@dir" type="symbol" access="readonly" default="/">
-                <tr lang="en">canvas directory (only if top level or abstraction)</tr>
-                <tr lang="ru">директория холста (только если холст верхнего уровеня или
-                абстракция)</tr>
-            </property>
-            <!-- @font -->
-            <property name="@font" type="int" access="readonly" default="10">
-                <tr lang="en">canvas font size</tr>
-                <tr lang="ru">размер шрифта у холста</tr>
-            </property>
-            <!-- @height -->
-            <property name="@height" type="int" access="readonly" default="400">
-                <tr lang="en">canvas height (window or GOP)</tr>
-                <tr lang="ru">высота холста (окна или GOP)</tr>
-            </property>
-            <!-- @name -->
-            <property name="@name" type="symbol" access="readonly" default="test_canvas">
-                <tr lang="en">canvas name</tr>
-                <tr lang="ru">имя холста</tr>
-            </property>
-            <!-- @paths -->
-            <property name="@paths" type="list" access="readonly" default="">
-                <tr lang="en">canvas search paths</tr>
-                <tr lang="ru">поисковые пути у холста</tr>
-            </property>
-            <!-- @root -->
-            <property name="@root" type="bool" access="readonly" default="1">
-                <tr lang="en">1 if canvas is top-level (window)</tr>
-                <tr lang="ru">1 если холст верхнего уровня (окно)</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" access="readonly" default="600 400">
-                <tr lang="en">canvas dimensions. If root canvas (window) return window size, if
-                subpatch return Graph on Parent size</tr>
-                <tr lang="ru">размер холста. Если корневой холст (окно) возвращает размер окна,
-                если субпатч возвращает размер Graph on Parent</tr>
-            </property>
-            <!-- @width -->
-            <property name="@width" type="int" access="readonly" default="600">
-                <tr lang="en">canvas width (window or GOP)</tr>
-                <tr lang="ru">ширина холста (окна или GOP)</tr>
-            </property>
-            <!-- @x -->
-            <property name="@x" type="int" access="readonly" default="0">
-                <tr lang="en">canvas x-pos (window or GOP)</tr>
-                <tr lang="ru">x-позиция холста (окна или GOP)</tr>
-            </property>
-            <!-- @y -->
-            <property name="@y" type="int" access="readonly" default="0">
-                <tr lang="en">canvas y-pos (window or GOP)</tr>
-                <tr lang="ru">y-позиция холста (окна или GOP)</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">property request</tr>
-                    <tr lang="ru" finished="false">имущественный запрос</tr>
-                </in>
-                <in on="bang">
-                    <tr lang="en">output dict with all properties</tr>
-                    <tr lang="ru" finished="false">выходной дикт со всеми свойствами</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">dict or property output</tr>
-                    <tr lang="ru" finished="false">диктовка или вывод собственности</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="canvas.current">
+    <title>canvas.current</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">get the information about the current canvas of the object</tr>
+        <tr lang="ru">получение информации о текущем холста объекта</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>patch</category>
+      <keywords>canvas</keywords>
+      <also>
+        <see>patch.args</see>
+        <see>canvas.top</see>
+      </also>
+      <since>0.4</since>
+    </meta>
+    <properties>
+      <!-- @abstraction -->
+      <property name="@abstraction" type="bool" access="readonly" default="1">
+        <tr lang="en">1 if canvas is abstraction</tr>
+        <tr lang="ru">1 если холст является абстракцией</tr>
+      </property>
+      <!-- @args -->
+      <property name="@args" type="list" access="readonly" default="">
+        <tr lang="en">canvas creation arguments</tr>
+        <tr lang="ru">аргументы при создании холста</tr>
+      </property>
+      <!-- @dir -->
+      <property name="@dir" type="symbol" access="readonly" default="/">
+        <tr lang="en">canvas directory (only if top level or abstraction)</tr>
+        <tr lang="ru">директория холста (только если холст верхнего уровеня или абстракция)</tr>
+      </property>
+      <!-- @font -->
+      <property name="@font" type="int" access="readonly" default="10">
+        <tr lang="en">canvas font size</tr>
+        <tr lang="ru">размер шрифта у холста</tr>
+      </property>
+      <!-- @height -->
+      <property name="@height" type="int" access="readonly" default="400">
+        <tr lang="en">canvas height (window or GOP)</tr>
+        <tr lang="ru">высота холста (окна или GOP)</tr>
+      </property>
+      <!-- @name -->
+      <property name="@name" type="symbol" access="readonly" default="test_canvas">
+        <tr lang="en">canvas name</tr>
+        <tr lang="ru">имя холста</tr>
+      </property>
+      <!-- @paths -->
+      <property name="@paths" type="list" access="readonly" default="">
+        <tr lang="en">canvas search paths</tr>
+        <tr lang="ru">поисковые пути у холста</tr>
+      </property>
+      <!-- @root -->
+      <property name="@root" type="bool" access="readonly" default="1">
+        <tr lang="en">1 if canvas is top-level (window)</tr>
+        <tr lang="ru">1 если холст верхнего уровня (окно)</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" access="readonly" default="600 400">
+        <tr lang="en">canvas dimensions. If root canvas (window) return window size, if subpatch
+        return Graph on Parent size</tr>
+        <tr lang="ru">размер холста. Если корневой холст (окно) возвращает размер окна, если
+        субпатч возвращает размер Graph on Parent</tr>
+      </property>
+      <!-- @width -->
+      <property name="@width" type="int" access="readonly" default="600">
+        <tr lang="en">canvas width (window or GOP)</tr>
+        <tr lang="ru">ширина холста (окна или GOP)</tr>
+      </property>
+      <!-- @x -->
+      <property name="@x" type="int" access="readonly" default="0">
+        <tr lang="en">canvas x-pos (window or GOP)</tr>
+        <tr lang="ru">x-позиция холста (окна или GOP)</tr>
+      </property>
+      <!-- @y -->
+      <property name="@y" type="int" access="readonly" default="0">
+        <tr lang="en">canvas y-pos (window or GOP)</tr>
+        <tr lang="ru">y-позиция холста (окна или GOP)</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">property request</tr>
+          <tr lang="ru" finished="false">имущественный запрос</tr>
+        </in>
+        <in on="bang">
+          <tr lang="en">output dict with all properties</tr>
+          <tr lang="ru" finished="false">выходной дикт со всеми свойствами</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">dict or property output</tr>
+          <tr lang="ru" finished="false">диктовка или вывод собственности</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [@name?(   [@dir?(    [@width?(
 |          |          |
@@ -120,7 +119,7 @@
 |
 [ui.display @display_type 1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,74 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="osc.sinfb~">
-        <title>osc.sinfb~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sine oscillator with feedback</tr>
-                <tr lang="ru">синусоидальный осциллятор с обратной связью</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>osc</category>
-            <keywords>osc feedback</keywords>
-            <since>0.1</since>
-        </meta>
-        <arguments>
-            <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050" units="hertz">
-                <tr lang="en">See @freq</tr>
-                <tr lang="ru" finished="false">См. @freq</tr>
-            </argument>
-            <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="6.283185">
-                <tr lang="en">oscillator feedback coefficient in range 0..2pi</tr>
-                <!-- old: Коэффициент обратной связи осциллятора в диапазоне
+  <object name="osc.sinfb~">
+    <title>osc.sinfb~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sine oscillator with feedback</tr>
+        <tr lang="ru">синусоидальный осциллятор с обратной связью</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>osc</category>
+      <keywords>osc feedback</keywords>
+      <since>0.1</since>
+    </meta>
+    <arguments>
+      <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050" units="hertz">
+        <tr lang="en">See @freq</tr>
+        <tr lang="ru" finished="false">См. @freq</tr>
+      </argument>
+      <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="6.283185">
+        <tr lang="en">oscillator feedback coefficient in range 0..2pi</tr>
+        <!-- old: Коэффициент обратной связи осциллятора в диапазоне
                 0,2pi -->
-                <tr lang="ru" finished="false">Коэффициент обратной связи осциллятора в диапазоне
-                0,2pi</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @feedback -->
-            <property name="@feedback" type="float" minvalue="0" maxvalue="6.2832" default="0">
-                <tr lang="en">oscillator feedback coefficient</tr>
-                <tr lang="ru" finished="false">коэффициент обратной связи осциллятора</tr>
-            </property>
-            <!-- @freq -->
-            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050"
-            units="hertz">
-                <tr lang="en">frequency</tr>
-                <tr lang="ru" finished="false">частота</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">frequency</tr>
-                    <tr lang="ru" finished="false">частота</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">reset phase</tr>
-                    <tr lang="ru" finished="false">фаза сброса</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Коэффициент обратной связи осциллятора в диапазоне
+        0,2pi</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @feedback -->
+      <property name="@feedback" type="float" minvalue="0" maxvalue="6.2832" default="0">
+        <tr lang="en">oscillator feedback coefficient</tr>
+        <tr lang="ru" finished="false">коэффициент обратной связи осциллятора</tr>
+      </property>
+      <!-- @freq -->
+      <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050" units="hertz">
+        <tr lang="en">frequency</tr>
+        <tr lang="ru" finished="false">частота</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">frequency</tr>
+          <tr lang="ru" finished="false">частота</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">reset phase</tr>
+          <tr lang="ru" finished="false">фаза сброса</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]     [ui.knob @min 0 @max 6.28]
 |       |
@@ -82,7 +81,7 @@
 |\      |
 [dac~]  [ui.scope~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

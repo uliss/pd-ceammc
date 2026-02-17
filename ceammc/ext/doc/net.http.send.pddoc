@@ -1,103 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="net.http.send">
-        <title>net.http.send</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">HTTP request sender</tr>
-                <tr lang="ru">отправляет HTTP запросы</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>net</category>
-            <keywords>net http</keywords>
-            <since>0.9.5</since>
-            <aliases>
-                <alias>http.send</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="HOST" type="symbol">
-                <tr lang="en">destination host</tr>
-                <tr lang="ru" finished="false">место назначения</tr>
-            </argument>
-            <argument name="PORT" type="int" minvalue="1" maxvalue="32768">
-                <tr lang="en">destination port</tr>
-                <tr lang="ru" finished="false">порт назначения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @host -->
-            <property name="@host" type="symbol" default="localhost">
-                <tr lang="en">destination host</tr>
-                <tr lang="ru" finished="false">место назначения</tr>
-            </property>
-            <!-- @pass -->
-            <property name="@pass" type="atom" default="">
-                <tr lang="en">Basic Auth password</tr>
-                <tr lang="ru" finished="false">Базовый пароль Auth</tr>
-            </property>
-            <!-- @port -->
-            <property name="@port" type="int" default="80" minvalue="1" maxvalue="32768">
-                <tr lang="en">destination port</tr>
-                <tr lang="ru" finished="false">порт назначения</tr>
-            </property>
-            <!-- @timeout -->
-            <property name="@timeout" type="int" default="1" minvalue="1" maxvalue="10"
-            units="second">
-                <tr lang="en">TCP connection timeout</tr>
-                <tr lang="ru" finished="false">Время подключения TCP</tr>
-            </property>
-            <!-- @user -->
-            <property name="@user" type="symbol" default="">
-                <tr lang="en">Basic Auth user name</tr>
-                <tr lang="ru" finished="false">Основное имя пользователя Auth</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- get -->
-            <method name="get">
-                <info>
-                    <tr lang="en">send GET request</tr>
-                    <tr lang="ru" finished="false">Отправить запрос GET</tr>
-                </info>
-                <param name="PATH" type="symbol" required="true">
-                    <tr lang="en">request path</tr>
-                    <tr lang="ru" finished="false">Путь запроса</tr>
-                </param>
-                <param name="VALUES" type="list" required="true">
-                    <tr lang="en">list of query pairs</tr>
-                    <tr lang="ru" finished="false">Список пар запросов</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input</tr>
-                    <tr lang="ru" finished="false">ввод</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int: HTTP status code</tr>
-                    <tr lang="ru" finished="false">Оригинальное название: HTTP Status Code</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">data:String: HTTP body</tr>
-                    <tr lang="ru" finished="false">Источник: HTTP body</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="net.http.send">
+    <title>net.http.send</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">HTTP request sender</tr>
+        <tr lang="ru">отправляет HTTP запросы</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>net</category>
+      <keywords>net http</keywords>
+      <since>0.9.5</since>
+      <aliases>
+        <alias>http.send</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="HOST" type="symbol">
+        <tr lang="en">destination host</tr>
+        <tr lang="ru" finished="false">место назначения</tr>
+      </argument>
+      <argument name="PORT" type="int" minvalue="1" maxvalue="32768">
+        <tr lang="en">destination port</tr>
+        <tr lang="ru" finished="false">порт назначения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @host -->
+      <property name="@host" type="symbol" default="localhost">
+        <tr lang="en">destination host</tr>
+        <tr lang="ru" finished="false">место назначения</tr>
+      </property>
+      <!-- @pass -->
+      <property name="@pass" type="atom" default="">
+        <tr lang="en">Basic Auth password</tr>
+        <tr lang="ru" finished="false">Базовый пароль Auth</tr>
+      </property>
+      <!-- @port -->
+      <property name="@port" type="int" default="80" minvalue="1" maxvalue="32768">
+        <tr lang="en">destination port</tr>
+        <tr lang="ru" finished="false">порт назначения</tr>
+      </property>
+      <!-- @timeout -->
+      <property name="@timeout" type="int" default="1" minvalue="1" maxvalue="10" units="second">
+        <tr lang="en">TCP connection timeout</tr>
+        <tr lang="ru" finished="false">Время подключения TCP</tr>
+      </property>
+      <!-- @user -->
+      <property name="@user" type="symbol" default="">
+        <tr lang="en">Basic Auth user name</tr>
+        <tr lang="ru" finished="false">Основное имя пользователя Auth</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- get -->
+      <method name="get">
+        <info>
+          <tr lang="en">send GET request</tr>
+          <tr lang="ru" finished="false">Отправить запрос GET</tr>
+        </info>
+        <param name="PATH" type="symbol" required="true">
+          <tr lang="en">request path</tr>
+          <tr lang="ru" finished="false">Путь запроса</tr>
+        </param>
+        <param name="VALUES" type="list" required="true">
+          <tr lang="en">list of query pairs</tr>
+          <tr lang="ru" finished="false">Список пар запросов</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input</tr>
+          <tr lang="ru" finished="false">ввод</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int: HTTP status code</tr>
+          <tr lang="ru" finished="false">Оригинальное название: HTTP Status Code</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">data:String: HTTP body</tr>
+          <tr lang="ru" finished="false">Источник: HTTP body</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [get /(
 |
@@ -108,7 +107,7 @@
 |        | |
 [F]      [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,78 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.multiplex">
-        <title>flow.multiplex</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">control flow multiplexer</tr>
-                <tr lang="ru">мультиплексор управляющего потока</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>multiplex</keywords>
-            <aliases>
-                <alias>flow.mux</alias>
-            </aliases>
-            <since>0.6</since>
-            <also>
-                <see>flow.demultiplex</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="24">
-                <tr lang="en">number of multiplexed inputs</tr>
-                <tr lang="ru" finished="false">количество мультиплексированных входов</tr>
-            </argument>
-            <argument name="INDEX" type="int" minvalue="0" maxvalue="23">
-                <tr lang="en">default input index</tr>
-                <tr lang="ru" finished="false">Входной индекс по умолчанию</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @index -->
-            <property name="@index" type="int" minvalue="0" default="0" maxvalue="23">
-                <tr lang="en">input index, can be set only with [prop.set] object or via rightmost
-                inlet</tr>
-                <!-- old: Входной индекс может быть установлен только с
+  <object name="flow.multiplex">
+    <title>flow.multiplex</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">control flow multiplexer</tr>
+        <tr lang="ru">мультиплексор управляющего потока</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>multiplex</keywords>
+      <aliases>
+        <alias>flow.mux</alias>
+      </aliases>
+      <since>0.6</since>
+      <also>
+        <see>flow.demultiplex</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="N" type="int" minvalue="2" maxvalue="24">
+        <tr lang="en">number of multiplexed inputs</tr>
+        <tr lang="ru" finished="false">количество мультиплексированных входов</tr>
+      </argument>
+      <argument name="INDEX" type="int" minvalue="0" maxvalue="23">
+        <tr lang="en">default input index</tr>
+        <tr lang="ru" finished="false">Входной индекс по умолчанию</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @index -->
+      <property name="@index" type="int" minvalue="0" default="0" maxvalue="23">
+        <tr lang="en">input index, can be set only with [prop.set] object or via rightmost
+        inlet</tr>
+        <!-- old: Входной индекс может быть установлен только с
                 объектом [prop.set] или через самый правый вход. -->
-                <tr lang="ru" finished="false">Входной индекс может быть установлен только с
-                объектом [prop.set] или через самый правый вход.</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet>
-                <in>
-                    <tr lang="en">multiplexer first inlet</tr>
-                    <tr lang="ru" finished="false">мультиплексор первый вход</tr>
-                </in>
-            </inlet>
-            <inlet number="n">
-                <in>
-                    <tr lang="en">multiplexer N-th inlet</tr>
-                    <tr lang="ru" finished="false">мультиплексор N-й вход</tr>
-                </in>
-            </inlet>
-            <inlet number="n+1">
-                <in on="int">
-                    <tr lang="en">set input index</tr>
-                    <tr lang="ru" finished="false">Установленный входной индекс</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Входной индекс может быть установлен только с объектом
+        [prop.set] или через самый правый вход.</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet>
+        <in>
+          <tr lang="en">multiplexer first inlet</tr>
+          <tr lang="ru" finished="false">мультиплексор первый вход</tr>
+        </in>
+      </inlet>
+      <inlet number="n">
+        <in>
+          <tr lang="en">multiplexer N-th inlet</tr>
+          <tr lang="ru" finished="false">мультиплексор N-й вход</tr>
+        </in>
+      </inlet>
+      <inlet number="n+1">
+        <in on="int">
+          <tr lang="en">set input index</tr>
+          <tr lang="ru" finished="false">Установленный входной индекс</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.hrd #a]          [flow.multiplex-bang]
 |
@@ -88,8 +88,8 @@
 
 #a @nitems 4 @label select
 ]]>
-            </pdascii>
-            <pdascii id="bang">
+      </pdascii>
+      <pdascii id="bang">
 <![CDATA[
 [B]     [B]     [B]     [ui.hrd 3]
 |       |.      |..     |...
@@ -97,8 +97,8 @@
 |
 [B]
 ]]>
-            </pdascii>
-            <pdascii id="list">
+      </pdascii>
+      <pdascii id="list">
 <![CDATA[
 [1 2(   [3 4(   [5 6(   [ui.hrd 3]
 |       |.      |..     |...
@@ -106,8 +106,8 @@
 |
 [ui.d @display_type 1]
 ]]>
-            </pdascii>
-            <pdascii id="any">
+      </pdascii>
+      <pdascii id="any">
 <![CDATA[
 [F]     [F]     [F]
 |       |       |
@@ -117,7 +117,7 @@
 |
 [ui.d @display_type 1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

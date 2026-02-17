@@ -1,116 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="local.float">
-        <title>local.float</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">canvas-scoped named float variable</tr>
-                <tr lang="ru">локальное для патча именованное число с плавающей точкой</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>local</category>
-            <keywords>float local</keywords>
-            <since>0.1</since>
-            <also>
-                <see>local.int</see>
-                <see>global.int</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Defines named local float variable, accessed by name and available
-                only within its patch (canvas). Note: it is not accessible even from subpatch.</tr>
-                <!-- old: Определяет названную локальную поплавковую
+  <object name="local.float">
+    <title>local.float</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">canvas-scoped named float variable</tr>
+        <tr lang="ru">локальное для патча именованное число с плавающей точкой</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>local</category>
+      <keywords>float local</keywords>
+      <since>0.1</since>
+      <also>
+        <see>local.int</see>
+        <see>global.int</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Defines named local float variable, accessed by name and available only
+        within its patch (canvas). Note: it is not accessible even from subpatch.</tr>
+        <!-- old: Определяет названную локальную поплавковую
                 переменную, доступную по имени и доступную только в пределах ее патча (канваса).
                 Примечание: он недоступен даже из субпатча. -->
-                <tr lang="ru" finished="false">Определяет названную локальную поплавковую
-                переменную, доступную по имени и доступную только в пределах ее патча (канваса).
-                Примечание: он недоступен даже из субпатча.</tr>
-            </par>
+        <tr lang="ru" finished="false">Определяет названную локальную поплавковую переменную,
+        доступную по имени и доступную только в пределах ее патча (канваса). Примечание: он
+        недоступен даже из субпатча.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="ID" type="symbol">
+        <tr lang="en">object ID</tr>
+        <tr lang="ru" finished="false">объект</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @id -->
+      <property name="@id" type="symbol" access="initonly" default="default">
+        <tr lang="en">local variable id</tr>
+        <tr lang="ru" finished="false">локальная переменная id</tr>
+      </property>
+      <!-- @value -->
+      <property name="@value" type="float" access="readonly" default="0">
+        <tr lang="en">current value</tr>
+        <tr lang="ru" finished="false">Текущая стоимость</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- * -->
+      <method name="*">
+        <info>
+          <tr lang="en">multiply to, no output</tr>
+          <tr lang="ru" finished="false">Умножить на, не выход</tr>
         </info>
-        <arguments>
-            <argument name="ID" type="symbol">
-                <tr lang="en">object ID</tr>
-                <tr lang="ru" finished="false">объект</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @id -->
-            <property name="@id" type="symbol" access="initonly" default="default">
-                <tr lang="en">local variable id</tr>
-                <tr lang="ru" finished="false">локальная переменная id</tr>
-            </property>
-            <!-- @value -->
-            <property name="@value" type="float" access="readonly" default="0">
-                <tr lang="en">current value</tr>
-                <tr lang="ru" finished="false">Текущая стоимость</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- * -->
-            <method name="*">
-                <info>
-                    <tr lang="en">multiply to, no output</tr>
-                    <tr lang="ru" finished="false">Умножить на, не выход</tr>
-                </info>
-            </method>
-            <!-- + -->
-            <method name="+">
-                <info>
-                    <tr lang="en">add to float, no output</tr>
-                    <tr lang="ru" finished="false">Добавить в Float, нет выхода</tr>
-                </info>
-            </method>
-            <method name="-">
-                <info>
-                    <tr lang="en">subtract from float, no output</tr>
-                    <tr lang="ru" finished="false">вычитать из флоата, не выходя</tr>
-                </info>
-            </method>
-            <!-- / -->
-            <method name="/">
-                <info>
-                    <tr lang="en">divide by, no output</tr>
-                    <tr lang="ru" finished="false">делить на, не выход</tr>
-                </info>
-            </method>
-            <!-- set -->
-            <method name="set">
-                <info>
-                    <tr lang="en">sets new value without output</tr>
-                    <tr lang="ru" finished="false">Новая стоимость без выхода</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output value</tr>
-                    <tr lang="ru" finished="false">выходная стоимость</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">sets new value and outputs it ONLY at current object outlet</tr>
-                    <!-- old: устанавливает новое значение и выводит его
+      </method>
+      <!-- + -->
+      <method name="+">
+        <info>
+          <tr lang="en">add to float, no output</tr>
+          <tr lang="ru" finished="false">Добавить в Float, нет выхода</tr>
+        </info>
+      </method>
+      <method name="-">
+        <info>
+          <tr lang="en">subtract from float, no output</tr>
+          <tr lang="ru" finished="false">вычитать из флоата, не выходя</tr>
+        </info>
+      </method>
+      <!-- / -->
+      <method name="/">
+        <info>
+          <tr lang="en">divide by, no output</tr>
+          <tr lang="ru" finished="false">делить на, не выход</tr>
+        </info>
+      </method>
+      <!-- set -->
+      <method name="set">
+        <info>
+          <tr lang="en">sets new value without output</tr>
+          <tr lang="ru" finished="false">Новая стоимость без выхода</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output value</tr>
+          <tr lang="ru" finished="false">выходная стоимость</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">sets new value and outputs it ONLY at current object outlet</tr>
+          <!-- old: устанавливает новое значение и выводит его
                     ТОЛЬКО при текущем выходе объекта -->
-                    <tr lang="ru" finished="false">устанавливает новое значение и выводит его
-                    ТОЛЬКО при текущем выходе объекта</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float output</tr>
-                    <tr lang="ru" finished="false">выпуск поплавков</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">устанавливает новое значение и выводит его ТОЛЬКО при
+          текущем выходе объекта</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float output</tr>
+          <tr lang="ru" finished="false">выпуск поплавков</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]   [+ 2, bang(    [* 3, bang(    [bang(
 |     |              |              |
@@ -123,7 +123,7 @@
 |                                   |
 [F]                                 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

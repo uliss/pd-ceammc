@@ -1,232 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="proto.firmata">
-        <title>proto.firmata</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">Firmata Arduino protocol support</tr>
-                <tr lang="ru">поддержка протокола Firmata для Arduino</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>proto</category>
-            <keywords>arduino firmata</keywords>
-            <since>0.5</since>
-        </meta>
+  <object name="proto.firmata">
+    <title>proto.firmata</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">Firmata Arduino protocol support</tr>
+        <tr lang="ru">поддержка протокола Firmata для Arduino</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>proto</category>
+      <keywords>arduino firmata</keywords>
+      <since>0.5</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Firmata basic protocol support.</tr>
+        <tr lang="ru" finished="false">Поддержка базового протокола Firmata.</tr>
+      </par>
+    </info>
+    <methods>
+      <!-- apin_mapping? -->
+      <method name="apin_mapping?">
         <info>
-            <par>
-                <tr lang="en">Firmata basic protocol support.</tr>
-                <tr lang="ru" finished="false">Поддержка базового протокола Firmata.</tr>
-            </par>
+          <tr lang="en">query mapping between analog port number and digital pin. Analog messages
+          are numbered 0 to 15, which traditionally refer to the Arduino pins labeled A0, A1, A2,
+          etc. However, these pis are actually configured using "normal" pin numbers in the pin
+          mode message, and when those pins are used for non-analog functions. The analog mapping
+          query provides the information about which pins (as used with Firmata's pin mode message)
+          correspond to the analog channels. Return sequence of messages like: [apin_mapping A#
+          PIN#(, where # is number</tr>
+          <tr lang="ru" finished="false">Картирование запросов между номером аналогового порта и
+          цифровым штифтом. Аналоговые сообщения пронумерованы от 0 до 15, которые традиционно
+          относятся к значкам Arduino, помеченным A0, A1, A2 и т. Д. Однако эти точки на самом деле
+          настроены с использованием «нормальных» чисел контактов в сообщении режима контактов, и
+          когда эти точки используются для неаналоговых функций. Аналоговый картографический запрос
+          предоставляет информацию о том, какие штифты (как используется в сообщении режима штифта
+          Firmata) соответствуют аналоговым каналам. Последовательность возврата сообщений, таких
+          как: [apin_mapping A# PIN#(, где # - число)</tr>
         </info>
-        <methods>
-            <!-- apin_mapping? -->
-            <method name="apin_mapping?">
-                <info>
-                    <tr lang="en">query mapping between analog port number and digital pin. Analog
-                    messages are numbered 0 to 15, which traditionally refer to the Arduino pins
-                    labeled A0, A1, A2, etc. However, these pis are actually configured using
-                    "normal" pin numbers in the pin mode message, and when those pins are used for
-                    non-analog functions. The analog mapping query provides the information about
-                    which pins (as used with Firmata's pin mode message) correspond to the analog
-                    channels. Return sequence of messages like: [apin_mapping A# PIN#(, where # is
-                    number</tr>
-                    <tr lang="ru" finished="false">Картирование запросов между номером аналогового
-                    порта и цифровым штифтом. Аналоговые сообщения пронумерованы от 0 до 15,
-                    которые традиционно относятся к значкам Arduino, помеченным A0, A1, A2 и т. Д.
-                    Однако эти точки на самом деле настроены с использованием «нормальных» чисел
-                    контактов в сообщении режима контактов, и когда эти точки используются для
-                    неаналоговых функций. Аналоговый картографический запрос предоставляет
-                    информацию о том, какие штифты (как используется в сообщении режима штифта
-                    Firmata) соответствуют аналоговым каналам. Последовательность возврата
-                    сообщений, таких как: [apin_mapping A# PIN#(, где # - число)</tr>
-                </info>
-            </method>
-            <!-- capabilities? -->
-            <method name="capabilities?">
-                <info>
-                    <tr lang="en">query pin capabilities. Return sequence of messages like:
-                    [pin_info PIN# MODE RESOLUTION(, where # is pin number</tr>
-                    <tr lang="ru" finished="false">Возможности запроса. Возвратная
-                    последовательность сообщений, таких как: [pin_info PIN# MODE RESOLUTION(, где #
-                    - пин-номер)</tr>
-                </info>
-            </method>
-            <!-- firmware? -->
-            <method name="firmware?">
-                <info>
-                    <tr lang="en">query firmata protocol version. Returns message like: [firmware
-                    ARDUINO_FIRMWARE_NAME.ino MAJOR MINOR(</tr>
-                    <tr lang="ru" finished="false">Версия протокола запроса firmata. Возвращает
-                    сообщение типа: [программное обеспечение ARDUINO_FIRMWARE_NAME.ino MAJOR
-                    MINOR()</tr>
-                </info>
-            </method>
-            <!-- pin_mode -->
-            <method name="pin_mode">
-                <info>
-                    <tr lang="en">sets pin mode.</tr>
-                    <tr lang="ru" finished="false">Режим PIN.</tr>
-                </info>
-                <param name="PIN#" type="int" minvalue="0" required="true">
-                    <tr lang="en">pin number</tr>
-                    <tr lang="ru" finished="false">пин-код</tr>
-                </param>
-                <param name="MODE" type="symbol"
-                enum="INPUT OUTPUT ANALOG PWM SERVO SHIFT I2C ONEWIRE STEPPER ENCODER SERIAL PULLUP"
-                required="true">
-                    <tr lang="en">pin mode</tr>
-                    <tr lang="ru" finished="false">режим pin</tr>
-                </param>
-            </method>
-            <!-- pin_state? -->
-            <method name="pin_state?">
-                <info>
-                    <tr lang="en">query pin state. The pin state is any data written to the pin (it
-                    is important to note that pin state != pin value). For output modes (digital
-                    output, PWM, and Servo), the state is any value that has been previously
-                    written to the pin. For input modes, typically the state is zero. However, for
-                    digital inputs, the state is the status of the pull-up resistor which is 1 if
-                    enabled, 0 if disabled. Returns message like [pin_state PIN# MODE state(, where
-                    # is pin number</tr>
-                    <tr lang="ru" finished="false">состояние запроса. Состояние pin - это любые
-                    данные, записанные на pin (важно отметить, что состояние pin ! = значение pin).
-                    Для выходных режимов (цифровой выход, PWM и Servo) состоянием является любое
-                    значение, которое ранее было записано на штифт. Для входных режимов обычно
-                    состояние равно нулю. Однако для цифровых входов состоянием является состояние
-                    подтягивающего резистора, который 1 при включении, 0 при отключении. Возвращает
-                    сообщение как [pin_state PIN# MODE state(, где # - pin number)</tr>
-                </info>
-                <param name="PIN#" type="int" required="true">
-                    <tr lang="en">pin number</tr>
-                    <tr lang="ru" finished="false">пин-код</tr>
-                </param>
-            </method>
-            <!-- report_apin -->
-            <method name="report_apin">
-                <info>
-                    <tr lang="en">turns on/off analog pin (A0-A6) value reporting.</tr>
-                    <tr lang="ru" finished="false">включение/выключение аналогового штифта
-                    (A0-A6).</tr>
-                </info>
-                <param name="ANALOG_PIN" type="int" required="true">
-                    <tr lang="en">analog pin number</tr>
-                    <tr lang="ru" finished="false">аналоговый пин-код</tr>
-                </param>
-                <param name="VALUE" type="int" enum="0 1" required="true">
-                    <tr lang="en">value. If 1 - activates analog reporting, messages like [apin
-                    PIN# value( are returned every sampling interval (by default 19ms)</tr>
-                    <tr lang="ru" finished="false">ценность. Если 1 - активирует аналоговую
-                    отчетность, такие сообщения, как [apin PIN# value(возвращаются через каждый
-                    интервал выборки (по умолчанию 19ms)]</tr>
-                </param>
-            </method>
-            <!-- report_dport -->
-            <method name="report_dport">
-                <info>
-                    <tr lang="en">turns on/off digital port value reporting.</tr>
-                    <tr lang="ru" finished="false">Включает/выключает цифровую отчетность о
-                    стоимости порта.</tr>
-                </info>
-                <param name="PORT#" type="int" required="true">
-                    <tr lang="en">digital port number. Port is a group of pins, port 0 refers pins
-                    0-8</tr>
-                    <tr lang="ru" finished="false">Цифровой номер порта. Порт представляет собой
-                    группу штифтов, порт 0 относится к штифтам 0-8</tr>
-                </param>
-                <param name="VALUE" type="int" enum="0 1" required="true">
-                    <tr lang="en">value. If 1 - activates digital port reporting, messages like
-                    [dport PORT# value( are returned only on pin value change</tr>
-                    <tr lang="ru" finished="false">ценность. Если 1 - активирует отчетность
-                    цифрового порта, такие сообщения, как [dport PORT# value(возвращаются только
-                    при изменении значения pin)</tr>
-                </param>
-            </method>
-            <!-- samp_interval -->
-            <method name="samp_interval">
-                <info>
-                    <tr lang="en">sets sampling interval - how often analog data and i2c data is
-                    reported to the client. The default for the arduino implementation is 19ms.
-                    This means that every 19ms analog data will be reported and any i2c devices
-                    with read continuous mode will be read.</tr>
-                    <tr lang="ru" finished="false">устанавливает интервал выборки - как часто
-                    клиенту сообщаются аналоговые данные и данные i2c. По умолчанию для реализации
-                    Arduino составляет 19 мс. Это означает, что каждые 19 мс будут сообщаться
-                    аналоговые данные, и любые устройства i2c с непрерывным режимом чтения будут
-                    считываться.</tr>
-                </info>
-                <param name="TIME" type="int" units="millisecond" required="true" minvalue="10"
-                maxvalue="10000">
-                    <tr lang="en">time</tr>
-                    <tr lang="ru" finished="false">время</tr>
-                </param>
-            </method>
-            <!-- version? -->
-            <method name="version?">
-                <info>
-                    <tr lang="en">query firmata protocol version. Returns message like: [version
-                    MAJOR MINOR(</tr>
-                    <tr lang="ru" finished="false">Версия протокола query firmata. Возвращает
-                    сообщение типа: [версия МАЙОР МИНОР()</tr>
-                </info>
-            </method>
-            <!-- write_dpin -->
-            <method name="write_dpin">
-                <info>
-                    <tr lang="en">write 1 or 0 to digital pin. Pin mode should be OUTPUT.</tr>
-                    <tr lang="ru" finished="false">Запишите 1 или 0 в цифровой штифт. Pin-режим
-                    должен быть вне игры.</tr>
-                </info>
-                <param name="PIN#" type="int" required="true">
-                    <tr lang="en">pin number</tr>
-                    <tr lang="ru" finished="false">пин-код</tr>
-                </param>
-                <param name="VALUE" type="int" enum="0 1" required="true">
-                    <tr lang="en">pin value</tr>
-                    <tr lang="ru" finished="false">значение пин</tr>
-                </param>
-            </method>
-            <!-- write_pwm -->
-            <method name="write_pwm">
-                <info>
-                    <tr lang="en">writes PWM (Pulse Width Modulation) value to specified pin.</tr>
-                    <tr lang="ru" finished="false">записывает значение PWM (Pulse Width Modulation)
-                    в указанный штифт.</tr>
-                </info>
-                <param name="PIN#" type="int" required="true">
-                    <tr lang="en">pin number</tr>
-                    <tr lang="ru" finished="false">пин-код</tr>
-                </param>
-                <param name="VALUE" type="int" minvalue="0" maxvalue="256" required="true">
-                    <tr lang="en">pin value</tr>
-                    <tr lang="ru" finished="false">значение пин</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">raw input of bytes from Arduino serial connection</tr>
-                    <tr lang="ru" finished="false">необработанный вход байтов из последовательного
-                    соединения Arduino</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">raw byte output to Arduino serial connection and tagged parsed
-                    output from Arduino</tr>
-                    <tr lang="ru" finished="false">необработанный выход байта в последовательное
-                    соединение Arduino и помеченный парсированный выход Arduino</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+      </method>
+      <!-- capabilities? -->
+      <method name="capabilities?">
+        <info>
+          <tr lang="en">query pin capabilities. Return sequence of messages like: [pin_info PIN#
+          MODE RESOLUTION(, where # is pin number</tr>
+          <tr lang="ru" finished="false">Возможности запроса. Возвратная последовательность
+          сообщений, таких как: [pin_info PIN# MODE RESOLUTION(, где # - пин-номер)</tr>
+        </info>
+      </method>
+      <!-- firmware? -->
+      <method name="firmware?">
+        <info>
+          <tr lang="en">query firmata protocol version. Returns message like: [firmware
+          ARDUINO_FIRMWARE_NAME.ino MAJOR MINOR(</tr>
+          <tr lang="ru" finished="false">Версия протокола запроса firmata. Возвращает сообщение
+          типа: [программное обеспечение ARDUINO_FIRMWARE_NAME.ino MAJOR MINOR()</tr>
+        </info>
+      </method>
+      <!-- pin_mode -->
+      <method name="pin_mode">
+        <info>
+          <tr lang="en">sets pin mode.</tr>
+          <tr lang="ru" finished="false">Режим PIN.</tr>
+        </info>
+        <param name="PIN#" type="int" minvalue="0" required="true">
+          <tr lang="en">pin number</tr>
+          <tr lang="ru" finished="false">пин-код</tr>
+        </param>
+        <param name="MODE" type="symbol"
+        enum="INPUT OUTPUT ANALOG PWM SERVO SHIFT I2C ONEWIRE STEPPER ENCODER SERIAL PULLUP"
+        required="true">
+          <tr lang="en">pin mode</tr>
+          <tr lang="ru" finished="false">режим pin</tr>
+        </param>
+      </method>
+      <!-- pin_state? -->
+      <method name="pin_state?">
+        <info>
+          <tr lang="en">query pin state. The pin state is any data written to the pin (it is
+          important to note that pin state != pin value). For output modes (digital output, PWM,
+          and Servo), the state is any value that has been previously written to the pin. For input
+          modes, typically the state is zero. However, for digital inputs, the state is the status
+          of the pull-up resistor which is 1 if enabled, 0 if disabled. Returns message like
+          [pin_state PIN# MODE state(, where # is pin number</tr>
+          <tr lang="ru" finished="false">состояние запроса. Состояние pin - это любые данные,
+          записанные на pin (важно отметить, что состояние pin ! = значение pin). Для выходных
+          режимов (цифровой выход, PWM и Servo) состоянием является любое значение, которое ранее
+          было записано на штифт. Для входных режимов обычно состояние равно нулю. Однако для
+          цифровых входов состоянием является состояние подтягивающего резистора, который 1 при
+          включении, 0 при отключении. Возвращает сообщение как [pin_state PIN# MODE state(, где #
+          - pin number)</tr>
+        </info>
+        <param name="PIN#" type="int" required="true">
+          <tr lang="en">pin number</tr>
+          <tr lang="ru" finished="false">пин-код</tr>
+        </param>
+      </method>
+      <!-- report_apin -->
+      <method name="report_apin">
+        <info>
+          <tr lang="en">turns on/off analog pin (A0-A6) value reporting.</tr>
+          <tr lang="ru" finished="false">включение/выключение аналогового штифта (A0-A6).</tr>
+        </info>
+        <param name="ANALOG_PIN" type="int" required="true">
+          <tr lang="en">analog pin number</tr>
+          <tr lang="ru" finished="false">аналоговый пин-код</tr>
+        </param>
+        <param name="VALUE" type="int" enum="0 1" required="true">
+          <tr lang="en">value. If 1 - activates analog reporting, messages like [apin PIN# value(
+          are returned every sampling interval (by default 19ms)</tr>
+          <tr lang="ru" finished="false">ценность. Если 1 - активирует аналоговую отчетность, такие
+          сообщения, как [apin PIN# value(возвращаются через каждый интервал выборки (по умолчанию
+          19ms)]</tr>
+        </param>
+      </method>
+      <!-- report_dport -->
+      <method name="report_dport">
+        <info>
+          <tr lang="en">turns on/off digital port value reporting.</tr>
+          <tr lang="ru" finished="false">Включает/выключает цифровую отчетность о стоимости
+          порта.</tr>
+        </info>
+        <param name="PORT#" type="int" required="true">
+          <tr lang="en">digital port number. Port is a group of pins, port 0 refers pins 0-8</tr>
+          <tr lang="ru" finished="false">Цифровой номер порта. Порт представляет собой группу
+          штифтов, порт 0 относится к штифтам 0-8</tr>
+        </param>
+        <param name="VALUE" type="int" enum="0 1" required="true">
+          <tr lang="en">value. If 1 - activates digital port reporting, messages like [dport PORT#
+          value( are returned only on pin value change</tr>
+          <tr lang="ru" finished="false">ценность. Если 1 - активирует отчетность цифрового порта,
+          такие сообщения, как [dport PORT# value(возвращаются только при изменении значения
+          pin)</tr>
+        </param>
+      </method>
+      <!-- samp_interval -->
+      <method name="samp_interval">
+        <info>
+          <tr lang="en">sets sampling interval - how often analog data and i2c data is reported to
+          the client. The default for the arduino implementation is 19ms. This means that every
+          19ms analog data will be reported and any i2c devices with read continuous mode will be
+          read.</tr>
+          <tr lang="ru" finished="false">устанавливает интервал выборки - как часто клиенту
+          сообщаются аналоговые данные и данные i2c. По умолчанию для реализации Arduino составляет
+          19 мс. Это означает, что каждые 19 мс будут сообщаться аналоговые данные, и любые
+          устройства i2c с непрерывным режимом чтения будут считываться.</tr>
+        </info>
+        <param name="TIME" type="int" units="millisecond" required="true" minvalue="10"
+        maxvalue="10000">
+          <tr lang="en">time</tr>
+          <tr lang="ru" finished="false">время</tr>
+        </param>
+      </method>
+      <!-- version? -->
+      <method name="version?">
+        <info>
+          <tr lang="en">query firmata protocol version. Returns message like: [version MAJOR
+          MINOR(</tr>
+          <tr lang="ru" finished="false">Версия протокола query firmata. Возвращает сообщение типа:
+          [версия МАЙОР МИНОР()</tr>
+        </info>
+      </method>
+      <!-- write_dpin -->
+      <method name="write_dpin">
+        <info>
+          <tr lang="en">write 1 or 0 to digital pin. Pin mode should be OUTPUT.</tr>
+          <tr lang="ru" finished="false">Запишите 1 или 0 в цифровой штифт. Pin-режим должен быть
+          вне игры.</tr>
+        </info>
+        <param name="PIN#" type="int" required="true">
+          <tr lang="en">pin number</tr>
+          <tr lang="ru" finished="false">пин-код</tr>
+        </param>
+        <param name="VALUE" type="int" enum="0 1" required="true">
+          <tr lang="en">pin value</tr>
+          <tr lang="ru" finished="false">значение пин</tr>
+        </param>
+      </method>
+      <!-- write_pwm -->
+      <method name="write_pwm">
+        <info>
+          <tr lang="en">writes PWM (Pulse Width Modulation) value to specified pin.</tr>
+          <tr lang="ru" finished="false">записывает значение PWM (Pulse Width Modulation) в
+          указанный штифт.</tr>
+        </info>
+        <param name="PIN#" type="int" required="true">
+          <tr lang="en">pin number</tr>
+          <tr lang="ru" finished="false">пин-код</tr>
+        </param>
+        <param name="VALUE" type="int" minvalue="0" maxvalue="256" required="true">
+          <tr lang="en">pin value</tr>
+          <tr lang="ru" finished="false">значение пин</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">raw input of bytes from Arduino serial connection</tr>
+          <tr lang="ru" finished="false">необработанный вход байтов из последовательного соединения
+          Arduino</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">raw byte output to Arduino serial connection and tagged parsed output from
+          Arduino</tr>
+          <tr lang="ru" finished="false">необработанный выход байта в последовательное соединение
+          Arduino и помеченный парсированный выход Arduino</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |
@@ -256,7 +248,7 @@
 |         ^|        ^^|
 [ui.dt]   [ui.dt]   [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

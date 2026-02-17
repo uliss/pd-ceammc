@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.choice">
-        <title>list.choice</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs random element from list</tr>
-                <tr lang="ru">вывод случайного элемента из списка</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list random choice</keywords>
-            <since>0.1</since>
-            <also>
-                <see>random.int</see>
-            </also>
-        </meta>
-        <properties>
-            <!-- @norepeat -->
-            <property name="@norepeat" type="bool" default="0">
-                <tr lang="en">norepeat property. If 1 is given: every time output value at new list
-                position, do not repeat choosed position twice at adjacent events.</tr>
-                <!-- old: Неповторное имущество. Если дано 1: каждый раз,
+  <object name="list.choice">
+    <title>list.choice</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs random element from list</tr>
+        <tr lang="ru">вывод случайного элемента из списка</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list random choice</keywords>
+      <since>0.1</since>
+      <also>
+        <see>random.int</see>
+      </also>
+    </meta>
+    <properties>
+      <!-- @norepeat -->
+      <property name="@norepeat" type="bool" default="0">
+        <tr lang="en">norepeat property. If 1 is given: every time output value at new list
+        position, do not repeat choosed position twice at adjacent events.</tr>
+        <!-- old: Неповторное имущество. Если дано 1: каждый раз,
                 когда выходное значение на новой позиции списка, не повторяйте выбранную позицию
                 дважды на смежных событиях. -->
-                <tr lang="ru" finished="false">Неповторное имущество. Если дано 1: каждый раз,
-                когда выходное значение на новой позиции списка, не повторяйте выбранную позицию
-                дважды на смежных событиях.</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">Input list</tr>
-                    <tr lang="ru" finished="false">Список вводимых данных</tr>
-                </in>
-                <in on="data">
-                    <tr lang="en">Input mlist</tr>
-                    <tr lang="ru" finished="false">Входной млист</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">random list element</tr>
-                    <tr lang="ru" finished="false">элемент случайного списка</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Неповторное имущество. Если дано 1: каждый раз, когда
+        выходное значение на новой позиции списка, не повторяйте выбранную позицию дважды на
+        смежных событиях.</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">Input list</tr>
+          <tr lang="ru" finished="false">Список вводимых данных</tr>
+        </in>
+        <in on="data">
+          <tr lang="en">Input mlist</tr>
+          <tr lang="ru" finished="false">Входной млист</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">random list element</tr>
+          <tr lang="ru" finished="false">элемент случайного списка</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [_]      [F]
 |        |.
@@ -75,7 +75,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

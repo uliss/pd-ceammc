@@ -1,53 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="path.is_dir">
-        <title>path.is_dir</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks if the path is a directory</tr>
-                <tr lang="ru">проверяет, является ли путь каталогом</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>path</category>
-            <keywords>path dir</keywords>
-            <since>0.9</since>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">output 1 if given path is found and is directory, otherwise
-                    false</tr>
-                    <!-- old: выход 1 если данный путь найден и является
+  <object name="path.is_dir">
+    <title>path.is_dir</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks if the path is a directory</tr>
+        <tr lang="ru">проверяет, является ли путь каталогом</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>path</category>
+      <keywords>path dir</keywords>
+      <since>0.9</since>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">output 1 if given path is found and is directory, otherwise false</tr>
+          <!-- old: выход 1 если данный путь найден и является
                     каталогом, в противном случае ложным -->
-                    <tr lang="ru" finished="false">выход 1 если данный путь найден и является
-                    каталогом, в противном случае ложным</tr>
-                </in>
-                <in on="data:string">
-                    <tr lang="en">same as for symbol</tr>
-                    <tr lang="ru" finished="false">То же, что и символ</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">1 or 0</tr>
-                    <tr lang="ru" finished="false">1 или 0</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output path if it's directory</tr>
-                    <tr lang="ru" finished="false">Путь вывода, если это каталог</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">выход 1 если данный путь найден и является каталогом, в
+          противном случае ложным</tr>
+        </in>
+        <in on="data:string">
+          <tr lang="en">same as for symbol</tr>
+          <tr lang="ru" finished="false">То же, что и символ</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">1 or 0</tr>
+          <tr lang="ru" finished="false">1 или 0</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output path if it's directory</tr>
+          <tr lang="ru" finished="false">Путь вывода, если это каталог</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol ~( [symbol abc(
 |          |
@@ -55,7 +54,7 @@
 |
 [T]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

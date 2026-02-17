@@ -1,70 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.dcblock2~">
-        <title>flt.dcblock2~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">stereo DC blocker</tr>
-                <tr lang="ru">двухканальный фильтр, блокирующий постоянную составляющую
-                сигнала</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>filter dcblock</keywords>
-            <since>0.1</since>
-            <also>
-                <see>flt.dcblock~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Stereo DC blocker. It has -3dB point near 35 Hz (at 44.1 kHz) and
-                high-frequency gain near 1.0025 (due to no scaling).</tr>
-                <!-- old: Стереоблокатор DC. Он имеет -3dB-точку около 35 Гц
+  <object name="flt.dcblock2~">
+    <title>flt.dcblock2~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">stereo DC blocker</tr>
+        <tr lang="ru">двухканальный фильтр, блокирующий постоянную составляющую сигнала</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>filter dcblock</keywords>
+      <since>0.1</since>
+      <also>
+        <see>flt.dcblock~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Stereo DC blocker. It has -3dB point near 35 Hz (at 44.1 kHz) and
+        high-frequency gain near 1.0025 (due to no scaling).</tr>
+        <!-- old: Стереоблокатор DC. Он имеет -3dB-точку около 35 Гц
                 (при 44,1 кГц) и высокочастотный коэффициент усиления около 1,0025 (из-за
                 отсутствия масштабирования). -->
-                <tr lang="ru" finished="false">Стереоблокатор DC. Он имеет -3dB-точку около 35 Гц
-                (при 44,1 кГц) и высокочастотный коэффициент усиления около 1,0025 (из-за
-                отсутствия масштабирования).</tr>
-            </par>
-        </info>
-        <properties>
-            <xi:include href="props_active.xml" />
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">right input signal</tr>
-                    <tr lang="ru" finished="false">правильный входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">left input signal</tr>
-                    <tr lang="ru" finished="false">левый входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">left filtered signal</tr>
-                    <tr lang="ru" finished="false">оставленный фильтрованный сигнал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">right filtered signal</tr>
-                    <tr lang="ru" finished="false">Правильный фильтрованный сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Стереоблокатор DC. Он имеет -3dB-точку около 35 Гц (при 44,1
+        кГц) и высокочастотный коэффициент усиления около 1,0025 (из-за отсутствия
+        масштабирования).</tr>
+      </par>
+    </info>
+    <properties>
+      <xi:include href="props_active.xml" />
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">right input signal</tr>
+          <tr lang="ru" finished="false">правильный входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">left input signal</tr>
+          <tr lang="ru" finished="false">левый входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">left filtered signal</tr>
+          <tr lang="ru" finished="false">оставленный фильтрованный сигнал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">right filtered signal</tr>
+          <tr lang="ru" finished="false">Правильный фильтрованный сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [sig~ 2]
 |    | |
@@ -78,7 +77,7 @@
 |         |
 [F]       [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

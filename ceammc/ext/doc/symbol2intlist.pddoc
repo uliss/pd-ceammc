@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="symbol2intlist">
-        <title>symbol2intlist</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts the symbol into a list of character codes</tr>
-                <tr lang="ru">преобразует символьный тип в список кодов составляющих его
-                символов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>symbol</category>
-            <keywords>symbol compare</keywords>
-            <since>0.9.1</since>
-            <aliases>
-                <alias>ceammc/symbol2intlist</alias>
-                <alias>ceammc/sym-&gt;ilist</alias>
-                <alias>sym-&gt;ilist</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">first symbol</tr>
-                    <tr lang="ru" finished="false">Первый символ</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list of codes</tr>
-                    <tr lang="ru" finished="false">Список кодов</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="symbol2intlist">
+    <title>symbol2intlist</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts the symbol into a list of character codes</tr>
+        <tr lang="ru">преобразует символьный тип в список кодов составляющих его символов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>symbol</category>
+      <keywords>symbol compare</keywords>
+      <since>0.9.1</since>
+      <aliases>
+        <alias>ceammc/symbol2intlist</alias>
+        <alias>ceammc/sym-&gt;ilist</alias>
+        <alias>sym-&gt;ilist</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">first symbol</tr>
+          <tr lang="ru" finished="false">Первый символ</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list of codes</tr>
+          <tr lang="ru" finished="false">Список кодов</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [A( [ABC( [АБВГД(
 |   |     |
@@ -49,7 +48,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="string.starts_with">
-        <title>string.starts_with</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks if the string starts with the specified substring</tr>
-                <tr lang="ru">проверка, начинается ли строка с определенной подстроки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>string</category>
-            <keywords>starts search</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>str.starts_with</alias>
-            </aliases>
-            <also>
-                <see>str.ends_with</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="PREFIX" type="symbol">
-                <tr lang="en">prefix</tr>
-                <tr lang="ru" finished="false">префикс</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @prefix -->
-            <property name="@prefix" type="symbol" default="">
-                <tr lang="en">prefix</tr>
-                <tr lang="ru" finished="false">префикс</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input string or symbol</tr>
-                    <tr lang="ru" finished="false">входная строка или символ</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">search prefix (string or symbol)</tr>
-                    <tr lang="ru" finished="false">Префикс поиска (строка или символ)</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output 1 if input string starts with prefix, otherwise 0</tr>
-                    <tr lang="ru" finished="false">выход 1 если строка ввода начинается с префикса,
-                    в противном случае 0</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="string.starts_with">
+    <title>string.starts_with</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks if the string starts with the specified substring</tr>
+        <tr lang="ru">проверка, начинается ли строка с определенной подстроки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>string</category>
+      <keywords>starts search</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>str.starts_with</alias>
+      </aliases>
+      <also>
+        <see>str.ends_with</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="PREFIX" type="symbol">
+        <tr lang="en">prefix</tr>
+        <tr lang="ru" finished="false">префикс</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @prefix -->
+      <property name="@prefix" type="symbol" default="">
+        <tr lang="en">prefix</tr>
+        <tr lang="ru" finished="false">префикс</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input string or symbol</tr>
+          <tr lang="ru" finished="false">входная строка или символ</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">search prefix (string or symbol)</tr>
+          <tr lang="ru" finished="false">Префикс поиска (строка или символ)</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output 1 if input string starts with prefix, otherwise 0</tr>
+          <tr lang="ru" finished="false">выход 1 если строка ввода начинается с префикса, в
+          противном случае 0</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -71,7 +71,7 @@
 |
 [T]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

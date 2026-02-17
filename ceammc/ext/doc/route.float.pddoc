@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="route.float">
-        <title>route.float</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">separates float messages from others</tr>
-                <tr lang="ru">отделяет числовые сообщения от других типов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>route</keywords>
-            <since>0.9.2</since>
-            <aliases>
-                <alias>route.f</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">to get properties use *prop.get* object, cause all messages
-                (including property requests) are passed thru</tr>
-                <tr lang="ru" finished="false">Чтобы получить свойства использовать *prop.get*
-                объект, все сообщения (включая запросы на собственность) передаются через</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @strict -->
-            <property name="@strict" type="bool" default="0">
-                <tr lang="en">strict mode. By default list with single float treated as float. Set
-                to true to disable this behavior</tr>
-                <tr lang="ru" finished="false">Строгий режим. По умолчанию список с одним поплавком
-                рассматривается как поплавок. Настроен на то, чтобы отключить это поведение</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">float to *first* outlet</tr>
-                    <tr lang="ru" finished="false">Скачать *First* Outlet</tr>
-                </in>
-                <in on="bang">
-                    <tr lang="en">bang to second outlet</tr>
-                    <tr lang="ru" finished="false">Bang to Second Outlet (альбом)</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">symbol to second outlet</tr>
-                    <tr lang="ru" finished="false">Символ для второго выхода</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">list to second outlet. See @strict property for details</tr>
-                    <tr lang="ru" finished="false">Список для второго выхода. См. @strict Property
-                    для деталей</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">any to second outlet</tr>
-                    <tr lang="ru" finished="false">любой второй выход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float output</tr>
-                    <tr lang="ru" finished="false">выпуск поплавков</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">other messages</tr>
-                    <tr lang="ru" finished="false">Другие сообщения</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="route.float">
+    <title>route.float</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">separates float messages from others</tr>
+        <tr lang="ru">отделяет числовые сообщения от других типов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>route</keywords>
+      <since>0.9.2</since>
+      <aliases>
+        <alias>route.f</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">to get properties use *prop.get* object, cause all messages (including
+        property requests) are passed thru</tr>
+        <tr lang="ru" finished="false">Чтобы получить свойства использовать *prop.get* объект, все
+        сообщения (включая запросы на собственность) передаются через</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @strict -->
+      <property name="@strict" type="bool" default="0">
+        <tr lang="en">strict mode. By default list with single float treated as float. Set to true
+        to disable this behavior</tr>
+        <tr lang="ru" finished="false">Строгий режим. По умолчанию список с одним поплавком
+        рассматривается как поплавок. Настроен на то, чтобы отключить это поведение</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">float to *first* outlet</tr>
+          <tr lang="ru" finished="false">Скачать *First* Outlet</tr>
+        </in>
+        <in on="bang">
+          <tr lang="en">bang to second outlet</tr>
+          <tr lang="ru" finished="false">Bang to Second Outlet (альбом)</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">symbol to second outlet</tr>
+          <tr lang="ru" finished="false">Символ для второго выхода</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">list to second outlet. See @strict property for details</tr>
+          <tr lang="ru" finished="false">Список для второго выхода. См. @strict Property для
+          деталей</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">any to second outlet</tr>
+          <tr lang="ru" finished="false">любой второй выход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float output</tr>
+          <tr lang="ru" finished="false">выпуск поплавков</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">other messages</tr>
+          <tr lang="ru" finished="false">Другие сообщения</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]  [bang( [S digits=10 #a]
 |    |
@@ -92,7 +92,7 @@
 
 [X a->z]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

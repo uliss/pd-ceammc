@@ -1,106 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hw.rpi.sensor.sr04">
-        <title>hw.rpi.sensor.sr04</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">HC-SR04 ultrasonic ranging module for Raspberry Pi</tr>
-                <tr lang="ru">HC-SR04 ультразвуковой датчик расстояния для Raspberry Pi</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>hw</category>
-            <keywords>sensor ultrasonic range rpi arduino</keywords>
-            <since>0.9.8</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">**Note:** The HC-SR04 ultrasonic sensor requires a 5V power supply,
-                but the Raspberry Pi's GPIO inputs operate at 3.3V.</tr>
-                <!-- old: * *Примечание:** Ультразвуковой датчик HC-SR04
+  <object name="hw.rpi.sensor.sr04">
+    <title>hw.rpi.sensor.sr04</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">HC-SR04 ultrasonic ranging module for Raspberry Pi</tr>
+        <tr lang="ru">HC-SR04 ультразвуковой датчик расстояния для Raspberry Pi</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>hw</category>
+      <keywords>sensor ultrasonic range rpi arduino</keywords>
+      <since>0.9.8</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">**Note:** The HC-SR04 ultrasonic sensor requires a 5V power supply, but the
+        Raspberry Pi's GPIO inputs operate at 3.3V.</tr>
+        <!-- old: * *Примечание:** Ультразвуковой датчик HC-SR04
                 требует питания 5 В, но входы GPIO Raspberry Pi работают при 3,3 В. -->
-                <tr lang="ru" finished="false">* *Примечание:** Ультразвуковой датчик HC-SR04
-                требует питания 5 В, но входы GPIO Raspberry Pi работают при 3,3 В.</tr>
-            </par>
-            <par>
-                <tr lang="en">Therefore, you **must** use a level converter from 5V to 3.3V,
-                otherwise, you could damage your Raspberry Pi!</tr>
-                <!-- old: Поэтому вы должны использовать конвертер уровня от 5
+        <tr lang="ru" finished="false">* *Примечание:** Ультразвуковой датчик HC-SR04 требует
+        питания 5 В, но входы GPIO Raspberry Pi работают при 3,3 В.</tr>
+      </par>
+      <par>
+        <tr lang="en">Therefore, you **must** use a level converter from 5V to 3.3V, otherwise, you
+        could damage your Raspberry Pi!</tr>
+        <!-- old: Поэтому вы должны использовать конвертер уровня от 5
                 В до 3,3 В, иначе вы можете повредить свой Raspberry Pi! -->
-                <tr lang="ru" finished="false">Поэтому вы должны использовать конвертер уровня от 5
-                В до 3,3 В, иначе вы можете повредить свой Raspberry Pi!</tr>
-            </par>
+        <tr lang="ru" finished="false">Поэтому вы должны использовать конвертер уровня от 5 В до
+        3,3 В, иначе вы можете повредить свой Raspberry Pi!</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="TRIG_PIN" type="int" minvalue="0" maxvalue="255">
+        <tr lang="en">a trigger pin GPIO number</tr>
+        <tr lang="ru">триггерный пин GPIO</tr>
+      </argument>
+      <argument name="ECHO_PIN" type="int" minvalue="0" maxvalue="255">
+        <tr lang="en">an echo pin GPIO number</tr>
+        <tr lang="ru">эхо пин GPIO</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @echo_pin -->
+      <property name="@echo_pin" type="int" default="27" minvalue="0" maxvalue="255"
+      access="initonly">
+        <tr lang="en">an echo pin GPIO number</tr>
+        <tr lang="ru">эхо пин GPIO</tr>
+      </property>
+      <!-- @poll_interval -->
+      <property name="@poll_interval" type="int" default="20" minvalue="10" maxvalue="1000"
+      units="msec">
+        <tr lang="en">poll interval</tr>
+        <tr lang="ru">интервал между измерениями</tr>
+      </property>
+      <!-- @trig_pin -->
+      <property name="@trig_pin" type="int" default="17" minvalue="0" maxvalue="255"
+      access="initonly">
+        <tr lang="en">a trigger pin GPIO number</tr>
+        <tr lang="ru">триггерный пин GPIO</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- poll -->
+      <method name="poll">
+        <info>
+          <tr lang="en">turn the sensor polling on/off</tr>
+          <tr lang="ru" finished="false">Включить / выключить сенсорный опрос</tr>
         </info>
-        <arguments>
-            <argument name="TRIG_PIN" type="int" minvalue="0" maxvalue="255">
-                <tr lang="en">a trigger pin GPIO number</tr>
-                <tr lang="ru">триггерный пин GPIO</tr>
-            </argument>
-            <argument name="ECHO_PIN" type="int" minvalue="0" maxvalue="255">
-                <tr lang="en">an echo pin GPIO number</tr>
-                <tr lang="ru">эхо пин GPIO</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @echo_pin -->
-            <property name="@echo_pin" type="int" default="27" minvalue="0" maxvalue="255"
-            access="initonly">
-                <tr lang="en">an echo pin GPIO number</tr>
-                <tr lang="ru">эхо пин GPIO</tr>
-            </property>
-            <!-- @poll_interval -->
-            <property name="@poll_interval" type="int" default="20" minvalue="10" maxvalue="1000"
-            units="msec">
-                <tr lang="en">poll interval</tr>
-                <tr lang="ru">интервал между измерениями</tr>
-            </property>
-            <!-- @trig_pin -->
-            <property name="@trig_pin" type="int" default="17" minvalue="0" maxvalue="255"
-            access="initonly">
-                <tr lang="en">a trigger pin GPIO number</tr>
-                <tr lang="ru">триггерный пин GPIO</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- poll -->
-            <method name="poll">
-                <info>
-                    <tr lang="en">turn the sensor polling on/off</tr>
-                    <tr lang="ru" finished="false">Включить / выключить сенсорный опрос</tr>
-                </info>
-                <param name="STATE" type="bool" required="true">
-                    <tr lang="en">poll state</tr>
-                    <tr lang="ru" finished="false">государство</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">single distance measure</tr>
-                    <tr lang="ru" finished="false">одномерное расстояние</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float: distance in cm</tr>
-                    <tr lang="ru" finished="false">Поплавок: расстояние в см</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">bang: if distance can not be measured</tr>
-                    <tr lang="ru" finished="false">Взрыв: если расстояние невозможно измерить</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <param name="STATE" type="bool" required="true">
+          <tr lang="en">poll state</tr>
+          <tr lang="ru" finished="false">государство</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">single distance measure</tr>
+          <tr lang="ru" finished="false">одномерное расстояние</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float: distance in cm</tr>
+          <tr lang="ru" finished="false">Поплавок: расстояние в см</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">bang: if distance can not be measured</tr>
+          <tr lang="ru" finished="false">Взрыв: если расстояние невозможно измерить</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |
@@ -117,7 +117,7 @@
 [ui.link @url=ceammc://img/hc_sr04.png @title='Connection_scheme']
 [X a->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

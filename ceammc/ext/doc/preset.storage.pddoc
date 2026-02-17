@@ -1,163 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="preset.storage">
-        <title>preset.storage</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">preset storage controller</tr>
-                <tr lang="ru">управление пресетами</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>preset</category>
-            <keywords>preset storage</keywords>
-            <since>0.4</since>
-            <also>
-                <see>preset.float</see>
-                <see>preset.symbol</see>
-                <see>preset.list</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Preset storage allows to load and store presets, read and write them
-                to files</tr>
-                <!-- old: Preset storage позволяет загружать и хранить
+  <object name="preset.storage">
+    <title>preset.storage</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">preset storage controller</tr>
+        <tr lang="ru">управление пресетами</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>preset</category>
+      <keywords>preset storage</keywords>
+      <since>0.4</since>
+      <also>
+        <see>preset.float</see>
+        <see>preset.symbol</see>
+        <see>preset.list</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Preset storage allows to load and store presets, read and write them to
+        files</tr>
+        <!-- old: Preset storage позволяет загружать и хранить
                 предустановки, читать и записывать их в файлы -->
-                <tr lang="ru" finished="false">Preset storage позволяет загружать и хранить
-                предустановки, читать и записывать их в файлы</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @keys -->
-            <property name="@keys" type="list" access="readonly" default="">
-                <tr lang="en">list of all existing preset keys</tr>
-                <!-- old: Список всех существующих предустановленных
+        <tr lang="ru" finished="false">Preset storage позволяет загружать и хранить предустановки,
+        читать и записывать их в файлы</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @keys -->
+      <property name="@keys" type="list" access="readonly" default="">
+        <tr lang="en">list of all existing preset keys</tr>
+        <!-- old: Список всех существующих предустановленных
                 ключей -->
-                <tr lang="ru" finished="false">Список всех существующих предустановленных
-                ключей</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clear preset by index, if no index specified use 0</tr>
-                    <!-- old: четкая предустановка по индексу, если индекс не
+        <tr lang="ru" finished="false">Список всех существующих предустановленных ключей</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">clear preset by index, if no index specified use 0</tr>
+          <!-- old: четкая предустановка по индексу, если индекс не
                     указан, используйте 0 -->
-                    <tr lang="ru" finished="false">четкая предустановка по индексу, если индекс не
-                    указан, используйте 0</tr>
-                </info>
-            </method>
-            <!-- duplicate -->
-            <method name="duplicate">
-                <info>
-                    <tr lang="en">fill empty presets by coping exiting values</tr>
-                    <!-- old: заполнять пустые предустановки, преодолевая
+          <tr lang="ru" finished="false">четкая предустановка по индексу, если индекс не указан,
+          используйте 0</tr>
+        </info>
+      </method>
+      <!-- duplicate -->
+      <method name="duplicate">
+        <info>
+          <tr lang="en">fill empty presets by coping exiting values</tr>
+          <!-- old: заполнять пустые предустановки, преодолевая
                     значения выхода -->
-                    <tr lang="ru" finished="false">заполнять пустые предустановки, преодолевая
-                    значения выхода</tr>
-                </info>
-            </method>
-            <!-- interp -->
-            <method name="interp">
-                <info>
-                    <tr lang="en">loads linearry interpolated value between preset, for example:
-                    1.5 means load interpolated value between preset 1 and 2.</tr>
-                    <!-- old: линейная интерполированная величина нагрузки
+          <tr lang="ru" finished="false">заполнять пустые предустановки, преодолевая значения
+          выхода</tr>
+        </info>
+      </method>
+      <!-- interp -->
+      <method name="interp">
+        <info>
+          <tr lang="en">loads linearry interpolated value between preset, for example: 1.5 means
+          load interpolated value between preset 1 and 2.</tr>
+          <!-- old: линейная интерполированная величина нагрузки
                     между предустановленными, например: 1.5 означает интерполированную величину
                     нагрузки между предустановленными 1 и 2. -->
-                    <tr lang="ru" finished="false">линейная интерполированная величина нагрузки
-                    между предустановленными, например: 1.5 означает интерполированную величину
-                    нагрузки между предустановленными 1 и 2.</tr>
-                </info>
-                <param name="IDX" type="float" required="true">
-                    <tr lang="en">preset interpolation index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс интерполяции</tr>
-                </param>
-            </method>
-            <!-- load -->
-            <method name="load">
-                <info>
-                    <tr lang="en">load preset by index, if no index specified use 0</tr>
-                    <!-- old: заданная по индексу нагрузка, если не указан
+          <tr lang="ru" finished="false">линейная интерполированная величина нагрузки между
+          предустановленными, например: 1.5 означает интерполированную величину нагрузки между
+          предустановленными 1 и 2.</tr>
+        </info>
+        <param name="IDX" type="float" required="true">
+          <tr lang="en">preset interpolation index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс интерполяции</tr>
+        </param>
+      </method>
+      <!-- load -->
+      <method name="load">
+        <info>
+          <tr lang="en">load preset by index, if no index specified use 0</tr>
+          <!-- old: заданная по индексу нагрузка, если не указан
                     индекс использования 0 -->
-                    <tr lang="ru" finished="false">заданная по индексу нагрузка, если не указан
-                    индекс использования 0</tr>
-                </info>
-            </method>
-            <!-- read -->
-            <method name="read">
-                <info>
-                    <tr lang="en">read presets from file. If no filename specified use
-                    autogenerated name like PATCHNAME-preset.txt. File preset entries that are not
-                    correspondent to patch existant entries are ignored</tr>
-                    <!-- old: читать предустановки из файла. Если имя файла не
+          <tr lang="ru" finished="false">заданная по индексу нагрузка, если не указан индекс
+          использования 0</tr>
+        </info>
+      </method>
+      <!-- read -->
+      <method name="read">
+        <info>
+          <tr lang="en">read presets from file. If no filename specified use autogenerated name
+          like PATCHNAME-preset.txt. File preset entries that are not correspondent to patch
+          existant entries are ignored</tr>
+          <!-- old: читать предустановки из файла. Если имя файла не
                     указано, используйте автогенерированное имя, такое как PATCHNAME-preset.txt.
                     Заданные записи файлов, которые не являются корреспондентами для исправления
                     существующих записей, игнорируются -->
-                    <tr lang="ru" finished="false">читать предустановки из файла. Если имя файла не
-                    указано, используйте автогенерированное имя, такое как PATCHNAME-preset.txt.
-                    Заданные записи файлов, которые не являются корреспондентами для исправления
-                    существующих записей, игнорируются</tr>
-                </info>
-            </method>
-            <!-- store -->
-            <method name="store">
-                <info>
-                    <tr lang="en">stores preset by index, if no index specified use 0</tr>
-                    <!-- old: магазины, заданные по индексу, если индекс не
+          <tr lang="ru" finished="false">читать предустановки из файла. Если имя файла не указано,
+          используйте автогенерированное имя, такое как PATCHNAME-preset.txt. Заданные записи
+          файлов, которые не являются корреспондентами для исправления существующих записей,
+          игнорируются</tr>
+        </info>
+      </method>
+      <!-- store -->
+      <method name="store">
+        <info>
+          <tr lang="en">stores preset by index, if no index specified use 0</tr>
+          <!-- old: магазины, заданные по индексу, если индекс не
                     указан, используют 0 -->
-                    <tr lang="ru" finished="false">магазины, заданные по индексу, если индекс не
-                    указан, используют 0</tr>
-                </info>
-            </method>
-            <!-- update -->
-            <method name="update">
-                <info>
-                    <tr lang="en">update all values</tr>
-                    <tr lang="ru" finished="false">Обновить все значения</tr>
-                </info>
-            </method>
-            <!-- write -->
-            <method name="write">
-                <info>
-                    <tr lang="en">write presets from file. If no filename specified use
-                    autogenerated name like PATCHNAME-preset.txt</tr>
-                    <!-- old: Запишите предустановки из файла. Если имя файла
+          <tr lang="ru" finished="false">магазины, заданные по индексу, если индекс не указан,
+          используют 0</tr>
+        </info>
+      </method>
+      <!-- update -->
+      <method name="update">
+        <info>
+          <tr lang="en">update all values</tr>
+          <tr lang="ru" finished="false">Обновить все значения</tr>
+        </info>
+      </method>
+      <!-- write -->
+      <method name="write">
+        <info>
+          <tr lang="en">write presets from file. If no filename specified use autogenerated name
+          like PATCHNAME-preset.txt</tr>
+          <!-- old: Запишите предустановки из файла. Если имя файла
                     не указано, используйте автогенерируемое имя, такое как
                     PATCHNAME-preset.txt -->
-                    <tr lang="ru" finished="false">Запишите предустановки из файла. Если имя файла
-                    не указано, используйте автогенерируемое имя, такое как
-                    PATCHNAME-preset.txt</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output list content</tr>
-                    <tr lang="ru" finished="false">Содержание списка выходных данных</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">set new list content and output</tr>
-                    <tr lang="ru" finished="false">установить новый контент списка и выход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="control">
-                <out type="any">
-                    <tr lang="en">list output</tr>
-                    <tr lang="ru" finished="false">перечень мероприятий</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Запишите предустановки из файла. Если имя файла не
+          указано, используйте автогенерируемое имя, такое как PATCHNAME-preset.txt</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output list content</tr>
+          <tr lang="ru" finished="false">Содержание списка выходных данных</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">set new list content and output</tr>
+          <tr lang="ru" finished="false">установить новый контент списка и выход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="control">
+        <out type="any">
+          <tr lang="en">list output</tr>
+          <tr lang="ru" finished="false">перечень мероприятий</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F] X [preset.float id1] [F] X [preset.float id2]
 
@@ -171,7 +169,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

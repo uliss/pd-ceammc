@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="net.host2ip">
-        <title>net.host2ip</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs IP address by DNS name</tr>
-                <tr lang="ru">выводит IP-адрес по имени DNS</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>net</category>
-            <keywords>net dns ip</keywords>
-            <since>0.7</since>
-            <aliases>
-                <alias>net.host-&gt;ip</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="TYPE" type="symbol" enum="ipv4 ipv6">
-                <tr lang="en">result IP type</tr>
-                <tr lang="ru" finished="false">Результат IP типа</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @ipv4 -->
-            <property name="@ipv4" type="alias">
-                <tr lang="en">shortcut for @type ipv4</tr>
-                <tr lang="ru" finished="false">Обсуждение @type ipv4</tr>
-            </property>
-            <!-- @ipv6 -->
-            <property name="@ipv6" type="alias">
-                <tr lang="en">shortcut for @type ipv6</tr>
-                <tr lang="ru" finished="false">Обсуждение @type ipv6</tr>
-            </property>
-            <!-- @type -->
-            <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">
-                <tr lang="en">result IP type</tr>
-                <tr lang="ru" finished="false">Результат IP типа</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">DNS name</tr>
-                    <tr lang="ru" finished="false">Имя DNS</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">DNS name</tr>
-                    <tr lang="ru" finished="false">Имя DNS</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list of resolved IP's</tr>
-                    <tr lang="ru" finished="false">Список разрешенных IP</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="net.host2ip">
+    <title>net.host2ip</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs IP address by DNS name</tr>
+        <tr lang="ru">выводит IP-адрес по имени DNS</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>net</category>
+      <keywords>net dns ip</keywords>
+      <since>0.7</since>
+      <aliases>
+        <alias>net.host-&gt;ip</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="TYPE" type="symbol" enum="ipv4 ipv6">
+        <tr lang="en">result IP type</tr>
+        <tr lang="ru" finished="false">Результат IP типа</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @ipv4 -->
+      <property name="@ipv4" type="alias">
+        <tr lang="en">shortcut for @type ipv4</tr>
+        <tr lang="ru" finished="false">Обсуждение @type ipv4</tr>
+      </property>
+      <!-- @ipv6 -->
+      <property name="@ipv6" type="alias">
+        <tr lang="en">shortcut for @type ipv6</tr>
+        <tr lang="ru" finished="false">Обсуждение @type ipv6</tr>
+      </property>
+      <!-- @type -->
+      <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">
+        <tr lang="en">result IP type</tr>
+        <tr lang="ru" finished="false">Результат IP типа</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">DNS name</tr>
+          <tr lang="ru" finished="false">Имя DNS</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">DNS name</tr>
+          <tr lang="ru" finished="false">Имя DNS</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list of resolved IP's</tr>
+          <tr lang="ru" finished="false">Список разрешенных IP</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [localhost(
 |
@@ -81,7 +81,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

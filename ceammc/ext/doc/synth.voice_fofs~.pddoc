@@ -1,142 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="synth.voice_fofs~">
-        <title>synth.voice_fofs~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">simple formant/vocal synthesizer with FOF-smooth filterbank.</tr>
-                <tr lang="ru">простой формантный/вокальный синтезатор со сглаженным банком фильтров
-                FOF</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>synth</category>
-            <keywords>voice fof voice cycle</keywords>
-            <since>0.9.6</since>
-            <also>
-                <see>synth.voice_fofc~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Simple formant/vocal synthesizer based on a source/filter model. The
-                source is just a periodic impulse and the "filter" is a bank of FOF filters.</tr>
-                <tr lang="ru" finished="false">Простой формант/вокальный синтезатор на основе
-                модели источника/фильтра. Источником является лишь периодический импульс, а
-                «фильтр» представляет собой банк фильтров FOF.</tr>
-            </par>
-            <par>
-                <tr lang="en">Formant parameters are linearly interpolated allowing to go smoothly
-                from one vowel to another. Voice type can be selected but must correspond to the
-                frequency range of the synthesized voice to be realistic.</tr>
-                <tr lang="ru" finished="false">Параметры форманта линейно интерполируются, позволяя
-                плавно переходить от одной гласной к другой. Тип голоса может быть выбран, но
-                должен соответствовать частотному диапазону синтезированного голоса, чтобы быть
-                реалистичным.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="VOICE" type="symbol" enum="alto bass countertenor soprano tenor">
-                <tr lang="en">voice type</tr>
-                <tr lang="ru" finished="false">голосовой тип</tr>
-            </argument>
-            <argument name="VOWEL" type="symbol" enum="a e i o u">
-                <tr lang="en">vowel</tr>
-                <tr lang="ru" finished="false">гласный</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @attack -->
-            <property name="@attack" type="float" default="30" minvalue="0" maxvalue="1000"
-            units="millisecond">
-                <tr lang="en">attack time</tr>
-                <tr lang="ru" finished="false">Время атаки</tr>
-            </property>
-            <!-- @freq -->
-            <property name="@freq" type="float" minvalue="20" maxvalue="20000.0" default="440"
-            units="hertz">
-                <tr lang="en">frequency</tr>
-                <tr lang="ru" finished="false">частота</tr>
-            </property>
-            <!-- @fvowel -->
-            <property name="@fvowel" type="float" default="0" maxvalue="4" minvalue="0">
-                <tr lang="en">vowel index: 0=a, 1=e, 2=i, 3=o, 4=u. Float values can be
-                interpoltaed.</tr>
-                <tr lang="ru" finished="false">гласный индекс: 0=a, 1=e, 2=i, 3=o, 4=u. Поплавковые
-                значения могут быть интерполированы.</tr>
-            </property>
-            <!-- @gate -->
-            <property name="@gate" type="bool" default="0">
-                <tr lang="en">synth gate (&gt;0 - play)</tr>
-                <tr lang="ru" finished="false">Synth Gate (&gt;0 - игра)</tr>
-            </property>
-            <!-- @portamento -->
-            <property name="@portamento" type="float" default="0" minvalue="0" maxvalue="4000"
-            units="millisecond">
-                <tr lang="en">portamento time</tr>
-                <tr lang="ru" finished="false">время портаменто</tr>
-            </property>
-            <!-- @release -->
-            <property name="@release" type="float" default="50" minvalue="0" maxvalue="1000"
-            units="millisecond">
-                <tr lang="en">release time</tr>
-                <tr lang="ru" finished="false">Время освобождения</tr>
-            </property>
-            <!-- @vibr_freq -->
-            <property name="@vibr_freq" type="float" minvalue="1" maxvalue="10" default="6"
-            units="hertz">
-                <tr lang="en">vibrato frequency</tr>
-                <tr lang="ru" finished="false">частота вибраций</tr>
-            </property>
-            <!-- @vibr_gain -->
-            <property name="@vibr_gain" type="float" minvalue="0" maxvalue="1" default="0.5">
-                <tr lang="en">vibrato frequency</tr>
-                <tr lang="ru" finished="false">частота вибраций</tr>
-            </property>
-            <!-- @voice -->
-            <property name="@voice" type="symbol" default="alto"
-            enum="alto bass countertenor soprano tenor">
-                <tr lang="en">voice type. Note: can be set by corresponding index.</tr>
-                <tr lang="ru" finished="false">Голосовой тип. Примечание: может быть установлен
-                соответствующий индекс.</tr>
-            </property>
-            <!-- @vowel -->
-            <property name="@vowel" type="symbol" default="a" enum="a e i o u">
-                <tr lang="en">vowel type. Note: can be set by corresponding index.</tr>
-                <tr lang="ru" finished="false">гласный тип. Примечание: может быть установлен
-                соответствующий индекс.</tr>
-            </property>
-            <!-- @wsmooth -->
-            <property name="@wsmooth" type="float" default="10" minvalue="0" maxvalue="1000"
-            units="millisecond">
-                <tr lang="en">vowel smoothing time</tr>
-                <tr lang="ru" finished="false">время сглаживания гласных</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control input</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">synth output</tr>
-                    <tr lang="ru" finished="false">синтетический выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="synth.voice_fofs~">
+    <title>synth.voice_fofs~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">simple formant/vocal synthesizer with FOF-smooth filterbank.</tr>
+        <tr lang="ru">простой формантный/вокальный синтезатор со сглаженным банком фильтров
+        FOF</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>synth</category>
+      <keywords>voice fof voice cycle</keywords>
+      <since>0.9.6</since>
+      <also>
+        <see>synth.voice_fofc~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Simple formant/vocal synthesizer based on a source/filter model. The source
+        is just a periodic impulse and the "filter" is a bank of FOF filters.</tr>
+        <tr lang="ru" finished="false">Простой формант/вокальный синтезатор на основе модели
+        источника/фильтра. Источником является лишь периодический импульс, а «фильтр» представляет
+        собой банк фильтров FOF.</tr>
+      </par>
+      <par>
+        <tr lang="en">Formant parameters are linearly interpolated allowing to go smoothly from one
+        vowel to another. Voice type can be selected but must correspond to the frequency range of
+        the synthesized voice to be realistic.</tr>
+        <tr lang="ru" finished="false">Параметры форманта линейно интерполируются, позволяя плавно
+        переходить от одной гласной к другой. Тип голоса может быть выбран, но должен
+        соответствовать частотному диапазону синтезированного голоса, чтобы быть реалистичным.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="VOICE" type="symbol" enum="alto bass countertenor soprano tenor">
+        <tr lang="en">voice type</tr>
+        <tr lang="ru" finished="false">голосовой тип</tr>
+      </argument>
+      <argument name="VOWEL" type="symbol" enum="a e i o u">
+        <tr lang="en">vowel</tr>
+        <tr lang="ru" finished="false">гласный</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @attack -->
+      <property name="@attack" type="float" default="30" minvalue="0" maxvalue="1000"
+      units="millisecond">
+        <tr lang="en">attack time</tr>
+        <tr lang="ru" finished="false">Время атаки</tr>
+      </property>
+      <!-- @freq -->
+      <property name="@freq" type="float" minvalue="20" maxvalue="20000.0" default="440"
+      units="hertz">
+        <tr lang="en">frequency</tr>
+        <tr lang="ru" finished="false">частота</tr>
+      </property>
+      <!-- @fvowel -->
+      <property name="@fvowel" type="float" default="0" maxvalue="4" minvalue="0">
+        <tr lang="en">vowel index: 0=a, 1=e, 2=i, 3=o, 4=u. Float values can be interpoltaed.</tr>
+        <tr lang="ru" finished="false">гласный индекс: 0=a, 1=e, 2=i, 3=o, 4=u. Поплавковые
+        значения могут быть интерполированы.</tr>
+      </property>
+      <!-- @gate -->
+      <property name="@gate" type="bool" default="0">
+        <tr lang="en">synth gate (&gt;0 - play)</tr>
+        <tr lang="ru" finished="false">Synth Gate (&gt;0 - игра)</tr>
+      </property>
+      <!-- @portamento -->
+      <property name="@portamento" type="float" default="0" minvalue="0" maxvalue="4000"
+      units="millisecond">
+        <tr lang="en">portamento time</tr>
+        <tr lang="ru" finished="false">время портаменто</tr>
+      </property>
+      <!-- @release -->
+      <property name="@release" type="float" default="50" minvalue="0" maxvalue="1000"
+      units="millisecond">
+        <tr lang="en">release time</tr>
+        <tr lang="ru" finished="false">Время освобождения</tr>
+      </property>
+      <!-- @vibr_freq -->
+      <property name="@vibr_freq" type="float" minvalue="1" maxvalue="10" default="6"
+      units="hertz">
+        <tr lang="en">vibrato frequency</tr>
+        <tr lang="ru" finished="false">частота вибраций</tr>
+      </property>
+      <!-- @vibr_gain -->
+      <property name="@vibr_gain" type="float" minvalue="0" maxvalue="1" default="0.5">
+        <tr lang="en">vibrato frequency</tr>
+        <tr lang="ru" finished="false">частота вибраций</tr>
+      </property>
+      <!-- @voice -->
+      <property name="@voice" type="symbol" default="alto"
+      enum="alto bass countertenor soprano tenor">
+        <tr lang="en">voice type. Note: can be set by corresponding index.</tr>
+        <tr lang="ru" finished="false">Голосовой тип. Примечание: может быть установлен
+        соответствующий индекс.</tr>
+      </property>
+      <!-- @vowel -->
+      <property name="@vowel" type="symbol" default="a" enum="a e i o u">
+        <tr lang="en">vowel type. Note: can be set by corresponding index.</tr>
+        <tr lang="ru" finished="false">гласный тип. Примечание: может быть установлен
+        соответствующий индекс.</tr>
+      </property>
+      <!-- @wsmooth -->
+      <property name="@wsmooth" type="float" default="10" minvalue="0" maxvalue="1000"
+      units="millisecond">
+        <tr lang="en">vowel smoothing time</tr>
+        <tr lang="ru" finished="false">время сглаживания гласных</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control input</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">synth output</tr>
+          <tr lang="ru" finished="false">синтетический выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |
@@ -161,7 +159,7 @@
 #v alto bass countertenor soprano tenor @size 360 17
 #w a e i o u
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

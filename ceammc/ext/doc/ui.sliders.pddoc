@@ -1,370 +1,362 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="ui.sliders" type="gui">
-        <title>ui.sliders</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">multiple slider widget</tr>
-                <tr lang="ru">виджет многоползункового слайдера</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">ui</category>
-            <keywords>ui slider</keywords>
-            <since>0.1</since>
-            <also>
-                <see view="link">ui.slider</see>
-                <see view="link">ui.preset</see>
-            </also>
-            <aliases>
-                <alias view="link">ui.vsliders</alias>
-            </aliases>
-        </meta>
-        <mouse>
-            <event type="double-click" editmode="true" keys="Cmd">changes sliders
-            orientation</event>
-            <event type="left-click" editmode="false">set the single slider value</event>
-            <event type="right-click" editmode="false">opens the popup menu for quick settings of
-            values: fill, linup, lindown and random</event>
-            <event type="right-click" editmode="false">opens the popup menu for quick settings of
-            values: fill, linup, lindown and random</event>
-            <event type="right-click" editmode="false" keys="Shift">open object help</event>
-            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="true">opens Pd popup menu</event>
-            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
-            <event type="drag" editmode="false">change sliders values</event>
-            <event type="drag" editmode="false" keys="Alt">locked movement: move all sliders at
-            once</event>
-            <event type="drag" editmode="false" keys="Shift">snap value to the center</event>
-        </mouse>
-        <arguments>
-            <argument name="COUNT" type="int" minvalue="1" maxvalue="1024">
-                <tr lang="en">number of sliders</tr>
-                <tr lang="ru" finished="false">Количество слайдеров</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_label.xml" />
-            <xi:include href="props_label_align.xml" />
-            <xi:include href="props_label_inner.xml" />
-            <xi:include href="props_label_margins.xml" />
-            <xi:include href="props_label_side.xml" />
-            <xi:include href="props_label_valign.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
-            <xi:include href="props_preset.xml" />
-            <!-- @auto_count -->
-            <property name="@auto_count" type="bool" default="0">
-                <tr lang="en">if set numbers of sliders equal to input list length</tr>
-                <tr lang="ru" finished="false">если количество слайдеров равно длине списка входных
-                данных</tr>
-            </property>
-            <!-- @auto_range_mode -->
-            <property name="@auto_range_mode" type="symbol" enum="none both min max"
-            default="none">
-                <tr lang="en">if calculate @min/@max values automatically</tr>
-                <tr lang="ru" finished="false">если вычислять значения @min/@max автоматически</tr>
-            </property>
-            <!-- @count -->
-            <property name="@count" type="int" default="8" minvalue="1" maxvalue="1024">
-                <tr lang="en">number of sliders</tr>
-                <tr lang="ru" finished="false">Количество слайдеров</tr>
-            </property>
-            <!-- @max -->
-            <property name="@max" type="float" default="1">
-                <tr lang="en">maximum value</tr>
-                <tr lang="ru" finished="false">максимальное значение</tr>
-            </property>
-            <!-- @min -->
-            <property name="@min" type="float" default="0">
-                <tr lang="en">minimal value</tr>
-                <tr lang="ru" finished="false">Минимальная ценность</tr>
-            </property>
-            <!-- @mouse_events -->
-            <property name="@mouse_events" type="bool" default="0">
-                <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
-                @mouse_drag events</tr>
-                <tr lang="ru" finished="false">Режим вывода событий мыши. Если на выходе
-                @mouse_down, @mouse_up и @mouse_drag события</tr>
-            </property>
-            <!-- @range -->
-            <property name="@range" type="float" access="readonly" default="1">
-                <tr lang="en">value range</tr>
-                <tr lang="ru" finished="false">диапазон значений</tr>
-            </property>
-            <!-- @select_color -->
-            <property name="@select_color" type="list" default="0 0.75 1 1">
-                <tr lang="en">selection color (list of red, green, blue values in 0-1 range)</tr>
-                <tr lang="ru" finished="false">цвет выбора (список красных, зеленых, синих значений
-                в диапазоне 0-1)</tr>
-            </property>
-            <!-- @show_lines -->
-            <property name="@show_lines" type="bool" default="0">
-                <tr lang="en">if show slider ruler lines</tr>
-                <tr lang="ru" finished="false">Если показаны линейки слайдеров</tr>
-            </property>
-            <!-- @show_range -->
-            <property name="@show_range" type="bool" default="1">
-                <tr lang="en">if show slider range</tr>
-                <tr lang="ru" finished="false">Если показать диапазон слайдеров</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="150 100">
-                <tr lang="en">object size (width, height pair)</tr>
-                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
-            </property>
-            <!-- @slider_color -->
-            <property name="@slider_color" type="list" default="0.75 0.75 0.75 1">
-                <tr lang="en">slider color (list of red, green, blue values in 0-1 range)</tr>
-            </property>
-            <!-- @value -->
-            <property name="@value" type="list" access="readonly" default="">
-                <tr lang="en">sliders value</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- * -->
-            <method name="*">
-                <info>
-                    <tr lang="en">multiply each slider without output</tr>
-                    <tr lang="ru" finished="false">Умножьте каждый слайдер без вывода</tr>
-                </info>
-                <param name="V" type="float" required="true">
-                    <tr lang="en">multiplied value</tr>
-                    <tr lang="ru" finished="false">умноженная стоимость</tr>
-                </param>
-            </method>
-            <!-- + -->
-            <method name="+">
-                <info>
-                    <tr lang="en">add value to every slider without output</tr>
-                    <tr lang="ru" finished="false">Добавить значение для каждого слайдера без
-                    вывода</tr>
-                </info>
-                <param name="V" type="float" required="true">
-                    <tr lang="en">added value</tr>
-                    <tr lang="ru" finished="false">добавленная стоимость</tr>
-                </param>
-            </method>
-            <!-- ++ -->
-            <method name="++">
-                <info>
-                    <tr lang="en">increment all sliders without output</tr>
-                    <tr lang="ru" finished="false">Прибавить все ползунки без вывода</tr>
-                </info>
-            </method>
-            <method name="-">
-                <info>
-                    <tr lang="en">subtract value from every slider without output</tr>
-                    <tr lang="ru" finished="false">Вычтите значение из каждого слайдера без
-                    вывода</tr>
-                </info>
-                <param name="V" type="float" required="true">
-                    <tr lang="en">subtracted value</tr>
-                    <tr lang="ru" finished="false">вычитаемая стоимость</tr>
-                </param>
-            </method>
-            <method name="--">
-                <info>
-                    <tr lang="en">decrement all sliders without output</tr>
-                    <tr lang="ru" finished="false">декрементировать все ползунки без вывода</tr>
-                </info>
-            </method>
-            <!-- / -->
-            <method name="/">
-                <info>
-                    <tr lang="en">divide each slider without output</tr>
-                    <tr lang="ru" finished="false">делить каждый слайдер без вывода</tr>
-                </info>
-                <param name="V" type="float" required="true">
-                    <tr lang="en">denominator value</tr>
-                    <tr lang="ru" finished="false">Значение знаменателя</tr>
-                </param>
-            </method>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clears specified preset</tr>
-                    <tr lang="ru" finished="false">заданный заранее</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- dump -->
-            <method name="dump">
-                <info>
-                    <tr lang="en">dumps all object info to Pd console window</tr>
-                    <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно
-                    консоли Pd</tr>
-                </info>
-            </method>
-            <!-- fill -->
-            <method name="fill">
-                <info>
-                    <tr lang="en">fill sliders value with specified value without output</tr>
-                    <tr lang="ru" finished="false">значение заполнения ползунок заданным значением
-                    без выхода</tr>
-                </info>
-            </method>
-            <!-- get slider N -->
-            <method name="get slider N">
-                <info>
-                    <tr lang="en">get specified slider value</tr>
-                    <tr lang="ru" finished="false">получить указанное значение slider</tr>
-                </info>
-                <param name="N" type="int" required="true" minvalue="0">
-                    <tr lang="en">slider position, starting from 0</tr>
-                    <tr lang="ru" finished="false">положение слайдера, начиная с 0</tr>
-                </param>
-            </method>
-            <!-- interp -->
-            <method name="interp">
-                <info>
-                    <tr lang="en">interplolates between presets</tr>
-                    <tr lang="ru" finished="false">Интерплолаты между предустановленными</tr>
-                </info>
-                <param name="IDX" type="float" required="true">
-                    <tr lang="en">preset fraction index</tr>
-                    <tr lang="ru" finished="false">предустановленный дробный индекс</tr>
-                </param>
-            </method>
-            <!-- lindown -->
-            <method name="lindown">
-                <info>
-                    <tr lang="en">fill sliders with decreasing values without output</tr>
-                    <tr lang="ru" finished="false">заполнять ползунки уменьшающимися значениями без
-                    выхода</tr>
-                </info>
-            </method>
-            <!-- linup -->
-            <method name="linup">
-                <info>
-                    <tr lang="en">fill sliders with increasing values without output</tr>
-                    <tr lang="ru" finished="false">заполнять ползунки с увеличением значений без
-                    вывода</tr>
-                </info>
-            </method>
-            <!-- load -->
-            <method name="load">
-                <info>
-                    <tr lang="en">loads specified preset</tr>
-                    <tr lang="ru" finished="false">заданный заранее заданный</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- pos -->
-            <method name="pos">
-                <info>
-                    <tr lang="en">set UI element position</tr>
-                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">top left x-coord</tr>
-                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">top right y-coord</tr>
-                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
-                </param>
-            </method>
-            <!-- random -->
-            <method name="random">
-                <info>
-                    <tr lang="en">fill sliders with random values without output</tr>
-                    <tr lang="ru" finished="false">заполнять ползунки случайными значениями без
-                    вывода</tr>
-                </info>
-            </method>
-            <!-- select -->
-            <method name="select">
-                <info>
-                    <tr lang="en">draws specified slider with select color</tr>
-                    <tr lang="ru" finished="false">рисует указанный ползунок с выбранным
-                    цветом</tr>
-                </info>
-                <param name="N" type="int" required="true" minvalue="0">
-                    <tr lang="en">slider index, starting from 0.</tr>
-                    <tr lang="ru" finished="false">Индекс слайдера, начиная с 0.</tr>
-                </param>
-            </method>
-            <!-- set -->
-            <method name="set">
-                <info>
-                    <tr lang="en">sets sliders values without output</tr>
-                    <tr lang="ru" finished="false">устанавливает значения слайдеров без вывода</tr>
-                </info>
-                <param name="VALUES" type="list">
-                    <tr lang="en">slider values</tr>
-                    <tr lang="ru" finished="false">значения</tr>
-                </param>
-            </method>
-            <!-- set slider N V -->
-            <method name="set slider N V">
-                <info>
-                    <tr lang="en">sets specified slider value</tr>
-                    <tr lang="ru" finished="false">устанавливает заданное значение</tr>
-                </info>
-                <param name="N" type="int" required="true" minvalue="0">
-                    <tr lang="en">slider position, starting from 0</tr>
-                    <tr lang="ru" finished="false">положение слайдера, начиная с 0</tr>
-                </param>
-                <param name="V" type="float" required="true">
-                    <tr lang="en">slider value</tr>
-                    <tr lang="ru" finished="false">значение</tr>
-                </param>
-            </method>
-            <!-- store -->
-            <method name="store">
-                <info>
-                    <tr lang="en">stores specified preset</tr>
-                    <tr lang="ru" finished="false">магазины, указанные Preset</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">outputs sliders position</tr>
-                    <tr lang="ru" finished="false">выходное положение слайдеров</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">sets slider values and output them</tr>
-                    <tr lang="ru" finished="false">устанавливает значения слайдера и выводит
-                    их</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list of slider values</tr>
-                    <tr lang="ru" finished="false">Список значений слайдера</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="ui.sliders" type="gui">
+    <title>ui.sliders</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">multiple slider widget</tr>
+        <tr lang="ru">виджет многоползункового слайдера</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">ui</category>
+      <keywords>ui slider</keywords>
+      <since>0.1</since>
+      <also>
+        <see view="link">ui.slider</see>
+        <see view="link">ui.preset</see>
+      </also>
+      <aliases>
+        <alias view="link">ui.vsliders</alias>
+      </aliases>
+    </meta>
+    <mouse>
+      <event type="double-click" editmode="true" keys="Cmd">changes sliders orientation</event>
+      <event type="left-click" editmode="false">set the single slider value</event>
+      <event type="right-click" editmode="false">opens the popup menu for quick settings of values:
+      fill, linup, lindown and random</event>
+      <event type="right-click" editmode="false">opens the popup menu for quick settings of values:
+      fill, linup, lindown and random</event>
+      <event type="right-click" editmode="false" keys="Shift">open object help</event>
+      <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+      <event type="right-click" editmode="true">opens Pd popup menu</event>
+      <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+      <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+      <event type="drag" editmode="false">change sliders values</event>
+      <event type="drag" editmode="false" keys="Alt">locked movement: move all sliders at
+      once</event>
+      <event type="drag" editmode="false" keys="Shift">snap value to the center</event>
+    </mouse>
+    <arguments>
+      <argument name="COUNT" type="int" minvalue="1" maxvalue="1024">
+        <tr lang="en">number of sliders</tr>
+        <tr lang="ru" finished="false">Количество слайдеров</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_background_color.xml" />
+      <xi:include href="props_border_color.xml" />
+      <xi:include href="props_fontname.xml" />
+      <xi:include href="props_fontsize.xml" />
+      <xi:include href="props_fontslant.xml" />
+      <xi:include href="props_fontweight.xml" />
+      <xi:include href="props_label.xml" />
+      <xi:include href="props_label_align.xml" />
+      <xi:include href="props_label_inner.xml" />
+      <xi:include href="props_label_margins.xml" />
+      <xi:include href="props_label_side.xml" />
+      <xi:include href="props_label_valign.xml" />
+      <xi:include href="props_pinned.xml" />
+      <xi:include href="props_ui_receive.xml" />
+      <xi:include href="props_ui_send.xml" />
+      <xi:include href="props_preset.xml" />
+      <!-- @auto_count -->
+      <property name="@auto_count" type="bool" default="0">
+        <tr lang="en">if set numbers of sliders equal to input list length</tr>
+        <tr lang="ru" finished="false">если количество слайдеров равно длине списка входных
+        данных</tr>
+      </property>
+      <!-- @auto_range_mode -->
+      <property name="@auto_range_mode" type="symbol" enum="none both min max" default="none">
+        <tr lang="en">if calculate @min/@max values automatically</tr>
+        <tr lang="ru" finished="false">если вычислять значения @min/@max автоматически</tr>
+      </property>
+      <!-- @count -->
+      <property name="@count" type="int" default="8" minvalue="1" maxvalue="1024">
+        <tr lang="en">number of sliders</tr>
+        <tr lang="ru" finished="false">Количество слайдеров</tr>
+      </property>
+      <!-- @max -->
+      <property name="@max" type="float" default="1">
+        <tr lang="en">maximum value</tr>
+        <tr lang="ru" finished="false">максимальное значение</tr>
+      </property>
+      <!-- @min -->
+      <property name="@min" type="float" default="0">
+        <tr lang="en">minimal value</tr>
+        <tr lang="ru" finished="false">Минимальная ценность</tr>
+      </property>
+      <!-- @mouse_events -->
+      <property name="@mouse_events" type="bool" default="0">
+        <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
+        @mouse_drag events</tr>
+        <tr lang="ru" finished="false">Режим вывода событий мыши. Если на выходе @mouse_down,
+        @mouse_up и @mouse_drag события</tr>
+      </property>
+      <!-- @range -->
+      <property name="@range" type="float" access="readonly" default="1">
+        <tr lang="en">value range</tr>
+        <tr lang="ru" finished="false">диапазон значений</tr>
+      </property>
+      <!-- @select_color -->
+      <property name="@select_color" type="list" default="0 0.75 1 1">
+        <tr lang="en">selection color (list of red, green, blue values in 0-1 range)</tr>
+        <tr lang="ru" finished="false">цвет выбора (список красных, зеленых, синих значений в
+        диапазоне 0-1)</tr>
+      </property>
+      <!-- @show_lines -->
+      <property name="@show_lines" type="bool" default="0">
+        <tr lang="en">if show slider ruler lines</tr>
+        <tr lang="ru" finished="false">Если показаны линейки слайдеров</tr>
+      </property>
+      <!-- @show_range -->
+      <property name="@show_range" type="bool" default="1">
+        <tr lang="en">if show slider range</tr>
+        <tr lang="ru" finished="false">Если показать диапазон слайдеров</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="150 100">
+        <tr lang="en">object size (width, height pair)</tr>
+        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+      </property>
+      <!-- @slider_color -->
+      <property name="@slider_color" type="list" default="0.75 0.75 0.75 1">
+        <tr lang="en">slider color (list of red, green, blue values in 0-1 range)</tr>
+      </property>
+      <!-- @value -->
+      <property name="@value" type="list" access="readonly" default="">
+        <tr lang="en">sliders value</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- * -->
+      <method name="*">
+        <info>
+          <tr lang="en">multiply each slider without output</tr>
+          <tr lang="ru" finished="false">Умножьте каждый слайдер без вывода</tr>
+        </info>
+        <param name="V" type="float" required="true">
+          <tr lang="en">multiplied value</tr>
+          <tr lang="ru" finished="false">умноженная стоимость</tr>
+        </param>
+      </method>
+      <!-- + -->
+      <method name="+">
+        <info>
+          <tr lang="en">add value to every slider without output</tr>
+          <tr lang="ru" finished="false">Добавить значение для каждого слайдера без вывода</tr>
+        </info>
+        <param name="V" type="float" required="true">
+          <tr lang="en">added value</tr>
+          <tr lang="ru" finished="false">добавленная стоимость</tr>
+        </param>
+      </method>
+      <!-- ++ -->
+      <method name="++">
+        <info>
+          <tr lang="en">increment all sliders without output</tr>
+          <tr lang="ru" finished="false">Прибавить все ползунки без вывода</tr>
+        </info>
+      </method>
+      <method name="-">
+        <info>
+          <tr lang="en">subtract value from every slider without output</tr>
+          <tr lang="ru" finished="false">Вычтите значение из каждого слайдера без вывода</tr>
+        </info>
+        <param name="V" type="float" required="true">
+          <tr lang="en">subtracted value</tr>
+          <tr lang="ru" finished="false">вычитаемая стоимость</tr>
+        </param>
+      </method>
+      <method name="--">
+        <info>
+          <tr lang="en">decrement all sliders without output</tr>
+          <tr lang="ru" finished="false">декрементировать все ползунки без вывода</tr>
+        </info>
+      </method>
+      <!-- / -->
+      <method name="/">
+        <info>
+          <tr lang="en">divide each slider without output</tr>
+          <tr lang="ru" finished="false">делить каждый слайдер без вывода</tr>
+        </info>
+        <param name="V" type="float" required="true">
+          <tr lang="en">denominator value</tr>
+          <tr lang="ru" finished="false">Значение знаменателя</tr>
+        </param>
+      </method>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">clears specified preset</tr>
+          <tr lang="ru" finished="false">заданный заранее</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- dump -->
+      <method name="dump">
+        <info>
+          <tr lang="en">dumps all object info to Pd console window</tr>
+          <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно консоли
+          Pd</tr>
+        </info>
+      </method>
+      <!-- fill -->
+      <method name="fill">
+        <info>
+          <tr lang="en">fill sliders value with specified value without output</tr>
+          <tr lang="ru" finished="false">значение заполнения ползунок заданным значением без
+          выхода</tr>
+        </info>
+      </method>
+      <!-- get slider N -->
+      <method name="get slider N">
+        <info>
+          <tr lang="en">get specified slider value</tr>
+          <tr lang="ru" finished="false">получить указанное значение slider</tr>
+        </info>
+        <param name="N" type="int" required="true" minvalue="0">
+          <tr lang="en">slider position, starting from 0</tr>
+          <tr lang="ru" finished="false">положение слайдера, начиная с 0</tr>
+        </param>
+      </method>
+      <!-- interp -->
+      <method name="interp">
+        <info>
+          <tr lang="en">interplolates between presets</tr>
+          <tr lang="ru" finished="false">Интерплолаты между предустановленными</tr>
+        </info>
+        <param name="IDX" type="float" required="true">
+          <tr lang="en">preset fraction index</tr>
+          <tr lang="ru" finished="false">предустановленный дробный индекс</tr>
+        </param>
+      </method>
+      <!-- lindown -->
+      <method name="lindown">
+        <info>
+          <tr lang="en">fill sliders with decreasing values without output</tr>
+          <tr lang="ru" finished="false">заполнять ползунки уменьшающимися значениями без
+          выхода</tr>
+        </info>
+      </method>
+      <!-- linup -->
+      <method name="linup">
+        <info>
+          <tr lang="en">fill sliders with increasing values without output</tr>
+          <tr lang="ru" finished="false">заполнять ползунки с увеличением значений без вывода</tr>
+        </info>
+      </method>
+      <!-- load -->
+      <method name="load">
+        <info>
+          <tr lang="en">loads specified preset</tr>
+          <tr lang="ru" finished="false">заданный заранее заданный</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- pos -->
+      <method name="pos">
+        <info>
+          <tr lang="en">set UI element position</tr>
+          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">top left x-coord</tr>
+          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+        </param>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">top right y-coord</tr>
+          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+        </param>
+      </method>
+      <!-- random -->
+      <method name="random">
+        <info>
+          <tr lang="en">fill sliders with random values without output</tr>
+          <tr lang="ru" finished="false">заполнять ползунки случайными значениями без вывода</tr>
+        </info>
+      </method>
+      <!-- select -->
+      <method name="select">
+        <info>
+          <tr lang="en">draws specified slider with select color</tr>
+          <tr lang="ru" finished="false">рисует указанный ползунок с выбранным цветом</tr>
+        </info>
+        <param name="N" type="int" required="true" minvalue="0">
+          <tr lang="en">slider index, starting from 0.</tr>
+          <tr lang="ru" finished="false">Индекс слайдера, начиная с 0.</tr>
+        </param>
+      </method>
+      <!-- set -->
+      <method name="set">
+        <info>
+          <tr lang="en">sets sliders values without output</tr>
+          <tr lang="ru" finished="false">устанавливает значения слайдеров без вывода</tr>
+        </info>
+        <param name="VALUES" type="list">
+          <tr lang="en">slider values</tr>
+          <tr lang="ru" finished="false">значения</tr>
+        </param>
+      </method>
+      <!-- set slider N V -->
+      <method name="set slider N V">
+        <info>
+          <tr lang="en">sets specified slider value</tr>
+          <tr lang="ru" finished="false">устанавливает заданное значение</tr>
+        </info>
+        <param name="N" type="int" required="true" minvalue="0">
+          <tr lang="en">slider position, starting from 0</tr>
+          <tr lang="ru" finished="false">положение слайдера, начиная с 0</tr>
+        </param>
+        <param name="V" type="float" required="true">
+          <tr lang="en">slider value</tr>
+          <tr lang="ru" finished="false">значение</tr>
+        </param>
+      </method>
+      <!-- store -->
+      <method name="store">
+        <info>
+          <tr lang="en">stores specified preset</tr>
+          <tr lang="ru" finished="false">магазины, указанные Preset</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">outputs sliders position</tr>
+          <tr lang="ru" finished="false">выходное положение слайдеров</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">sets slider values and output them</tr>
+          <tr lang="ru" finished="false">устанавливает значения слайдера и выводит их</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list of slider values</tr>
+          <tr lang="ru" finished="false">Список значений слайдера</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2 3 4 5(      [F]            [ui.tab none both min max @size 140 15]
 |                |              |
@@ -393,8 +385,8 @@
 [X e->x]
 #x @nosave 1
 ]]>
-            </pdascii>
-            <pdascii id="1">
+      </pdascii>
+      <pdascii id="1">
 <![CDATA[
 /*@show_lines 1*/
 
@@ -404,7 +396,7 @@
 
 /*...*/
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

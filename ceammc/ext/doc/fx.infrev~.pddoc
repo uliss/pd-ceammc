@@ -1,126 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.infrev~">
-        <title>fx.infrev~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">port of Infinity VST plugin from "airwindows"</tr>
-                <tr lang="ru">порт плагина Infinity VST из "airwindows"</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx reverb airwindows infinity</keywords>
-            <since>0.9.3</since>
-            <also>
-                <see>fx.freeverb~</see>
-                <see>fx.zita_rev1~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Infinity is a MatrixVerb specifically designed to sustain and layer
-                sounds forever.</tr>
-                <!-- old: Infinity - это MatrixVerb, специально разработанный
+  <object name="fx.infrev~">
+    <title>fx.infrev~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">port of Infinity VST plugin from "airwindows"</tr>
+        <tr lang="ru">порт плагина Infinity VST из "airwindows"</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx reverb airwindows infinity</keywords>
+      <since>0.9.3</since>
+      <also>
+        <see>fx.freeverb~</see>
+        <see>fx.zita_rev1~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Infinity is a MatrixVerb specifically designed to sustain and layer sounds
+        forever.</tr>
+        <!-- old: Infinity - это MatrixVerb, специально разработанный
                 для поддержания и сложения звуков навсегда. -->
-                <tr lang="ru" finished="false">Infinity - это MatrixVerb, специально разработанный
-                для поддержания и сложения звуков навсегда.</tr>
-            </par>
-            <a href="https://www.airwindows.com/infinity/">More info</a>
-        </info>
-        <arguments>
-            <argument name="SIZE" type="float" minvalue="0" maxvalue="1">
-                <tr lang="en">room size</tr>
-                <tr lang="ru" finished="false">размер комнаты</tr>
-            </argument>
-            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
-                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
-                signals</tr>
-                <!-- old: Пропорция смеси между исходными (сухими) и
+        <tr lang="ru" finished="false">Infinity - это MatrixVerb, специально разработанный для
+        поддержания и сложения звуков навсегда.</tr>
+      </par>
+      <a href="https://www.airwindows.com/infinity/">More info</a>
+    </info>
+    <arguments>
+      <argument name="SIZE" type="float" minvalue="0" maxvalue="1">
+        <tr lang="en">room size</tr>
+        <tr lang="ru" finished="false">размер комнаты</tr>
+      </argument>
+      <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
+        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
+        signals</tr>
+        <!-- old: Пропорция смеси между исходными (сухими) и
                 «вредными» (мокрыми) сигналами -->
-                <tr lang="ru" finished="false">Пропорция смеси между исходными (сухими) и
-                «вредными» (мокрыми) сигналами</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">
-                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-                <!-- old: Обходной флаг. Если это правда, обойдите
+        <tr lang="ru" finished="false">Пропорция смеси между исходными (сухими) и «вредными»
+        (мокрыми) сигналами</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @bypass -->
+      <property name="@bypass" type="bool" default="0">
+        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+        <!-- old: Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал. -->
-                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал.</tr>
-            </property>
-            <!-- @damp -->
-            <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">damping of the lowpass comb filter</tr>
-                <!-- old: демпфирование низкопроходного гребенчатого
+        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
+        сигнал.</tr>
+      </property>
+      <!-- @damp -->
+      <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">damping of the lowpass comb filter</tr>
+        <!-- old: демпфирование низкопроходного гребенчатого
                 фильтра -->
-                <tr lang="ru" finished="false">демпфирование низкопроходного гребенчатого
-                фильтра</tr>
-            </property>
-            <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
-                signals. 0 - dry signal, 1 - wet</tr>
-                <!-- old: пропорция смеси между исходными (сухими) и
+        <tr lang="ru" finished="false">демпфирование низкопроходного гребенчатого фильтра</tr>
+      </property>
+      <!-- @drywet -->
+      <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
+        - dry signal, 1 - wet</tr>
+        <!-- old: пропорция смеси между исходными (сухими) и
                 "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
-                <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
-                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
-            </property>
-            <!-- @filter -->
-            <property name="@filter" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">filter coefficient</tr>
-                <tr lang="ru" finished="false">коэффициент фильтрации</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="float" minvalue="0" maxvalue="1" default="0.5">
-                <tr lang="en">room size</tr>
-                <tr lang="ru" finished="false">размер комнаты</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset reverb</tr>
-                    <tr lang="ru" finished="false">реверберация</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input Left signal</tr>
-                    <tr lang="ru" finished="false">Левый входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input Right signal</tr>
-                    <tr lang="ru" finished="false">Входной сигнал Правый сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output Left signal</tr>
-                    <tr lang="ru" finished="false">Выходной левый сигнал</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output Right signal</tr>
-                    <tr lang="ru" finished="false">Выходной сигнал Right</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и "влажными"
+        сигналами. 0 - сухой сигнал, 1 - влажный</tr>
+      </property>
+      <!-- @filter -->
+      <property name="@filter" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">filter coefficient</tr>
+        <tr lang="ru" finished="false">коэффициент фильтрации</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="float" minvalue="0" maxvalue="1" default="0.5">
+        <tr lang="en">room size</tr>
+        <tr lang="ru" finished="false">размер комнаты</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset reverb</tr>
+          <tr lang="ru" finished="false">реверберация</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input Left signal</tr>
+          <tr lang="ru" finished="false">Левый входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input Right signal</tr>
+          <tr lang="ru" finished="false">Входной сигнал Правый сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output Left signal</tr>
+          <tr lang="ru" finished="false">Выходной левый сигнал</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output Right signal</tr>
+          <tr lang="ru" finished="false">Выходной сигнал Right</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open %CEAMMC%/guitar1.wav, 1(        [loadmsg 0.5 0.2 0.9 0.7 #c]
 |
@@ -141,7 +140,7 @@
 #x @size 125 70
 #l2m @filter $1, @damp $2, @size $3, @drywet $4
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

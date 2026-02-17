@@ -1,92 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.repeat">
-        <title>list.repeat</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">creates a list based on the repetitions of the original list</tr>
-                <tr lang="ru">создает список на основе повторов исходного списка</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list repeat</keywords>
-            <since>0.1</since>
-        </meta>
-        <arguments>
-            <argument name="N" type="int" minvalue="0" maxvalue="10000">
-                <tr lang="en">repeat times</tr>
-                <tr lang="ru" finished="false">повторять</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @n -->
-            <property name="@n" type="int" default="1" minvalue="0" maxvalue="10000">
-                <tr lang="en">repeat times</tr>
-                <tr lang="ru" finished="false">повторять</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input float. Example: input 10 outputs list - 10 x n times</tr>
-                    <!-- old: Входной поплавок. Пример: ввод 10 выходов список
+  <object name="list.repeat">
+    <title>list.repeat</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">creates a list based on the repetitions of the original list</tr>
+        <tr lang="ru">создает список на основе повторов исходного списка</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list repeat</keywords>
+      <since>0.1</since>
+    </meta>
+    <arguments>
+      <argument name="N" type="int" minvalue="0" maxvalue="10000">
+        <tr lang="en">repeat times</tr>
+        <tr lang="ru" finished="false">повторять</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @n -->
+      <property name="@n" type="int" default="1" minvalue="0" maxvalue="10000">
+        <tr lang="en">repeat times</tr>
+        <tr lang="ru" finished="false">повторять</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input float. Example: input 10 outputs list - 10 x n times</tr>
+          <!-- old: Входной поплавок. Пример: ввод 10 выходов список
                     - 10 x n раз -->
-                    <tr lang="ru" finished="false">Входной поплавок. Пример: ввод 10 выходов список
-                    - 10 x n раз</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">input symbol. Example: input "A" outputs list - "A" x n
-                    times</tr>
-                    <!-- old: Входной символ. Пример: входной "A" выходной
+          <tr lang="ru" finished="false">Входной поплавок. Пример: ввод 10 выходов список - 10 x n
+          раз</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">input symbol. Example: input "A" outputs list - "A" x n times</tr>
+          <!-- old: Входной символ. Пример: входной "A" выходной
                     список - "A" x n раз -->
-                    <tr lang="ru" finished="false">Входной символ. Пример: входной "A" выходной
-                    список - "A" x n раз</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">input list. Example: input 1 2 3 outputs list - (1 2 3) x n
-                    times</tr>
-                    <!-- old: Список входов. Пример: ввод 1 2 3 вывода списка
+          <tr lang="ru" finished="false">Входной символ. Пример: входной "A" выходной список - "A"
+          x n раз</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">input list. Example: input 1 2 3 outputs list - (1 2 3) x n times</tr>
+          <!-- old: Список входов. Пример: ввод 1 2 3 вывода списка
                     - (1 2 3) x n раз -->
-                    <tr lang="ru" finished="false">Список входов. Пример: ввод 1 2 3 вывода списка
-                    - (1 2 3) x n раз</tr>
-                </in>
-                <in on="data">
-                    <tr lang="en">input data. Output list of data repeated @times</tr>
-                    <!-- old: Входные данные. Список результатов повторения
+          <tr lang="ru" finished="false">Список входов. Пример: ввод 1 2 3 вывода списка - (1 2 3)
+          x n раз</tr>
+        </in>
+        <in on="data">
+          <tr lang="en">input data. Output list of data repeated @times</tr>
+          <!-- old: Входные данные. Список результатов повторения
                     данных @times -->
-                    <tr lang="ru" finished="false">Входные данные. Список результатов повторения
-                    данных @times</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">same as list. Example: (1 2 3) results mlist (1 2 3 1 2 3
-                    ...)</tr>
-                    <!-- old: То же, что и список. Пример: (1 2 3) результаты
+          <tr lang="ru" finished="false">Входные данные. Список результатов повторения данных
+          @times</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">same as list. Example: (1 2 3) results mlist (1 2 3 1 2 3 ...)</tr>
+          <!-- old: То же, что и список. Пример: (1 2 3) результаты
                     млиста (1 2 3 1 2 3 ...) -->
-                    <tr lang="ru" finished="false">То же, что и список. Пример: (1 2 3) результаты
-                    млиста (1 2 3 1 2 3 ...)</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="int" minvalue="0" maxvalue="10000">
-                    <tr lang="en">repeat count</tr>
-                    <tr lang="ru" finished="false">повторный счет</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output list</tr>
-                    <tr lang="ru" finished="false">перечень мероприятий</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">То же, что и список. Пример: (1 2 3) результаты млиста (1
+          2 3 1 2 3 ...)</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="int" minvalue="0" maxvalue="10000">
+          <tr lang="en">repeat count</tr>
+          <tr lang="ru" finished="false">повторный счет</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output list</tr>
+          <tr lang="ru" finished="false">перечень мероприятий</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2 3 4 *(  [\(1 2 3\), bang( [B]
 |            |                 |
@@ -98,7 +95,7 @@
 |
 [ui.display @display_type 1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

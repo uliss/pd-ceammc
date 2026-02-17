@@ -1,101 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="expand_env">
-        <title>expand_env</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">substitutes environment variables in a data stream</tr>
-                <tr lang="ru">подставляет значения переменных среды в поток данных</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>expand_env test</keywords>
-            <since>0.1</since>
-            <also>
-                <see>replace</see>
-            </also>
-            <aliases>
-                <alias>ceammc/expand_env</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Environment variable %HOME% will be replaced by home user directory
-                under UNIX</tr>
-                <!-- old: Переменная среда %HOME % будет заменена каталогом
+  <object name="expand_env">
+    <title>expand_env</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">substitutes environment variables in a data stream</tr>
+        <tr lang="ru">подставляет значения переменных среды в поток данных</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>expand_env test</keywords>
+      <since>0.1</since>
+      <also>
+        <see>replace</see>
+      </also>
+      <aliases>
+        <alias>ceammc/expand_env</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Environment variable %HOME% will be replaced by home user directory under
+        UNIX</tr>
+        <!-- old: Переменная среда %HOME % будет заменена каталогом
                 домашних пользователей под UNIX -->
-                <tr lang="ru" finished="false">Переменная среда %HOME % будет заменена каталогом
-                домашних пользователей под UNIX</tr>
-            </par>
-            <par>
-                <tr lang="en">Some special variables defined: %DOC% - path to PureData doc
-                directory, %CEAMMC% - path to ceammc library directory</tr>
-                <!-- old: Определены некоторые специальные переменные: %DOC% -
+        <tr lang="ru" finished="false">Переменная среда %HOME % будет заменена каталогом домашних
+        пользователей под UNIX</tr>
+      </par>
+      <par>
+        <tr lang="en">Some special variables defined: %DOC% - path to PureData doc directory,
+        %CEAMMC% - path to ceammc library directory</tr>
+        <!-- old: Определены некоторые специальные переменные: %DOC% -
                 путь к каталогу PureData doc, %CEAMMC% - путь к каталогу библиотеки ceammc -->
-                <tr lang="ru" finished="false">Определены некоторые специальные переменные: %DOC% -
-                путь к каталогу PureData doc, %CEAMMC% - путь к каталогу библиотеки ceammc</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @any -->
-            <property name="@any" type="flag" default="0" access="initonly">
-                <tr lang="en">if specified - also do substitution in message selector</tr>
-                <!-- old: если указано - также сделать замену селектора
+        <tr lang="ru" finished="false">Определены некоторые специальные переменные: %DOC% - путь к
+        каталогу PureData doc, %CEAMMC% - путь к каталогу библиотеки ceammc</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @any -->
+      <property name="@any" type="flag" default="0" access="initonly">
+        <tr lang="en">if specified - also do substitution in message selector</tr>
+        <!-- old: если указано - также сделать замену селектора
                 сообщения -->
-                <tr lang="ru" finished="false">если указано - также сделать замену селектора
-                сообщения</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">passed</tr>
-                    <tr lang="ru" finished="false">проходной</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">passed</tr>
-                    <tr lang="ru" finished="false">проходной</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">expand variable inside symbol string</tr>
-                    <!-- old: расширение переменной внутри символьной
+        <tr lang="ru" finished="false">если указано - также сделать замену селектора сообщения</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">passed</tr>
+          <tr lang="ru" finished="false">проходной</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">passed</tr>
+          <tr lang="ru" finished="false">проходной</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">expand variable inside symbol string</tr>
+          <!-- old: расширение переменной внутри символьной
                     строки -->
-                    <tr lang="ru" finished="false">расширение переменной внутри символьной
-                    строки</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">expand variables inside each list symbol</tr>
-                    <!-- old: Расширение переменных внутри каждого символа
+          <tr lang="ru" finished="false">расширение переменной внутри символьной строки</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">expand variables inside each list symbol</tr>
+          <!-- old: Расширение переменных внутри каждого символа
                     списка -->
-                    <tr lang="ru" finished="false">Расширение переменных внутри каждого символа
-                    списка</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">expand variables inside each list symbol, more over, if @any
-                    argument was used - expand in message selector</tr>
-                    <!-- old: Расширение переменных внутри каждого символа
+          <tr lang="ru" finished="false">Расширение переменных внутри каждого символа списка</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">expand variables inside each list symbol, more over, if @any argument was
+          used - expand in message selector</tr>
+          <!-- old: Расширение переменных внутри каждого символа
                     списка, более того, если использовался аргумент @any - расширение в селекторе
                     сообщений -->
-                    <tr lang="ru" finished="false">Расширение переменных внутри каждого символа
-                    списка, более того, если использовался аргумент @any - расширение в селекторе
-                    сообщений</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output data stream</tr>
-                    <tr lang="ru" finished="false">выходной поток данных</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Расширение переменных внутри каждого символа списка, более
+          того, если использовался аргумент @any - расширение в селекторе сообщений</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output data stream</tr>
+          <tr lang="ru" finished="false">выходной поток данных</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B] [F]  [symbol user:%USER%( [list current shell: %SHELL%(
 |   |    |                    |
@@ -120,7 +116,7 @@
 |
 [print]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

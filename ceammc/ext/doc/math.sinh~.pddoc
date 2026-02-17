@@ -1,55 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.sinh~">
-        <title>math.sinh~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">hyperbolic sine for signals</tr>
-                <tr lang="ru">гиперболический синус для сигналов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math hyperbolic arc sine</keywords>
-            <also>
-                <see>math.asinh~</see>
-                <see>math.sinh</see>
-            </also>
-            <since>0.9</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Outputs hyperbolic sine of input signal</tr>
-                <tr lang="ru" finished="false">Выходы гиперболического синуса входного сигнала</tr>
-            </par>
-            <par>
-                <tr lang="en">sinh x = (ℯˣ - ℯ⁻ˣ)/2</tr>
-                <tr lang="ru" finished="false">sinh x = (ex - e-x)/2</tr>
-            </par>
-            <a href="https://en.wikipedia.org/wiki/Hyperbolic_functions">wiki: Hyperbolic
-            functions</a>
-        </info>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">result signal</tr>
-                    <tr lang="ru" finished="false">результат сигнала</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="math.sinh~">
+    <title>math.sinh~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">hyperbolic sine for signals</tr>
+        <tr lang="ru">гиперболический синус для сигналов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math hyperbolic arc sine</keywords>
+      <also>
+        <see>math.asinh~</see>
+        <see>math.sinh</see>
+      </also>
+      <since>0.9</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Outputs hyperbolic sine of input signal</tr>
+        <tr lang="ru" finished="false">Выходы гиперболического синуса входного сигнала</tr>
+      </par>
+      <par>
+        <tr lang="en">sinh x = (ℯˣ - ℯ⁻ˣ)/2</tr>
+        <tr lang="ru" finished="false">sinh x = (ex - e-x)/2</tr>
+      </par>
+      <a href="https://en.wikipedia.org/wiki/Hyperbolic_functions">wiki: Hyperbolic functions</a>
+    </info>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">result signal</tr>
+          <tr lang="ru" finished="false">результат сигнала</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -77,7 +76,7 @@
 [ui.dsp~]
 [X a:1->b:3]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

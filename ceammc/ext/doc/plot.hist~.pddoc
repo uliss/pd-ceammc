@@ -1,90 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="plot.hist~">
-        <title>plot.hist~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">calculates and displays the histogram of the input signal</tr>
-                <tr lang="ru">вычисляет и выводит гистограмму входного сигнала</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array histogram</keywords>
-            <also>
-                <see>plot.linspace~</see>
-                <see>plot.geomspace~</see>
-                <see>plot.response~</see>
-            </also>
-            <aliases>
-                <alias>ceammc/hist~</alias>
-                <alias>hist~</alias>
-            </aliases>
-            <since>0.9</since>
-        </meta>
-        <arguments>
-            <argument name="NSAMP" type="int" minvalue="8" maxvalue="32768">
-                <tr lang="en">@nsamp property</tr>
-                <tr lang="ru" finished="false">Недвижимость @nsamp</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @clip -->
-            <property name="@clip" type="bool" default="1">
-                <tr lang="en">clip input values into input range, otherwise just ignore them</tr>
-                <!-- old: Значения ввода клипа в диапазон ввода, иначе просто
+  <object name="plot.hist~">
+    <title>plot.hist~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">calculates and displays the histogram of the input signal</tr>
+        <tr lang="ru">вычисляет и выводит гистограмму входного сигнала</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array histogram</keywords>
+      <also>
+        <see>plot.linspace~</see>
+        <see>plot.geomspace~</see>
+        <see>plot.response~</see>
+      </also>
+      <aliases>
+        <alias>ceammc/hist~</alias>
+        <alias>hist~</alias>
+      </aliases>
+      <since>0.9</since>
+    </meta>
+    <arguments>
+      <argument name="NSAMP" type="int" minvalue="8" maxvalue="32768">
+        <tr lang="en">@nsamp property</tr>
+        <tr lang="ru" finished="false">Недвижимость @nsamp</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @clip -->
+      <property name="@clip" type="bool" default="1">
+        <tr lang="en">clip input values into input range, otherwise just ignore them</tr>
+        <!-- old: Значения ввода клипа в диапазон ввода, иначе просто
                 игнорируйте их -->
-                <tr lang="ru" finished="false">Значения ввода клипа в диапазон ввода, иначе просто
-                игнорируйте их</tr>
-            </property>
-            <!-- @max -->
-            <property name="@max" type="float" default="1">
-                <tr lang="en">maximum input value</tr>
-                <tr lang="ru" finished="false">Максимальная входная величина</tr>
-            </property>
-            <!-- @min -->
-            <property name="@min" type="float" default="-1">
-                <tr lang="en">minimal input value</tr>
-                <tr lang="ru" finished="false">Минимальная входная стоимость</tr>
-            </property>
-            <!-- @nbins -->
-            <property name="@nbins" type="int" minvalue="8" maxvalue="512" default="63">
-                <tr lang="en">number of histogram bins</tr>
-                <tr lang="ru" finished="false">количество гистограммных бункеров</tr>
-            </property>
-            <!-- @nsamp -->
-            <property name="@nsamp" type="int" minvalue="8" maxvalue="32768" default="512">
-                <tr lang="en">max number of input samples</tr>
-                <tr lang="ru" finished="false">Максимальное количество входных образцов</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in on="bang">
-                    <tr lang="en">starts histogram calculation</tr>
-                    <tr lang="ru" finished="false">Начинается расчет гистограммы</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">signal output</tr>
-                    <tr lang="ru" finished="false">выход сигнала</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output to [array.plot~] or [ui.plot~]</tr>
-                    <tr lang="ru" finished="false">[array.plot~] или [ui.plot~]</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Значения ввода клипа в диапазон ввода, иначе просто
+        игнорируйте их</tr>
+      </property>
+      <!-- @max -->
+      <property name="@max" type="float" default="1">
+        <tr lang="en">maximum input value</tr>
+        <tr lang="ru" finished="false">Максимальная входная величина</tr>
+      </property>
+      <!-- @min -->
+      <property name="@min" type="float" default="-1">
+        <tr lang="en">minimal input value</tr>
+        <tr lang="ru" finished="false">Минимальная входная стоимость</tr>
+      </property>
+      <!-- @nbins -->
+      <property name="@nbins" type="int" minvalue="8" maxvalue="512" default="63">
+        <tr lang="en">number of histogram bins</tr>
+        <tr lang="ru" finished="false">количество гистограммных бункеров</tr>
+      </property>
+      <!-- @nsamp -->
+      <property name="@nsamp" type="int" minvalue="8" maxvalue="32768" default="512">
+        <tr lang="en">max number of input samples</tr>
+        <tr lang="ru" finished="false">Максимальное количество входных образцов</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in on="bang">
+          <tr lang="en">starts histogram calculation</tr>
+          <tr lang="ru" finished="false">Начинается расчет гистограммы</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">signal output</tr>
+          <tr lang="ru" finished="false">выход сигнала</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output to [array.plot~] or [ui.plot~]</tr>
+          <tr lang="ru" finished="false">[array.plot~] или [ui.plot~]</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [noise.white~] [osc~ 40 #a]
 |
@@ -109,7 +109,7 @@
 [X a->b:1]
 [X c->b:2]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

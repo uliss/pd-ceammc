@@ -1,110 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="an.pitchtrack~">
-        <title>an.pitchtrack~</title>
-        <meta>
-            <authors>
-                <author>Katja Vetter</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">the signal pitch tracker</tr>
-                <tr lang="ru">отслеживает высоту сигнала</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>an</category>
-            <keywords>pitchtrack</keywords>
-            <since>0.7</since>
-            <aliases>
-                <alias>ceammc/helmholtz~</alias>
-                <alias>helmholtz~</alias>
-            </aliases>
-            <also>
-                <see>sigmund~</see>
-                <see>fiddle~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Period-length detector using Philip McLeod's Specially Normalized
-                AutoCorrelation function (SNAC)</tr>
-                <tr lang="ru">Детектор длины периода с использованием специально нормализованной
-                функции автокорреляции Филиппа Маклеода (SNAC)</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="FRAMESIZE" type="int" enum="128 256 512 1024 2048" units="sample">
-                <tr lang="en">frame size in samples</tr>
-                <tr lang="ru">размер окна</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @bias -->
-            <property name="@bias" type="float" minvalue="0" maxvalue="1" default="0.2">
-                <tr lang="en">bias which favours small lags over large lags in the period
-                detection, thereby avoiding low-octave jumps</tr>
-                <tr lang="ru">насколько предпочитать небольшие задержки по сравнению с большими при
-                обнаружении периода, тем самым избегая скачков на октаву вниз</tr>
-            </property>
-            <!-- @fidthr -->
-            <property name="@fidthr" type="float" minvalue="0" maxvalue="1" default="0.95">
-                <tr lang="en">minimal fidelity threshold to report the pitch</tr>
-                <tr lang="ru">минимальный порог качества, чтобы сообщить об определенной
-                высоте</tr>
-            </property>
-            <!-- @framesize -->
-            <property name="@framesize" type="int" enum="128 256 512 1024 2048" default="1024"
-            units="sample">
-                <tr lang="en">frame size</tr>
-                <tr lang="ru">размер окна</tr>
-            </property>
-            <!-- @maxfreq -->
-            <property name="@maxfreq" type="float" minvalue="10" maxvalue="10000" default="1500"
-            units="hertz">
-                <tr lang="en">max tracked frequency</tr>
-                <tr lang="ru">максимальная отслеживаемая частота</tr>
-            </property>
-            <!-- @overlap -->
-            <property name="@overlap" type="int" enum="1 2 4 8" default="1">
-                <tr lang="en">overlap of analysis frames</tr>
-                <tr lang="ru">перекрытие окон при анализе</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru">выходной сигнал</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="float" units="hertz">
-                    <tr lang="en">output frequency</tr>
-                    <tr lang="ru">выходная частота</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="float">
-                    <tr lang="en">track fidelity: a value between 0 and 1, indicating to which
-                    extent the input signal is periodic. A fidelity of ~0.95 can be considered to
-                    indicate a periodic signal.</tr>
-                    <tr lang="ru">точность распознования: значение от 0 до 1, указывающее, в какой
-                    степени входной сигнал является периодическим. Точность около 0.95 можно
-                    считать признаком периодического сигнала.</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="an.pitchtrack~">
+    <title>an.pitchtrack~</title>
+    <meta>
+      <authors>
+        <author>Katja Vetter</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">the signal pitch tracker</tr>
+        <tr lang="ru">отслеживает высоту сигнала</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>an</category>
+      <keywords>pitchtrack</keywords>
+      <since>0.7</since>
+      <aliases>
+        <alias>ceammc/helmholtz~</alias>
+        <alias>helmholtz~</alias>
+      </aliases>
+      <also>
+        <see>sigmund~</see>
+        <see>fiddle~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Period-length detector using Philip McLeod's Specially Normalized
+        AutoCorrelation function (SNAC)</tr>
+        <tr lang="ru">Детектор длины периода с использованием специально нормализованной функции
+        автокорреляции Филиппа Маклеода (SNAC)</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="FRAMESIZE" type="int" enum="128 256 512 1024 2048" units="sample">
+        <tr lang="en">frame size in samples</tr>
+        <tr lang="ru">размер окна</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @bias -->
+      <property name="@bias" type="float" minvalue="0" maxvalue="1" default="0.2">
+        <tr lang="en">bias which favours small lags over large lags in the period detection,
+        thereby avoiding low-octave jumps</tr>
+        <tr lang="ru">насколько предпочитать небольшие задержки по сравнению с большими при
+        обнаружении периода, тем самым избегая скачков на октаву вниз</tr>
+      </property>
+      <!-- @fidthr -->
+      <property name="@fidthr" type="float" minvalue="0" maxvalue="1" default="0.95">
+        <tr lang="en">minimal fidelity threshold to report the pitch</tr>
+        <tr lang="ru">минимальный порог качества, чтобы сообщить об определенной высоте</tr>
+      </property>
+      <!-- @framesize -->
+      <property name="@framesize" type="int" enum="128 256 512 1024 2048" default="1024"
+      units="sample">
+        <tr lang="en">frame size</tr>
+        <tr lang="ru">размер окна</tr>
+      </property>
+      <!-- @maxfreq -->
+      <property name="@maxfreq" type="float" minvalue="10" maxvalue="10000" default="1500"
+      units="hertz">
+        <tr lang="en">max tracked frequency</tr>
+        <tr lang="ru">максимальная отслеживаемая частота</tr>
+      </property>
+      <!-- @overlap -->
+      <property name="@overlap" type="int" enum="1 2 4 8" default="1">
+        <tr lang="en">overlap of analysis frames</tr>
+        <tr lang="ru">перекрытие окон при анализе</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru">выходной сигнал</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="float" units="hertz">
+          <tr lang="en">output frequency</tr>
+          <tr lang="ru">выходная частота</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="float">
+          <tr lang="en">track fidelity: a value between 0 and 1, indicating to which extent the
+          input signal is periodic. A fidelity of ~0.95 can be considered to indicate a periodic
+          signal.</tr>
+          <tr lang="ru">точность распознования: значение от 0 до 1, указывающее, в какой степени
+          входной сигнал является периодическим. Точность около 0.95 можно считать признаком
+          периодического сигнала.</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [adc~ 1]     [ui.dsp~]
 |
@@ -118,7 +117,7 @@
 ^|     ^^|
 [F]    [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

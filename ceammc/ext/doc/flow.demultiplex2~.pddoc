@@ -1,109 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.demultiplex2~">
-        <title>flow.demultiplex2~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">audio stream stereo demultiplexer</tr>
-                <tr lang="ru">демультиплексор стерео аудиопотока</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>flow demultiplex</keywords>
-            <since>0.6</since>
-            <aliases>
-                <alias>flow.demux2~</alias>
-                <alias>ceammc/demux2~</alias>
-                <alias>demux2~</alias>
-            </aliases>
-            <also>
-                <see>flow.demultiplex~</see>
-                <see>flow.demultiplex</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="16">
-                <tr lang="en">number of output stereo-pairs</tr>
-                <tr lang="ru" finished="false">Количество выходных стереопар</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="2" default="2" maxvalue="16"
-            access="initonly">
-                <tr lang="en">number of output stereo channels</tr>
-                <tr lang="ru" finished="false">Количество выходных стереоканалов</tr>
-            </property>
-            <!-- @value -->
-            <property name="@value" type="list" default="">
-                <tr lang="en">gain coefficients per each output</tr>
-                <tr lang="ru" finished="false">коэффициенты усиления на каждый выход</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">left input signal</tr>
-                    <tr lang="ru" finished="false">левый входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">right input signal</tr>
-                    <tr lang="ru" finished="false">правильный входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="control">
-                <in>
-                    <tr lang="en">demultiplexer control</tr>
-                    <tr lang="ru" finished="false">контроль демультиплекса</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet type="audio" number="1">
-                <out type="any">
-                    <tr lang="en">first left output</tr>
-                    <tr lang="ru" finished="false">Первый левый выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="2">
-                <out type="any">
-                    <tr lang="en">first right output</tr>
-                    <tr lang="ru" finished="false">Первый правильный результат</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="...">
-                <out type="any">
-                    <tr lang="en">... left output</tr>
-                    <tr lang="ru" finished="false">Левый выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="...">
-                <out type="any">
-                    <tr lang="en">... right output</tr>
-                    <tr lang="ru" finished="false">Правильный выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="n-1">
-                <out type="any">
-                    <tr lang="en">last left output</tr>
-                    <tr lang="ru" finished="false">Последний левый выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="n">
-                <out type="any">
-                    <tr lang="en">last right output</tr>
-                    <tr lang="ru" finished="false">Последний правильный результат</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flow.demultiplex2~">
+    <title>flow.demultiplex2~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">audio stream stereo demultiplexer</tr>
+        <tr lang="ru">демультиплексор стерео аудиопотока</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>flow demultiplex</keywords>
+      <since>0.6</since>
+      <aliases>
+        <alias>flow.demux2~</alias>
+        <alias>ceammc/demux2~</alias>
+        <alias>demux2~</alias>
+      </aliases>
+      <also>
+        <see>flow.demultiplex~</see>
+        <see>flow.demultiplex</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="N" type="int" minvalue="2" maxvalue="16">
+        <tr lang="en">number of output stereo-pairs</tr>
+        <tr lang="ru" finished="false">Количество выходных стереопар</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="2" default="2" maxvalue="16" access="initonly">
+        <tr lang="en">number of output stereo channels</tr>
+        <tr lang="ru" finished="false">Количество выходных стереоканалов</tr>
+      </property>
+      <!-- @value -->
+      <property name="@value" type="list" default="">
+        <tr lang="en">gain coefficients per each output</tr>
+        <tr lang="ru" finished="false">коэффициенты усиления на каждый выход</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">left input signal</tr>
+          <tr lang="ru" finished="false">левый входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">right input signal</tr>
+          <tr lang="ru" finished="false">правильный входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="control">
+        <in>
+          <tr lang="en">demultiplexer control</tr>
+          <tr lang="ru" finished="false">контроль демультиплекса</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet type="audio" number="1">
+        <out type="any">
+          <tr lang="en">first left output</tr>
+          <tr lang="ru" finished="false">Первый левый выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="2">
+        <out type="any">
+          <tr lang="en">first right output</tr>
+          <tr lang="ru" finished="false">Первый правильный результат</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="...">
+        <out type="any">
+          <tr lang="en">... left output</tr>
+          <tr lang="ru" finished="false">Левый выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="...">
+        <out type="any">
+          <tr lang="en">... right output</tr>
+          <tr lang="ru" finished="false">Правильный выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="n-1">
+        <out type="any">
+          <tr lang="en">last left output</tr>
+          <tr lang="ru" finished="false">Последний левый выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="n">
+        <out type="any">
+          <tr lang="en">last right output</tr>
+          <tr lang="ru" finished="false">Последний правильный результат</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [sig~ 1]            [ui.radio @nitems 2] [ui.dsp~]
 |                   |
@@ -126,7 +125,7 @@
 [X a:2->c]
 [X a:3->d]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

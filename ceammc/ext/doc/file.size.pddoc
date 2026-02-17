@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="file.size">
-        <title>file.size</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs the file size</tr>
-                <tr lang="ru">выводит размер файла</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>path</category>
-            <keywords>path file size</keywords>
-            <since>0.9.4</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Note: by default filesize request performed asynchronously, so
-                there's a (usually) short delay between input and output</tr>
-                <!-- old: Примечание: по умолчанию запрос на форматирование
+  <object name="file.size">
+    <title>file.size</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs the file size</tr>
+        <tr lang="ru">выводит размер файла</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>path</category>
+      <keywords>path file size</keywords>
+      <since>0.9.4</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Note: by default filesize request performed asynchronously, so there's a
+        (usually) short delay between input and output</tr>
+        <!-- old: Примечание: по умолчанию запрос на форматирование
                 файлов выполняется асинхронно, поэтому существует (обычно) короткая задержка между
                 входом и выходом. -->
-                <tr lang="ru" finished="false">Примечание: по умолчанию запрос на форматирование
-                файлов выполняется асинхронно, поэтому существует (обычно) короткая задержка между
-                входом и выходом.</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @async -->
-            <property name="@async" type="bool" default="1">
-                <tr lang="en">async mode</tr>
-                <tr lang="ru" finished="false">режим синхронизации</tr>
-            </property>
-            <!-- @sync -->
-            <property name="@sync" type="alias">
-                <tr lang="en">alias for @async 0</tr>
-                <tr lang="ru" finished="false">Исполнитель: @async 0</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">file path</tr>
-                    <tr lang="ru" finished="false">Файловый путь</tr>
-                </in>
-                <in on="data:string">
-                    <tr lang="en">file path</tr>
-                    <tr lang="ru" finished="false">Файловый путь</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float: size in bytes</tr>
-                    <tr lang="ru" finished="false">Float: размер в байтах</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Примечание: по умолчанию запрос на форматирование файлов
+        выполняется асинхронно, поэтому существует (обычно) короткая задержка между входом и
+        выходом.</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @async -->
+      <property name="@async" type="bool" default="1">
+        <tr lang="en">async mode</tr>
+        <tr lang="ru" finished="false">режим синхронизации</tr>
+      </property>
+      <!-- @sync -->
+      <property name="@sync" type="alias">
+        <tr lang="en">alias for @async 0</tr>
+        <tr lang="ru" finished="false">Исполнитель: @async 0</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">file path</tr>
+          <tr lang="ru" finished="false">Файловый путь</tr>
+        </in>
+        <in on="data:string">
+          <tr lang="en">file path</tr>
+          <tr lang="ru" finished="false">Файловый путь</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float: size in bytes</tr>
+          <tr lang="ru" finished="false">Float: размер в байтах</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(      [symbol %CEAMMC%/guitar1.wav(
 |           |
@@ -71,7 +71,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

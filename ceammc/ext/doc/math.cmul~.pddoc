@@ -1,80 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.cmul~">
-        <title>math.cmul~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">multiplication of complex signals</tr>
-                <tr lang="ru">умножение комплексных сигналов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math complex multiplication</keywords>
-            <aliases>
-                <alias>ceammc/cmul~</alias>
-                <alias>cmul~</alias>
-            </aliases>
-            <since>0.7</since>
-            <also>
-                <see>math.cdiv~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Calculates for signals (a + bi) * (c + di) = (ac - bd) + (ad +
-                bc)i</tr>
-                <!-- old: Расчеты для сигналов (a + bi) * (c + di) = (ac - bd)
+  <object name="math.cmul~">
+    <title>math.cmul~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">multiplication of complex signals</tr>
+        <tr lang="ru">умножение комплексных сигналов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math complex multiplication</keywords>
+      <aliases>
+        <alias>ceammc/cmul~</alias>
+        <alias>cmul~</alias>
+      </aliases>
+      <since>0.7</since>
+      <also>
+        <see>math.cdiv~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Calculates for signals (a + bi) * (c + di) = (ac - bd) + (ad + bc)i</tr>
+        <!-- old: Расчеты для сигналов (a + bi) * (c + di) = (ac - bd)
                 + (ad + bc)i -->
-                <tr lang="ru" finished="false">Расчеты для сигналов (a + bi) * (c + di) = (ac - bd)
-                + (ad + bc)i</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">real part of input signal1</tr>
-                    <tr lang="ru" finished="false">Реальная часть входного сигнала1</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">imag part of input signal1</tr>
-                    <tr lang="ru" finished="false">Имаг часть входного сигнала1</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">real part of input signal2</tr>
-                    <tr lang="ru" finished="false">Реальная часть входного сигнала2</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">imag part of input signal2</tr>
-                    <tr lang="ru" finished="false">Имаг часть входного сигнала2</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">real part of result</tr>
-                    <tr lang="ru" finished="false">Реальная часть результата</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">imag part of result</tr>
-                    <tr lang="ru" finished="false">Имаг часть результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Расчеты для сигналов (a + bi) * (c + di) = (ac - bd) + (ad +
+        bc)i</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">real part of input signal1</tr>
+          <tr lang="ru" finished="false">Реальная часть входного сигнала1</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">imag part of input signal1</tr>
+          <tr lang="ru" finished="false">Имаг часть входного сигнала1</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">real part of input signal2</tr>
+          <tr lang="ru" finished="false">Реальная часть входного сигнала2</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">imag part of input signal2</tr>
+          <tr lang="ru" finished="false">Имаг часть входного сигнала2</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">real part of result</tr>
+          <tr lang="ru" finished="false">Реальная часть результата</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">imag part of result</tr>
+          <tr lang="ru" finished="false">Имаг часть результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]    [F]    [F]    [F]
 |      |      |      |
@@ -86,7 +85,7 @@
 |           ^|
 [ui.n~]     [ui.n~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

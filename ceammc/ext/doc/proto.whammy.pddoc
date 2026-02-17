@@ -1,196 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="proto.whammy">
-        <title>proto.whammy</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">control for Digitech Whammy pedal</tr>
-                <tr lang="ru">управление педалью Digitech Whammy Pedal</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>proto</category>
-            <keywords>parser midi whammy</keywords>
-            <since>0.9.5</since>
-        </meta>
-        <arguments>
-            <argument name="MODE" type="symbol" enum="chords classic">
-                <tr lang="en">pedal mode (should correspond to hardware switch on pedal)</tr>
-                <tr lang="ru" finished="false">Режим педали (должен соответствовать аппаратному
-                включению педали)</tr>
-            </argument>
-            <argument name="ACTIVE" type="bool">
-                <tr lang="en">pedal initial state</tr>
-                <tr lang="ru" finished="false">начальное состояние педали</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">pedal state</tr>
-                <tr lang="ru" finished="false">состояние педали</tr>
-            </property>
-            <!-- @chan -->
-            <property name="@chan" type="int" default="0" minvalue="0" maxvalue="15">
-                <tr lang="en">output Midi channel</tr>
-                <tr lang="ru" finished="false">Выходной канал Midi</tr>
-            </property>
-            <!-- @chords -->
-            <property name="@chords" type="alias">
-                <tr lang="en">alias for @mode chords</tr>
-                <tr lang="ru" finished="false">Исполнитель: @mode chords</tr>
-            </property>
-            <!-- @classic -->
-            <property name="@classic" type="alias">
-                <tr lang="en">alias for @mode classic</tr>
-                <tr lang="ru" finished="false">Оригинальное название: @mode classic</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" enum="chords classic" default="classic">
-                <tr lang="en">pedal mode (should correspond to hardware switch on pedal)</tr>
-                <tr lang="ru" finished="false">Режим педали (должен соответствовать аппаратному
-                включению педали)</tr>
-            </property>
-            <!-- @seed -->
-            <property name="@seed" type="int" default="0" minvalue="0">
-                <tr lang="en">random seed</tr>
-                <tr lang="ru" finished="false">случайное семя</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- next -->
-            <method name="next">
-                <info>
-                    <tr lang="en">select next preset</tr>
-                    <tr lang="ru" finished="false">Выберите следующий preset</tr>
-                </info>
-                <param name="N" type="atom">
-                    <tr lang="en">positive step or 'random'</tr>
-                    <tr lang="ru" finished="false">Положительный шаг или «случайность»</tr>
-                </param>
-            </method>
-            <!-- prev -->
-            <method name="prev">
-                <info>
-                    <tr lang="en">select previous preset</tr>
-                    <tr lang="ru" finished="false">Выберите предыдущий Preset</tr>
-                </info>
-                <param name="N" type="atom">
-                    <tr lang="en">positive step or 'random'</tr>
-                    <tr lang="ru" finished="false">Положительный шаг или «случайность»</tr>
-                </param>
-            </method>
-            <!-- random -->
-            <method name="random">
-                <info>
-                    <tr lang="en">choose random preset</tr>
-                    <tr lang="ru" finished="false">Выберите случайный Preset</tr>
-                </info>
-                <param name="MODE" type="symbol" enum="whammy harm detune" required="true">
-                    <tr lang="en">if 'whammy' - select random preset from 'whammy' modes (right
-                    pedal side), if 'harm' - select random preset from harmonizer modes (left pedal
-                    side), if 'detune' - select random detune mode. If not specified - select
-                    random mode from all categories.</tr>
-                    <tr lang="ru" finished="false">если «whammy» — выберите случайный
-                    предустановленный режим из режимов «whammy» (с правой стороны педали), если
-                    «harm» — выберите случайный предустановленный режим из режимов гармонизатора (с
-                    левой стороны педали), если «detune» — выберите случайный режим разрядки. Если
-                    не указано - выберите случайный режим из всех категорий.</tr>
-                </param>
-                <param name="STATE" type="int" enum="0 1">
-                    <tr lang="en">pedal state (on/off)</tr>
-                    <tr lang="ru" finished="false">состояние педали (включено/выключено)</tr>
-                </param>
-            </method>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">turn off pedal and select default preset</tr>
-                    <tr lang="ru" finished="false">Выключите педаль и выберите предустановленный по
-                    умолчанию</tr>
-                </info>
-            </method>
-            <!-- set IDX -->
-            <method name="set IDX">
-                <info>
-                    <tr lang="en">set preset by index</tr>
-                    <tr lang="ru" finished="false">Предустановленный индекс</tr>
-                </info>
-                <param name="IDX" type="int" minvalue="0" maxvalue="20" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-                <param name="STATE" type="int" enum="0 1">
-                    <tr lang="en">pedal state (on/off)</tr>
-                    <tr lang="ru" finished="false">состояние педали (включено/выключено)</tr>
-                </param>
-            </method>
-            <!-- set NAME -->
-            <method name="set NAME">
-                <info>
-                    <tr lang="en">set preset by name</tr>
-                    <tr lang="ru" finished="false">Предустановлено по имени</tr>
-                </info>
-                <param name="NAME" type="symbol"
-                enum="+2oct +1oct +5th +4th -2nd -4th -5th -1oct -2oct bomb deep shallow +2+3 +3b+3 +3+4 +4+5 +5+6 +5+7 -4-3 -5-4 -8+8"
-                minvalue="0" maxvalue="20" required="true">
-                    <tr lang="en">preset name</tr>
-                    <tr lang="ru" finished="false">предустановленное имя</tr>
-                </param>
-                <param name="STATE" type="int" enum="0 1">
-                    <tr lang="en">pedal state (on/off)</tr>
-                    <tr lang="ru" finished="false">состояние педали (включено/выключено)</tr>
-                </param>
-            </method>
-            <!-- set UP DOWN -->
-            <method name="set UP DOWN">
-                <info>
-                    <tr lang="en">set preset by transpose range.</tr>
-                    <tr lang="ru" finished="false">Устанавливается по диапазону
-                    транспонирования.</tr>
-                </info>
-                <param name="UP" type="int" required="true">
-                    <tr lang="en">up range</tr>
-                    <tr lang="ru" finished="false">диапазон</tr>
-                </param>
-                <param name="DOWN" type="int" required="true">
-                    <tr lang="en">down range</tr>
-                    <tr lang="ru" finished="false">нижний предел</tr>
-                </param>
-                <param name="STATE" type="int" enum="0 1">
-                    <tr lang="en">pedal state (on/off)</tr>
-                    <tr lang="ru" finished="false">состояние педали (включено/выключено)</tr>
-                </param>
-            </method>
-            <!-- toggle -->
-            <method name="toggle">
-                <info>
-                    <tr lang="en">toggle pedal on/off</tr>
-                    <tr lang="ru" finished="false">включение/выключение педали</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">1: turn on, 0: turn off pedal</tr>
-                    <tr lang="ru" finished="false">1: включить, 0: выключить педаль</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float stream: raw midi output</tr>
-                    <tr lang="ru" finished="false">Поплавковый поток: сырой средний выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="proto.whammy">
+    <title>proto.whammy</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">control for Digitech Whammy pedal</tr>
+        <tr lang="ru">управление педалью Digitech Whammy Pedal</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>proto</category>
+      <keywords>parser midi whammy</keywords>
+      <since>0.9.5</since>
+    </meta>
+    <arguments>
+      <argument name="MODE" type="symbol" enum="chords classic">
+        <tr lang="en">pedal mode (should correspond to hardware switch on pedal)</tr>
+        <tr lang="ru" finished="false">Режим педали (должен соответствовать аппаратному включению
+        педали)</tr>
+      </argument>
+      <argument name="ACTIVE" type="bool">
+        <tr lang="en">pedal initial state</tr>
+        <tr lang="ru" finished="false">начальное состояние педали</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @active -->
+      <property name="@active" type="bool" default="1">
+        <tr lang="en">pedal state</tr>
+        <tr lang="ru" finished="false">состояние педали</tr>
+      </property>
+      <!-- @chan -->
+      <property name="@chan" type="int" default="0" minvalue="0" maxvalue="15">
+        <tr lang="en">output Midi channel</tr>
+        <tr lang="ru" finished="false">Выходной канал Midi</tr>
+      </property>
+      <!-- @chords -->
+      <property name="@chords" type="alias">
+        <tr lang="en">alias for @mode chords</tr>
+        <tr lang="ru" finished="false">Исполнитель: @mode chords</tr>
+      </property>
+      <!-- @classic -->
+      <property name="@classic" type="alias">
+        <tr lang="en">alias for @mode classic</tr>
+        <tr lang="ru" finished="false">Оригинальное название: @mode classic</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" enum="chords classic" default="classic">
+        <tr lang="en">pedal mode (should correspond to hardware switch on pedal)</tr>
+        <tr lang="ru" finished="false">Режим педали (должен соответствовать аппаратному включению
+        педали)</tr>
+      </property>
+      <!-- @seed -->
+      <property name="@seed" type="int" default="0" minvalue="0">
+        <tr lang="en">random seed</tr>
+        <tr lang="ru" finished="false">случайное семя</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- next -->
+      <method name="next">
+        <info>
+          <tr lang="en">select next preset</tr>
+          <tr lang="ru" finished="false">Выберите следующий preset</tr>
+        </info>
+        <param name="N" type="atom">
+          <tr lang="en">positive step or 'random'</tr>
+          <tr lang="ru" finished="false">Положительный шаг или «случайность»</tr>
+        </param>
+      </method>
+      <!-- prev -->
+      <method name="prev">
+        <info>
+          <tr lang="en">select previous preset</tr>
+          <tr lang="ru" finished="false">Выберите предыдущий Preset</tr>
+        </info>
+        <param name="N" type="atom">
+          <tr lang="en">positive step or 'random'</tr>
+          <tr lang="ru" finished="false">Положительный шаг или «случайность»</tr>
+        </param>
+      </method>
+      <!-- random -->
+      <method name="random">
+        <info>
+          <tr lang="en">choose random preset</tr>
+          <tr lang="ru" finished="false">Выберите случайный Preset</tr>
+        </info>
+        <param name="MODE" type="symbol" enum="whammy harm detune" required="true">
+          <tr lang="en">if 'whammy' - select random preset from 'whammy' modes (right pedal side),
+          if 'harm' - select random preset from harmonizer modes (left pedal side), if 'detune' -
+          select random detune mode. If not specified - select random mode from all
+          categories.</tr>
+          <tr lang="ru" finished="false">если «whammy» — выберите случайный предустановленный режим
+          из режимов «whammy» (с правой стороны педали), если «harm» — выберите случайный
+          предустановленный режим из режимов гармонизатора (с левой стороны педали), если «detune»
+          — выберите случайный режим разрядки. Если не указано - выберите случайный режим из всех
+          категорий.</tr>
+        </param>
+        <param name="STATE" type="int" enum="0 1">
+          <tr lang="en">pedal state (on/off)</tr>
+          <tr lang="ru" finished="false">состояние педали (включено/выключено)</tr>
+        </param>
+      </method>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">turn off pedal and select default preset</tr>
+          <tr lang="ru" finished="false">Выключите педаль и выберите предустановленный по
+          умолчанию</tr>
+        </info>
+      </method>
+      <!-- set IDX -->
+      <method name="set IDX">
+        <info>
+          <tr lang="en">set preset by index</tr>
+          <tr lang="ru" finished="false">Предустановленный индекс</tr>
+        </info>
+        <param name="IDX" type="int" minvalue="0" maxvalue="20" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+        <param name="STATE" type="int" enum="0 1">
+          <tr lang="en">pedal state (on/off)</tr>
+          <tr lang="ru" finished="false">состояние педали (включено/выключено)</tr>
+        </param>
+      </method>
+      <!-- set NAME -->
+      <method name="set NAME">
+        <info>
+          <tr lang="en">set preset by name</tr>
+          <tr lang="ru" finished="false">Предустановлено по имени</tr>
+        </info>
+        <param name="NAME" type="symbol"
+        enum="+2oct +1oct +5th +4th -2nd -4th -5th -1oct -2oct bomb deep shallow +2+3 +3b+3 +3+4 +4+5 +5+6 +5+7 -4-3 -5-4 -8+8"
+        minvalue="0" maxvalue="20" required="true">
+          <tr lang="en">preset name</tr>
+          <tr lang="ru" finished="false">предустановленное имя</tr>
+        </param>
+        <param name="STATE" type="int" enum="0 1">
+          <tr lang="en">pedal state (on/off)</tr>
+          <tr lang="ru" finished="false">состояние педали (включено/выключено)</tr>
+        </param>
+      </method>
+      <!-- set UP DOWN -->
+      <method name="set UP DOWN">
+        <info>
+          <tr lang="en">set preset by transpose range.</tr>
+          <tr lang="ru" finished="false">Устанавливается по диапазону транспонирования.</tr>
+        </info>
+        <param name="UP" type="int" required="true">
+          <tr lang="en">up range</tr>
+          <tr lang="ru" finished="false">диапазон</tr>
+        </param>
+        <param name="DOWN" type="int" required="true">
+          <tr lang="en">down range</tr>
+          <tr lang="ru" finished="false">нижний предел</tr>
+        </param>
+        <param name="STATE" type="int" enum="0 1">
+          <tr lang="en">pedal state (on/off)</tr>
+          <tr lang="ru" finished="false">состояние педали (включено/выключено)</tr>
+        </param>
+      </method>
+      <!-- toggle -->
+      <method name="toggle">
+        <info>
+          <tr lang="en">toggle pedal on/off</tr>
+          <tr lang="ru" finished="false">включение/выключение педали</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="int">
+          <tr lang="en">1: turn on, 0: turn off pedal</tr>
+          <tr lang="ru" finished="false">1: включить, 0: выключить педаль</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float stream: raw midi output</tr>
+          <tr lang="ru" finished="false">Поплавковый поток: сырой средний выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]                [ui.tab chords classic]
 |                  |
@@ -200,7 +199,7 @@
 |         |
 [midiout] [print]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

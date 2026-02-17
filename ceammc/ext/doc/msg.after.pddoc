@@ -1,70 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="msg.after">
-        <title>msg.after</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sends the specified message following the forwarded incoming
-                message</tr>
-                <tr lang="ru">отправляет указанное сообщение после пересланного входящего
-                сообщения</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>msg</category>
-            <keywords>message after onload</keywords>
-            <since>0.7</since>
-            <also>
-                <see>msg</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">if new input message received, while delayed message is not send, the
-                delayed message is resetted</tr>
-                <!-- old: если получено новое входное сообщение, а отложенное
+  <object name="msg.after">
+    <title>msg.after</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sends the specified message following the forwarded incoming message</tr>
+        <tr lang="ru">отправляет указанное сообщение после пересланного входящего сообщения</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>msg</category>
+      <keywords>message after onload</keywords>
+      <since>0.7</since>
+      <also>
+        <see>msg</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">if new input message received, while delayed message is not send, the delayed
+        message is resetted</tr>
+        <!-- old: если получено новое входное сообщение, а отложенное
                 сообщение не отправлено, то отложенное сообщение сбрасывается -->
-                <tr lang="ru" finished="false">если получено новое входное сообщение, а отложенное
-                сообщение не отправлено, то отложенное сообщение сбрасывается</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="DELAY" type="float" minvalue="0" units="millisecond">
-                <tr lang="en">message delay</tr>
-                <tr lang="ru" finished="false">задержка сообщения</tr>
-            </argument>
-            <argument name="MSG" type="list">
-                <tr lang="en">message arguments</tr>
-                <tr lang="ru" finished="false">сообщение аргументов</tr>
-            </argument>
-        </arguments>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">any input message</tr>
-                    <tr lang="ru" finished="false">Любое входное сообщение</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">change message delay</tr>
-                    <tr lang="ru" finished="false">Изменение сообщения задержка</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">message output</tr>
-                    <tr lang="ru" finished="false">сообщение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">если получено новое входное сообщение, а отложенное
+        сообщение не отправлено, то отложенное сообщение сбрасывается</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="DELAY" type="float" minvalue="0" units="millisecond">
+        <tr lang="en">message delay</tr>
+        <tr lang="ru" finished="false">задержка сообщения</tr>
+      </argument>
+      <argument name="MSG" type="list">
+        <tr lang="en">message arguments</tr>
+        <tr lang="ru" finished="false">сообщение аргументов</tr>
+      </argument>
+    </arguments>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">any input message</tr>
+          <tr lang="ru" finished="false">Любое входное сообщение</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">change message delay</tr>
+          <tr lang="ru" finished="false">Изменение сообщения задержка</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">message output</tr>
+          <tr lang="ru" finished="false">сообщение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
             [1(
             |
@@ -78,7 +76,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

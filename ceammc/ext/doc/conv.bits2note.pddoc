@@ -1,94 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.bits2note">
-        <title>conv.bits2note</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert list of bits into note, velocity pairs</tr>
-                <tr lang="ru">конвертирует список битов в пары: номер ноты, сила нажатия</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv bits note poly</keywords>
-            <since>0.9.2</since>
-            <aliases>
-                <alias>ceammc/bits-&gt;note</alias>
-                <alias>bits-&gt;note</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">In default mode: output NOTE VEL pair to corresponding bit index
-                outlet. If bit is on: velocity is @vel, otherwise 0</tr>
-                <!-- old: В режиме по умолчанию: выходная пара NOTE VEL к
+  <object name="conv.bits2note">
+    <title>conv.bits2note</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert list of bits into note, velocity pairs</tr>
+        <tr lang="ru">конвертирует список битов в пары: номер ноты, сила нажатия</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv bits note poly</keywords>
+      <since>0.9.2</since>
+      <aliases>
+        <alias>ceammc/bits-&gt;note</alias>
+        <alias>bits-&gt;note</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">In default mode: output NOTE VEL pair to corresponding bit index outlet. If
+        bit is on: velocity is @vel, otherwise 0</tr>
+        <!-- old: В режиме по умолчанию: выходная пара NOTE VEL к
                 соответствующей розетке индекса битов. Если бит включен: скорость @vel, в противном
                 случае 0 -->
-                <tr lang="ru" finished="false">В режиме по умолчанию: выходная пара NOTE VEL к
-                соответствующей розетке индекса битов. Если бит включен: скорость @vel, в противном
-                случае 0</tr>
-            </par>
-            <par>
-                <tr lang="en">In @poly mode: output VOICE NOTE VEL triplet to first outlet</tr>
-                <!-- old: В режиме @poly: вывод VOICE NOTE VEL триплет на
+        <tr lang="ru" finished="false">В режиме по умолчанию: выходная пара NOTE VEL к
+        соответствующей розетке индекса битов. Если бит включен: скорость @vel, в противном случае
+        0</tr>
+      </par>
+      <par>
+        <tr lang="en">In @poly mode: output VOICE NOTE VEL triplet to first outlet</tr>
+        <!-- old: В режиме @poly: вывод VOICE NOTE VEL триплет на
                 первую розетку -->
-                <tr lang="ru" finished="false">В режиме @poly: вывод VOICE NOTE VEL триплет на
-                первую розетку</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="KEYS" type="list">
-                <tr lang="en">list of note values</tr>
-                <tr lang="ru">список нотных значений</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @keys -->
-            <property name="@keys" type="list" default="" access="initonly">
-                <tr lang="en">list of notes</tr>
-                <tr lang="ru">список нотных значений</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" default="off" enum="off tie raw">
-                <tr lang="en">mode for repeated notes. If 'off' - send note off before
-                retriggering, if 'tie' - ignore repeated events, if 'raw' - always send on/off
-                events</tr>
-                <tr lang="ru">режим для повторяющихся нот. Если «off» — отсылает событие выключения
-                ноты перед повторной нотой, если «tie» — игнорирует повторяющиеся ноты, если «raw»
-                — всегда отправлять события включения/выключения.</tr>
-            </property>
-            <!-- @poly -->
-            <property name="@poly" type="flag" default="0" access="initonly">
-                <tr lang="en">polyphonic mode for using with [clone] object</tr>
-                <tr lang="ru">полифонический режим для использования с [clone] объектом</tr>
-            </property>
-            <!-- @vel -->
-            <property name="@vel" type="float" minvalue="0" maxvalue="127" default="90">
-                <tr lang="en">output velocity</tr>
-                <tr lang="ru">выходная сила нажатия ноты</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input bit list</tr>
-                    <tr lang="ru" finished="false">Список входных бит</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">В режиме @poly: вывод VOICE NOTE VEL триплет на первую
+        розетку</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="KEYS" type="list">
+        <tr lang="en">list of note values</tr>
+        <tr lang="ru">список нотных значений</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @keys -->
+      <property name="@keys" type="list" default="" access="initonly">
+        <tr lang="en">list of notes</tr>
+        <tr lang="ru">список нотных значений</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" default="off" enum="off tie raw">
+        <tr lang="en">mode for repeated notes. If 'off' - send note off before retriggering, if
+        'tie' - ignore repeated events, if 'raw' - always send on/off events</tr>
+        <tr lang="ru">режим для повторяющихся нот. Если «off» — отсылает событие выключения ноты
+        перед повторной нотой, если «tie» — игнорирует повторяющиеся ноты, если «raw» — всегда
+        отправлять события включения/выключения.</tr>
+      </property>
+      <!-- @poly -->
+      <property name="@poly" type="flag" default="0" access="initonly">
+        <tr lang="en">polyphonic mode for using with [clone] object</tr>
+        <tr lang="ru">полифонический режим для использования с [clone] объектом</tr>
+      </property>
+      <!-- @vel -->
+      <property name="@vel" type="float" minvalue="0" maxvalue="127" default="90">
+        <tr lang="en">output velocity</tr>
+        <tr lang="ru">выходная сила нажатия ноты</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input bit list</tr>
+          <tr lang="ru" finished="false">Список входных бит</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet>
+        <out type="any">
+          <tr lang="en">output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(
 |
@@ -113,7 +112,7 @@
 
 #a @auto_size 0 @size 50 18
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

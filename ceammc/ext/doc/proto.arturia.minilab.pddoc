@@ -1,121 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="proto.arturia.minilab">
-        <title>proto.arturia.minilab</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">simple SysEx control for Arturia MiniLab</tr>
-                <tr lang="ru">управление по SysEx для Arturia MiniLab</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>proto</category>
-            <keywords>arturia midi sysex</keywords>
-            <since>0.9.7</since>
-        </meta>
-        <properties />
-        <methods>
-            <!-- backlight -->
-            <method name="backlight">
-                <info>
-                    <tr lang="en">turn on/off pad backlight</tr>
-                    <tr lang="ru" finished="false">включить/выключить подсветку</tr>
-                </info>
-                <param name="VALUE" type="bool" required="true">
-                    <tr lang="en">on/off state</tr>
-                    <tr lang="ru" finished="false">в/вне состояния</tr>
-                </param>
-            </method>
-            <!-- channel -->
-            <method name="channel">
-                <info>
-                    <tr lang="en">set device MIDI channel</tr>
-                    <tr lang="ru" finished="false">Настройка MIDI канала</tr>
-                </info>
-                <param name="CH" type="int" required="true" minvalue="0" maxvalue="15">
-                    <tr lang="en">MIDI channel</tr>
-                    <tr lang="ru" finished="false">MIDI канал</tr>
-                </param>
-            </method>
-            <!-- knob -->
-            <method name="knob">
-                <info>
-                    <tr lang="en">set knob value</tr>
-                    <tr lang="ru" finished="false">установить значение ручки</tr>
-                </info>
-                <param name="N" type="int" required="true" minvalue="0" maxvalue="17">
-                    <tr lang="en">knob index</tr>
-                    <tr lang="ru" finished="false">индекс ручки</tr>
-                </param>
-                <param name="VAL" type="float" required="true" minvalue="0" maxvalue="1">
-                    <tr lang="en">knob value</tr>
-                    <tr lang="ru" finished="false">значение ручки</tr>
-                </param>
-            </method>
-            <!-- knob? -->
-            <method name="knob?">
-                <info>
-                    <tr lang="en">request knob value</tr>
-                    <tr lang="ru" finished="false">запросить значение ручки</tr>
-                </info>
-                <param name="N" type="int" required="true" minvalue="0" maxvalue="17">
-                    <tr lang="en">knob index</tr>
-                    <tr lang="ru" finished="false">индекс ручки</tr>
-                </param>
-            </method>
-            <!-- knobs? -->
-            <method name="knobs?">
-                <info>
-                    <tr lang="en">request all knob values</tr>
-                    <tr lang="ru" finished="false">запросить все значения ручки</tr>
-                </info>
-            </method>
-            <!-- pad_color -->
-            <method name="pad_color">
-                <info>
-                    <tr lang="en">set pad color</tr>
-                    <tr lang="ru" finished="false">цвет накладки</tr>
-                </info>
-                <param name="N" type="int" required="false" minvalue="0" maxvalue="15">
-                    <tr lang="en">pad index. If not specified set color to all pads</tr>
-                    <tr lang="ru" finished="false">Индекс пада. Если не указан установленный цвет
-                    для всех прокладок</tr>
-                </param>
-                <param name="COLOR" type="atom" required="true"
-                enum="0 1 2 3 4 5 6 7 black red green yellow blue magenta cyan white">
-                    <tr lang="en">color</tr>
-                    <tr lang="ru" finished="false">цвет</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">commands</tr>
-                    <tr lang="ru" finished="false">командовать</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">MIDI bytes</tr>
-                    <tr lang="ru" finished="false">MIDI байты</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">parsed MIDI commands: noteon, noteoff, cc, program etc...</tr>
-                    <tr lang="ru" finished="false">Разобранные команды MIDI: noteon, noteoff, cc,
-                    program и т.д.</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="proto.arturia.minilab">
+    <title>proto.arturia.minilab</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">simple SysEx control for Arturia MiniLab</tr>
+        <tr lang="ru">управление по SysEx для Arturia MiniLab</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>proto</category>
+      <keywords>arturia midi sysex</keywords>
+      <since>0.9.7</since>
+    </meta>
+    <properties />
+    <methods>
+      <!-- backlight -->
+      <method name="backlight">
+        <info>
+          <tr lang="en">turn on/off pad backlight</tr>
+          <tr lang="ru" finished="false">включить/выключить подсветку</tr>
+        </info>
+        <param name="VALUE" type="bool" required="true">
+          <tr lang="en">on/off state</tr>
+          <tr lang="ru" finished="false">в/вне состояния</tr>
+        </param>
+      </method>
+      <!-- channel -->
+      <method name="channel">
+        <info>
+          <tr lang="en">set device MIDI channel</tr>
+          <tr lang="ru" finished="false">Настройка MIDI канала</tr>
+        </info>
+        <param name="CH" type="int" required="true" minvalue="0" maxvalue="15">
+          <tr lang="en">MIDI channel</tr>
+          <tr lang="ru" finished="false">MIDI канал</tr>
+        </param>
+      </method>
+      <!-- knob -->
+      <method name="knob">
+        <info>
+          <tr lang="en">set knob value</tr>
+          <tr lang="ru" finished="false">установить значение ручки</tr>
+        </info>
+        <param name="N" type="int" required="true" minvalue="0" maxvalue="17">
+          <tr lang="en">knob index</tr>
+          <tr lang="ru" finished="false">индекс ручки</tr>
+        </param>
+        <param name="VAL" type="float" required="true" minvalue="0" maxvalue="1">
+          <tr lang="en">knob value</tr>
+          <tr lang="ru" finished="false">значение ручки</tr>
+        </param>
+      </method>
+      <!-- knob? -->
+      <method name="knob?">
+        <info>
+          <tr lang="en">request knob value</tr>
+          <tr lang="ru" finished="false">запросить значение ручки</tr>
+        </info>
+        <param name="N" type="int" required="true" minvalue="0" maxvalue="17">
+          <tr lang="en">knob index</tr>
+          <tr lang="ru" finished="false">индекс ручки</tr>
+        </param>
+      </method>
+      <!-- knobs? -->
+      <method name="knobs?">
+        <info>
+          <tr lang="en">request all knob values</tr>
+          <tr lang="ru" finished="false">запросить все значения ручки</tr>
+        </info>
+      </method>
+      <!-- pad_color -->
+      <method name="pad_color">
+        <info>
+          <tr lang="en">set pad color</tr>
+          <tr lang="ru" finished="false">цвет накладки</tr>
+        </info>
+        <param name="N" type="int" required="false" minvalue="0" maxvalue="15">
+          <tr lang="en">pad index. If not specified set color to all pads</tr>
+          <tr lang="ru" finished="false">Индекс пада. Если не указан установленный цвет для всех
+          прокладок</tr>
+        </param>
+        <param name="COLOR" type="atom" required="true"
+        enum="0 1 2 3 4 5 6 7 black red green yellow blue magenta cyan white">
+          <tr lang="en">color</tr>
+          <tr lang="ru" finished="false">цвет</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">commands</tr>
+          <tr lang="ru" finished="false">командовать</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">MIDI bytes</tr>
+          <tr lang="ru" finished="false">MIDI байты</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">parsed MIDI commands: noteon, noteoff, cc, program etc...</tr>
+          <tr lang="ru" finished="false">Разобранные команды MIDI: noteon, noteoff, cc, program и
+          т.д.</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [midiin]    [B]
 |           |
@@ -127,7 +127,7 @@
 |              ^|
 [midiout]      [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

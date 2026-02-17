@@ -1,85 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.sync_ne">
-        <title>math.sync_ne</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sync numbers for not equality</tr>
-                <tr lang="ru">синхронная проверка на неравенство</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math sync not equal</keywords>
-            <aliases>
-                <alias>math.!='</alias>
-                <alias>ceammc/!='</alias>
-                <alias>!='</alias>
-            </aliases>
-            <since>0.8</since>
-            <also>
-                <see>math.=='</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="F" type="float">
-                <tr lang="en">second number</tr>
-                <tr lang="ru" finished="false">второе число</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @epsilon -->
-            <property name="@epsilon" type="float" default="0" minvalue="0">
-                <tr lang="en">compare epsilon. If not zero calculates expession: !(-epsilon &lt;
-                abs(A-B) &lt; +epsilon)</tr>
-                <!-- old: Сравните эпсилон. Если не ноль вычисляет эксцессию:
+  <object name="math.sync_ne">
+    <title>math.sync_ne</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sync numbers for not equality</tr>
+        <tr lang="ru">синхронная проверка на неравенство</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math sync not equal</keywords>
+      <aliases>
+        <alias>math.!='</alias>
+        <alias>ceammc/!='</alias>
+        <alias>!='</alias>
+      </aliases>
+      <since>0.8</since>
+      <also>
+        <see>math.=='</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="F" type="float">
+        <tr lang="en">second number</tr>
+        <tr lang="ru" finished="false">второе число</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @epsilon -->
+      <property name="@epsilon" type="float" default="0" minvalue="0">
+        <tr lang="en">compare epsilon. If not zero calculates expession: !(-epsilon &lt; abs(A-B)
+        &lt; +epsilon)</tr>
+        <!-- old: Сравните эпсилон. Если не ноль вычисляет эксцессию:
                 !(-epsilon < abs(A-B) < +epsilon) -->
-                <tr lang="ru" finished="false">Сравните эпсилон. Если не ноль вычисляет эксцессию:
-                !(-epsilon &lt; abs(A-B) &lt; +epsilon)</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set first number, calculate and output result</tr>
-                    <!-- old: установить первое число, вычислить и получить
+        <tr lang="ru" finished="false">Сравните эпсилон. Если не ноль вычисляет эксцессию:
+        !(-epsilon &lt; abs(A-B) &lt; +epsilon)</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set first number, calculate and output result</tr>
+          <!-- old: установить первое число, вычислить и получить
                     результат -->
-                    <tr lang="ru" finished="false">установить первое число, вычислить и получить
-                    результат</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">pair: set first and second numbers, calculate and output
-                    result</tr>
-                    <!-- old: пара: установить первое и второе числа,
+          <tr lang="ru" finished="false">установить первое число, вычислить и получить
+          результат</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">pair: set first and second numbers, calculate and output result</tr>
+          <!-- old: пара: установить первое и второе числа,
                     вычислить и вывести результат -->
-                    <tr lang="ru" finished="false">пара: установить первое и второе числа,
-                    вычислить и вывести результат</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">change second number, calculate and output result</tr>
-                    <!-- old: изменить второе число, вычислить и получить
+          <tr lang="ru" finished="false">пара: установить первое и второе числа, вычислить и
+          вывести результат</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">change second number, calculate and output result</tr>
+          <!-- old: изменить второе число, вычислить и получить
                     результат -->
-                    <tr lang="ru" finished="false">изменить второе число, вычислить и получить
-                    результат</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result output: 1 if numbers are not equal otherwise 0</tr>
-                    <tr lang="ru" finished="false">выходной результат: 1 если числа не равны иначе
-                    0</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">изменить второе число, вычислить и получить результат</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result output: 1 if numbers are not equal otherwise 0</tr>
+          <tr lang="ru" finished="false">выходной результат: 1 если числа не равны иначе 0</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]   [F]   /*same as:*/ [F]  [F]
 |     |                  |    |
@@ -96,7 +93,7 @@
 |
 [_]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

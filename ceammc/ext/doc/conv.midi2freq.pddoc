@@ -1,72 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.midi2freq">
-        <title>conv.midi2freq</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">advanced MIDI pitch conversion to a frequency</tr>
-                <tr lang="ru">продвинутое преобразование MIDI нот в частоту в Гц</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv freq midi</keywords>
-            <since>0.6</since>
-            <also>
-                <see>mtof</see>
-            </also>
-            <aliases>
-                <alias>ceammc/midi-&gt;freq</alias>
-                <alias>midi-&gt;freq</alias>
-                <alias>ceammc/m-&gt;f</alias>
-                <alias>m-&gt;f</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="A" type="float" minvalue="200" maxvalue="600" units="hertz">
-                <tr lang="en">A pitch frequency</tr>
-                <tr lang="ru">частота звука</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @a -->
-            <property name="@a" type="float" default="440" minvalue="200" maxvalue="600"
-            units="hertz">
-                <tr lang="en">A pitch frequency</tr>
-                <tr lang="ru" finished="false">частота звука</tr>
-            </property>
-            <!-- @t -->
-            <property name="@t" type="symbol" default="eq"
-            enum="eq just ganassi meantone kirnberger3 pythagorean rameau valotti zarlino">
-                <tr lang="en">temperament</tr>
-                <tr lang="ru" finished="false">темперамент</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input MIDI pitch</tr>
-                    <tr lang="ru" finished="false">Входной сигнал MIDI</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">input MIDI pitches</tr>
-                    <tr lang="ru" finished="false">Входные MIDI-подачи</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">converted value</tr>
-                    <tr lang="ru" finished="false">преобразованная стоимость</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="conv.midi2freq">
+    <title>conv.midi2freq</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">advanced MIDI pitch conversion to a frequency</tr>
+        <tr lang="ru">продвинутое преобразование MIDI нот в частоту в Гц</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv freq midi</keywords>
+      <since>0.6</since>
+      <also>
+        <see>mtof</see>
+      </also>
+      <aliases>
+        <alias>ceammc/midi-&gt;freq</alias>
+        <alias>midi-&gt;freq</alias>
+        <alias>ceammc/m-&gt;f</alias>
+        <alias>m-&gt;f</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="A" type="float" minvalue="200" maxvalue="600" units="hertz">
+        <tr lang="en">A pitch frequency</tr>
+        <tr lang="ru">частота звука</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @a -->
+      <property name="@a" type="float" default="440" minvalue="200" maxvalue="600" units="hertz">
+        <tr lang="en">A pitch frequency</tr>
+        <tr lang="ru" finished="false">частота звука</tr>
+      </property>
+      <!-- @t -->
+      <property name="@t" type="symbol" default="eq"
+      enum="eq just ganassi meantone kirnberger3 pythagorean rameau valotti zarlino">
+        <tr lang="en">temperament</tr>
+        <tr lang="ru" finished="false">темперамент</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input MIDI pitch</tr>
+          <tr lang="ru" finished="false">Входной сигнал MIDI</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">input MIDI pitches</tr>
+          <tr lang="ru" finished="false">Входные MIDI-подачи</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">converted value</tr>
+          <tr lang="ru" finished="false">преобразованная стоимость</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.keyboard]
 |
@@ -89,7 +88,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

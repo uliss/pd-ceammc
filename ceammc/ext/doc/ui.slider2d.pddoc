@@ -1,249 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="ui.slider2d" type="gui">
-        <title>ui.slider2d</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">2D slider widget</tr>
-                <tr lang="ru">2D виджет слайдера</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">ui</category>
-            <keywords>ui slider</keywords>
-            <aliases>
-                <alias view="link">ui.s2d</alias>
-            </aliases>
-            <since>0.1</since>
-            <also>
-                <see view="link">ui.slider</see>
-                <see view="link">ui.polar</see>
-            </also>
-        </meta>
-        <mouse>
-            <event type="left-click" editmode="false">jump to coord under mouse pointer</event>
-            <event type="drag" editmode="false">change slider coords</event>
-            <event type="wheel" editmode="false">change Y coord</event>
-            <event type="wheel" editmode="false" keys="Shift">change precisely Y coord</event>
-            <event type="wheel" editmode="false" keys="Alt">change X coord</event>
-            <event type="wheel" editmode="false" keys="Alt+Shift">change precisely X coord</event>
-            <event type="right-click" editmode="false">opens popup menu for quick settings</event>
-            <event type="right-click" editmode="false" keys="Shift">open object help</event>
-            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="true">opens Pd popup menu</event>
-            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
-        </mouse>
-        <properties>
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_label.xml" />
-            <xi:include href="props_label_align.xml" />
-            <xi:include href="props_label_inner.xml" />
-            <xi:include href="props_label_margins.xml" />
-            <xi:include href="props_label_side.xml" />
-            <xi:include href="props_label_valign.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
-            <xi:include href="props_preset.xml" />
-            <!-- @bind_x -->
-            <property name="@bind_x" type="list" default="">
-                <tr lang="en">MIDI/keyboard bind expression for x-axis movement</tr>
-                <tr lang="ru" finished="false">MIDI/клавиатура связывает выражение для движения по
-                оси x</tr>
-            </property>
-            <!-- @bind_y -->
-            <property name="@bind_y" type="list" default="">
-                <tr lang="en">MIDI/keyboard bind expression for y-axis movement</tr>
-                <tr lang="ru" finished="false">MIDI/клавиатура связывает выражение для движения по
-                оси y</tr>
-            </property>
-            <!-- @mouse_events -->
-            <property name="@mouse_events" type="bool" default="0">
-                <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
-                @mouse_drag events</tr>
-                <tr lang="ru" finished="false">Режим вывода событий мыши. Если на выходе
-                @mouse_down, @mouse_up и @mouse_drag события</tr>
-            </property>
-            <!-- @show_grid -->
-            <property name="@show_grid" type="bool" default="0">
-                <tr lang="en">if show grid</tr>
-                <tr lang="ru" finished="false">Если показать сетку</tr>
-            </property>
-            <!-- @show_range -->
-            <property name="@show_range" type="bool" default="1">
-                <tr lang="en">if show slider range</tr>
-                <tr lang="ru" finished="false">Если показать диапазон слайдеров</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="100 100">
-                <tr lang="en">object size (width, height pair)</tr>
-                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
-            </property>
-            <!-- @x_left -->
-            <property name="@x_left" type="float" default="-1">
-                <tr lang="en">leftmost x-value</tr>
-            </property>
-            <!-- @x_range -->
-            <property name="@x_range" type="float" access="readonly" default="2">
-                <tr lang="en">abs x-value range</tr>
-            </property>
-            <!-- @x_right -->
-            <property name="@x_right" type="float" default="1">
-                <tr lang="en">rightmost x-value</tr>
-            </property>
-            <!-- @x_value -->
-            <property name="@x_value" type="float" default="0">
-                <tr lang="en">slider x-value</tr>
-            </property>
-            <!-- @y_bottom -->
-            <property name="@y_bottom" type="float" default="-1">
-                <tr lang="en">bottom y-value</tr>
-            </property>
-            <!-- @y_range -->
-            <property name="@y_range" type="float" access="readonly" default="2">
-                <tr lang="en">abs y-value range</tr>
-            </property>
-            <!-- @y_top -->
-            <property name="@y_top" type="float" default="1">
-                <tr lang="en">top y-value</tr>
-            </property>
-            <!-- @y_value -->
-            <property name="@y_value" type="float" default="0">
-                <tr lang="en">slider y-value</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clears specified preset</tr>
-                    <tr lang="ru" finished="false">заданный заранее</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- dump -->
-            <method name="dump">
-                <info>
-                    <tr lang="en">dumps all object info to Pd console window</tr>
-                    <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно
-                    консоли Pd</tr>
-                </info>
-            </method>
-            <!-- interp -->
-            <method name="interp">
-                <info>
-                    <tr lang="en">interplolates between presets</tr>
-                    <tr lang="ru" finished="false">Интерплолаты между предустановленными</tr>
-                </info>
-                <param name="IDX" type="float" required="true">
-                    <tr lang="en">preset fraction index</tr>
-                    <tr lang="ru" finished="false">предустановленный дробный индекс</tr>
-                </param>
-            </method>
-            <!-- load -->
-            <method name="load">
-                <info>
-                    <tr lang="en">loads specified preset</tr>
-                    <tr lang="ru" finished="false">заданный заранее заданный</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-            <!-- move -->
-            <method name="move">
-                <info>
-                    <tr lang="en">move slider by given offset</tr>
-                    <tr lang="ru" finished="false">движущийся слайдер с заданным смещением</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">x-offset</tr>
-                    <tr lang="ru" finished="false">x-offset</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">y-offset</tr>
-                    <tr lang="ru" finished="false">y-offset</tr>
-                </param>
-            </method>
-            <!-- pos -->
-            <method name="pos">
-                <info>
-                    <tr lang="en">set UI element position</tr>
-                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">top left x-coord</tr>
-                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">top right y-coord</tr>
-                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
-                </param>
-            </method>
-            <!-- set -->
-            <method name="set">
-                <info>
-                    <tr lang="en">sets slider position without output</tr>
-                    <tr lang="ru" finished="false">устанавливает положение ползунка без вывода</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">x-position</tr>
-                    <tr lang="ru" finished="false">положение</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">y-position</tr>
-                    <tr lang="ru" finished="false">положение</tr>
-                </param>
-            </method>
-            <!-- store -->
-            <method name="store">
-                <info>
-                    <tr lang="en">stores specified preset</tr>
-                    <tr lang="ru" finished="false">магазины, указанные Preset</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">preset index</tr>
-                    <tr lang="ru" finished="false">предустановленный индекс</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">outputs slider position</tr>
-                    <tr lang="ru" finished="false">выходное положение слайдера</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">sets slider position and outputs it</tr>
-                    <tr lang="ru" finished="false">устанавливает положение слайдера и выводит
-                    его</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list output of two values: X and Y</tr>
-                    <tr lang="ru" finished="false">вывод списка из двух значений: X и Y</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="ui.slider2d" type="gui">
+    <title>ui.slider2d</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">2D slider widget</tr>
+        <tr lang="ru">2D виджет слайдера</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">ui</category>
+      <keywords>ui slider</keywords>
+      <aliases>
+        <alias view="link">ui.s2d</alias>
+      </aliases>
+      <since>0.1</since>
+      <also>
+        <see view="link">ui.slider</see>
+        <see view="link">ui.polar</see>
+      </also>
+    </meta>
+    <mouse>
+      <event type="left-click" editmode="false">jump to coord under mouse pointer</event>
+      <event type="drag" editmode="false">change slider coords</event>
+      <event type="wheel" editmode="false">change Y coord</event>
+      <event type="wheel" editmode="false" keys="Shift">change precisely Y coord</event>
+      <event type="wheel" editmode="false" keys="Alt">change X coord</event>
+      <event type="wheel" editmode="false" keys="Alt+Shift">change precisely X coord</event>
+      <event type="right-click" editmode="false">opens popup menu for quick settings</event>
+      <event type="right-click" editmode="false" keys="Shift">open object help</event>
+      <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+      <event type="right-click" editmode="true">opens Pd popup menu</event>
+      <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+      <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+    </mouse>
+    <properties>
+      <xi:include href="props_background_color.xml" />
+      <xi:include href="props_border_color.xml" />
+      <xi:include href="props_fontname.xml" />
+      <xi:include href="props_fontsize.xml" />
+      <xi:include href="props_fontslant.xml" />
+      <xi:include href="props_fontweight.xml" />
+      <xi:include href="props_label.xml" />
+      <xi:include href="props_label_align.xml" />
+      <xi:include href="props_label_inner.xml" />
+      <xi:include href="props_label_margins.xml" />
+      <xi:include href="props_label_side.xml" />
+      <xi:include href="props_label_valign.xml" />
+      <xi:include href="props_pinned.xml" />
+      <xi:include href="props_ui_receive.xml" />
+      <xi:include href="props_ui_send.xml" />
+      <xi:include href="props_preset.xml" />
+      <!-- @bind_x -->
+      <property name="@bind_x" type="list" default="">
+        <tr lang="en">MIDI/keyboard bind expression for x-axis movement</tr>
+        <tr lang="ru" finished="false">MIDI/клавиатура связывает выражение для движения по оси
+        x</tr>
+      </property>
+      <!-- @bind_y -->
+      <property name="@bind_y" type="list" default="">
+        <tr lang="en">MIDI/keyboard bind expression for y-axis movement</tr>
+        <tr lang="ru" finished="false">MIDI/клавиатура связывает выражение для движения по оси
+        y</tr>
+      </property>
+      <!-- @mouse_events -->
+      <property name="@mouse_events" type="bool" default="0">
+        <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
+        @mouse_drag events</tr>
+        <tr lang="ru" finished="false">Режим вывода событий мыши. Если на выходе @mouse_down,
+        @mouse_up и @mouse_drag события</tr>
+      </property>
+      <!-- @show_grid -->
+      <property name="@show_grid" type="bool" default="0">
+        <tr lang="en">if show grid</tr>
+        <tr lang="ru" finished="false">Если показать сетку</tr>
+      </property>
+      <!-- @show_range -->
+      <property name="@show_range" type="bool" default="1">
+        <tr lang="en">if show slider range</tr>
+        <tr lang="ru" finished="false">Если показать диапазон слайдеров</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="100 100">
+        <tr lang="en">object size (width, height pair)</tr>
+        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+      </property>
+      <!-- @x_left -->
+      <property name="@x_left" type="float" default="-1">
+        <tr lang="en">leftmost x-value</tr>
+      </property>
+      <!-- @x_range -->
+      <property name="@x_range" type="float" access="readonly" default="2">
+        <tr lang="en">abs x-value range</tr>
+      </property>
+      <!-- @x_right -->
+      <property name="@x_right" type="float" default="1">
+        <tr lang="en">rightmost x-value</tr>
+      </property>
+      <!-- @x_value -->
+      <property name="@x_value" type="float" default="0">
+        <tr lang="en">slider x-value</tr>
+      </property>
+      <!-- @y_bottom -->
+      <property name="@y_bottom" type="float" default="-1">
+        <tr lang="en">bottom y-value</tr>
+      </property>
+      <!-- @y_range -->
+      <property name="@y_range" type="float" access="readonly" default="2">
+        <tr lang="en">abs y-value range</tr>
+      </property>
+      <!-- @y_top -->
+      <property name="@y_top" type="float" default="1">
+        <tr lang="en">top y-value</tr>
+      </property>
+      <!-- @y_value -->
+      <property name="@y_value" type="float" default="0">
+        <tr lang="en">slider y-value</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">clears specified preset</tr>
+          <tr lang="ru" finished="false">заданный заранее</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- dump -->
+      <method name="dump">
+        <info>
+          <tr lang="en">dumps all object info to Pd console window</tr>
+          <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно консоли
+          Pd</tr>
+        </info>
+      </method>
+      <!-- interp -->
+      <method name="interp">
+        <info>
+          <tr lang="en">interplolates between presets</tr>
+          <tr lang="ru" finished="false">Интерплолаты между предустановленными</tr>
+        </info>
+        <param name="IDX" type="float" required="true">
+          <tr lang="en">preset fraction index</tr>
+          <tr lang="ru" finished="false">предустановленный дробный индекс</tr>
+        </param>
+      </method>
+      <!-- load -->
+      <method name="load">
+        <info>
+          <tr lang="en">loads specified preset</tr>
+          <tr lang="ru" finished="false">заданный заранее заданный</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+      <!-- move -->
+      <method name="move">
+        <info>
+          <tr lang="en">move slider by given offset</tr>
+          <tr lang="ru" finished="false">движущийся слайдер с заданным смещением</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">x-offset</tr>
+          <tr lang="ru" finished="false">x-offset</tr>
+        </param>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">y-offset</tr>
+          <tr lang="ru" finished="false">y-offset</tr>
+        </param>
+      </method>
+      <!-- pos -->
+      <method name="pos">
+        <info>
+          <tr lang="en">set UI element position</tr>
+          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">top left x-coord</tr>
+          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+        </param>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">top right y-coord</tr>
+          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+        </param>
+      </method>
+      <!-- set -->
+      <method name="set">
+        <info>
+          <tr lang="en">sets slider position without output</tr>
+          <tr lang="ru" finished="false">устанавливает положение ползунка без вывода</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">x-position</tr>
+          <tr lang="ru" finished="false">положение</tr>
+        </param>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">y-position</tr>
+          <tr lang="ru" finished="false">положение</tr>
+        </param>
+      </method>
+      <!-- store -->
+      <method name="store">
+        <info>
+          <tr lang="en">stores specified preset</tr>
+          <tr lang="ru" finished="false">магазины, указанные Preset</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">preset index</tr>
+          <tr lang="ru" finished="false">предустановленный индекс</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">outputs slider position</tr>
+          <tr lang="ru" finished="false">выходное положение слайдера</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">sets slider position and outputs it</tr>
+          <tr lang="ru" finished="false">устанавливает положение слайдера и выводит его</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list output of two values: X and Y</tr>
+          <tr lang="ru" finished="false">вывод списка из двух значений: X и Y</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
                            [T]
                            |
@@ -259,7 +258,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

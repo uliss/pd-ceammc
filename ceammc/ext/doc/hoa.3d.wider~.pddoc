@@ -1,100 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hoa.3d.wider~">
-        <title>hoa.3d.wider~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-                <author>Pierre Guillot</author>
-                <author>Eliott Paris</author>
-                <author>Thomas Le Meur</author>
-            </authors>
-            <description>
-                <tr lang="en">a 3d fractional ambisonic order simulator</tr>
-                <tr lang="ru">трехмерная симуляция дробного амбисонического порядка</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>spat</category>
-            <keywords>hoa wider</keywords>
-            <since>0.9.7</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">hoa.3d.wider~ can be used to wide the diffusion of a localised sound.
-                The order depending signals are weighted and appear in a logarithmic way to have
-                linear changes.</tr>
-                <!-- old: hoa.3d.wider~ может использоваться для широкого
+  <object name="hoa.3d.wider~">
+    <title>hoa.3d.wider~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+        <author>Pierre Guillot</author>
+        <author>Eliott Paris</author>
+        <author>Thomas Le Meur</author>
+      </authors>
+      <description>
+        <tr lang="en">a 3d fractional ambisonic order simulator</tr>
+        <tr lang="ru">трехмерная симуляция дробного амбисонического порядка</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>spat</category>
+      <keywords>hoa wider</keywords>
+      <since>0.9.7</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">hoa.3d.wider~ can be used to wide the diffusion of a localised sound. The
+        order depending signals are weighted and appear in a logarithmic way to have linear
+        changes.</tr>
+        <!-- old: hoa.3d.wider~ может использоваться для широкого
                 распространения локализованного звука. Сигналы, зависящие от порядка, взвешиваются
                 и выглядят логарифмическим образом, чтобы иметь линейные изменения. -->
-                <tr lang="ru" finished="false">hoa.3d.wider~ может использоваться для широкого
-                распространения локализованного звука. Сигналы, зависящие от порядка, взвешиваются
-                и выглядят логарифмическим образом, чтобы иметь линейные изменения.</tr>
-            </par>
-            <a href="hoa/hoa.3d.wider~-help.pd">CICM documentation</a>
-        </info>
-        <arguments>
-            <argument name="ORDER" type="int" minvalue="1" maxvalue="10">
-                <tr lang="en">the order of decomposition</tr>
-                <tr lang="ru" finished="false">Порядок разложения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @order -->
-            <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
-            access="initonly">
-                <tr lang="en">the order of decomposition</tr>
-                <tr lang="ru" finished="false">Порядок разложения</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">first input signal</tr>
-                    <tr lang="ru" finished="false">Первый входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="...">
-                <in>
-                    <tr lang="en">... input signal</tr>
-                    <tr lang="ru" finished="false">... входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="n">
-                <in>
-                    <tr lang="en">n-th input signal</tr>
-                    <tr lang="ru" finished="false">n-й входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="audio" number="n+1">
-                <in>
-                    <tr lang="en">widening signal in [0-1] range.</tr>
-                    <tr lang="ru" finished="false">Расширение сигнала в диапазоне [0-1].</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">first circular harmonics output</tr>
-                    <tr lang="ru" finished="false">Первая круговая гармоника выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="...">
-                <out type="any">
-                    <tr lang="en">... circular harmonics output</tr>
-                    <tr lang="ru" finished="false">... круглые гармоники выход</tr>
-                </out>
-            </outlet>
-            <outlet type="audio" number="n">
-                <out type="any">
-                    <tr lang="en">n-th circular harmonics output</tr>
-                    <tr lang="ru" finished="false">n-я круговая гармоника выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">hoa.3d.wider~ может использоваться для широкого
+        распространения локализованного звука. Сигналы, зависящие от порядка, взвешиваются и
+        выглядят логарифмическим образом, чтобы иметь линейные изменения.</tr>
+      </par>
+      <a href="hoa/hoa.3d.wider~-help.pd">CICM documentation</a>
+    </info>
+    <arguments>
+      <argument name="ORDER" type="int" minvalue="1" maxvalue="10">
+        <tr lang="en">the order of decomposition</tr>
+        <tr lang="ru" finished="false">Порядок разложения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @order -->
+      <property name="@order" type="int" minvalue="1" maxvalue="10" default="1" access="initonly">
+        <tr lang="en">the order of decomposition</tr>
+        <tr lang="ru" finished="false">Порядок разложения</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet type="audio">
+        <in>
+          <tr lang="en">first input signal</tr>
+          <tr lang="ru" finished="false">Первый входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="...">
+        <in>
+          <tr lang="en">... input signal</tr>
+          <tr lang="ru" finished="false">... входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="n">
+        <in>
+          <tr lang="en">n-th input signal</tr>
+          <tr lang="ru" finished="false">n-й входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="audio" number="n+1">
+        <in>
+          <tr lang="en">widening signal in [0-1] range.</tr>
+          <tr lang="ru" finished="false">Расширение сигнала в диапазоне [0-1].</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">first circular harmonics output</tr>
+          <tr lang="ru" finished="false">Первая круговая гармоника выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="...">
+        <out type="any">
+          <tr lang="en">... circular harmonics output</tr>
+          <tr lang="ru" finished="false">... круглые гармоники выход</tr>
+        </out>
+      </outlet>
+      <outlet type="audio" number="n">
+        <out type="any">
+          <tr lang="en">n-th circular harmonics output</tr>
+          <tr lang="ru" finished="false">n-я круговая гармоника выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [lfo.square~ 1]
 |
@@ -120,7 +119,7 @@
 [ui.dsp~]
 [X a->b:9]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

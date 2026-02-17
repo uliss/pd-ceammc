@@ -1,139 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.freeverb~">
-        <title>fx.freeverb~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">commonly used open-source reverb</tr>
-                <tr lang="ru">широко используемый ревербератор с открытым исходным кодом</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx reverb</keywords>
-            <since>0.2</since>
-            <also>
-                <see>fx.freeverb2~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">A simple Schroeder reverberator primarily developed by "Jezar at
-                Dreampoint" that is extensively used in the free-software world. It uses four
-                Schroeder allpasses in series and eight parallel Schroeder-Moorer filtered-feedback
-                comb-filters for each audio channel, and is said to be especially well tuned.</tr>
-                <!-- old: Простой ревербератор Шредера, разработанный в
+  <object name="fx.freeverb~">
+    <title>fx.freeverb~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">commonly used open-source reverb</tr>
+        <tr lang="ru">широко используемый ревербератор с открытым исходным кодом</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx reverb</keywords>
+      <since>0.2</since>
+      <also>
+        <see>fx.freeverb2~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">A simple Schroeder reverberator primarily developed by "Jezar at Dreampoint"
+        that is extensively used in the free-software world. It uses four Schroeder allpasses in
+        series and eight parallel Schroeder-Moorer filtered-feedback comb-filters for each audio
+        channel, and is said to be especially well tuned.</tr>
+        <!-- old: Простой ревербератор Шредера, разработанный в
                 основном компанией «Jezar at Dreampoint», широко используется в мире свободного
                 программного обеспечения. Он использует четыре последовательных компаса Шредера и
                 восемь параллельных фильтрованных гребневых фильтров Шредера-Мурера для каждого
                 аудиоканала и, как говорят, особенно хорошо настроен. -->
-                <tr lang="ru" finished="false">Простой ревербератор Шредера, разработанный в
-                основном компанией «Jezar at Dreampoint», широко используется в мире свободного
-                программного обеспечения. Он использует четыре последовательных компаса Шредера и
-                восемь параллельных фильтрованных гребневых фильтров Шредера-Мурера для каждого
-                аудиоканала и, как говорят, особенно хорошо настроен.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="ROOM" type="float" minvalue="0" maxvalue="1">
-                <tr lang="en">room size</tr>
-                <tr lang="ru" finished="false">размер комнаты</tr>
-            </argument>
-            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
-                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
-                signals</tr>
-                <!-- old: Пропорция смеси между исходными (сухими) и
+        <tr lang="ru" finished="false">Простой ревербератор Шредера, разработанный в основном
+        компанией «Jezar at Dreampoint», широко используется в мире свободного программного
+        обеспечения. Он использует четыре последовательных компаса Шредера и восемь параллельных
+        фильтрованных гребневых фильтров Шредера-Мурера для каждого аудиоканала и, как говорят,
+        особенно хорошо настроен.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="ROOM" type="float" minvalue="0" maxvalue="1">
+        <tr lang="en">room size</tr>
+        <tr lang="ru" finished="false">размер комнаты</tr>
+      </argument>
+      <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
+        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
+        signals</tr>
+        <!-- old: Пропорция смеси между исходными (сухими) и
                 «вредными» (мокрыми) сигналами -->
-                <tr lang="ru" finished="false">Пропорция смеси между исходными (сухими) и
-                «вредными» (мокрыми) сигналами</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">
-                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-                <!-- old: Обходной флаг. Если это правда, обойдите
+        <tr lang="ru" finished="false">Пропорция смеси между исходными (сухими) и «вредными»
+        (мокрыми) сигналами</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @bypass -->
+      <property name="@bypass" type="bool" default="0">
+        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+        <!-- old: Обходной флаг. Если это правда, обойдите
                 «эффективный» сигнал. -->
-                <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал.</tr>
-            </property>
-            <!-- @damp -->
-            <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0.5">
-                <tr lang="en">damping of the lowpass comb filter</tr>
-                <!-- old: демпфирование низкопроходного гребенчатого
+        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
+        сигнал.</tr>
+      </property>
+      <!-- @damp -->
+      <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0.5">
+        <tr lang="en">damping of the lowpass comb filter</tr>
+        <!-- old: демпфирование низкопроходного гребенчатого
                 фильтра -->
-                <tr lang="ru" finished="false">демпфирование низкопроходного гребенчатого
-                фильтра</tr>
-            </property>
-            <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.33">
-                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
-                signals. 0 - dry signal, 1 - wet</tr>
-                <!-- old: пропорция смеси между исходными (сухими) и
+        <tr lang="ru" finished="false">демпфирование низкопроходного гребенчатого фильтра</tr>
+      </property>
+      <!-- @drywet -->
+      <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.33">
+        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
+        - dry signal, 1 - wet</tr>
+        <!-- old: пропорция смеси между исходными (сухими) и
                 "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
-                <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и
-                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный</tr>
-            </property>
-            <!-- @fr_damp -->
-            <property name="@fr_damp" type="float" minvalue="0" maxvalue="1" default="0.0001">
-                <tr lang="en">freeze room damp</tr>
-                <tr lang="ru" finished="false">морозильная комната</tr>
-            </property>
-            <!-- @fr_room -->
-            <property name="@fr_room" type="float" minvalue="0" maxvalue="1" default="0.999">
-                <tr lang="en">freeze room size</tr>
-                <tr lang="ru" finished="false">Замораживание комнаты</tr>
-            </property>
-            <!-- @fr_time -->
-            <property name="@fr_time" type="float" minvalue="0" maxvalue="1000" default="100"
-            units="millisecond">
-                <tr lang="en">length of freeze tail</tr>
-                <tr lang="ru" finished="false">Длина замораживающего хвоста</tr>
-            </property>
-            <!-- @freeze -->
-            <property name="@freeze" type="bool" default="0">
-                <tr lang="en">freeze reverberation tail</tr>
-                <tr lang="ru" finished="false">замораживание реверберации хвоста</tr>
-            </property>
-            <!-- @room -->
-            <property name="@room" type="float" minvalue="0" maxvalue="1" default="0.5">
-                <tr lang="en">room size</tr>
-                <tr lang="ru" finished="false">размер комнаты</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset reverb</tr>
-                    <tr lang="ru" finished="false">реверберация</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и "влажными"
+        сигналами. 0 - сухой сигнал, 1 - влажный</tr>
+      </property>
+      <!-- @fr_damp -->
+      <property name="@fr_damp" type="float" minvalue="0" maxvalue="1" default="0.0001">
+        <tr lang="en">freeze room damp</tr>
+        <tr lang="ru" finished="false">морозильная комната</tr>
+      </property>
+      <!-- @fr_room -->
+      <property name="@fr_room" type="float" minvalue="0" maxvalue="1" default="0.999">
+        <tr lang="en">freeze room size</tr>
+        <tr lang="ru" finished="false">Замораживание комнаты</tr>
+      </property>
+      <!-- @fr_time -->
+      <property name="@fr_time" type="float" minvalue="0" maxvalue="1000" default="100"
+      units="millisecond">
+        <tr lang="en">length of freeze tail</tr>
+        <tr lang="ru" finished="false">Длина замораживающего хвоста</tr>
+      </property>
+      <!-- @freeze -->
+      <property name="@freeze" type="bool" default="0">
+        <tr lang="en">freeze reverberation tail</tr>
+        <tr lang="ru" finished="false">замораживание реверберации хвоста</tr>
+      </property>
+      <!-- @room -->
+      <property name="@room" type="float" minvalue="0" maxvalue="1" default="0.5">
+        <tr lang="en">room size</tr>
+        <tr lang="ru" finished="false">размер комнаты</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset reverb</tr>
+          <tr lang="ru" finished="false">реверберация</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]                [open %CEAMMC%/guitar1.wav, 1(
 |                  |
@@ -155,7 +154,7 @@
 
 [X a->b]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

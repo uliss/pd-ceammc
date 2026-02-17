@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.acos">
-        <title>math.acos</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">arc cosine function</tr>
-                <tr lang="ru">арккосинус</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math acos</keywords>
-            <also>
-                <see>math.sin</see>
-                <see>math.cos</see>
-                <see>math.tan</see>
-                <see>math.asin</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The acos() function computes the principle value of the arc cosine of
-                input value. The result is in the range [0, pi].</tr>
-                <!-- old: Функция acos() вычисляет основное значение дугового
+  <object name="math.acos">
+    <title>math.acos</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">arc cosine function</tr>
+        <tr lang="ru">арккосинус</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math acos</keywords>
+      <also>
+        <see>math.sin</see>
+        <see>math.cos</see>
+        <see>math.tan</see>
+        <see>math.asin</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The acos() function computes the principle value of the arc cosine of input
+        value. The result is in the range [0, pi].</tr>
+        <!-- old: Функция acos() вычисляет основное значение дугового
                 косинуса входного значения. Результат находится в диапазоне [0, pi]. -->
-                <tr lang="ru" finished="false">Функция acos() вычисляет основное значение дугового
-                косинуса входного значения. Результат находится в диапазоне [0, pi].</tr>
-            </par>
-            <par>
-                <tr lang="en">Special values:</tr>
-                <tr lang="ru" finished="false">Особые ценности:</tr>
-            </par>
-            <par>
-                <tr lang="en">acos(1) returns +0.</tr>
-                <tr lang="ru" finished="false">acos(1) возвращается +0.</tr>
-            </par>
-            <par>
-                <tr lang="en">acos(x) returns a NAN.</tr>
-                <tr lang="ru" finished="false">acos(x) возвращает NAN.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">apply to all numeric values</tr>
-                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Функция acos() вычисляет основное значение дугового косинуса
+        входного значения. Результат находится в диапазоне [0, pi].</tr>
+      </par>
+      <par>
+        <tr lang="en">Special values:</tr>
+        <tr lang="ru" finished="false">Особые ценности:</tr>
+      </par>
+      <par>
+        <tr lang="en">acos(1) returns +0.</tr>
+        <tr lang="ru" finished="false">acos(1) возвращается +0.</tr>
+      </par>
+      <par>
+        <tr lang="en">acos(x) returns a NAN.</tr>
+        <tr lang="ru" finished="false">acos(x) возвращает NAN.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">apply to all numeric values</tr>
+          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]    [1 2 d b(
 |      |
@@ -73,7 +73,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

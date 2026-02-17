@@ -1,70 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.search">
-        <title>list.search</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs the positions of pre-defined elements in the input list</tr>
-                <tr lang="ru">выводит позиции предварительно заданных элементов во входном
-                списке</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list search find</keywords>
-            <since>0.6</since>
-            <also>
-                <see>list.^search</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Returns item position in list or -1 if not found.</tr>
-                <!-- old: Возвращает пункт позиции в списке или -1, если не
+  <object name="list.search">
+    <title>list.search</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs the positions of pre-defined elements in the input list</tr>
+        <tr lang="ru">выводит позиции предварительно заданных элементов во входном списке</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list search find</keywords>
+      <since>0.6</since>
+      <also>
+        <see>list.^search</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Returns item position in list or -1 if not found.</tr>
+        <!-- old: Возвращает пункт позиции в списке или -1, если не
                 найден. -->
-                <tr lang="ru" finished="false">Возвращает пункт позиции в списке или -1, если не
-                найден.</tr>
-            </par>
-            <par>
-                <tr lang="en">If several items are specified returns list of positions.</tr>
-                <!-- old: Если указано несколько пунктов, возвращается список
+        <tr lang="ru" finished="false">Возвращает пункт позиции в списке или -1, если не
+        найден.</tr>
+      </par>
+      <par>
+        <tr lang="en">If several items are specified returns list of positions.</tr>
+        <!-- old: Если указано несколько пунктов, возвращается список
                 позиций. -->
-                <tr lang="ru" finished="false">Если указано несколько пунктов, возвращается список
-                позиций.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set searched items</tr>
-                    <tr lang="ru" finished="false">Настройка поисковых элементов</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">position of search item or list of such positions</tr>
-                    <tr lang="ru" finished="false">позиция пункта поиска или список таких
-                    позиций</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Если указано несколько пунктов, возвращается список
+        позиций.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set searched items</tr>
+          <tr lang="ru" finished="false">Настройка поисковых элементов</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">position of search item or list of such positions</tr>
+          <tr lang="ru" finished="false">позиция пункта поиска или список таких позиций</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2 3 4( [list ABC BC A(
 |         |
@@ -74,7 +72,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

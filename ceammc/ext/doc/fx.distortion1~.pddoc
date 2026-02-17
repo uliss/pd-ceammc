@@ -1,188 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="fx.distortion1~">
-        <title>fx.distortion1~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">distortion #1 from Guitarix effects set</tr>
-                <tr lang="ru">дисторшн №1 из набора эффектов Guitarix</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>fx</category>
-            <keywords>fx distortion</keywords>
-            <since>0.7</since>
-            <also>
-                <see>fx.distortion~</see>
-                <see>fx.distortion2~</see>
-                <see>fx.distortion3~</see>
-            </also>
-        </meta>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @drive -->
-            <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.64">
-                <tr lang="en">distortion amount</tr>
-                <tr lang="ru" finished="false">искажение суммы</tr>
-            </property>
-            <!-- @flt_on_off -->
-            <property name="@flt_on_off" type="bool" default="0">
-                <tr lang="en">filter processing</tr>
-                <tr lang="ru" finished="false">фильтрация</tr>
-            </property>
-            <!-- @gain -->
-            <property name="@gain" type="float" units="decibel" default="2" minvalue="-10"
-            maxvalue="10">
-                <tr lang="en">total effect gain</tr>
-                <tr lang="ru" finished="false">Общий эффект от увеличения</tr>
-            </property>
-            <!-- @high_drive -->
-            <property name="@high_drive" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">distortion amount on high frequencies</tr>
-                <tr lang="ru" finished="false">Количество искажений на высоких частотах</tr>
-            </property>
-            <!-- @high_gain -->
-            <property name="@high_gain" type="float" units="decibel" default="10" minvalue="-10"
-            maxvalue="20">
-                <tr lang="en">gain on high frequencies</tr>
-                <tr lang="ru" finished="false">Прибыль на высоких частотах</tr>
-            </property>
-            <!-- @hp_freq -->
-            <property name="@hp_freq" type="float" units="hertz" default="130" minvalue="20"
-            maxvalue="7040">
-                <tr lang="en">high pass frequency</tr>
-                <tr lang="ru" finished="false">высокая частота прохождения</tr>
-            </property>
-            <!-- @level -->
-            <property name="@level" type="float" default="0.01" minvalue="0" maxvalue="0.5">
-                <tr lang="en">effect level</tr>
-                <tr lang="ru" finished="false">Уровень эффекта</tr>
-            </property>
-            <!-- @low_drive -->
-            <property name="@low_drive" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">distortion amount on low frequencies</tr>
-                <tr lang="ru" finished="false">Количество искажений на низких частотах</tr>
-            </property>
-            <!-- @low_gain -->
-            <property name="@low_gain" type="float" units="decibel" default="10" minvalue="-10"
-            maxvalue="20">
-                <tr lang="en">gain on low frequencies</tr>
-                <tr lang="ru" finished="false">Прибыль на низких частотах</tr>
-            </property>
-            <!-- @lp_freq -->
-            <property name="@lp_freq" type="float" units="hertz" default="5000" minvalue="20"
-            maxvalue="12000">
-                <tr lang="en">low pass frequency</tr>
-                <tr lang="ru" finished="false">низкая частота прохождения</tr>
-            </property>
-            <!-- @middle_h_drive -->
-            <property name="@middle_h_drive" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">distortion amount on middle high frequencies</tr>
-                <!-- old: Количество искажений на средних высоких
+  <object name="fx.distortion1~">
+    <title>fx.distortion1~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">distortion #1 from Guitarix effects set</tr>
+        <tr lang="ru">дисторшн №1 из набора эффектов Guitarix</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>fx</category>
+      <keywords>fx distortion</keywords>
+      <since>0.7</since>
+      <also>
+        <see>fx.distortion~</see>
+        <see>fx.distortion2~</see>
+        <see>fx.distortion3~</see>
+      </also>
+    </meta>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @drive -->
+      <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.64">
+        <tr lang="en">distortion amount</tr>
+        <tr lang="ru" finished="false">искажение суммы</tr>
+      </property>
+      <!-- @flt_on_off -->
+      <property name="@flt_on_off" type="bool" default="0">
+        <tr lang="en">filter processing</tr>
+        <tr lang="ru" finished="false">фильтрация</tr>
+      </property>
+      <!-- @gain -->
+      <property name="@gain" type="float" units="decibel" default="2" minvalue="-10" maxvalue="10">
+        <tr lang="en">total effect gain</tr>
+        <tr lang="ru" finished="false">Общий эффект от увеличения</tr>
+      </property>
+      <!-- @high_drive -->
+      <property name="@high_drive" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">distortion amount on high frequencies</tr>
+        <tr lang="ru" finished="false">Количество искажений на высоких частотах</tr>
+      </property>
+      <!-- @high_gain -->
+      <property name="@high_gain" type="float" units="decibel" default="10" minvalue="-10"
+      maxvalue="20">
+        <tr lang="en">gain on high frequencies</tr>
+        <tr lang="ru" finished="false">Прибыль на высоких частотах</tr>
+      </property>
+      <!-- @hp_freq -->
+      <property name="@hp_freq" type="float" units="hertz" default="130" minvalue="20"
+      maxvalue="7040">
+        <tr lang="en">high pass frequency</tr>
+        <tr lang="ru" finished="false">высокая частота прохождения</tr>
+      </property>
+      <!-- @level -->
+      <property name="@level" type="float" default="0.01" minvalue="0" maxvalue="0.5">
+        <tr lang="en">effect level</tr>
+        <tr lang="ru" finished="false">Уровень эффекта</tr>
+      </property>
+      <!-- @low_drive -->
+      <property name="@low_drive" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">distortion amount on low frequencies</tr>
+        <tr lang="ru" finished="false">Количество искажений на низких частотах</tr>
+      </property>
+      <!-- @low_gain -->
+      <property name="@low_gain" type="float" units="decibel" default="10" minvalue="-10"
+      maxvalue="20">
+        <tr lang="en">gain on low frequencies</tr>
+        <tr lang="ru" finished="false">Прибыль на низких частотах</tr>
+      </property>
+      <!-- @lp_freq -->
+      <property name="@lp_freq" type="float" units="hertz" default="5000" minvalue="20"
+      maxvalue="12000">
+        <tr lang="en">low pass frequency</tr>
+        <tr lang="ru" finished="false">низкая частота прохождения</tr>
+      </property>
+      <!-- @middle_h_drive -->
+      <property name="@middle_h_drive" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">distortion amount on middle high frequencies</tr>
+        <!-- old: Количество искажений на средних высоких
                 частотах -->
-                <tr lang="ru" finished="false">Количество искажений на средних высоких
-                частотах</tr>
-            </property>
-            <!-- @middle_h_gain -->
-            <property name="@middle_h_gain" type="float" units="decibel" default="10"
-            minvalue="-10" maxvalue="20">
-                <tr lang="en">gain on middle high frequencies</tr>
-                <tr lang="ru" finished="false">Прибыль на средних высоких частотах</tr>
-            </property>
-            <!-- @middle_l_drive -->
-            <property name="@middle_l_drive" type="float" minvalue="0" maxvalue="1" default="1">
-                <tr lang="en">distortion amount on middle low frequencies</tr>
-                <tr lang="ru" finished="false">Количество искажений на средних низких частотах</tr>
-            </property>
-            <!-- @middle_l_gain -->
-            <property name="@middle_l_gain" type="float" units="decibel" default="10"
-            minvalue="-10" maxvalue="20">
-                <tr lang="en">gain on middle low frequencies</tr>
-                <tr lang="ru" finished="false">Прибыль на средних низких частотах</tr>
-            </property>
-            <!-- @res_on_off -->
-            <property name="@res_on_off" type="bool" default="0">
-                <tr lang="en">resonator</tr>
-                <tr lang="ru" finished="false">резонатор</tr>
-            </property>
-            <!-- @sp_high_freq -->
-            <property name="@sp_high_freq" type="float" units="hertz" default="5000"
-            minvalue="1000" maxvalue="12000">
-                <tr lang="en">speaker emulation high frequency</tr>
-                <tr lang="ru" finished="false">громкоговоритель эмуляция высокой частоты</tr>
-            </property>
-            <!-- @sp_low_freq -->
-            <property name="@sp_low_freq" type="float" units="hertz" minvalue="20" maxvalue="1000"
-            default="130">
-                <tr lang="en">speaker emulation low frequency</tr>
-                <tr lang="ru" finished="false">громкоговоритель эмуляция низкой частоты</tr>
-            </property>
-            <!-- @sp_on_off -->
-            <property name="@sp_on_off" type="bool" default="0">
-                <tr lang="en">speaker emulation turn on/off</tr>
-                <tr lang="ru" finished="false">Динамика громкоговорителя Включить/выключить</tr>
-            </property>
-            <!-- @split_high_freq -->
-            <property name="@split_high_freq" type="float" units="hertz" default="1250"
-            minvalue="1250" maxvalue="12000">
-                <tr lang="en">high split frequency</tr>
-                <tr lang="ru" finished="false">высокая частота разделения</tr>
-            </property>
-            <!-- @split_low_freq -->
-            <property name="@split_low_freq" type="float" units="hertz" default="250" minvalue="20"
-            maxvalue="600">
-                <tr lang="en">low split frequency</tr>
-                <tr lang="ru" finished="false">низкая сплит-частота</tr>
-            </property>
-            <!-- @split_middle_freq -->
-            <property name="@split_middle_freq" type="float" units="hertz" default="650"
-            minvalue="600" maxvalue="1250">
-                <tr lang="en">middle split frequency</tr>
-                <tr lang="ru" finished="false">Среднее разделение частоты</tr>
-            </property>
-            <!-- @trigger -->
-            <property name="@trigger" type="float" default="0.12" minvalue="0" maxvalue="1">
-                <tr lang="en">resonator trigger</tr>
-                <tr lang="ru" finished="false">триггер резонатора</tr>
-            </property>
-            <!-- @vibrato -->
-            <property name="@vibrato" type="float" default="1" minvalue="0" maxvalue="1">
-                <tr lang="en">resonator vibration</tr>
-                <tr lang="ru" finished="false">Резонатор вибрации</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset object</tr>
-                    <tr lang="ru" finished="false">сбрасывать объект</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Количество искажений на средних высоких частотах</tr>
+      </property>
+      <!-- @middle_h_gain -->
+      <property name="@middle_h_gain" type="float" units="decibel" default="10" minvalue="-10"
+      maxvalue="20">
+        <tr lang="en">gain on middle high frequencies</tr>
+        <tr lang="ru" finished="false">Прибыль на средних высоких частотах</tr>
+      </property>
+      <!-- @middle_l_drive -->
+      <property name="@middle_l_drive" type="float" minvalue="0" maxvalue="1" default="1">
+        <tr lang="en">distortion amount on middle low frequencies</tr>
+        <tr lang="ru" finished="false">Количество искажений на средних низких частотах</tr>
+      </property>
+      <!-- @middle_l_gain -->
+      <property name="@middle_l_gain" type="float" units="decibel" default="10" minvalue="-10"
+      maxvalue="20">
+        <tr lang="en">gain on middle low frequencies</tr>
+        <tr lang="ru" finished="false">Прибыль на средних низких частотах</tr>
+      </property>
+      <!-- @res_on_off -->
+      <property name="@res_on_off" type="bool" default="0">
+        <tr lang="en">resonator</tr>
+        <tr lang="ru" finished="false">резонатор</tr>
+      </property>
+      <!-- @sp_high_freq -->
+      <property name="@sp_high_freq" type="float" units="hertz" default="5000" minvalue="1000"
+      maxvalue="12000">
+        <tr lang="en">speaker emulation high frequency</tr>
+        <tr lang="ru" finished="false">громкоговоритель эмуляция высокой частоты</tr>
+      </property>
+      <!-- @sp_low_freq -->
+      <property name="@sp_low_freq" type="float" units="hertz" minvalue="20" maxvalue="1000"
+      default="130">
+        <tr lang="en">speaker emulation low frequency</tr>
+        <tr lang="ru" finished="false">громкоговоритель эмуляция низкой частоты</tr>
+      </property>
+      <!-- @sp_on_off -->
+      <property name="@sp_on_off" type="bool" default="0">
+        <tr lang="en">speaker emulation turn on/off</tr>
+        <tr lang="ru" finished="false">Динамика громкоговорителя Включить/выключить</tr>
+      </property>
+      <!-- @split_high_freq -->
+      <property name="@split_high_freq" type="float" units="hertz" default="1250" minvalue="1250"
+      maxvalue="12000">
+        <tr lang="en">high split frequency</tr>
+        <tr lang="ru" finished="false">высокая частота разделения</tr>
+      </property>
+      <!-- @split_low_freq -->
+      <property name="@split_low_freq" type="float" units="hertz" default="250" minvalue="20"
+      maxvalue="600">
+        <tr lang="en">low split frequency</tr>
+        <tr lang="ru" finished="false">низкая сплит-частота</tr>
+      </property>
+      <!-- @split_middle_freq -->
+      <property name="@split_middle_freq" type="float" units="hertz" default="650" minvalue="600"
+      maxvalue="1250">
+        <tr lang="en">middle split frequency</tr>
+        <tr lang="ru" finished="false">Среднее разделение частоты</tr>
+      </property>
+      <!-- @trigger -->
+      <property name="@trigger" type="float" default="0.12" minvalue="0" maxvalue="1">
+        <tr lang="en">resonator trigger</tr>
+        <tr lang="ru" finished="false">триггер резонатора</tr>
+      </property>
+      <!-- @vibrato -->
+      <property name="@vibrato" type="float" default="1" minvalue="0" maxvalue="1">
+        <tr lang="en">resonator vibration</tr>
+        <tr lang="ru" finished="false">Резонатор вибрации</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset object</tr>
+          <tr lang="ru" finished="false">сбрасывать объект</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [open %CEAMMC%/guitar1.wav, 1(
 |
@@ -203,7 +201,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

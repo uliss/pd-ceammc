@@ -1,80 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.sync_add">
-        <title>math.sync_add</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sync addition</tr>
-                <tr lang="ru">синхронное сложение</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math add sync</keywords>
-            <aliases>
-                <alias>math.+'</alias>
-                <alias>ceammc/+'</alias>
-                <alias>+'</alias>
-            </aliases>
-            <since>0.8</since>
-            <also>
-                <see>math.sync_sub</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="F" type="float">
-                <tr lang="en">second addend</tr>
-                <tr lang="ru" finished="false">второе добавление</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @int -->
-            <property name="@int" type="flag" default="0" access="initonly">
-                <tr lang="en">operate on integers only</tr>
-                <tr lang="ru" finished="false">работать только на целых числах</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set first addend, calculate and output result</tr>
-                    <!-- old: установить первое добавление, вычислить и
+  <object name="math.sync_add">
+    <title>math.sync_add</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sync addition</tr>
+        <tr lang="ru">синхронное сложение</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math add sync</keywords>
+      <aliases>
+        <alias>math.+'</alias>
+        <alias>ceammc/+'</alias>
+        <alias>+'</alias>
+      </aliases>
+      <since>0.8</since>
+      <also>
+        <see>math.sync_sub</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="F" type="float">
+        <tr lang="en">second addend</tr>
+        <tr lang="ru" finished="false">второе добавление</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @int -->
+      <property name="@int" type="flag" default="0" access="initonly">
+        <tr lang="en">operate on integers only</tr>
+        <tr lang="ru" finished="false">работать только на целых числах</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set first addend, calculate and output result</tr>
+          <!-- old: установить первое добавление, вычислить и
                     получить результат -->
-                    <tr lang="ru" finished="false">установить первое добавление, вычислить и
-                    получить результат</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">pair: set first and second addends, calculate and output
-                    result</tr>
-                    <!-- old: пара: установить первое и второе добавления,
+          <tr lang="ru" finished="false">установить первое добавление, вычислить и получить
+          результат</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">pair: set first and second addends, calculate and output result</tr>
+          <!-- old: пара: установить первое и второе добавления,
                     рассчитать и вывести результат -->
-                    <tr lang="ru" finished="false">пара: установить первое и второе добавления,
-                    рассчитать и вывести результат</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">change second addend, calculate and output result</tr>
-                    <!-- old: изменить второе добавление, рассчитать и вывести
+          <tr lang="ru" finished="false">пара: установить первое и второе добавления, рассчитать и
+          вывести результат</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">change second addend, calculate and output result</tr>
+          <!-- old: изменить второе добавление, рассчитать и вывести
                     результат -->
-                    <tr lang="ru" finished="false">изменить второе добавление, рассчитать и вывести
-                    результат</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result output</tr>
-                    <tr lang="ru" finished="false">результативность</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">изменить второе добавление, рассчитать и вывести
+          результат</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result output</tr>
+          <tr lang="ru" finished="false">результативность</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]   [F]   /*same as:*/ [F]  [F]
 |     |                  |    |
@@ -84,7 +83,7 @@
 |                        |
 [F]                      [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

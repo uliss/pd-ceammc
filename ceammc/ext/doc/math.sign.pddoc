@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.sign">
-        <title>math.sign</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sign function</tr>
-                <tr lang="ru">знаковая функция</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math sign</keywords>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Returns *-1* if x &lt; 0, *0* if x == 0 and *1* if x &gt; 0.</tr>
-                <!-- old: Возвращает *-1*, если x < 0, *0*, если x == 0 и
+  <object name="math.sign">
+    <title>math.sign</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sign function</tr>
+        <tr lang="ru">знаковая функция</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math sign</keywords>
+      <since>0.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Returns *-1* if x &lt; 0, *0* if x == 0 and *1* if x &gt; 0.</tr>
+        <!-- old: Возвращает *-1*, если x < 0, *0*, если x == 0 и
                 *1*, если x > 0. -->
-                <tr lang="ru" finished="false">Возвращает *-1*, если x &lt; 0, *0*, если x == 0 и
-                *1*, если x &gt; 0.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">list of numbers</tr>
-                    <tr lang="ru" finished="false">Список номеров</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Возвращает *-1*, если x &lt; 0, *0*, если x == 0 и *1*, если
+        x &gt; 0.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">list of numbers</tr>
+          <tr lang="ru" finished="false">Список номеров</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]  [-10 0 100(
 |    |
@@ -54,7 +54,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

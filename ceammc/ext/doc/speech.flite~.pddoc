@@ -1,91 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="speech.flite~">
-        <title>speech.flite~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">Flite text to speech synthesis</tr>
-                <tr lang="ru">синтезатор речи Flite</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>misc</category>
-            <keywords>speak speech flite</keywords>
-            <since>0.9.2</since>
-            <also>
-                <see>speech.flite</see>
-            </also>
-        </meta>
+  <object name="speech.flite~">
+    <title>speech.flite~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">Flite text to speech synthesis</tr>
+        <tr lang="ru">синтезатор речи Flite</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>misc</category>
+      <keywords>speak speech flite</keywords>
+      <since>0.9.2</since>
+      <also>
+        <see>speech.flite</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Speaks floats, symbols and list to wavetables using flite TTS engine.</tr>
+        <tr lang="ru" finished="false">Говорит поплавки, символы и список для волновых таблиц с
+        использованием движка flite TTS.</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @pitch -->
+      <property name="@pitch" type="float" default="-1">
+        <tr lang="en">voice pitch (-1 - default value)</tr>
+        <tr lang="ru" finished="false">голосовой шаг (-1 - значение по умолчанию)</tr>
+      </property>
+      <!-- @speed -->
+      <property name="@speed" type="float" minvalue="0.5" maxvalue="4" default="1">
+        <tr lang="en">speaking speed</tr>
+        <tr lang="ru" finished="false">Скорость речи</tr>
+      </property>
+      <!-- @voice -->
+      <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">
+        <tr lang="en">default voice</tr>
+        <tr lang="ru" finished="false">Голос по умолчанию</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- stop -->
+      <method name="stop">
         <info>
-            <par>
-                <tr lang="en">Speaks floats, symbols and list to wavetables using flite TTS
-                engine.</tr>
-                <tr lang="ru" finished="false">Говорит поплавки, символы и список для волновых
-                таблиц с использованием движка flite TTS.</tr>
-            </par>
+          <tr lang="en">stops speech and clear speech queue</tr>
+          <tr lang="ru" finished="false">остановка речи и четкая речевая очередь</tr>
         </info>
-        <properties>
-            <!-- @pitch -->
-            <property name="@pitch" type="float" default="-1">
-                <tr lang="en">voice pitch (-1 - default value)</tr>
-                <tr lang="ru" finished="false">голосовой шаг (-1 - значение по умолчанию)</tr>
-            </property>
-            <!-- @speed -->
-            <property name="@speed" type="float" minvalue="0.5" maxvalue="4" default="1">
-                <tr lang="en">speaking speed</tr>
-                <tr lang="ru" finished="false">Скорость речи</tr>
-            </property>
-            <!-- @voice -->
-            <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">
-                <tr lang="en">default voice</tr>
-                <tr lang="ru" finished="false">Голос по умолчанию</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- stop -->
-            <method name="stop">
-                <info>
-                    <tr lang="en">stops speech and clear speech queue</tr>
-                    <tr lang="ru" finished="false">остановка речи и четкая речевая очередь</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">speak number</tr>
-                    <tr lang="ru" finished="false">разговорный номер</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">speak text</tr>
-                    <tr lang="ru" finished="false">говорить текст</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">speak text</tr>
-                    <tr lang="ru" finished="false">говорить текст</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float: number of sentences left to speak</tr>
-                    <tr lang="ru" finished="false">Float: количество предложений, оставленных для
-                    выступления</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">speak number</tr>
+          <tr lang="ru" finished="false">разговорный номер</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">speak text</tr>
+          <tr lang="ru" finished="false">говорить текст</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">speak text</tr>
+          <tr lang="ru" finished="false">говорить текст</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float: number of sentences left to speak</tr>
+          <tr lang="ru" finished="false">Float: количество предложений, оставленных для
+          выступления</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |
@@ -103,7 +102,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

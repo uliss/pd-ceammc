@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="noise.lfreq~">
-        <title>noise.lfreq~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">[noise.lfreq0~] smoothed with no overshoot</tr>
-                <tr lang="ru">сглаженный шум объекта [noise.lfreq0~]</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>noise</category>
-            <keywords>noise lfreq</keywords>
-            <since>0.2</since>
-            <also>
-                <see>noise.lfreq0~</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="FREQ" type="float" minvalue="5" maxvalue="22050" units="hertz">
-                <tr lang="en">noise generation freq</tr>
-                <tr lang="ru" finished="false">генерация шума freq</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @freq -->
-            <property name="@freq" type="float" minvalue="5" maxvalue="22050" default="1000"
-            units="hertz">
-                <tr lang="en">noise generation freq</tr>
-                <tr lang="ru" finished="false">генерация шума freq</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set average frequency</tr>
-                    <tr lang="ru" finished="false">Установить среднюю частоту</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="noise.lfreq~">
+    <title>noise.lfreq~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">[noise.lfreq0~] smoothed with no overshoot</tr>
+        <tr lang="ru">сглаженный шум объекта [noise.lfreq0~]</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>noise</category>
+      <keywords>noise lfreq</keywords>
+      <since>0.2</since>
+      <also>
+        <see>noise.lfreq0~</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="FREQ" type="float" minvalue="5" maxvalue="22050" units="hertz">
+        <tr lang="en">noise generation freq</tr>
+        <tr lang="ru" finished="false">генерация шума freq</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @freq -->
+      <property name="@freq" type="float" minvalue="5" maxvalue="22050" default="1000"
+      units="hertz">
+        <tr lang="en">noise generation freq</tr>
+        <tr lang="ru" finished="false">генерация шума freq</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set average frequency</tr>
+          <tr lang="ru" finished="false">Установить среднюю частоту</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [@freq 5000( [@freq 2000(
 |            |
@@ -74,7 +74,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

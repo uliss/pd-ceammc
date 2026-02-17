@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="noise.white~">
-        <title>noise.white~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">white noise generator</tr>
-                <tr lang="ru">генератор белого шума</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>noise</category>
-            <keywords>noise white</keywords>
-            <since>0.1</since>
-            <also>
-                <see>noise.pink~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">outputs random numbers between -1 and 1 at signal rate.</tr>
-                <!-- old: выдает случайные числа между -1 и 1 со скоростью
+  <object name="noise.white~">
+    <title>noise.white~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">white noise generator</tr>
+        <tr lang="ru">генератор белого шума</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>noise</category>
+      <keywords>noise white</keywords>
+      <since>0.1</since>
+      <also>
+        <see>noise.pink~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">outputs random numbers between -1 and 1 at signal rate.</tr>
+        <!-- old: выдает случайные числа между -1 и 1 со скоростью
                 сигнала. -->
-                <tr lang="ru" finished="false">выдает случайные числа между -1 и 1 со скоростью
-                сигнала.</tr>
-            </par>
-        </info>
-        <properties>
-            <xi:include href="props_active.xml" />
-        </properties>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">выдает случайные числа между -1 и 1 со скоростью
+        сигнала.</tr>
+      </par>
+    </info>
+    <properties>
+      <xi:include href="props_active.xml" />
+    </properties>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.dsp~]
 
@@ -57,7 +57,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

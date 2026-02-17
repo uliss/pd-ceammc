@@ -1,62 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="path.normalize">
-        <title>path.normalize</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">normalize file paths</tr>
-                <tr lang="ru">нормализует пути файлов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>path</category>
-            <keywords>path normalize</keywords>
-            <since>0.9.4</since>
-            <aliases>
-                <alias>path.norm</alias>
-            </aliases>
-            <also>
-                <see>path.split</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">These conversions are purely lexical. They do not check that the
-                paths exist, do not follow symlinks, and do not access the filesystem at all</tr>
-                <!-- old: Эти преобразования являются чисто лексическими. Они
+  <object name="path.normalize">
+    <title>path.normalize</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">normalize file paths</tr>
+        <tr lang="ru">нормализует пути файлов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>path</category>
+      <keywords>path normalize</keywords>
+      <since>0.9.4</since>
+      <aliases>
+        <alias>path.norm</alias>
+      </aliases>
+      <also>
+        <see>path.split</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">These conversions are purely lexical. They do not check that the paths exist,
+        do not follow symlinks, and do not access the filesystem at all</tr>
+        <!-- old: Эти преобразования являются чисто лексическими. Они
                 не проверяют наличие путей, не следуют по симлинкам и вообще не имеют доступа к
                 файловой системе. -->
-                <tr lang="ru" finished="false">Эти преобразования являются чисто лексическими. Они
-                не проверяют наличие путей, не следуют по симлинкам и вообще не имеют доступа к
-                файловой системе.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">file path</tr>
-                    <tr lang="ru" finished="false">Файловый путь</tr>
-                </in>
-                <in on="data:string">
-                    <tr lang="en">file path</tr>
-                    <tr lang="ru" finished="false">Файловый путь</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">symbol or data:string: normalized path</tr>
-                    <tr lang="ru" finished="false">символ или данные: строка: нормированный
-                    путь</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Эти преобразования являются чисто лексическими. Они не
+        проверяют наличие путей, не следуют по симлинкам и вообще не имеют доступа к файловой
+        системе.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">file path</tr>
+          <tr lang="ru" finished="false">Файловый путь</tr>
+        </in>
+        <in on="data:string">
+          <tr lang="en">file path</tr>
+          <tr lang="ru" finished="false">Файловый путь</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">symbol or data:string: normalized path</tr>
+          <tr lang="ru" finished="false">символ или данные: строка: нормированный путь</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol /path///./to/normalize/../file.txt(
 |
@@ -64,7 +63,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

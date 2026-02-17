@@ -1,76 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.sustain">
-        <title>midi.sustain</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sustain pedal emulation</tr>
-                <tr lang="ru">эмуляция педали сустейна</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi sustain</keywords>
-            <since>0.9.3</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">when pedal is on: ignore all note offs</tr>
-                <tr lang="ru" finished="false">Когда педаль включена: игнорируйте все заметки</tr>
-            </par>
-            <par>
-                <tr lang="en">when pedal is off: output all sustained notes off</tr>
-                <!-- old: когда педаль выключена: выведите все устойчивые
+  <object name="midi.sustain">
+    <title>midi.sustain</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sustain pedal emulation</tr>
+        <tr lang="ru">эмуляция педали сустейна</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi sustain</keywords>
+      <since>0.9.3</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">when pedal is on: ignore all note offs</tr>
+        <tr lang="ru" finished="false">Когда педаль включена: игнорируйте все заметки</tr>
+      </par>
+      <par>
+        <tr lang="en">when pedal is off: output all sustained notes off</tr>
+        <!-- old: когда педаль выключена: выведите все устойчивые
                 ноты -->
-                <tr lang="ru" finished="false">когда педаль выключена: выведите все устойчивые
-                ноты</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="ON" type="bool">
-                <tr lang="en">initial state</tr>
-                <tr lang="ru" finished="false">начальное состояние</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @ctlin -->
-            <property name="@ctlin" type="bool" default="0">
-                <tr lang="en">listen to CTL64 from MIDI controller</tr>
-                <tr lang="ru" finished="false">Слушать CTL64 с контроллера MIDI</tr>
-            </property>
-            <!-- @on -->
-            <property name="@on" type="bool" default="0">
-                <tr lang="en">pedal state</tr>
-                <tr lang="ru" finished="false">состояние педали</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">MIDI input: NOTE VEL</tr>
-                    <tr lang="ru" finished="false">Ввод MIDI: Примечание VEL</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">turn sustain on/off (1/0)</tr>
-                    <tr lang="ru" finished="false">включение/выключение (1/0)</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">MIDI output: NOTE VEL</tr>
-                    <tr lang="ru" finished="false">Вывод MIDI: Примечание VEL</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">когда педаль выключена: выведите все устойчивые ноты</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="ON" type="bool">
+        <tr lang="en">initial state</tr>
+        <tr lang="ru" finished="false">начальное состояние</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @ctlin -->
+      <property name="@ctlin" type="bool" default="0">
+        <tr lang="en">listen to CTL64 from MIDI controller</tr>
+        <tr lang="ru" finished="false">Слушать CTL64 с контроллера MIDI</tr>
+      </property>
+      <!-- @on -->
+      <property name="@on" type="bool" default="0">
+        <tr lang="en">pedal state</tr>
+        <tr lang="ru" finished="false">состояние педали</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">MIDI input: NOTE VEL</tr>
+          <tr lang="ru" finished="false">Ввод MIDI: Примечание VEL</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">turn sustain on/off (1/0)</tr>
+          <tr lang="ru" finished="false">включение/выключение (1/0)</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">MIDI output: NOTE VEL</tr>
+          <tr lang="ru" finished="false">Вывод MIDI: Примечание VEL</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.hk 24]
 |
@@ -88,7 +87,7 @@
 |       |
 [print] [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

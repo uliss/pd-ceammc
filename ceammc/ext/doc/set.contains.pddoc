@@ -1,65 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="set.contains">
-        <title>set.contains</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks whether the predefined element is present in the input
-                set</tr>
-                <tr lang="ru">проверяет, присутстует ли предварительно заданный элемент во входном
-                множестве</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>data</category>
-            <keywords>data predicate contains</keywords>
-            <since>0.3</since>
-            <also>
-                <see>data.set</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="SUBJ" type="atom">
-                <tr lang="en">searched element</tr>
-                <tr lang="ru" finished="false">Поисковый элемент</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @subj -->
-            <property name="@subj" type="atom" default="null">
-                <tr lang="en">searched element</tr>
-                <tr lang="ru" finished="false">Поисковый элемент</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input set. Other values are ignored</tr>
-                    <tr lang="ru" finished="false">Набор входных данных. Другие ценности
-                    игнорируются</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="atom">
-                    <tr lang="en">set searched element</tr>
-                    <tr lang="ru" finished="false">Поисковый элемент</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">1 if element exists in set, otherwise 0</tr>
-                    <tr lang="ru" finished="false">1 если элемент существует в наборе, в противном
-                    случае 0</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="set.contains">
+    <title>set.contains</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks whether the predefined element is present in the input set</tr>
+        <tr lang="ru">проверяет, присутстует ли предварительно заданный элемент во входном
+        множестве</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>data</category>
+      <keywords>data predicate contains</keywords>
+      <since>0.3</since>
+      <also>
+        <see>data.set</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="SUBJ" type="atom">
+        <tr lang="en">searched element</tr>
+        <tr lang="ru" finished="false">Поисковый элемент</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @subj -->
+      <property name="@subj" type="atom" default="null">
+        <tr lang="en">searched element</tr>
+        <tr lang="ru" finished="false">Поисковый элемент</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input set. Other values are ignored</tr>
+          <tr lang="ru" finished="false">Набор входных данных. Другие ценности игнорируются</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="atom">
+          <tr lang="en">set searched element</tr>
+          <tr lang="ru" finished="false">Поисковый элемент</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">1 if element exists in set, otherwise 0</tr>
+          <tr lang="ru" finished="false">1 если элемент существует в наборе, в противном случае
+          0</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -71,7 +69,7 @@
 |
 [T]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

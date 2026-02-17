@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.prg2str">
-        <title>midi.prg2str</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts the GM Instrument number into the name</tr>
-                <tr lang="ru">преобразует номер инструмента GeneralMidi в его имя</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi convert midi</keywords>
-            <aliases>
-                <alias>midi.prg-&gt;str</alias>
-            </aliases>
-            <since>0.4</since>
-        </meta>
-        <properties>
-            <!-- @family -->
-            <property name="@family" type="flag" default="0" access="initonly">
-                <tr lang="en">output family name instead of instrument name</tr>
-                <tr lang="ru" finished="false">Фамилия выпуска вместо названия инструмента</tr>
-            </property>
-            <!-- @symbol -->
-            <property name="@symbol" type="flag" default="0" access="initonly">
-                <tr lang="en">output as symbol instead of string by default</tr>
-                <tr lang="ru" finished="false">вывод как символ вместо строки по умолчанию</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">General MIDI instrument number [1-128]</tr>
-                    <tr lang="ru" finished="false">Общий номер прибора MIDI [1-128]</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output General MIDI instrument name (string or symbol)</tr>
-                    <tr lang="ru" finished="false">на выходе общее название инструмента MIDI
-                    (струна или символ)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="midi.prg2str">
+    <title>midi.prg2str</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts the GM Instrument number into the name</tr>
+        <tr lang="ru">преобразует номер инструмента GeneralMidi в его имя</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi convert midi</keywords>
+      <aliases>
+        <alias>midi.prg-&gt;str</alias>
+      </aliases>
+      <since>0.4</since>
+    </meta>
+    <properties>
+      <!-- @family -->
+      <property name="@family" type="flag" default="0" access="initonly">
+        <tr lang="en">output family name instead of instrument name</tr>
+        <tr lang="ru" finished="false">Фамилия выпуска вместо названия инструмента</tr>
+      </property>
+      <!-- @symbol -->
+      <property name="@symbol" type="flag" default="0" access="initonly">
+        <tr lang="en">output as symbol instead of string by default</tr>
+        <tr lang="ru" finished="false">вывод как символ вместо строки по умолчанию</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">General MIDI instrument number [1-128]</tr>
+          <tr lang="ru" finished="false">Общий номер прибора MIDI [1-128]</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output General MIDI instrument name (string or symbol)</tr>
+          <tr lang="ru" finished="false">на выходе общее название инструмента MIDI (струна или
+          символ)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1(  [9(
 |    |
@@ -59,7 +59,7 @@
 |                       |
 [ui.dt]                 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

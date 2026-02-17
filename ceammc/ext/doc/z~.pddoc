@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="z~">
-        <title>z~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">integer sample delay</tr>
-                <tr lang="ru">целочисленная задержка сэмплов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>base</category>
-            <keywords>delay z</keywords>
-            <since>0.9.5</since>
-            <aliases>
-                <alias>ceammc/z~</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="Z" type="int" minvalue="0" maxvalue="512" units="sample">
-                <tr lang="en">delay length</tr>
-                <tr lang="ru" finished="false">длительность задержки</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @z -->
-            <property name="@z" type="int" minvalue="0" default="1" maxvalue="512" units="sample">
-                <tr lang="en">delay length</tr>
-                <tr lang="ru" finished="false">длительность задержки</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet type="control">
-                <in on="int">
-                    <tr lang="en">set delay length</tr>
-                    <tr lang="ru" finished="false">установленная длительность задержки</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="z~">
+    <title>z~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">integer sample delay</tr>
+        <tr lang="ru">целочисленная задержка сэмплов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>base</category>
+      <keywords>delay z</keywords>
+      <since>0.9.5</since>
+      <aliases>
+        <alias>ceammc/z~</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="Z" type="int" minvalue="0" maxvalue="512" units="sample">
+        <tr lang="en">delay length</tr>
+        <tr lang="ru" finished="false">длительность задержки</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @z -->
+      <property name="@z" type="int" minvalue="0" default="1" maxvalue="512" units="sample">
+        <tr lang="en">delay length</tr>
+        <tr lang="ru" finished="false">длительность задержки</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet type="control">
+        <in on="int">
+          <tr lang="en">set delay length</tr>
+          <tr lang="ru" finished="false">установленная длительность задержки</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang #a(
 |
@@ -87,7 +87,7 @@
 [X a->b:1]
 #z @size 400 200 @xlabels 1 @ylabels 1 @xmin_grid 1 @ymin_ticks 0 @ymaj_ticks 0 @xmin_ticks 0 @ymin -2 @ymax 2 @n 2
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

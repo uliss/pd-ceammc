@@ -1,129 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.eq10~">
-        <title>flt.eq10~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">graphic 10 band equalizer</tr>
-                <tr lang="ru">графический 10-полосный эквалайзер</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>graphic filter equalizer</keywords>
-            <since>0.1</since>
-            <also>
-                <see>flt.eq_peak~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">One band per octave. 5th-order Butterworth filters</tr>
-                <!-- old: Одна полоса на октаву. 5-я Заказать фильтры
+  <object name="flt.eq10~">
+    <title>flt.eq10~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">graphic 10 band equalizer</tr>
+        <tr lang="ru">графический 10-полосный эквалайзер</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>graphic filter equalizer</keywords>
+      <since>0.1</since>
+      <also>
+        <see>flt.eq_peak~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">One band per octave. 5th-order Butterworth filters</tr>
+        <!-- old: Одна полоса на октаву. 5-я Заказать фильтры
                 Butterworth -->
-                <tr lang="ru" finished="false">Одна полоса на октаву. 5-я Заказать фильтры
-                Butterworth</tr>
-            </par>
+        <tr lang="ru" finished="false">Одна полоса на октаву. 5-я Заказать фильтры Butterworth</tr>
+      </par>
+    </info>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @f1000 -->
+      <property name="@f1000" type="float" minvalue="-70" maxvalue="10" default="0"
+      units="decibel">
+        <tr lang="en">gain at 1000Hz</tr>
+        <tr lang="ru" finished="false">увеличение на 1000 Гц</tr>
+      </property>
+      <!-- @f125 -->
+      <property name="@f125" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+        <tr lang="en">gain at 125Hz</tr>
+        <tr lang="ru" finished="false">увеличение на 125 Гц</tr>
+      </property>
+      <!-- @f16000 -->
+      <property name="@f16000" type="float" minvalue="-70" maxvalue="10" default="0"
+      units="decibel">
+        <tr lang="en">gain at 16000Hz</tr>
+        <tr lang="ru" finished="false">увеличение на 16000 Гц</tr>
+      </property>
+      <!-- @f2000 -->
+      <property name="@f2000" type="float" minvalue="-70" maxvalue="10" default="0"
+      units="decibel">
+        <tr lang="en">gain at 2000Hz</tr>
+        <tr lang="ru" finished="false">увеличение на 2000 Гц</tr>
+      </property>
+      <!-- @f250 -->
+      <property name="@f250" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+        <tr lang="en">gain at 250Hz</tr>
+        <tr lang="ru" finished="false">увеличение на 250 Гц</tr>
+      </property>
+      <!-- @f31 -->
+      <property name="@f31" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+        <tr lang="en">gain at 31.25Hz</tr>
+        <tr lang="ru" finished="false">увеличение на 31,25 Гц</tr>
+      </property>
+      <!-- @f4000 -->
+      <property name="@f4000" type="float" minvalue="-70" maxvalue="10" default="0"
+      units="decibel">
+        <tr lang="en">gain at 4000Hz</tr>
+        <tr lang="ru" finished="false">увеличение на 4000 Гц</tr>
+      </property>
+      <!-- @f500 -->
+      <property name="@f500" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+        <tr lang="en">gain at 500Hz</tr>
+        <tr lang="ru" finished="false">увеличение на 500 Гц</tr>
+      </property>
+      <!-- @f62 -->
+      <property name="@f62" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+        <tr lang="en">gain at 62.5Hz</tr>
+        <tr lang="ru" finished="false">увеличение на 62,5 Гц</tr>
+      </property>
+      <!-- @f8000 -->
+      <property name="@f8000" type="float" minvalue="-70" maxvalue="10" default="0"
+      units="decibel">
+        <tr lang="en">gain at 8000Hz</tr>
+        <tr lang="ru" finished="false">увеличение на 8000 Гц</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset filter state to default</tr>
+          <tr lang="ru" finished="false">Сброс состояния фильтра по умолчанию</tr>
         </info>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @f1000 -->
-            <property name="@f1000" type="float" minvalue="-70" maxvalue="10" default="0"
-            units="decibel">
-                <tr lang="en">gain at 1000Hz</tr>
-                <tr lang="ru" finished="false">увеличение на 1000 Гц</tr>
-            </property>
-            <!-- @f125 -->
-            <property name="@f125" type="float" minvalue="-70" maxvalue="10" default="0"
-            units="decibel">
-                <tr lang="en">gain at 125Hz</tr>
-                <tr lang="ru" finished="false">увеличение на 125 Гц</tr>
-            </property>
-            <!-- @f16000 -->
-            <property name="@f16000" type="float" minvalue="-70" maxvalue="10" default="0"
-            units="decibel">
-                <tr lang="en">gain at 16000Hz</tr>
-                <tr lang="ru" finished="false">увеличение на 16000 Гц</tr>
-            </property>
-            <!-- @f2000 -->
-            <property name="@f2000" type="float" minvalue="-70" maxvalue="10" default="0"
-            units="decibel">
-                <tr lang="en">gain at 2000Hz</tr>
-                <tr lang="ru" finished="false">увеличение на 2000 Гц</tr>
-            </property>
-            <!-- @f250 -->
-            <property name="@f250" type="float" minvalue="-70" maxvalue="10" default="0"
-            units="decibel">
-                <tr lang="en">gain at 250Hz</tr>
-                <tr lang="ru" finished="false">увеличение на 250 Гц</tr>
-            </property>
-            <!-- @f31 -->
-            <property name="@f31" type="float" minvalue="-70" maxvalue="10" default="0"
-            units="decibel">
-                <tr lang="en">gain at 31.25Hz</tr>
-                <tr lang="ru" finished="false">увеличение на 31,25 Гц</tr>
-            </property>
-            <!-- @f4000 -->
-            <property name="@f4000" type="float" minvalue="-70" maxvalue="10" default="0"
-            units="decibel">
-                <tr lang="en">gain at 4000Hz</tr>
-                <tr lang="ru" finished="false">увеличение на 4000 Гц</tr>
-            </property>
-            <!-- @f500 -->
-            <property name="@f500" type="float" minvalue="-70" maxvalue="10" default="0"
-            units="decibel">
-                <tr lang="en">gain at 500Hz</tr>
-                <tr lang="ru" finished="false">увеличение на 500 Гц</tr>
-            </property>
-            <!-- @f62 -->
-            <property name="@f62" type="float" minvalue="-70" maxvalue="10" default="0"
-            units="decibel">
-                <tr lang="en">gain at 62.5Hz</tr>
-                <tr lang="ru" finished="false">увеличение на 62,5 Гц</tr>
-            </property>
-            <!-- @f8000 -->
-            <property name="@f8000" type="float" minvalue="-70" maxvalue="10" default="0"
-            units="decibel">
-                <tr lang="en">gain at 8000Hz</tr>
-                <tr lang="ru" finished="false">увеличение на 8000 Гц</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset filter state to default</tr>
-                    <tr lang="ru" finished="false">Сброс состояния фильтра по умолчанию</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">sets equalizer coefficients</tr>
-                    <tr lang="ru" finished="false">устанавливает коэффициенты эквалайзера</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output signal</tr>
-                    <tr lang="ru" finished="false">выходной сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">sets equalizer coefficients</tr>
+          <tr lang="ru" finished="false">устанавливает коэффициенты эквалайзера</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output signal</tr>
+          <tr lang="ru" finished="false">выходной сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [fill 0.5, bang(        [r~ ssc #a]
 |                       |
@@ -148,7 +142,7 @@
 |\     |
 [dac~] [s~ ssc]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

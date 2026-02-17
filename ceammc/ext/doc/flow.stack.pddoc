@@ -1,112 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.stack">
-        <title>flow.stack</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">message stack</tr>
-                <tr lang="ru">стек сообщений</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>stack</keywords>
-            <since>0.9.1</since>
-        </meta>
-        <arguments>
-            <argument name="MAX_SIZE" type="int" minvalue="1">
-                <tr lang="en">max stack size</tr>
-                <tr lang="ru" finished="false">Максимальный размер стека</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @empty -->
-            <property name="@empty" type="bool" default="1" access="readonly">
-                <tr lang="en">if stack is empty</tr>
-                <tr lang="ru" finished="false">Если стек пустой</tr>
-            </property>
-            <!-- @max_size -->
-            <property name="@max_size" type="int" default="100" minvalue="1">
-                <tr lang="en">maximum stack grow size</tr>
-                <tr lang="ru" finished="false">Максимальный размер стека</tr>
-            </property>
-            <!-- @on_empty -->
-            <property name="@on_empty" type="list" default="">
-                <tr lang="en">message send to destination address when stack becomes empty. First
-                list element is address to send, other additional elements treated as message or
-                bang if not specified.</tr>
-                <!-- old: Сообщение отправляется на адрес назначения, когда
+  <object name="flow.stack">
+    <title>flow.stack</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">message stack</tr>
+        <tr lang="ru">стек сообщений</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>stack</keywords>
+      <since>0.9.1</since>
+    </meta>
+    <arguments>
+      <argument name="MAX_SIZE" type="int" minvalue="1">
+        <tr lang="en">max stack size</tr>
+        <tr lang="ru" finished="false">Максимальный размер стека</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @empty -->
+      <property name="@empty" type="bool" default="1" access="readonly">
+        <tr lang="en">if stack is empty</tr>
+        <tr lang="ru" finished="false">Если стек пустой</tr>
+      </property>
+      <!-- @max_size -->
+      <property name="@max_size" type="int" default="100" minvalue="1">
+        <tr lang="en">maximum stack grow size</tr>
+        <tr lang="ru" finished="false">Максимальный размер стека</tr>
+      </property>
+      <!-- @on_empty -->
+      <property name="@on_empty" type="list" default="">
+        <tr lang="en">message send to destination address when stack becomes empty. First list
+        element is address to send, other additional elements treated as message or bang if not
+        specified.</tr>
+        <!-- old: Сообщение отправляется на адрес назначения, когда
                 стек становится пустым. Первый элемент списка - это адрес для отправки, другие
                 дополнительные элементы, рассматриваемые как сообщение или взрыв, если не
                 указано. -->
-                <tr lang="ru" finished="false">Сообщение отправляется на адрес назначения, когда
-                стек становится пустым. Первый элемент списка - это адрес для отправки, другие
-                дополнительные элементы, рассматриваемые как сообщение или взрыв, если не
-                указано.</tr>
-            </property>
-            <!-- @on_full -->
-            <property name="@on_full" type="list" default="">
-                <tr lang="en">message send to destination address when stack becomes full. First
-                list element is address to send, other additional elements treated as message or
-                bang if not specified.</tr>
-                <!-- old: Сообщение отправляется на адрес назначения, когда
+        <tr lang="ru" finished="false">Сообщение отправляется на адрес назначения, когда стек
+        становится пустым. Первый элемент списка - это адрес для отправки, другие дополнительные
+        элементы, рассматриваемые как сообщение или взрыв, если не указано.</tr>
+      </property>
+      <!-- @on_full -->
+      <property name="@on_full" type="list" default="">
+        <tr lang="en">message send to destination address when stack becomes full. First list
+        element is address to send, other additional elements treated as message or bang if not
+        specified.</tr>
+        <!-- old: Сообщение отправляется на адрес назначения, когда
                 стек становится полным. Первый элемент списка - это адрес для отправки, другие
                 дополнительные элементы, рассматриваемые как сообщение или взрыв, если не
                 указано. -->
-                <tr lang="ru" finished="false">Сообщение отправляется на адрес назначения, когда
-                стек становится полным. Первый элемент списка - это адрес для отправки, другие
-                дополнительные элементы, рассматриваемые как сообщение или взрыв, если не
-                указано.</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="int" default="0" access="readonly">
-                <tr lang="en">current number of elements in stack</tr>
-                <tr lang="ru" finished="false">Текущее количество элементов в стеке</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input: push to stack</tr>
-                    <tr lang="ru" finished="false">Оригинальное название: push to stack</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output and remove top element</tr>
-                    <tr lang="ru" finished="false">вывод и удаление верхнего элемента</tr>
-                </in>
-                <in on="any" selector="top">
-                    <tr lang="en">output top element</tr>
-                    <tr lang="ru" finished="false">Верхний элемент вывода</tr>
-                </in>
-                <in on="any" selector="pop">
-                    <tr lang="en">remove top element (no output)</tr>
-                    <tr lang="ru" finished="false">Pop: удалите верхний элемент (без вывода)</tr>
-                </in>
-                <in on="any" selector="clear">
-                    <tr lang="en">remove all elements (no output)</tr>
-                    <tr lang="ru" finished="false">ясно: удалить все элементы (без вывода)</tr>
-                </in>
-                <in on="any" selector="flush">
-                    <tr lang="en">output and remove all elements</tr>
-                    <tr lang="ru" finished="false">смыв: вывод и удаление всех элементов</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Сообщение отправляется на адрес назначения, когда стек
+        становится полным. Первый элемент списка - это адрес для отправки, другие дополнительные
+        элементы, рассматриваемые как сообщение или взрыв, если не указано.</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="int" default="0" access="readonly">
+        <tr lang="en">current number of elements in stack</tr>
+        <tr lang="ru" finished="false">Текущее количество элементов в стеке</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input: push to stack</tr>
+          <tr lang="ru" finished="false">Оригинальное название: push to stack</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output and remove top element</tr>
+          <tr lang="ru" finished="false">вывод и удаление верхнего элемента</tr>
+        </in>
+        <in on="any" selector="top">
+          <tr lang="en">output top element</tr>
+          <tr lang="ru" finished="false">Верхний элемент вывода</tr>
+        </in>
+        <in on="any" selector="pop">
+          <tr lang="en">remove top element (no output)</tr>
+          <tr lang="ru" finished="false">Pop: удалите верхний элемент (без вывода)</tr>
+        </in>
+        <in on="any" selector="clear">
+          <tr lang="en">remove all elements (no output)</tr>
+          <tr lang="ru" finished="false">ясно: удалить все элементы (без вывода)</tr>
+        </in>
+        <in on="any" selector="flush">
+          <tr lang="en">output and remove all elements</tr>
+          <tr lang="ru" finished="false">смыв: вывод и удаление всех элементов</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang( [1024( [symbol ABC( [1 2 3( [@any message(
 |      |      |            |       |
@@ -118,8 +116,8 @@
 
 [flow.stack-1]
 ]]>
-            </pdascii>
-            <pdascii id="1">
+      </pdascii>
+      <pdascii id="1">
 <![CDATA[
 [ui.keyboard]
 |
@@ -153,7 +151,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

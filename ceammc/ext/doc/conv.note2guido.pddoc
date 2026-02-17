@@ -1,68 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.note2guido">
-        <title>conv.note2guido</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts MIDI note number to Guido notation</tr>
-                <tr lang="ru">преобразует MIDI ноту в Guido-нотацию</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv guido midi</keywords>
-            <since>0.9.5</since>
-            <also>
-                <see>proto.inscore</see>
-            </also>
-            <aliases>
-                <alias>ceammc/note-&gt;guido</alias>
-                <alias>note-&gt;guido</alias>
-            </aliases>
-        </meta>
-        <methods>
-            <!-- note -->
-            <method name="note">
-                <param name="PITCH" type="int" required="true">
-                    <tr lang="en">note pitch (pitch &lt;0 treated as rest)</tr>
-                    <!-- old: нота шаг (pitch <0 рассматривается как
+  <object name="conv.note2guido">
+    <title>conv.note2guido</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts MIDI note number to Guido notation</tr>
+        <tr lang="ru">преобразует MIDI ноту в Guido-нотацию</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv guido midi</keywords>
+      <since>0.9.5</since>
+      <also>
+        <see>proto.inscore</see>
+      </also>
+      <aliases>
+        <alias>ceammc/note-&gt;guido</alias>
+        <alias>note-&gt;guido</alias>
+      </aliases>
+    </meta>
+    <methods>
+      <!-- note -->
+      <method name="note">
+        <param name="PITCH" type="int" required="true">
+          <tr lang="en">note pitch (pitch &lt;0 treated as rest)</tr>
+          <!-- old: нота шаг (pitch <0 рассматривается как
                     отдых) -->
-                    <!-- old: нота шаг (pitch <0 рассматривается как
+          <!-- old: нота шаг (pitch <0 рассматривается как
                     отдых) -->
-                    <tr lang="ru" finished="false">нота шаг (pitch &lt;0 рассматривается как
-                    отдых)</tr>
-                </param>
-                <param name="DUR" type="float" required="true">
-                    <tr lang="en">note duration</tr>
-                    <tr lang="ru" finished="false">отметка продолжительность</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">pitch</tr>
-                    <tr lang="ru" finished="false">высота</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">list of pitches</tr>
-                    <tr lang="ru" finished="false">Список полей</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">symbol: converted value</tr>
-                    <tr lang="ru" finished="false">Символ: преобразованная стоимость</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">нота шаг (pitch &lt;0 рассматривается как отдых)</tr>
+        </param>
+        <param name="DUR" type="float" required="true">
+          <tr lang="en">note duration</tr>
+          <tr lang="ru" finished="false">отметка продолжительность</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">pitch</tr>
+          <tr lang="ru" finished="false">высота</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">list of pitches</tr>
+          <tr lang="ru" finished="false">Список полей</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">symbol: converted value</tr>
+          <tr lang="ru" finished="false">Символ: преобразованная стоимость</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.keyboard]
 |
@@ -78,8 +77,8 @@
 
 [conv.note2guido-inscore]
 ]]>
-            </pdascii>
-            <pdascii id="inscore">
+      </pdascii>
+      <pdascii id="inscore">
 <![CDATA[
 [ui.keyboard]
 |
@@ -96,7 +95,7 @@
 |
 [net.osc.send osc.udp://localhost:7000]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

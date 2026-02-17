@@ -1,60 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="patch.deps">
-        <title>patch.deps</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">output the patch dependencies: used objects and abstractions</tr>
-                <tr lang="ru">выводит зависимости патча: используемые объекты и абстракции</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>patch</category>
-            <keywords>patch canvas deps</keywords>
-            <since>0.9.0</since>
-            <also>
-                <see>patch.tree</see>
-            </also>
-        </meta>
-        <methods>
-            <!-- dump -->
-            <method name="dump">
-                <info>
-                    <tr lang="en">output dependency tree to Pd window</tr>
-                    <tr lang="ru" finished="false">Дерево зависимостей выходного окна Pd</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet type="control">
-                <in on="bang">
-                    <tr lang="en">output patch dependencies as Dict. Keys are library external
-                    paths or abstraction full paths, values are external or abstraction names.
-                    PureData core objects listed under "_core" key.</tr>
-                    <!-- old: Выходные патчи зависимостей как Дикт. Ключи —
+  <object name="patch.deps">
+    <title>patch.deps</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">output the patch dependencies: used objects and abstractions</tr>
+        <tr lang="ru">выводит зависимости патча: используемые объекты и абстракции</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>patch</category>
+      <keywords>patch canvas deps</keywords>
+      <since>0.9.0</since>
+      <also>
+        <see>patch.tree</see>
+      </also>
+    </meta>
+    <methods>
+      <!-- dump -->
+      <method name="dump">
+        <info>
+          <tr lang="en">output dependency tree to Pd window</tr>
+          <tr lang="ru" finished="false">Дерево зависимостей выходного окна Pd</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="control">
+        <in on="bang">
+          <tr lang="en">output patch dependencies as Dict. Keys are library external paths or
+          abstraction full paths, values are external or abstraction names. PureData core objects
+          listed under "_core" key.</tr>
+          <!-- old: Выходные патчи зависимостей как Дикт. Ключи —
                     это внешние пути библиотеки или полные пути абстракции, значения — внешние или
                     абстракционные имена. Объекты ядра PureData, перечисленные под ключом
                     «_core». -->
-                    <tr lang="ru" finished="false">Выходные патчи зависимостей как Дикт. Ключи —
-                    это внешние пути библиотеки или полные пути абстракции, значения — внешние или
-                    абстракционные имена. Объекты ядра PureData, перечисленные под ключом
-                    «_core».</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="control">
-                <out type="any">
-                    <tr lang="en">patch dependency</tr>
-                    <tr lang="ru" finished="false">патч-зависимость</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Выходные патчи зависимостей как Дикт. Ключи — это внешние
+          пути библиотеки или полные пути абстракции, значения — внешние или абстракционные имена.
+          Объекты ядра PureData, перечисленные под ключом «_core».</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="control">
+        <out type="any">
+          <tr lang="en">patch dependency</tr>
+          <tr lang="ru" finished="false">патч-зависимость</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(
 |
@@ -70,8 +69,8 @@
 
 [patch.deps-abs]
 ]]>
-            </pdascii>
-            <pdascii id="abs">
+      </pdascii>
+      <pdascii id="abs">
 <![CDATA[
 [hsl]
 |
@@ -81,8 +80,8 @@
 
 [patch.deps-abs1]
 ]]>
-            </pdascii>
-            <pdascii id="abs1">
+      </pdascii>
+      <pdascii id="abs1">
 <![CDATA[
 [hsl]
 |
@@ -90,7 +89,7 @@
 |
 [ui.hsl]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

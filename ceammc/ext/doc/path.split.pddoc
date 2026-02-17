@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="path.split">
-        <title>path.split</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">split path into dirname and basename</tr>
-                <tr lang="ru">разбивает путь на имя каталога и файла</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>path</category>
-            <keywords>path environment</keywords>
-            <since>0.9.4</since>
-            <also>
-                <see>file.size</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Split filename to dirname and basename.</tr>
-                <tr lang="ru" finished="false">Разделите имя файла на dirname и basename.</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">filename</tr>
-                    <tr lang="ru" finished="false">имя файла</tr>
-                </in>
-                <in on="data:string">
-                    <tr lang="en">filename</tr>
-                    <tr lang="ru" finished="false">имя файла</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">symbol: dirname</tr>
-                    <tr lang="ru" finished="false">Символ: Dirname</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">symbol: basename</tr>
-                    <tr lang="ru" finished="false">Символ: базовое имя</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="path.split">
+    <title>path.split</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">split path into dirname and basename</tr>
+        <tr lang="ru">разбивает путь на имя каталога и файла</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>path</category>
+      <keywords>path environment</keywords>
+      <since>0.9.4</since>
+      <also>
+        <see>file.size</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Split filename to dirname and basename.</tr>
+        <tr lang="ru" finished="false">Разделите имя файла на dirname и basename.</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">filename</tr>
+          <tr lang="ru" finished="false">имя файла</tr>
+        </in>
+        <in on="data:string">
+          <tr lang="en">filename</tr>
+          <tr lang="ru" finished="false">имя файла</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">symbol: dirname</tr>
+          <tr lang="ru" finished="false">Символ: Dirname</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">symbol: basename</tr>
+          <tr lang="ru" finished="false">Символ: базовое имя</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol /path/to/the/file.txt(
 |
@@ -62,7 +62,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

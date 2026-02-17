@@ -1,64 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="canvas.dir">
-        <title>canvas.dir</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs the current canvas directory of the object and nesting
-                level</tr>
-                <tr lang="ru">выводит директорию холста у объекта и его уровень вложенности</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>patch</category>
-            <keywords>canvas directory</keywords>
-            <also>
-                <see>canvas.name</see>
-                <see>canvas.path</see>
-            </also>
-            <since>0.8</since>
-        </meta>
-        <properties>
-            <!-- @abs -->
-            <property name="@abs" type="bool" default="1">
-                <tr lang="en">abstraction mode. If 1: it outputs the abstraction catalog, if the
-                object is located within the abstraction, or the path of the top-level parent
-                catalog of the canvas, if the object was not created within the abstraction. If 0:
-                output topmost parent canvas directory even this object was create inside the
-                abstrction subpatch.</tr>
-                <tr lang="ru">режим абстракции. Если 1: выводит каталог абстракции, если объект
-                находится внутри абстракции, или путь верхнего родительского каталога холста, если
-                объект не был создан внутри абстракции. Если 0: выводит путь верхнего родительского
-                каталога холста, даже этот объект был создан внутри субпатча абстракции.</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output current canvas directory</tr>
-                    <tr lang="ru" finished="false">Выход текущего каталога canvas</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">symbol: current canvas directory</tr>
-                    <tr lang="ru" finished="false">Символ: текущий каталог canvas</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int: nesting level</tr>
-                    <tr lang="ru" finished="false">Int: уровень гнездования</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="canvas.dir">
+    <title>canvas.dir</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs the current canvas directory of the object and nesting level</tr>
+        <tr lang="ru">выводит директорию холста у объекта и его уровень вложенности</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>patch</category>
+      <keywords>canvas directory</keywords>
+      <also>
+        <see>canvas.name</see>
+        <see>canvas.path</see>
+      </also>
+      <since>0.8</since>
+    </meta>
+    <properties>
+      <!-- @abs -->
+      <property name="@abs" type="bool" default="1">
+        <tr lang="en">abstraction mode. If 1: it outputs the abstraction catalog, if the object is
+        located within the abstraction, or the path of the top-level parent catalog of the canvas,
+        if the object was not created within the abstraction. If 0: output topmost parent canvas
+        directory even this object was create inside the abstrction subpatch.</tr>
+        <tr lang="ru">режим абстракции. Если 1: выводит каталог абстракции, если объект находится
+        внутри абстракции, или путь верхнего родительского каталога холста, если объект не был
+        создан внутри абстракции. Если 0: выводит путь верхнего родительского каталога холста, даже
+        этот объект был создан внутри субпатча абстракции.</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output current canvas directory</tr>
+          <tr lang="ru" finished="false">Выход текущего каталога canvas</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">symbol: current canvas directory</tr>
+          <tr lang="ru" finished="false">Символ: текущий каталог canvas</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int: nesting level</tr>
+          <tr lang="ru" finished="false">Int: уровень гнездования</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -74,8 +72,8 @@
 
 [X a:1->b]
 ]]>
-            </pdascii>
-            <pdascii id="abs0">
+      </pdascii>
+      <pdascii id="abs0">
 <![CDATA[
 [B]
 |
@@ -89,8 +87,8 @@
 
 [X a:1->b]
 ]]>
-            </pdascii>
-            <pdascii id="abs1">
+      </pdascii>
+      <pdascii id="abs1">
 <![CDATA[
 [B]
 |
@@ -104,8 +102,8 @@
 
 [X a:1->b]
 ]]>
-            </pdascii>
-            <pdascii id="sp0">
+      </pdascii>
+      <pdascii id="sp0">
 <![CDATA[
 [inlet]
 |
@@ -113,7 +111,7 @@
 |         ^|
 [outlet]  [outlet]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

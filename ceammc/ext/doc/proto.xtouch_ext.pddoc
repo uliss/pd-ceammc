@@ -1,567 +1,540 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="proto.xtouch_ext">
-        <title>proto.xtouch_ext</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">Behringer XTouch Extender XMidi protocol</tr>
-                <tr lang="ru">управление Behringer XTouch XMidi</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>proto</category>
-            <keywords>xtouch behringer</keywords>
-            <since>0.9.1</since>
-        </meta>
+  <object name="proto.xtouch_ext">
+    <title>proto.xtouch_ext</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">Behringer XTouch Extender XMidi protocol</tr>
+        <tr lang="ru">управление Behringer XTouch XMidi</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>proto</category>
+      <keywords>xtouch behringer</keywords>
+      <since>0.9.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Behringer XTouch Extender XMidi</tr>
+        <tr lang="ru" finished="false">Behringer XTouch Extender XMidi</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="PROTO" type="symbol" enum="hui mcu xmidi">
+        <tr lang="en">connection protocol</tr>
+        <tr lang="ru" finished="false">протокол соединения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @n -->
+      <property name="@n" type="int" access="initonly" minvalue="1" maxvalue="32" default="2">
+        <tr lang="en">number of scenes</tr>
+        <tr lang="ru" finished="false">Количество сцен</tr>
+      </property>
+      <!-- @proto -->
+      <property name="@proto" type="symbol" default="xmidi" enum="hui mcu xmidi">
+        <tr lang="en">connection protocol</tr>
+        <tr lang="ru" finished="false">протокол соединения</tr>
+      </property>
+      <!-- @scene -->
+      <property name="@scene" type="int" minvalue="0" default="0">
+        <tr lang="en">current scene</tr>
+        <tr lang="ru" finished="false">нынешняя сцена</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- fader -->
+      <method name="fader">
         <info>
-            <par>
-                <tr lang="en">Behringer XTouch Extender XMidi</tr>
-                <tr lang="ru" finished="false">Behringer XTouch Extender XMidi</tr>
-            </par>
+          <tr lang="en">set fader value</tr>
+          <tr lang="ru" finished="false">Устанавливать значение fadeer</tr>
         </info>
-        <arguments>
-            <argument name="PROTO" type="symbol" enum="hui mcu xmidi">
-                <tr lang="en">connection protocol</tr>
-                <tr lang="ru" finished="false">протокол соединения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @n -->
-            <property name="@n" type="int" access="initonly" minvalue="1" maxvalue="32"
-            default="2">
-                <tr lang="en">number of scenes</tr>
-                <tr lang="ru" finished="false">Количество сцен</tr>
-            </property>
-            <!-- @proto -->
-            <property name="@proto" type="symbol" default="xmidi" enum="hui mcu xmidi">
-                <tr lang="en">connection protocol</tr>
-                <tr lang="ru" finished="false">протокол соединения</tr>
-            </property>
-            <!-- @scene -->
-            <property name="@scene" type="int" minvalue="0" default="0">
-                <tr lang="en">current scene</tr>
-                <tr lang="ru" finished="false">нынешняя сцена</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- fader -->
-            <method name="fader">
-                <info>
-                    <tr lang="en">set fader value</tr>
-                    <tr lang="ru" finished="false">Устанавливать значение fadeer</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="X" type="list" required="true">
-                    <tr lang="en">fader value(s)</tr>
-                    <tr lang="ru" finished="false">значение (значения)</tr>
-                </param>
-            </method>
-            <!-- fader? -->
-            <method name="fader?">
-                <info>
-                    <tr lang="en">get fader value, output to second outlet in format [fader? IDX
-                    VALUE(</tr>
-                    <tr lang="ru" finished="false">получить значение бледности, выход на вторую
-                    розетку в формате [фадер? Ценность IDX()</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES
-                    8</tr>
-                </param>
-            </method>
-            <!-- knob -->
-            <method name="knob">
-                <info>
-                    <tr lang="en">set knob value</tr>
-                    <tr lang="ru" finished="false">установить значение ручки</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="X" type="list" required="true">
-                    <tr lang="en">fader value(s)</tr>
-                    <tr lang="ru" finished="false">значение (значения)</tr>
-                </param>
-            </method>
-            <!-- knob? -->
-            <method name="knob?">
-                <info>
-                    <tr lang="en">get knob value, output to second outlet in format [knob? IDX
-                    VALUE(</tr>
-                    <tr lang="ru" finished="false">получить значение ручки, вывод на вторую розетку
-                    в формате [ ручка]? Ценность IDX()</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES
-                    8</tr>
-                </param>
-            </method>
-            <!-- lcd -->
-            <method name="lcd">
-                <info>
-                    <tr lang="en">set LCD text</tr>
-                    <tr lang="ru" finished="false">Настройка LCD текста</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES
-                    8</tr>
-                </param>
-                <param name="UPPER" type="atom" required="true">
-                    <tr lang="en">upper display text</tr>
-                    <tr lang="ru" finished="false">Верхний дисплейный текст</tr>
-                </param>
-                <param name="LOWER" type="atom" required="true">
-                    <tr lang="en">lower display text</tr>
-                    <tr lang="ru" finished="false">Нижний дисплей</tr>
-                </param>
-            </method>
-            <!-- lcd0 -->
-            <method name="lcd0">
-                <info>
-                    <tr lang="en">set upper LCD text</tr>
-                    <tr lang="ru" finished="false">Настройка верхнего LCD текста</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES
-                    8</tr>
-                </param>
-                <param name="STR" type="list" required="true">
-                    <tr lang="en">upper display text</tr>
-                    <tr lang="ru" finished="false">Верхний дисплейный текст</tr>
-                </param>
-            </method>
-            <!-- lcd1 -->
-            <method name="lcd1">
-                <info>
-                    <tr lang="en">set lower LCD text</tr>
-                    <tr lang="ru" finished="false">Установить нижний LCD текст</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES
-                    8</tr>
-                </param>
-                <param name="STR" type="list" required="true">
-                    <tr lang="en">lower display text</tr>
-                    <tr lang="ru" finished="false">Нижний дисплей</tr>
-                </param>
-            </method>
-            <!-- lcd_align -->
-            <method name="lcd_align">
-                <info>
-                    <tr lang="en">set all texts alignment. Note: you should set this before setting
-                    upper display text</tr>
-                    <tr lang="ru" finished="false">Установите выравнивание всех текстов.
-                    Примечание: вы должны установить это перед установкой верхнего текста
-                    отображения</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="ALIGN" type="list" required="true">
-                    <tr lang="en">align name. Valid names are: left, right, center, justify and
-                    auto</tr>
-                    <tr lang="ru" finished="false">Выравнивание имени. Действительные имена: левый,
-                    правый, центр, оправдание и авто</tr>
-                </param>
-            </method>
-            <!-- lcd_align0 -->
-            <method name="lcd_align0">
-                <info>
-                    <tr lang="en">set upper text alignment. Note: you should set this before
-                    setting upper display text</tr>
-                    <tr lang="ru" finished="false">Установите верхнее выравнивание текста.
-                    Примечание: вы должны установить это перед установкой верхнего текста
-                    отображения</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="ALIGN" type="list" required="true">
-                    <tr lang="en">align name. Valid names are: left, right, center, justify and
-                    auto</tr>
-                    <tr lang="ru" finished="false">Выравнивание имени. Действительные имена: левый,
-                    правый, центр, оправдание и авто</tr>
-                </param>
-            </method>
-            <!-- lcd_align1 -->
-            <method name="lcd_align1">
-                <info>
-                    <tr lang="en">set lower text alignment. Note: you should set this before
-                    setting lower display text</tr>
-                    <tr lang="ru" finished="false">Установите более низкое выравнивание текста.
-                    Примечание: вы должны установить это перед установкой более низкого текста
-                    отображения</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="ALIGN" type="list" required="true">
-                    <tr lang="en">align name. Valid names are: left, right, center, justify and
-                    auto</tr>
-                    <tr lang="ru" finished="false">Выравнивание имени. Действительные имена: левый,
-                    правый, центр, оправдание и авто</tr>
-                </param>
-            </method>
-            <!-- lcd_color -->
-            <method name="lcd_color">
-                <info>
-                    <tr lang="en">set display color</tr>
-                    <tr lang="ru" finished="false">Настройка цвета</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="COLOR" type="list" required="true">
-                    <tr lang="en">list of color name or color indexes. Valid color names are:
-                    black, red, green, blue, yellow, magenta, cyan, white and random. Valid color
-                    indexes are in 0..7 range</tr>
-                    <tr lang="ru" finished="false">Список цветовых названий или цветовых индексов.
-                    Действительные названия цветов: чёрный, красный, зелёный, синий, жёлтый,
-                    пурпурный, голубой, белый и случайный. Действительные цветовые индексы
-                    находятся в диапазоне 0,7</tr>
-                </param>
-            </method>
-            <!-- lcd_enum0 -->
-            <method name="lcd_enum0">
-                <info>
-                    <tr lang="en">set all upper display text with incremental enumeration</tr>
-                    <tr lang="ru" finished="false">установить весь верхний текст дисплея с
-                    дополнительным перечислением</tr>
-                </info>
-                <param name="PREFIX" type="atom">
-                    <tr lang="en">name prefix</tr>
-                    <tr lang="ru" finished="false">имя префикс</tr>
-                </param>
-            </method>
-            <!-- lcd_enum1 -->
-            <method name="lcd_enum1">
-                <info>
-                    <tr lang="en">set all lower display text with incremental enumeration</tr>
-                    <tr lang="ru" finished="false">Установите весь нижний текст дисплея с
-                    дополнительным перечислением</tr>
-                </info>
-                <param name="PREFIX" type="atom">
-                    <tr lang="en">name prefix</tr>
-                    <tr lang="ru" finished="false">имя префикс</tr>
-                </param>
-            </method>
-            <!-- lcd_mode -->
-            <method name="lcd_mode">
-                <info>
-                    <tr lang="en">set lcd background/highlight mode.</tr>
-                    <tr lang="ru" finished="false">Установите режим lcd background/highlight.</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="MODE" type="list" required="true">
-                    <tr lang="en">mod values. 0: display is inverted, 1: upper is inverted, 2:
-                    lower is inverted, 3: none in inverted</tr>
-                    <tr lang="ru" finished="false">Модные ценности. 0: дисплей перевернут, 1:
-                    верхняя перевернута, 2: нижняя перевернута, 3: ни одна в перевернутой</tr>
-                </param>
-            </method>
-            <!-- llcd -->
-            <method name="llcd">
-                <info>
-                    <tr lang="en">set several lower LCD text</tr>
-                    <tr lang="ru" finished="false">установить несколько нижних LCD текстов</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES
-                    8</tr>
-                </param>
-                <param name="ATOMS" type="list" required="true">
-                    <tr lang="en">lower display texts, each atom per display</tr>
-                    <tr lang="ru" finished="false">Нижние тексты отображения, каждый атом на
-                    дисплей</tr>
-                </param>
-            </method>
-            <!-- mute -->
-            <method name="mute">
-                <info>
-                    <tr lang="en">set mute buttons</tr>
-                    <tr lang="ru" finished="false">Настройка кнопки mute</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="X" type="list" required="true">
-                    <tr lang="en">button value(s)</tr>
-                    <tr lang="ru" finished="false">значение кнопки(ы)</tr>
-                </param>
-            </method>
-            <!-- mute? -->
-            <method name="mute?">
-                <info>
-                    <tr lang="en">get mute button, output to second outlet in format [mute? IDX
-                    VALUE(</tr>
-                    <tr lang="ru" finished="false">Получить немую кнопку, вывести на вторую розетку
-                    в формате [mute]? Ценность IDX()</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES
-                    8</tr>
-                </param>
-            </method>
-            <!-- mute_mode -->
-            <method name="mute_mode">
-                <info>
-                    <tr lang="en">set mute buttons toggle mode</tr>
-                    <tr lang="ru" finished="false">Настройка mute buttons toggle mode</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="X" type="list" required="true">
-                    <tr lang="en">values list: -1, 0 or 1</tr>
-                    <tr lang="ru" finished="false">Список значений: -1, 0 или 1</tr>
-                </param>
-            </method>
-            <!-- rec -->
-            <method name="rec">
-                <info>
-                    <tr lang="en">set rec buttons</tr>
-                    <tr lang="ru" finished="false">Настройка кнопок rec</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="X" type="list" required="true">
-                    <tr lang="en">button value(s)</tr>
-                    <tr lang="ru" finished="false">значение кнопки(ы)</tr>
-                </param>
-            </method>
-            <!-- rec? -->
-            <method name="rec?">
-                <info>
-                    <tr lang="en">get rec button, output to second outlet in format [rec? IDX
-                    VALUE(</tr>
-                    <tr lang="ru" finished="false">Получить кнопку rec, вывести на вторую розетку в
-                    формате [rec]? Ценность IDX()</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES
-                    8</tr>
-                </param>
-            </method>
-            <!-- rec_mode -->
-            <method name="rec_mode">
-                <info>
-                    <tr lang="en">set rec buttons toggle mode</tr>
-                    <tr lang="ru" finished="false">Настройка кнопки rec toggle mode</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="X" type="list" required="true">
-                    <tr lang="en">values list: -1, 0 or 1</tr>
-                    <tr lang="ru" finished="false">Список значений: -1, 0 или 1</tr>
-                </param>
-            </method>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset all knobs, faders and buttons to 0, vu to lowest values. Do
-                    not change display texts</tr>
-                    <tr lang="ru" finished="false">сбросить все ручки, блендеры и кнопки до 0, vu
-                    до самых низких значений. Не меняйте текст дисплея</tr>
-                </info>
-            </method>
-            <!-- select -->
-            <method name="select">
-                <info>
-                    <tr lang="en">set select buttons</tr>
-                    <tr lang="ru" finished="false">Настройка кнопок Select</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="X" type="list" required="true">
-                    <tr lang="en">button value(s)</tr>
-                    <tr lang="ru" finished="false">значение кнопки(ы)</tr>
-                </param>
-            </method>
-            <!-- select? -->
-            <method name="select?">
-                <info>
-                    <tr lang="en">get select button, output to second outlet in format [select? IDX
-                    VALUE(</tr>
-                    <tr lang="ru" finished="false">Получить кнопку выбора, вывести на вторую
-                    розетку в формате [выбрать]? Ценность IDX()</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES
-                    8</tr>
-                </param>
-            </method>
-            <!-- select_mode -->
-            <method name="select_mode">
-                <info>
-                    <tr lang="en">set select buttons toggle mode</tr>
-                    <tr lang="ru" finished="false">Настройка Select buttons toggle mode</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="X" type="list" required="true">
-                    <tr lang="en">values list: -1, 0 or 1</tr>
-                    <tr lang="ru" finished="false">Список значений: -1, 0 или 1</tr>
-                </param>
-            </method>
-            <!-- solo -->
-            <method name="solo">
-                <info>
-                    <tr lang="en">set solo buttons</tr>
-                    <tr lang="ru" finished="false">Настройка одиночных кнопок</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="X" type="list" required="true">
-                    <tr lang="en">button value(s)</tr>
-                    <tr lang="ru" finished="false">значение кнопки(ы)</tr>
-                </param>
-            </method>
-            <!-- solo? -->
-            <method name="solo?">
-                <info>
-                    <tr lang="en">get solo button, output to second outlet in format [solo? IDX
-                    VALUE(</tr>
-                    <tr lang="ru" finished="false">получить одиночную кнопку, вывести на вторую
-                    розетку в формате [соло]? Ценность IDX()</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES
-                    8</tr>
-                </param>
-            </method>
-            <!-- solo_mode -->
-            <method name="solo_mode">
-                <info>
-                    <tr lang="en">set solo buttons toggle mode</tr>
-                    <tr lang="ru" finished="false">установить одиночные кнопки Toggle mode</tr>
-                </info>
-                <param name="CHAN" type="atom" required="true">
-                    <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное
-                    значение NUM_SCENES 8</tr>
-                </param>
-                <param name="X" type="list" required="true">
-                    <tr lang="en">values list: -1, 0 or 1</tr>
-                    <tr lang="ru" finished="false">Список значений: -1, 0 или 1</tr>
-                </param>
-            </method>
-            <!-- ulcd -->
-            <method name="ulcd">
-                <info>
-                    <tr lang="en">set several upper LCD text</tr>
-                    <tr lang="ru" finished="false">установить несколько верхних LCD текстов</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES
-                    8</tr>
-                </param>
-                <param name="ATOMS" type="list" required="true">
-                    <tr lang="en">upper display texts, each atom per display</tr>
-                    <tr lang="ru" finished="false">Верхние тексты дисплея, каждый атом на
-                    дисплей</tr>
-                </param>
-            </method>
-            <!-- vu -->
-            <method name="vu">
-                <info>
-                    <tr lang="en">set VU meter indicator</tr>
-                    <tr lang="ru" finished="false">Установить индикатор VU-метра</tr>
-                </info>
-                <param name="CHAN" type="int" required="true" minvalue="0">
-                    <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
-                    <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES
-                    8</tr>
-                </param>
-                <param name="DB" type="float" required="true">
-                    <tr lang="en">level in decibels, in -144..0 range</tr>
-                    <tr lang="ru" finished="false">уровень в децибелах, в диапазоне -144..0</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">raw midi input</tr>
-                    <tr lang="ru" finished="false">Сырой средний вход</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">recIDX VAL: set rec button, muteIDX VAL: set mute button, soloIDX
-                    VAL: set solo button, selectIDX VAL: set select button, knobIDX VAL: set knob
-                    value, faderIDX VAL: set fader value</tr>
-                    <tr lang="ru" finished="false">reIDX VAL: set rec button, muteIDX VAL: set mute
-                    button, soloIDX VAL: set solo button, selectIDX VAL: set select button, knobIDX
-                    VAL: set nobb value, faderIDX VAL: set fader value</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">raw midi output to behringer device</tr>
-                    <tr lang="ru" finished="false">необработанный миди-выход для устройства
-                    беринга</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">control messages from device</tr>
-                    <tr lang="ru" finished="false">Управление сообщениями с устройства</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="X" type="list" required="true">
+          <tr lang="en">fader value(s)</tr>
+          <tr lang="ru" finished="false">значение (значения)</tr>
+        </param>
+      </method>
+      <!-- fader? -->
+      <method name="fader?">
+        <info>
+          <tr lang="en">get fader value, output to second outlet in format [fader? IDX VALUE(</tr>
+          <tr lang="ru" finished="false">получить значение бледности, выход на вторую розетку в
+          формате [фадер? Ценность IDX()</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES 8</tr>
+        </param>
+      </method>
+      <!-- knob -->
+      <method name="knob">
+        <info>
+          <tr lang="en">set knob value</tr>
+          <tr lang="ru" finished="false">установить значение ручки</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="X" type="list" required="true">
+          <tr lang="en">fader value(s)</tr>
+          <tr lang="ru" finished="false">значение (значения)</tr>
+        </param>
+      </method>
+      <!-- knob? -->
+      <method name="knob?">
+        <info>
+          <tr lang="en">get knob value, output to second outlet in format [knob? IDX VALUE(</tr>
+          <tr lang="ru" finished="false">получить значение ручки, вывод на вторую розетку в формате
+          [ ручка]? Ценность IDX()</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES 8</tr>
+        </param>
+      </method>
+      <!-- lcd -->
+      <method name="lcd">
+        <info>
+          <tr lang="en">set LCD text</tr>
+          <tr lang="ru" finished="false">Настройка LCD текста</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES 8</tr>
+        </param>
+        <param name="UPPER" type="atom" required="true">
+          <tr lang="en">upper display text</tr>
+          <tr lang="ru" finished="false">Верхний дисплейный текст</tr>
+        </param>
+        <param name="LOWER" type="atom" required="true">
+          <tr lang="en">lower display text</tr>
+          <tr lang="ru" finished="false">Нижний дисплей</tr>
+        </param>
+      </method>
+      <!-- lcd0 -->
+      <method name="lcd0">
+        <info>
+          <tr lang="en">set upper LCD text</tr>
+          <tr lang="ru" finished="false">Настройка верхнего LCD текста</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES 8</tr>
+        </param>
+        <param name="STR" type="list" required="true">
+          <tr lang="en">upper display text</tr>
+          <tr lang="ru" finished="false">Верхний дисплейный текст</tr>
+        </param>
+      </method>
+      <!-- lcd1 -->
+      <method name="lcd1">
+        <info>
+          <tr lang="en">set lower LCD text</tr>
+          <tr lang="ru" finished="false">Установить нижний LCD текст</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES 8</tr>
+        </param>
+        <param name="STR" type="list" required="true">
+          <tr lang="en">lower display text</tr>
+          <tr lang="ru" finished="false">Нижний дисплей</tr>
+        </param>
+      </method>
+      <!-- lcd_align -->
+      <method name="lcd_align">
+        <info>
+          <tr lang="en">set all texts alignment. Note: you should set this before setting upper
+          display text</tr>
+          <tr lang="ru" finished="false">Установите выравнивание всех текстов. Примечание: вы
+          должны установить это перед установкой верхнего текста отображения</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="ALIGN" type="list" required="true">
+          <tr lang="en">align name. Valid names are: left, right, center, justify and auto</tr>
+          <tr lang="ru" finished="false">Выравнивание имени. Действительные имена: левый, правый,
+          центр, оправдание и авто</tr>
+        </param>
+      </method>
+      <!-- lcd_align0 -->
+      <method name="lcd_align0">
+        <info>
+          <tr lang="en">set upper text alignment. Note: you should set this before setting upper
+          display text</tr>
+          <tr lang="ru" finished="false">Установите верхнее выравнивание текста. Примечание: вы
+          должны установить это перед установкой верхнего текста отображения</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="ALIGN" type="list" required="true">
+          <tr lang="en">align name. Valid names are: left, right, center, justify and auto</tr>
+          <tr lang="ru" finished="false">Выравнивание имени. Действительные имена: левый, правый,
+          центр, оправдание и авто</tr>
+        </param>
+      </method>
+      <!-- lcd_align1 -->
+      <method name="lcd_align1">
+        <info>
+          <tr lang="en">set lower text alignment. Note: you should set this before setting lower
+          display text</tr>
+          <tr lang="ru" finished="false">Установите более низкое выравнивание текста. Примечание:
+          вы должны установить это перед установкой более низкого текста отображения</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="ALIGN" type="list" required="true">
+          <tr lang="en">align name. Valid names are: left, right, center, justify and auto</tr>
+          <tr lang="ru" finished="false">Выравнивание имени. Действительные имена: левый, правый,
+          центр, оправдание и авто</tr>
+        </param>
+      </method>
+      <!-- lcd_color -->
+      <method name="lcd_color">
+        <info>
+          <tr lang="en">set display color</tr>
+          <tr lang="ru" finished="false">Настройка цвета</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="COLOR" type="list" required="true">
+          <tr lang="en">list of color name or color indexes. Valid color names are: black, red,
+          green, blue, yellow, magenta, cyan, white and random. Valid color indexes are in 0..7
+          range</tr>
+          <tr lang="ru" finished="false">Список цветовых названий или цветовых индексов.
+          Действительные названия цветов: чёрный, красный, зелёный, синий, жёлтый, пурпурный,
+          голубой, белый и случайный. Действительные цветовые индексы находятся в диапазоне
+          0,7</tr>
+        </param>
+      </method>
+      <!-- lcd_enum0 -->
+      <method name="lcd_enum0">
+        <info>
+          <tr lang="en">set all upper display text with incremental enumeration</tr>
+          <tr lang="ru" finished="false">установить весь верхний текст дисплея с дополнительным
+          перечислением</tr>
+        </info>
+        <param name="PREFIX" type="atom">
+          <tr lang="en">name prefix</tr>
+          <tr lang="ru" finished="false">имя префикс</tr>
+        </param>
+      </method>
+      <!-- lcd_enum1 -->
+      <method name="lcd_enum1">
+        <info>
+          <tr lang="en">set all lower display text with incremental enumeration</tr>
+          <tr lang="ru" finished="false">Установите весь нижний текст дисплея с дополнительным
+          перечислением</tr>
+        </info>
+        <param name="PREFIX" type="atom">
+          <tr lang="en">name prefix</tr>
+          <tr lang="ru" finished="false">имя префикс</tr>
+        </param>
+      </method>
+      <!-- lcd_mode -->
+      <method name="lcd_mode">
+        <info>
+          <tr lang="en">set lcd background/highlight mode.</tr>
+          <tr lang="ru" finished="false">Установите режим lcd background/highlight.</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="MODE" type="list" required="true">
+          <tr lang="en">mod values. 0: display is inverted, 1: upper is inverted, 2: lower is
+          inverted, 3: none in inverted</tr>
+          <tr lang="ru" finished="false">Модные ценности. 0: дисплей перевернут, 1: верхняя
+          перевернута, 2: нижняя перевернута, 3: ни одна в перевернутой</tr>
+        </param>
+      </method>
+      <!-- llcd -->
+      <method name="llcd">
+        <info>
+          <tr lang="en">set several lower LCD text</tr>
+          <tr lang="ru" finished="false">установить несколько нижних LCD текстов</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES 8</tr>
+        </param>
+        <param name="ATOMS" type="list" required="true">
+          <tr lang="en">lower display texts, each atom per display</tr>
+          <tr lang="ru" finished="false">Нижние тексты отображения, каждый атом на дисплей</tr>
+        </param>
+      </method>
+      <!-- mute -->
+      <method name="mute">
+        <info>
+          <tr lang="en">set mute buttons</tr>
+          <tr lang="ru" finished="false">Настройка кнопки mute</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="X" type="list" required="true">
+          <tr lang="en">button value(s)</tr>
+          <tr lang="ru" finished="false">значение кнопки(ы)</tr>
+        </param>
+      </method>
+      <!-- mute? -->
+      <method name="mute?">
+        <info>
+          <tr lang="en">get mute button, output to second outlet in format [mute? IDX VALUE(</tr>
+          <tr lang="ru" finished="false">Получить немую кнопку, вывести на вторую розетку в формате
+          [mute]? Ценность IDX()</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES 8</tr>
+        </param>
+      </method>
+      <!-- mute_mode -->
+      <method name="mute_mode">
+        <info>
+          <tr lang="en">set mute buttons toggle mode</tr>
+          <tr lang="ru" finished="false">Настройка mute buttons toggle mode</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="X" type="list" required="true">
+          <tr lang="en">values list: -1, 0 or 1</tr>
+          <tr lang="ru" finished="false">Список значений: -1, 0 или 1</tr>
+        </param>
+      </method>
+      <!-- rec -->
+      <method name="rec">
+        <info>
+          <tr lang="en">set rec buttons</tr>
+          <tr lang="ru" finished="false">Настройка кнопок rec</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="X" type="list" required="true">
+          <tr lang="en">button value(s)</tr>
+          <tr lang="ru" finished="false">значение кнопки(ы)</tr>
+        </param>
+      </method>
+      <!-- rec? -->
+      <method name="rec?">
+        <info>
+          <tr lang="en">get rec button, output to second outlet in format [rec? IDX VALUE(</tr>
+          <tr lang="ru" finished="false">Получить кнопку rec, вывести на вторую розетку в формате
+          [rec]? Ценность IDX()</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES 8</tr>
+        </param>
+      </method>
+      <!-- rec_mode -->
+      <method name="rec_mode">
+        <info>
+          <tr lang="en">set rec buttons toggle mode</tr>
+          <tr lang="ru" finished="false">Настройка кнопки rec toggle mode</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="X" type="list" required="true">
+          <tr lang="en">values list: -1, 0 or 1</tr>
+          <tr lang="ru" finished="false">Список значений: -1, 0 или 1</tr>
+        </param>
+      </method>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset all knobs, faders and buttons to 0, vu to lowest values. Do not
+          change display texts</tr>
+          <tr lang="ru" finished="false">сбросить все ручки, блендеры и кнопки до 0, vu до самых
+          низких значений. Не меняйте текст дисплея</tr>
+        </info>
+      </method>
+      <!-- select -->
+      <method name="select">
+        <info>
+          <tr lang="en">set select buttons</tr>
+          <tr lang="ru" finished="false">Настройка кнопок Select</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="X" type="list" required="true">
+          <tr lang="en">button value(s)</tr>
+          <tr lang="ru" finished="false">значение кнопки(ы)</tr>
+        </param>
+      </method>
+      <!-- select? -->
+      <method name="select?">
+        <info>
+          <tr lang="en">get select button, output to second outlet in format [select? IDX
+          VALUE(</tr>
+          <tr lang="ru" finished="false">Получить кнопку выбора, вывести на вторую розетку в
+          формате [выбрать]? Ценность IDX()</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES 8</tr>
+        </param>
+      </method>
+      <!-- select_mode -->
+      <method name="select_mode">
+        <info>
+          <tr lang="en">set select buttons toggle mode</tr>
+          <tr lang="ru" finished="false">Настройка Select buttons toggle mode</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="X" type="list" required="true">
+          <tr lang="en">values list: -1, 0 or 1</tr>
+          <tr lang="ru" finished="false">Список значений: -1, 0 или 1</tr>
+        </param>
+      </method>
+      <!-- solo -->
+      <method name="solo">
+        <info>
+          <tr lang="en">set solo buttons</tr>
+          <tr lang="ru" finished="false">Настройка одиночных кнопок</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="X" type="list" required="true">
+          <tr lang="en">button value(s)</tr>
+          <tr lang="ru" finished="false">значение кнопки(ы)</tr>
+        </param>
+      </method>
+      <!-- solo? -->
+      <method name="solo?">
+        <info>
+          <tr lang="en">get solo button, output to second outlet in format [solo? IDX VALUE(</tr>
+          <tr lang="ru" finished="false">получить одиночную кнопку, вывести на вторую розетку в
+          формате [соло]? Ценность IDX()</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES 8</tr>
+        </param>
+      </method>
+      <!-- solo_mode -->
+      <method name="solo_mode">
+        <info>
+          <tr lang="en">set solo buttons toggle mode</tr>
+          <tr lang="ru" finished="false">установить одиночные кнопки Toggle mode</tr>
+        </info>
+        <param name="CHAN" type="atom" required="true">
+          <tr lang="en">'all', 'scene' or channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">«все», «сцена» или индекс канала, максимальное значение
+          NUM_SCENES 8</tr>
+        </param>
+        <param name="X" type="list" required="true">
+          <tr lang="en">values list: -1, 0 or 1</tr>
+          <tr lang="ru" finished="false">Список значений: -1, 0 или 1</tr>
+        </param>
+      </method>
+      <!-- ulcd -->
+      <method name="ulcd">
+        <info>
+          <tr lang="en">set several upper LCD text</tr>
+          <tr lang="ru" finished="false">установить несколько верхних LCD текстов</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES 8</tr>
+        </param>
+        <param name="ATOMS" type="list" required="true">
+          <tr lang="en">upper display texts, each atom per display</tr>
+          <tr lang="ru" finished="false">Верхние тексты дисплея, каждый атом на дисплей</tr>
+        </param>
+      </method>
+      <!-- vu -->
+      <method name="vu">
+        <info>
+          <tr lang="en">set VU meter indicator</tr>
+          <tr lang="ru" finished="false">Установить индикатор VU-метра</tr>
+        </info>
+        <param name="CHAN" type="int" required="true" minvalue="0">
+          <tr lang="en">channel index, max value is NUM_SCENES * 8</tr>
+          <tr lang="ru" finished="false">Индекс канала, максимальное значение NUM_SCENES 8</tr>
+        </param>
+        <param name="DB" type="float" required="true">
+          <tr lang="en">level in decibels, in -144..0 range</tr>
+          <tr lang="ru" finished="false">уровень в децибелах, в диапазоне -144..0</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">raw midi input</tr>
+          <tr lang="ru" finished="false">Сырой средний вход</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">recIDX VAL: set rec button, muteIDX VAL: set mute button, soloIDX VAL: set
+          solo button, selectIDX VAL: set select button, knobIDX VAL: set knob value, faderIDX VAL:
+          set fader value</tr>
+          <tr lang="ru" finished="false">reIDX VAL: set rec button, muteIDX VAL: set mute button,
+          soloIDX VAL: set solo button, selectIDX VAL: set select button, knobIDX VAL: set nobb
+          value, faderIDX VAL: set fader value</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">raw midi output to behringer device</tr>
+          <tr lang="ru" finished="false">необработанный миди-выход для устройства беринга</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">control messages from device</tr>
+          <tr lang="ru" finished="false">Управление сообщениями с устройства</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [midiin]   [S digits=25]         [r oxt]
 |          |                     |
@@ -577,7 +550,7 @@
 [X a:1->b]
 [X b->a:1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.carg~">
-        <title>math.carg~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">phase angle of a complex signals</tr>
-                <tr lang="ru">фазовый угол комплексных сигналов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math complex phase angle</keywords>
-            <aliases>
-                <alias>ceammc/carg~</alias>
-                <alias>carg~</alias>
-            </aliases>
-            <since>0.9</since>
-            <also>
-                <see>math.cabs~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">outputs the phase angle in the interval [−π π]</tr>
-                <tr lang="ru" finished="false">выдает фазовый угол в интервале [−π π]</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">real part of input signal</tr>
-                    <tr lang="ru" finished="false">Реальная часть входного сигнала</tr>
-                </in>
-            </inlet>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">imag part of input signal</tr>
-                    <tr lang="ru" finished="false">Имаг часть входного сигнала</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">signal phase angle in radians</tr>
-                    <tr lang="ru" finished="false">фазовый угол сигнала в радианах</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="math.carg~">
+    <title>math.carg~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">phase angle of a complex signals</tr>
+        <tr lang="ru">фазовый угол комплексных сигналов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math complex phase angle</keywords>
+      <aliases>
+        <alias>ceammc/carg~</alias>
+        <alias>carg~</alias>
+      </aliases>
+      <since>0.9</since>
+      <also>
+        <see>math.cabs~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">outputs the phase angle in the interval [−π π]</tr>
+        <tr lang="ru" finished="false">выдает фазовый угол в интервале [−π π]</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">real part of input signal</tr>
+          <tr lang="ru" finished="false">Реальная часть входного сигнала</tr>
+        </in>
+      </inlet>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">imag part of input signal</tr>
+          <tr lang="ru" finished="false">Имаг часть входного сигнала</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">signal phase angle in radians</tr>
+          <tr lang="ru" finished="false">фазовый угол сигнала в радианах</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.slider2d @show_grid 1 @size 100 100]
 |
@@ -70,7 +70,7 @@
 |
 [ui.n~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

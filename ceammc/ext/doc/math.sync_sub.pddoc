@@ -1,80 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.sync_sub">
-        <title>math.sync_sub</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">sync subtraction</tr>
-                <tr lang="ru">синхронное вычитание</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math sub sync</keywords>
-            <aliases>
-                <alias>math.-'</alias>
-                <alias>ceammc/-'</alias>
-                <alias>-'</alias>
-            </aliases>
-            <since>0.8</since>
-            <also>
-                <see>math.sync_add</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="F" type="float">
-                <tr lang="en">subtrahend</tr>
-                <tr lang="ru" finished="false">вычитание</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @int -->
-            <property name="@int" type="flag" default="0" access="initonly">
-                <tr lang="en">operate on integers only</tr>
-                <tr lang="ru" finished="false">работать только на целых числах</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set minuend, calculate and output result</tr>
-                    <!-- old: установить minuend, рассчитать и выходной
+  <object name="math.sync_sub">
+    <title>math.sync_sub</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">sync subtraction</tr>
+        <tr lang="ru">синхронное вычитание</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math sub sync</keywords>
+      <aliases>
+        <alias>math.-'</alias>
+        <alias>ceammc/-'</alias>
+        <alias>-'</alias>
+      </aliases>
+      <since>0.8</since>
+      <also>
+        <see>math.sync_add</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="F" type="float">
+        <tr lang="en">subtrahend</tr>
+        <tr lang="ru" finished="false">вычитание</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @int -->
+      <property name="@int" type="flag" default="0" access="initonly">
+        <tr lang="en">operate on integers only</tr>
+        <tr lang="ru" finished="false">работать только на целых числах</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set minuend, calculate and output result</tr>
+          <!-- old: установить minuend, рассчитать и выходной
                     результат -->
-                    <tr lang="ru" finished="false">установить minuend, рассчитать и выходной
-                    результат</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">pair: set minuend and subtrahend, calculate and output
-                    result</tr>
-                    <!-- old: пара: заданный минуэнд и вычитание, вычисление и
+          <tr lang="ru" finished="false">установить minuend, рассчитать и выходной результат</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">pair: set minuend and subtrahend, calculate and output result</tr>
+          <!-- old: пара: заданный минуэнд и вычитание, вычисление и
                     выходной результат -->
-                    <tr lang="ru" finished="false">пара: заданный минуэнд и вычитание, вычисление и
-                    выходной результат</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">change subtrahend, calculate and output result</tr>
-                    <!-- old: изменить субпойм, вычислить и вывести
+          <tr lang="ru" finished="false">пара: заданный минуэнд и вычитание, вычисление и выходной
+          результат</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">change subtrahend, calculate and output result</tr>
+          <!-- old: изменить субпойм, вычислить и вывести
                     результат -->
-                    <tr lang="ru" finished="false">изменить субпойм, вычислить и вывести
-                    результат</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">difference output</tr>
-                    <tr lang="ru" finished="false">Разница в выходе</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">изменить субпойм, вычислить и вывести результат</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">difference output</tr>
+          <tr lang="ru" finished="false">Разница в выходе</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]   [F]   /*same as:*/ [F]  [F]
 |     |                  |    |
@@ -84,7 +81,7 @@
 |                        |
 [F]                      [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

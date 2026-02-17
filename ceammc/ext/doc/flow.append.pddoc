@@ -1,80 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.append">
-        <title>flow.append</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">append message to flow stream</tr>
-                <tr lang="ru">добавляет сообщение в поток</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>flow append</keywords>
-            <since>0.9</since>
-            <also>
-                <see>flow.prepend</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Note: if you want to specify property message in the init argument,
-                you have to quote it with double-quotes</tr>
-                <!-- old: Примечание: если вы хотите указать сообщение свойств
+  <object name="flow.append">
+    <title>flow.append</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">append message to flow stream</tr>
+        <tr lang="ru">добавляет сообщение в поток</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>flow append</keywords>
+      <since>0.9</since>
+      <also>
+        <see>flow.prepend</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Note: if you want to specify property message in the init argument, you have
+        to quote it with double-quotes</tr>
+        <!-- old: Примечание: если вы хотите указать сообщение свойств
                 в аргументе init, вы должны процитировать его двойными цитатами -->
-                <tr lang="ru" finished="false">Примечание: если вы хотите указать сообщение свойств
-                в аргументе init, вы должны процитировать его двойными цитатами</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="MSG" type="list">
-                <tr lang="en">init value for appended message</tr>
-                <tr lang="ru" finished="false">значение init для добавленного сообщения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @delay -->
-            <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">
-                <tr lang="en">append delay. If &lt;0 append immediately at the same logical time,
-                if equal zero - output after next DSP block.</tr>
-                <!-- old: Добавить задержку. Если <0 приложить сразу в одно
+        <tr lang="ru" finished="false">Примечание: если вы хотите указать сообщение свойств в
+        аргументе init, вы должны процитировать его двойными цитатами</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="MSG" type="list">
+        <tr lang="en">init value for appended message</tr>
+        <tr lang="ru" finished="false">значение init для добавленного сообщения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @delay -->
+      <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">
+        <tr lang="en">append delay. If &lt;0 append immediately at the same logical time, if equal
+        zero - output after next DSP block.</tr>
+        <!-- old: Добавить задержку. Если <0 приложить сразу в одно
                 и то же логическое время, если равно нулю - вывод после следующего блока DSP. -->
-                <tr lang="ru" finished="false">Добавить задержку. Если &lt;0 приложить сразу в одно
-                и то же логическое время, если равно нулю - вывод после следующего блока DSP.</tr>
-            </property>
-            <!-- @msg -->
-            <property name="@msg" type="list" default="">
-                <tr lang="en">appended message</tr>
-                <tr lang="ru" finished="false">прилагаемое сообщение</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="any">
-                    <tr lang="en">input message</tr>
-                    <tr lang="ru" finished="false">вводное сообщение</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="any">
-                    <tr lang="en">set append value</tr>
-                    <tr lang="ru" finished="false">установленная добавленная стоимость</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output message</tr>
-                    <tr lang="ru" finished="false">выходное сообщение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Добавить задержку. Если &lt;0 приложить сразу в одно и то же
+        логическое время, если равно нулю - вывод после следующего блока DSP.</tr>
+      </property>
+      <!-- @msg -->
+      <property name="@msg" type="list" default="">
+        <tr lang="en">appended message</tr>
+        <tr lang="ru" finished="false">прилагаемое сообщение</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="any">
+          <tr lang="en">input message</tr>
+          <tr lang="ru" finished="false">вводное сообщение</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="any">
+          <tr lang="en">set append value</tr>
+          <tr lang="ru" finished="false">установленная добавленная стоимость</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output message</tr>
+          <tr lang="ru" finished="false">выходное сообщение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]
 |
@@ -86,7 +86,7 @@
 |
 [print]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

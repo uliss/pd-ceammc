@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.c_notch">
-        <title>flt.c_notch</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">band-reject filter coefficients calculator for [flt.biquad~]</tr>
-                <tr lang="ru">калькулятор коэффициентов режекторного фильтра для [flt.biquad~]</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>filter biquad notch reject</keywords>
-            <since>0.9.2</since>
-            <also>
-                <see>flt.c_lpf</see>
-            </also>
-            <aliases>
-                <alias>ceammc/notch-&gt;biquad</alias>
-                <alias>notch-&gt;biquad</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ +
-                b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²)</tr>
-                <!-- old: Расчет коэффициентов для функции переноса: H(z)=(b0
+  <object name="flt.c_notch">
+    <title>flt.c_notch</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">band-reject filter coefficients calculator for [flt.biquad~]</tr>
+        <tr lang="ru">калькулятор коэффициентов режекторного фильтра для [flt.biquad~]</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>filter biquad notch reject</keywords>
+      <since>0.9.2</since>
+      <also>
+        <see>flt.c_lpf</see>
+      </also>
+      <aliases>
+        <alias>ceammc/notch-&gt;biquad</alias>
+        <alias>notch-&gt;biquad</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1
+        + a1*z⁻¹ + a2*z⁻²)</tr>
+        <!-- old: Расчет коэффициентов для функции переноса: H(z)=(b0
                 + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2) -->
-                <tr lang="ru" finished="false">Расчет коэффициентов для функции переноса: H(z)=(b0
-                + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2)</tr>
-            </par>
+        <tr lang="ru" finished="false">Расчет коэффициентов для функции переноса: H(z)=(b0 + b1*z−1
+        + b2*z−2)/(1 + a1*z−1 + a2*z−2)</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="22050">
+        <tr lang="en">center frequency</tr>
+        <tr lang="ru" finished="false">центральная частота</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @freq -->
+      <property name="@freq" type="float" minvalue="20" maxvalue="22050" default="1000"
+      units="hertz">
+        <tr lang="en">center frequency</tr>
+        <tr lang="ru" finished="false">центральная частота</tr>
+      </property>
+      <!-- @q -->
+      <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.7071">
+        <tr lang="en">quality factor: @freq/BANDWIDTH</tr>
+        <tr lang="ru" finished="false">Коэффициент качества: @freq/BANDWIDTH</tr>
+      </property>
+      <!-- @rad -->
+      <property name="@rad" type="flag" access="initonly">
+        <tr lang="en">use angular frequency</tr>
+        <tr lang="ru" finished="false">использовать угловую частоту</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- bw -->
+      <method name="bw">
+        <info>
+          <tr lang="en">set bandwidth in octaves</tr>
+          <tr lang="ru" finished="false">установленная полоса пропускания в октавах</tr>
         </info>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="22050">
-                <tr lang="en">center frequency</tr>
-                <tr lang="ru" finished="false">центральная частота</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @freq -->
-            <property name="@freq" type="float" minvalue="20" maxvalue="22050" default="1000"
-            units="hertz">
-                <tr lang="en">center frequency</tr>
-                <tr lang="ru" finished="false">центральная частота</tr>
-            </property>
-            <!-- @q -->
-            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.7071">
-                <tr lang="en">quality factor: @freq/BANDWIDTH</tr>
-                <tr lang="ru" finished="false">Коэффициент качества: @freq/BANDWIDTH</tr>
-            </property>
-            <!-- @rad -->
-            <property name="@rad" type="flag" access="initonly">
-                <tr lang="en">use angular frequency</tr>
-                <tr lang="ru" finished="false">использовать угловую частоту</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- bw -->
-            <method name="bw">
-                <info>
-                    <tr lang="en">set bandwidth in octaves</tr>
-                    <tr lang="ru" finished="false">установленная полоса пропускания в октавах</tr>
-                </info>
-                <param name="OCT" type="float" required="true">
-                    <tr lang="en">bandwidth</tr>
-                    <tr lang="ru" finished="false">пропускная способность</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">filter frequency</tr>
-                    <tr lang="ru" finished="false">частота фильтров</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list: b0 b1 b2 a1 a2</tr>
-                    <tr lang="ru" finished="false">Список: b0 b1 b2 a1 a2</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <param name="OCT" type="float" required="true">
+          <tr lang="en">bandwidth</tr>
+          <tr lang="ru" finished="false">пропускная способность</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">filter frequency</tr>
+          <tr lang="ru" finished="false">частота фильтров</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list: b0 b1 b2 a1 a2</tr>
+          <tr lang="ru" finished="false">Список: b0 b1 b2 a1 a2</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.hsl]                         [ui.hsl]
 |                                |
@@ -104,8 +104,8 @@
 
 [flt.c_notch-plot]
 ]]>
-            </pdascii>
-            <pdascii id="plot">
+      </pdascii>
+      <pdascii id="plot">
 <![CDATA[
 [ui.hsl]      [ui.hsl #a]        [array CNF0 size=200 w=300 h=90]
 |             |
@@ -124,7 +124,7 @@
 [array.plot CNF0 @nan -144]
 #a @min 0.1 @max 10 @show_value 1
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

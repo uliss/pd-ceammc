@@ -1,86 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="prop.get">
-        <title>prop.get</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">get the property value from connected object, subpatch or
-                abstraction</tr>
-                <tr lang="ru">получить значение свойства от подсоединённого объекта, субпатча или
-                абстракции</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>property</category>
-            <keywords>property</keywords>
-            <since>0.9</since>
-            <aliases>
-                <alias>p.get</alias>
-            </aliases>
-            <also>
-                <see>prop&lt;-</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Get properties from connected object/subpatch/abstraction</tr>
-                <tr lang="ru" finished="false">Получите свойства от подключенного объекта /
-                подпатчи / абстракции</tr>
-            </par>
-        </info>
-        <mouse>
-            <event type="left-click" editmode="false">get properties</event>
-        </mouse>
-        <arguments>
-            <argument name="PROPS" type="list">
-                <tr lang="en">property names</tr>
-                <tr lang="ru" finished="false">Имена собственности</tr>
-            </argument>
-        </arguments>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output specified properites to corresponding outlets</tr>
-                    <tr lang="ru" finished="false">выдача указанных свойств в соответствующие
-                    выходы</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">output specified property to second outlet</tr>
-                    <tr lang="ru" finished="false">выводить указанное свойство на второй выход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet number="1">
-                <out type="any">
-                    <tr lang="en">connected to destination object</tr>
-                    <tr lang="ru" finished="false">подключенный к объекту назначения</tr>
-                </out>
-            </outlet>
-            <outlet number="2">
-                <out type="any">
-                    <tr lang="en">output of first requested property</tr>
-                    <tr lang="ru" finished="false">выход первого запрашиваемого имущества</tr>
-                </out>
-            </outlet>
-            <outlet number="...">
-                <out type="any">
-                    <tr lang="en">output of ... requested property</tr>
-                    <tr lang="ru" finished="false">... запрашиваемой собственности</tr>
-                </out>
-            </outlet>
-            <outlet number="n+1">
-                <out type="any">
-                    <tr lang="en">output of n-th requested property</tr>
-                    <tr lang="ru" finished="false">n-го запрашиваемого имущества</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="prop.get">
+    <title>prop.get</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">get the property value from connected object, subpatch or abstraction</tr>
+        <tr lang="ru">получить значение свойства от подсоединённого объекта, субпатча или
+        абстракции</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>property</category>
+      <keywords>property</keywords>
+      <since>0.9</since>
+      <aliases>
+        <alias>p.get</alias>
+      </aliases>
+      <also>
+        <see>prop&lt;-</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Get properties from connected object/subpatch/abstraction</tr>
+        <tr lang="ru" finished="false">Получите свойства от подключенного объекта / подпатчи /
+        абстракции</tr>
+      </par>
+    </info>
+    <mouse>
+      <event type="left-click" editmode="false">get properties</event>
+    </mouse>
+    <arguments>
+      <argument name="PROPS" type="list">
+        <tr lang="en">property names</tr>
+        <tr lang="ru" finished="false">Имена собственности</tr>
+      </argument>
+    </arguments>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output specified properites to corresponding outlets</tr>
+          <tr lang="ru" finished="false">выдача указанных свойств в соответствующие выходы</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">output specified property to second outlet</tr>
+          <tr lang="ru" finished="false">выводить указанное свойство на второй выход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet number="1">
+        <out type="any">
+          <tr lang="en">connected to destination object</tr>
+          <tr lang="ru" finished="false">подключенный к объекту назначения</tr>
+        </out>
+      </outlet>
+      <outlet number="2">
+        <out type="any">
+          <tr lang="en">output of first requested property</tr>
+          <tr lang="ru" finished="false">выход первого запрашиваемого имущества</tr>
+        </out>
+      </outlet>
+      <outlet number="...">
+        <out type="any">
+          <tr lang="en">output of ... requested property</tr>
+          <tr lang="ru" finished="false">... запрашиваемой собственности</tr>
+        </out>
+      </outlet>
+      <outlet number="n+1">
+        <out type="any">
+          <tr lang="en">output of n-th requested property</tr>
+          <tr lang="ru" finished="false">n-го запрашиваемого имущества</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(
 |
@@ -90,7 +88,7 @@
 |          |
 [ui.knob]  [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

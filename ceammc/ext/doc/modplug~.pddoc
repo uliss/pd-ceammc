@@ -1,109 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="modplug~">
-        <title>modplug~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">MOD file player</tr>
-                <tr lang="ru">плеер файлов MOD</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>misc</category>
-            <keywords>mod player</keywords>
-            <since>0.4</since>
-            <aliases>
-                <alias>ceammc/modplug~</alias>
-            </aliases>
-        </meta>
-        <properties>
-            <!-- @done -->
-            <property name="@done" type="symbol" default="">
-                <tr lang="en">function called with bang when playing is finished</tr>
-                <!-- old: Функция, называемая челкой, когда игра
+  <object name="modplug~">
+    <title>modplug~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">MOD file player</tr>
+        <tr lang="ru">плеер файлов MOD</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>misc</category>
+      <keywords>mod player</keywords>
+      <since>0.4</since>
+      <aliases>
+        <alias>ceammc/modplug~</alias>
+      </aliases>
+    </meta>
+    <properties>
+      <!-- @done -->
+      <property name="@done" type="symbol" default="">
+        <tr lang="en">function called with bang when playing is finished</tr>
+        <!-- old: Функция, называемая челкой, когда игра
                 закончена -->
-                <tr lang="ru" finished="false">Функция, называемая челкой, когда игра
-                закончена</tr>
-            </property>
-            <!-- @len -->
-            <property name="@len" type="float" access="readonly" units="millisecond" default="0">
-                <tr lang="en">length of mod file</tr>
-                <tr lang="ru" finished="false">Длина файла mod</tr>
-            </property>
-            <!-- @name -->
-            <property name="@name" type="symbol" default="" access="readonly">
-                <tr lang="en">mod name</tr>
-                <tr lang="ru" finished="false">название мод</tr>
-            </property>
-            <!-- @play -->
-            <property name="@play" type="bool" default="0">
-                <tr lang="en">play state</tr>
-                <tr lang="ru" finished="false">Игровое государство</tr>
-            </property>
-            <!-- @pos -->
-            <property name="@pos" type="float" units="millisecond" default="-1">
-                <tr lang="en">position in mod file</tr>
-                <tr lang="ru" finished="false">Положение в файле mod</tr>
-            </property>
-            <!-- @rpos -->
-            <property name="@rpos" type="float" minvalue="0" maxvalue="1" default="0">
-                <tr lang="en">relative position in mod file</tr>
-                <tr lang="ru" finished="false">Относительная позиция в файле mod</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- pause -->
-            <method name="pause">
-                <info>
-                    <tr lang="en">pause playing</tr>
-                    <tr lang="ru" finished="false">играть паузу</tr>
-                </info>
-            </method>
-            <!-- play -->
-            <method name="play">
-                <info>
-                    <tr lang="en">play mod file</tr>
-                    <tr lang="ru" finished="false">play mod файл</tr>
-                </info>
-            </method>
-            <!-- stop -->
-            <method name="stop">
-                <info>
-                    <tr lang="en">stop playing and move play position to the end of file</tr>
-                    <!-- old: Прекратите играть и переместите игровую позицию
+        <tr lang="ru" finished="false">Функция, называемая челкой, когда игра закончена</tr>
+      </property>
+      <!-- @len -->
+      <property name="@len" type="float" access="readonly" units="millisecond" default="0">
+        <tr lang="en">length of mod file</tr>
+        <tr lang="ru" finished="false">Длина файла mod</tr>
+      </property>
+      <!-- @name -->
+      <property name="@name" type="symbol" default="" access="readonly">
+        <tr lang="en">mod name</tr>
+        <tr lang="ru" finished="false">название мод</tr>
+      </property>
+      <!-- @play -->
+      <property name="@play" type="bool" default="0">
+        <tr lang="en">play state</tr>
+        <tr lang="ru" finished="false">Игровое государство</tr>
+      </property>
+      <!-- @pos -->
+      <property name="@pos" type="float" units="millisecond" default="-1">
+        <tr lang="en">position in mod file</tr>
+        <tr lang="ru" finished="false">Положение в файле mod</tr>
+      </property>
+      <!-- @rpos -->
+      <property name="@rpos" type="float" minvalue="0" maxvalue="1" default="0">
+        <tr lang="en">relative position in mod file</tr>
+        <tr lang="ru" finished="false">Относительная позиция в файле mod</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- pause -->
+      <method name="pause">
+        <info>
+          <tr lang="en">pause playing</tr>
+          <tr lang="ru" finished="false">играть паузу</tr>
+        </info>
+      </method>
+      <!-- play -->
+      <method name="play">
+        <info>
+          <tr lang="en">play mod file</tr>
+          <tr lang="ru" finished="false">play mod файл</tr>
+        </info>
+      </method>
+      <!-- stop -->
+      <method name="stop">
+        <info>
+          <tr lang="en">stop playing and move play position to the end of file</tr>
+          <!-- old: Прекратите играть и переместите игровую позицию
                     в конец файла -->
-                    <tr lang="ru" finished="false">Прекратите играть и переместите игровую позицию
-                    в конец файла</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">load mod file</tr>
-                    <tr lang="ru" finished="false">Скачать файл load mod</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">left channel and property output</tr>
-                    <tr lang="ru" finished="false">Левый канал и выход собственности</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">right channel</tr>
-                    <tr lang="ru" finished="false">Правый канал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Прекратите играть и переместите игровую позицию в конец
+          файла</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">load mod file</tr>
+          <tr lang="ru" finished="false">Скачать файл load mod</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">left channel and property output</tr>
+          <tr lang="ru" finished="false">Левый канал и выход собственности</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">right channel</tr>
+          <tr lang="ru" finished="false">Правый канал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol stargazing.mod(  [T]
 |                        |
@@ -121,7 +120,7 @@
 
 [X x1:1->x2:1]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

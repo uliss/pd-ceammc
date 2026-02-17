@@ -1,98 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.gen">
-        <title>list.gen</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">generates a list of the specified length via a side-chain
-                generator</tr>
-                <tr lang="ru">генерирует список указанной длины через генератор боковой цепи</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list generate</keywords>
-            <since>0.1</since>
-            <also>
-                <see>list.seq</see>
-                <see>list.shuffle</see>
-                <see>list.choice</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Note, that maximum length limited to 1024 elements.</tr>
-                <!-- old: Максимальная длина ограничивается 1024
+  <object name="list.gen">
+    <title>list.gen</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">generates a list of the specified length via a side-chain generator</tr>
+        <tr lang="ru">генерирует список указанной длины через генератор боковой цепи</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list generate</keywords>
+      <since>0.1</since>
+      <also>
+        <see>list.seq</see>
+        <see>list.shuffle</see>
+        <see>list.choice</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Note, that maximum length limited to 1024 elements.</tr>
+        <!-- old: Максимальная длина ограничивается 1024
                 элементами. -->
-                <tr lang="ru" finished="false">Максимальная длина ограничивается 1024
-                элементами.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="COUNT" type="int" minvalue="1" maxvalue="1024">
-                <tr lang="en">length of generated list</tr>
-                <tr lang="ru" finished="false">Длина генерируемого списка</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @count -->
-            <property name="@count" type="int" minvalue="1" maxvalue="1024" default="1">
-                <tr lang="en">length of generated list</tr>
-                <tr lang="ru" finished="false">Длина генерируемого списка</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- dump -->
-            <method name="dump">
-                <info>
-                    <tr lang="en">dump internal object state to Pd console window</tr>
-                    <!-- old: Сбросить внутреннее состояние объекта в окно
+        <tr lang="ru" finished="false">Максимальная длина ограничивается 1024 элементами.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="COUNT" type="int" minvalue="1" maxvalue="1024">
+        <tr lang="en">length of generated list</tr>
+        <tr lang="ru" finished="false">Длина генерируемого списка</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @count -->
+      <property name="@count" type="int" minvalue="1" maxvalue="1024" default="1">
+        <tr lang="en">length of generated list</tr>
+        <tr lang="ru" finished="false">Длина генерируемого списка</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- dump -->
+      <method name="dump">
+        <info>
+          <tr lang="en">dump internal object state to Pd console window</tr>
+          <!-- old: Сбросить внутреннее состояние объекта в окно
                     консоли Pd -->
-                    <tr lang="ru" finished="false">Сбросить внутреннее состояние объекта в окно
-                    консоли Pd</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">starts list generation</tr>
-                    <tr lang="ru" finished="false">Начало формирования списка</tr>
-                </in>
-                <in on="int" minvalue="0" maxvalue="1024">
-                    <tr lang="en">changes length of generated list and starts generation</tr>
-                    <!-- old: Изменение длины сгенерированного списка и начало
+          <tr lang="ru" finished="false">Сбросить внутреннее состояние объекта в окно консоли
+          Pd</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">starts list generation</tr>
+          <tr lang="ru" finished="false">Начало формирования списка</tr>
+        </in>
+        <in on="int" minvalue="0" maxvalue="1024">
+          <tr lang="en">changes length of generated list and starts generation</tr>
+          <!-- old: Изменение длины сгенерированного списка и начало
                     генерации -->
-                    <tr lang="ru" finished="false">Изменение длины сгенерированного списка и начало
-                    генерации</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="any">
-                    <tr lang="en">input for generated values</tr>
-                    <tr lang="ru" finished="false">вход для генерируемых значений</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">generated list</tr>
-                    <tr lang="ru" finished="false">сгенерированный список</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">bang output for generator object</tr>
-                    <tr lang="ru" finished="false">Взрывной выход для генераторного объекта</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Изменение длины сгенерированного списка и начало
+          генерации</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="any">
+          <tr lang="en">input for generated values</tr>
+          <tr lang="ru" finished="false">вход для генерируемых значений</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">generated list</tr>
+          <tr lang="ru" finished="false">сгенерированный список</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">bang output for generator object</tr>
+          <tr lang="ru" finished="false">Взрывной выход для генераторного объекта</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
     [F]       [F]
     |         |
@@ -106,7 +104,7 @@
 |
 [ (
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,85 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="string.match">
-        <title>string.match</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks if the string matches to the regular expression</tr>
-                <tr lang="ru">проверка соответствия строки регулярному выражению</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>string</category>
-            <keywords>match regex</keywords>
-            <since>0.7.1</since>
-            <aliases>
-                <alias>str.match</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Used syntax: pcre. Some characters are non-supported in
-                Pd. Use ` instead of backslash, `` instead of `, (( instead of {, )) instead of },
-                .. instead of comma, `: instead of semicolon</tr>
-                <tr lang="ru">Используемый синтаксис: pcre. Некоторые
-                символы не поддерживаются в Pd. Используйте ` вместо обратного слеша, `` вместо `, (( вместо
-                {, )) вместо }, .. вместо запятой, `: вместо точки с запятой</tr>
-            </par>
-            <par>
-                <tr lang="en">If you need spaces: you should quote the string, also note that in
-                quoted string ` symbol should be escaped like ``.</tr>
-                <tr lang="ru">Если вам нужны пробелы: вы должны заключить
-                строку в кавычки, также обратите внимание, что в строке символ ` должен быть
-                экранирован, как ``.</tr>
-            </par>
-            <par>
-                <tr lang="en">For example, all digits: `d+, two or three chars: [a-z]((2..3))
-                etc.</tr>
-                <tr lang="ru">Например, все цифры: `d+, два или три символа:
-                [a-z]((2..3)) и т.д.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="RE" type="list">
-                <tr lang="en">regular expression</tr>
-                <tr lang="ru">регулярное выражение</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @re -->
-            <property name="@re" type="list" default="">
-                <tr lang="en">regular expression</tr>
-                <tr lang="ru">регулярное выражение</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input string or symbol</tr>
-                    <tr lang="ru">входная строка или символ</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">set regular expression</tr>
-                    <tr lang="ru">установка регулярного выражения</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output 1 on successfull match, otherwise 0</tr>
-                    <tr lang="ru">выводит 1 при успешном совпадении, в противном случае
-                    0</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="string.match">
+    <title>string.match</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks if the string matches to the regular expression</tr>
+        <tr lang="ru">проверка соответствия строки регулярному выражению</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>string</category>
+      <keywords>match regex</keywords>
+      <since>0.7.1</since>
+      <aliases>
+        <alias>str.match</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Used syntax: pcre. Some characters are non-supported in Pd. Use ` instead of
+        backslash, `` instead of `, (( instead of {, )) instead of }, .. instead of comma, `:
+        instead of semicolon</tr>
+        <tr lang="ru">Используемый синтаксис: pcre. Некоторые символы не поддерживаются в Pd.
+        Используйте ` вместо обратного слеша, `` вместо `, (( вместо {, )) вместо }, .. вместо
+        запятой, `: вместо точки с запятой</tr>
+      </par>
+      <par>
+        <tr lang="en">If you need spaces: you should quote the string, also note that in quoted
+        string ` symbol should be escaped like ``.</tr>
+        <tr lang="ru">Если вам нужны пробелы: вы должны заключить строку в кавычки, также обратите
+        внимание, что в строке символ ` должен быть экранирован, как ``.</tr>
+      </par>
+      <par>
+        <tr lang="en">For example, all digits: `d+, two or three chars: [a-z]((2..3)) etc.</tr>
+        <tr lang="ru">Например, все цифры: `d+, два или три символа: [a-z]((2..3)) и т.д.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="RE" type="list">
+        <tr lang="en">regular expression</tr>
+        <tr lang="ru">регулярное выражение</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @re -->
+      <property name="@re" type="list" default="">
+        <tr lang="en">regular expression</tr>
+        <tr lang="ru">регулярное выражение</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input string or symbol</tr>
+          <tr lang="ru">входная строка или символ</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">set regular expression</tr>
+          <tr lang="ru">установка регулярного выражения</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output 1 on successfull match, otherwise 0</tr>
+          <tr lang="ru">выводит 1 при успешном совпадении, в противном случае 0</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [test.mp3( [test.mp4( [FILE.mp2( [ABC( [abc.mp5( [symbol .*`.mp2(
 |          |          |          |     |               |
@@ -90,7 +86,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

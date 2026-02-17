@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.key2str">
-        <title>midi.key2str</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts the MIDI-key into the SPN name format</tr>
-                <tr lang="ru">преобразует номер MIDI-клавиши в имя ноты в формате SPN</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi key name spn pitch notation</keywords>
-            <aliases>
-                <alias>midi.key-&gt;str</alias>
-            </aliases>
-            <since>0.4</since>
-        </meta>
-        <arguments>
-            <argument name="TONALITY" type="list">
-                <tr lang="en">initial tomality</tr>
-                <tr lang="ru" finished="false">начальная теплота</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @symbol -->
-            <property name="@symbol" type="flag" default="0" access="initonly">
-                <tr lang="en">output as symbol instead of string by default</tr>
-                <tr lang="ru" finished="false">вывод как символ вместо строки по умолчанию</tr>
-            </property>
-            <!-- @tonality -->
-            <property name="@tonality" type="list" default="C major">
-                <tr lang="en">current tonality</tr>
-                <tr lang="ru" finished="false">текущая тональность</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">standart MIDI key number [0-127]</tr>
-                    <tr lang="ru" finished="false">Стандартный номер MIDI [0-127]</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output key name</tr>
-                    <tr lang="ru" finished="false">Выходное ключевое имя</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="midi.key2str">
+    <title>midi.key2str</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts the MIDI-key into the SPN name format</tr>
+        <tr lang="ru">преобразует номер MIDI-клавиши в имя ноты в формате SPN</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi key name spn pitch notation</keywords>
+      <aliases>
+        <alias>midi.key-&gt;str</alias>
+      </aliases>
+      <since>0.4</since>
+    </meta>
+    <arguments>
+      <argument name="TONALITY" type="list">
+        <tr lang="en">initial tomality</tr>
+        <tr lang="ru" finished="false">начальная теплота</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @symbol -->
+      <property name="@symbol" type="flag" default="0" access="initonly">
+        <tr lang="en">output as symbol instead of string by default</tr>
+        <tr lang="ru" finished="false">вывод как символ вместо строки по умолчанию</tr>
+      </property>
+      <!-- @tonality -->
+      <property name="@tonality" type="list" default="C major">
+        <tr lang="en">current tonality</tr>
+        <tr lang="ru" finished="false">текущая тональность</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">standart MIDI key number [0-127]</tr>
+          <tr lang="ru" finished="false">Стандартный номер MIDI [0-127]</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output key name</tr>
+          <tr lang="ru" finished="false">Выходное ключевое имя</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]  [@tonality F minor( [@tonality E( [@tonality C(
 |    |                   |             |
@@ -64,7 +64,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

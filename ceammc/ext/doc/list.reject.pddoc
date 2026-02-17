@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.reject">
-        <title>list.reject</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">remove specified elements from the list</tr>
-                <tr lang="ru">удаляет указанные элементы из списка</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list pass reject</keywords>
-            <since>0.9.5</since>
-        </meta>
-        <arguments>
-            <argument name="ARGS" type="list">
-                <tr lang="en">list of rejected values</tr>
-                <tr lang="ru" finished="false">Список отвергнутых ценностей</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @args -->
-            <property name="@args" type="list" default="">
-                <tr lang="en">list of rejected values</tr>
-                <tr lang="ru" finished="false">Список отвергнутых ценностей</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input float</tr>
-                    <tr lang="ru" finished="false">входной поплавок</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">input symbol</tr>
-                    <tr lang="ru" finished="false">входной символ</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set rejected values</tr>
-                    <tr lang="ru" finished="false">Отвергнутые ценности</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list without rejected elements</tr>
-                    <tr lang="ru" finished="false">Список без отклоненных элементов</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="list.reject">
+    <title>list.reject</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">remove specified elements from the list</tr>
+        <tr lang="ru">удаляет указанные элементы из списка</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list pass reject</keywords>
+      <since>0.9.5</since>
+    </meta>
+    <arguments>
+      <argument name="ARGS" type="list">
+        <tr lang="en">list of rejected values</tr>
+        <tr lang="ru" finished="false">Список отвергнутых ценностей</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @args -->
+      <property name="@args" type="list" default="">
+        <tr lang="en">list of rejected values</tr>
+        <tr lang="ru" finished="false">Список отвергнутых ценностей</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input float</tr>
+          <tr lang="ru" finished="false">входной поплавок</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">input symbol</tr>
+          <tr lang="ru" finished="false">входной символ</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set rejected values</tr>
+          <tr lang="ru" finished="false">Отвергнутые ценности</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list without rejected elements</tr>
+          <tr lang="ru" finished="false">Список без отклоненных элементов</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]   [S digits=24]
 |     |
@@ -77,7 +77,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

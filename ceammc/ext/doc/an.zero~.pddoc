@@ -1,71 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="an.zero~">
-        <title>an.zero~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">calculate the signal zero crossing count/rate/freq</tr>
-                <tr lang="ru">вычисление частоты/скорости/числа пересечения сигналом нулевого
-                значения</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>an</category>
-            <keywords>zero crossing rate count freq</keywords>
-            <since>0.9.5</since>
-            <also>
-                <see>an.pitchtrack~</see>
-            </also>
-        </meta>
-        <properties>
-            <!-- @bs -->
-            <property name="@bs" type="int" minvalue="1" default="1024" maxvalue="65536"
-            units="sample" access="initonly">
-                <tr lang="en">buffer size</tr>
-                <tr lang="ru">размер буфера</tr>
-            </property>
-            <!-- @clock -->
-            <property name="@clock" type="list" default="0" access="initonly">
-                <tr lang="en">alias for @mode count @bs 1. Outputs impulse at each zero
-                crossing</tr>
-                <tr lang="ru">сокращение для @mode count @bs 1. Выводит импульс при каждом
-                пересечении нуля</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" enum="count rate freq" default="count">
-                <tr lang="en">calculation mode: if 'count' - outputs the number of zero crossing
-                occurred in a period of current block size, if 'rate' - outputs zero crossing rate
-                (zero crossing number / block size), if 'freq' - outputs zero crossing frequency in
-                hertz</tr>
-                <tr lang="ru">режим вывода: если "count" - выводит число пересечения нуля в
-                пределах текущего размера блока, если "rate" - выводит скорость пересечения нуля
-                (число пересечений за блок / размер блока), если "freq" - выводит частоту
-                пересечения нуля в Герцах</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal for analysis</tr>
-                    <tr lang="ru">входной сигнал для анализа</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">zero crossing count/freq/rate depending on the property
-                    @mode</tr>
-                    <tr lang="ru">число/скорость/частота пересечения сигналом нулевого значения в
-                    зависимости от свойства @mode</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="an.zero~">
+    <title>an.zero~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">calculate the signal zero crossing count/rate/freq</tr>
+        <tr lang="ru">вычисление частоты/скорости/числа пересечения сигналом нулевого значения</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>an</category>
+      <keywords>zero crossing rate count freq</keywords>
+      <since>0.9.5</since>
+      <also>
+        <see>an.pitchtrack~</see>
+      </also>
+    </meta>
+    <properties>
+      <!-- @bs -->
+      <property name="@bs" type="int" minvalue="1" default="1024" maxvalue="65536" units="sample"
+      access="initonly">
+        <tr lang="en">buffer size</tr>
+        <tr lang="ru">размер буфера</tr>
+      </property>
+      <!-- @clock -->
+      <property name="@clock" type="list" default="0" access="initonly">
+        <tr lang="en">alias for @mode count @bs 1. Outputs impulse at each zero crossing</tr>
+        <tr lang="ru">сокращение для @mode count @bs 1. Выводит импульс при каждом пересечении
+        нуля</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" enum="count rate freq" default="count">
+        <tr lang="en">calculation mode: if 'count' - outputs the number of zero crossing occurred
+        in a period of current block size, if 'rate' - outputs zero crossing rate (zero crossing
+        number / block size), if 'freq' - outputs zero crossing frequency in hertz</tr>
+        <tr lang="ru">режим вывода: если "count" - выводит число пересечения нуля в пределах
+        текущего размера блока, если "rate" - выводит скорость пересечения нуля (число пересечений
+        за блок / размер блока), если "freq" - выводит частоту пересечения нуля в Герцах</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal for analysis</tr>
+          <tr lang="ru">входной сигнал для анализа</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">zero crossing count/freq/rate depending on the property @mode</tr>
+          <tr lang="ru">число/скорость/частота пересечения сигналом нулевого значения в зависимости
+          от свойства @mode</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F digit=8]     [ui.dsp~]
 |
@@ -97,7 +92,7 @@
 #b @mode rate
 #c @mode freq
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

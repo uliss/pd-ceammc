@@ -1,86 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="random.linear">
-        <title>random.linear</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">random linear distribution</tr>
-                <tr lang="ru">случайное линейное распределение</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>random</category>
-            <keywords>linear random</keywords>
-            <also>
-                <see>random.float</see>
-                <see>random.int</see>
-            </also>
-            <since>0.4</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Generates random number in interval [@v0, @v1) with linear
-                distribution [@p0, @p1)</tr>
-                <tr lang="ru" finished="false">Генерирует случайное число в интервале [@v0, @v1) с
-                линейным распределением [@p0, @p1)</tr>
-            </par>
-            <par>
-                <tr lang="en">Use @seed property to get reproducible sequences. If @seed property
-                was not explicitly set or specified, uses generator initialized with current
-                time.</tr>
-                <tr lang="ru" finished="false">Используйте свойство @seed для получения
-                воспроизводимых последовательностей. Если свойство @seed не было явно установлено
-                или указано, используется генератор, инициализированный с текущим временем.</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @p0 -->
-            <property name="@p0" type="float" default="1">
-                <tr lang="en">probability at begin</tr>
-                <tr lang="ru" finished="false">Вероятность в начале</tr>
-            </property>
-            <!-- @p1 -->
-            <property name="@p1" type="float" default="0">
-                <tr lang="en">probability at end</tr>
-                <tr lang="ru" finished="false">Вероятность в конце</tr>
-            </property>
-            <!-- @seed -->
-            <property name="@seed" type="int" minvalue="0" default="0">
-                <tr lang="en">generator seed</tr>
-                <tr lang="ru" finished="false">генератор</tr>
-            </property>
-            <!-- @v0 -->
-            <property name="@v0" type="float" default="0">
-                <tr lang="en">begin of value interval</tr>
-                <tr lang="ru" finished="false">начало интервала значений</tr>
-            </property>
-            <!-- @v1 -->
-            <property name="@v1" type="float" default="1">
-                <tr lang="en">end of value interval</tr>
-                <tr lang="ru" finished="false">конец интервала значений</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">generates random number</tr>
-                    <tr lang="ru" finished="false">генерирует случайное число</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="random.linear">
+    <title>random.linear</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">random linear distribution</tr>
+        <tr lang="ru">случайное линейное распределение</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>random</category>
+      <keywords>linear random</keywords>
+      <also>
+        <see>random.float</see>
+        <see>random.int</see>
+      </also>
+      <since>0.4</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Generates random number in interval [@v0, @v1) with linear distribution [@p0,
+        @p1)</tr>
+        <tr lang="ru" finished="false">Генерирует случайное число в интервале [@v0, @v1) с линейным
+        распределением [@p0, @p1)</tr>
+      </par>
+      <par>
+        <tr lang="en">Use @seed property to get reproducible sequences. If @seed property was not
+        explicitly set or specified, uses generator initialized with current time.</tr>
+        <tr lang="ru" finished="false">Используйте свойство @seed для получения воспроизводимых
+        последовательностей. Если свойство @seed не было явно установлено или указано, используется
+        генератор, инициализированный с текущим временем.</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @p0 -->
+      <property name="@p0" type="float" default="1">
+        <tr lang="en">probability at begin</tr>
+        <tr lang="ru" finished="false">Вероятность в начале</tr>
+      </property>
+      <!-- @p1 -->
+      <property name="@p1" type="float" default="0">
+        <tr lang="en">probability at end</tr>
+        <tr lang="ru" finished="false">Вероятность в конце</tr>
+      </property>
+      <!-- @seed -->
+      <property name="@seed" type="int" minvalue="0" default="0">
+        <tr lang="en">generator seed</tr>
+        <tr lang="ru" finished="false">генератор</tr>
+      </property>
+      <!-- @v0 -->
+      <property name="@v0" type="float" default="0">
+        <tr lang="en">begin of value interval</tr>
+        <tr lang="ru" finished="false">начало интервала значений</tr>
+      </property>
+      <!-- @v1 -->
+      <property name="@v1" type="float" default="1">
+        <tr lang="en">end of value interval</tr>
+        <tr lang="ru" finished="false">конец интервала значений</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">generates random number</tr>
+          <tr lang="ru" finished="false">генерирует случайное число</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -102,7 +101,7 @@
 |    ^|.                |         |
 [tabwrite array1]       [s array1 ]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.length">
-        <title>list.length</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">output the number of elements in the list</tr>
-                <tr lang="ru">выводит количество элементов в списке</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list length size</keywords>
-            <since>0.1</since>
-            <also>
-                <see>list.at</see>
-            </also>
-            <aliases>
-                <alias>list.size</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">Input list</tr>
-                    <tr lang="ru" finished="false">Список вводимых данных</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">Input mlist</tr>
-                    <tr lang="ru" finished="false">Входной млист</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">the number of elements in the list</tr>
-                    <tr lang="ru" finished="false">Количество элементов в списке</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="list.length">
+    <title>list.length</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">output the number of elements in the list</tr>
+        <tr lang="ru">выводит количество элементов в списке</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list length size</keywords>
+      <since>0.1</since>
+      <also>
+        <see>list.at</see>
+      </also>
+      <aliases>
+        <alias>list.size</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">Input list</tr>
+          <tr lang="ru" finished="false">Список вводимых данных</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">Input mlist</tr>
+          <tr lang="ru" finished="false">Входной млист</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">the number of elements in the list</tr>
+          <tr lang="ru" finished="false">Количество элементов в списке</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
       [a b c d e(        [\("a list" "of two elements"\), bang(
       |                  |
@@ -53,7 +53,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

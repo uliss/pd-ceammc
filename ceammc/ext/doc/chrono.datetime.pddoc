@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="chrono.datetime">
-        <title>chrono.datetime</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs the current date and time</tr>
-                <tr lang="ru">выводит текущую дату и время</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>base</category>
-            <keywords>base</keywords>
-            <since>0.9.6</since>
-            <aliases>
-                <alias>ceammc/datetime</alias>
-                <alias>datetime</alias>
-            </aliases>
-        </meta>
-        <properties>
-            <!-- @utc -->
-            <property name="@utc" type="bool" default="0">
-                <tr lang="en">output in UTC format</tr>
-                <tr lang="ru" finished="false">выход в формате UTC</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output HOUR MIN SEC to second outlet and YEAR MONTH DAY to first
-                    outlet</tr>
-                    <!-- old: выход в течение часа до второго выхода и в
+  <object name="chrono.datetime">
+    <title>chrono.datetime</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs the current date and time</tr>
+        <tr lang="ru">выводит текущую дату и время</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>base</category>
+      <keywords>base</keywords>
+      <since>0.9.6</since>
+      <aliases>
+        <alias>ceammc/datetime</alias>
+        <alias>datetime</alias>
+      </aliases>
+    </meta>
+    <properties>
+      <!-- @utc -->
+      <property name="@utc" type="bool" default="0">
+        <tr lang="en">output in UTC format</tr>
+        <tr lang="ru" finished="false">выход в формате UTC</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output HOUR MIN SEC to second outlet and YEAR MONTH DAY to first
+          outlet</tr>
+          <!-- old: выход в течение часа до второго выхода и в
                     течение месяца до первого выхода -->
-                    <tr lang="ru" finished="false">выход в течение часа до второго выхода и в
-                    течение месяца до первого выхода</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list: YEAR MONTH DAY</tr>
-                    <tr lang="ru" finished="false">Название: YEAR MONTH DAY</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list: HOUR MIN SEC</tr>
-                    <tr lang="ru" finished="false">Оригинальное название: Hour Min SEC</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">выход в течение часа до второго выхода и в течение месяца
+          до первого выхода</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list: YEAR MONTH DAY</tr>
+          <tr lang="ru" finished="false">Название: YEAR MONTH DAY</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list: HOUR MIN SEC</tr>
+          <tr lang="ru" finished="false">Оригинальное название: Hour Min SEC</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]           [T]
 |             |
@@ -66,7 +66,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

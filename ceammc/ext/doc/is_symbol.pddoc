@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="is_symbol">
-        <title>is_symbol</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks if input message is a *symbol*</tr>
-                <tr lang="ru">проверка, является ли входное сообщение *символом*</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>predicates</category>
-            <keywords>predicate symbol</keywords>
-            <also>
-                <see>is_any</see>
-                <see>is_bang</see>
-                <see>is_list</see>
-                <see>is_float</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">outputs '1' to 1st outlet, otherwise '0'</tr>
-                    <tr lang="ru" finished="false">выходы "1" - 1-й выход, иначе "0"</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">0 or 1</tr>
-                    <tr lang="ru" finished="false">0 или 1</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">passes *symbol* message</tr>
-                    <tr lang="ru" finished="false">Прохождение *символ* сообщение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="is_symbol">
+    <title>is_symbol</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks if input message is a *symbol*</tr>
+        <tr lang="ru">проверка, является ли входное сообщение *символом*</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>predicates</category>
+      <keywords>predicate symbol</keywords>
+      <also>
+        <see>is_any</see>
+        <see>is_bang</see>
+        <see>is_list</see>
+        <see>is_float</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">outputs '1' to 1st outlet, otherwise '0'</tr>
+          <tr lang="ru" finished="false">выходы "1" - 1-й выход, иначе "0"</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">0 or 1</tr>
+          <tr lang="ru" finished="false">0 или 1</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">passes *symbol* message</tr>
+          <tr lang="ru" finished="false">Прохождение *символ* сообщение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [100(  [any( [symbol a(  [list a b c( [bang(
 |      |     |           |____________/
@@ -53,7 +53,7 @@
 |     ^|
 [tgl]  [print passed]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

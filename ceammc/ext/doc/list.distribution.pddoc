@@ -1,53 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.distribution">
-        <title>list.distribution</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">output list value distribution</tr>
-                <tr lang="ru">выводит список распределения значений в списке</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list distribution</keywords>
-            <since>0.1</since>
-        </meta>
-        <properties>
-            <!-- @normalize -->
-            <property name="@normalize" type="bool" default="1">
-                <tr lang="en">normalize sum to 1</tr>
-                <tr lang="ru" finished="false">нормализовать сумму до 1</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list of pairs: first element - value, second - number of repeats
-                    in list (by default normalized to have sum 1)</tr>
-                    <tr lang="ru" finished="false">список пар: первый элемент - значение, второй -
-                    количество повторов в списке (по умолчанию нормализовано, чтобы иметь сумму
-                    1)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="list.distribution">
+    <title>list.distribution</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">output list value distribution</tr>
+        <tr lang="ru">выводит список распределения значений в списке</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list distribution</keywords>
+      <since>0.1</since>
+    </meta>
+    <properties>
+      <!-- @normalize -->
+      <property name="@normalize" type="bool" default="1">
+        <tr lang="en">normalize sum to 1</tr>
+        <tr lang="ru" finished="false">нормализовать сумму до 1</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list of pairs: first element - value, second - number of repeats in list
+          (by default normalized to have sum 1)</tr>
+          <tr lang="ru" finished="false">список пар: первый элемент - значение, второй - количество
+          повторов в списке (по умолчанию нормализовано, чтобы иметь сумму 1)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]                             [A distrib yr=0..1 size=20]
 |
@@ -67,7 +66,7 @@
 |   ^|.
 [tabwrite distrib]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

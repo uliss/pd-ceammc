@@ -1,66 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.median">
-        <title>flt.median</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">median control flow filter</tr>
-                <tr lang="ru">медианный фильтр для контрольного потока</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>filter median</keywords>
-            <since>0.7</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The main idea of the median filter is to run through the signal entry
-                by entry, replacing each entry with the median of neighboring entries.</tr>
-                <!-- old: Основная идея медианного фильтра состоит в том,
+  <object name="flt.median">
+    <title>flt.median</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">median control flow filter</tr>
+        <tr lang="ru">медианный фильтр для контрольного потока</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>filter median</keywords>
+      <since>0.7</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The main idea of the median filter is to run through the signal entry by
+        entry, replacing each entry with the median of neighboring entries.</tr>
+        <!-- old: Основная идея медианного фильтра состоит в том,
                 чтобы проходить через вход сигнала, заменяя каждую запись медианой соседних
                 записей. -->
-                <tr lang="ru" finished="false">Основная идея медианного фильтра состоит в том,
-                чтобы проходить через вход сигнала, заменяя каждую запись медианой соседних
-                записей.</tr>
-            </par>
-            <par>
-                <tr lang="en">If window size is even: mean between center elements outputed</tr>
-                <!-- old: Если размер окна четный: среднее между выводимыми
+        <tr lang="ru" finished="false">Основная идея медианного фильтра состоит в том, чтобы
+        проходить через вход сигнала, заменяя каждую запись медианой соседних записей.</tr>
+      </par>
+      <par>
+        <tr lang="en">If window size is even: mean between center elements outputed</tr>
+        <!-- old: Если размер окна четный: среднее между выводимыми
                 центральными элементами -->
-                <tr lang="ru" finished="false">Если размер окна четный: среднее между выводимыми
-                центральными элементами</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @size -->
-            <property name="@size" type="int" minvalue="1" maxvalue="128" default="9"
-            units="sample">
-                <tr lang="en">filter windows size</tr>
-                <tr lang="ru" finished="false">размер фильтра окна</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input control signal</tr>
-                    <tr lang="ru" finished="false">входной управляющий сигнал</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">filtered control stream</tr>
-                    <tr lang="ru" finished="false">фильтрованный поток управления</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Если размер окна четный: среднее между выводимыми
+        центральными элементами</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @size -->
+      <property name="@size" type="int" minvalue="1" maxvalue="128" default="9" units="sample">
+        <tr lang="en">filter windows size</tr>
+        <tr lang="ru" finished="false">размер фильтра окна</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input control signal</tr>
+          <tr lang="ru" finished="false">входной управляющий сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">filtered control stream</tr>
+          <tr lang="ru" finished="false">фильтрованный поток управления</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |
@@ -74,7 +72,7 @@
 |
 [ui.hsl]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

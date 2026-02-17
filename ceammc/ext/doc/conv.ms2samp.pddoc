@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.ms2samp">
-        <title>conv.ms2samp</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">convert time in milliseconds to number of samples according to
-                current sample rate</tr>
-                <tr lang="ru">преобразовать время в миллисекундах в количество семплов в
-                соответствии с текущей скоростью семплирования</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>conv samp ms</keywords>
-            <since>0.2</since>
-            <aliases>
-                <alias>ceammc/ms-&gt;samp</alias>
-                <alias>ms-&gt;samp</alias>
-            </aliases>
-            <also>
-                <see>conv.samp2ms</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">time in milliseconds</tr>
-                    <tr lang="ru" finished="false">Время в миллисекундах</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">list of times in milliseconds</tr>
-                    <tr lang="ru" finished="false">Список раз в миллисекундах</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">converted value (float or list)</tr>
-                    <tr lang="ru" finished="false">конвертируемое значение (флот или список)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="conv.ms2samp">
+    <title>conv.ms2samp</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">convert time in milliseconds to number of samples according to current sample
+        rate</tr>
+        <tr lang="ru">преобразовать время в миллисекундах в количество семплов в соответствии с
+        текущей скоростью семплирования</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>conv samp ms</keywords>
+      <since>0.2</since>
+      <aliases>
+        <alias>ceammc/ms-&gt;samp</alias>
+        <alias>ms-&gt;samp</alias>
+      </aliases>
+      <also>
+        <see>conv.samp2ms</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">time in milliseconds</tr>
+          <tr lang="ru" finished="false">Время в миллисекундах</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">list of times in milliseconds</tr>
+          <tr lang="ru" finished="false">Список раз в миллисекундах</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">converted value (float or list)</tr>
+          <tr lang="ru" finished="false">конвертируемое значение (флот или список)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F digits=10]
 |
@@ -54,7 +54,7 @@
 |
 [F digits=10]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

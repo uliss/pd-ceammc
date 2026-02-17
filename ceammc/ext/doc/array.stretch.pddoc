@@ -1,169 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.stretch">
-        <title>array.stretch</title>
-        <meta>
-            <authors>
-                <author>Olli Parviainen</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">the array time-stretch, pitch-shift or rate-change</tr>
-                <tr lang="ru">растяжение во времени, изменение высоты тона или скорости у
-                массива</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array stretch</keywords>
-            <since>0.4</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Based on SoundTouch library for changing the Tempo, Pitch and
-                Playback Rates of arrays. Copies time-stretched data from source to destination
-                array</tr>
-                <tr lang="ru">Основана на библиотеке SoundTouch для изменения темпа, скорости
-                воспроизведения массивов. Копирует растянутые во времени данные из исходного
-                массива в массив назначения</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="SRC" type="symbol">
-                <tr lang="en">source array</tr>
-                <tr lang="ru">исходный массив</tr>
-            </argument>
-            <argument name="DEST" type="symbol">
-                <tr lang="en">destination array</tr>
-                <tr lang="ru">массив результата</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @aalength -->
-            <property name="@aalength" type="int" minvalue="8" maxvalue="128" default="64">
-                <tr lang="en">pitch transposer anti-alias filter length</tr>
-                <tr lang="ru">длина фильтра для борьбы со сверткой спектра</tr>
-            </property>
-            <!-- @antialias -->
-            <property name="@antialias" type="bool" default="0">
-                <tr lang="en">use of anti-alias filter. Anti-alias filter is used to prevent
-                folding of high frequencies when transposing the sample rate with
-                interpolation.</tr>
-                <tr lang="ru">использовать фильтр для борьбы со сверткой спектра. Этот фильтр
-                используется для предотвращения сворачивания высоких частот при транспозиции
-                частоты семплирования с интерполяцией.</tr>
-            </property>
-            <!-- @dest -->
-            <property name="@dest" type="symbol" default="">
-                <tr lang="en">destination array</tr>
-                <tr lang="ru">массив назначения</tr>
-            </property>
-            <!-- @overlap -->
-            <property name="@overlap" type="int" units="millisecond" minvalue="0" maxvalue="100"
-            default="8">
-                <tr lang="en">overlap length. When the chopped sound sequences are mixed back
-                together, to form a continuous sound stream, this parameter defines over how long
-                period the two consecutive sequences are let to overlap each other. Increasing this
-                value increases computational burden &amp; vice versa.</tr>
-                <tr lang="ru">длительность перекрытия. Когда отдельные небольшие куски звуковых
-                последовательностей смешиваются вместе, образуя непрерывный звуковой поток, этот
-                параметр определяет, в течение какого периода два последовательных фрейма могут
-                перекрывать друг друга. Увеличение этого значения увеличивает вычислительную
-                нагрузку и наоборот.</tr>
-            </property>
-            <!-- @pitch -->
-            <property name="@pitch" type="float" default="0" units="semitone">
-                <tr lang="en">relative pitch change while keeping the original tempo</tr>
-                <tr lang="ru">относительное изменение высоты звука при сохранении первоначального
-                темпа</tr>
-            </property>
-            <!-- @rate -->
-            <property name="@rate" type="float" minvalue="0.1" maxvalue="2" default="1">
-                <tr lang="en">playback rate - changes both tempo and pitch together as if a vinyl
-                disc was played at different RPM rate</tr>
-                <tr lang="ru">скорость воспроизведения - изменяет как темп, так и высоту звука
-                вместе, как если бы виниловый диск воспроизводился с разной скоростью RPM</tr>
-            </property>
-            <!-- @seekwindow -->
-            <property name="@seekwindow" type="int" units="millisecond" minvalue="0" maxvalue="100"
-            default="0">
-                <tr lang="en">Seeking window default length for algorithm that finds the best
-                possible overlapping location. This determines from how wide window the algorithm
-                may look for an optimal joining location when mixing the sound sequences back
-                together. The bigger this window setting is, the higher the possibility to find a
-                better mixing position will become, but at the same time large values may cause a
-                "drifting" artifact because consequent sequences will be taken at more uneven
-                intervals. If there's a disturbing artifact that sounds as if a constant frequency
-                was drifting around, try reducing this setting. Increasing this value increases
-                computational burden &amp; vice versa. Giving *0* value for the seek window length
-                sets automatic parameter value according to tempo setting (recommended)</tr>
-                <tr lang="ru">поиск длины окна по умолчанию для алгоритма, который находит
-                наилучшее местоположения перекрытие. Определяет, в насколько широком окне алгоритм
-                может искать оптимальное место соединения при смешивании звуковых
-                последовательностей вместе. Чем больше это окно, тем выше будет возможность найти
-                лучшее положение смешивания, но в то же время большие значения могут вызвать
-                «дрейфующий» артефакт, потому что последующие последовательности будут приниматься
-                со все более неравными интервалами. Если есть нежелательный артефакт, звучащий так,
-                как будто постоянная частота дрейфует, попробуйте уменьшить эту настройку.
-                Увеличение этого значения увеличивает вычислительную нагрузку и наоборот. Указывая
-                значение *0* для длины окна поиска устанавливает автоматическое значение параметра
-                в соответствии с настройкой темпа (рекомендуется)</tr>
-            </property>
-            <!-- @sequence -->
-            <property name="@sequence" type="int" units="millisecond" default="0" minvalue="0"
-            maxvalue="100">
-                <tr lang="en">Default length of a single processing sequence, in milliseconds. This
-                determines to how long sequences the original sound is chopped in the time-stretch
-                algorithm. The larger this value is, the lesser sequences are used in processing.
-                In principle a bigger value sounds better when slowing down tempo, but worse when
-                increasing tempo and vice versa. Increasing this value reduces computational burden
-                &amp; vice versa. Giving *0* value for the sequence length sets automatic parameter
-                value according to tempo setting (recommended).</tr>
-                <tr lang="ru">длина по умолчанию последовательности обработки в миллисекундах.
-                Определяет, насколько длинные последовательности исходного звука измельчаются в
-                алгоритме растяжения времени. Чем больше это значение, тем меньшие
-                последовательности используются в обработке. В принципе, большее значение звучит
-                лучше при замедлении темпа, но хуже при увеличении темпа и наоборот. Увеличение
-                этого значения снижает вычислительную нагрузку и наоборот. Указывая значение *0*
-                для длины последовательности устанавливает автоматическое значение параметра в
-                соответствии с настройками темпа (рекомендуется).</tr>
-            </property>
-            <!-- @speech -->
-            <property name="@speech" type="bool" default="0">
-                <tr lang="en">optimize for speech sound source</tr>
-                <tr lang="ru">оптимизация для речи</tr>
-            </property>
-            <!-- @src -->
-            <property name="@src" type="symbol" default="">
-                <tr lang="en">source array</tr>
-                <tr lang="ru">исходный массив</tr>
-            </property>
-            <!-- @tempo -->
-            <property name="@tempo" type="float" units="percent" minvalue="-50" maxvalue="100"
-            default="0">
-                <tr lang="en">relative tempo change without affecting the sound pitch</tr>
-                <tr lang="ru">относительное изменение темпа без влияния на высоту звука</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">starts processing</tr>
-                    <tr lang="ru">начинает вычисления</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="int">
-                    <tr lang="en">float value - number of result samples</tr>
-                    <tr lang="ru">числовое значение - количество семплов
-                    результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="array.stretch">
+    <title>array.stretch</title>
+    <meta>
+      <authors>
+        <author>Olli Parviainen</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">the array time-stretch, pitch-shift or rate-change</tr>
+        <tr lang="ru">растяжение во времени, изменение высоты тона или скорости у массива</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array stretch</keywords>
+      <since>0.4</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Based on SoundTouch library for changing the Tempo, Pitch and Playback Rates
+        of arrays. Copies time-stretched data from source to destination array</tr>
+        <tr lang="ru">Основана на библиотеке SoundTouch для изменения темпа, скорости
+        воспроизведения массивов. Копирует растянутые во времени данные из исходного массива в
+        массив назначения</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="SRC" type="symbol">
+        <tr lang="en">source array</tr>
+        <tr lang="ru">исходный массив</tr>
+      </argument>
+      <argument name="DEST" type="symbol">
+        <tr lang="en">destination array</tr>
+        <tr lang="ru">массив результата</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @aalength -->
+      <property name="@aalength" type="int" minvalue="8" maxvalue="128" default="64">
+        <tr lang="en">pitch transposer anti-alias filter length</tr>
+        <tr lang="ru">длина фильтра для борьбы со сверткой спектра</tr>
+      </property>
+      <!-- @antialias -->
+      <property name="@antialias" type="bool" default="0">
+        <tr lang="en">use of anti-alias filter. Anti-alias filter is used to prevent folding of
+        high frequencies when transposing the sample rate with interpolation.</tr>
+        <tr lang="ru">использовать фильтр для борьбы со сверткой спектра. Этот фильтр используется
+        для предотвращения сворачивания высоких частот при транспозиции частоты семплирования с
+        интерполяцией.</tr>
+      </property>
+      <!-- @dest -->
+      <property name="@dest" type="symbol" default="">
+        <tr lang="en">destination array</tr>
+        <tr lang="ru">массив назначения</tr>
+      </property>
+      <!-- @overlap -->
+      <property name="@overlap" type="int" units="millisecond" minvalue="0" maxvalue="100"
+      default="8">
+        <tr lang="en">overlap length. When the chopped sound sequences are mixed back together, to
+        form a continuous sound stream, this parameter defines over how long period the two
+        consecutive sequences are let to overlap each other. Increasing this value increases
+        computational burden &amp; vice versa.</tr>
+        <tr lang="ru">длительность перекрытия. Когда отдельные небольшие куски звуковых
+        последовательностей смешиваются вместе, образуя непрерывный звуковой поток, этот параметр
+        определяет, в течение какого периода два последовательных фрейма могут перекрывать друг
+        друга. Увеличение этого значения увеличивает вычислительную нагрузку и наоборот.</tr>
+      </property>
+      <!-- @pitch -->
+      <property name="@pitch" type="float" default="0" units="semitone">
+        <tr lang="en">relative pitch change while keeping the original tempo</tr>
+        <tr lang="ru">относительное изменение высоты звука при сохранении первоначального
+        темпа</tr>
+      </property>
+      <!-- @rate -->
+      <property name="@rate" type="float" minvalue="0.1" maxvalue="2" default="1">
+        <tr lang="en">playback rate - changes both tempo and pitch together as if a vinyl disc was
+        played at different RPM rate</tr>
+        <tr lang="ru">скорость воспроизведения - изменяет как темп, так и высоту звука вместе, как
+        если бы виниловый диск воспроизводился с разной скоростью RPM</tr>
+      </property>
+      <!-- @seekwindow -->
+      <property name="@seekwindow" type="int" units="millisecond" minvalue="0" maxvalue="100"
+      default="0">
+        <tr lang="en">Seeking window default length for algorithm that finds the best possible
+        overlapping location. This determines from how wide window the algorithm may look for an
+        optimal joining location when mixing the sound sequences back together. The bigger this
+        window setting is, the higher the possibility to find a better mixing position will become,
+        but at the same time large values may cause a "drifting" artifact because consequent
+        sequences will be taken at more uneven intervals. If there's a disturbing artifact that
+        sounds as if a constant frequency was drifting around, try reducing this setting.
+        Increasing this value increases computational burden &amp; vice versa. Giving *0* value for
+        the seek window length sets automatic parameter value according to tempo setting
+        (recommended)</tr>
+        <tr lang="ru">поиск длины окна по умолчанию для алгоритма, который находит наилучшее
+        местоположения перекрытие. Определяет, в насколько широком окне алгоритм может искать
+        оптимальное место соединения при смешивании звуковых последовательностей вместе. Чем больше
+        это окно, тем выше будет возможность найти лучшее положение смешивания, но в то же время
+        большие значения могут вызвать «дрейфующий» артефакт, потому что последующие
+        последовательности будут приниматься со все более неравными интервалами. Если есть
+        нежелательный артефакт, звучащий так, как будто постоянная частота дрейфует, попробуйте
+        уменьшить эту настройку. Увеличение этого значения увеличивает вычислительную нагрузку и
+        наоборот. Указывая значение *0* для длины окна поиска устанавливает автоматическое значение
+        параметра в соответствии с настройкой темпа (рекомендуется)</tr>
+      </property>
+      <!-- @sequence -->
+      <property name="@sequence" type="int" units="millisecond" default="0" minvalue="0"
+      maxvalue="100">
+        <tr lang="en">Default length of a single processing sequence, in milliseconds. This
+        determines to how long sequences the original sound is chopped in the time-stretch
+        algorithm. The larger this value is, the lesser sequences are used in processing. In
+        principle a bigger value sounds better when slowing down tempo, but worse when increasing
+        tempo and vice versa. Increasing this value reduces computational burden &amp; vice versa.
+        Giving *0* value for the sequence length sets automatic parameter value according to tempo
+        setting (recommended).</tr>
+        <tr lang="ru">длина по умолчанию последовательности обработки в миллисекундах. Определяет,
+        насколько длинные последовательности исходного звука измельчаются в алгоритме растяжения
+        времени. Чем больше это значение, тем меньшие последовательности используются в обработке.
+        В принципе, большее значение звучит лучше при замедлении темпа, но хуже при увеличении
+        темпа и наоборот. Увеличение этого значения снижает вычислительную нагрузку и наоборот.
+        Указывая значение *0* для длины последовательности устанавливает автоматическое значение
+        параметра в соответствии с настройками темпа (рекомендуется).</tr>
+      </property>
+      <!-- @speech -->
+      <property name="@speech" type="bool" default="0">
+        <tr lang="en">optimize for speech sound source</tr>
+        <tr lang="ru">оптимизация для речи</tr>
+      </property>
+      <!-- @src -->
+      <property name="@src" type="symbol" default="">
+        <tr lang="en">source array</tr>
+        <tr lang="ru">исходный массив</tr>
+      </property>
+      <!-- @tempo -->
+      <property name="@tempo" type="float" units="percent" minvalue="-50" maxvalue="100"
+      default="0">
+        <tr lang="en">relative tempo change without affecting the sound pitch</tr>
+        <tr lang="ru">относительное изменение темпа без влияния на высоту звука</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">starts processing</tr>
+          <tr lang="ru">начинает вычисления</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="int">
+          <tr lang="en">float value - number of result samples</tr>
+          <tr lang="ru">числовое значение - количество семплов результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [loadbang]
 |
@@ -195,7 +188,7 @@
 | \
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.atan">
-        <title>math.atan</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">arc tangent function</tr>
-                <tr lang="ru">арктангенс</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math atan</keywords>
-            <also>
-                <see>math.acos</see>
-                <see>math.asin</see>
-                <see>math.cos</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Outputs the principal value of the arc tangent of input value. The
-                result is in the range [-π/2, +π/2].</tr>
-                <!-- old: Выходит основное значение дугового касания входного
+  <object name="math.atan">
+    <title>math.atan</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">arc tangent function</tr>
+        <tr lang="ru">арктангенс</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math atan</keywords>
+      <also>
+        <see>math.acos</see>
+        <see>math.asin</see>
+        <see>math.cos</see>
+      </also>
+      <since>0.1</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Outputs the principal value of the arc tangent of input value. The result is
+        in the range [-π/2, +π/2].</tr>
+        <!-- old: Выходит основное значение дугового касания входного
                 значения. Результат находится в диапазоне [-π/2, +π/2]. -->
-                <tr lang="ru" finished="false">Выходит основное значение дугового касания входного
-                значения. Результат находится в диапазоне [-π/2, +π/2].</tr>
-            </par>
-            <par>
-                <tr lang="en">Special values:</tr>
-                <tr lang="ru" finished="false">Особые ценности:</tr>
-            </par>
-            <par>
-                <tr lang="en">atan(+-0) returns +-0.</tr>
-                <tr lang="ru" finished="false">Атан(+-0) возвращается +-0.</tr>
-            </par>
-            <par>
-                <tr lang="en">atan(+-infinity) returns +-π/2</tr>
-                <tr lang="ru" finished="false">Атан (+-бесконечность) возвращается +-π/2</tr>
-            </par>
-        </info>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">apply to all numeric values</tr>
-                    <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result value</tr>
-                    <tr lang="ru" finished="false">значение результата</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Выходит основное значение дугового касания входного
+        значения. Результат находится в диапазоне [-π/2, +π/2].</tr>
+      </par>
+      <par>
+        <tr lang="en">Special values:</tr>
+        <tr lang="ru" finished="false">Особые ценности:</tr>
+      </par>
+      <par>
+        <tr lang="en">atan(+-0) returns +-0.</tr>
+        <tr lang="ru" finished="false">Атан(+-0) возвращается +-0.</tr>
+      </par>
+      <par>
+        <tr lang="en">atan(+-infinity) returns +-π/2</tr>
+        <tr lang="ru" finished="false">Атан (+-бесконечность) возвращается +-π/2</tr>
+      </par>
+    </info>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">apply to all numeric values</tr>
+          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result value</tr>
+          <tr lang="ru" finished="false">значение результата</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [bang(                 [array ATAN yr=-2..2 w=320]
 |
@@ -74,7 +74,7 @@
 |
 [list->array ATAN]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

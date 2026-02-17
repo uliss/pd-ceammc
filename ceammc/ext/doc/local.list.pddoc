@@ -1,264 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="local.list">
-        <title>local.list</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">a local named list object</tr>
-                <tr lang="ru">локальный для патча именованный список</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>local</category>
-            <keywords>list global</keywords>
-            <since>0.1</since>
-            <also>
-                <see>local.float</see>
-                <see>local.int</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Defines local scope list variable, accessed by ID name and available
-                only within its patch (canvas).</tr>
-                <!-- old: Определяет локальную переменную списка объема,
+  <object name="local.list">
+    <title>local.list</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">a local named list object</tr>
+        <tr lang="ru">локальный для патча именованный список</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>local</category>
+      <keywords>list global</keywords>
+      <since>0.1</since>
+      <also>
+        <see>local.float</see>
+        <see>local.int</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Defines local scope list variable, accessed by ID name and available only
+        within its patch (canvas).</tr>
+        <!-- old: Определяет локальную переменную списка объема,
                 доступную по имени ID и доступную только в его патче (канвасе). -->
-                <tr lang="ru" finished="false">Определяет локальную переменную списка объема,
-                доступную по имени ID и доступную только в его патче (канвасе).</tr>
-            </par>
+        <tr lang="ru" finished="false">Определяет локальную переменную списка объема, доступную по
+        имени ID и доступную только в его патче (канвасе).</tr>
+      </par>
+    </info>
+    <mouse>
+      <event type="left-click" editmode="false">open data editor</event>
+    </mouse>
+    <arguments>
+      <argument name="ID" type="symbol">
+        <tr lang="en">object ID</tr>
+        <tr lang="ru" finished="false">объект</tr>
+      </argument>
+      <argument name="VALUE" type="list">
+        <tr lang="en">initial values</tr>
+        <tr lang="ru" finished="false">начальные значения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @empty -->
+      <property name="@empty" type="bool" access="readonly" default="1">
+        <tr lang="en">1 if list is empty, otherwise 0</tr>
+        <tr lang="ru" finished="false">1 если список пуст, в противном случае 0</tr>
+      </property>
+      <!-- @id -->
+      <property name="@id" type="symbol" access="initonly" default="default">
+        <tr lang="en">local variable id</tr>
+        <tr lang="ru" finished="false">локальная переменная id</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="int" access="readonly" minvalue="0" default="0">
+        <tr lang="en">number of elements in list</tr>
+        <tr lang="ru" finished="false">Количество элементов в списке</tr>
+      </property>
+      <!-- @value -->
+      <property name="@value" type="list" default="">
+        <tr lang="en">current value</tr>
+        <tr lang="ru" finished="false">Текущая стоимость</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- append -->
+      <method name="append">
+        <info>
+          <tr lang="en">adds values to the end of the list</tr>
+          <tr lang="ru" finished="false">Добавить значения в конец списка</tr>
         </info>
-        <mouse>
-            <event type="left-click" editmode="false">open data editor</event>
-        </mouse>
-        <arguments>
-            <argument name="ID" type="symbol">
-                <tr lang="en">object ID</tr>
-                <tr lang="ru" finished="false">объект</tr>
-            </argument>
-            <argument name="VALUE" type="list">
-                <tr lang="en">initial values</tr>
-                <tr lang="ru" finished="false">начальные значения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @empty -->
-            <property name="@empty" type="bool" access="readonly" default="1">
-                <tr lang="en">1 if list is empty, otherwise 0</tr>
-                <tr lang="ru" finished="false">1 если список пуст, в противном случае 0</tr>
-            </property>
-            <!-- @id -->
-            <property name="@id" type="symbol" access="initonly" default="default">
-                <tr lang="en">local variable id</tr>
-                <tr lang="ru" finished="false">локальная переменная id</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="int" access="readonly" minvalue="0" default="0">
-                <tr lang="en">number of elements in list</tr>
-                <tr lang="ru" finished="false">Количество элементов в списке</tr>
-            </property>
-            <!-- @value -->
-            <property name="@value" type="list" default="">
-                <tr lang="en">current value</tr>
-                <tr lang="ru" finished="false">Текущая стоимость</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- append -->
-            <method name="append">
-                <info>
-                    <tr lang="en">adds values to the end of the list</tr>
-                    <tr lang="ru" finished="false">Добавить значения в конец списка</tr>
-                </info>
-                <param name="VAL" type="atom" required="true">
-                    <tr lang="en">appended value</tr>
-                    <tr lang="ru" finished="false">добавленная стоимость</tr>
-                </param>
-            </method>
-            <!-- at -->
-            <method name="at">
-                <info>
-                    <tr lang="en">outputs atom at the specified position</tr>
-                    <tr lang="ru" finished="false">выходы атома в указанном положении</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">position (negative indexes are supported: -1 means last
-                    element)</tr>
-                    <!-- old: позиция (поддерживаются отрицательные индексы:
+        <param name="VAL" type="atom" required="true">
+          <tr lang="en">appended value</tr>
+          <tr lang="ru" finished="false">добавленная стоимость</tr>
+        </param>
+      </method>
+      <!-- at -->
+      <method name="at">
+        <info>
+          <tr lang="en">outputs atom at the specified position</tr>
+          <tr lang="ru" finished="false">выходы атома в указанном положении</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">position (negative indexes are supported: -1 means last element)</tr>
+          <!-- old: позиция (поддерживаются отрицательные индексы:
                     -1 означает последний элемент) -->
-                    <tr lang="ru" finished="false">позиция (поддерживаются отрицательные индексы:
-                    -1 означает последний элемент)</tr>
-                </param>
-            </method>
-            <!-- back -->
-            <method name="back">
-                <info>
-                    <tr lang="en">output last list element</tr>
-                    <tr lang="ru" finished="false">выходной элемент последнего списка</tr>
-                </info>
-            </method>
-            <!-- choose -->
-            <method name="choose">
-                <info>
-                    <tr lang="en">choose random element in list and output it</tr>
-                    <!-- old: Выберите случайный элемент в списке и выведите
+          <tr lang="ru" finished="false">позиция (поддерживаются отрицательные индексы: -1 означает
+          последний элемент)</tr>
+        </param>
+      </method>
+      <!-- back -->
+      <method name="back">
+        <info>
+          <tr lang="en">output last list element</tr>
+          <tr lang="ru" finished="false">выходной элемент последнего списка</tr>
+        </info>
+      </method>
+      <!-- choose -->
+      <method name="choose">
+        <info>
+          <tr lang="en">choose random element in list and output it</tr>
+          <!-- old: Выберите случайный элемент в списке и выведите
                     его -->
-                    <tr lang="ru" finished="false">Выберите случайный элемент в списке и выведите
-                    его</tr>
-                </info>
-            </method>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">removes all list elements</tr>
-                    <tr lang="ru" finished="false">Удалить все элементы списка</tr>
-                </info>
-            </method>
-            <!-- dump -->
-            <method name="dump">
-                <info>
-                    <tr lang="en">dump object info to Pd window</tr>
-                    <tr lang="ru" finished="false">Сбросить информацию об объекте в окно Pd</tr>
-                </info>
-            </method>
-            <!-- fill -->
-            <method name="fill">
-                <info>
-                    <tr lang="en">fills with specified value</tr>
-                    <tr lang="ru" finished="false">заполнения с заданным значением</tr>
-                </info>
-                <param name="VAL" type="atom" required="true">
-                    <tr lang="en">fill value</tr>
-                    <tr lang="ru" finished="false">заполняемость</tr>
-                </param>
-            </method>
-            <!-- front -->
-            <method name="front">
-                <info>
-                    <tr lang="en">output first list element</tr>
-                    <tr lang="ru" finished="false">выходной первый элемент списка</tr>
-                </info>
-            </method>
-            <!-- insert -->
-            <method name="insert">
-                <info>
-                    <tr lang="en">inserts values to the specified position</tr>
-                    <tr lang="ru" finished="false">вставляет значения в указанное положение</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">insert position</tr>
-                    <tr lang="ru" finished="false">вставить положение</tr>
-                </param>
-                <param name="VAL" type="atom" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- pop -->
-            <method name="pop">
-                <info>
-                    <tr lang="en">removes last list element</tr>
-                    <tr lang="ru" finished="false">Удалить элемент последнего списка</tr>
-                </info>
-            </method>
-            <!-- prepend -->
-            <method name="prepend">
-                <info>
-                    <tr lang="en">inserts values to the list beginning</tr>
-                    <tr lang="ru" finished="false">вставляет значения в начало списка</tr>
-                </info>
-                <param name="VAL" type="atom" required="true">
-                    <tr lang="en">prepended value</tr>
-                    <tr lang="ru" finished="false">Предполагаемая стоимость</tr>
-                </param>
-            </method>
-            <!-- remove -->
-            <method name="remove">
-                <info>
-                    <tr lang="en">removes specified element</tr>
-                    <tr lang="ru" finished="false">удаляет указанный элемент</tr>
-                </info>
-                <param name="IDX" type="int" required="true">
-                    <tr lang="en">element index</tr>
-                    <tr lang="ru" finished="false">Элементный индекс</tr>
-                </param>
-            </method>
-            <!-- reverse -->
-            <method name="reverse">
-                <info>
-                    <tr lang="en">reverses list</tr>
-                    <tr lang="ru" finished="false">обратный список</tr>
-                </info>
-            </method>
-            <!-- set -->
-            <method name="set">
-                <info>
-                    <tr lang="en">sets new list without output</tr>
-                    <tr lang="ru" finished="false">Новый список без выхода</tr>
-                </info>
-                <param name="LIST" type="list" required="true">
-                    <tr lang="en">new list content</tr>
-                    <tr lang="ru" finished="false">Новый список контента</tr>
-                </param>
-            </method>
-            <!-- shuffle -->
-            <method name="shuffle">
-                <info>
-                    <tr lang="en">put elements in random order</tr>
-                    <tr lang="ru" finished="false">Поставить элементы в случайном порядке</tr>
-                </info>
-            </method>
-            <!-- sort -->
-            <method name="sort">
-                <info>
-                    <tr lang="en">sorts list</tr>
-                    <tr lang="ru" finished="false">сортировать список</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output list content</tr>
-                    <tr lang="ru" finished="false">Содержание списка выходных данных</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">outputs list element at specified position. Negative indexes are
-                    supported</tr>
-                    <!-- old: элемент списка выходов в указанном положении.
+          <tr lang="ru" finished="false">Выберите случайный элемент в списке и выведите его</tr>
+        </info>
+      </method>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">removes all list elements</tr>
+          <tr lang="ru" finished="false">Удалить все элементы списка</tr>
+        </info>
+      </method>
+      <!-- dump -->
+      <method name="dump">
+        <info>
+          <tr lang="en">dump object info to Pd window</tr>
+          <tr lang="ru" finished="false">Сбросить информацию об объекте в окно Pd</tr>
+        </info>
+      </method>
+      <!-- fill -->
+      <method name="fill">
+        <info>
+          <tr lang="en">fills with specified value</tr>
+          <tr lang="ru" finished="false">заполнения с заданным значением</tr>
+        </info>
+        <param name="VAL" type="atom" required="true">
+          <tr lang="en">fill value</tr>
+          <tr lang="ru" finished="false">заполняемость</tr>
+        </param>
+      </method>
+      <!-- front -->
+      <method name="front">
+        <info>
+          <tr lang="en">output first list element</tr>
+          <tr lang="ru" finished="false">выходной первый элемент списка</tr>
+        </info>
+      </method>
+      <!-- insert -->
+      <method name="insert">
+        <info>
+          <tr lang="en">inserts values to the specified position</tr>
+          <tr lang="ru" finished="false">вставляет значения в указанное положение</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">insert position</tr>
+          <tr lang="ru" finished="false">вставить положение</tr>
+        </param>
+        <param name="VAL" type="atom" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- pop -->
+      <method name="pop">
+        <info>
+          <tr lang="en">removes last list element</tr>
+          <tr lang="ru" finished="false">Удалить элемент последнего списка</tr>
+        </info>
+      </method>
+      <!-- prepend -->
+      <method name="prepend">
+        <info>
+          <tr lang="en">inserts values to the list beginning</tr>
+          <tr lang="ru" finished="false">вставляет значения в начало списка</tr>
+        </info>
+        <param name="VAL" type="atom" required="true">
+          <tr lang="en">prepended value</tr>
+          <tr lang="ru" finished="false">Предполагаемая стоимость</tr>
+        </param>
+      </method>
+      <!-- remove -->
+      <method name="remove">
+        <info>
+          <tr lang="en">removes specified element</tr>
+          <tr lang="ru" finished="false">удаляет указанный элемент</tr>
+        </info>
+        <param name="IDX" type="int" required="true">
+          <tr lang="en">element index</tr>
+          <tr lang="ru" finished="false">Элементный индекс</tr>
+        </param>
+      </method>
+      <!-- reverse -->
+      <method name="reverse">
+        <info>
+          <tr lang="en">reverses list</tr>
+          <tr lang="ru" finished="false">обратный список</tr>
+        </info>
+      </method>
+      <!-- set -->
+      <method name="set">
+        <info>
+          <tr lang="en">sets new list without output</tr>
+          <tr lang="ru" finished="false">Новый список без выхода</tr>
+        </info>
+        <param name="LIST" type="list" required="true">
+          <tr lang="en">new list content</tr>
+          <tr lang="ru" finished="false">Новый список контента</tr>
+        </param>
+      </method>
+      <!-- shuffle -->
+      <method name="shuffle">
+        <info>
+          <tr lang="en">put elements in random order</tr>
+          <tr lang="ru" finished="false">Поставить элементы в случайном порядке</tr>
+        </info>
+      </method>
+      <!-- sort -->
+      <method name="sort">
+        <info>
+          <tr lang="en">sorts list</tr>
+          <tr lang="ru" finished="false">сортировать список</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output list content</tr>
+          <tr lang="ru" finished="false">Содержание списка выходных данных</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">outputs list element at specified position. Negative indexes are
+          supported</tr>
+          <!-- old: элемент списка выходов в указанном положении.
                     Поддерживаются отрицательные индексы -->
-                    <tr lang="ru" finished="false">элемент списка выходов в указанном положении.
-                    Поддерживаются отрицательные индексы</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">set new list with single symbol element and output</tr>
-                    <!-- old: установить новый список с одним элементом
+          <tr lang="ru" finished="false">элемент списка выходов в указанном положении.
+          Поддерживаются отрицательные индексы</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">set new list with single symbol element and output</tr>
+          <!-- old: установить новый список с одним элементом
                     символа и выходом -->
-                    <tr lang="ru" finished="false">установить новый список с одним элементом
-                    символа и выходом</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">set new list content and output</tr>
-                    <tr lang="ru" finished="false">установить новый контент списка и выход</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">same as list</tr>
-                    <tr lang="ru" finished="false">Тот же список</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="control">
-                <out type="any">
-                    <tr lang="en">list output</tr>
-                    <tr lang="ru" finished="false">перечень мероприятий</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">установить новый список с одним элементом символа и
+          выходом</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">set new list content and output</tr>
+          <tr lang="ru" finished="false">установить новый контент списка и выход</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">same as list</tr>
+          <tr lang="ru" finished="false">Тот же список</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="control">
+        <out type="any">
+          <tr lang="en">list output</tr>
+          <tr lang="ru" finished="false">перечень мероприятий</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [list a b c(  [set 3 2 1(
 |             |
@@ -270,8 +268,8 @@
 
 [local.list-nonlocal]
 ]]>
-            </pdascii>
-            <pdascii id="nonlocal">
+      </pdascii>
+      <pdascii id="nonlocal">
 <![CDATA[
 [bng]
 |
@@ -279,7 +277,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

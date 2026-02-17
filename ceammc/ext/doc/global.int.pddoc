@@ -1,109 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="global.int">
-        <title>global.int</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">global named integer object</tr>
-                <tr lang="ru">глобальной именованное целое число</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>global</category>
-            <keywords>int global</keywords>
-            <since>0.1</since>
-            <also>
-                <see>global.float</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Defines global scope integer variable, accessed by ID name.</tr>
-                <!-- old: Определяет глобальную целочисленную переменную
+  <object name="global.int">
+    <title>global.int</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">global named integer object</tr>
+        <tr lang="ru">глобальной именованное целое число</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>global</category>
+      <keywords>int global</keywords>
+      <since>0.1</since>
+      <also>
+        <see>global.float</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Defines global scope integer variable, accessed by ID name.</tr>
+        <!-- old: Определяет глобальную целочисленную переменную
                 объема, доступную по имени ID. -->
-                <tr lang="ru" finished="false">Определяет глобальную целочисленную переменную
-                объема, доступную по имени ID.</tr>
-            </par>
+        <tr lang="ru" finished="false">Определяет глобальную целочисленную переменную объема,
+        доступную по имени ID.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="ID" type="symbol">
+        <tr lang="en">object ID</tr>
+        <tr lang="ru" finished="false">объект</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @id -->
+      <property name="@id" type="symbol" access="initonly" default="default">
+        <tr lang="en">global variable id</tr>
+        <tr lang="ru" finished="false">Глобальная переменная id</tr>
+      </property>
+      <!-- @value -->
+      <property name="@value" type="int" access="readonly" default="0">
+        <tr lang="en">current value</tr>
+        <tr lang="ru" finished="false">Текущая стоимость</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- * -->
+      <method name="*">
+        <info>
+          <tr lang="en">multiply to, no output</tr>
+          <tr lang="ru" finished="false">Умножить на, не выход</tr>
         </info>
-        <arguments>
-            <argument name="ID" type="symbol">
-                <tr lang="en">object ID</tr>
-                <tr lang="ru" finished="false">объект</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @id -->
-            <property name="@id" type="symbol" access="initonly" default="default">
-                <tr lang="en">global variable id</tr>
-                <tr lang="ru" finished="false">Глобальная переменная id</tr>
-            </property>
-            <!-- @value -->
-            <property name="@value" type="int" access="readonly" default="0">
-                <tr lang="en">current value</tr>
-                <tr lang="ru" finished="false">Текущая стоимость</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- * -->
-            <method name="*">
-                <info>
-                    <tr lang="en">multiply to, no output</tr>
-                    <tr lang="ru" finished="false">Умножить на, не выход</tr>
-                </info>
-            </method>
-            <!-- + -->
-            <method name="+">
-                <info>
-                    <tr lang="en">add to int, no output</tr>
-                    <tr lang="ru" finished="false">Добавить int, no output</tr>
-                </info>
-            </method>
-            <method name="-">
-                <info>
-                    <tr lang="en">substruct from int, no output</tr>
-                    <tr lang="ru" finished="false">Подструктура из int, отсутствие выхода</tr>
-                </info>
-            </method>
-            <!-- / -->
-            <method name="/">
-                <info>
-                    <tr lang="en">divide by, no output</tr>
-                    <tr lang="ru" finished="false">делить на, не выход</tr>
-                </info>
-            </method>
-            <!-- set -->
-            <method name="set">
-                <info>
-                    <tr lang="en">sets new value without output</tr>
-                    <tr lang="ru" finished="false">Новая стоимость без выхода</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">outputs variable</tr>
-                    <tr lang="ru" finished="false">выходы переменные</tr>
-                </in>
-                <in on="float">
-                    <tr lang="en">set truncated integer and outputs</tr>
-                    <tr lang="ru" finished="false">множество усеченных целых чисел и выходов</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="control">
-                <out type="any">
-                    <tr lang="en">int output</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+      </method>
+      <!-- + -->
+      <method name="+">
+        <info>
+          <tr lang="en">add to int, no output</tr>
+          <tr lang="ru" finished="false">Добавить int, no output</tr>
+        </info>
+      </method>
+      <method name="-">
+        <info>
+          <tr lang="en">substruct from int, no output</tr>
+          <tr lang="ru" finished="false">Подструктура из int, отсутствие выхода</tr>
+        </info>
+      </method>
+      <!-- / -->
+      <method name="/">
+        <info>
+          <tr lang="en">divide by, no output</tr>
+          <tr lang="ru" finished="false">делить на, не выход</tr>
+        </info>
+      </method>
+      <!-- set -->
+      <method name="set">
+        <info>
+          <tr lang="en">sets new value without output</tr>
+          <tr lang="ru" finished="false">Новая стоимость без выхода</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">outputs variable</tr>
+          <tr lang="ru" finished="false">выходы переменные</tr>
+        </in>
+        <in on="float">
+          <tr lang="en">set truncated integer and outputs</tr>
+          <tr lang="ru" finished="false">множество усеченных целых чисел и выходов</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="control">
+        <out type="any">
+          <tr lang="en">int output</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]   [+ 2, bang(    [* 3, bang(    [bang(
 |     |              |              |
@@ -116,7 +116,7 @@
 |                                   |
 [F]                                 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

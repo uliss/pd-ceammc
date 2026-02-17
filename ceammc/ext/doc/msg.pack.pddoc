@@ -1,89 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="msg.pack">
-        <title>msg.pack</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">message pack</tr>
-                <tr lang="ru">упаковка сообщений</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>msg</category>
-            <keywords>message pack</keywords>
-            <since>0.9.7</since>
-            <also>
-                <see>msg</see>
-                <see>msg.unpack</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="32">
-                <tr lang="en">number of inputs</tr>
-                <tr lang="ru" finished="false">Количество входов</tr>
-            </argument>
-            <argument name="MSG" type="list">
-                <tr lang="en">message prefix</tr>
-                <tr lang="ru" finished="false">префикс сообщения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @msg -->
-            <property name="@msg" type="list" default="">
-                <tr lang="en">message prefix. Change value via [prop.set] object</tr>
-                <!-- old: Префикс сообщения. Изменение значения через
+  <object name="msg.pack">
+    <title>msg.pack</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">message pack</tr>
+        <tr lang="ru">упаковка сообщений</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>msg</category>
+      <keywords>message pack</keywords>
+      <since>0.9.7</since>
+      <also>
+        <see>msg</see>
+        <see>msg.unpack</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="N" type="int" minvalue="1" maxvalue="32">
+        <tr lang="en">number of inputs</tr>
+        <tr lang="ru" finished="false">Количество входов</tr>
+      </argument>
+      <argument name="MSG" type="list">
+        <tr lang="en">message prefix</tr>
+        <tr lang="ru" finished="false">префикс сообщения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @msg -->
+      <property name="@msg" type="list" default="">
+        <tr lang="en">message prefix. Change value via [prop.set] object</tr>
+        <!-- old: Префикс сообщения. Изменение значения через
                 [prop.set] объект -->
-                <tr lang="ru" finished="false">Префикс сообщения. Изменение значения через
-                [prop.set] объект</tr>
-            </property>
-            <!-- @n -->
-            <property name="@n" type="int" minvalue="1" default="2" maxvalue="32"
-            access="initonly">
-                <tr lang="en">number of inlets</tr>
-                <tr lang="ru" finished="false">Количество входов</tr>
-            </property>
-            <!-- @sync -->
-            <property name="@sync" type="bool" default="0">
-                <tr lang="en">sync mode. If true: output value on each inlet value change</tr>
-                <!-- old: режим синхронизации. Если верно: выходное значение
+        <tr lang="ru" finished="false">Префикс сообщения. Изменение значения через [prop.set]
+        объект</tr>
+      </property>
+      <!-- @n -->
+      <property name="@n" type="int" minvalue="1" default="2" maxvalue="32" access="initonly">
+        <tr lang="en">number of inlets</tr>
+        <tr lang="ru" finished="false">Количество входов</tr>
+      </property>
+      <!-- @sync -->
+      <property name="@sync" type="bool" default="0">
+        <tr lang="en">sync mode. If true: output value on each inlet value change</tr>
+        <!-- old: режим синхронизации. Если верно: выходное значение
                 для каждого изменения входного значения -->
-                <tr lang="ru" finished="false">режим синхронизации. Если верно: выходное значение
-                для каждого изменения входного значения</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet number="1">
-                <in>
-                    <tr lang="en">first atom</tr>
-                    <tr lang="ru" finished="false">Первый атом</tr>
-                </in>
-            </inlet>
-            <inlet number="...">
-                <in>
-                    <tr lang="en">... atom</tr>
-                    <tr lang="ru" finished="false">... атом</tr>
-                </in>
-            </inlet>
-            <inlet number="n">
-                <in>
-                    <tr lang="en">n-th atom</tr>
-                    <tr lang="ru" finished="false">n-й атом</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">message output</tr>
-                    <tr lang="ru" finished="false">сообщение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">режим синхронизации. Если верно: выходное значение для
+        каждого изменения входного значения</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet number="1">
+        <in>
+          <tr lang="en">first atom</tr>
+          <tr lang="ru" finished="false">Первый атом</tr>
+        </in>
+      </inlet>
+      <inlet number="...">
+        <in>
+          <tr lang="en">... atom</tr>
+          <tr lang="ru" finished="false">... атом</tr>
+        </in>
+      </inlet>
+      <inlet number="n">
+        <in>
+          <tr lang="en">n-th atom</tr>
+          <tr lang="ru" finished="false">n-й атом</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">message output</tr>
+          <tr lang="ru" finished="false">сообщение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]           [F]   [T]
 |             |     |
@@ -93,7 +92,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

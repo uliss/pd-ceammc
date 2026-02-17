@@ -1,150 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="seq.counter">
-        <title>seq.counter</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">cyclic counter</tr>
-                <tr lang="ru">циклический счётчик</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>seq</category>
-            <keywords>counter modulo</keywords>
-            <since>0.9.1</since>
-        </meta>
-        <arguments>
-            <argument name="FROM" type="int">
-                <tr lang="en">start value</tr>
-                <tr lang="ru" finished="false">стартовая стоимость</tr>
-            </argument>
-            <argument name="TO" type="int">
-                <tr lang="en">end value</tr>
-                <tr lang="ru" finished="false">конечная стоимость</tr>
-            </argument>
-            <argument name="R" type="int" minvalue="-1">
-                <tr lang="en">number of repeats</tr>
-                <tr lang="ru" finished="false">Количество повторений</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @fold -->
-            <property name="@fold" type="alias">
-                <tr lang="en">alias to @mode fold</tr>
-                <tr lang="ru" finished="false">Исполнитель: @mode fold</tr>
-            </property>
-            <!-- @from -->
-            <property name="@from" type="int" default="0">
-                <tr lang="en">start value. Setting this property resets @i to 0</tr>
-                <tr lang="ru" finished="false">Начните ценить. Установка этого свойства сбрасывает
-                @i до 0</tr>
-            </property>
-            <!-- @i -->
-            <property name="@i" type="int" default="0">
-                <tr lang="en">current iteration</tr>
-                <tr lang="ru" finished="false">текущая итерация</tr>
-            </property>
-            <!-- @inf -->
-            <property name="@inf" type="alias">
-                <tr lang="en">alias to @r -1, repeats infinitely</tr>
-                <tr lang="ru" finished="false">alias to @r-1, повторяется бесконечно</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" enum="wrap fold" default="wrap">
-                <tr lang="en">repeat counter mode</tr>
-                <tr lang="ru" finished="false">Повторный встречный режим</tr>
-            </property>
-            <!-- @once -->
-            <property name="@once" type="alias">
-                <tr lang="en">alias to @r 1, play once</tr>
-                <tr lang="ru" finished="false">alias to @r 1, играть один раз</tr>
-            </property>
-            <!-- @r -->
-            <property name="@r" type="int" default="-1" minvalue="-1">
-                <tr lang="en">number of repeats. If -1: repeat infinitely.</tr>
-                <tr lang="ru" finished="false">количество повторений. Если -1, повторяйте
-                бесконечно.</tr>
-            </property>
-            <!-- @ri -->
-            <property name="@ri" type="int" access="readonly" default="0">
-                <tr lang="en">current repeat iteration</tr>
-                <tr lang="ru" finished="false">Текущая повторная итерация</tr>
-            </property>
-            <!-- @to -->
-            <property name="@to" type="int" default="0">
-                <tr lang="en">end value (inclusive)</tr>
-                <tr lang="ru" finished="false">конечное значение (включительно)</tr>
-            </property>
-            <!-- @value -->
-            <property name="@value" type="int" default="0" access="readonly">
-                <tr lang="en">current value</tr>
-                <tr lang="ru" finished="false">Текущая стоимость</tr>
-            </property>
-            <!-- @wrap -->
-            <property name="@wrap" type="alias">
-                <tr lang="en">alias to @mode wrap</tr>
-                <tr lang="ru" finished="false">Оригинальное название: @mode wrap</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- next -->
-            <method name="next">
-                <info>
-                    <tr lang="en">increment counter then output</tr>
-                    <tr lang="ru" finished="false">Счетчик приращения затем вывод</tr>
-                </info>
-            </method>
-            <!-- prev -->
-            <method name="prev">
-                <info>
-                    <tr lang="en">decrement counter then output</tr>
-                    <tr lang="ru" finished="false">Счетчик декрементов затем вывод</tr>
-                </info>
-            </method>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset counter to start value and repeat counter to 0</tr>
-                    <tr lang="ru" finished="false">Сбросить счетчик, чтобы начать значение и
-                    повторить счетчик 0</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output current value then increment counter</tr>
-                    <tr lang="ru" finished="false">значение выходного тока, затем счетчик
-                    прироста</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">reset counter to start value</tr>
-                    <tr lang="ru" finished="false">Reset Counter - стартовая стоимость</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int: counter value</tr>
-                    <tr lang="ru" finished="false">Int: встречное значение</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">int: repeat counter, done: when done</tr>
-                    <tr lang="ru" finished="false">Int: повторный счетчик, сделанный: когда
-                    сделано</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="seq.counter">
+    <title>seq.counter</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">cyclic counter</tr>
+        <tr lang="ru">циклический счётчик</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>seq</category>
+      <keywords>counter modulo</keywords>
+      <since>0.9.1</since>
+    </meta>
+    <arguments>
+      <argument name="FROM" type="int">
+        <tr lang="en">start value</tr>
+        <tr lang="ru" finished="false">стартовая стоимость</tr>
+      </argument>
+      <argument name="TO" type="int">
+        <tr lang="en">end value</tr>
+        <tr lang="ru" finished="false">конечная стоимость</tr>
+      </argument>
+      <argument name="R" type="int" minvalue="-1">
+        <tr lang="en">number of repeats</tr>
+        <tr lang="ru" finished="false">Количество повторений</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @fold -->
+      <property name="@fold" type="alias">
+        <tr lang="en">alias to @mode fold</tr>
+        <tr lang="ru" finished="false">Исполнитель: @mode fold</tr>
+      </property>
+      <!-- @from -->
+      <property name="@from" type="int" default="0">
+        <tr lang="en">start value. Setting this property resets @i to 0</tr>
+        <tr lang="ru" finished="false">Начните ценить. Установка этого свойства сбрасывает @i до
+        0</tr>
+      </property>
+      <!-- @i -->
+      <property name="@i" type="int" default="0">
+        <tr lang="en">current iteration</tr>
+        <tr lang="ru" finished="false">текущая итерация</tr>
+      </property>
+      <!-- @inf -->
+      <property name="@inf" type="alias">
+        <tr lang="en">alias to @r -1, repeats infinitely</tr>
+        <tr lang="ru" finished="false">alias to @r-1, повторяется бесконечно</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" enum="wrap fold" default="wrap">
+        <tr lang="en">repeat counter mode</tr>
+        <tr lang="ru" finished="false">Повторный встречный режим</tr>
+      </property>
+      <!-- @once -->
+      <property name="@once" type="alias">
+        <tr lang="en">alias to @r 1, play once</tr>
+        <tr lang="ru" finished="false">alias to @r 1, играть один раз</tr>
+      </property>
+      <!-- @r -->
+      <property name="@r" type="int" default="-1" minvalue="-1">
+        <tr lang="en">number of repeats. If -1: repeat infinitely.</tr>
+        <tr lang="ru" finished="false">количество повторений. Если -1, повторяйте бесконечно.</tr>
+      </property>
+      <!-- @ri -->
+      <property name="@ri" type="int" access="readonly" default="0">
+        <tr lang="en">current repeat iteration</tr>
+        <tr lang="ru" finished="false">Текущая повторная итерация</tr>
+      </property>
+      <!-- @to -->
+      <property name="@to" type="int" default="0">
+        <tr lang="en">end value (inclusive)</tr>
+        <tr lang="ru" finished="false">конечное значение (включительно)</tr>
+      </property>
+      <!-- @value -->
+      <property name="@value" type="int" default="0" access="readonly">
+        <tr lang="en">current value</tr>
+        <tr lang="ru" finished="false">Текущая стоимость</tr>
+      </property>
+      <!-- @wrap -->
+      <property name="@wrap" type="alias">
+        <tr lang="en">alias to @mode wrap</tr>
+        <tr lang="ru" finished="false">Оригинальное название: @mode wrap</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- next -->
+      <method name="next">
+        <info>
+          <tr lang="en">increment counter then output</tr>
+          <tr lang="ru" finished="false">Счетчик приращения затем вывод</tr>
+        </info>
+      </method>
+      <!-- prev -->
+      <method name="prev">
+        <info>
+          <tr lang="en">decrement counter then output</tr>
+          <tr lang="ru" finished="false">Счетчик декрементов затем вывод</tr>
+        </info>
+      </method>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset counter to start value and repeat counter to 0</tr>
+          <tr lang="ru" finished="false">Сбросить счетчик, чтобы начать значение и повторить
+          счетчик 0</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output current value then increment counter</tr>
+          <tr lang="ru" finished="false">значение выходного тока, затем счетчик прироста</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">reset counter to start value</tr>
+          <tr lang="ru" finished="false">Reset Counter - стартовая стоимость</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int: counter value</tr>
+          <tr lang="ru" finished="false">Int: встречное значение</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">int: repeat counter, done: when done</tr>
+          <tr lang="ru" finished="false">Int: повторный счетчик, сделанный: когда сделано</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]   [prev( [next(
 |     |      |
@@ -158,7 +155,7 @@
 |              ^|
 [F]            [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

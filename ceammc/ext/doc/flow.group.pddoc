@@ -1,107 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.group">
-        <title>flow.group</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">group input atoms in lists of specified size</tr>
-                <tr lang="ru">группирует входные атомы в списки указанного размера</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>flow group</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>ceammc/group</alias>
-                <alias>group</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="BY" type="int" minvalue="1">
-                <tr lang="en">group size (the length of output list)</tr>
-                <tr lang="ru">размер группы (длина выходного списка)</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @by -->
-            <property name="@by" type="int" minvalue="1" default="1">
-                <tr lang="en">group size (the length of output list)</tr>
-                <tr lang="ru">размер группы (длина выходного списка)</tr>
-            </property>
-            <!-- @free -->
-            <property name="@free" type="int" access="readonly" default="0" minvalue="0">
-                <tr lang="en">free space that is left in the current group</tr>
-                <tr lang="ru">cвободное пространство, которое осталось в текущей группе</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clear the current group without output</tr>
-                    <tr lang="ru">очистить текущую группу без вывода</tr>
-                </info>
-            </method>
-            <!-- flush -->
-            <method name="flush">
-                <info>
-                    <tr lang="en">outputs and clears the current group</tr>
-                    <tr lang="ru">вывести и очистить текущую группу</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">add float to group and flush if group is full packed</tr>
-                    <!-- old: Добавить поплавок в группу и смыть, если группа
+  <object name="flow.group">
+    <title>flow.group</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">group input atoms in lists of specified size</tr>
+        <tr lang="ru">группирует входные атомы в списки указанного размера</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>flow group</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>ceammc/group</alias>
+        <alias>group</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="BY" type="int" minvalue="1">
+        <tr lang="en">group size (the length of output list)</tr>
+        <tr lang="ru">размер группы (длина выходного списка)</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @by -->
+      <property name="@by" type="int" minvalue="1" default="1">
+        <tr lang="en">group size (the length of output list)</tr>
+        <tr lang="ru">размер группы (длина выходного списка)</tr>
+      </property>
+      <!-- @free -->
+      <property name="@free" type="int" access="readonly" default="0" minvalue="0">
+        <tr lang="en">free space that is left in the current group</tr>
+        <tr lang="ru">cвободное пространство, которое осталось в текущей группе</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- clear -->
+      <method name="clear">
+        <info>
+          <tr lang="en">clear the current group without output</tr>
+          <tr lang="ru">очистить текущую группу без вывода</tr>
+        </info>
+      </method>
+      <!-- flush -->
+      <method name="flush">
+        <info>
+          <tr lang="en">outputs and clears the current group</tr>
+          <tr lang="ru">вывести и очистить текущую группу</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">add float to group and flush if group is full packed</tr>
+          <!-- old: Добавить поплавок в группу и смыть, если группа
                     заполнена -->
-                    <tr lang="ru" finished="false">Добавить поплавок в группу и смыть, если группа
-                    заполнена</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">add symbol to group and flush if group is full packed</tr>
-                    <!-- old: Добавить символ в группу и смыть, если группа
+          <tr lang="ru" finished="false">Добавить поплавок в группу и смыть, если группа
+          заполнена</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">add symbol to group and flush if group is full packed</tr>
+          <!-- old: Добавить символ в группу и смыть, если группа
                     заполнена -->
-                    <tr lang="ru" finished="false">Добавить символ в группу и смыть, если группа
-                    заполнена</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">add list atoms to group and flush if needed</tr>
-                    <!-- old: Добавить атомы списка в группу и смыть, если это
+          <tr lang="ru" finished="false">Добавить символ в группу и смыть, если группа
+          заполнена</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">add list atoms to group and flush if needed</tr>
+          <!-- old: Добавить атомы списка в группу и смыть, если это
                     необходимо. -->
-                    <tr lang="ru" finished="false">Добавить атомы списка в группу и смыть, если это
-                    необходимо.</tr>
-                </in>
-                <in on="data">
-                    <tr lang="en">add data to group and flush if needed</tr>
-                    <!-- old: Добавление данных в группу и смыв при
+          <tr lang="ru" finished="false">Добавить атомы списка в группу и смыть, если это
+          необходимо.</tr>
+        </in>
+        <in on="data">
+          <tr lang="en">add data to group and flush if needed</tr>
+          <!-- old: Добавление данных в группу и смыв при
                     необходимости -->
-                    <tr lang="ru" finished="false">Добавление данных в группу и смыв при
-                    необходимости</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="int">
-                    <tr lang="en">set group size</tr>
-                    <tr lang="ru">установить размер группы</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="list">
-                    <tr lang="en">regrouped input elements</tr>
-                    <tr lang="ru">перегруппированные входные элементы</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Добавление данных в группу и смыв при необходимости</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="int">
+          <tr lang="en">set group size</tr>
+          <tr lang="ru">установить размер группы</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="list">
+          <tr lang="en">regrouped input elements</tr>
+          <tr lang="ru">перегруппированные входные элементы</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]  [1 2 3(
 |    |
@@ -110,7 +109,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

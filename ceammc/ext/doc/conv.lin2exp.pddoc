@@ -1,132 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="conv.lin2exp">
-        <title>conv.lin2exp</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">maps linear range to exponential range</tr>
-                <tr lang="ru">отображает линейный диапазон в экспоненциальный</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>conv</category>
-            <keywords>convert exponential</keywords>
-            <also>
-                <see>conv.lin2lin</see>
-                <see>conv.lin2curve</see>
-            </also>
-            <since>0.1</since>
-            <aliases>
-                <alias>ceammc/lin-&gt;exp</alias>
-                <alias>lin-&gt;exp</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The output range must not include zero. If the input exceeds the
-                input range, by default clip is applied.</tr>
-                <!-- old: Диапазон выхода не должен включать ноль. Если вход
+  <object name="conv.lin2exp">
+    <title>conv.lin2exp</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">maps linear range to exponential range</tr>
+        <tr lang="ru">отображает линейный диапазон в экспоненциальный</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>conv</category>
+      <keywords>convert exponential</keywords>
+      <also>
+        <see>conv.lin2lin</see>
+        <see>conv.lin2curve</see>
+      </also>
+      <since>0.1</since>
+      <aliases>
+        <alias>ceammc/lin-&gt;exp</alias>
+        <alias>lin-&gt;exp</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The output range must not include zero. If the input exceeds the input range,
+        by default clip is applied.</tr>
+        <!-- old: Диапазон выхода не должен включать ноль. Если вход
                 превышает диапазон ввода, по умолчанию применяется клип. -->
-                <tr lang="ru" finished="false">Диапазон выхода не должен включать ноль. Если вход
-                превышает диапазон ввода, по умолчанию применяется клип.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="IN_FROM" type="float">
-                <tr lang="en">begin of input range</tr>
-                <tr lang="ru">начало входного диапазона</tr>
-            </argument>
-            <argument name="IN_TO" type="float">
-                <tr lang="en">end of input range</tr>
-                <tr lang="ru">конец входного диапазона</tr>
-            </argument>
-            <argument name="OUT_FROM" type="float">
-                <tr lang="en">begin of output range</tr>
-                <tr lang="ru">начало выходного диапазона</tr>
-            </argument>
-            <argument name="OUT_TO" type="float">
-                <tr lang="en">end of output range</tr>
-                <tr lang="ru">конец выходного диапазона</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @clip -->
-            <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
-                <tr lang="en">noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip
-                both).</tr>
-                <!-- old: noclip (Don't Clip) max (clip ceiling) min (clip
+        <tr lang="ru" finished="false">Диапазон выхода не должен включать ноль. Если вход превышает
+        диапазон ввода, по умолчанию применяется клип.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="IN_FROM" type="float">
+        <tr lang="en">begin of input range</tr>
+        <tr lang="ru">начало входного диапазона</tr>
+      </argument>
+      <argument name="IN_TO" type="float">
+        <tr lang="en">end of input range</tr>
+        <tr lang="ru">конец входного диапазона</tr>
+      </argument>
+      <argument name="OUT_FROM" type="float">
+        <tr lang="en">begin of output range</tr>
+        <tr lang="ru">начало выходного диапазона</tr>
+      </argument>
+      <argument name="OUT_TO" type="float">
+        <tr lang="en">end of output range</tr>
+        <tr lang="ru">конец выходного диапазона</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @clip -->
+      <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
+        <tr lang="en">noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip
+        both).</tr>
+        <!-- old: noclip (Don't Clip) max (clip ceiling) min (clip
                 floor) minmax (clip both). -->
-                <!-- old: noclip (Don't Clip) max (clip ceiling) min (clip
+        <!-- old: noclip (Don't Clip) max (clip ceiling) min (clip
                 floor) minmax (clip both). -->
-                <tr lang="ru" finished="false">noclip (Don't Clip) max (clip ceiling) min (clip
-                floor) minmax (clip both).</tr>
-            </property>
-            <!-- @in_from -->
-            <property name="@in_from" type="float" default="0">
-                <tr lang="en">begin of input range</tr>
-                <tr lang="ru" finished="false">начало входного диапазона</tr>
-            </property>
-            <!-- @in_to -->
-            <property name="@in_to" type="float" default="127">
-                <tr lang="en">end of input range</tr>
-                <tr lang="ru" finished="false">конец входного диапазона</tr>
-            </property>
-            <!-- @max -->
-            <property name="@max" type="alias">
-                <tr lang="en">alias to @clip max</tr>
-                <tr lang="ru" finished="false">Исполнитель: @clip max</tr>
-            </property>
-            <!-- @min -->
-            <property name="@min" type="alias">
-                <tr lang="en">alias to @clip min</tr>
-                <tr lang="ru" finished="false">Исполнитель: @clip Min</tr>
-            </property>
-            <!-- @minmax -->
-            <property name="@minmax" type="alias">
-                <tr lang="en">alias to @clip minmax</tr>
-                <tr lang="ru" finished="false">Исполнитель: @clip Minmax</tr>
-            </property>
-            <!-- @noclip -->
-            <property name="@noclip" type="alias">
-                <tr lang="en">alias to @clip noclip</tr>
-                <tr lang="ru" finished="false">Исполнитель: @clip noclip</tr>
-            </property>
-            <!-- @out_from -->
-            <property name="@out_from" type="float" default="0.01">
-                <tr lang="en">begin of output range</tr>
-                <tr lang="ru" finished="false">начало выходного диапазона</tr>
-            </property>
-            <!-- @out_to -->
-            <property name="@out_to" type="float" default="1">
-                <tr lang="en">end of output range</tr>
-                <tr lang="ru" finished="false">предельный выходной диапазон</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">converted value</tr>
-                    <tr lang="ru" finished="false">преобразованная стоимость</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">noclip (Don't Clip) max (clip ceiling) min (clip floor)
+        minmax (clip both).</tr>
+      </property>
+      <!-- @in_from -->
+      <property name="@in_from" type="float" default="0">
+        <tr lang="en">begin of input range</tr>
+        <tr lang="ru" finished="false">начало входного диапазона</tr>
+      </property>
+      <!-- @in_to -->
+      <property name="@in_to" type="float" default="127">
+        <tr lang="en">end of input range</tr>
+        <tr lang="ru" finished="false">конец входного диапазона</tr>
+      </property>
+      <!-- @max -->
+      <property name="@max" type="alias">
+        <tr lang="en">alias to @clip max</tr>
+        <tr lang="ru" finished="false">Исполнитель: @clip max</tr>
+      </property>
+      <!-- @min -->
+      <property name="@min" type="alias">
+        <tr lang="en">alias to @clip min</tr>
+        <tr lang="ru" finished="false">Исполнитель: @clip Min</tr>
+      </property>
+      <!-- @minmax -->
+      <property name="@minmax" type="alias">
+        <tr lang="en">alias to @clip minmax</tr>
+        <tr lang="ru" finished="false">Исполнитель: @clip Minmax</tr>
+      </property>
+      <!-- @noclip -->
+      <property name="@noclip" type="alias">
+        <tr lang="en">alias to @clip noclip</tr>
+        <tr lang="ru" finished="false">Исполнитель: @clip noclip</tr>
+      </property>
+      <!-- @out_from -->
+      <property name="@out_from" type="float" default="0.01">
+        <tr lang="en">begin of output range</tr>
+        <tr lang="ru" finished="false">начало выходного диапазона</tr>
+      </property>
+      <!-- @out_to -->
+      <property name="@out_to" type="float" default="1">
+        <tr lang="en">end of output range</tr>
+        <tr lang="ru" finished="false">предельный выходной диапазон</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">converted value</tr>
+          <tr lang="ru" finished="false">преобразованная стоимость</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [0 1001(                            [array l2e size=1000 yr=0..1]
 |
@@ -140,7 +140,7 @@
 |                         |.
 [tabwrite               l2e]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

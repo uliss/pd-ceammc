@@ -1,182 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="an.onset">
-        <title>an.onset</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">onset detector for arrays</tr>
-                <tr lang="ru">детектор атаки для массивов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>an</category>
-            <keywords>onset</keywords>
-            <since>0.9</since>
-            <also>
-                <see>an.onset~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Onset detector based on aubio library</tr>
-                <tr lang="ru">Детектор атаки на основе библиотеки aubio</tr>
-            </par>
-            <a href="https://aubio.org/">https://aubio.org</a>
-        </info>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-            <argument name="BS" type="int" minvalue="64" units="sample">
-                <tr lang="en">buffer size</tr>
-                <tr lang="ru">размер буфера</tr>
-            </argument>
-            <argument name="METHOD" type="symbol"
-            enum="centroid complex complexdomain decrease default energy hfc kl kurtosis phase rolloff skewness slope specdiff specflux spread wphase">
+  <object name="an.onset">
+    <title>an.onset</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">onset detector for arrays</tr>
+        <tr lang="ru">детектор атаки для массивов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>an</category>
+      <keywords>onset</keywords>
+      <since>0.9</since>
+      <also>
+        <see>an.onset~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Onset detector based on aubio library</tr>
+        <tr lang="ru">Детектор атаки на основе библиотеки aubio</tr>
+      </par>
+      <a href="https://aubio.org/">https://aubio.org</a>
+    </info>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+      <argument name="BS" type="int" minvalue="64" units="sample">
+        <tr lang="en">buffer size</tr>
+        <tr lang="ru">размер буфера</tr>
+      </argument>
+      <argument name="METHOD" type="symbol"
+      enum="centroid complex complexdomain decrease default energy hfc kl kurtosis phase rolloff skewness slope specdiff specflux spread wphase">
 
-                <tr lang="en">detection method</tr>
-                <tr lang="ru">метод обнаружения</tr>
-            </argument>
-            <argument name="HS" type="int" minvalue="0" units="sample">
-                <tr lang="en">hop size (by default buffer_size/2)</tr>
-                <tr lang="ru">размер окна (по умолчанию размер_буфера/2)</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">name of analyzed array</tr>
-                <tr lang="ru">имя анализируемого массива</tr>
-            </property>
-            <!-- @awhitening -->
-            <property name="@awhitening" type="bool" default="0">
-                <tr lang="en">adaptive whitening</tr>
-                <tr lang="ru">адаптивное «отбеливание»</tr>
-            </property>
-            <!-- @bs -->
-            <property name="@bs" type="int" minvalue="64" default="1024" units="sample"
-            access="initonly">
-                <tr lang="en">buffer size</tr>
-                <tr lang="ru">размер буфера</tr>
-            </property>
-            <!-- @complex -->
-            <property name="@complex" type="alias">
-                <tr lang="en">alias to @method complex. Complex Domain Method onset detection
-                function</tr>
-                <tr lang="ru">сокращение для @method complex. Метод Complex Domain</tr>
-            </property>
-            <!-- @compression -->
-            <property name="@compression" type="float" minvalue="0" default="1">
-                <tr lang="en">lambda logarithmic compression factor, 0 to disable</tr>
-                <tr lang="ru">лямбда логарифмический коэффициент сжатия, 0 для отключения</tr>
-            </property>
-            <!-- @delay -->
-            <property name="@delay" type="float" minvalue="0" default="49.9093"
-            units="millisecond">
-                <tr lang="en">constant system delay to take back from detection time</tr>
-                <tr lang="ru">постоянная задержка времени обнаружения</tr>
-            </property>
-            <!-- @energy -->
-            <property name="@energy" type="alias">
-                <tr lang="en">alias to @method energy. Energy based onset detection function</tr>
-                <tr lang="ru">сокращение для @method energy. Energy based функция обнаружения
-                атаки</tr>
-            </property>
-            <!-- @hfc -->
-            <property name="@hfc" type="alias">
-                <tr lang="en">alias to @method hfc. High Frequency Content onset detection</tr>
-                <tr lang="ru">сокращение для @method hfc. High Frequency Content функция
-                обнаружения атаки</tr>
-            </property>
-            <!-- @hs -->
-            <property name="@hs" type="int" minvalue="0" default="0" units="sample">
-                <tr lang="en">hop size. If set to 0 means @bs/2</tr>
-                <tr lang="ru">размер окна. Если установлено в 0, означает @bs/2</tr>
-            </property>
-            <!-- @kl -->
-            <property name="@kl" type="alias">
-                <tr lang="en">alias to @method kl. Kullback-Liebler onset detection function</tr>
-                <tr lang="ru">сокращение для @method kl. Функция обнаружения атаки
-                Kullback-Liebler</tr>
-            </property>
-            <!-- @method -->
-            <property name="@method" type="symbol"
-            enum="specflux phase energy hfc kl complex default specdiff wphase rolloff spread kurtosis skewness complexdomain decrease slope centroid"
-            default="default">
-                <tr lang="en">onset detection method</tr>
-                <tr lang="ru">метод детекции атаки</tr>
-            </property>
-            <!-- @mkl -->
-            <property name="@mkl" type="alias">
-                <tr lang="en">alias to @method mkl. Modified Kullback-Liebler onset detection
-                function</tr>
-                <tr lang="ru">псевдоним для @method mkl. Модифицированная функция обнаружения атаки
-                Kullback-Liebler</tr>
-            </property>
-            <!-- @phase -->
-            <property name="@phase" type="alias">
-                <tr lang="en">alias to @method phase. Phase Based Method onset detection
-                function</tr>
-                <tr lang="ru">сокращение для @method phase. Функции обнаружения атаки Phase Based
-                Method</tr>
-            </property>
-            <!-- @silence -->
-            <property name="@silence" type="float" units="decibel" default="-70" minvalue="-80"
-            maxvalue="0">
-                <tr lang="en">onset detection silence threshold</tr>
-                <tr lang="ru">порог тишины для обнаружения атаки</tr>
-            </property>
-            <!-- @specdiff -->
-            <property name="@specdiff" type="alias">
-                <tr lang="en">alias to @method specdiff. Spectral difference method onset detection
-                function</tr>
-                <tr lang="ru">сокращение для @method specdiff. Метод спектральной разности для
-                обнаружения атаки</tr>
-            </property>
-            <!-- @specflux -->
-            <property name="@specflux" type="alias">
-                <tr lang="en">alias to @method specflux. Spectral Flux</tr>
-                <tr lang="ru">сокращение для @method specflux. Spectral Flux функция</tr>
-            </property>
-            <!-- @speedlim -->
-            <property name="@speedlim" type="float" units="millisecond" minvalue="1" default="50">
-                <tr lang="en">minimum interval between two consecutive onsets</tr>
-                <tr lang="ru">минимальный интервал между двумя последовательными атаками</tr>
-            </property>
-            <!-- @threshold -->
-            <property name="@threshold" type="float" default="0.058">
-                <tr lang="en">peak picking threshold</tr>
-                <tr lang="ru">пиковый порог выбора</tr>
-            </property>
-            <!-- @wphase -->
-            <property name="@wphase" type="alias">
-                <tr lang="en">alias to @method phase. Weighted Phase Deviation onset detection
-                function</tr>
-                <tr lang="ru">сокращение для @method phase. Weighted Phase Deviation функция</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">analyze array</tr>
-                    <tr lang="ru">анализировать массив</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="list">
-                    <tr lang="en">detected onsets</tr>
-                    <tr lang="ru">обнаруженные атаки</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="en">detection method</tr>
+        <tr lang="ru">метод обнаружения</tr>
+      </argument>
+      <argument name="HS" type="int" minvalue="0" units="sample">
+        <tr lang="en">hop size (by default buffer_size/2)</tr>
+        <tr lang="ru">размер окна (по умолчанию размер_буфера/2)</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">name of analyzed array</tr>
+        <tr lang="ru">имя анализируемого массива</tr>
+      </property>
+      <!-- @awhitening -->
+      <property name="@awhitening" type="bool" default="0">
+        <tr lang="en">adaptive whitening</tr>
+        <tr lang="ru">адаптивное «отбеливание»</tr>
+      </property>
+      <!-- @bs -->
+      <property name="@bs" type="int" minvalue="64" default="1024" units="sample"
+      access="initonly">
+        <tr lang="en">buffer size</tr>
+        <tr lang="ru">размер буфера</tr>
+      </property>
+      <!-- @complex -->
+      <property name="@complex" type="alias">
+        <tr lang="en">alias to @method complex. Complex Domain Method onset detection function</tr>
+        <tr lang="ru">сокращение для @method complex. Метод Complex Domain</tr>
+      </property>
+      <!-- @compression -->
+      <property name="@compression" type="float" minvalue="0" default="1">
+        <tr lang="en">lambda logarithmic compression factor, 0 to disable</tr>
+        <tr lang="ru">лямбда логарифмический коэффициент сжатия, 0 для отключения</tr>
+      </property>
+      <!-- @delay -->
+      <property name="@delay" type="float" minvalue="0" default="49.9093" units="millisecond">
+        <tr lang="en">constant system delay to take back from detection time</tr>
+        <tr lang="ru">постоянная задержка времени обнаружения</tr>
+      </property>
+      <!-- @energy -->
+      <property name="@energy" type="alias">
+        <tr lang="en">alias to @method energy. Energy based onset detection function</tr>
+        <tr lang="ru">сокращение для @method energy. Energy based функция обнаружения атаки</tr>
+      </property>
+      <!-- @hfc -->
+      <property name="@hfc" type="alias">
+        <tr lang="en">alias to @method hfc. High Frequency Content onset detection</tr>
+        <tr lang="ru">сокращение для @method hfc. High Frequency Content функция обнаружения
+        атаки</tr>
+      </property>
+      <!-- @hs -->
+      <property name="@hs" type="int" minvalue="0" default="0" units="sample">
+        <tr lang="en">hop size. If set to 0 means @bs/2</tr>
+        <tr lang="ru">размер окна. Если установлено в 0, означает @bs/2</tr>
+      </property>
+      <!-- @kl -->
+      <property name="@kl" type="alias">
+        <tr lang="en">alias to @method kl. Kullback-Liebler onset detection function</tr>
+        <tr lang="ru">сокращение для @method kl. Функция обнаружения атаки Kullback-Liebler</tr>
+      </property>
+      <!-- @method -->
+      <property name="@method" type="symbol"
+      enum="specflux phase energy hfc kl complex default specdiff wphase rolloff spread kurtosis skewness complexdomain decrease slope centroid"
+      default="default">
+        <tr lang="en">onset detection method</tr>
+        <tr lang="ru">метод детекции атаки</tr>
+      </property>
+      <!-- @mkl -->
+      <property name="@mkl" type="alias">
+        <tr lang="en">alias to @method mkl. Modified Kullback-Liebler onset detection function</tr>
+        <tr lang="ru">псевдоним для @method mkl. Модифицированная функция обнаружения атаки
+        Kullback-Liebler</tr>
+      </property>
+      <!-- @phase -->
+      <property name="@phase" type="alias">
+        <tr lang="en">alias to @method phase. Phase Based Method onset detection function</tr>
+        <tr lang="ru">сокращение для @method phase. Функции обнаружения атаки Phase Based
+        Method</tr>
+      </property>
+      <!-- @silence -->
+      <property name="@silence" type="float" units="decibel" default="-70" minvalue="-80"
+      maxvalue="0">
+        <tr lang="en">onset detection silence threshold</tr>
+        <tr lang="ru">порог тишины для обнаружения атаки</tr>
+      </property>
+      <!-- @specdiff -->
+      <property name="@specdiff" type="alias">
+        <tr lang="en">alias to @method specdiff. Spectral difference method onset detection
+        function</tr>
+        <tr lang="ru">сокращение для @method specdiff. Метод спектральной разности для обнаружения
+        атаки</tr>
+      </property>
+      <!-- @specflux -->
+      <property name="@specflux" type="alias">
+        <tr lang="en">alias to @method specflux. Spectral Flux</tr>
+        <tr lang="ru">сокращение для @method specflux. Spectral Flux функция</tr>
+      </property>
+      <!-- @speedlim -->
+      <property name="@speedlim" type="float" units="millisecond" minvalue="1" default="50">
+        <tr lang="en">minimum interval between two consecutive onsets</tr>
+        <tr lang="ru">минимальный интервал между двумя последовательными атаками</tr>
+      </property>
+      <!-- @threshold -->
+      <property name="@threshold" type="float" default="0.058">
+        <tr lang="en">peak picking threshold</tr>
+        <tr lang="ru">пиковый порог выбора</tr>
+      </property>
+      <!-- @wphase -->
+      <property name="@wphase" type="alias">
+        <tr lang="en">alias to @method phase. Weighted Phase Deviation onset detection
+        function</tr>
+        <tr lang="ru">сокращение для @method phase. Weighted Phase Deviation функция</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">analyze array</tr>
+          <tr lang="ru">анализировать массив</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="list">
+          <tr lang="en">detected onsets</tr>
+          <tr lang="ru">обнаруженные атаки</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [symbol #s(               [array AONSET w=380 h=100]
 |
@@ -207,7 +201,7 @@
 #a AONSET
 #s %DOC%/sound/voice.wav
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

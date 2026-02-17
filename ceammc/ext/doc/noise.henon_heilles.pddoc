@@ -1,140 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="noise.henon_heilles">
-        <title>noise.henon_heilles</title>
-        <meta>
-            <authors>
-                <author>Richard Dudas</author>
-                <author>André Sier</author>
-            </authors>
-            <description>
-                <tr lang="en">Hénon–Heiles_system</tr>
-                <tr lang="ru" finished="false">Hénon-Heiles_system</tr>
-            </description>
-            <license>%</license>
-            <library>ceammc</library>
-            <category>noise</category>
-            <keywords>noise</keywords>
-            <since>0.5</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">a port of Richard's chaos-henon-heilles from chaos collection</tr>
-                <!-- old: Порт Ричарда Хаос-Хенон-Хейллес из коллекции
+  <object name="noise.henon_heilles">
+    <title>noise.henon_heilles</title>
+    <meta>
+      <authors>
+        <author>Richard Dudas</author>
+        <author>André Sier</author>
+      </authors>
+      <description>
+        <tr lang="en">Hénon–Heiles_system</tr>
+        <tr lang="ru" finished="false">Hénon-Heiles_system</tr>
+      </description>
+      <license>%</license>
+      <library>ceammc</library>
+      <category>noise</category>
+      <keywords>noise</keywords>
+      <since>0.5</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">a port of Richard's chaos-henon-heilles from chaos collection</tr>
+        <!-- old: Порт Ричарда Хаос-Хенон-Хейллес из коллекции
                 хаоса -->
-                <tr lang="ru" finished="false">Порт Ричарда Хаос-Хенон-Хейллес из коллекции
-                хаоса</tr>
-            </par>
+        <tr lang="ru" finished="false">Порт Ричарда Хаос-Хенон-Хейллес из коллекции хаоса</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="X" type="float">
+        <tr lang="en">x value (optional)</tr>
+        <tr lang="ru" finished="false">x значение (необязательно)</tr>
+      </argument>
+      <argument name="Y" type="float">
+        <tr lang="en">y value (optional)</tr>
+        <tr lang="ru" finished="false">y значение (факультативно)</tr>
+      </argument>
+      <argument name="Y'" type="float">
+        <tr lang="en">y' value (optional)</tr>
+        <tr lang="ru" finished="false">y' value (необязательно)</tr>
+      </argument>
+      <argument name="E" type="float">
+        <tr lang="en">e value (optional)</tr>
+        <tr lang="ru" finished="false">e значение (факультативно)</tr>
+      </argument>
+      <argument name="DT" type="float">
+        <tr lang="en">dt value (optional)</tr>
+        <tr lang="ru" finished="false">dt значение (факультативно)</tr>
+      </argument>
+    </arguments>
+    <methods>
+      <!-- dt -->
+      <method name="dt">
+        <param name="NY" type="float" required="true">
+          <tr lang="en">dt value</tr>
+          <tr lang="ru" finished="false">значение dt</tr>
+        </param>
+      </method>
+      <!-- e -->
+      <method name="e">
+        <param name="NY" type="float" required="true">
+          <tr lang="en">e value</tr>
+          <tr lang="ru" finished="false">e значение</tr>
+        </param>
+      </method>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">reset state</tr>
+          <tr lang="ru" finished="false">состояние сброса</tr>
         </info>
-        <arguments>
-            <argument name="X" type="float">
-                <tr lang="en">x value (optional)</tr>
-                <tr lang="ru" finished="false">x значение (необязательно)</tr>
-            </argument>
-            <argument name="Y" type="float">
-                <tr lang="en">y value (optional)</tr>
-                <tr lang="ru" finished="false">y значение (факультативно)</tr>
-            </argument>
-            <argument name="Y'" type="float">
-                <tr lang="en">y' value (optional)</tr>
-                <tr lang="ru" finished="false">y' value (необязательно)</tr>
-            </argument>
-            <argument name="E" type="float">
-                <tr lang="en">e value (optional)</tr>
-                <tr lang="ru" finished="false">e значение (факультативно)</tr>
-            </argument>
-            <argument name="DT" type="float">
-                <tr lang="en">dt value (optional)</tr>
-                <tr lang="ru" finished="false">dt значение (факультативно)</tr>
-            </argument>
-        </arguments>
-        <methods>
-            <!-- dt -->
-            <method name="dt">
-                <param name="NY" type="float" required="true">
-                    <tr lang="en">dt value</tr>
-                    <tr lang="ru" finished="false">значение dt</tr>
-                </param>
-            </method>
-            <!-- e -->
-            <method name="e">
-                <param name="NY" type="float" required="true">
-                    <tr lang="en">e value</tr>
-                    <tr lang="ru" finished="false">e значение</tr>
-                </param>
-            </method>
-            <!-- reset -->
-            <method name="reset">
-                <info>
-                    <tr lang="en">reset state</tr>
-                    <tr lang="ru" finished="false">состояние сброса</tr>
-                </info>
-            </method>
-            <!-- set -->
-            <method name="set">
-                <param name="SET" type="float" required="true">
-                    <tr lang="en">set to value</tr>
-                    <tr lang="ru" finished="false">установить ценность</tr>
-                </param>
-            </method>
-            <!-- x -->
-            <method name="x">
-                <param name="NX" type="float" required="true">
-                    <tr lang="en">x value</tr>
-                    <tr lang="ru" finished="false">x значение</tr>
-                </param>
-            </method>
-            <!-- y -->
-            <method name="y">
-                <param name="NY" type="float" required="true">
-                    <tr lang="en">y value</tr>
-                    <tr lang="ru" finished="false">y значение</tr>
-                </param>
-            </method>
-            <!-- y' -->
-            <method name="y'">
-                <param name="NY" type="float" required="true">
-                    <tr lang="en">y' value</tr>
-                    <tr lang="ru" finished="false">значение</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">output value</tr>
-                    <tr lang="ru" finished="false">выходная стоимость</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">x outlet</tr>
-                    <tr lang="ru" finished="false">х выход</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">y outlet</tr>
-                    <tr lang="ru" finished="false">выход</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">xdot outlet</tr>
-                    <tr lang="ru" finished="false">розетка xdot</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">ydot outlet</tr>
-                    <tr lang="ru" finished="false">выход ydot</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+      </method>
+      <!-- set -->
+      <method name="set">
+        <param name="SET" type="float" required="true">
+          <tr lang="en">set to value</tr>
+          <tr lang="ru" finished="false">установить ценность</tr>
+        </param>
+      </method>
+      <!-- x -->
+      <method name="x">
+        <param name="NX" type="float" required="true">
+          <tr lang="en">x value</tr>
+          <tr lang="ru" finished="false">x значение</tr>
+        </param>
+      </method>
+      <!-- y -->
+      <method name="y">
+        <param name="NY" type="float" required="true">
+          <tr lang="en">y value</tr>
+          <tr lang="ru" finished="false">y значение</tr>
+        </param>
+      </method>
+      <!-- y' -->
+      <method name="y'">
+        <param name="NY" type="float" required="true">
+          <tr lang="en">y' value</tr>
+          <tr lang="ru" finished="false">значение</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">output value</tr>
+          <tr lang="ru" finished="false">выходная стоимость</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">x outlet</tr>
+          <tr lang="ru" finished="false">х выход</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">y outlet</tr>
+          <tr lang="ru" finished="false">выход</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">xdot outlet</tr>
+          <tr lang="ru" finished="false">розетка xdot</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">ydot outlet</tr>
+          <tr lang="ru" finished="false">выход ydot</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]
 |
@@ -169,7 +168,7 @@
 
 [X metro->noise-obj]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

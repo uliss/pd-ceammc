@@ -1,80 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.resonlp~">
-        <title>flt.resonlp~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">simple resonant lowpass filter</tr>
-                <tr lang="ru">простой резонансный ФНЧ</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>filter resonant lowpass</keywords>
-            <since>0.9.6</since>
-            <also>
-                <see>flt.resonbp~</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
-                <tr lang="en">center frequency</tr>
-                <tr lang="ru" finished="false">центральная частота</tr>
-            </argument>
-            <argument name="Q" type="float" minvalue="0.1" maxvalue="100">
-                <tr lang="en">Quality factor</tr>
-                <tr lang="ru" finished="false">Фактор качества</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @freq -->
-            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
-            default="1000">
-                <tr lang="en">center frequency</tr>
-                <tr lang="ru" finished="false">центральная частота</tr>
-            </property>
-            <!-- @q -->
-            <property name="@q" type="float" minvalue="0.1" maxvalue="100" default="40">
-                <tr lang="en">Quality factor</tr>
-                <tr lang="ru" finished="false">Фактор качества</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet type="audio">
-                <in>
-                    <tr lang="en">input signal</tr>
-                    <tr lang="ru" finished="false">входной сигнал</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set frequency</tr>
-                    <tr lang="ru" finished="false">установленная частота</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set Q-factor</tr>
-                    <tr lang="ru" finished="false">Настройка Q-фактора</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">filtered signal</tr>
-                    <tr lang="ru" finished="false">фильтрованный сигнал</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flt.resonlp~">
+    <title>flt.resonlp~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">simple resonant lowpass filter</tr>
+        <tr lang="ru">простой резонансный ФНЧ</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>filter resonant lowpass</keywords>
+      <since>0.9.6</since>
+      <also>
+        <see>flt.resonbp~</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
+        <tr lang="en">center frequency</tr>
+        <tr lang="ru" finished="false">центральная частота</tr>
+      </argument>
+      <argument name="Q" type="float" minvalue="0.1" maxvalue="100">
+        <tr lang="en">Quality factor</tr>
+        <tr lang="ru" finished="false">Фактор качества</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @freq -->
+      <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
+      default="1000">
+        <tr lang="en">center frequency</tr>
+        <tr lang="ru" finished="false">центральная частота</tr>
+      </property>
+      <!-- @q -->
+      <property name="@q" type="float" minvalue="0.1" maxvalue="100" default="40">
+        <tr lang="en">Quality factor</tr>
+        <tr lang="ru" finished="false">Фактор качества</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru" finished="false">входной сигнал</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set frequency</tr>
+          <tr lang="ru" finished="false">установленная частота</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set Q-factor</tr>
+          <tr lang="ru" finished="false">Настройка Q-фактора</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">filtered signal</tr>
+          <tr lang="ru" finished="false">фильтрованный сигнал</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [osc.saw~ 200]            [ui.dsp~]
 |
@@ -95,7 +95,7 @@
 [dac~]
 [X a->x]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

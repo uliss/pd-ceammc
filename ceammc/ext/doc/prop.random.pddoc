@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="prop.random">
-        <title>prop.random</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">property value randomizer</tr>
-                <tr lang="ru">рандомизатор значения свойства</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>property</category>
-            <keywords>property random</keywords>
-            <since>0.9.4</since>
-            <also>
-                <see>prop</see>
-                <see>prop.declare</see>
-                <see>patch.props</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="SEED" type="int">
-                <tr lang="en">init random seed</tr>
-                <tr lang="ru" finished="false">случайное семя</tr>
-            </argument>
-            <argument name="PROPS" type="list">
-                <tr lang="en">properties names</tr>
-                <tr lang="ru" finished="false">Имена свойств</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @seed -->
-            <property name="@seed" type="int" default="0">
-                <tr lang="en">random seed</tr>
-                <tr lang="ru" finished="false">случайное семя</tr>
-            </property>
-        </properties>
-        <inlets dynamic="true">
-            <inlet number="1">
-                <in>
-                    <tr lang="en">first specified property</tr>
-                    <tr lang="ru" finished="false">первое указанное имущество</tr>
-                </in>
-            </inlet>
-            <inlet number="...">
-                <in>
-                    <tr lang="en">... specified property</tr>
-                    <tr lang="ru" finished="false">... определенного имущества</tr>
-                </in>
-            </inlet>
-            <inlet number="n">
-                <in>
-                    <tr lang="en">n-th specified property</tr>
-                    <tr lang="ru" finished="false">n-е указанное имущество</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">connect to target object</tr>
-                    <tr lang="ru" finished="false">Подключение к целевому объекту</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">atom: new random value</tr>
-                    <tr lang="ru" finished="false">Атом: новое случайное значение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="prop.random">
+    <title>prop.random</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">property value randomizer</tr>
+        <tr lang="ru">рандомизатор значения свойства</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>property</category>
+      <keywords>property random</keywords>
+      <since>0.9.4</since>
+      <also>
+        <see>prop</see>
+        <see>prop.declare</see>
+        <see>patch.props</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="SEED" type="int">
+        <tr lang="en">init random seed</tr>
+        <tr lang="ru" finished="false">случайное семя</tr>
+      </argument>
+      <argument name="PROPS" type="list">
+        <tr lang="en">properties names</tr>
+        <tr lang="ru" finished="false">Имена свойств</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @seed -->
+      <property name="@seed" type="int" default="0">
+        <tr lang="en">random seed</tr>
+        <tr lang="ru" finished="false">случайное семя</tr>
+      </property>
+    </properties>
+    <inlets dynamic="true">
+      <inlet number="1">
+        <in>
+          <tr lang="en">first specified property</tr>
+          <tr lang="ru" finished="false">первое указанное имущество</tr>
+        </in>
+      </inlet>
+      <inlet number="...">
+        <in>
+          <tr lang="en">... specified property</tr>
+          <tr lang="ru" finished="false">... определенного имущества</tr>
+        </in>
+      </inlet>
+      <inlet number="n">
+        <in>
+          <tr lang="en">n-th specified property</tr>
+          <tr lang="ru" finished="false">n-е указанное имущество</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">connect to target object</tr>
+          <tr lang="ru" finished="false">Подключение к целевому объекту</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">atom: new random value</tr>
+          <tr lang="ru" finished="false">Атом: новое случайное значение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -91,8 +91,8 @@
 
 [prop.random-3]
 ]]>
-            </pdascii>
-            <pdascii id="1">
+      </pdascii>
+      <pdascii id="1">
 <![CDATA[
 [B]
 |
@@ -106,8 +106,8 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-            <pdascii id="2">
+      </pdascii>
+      <pdascii id="2">
 <![CDATA[
 [F]                         [B]
 |                           |
@@ -121,8 +121,8 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-            <pdascii id="abs">
+      </pdascii>
+      <pdascii id="abs">
 <![CDATA[
 [inlet]
 
@@ -136,8 +136,8 @@
 |
 [outlet~]
 ]]>
-            </pdascii>
-            <pdascii id="3">
+      </pdascii>
+      <pdascii id="3">
 <![CDATA[
 [B]
 |
@@ -151,7 +151,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

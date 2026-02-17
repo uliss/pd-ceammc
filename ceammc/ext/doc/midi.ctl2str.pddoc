@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="midi.ctl2str">
-        <title>midi.ctl2str</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">converts Standard MIDI Controllers number to name</tr>
-                <tr lang="ru">преобразует номер стандартного MIDI контроллера в имя</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>midi</category>
-            <keywords>midi controller name</keywords>
-            <aliases>
-                <alias>midi.ctl-&gt;str</alias>
-            </aliases>
-            <since>0.4</since>
-        </meta>
-        <properties>
-            <!-- @symbol -->
-            <property name="@symbol" type="flag" default="0" access="initonly">
-                <tr lang="en">output as symbol instead of string by default</tr>
-                <tr lang="ru" finished="false">вывод как символ вместо строки по умолчанию</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">Standart MIDI controller number [0-127]</tr>
-                    <tr lang="ru" finished="false">Стандартный контроллер MIDI [0-127]</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output Standart MIDI controller name (string or symbol)</tr>
-                    <tr lang="ru" finished="false">имя контроллера Standart MIDI (струна или
-                    символ)</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="midi.ctl2str">
+    <title>midi.ctl2str</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">converts Standard MIDI Controllers number to name</tr>
+        <tr lang="ru">преобразует номер стандартного MIDI контроллера в имя</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>midi</category>
+      <keywords>midi controller name</keywords>
+      <aliases>
+        <alias>midi.ctl-&gt;str</alias>
+      </aliases>
+      <since>0.4</since>
+    </meta>
+    <properties>
+      <!-- @symbol -->
+      <property name="@symbol" type="flag" default="0" access="initonly">
+        <tr lang="en">output as symbol instead of string by default</tr>
+        <tr lang="ru" finished="false">вывод как символ вместо строки по умолчанию</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">Standart MIDI controller number [0-127]</tr>
+          <tr lang="ru" finished="false">Стандартный контроллер MIDI [0-127]</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output Standart MIDI controller name (string or symbol)</tr>
+          <tr lang="ru" finished="false">имя контроллера Standart MIDI (струна или символ)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [0( [4( [7( [64( [120(
 |   |   |   |    |
@@ -54,7 +53,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

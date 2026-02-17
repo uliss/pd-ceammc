@@ -1,67 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="symbol.num_compare">
-        <title>symbol.num_compare</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">numeric symbol compare</tr>
-                <tr lang="ru">цифровое сравнение символов</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>symbol</category>
-            <keywords>symbol num_compare compare</keywords>
-            <since>0.4</since>
-        </meta>
-        <arguments>
-            <argument name="WITH" type="symbol">
-                <tr lang="en">symbol to compare</tr>
-                <tr lang="ru" finished="false">Символ для сравнения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @with -->
-            <property name="@with" type="symbol" default="">
-                <tr lang="en">symbol to compare</tr>
-                <tr lang="ru" finished="false">Символ для сравнения</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">first compare symbol. Unicode strings also supported</tr>
-                    <tr lang="ru" finished="false">Сначала сравните символ. Поддерживаются также
-                    строки Unicode</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">compare first and second list elements</tr>
-                    <tr lang="ru" finished="false">Сравнение элементов первого и второго
-                    списка</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="symbol">
-                    <tr lang="en">second compare symbol. Unicode strings also supported</tr>
-                    <tr lang="ru" finished="false">Второй символ сравнения. Поддерживаются также
-                    строки Unicode</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">1 if first symbol less then second, otherwise 0</tr>
-                    <tr lang="ru" finished="false">1 если первый символ меньше второго, то в
-                    противном случае 0</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="symbol.num_compare">
+    <title>symbol.num_compare</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">numeric symbol compare</tr>
+        <tr lang="ru">цифровое сравнение символов</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>symbol</category>
+      <keywords>symbol num_compare compare</keywords>
+      <since>0.4</since>
+    </meta>
+    <arguments>
+      <argument name="WITH" type="symbol">
+        <tr lang="en">symbol to compare</tr>
+        <tr lang="ru" finished="false">Символ для сравнения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @with -->
+      <property name="@with" type="symbol" default="">
+        <tr lang="en">symbol to compare</tr>
+        <tr lang="ru" finished="false">Символ для сравнения</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">first compare symbol. Unicode strings also supported</tr>
+          <tr lang="ru" finished="false">Сначала сравните символ. Поддерживаются также строки
+          Unicode</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">compare first and second list elements</tr>
+          <tr lang="ru" finished="false">Сравнение элементов первого и второго списка</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="symbol">
+          <tr lang="en">second compare symbol. Unicode strings also supported</tr>
+          <tr lang="ru" finished="false">Второй символ сравнения. Поддерживаются также строки
+          Unicode</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">1 if first symbol less then second, otherwise 0</tr>
+          <tr lang="ru" finished="false">1 если первый символ меньше второго, то в противном случае
+          0</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /* common sort */
 
@@ -79,7 +78,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

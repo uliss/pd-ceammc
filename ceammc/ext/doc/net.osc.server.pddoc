@@ -1,133 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="net.osc.server">
-        <title>net.osc.server</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">OSC server control</tr>
-                <tr lang="ru">управление сервером OSC</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>net</category>
-            <keywords>net osc server</keywords>
-            <since>0.9.5</since>
-            <also>
-                <see>net.osc.send</see>
-                <see>net.osc.receive</see>
-            </also>
-            <aliases>
-                <alias>net.osc</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="NAME" type="symbol">
-                <tr lang="en">OSC server name (for using with other objects)</tr>
-                <!-- old: Название сервера OSC (для использования с другими
+  <object name="net.osc.server">
+    <title>net.osc.server</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">OSC server control</tr>
+        <tr lang="ru">управление сервером OSC</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>net</category>
+      <keywords>net osc server</keywords>
+      <since>0.9.5</since>
+      <also>
+        <see>net.osc.send</see>
+        <see>net.osc.receive</see>
+      </also>
+      <aliases>
+        <alias>net.osc</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="NAME" type="symbol">
+        <tr lang="en">OSC server name (for using with other objects)</tr>
+        <!-- old: Название сервера OSC (для использования с другими
                 объектами) -->
-                <!-- old: Название сервера OSC (для использования с другими
+        <!-- old: Название сервера OSC (для использования с другими
                 объектами) -->
-                <tr lang="ru" finished="false">Название сервера OSC (для использования с другими
-                объектами)</tr>
-            </argument>
-            <argument name="URL" type="atom">
-                <tr lang="en">OSC server url (like udp:12345), see @url property</tr>
-                <tr lang="ru" finished="false">URL сервера OSC (например, udp:12345), см.</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @auto_start -->
-            <property name="@auto_start" type="bool" default="1">
-                <tr lang="en">automatically start on creation</tr>
-                <tr lang="ru" finished="false">Автоматическое начало создания</tr>
-            </property>
-            <!-- @dump -->
-            <property name="@dump" type="bool" default="0">
-                <tr lang="en">dump incoming messages to Pd window</tr>
-                <tr lang="ru" finished="false">Отправка входящих сообщений в окно Pd</tr>
-            </property>
-            <!-- @host -->
-            <property name="@host" type="symbol" default="" access="readonly">
-                <tr lang="en">OSC server host</tr>
-                <tr lang="ru" finished="false">хост сервера SC</tr>
-            </property>
-            <!-- @name -->
-            <property name="@name" type="symbol" default="default" access="initonly">
-                <tr lang="en">OSC server name</tr>
-                <tr lang="ru" finished="false">Название сервера SC</tr>
-            </property>
-            <!-- @path -->
-            <property name="@path" type="symbol" default="" access="readonly">
-                <tr lang="en">OSC server local socket path</tr>
-                <tr lang="ru" finished="false">Сервер локального сокетного пути</tr>
-            </property>
-            <!-- @port -->
-            <property name="@port" type="int" default="9000" access="readonly">
-                <tr lang="en">OSC server port</tr>
-                <tr lang="ru" finished="false">Серверный порт SC</tr>
-            </property>
-            <!-- @proto -->
-            <property name="@proto" type="symbol" default="udp" access="readonly">
-                <tr lang="en">OSC server proto (udp or tcp)</tr>
-                <tr lang="ru" finished="false">Прото-сервер OSC (udp или tcp)</tr>
-            </property>
-            <!-- @url -->
-            <property name="@url" type="atom" default="udp:9000" access="initonly">
-                <tr lang="en">OSC server url in form: PROTO:PORT (udp:12345) or just PORT, or
-                osc.PROTO://:PORT (for ex. osc.tcp://:9001)</tr>
-                <!-- old: URL сервера OSC по форме: PROTO:PORT (udp:12345) или
+        <tr lang="ru" finished="false">Название сервера OSC (для использования с другими
+        объектами)</tr>
+      </argument>
+      <argument name="URL" type="atom">
+        <tr lang="en">OSC server url (like udp:12345), see @url property</tr>
+        <tr lang="ru" finished="false">URL сервера OSC (например, udp:12345), см.</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @auto_start -->
+      <property name="@auto_start" type="bool" default="1">
+        <tr lang="en">automatically start on creation</tr>
+        <tr lang="ru" finished="false">Автоматическое начало создания</tr>
+      </property>
+      <!-- @dump -->
+      <property name="@dump" type="bool" default="0">
+        <tr lang="en">dump incoming messages to Pd window</tr>
+        <tr lang="ru" finished="false">Отправка входящих сообщений в окно Pd</tr>
+      </property>
+      <!-- @host -->
+      <property name="@host" type="symbol" default="" access="readonly">
+        <tr lang="en">OSC server host</tr>
+        <tr lang="ru" finished="false">хост сервера SC</tr>
+      </property>
+      <!-- @name -->
+      <property name="@name" type="symbol" default="default" access="initonly">
+        <tr lang="en">OSC server name</tr>
+        <tr lang="ru" finished="false">Название сервера SC</tr>
+      </property>
+      <!-- @path -->
+      <property name="@path" type="symbol" default="" access="readonly">
+        <tr lang="en">OSC server local socket path</tr>
+        <tr lang="ru" finished="false">Сервер локального сокетного пути</tr>
+      </property>
+      <!-- @port -->
+      <property name="@port" type="int" default="9000" access="readonly">
+        <tr lang="en">OSC server port</tr>
+        <tr lang="ru" finished="false">Серверный порт SC</tr>
+      </property>
+      <!-- @proto -->
+      <property name="@proto" type="symbol" default="udp" access="readonly">
+        <tr lang="en">OSC server proto (udp or tcp)</tr>
+        <tr lang="ru" finished="false">Прото-сервер OSC (udp или tcp)</tr>
+      </property>
+      <!-- @url -->
+      <property name="@url" type="atom" default="udp:9000" access="initonly">
+        <tr lang="en">OSC server url in form: PROTO:PORT (udp:12345) or just PORT, or
+        osc.PROTO://:PORT (for ex. osc.tcp://:9001)</tr>
+        <!-- old: URL сервера OSC по форме: PROTO:PORT (udp:12345) или
                 просто PORT, или osc.PROTO://:PORT (для ex. osc.tcp://:9001) -->
-                <!-- old: URL сервера OSC по форме: PROTO:PORT (udp:12345) или
+        <!-- old: URL сервера OSC по форме: PROTO:PORT (udp:12345) или
                 просто PORT, или osc.PROTO://:PORT (для ex. osc.tcp://:9001) -->
-                <tr lang="ru" finished="false">URL сервера OSC по форме: PROTO:PORT (udp:12345) или
-                просто PORT, или osc.PROTO://:PORT (для ex. osc.tcp://:9001)</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- start -->
-            <method name="start">
-                <info>
-                    <tr lang="en">start OSC server</tr>
-                    <tr lang="ru" finished="false">Запуск OSC сервера</tr>
-                </info>
-                <param name="VAL" type="int" enum="0 1">
-                    <tr lang="en">1: start, 0: stop</tr>
-                    <tr lang="ru" finished="false">1: начало, 0: остановка</tr>
-                </param>
-            </method>
-            <!-- stop -->
-            <method name="stop">
-                <info>
-                    <tr lang="en">stop OSC server</tr>
-                    <tr lang="ru" finished="false">Остановить OSC-сервер</tr>
-                </info>
-                <param name="VAL" type="int" enum="0 1">
-                    <tr lang="en">1: stop, 0: start</tr>
-                    <tr lang="ru" finished="false">1: стоп, 0: старт</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">...</tr>
-                    <tr lang="ru" finished="false">...</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">...</tr>
-                    <tr lang="ru" finished="false">...</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">URL сервера OSC по форме: PROTO:PORT (udp:12345) или просто
+        PORT, или osc.PROTO://:PORT (для ex. osc.tcp://:9001)</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- start -->
+      <method name="start">
+        <info>
+          <tr lang="en">start OSC server</tr>
+          <tr lang="ru" finished="false">Запуск OSC сервера</tr>
+        </info>
+        <param name="VAL" type="int" enum="0 1">
+          <tr lang="en">1: start, 0: stop</tr>
+          <tr lang="ru" finished="false">1: начало, 0: остановка</tr>
+        </param>
+      </method>
+      <!-- stop -->
+      <method name="stop">
+        <info>
+          <tr lang="en">stop OSC server</tr>
+          <tr lang="ru" finished="false">Остановить OSC-сервер</tr>
+        </info>
+        <param name="VAL" type="int" enum="0 1">
+          <tr lang="en">1: stop, 0: start</tr>
+          <tr lang="ru" finished="false">1: стоп, 0: старт</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">...</tr>
+          <tr lang="ru" finished="false">...</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">...</tr>
+          <tr lang="ru" finished="false">...</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /*default OSC server: osc.udp://:9000*/
 
@@ -143,7 +143,7 @@
 |
 [net.osc.send osc.udp://localhost:9000]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

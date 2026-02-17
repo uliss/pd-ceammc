@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="tl.bang">
-        <title>tl.bang</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">outputs a timeline bang</tr>
-                <tr lang="ru">выводит пустое событие временной шкалы</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>tl</category>
-            <keywords>timeline bang</keywords>
-            <since>0.1</since>
-            <also>
-                <see>tl.toggle</see>
-                <see view="link">tl.cue</see>
-            </also>
-            <aliases>
-                <alias>tl.b</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Bang only when nearest left tl.cue was activated. If other cue is
-                activated and bang was scheduled by @delay property - it canceled</tr>
-                <tr lang="ru" finished="false">Взрыв произошел только при активации ближайшего
-                левого tl.cue. Если активирован другой сигнал и взрыв был запланирован
-                собственностью @delay - он отменен</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="DELAY" type="float" minvalue="0" units="millisecond">
-                <tr lang="en">timeline length</tr>
-                <tr lang="ru" finished="false">продолжительность</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @cue -->
-            <property name="@cue" type="symbol" access="readonly" default="">
-                <tr lang="en">related cue</tr>
-                <tr lang="ru" finished="false">связанный сигнал</tr>
-            </property>
-            <!-- @delay -->
-            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
-                <tr lang="en">bang delay after cue activation</tr>
-                <tr lang="ru" finished="false">задержка взрыва после активации сигнала</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control inlet</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">bang output</tr>
-                    <tr lang="ru" finished="false">взрывной выход</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="tl.bang">
+    <title>tl.bang</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">outputs a timeline bang</tr>
+        <tr lang="ru">выводит пустое событие временной шкалы</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>tl</category>
+      <keywords>timeline bang</keywords>
+      <since>0.1</since>
+      <also>
+        <see>tl.toggle</see>
+        <see view="link">tl.cue</see>
+      </also>
+      <aliases>
+        <alias>tl.b</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Bang only when nearest left tl.cue was activated. If other cue is activated
+        and bang was scheduled by @delay property - it canceled</tr>
+        <tr lang="ru" finished="false">Взрыв произошел только при активации ближайшего левого
+        tl.cue. Если активирован другой сигнал и взрыв был запланирован собственностью @delay - он
+        отменен</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="DELAY" type="float" minvalue="0" units="millisecond">
+        <tr lang="en">timeline length</tr>
+        <tr lang="ru" finished="false">продолжительность</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @cue -->
+      <property name="@cue" type="symbol" access="readonly" default="">
+        <tr lang="en">related cue</tr>
+        <tr lang="ru" finished="false">связанный сигнал</tr>
+      </property>
+      <!-- @delay -->
+      <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
+        <tr lang="en">bang delay after cue activation</tr>
+        <tr lang="ru" finished="false">задержка взрыва после активации сигнала</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control inlet</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">bang output</tr>
+          <tr lang="ru" finished="false">взрывной выход</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
         [tl.cue]           [tl.cue]
 
@@ -78,7 +78,7 @@
 |
 [tl.transport]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

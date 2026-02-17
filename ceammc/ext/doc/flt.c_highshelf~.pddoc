@@ -1,113 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flt.c_highshelf~">
-        <title>flt.c_highshelf~</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">highshelf filter coefficient calculator for [flt.biquad~]</tr>
-                <tr lang="ru">калькулятор коэффициентов полочного фильтра высоких частот для
-                [flt.biquad~]</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flt</category>
-            <keywords>filter highshelf</keywords>
-            <since>0.1</since>
-            <also>
-                <see>flt.highshelf~</see>
-                <see>flt.biquad~</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">gain boost|cut above some frequency</tr>
-                <!-- old: Увеличение частоты | вырезать выше некоторой
+  <object name="flt.c_highshelf~">
+    <title>flt.c_highshelf~</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">highshelf filter coefficient calculator for [flt.biquad~]</tr>
+        <tr lang="ru">калькулятор коэффициентов полочного фильтра высоких частот для
+        [flt.biquad~]</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flt</category>
+      <keywords>filter highshelf</keywords>
+      <since>0.1</since>
+      <also>
+        <see>flt.highshelf~</see>
+        <see>flt.biquad~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">gain boost|cut above some frequency</tr>
+        <!-- old: Увеличение частоты | вырезать выше некоторой
                 частоты -->
-                <tr lang="ru" finished="false">Увеличение частоты | вырезать выше некоторой
-                частоты</tr>
-            </par>
-            <par>
-                <tr lang="en">Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ +
-                b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²)</tr>
-                <!-- old: Расчет коэффициентов для функции переноса: H(z)=(b0
+        <tr lang="ru" finished="false">Увеличение частоты | вырезать выше некоторой частоты</tr>
+      </par>
+      <par>
+        <tr lang="en">Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1
+        + a1*z⁻¹ + a2*z⁻²)</tr>
+        <!-- old: Расчет коэффициентов для функции переноса: H(z)=(b0
                 + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2) -->
-                <tr lang="ru" finished="false">Расчет коэффициентов для функции переноса: H(z)=(b0
-                + b1*z−1 + b2*z−2)/(1 + a1*z−1 + a2*z−2)</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
-                <tr lang="en">cutoff frequency</tr>
-                <tr lang="ru" finished="false">частота отключения</tr>
-            </argument>
-            <argument name="GAIN" type="float" minvalue="-15" maxvalue="+15" units="decibel">
-                <tr lang="en">filter gain</tr>
-                <tr lang="ru" finished="false">коэффициент усиления фильтра</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <xi:include href="props_active.xml" />
-            <!-- @freq -->
-            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="10000"
-            units="hertz">
-                <tr lang="en">center frequency</tr>
-                <tr lang="ru" finished="false">центральная частота</tr>
-            </property>
-            <!-- @gain -->
-            <property name="@gain" type="float" minvalue="-15" maxvalue="15" default="0"
-            units="decibel">
-                <tr lang="en">filter gain</tr>
-                <tr lang="ru" finished="false">коэффициент усиления фильтра</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control input</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">b0</tr>
-                    <tr lang="ru" finished="false">b0</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">b1</tr>
-                    <tr lang="ru" finished="false">b1</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">b2</tr>
-                    <tr lang="ru" finished="false">b2</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">a1</tr>
-                    <tr lang="ru" finished="false">а1</tr>
-                </out>
-            </outlet>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">a2</tr>
-                    <tr lang="ru" finished="false">а2</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Расчет коэффициентов для функции переноса: H(z)=(b0 + b1*z−1
+        + b2*z−2)/(1 + a1*z−1 + a2*z−2)</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
+        <tr lang="en">cutoff frequency</tr>
+        <tr lang="ru" finished="false">частота отключения</tr>
+      </argument>
+      <argument name="GAIN" type="float" minvalue="-15" maxvalue="+15" units="decibel">
+        <tr lang="en">filter gain</tr>
+        <tr lang="ru" finished="false">коэффициент усиления фильтра</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_osc.xml" />
+      <xi:include href="props_id.xml" />
+      <xi:include href="props_active.xml" />
+      <!-- @freq -->
+      <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="10000"
+      units="hertz">
+        <tr lang="en">center frequency</tr>
+        <tr lang="ru" finished="false">центральная частота</tr>
+      </property>
+      <!-- @gain -->
+      <property name="@gain" type="float" minvalue="-15" maxvalue="15" default="0" units="decibel">
+        <tr lang="en">filter gain</tr>
+        <tr lang="ru" finished="false">коэффициент усиления фильтра</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control input</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">b0</tr>
+          <tr lang="ru" finished="false">b0</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">b1</tr>
+          <tr lang="ru" finished="false">b1</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">b2</tr>
+          <tr lang="ru" finished="false">b2</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">a1</tr>
+          <tr lang="ru" finished="false">а1</tr>
+        </out>
+      </outlet>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">a2</tr>
+          <tr lang="ru" finished="false">а2</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [noise.pink~]
 |
@@ -130,7 +128,7 @@
 
 [ui.dsp~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

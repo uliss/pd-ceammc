@@ -1,487 +1,483 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="proto.inscore">
-        <title>proto.inscore</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">creation of messages for the INScore program</tr>
-                <tr lang="ru">создание сообщений для программы INScore</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>proto</category>
-            <keywords>inscore</keywords>
-            <since>0.9.6</since>
-        </meta>
-        <properties>
-            <!-- @scene -->
-            <property name="@scene" type="int" minvalue="0" default="0">
-                <tr lang="en">scene id</tr>
-                <tr lang="ru" finished="false">эпизод</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- alpha -->
-            <method name="alpha">
-                <info>
-                    <tr lang="en">set object alpha opacity</tr>
-                    <tr lang="ru" finished="false">объект альфа-непрозрачность</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="VAL" type="float" required="true">
-                    <tr lang="en">alpha value</tr>
-                    <tr lang="ru" finished="false">альфа-значение</tr>
-                </param>
-            </method>
-            <!-- angle -->
-            <method name="angle">
-                <info>
-                    <tr lang="en">rotate object</tr>
-                    <tr lang="ru" finished="false">вращающийся объект</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="ANGLE" type="float" required="true" units="degree">
-                    <tr lang="en">rotation angle (clockwise)</tr>
-                    <tr lang="ru" finished="false">угол поворота (по часовой стрелке)</tr>
-                </param>
-            </method>
-            <!-- color -->
-            <method name="color">
-                <info>
-                    <tr lang="en">set object color</tr>
-                    <tr lang="ru" finished="false">Цвет объекта</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="VAL" type="list" required="true">
-                    <tr lang="en">color: RGB list of floats in [0-1] range or color name</tr>
-                    <tr lang="ru" finished="false">Цвет: RGB список поплавков в диапазоне [0-1] или
-                    название цвета</tr>
-                </param>
-            </method>
-            <!-- del -->
-            <method name="del">
-                <info>
-                    <tr lang="en">remove object</tr>
-                    <tr lang="ru" finished="false">Удалить объект</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-            </method>
-            <!-- dscale -->
-            <method name="dscale">
-                <info>
-                    <tr lang="en">relative object scale</tr>
-                    <tr lang="ru" finished="false">относительная объектная шкала</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="VAL" type="float" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- dx -->
-            <method name="dx">
-                <info>
-                    <tr lang="en">move object horizontally by specified X offset</tr>
-                    <tr lang="ru" finished="false">перемещать объект горизонтально по заданному X
-                    смещению</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="POS" type="float">
-                    <tr lang="en">X offset</tr>
-                    <tr lang="ru" finished="false">X смещения</tr>
-                </param>
-            </method>
-            <!-- dy -->
-            <method name="dy">
-                <info>
-                    <tr lang="en">move object vertically by specified Y offset</tr>
-                    <tr lang="ru" finished="false">перемещать объект вертикально по заданному Y
-                    смещению</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="POS" type="float">
-                    <tr lang="en">Y offset</tr>
-                    <tr lang="ru" finished="false">Y смещения</tr>
-                </param>
-            </method>
-            <!-- dz -->
-            <method name="dz">
-                <info>
-                    <tr lang="en">move object vertically by specified Z offset</tr>
-                    <tr lang="ru" finished="false">перемещать объект вертикально по заданному Z
-                    смещению</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="POS" type="float">
-                    <tr lang="en">Z offset</tr>
-                    <tr lang="ru" finished="false">Z смещения</tr>
-                </param>
-            </method>
-            <!-- ellipse -->
-            <method name="ellipse">
-                <info>
-                    <tr lang="en">create ellipse</tr>
-                    <tr lang="ru" finished="false">создавать эллипсы</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="W" type="float" required="true">
-                    <tr lang="en">width</tr>
-                    <tr lang="ru" finished="false">ширина</tr>
-                </param>
-                <param name="H" type="float" required="true">
-                    <tr lang="en">height</tr>
-                    <tr lang="ru" finished="false">высота</tr>
-                </param>
-            </method>
-            <!-- file -->
-            <method name="file">
-                <info>
-                    <tr lang="en">set object from file content</tr>
-                    <tr lang="ru" finished="false">Заданный объект из содержимого файла</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="URL" type="symbol" required="true">
-                    <tr lang="en">url</tr>
-                    <tr lang="ru" finished="false">урл</tr>
-                </param>
-            </method>
-            <!-- font_size -->
-            <method name="font_size">
-                <info>
-                    <tr lang="en">set object fontsize</tr>
-                    <tr lang="ru" finished="false">объектный шрифт</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="SIZE" type="float" required="true">
-                    <tr lang="en">fontsize</tr>
-                    <tr lang="ru" finished="false">шрифт</tr>
-                </param>
-            </method>
-            <!-- font_weight -->
-            <method name="font_weight">
-                <info>
-                    <tr lang="en">set object font weight</tr>
-                    <tr lang="ru" finished="false">Установить вес шрифта объекта</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="SIZE" type="symbol" required="true"
-                enum="light|demibold|normal|bold|black">
-                    <tr lang="en">weight</tr>
-                    <tr lang="ru" finished="false">вес</tr>
-                </param>
-            </method>
-            <!-- gmn -->
-            <method name="gmn">
-                <info>
-                    <tr lang="en">create Guido Music notation</tr>
-                    <tr lang="ru" finished="false">Создание нотации Guido Music</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="NOTES" type="list">
-                    <tr lang="en">Guido Music Notation</tr>
-                    <tr lang="ru" finished="false">Музыкальные нотации Guido</tr>
-                </param>
-            </method>
-            <!-- gmn<< -->
-            <method name="gmn&lt;&lt;">
-                <info>
-                    <tr lang="en">append Guido Music notation to object, can be called several
-                    times</tr>
-                    <tr lang="ru" finished="false">Добавить нотацию Guido Music к объекту, можно
-                    позвонить несколько раз</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="NOTES" type="list" required="true">
-                    <tr lang="en">Guido Music Notation</tr>
-                    <tr lang="ru" finished="false">Музыкальные нотации Guido</tr>
-                </param>
-            </method>
-            <!-- height -->
-            <method name="height">
-                <info>
-                    <tr lang="en">set object width</tr>
-                    <tr lang="ru" finished="false">ширина объекта</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="WD" type="float">
-                    <tr lang="en">height</tr>
-                    <tr lang="ru" finished="false">высота</tr>
-                </param>
-            </method>
-            <!-- make_chord -->
-            <method name="make_chord">
-                <info>
-                    <tr lang="en">output guido chord as symbol</tr>
-                    <tr lang="ru" finished="false">выходной гидео аккорд как символ</tr>
-                </info>
-                <param name="NOTES" type="list">
-                    <tr lang="en">guido notation</tr>
-                    <tr lang="ru" finished="false">примечание</tr>
-                </param>
-            </method>
-            <!-- make_cluster -->
-            <method name="make_cluster">
-                <info>
-                    <tr lang="en">output guido cluster as symbol</tr>
-                    <tr lang="ru" finished="false">выходной путеводный кластер как символ</tr>
-                </info>
-                <param name="NOTES" type="list">
-                    <tr lang="en">guido notation</tr>
-                    <tr lang="ru" finished="false">примечание</tr>
-                </param>
-            </method>
-            <!-- rect -->
-            <method name="rect">
-                <info>
-                    <tr lang="en">create rectangle</tr>
-                    <tr lang="ru" finished="false">создать прямоугольник</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="W" type="float" required="true">
-                    <tr lang="en">width</tr>
-                    <tr lang="ru" finished="false">ширина</tr>
-                </param>
-                <param name="H" type="float" required="true">
-                    <tr lang="en">height</tr>
-                    <tr lang="ru" finished="false">высота</tr>
-                </param>
-            </method>
-            <!-- scale -->
-            <method name="scale">
-                <info>
-                    <tr lang="en">scale object</tr>
-                    <tr lang="ru" finished="false">масштабируемый объект</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="VAL" type="float" required="true">
-                    <tr lang="en">value</tr>
-                    <tr lang="ru" finished="false">ценность</tr>
-                </param>
-            </method>
-            <!-- show -->
-            <method name="show">
-                <info>
-                    <tr lang="en">show/hide object</tr>
-                    <tr lang="ru" finished="false">Показать/спрятать объект</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="VAL" type="int" required="true" enum="0 1">
-                    <tr lang="en">object state</tr>
-                    <tr lang="ru" finished="false">объектное состояние</tr>
-                </param>
-            </method>
-            <!-- text -->
-            <method name="text">
-                <info>
-                    <tr lang="en">create text object at (0,0) position</tr>
-                    <tr lang="ru" finished="false">Создание текстового объекта в позиции (0,0)</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="ARGS" type="list">
-                    <tr lang="en">content</tr>
-                    <tr lang="ru" finished="false">содержание</tr>
-                </param>
-            </method>
-            <!-- width -->
-            <method name="width">
-                <info>
-                    <tr lang="en">set object width</tr>
-                    <tr lang="ru" finished="false">ширина объекта</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="WD" type="float">
-                    <tr lang="en">width</tr>
-                    <tr lang="ru" finished="false">ширина</tr>
-                </param>
-            </method>
-            <!-- write -->
-            <method name="write">
-                <info>
-                    <tr lang="en">text objects support writing in a stream-like way.</tr>
-                    <tr lang="ru" finished="false">Текстовые объекты поддерживают написание
-                    потоковым способом.</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="ITEMS" type="list" required="true">
-                    <tr lang="en">added content</tr>
-                    <tr lang="ru" finished="false">Добавлен контент</tr>
-                </param>
-            </method>
-            <!-- write_chord -->
-            <method name="write_chord">
-                <info>
-                    <tr lang="en">add chord to INScore</tr>
-                    <tr lang="ru" finished="false">Добавить аккорд в INScore</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="NOTES" type="list">
-                    <tr lang="en">guido notation</tr>
-                    <tr lang="ru" finished="false">примечание</tr>
-                </param>
-            </method>
-            <!-- x -->
-            <method name="x">
-                <info>
-                    <tr lang="en">move object to new Y-coord</tr>
-                    <tr lang="ru" finished="false">Переместить объект в новый Y-коорд</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="POS" type="float">
-                    <tr lang="en">new X position</tr>
-                    <tr lang="ru" finished="false">Новая позиция X</tr>
-                </param>
-            </method>
-            <!-- xorigin -->
-            <method name="xorigin">
-                <info>
-                    <tr lang="en">set object X origin</tr>
-                    <tr lang="ru" finished="false">Задан объект X Происхождение</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="POS" type="float" required="true">
-                    <tr lang="en">X origin position</tr>
-                    <tr lang="ru" finished="false">X исходная позиция</tr>
-                </param>
-            </method>
-            <!-- y -->
-            <method name="y">
-                <info>
-                    <tr lang="en">move object to new Y-coord</tr>
-                    <tr lang="ru" finished="false">Переместить объект в новый Y-коорд</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="POS" type="float">
-                    <tr lang="en">new Y position</tr>
-                    <tr lang="ru" finished="false">Новая позиция Y</tr>
-                </param>
-            </method>
-            <!-- yorigin -->
-            <method name="yorigin">
-                <info>
-                    <tr lang="en">set object Y origin</tr>
-                    <tr lang="ru" finished="false">Заданный объект Y происхождение</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="POS" type="float" required="true">
-                    <tr lang="en">Y origin position</tr>
-                    <tr lang="ru" finished="false">Y исходная позиция</tr>
-                </param>
-            </method>
-            <!-- z -->
-            <method name="z">
-                <info>
-                    <tr lang="en">move object to new Z-coord</tr>
-                    <tr lang="ru" finished="false">Переместить объект в новый Z-коорд</tr>
-                </info>
-                <param name="NAME" type="symbol" required="true">
-                    <tr lang="en">object name</tr>
-                    <tr lang="ru" finished="false">имя объекта</tr>
-                </param>
-                <param name="POS" type="float">
-                    <tr lang="en">new Z position</tr>
-                    <tr lang="ru" finished="false">Новая позиция Z</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control input</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">osc send command</tr>
-                    <tr lang="ru" finished="false">ОСК посылает команду</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="proto.inscore">
+    <title>proto.inscore</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">creation of messages for the INScore program</tr>
+        <tr lang="ru">создание сообщений для программы INScore</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>proto</category>
+      <keywords>inscore</keywords>
+      <since>0.9.6</since>
+    </meta>
+    <properties>
+      <!-- @scene -->
+      <property name="@scene" type="int" minvalue="0" default="0">
+        <tr lang="en">scene id</tr>
+        <tr lang="ru" finished="false">эпизод</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- alpha -->
+      <method name="alpha">
+        <info>
+          <tr lang="en">set object alpha opacity</tr>
+          <tr lang="ru" finished="false">объект альфа-непрозрачность</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="VAL" type="float" required="true">
+          <tr lang="en">alpha value</tr>
+          <tr lang="ru" finished="false">альфа-значение</tr>
+        </param>
+      </method>
+      <!-- angle -->
+      <method name="angle">
+        <info>
+          <tr lang="en">rotate object</tr>
+          <tr lang="ru" finished="false">вращающийся объект</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="ANGLE" type="float" required="true" units="degree">
+          <tr lang="en">rotation angle (clockwise)</tr>
+          <tr lang="ru" finished="false">угол поворота (по часовой стрелке)</tr>
+        </param>
+      </method>
+      <!-- color -->
+      <method name="color">
+        <info>
+          <tr lang="en">set object color</tr>
+          <tr lang="ru" finished="false">Цвет объекта</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="VAL" type="list" required="true">
+          <tr lang="en">color: RGB list of floats in [0-1] range or color name</tr>
+          <tr lang="ru" finished="false">Цвет: RGB список поплавков в диапазоне [0-1] или название
+          цвета</tr>
+        </param>
+      </method>
+      <!-- del -->
+      <method name="del">
+        <info>
+          <tr lang="en">remove object</tr>
+          <tr lang="ru" finished="false">Удалить объект</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+      </method>
+      <!-- dscale -->
+      <method name="dscale">
+        <info>
+          <tr lang="en">relative object scale</tr>
+          <tr lang="ru" finished="false">относительная объектная шкала</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="VAL" type="float" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- dx -->
+      <method name="dx">
+        <info>
+          <tr lang="en">move object horizontally by specified X offset</tr>
+          <tr lang="ru" finished="false">перемещать объект горизонтально по заданному X
+          смещению</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="POS" type="float">
+          <tr lang="en">X offset</tr>
+          <tr lang="ru" finished="false">X смещения</tr>
+        </param>
+      </method>
+      <!-- dy -->
+      <method name="dy">
+        <info>
+          <tr lang="en">move object vertically by specified Y offset</tr>
+          <tr lang="ru" finished="false">перемещать объект вертикально по заданному Y смещению</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="POS" type="float">
+          <tr lang="en">Y offset</tr>
+          <tr lang="ru" finished="false">Y смещения</tr>
+        </param>
+      </method>
+      <!-- dz -->
+      <method name="dz">
+        <info>
+          <tr lang="en">move object vertically by specified Z offset</tr>
+          <tr lang="ru" finished="false">перемещать объект вертикально по заданному Z смещению</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="POS" type="float">
+          <tr lang="en">Z offset</tr>
+          <tr lang="ru" finished="false">Z смещения</tr>
+        </param>
+      </method>
+      <!-- ellipse -->
+      <method name="ellipse">
+        <info>
+          <tr lang="en">create ellipse</tr>
+          <tr lang="ru" finished="false">создавать эллипсы</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="W" type="float" required="true">
+          <tr lang="en">width</tr>
+          <tr lang="ru" finished="false">ширина</tr>
+        </param>
+        <param name="H" type="float" required="true">
+          <tr lang="en">height</tr>
+          <tr lang="ru" finished="false">высота</tr>
+        </param>
+      </method>
+      <!-- file -->
+      <method name="file">
+        <info>
+          <tr lang="en">set object from file content</tr>
+          <tr lang="ru" finished="false">Заданный объект из содержимого файла</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="URL" type="symbol" required="true">
+          <tr lang="en">url</tr>
+          <tr lang="ru" finished="false">урл</tr>
+        </param>
+      </method>
+      <!-- font_size -->
+      <method name="font_size">
+        <info>
+          <tr lang="en">set object fontsize</tr>
+          <tr lang="ru" finished="false">объектный шрифт</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="SIZE" type="float" required="true">
+          <tr lang="en">fontsize</tr>
+          <tr lang="ru" finished="false">шрифт</tr>
+        </param>
+      </method>
+      <!-- font_weight -->
+      <method name="font_weight">
+        <info>
+          <tr lang="en">set object font weight</tr>
+          <tr lang="ru" finished="false">Установить вес шрифта объекта</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="SIZE" type="symbol" required="true" enum="light|demibold|normal|bold|black">
+          <tr lang="en">weight</tr>
+          <tr lang="ru" finished="false">вес</tr>
+        </param>
+      </method>
+      <!-- gmn -->
+      <method name="gmn">
+        <info>
+          <tr lang="en">create Guido Music notation</tr>
+          <tr lang="ru" finished="false">Создание нотации Guido Music</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="NOTES" type="list">
+          <tr lang="en">Guido Music Notation</tr>
+          <tr lang="ru" finished="false">Музыкальные нотации Guido</tr>
+        </param>
+      </method>
+      <!-- gmn<< -->
+      <method name="gmn&lt;&lt;">
+        <info>
+          <tr lang="en">append Guido Music notation to object, can be called several times</tr>
+          <tr lang="ru" finished="false">Добавить нотацию Guido Music к объекту, можно позвонить
+          несколько раз</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="NOTES" type="list" required="true">
+          <tr lang="en">Guido Music Notation</tr>
+          <tr lang="ru" finished="false">Музыкальные нотации Guido</tr>
+        </param>
+      </method>
+      <!-- height -->
+      <method name="height">
+        <info>
+          <tr lang="en">set object width</tr>
+          <tr lang="ru" finished="false">ширина объекта</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="WD" type="float">
+          <tr lang="en">height</tr>
+          <tr lang="ru" finished="false">высота</tr>
+        </param>
+      </method>
+      <!-- make_chord -->
+      <method name="make_chord">
+        <info>
+          <tr lang="en">output guido chord as symbol</tr>
+          <tr lang="ru" finished="false">выходной гидео аккорд как символ</tr>
+        </info>
+        <param name="NOTES" type="list">
+          <tr lang="en">guido notation</tr>
+          <tr lang="ru" finished="false">примечание</tr>
+        </param>
+      </method>
+      <!-- make_cluster -->
+      <method name="make_cluster">
+        <info>
+          <tr lang="en">output guido cluster as symbol</tr>
+          <tr lang="ru" finished="false">выходной путеводный кластер как символ</tr>
+        </info>
+        <param name="NOTES" type="list">
+          <tr lang="en">guido notation</tr>
+          <tr lang="ru" finished="false">примечание</tr>
+        </param>
+      </method>
+      <!-- rect -->
+      <method name="rect">
+        <info>
+          <tr lang="en">create rectangle</tr>
+          <tr lang="ru" finished="false">создать прямоугольник</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="W" type="float" required="true">
+          <tr lang="en">width</tr>
+          <tr lang="ru" finished="false">ширина</tr>
+        </param>
+        <param name="H" type="float" required="true">
+          <tr lang="en">height</tr>
+          <tr lang="ru" finished="false">высота</tr>
+        </param>
+      </method>
+      <!-- scale -->
+      <method name="scale">
+        <info>
+          <tr lang="en">scale object</tr>
+          <tr lang="ru" finished="false">масштабируемый объект</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="VAL" type="float" required="true">
+          <tr lang="en">value</tr>
+          <tr lang="ru" finished="false">ценность</tr>
+        </param>
+      </method>
+      <!-- show -->
+      <method name="show">
+        <info>
+          <tr lang="en">show/hide object</tr>
+          <tr lang="ru" finished="false">Показать/спрятать объект</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="VAL" type="int" required="true" enum="0 1">
+          <tr lang="en">object state</tr>
+          <tr lang="ru" finished="false">объектное состояние</tr>
+        </param>
+      </method>
+      <!-- text -->
+      <method name="text">
+        <info>
+          <tr lang="en">create text object at (0,0) position</tr>
+          <tr lang="ru" finished="false">Создание текстового объекта в позиции (0,0)</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="ARGS" type="list">
+          <tr lang="en">content</tr>
+          <tr lang="ru" finished="false">содержание</tr>
+        </param>
+      </method>
+      <!-- width -->
+      <method name="width">
+        <info>
+          <tr lang="en">set object width</tr>
+          <tr lang="ru" finished="false">ширина объекта</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="WD" type="float">
+          <tr lang="en">width</tr>
+          <tr lang="ru" finished="false">ширина</tr>
+        </param>
+      </method>
+      <!-- write -->
+      <method name="write">
+        <info>
+          <tr lang="en">text objects support writing in a stream-like way.</tr>
+          <tr lang="ru" finished="false">Текстовые объекты поддерживают написание потоковым
+          способом.</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="ITEMS" type="list" required="true">
+          <tr lang="en">added content</tr>
+          <tr lang="ru" finished="false">Добавлен контент</tr>
+        </param>
+      </method>
+      <!-- write_chord -->
+      <method name="write_chord">
+        <info>
+          <tr lang="en">add chord to INScore</tr>
+          <tr lang="ru" finished="false">Добавить аккорд в INScore</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="NOTES" type="list">
+          <tr lang="en">guido notation</tr>
+          <tr lang="ru" finished="false">примечание</tr>
+        </param>
+      </method>
+      <!-- x -->
+      <method name="x">
+        <info>
+          <tr lang="en">move object to new Y-coord</tr>
+          <tr lang="ru" finished="false">Переместить объект в новый Y-коорд</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="POS" type="float">
+          <tr lang="en">new X position</tr>
+          <tr lang="ru" finished="false">Новая позиция X</tr>
+        </param>
+      </method>
+      <!-- xorigin -->
+      <method name="xorigin">
+        <info>
+          <tr lang="en">set object X origin</tr>
+          <tr lang="ru" finished="false">Задан объект X Происхождение</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="POS" type="float" required="true">
+          <tr lang="en">X origin position</tr>
+          <tr lang="ru" finished="false">X исходная позиция</tr>
+        </param>
+      </method>
+      <!-- y -->
+      <method name="y">
+        <info>
+          <tr lang="en">move object to new Y-coord</tr>
+          <tr lang="ru" finished="false">Переместить объект в новый Y-коорд</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="POS" type="float">
+          <tr lang="en">new Y position</tr>
+          <tr lang="ru" finished="false">Новая позиция Y</tr>
+        </param>
+      </method>
+      <!-- yorigin -->
+      <method name="yorigin">
+        <info>
+          <tr lang="en">set object Y origin</tr>
+          <tr lang="ru" finished="false">Заданный объект Y происхождение</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="POS" type="float" required="true">
+          <tr lang="en">Y origin position</tr>
+          <tr lang="ru" finished="false">Y исходная позиция</tr>
+        </param>
+      </method>
+      <!-- z -->
+      <method name="z">
+        <info>
+          <tr lang="en">move object to new Z-coord</tr>
+          <tr lang="ru" finished="false">Переместить объект в новый Z-коорд</tr>
+        </info>
+        <param name="NAME" type="symbol" required="true">
+          <tr lang="en">object name</tr>
+          <tr lang="ru" finished="false">имя объекта</tr>
+        </param>
+        <param name="POS" type="float">
+          <tr lang="en">new Z position</tr>
+          <tr lang="ru" finished="false">Новая позиция Z</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control input</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">osc send command</tr>
+          <tr lang="ru" finished="false">ОСК посылает команду</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [text LABEL text message(
 |
@@ -499,7 +495,7 @@
 |
 [net.osc.send osc.udp://localhost:7000 {i=1}]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

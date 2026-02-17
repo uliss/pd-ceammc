@@ -1,137 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="ui.keyboard" type="gui">
-        <title>ui.keyboard</title>
-        <meta>
-            <authors>
-                <author>Alex Nadzharov</author>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">keyboard widget</tr>
-                <tr lang="ru">виджет клавиатуры</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category view="link">ui</category>
-            <keywords>ui keyboard</keywords>
-            <since>0.1</since>
-            <aliases>
-                <alias view="link">ui.hk</alias>
-                <alias view="link">ui.vkeyboard</alias>
-                <alias view="link">ui.vk</alias>
-            </aliases>
-            <also>
-                <see view="link">ui.preset</see>
-            </also>
-        </meta>
+  <object name="ui.keyboard" type="gui">
+    <title>ui.keyboard</title>
+    <meta>
+      <authors>
+        <author>Alex Nadzharov</author>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">keyboard widget</tr>
+        <tr lang="ru">виджет клавиатуры</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category view="link">ui</category>
+      <keywords>ui keyboard</keywords>
+      <since>0.1</since>
+      <aliases>
+        <alias view="link">ui.hk</alias>
+        <alias view="link">ui.vkeyboard</alias>
+        <alias view="link">ui.vk</alias>
+      </aliases>
+      <also>
+        <see view="link">ui.preset</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Piano keyboard widget</tr>
+        <tr lang="ru" finished="false">Виджет фортепианной клавиатуры</tr>
+      </par>
+      <par>
+        <tr lang="en">[ui.vkeyboard] and [ui.vk] - aliases for vertical keyboard</tr>
+        <tr lang="ru" finished="false">[ui.vkeyboard] и [ui.vk] - псевдонимы для вертикальной
+        клавиатуры</tr>
+      </par>
+    </info>
+    <mouse>
+      <event type="move" editmode="false" empty="true" />
+      <event type="left-click" editmode="false">play selected note: output [NOTE VELOCITY( on mouse
+      press and [NOTE 0( on mouse release. Velocity depends on click position: lower position
+      produces higher velocity</event>
+      <event type="left-click" editmode="false" keys="Shift">play/stop sustained note</event>
+      <event type="left-click" editmode="false" keys="Alt">release all note (send [NOTE 0( message
+      for each sustained note)</event>
+      <event type="drag" editmode="false">play notes under cursor and release others</event>
+      <event type="right-click" editmode="false">open popup menu with various chords</event>
+      <event type="right-click" editmode="false" keys="Shift">open object help</event>
+      <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+      <event type="right-click" editmode="true" keys="Shift">open object help</event>
+      <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+    </mouse>
+    <arguments>
+      <argument name="KEYS" type="int" minvalue="5" maxvalue="88">
+        <tr lang="en">number of keys</tr>
+        <tr lang="ru" finished="false">Количество ключей</tr>
+      </argument>
+      <argument name="SHIFT" type="int" minvalue="6" maxvalue="88">
+        <tr lang="en">pitch of starting key</tr>
+        <tr lang="ru" finished="false">Шаг стартового ключа</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <xi:include href="props_active_color.xml" />
+      <xi:include href="props_border_color.xml" />
+      <xi:include href="props_fontname.xml" />
+      <xi:include href="props_fontsize.xml" />
+      <xi:include href="props_fontslant.xml" />
+      <xi:include href="props_fontweight.xml" />
+      <xi:include href="props_pinned.xml" />
+      <xi:include href="props_ui_receive.xml" />
+      <xi:include href="props_ui_send.xml" />
+      <!-- @keys -->
+      <property name="@keys" type="int" default="61" minvalue="5" maxvalue="88">
+        <tr lang="en">number of keys</tr>
+        <tr lang="ru" finished="false">Количество ключей</tr>
+      </property>
+      <!-- @shift -->
+      <property name="@shift" type="int" default="36" minvalue="6" maxvalue="88">
+        <tr lang="en">MIDI pitch of starting key</tr>
+        <tr lang="ru" finished="false">MIDI шаг стартового ключа</tr>
+      </property>
+      <!-- @size -->
+      <property name="@size" type="list" default="433 60">
+        <tr lang="en">object size (width, height pair)</tr>
+        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- dump -->
+      <method name="dump">
         <info>
-            <par>
-                <tr lang="en">Piano keyboard widget</tr>
-                <tr lang="ru" finished="false">Виджет фортепианной клавиатуры</tr>
-            </par>
-            <par>
-                <tr lang="en">[ui.vkeyboard] and [ui.vk] - aliases for vertical keyboard</tr>
-                <tr lang="ru" finished="false">[ui.vkeyboard] и [ui.vk] - псевдонимы для
-                вертикальной клавиатуры</tr>
-            </par>
+          <tr lang="en">dumps all object info to Pd console window</tr>
+          <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно консоли
+          Pd</tr>
         </info>
-        <mouse>
-            <event type="move" editmode="false" empty="true" />
-            <event type="left-click" editmode="false">play selected note: output [NOTE VELOCITY( on
-            mouse press and [NOTE 0( on mouse release. Velocity depends on click position: lower
-            position produces higher velocity</event>
-            <event type="left-click" editmode="false" keys="Shift">play/stop sustained note</event>
-            <event type="left-click" editmode="false" keys="Alt">release all note (send [NOTE 0(
-            message for each sustained note)</event>
-            <event type="drag" editmode="false">play notes under cursor and release others</event>
-            <event type="right-click" editmode="false">open popup menu with various chords</event>
-            <event type="right-click" editmode="false" keys="Shift">open object help</event>
-            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="true" keys="Shift">open object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
-        </mouse>
-        <arguments>
-            <argument name="KEYS" type="int" minvalue="5" maxvalue="88">
-                <tr lang="en">number of keys</tr>
-                <tr lang="ru" finished="false">Количество ключей</tr>
-            </argument>
-            <argument name="SHIFT" type="int" minvalue="6" maxvalue="88">
-                <tr lang="en">pitch of starting key</tr>
-                <tr lang="ru" finished="false">Шаг стартового ключа</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <xi:include href="props_active_color.xml" />
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_pinned.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_send.xml" />
-            <!-- @keys -->
-            <property name="@keys" type="int" default="61" minvalue="5" maxvalue="88">
-                <tr lang="en">number of keys</tr>
-                <tr lang="ru" finished="false">Количество ключей</tr>
-            </property>
-            <!-- @shift -->
-            <property name="@shift" type="int" default="36" minvalue="6" maxvalue="88">
-                <tr lang="en">MIDI pitch of starting key</tr>
-                <tr lang="ru" finished="false">MIDI шаг стартового ключа</tr>
-            </property>
-            <!-- @size -->
-            <property name="@size" type="list" default="433 60">
-                <tr lang="en">object size (width, height pair)</tr>
-                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- dump -->
-            <method name="dump">
-                <info>
-                    <tr lang="en">dumps all object info to Pd console window</tr>
-                    <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно
-                    консоли Pd</tr>
-                </info>
-            </method>
-            <!-- pos -->
-            <method name="pos">
-                <info>
-                    <tr lang="en">set UI element position</tr>
-                    <tr lang="ru" finished="false">Установите положение элемента UI</tr>
-                </info>
-                <param name="X" type="float" required="true">
-                    <tr lang="en">top left x-coord</tr>
-                    <tr lang="ru" finished="false">верхний левый x-coord</tr>
-                </param>
-                <param name="Y" type="float" required="true">
-                    <tr lang="en">top right y-coord</tr>
-                    <tr lang="ru" finished="false">верхняя правая y-coord</tr>
-                </param>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">control inlet</tr>
-                    <tr lang="ru" finished="false">контрольный вход</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">list from two elements: MIDI pitch, MIDI velocity. Velocity
-                    depends from key press position.</tr>
-                    <tr lang="ru" finished="false">Список из двух элементов: MIDI шаг, MIDI
-                    скорость. Скорость зависит от ключевой позиции прессы.</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+      </method>
+      <!-- pos -->
+      <method name="pos">
+        <info>
+          <tr lang="en">set UI element position</tr>
+          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
+        </info>
+        <param name="X" type="float" required="true">
+          <tr lang="en">top left x-coord</tr>
+          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+        </param>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">top right y-coord</tr>
+          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control inlet</tr>
+          <tr lang="ru" finished="false">контрольный вход</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">list from two elements: MIDI pitch, MIDI velocity. Velocity depends from
+          key press position.</tr>
+          <tr lang="ru" finished="false">Список из двух элементов: MIDI шаг, MIDI скорость.
+          Скорость зависит от ключевой позиции прессы.</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [dump(
 |
@@ -152,7 +152,7 @@
 | \
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

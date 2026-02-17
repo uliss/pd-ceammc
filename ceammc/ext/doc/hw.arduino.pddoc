@@ -1,167 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="hw.arduino">
-        <title>hw.arduino</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">Arduino device</tr>
-                <tr lang="ru">устройство Arduino</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>hw</category>
-            <keywords>arduino</keywords>
-            <since>0.5</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Arduino serial port that supports reconnect and hotplug. If no
-                properties are given tries to connect to the first available and not opened device.
-                If @reconnect flag is given, waits for device hotplug and reconnects to it.</tr>
-                <!-- old: Серийный порт Arduino, поддерживающий повторное
+  <object name="hw.arduino">
+    <title>hw.arduino</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">Arduino device</tr>
+        <tr lang="ru">устройство Arduino</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>hw</category>
+      <keywords>arduino</keywords>
+      <since>0.5</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Arduino serial port that supports reconnect and hotplug. If no properties are
+        given tries to connect to the first available and not opened device. If @reconnect flag is
+        given, waits for device hotplug and reconnects to it.</tr>
+        <!-- old: Серийный порт Arduino, поддерживающий повторное
                 подключение и горячее подключение. При отсутствии свойств дается попытка
                 подключения к первому доступному и не открытому устройству. Если @reconnect флаг
                 дан, ждет хот-плаг устройства и повторно подключается к нему. -->
-                <tr lang="ru" finished="false">Серийный порт Arduino, поддерживающий повторное
-                подключение и горячее подключение. При отсутствии свойств дается попытка
-                подключения к первому доступному и не открытому устройству. Если @reconnect флаг
-                дан, ждет хот-плаг устройства и повторно подключается к нему.</tr>
-            </par>
+        <tr lang="ru" finished="false">Серийный порт Arduino, поддерживающий повторное подключение
+        и горячее подключение. При отсутствии свойств дается попытка подключения к первому
+        доступному и не открытому устройству. Если @reconnect флаг дан, ждет хот-плаг устройства и
+        повторно подключается к нему.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="PORT" type="symbol">
+        <tr lang="en">serial port name, eg.: COM3 on Windows, /dev/ttyACM0 on Linux and
+        /dev/cu.usbmodem411 on MacOSX</tr>
+        <!-- old: последовательное название порта, например: COM3 на
+                Windows, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX -->
+        <!-- old: последовательное название порта, например: COM3 на
+                Windows, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX -->
+        <tr lang="ru" finished="false">последовательное название порта, например: COM3 на Windows,
+        /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX</tr>
+      </argument>
+      <argument name="RATE" type="int"
+      enum="110 115200 1200 128000 14400 19200 2400 256000 300 38400 4800 56000 57600 600 9600">
+        <tr lang="en">serial baud rate</tr>
+        <tr lang="ru">cкорость передачи данных</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @connected -->
+      <property name="@connected" type="bool" access="readonly" default="0">
+        <tr lang="en">state of connection to device</tr>
+        <tr lang="ru">состояние соединения с устройством</tr>
+      </property>
+      <!-- @devices -->
+      <property name="@devices" type="list" default="" access="readonly">
+        <tr lang="en">list of found Arduino devices</tr>
+        <tr lang="ru">cписок найденных устройств Arduino</tr>
+      </property>
+      <!-- @on_connect -->
+      <property name="@on_connect" type="symbol" default="">
+        <tr lang="en">function called after each connection</tr>
+        <tr lang="ru">вызываемая после каждого подключении функция</tr>
+      </property>
+      <!-- @port -->
+      <property name="@port" type="symbol" access="initonly" default="">
+        <tr lang="en">name of Arduino serial port or device, eg.: COM3 on Windows, /dev/ttyACM0 on
+        Linux and /dev/cu.usbmodem411 on MacOSX. If the property is specified, it attempts to
+        connect only to that device</tr>
+        <tr lang="ru" finished="false">имя порта или устройства Arduino, например: COM3 в Windows,
+        /dev/ttyACM0 в Linux и /dev/cu.usbmodem411 в MacOSX. Если свойства указано - пытается
+        подключиться только к этому устройству</tr>
+      </property>
+      <!-- @product_id -->
+      <property name="@product_id" type="int" default="0">
+        <tr lang="en">USB device product id. If the vendor and product identifiers are specified,
+        it will attempt to connect only to devices with those characteristics. Note: to specify an
+        identifier in hexadecimal format, please remember to add the 0x prefix.</tr>
+        <tr lang="ru">идентификатор USB Product ID. Если указаны идентификаторы производителя и
+        продукта, то пытается подключится только к устройствам с такими свойствами. Примечание:
+        чтобы указать идентификатор в шестнадцатеричном формате не забудьте добавить префикс
+        0x</tr>
+      </property>
+      <!-- @rate -->
+      <property name="@rate" type="int" default="57600"
+      enum="57600 110 300 600 1200 2400 4800 9600 14400 19200 38400 56000 115200 128000 256000">
+        <tr lang="en">serial baud rate. Standard values supported by most serial ports: 110, 300,
+        600, 1200, 2400, 4800, 9600, 14400, 19200, 28800, 38400, 56000, 57600, 115200</tr>
+        <tr lang="ru">cкорость передачи данных. Стандартные значениz, поддерживаемые большинством
+        последовательных портов: 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 28800, 38400,
+        56000, 57600, 115200</tr>
+      </property>
+      <!-- @reconnect -->
+      <property name="@reconnect" type="flag" default="0" access="initonly">
+        <tr lang="en">reconnect to the device after the loss of connection</tr>
+        <tr lang="ru">переподключение к устройству после потери соединения</tr>
+      </property>
+      <!-- @serial -->
+      <property name="@serial" type="symbol" default="">
+        <tr lang="en">USB device serial number. If specified, tries to connect to devices only with
+        such serial number</tr>
+        <tr lang="ru">Серийный номер устройства USB. Если указан, пытается подключиться к
+        устройствам только с таким серийным номером.</tr>
+      </property>
+      <!-- @vendor_id -->
+      <property name="@vendor_id" type="int" default="0">
+        <tr lang="en">USB device vendor id. If specified, tries to connect to devices only with
+        such vendor. Note: to specify an identifier in hexadecimal format, please remember to add
+        the 0x prefix</tr>
+        <tr lang="ru">идентификатор поставщика USB-устройств. Если указан, пытается подключиться к
+        устройствам только с таким поставщиком. Примечание: чтобы указать идентификатор в
+        шестнадцатеричном формате не забудьте добавить префикс 0x</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- connect -->
+      <method name="connect">
+        <info>
+          <tr lang="en">manually connect to device</tr>
+          <tr lang="ru" finished="false">вручную подключиться к устройству</tr>
         </info>
-        <arguments>
-            <argument name="PORT" type="symbol">
-                <tr lang="en">serial port name, eg.: COM3 on Windows, /dev/ttyACM0 on Linux and
-                /dev/cu.usbmodem411 on MacOSX</tr>
-                <!-- old: последовательное название порта, например: COM3 на
-                Windows, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX -->
-                <!-- old: последовательное название порта, например: COM3 на
-                Windows, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX -->
-                <tr lang="ru" finished="false">последовательное название порта, например: COM3 на
-                Windows, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX</tr>
-            </argument>
-            <argument name="RATE" type="int"
-            enum="110 115200 1200 128000 14400 19200 2400 256000 300 38400 4800 56000 57600 600 9600">
-
-                <tr lang="en">serial baud rate</tr>
-                <tr lang="ru">cкорость передачи данных</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @connected -->
-            <property name="@connected" type="bool" access="readonly" default="0">
-                <tr lang="en">state of connection to device</tr>
-                <tr lang="ru">состояние соединения с устройством</tr>
-            </property>
-            <!-- @devices -->
-            <property name="@devices" type="list" default="" access="readonly">
-                <tr lang="en">list of found Arduino devices</tr>
-                <tr lang="ru">cписок найденных устройств Arduino</tr>
-            </property>
-            <!-- @on_connect -->
-            <property name="@on_connect" type="symbol" default="">
-                <tr lang="en">function called after each connection</tr>
-                <tr lang="ru">вызываемая после каждого подключении функция</tr>
-            </property>
-            <!-- @port -->
-            <property name="@port" type="symbol" access="initonly" default="">
-                <tr lang="en">name of Arduino serial port or device, eg.: COM3 on Windows,
-                /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. If the property is
-                specified, it attempts to connect only to that device</tr>
-                <tr lang="ru" finished="false">имя порта или устройства Arduino, например: COM3 в
-                Windows, /dev/ttyACM0 в Linux и /dev/cu.usbmodem411 в MacOSX. Если свойства указано
-                - пытается подключиться только к этому устройству</tr>
-            </property>
-            <!-- @product_id -->
-            <property name="@product_id" type="int" default="0">
-                <tr lang="en">USB device product id. If the vendor and product identifiers are
-                specified, it will attempt to connect only to devices with those characteristics.
-                Note: to specify an identifier in hexadecimal format, please remember to add the 0x
-                prefix.</tr>
-                <tr lang="ru">идентификатор USB Product ID. Если указаны идентификаторы
-                производителя и продукта, то пытается подключится только к устройствам с такими
-                свойствами. Примечание: чтобы указать идентификатор в шестнадцатеричном формате не
-                забудьте добавить префикс 0x</tr>
-            </property>
-            <!-- @rate -->
-            <property name="@rate" type="int" default="57600"
-            enum="57600 110 300 600 1200 2400 4800 9600 14400 19200 38400 56000 115200 128000 256000">
-
-                <tr lang="en">serial baud rate. Standard values supported by most serial ports:
-                110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 28800, 38400, 56000, 57600,
-                115200</tr>
-                <tr lang="ru">cкорость передачи данных. Стандартные значениz, поддерживаемые
-                большинством последовательных портов: 110, 300, 600, 1200, 2400, 4800, 9600, 14400,
-                19200, 28800, 38400, 56000, 57600, 115200</tr>
-            </property>
-            <!-- @reconnect -->
-            <property name="@reconnect" type="flag" default="0" access="initonly">
-                <tr lang="en">reconnect to the device after the loss of connection</tr>
-                <tr lang="ru">переподключение к устройству после потери соединения</tr>
-            </property>
-            <!-- @serial -->
-            <property name="@serial" type="symbol" default="">
-                <tr lang="en">USB device serial number. If specified, tries to connect to devices
-                only with such serial number</tr>
-                <tr lang="ru">Серийный номер устройства USB. Если указан, пытается подключиться к
-                устройствам только с таким серийным номером.</tr>
-            </property>
-            <!-- @vendor_id -->
-            <property name="@vendor_id" type="int" default="0">
-                <tr lang="en">USB device vendor id. If specified, tries to connect to devices only
-                with such vendor. Note: to specify an identifier in hexadecimal format, please
-                remember to add the 0x prefix</tr>
-                <tr lang="ru">идентификатор поставщика USB-устройств. Если указан, пытается
-                подключиться к устройствам только с таким поставщиком. Примечание: чтобы указать
-                идентификатор в шестнадцатеричном формате не забудьте добавить префикс 0x</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- connect -->
-            <method name="connect">
-                <info>
-                    <tr lang="en">manually connect to device</tr>
-                    <tr lang="ru" finished="false">вручную подключиться к устройству</tr>
-                </info>
-            </method>
-            <!-- disconnect -->
-            <method name="disconnect">
-                <info>
-                    <tr lang="en">disconnect from device</tr>
-                    <tr lang="ru" finished="false">отключение от устройства</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">sends float value in byte range [0-255] to arduino device</tr>
-                    <!-- old: посылает поплавковое значение в байтовом
+      </method>
+      <!-- disconnect -->
+      <method name="disconnect">
+        <info>
+          <tr lang="en">disconnect from device</tr>
+          <tr lang="ru" finished="false">отключение от устройства</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">sends float value in byte range [0-255] to arduino device</tr>
+          <!-- old: посылает поплавковое значение в байтовом
                     диапазоне [0-255] в устройство Arduino -->
-                    <tr lang="ru" finished="false">посылает поплавковое значение в байтовом
-                    диапазоне [0-255] в устройство Arduino</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">sends list of floats in byte range [0-255] to arduino device</tr>
-                    <!-- old: отправляет список поплавков в байтовом диапазоне
+          <tr lang="ru" finished="false">посылает поплавковое значение в байтовом диапазоне [0-255]
+          в устройство Arduino</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">sends list of floats in byte range [0-255] to arduino device</tr>
+          <!-- old: отправляет список поплавков в байтовом диапазоне
                     [0-255] на устройство Arduino -->
-                    <tr lang="ru" finished="false">отправляет список поплавков в байтовом диапазоне
-                    [0-255] на устройство Arduino</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs received byte from arduino</tr>
-                    <tr lang="ru" finished="false">выходы, полученные байтом из ардуино</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">отправляет список поплавков в байтовом диапазоне [0-255]
+          на устройство Arduino</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs received byte from arduino</tr>
+          <tr lang="ru" finished="false">выходы, полученные байтом из ардуино</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [249(/ /*firmata version request*/
 |
@@ -180,7 +176,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

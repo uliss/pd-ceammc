@@ -1,92 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.approx">
-        <title>math.approx</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks if the input value is approximately equal to the pattern</tr>
-                <tr lang="ru">проверить, если входное значение приблизительно равно образцу</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>equal compare approx</keywords>
-            <since>0.1</since>
-            <aliases>
-                <alias>ceammc/approx</alias>
-                <alias>approx</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">checks if |x - pattern| &lt;= |epsilon|</tr>
-                <tr lang="ru" finished="false">Проверяет, если |x - шаблон | &lt;= |epsilon |</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="VALUE" type="float">
-                <tr lang="en">compare pattern</tr>
-                <tr lang="ru" finished="false">сравнение</tr>
-            </argument>
-            <argument name="EPSILON" type="float">
-                <tr lang="en">compare epsilon</tr>
-                <tr lang="ru" finished="false">Сравнить эпсилон</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @epsilon -->
-            <property name="@epsilon" type="float" default="0.01">
-                <tr lang="en">compare epsilon</tr>
-                <tr lang="ru" finished="false">Сравнить эпсилон</tr>
-            </property>
-            <!-- @value -->
-            <property name="@value" type="float" default="0">
-                <tr lang="en">compare pattern</tr>
-                <tr lang="ru" finished="false">сравнение</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">list values are spreaded among three inlets</tr>
-                    <!-- old: значения списка распределены между тремя
+  <object name="math.approx">
+    <title>math.approx</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks if the input value is approximately equal to the pattern</tr>
+        <tr lang="ru">проверить, если входное значение приблизительно равно образцу</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>equal compare approx</keywords>
+      <since>0.1</since>
+      <aliases>
+        <alias>ceammc/approx</alias>
+        <alias>approx</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">checks if |x - pattern| &lt;= |epsilon|</tr>
+        <tr lang="ru" finished="false">Проверяет, если |x - шаблон | &lt;= |epsilon |</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="VALUE" type="float">
+        <tr lang="en">compare pattern</tr>
+        <tr lang="ru" finished="false">сравнение</tr>
+      </argument>
+      <argument name="EPSILON" type="float">
+        <tr lang="en">compare epsilon</tr>
+        <tr lang="ru" finished="false">Сравнить эпсилон</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @epsilon -->
+      <property name="@epsilon" type="float" default="0.01">
+        <tr lang="en">compare epsilon</tr>
+        <tr lang="ru" finished="false">Сравнить эпсилон</tr>
+      </property>
+      <!-- @value -->
+      <property name="@value" type="float" default="0">
+        <tr lang="en">compare pattern</tr>
+        <tr lang="ru" finished="false">сравнение</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">list values are spreaded among three inlets</tr>
+          <!-- old: значения списка распределены между тремя
                     входами -->
-                    <tr lang="ru" finished="false">значения списка распределены между тремя
-                    входами</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">pattern value</tr>
-                    <tr lang="ru" finished="false">значение паттерна</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">epsilon</tr>
-                    <tr lang="ru" finished="false">эпсилон</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output 1 if input value is approximately equal to pattern, 0 0
-                    otherwise</tr>
-                    <tr lang="ru" finished="false">выход 1 если входное значение приблизительно
-                    равно шаблону, 0 0 иначе</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">значения списка распределены между тремя входами</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">pattern value</tr>
+          <tr lang="ru" finished="false">значение паттерна</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">epsilon</tr>
+          <tr lang="ru" finished="false">эпсилон</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output 1 if input value is approximately equal to pattern, 0 0
+          otherwise</tr>
+          <tr lang="ru" finished="false">выход 1 если входное значение приблизительно равно
+          шаблону, 0 0 иначе</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [HS]
 |
@@ -98,7 +97,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,85 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.apply_to">
-        <title>list.apply_to</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">modifies specified list elements via a side-chain</tr>
-                <tr lang="ru">обрабатывает указанные элементы списка через боковую церь
-                обработки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list functional apply</keywords>
-            <since>0.1</since>
-            <also>
-                <see>list.each</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="INDEXES" type="list">
-                <tr lang="en">apply index(es) (starting from 0). Negative value means position from
-                end of the list. For example: '-1' means last element.</tr>
-                <!-- old: Применять индекс(ы) (начиная с 0). Отрицательное
+  <object name="list.apply_to">
+    <title>list.apply_to</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">modifies specified list elements via a side-chain</tr>
+        <tr lang="ru">обрабатывает указанные элементы списка через боковую церь обработки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list functional apply</keywords>
+      <since>0.1</since>
+      <also>
+        <see>list.each</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="INDEXES" type="list">
+        <tr lang="en">apply index(es) (starting from 0). Negative value means position from end of
+        the list. For example: '-1' means last element.</tr>
+        <!-- old: Применять индекс(ы) (начиная с 0). Отрицательное
                 значение означает позицию в конце списка. Например, «-1» означает последний
                 элемент. -->
-                <tr lang="ru" finished="false">Применять индекс(ы) (начиная с 0). Отрицательное
-                значение означает позицию в конце списка. Например, «-1» означает последний
-                элемент.</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @indexes -->
-            <property name="@indexes" type="list" default="">
-                <tr lang="en">applied index(es)</tr>
-                <tr lang="ru" finished="false">Применяемый индекс(ы)</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">Input list. If no element found by specified index - list passed
-                    without changes</tr>
-                    <!-- old: Список входов. Если элемент не найден указанным
+        <tr lang="ru" finished="false">Применять индекс(ы) (начиная с 0). Отрицательное значение
+        означает позицию в конце списка. Например, «-1» означает последний элемент.</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @indexes -->
+      <property name="@indexes" type="list" default="">
+        <tr lang="en">applied index(es)</tr>
+        <tr lang="ru" finished="false">Применяемый индекс(ы)</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">Input list. If no element found by specified index - list passed without
+          changes</tr>
+          <!-- old: Список входов. Если элемент не найден указанным
                     индексом - список прошел без изменений -->
-                    <tr lang="ru" finished="false">Список входов. Если элемент не найден указанным
-                    индексом - список прошел без изменений</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">set apply index(es)</tr>
-                    <tr lang="ru" finished="false">Устанавливать индекс(ы)</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">return value from applied object</tr>
-                    <tr lang="ru" finished="false">Возвратная стоимость приложенного объекта</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">new modified list</tr>
-                    <tr lang="ru" finished="false">Новый модифицированный список</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">element at given index. Should be passed to applied object</tr>
-                    <tr lang="ru" finished="false">элемент в данном индексе. должны быть переданы
-                    приложенному объекту</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Список входов. Если элемент не найден указанным индексом -
+          список прошел без изменений</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="list">
+          <tr lang="en">set apply index(es)</tr>
+          <tr lang="ru" finished="false">Устанавливать индекс(ы)</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">return value from applied object</tr>
+          <tr lang="ru" finished="false">Возвратная стоимость приложенного объекта</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">new modified list</tr>
+          <tr lang="ru" finished="false">Новый модифицированный список</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">element at given index. Should be passed to applied object</tr>
+          <tr lang="ru" finished="false">элемент в данном индексе. должны быть переданы
+          приложенному объекту</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 60 61 120(
 |
@@ -87,7 +85,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,68 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.div">
-        <title>math.div</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">division</tr>
-                <tr lang="ru">деление</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math divide</keywords>
-            <aliases>
-                <alias>math./</alias>
-            </aliases>
-            <since>0.6</since>
-        </meta>
-        <arguments>
-            <argument name="DIV" type="float">
-                <tr lang="en">divisor</tr>
-                <tr lang="ru" finished="false">делитель</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @div -->
-            <property name="@div" type="float" default="1">
-                <tr lang="en">divisor</tr>
-                <tr lang="ru" finished="false">делитель</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">divident</tr>
-                    <tr lang="ru" finished="false">разделительный</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">list of divident (non float values are ignored)</tr>
-                    <!-- old: Список делителей (не плавающие значения
+  <object name="math.div">
+    <title>math.div</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">division</tr>
+        <tr lang="ru">деление</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math divide</keywords>
+      <aliases>
+        <alias>math./</alias>
+      </aliases>
+      <since>0.6</since>
+    </meta>
+    <arguments>
+      <argument name="DIV" type="float">
+        <tr lang="en">divisor</tr>
+        <tr lang="ru" finished="false">делитель</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @div -->
+      <property name="@div" type="float" default="1">
+        <tr lang="en">divisor</tr>
+        <tr lang="ru" finished="false">делитель</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">divident</tr>
+          <tr lang="ru" finished="false">разделительный</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">list of divident (non float values are ignored)</tr>
+          <!-- old: Список делителей (не плавающие значения
                     игнорируются) -->
-                    <tr lang="ru" finished="false">Список делителей (не плавающие значения
-                    игнорируются)</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">change divisor</tr>
-                    <tr lang="ru" finished="false">изменить делитель</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float or list</tr>
-                    <tr lang="ru" finished="false">Поплавок или список</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Список делителей (не плавающие значения игнорируются)</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">change divisor</tr>
+          <tr lang="ru" finished="false">изменить делитель</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float or list</tr>
+          <tr lang="ru" finished="false">Поплавок или список</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2 3 A B C( [F]  [F]
 |             |    |
@@ -71,7 +70,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

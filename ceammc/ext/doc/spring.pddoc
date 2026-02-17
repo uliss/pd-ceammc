@@ -1,106 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="spring">
-        <title>spring</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">behaves like a spring, bouncing back to its original state</tr>
-                <tr lang="ru">ведет себя как пружина, возвращающаяся в первоначальное
-                состояние</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>base</category>
-            <keywords>spring float</keywords>
-            <since>0.9.4</since>
-            <aliases>
-                <alias>ceammc/spring</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="VALUE" type="float">
-                <tr lang="en">target value</tr>
-                <tr lang="ru" finished="false">целевая величина</tr>
-            </argument>
-            <argument name="TIME" type="float" minvalue="50" maxvalue="5000" units="millisecond">
-                <tr lang="en">time to reach the target value</tr>
-                <tr lang="ru" finished="false">время достижения целевого значения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @accel -->
-            <property name="@accel" type="float" minvalue="-5" maxvalue="5" default="0">
-                <tr lang="en">acceleration factor, 0: means linear motion (no acceleration), &gt;0:
-                begin fast, then slow down, &lt;0: begin slow, then speed up</tr>
-                <tr lang="ru" finished="false">Коэффициент ускорения 0: означает линейное движение
-                (без ускорения), &gt;0: начать быстро, затем замедлить, &lt;0: начать медленно,
-                затем ускорить</tr>
-            </property>
-            <!-- @mouse_down -->
-            <property name="@mouse_down" type="bool" default="0">
-                <tr lang="en">internal state</tr>
-                <tr lang="ru" finished="false">внутреннее состояние</tr>
-            </property>
-            <!-- @mouse_drag -->
-            <property name="@mouse_drag" type="bool" default="0">
-                <tr lang="en">internal state</tr>
-                <tr lang="ru" finished="false">внутреннее состояние</tr>
-            </property>
-            <!-- @mouse_move -->
-            <property name="@mouse_move" type="bool" default="0">
-                <tr lang="en">internal state</tr>
-                <tr lang="ru" finished="false">внутреннее состояние</tr>
-            </property>
-            <!-- @mouse_up -->
-            <property name="@mouse_up" type="bool" default="0">
-                <tr lang="en">internal state</tr>
-                <tr lang="ru" finished="false">внутреннее состояние</tr>
-            </property>
-            <!-- @time -->
-            <property name="@time" type="float" minvalue="50" maxvalue="5000" default="500"
-            units="millisecond">
-                <tr lang="en">time to reach target value</tr>
-                <tr lang="ru" finished="false">Время достижения целевого значения</tr>
-            </property>
-            <!-- @value -->
-            <property name="@value" type="float" default="0">
-                <tr lang="en">target value</tr>
-                <tr lang="ru" finished="false">целевая величина</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set current value</tr>
-                    <tr lang="ru" finished="false">Установить текущую стоимость</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">set @value</tr>
-                    <tr lang="ru" finished="false">Установить @value</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">float: value</tr>
-                    <tr lang="ru" finished="false">Поплавок: ценность</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">bang: when target value is reached</tr>
-                    <tr lang="ru" finished="false">Bang: когда достигается целевое значение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="spring">
+    <title>spring</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">behaves like a spring, bouncing back to its original state</tr>
+        <tr lang="ru">ведет себя как пружина, возвращающаяся в первоначальное состояние</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>base</category>
+      <keywords>spring float</keywords>
+      <since>0.9.4</since>
+      <aliases>
+        <alias>ceammc/spring</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="VALUE" type="float">
+        <tr lang="en">target value</tr>
+        <tr lang="ru" finished="false">целевая величина</tr>
+      </argument>
+      <argument name="TIME" type="float" minvalue="50" maxvalue="5000" units="millisecond">
+        <tr lang="en">time to reach the target value</tr>
+        <tr lang="ru" finished="false">время достижения целевого значения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @accel -->
+      <property name="@accel" type="float" minvalue="-5" maxvalue="5" default="0">
+        <tr lang="en">acceleration factor, 0: means linear motion (no acceleration), &gt;0: begin
+        fast, then slow down, &lt;0: begin slow, then speed up</tr>
+        <tr lang="ru" finished="false">Коэффициент ускорения 0: означает линейное движение (без
+        ускорения), &gt;0: начать быстро, затем замедлить, &lt;0: начать медленно, затем
+        ускорить</tr>
+      </property>
+      <!-- @mouse_down -->
+      <property name="@mouse_down" type="bool" default="0">
+        <tr lang="en">internal state</tr>
+        <tr lang="ru" finished="false">внутреннее состояние</tr>
+      </property>
+      <!-- @mouse_drag -->
+      <property name="@mouse_drag" type="bool" default="0">
+        <tr lang="en">internal state</tr>
+        <tr lang="ru" finished="false">внутреннее состояние</tr>
+      </property>
+      <!-- @mouse_move -->
+      <property name="@mouse_move" type="bool" default="0">
+        <tr lang="en">internal state</tr>
+        <tr lang="ru" finished="false">внутреннее состояние</tr>
+      </property>
+      <!-- @mouse_up -->
+      <property name="@mouse_up" type="bool" default="0">
+        <tr lang="en">internal state</tr>
+        <tr lang="ru" finished="false">внутреннее состояние</tr>
+      </property>
+      <!-- @time -->
+      <property name="@time" type="float" minvalue="50" maxvalue="5000" default="500"
+      units="millisecond">
+        <tr lang="en">time to reach target value</tr>
+        <tr lang="ru" finished="false">Время достижения целевого значения</tr>
+      </property>
+      <!-- @value -->
+      <property name="@value" type="float" default="0">
+        <tr lang="en">target value</tr>
+        <tr lang="ru" finished="false">целевая величина</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set current value</tr>
+          <tr lang="ru" finished="false">Установить текущую стоимость</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float">
+          <tr lang="en">set @value</tr>
+          <tr lang="ru" finished="false">Установить @value</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">float: value</tr>
+          <tr lang="ru" finished="false">Поплавок: ценность</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">bang: when target value is reached</tr>
+          <tr lang="ru" finished="false">Bang: когда достигается целевое значение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 /*Note: @mouse_events property is *on**/
 
@@ -113,7 +112,7 @@
 [X b->a]
 # a @mouse_events 1 @show_value 1
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

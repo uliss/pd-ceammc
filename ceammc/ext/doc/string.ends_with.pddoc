@@ -1,65 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="string.ends_with">
-        <title>string.ends_with</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">checks if the string ends with the specified substring</tr>
-                <tr lang="ru">проверяет, заканчивается ли строка указанной подстрокой</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>string</category>
-            <keywords>ends search</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>str.ends_with</alias>
-            </aliases>
-            <also>
-                <see>str.starts_with</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="SUFFIX" type="symbol">
-                <tr lang="en">suffix</tr>
-                <tr lang="ru">суффикс</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @suffix -->
-            <property name="@suffix" type="symbol" default="">
-                <tr lang="en">suffix to search</tr>
-                <tr lang="ru">cуффикс для поиска</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input string or symbol</tr>
-                    <tr lang="ru">входная строка или символ</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">search suffix (string or symbol)</tr>
-                    <tr lang="ru">суффикс поиска (строка или символ)</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="bool">
-                    <tr lang="en">output 1 if the input string ends with the suffix, otherwise 0</tr>
-                    <tr lang="ru">выводит 1 если входная строка заканчивается
-                    суффиксом, иначе 0</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="string.ends_with">
+    <title>string.ends_with</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">checks if the string ends with the specified substring</tr>
+        <tr lang="ru">проверяет, заканчивается ли строка указанной подстрокой</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>string</category>
+      <keywords>ends search</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>str.ends_with</alias>
+      </aliases>
+      <also>
+        <see>str.starts_with</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="SUFFIX" type="symbol">
+        <tr lang="en">suffix</tr>
+        <tr lang="ru">суффикс</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @suffix -->
+      <property name="@suffix" type="symbol" default="">
+        <tr lang="en">suffix to search</tr>
+        <tr lang="ru">cуффикс для поиска</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input string or symbol</tr>
+          <tr lang="ru">входная строка или символ</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">search suffix (string or symbol)</tr>
+          <tr lang="ru">суффикс поиска (строка или символ)</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="bool">
+          <tr lang="en">output 1 if the input string ends with the suffix, otherwise 0</tr>
+          <tr lang="ru">выводит 1 если входная строка заканчивается суффиксом, иначе 0</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -71,7 +70,7 @@
 |
 [T]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

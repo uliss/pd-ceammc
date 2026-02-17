@@ -1,102 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="string.replace">
-        <title>string.replace</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">replace from one substring to another in the input string</tr>
-                <tr lang="ru">замена одной строки на другую во входной строке</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>string</category>
-            <keywords>replace</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>str.replace</alias>
-            </aliases>
-            <also>
-                <see>str.remove</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="FROM" type="symbol">
-                <tr lang="en">substring for replace</tr>
-                <tr lang="ru" finished="false">подстроки для замены</tr>
-            </argument>
-            <argument name="TO" type="symbol">
-                <tr lang="en">substring to replace</tr>
-                <tr lang="ru" finished="false">Подстроки для замены</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @all -->
-            <property name="@all" type="alias">
-                <tr lang="en">alias to @mode all - replace all occurences in input string</tr>
-                <tr lang="ru" finished="false">alias to @mode all - заменить все события в строке
-                ввода</tr>
-            </property>
-            <!-- @first -->
-            <property name="@first" type="alias">
-                <tr lang="en">alias to @mode first - replace first occurence in input string</tr>
-                <tr lang="ru" finished="false">alias to @mode first - замена первого появления во
-                входной строке</tr>
-            </property>
-            <!-- @from -->
-            <property name="@from" type="symbol" default="">
-                <tr lang="en">replace from</tr>
-                <tr lang="ru" finished="false">заменить</tr>
-            </property>
-            <!-- @last -->
-            <property name="@last" type="alias">
-                <tr lang="en">alias to @mode last - replace last occurence in input string</tr>
-                <tr lang="ru" finished="false">alias to @mode last - замена последнего события в
-                строке ввода</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" enum="all first last" default="all">
-                <tr lang="en">replace mode</tr>
-                <tr lang="ru" finished="false">режим замены</tr>
-            </property>
-            <!-- @to -->
-            <property name="@to" type="symbol" default="">
-                <tr lang="en">replace to</tr>
-                <tr lang="ru" finished="false">заменить на</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input string or symbol</tr>
-                    <tr lang="ru" finished="false">входная строка или символ</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">from</tr>
-                    <tr lang="ru" finished="false">из</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">to</tr>
-                    <tr lang="ru" finished="false">то</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output string</tr>
-                    <tr lang="ru" finished="false">выходная строка</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="string.replace">
+    <title>string.replace</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">replace from one substring to another in the input string</tr>
+        <tr lang="ru">замена одной строки на другую во входной строке</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>string</category>
+      <keywords>replace</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>str.replace</alias>
+      </aliases>
+      <also>
+        <see>str.remove</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="FROM" type="symbol">
+        <tr lang="en">substring for replace</tr>
+        <tr lang="ru" finished="false">подстроки для замены</tr>
+      </argument>
+      <argument name="TO" type="symbol">
+        <tr lang="en">substring to replace</tr>
+        <tr lang="ru" finished="false">Подстроки для замены</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @all -->
+      <property name="@all" type="alias">
+        <tr lang="en">alias to @mode all - replace all occurences in input string</tr>
+        <tr lang="ru" finished="false">alias to @mode all - заменить все события в строке
+        ввода</tr>
+      </property>
+      <!-- @first -->
+      <property name="@first" type="alias">
+        <tr lang="en">alias to @mode first - replace first occurence in input string</tr>
+        <tr lang="ru" finished="false">alias to @mode first - замена первого появления во входной
+        строке</tr>
+      </property>
+      <!-- @from -->
+      <property name="@from" type="symbol" default="">
+        <tr lang="en">replace from</tr>
+        <tr lang="ru" finished="false">заменить</tr>
+      </property>
+      <!-- @last -->
+      <property name="@last" type="alias">
+        <tr lang="en">alias to @mode last - replace last occurence in input string</tr>
+        <tr lang="ru" finished="false">alias to @mode last - замена последнего события в строке
+        ввода</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" enum="all first last" default="all">
+        <tr lang="en">replace mode</tr>
+        <tr lang="ru" finished="false">режим замены</tr>
+      </property>
+      <!-- @to -->
+      <property name="@to" type="symbol" default="">
+        <tr lang="en">replace to</tr>
+        <tr lang="ru" finished="false">заменить на</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input string or symbol</tr>
+          <tr lang="ru" finished="false">входная строка или символ</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">from</tr>
+          <tr lang="ru" finished="false">из</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">to</tr>
+          <tr lang="ru" finished="false">то</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output string</tr>
+          <tr lang="ru" finished="false">выходная строка</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -106,7 +106,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

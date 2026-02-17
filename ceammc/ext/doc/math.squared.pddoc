@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.squared">
-        <title>math.squared</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">value square</tr>
-                <tr lang="ru">возведение в квадрат</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math square</keywords>
-            <since>0.1</since>
-            <aliases>
-                <alias>math.^2</alias>
-                <alias>ceammc/^2</alias>
-                <alias>^2</alias>
-            </aliases>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value</tr>
-                    <tr lang="ru" finished="false">входная стоимость</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">list of numbers</tr>
-                    <tr lang="ru" finished="false">Список номеров</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">result</tr>
-                    <tr lang="ru" finished="false">результат</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="math.squared">
+    <title>math.squared</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">value square</tr>
+        <tr lang="ru">возведение в квадрат</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math square</keywords>
+      <since>0.1</since>
+      <aliases>
+        <alias>math.^2</alias>
+        <alias>ceammc/^2</alias>
+        <alias>^2</alias>
+      </aliases>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value</tr>
+          <tr lang="ru" finished="false">входная стоимость</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">list of numbers</tr>
+          <tr lang="ru" finished="false">Список номеров</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">result</tr>
+          <tr lang="ru" finished="false">результат</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]  [-2 -1 0 1 2(
 |    |
@@ -50,7 +50,7 @@
 |
 [ui.dt]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

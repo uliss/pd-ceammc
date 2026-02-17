@@ -1,84 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.greater">
-        <title>flow.greater</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">numeric stream router by 'greater' condition</tr>
-                <tr lang="ru">маршрутизатор числового потока по условию 'больше'</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>gate greater</keywords>
-            <since>0.9.1</since>
-            <aliases>
-                <alias>flow.&gt;</alias>
-            </aliases>
-            <also>
-                <see>flow.less</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Numbers that are *less* or *equal* then last argument are passed to
-                the N-th outlet</tr>
-                <tr lang="ru">Числа, которые *меньше или равны* последнему аргументу выводятся на
-                выход N+1.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="VALUES" type="list">
-                <tr lang="en">values for comparison: a list of numbers in decreasing order</tr>
-                <tr lang="ru">значения для сравнения: список чисел в порядке уменьшения</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @values -->
-            <property name="@values" type="list" access="initonly" default="">
-                <tr lang="en">values for comparison: a list of numbers in decreasing order</tr>
-                <tr lang="ru">значения для сравнения: список чисел в порядке уменьшения</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input numeric flow</tr>
-                    <tr lang="ru">входной числовой поток</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet number="1">
-                <out type="float">
-                    <tr lang="en">numbers that are greater then 1st argument</tr>
-                    <tr lang="ru">числа, которые больше первого аргумента</tr>
-                </out>
-            </outlet>
-            <outlet number="...">
-                <out type="float">
-                    <tr lang="en">numbers that are greater than ... argument</tr>
-                    <tr lang="ru">числа, которые больше аргумента ...</tr>
-                </out>
-            </outlet>
-            <outlet number="n">
-                <out type="float">
-                    <tr lang="en">numbers that are greater than last argument</tr>
-                    <tr lang="ru">числа, которые больше, чем последний аргумент</tr>
-                </out>
-            </outlet>
-            <outlet number="n+1">
-                <out type="float">
-                    <tr lang="en">numbers that are less or equal than last argument</tr>
-                    <tr lang="ru">числа, которые меньше или равны последнему аргументу</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flow.greater">
+    <title>flow.greater</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">numeric stream router by 'greater' condition</tr>
+        <tr lang="ru">маршрутизатор числового потока по условию 'больше'</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>gate greater</keywords>
+      <since>0.9.1</since>
+      <aliases>
+        <alias>flow.&gt;</alias>
+      </aliases>
+      <also>
+        <see>flow.less</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Numbers that are *less* or *equal* then last argument are passed to the N-th
+        outlet</tr>
+        <tr lang="ru">Числа, которые *меньше или равны* последнему аргументу выводятся на выход
+        N+1.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="VALUES" type="list">
+        <tr lang="en">values for comparison: a list of numbers in decreasing order</tr>
+        <tr lang="ru">значения для сравнения: список чисел в порядке уменьшения</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @values -->
+      <property name="@values" type="list" access="initonly" default="">
+        <tr lang="en">values for comparison: a list of numbers in decreasing order</tr>
+        <tr lang="ru">значения для сравнения: список чисел в порядке уменьшения</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input numeric flow</tr>
+          <tr lang="ru">входной числовой поток</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet number="1">
+        <out type="float">
+          <tr lang="en">numbers that are greater then 1st argument</tr>
+          <tr lang="ru">числа, которые больше первого аргумента</tr>
+        </out>
+      </outlet>
+      <outlet number="...">
+        <out type="float">
+          <tr lang="en">numbers that are greater than ... argument</tr>
+          <tr lang="ru">числа, которые больше аргумента ...</tr>
+        </out>
+      </outlet>
+      <outlet number="n">
+        <out type="float">
+          <tr lang="en">numbers that are greater than last argument</tr>
+          <tr lang="ru">числа, которые больше, чем последний аргумент</tr>
+        </out>
+      </outlet>
+      <outlet number="n+1">
+        <out type="float">
+          <tr lang="en">numbers that are less or equal than last argument</tr>
+          <tr lang="ru">числа, которые меньше или равны последнему аргументу</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]
 |
@@ -88,7 +88,7 @@
 |     ^|   ^^|   ^^^|
 [F]   [F]   [F]   [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

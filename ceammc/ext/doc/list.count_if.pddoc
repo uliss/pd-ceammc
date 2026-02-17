@@ -1,64 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.count_if">
-        <title>list.count_if</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">output the number of items that satisfy to an side-chain
-                predicate</tr>
-                <tr lang="ru">выводит число элементов, удовлетворяющих внешнему предикату боковой
-                цепи обработки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list count</keywords>
-            <since>0.1</since>
-            <also>
-                <see>list.count</see>
-            </also>
-        </meta>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="float" minvalue="0" maxvalue="1">
-                    <tr lang="en">input value from predicate. "1" means accepted. "0" means
-                    reject</tr>
-                    <!-- old: Входные значения из предиката. «1» означает
+  <object name="list.count_if">
+    <title>list.count_if</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">output the number of items that satisfy to an side-chain predicate</tr>
+        <tr lang="ru">выводит число элементов, удовлетворяющих внешнему предикату боковой цепи
+        обработки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list count</keywords>
+      <since>0.1</since>
+      <also>
+        <see>list.count</see>
+      </also>
+    </meta>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="float" minvalue="0" maxvalue="1">
+          <tr lang="en">input value from predicate. "1" means accepted. "0" means reject</tr>
+          <!-- old: Входные значения из предиката. «1» означает
                     принятый. "0" означает отказ -->
-                    <tr lang="ru" finished="false">Входные значения из предиката. «1» означает
-                    принятый. "0" означает отказ</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">count of elements</tr>
-                    <tr lang="ru" finished="false">подсчет элементов</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">element output to predicate</tr>
-                    <tr lang="ru" finished="false">выходной элемент для предиката</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Входные значения из предиката. «1» означает принятый. "0"
+          означает отказ</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">count of elements</tr>
+          <tr lang="ru" finished="false">подсчет элементов</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">element output to predicate</tr>
+          <tr lang="ru" finished="false">выходной элемент для предиката</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]
 |
@@ -71,7 +69,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

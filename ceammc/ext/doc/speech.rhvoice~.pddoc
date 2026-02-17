@@ -1,142 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="speech.rhvoice~">
-        <title>speech.rhvoice~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">RHVoice text to speech synthesis</tr>
-                <tr lang="ru">синтезатор речи RHVoice</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>misc</category>
-            <keywords>speak speech flite</keywords>
-            <since>0.9.5</since>
-            <aliases>
-                <alias>ceammc/rhvoice~</alias>
-                <alias>rhvoice~</alias>
-            </aliases>
-            <also>
-                <see>speech.flite~</see>
-            </also>
-        </meta>
+  <object name="speech.rhvoice~">
+    <title>speech.rhvoice~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">RHVoice text to speech synthesis</tr>
+        <tr lang="ru">синтезатор речи RHVoice</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>misc</category>
+      <keywords>speak speech flite</keywords>
+      <since>0.9.5</since>
+      <aliases>
+        <alias>ceammc/rhvoice~</alias>
+        <alias>rhvoice~</alias>
+      </aliases>
+      <also>
+        <see>speech.flite~</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Note: voices are not distributed with PureData-ceammc, you have to install
+        voice data manually</tr>
+        <tr lang="ru" finished="false">Примечание: голоса не распространяются с помощью
+        PureData-ceammc, необходимо установить голосовые данные вручную</tr>
+      </par>
+      <par>
+        <tr lang="en">Download language and voice datafiles and put them into
+        ~/Documents/Pd/rhvoice directory</tr>
+        <tr lang="ru" finished="false">Загрузите языковые и голосовые файлы данных и поместите их в
+        каталог ~/Documents/Pd/rhvoice</tr>
+      </par>
+      <a href="https://github.com/RHVoice/Russian">https://github.com/RHVoice/Russian</a>
+      <a href="https://github.com/RHVoice/anna-rus">https://github.com/RHVoice/anna-rus</a>
+    </info>
+    <properties>
+      <!-- @pitch -->
+      <property name="@pitch" type="float" default="0" minvalue="-1" maxvalue="1">
+        <tr lang="en">voice pitch</tr>
+        <tr lang="ru" finished="false">голосовой звук</tr>
+      </property>
+      <!-- @punct -->
+      <property name="@punct" type="symbol" default="">
+        <tr lang="en">punctuation for pronunciation. If 'all' - pronounce all, otherwise pronounce
+        only specified punctuation characters.</tr>
+        <tr lang="ru" finished="false">пунктуация для произношения. Если «все» — произноси все,
+        иначе произноси только указанные знаки препинания.</tr>
+      </property>
+      <!-- @rate -->
+      <property name="@rate" type="float" minvalue="-1" maxvalue="1" default="0">
+        <tr lang="en">speaking rate</tr>
+        <tr lang="ru" finished="false">разговорный уровень</tr>
+      </property>
+      <!-- @voice -->
+      <property name="@voice" type="symbol" default="Anna">
+        <tr lang="en">voice</tr>
+        <tr lang="ru" finished="false">голос</tr>
+      </property>
+      <!-- @volume -->
+      <property name="@volume" type="float" default="1" minvalue="0" maxvalue="1">
+        <tr lang="en">voice volume</tr>
+        <tr lang="ru" finished="false">громкость голоса</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- clear -->
+      <method name="clear">
         <info>
-            <par>
-                <tr lang="en">Note: voices are not distributed with PureData-ceammc, you have to
-                install voice data manually</tr>
-                <tr lang="ru" finished="false">Примечание: голоса не распространяются с помощью
-                PureData-ceammc, необходимо установить голосовые данные вручную</tr>
-            </par>
-            <par>
-                <tr lang="en">Download language and voice datafiles and put them into
-                ~/Documents/Pd/rhvoice directory</tr>
-                <tr lang="ru" finished="false">Загрузите языковые и голосовые файлы данных и
-                поместите их в каталог ~/Documents/Pd/rhvoice</tr>
-            </par>
-            <a href="https://github.com/RHVoice/Russian">https://github.com/RHVoice/Russian</a>
-            <a href="https://github.com/RHVoice/anna-rus">https://github.com/RHVoice/anna-rus</a>
+          <tr lang="en">clear TTS queue</tr>
+          <tr lang="ru" finished="false">Чистая очередь TTS</tr>
         </info>
-        <properties>
-            <!-- @pitch -->
-            <property name="@pitch" type="float" default="0" minvalue="-1" maxvalue="1">
-                <tr lang="en">voice pitch</tr>
-                <tr lang="ru" finished="false">голосовой звук</tr>
-            </property>
-            <!-- @punct -->
-            <property name="@punct" type="symbol" default="">
-                <tr lang="en">punctuation for pronunciation. If 'all' - pronounce all, otherwise
-                pronounce only specified punctuation characters.</tr>
-                <tr lang="ru" finished="false">пунктуация для произношения. Если «все» — произноси
-                все, иначе произноси только указанные знаки препинания.</tr>
-            </property>
-            <!-- @rate -->
-            <property name="@rate" type="float" minvalue="-1" maxvalue="1" default="0">
-                <tr lang="en">speaking rate</tr>
-                <tr lang="ru" finished="false">разговорный уровень</tr>
-            </property>
-            <!-- @voice -->
-            <property name="@voice" type="symbol" default="Anna">
-                <tr lang="en">voice</tr>
-                <tr lang="ru" finished="false">голос</tr>
-            </property>
-            <!-- @volume -->
-            <property name="@volume" type="float" default="1" minvalue="0" maxvalue="1">
-                <tr lang="en">voice volume</tr>
-                <tr lang="ru" finished="false">громкость голоса</tr>
-            </property>
-        </properties>
-        <methods>
-            <!-- clear -->
-            <method name="clear">
-                <info>
-                    <tr lang="en">clear TTS queue</tr>
-                    <tr lang="ru" finished="false">Чистая очередь TTS</tr>
-                </info>
-            </method>
-            <!-- read -->
-            <method name="read">
-                <info>
-                    <tr lang="en">read TTS file (text or SSML)</tr>
-                    <tr lang="ru" finished="false">Читать файл TTS (текст или SSML)</tr>
-                </info>
-                <param name="FILE" type="symbol" required="true">
-                    <tr lang="en">absolute or relative path to the file</tr>
-                    <tr lang="ru" finished="false">Абсолютный или относительный путь к файлу</tr>
-                </param>
-            </method>
-            <!-- ssml -->
-            <method name="ssml">
-                <info>
-                    <tr lang="en">speak SSML text markup</tr>
-                    <tr lang="ru" finished="false">Разметка текста SSML</tr>
-                </info>
-            </method>
-            <!-- stop -->
-            <method name="stop">
-                <info>
-                    <tr lang="en">stops speech and clear TTS queue</tr>
-                    <tr lang="ru" finished="false">Прекратить речь и очистить очередь TTS</tr>
-                </info>
-            </method>
-        </methods>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">speak number</tr>
-                    <tr lang="ru" finished="false">разговорный номер</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">speak symbol</tr>
-                    <tr lang="ru" finished="false">Говорить символ</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">speak list of symbols</tr>
-                    <tr lang="ru" finished="false">Список говорящих символов</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">TTS output</tr>
-                    <tr lang="ru" finished="false">Производитель TTS</tr>
-                </out>
-            </outlet>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">bang on done, [word 1( on word start, [word 0( on word end,
-                    [sentence 1( on sentence start, [sentence 0( on sentence end</tr>
-                    <tr lang="ru" finished="false">bg on done, [слово 1(начало слова, [слово
-                    0(конец слова, [предложение 1(начало предложения,] предложение 0(конец
-                    предложения)]</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+      </method>
+      <!-- read -->
+      <method name="read">
+        <info>
+          <tr lang="en">read TTS file (text or SSML)</tr>
+          <tr lang="ru" finished="false">Читать файл TTS (текст или SSML)</tr>
+        </info>
+        <param name="FILE" type="symbol" required="true">
+          <tr lang="en">absolute or relative path to the file</tr>
+          <tr lang="ru" finished="false">Абсолютный или относительный путь к файлу</tr>
+        </param>
+      </method>
+      <!-- ssml -->
+      <method name="ssml">
+        <info>
+          <tr lang="en">speak SSML text markup</tr>
+          <tr lang="ru" finished="false">Разметка текста SSML</tr>
+        </info>
+      </method>
+      <!-- stop -->
+      <method name="stop">
+        <info>
+          <tr lang="en">stops speech and clear TTS queue</tr>
+          <tr lang="ru" finished="false">Прекратить речь и очистить очередь TTS</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">speak number</tr>
+          <tr lang="ru" finished="false">разговорный номер</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">speak symbol</tr>
+          <tr lang="ru" finished="false">Говорить символ</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">speak list of symbols</tr>
+          <tr lang="ru" finished="false">Список говорящих символов</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">TTS output</tr>
+          <tr lang="ru" finished="false">Производитель TTS</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out type="any">
+          <tr lang="en">bang on done, [word 1( on word start, [word 0( on word end, [sentence 1( on
+          sentence start, [sentence 0( on sentence end</tr>
+          <tr lang="ru" finished="false">bg on done, [слово 1(начало слова, [слово 0(конец слова,
+          [предложение 1(начало предложения,] предложение 0(конец предложения)]</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [T]          [speech.rhvoice~-voices]/*<-- see here*/
 |
@@ -160,8 +159,8 @@
 
 #a -1 1 @show_value 1
 ]]>
-            </pdascii>
-            <pdascii id="voices">
+      </pdascii>
+      <pdascii id="voices">
 <![CDATA[
 /* Pd Documents directory structure for RHVoice */
 
@@ -198,8 +197,8 @@
            |
           [print OUT]
 ]]>
-            </pdascii>
-            <pdascii id="extra">
+      </pdascii>
+      <pdascii id="extra">
 <![CDATA[
 [ssml <speak><voice name="Pavel">Я Павел</voice><voice name="Anna">а я Анна</voice></speak>(
 |
@@ -215,7 +214,7 @@
 |\
 [dac~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

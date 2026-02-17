@@ -1,77 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="flow.change">
-        <title>flow.change</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">rejects repeated input messages</tr>
-                <tr lang="ru">удаляет повторяющиеся сообщения</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>flow</category>
-            <keywords>flow change</keywords>
-            <since>0.3</since>
-            <also>
-                <see>change</see>
-            </also>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The object passes the input message only if it differs from the
-                current one. After passing the message, the current message is updated.</tr>
-                <tr lang="ru">Объект пропускает входное сообщение, только если оно отличается от
-                текущего. После пропуска сообщения текущее сообщение обновляется</tr>
-            </par>
-            <par>
-                <tr lang="en">Note: [list a b c( and [a b c( are different messages!</tr>
-                <tr lang="ru">Примечание: [list a b c( и [a b c( - это разные сообщения!</tr>
-            </par>
-        </info>
-        <properties>
-            <!-- @onrepeat -->
-            <property name="@onrepeat" type="symbol" default="">
-                <tr lang="en">function that is called when the input value is repeated</tr>
-                <tr lang="ru">функция, вызываемая при повторении входного значения</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="bang">
-                    <tr lang="en">outputs the current value</tr>
-                    <tr lang="ru">выводит текущее значение</tr>
-                </in>
-                <in on="any">
-                    <tr lang="en">input message of any type</tr>
-                    <tr lang="ru">входное сообщение любого типа</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in on="any" selector="reset">
-                    <tr lang="en">reset to the initial state</tr>
-                    <tr lang="ru">сбрасывает в начальное состояние</tr>
-                </in>
-                <in on="any" selector="set">
-                    <tr lang="en">sets the current value without output</tr>
-                    <tr lang="ru">устанавливает текущее значение без его вывода</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">outputs only if the input value differs from the previous
-                    one</tr>
-                    <tr lang="ru">выводит только в том случае, если входное значение отличается от
-                    предыдущего</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="flow.change">
+    <title>flow.change</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">rejects repeated input messages</tr>
+        <tr lang="ru">удаляет повторяющиеся сообщения</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>flow</category>
+      <keywords>flow change</keywords>
+      <since>0.3</since>
+      <also>
+        <see>change</see>
+      </also>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The object passes the input message only if it differs from the current one.
+        After passing the message, the current message is updated.</tr>
+        <tr lang="ru">Объект пропускает входное сообщение, только если оно отличается от текущего.
+        После пропуска сообщения текущее сообщение обновляется</tr>
+      </par>
+      <par>
+        <tr lang="en">Note: [list a b c( and [a b c( are different messages!</tr>
+        <tr lang="ru">Примечание: [list a b c( и [a b c( - это разные сообщения!</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @onrepeat -->
+      <property name="@onrepeat" type="symbol" default="">
+        <tr lang="en">function that is called when the input value is repeated</tr>
+        <tr lang="ru">функция, вызываемая при повторении входного значения</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">outputs the current value</tr>
+          <tr lang="ru">выводит текущее значение</tr>
+        </in>
+        <in on="any">
+          <tr lang="en">input message of any type</tr>
+          <tr lang="ru">входное сообщение любого типа</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in on="any" selector="reset">
+          <tr lang="en">reset to the initial state</tr>
+          <tr lang="ru">сбрасывает в начальное состояние</tr>
+        </in>
+        <in on="any" selector="set">
+          <tr lang="en">sets the current value without output</tr>
+          <tr lang="ru">устанавливает текущее значение без его вывода</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">outputs only if the input value differs from the previous one</tr>
+          <tr lang="ru">выводит только в том случае, если входное значение отличается от
+          предыдущего</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 #a(  [list a b #b(    [@prop 123 #c(
 
@@ -89,8 +88,8 @@
 [X d->z]
 [X e->z:1]
 ]]>
-            </pdascii>
-            <pdascii id="repeats">
+      </pdascii>
+      <pdascii id="repeats">
 <![CDATA[
 /*non repeated (from step to step) random values*/
 
@@ -102,7 +101,7 @@
 |
 [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="list.unpack">
-        <title>list.unpack</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">unpacks list elements into corresponding object outlets</tr>
-                <tr lang="ru">распаковывает элементы списка в соответствующие им выходы
-                объекта</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>list</category>
-            <keywords>list unpack</keywords>
-            <since>0.3</since>
-            <also>
-                <see>list.repack</see>
-                <see>list.separate</see>
-            </also>
-        </meta>
-        <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="32">
-                <tr lang="en">number of outlets</tr>
-                <tr lang="ru" finished="false">количество торговых точек</tr>
-            </argument>
-        </arguments>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">input list</tr>
-                    <tr lang="ru" finished="false">вводный список</tr>
-                </in>
-                <in on="data:mlist">
-                    <tr lang="en">input mlist</tr>
-                    <tr lang="ru" finished="false">входной млечный</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets dynamic="true">
-            <outlet number="1">
-                <out type="any">
-                    <tr lang="en">outlet for first atom in list</tr>
-                </out>
-            </outlet>
-            <outlet number="...">
-                <out type="any">
-                    <tr lang="en" />
-                </out>
-            </outlet>
-            <outlet number="n">
-                <out type="any">
-                    <tr lang="en">outlet for Nth atom in list</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="list.unpack">
+    <title>list.unpack</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">unpacks list elements into corresponding object outlets</tr>
+        <tr lang="ru">распаковывает элементы списка в соответствующие им выходы объекта</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>list</category>
+      <keywords>list unpack</keywords>
+      <since>0.3</since>
+      <also>
+        <see>list.repack</see>
+        <see>list.separate</see>
+      </also>
+    </meta>
+    <arguments>
+      <argument name="N" type="int" minvalue="1" maxvalue="32">
+        <tr lang="en">number of outlets</tr>
+        <tr lang="ru" finished="false">количество торговых точек</tr>
+      </argument>
+    </arguments>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">input list</tr>
+          <tr lang="ru" finished="false">вводный список</tr>
+        </in>
+        <in on="data:mlist">
+          <tr lang="en">input mlist</tr>
+          <tr lang="ru" finished="false">входной млечный</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets dynamic="true">
+      <outlet number="1">
+        <out type="any">
+          <tr lang="en">outlet for first atom in list</tr>
+        </out>
+      </outlet>
+      <outlet number="...">
+        <out type="any">
+          <tr lang="en" />
+        </out>
+      </outlet>
+      <outlet number="n">
+        <out type="any">
+          <tr lang="en">outlet for Nth atom in list</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [1 2 3 4 5 6( [3 4(
 |             |
@@ -65,7 +64,7 @@
 |     ^|    ^^|
 [F]   [F]    [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

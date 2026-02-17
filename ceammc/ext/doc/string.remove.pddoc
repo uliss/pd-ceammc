@@ -1,84 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="string.remove">
-        <title>string.remove</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">removes a substring from the input string</tr>
-                <tr lang="ru">удаляет подстроку из входной строки</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>string</category>
-            <keywords>remove</keywords>
-            <since>0.3</since>
-            <aliases>
-                <alias>str.remove</alias>
-            </aliases>
-        </meta>
-        <arguments>
-            <argument name="STR" type="symbol">
-                <tr lang="en">substring to remove</tr>
-                <tr lang="ru" finished="false">подстроки для удаления</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @all -->
-            <property name="@all" type="alias">
-                <tr lang="en">alias to @mode all - remove all occurences in input string</tr>
-                <tr lang="ru" finished="false">alias to @mode all - удалить все события в строке
-                ввода</tr>
-            </property>
-            <!-- @first -->
-            <property name="@first" type="alias">
-                <tr lang="en">alias to @mode first - remove first occurence in input string</tr>
-                <tr lang="ru" finished="false">alias to @mode first - удалите первое появление в
-                строке ввода</tr>
-            </property>
-            <!-- @last -->
-            <property name="@last" type="alias">
-                <tr lang="en">alias to @mode last - remove last occurence in input string</tr>
-                <tr lang="ru" finished="false">alias to @mode last - удалите последнюю возможность
-                во входной строке</tr>
-            </property>
-            <!-- @mode -->
-            <property name="@mode" type="symbol" enum="all first last" default="all">
-                <tr lang="en">remove mode</tr>
-                <tr lang="ru" finished="false">режим удаления</tr>
-            </property>
-            <!-- @str -->
-            <property name="@str" type="symbol" default="">
-                <tr lang="en">removed string</tr>
-                <tr lang="ru" finished="false">снятая струна</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in>
-                    <tr lang="en">input string or symbol</tr>
-                    <tr lang="ru" finished="false">входная строка или символ</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">set removed string or symbol</tr>
-                    <tr lang="ru" finished="false">Удаленная строка или символ</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">output string</tr>
-                    <tr lang="ru" finished="false">выходная строка</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+  <object name="string.remove">
+    <title>string.remove</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">removes a substring from the input string</tr>
+        <tr lang="ru">удаляет подстроку из входной строки</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>string</category>
+      <keywords>remove</keywords>
+      <since>0.3</since>
+      <aliases>
+        <alias>str.remove</alias>
+      </aliases>
+    </meta>
+    <arguments>
+      <argument name="STR" type="symbol">
+        <tr lang="en">substring to remove</tr>
+        <tr lang="ru" finished="false">подстроки для удаления</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @all -->
+      <property name="@all" type="alias">
+        <tr lang="en">alias to @mode all - remove all occurences in input string</tr>
+        <tr lang="ru" finished="false">alias to @mode all - удалить все события в строке ввода</tr>
+      </property>
+      <!-- @first -->
+      <property name="@first" type="alias">
+        <tr lang="en">alias to @mode first - remove first occurence in input string</tr>
+        <tr lang="ru" finished="false">alias to @mode first - удалите первое появление в строке
+        ввода</tr>
+      </property>
+      <!-- @last -->
+      <property name="@last" type="alias">
+        <tr lang="en">alias to @mode last - remove last occurence in input string</tr>
+        <tr lang="ru" finished="false">alias to @mode last - удалите последнюю возможность во
+        входной строке</tr>
+      </property>
+      <!-- @mode -->
+      <property name="@mode" type="symbol" enum="all first last" default="all">
+        <tr lang="en">remove mode</tr>
+        <tr lang="ru" finished="false">режим удаления</tr>
+      </property>
+      <!-- @str -->
+      <property name="@str" type="symbol" default="">
+        <tr lang="en">removed string</tr>
+        <tr lang="ru" finished="false">снятая струна</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">input string or symbol</tr>
+          <tr lang="ru" finished="false">входная строка или символ</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">set removed string or symbol</tr>
+          <tr lang="ru" finished="false">Удаленная строка или символ</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">output string</tr>
+          <tr lang="ru" finished="false">выходная строка</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [B]                     [B]                       [B]
 |                       |                         |
@@ -90,7 +89,7 @@
                       | |                         |
                       [ui.dt                      ]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

@@ -1,96 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.expr">
-        <title>math.expr</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">dynamic version of [expr] object</tr>
-                <tr lang="ru">динамическая версия объекта [expr]</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math expr</keywords>
-            <since>0.6</since>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">Operators: +, -, *, /, %, &lt;, &lt;=, &gt;=, &gt;, ==, !=</tr>
-                <!-- old: Операторы: +, -, *, /, %, <, <=, >=, >,
+  <object name="math.expr">
+    <title>math.expr</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">dynamic version of [expr] object</tr>
+        <tr lang="ru">динамическая версия объекта [expr]</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math expr</keywords>
+      <since>0.6</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">Operators: +, -, *, /, %, &lt;, &lt;=, &gt;=, &gt;, ==, !=</tr>
+        <!-- old: Операторы: +, -, *, /, %, <, <=, >=, >,
                 ==, != -->
-                <tr lang="ru" finished="false">Операторы: +, -, *, /, %, &lt;, &lt;=, &gt;=, &gt;,
-                ==, !=</tr>
-            </par>
-            <par>
-                <tr lang="en">Functions: sin(), cos(), tan(), atan(), sqrt(), ln(), log2(),
-                log10(), exp(), round(), ceil(), float(), fact(), min(), max(), sign(), abs()</tr>
-                <!-- old: Функции: sin(), cos(), tan(), atan(), sqrt(), ln(),
+        <tr lang="ru" finished="false">Операторы: +, -, *, /, %, &lt;, &lt;=, &gt;=, &gt;, ==,
+        !=</tr>
+      </par>
+      <par>
+        <tr lang="en">Functions: sin(), cos(), tan(), atan(), sqrt(), ln(), log2(), log10(), exp(),
+        round(), ceil(), float(), fact(), min(), max(), sign(), abs()</tr>
+        <!-- old: Функции: sin(), cos(), tan(), atan(), sqrt(), ln(),
                 log2(), log10(), exp(), round(), ceil(), float(), fact(), min(), max(), sign(),
                 abs() -->
-                <tr lang="ru" finished="false">Функции: sin(), cos(), tan(), atan(), sqrt(), ln(),
-                log2(), log10(), exp(), round(), ceil(), float(), fact(), min(), max(), sign(),
-                abs()</tr>
-            </par>
-            <par>
-                <tr lang="en">Constants: $pi, $e</tr>
-                <tr lang="ru" finished="false">Константы: $pi, $e</tr>
-            </par>
-            <par>
-                <tr lang="en">Variables: $f, $f0, $f1 ... $f9</tr>
-                <tr lang="ru" finished="false">Переменные: $f, $f0, $f1... $9$</tr>
-            </par>
-            <par>
-                <tr lang="en">Array access: array1[$f]</tr>
-                <tr lang="ru" finished="false">Доступ к массиву: array1[$f]</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="EXPR" type="list">
-                <tr lang="en">expression</tr>
-                <tr lang="ru" finished="false">выражение</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @expr -->
-            <property name="@expr" type="list" default="">
-                <tr lang="en">expression</tr>
-                <tr lang="ru" finished="false">выражение</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="float">
-                    <tr lang="en">input value (referenced as $f0 or $f in expression)</tr>
-                    <tr lang="ru" finished="false">входное значение (в выражении $f0 или $f)</tr>
-                </in>
-                <in on="list">
-                    <tr lang="en">input values (referenced as $f0 ... $f9 in expression)</tr>
-                    <!-- old: Входные значения (ссылка на $f0 ...) $9 в
+        <tr lang="ru" finished="false">Функции: sin(), cos(), tan(), atan(), sqrt(), ln(), log2(),
+        log10(), exp(), round(), ceil(), float(), fact(), min(), max(), sign(), abs()</tr>
+      </par>
+      <par>
+        <tr lang="en">Constants: $pi, $e</tr>
+        <tr lang="ru" finished="false">Константы: $pi, $e</tr>
+      </par>
+      <par>
+        <tr lang="en">Variables: $f, $f0, $f1 ... $f9</tr>
+        <tr lang="ru" finished="false">Переменные: $f, $f0, $f1... $9$</tr>
+      </par>
+      <par>
+        <tr lang="en">Array access: array1[$f]</tr>
+        <tr lang="ru" finished="false">Доступ к массиву: array1[$f]</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="EXPR" type="list">
+        <tr lang="en">expression</tr>
+        <tr lang="ru" finished="false">выражение</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @expr -->
+      <property name="@expr" type="list" default="">
+        <tr lang="en">expression</tr>
+        <tr lang="ru" finished="false">выражение</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="float">
+          <tr lang="en">input value (referenced as $f0 or $f in expression)</tr>
+          <tr lang="ru" finished="false">входное значение (в выражении $f0 или $f)</tr>
+        </in>
+        <in on="list">
+          <tr lang="en">input values (referenced as $f0 ... $f9 in expression)</tr>
+          <!-- old: Входные значения (ссылка на $f0 ...) $9 в
                     выражении -->
-                    <tr lang="ru" finished="false">Входные значения (ссылка на $f0 ...) $9 в
-                    выражении</tr>
-                </in>
-            </inlet>
-            <inlet>
-                <in>
-                    <tr lang="en">change expression</tr>
-                    <tr lang="ru" finished="false">изменение выражения</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>
-                <out type="any">
-                    <tr lang="en">calculated expression</tr>
-                    <tr lang="ru" finished="false">расчетное выражение</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+          <tr lang="ru" finished="false">Входные значения (ссылка на $f0 ...) $9 в выражении</tr>
+        </in>
+      </inlet>
+      <inlet>
+        <in>
+          <tr lang="en">change expression</tr>
+          <tr lang="ru" finished="false">изменение выражения</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="any">
+          <tr lang="en">calculated expression</tr>
+          <tr lang="ru" finished="false">расчетное выражение</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [F]          [$f * 2( [$f*$pi/180( /*change expression*/
 |            |        |
@@ -117,7 +115,7 @@
 |                   |                    |
 [F]                 [F]                  [F]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

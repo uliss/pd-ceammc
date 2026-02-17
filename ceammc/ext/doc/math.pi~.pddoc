@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="math.pi~">
-        <title>math.pi~</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">mathematical constant π</tr>
-                <tr lang="ru">математическая константа π</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math pi</keywords>
-            <also>
-                <see>math.pi</see>
-            </also>
-            <since>0.9</since>
-            <aliases>
-                <alias>ceammc/pi~</alias>
-                <alias>pi~</alias>
-            </aliases>
-        </meta>
-        <info>
-            <par>
-                <tr lang="en">The number PI is a mathematical constant, the ratio of a circle's
-                circumference to its diameter, commonly approximated as 3.14159.</tr>
-                <!-- old: Число PI — математическая константа, отношение
+  <object name="math.pi~">
+    <title>math.pi~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">mathematical constant π</tr>
+        <tr lang="ru">математическая константа π</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>math</category>
+      <keywords>math pi</keywords>
+      <also>
+        <see>math.pi</see>
+      </also>
+      <since>0.9</since>
+      <aliases>
+        <alias>ceammc/pi~</alias>
+        <alias>pi~</alias>
+      </aliases>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The number PI is a mathematical constant, the ratio of a circle's
+        circumference to its diameter, commonly approximated as 3.14159.</tr>
+        <!-- old: Число PI — математическая константа, отношение
                 окружности круга к его диаметру, обычно аппроксимируемое как 3.14159. -->
-                <tr lang="ru" finished="false">Число PI — математическая константа, отношение
-                окружности круга к его диаметру, обычно аппроксимируемое как 3.14159.</tr>
-            </par>
-        </info>
-        <arguments>
-            <argument name="K" type="float">
-                <tr lang="en">multiplier. default is 1</tr>
-                <tr lang="ru" finished="false">мультипликатор - по умолчанию 1</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @k -->
-            <property name="@k" type="float" default="1" access="initonly">
-                <tr lang="en">multiplier</tr>
-                <tr lang="ru" finished="false">умножитель</tr>
-            </property>
-        </properties>
-        <inlets />
-        <outlets>
-            <outlet type="audio">
-                <out type="any">
-                    <tr lang="en">output value</tr>
-                    <tr lang="ru" finished="false">выходная стоимость</tr>
-                </out>
-            </outlet>
-        </outlets>
-        <example>
-            <pdascii>
+        <tr lang="ru" finished="false">Число PI — математическая константа, отношение окружности
+        круга к его диаметру, обычно аппроксимируемое как 3.14159.</tr>
+      </par>
+    </info>
+    <arguments>
+      <argument name="K" type="float">
+        <tr lang="en">multiplier. default is 1</tr>
+        <tr lang="ru" finished="false">мультипликатор - по умолчанию 1</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @k -->
+      <property name="@k" type="float" default="1" access="initonly">
+        <tr lang="en">multiplier</tr>
+        <tr lang="ru" finished="false">умножитель</tr>
+      </property>
+    </properties>
+    <inlets />
+    <outlets>
+      <outlet type="audio">
+        <out type="any">
+          <tr lang="en">output value</tr>
+          <tr lang="ru" finished="false">выходная стоимость</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [ui.dsp~]
 
@@ -65,7 +65,7 @@
 |               |
 [ui.n~]         [ui.n~]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>

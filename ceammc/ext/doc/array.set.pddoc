@@ -1,67 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-    <object name="array.set">
-        <title>array.set</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">set the array content from the list data</tr>
-                <tr lang="ru">устанавливает содержание массива данными из списка</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>array</category>
-            <keywords>array set</keywords>
-            <aliases>
-                <alias>ceammc/list-&gt;array</alias>
-                <alias>list-&gt;array</alias>
-            </aliases>
-            <also>
-                <see>array.each</see>
-            </also>
-            <since>0.4</since>
-        </meta>
-        <arguments>
-            <argument name="ARRAY" type="symbol">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </argument>
-        </arguments>
-        <properties>
-            <!-- @array -->
-            <property name="@array" type="symbol" default="">
-                <tr lang="en">array name</tr>
-                <tr lang="ru">имя массива</tr>
-            </property>
-            <!-- @normalize -->
-            <property name="@normalize" type="flag" default="0" access="initonly">
-                <tr lang="en">scale input values to fit them in [0, 1] range</tr>
-                <tr lang="ru">масштабировать входные значения, чтобы вместить их в [0, 1]
-                диапазон</tr>
-            </property>
-            <!-- @redraw -->
-            <property name="@redraw" type="bool" default="1">
-                <tr lang="en">redraw array view</tr>
-                <tr lang="ru">перерисовать массив</tr>
-            </property>
-        </properties>
-        <inlets>
-            <inlet>
-                <in on="list">
-                    <tr lang="en">resizes array and sets its content</tr>
-                    <tr lang="ru">изменяет размер массива и устанавливает его
-                    содержимое</tr>
-                </in>
-                <in on="symbol">
-                    <tr lang="en">set the array name</tr>
-                    <tr lang="ru">установить имя массива</tr>
-                </in>
-            </inlet>
-        </inlets>
-        <example>
-            <pdascii>
+  <object name="array.set">
+    <title>array.set</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">set the array content from the list data</tr>
+        <tr lang="ru">устанавливает содержание массива данными из списка</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>array</category>
+      <keywords>array set</keywords>
+      <aliases>
+        <alias>ceammc/list-&gt;array</alias>
+        <alias>list-&gt;array</alias>
+      </aliases>
+      <also>
+        <see>array.each</see>
+      </also>
+      <since>0.4</since>
+    </meta>
+    <arguments>
+      <argument name="ARRAY" type="symbol">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </argument>
+    </arguments>
+    <properties>
+      <!-- @array -->
+      <property name="@array" type="symbol" default="">
+        <tr lang="en">array name</tr>
+        <tr lang="ru">имя массива</tr>
+      </property>
+      <!-- @normalize -->
+      <property name="@normalize" type="flag" default="0" access="initonly">
+        <tr lang="en">scale input values to fit them in [0, 1] range</tr>
+        <tr lang="ru">масштабировать входные значения, чтобы вместить их в [0, 1] диапазон</tr>
+      </property>
+      <!-- @redraw -->
+      <property name="@redraw" type="bool" default="1">
+        <tr lang="en">redraw array view</tr>
+        <tr lang="ru">перерисовать массив</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="list">
+          <tr lang="en">resizes array and sets its content</tr>
+          <tr lang="ru">изменяет размер массива и устанавливает его содержимое</tr>
+        </in>
+        <in on="symbol">
+          <tr lang="en">set the array name</tr>
+          <tr lang="ru">установить имя массива</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <example>
+      <pdascii>
 <![CDATA[
 [array aset size=100 w=450 h=100 yr=0..1]
 
@@ -76,7 +74,7 @@
 |           |        |            |
 [array.set aset]     [array.set aset @normalize]
 ]]>
-            </pdascii>
-        </example>
-    </object>
+      </pdascii>
+    </example>
+  </object>
 </pddoc>
