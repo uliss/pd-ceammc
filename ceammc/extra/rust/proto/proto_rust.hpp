@@ -459,20 +459,22 @@ bool ceammc_obs_set_current_scene(ceammc_obs_client *cli, const char *name);
 /// logger config is done with a RUST_LOG env variable
 void ceammc_proto_log_init();
 
-/// add URI into vlc playlist
+/// add URI to the vlc playlist
 /// @param vlc - vlc control handle
 /// @param uri - resource URI
-/// @param play - should immidiately play added url
+/// @param play - if should play it after adding
 bool ceammc_vlc_add_uri(ceammc_vlc *vlc, const char *uri, bool play);
 
-/// browse vlc directories
+/// browse filesystem with vlc (on vlc running host!)
 /// @param vlc - vlc control handle
+/// @param filter_type - filter results by type: "file", "dir" or NULL
+/// @param match_glob - leave files that names are matched with given pattern
 bool ceammc_vlc_browse(ceammc_vlc *vlc,
                        const char *uri,
                        const char *filter_type,
                        const char *match_glob);
 
-/// clear current playlist
+/// remove all items from vlc playlist
 /// @param vlc - vlc control handle
 bool ceammc_vlc_clear(ceammc_vlc *vlc);
 
@@ -489,17 +491,17 @@ ceammc_vlc *ceammc_vlc_create(const char *host,
 
 /// remove item from playlist
 /// @param vlc - vlc control handle
-/// @param pos - playlist item position
+/// @param pos - playlist item position (negative indexes are supported: -1 means last item)
 bool ceammc_vlc_delete_at_pos(ceammc_vlc *vlc, int32_t pos);
 
-/// remove item from playlist
+/// remove item from the playlist
 /// @param vlc - vlc control handle
 /// @param id - playlist item ID (not index position!)
 bool ceammc_vlc_delete_by_id(ceammc_vlc *vlc, uint64_t id);
 
 /// remove item from playlist
 /// @param vlc - vlc control handle
-/// @param name - playlist item name
+/// @param name - playlist item name (symbol is expected)
 bool ceammc_vlc_delete_by_name(ceammc_vlc *vlc, ceammc_rust_atom name);
 
 /// iterate all filelist items with given callback
@@ -514,24 +516,24 @@ void ceammc_vlc_filelist_iter(const ceammc_vlc_fileinfo *files,
 /// @param vlc - vlc control handle
 void ceammc_vlc_free(ceammc_vlc *vlc);
 
-/// set vlc fullscreen mode
+/// set vlc into/from fullscreen
 /// @param vlc - vlc control handle
-/// @param value - fullscreen mode, if NULL toggles fullscreen
+/// @param value - fullscreen mode, if NULL toggles fullscreen state
 bool ceammc_vlc_fullscreen(ceammc_vlc *vlc, const bool *value);
 
-/// get current playlist item
+/// request current playlist item
 /// @param vlc - vlc control handle
 bool ceammc_vlc_get_current(ceammc_vlc *vlc);
 
-/// get vlc playlist
+/// request vlc playlist
 /// @param vlc - vlc control handle
 bool ceammc_vlc_get_playlist(ceammc_vlc *vlc);
 
-/// get current vlc status
+/// request vlc status
 /// @param vlc - vlc control handle
 bool ceammc_vlc_get_status(ceammc_vlc *vlc);
 
-/// set vlc loop mode
+/// set vlc loop mode (repeat whole playlist)
 /// @param vlc - vlc control handle
 /// @param value - loop value, if NULL toggles loop mode
 bool ceammc_vlc_loop(ceammc_vlc *vlc, const bool *value);
@@ -547,12 +549,12 @@ bool ceammc_vlc_pause(ceammc_vlc *vlc, const bool *value);
 
 /// play playlist item
 /// @param vlc - vlc control handle
-/// @param id - pointer to track index, can be NULL
+/// @param id - playlist item id (NB: not index position!)
 bool ceammc_vlc_play(ceammc_vlc *vlc, const int16_t *id);
 
 /// set vlc playback rate
 /// @param vlc - vlc control handle
-/// @param rate - vlc playback rate
+/// @param rate - vlc playback rate, range: 0.25..4.0
 bool ceammc_vlc_playback_rate(ceammc_vlc *vlc, float rate);
 
 /// iterate all playlist items with given callback
@@ -579,20 +581,25 @@ bool ceammc_vlc_poll(ceammc_vlc *vlc,
 /// @param vlc - vlc control handle
 bool ceammc_vlc_prev(ceammc_vlc *vlc);
 
-/// set vlc repeat mode
+/// set vlc repeat mode (repeat single item)
 /// @param vlc - vlc control handle
 /// @param value - repeat value, if NULL toggles repeat mode
 bool ceammc_vlc_repeat(ceammc_vlc *vlc, const bool *value);
 
 /// seek to specified time
 /// @param vlc - vlc control handle
-/// @param seek - seek time value
+/// @param seek - seek time value:
+///     number is seconds
+///     (+|-) relative seek in seconds
+///     absolute or relative percent value, like: 30%, +10%
+///     time in (+|-)(00H:)00M::00S format
 bool ceammc_vlc_seek(ceammc_vlc *vlc, ceammc_rust_atom seek);
 
 /// sort playlist
 /// @param vlc - vlc control handle
 /// @param sort - sort field, not NULL!
 /// @param mode - sort mode: normal or reversed
+/// NOTE: resorted playlist is not updated in the vlc view window!
 bool ceammc_vlc_sort(ceammc_vlc *vlc, const char *sort, ceammc_vlc_sort_order mode);
 
 /// stop vlc playback

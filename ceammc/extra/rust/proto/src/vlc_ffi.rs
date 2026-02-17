@@ -363,7 +363,7 @@ pub extern "C" fn ceammc_vlc_prev(vlc: Option<&mut vlc>) -> bool {
 #[no_mangle]
 /// play playlist item
 /// @param vlc - vlc control handle
-/// @param id - pointer to track index, can be NULL
+/// @param id - playlist item id (NB: not index position!)
 pub extern "C" fn ceammc_vlc_play(vlc: Option<&mut vlc>, id: Option<&i16>) -> bool {
     vlc.and_then(|vlc| Some(vlc.imp.play(id.map(|x| *x))))
         .or_else(|| {
@@ -393,7 +393,7 @@ pub extern "C" fn ceammc_vlc_pause(vlc: Option<&mut vlc>, value: Option<&bool>) 
 }
 
 #[no_mangle]
-/// clear current playlist
+/// remove all items from vlc playlist
 /// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_clear(vlc: Option<&mut vlc>) -> bool {
     vlc_null_check!(vlc);
@@ -402,9 +402,9 @@ pub extern "C" fn ceammc_vlc_clear(vlc: Option<&mut vlc>) -> bool {
 }
 
 #[no_mangle]
-/// set vlc fullscreen mode
+/// set vlc into/from fullscreen
 /// @param vlc - vlc control handle
-/// @param value - fullscreen mode, if NULL toggles fullscreen
+/// @param value - fullscreen mode, if NULL toggles fullscreen state
 pub extern "C" fn ceammc_vlc_fullscreen(vlc: Option<&mut vlc>, value: Option<&bool>) -> bool {
     vlc_null_check!(vlc);
 
@@ -412,7 +412,7 @@ pub extern "C" fn ceammc_vlc_fullscreen(vlc: Option<&mut vlc>, value: Option<&bo
 }
 
 #[no_mangle]
-/// set vlc loop mode
+/// set vlc loop mode (repeat whole playlist)
 /// @param vlc - vlc control handle
 /// @param value - loop value, if NULL toggles loop mode
 pub extern "C" fn ceammc_vlc_loop(vlc: Option<&mut vlc>, value: Option<&bool>) -> bool {
@@ -422,7 +422,7 @@ pub extern "C" fn ceammc_vlc_loop(vlc: Option<&mut vlc>, value: Option<&bool>) -
 }
 
 #[no_mangle]
-/// set vlc repeat mode
+/// set vlc repeat mode (repeat single item)
 /// @param vlc - vlc control handle
 /// @param value - repeat value, if NULL toggles repeat mode
 pub extern "C" fn ceammc_vlc_repeat(vlc: Option<&mut vlc>, value: Option<&bool>) -> bool {
@@ -446,7 +446,7 @@ pub extern "C" fn ceammc_vlc_volume(vlc: Option<&mut vlc>, v0: rust_atom, v1: ru
 #[no_mangle]
 /// set vlc playback rate
 /// @param vlc - vlc control handle
-/// @param rate - vlc playback rate
+/// @param rate - vlc playback rate, range: 0.25..4.0
 pub extern "C" fn ceammc_vlc_playback_rate(vlc: Option<&mut vlc>, rate: f32) -> bool {
     vlc_null_check!(vlc);
 
@@ -454,10 +454,10 @@ pub extern "C" fn ceammc_vlc_playback_rate(vlc: Option<&mut vlc>, rate: f32) -> 
 }
 
 #[no_mangle]
-/// add URI into vlc playlist
+/// add URI to the vlc playlist
 /// @param vlc - vlc control handle
 /// @param uri - resource URI
-/// @param play - should immidiately play added url
+/// @param play - if should play it after adding
 pub extern "C" fn ceammc_vlc_add_uri(
     vlc: Option<&mut vlc>,
     uri: Option<&c_char>,
@@ -471,7 +471,11 @@ pub extern "C" fn ceammc_vlc_add_uri(
 #[no_mangle]
 /// seek to specified time
 /// @param vlc - vlc control handle
-/// @param seek - seek time value
+/// @param seek - seek time value: 
+///     number is seconds 
+///     (+|-) relative seek in seconds
+///     absolute or relative percent value, like: 30%, +10%
+///     time in (+|-)(00H:)00M::00S format
 pub extern "C" fn ceammc_vlc_seek(vlc: Option<&mut vlc>, seek: rust_atom) -> bool {
     vlc_null_check!(vlc);
 
@@ -481,7 +485,7 @@ pub extern "C" fn ceammc_vlc_seek(vlc: Option<&mut vlc>, seek: rust_atom) -> boo
 #[no_mangle]
 /// remove item from playlist
 /// @param vlc - vlc control handle
-/// @param name - playlist item name
+/// @param name - playlist item name (symbol is expected)
 pub extern "C" fn ceammc_vlc_delete_by_name(vlc: Option<&mut vlc>, name: rust_atom) -> bool {
     vlc_null_check!(vlc);
 
@@ -491,7 +495,7 @@ pub extern "C" fn ceammc_vlc_delete_by_name(vlc: Option<&mut vlc>, name: rust_at
 #[no_mangle]
 /// remove item from playlist
 /// @param vlc - vlc control handle
-/// @param pos - playlist item position
+/// @param pos - playlist item position (negative indexes are supported: -1 means last item)
 pub extern "C" fn ceammc_vlc_delete_at_pos(vlc: Option<&mut vlc>, pos: i32) -> bool {
     vlc_null_check!(vlc);
 
@@ -499,7 +503,7 @@ pub extern "C" fn ceammc_vlc_delete_at_pos(vlc: Option<&mut vlc>, pos: i32) -> b
 }
 
 #[no_mangle]
-/// remove item from playlist
+/// remove item from the playlist
 /// @param vlc - vlc control handle
 /// @param id - playlist item ID (not index position!)
 pub extern "C" fn ceammc_vlc_delete_by_id(vlc: Option<&mut vlc>, id: u64) -> bool {
@@ -509,7 +513,7 @@ pub extern "C" fn ceammc_vlc_delete_by_id(vlc: Option<&mut vlc>, id: u64) -> boo
 }
 
 #[no_mangle]
-/// get current vlc status
+/// request vlc status
 /// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_get_status(vlc: Option<&mut vlc>) -> bool {
     vlc_null_check!(vlc);
@@ -518,7 +522,7 @@ pub extern "C" fn ceammc_vlc_get_status(vlc: Option<&mut vlc>) -> bool {
 }
 
 #[no_mangle]
-/// get vlc playlist
+/// request vlc playlist
 /// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_get_playlist(vlc: Option<&mut vlc>) -> bool {
     vlc_null_check!(vlc);
@@ -527,7 +531,7 @@ pub extern "C" fn ceammc_vlc_get_playlist(vlc: Option<&mut vlc>) -> bool {
 }
 
 #[no_mangle]
-/// get current playlist item
+/// request current playlist item
 /// @param vlc - vlc control handle
 pub extern "C" fn ceammc_vlc_get_current(vlc: Option<&mut vlc>) -> bool {
     vlc_null_check!(vlc);
@@ -536,8 +540,10 @@ pub extern "C" fn ceammc_vlc_get_current(vlc: Option<&mut vlc>) -> bool {
 }
 
 #[no_mangle]
-/// browse vlc directories
+/// browse filesystem with vlc (on vlc running host!)
 /// @param vlc - vlc control handle
+/// @param filter_type - filter results by type: "file", "dir" or NULL
+/// @param match_glob - leave files that names are matched with given pattern
 pub extern "C" fn ceammc_vlc_browse(
     vlc: Option<&mut vlc>,
     uri: Option<&c_char>,
@@ -554,6 +560,7 @@ pub extern "C" fn ceammc_vlc_browse(
 /// @param vlc - vlc control handle
 /// @param sort - sort field, not NULL!
 /// @param mode - sort mode: normal or reversed
+/// NOTE: resorted playlist is not updated in the vlc view window!
 pub extern "C" fn ceammc_vlc_sort(
     vlc: Option<&mut vlc>,
     sort: &c_char,
