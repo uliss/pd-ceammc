@@ -12,9 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_platform.h"
+#include "ceammc_containers.h"
 #include "ceammc_log.h"
 #include "ceammc_mime_type.h"
 #include "config.h"
+#include "core_rust.hpp"
 
 #include "g_canvas.h"
 extern "C" {
@@ -28,6 +30,7 @@ extern "C" {
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <unordered_map>
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -378,5 +381,60 @@ namespace platform {
         return MimeTypeLibrary::instance().mimeType(path);
     }
 
-}
-}
+    struct StandardPathsDb {
+        const char* find(StandardPath id) const
+        {
+            auto it = vars_.find(id);
+            return it == vars_.end() ? "" : it->second.second.c_str();
+        }
+
+        void init()
+        {
+            append_var(StandardPath::Audio, "%AUDIO%", &ceammc_path_audio);
+            append_var(StandardPath::CeammcDoc, "%CEAMMC_DOC%", &ceammc_path_ceammc_doc);
+            append_var(StandardPath::Cwd, "%CWD%", &ceammc_path_cwd);
+            append_var(StandardPath::Desktop, "%DESKTOP%", &ceammc_path_desktop);
+            append_var(StandardPath::Documents, "%DOCUMENT%", &ceammc_path_documents);
+            append_var(StandardPath::Downloads, "%DOWNLOAD%", &ceammc_path_downloads);
+            append_var(StandardPath::Home, "%HOME%", &ceammc_path_home);
+            append_var(StandardPath::PdDoc, "%PD_DOC%", &ceammc_path_pd_doc);
+            append_var(StandardPath::PdUser, "%PD_USER%", &ceammc_path_pd_user);
+            append_var(StandardPath::Tmp, "%TMP%", &ceammc_path_tmp);
+            append_var(StandardPath::Video, "%VIDEO%", &ceammc_path_video);
+        }
+
+    private:
+        std::unordered_map<StandardPath, std::pair<std::string, std::string>> vars_;
+
+    private:
+        void append_var(StandardPath id, const char* name, bool(fn)(ceammc_path_str_cb))
+        {
+            std::string str;
+
+            if (!fn({
+                    &str,
+                    [](void* user, const char* tmpstr) {
+                        auto& str = *static_cast<std::string*>(user);
+                        str = tmpstr;
+                    },
+                })) {
+                pd_error(nullptr, "[platform] can't get '%%%s%%' standart path", name);
+                return;
+            }
+
+            vars_[id] = std::make_pair(name, str);
+        }
+    };
+
+    void standard_path_init()
+    {
+        SingletonMeyers<StandardPathsDb>::instance().init();
+    }
+
+    const char* standard_path_get_by_id(StandardPath id)
+    {
+        return SingletonMeyers<StandardPathsDb>::instance().find(id);
+    }
+
+} // namespace platform
+} // namespace ceammc

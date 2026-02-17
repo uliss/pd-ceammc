@@ -32,6 +32,30 @@ namespace platform {
         std::string msg;
     };
 
+    enum StandardPath {
+        Audio,
+        CeammcDoc,
+        Cwd,
+        Desktop,
+        Documents,
+        Downloads,
+        Home,
+        PdDoc,
+        PdUser ,
+        Tmp,
+        Video,
+    };
+
+    void standard_path_init();
+
+    /**
+     * return standard path by enum value
+     * @param id
+     * @return path or empty string if not found
+     * @complexity O(1) - unordered hash_map
+     */
+    const char* standard_path_get_by_id(StandardPath id);
+
     size_t memory_size();
     size_t memory_current_rss();
     size_t memory_peak_rss();
