@@ -123,6 +123,7 @@ impl JsonFileList {
         let res = self
             .element
             .iter()
+            .filter(|x| x.name != "..")
             .filter(|x| match file_type {
                 Some(ft) => x.file_type == *ft,
                 None => true,
