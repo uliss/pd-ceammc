@@ -171,7 +171,7 @@ struct ceammc_vlc_status {
     bool repeat;
     bool random;
     bool fullscreen;
-    uint64_t currentplid;
+    int64_t currentplid;
 };
 
 struct ceammc_vlc_status_cb {

@@ -82,7 +82,7 @@ pub struct vlc_status {
     #[serde(deserialize_with = "deserialize_bool_or_false")]
     pub fullscreen: bool,
     #[serde(default)]
-    currentplid: u64,
+    currentplid: i64,
 }
 
 #[allow(non_camel_case_types)]
