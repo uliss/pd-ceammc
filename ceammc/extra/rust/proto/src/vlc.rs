@@ -410,7 +410,7 @@ async fn send2vlc(
             host,
             port,
             Some("pl_previous"),
-            id.map(|id| id.to_string()),
+            id.to_str().map(|x| x.to_string()),
             None,
         )?,
         VlcRequest::Pause(value) => {
@@ -698,7 +698,7 @@ impl Vlc {
         }
     }
 
-    pub fn play(self: &Self, id: Option<i16>) -> bool {
+    pub fn play(self: &Self, id: RustAtom) -> bool {
         self.send(VlcRequest::Play(id))
     }
 
@@ -911,7 +911,7 @@ struct BrowseParams {
 enum VlcRequest {
     Next,
     Prev,
-    Play(Option<i16>),
+    Play(RustAtom),
     Pause(Option<bool>),
     Stop,
     Sort(String, vlc_sort_order),

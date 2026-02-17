@@ -550,7 +550,7 @@ bool ceammc_vlc_pause(ceammc_vlc *vlc, const bool *value);
 /// play playlist item
 /// @param vlc - vlc control handle
 /// @param id - playlist item id (NB: not index position!)
-bool ceammc_vlc_play(ceammc_vlc *vlc, const int16_t *id);
+bool ceammc_vlc_play(ceammc_vlc *vlc, ceammc_rust_atom id);
 
 /// set vlc playback rate
 /// @param vlc - vlc control handle

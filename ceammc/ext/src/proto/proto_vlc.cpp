@@ -62,11 +62,11 @@ void ProtoVlc::initDone()
 
 void ProtoVlc::m_play(t_symbol* s, const AtomListView& lv)
 {
-    opt_i16 id;
-    if (lv.isInteger())
-        id.set(lv[0].asInt());
+    static args::ArgChecker chk("ID:i?");
+    if (!chk.check(lv, this, s))
+        chk.usage(this, s);
 
-    ceammc_vlc_play(vlc_.get(), id.get());
+    ceammc_vlc_play(vlc_.get(), to_rust(lv.atomAt(0, {})));
 }
 
 void ProtoVlc::m_stop(t_symbol* s, const AtomListView& lv)

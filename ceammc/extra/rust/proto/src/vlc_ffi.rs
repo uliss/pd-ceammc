@@ -364,13 +364,10 @@ pub extern "C" fn ceammc_vlc_prev(vlc: Option<&mut vlc>) -> bool {
 /// play playlist item
 /// @param vlc - vlc control handle
 /// @param id - playlist item id (NB: not index position!)
-pub extern "C" fn ceammc_vlc_play(vlc: Option<&mut vlc>, id: Option<&i16>) -> bool {
-    vlc.and_then(|vlc| Some(vlc.imp.play(id.map(|x| *x))))
-        .or_else(|| {
-            error!("NULL vlc pointer");
-            Some(false)
-        })
-        .unwrap_or_default()
+pub extern "C" fn ceammc_vlc_play(vlc: Option<&mut vlc>, id: rust_atom) -> bool {
+    vlc_null_check!(vlc);
+
+    vlc.unwrap().imp.play(id.as_safe_value())
 }
 
 #[no_mangle]
