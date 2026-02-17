@@ -35,21 +35,21 @@
 #X text 130 385 1\.;
 #X text 170 385 symbol;
 #X obj 268 386 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 385 HOST: hostname on that VLC player is running on. Type:
-symbol.;
+#X text 270 385 HOST: hostname on which the VLC player is running.
+Type: symbol.;
 #X obj 20 435 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 440 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 443 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 441 @host;
-#X text 270 441 Hostname on that VLC player is running on. Type: symbol.
-Default value: localhost.;
+#X text 270 441 Hostname on which the VLC player is running. Type:
+symbol. Default value: localhost.;
 #X msg 130 483 @pass;
-#X text 270 483 VLC http password. Type: atom.;
+#X text 270 483 Password for accessing VLC over HTTP. Type: atom.;
 #X msg 130 513 @port;
-#X text 270 513 Hostname on that VLC player is running on. Type: int.
-Default value: 8080\. Range: 1\...32768\.;
+#X text 270 513 Network port number for VLC's HTTP control interface.
+Type: int. Default value: 8080\. Range: 1\...32768\.;
 #X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 570 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
@@ -58,68 +58,80 @@ Default value: 8080\. Range: 1\...32768\.;
 #X obj 280 594 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 594 URI: resource URI (file:// or http:// or camera://).
 Type: symbol.;
-#X msg 130 634 browse;
-#X text 270 634 browse resource. Arguments are:;
-#X obj 280 657 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 657 URI: resource URI (file:///path). Type: symbol.;
-#X msg 130 682 clear;
-#X text 270 682 clear playlist.;
-#X msg 130 710 delete;
-#X text 270 710 delete item from playlist. Arguments are:;
-#X obj 280 733 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 733 [ID]: playlist entry id. Type: int.;
-#X msg 130 758 fs;
-#X text 270 758 toggle VLC fullscreen mode.;
-#X msg 130 786 loop;
-#X text 270 786 toggle loop.;
-#X msg 130 814 next;
-#X text 270 814 go to the next entry on the playlist.;
-#X msg 130 842 pause;
-#X text 270 842 pause/resume playback. Arguments are:;
-#X obj 280 865 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 865 [VAL]: 1 or omitted: pause \, 0: resume. Type: int.
+#X msg 130 634 add_dir;
+#X text 270 634 add directory files to the playlist. Arguments are:;
+#X obj 280 657 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 657 DIR: the full path to the directory on the computer
+where VLC is running. Type: symbol.;
+#X obj 280 695 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 695 GLOB: match pattern for files. For example: *.wav -
+adds all files with the .wav extension. Type: symbol.;
+#X msg 130 735 browse;
+#X text 270 735 browse resource. Arguments are:;
+#X obj 280 758 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 758 URI: resource URI (file:///path). Type: symbol.;
+#X obj 280 781 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 781 [@dir]: list only subdirectories. Type: flag.;
+#X obj 280 804 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 804 [@file]: list only files. Type: flag.;
+#X msg 130 829 clear;
+#X text 270 829 remove all items from the playlist.;
+#X msg 130 857 delete;
+#X text 270 857 delete item from playlist. Arguments are:;
+#X obj 280 880 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 880 [ID]: playlist entry id. Type: int.;
+#X msg 130 905 fs;
+#X text 270 905 toggle VLC fullscreen mode.;
+#X msg 130 933 loop;
+#X text 270 933 toggle loop.;
+#X msg 130 961 next;
+#X text 270 961 go to the next entry on the playlist.;
+#X msg 130 989 pause;
+#X text 270 989 pause/resume playback. Arguments are:;
+#X obj 280 1012 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1012 [VAL]: 1 or omitted: pause \, 0: resume. Type: int.
 Allowed values: 0 \, 1\.;
-#X msg 130 905 play;
-#X text 270 905 start playback.;
-#X msg 130 933 playlist;
-#X text 270 933 request playlist. Output as dict to second outlet.;
-#X msg 130 961 prev;
-#X text 270 961 go to the previous entry on the playlist.;
-#X msg 130 989 seek;
-#X text 270 989 seek playback position. Arguments are:;
-#X obj 280 1012 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1012 TIME: absolute time position (int value in seconds
+#X msg 130 1052 play;
+#X text 270 1052 start playback.;
+#X msg 130 1080 playlist;
+#X text 270 1080 request playlist. Output as dict to second outlet.;
+#X msg 130 1108 prev;
+#X text 270 1108 go to the previous entry on the playlist.;
+#X msg 130 1136 seek;
+#X text 270 1136 seek playback position. Arguments are:;
+#X obj 280 1159 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1159 TIME: absolute time position (int value in seconds
 or 00h:00m:00s) or relative offset (+val \, -val). Type: atom.;
-#X msg 130 1067 status;
-#X text 270 1067 request playback status. Output as dict to second
+#X msg 130 1214 status;
+#X text 270 1214 request playback status. Output as dict to second
 outlet.;
-#X msg 130 1095 stop;
-#X text 270 1095 stop playback.;
-#X msg 130 1123 volume;
-#X text 270 1123 set playing volume. Arguments are:;
-#X obj 280 1146 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1146 VAL: absolute value in percent or relative change
+#X msg 130 1242 stop;
+#X text 270 1242 stop playback.;
+#X msg 130 1270 volume;
+#X text 270 1270 set playing volume. Arguments are:;
+#X obj 280 1293 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1293 VAL: absolute value in percent or relative change
 +VOL or -VOL. Type: atom.;
-#X obj 20 1196 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1201 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 1343 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1348 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1202 1\.;
-#X text 270 1202 commands.;
-#X obj 20 1237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1242 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1349 1\.;
+#X text 270 1349 commands.;
+#X obj 20 1384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1389 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1243 1\.;
-#X text 270 1243 int: 1 on success \, 0 on error.;
-#X text 130 1263 2\.;
-#X text 270 1263 dict: response data.;
+#X text 130 1390 1\.;
+#X text 270 1390 int: 1 on success \, 0 on error.;
+#X text 130 1410 2\.;
+#X text 270 1410 dict: response data.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1313 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1316 library: ceammc v0.9.8;
-#N canvas 10 1335 400 290 info 0;
+#X obj 1 1460 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1463 library: ceammc v0.9.8;
+#N canvas 10 1482 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -143,7 +155,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1335 pd info;
+#X restore 10 1482 pd info;
 #X connect 12 0 15 0;
 #X connect 14 0 17 0;
 #X connect 15 0 19 0;
