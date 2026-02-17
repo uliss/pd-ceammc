@@ -61,23 +61,29 @@
       <!-- add_dir -->
       <method name="add_dir">
         <info>
-          <tr lang="en">add directory files to the playlist</tr>
-          <tr lang="ru">добавить файлы директории в плейлист</tr>
+          <tr lang="en">add directory files to the playlist. If the file is already in the
+          playlist, it will not be added.</tr>
+          <tr lang="ru">добавить файлы директории в плейлист. Если файл уже в плейлисте, повторно
+          он не добавляется.</tr>
         </info>
         <param name="DIR" type="symbol" required="true">
           <tr lang="en">the full path to the directory on the computer where VLC is running</tr>
           <tr lang="ru">полный путь к директории на компьютере, на котором запущен VLC</tr>
         </param>
         <param name="GLOB" type="symbol" required="true">
-          <tr lang="en">match pattern for files. For example: *.wav - adds all files with the .wav extension.</tr>
-          <tr lang="ru">шаблон соответствия для файлов. Например: *.wav - добавляет все файлы с расшиением wav.</tr>
+          <tr lang="en">match pattern for files. For example: *.wav - adds all files with the .wav
+          extension.</tr>
+          <tr lang="ru">шаблон соответствия для файлов. Например: *.wav - добавляет все файлы с
+          расшиением wav.</tr>
         </param>
       </method>
       <!-- browse -->
       <method name="browse">
         <info>
-          <tr lang="en">browse a list of files and folders in the specified directory on the host where the VLC player is running</tr>
-          <tr lang="ru">выводит список файлов и папок в указанной директории на хосте, на котором запущен VLC плеер</tr>
+          <tr lang="en">browse a list of files and folders in the specified directory on the host
+          where the VLC player is running</tr>
+          <tr lang="ru">выводит список файлов и папок в указанной директории на хосте, на котором
+          запущен VLC плеер</tr>
         </info>
         <param name="DIR" type="symbol" required="true">
           <tr lang="en">the full path to the directory on the computer where VLC is running</tr>
@@ -92,8 +98,10 @@
           <tr lang="ru">выводить файлы</tr>
         </param>
         <param name="@glob" type="symbol">
-          <tr lang="en">match pattern for files. For example: *.wav - shows all files with the .wav extension.</tr>
-          <tr lang="ru">шаблон соответствия для файлов. Например: *.wav - выводит все файлы с расширением wav.</tr>
+          <tr lang="en">match pattern for files. For example: *.wav - shows all files with the .wav
+          extension.</tr>
+          <tr lang="ru">шаблон соответствия для файлов. Например: *.wav - выводит все файлы с
+          расширением wav.</tr>
         </param>
       </method>
       <!-- clear -->
@@ -107,19 +115,27 @@
       <method name="delete">
         <info>
           <tr lang="en">delete item from playlist</tr>
-          <tr lang="ru" finished="false">удалить элемент из плейлиста</tr>
+          <tr lang="ru">удалить элемент из плейлиста</tr>
         </info>
         <param name="ID" type="int">
-          <tr lang="en">playlist entry id</tr>
-          <tr lang="ru" finished="false">playlist entry id</tr>
+          <tr lang="en">Item ID in the playlist (NB: not the position in the playlist, but the
+          unique index assigned when added)</tr>
+          <tr lang="ru">ID элемента в плейлисте (NB: не позиция в плейлисте, а уникальный индес при
+          добавлении)</tr>
         </param>
       </method>
       <!-- fs -->
       <method name="fs">
         <info>
-          <tr lang="en">toggle VLC fullscreen mode</tr>
-          <tr lang="ru" finished="false">VLC Fullscreen Mode</tr>
+          <tr lang="en">set or toggle VLC full-screen mode</tr>
+          <tr lang="ru">устанавливает или переключает полноэкранный режим VLC</tr>
         </info>
+        <param name="STATE" type="bool">
+          <tr lang="en">If set to 1, it switches to full-screen mode \; if 0, it exits full-screen
+          mode. If the parameter is omitted, it toggles between the modes.</tr>
+          <tr lang="ru">Если равно 1, переводит в полноэкранный режим, если 0: выходит из
+          полноэкранного режима. Если параметер опущен, переключает между режимами.</tr>
+        </param>
       </method>
       <!-- loop -->
       <method name="loop">
