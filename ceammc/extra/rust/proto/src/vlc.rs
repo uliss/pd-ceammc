@@ -13,6 +13,7 @@ use std::borrow::Cow;
 use std::ffi::c_char;
 use std::ffi::CStr;
 use std::ffi::CString;
+use std::path::PathBuf;
 use std::str::FromStr;
 use std::sync::mpsc::Sender;
 use std::time::Duration;
@@ -355,41 +356,59 @@ fn parse_volume(v0: &RustAtom, v1: &RustAtom) -> Result<VlcVolume, String> {
     Err(format!("volume parse error"))
 }
 
-fn process_uri(uri: &String) -> Option<String> {
-    let mut uri = uri.clone();
-
-    if uri.starts_with("~") {
-        let home = dirs::home_dir()?;
-        uri.replace_range(0..1, &home.to_slash()?);
-    } else if uri.starts_with("%home%") {
-        let home = dirs::home_dir()?;
-        uri.replace_range(0.."%home%".len(), &home.to_slash()?);
-    } else if uri.starts_with("%music%") {
-        let audio = dirs::audio_dir()?;
-        uri.replace_range(0.."%music%".len(), &audio.to_slash()?);
-    } else if uri.starts_with("%video%") {
-        let video = dirs::video_dir()?;
-        uri.replace_range(0.."%video%".len(), &video.to_slash()?);
-    } else if uri.starts_with("%image%") {
-        let image = dirs::picture_dir()?;
-        uri.replace_range(0.."%image%".len(), &image.to_slash()?);
-    } else if uri.starts_with("%download%") {
-        let download = dirs::download_dir()?;
-        uri.replace_range(0.."%download%".len(), &download.to_slash()?);
-    } else if uri.starts_with("%desktop%") {
-        let desktop = dirs::desktop_dir()?;
-        uri.replace_range(0.."%desktop%".len(), &desktop.to_slash()?);
-    } else if uri.starts_with("%doc%") {
-        let docs = dirs::document_dir()?;
-        uri.replace_range(0.."%doc%".len(), &docs.to_slash()?);
+fn process_prefix<'a>(
+    uri: (&'a str, Option<String>),
+    prefixes: Vec<&str>,
+    replace_pattern: &Option<PathBuf>,
+) -> Result<String, (&'a str, Option<String>)> {
+    if uri.1.is_some() {
+        return Err(uri);
     }
 
-    // last step
-    if !uri.starts_with("file://") {
-        uri.insert_str(0, "file://");
-    }
+    let uri = uri.0;
 
-    return Some(uri);
+    match replace_pattern {
+        Some(replace_pattern) => {
+            for pre in prefixes {
+                debug!("check for prefix: '{pre}'");
+                if uri.starts_with(pre) {
+                    let pattern = replace_pattern
+                        .to_slash()
+                        .ok_or((uri, Some(format!("{pre} slash replace error"))))?
+                        .to_string();
+                    let mut uri = uri.to_string();
+                    uri.replace_range(0..pre.len(), &pattern);
+                    return Ok(uri);
+                }
+            }
+
+            Err((uri, None))
+        }
+        None => Err((
+            uri,
+            Some(format!("{} replace error", prefixes.join(" | ")).into()),
+        )),
+    }
+}
+
+fn process_uri(uri: &String) -> anyhow::Result<String> {
+    process_prefix((&uri, None), vec!["~", "%home%"], &dirs::home_dir())
+        .or_else(|uri| process_prefix(uri, vec!["%music%", "%audio%"], &dirs::audio_dir()))
+        .or_else(|uri| process_prefix(uri, vec!["%video%", "%movie%"], &dirs::video_dir()))
+        .or_else(|uri| process_prefix(uri, vec!["%image%", "%picture"], &dirs::picture_dir()))
+        .or_else(|uri| process_prefix(uri, vec!["%download%"], &dirs::download_dir()))
+        .or_else(|uri| process_prefix(uri, vec!["%desktop%"], &dirs::desktop_dir()))
+        .or_else(|uri| process_prefix(uri, vec!["%doc%", "%document%"], &dirs::document_dir()))
+        .or_else(|err| match err {
+            (src_uri, None) => Ok(src_uri.to_string()),
+            (src_uri, Some(err)) => bail!("error processing uric'{src_uri}': {err}"),
+        })
+        .map(|mut uri| {
+            if !uri.starts_with("file://") {
+                uri.insert_str(0, "file://");
+            }
+            uri
+        })
 }
 
 // full vlc command list is here:
@@ -511,13 +530,14 @@ async fn send2vlc(
             }
         }
         VlcRequest::PlaylistAddUri(uri, play) => {
+            let uri = process_uri(uri)?;
             if *play {
                 let mut url = make_status_url(host, port, Some("in_play"), None, None)?;
-                url.query_pairs_mut().append_pair("input", uri);
+                url.query_pairs_mut().append_pair("input", &uri);
                 url
             } else {
                 let mut url = make_status_url(host, port, Some("in_enqueue"), None, None)?;
-                url.query_pairs_mut().append_pair("input", uri);
+                url.query_pairs_mut().append_pair("input", &uri);
                 url
             }
         }
@@ -611,7 +631,7 @@ async fn send2vlc(
                     url.query_pairs_mut()
                         .append_pair("input", &f.uri.to_string_lossy());
 
-                    debug!("add: '{:?}'", f.path);
+                    debug!("add: {:?}", f.path);
                     let _ = send_get_request(cli, &url, pass).await?;
                 }
             }
