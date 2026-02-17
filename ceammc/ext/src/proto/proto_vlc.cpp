@@ -303,7 +303,24 @@ bool ProtoVlc::notify(int code)
             this,
             [](void* user, const ceammc_vlc_filelist* filelist) {
                 auto obj = static_cast<ProtoVlc*>(user);
-                Error(obj) << "size: " << filelist->size;
+                MListAtom pl;
+
+                ceammc_vlc_filelist_iter(filelist->files, filelist->size,
+                    ceammc_vlc_fileinfo_cb {
+                        &pl,
+                        [](void* user, const ceammc_vlc_fileinfo* info) {
+                            auto& pl = *static_cast<MListAtom*>(user);
+                            DictAtom da;
+                            da->insert("name", gensym(info->name));
+                            da->insert("uri", gensym(info->uri));
+                            da->insert("path", gensym(info->path));
+                            da->insert("size", info->size);
+                            da->insert("type", (int)info->type_);
+                            pl->append(da);
+                        },
+                    });
+
+                obj->anyTo(1, gensym("browse"), pl);
             },
         });
 }
