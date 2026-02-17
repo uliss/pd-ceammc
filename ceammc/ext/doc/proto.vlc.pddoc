@@ -18,16 +18,27 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">VLC video player control</tr>
-        <tr lang="ru">Управление видеоплеером VLC</tr>
-      </par>
-      <par>
         <tr lang="en">To control VLC using this object, the HTTP control module must be enabled and
         a password set</tr>
-        <tr lang="ru">Для управления VLC при помощи этого объекта, должен быть включен модуль
+        <tr lang="ru">Для управления VLC при помощи этого объекта, должен быть активирован модуль
         управления http и установлен пароль</tr>
       </par>
       <a href="https://wiki.videolan.org/Documentation:Modules/http_intf/">See documentation</a>
+      <par>
+        <tr lang="en">When adding playlist items, a URI (Uniform Resource Identifier) is used. Local files have the prefix 'file://', HTTP protocol files: 'http://', etc.</tr>
+        <tr lang="ru">При добавлении элементов плейлиста используется URI (универсальный идентификатор ресурсов). Локальные файлы имеют
+        префикс 'file://', файлы HTTP протокола: 'http://' и т.д.</tr>
+      </par>
+      <par>
+        <tr lang="en">If local paths are used instead of an URI, template parameters can be used,
+        which are replaced with their corresponding directories.
+        For example, '%HOME%' or '~' at the beginning of a path is replaced with the path to the user's home folder.
+        %VIDEO% on MacOS is replaced with /Users/_user_/Movies, and so on.</tr>
+        <tr lang="ru">Если используются локальные пути вместо URI можно использовать шаблонные параметры,
+        которые заменяются на соответствующие им директории.
+        Например '%HOME%' или '~' в начале пути заменяется на путь к домашней папке пользователя. %VIDEO% на
+        MacOs - на /Users/_user_/Movies и т.д.</tr>
+      </par>
     </info>
     <arguments>
       <argument name="HOST" type="symbol">
@@ -271,15 +282,19 @@
     <example>
       <pdascii>
 <![CDATA[
-[play #a(    [get_playlist #c( [next #d( [prev #e(
+[play #a(    [browse #f(
 
-[stop #b(       [B]             [browse #f(
+ [repeat #l( [get_status #m(
+
+ [loop #k(   [get_playlist #c(
+
+ [next #d(   [prev #e(
+
+ [stop #b(      [B]               [ui.tab @items 50% +5% -5% #h]
                 |
- [T]            [openpanel]       [ui.tab @items 50% +5% -5% #h]
+ [T]            [openpanel]      [ui.tab @items 10 +5 -5 #i]
  |              |
-[pause $1( [fs( [add file://$1(  [ui.tab @items 10 +5 -5 #i]
-|          |    |
-|          |    |               [ui.tab @items 00m:00s 01m:02s +00m:01s #j]
+[pause $1( [fs( [add file://$1( [ui.tab @items 00m:00s 01m:02s +00m:01s #j]
 |          |    |               |
 |          |    |               [seek $2 #g(
 |          |    |               |
@@ -294,6 +309,9 @@
 [X f->z]
 [X h->g]
 [X i->g]
+[X k->z]
+[X l->z]
+[X m->z]
 #f %audio% @file @glob *.wav
 #j @size 200 17
 #i @size 100 17
