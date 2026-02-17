@@ -5,8 +5,7 @@
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
 #include "parser_vlc.h"
-
-using opt_i16 = ceammc::proto_rust::Option<std::int16_t>;
+#include "proto_rust.hpp"
 
 namespace {
 

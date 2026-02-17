@@ -3,9 +3,10 @@
 
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
-#include "proto_rust.hpp"
 
 #include <memory>
+
+struct ceammc_vlc;
 
 using namespace ceammc;
 
@@ -14,7 +15,7 @@ class ProtoVlc : public DispatchedObject<BaseObject> {
     IntProperty* port_;
     AtomProperty* pass_;
 
-    std::unique_ptr<ceammc_vlc, typeof(&ceammc_vlc_free)> vlc_;
+    std::unique_ptr<ceammc_vlc, void (*)(ceammc_vlc*)> vlc_;
 
 public:
     ProtoVlc(const PdArgs& args);
