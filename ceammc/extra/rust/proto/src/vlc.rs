@@ -107,7 +107,7 @@ struct JsonFileList {
 }
 
 impl JsonFileList {
-    fn filter(self: &Self, file_type: Option<&String>, glob: Option<&String>) -> Vec<FileInfo> {
+    fn filter(self: &Self, file_type: Option<&str>, glob: Option<&str>) -> Vec<FileInfo> {
         let glob = glob.and_then(|str| {
             if let Ok(glob) = GlobBuilder::new(str)
                 .backslash_escape(false)
@@ -510,7 +510,7 @@ async fn send2vlc(
                 make_status_url(host, port, Some("rate"), None, Some(format!("{rate}")))?
             }
         }
-        VlcRequest::PlaylistAdd(uri, play) => {
+        VlcRequest::PlaylistAddUri(uri, play) => {
             if *play {
                 let mut url = make_status_url(host, port, Some("in_play"), None, None)?;
                 url.query_pairs_mut().append_pair("input", uri);
@@ -587,12 +587,38 @@ async fn send2vlc(
         VlcRequest::Browse(opts) => {
             let uri = process_uri(&opts.uri).context("invalid URI: {uri}")?;
             debug!("uri: {uri}");
-            let filelist = request_browse(cli, host, port, pass, &uri)
-                .await?
-                .filter(opts.filter_type.as_ref(), opts.match_glob.as_ref());
+            let filelist = request_browse(cli, host, port, pass, &uri).await?.filter(
+                opts.filter_type.as_ref().map(|x| x.as_str()),
+                opts.match_glob.as_ref().map(|x| x.as_str()),
+            );
 
             tx.send(VlcReply::FileList(filelist))?;
             notify.exec();
+            return Ok(true);
+        }
+        VlcRequest::PlaylistAddDir(dir, glob) => {
+            let dir = process_uri(dir).context("invalid URI: {uri}")?;
+            debug!("add directory content: '{dir}' with glob pattern '{glob}'");
+
+            let filelist = request_browse(cli, host, port, pass, &dir)
+                .await?
+                .filter(Some("file"), Some(glob));
+
+            // debug!("files to add: {filelist:?}");
+
+            for f in filelist.iter() {
+                if let Ok(mut url) = make_status_url(host, port, Some("in_enqueue"), None, None) {
+                    url.query_pairs_mut()
+                        .append_pair("input", &f.uri.to_string_lossy());
+
+                    debug!("add: '{:?}'", f.path);
+                    let _ = send_get_request(cli, &url, pass).await?;
+                }
+            }
+
+            tx.send(VlcReply::FileList(filelist))?;
+            notify.exec();
+
             return Ok(true);
         }
     };
@@ -786,7 +812,16 @@ impl Vlc {
             .map(|x| unsafe { CStr::from_ptr(x) }.to_string_lossy().to_string())
             .unwrap_or_default();
 
-        self.send(VlcRequest::PlaylistAdd(uri, play))
+        self.send(VlcRequest::PlaylistAddUri(uri, play))
+    }
+
+    pub fn add_dir_files(self: &Self, dir: &c_char, glob: &c_char) -> bool {
+        let dir = unsafe { CStr::from_ptr(dir) }.to_string_lossy().to_string();
+        let glob = unsafe { CStr::from_ptr(glob) }
+            .to_string_lossy()
+            .to_string();
+
+        self.send(VlcRequest::PlaylistAddDir(dir, glob))
     }
 
     pub fn seek(self: &Self, seek: RustAtom) -> bool {
@@ -925,7 +960,8 @@ enum VlcRequest {
     Repeat(Option<bool>),
     Volume(RustAtom, RustAtom),
     PlaybackRate(f32),
-    PlaylistAdd(String, bool),
+    PlaylistAddUri(String, bool),
+    PlaylistAddDir(String, String),
     DeleteById(u64),
     DeleteAtPos(i32),
     DeleteByName(SmolStr),

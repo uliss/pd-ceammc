@@ -468,6 +468,23 @@ pub extern "C" fn ceammc_vlc_add_uri(
 }
 
 #[no_mangle]
+/// add directory files to the vlc playlist
+/// @param vlc - vlc control handle
+/// @param dir - directory path, not NULL
+/// @param glob - file match pattern, not NULL
+pub extern "C" fn ceammc_vlc_add_dir_files(
+    vlc: Option<&mut vlc>,
+    dir: Option<&c_char>,
+    glob: Option<&c_char>,
+) -> bool {
+    vlc_null_check!(vlc);
+    vlc_null_check!(dir);
+    vlc_null_check!(glob);
+
+    vlc.unwrap().imp.add_dir_files(dir.unwrap(), glob.unwrap())
+}
+
+#[no_mangle]
 /// seek to specified time
 /// @param vlc - vlc control handle
 /// @param seek - seek time value: 

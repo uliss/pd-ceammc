@@ -459,6 +459,12 @@ bool ceammc_obs_set_current_scene(ceammc_obs_client *cli, const char *name);
 /// logger config is done with a RUST_LOG env variable
 void ceammc_proto_log_init();
 
+/// add directory files to the vlc playlist
+/// @param vlc - vlc control handle
+/// @param dir - directory path, not NULL
+/// @param glob - file match pattern, not NULL
+bool ceammc_vlc_add_dir_files(ceammc_vlc *vlc, const char *dir, const char *glob);
+
 /// add URI to the vlc playlist
 /// @param vlc - vlc control handle
 /// @param uri - resource URI

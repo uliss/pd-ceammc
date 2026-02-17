@@ -186,12 +186,22 @@ void ProtoVlc::m_delete(t_symbol* s, const AtomListView& lv)
     }
 }
 
-void ProtoVlc::m_add(t_symbol* s, const AtomListView& lv)
+void ProtoVlc::m_add_uri(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("URI:s PLAY:b?", lv, this, &s_))
+    static args::ArgChecker chk("URI:s PLAY:b?");
+    if (!chk.check(lv, this, &s_))
         return;
 
     ceammc_vlc_add_uri(vlc_.get(), lv[0].asSymbol()->s_name, lv.boolAt(1, false));
+}
+
+void ProtoVlc::m_add_dir(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("DIR:s GLOB:s");
+    if (!chk.check(lv, this, &s_))
+        return;
+
+    ceammc_vlc_add_dir_files(vlc_.get(), lv.symbolAt(0, &s_)->s_name, lv.symbolAt(1, &s_)->s_name);
 }
 
 void ProtoVlc::m_get_current(t_symbol* s, const AtomListView& lv)
@@ -329,7 +339,8 @@ void setup_proto_vlc()
 {
     ObjectFactory<ProtoVlc> obj("proto.vlc");
 
-    obj.addMethod("add", &ProtoVlc::m_add);
+    obj.addMethod("add", &ProtoVlc::m_add_uri);
+    obj.addMethod("add_dir", &ProtoVlc::m_add_dir);
     obj.addMethod("browse", &ProtoVlc::m_browse);
     obj.addMethod("clear", &ProtoVlc::m_clear);
     obj.addMethod("delete", &ProtoVlc::m_delete);

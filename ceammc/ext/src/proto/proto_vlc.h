@@ -21,7 +21,8 @@ public:
 
     void initDone() override;
 
-    void m_add(t_symbol* s, const AtomListView& lv);
+    void m_add_dir(t_symbol* s, const AtomListView& lv);
+    void m_add_uri(t_symbol* s, const AtomListView& lv);
     void m_browse(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_delete(t_symbol* s, const AtomListView& lv);
