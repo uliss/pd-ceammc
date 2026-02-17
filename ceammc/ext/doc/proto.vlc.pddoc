@@ -22,9 +22,10 @@
         <tr lang="ru">Управление видеоплеером VLC</tr>
       </par>
       <par>
-        <tr lang="en">To control VLC using this object, the HTTP control module must be enabled and a password set</tr>
-        <tr lang="ru">Для управления VLC при помощи этого объекта, должен быть включен модуль управления http и установлен пароль
-        </tr>
+        <tr lang="en">To control VLC using this object, the HTTP control module must be enabled and
+        a password set</tr>
+        <tr lang="ru">Для управления VLC при помощи этого объекта, должен быть включен модуль
+        управления http и установлен пароль</tr>
       </par>
       <a href="https://wiki.videolan.org/Documentation:Modules/http_intf/">See documentation</a>
     </info>
@@ -142,17 +143,27 @@
           полноэкранного режима. Если параметер не указан, переключает между режимами.</tr>
         </param>
       </method>
+      <!-- get_playlist -->
+      <method name="get_playlist">
+        <info>
+          <tr lang="en">request for the current playlist. Outputs as a message [playlist( into the
+          second output.</tr>
+          <tr lang="ru">запрос текущего плейлиста. Выводит в виде сообщения [playlist( во второй
+          выход</tr>
+        </info>
+      </method>
       <!-- loop -->
       <method name="loop">
         <info>
           <tr lang="en">sets or toggles the repeat mode for the entire playlist</tr>
-          <tr lang="ru">устанавливает или переключает режим повторного проигрывания всего плейлиста</tr>
+          <tr lang="ru">устанавливает или переключает режим повторного проигрывания всего
+          плейлиста</tr>
         </info>
         <param name="STATE" type="bool">
-          <tr lang="en">If == 1: turns on playlist repeat. If == 0: turns it off.
-          If the parameter is omitted, it toggles between modes.</tr>
-          <tr lang="ru">Если == 1: включает повтор плейлист. Если == 0: выключает.
-          Если параметер не указан, переключает между режимами.</tr>
+          <tr lang="en">If == 1: turns on playlist repeat. If == 0: turns it off. If the parameter
+          is omitted, it toggles between modes.</tr>
+          <tr lang="ru">Если == 1: включает повтор плейлист. Если == 0: выключает. Если параметер
+          не указан, переключает между режимами.</tr>
         </param>
       </method>
       <!-- next -->
@@ -170,7 +181,8 @@
         </info>
         <param name="VAL" type="int" enum="0 1">
           <tr lang="en">If == 1: pause. If == 0: resume. If omitted: toggle between states</tr>
-          <tr lang="ru">Если == 1: приостановить. Если == 0: возобновить. Если не указано: переключить между состояниями</tr>
+          <tr lang="ru">Если == 1: приостановить. Если == 0: возобновить. Если не указано:
+          переключить между состояниями</tr>
         </param>
       </method>
       <!-- play -->
@@ -181,15 +193,9 @@
         </info>
         <param name="ID" type="int">
           <tr lang="en">item ID in the playlist. If omitted, plays the current element</tr>
-          <tr lang="ru">ID элемента в плейлисте. Если не указано, воспроизводит текущий элемент.</tr>
+          <tr lang="ru">ID элемента в плейлисте. Если не указано, воспроизводит текущий
+          элемент.</tr>
         </param>
-      </method>
-      <!-- get_playlist -->
-      <method name="get_playlist">
-        <info>
-          <tr lang="en">request for the current playlist. Outputs as a message [playlist( into the second output.</tr>
-          <tr lang="ru">запрос текущего плейлиста. Выводит в виде сообщения [playlist( во второй выход</tr>
-        </info>
       </method>
       <!-- prev -->
       <method name="prev">
@@ -205,7 +211,8 @@
           <tr lang="ru">перейти в указанную позицию времени воспроизведения</tr>
         </info>
         <param name="TIME" type="atom" required="true">
-          <tr lang="en">absolute position in time (in integer seconds, percents or in the format 00h:00m:00s) or relative offset (+val, -val)</tr>
+          <tr lang="en">absolute position in time (in integer seconds, percents or in the format
+          00h:00m:00s) or relative offset (+val, -val)</tr>
           <tr lang="ru">абсолютная позиция во времени (в целых секундах, процентах или формате
           00h:00m:00s) или относительное смещение (+val, -val)</tr>
         </param>
@@ -213,8 +220,10 @@
       <!-- status -->
       <method name="status">
         <info>
-          <tr lang="en">request for the current VLC status. Output as a message [status( into the second output</tr>
-          <tr lang="ru">запрос текущего статуса VLC. Вывод в виде сообщения [status( во второй выход</tr>
+          <tr lang="en">request for the current VLC status. Output as a message [status( into the
+          second output</tr>
+          <tr lang="ru">запрос текущего статуса VLC. Вывод в виде сообщения [status( во второй
+          выход</tr>
         </info>
       </method>
       <!-- stop -->
@@ -232,8 +241,8 @@
         </info>
         <param name="VAL" type="atom" required="true">
           <tr lang="en">absolute value in percent or relative change +VOL or -VOL</tr>
-          <tr lang="ru">абсолютное значение в процентах или относительное
-          изменение +VOL или -VOL</tr>
+          <tr lang="ru">абсолютное значение в процентах или относительное изменение +VOL или
+          -VOL</tr>
         </param>
       </method>
     </methods>
