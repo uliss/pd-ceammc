@@ -1,9 +1,12 @@
 use anyhow::bail;
 use anyhow::Context;
+use globset::GlobBuilder;
 use log::debug;
 use log::error;
 use log::info;
+use path_slash::PathBufExt as _;
 use reqwest::ClientBuilder;
+use reqwest::Response;
 use serde::Deserialize;
 use smol_str::SmolStr;
 use std::borrow::Cow;
@@ -80,6 +83,55 @@ struct JsonPlaylist {
     current: String,
 }
 
+#[derive(Debug, Default, Deserialize, Clone)]
+struct JsonFileInfo {
+    #[serde(rename = "type")]
+    file_type: String,
+    #[serde(default)]
+    path: String,
+    #[serde(default)]
+    name: String,
+    #[serde(default)]
+    uri: String,
+    #[serde(default)]
+    size: usize,
+}
+
+#[derive(Debug, Default, Deserialize, Clone)]
+struct JsonFileList {
+    #[serde(default)]
+    element: Vec<JsonFileInfo>,
+}
+
+impl JsonFileList {
+    fn filter(self: &Self, file_type: Option<&String>, glob: Option<&String>) -> Self {
+        let glob = glob.map(|x| {
+            GlobBuilder::new(x)
+                .backslash_escape(false)
+                .literal_separator(true)
+                .build()
+                .unwrap()
+                .compile_matcher()
+        });
+
+        Self {
+            element: self
+                .element
+                .iter()
+                .filter(|x| match file_type {
+                    Some(ft) => x.file_type == *ft,
+                    None => true,
+                })
+                .filter(|x| match &glob {
+                    Some(glob) => glob.is_match(x.name.clone()),
+                    None => true,
+                })
+                .map(|x| x.clone())
+                .collect::<Vec<JsonFileInfo>>(),
+        }
+    }
+}
+
 impl JsonPlaylist {
     fn find_by_name(self: &Self, name: &str) -> Vec<&JsonPlaylist> {
         let mut res = Vec::new();
@@ -141,22 +193,58 @@ impl From<&JsonPlaylist> for PlaylistItem {
     }
 }
 
+async fn get_response(
+    cli: &reqwest::Client,
+    host: &str,
+    port: u16,
+    pass: &str,
+    json_path: &str,
+) -> anyhow::Result<Response> {
+    Ok(cli
+        .get(format!("http://{host}:{port}/requests/{json_path}.json"))
+        .basic_auth("", Some(pass))
+        .send()
+        .await?)
+}
+
 async fn request_playlist(
     cli: &reqwest::Client,
     host: &str,
     port: u16,
     pass: &str,
 ) -> anyhow::Result<JsonPlaylist> {
+    let response = get_response(cli, host, port, pass, "playlist").await?;
+
+    if response.status().is_success() {
+        let data = response.text().await?;
+        let playlist: JsonPlaylist =
+            serde_json::from_str(&data).or_else(|err| bail!("playlist: {err}"))?;
+        Ok(playlist)
+    } else {
+        bail!("Status: {}", response.status())
+    }
+}
+
+async fn request_browse(
+    cli: &reqwest::Client,
+    host: &str,
+    port: u16,
+    pass: &str,
+    path: &str,
+) -> anyhow::Result<JsonFileList> {
+    let mut url = Url::parse(&format!("http://{host}:{port}/requests/browse.json"))?;
+    url.query_pairs_mut().append_pair("uri", path);
+
     let response = cli
-        .get(format!("http://{host}:{port}/requests/playlist.json"))
+        .get(url.as_str())
         .basic_auth("", Some(pass))
         .send()
         .await?;
 
     if response.status().is_success() {
         let data = response.text().await?;
-        let stat: JsonPlaylist =
-            serde_json::from_str(&data).or_else(|err| bail!("vlc json: {err}"))?;
+        let stat: JsonFileList =
+            serde_json::from_str(&data).or_else(|err| bail!("browse: {err}"))?;
         Ok(stat)
     } else {
         bail!("Status: {}", response.status())
@@ -225,6 +313,43 @@ fn parse_volume(v0: &RustAtom, v1: &RustAtom) -> Result<VlcVolume, String> {
     }
 
     Err(format!("volume parse error"))
+}
+
+fn process_uri(uri: &String) -> Option<String> {
+    let mut uri = uri.clone();
+
+    if uri.starts_with("~") {
+        let home = dirs::home_dir()?;
+        uri.replace_range(0..1, &home.to_slash()?);
+    } else if uri.starts_with("%home%") {
+        let home = dirs::home_dir()?;
+        uri.replace_range(0.."%home%".len(), &home.to_slash()?);
+    } else if uri.starts_with("%music%") {
+        let audio = dirs::audio_dir()?;
+        uri.replace_range(0.."%music%".len(), &audio.to_slash()?);
+    } else if uri.starts_with("%video%") {
+        let video = dirs::video_dir()?;
+        uri.replace_range(0.."%video%".len(), &video.to_slash()?);
+    } else if uri.starts_with("%image%") {
+        let image = dirs::picture_dir()?;
+        uri.replace_range(0.."%image%".len(), &image.to_slash()?);
+    } else if uri.starts_with("%download%") {
+        let download = dirs::download_dir()?;
+        uri.replace_range(0.."%download%".len(), &download.to_slash()?);
+    } else if uri.starts_with("%desktop%") {
+        let desktop = dirs::desktop_dir()?;
+        uri.replace_range(0.."%desktop%".len(), &desktop.to_slash()?);
+    } else if uri.starts_with("%doc%") {
+        let docs = dirs::document_dir()?;
+        uri.replace_range(0.."%doc%".len(), &docs.to_slash()?);
+    }
+
+    // last step
+    if !uri.starts_with("file://") {
+        uri.insert_str(0, "file://");
+    }
+
+    return Some(uri);
 }
 
 // full vlc command list is here:
@@ -419,6 +544,17 @@ async fn send2vlc(
             notify.exec();
             return Ok(true);
         }
+        VlcRequest::Browse(opts) => {
+            let uri = process_uri(&opts.uri).context("invalid URI: {uri}")?;
+            debug!("uri: {uri}");
+            let filelist = request_browse(cli, host, port, pass, &uri)
+                .await?
+                .filter(opts.filter_type.as_ref(), opts.match_glob.as_ref());
+            debug!("{filelist:?}");
+            // tx.send(VlcReply::FileList)?;
+            // notify.exec();
+            return Ok(true);
+        }
     };
 
     info!("url: {}", url);
@@ -582,6 +718,29 @@ impl Vlc {
         self.send(VlcRequest::GetCurrentItem)
     }
 
+    pub fn browse(
+        self: &Self,
+        uri: Option<&c_char>,
+        filter_type: Option<&c_char>,
+        match_glob: Option<&c_char>,
+    ) -> bool {
+        let uri = uri
+            .map(|x| unsafe { CStr::from_ptr(x) }.to_string_lossy().to_string())
+            .unwrap_or_default();
+
+        let filter_type =
+            filter_type.map(|x| unsafe { CStr::from_ptr(x) }.to_string_lossy().to_string());
+
+        let match_glob =
+            match_glob.map(|x| unsafe { CStr::from_ptr(x) }.to_string_lossy().to_string());
+
+        self.send(VlcRequest::Browse(BrowseParams {
+            uri,
+            filter_type,
+            match_glob,
+        }))
+    }
+
     pub fn add_uri(self: &Self, uri: Option<&c_char>, play: bool) -> bool {
         let uri = uri
             .map(|x| unsafe { CStr::from_ptr(x) }.to_string_lossy().to_string())
@@ -683,11 +842,21 @@ impl Vlc {
                         self.client_err(format!("current item not found"));
                     }
                 }
+                VlcReply::FileList => {
+                    todo!()
+                }
             }
         }
 
         true
     }
+}
+
+#[derive(Debug)]
+struct BrowseParams {
+    uri: String,
+    filter_type: Option<String>,
+    match_glob: Option<String>,
 }
 
 #[derive(Debug)]
@@ -702,6 +871,7 @@ enum VlcRequest {
     GetStatus,
     GetPlaylist,
     GetCurrentItem,
+    Browse(BrowseParams),
     FullScreen(Option<bool>),
     Loop(Option<bool>),
     Repeat(Option<bool>),
@@ -720,4 +890,5 @@ enum VlcReply {
     Status(vlc_status),
     Playlist(Vec<PlaylistItem>),
     CurrentId(Option<PlaylistItem>),
+    FileList,
 }

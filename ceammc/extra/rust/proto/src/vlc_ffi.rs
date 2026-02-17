@@ -498,6 +498,23 @@ pub extern "C" fn ceammc_vlc_get_current(vlc: Option<&mut vlc>) -> bool {
 }
 
 #[no_mangle]
+/// browse vlc directories
+/// @param vlc - vlc control handle
+pub extern "C" fn ceammc_vlc_browse(
+    vlc: Option<&mut vlc>,
+    uri: Option<&c_char>,
+    filter_type: Option<&c_char>,
+    match_glob: Option<&c_char>,
+) -> bool {
+    if vlc.is_none() {
+        error!("NULL vlc pointer");
+        return false;
+    }
+
+    vlc.unwrap().imp.browse(uri, filter_type, match_glob)
+}
+
+#[no_mangle]
 /// sort playlist
 /// @param vlc - vlc control handle
 /// @param sort - sort field, not NULL!
