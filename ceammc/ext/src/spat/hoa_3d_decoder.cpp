@@ -41,17 +41,17 @@ Hoa3dDecoder::Hoa3dDecoder(const PdArgs& args)
 
     {
         PropertyListGetter fn = [this]() -> AtomList { return propPlaneWavesX(); };
-        createCbListProperty("@pw_x", fn)->setUnits(PropValueUnits::RAD);
+        createCbListProperty("@pw_x", fn)->setUnits(PropValueUnits::RADIAN);
     }
 
     {
         PropertyListGetter fn = [this]() -> AtomList { return propPlaneWavesY(); };
-        createCbListProperty("@pw_y", fn)->setUnits(PropValueUnits::RAD);
+        createCbListProperty("@pw_y", fn)->setUnits(PropValueUnits::RADIAN);
     }
 
     {
         PropertyListGetter fn = [this]() -> AtomList { return propPlaneWavesZ(); };
-        createCbListProperty("@pw_z", fn)->setUnits(PropValueUnits::RAD);
+        createCbListProperty("@pw_z", fn)->setUnits(PropValueUnits::RADIAN);
     }
 
     {

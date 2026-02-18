@@ -43,7 +43,7 @@ PropValueUnits ceammc::faust::to_units(const char* u)
 
     switch (p.type()) {
     case parser::TYPE_HZ:
-        return PropValueUnits::HZ;
+        return PropValueUnits::HERZ;
     case parser::TYPE_MSEC:
         return PropValueUnits::MSEC;
     case parser::TYPE_SEC:
@@ -55,7 +55,7 @@ PropValueUnits ceammc::faust::to_units(const char* u)
     case parser::TYPE_DB:
         return PropValueUnits::DB;
     case parser::TYPE_RADIAN:
-        return PropValueUnits::RAD;
+        return PropValueUnits::RADIAN;
     case parser::TYPE_DEGREE:
         return PropValueUnits::DEG;
     case parser::TYPE_CENT:

@@ -185,7 +185,7 @@ TEST_CASE("BpmProperty", "[core]")
         REQUIRE(d.contains("units"));
         REQUIRE(d.at("units") == LA("bpm"));
 
-        p.info().addUnit(PropValueUnits::HZ);
+        p.info().addUnit(PropValueUnits::HERZ);
         REQUIRE(p.info().getDict(d));
         REQUIRE(d.contains("units"));
         REQUIRE(d.at("units").size() == 2);

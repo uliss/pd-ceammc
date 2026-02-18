@@ -38,9 +38,9 @@ inline const char* unit2ui_suffix(ceammc::PropValueUnits unit)
         return "db";
     case ceammc::PropValueUnits::DEG:
         return "deg";
-    case ceammc::PropValueUnits::RAD:
+    case ceammc::PropValueUnits::RADIAN:
         return "rad";
-    case ceammc::PropValueUnits::HZ:
+    case ceammc::PropValueUnits::HERZ:
         return "Hz";
     case ceammc::PropValueUnits::PERCENT:
         return "%";

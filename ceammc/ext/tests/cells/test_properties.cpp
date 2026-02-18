@@ -346,7 +346,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         using IntAliasProperty = AliasProperty<IntProperty>;
 
         IntProperty pi("@int", 0);
-        pi.setUnits(PropValueUnits::HZ);
+        pi.setUnits(PropValueUnits::HERZ);
         IntAliasProperty p("@one", &pi, 1);
         IntAliasProperty p0("@zero", &pi, 0);
 
@@ -365,7 +365,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(!p.isSymbol());
         REQUIRE(!p.isList());
         REQUIRE(p.type() == PropValueType::INTEGER);
-        REQUIRE(p.hasUnit(PropValueUnits::HZ));
+        REQUIRE(p.hasUnit(PropValueUnits::HERZ));
         REQUIRE(p.view() == PropValueView::NUMBOX);
         REQUIRE(p.value() == 1);
 

@@ -36,7 +36,7 @@ SeqPhasorBase::SeqPhasorBase(const PdArgs& a)
     createOutlet();
 
     freq_hz_ = new FloatProperty("@freq", 0);
-    freq_hz_->setUnits(PropValueUnits::HZ);
+    freq_hz_->setUnits(PropValueUnits::HERZ);
     freq_hz_->checkClosedRange(0, 100);
     freq_hz_->setArgIndex(0);
     addProperty(freq_hz_);

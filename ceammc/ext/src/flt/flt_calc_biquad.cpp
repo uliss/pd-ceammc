@@ -30,10 +30,10 @@ FltCalcBiquad::FltCalcBiquad(const PdArgs& args, const FreqCalcParams& fparam)
 
     if (rad) {
         freq_->checkClosedRange(fparam.ang_freq_min, fparam.ang_freq_max);
-        freq_->setUnits(PropValueUnits::RAD);
+        freq_->setUnits(PropValueUnits::RADIAN);
     } else {
         freq_->checkClosedRange(fparam.freq_min, fparam.freq_max);
-        freq_->setUnits(PropValueUnits::HZ);
+        freq_->setUnits(PropValueUnits::HERZ);
     }
 
     q_ = new FloatProperty("@q", M_SQRT1_2);

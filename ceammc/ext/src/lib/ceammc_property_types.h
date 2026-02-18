@@ -71,8 +71,8 @@ enum class PropValueUnits : PropValueUnitsBase {
     SAMP = 1 << 2, // samples
     DB = 1 << 3, // decibels
     DEG = 1 << 4, // degree
-    RAD = 1 << 5, // radians
-    HZ = 1 << 6, // herz
+    RADIAN = 1 << 5, // radians
+    HERZ = 1 << 6, // herz
     PERCENT = 1 << 7, // percents
     CENT = 1 << 8, // cents
     SEMITONE = 1 << 9, // semitone

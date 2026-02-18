@@ -230,8 +230,8 @@ TEST_CASE("Faust", "[ceammc::faust]")
         REQUIRE(to_units("sec") == PropValueUnits::SEC);
         REQUIRE(to_units("ms") == PropValueUnits::MSEC);
         REQUIRE(to_units("msec") == PropValueUnits::MSEC);
-        REQUIRE(to_units("Hz") == PropValueUnits::HZ);
-        REQUIRE(to_units("hz") == PropValueUnits::HZ);
+        REQUIRE(to_units("Hz") == PropValueUnits::HERZ);
+        REQUIRE(to_units("hz") == PropValueUnits::HERZ);
         REQUIRE(to_units("samp") == PropValueUnits::SAMP);
         REQUIRE(to_units("%") == PropValueUnits::PERCENT);
         REQUIRE(to_units("perc") == PropValueUnits::PERCENT);

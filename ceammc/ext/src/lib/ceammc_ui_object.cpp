@@ -899,10 +899,10 @@ static PropertyInfo attr_to_prop(t_ebox* x, t_eattr* a)
             res.setUnits(PropValueUnits::DEG);
             break;
         case hash_rad:
-            res.setUnits(PropValueUnits::RAD);
+            res.setUnits(PropValueUnits::RADIAN);
             break;
         case hash_hz:
-            res.setUnits(PropValueUnits::HZ);
+            res.setUnits(PropValueUnits::HERZ);
             break;
         default:
             std::cerr << fmt::format("unknown unit: {}\n", a->units->s_name);

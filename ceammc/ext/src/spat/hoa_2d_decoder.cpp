@@ -47,9 +47,9 @@ Hoa2dDecoder::Hoa2dDecoder(const PdArgs& args)
 
     createCbIntProperty("@nharm", [this]() -> t_int { return decoder_ ? decoder_->getNumberOfHarmonics() : 0; });
     createCbListProperty("@pw_x", [this]() -> AtomList { return propPlaneWavesX(); })
-        ->setUnits(PropValueUnits::RAD);
+        ->setUnits(PropValueUnits::RADIAN);
     createCbListProperty("@pw_y", [this]() -> AtomList { return propPlaneWavesY(); })
-        ->setUnits(PropValueUnits::RAD);
+        ->setUnits(PropValueUnits::RADIAN);
 
     createCbListProperty(
         "@angles",

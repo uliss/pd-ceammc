@@ -135,7 +135,7 @@ SfizzTilde::SfizzTilde(const PdArgs& args)
         "@freq",
         [this]() { return sfz_.getTuningFrequency(); },
         [this](t_float f) { sfz_.setTuningFrequency(f); return true; })
-        ->setUnits(PropValueUnits::HZ);
+        ->setUnits(PropValueUnits::HERZ);
 
     {
         auto cb = static_cast<CallbackProperty*>(createCbFloatProperty(

@@ -191,7 +191,7 @@ public:
     inline bool setT(const AtomListView& lv) { return setList(lv); }
 
     // freq used
-    inline void setUnitsHz() { setUnits(PropValueUnits::HZ); }
+    inline void setUnitsHz() { setUnits(PropValueUnits::HERZ); }
     inline void setUnitsDb() { setUnits(PropValueUnits::DB); }
     inline void setUnitsMs() { setUnits(PropValueUnits::MSEC); }
     inline void setUnitsSec() { setUnits(PropValueUnits::SEC); }
