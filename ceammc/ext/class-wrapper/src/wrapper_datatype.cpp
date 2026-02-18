@@ -22,13 +22,12 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include "wrapper_datatype.h"
+#include "ceammc_platform.h"
 #include "data_iface.h"
 
-#include "ceammc_log.h"
-#include "ceammc_platform.h"
-
 #include <string>
+
+using namespace ceammc;
 
 Result::Result(const std::string& errMsg, int code)
     : boost::optional<std::string>(errMsg)
@@ -58,10 +57,10 @@ bool Result::error(std::string* msg, int* code) const
 
 std::string DataIFace::makeNewFileName(const std::string& path)
 {
-    std::string path2 = ceammc::platform::expandenv(ceammc::platform::expand_tilde_path(path).c_str());
+    std::string path2 = platform::expandenv(platform::expand_tilde_path(path).c_str());
 
     // return absolute path untouched
-    if (!ceammc::platform::is_path_relative(path2.c_str()))
+    if (!platform::is_path_relative(path2.c_str()))
         return path2;
 
     t_canvas* cnv = canvas_getcurrent();
@@ -72,23 +71,30 @@ std::string DataIFace::makeNewFileName(const std::string& path)
         return res;
     } else {
         // return user directory related
-        return ceammc::platform::pd_user_directory() + "/" + path2;
+        std::string res = platform::standard_path_get_by_id(platform::StandardPath::PdUser);
+        res += '/';
+        res += path2;
+        return res;
     }
 }
 
 std::string DataIFace::findFileName(const std::string& path)
 {
-    std::string path2 = ceammc::platform::expandenv(ceammc::platform::expand_tilde_path(path).c_str());
+    std::string path2 = platform::expandenv(platform::expand_tilde_path(path).c_str());
 
     // return absolute path untouched
-    if (!ceammc::platform::is_path_relative(path2.c_str()))
+    if (!platform::is_path_relative(path2.c_str()))
         return path2;
 
     t_canvas* cnv = canvas_getcurrent();
     if (cnv)
-        return ceammc::platform::find_in_std_path(cnv, path2.c_str());
-    else
-        return ceammc::platform::pd_user_directory() + "/" + path2;
+        return platform::find_in_std_path(cnv, path2.c_str());
+    else {
+        std::string res = platform::standard_path_get_by_id(platform::StandardPath::PdUser);
+        res += '/';
+        res += path2;
+        return res;
+    }
 }
 
 Result DataIFace::setFromPd(const ceammc::AtomListView& lv)
