@@ -15,11 +15,16 @@ env_logger = "0.11.9"
 embedded-graphics = "0.8.2"
 ndarray = "0.17.2"
 png = "0.18.1"
-image = { version = "0.25.9", features = ["png", "gif", "jpeg"], default-features = false }
+image = { version = "0.25.9", features = [
+    "png",
+    "gif",
+    "jpeg",
+], default-features = false }
 base64 = "0.22.1"
 regex = "1.12.3"
 dirs = "6.0.0"
 path-slash = "0.2.1"
+whoami = { version = "2.1.1", features = ["std"] }
 
 [build-dependencies]
 cbindgen = "0.29.2"
