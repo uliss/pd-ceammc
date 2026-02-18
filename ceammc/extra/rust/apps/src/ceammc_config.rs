@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 pub const CEAMMC_LIB_VERSION_MAJOR: u8 = 0;
 pub const CEAMMC_LIB_VERSION_MINOR: u8 = 9;
 pub const CEAMMC_LIB_VERSION_PATCH: u8 = 8;
@@ -13,5 +15,5 @@ pub const PD_TEXT_VERSION_SHORT: &str = "0.53.0";
 pub const PD_TEXT_VERSION_FULL: &str = "0.53.0_ceammc";
 
 pub const GIT_BRANCH: &str = "devel";
-pub const GIT_COMMIT: &str = "v2025.04-1750-gbdf5fb2e97";
-pub const BUILD_DATETIME: &str = "18 02 2026 UTC 17:26:42 ";
+pub const GIT_COMMIT: &str = "v2025.04-1753-gb46d838a0e";
+pub const BUILD_DATETIME: &str = "18 02 2026 UTC 17:35:33 ";

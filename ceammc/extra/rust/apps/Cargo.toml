@@ -35,7 +35,7 @@ zip = "1.1.4"
 os_info = "3.14.0"
 sysinfo = "0.38.2"
 humansize = "2.1.3"
-chrono = { version = "0.4.43", features = ["now"], default_features = false }
+chrono = { version = "0.4.43", features = ["now"], default-features = false }
 terminal_size = "0.4.3"
 
 [profile.release]
