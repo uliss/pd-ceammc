@@ -148,7 +148,7 @@ AtomListView toView(const AtomSmallArray& args)
     return AtomListView(&args.data()->atom(), args.size());
 }
 
-}  // namespace
+} // namespace
 
 ProtoInscore::ProtoInscore(const PdArgs& args)
     : BaseObject(args)
