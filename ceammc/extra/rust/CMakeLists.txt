@@ -1,5 +1,10 @@
 find_package(Rust)
 if(Rust_FOUND)
+    configure_file(
+      ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_config.rs
+      ${CMAKE_CURRENT_SOURCE_DIR}/apps/src/ceammc_config.rs
+      @ONLY)
+
     corrosion_import_crate(
         MANIFEST_PATH resvg/crates/c-api/Cargo.toml
         CRATE_TYPES staticlib
@@ -12,6 +17,7 @@ if(Rust_FOUND)
 
     if(WITH_RUST_APPS)
 	corrosion_import_crate(MANIFEST_PATH apps/Cargo.toml)
+
         install(FILES $<TARGET_FILE:rhvoice_download>
             DESTINATION ${CEAMMC_INSTALL_PATH}
             PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
