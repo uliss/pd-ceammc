@@ -12,20 +12,24 @@ path = "src/rhvoice_download/main.rs"
 [[bin]] 
 name = "dylibfix"
 path = "src/dylibfix/main.rs"
+
+[[bin]] 
+name = "ceam"
+path = "src/ceam/main.rs"
  
 [dependencies]
-clap = { version = "4.5.4", features = ["derive"] }
-colored = "2.1.0"
-env_logger = "0.11.3"
+clap = { version = "4.5.59", features = ["derive"] }
+colored = "3.1.1"
+env_logger = "0.11.9"
 exitcode = "1.1.2"
-homedir = "0.2.1"
-indicatif = "0.17.8"
-log = "0.4.21"
+homedir = "0.3.6"
+indicatif = "0.18.4"
+log = "0.4.29"
 mach_object = "0.1.17"
 memmap = "0.7.0"
 octocrab = "0.38.0"
-reqwest = "0.12.4"
-tempfile = "3.10.1"
+reqwest = "0.13.2"
+tempfile = "3.25.0"
 tokio = { version = "1.37.0", features = ["macros"] }
 zip = "1.1.4"
 
