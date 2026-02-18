@@ -18,6 +18,7 @@
 #include "ceammc_object_info.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
+#include "core_rust.hpp"
 #include "mod_init.h"
 
 #include "m_pd.h"
@@ -32,6 +33,7 @@ t_class* ceammc_class = nullptr;
 // ceammc extern object struct
 struct ceammc_external {
     t_object x_obj;
+    ceammc_config* config;
 };
 
 namespace {
@@ -79,20 +81,34 @@ void ceammc_info_message()
 
 void* ceammc_new()
 {
-    auto x = reinterpret_cast<ceammc_external*>(pd_new(ceammc_class));
-    if (!x) {
+    auto ext = reinterpret_cast<ceammc_external*>(pd_new(ceammc_class));
+    if (!ext) {
         pd_error(0, "[ceammc] load error");
         return NULL;
     }
 
-    pd_bind(&x->x_obj.te_g.g_pd, gensym("ceammc"));
+    pd_bind(&ext->x_obj.te_g.g_pd, gensym("ceammc"));
+    ext->config = ceammc_config_load();
+    if (!ext->config)
+        pd_error(ext, "[ceammc] can't load external config");
 
-    return x;
+    return ext;
 }
 
 void ceammc_free(t_object* x)
 {
-    pd_unbind(&x->te_g.g_pd, gensym("ceammc"));
+    auto ext = reinterpret_cast<ceammc_external*>(x);
+    if (!ext)
+        return;
+
+    pd_unbind(&ext->x_obj.te_g.g_pd, gensym("ceammc"));
+
+    // store config on exit
+    if (ext->config) {
+        ceammc_config_store(ext->config);
+        if (ceammc_config_free(ext->config))
+            ext->config = nullptr;
+    }
 }
 
 void ceammc_bang(t_object* x)
@@ -169,6 +185,15 @@ void ceammc_doc_lang(t_object* x, t_symbol* s)
 
 void ceammc_on_quit(t_object* x, t_symbol* s)
 {
+    auto ext = reinterpret_cast<ceammc_external*>(x);
+    if (!ext)
+        return;
+
+    // store config on quit
+    if (ext->config) {
+        if (!ceammc_config_store(ext->config))
+            pd_error(x, "[ceammc] can't store external config");
+    }
 }
 
 void ceammc_on_any(t_object* x, t_symbol* s, int argc, t_atom* argv)
