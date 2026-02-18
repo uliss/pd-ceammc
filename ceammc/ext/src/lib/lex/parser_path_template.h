@@ -14,6 +14,7 @@
 #ifndef PARSER_PATH_TEMPLATE_H
 #define PARSER_PATH_TEMPLATE_H
 
+#include <cstring>
 #include <functional>
 #include <string>
 
@@ -51,7 +52,7 @@ namespace parser {
         auto type = path_get_dir_template(path, &begin, &end);
         if (type != DirectoryTemplate::None) {
             std::string res;
-            res.reserve(strlen(path) + 64);
+            res.reserve(std::strlen(path) + 64);
             res.assign(path, begin);
             res.append(fn(type, begin, end));
             res.append(end);
