@@ -1,4 +1,5 @@
 #include "catch.hpp"
+#include "fmt/core.h"
 #include "m_pd.h"
 
 #include "ceammc_canvas.h"
@@ -373,9 +374,10 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(platform::file_mime_type(TEST_DATA_DIR) == "inode/directory");
         REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/llvm_cov_gen.sh") == "text/x-shellscript");
 
-#if defined(__linux__) || defined(__apple__)
+#if defined(__linux__) || defined(__APPLE__)
         REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/gen_test_wav.py") == "text/x-script.python");
 #endif
+
         REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/snd_mono_44k.ogg") == "audio/ogg");
         REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/snd_mono_48k.flac") == "audio/flac");
         REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/snd_mono_48k.wav") == "audio/x-wav");
@@ -383,5 +385,44 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
 
         REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/test0.lua") == "text/plain");
         REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/test_canvas_01.pd") == "text/plain");
+    }
+
+    SECTION("username")
+    {
+        using namespace ceammc;
+        REQUIRE(!platform::user_name().empty());
+    }
+
+    SECTION("std paths")
+    {
+        standard_path_init();
+
+        using namespace ceammc;
+
+#if defined(__APPLE__)
+        auto user = platform::user_name();
+        REQUIRE(standard_path_get_by_id(StandardPath::Home) == fmt::format("/Users/{}", user));
+        REQUIRE(standard_path_get_by_id(StandardPath::Home) == home_directory());
+        REQUIRE(standard_path_get_by_id(StandardPath::Audio) == (home_directory() + "/Music"));
+        REQUIRE(standard_path_get_by_id(StandardPath::Desktop) == (home_directory() + "/Desktop"));
+        REQUIRE(standard_path_get_by_id(StandardPath::Documents) == (home_directory() + "/Documents"));
+        REQUIRE(standard_path_get_by_id(StandardPath::Downloads) == (home_directory() + "/Downloads"));
+        REQUIRE(standard_path_get_by_id(StandardPath::PdUser) == (home_directory() + "/Documents/Pd"));
+        REQUIRE(standard_path_get_by_id(StandardPath::Video) == (home_directory() + "/Movies"));
+
+        char buf[1024] = { 0 };
+        REQUIRE(getcwd(buf, sizeof(buf)));
+        REQUIRE(standard_path_get_by_id(StandardPath::Cwd) == std::string(buf));
+
+        REQUIRE(standard_path_get_by_id(StandardPath::PdDoc) == std::string());
+        REQUIRE(standard_path_get_by_id(StandardPath::CeammcDoc) == std::string());
+#endif
+
+        platform::set_env("PD_DOC", TEST_DATA_DIR);
+        platform::set_env("CEAMMC_DOC", TEST_DATA_DIR);
+
+        standard_path_init();
+        REQUIRE(standard_path_get_by_id(StandardPath::PdDoc) == std::string(TEST_DATA_DIR));
+        REQUIRE(standard_path_get_by_id(StandardPath::CeammcDoc) == std::string(TEST_DATA_DIR));
     }
 }

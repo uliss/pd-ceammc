@@ -381,6 +381,23 @@ namespace platform {
         return MimeTypeLibrary::instance().mimeType(path);
     }
 
+    std::string user_name()
+    {
+        std::string res;
+
+        if (!ceammc_current_user({
+                &res,
+                [](void* user, const char* tmpstr) {
+                    auto& str = *static_cast<std::string*>(user);
+                    str = tmpstr;
+                },
+            })) {
+            pd_error(nullptr, "%s", "can't get username");
+        }
+
+        return res;
+    }
+
     struct StandardPathsDb {
         const char* find(StandardPath id) const
         {
@@ -418,7 +435,7 @@ namespace platform {
                         str = tmpstr;
                     },
                 })) {
-                pd_error(nullptr, "[platform] can't get '%%%s%%' standart path", name);
+                pd_error(nullptr, "[platform] can't get '%s' standart path", name);
                 return;
             }
 

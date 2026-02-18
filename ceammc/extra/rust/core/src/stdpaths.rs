@@ -59,8 +59,13 @@ pub extern "C" fn ceammc_path_pd_user(cb: rust_str_cb) -> bool {
 /// cross-platform puredata doc directory path with '/' slashes
 /// using PD_DOC env variable
 pub extern "C" fn ceammc_path_pd_doc(cb: rust_str_cb) -> bool {
-    let path = env::var("PD_DOC").ok().map(|var| PathBuf::from(var));
-    path_to_string(path, cb)
+    match env::var("PD_DOC") {
+        Ok(var) => path_to_string(Some(PathBuf::from(var)), cb),
+        Err(err) => {
+            error!("{err}");
+            false
+        }
+    }
 }
 
 #[no_mangle]

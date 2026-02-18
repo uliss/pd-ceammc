@@ -41,11 +41,19 @@ namespace platform {
         Downloads,
         Home,
         PdDoc,
-        PdUser ,
+        PdUser,
         Tmp,
         Video,
     };
 
+    /**
+     * current user name
+     */
+    std::string user_name();
+
+    /**
+     * init standart paths database
+     */
     void standard_path_init();
 
     /**
@@ -53,6 +61,7 @@ namespace platform {
      * @param id
      * @return path or empty string if not found
      * @complexity O(1) - unordered hash_map
+     * @note standard_path_init() should be called before first usage
      */
     const char* standard_path_get_by_id(StandardPath id);
 
