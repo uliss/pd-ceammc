@@ -117,10 +117,12 @@ t_visfn ceammc_pd_vanilla_visfn = nullptr;
 
 void t_object_get_xlet_id(t_glist* glist, void* x, char* buf, size_t bufsize, ceammc::XletType type, int xlet_idx)
 {
+    auto tag = rtext_gettag(glist_findrtext(glist, static_cast<t_object*>(x)));
+
     if (type == ceammc::XLET_IN)
-        snprintf(buf, bufsize, "%si%d", rtext_gettag(glist_findrtext(glist, (t_object*)x)), xlet_idx);
+        snprintf(buf, bufsize, "%si%d", tag, xlet_idx);
     else
-        snprintf(buf, bufsize, "%so%d", rtext_gettag(glist_findrtext(glist, (t_object*)x)), xlet_idx);
+        snprintf(buf, bufsize, "%so%d", tag, xlet_idx);
 }
 
 void ceammc_vis_fn(t_gobj* z, t_glist* glist, int vis)
