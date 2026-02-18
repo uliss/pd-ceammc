@@ -1,7 +1,8 @@
 # main shared library
 add_library(ceammc_core SHARED ceammc.cpp
     ceammc_properties_object.h ceammc_properties_object.cpp
-    ceammc_property_types.h ceammc_property_types.cpp)
+    ceammc_property_types.h ceammc_property_types.cpp
+    lex/parser_path_template.h)
 target_include_directories(ceammc_core PRIVATE ${CMAKE_BINARY_DIR}) # for config.h
 target_include_directories(ceammc_core PRIVATE
     ${PROJECT_SOURCE_DIR}/src # m_pd.h
@@ -212,6 +213,9 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(parser_dict_expr
         lex/parser_dict_expr.rl lex/parser_dict_expr.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_path_template
+        lex/parser_path_template.rl lex/parser_path_template.cpp
+          COMPILE_FLAGS "-G2 -s")
 endif()
 
 add_custom_target(lemon_data_parser
@@ -239,6 +243,7 @@ target_sources(ceammc_core
         lex/parser_midi.cpp
         lex/parser_music.cpp
         lex/parser_numeric.cpp
+        lex/parser_path_template.cpp
         lex/parser_props.cpp
         lex/parser_props_details.cpp
         lex/parser_strings.cpp
