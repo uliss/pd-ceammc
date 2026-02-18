@@ -17,6 +17,7 @@
 #include "ceammc_log.h"
 #include "ceammc_object_info.h"
 #include "ceammc_pd.h"
+#include "ceammc_platform.h"
 #include "mod_init.h"
 
 #include "m_pd.h"
@@ -197,8 +198,8 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
     class_addmethod(ceammc_class,
         reinterpret_cast<t_method>(ceammc_doc_lang), gensym("doc"), A_DEFSYMBOL, 0);
 
-    auto tcl = getenv("CEAMMC_TCL");
-    if (tcl && tcl[0] == '1') {
+    auto tcl = ceammc::platform::get_env("CEAMMC_TCL");
+    if (!tcl.empty() && tcl[0] == '1') {
         class_addmethod(ceammc_class,
             reinterpret_cast<t_method>(ceammc_tcl), gensym("tcl"), A_GIMME, 0);
     }

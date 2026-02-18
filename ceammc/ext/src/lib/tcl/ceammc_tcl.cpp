@@ -12,10 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_tcl.h"
+#include "ceammc_patheditor.tcl.h"
 #include "ceammc_tableeditor.tcl.h"
 #include "ceammc_texteditor.tcl.h"
 #include "ceammc_tooltips.tcl.h"
-#include "ceammc_patheditor.tcl.h"
 
 namespace ceammc {
 
@@ -31,4 +31,4 @@ void ceammc_tcl_init_tooltips()
     ceammc_tooltips_tcl_output();
 }
 
-}
+} // namespace ceammc
