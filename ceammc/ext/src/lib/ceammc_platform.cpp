@@ -442,7 +442,7 @@ namespace platform {
                         str = tmpstr;
                     },
                 })) {
-                pd_error(nullptr, "[platform] can't get '%s' standart path", name);
+                pd_error(nullptr, "[platform] can't find '%s' standart directory", name);
                 return;
             }
 
