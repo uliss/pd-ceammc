@@ -395,27 +395,27 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
 
     SECTION("std paths")
     {
-        standard_path_init();
+        standard_dir_init();
 
         using namespace ceammc;
 
 #if defined(__APPLE__)
         auto user = platform::user_name();
-        REQUIRE(standard_path_get_by_id(StandardPath::Home) == fmt::format("/Users/{}", user));
-        REQUIRE(standard_path_get_by_id(StandardPath::Home) == home_directory());
-        REQUIRE(standard_path_get_by_id(StandardPath::Audio) == (home_directory() + "/Music"));
-        REQUIRE(standard_path_get_by_id(StandardPath::Desktop) == (home_directory() + "/Desktop"));
-        REQUIRE(standard_path_get_by_id(StandardPath::Documents) == (home_directory() + "/Documents"));
-        REQUIRE(standard_path_get_by_id(StandardPath::Downloads) == (home_directory() + "/Downloads"));
-        REQUIRE(standard_path_get_by_id(StandardPath::PdUser) == (home_directory() + "/Documents/Pd"));
-        REQUIRE(standard_path_get_by_id(StandardPath::Video) == (home_directory() + "/Movies"));
+        REQUIRE(standard_dir_get(StandardDir::Home) == fmt::format("/Users/{}", user));
+        REQUIRE(standard_dir_get(StandardDir::Home) == home_directory());
+        REQUIRE(standard_dir_get(StandardDir::Audio) == (home_directory() + "/Music"));
+        REQUIRE(standard_dir_get(StandardDir::Desktop) == (home_directory() + "/Desktop"));
+        REQUIRE(standard_dir_get(StandardDir::Documents) == (home_directory() + "/Documents"));
+        REQUIRE(standard_dir_get(StandardDir::Downloads) == (home_directory() + "/Downloads"));
+        REQUIRE(standard_dir_get(StandardDir::PdUser) == (home_directory() + "/Documents/Pd"));
+        REQUIRE(standard_dir_get(StandardDir::Video) == (home_directory() + "/Movies"));
 
         char buf[1024] = { 0 };
         REQUIRE(getcwd(buf, sizeof(buf)));
-        REQUIRE(standard_path_get_by_id(StandardPath::Cwd) == std::string(buf));
+        REQUIRE(standard_dir_get(StandardDir::Cwd) == std::string(buf));
 
-        REQUIRE(standard_path_get_by_id(StandardPath::PdDoc) == std::string());
-        REQUIRE(standard_path_get_by_id(StandardPath::CeammcDoc) == std::string());
+        REQUIRE(standard_dir_get(StandardDir::PdDoc) == std::string());
+        REQUIRE(standard_dir_get(StandardDir::CeammcDoc) == std::string());
 #endif
     }
 }

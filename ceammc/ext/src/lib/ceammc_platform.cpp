@@ -199,7 +199,7 @@ namespace platform {
 
     std::string home_directory()
     {
-        return standard_path_get_by_id(StandardPath::Home);
+        return standard_dir_get(StandardDir::Home);
     }
 
     std::string expand_tilde_path(const std::string& path)
@@ -333,7 +333,7 @@ namespace platform {
             }
         }
 
-        return fmt::format("{}/{}", standard_path_get_by_id(StandardPath::PdUser), p);
+        return fmt::format("{}/{}", standard_dir_get(StandardDir::PdUser), p);
     }
 
     Either<NetAddressList, PlatformError> hostnametoip(const char* name, NetAddressType type)
@@ -394,8 +394,8 @@ namespace platform {
         return res;
     }
 
-    struct StandardPathsDb {
-        const char* find(StandardPath id) const
+    struct StandardDirsDb {
+        const char* find(StandardDir id) const
         {
             auto it = vars_.find(id);
             return it == vars_.end() ? "" : it->second.second.c_str();
@@ -403,29 +403,29 @@ namespace platform {
 
         void init()
         {
-            append_var(StandardPath::Audio, "%AUDIO%", &ceammc_path_audio);
-            append_var(StandardPath::CeammcDoc, "%CEAMMC_DOC%", &ceammc_path_ceammc_doc);
-            append_var(StandardPath::Cwd, "%CWD%", &ceammc_path_cwd);
-            append_var(StandardPath::Desktop, "%DESKTOP%", &ceammc_path_desktop);
-            append_var(StandardPath::Documents, "%DOCUMENT%", &ceammc_path_documents);
-            append_var(StandardPath::Downloads, "%DOWNLOAD%", &ceammc_path_downloads);
-            append_var(StandardPath::Home, "%HOME%", &ceammc_path_home);
-            append_var(StandardPath::PdDoc, "%PD_DOC%", &ceammc_path_pd_doc);
-            append_var(StandardPath::PdUser, "%PD_USER%", &ceammc_path_pd_user);
-            append_var(StandardPath::Tmp, "%TMP%", &ceammc_path_tmp);
-            append_var(StandardPath::Video, "%VIDEO%", &ceammc_path_video);
+            append_var(StandardDir::Audio, "%AUDIO%", &ceammc_path_audio);
+            append_var(StandardDir::CeammcDoc, "%CEAMMC_DOC%", &ceammc_path_ceammc_doc);
+            append_var(StandardDir::Cwd, "%CWD%", &ceammc_path_cwd);
+            append_var(StandardDir::Desktop, "%DESKTOP%", &ceammc_path_desktop);
+            append_var(StandardDir::Documents, "%DOCUMENT%", &ceammc_path_documents);
+            append_var(StandardDir::Downloads, "%DOWNLOAD%", &ceammc_path_downloads);
+            append_var(StandardDir::Home, "%HOME%", &ceammc_path_home);
+            append_var(StandardDir::PdDoc, "%PD_DOC%", &ceammc_path_pd_doc);
+            append_var(StandardDir::PdUser, "%PD_USER%", &ceammc_path_pd_user);
+            append_var(StandardDir::Tmp, "%TMP%", &ceammc_path_tmp);
+            append_var(StandardDir::Video, "%VIDEO%", &ceammc_path_video);
         }
 
-        StandardPathsDb()
+        StandardDirsDb()
         {
             init();
         }
 
     private:
-        std::unordered_map<StandardPath, std::pair<std::string, std::string>> vars_;
+        std::unordered_map<StandardDir, std::pair<std::string, std::string>> vars_;
 
     private:
-        void append_var(StandardPath id, const char* name, bool(fn)(ceammc_rust_str_cb))
+        void append_var(StandardDir dir, const char* name, bool(fn)(ceammc_rust_str_cb))
         {
             std::string str;
 
@@ -440,18 +440,18 @@ namespace platform {
                 return;
             }
 
-            vars_[id] = std::make_pair(name, str);
+            vars_[dir] = std::make_pair(name, str);
         }
     };
 
-    void standard_path_init()
+    void standard_dir_init()
     {
-        SingletonMeyers<StandardPathsDb>::instance();
+        SingletonMeyers<StandardDirsDb>::instance();
     }
 
-    const char* standard_path_get_by_id(StandardPath id)
+    const char* standard_dir_get(StandardDir dir)
     {
-        return SingletonMeyers<StandardPathsDb>::instance().find(id);
+        return SingletonMeyers<StandardDirsDb>::instance().find(dir);
     }
 
 } // namespace platform

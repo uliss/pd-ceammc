@@ -32,7 +32,7 @@ namespace platform {
         std::string msg;
     };
 
-    enum StandardPath {
+    enum StandardDir {
         Audio,
         CeammcDoc,
         Cwd,
@@ -52,18 +52,18 @@ namespace platform {
     std::string user_name();
 
     /**
-     * init standart paths database
+     * init standart dirs database
      */
-    void standard_path_init();
+    void standard_dir_init();
 
     /**
-     * return standard path by enum value
-     * @param id
+     * return standard dir by enum value
+     * @param dir
      * @return path or empty string if not found
      * @complexity O(1) - unordered hash_map
      * @note standard_path_init() should be called before first usage
      */
-    const char* standard_path_get_by_id(StandardPath id);
+    const char* standard_dir_get(StandardDir dir);
 
     size_t memory_size();
     size_t memory_current_rss();

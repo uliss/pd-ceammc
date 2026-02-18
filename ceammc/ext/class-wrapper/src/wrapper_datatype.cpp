@@ -71,7 +71,7 @@ std::string DataIFace::makeNewFileName(const std::string& path)
         return res;
     } else {
         // return user directory related
-        std::string res = platform::standard_path_get_by_id(platform::StandardPath::PdUser);
+        std::string res = platform::standard_dir_get(platform::StandardDir::PdUser);
         res += '/';
         res += path2;
         return res;
@@ -90,7 +90,7 @@ std::string DataIFace::findFileName(const std::string& path)
     if (cnv)
         return platform::find_in_std_path(cnv, path2.c_str());
     else {
-        std::string res = platform::standard_path_get_by_id(platform::StandardPath::PdUser);
+        std::string res = platform::standard_dir_get(platform::StandardDir::PdUser);
         res += '/';
         res += path2;
         return res;

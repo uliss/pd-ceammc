@@ -145,7 +145,7 @@ TEST_CASE("path.file", "[externals]")
         SECTION("quoted path")
         {
 #ifdef __APPLE__
-            platform::set_env("PD", ceammc::platform::standard_path_get_by_id(platform::StandardPath::PdUser));
+            platform::set_env("PD", ceammc::platform::standard_dir_get(platform::StandardDir::PdUser));
             const std::string rel_path = "\"%PD%/file2.tmp\"";
             const std::string full_path = platform::expand_tilde_path("~/Documents/Pd/file2.tmp");
             std::remove(full_path.c_str());

@@ -106,7 +106,7 @@ static void setup_env_user_path()
         return;
     }
 
-    set_env("PD", standard_path_get_by_id(StandardPath::PdUser));
+    set_env("PD", standard_dir_get(StandardDir::PdUser));
 }
 
 namespace {

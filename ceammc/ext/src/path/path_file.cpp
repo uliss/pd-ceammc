@@ -358,7 +358,7 @@ t_symbol* PathFile::expandPath(t_symbol* path) const
     } else if (exp_path.is_relative()) {
         auto dir = canvas_getdir(canvas());
         if (!dir || !dir->s_name) {
-            fs::path new_path = platform::standard_path_get_by_id(platform::StandardPath::PdUser);
+            fs::path new_path = platform::standard_dir_get(platform::StandardDir::PdUser);
             new_path /= exp_path;
             return gensym(new_path.lexically_normal().string().c_str());
         }
