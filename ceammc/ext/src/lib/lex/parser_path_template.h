@@ -14,6 +14,9 @@
 #ifndef PARSER_PATH_TEMPLATE_H
 #define PARSER_PATH_TEMPLATE_H
 
+#include <functional>
+#include <string>
+
 namespace ceammc {
 namespace parser {
     enum DirectoryTemplate {
@@ -38,6 +41,23 @@ namespace parser {
      * @return detected template type
      */
     DirectoryTemplate path_get_dir_template(const char* path, const char** begin = nullptr, const char** end = nullptr);
+
+    std::string path_dir_template_subst(const char* path, const std::function<const char*(DirectoryTemplate t)>& fn)
+    {
+        const char* begin = nullptr;
+        const char* end = nullptr;
+        auto type = path_get_dir_template(path, &begin, &end);
+        if (type != DirectoryTemplate::None) {
+            std::string res;
+            res.reserve(strlen(path) + 64);
+            res.assign(path, begin);
+            res.append(fn(type));
+            res.append(end);
+            return res;
+        } else {
+            return path;
+        }
+    }
 } // namespace parser
 } // namespace ceammc
 

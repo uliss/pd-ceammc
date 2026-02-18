@@ -75,4 +75,62 @@ TEST_CASE("parser_path_template", "[ceammc::parser]")
         CHECK_CONTAINS("%AUDI%", Unknown, 0, 6);
         CHECK_CONTAINS("%HOME1%", Unknown, 0, 7);
     }
+
+    SECTION("contains")
+    {
+        auto fn = [](DirectoryTemplate t) {
+            switch (t) {
+            case None:
+                return "";
+            case Home:
+                return "/MYHOME";
+            case Audio:
+                return "/media/audio";
+            case Video:
+                return "/media/video";
+            case Picture:
+                return "/pics";
+            case Desktop:
+                return "/desktop";
+            case Document:
+                return "/docs";
+            case Download:
+                return "/trash";
+            case Tmp:
+                return "/tmp";
+            case Cwd:
+                return "/?";
+            case Unknown:
+                return "???";
+            }
+
+            return "";
+        };
+
+        REQUIRE(path_dir_template_subst("~", fn) == "/MYHOME");
+        REQUIRE(path_dir_template_subst("~/path", fn) == "/MYHOME/path");
+        REQUIRE(path_dir_template_subst("~/папка", fn) == "/MYHOME/папка");
+        REQUIRE(path_dir_template_subst("file://~/папка", fn) == "file:///MYHOME/папка");
+        REQUIRE(path_dir_template_subst("file://%HOME%/папка", fn) == "file:///MYHOME/папка");
+        REQUIRE(path_dir_template_subst("%HOME%/папка", fn) == "/MYHOME/папка");
+        REQUIRE(path_dir_template_subst("%AUDIO%", fn) == "/media/audio");
+        REQUIRE(path_dir_template_subst("%AUDIO%/папка", fn) == "/media/audio/папка");
+        REQUIRE(path_dir_template_subst("%MUSIC%/папка", fn) == "/media/audio/папка");
+        REQUIRE(path_dir_template_subst("%VIDEO%/папка", fn) == "/media/video/папка");
+        REQUIRE(path_dir_template_subst("%MOVIE%/папка", fn) == "/media/video/папка");
+        REQUIRE(path_dir_template_subst("%MOVIES%/папка", fn) == "/media/video/папка");
+        REQUIRE(path_dir_template_subst("%IMAGE%/папка", fn) == "/pics/папка");
+        REQUIRE(path_dir_template_subst("%IMG%/папка", fn) == "/pics/папка");
+        REQUIRE(path_dir_template_subst("%PICS%/папка", fn) == "/pics/папка");
+        REQUIRE(path_dir_template_subst("%PICTURE%/папка", fn) == "/pics/папка");
+        REQUIRE(path_dir_template_subst("%PICTURES%/папка", fn) == "/pics/папка");
+        REQUIRE(path_dir_template_subst("%DESKTOP%/папка", fn) == "/desktop/папка");
+        REQUIRE(path_dir_template_subst("%DOC%/папка", fn) == "/docs/папка");
+        REQUIRE(path_dir_template_subst("%DOCS%/папка", fn) == "/docs/папка");
+        REQUIRE(path_dir_template_subst("%DOCUMENT%/папка", fn) == "/docs/папка");
+        REQUIRE(path_dir_template_subst("%DOCUMENTS%/папка", fn) == "/docs/папка");
+        REQUIRE(path_dir_template_subst("%DOWNLOAD%/папка", fn) == "/trash/папка");
+        REQUIRE(path_dir_template_subst("%TMP%/папка", fn) == "/tmp/папка");
+        REQUIRE(path_dir_template_subst("%CWD%/папка", fn) == "/?/папка");
+    }
 }
