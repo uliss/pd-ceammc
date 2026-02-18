@@ -16,4 +16,3 @@ pub const PD_TEXT_VERSION_FULL: &str = "@PD_TEXT_VERSION_SHORT@_@PD_BUILD_SUFFIX
 
 pub const GIT_BRANCH: &str = "@GIT_BRANCH@";
 pub const GIT_COMMIT: &str = "@GIT_COMMIT@";
-pub const BUILD_DATETIME: &str = "@BUILD_DATETIME@";
