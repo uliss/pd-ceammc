@@ -7,6 +7,7 @@ edition = "2021"
 crate-type = ["staticlib", "cdylib"]
 
 [dependencies]
+serde = { version = "1.0.228", features = ["derive"] }
 mdns-sd = "0.10.4"
 local-ip-address = "0.6.10"
 network-interface = "1.1.1"
@@ -25,6 +26,7 @@ regex = "1.12.3"
 dirs = "6.0.0"
 path-slash = "0.2.1"
 whoami = { version = "2.1.1", features = ["std"], default-features = false }
+confy = "2.0.0"
 
 [build-dependencies]
 cbindgen = "0.29.2"

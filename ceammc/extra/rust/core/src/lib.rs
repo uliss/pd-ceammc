@@ -4,6 +4,7 @@ pub mod mdns_sd;
 pub mod net_iface;
 pub mod std_dirs;
 pub mod whoami;
+pub mod config;
 
 use env_logger;
 use log::error;
