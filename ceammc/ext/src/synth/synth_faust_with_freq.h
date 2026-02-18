@@ -46,7 +46,7 @@ public:
                     pitch_->setValue(convert::freq2midi(f), true);
                     return true;
                 })
-                ->setUnits(PropValueUnits::HZ);
+                ->setUnits(PropValueUnits::HERZ);
     }
 
     void onList(const AtomListView& lv) override
