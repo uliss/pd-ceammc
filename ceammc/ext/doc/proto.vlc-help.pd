@@ -20,7 +20,7 @@ directories. For example \, '%HOME%' or '~' at the beginning of a path
 is replaced with the path to the user's home folder. %VIDEO% on MacOS
 is replaced with /Users/_user_/Movies \, and so on.;
 #X msg 50 356 play;
-#X msg 174 356 browse %audio% @file @glob *.wav;
+#X msg 174 356 browse %AUDIO% @file @glob *.wav;
 #X msg 59 385 repeat;
 #X msg 174 385 get_status;
 #X msg 59 414 loop;

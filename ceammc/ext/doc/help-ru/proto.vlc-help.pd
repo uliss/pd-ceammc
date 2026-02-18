@@ -19,7 +19,7 @@ https://wiki.videolan.org/Documentation:Modules/http_intf/;
 Например '%HOME%' или '~' в начале пути заменяется на путь к домашней
 папке пользователя. %VIDEO% на MacOs - на /Users/_user_/Movies и т.д.;
 #X msg 50 386 play;
-#X msg 174 386 browse %audio% @file @glob *.wav;
+#X msg 174 386 browse %AUDIO% @file @glob *.wav;
 #X msg 59 415 repeat;
 #X msg 174 415 get_status;
 #X msg 59 444 loop;

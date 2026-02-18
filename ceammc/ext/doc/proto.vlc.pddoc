@@ -312,7 +312,7 @@
 [X k->z]
 [X l->z]
 [X m->z]
-#f %audio% @file @glob *.wav
+#f %AUDIO% @file @glob *.wav
 #j @size 200 17
 #i @size 100 17
 #h @size 130 17
