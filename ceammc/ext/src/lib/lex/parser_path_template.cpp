@@ -118,7 +118,7 @@ tr29:
 	{ if(end)   *end = p; }
 	goto st5;
 tr39:
-#line 23 "lex/parser_path_template.rl"
+#line 24 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Desktop; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
@@ -130,7 +130,7 @@ tr46:
 	{ if(end)   *end = p; }
 	goto st5;
 tr59:
-#line 24 "lex/parser_path_template.rl"
+#line 23 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Download; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
@@ -197,7 +197,7 @@ tr30:
 	{ {p++; cs = 84; goto _out;} }
 	goto st84;
 tr40:
-#line 23 "lex/parser_path_template.rl"
+#line 24 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Desktop; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
@@ -213,7 +213,7 @@ tr47:
 	{ {p++; cs = 84; goto _out;} }
 	goto st84;
 tr60:
-#line 24 "lex/parser_path_template.rl"
+#line 23 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Download; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }

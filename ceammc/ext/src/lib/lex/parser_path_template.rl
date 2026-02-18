@@ -19,9 +19,9 @@ home      = ('%HOME%'          | '~')                          %{ res = Director
 audio     = ('%' ('AUDIO'|'MUSIC')                        '%') %{ res = DirectoryTemplate::Audio; };
 video     = ('%' ('VIDEO'|('MOVIE' 'S'?))                 '%') %{ res = DirectoryTemplate::Video; };
 picture   = ('%' ('IMAGE' | 'IMG' | ('PIC' 'TURE'? 'S'?)) '%') %{ res = DirectoryTemplate::Picture; };
-document  = ('%DOC' 'UMENT'? 'S'? '%')                         %{ res = DirectoryTemplate::Document; };
+document  = ('%DOC' 'UMENT'? 'S'?                         '%') %{ res = DirectoryTemplate::Document; };
+download  = ('%DOWNLOAD' 'S'?                             '%') %{ res = DirectoryTemplate::Download; };
 desktop   = ('%DESKTOP%')                                      %{ res = DirectoryTemplate::Desktop; };
-download  = ('%DOWNLOAD' 'S'? '%')                             %{ res = DirectoryTemplate::Download; };
 tmp       = ('%TMP%')                                          %{ res = DirectoryTemplate::Tmp; };
 cwd       = ('%CWD%')                                          %{ res = DirectoryTemplate::Cwd; };
 
