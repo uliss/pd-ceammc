@@ -17,29 +17,50 @@
 
 using namespace ceammc::parser;
 
+#define CHECK_CONTAINS(path, type, b, l)                                               \
+    {                                                                                  \
+        REQUIRE(path_get_dir_template(path, &begin, &end) == DirectoryTemplate::type); \
+        REQUIRE(begin == &path[b]);                                                    \
+        REQUIRE(end == &path[b + l]);                                                  \
+    }
+
 TEST_CASE("parser_path_template", "[ceammc::parser]")
 {
     test::pdPrintToStdError();
 
     SECTION("contains")
     {
-        REQUIRE_FALSE(path_contains_template(""));
-        REQUIRE_FALSE(path_contains_template("file://"));
-        REQUIRE_FALSE(path_contains_template("/some/path"));
-        REQUIRE_FALSE(path_contains_template("/some/%HOME%"));
-        REQUIRE(path_contains_template("%HOME%"));
-        REQUIRE(path_contains_template("file://%HOME%"));
-        REQUIRE(path_contains_template("file://%HOME%/"));
-        REQUIRE(path_contains_template("file://%HOME%/path"));
-        REQUIRE(path_contains_template("~/path"));
-        REQUIRE(path_contains_template("~"));
-        REQUIRE(path_contains_template("%AUDIO%"));
-        REQUIRE(path_contains_template("%VIDEO%"));
-        REQUIRE(path_contains_template("%MOVIE%"));
-        REQUIRE(path_contains_template("%MOVIES%"));
-        REQUIRE(path_contains_template("%VIDEO%"));
-        REQUIRE(path_contains_template("%DESKTOP%"));
-        REQUIRE(path_contains_template("%IMAGE%"));
-        REQUIRE(path_contains_template("%PICTURE%"));
+        const char* begin = 0;
+        const char* end = 0;
+        DirectoryTemplate t;
+
+        REQUIRE(path_get_dir_template("") == DirectoryTemplate::None);
+        REQUIRE(path_get_dir_template("", &begin, &end) == DirectoryTemplate::None);
+        REQUIRE(path_get_dir_template("file://") == DirectoryTemplate::None);
+        REQUIRE(path_get_dir_template("/some/path") == DirectoryTemplate::None);
+        REQUIRE(path_get_dir_template("/some/%HOME%") == DirectoryTemplate::None);
+        REQUIRE(path_get_dir_template("HOME%") == DirectoryTemplate::None);
+        REQUIRE(path_get_dir_template("%HOME") == DirectoryTemplate::None);
+        CHECK_CONTAINS("%HOME%", Home, 0, 6);
+        CHECK_CONTAINS("file://%HOME%", Home, 7, 6);
+        CHECK_CONTAINS("file://%HOME%/path", Home, 7, 6);
+        CHECK_CONTAINS("file://%HOME%/path/path/path", Home, 7, 6);
+        CHECK_CONTAINS("~/path", Home, 0, 1);
+        CHECK_CONTAINS("~", Home, 0, 1);
+        CHECK_CONTAINS("%MUSIC%", Audio, 0, 7);
+        CHECK_CONTAINS("%VIDEO%", Video, 0, 7);
+        CHECK_CONTAINS("%MOVIE%", Video, 0, 7);
+        CHECK_CONTAINS("%MOVIES%", Video, 0, 8);
+        CHECK_CONTAINS("%DESKTOP%", Desktop, 0, 9);
+        CHECK_CONTAINS("%IMAGE%", Picture, 0, 7);
+        CHECK_CONTAINS("%PICTURE%", Picture, 0, 9);
+
+        CHECK_CONTAINS("file://%MUSIC%", Audio, 7, 7);
+        CHECK_CONTAINS("file://%VIDEO%", Video, 7, 7);
+        CHECK_CONTAINS("file://%MOVIE%", Video, 7, 7);
+        CHECK_CONTAINS("file://%MOVIES%", Video, 7, 8);
+        CHECK_CONTAINS("file://%DESKTOP%", Desktop, 7, 9);
+        CHECK_CONTAINS("file://%IMAGE%", Picture, 7, 7);
+        CHECK_CONTAINS("file://%PICTURE%", Picture, 7, 9);
     }
 }

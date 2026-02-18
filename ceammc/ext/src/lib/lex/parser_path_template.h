@@ -16,8 +16,26 @@
 
 namespace ceammc {
 namespace parser {
-    bool path_contains_template(const char* str);
-}
-}
+    enum DirectoryTemplate {
+        None,
+        Home,
+        Audio,
+        Video,
+        Picture,
+        Desktop,
+        Document,
+        Download,
+    };
+
+    /**
+     * finds directory template in the given path and returns it position
+     * @param path - input path. Not NULL
+     * @param begin - pointer to write begining of found template.
+     * @param end - pointer to write end of found template.
+     * @return detected template type
+     */
+    DirectoryTemplate path_get_dir_template(const char* path, const char** begin = nullptr, const char** end = nullptr);
+} // namespace parser
+} // namespace ceammc
 
 #endif // PARSER_PATH_TEMPLATE_H
