@@ -2,7 +2,7 @@ use clap::Parser;
 use colored::*;
 use log::{debug, info, warn};
 use mach_object::{LoadCommand, MachCommand, OFile};
-use memmap::Mmap;
+use memmap2::Mmap;
 use std::collections::{HashMap, HashSet};
 use std::error::Error;
 use std::fmt;
