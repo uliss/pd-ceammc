@@ -16,8 +16,8 @@ action prefix_start  { if(begin) *begin = fpc; }
 action prefix_done   { if(end)   *end = fpc; }
 
 s = 'S'?;
-B = '%';
-E = '%';
+B = '$';
+E = '$';
 home      = ((B 'HOME' E)      | '~')                 %{ res = DirectoryTemplate::Home; };
 audio     = ( B ('AUDIO'|'MUSIC')                     E) %{ res = DirectoryTemplate::Audio; };
 video     = ( B ('VIDEO'|('MOVIE' s))                 E) %{ res = DirectoryTemplate::Video; };

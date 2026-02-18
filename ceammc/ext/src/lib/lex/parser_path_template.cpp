@@ -47,7 +47,7 @@ DirectoryTemplate path_get_dir_template(const char* path, const char** begin, co
 	{
 case 1:
 	switch( (*p) ) {
-		case 37: goto tr0;
+		case 36: goto tr0;
 		case 102: goto st77;
 		case 126: goto tr3;
 	}
@@ -83,7 +83,7 @@ case 2:
 st3:
 	p += 1;
 case 3:
-	if ( (*p) == 37 )
+	if ( (*p) == 36 )
 		goto st4;
 	if ( (*p) > 49 ) {
 		if ( 65 <= (*p) && (*p) <= 90 )
@@ -265,7 +265,7 @@ st6:
 	p += 1;
 case 6:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 85: goto st7;
 	}
 	if ( (*p) > 49 ) {
@@ -278,7 +278,7 @@ st7:
 	p += 1;
 case 7:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 68: goto st8;
 	}
 	if ( (*p) > 49 ) {
@@ -291,7 +291,7 @@ st8:
 	p += 1;
 case 8:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 73: goto st9;
 	}
 	if ( (*p) > 49 ) {
@@ -304,7 +304,7 @@ st9:
 	p += 1;
 case 9:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 79: goto st10;
 	}
 	if ( (*p) > 49 ) {
@@ -316,7 +316,7 @@ case 9:
 st10:
 	p += 1;
 case 10:
-	if ( (*p) == 37 )
+	if ( (*p) == 36 )
 		goto st11;
 	if ( (*p) > 49 ) {
 		if ( 65 <= (*p) && (*p) <= 90 )
@@ -336,7 +336,7 @@ st12:
 	p += 1;
 case 12:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 87: goto st13;
 	}
 	if ( (*p) > 49 ) {
@@ -349,7 +349,7 @@ st13:
 	p += 1;
 case 13:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 68: goto st14;
 	}
 	if ( (*p) > 49 ) {
@@ -361,7 +361,7 @@ case 13:
 st14:
 	p += 1;
 case 14:
-	if ( (*p) == 37 )
+	if ( (*p) == 36 )
 		goto st15;
 	if ( (*p) > 49 ) {
 		if ( 65 <= (*p) && (*p) <= 90 )
@@ -381,7 +381,7 @@ st16:
 	p += 1;
 case 16:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 69: goto st17;
 		case 79: goto st24;
 	}
@@ -395,7 +395,7 @@ st17:
 	p += 1;
 case 17:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 83: goto st18;
 	}
 	if ( (*p) > 49 ) {
@@ -408,7 +408,7 @@ st18:
 	p += 1;
 case 18:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 75: goto st19;
 	}
 	if ( (*p) > 49 ) {
@@ -421,7 +421,7 @@ st19:
 	p += 1;
 case 19:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 84: goto st20;
 	}
 	if ( (*p) > 49 ) {
@@ -434,7 +434,7 @@ st20:
 	p += 1;
 case 20:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 79: goto st21;
 	}
 	if ( (*p) > 49 ) {
@@ -447,7 +447,7 @@ st21:
 	p += 1;
 case 21:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 80: goto st22;
 	}
 	if ( (*p) > 49 ) {
@@ -459,7 +459,7 @@ case 21:
 st22:
 	p += 1;
 case 22:
-	if ( (*p) == 37 )
+	if ( (*p) == 36 )
 		goto st23;
 	if ( (*p) > 49 ) {
 		if ( 65 <= (*p) && (*p) <= 90 )
@@ -479,7 +479,7 @@ st24:
 	p += 1;
 case 24:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 67: goto st25;
 		case 87: goto st33;
 	}
@@ -493,7 +493,7 @@ st25:
 	p += 1;
 case 25:
 	switch( (*p) ) {
-		case 37: goto st26;
+		case 36: goto st26;
 		case 83: goto st27;
 		case 85: goto st28;
 	}
@@ -514,7 +514,7 @@ case 26:
 st27:
 	p += 1;
 case 27:
-	if ( (*p) == 37 )
+	if ( (*p) == 36 )
 		goto st26;
 	if ( (*p) > 49 ) {
 		if ( 65 <= (*p) && (*p) <= 90 )
@@ -526,7 +526,7 @@ st28:
 	p += 1;
 case 28:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 77: goto st29;
 	}
 	if ( (*p) > 49 ) {
@@ -539,7 +539,7 @@ st29:
 	p += 1;
 case 29:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 69: goto st30;
 	}
 	if ( (*p) > 49 ) {
@@ -552,7 +552,7 @@ st30:
 	p += 1;
 case 30:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 78: goto st31;
 	}
 	if ( (*p) > 49 ) {
@@ -565,7 +565,7 @@ st31:
 	p += 1;
 case 31:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 84: goto st32;
 	}
 	if ( (*p) > 49 ) {
@@ -578,7 +578,7 @@ st32:
 	p += 1;
 case 32:
 	switch( (*p) ) {
-		case 37: goto st26;
+		case 36: goto st26;
 		case 83: goto st27;
 	}
 	if ( (*p) > 49 ) {
@@ -591,7 +591,7 @@ st33:
 	p += 1;
 case 33:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 78: goto st34;
 	}
 	if ( (*p) > 49 ) {
@@ -604,7 +604,7 @@ st34:
 	p += 1;
 case 34:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 76: goto st35;
 	}
 	if ( (*p) > 49 ) {
@@ -617,7 +617,7 @@ st35:
 	p += 1;
 case 35:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 79: goto st36;
 	}
 	if ( (*p) > 49 ) {
@@ -630,7 +630,7 @@ st36:
 	p += 1;
 case 36:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 65: goto st37;
 	}
 	if ( (*p) > 49 ) {
@@ -643,7 +643,7 @@ st37:
 	p += 1;
 case 37:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 68: goto st38;
 	}
 	if ( (*p) > 49 ) {
@@ -656,7 +656,7 @@ st38:
 	p += 1;
 case 38:
 	switch( (*p) ) {
-		case 37: goto st39;
+		case 36: goto st39;
 		case 83: goto st40;
 	}
 	if ( (*p) > 49 ) {
@@ -676,7 +676,7 @@ case 39:
 st40:
 	p += 1;
 case 40:
-	if ( (*p) == 37 )
+	if ( (*p) == 36 )
 		goto st39;
 	if ( (*p) > 49 ) {
 		if ( 65 <= (*p) && (*p) <= 90 )
@@ -688,7 +688,7 @@ st41:
 	p += 1;
 case 41:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 79: goto st42;
 	}
 	if ( (*p) > 49 ) {
@@ -701,7 +701,7 @@ st42:
 	p += 1;
 case 42:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 77: goto st43;
 	}
 	if ( (*p) > 49 ) {
@@ -714,7 +714,7 @@ st43:
 	p += 1;
 case 43:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 69: goto st44;
 	}
 	if ( (*p) > 49 ) {
@@ -726,7 +726,7 @@ case 43:
 st44:
 	p += 1;
 case 44:
-	if ( (*p) == 37 )
+	if ( (*p) == 36 )
 		goto st45;
 	if ( (*p) > 49 ) {
 		if ( 65 <= (*p) && (*p) <= 90 )
@@ -751,7 +751,7 @@ st46:
 	p += 1;
 case 46:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 77: goto st47;
 	}
 	if ( (*p) > 49 ) {
@@ -764,7 +764,7 @@ st47:
 	p += 1;
 case 47:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 65: goto st48;
 		case 71: goto st50;
 	}
@@ -778,7 +778,7 @@ st48:
 	p += 1;
 case 48:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 71: goto st49;
 	}
 	if ( (*p) > 49 ) {
@@ -791,7 +791,7 @@ st49:
 	p += 1;
 case 49:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 69: goto st50;
 	}
 	if ( (*p) > 49 ) {
@@ -803,7 +803,7 @@ case 49:
 st50:
 	p += 1;
 case 50:
-	if ( (*p) == 37 )
+	if ( (*p) == 36 )
 		goto st51;
 	if ( (*p) > 49 ) {
 		if ( 65 <= (*p) && (*p) <= 90 )
@@ -823,7 +823,7 @@ st52:
 	p += 1;
 case 52:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 79: goto st53;
 		case 85: goto st59;
 	}
@@ -837,7 +837,7 @@ st53:
 	p += 1;
 case 53:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 86: goto st54;
 	}
 	if ( (*p) > 49 ) {
@@ -850,7 +850,7 @@ st54:
 	p += 1;
 case 54:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 73: goto st55;
 	}
 	if ( (*p) > 49 ) {
@@ -863,7 +863,7 @@ st55:
 	p += 1;
 case 55:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 69: goto st56;
 	}
 	if ( (*p) > 49 ) {
@@ -876,7 +876,7 @@ st56:
 	p += 1;
 case 56:
 	switch( (*p) ) {
-		case 37: goto st57;
+		case 36: goto st57;
 		case 83: goto st58;
 	}
 	if ( (*p) > 49 ) {
@@ -896,7 +896,7 @@ case 57:
 st58:
 	p += 1;
 case 58:
-	if ( (*p) == 37 )
+	if ( (*p) == 36 )
 		goto st57;
 	if ( (*p) > 49 ) {
 		if ( 65 <= (*p) && (*p) <= 90 )
@@ -908,7 +908,7 @@ st59:
 	p += 1;
 case 59:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 83: goto st60;
 	}
 	if ( (*p) > 49 ) {
@@ -921,7 +921,7 @@ st60:
 	p += 1;
 case 60:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 73: goto st61;
 	}
 	if ( (*p) > 49 ) {
@@ -934,7 +934,7 @@ st61:
 	p += 1;
 case 61:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 67: goto st10;
 	}
 	if ( (*p) > 49 ) {
@@ -947,7 +947,7 @@ st62:
 	p += 1;
 case 62:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 73: goto st63;
 	}
 	if ( (*p) > 49 ) {
@@ -960,7 +960,7 @@ st63:
 	p += 1;
 case 63:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 67: goto st64;
 	}
 	if ( (*p) > 49 ) {
@@ -973,7 +973,7 @@ st64:
 	p += 1;
 case 64:
 	switch( (*p) ) {
-		case 37: goto st51;
+		case 36: goto st51;
 		case 83: goto st50;
 		case 84: goto st65;
 	}
@@ -987,7 +987,7 @@ st65:
 	p += 1;
 case 65:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 85: goto st66;
 	}
 	if ( (*p) > 49 ) {
@@ -1000,7 +1000,7 @@ st66:
 	p += 1;
 case 66:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 82: goto st67;
 	}
 	if ( (*p) > 49 ) {
@@ -1013,7 +1013,7 @@ st67:
 	p += 1;
 case 67:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 69: goto st68;
 	}
 	if ( (*p) > 49 ) {
@@ -1026,7 +1026,7 @@ st68:
 	p += 1;
 case 68:
 	switch( (*p) ) {
-		case 37: goto st51;
+		case 36: goto st51;
 		case 83: goto st50;
 	}
 	if ( (*p) > 49 ) {
@@ -1039,7 +1039,7 @@ st69:
 	p += 1;
 case 69:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 77: goto st70;
 	}
 	if ( (*p) > 49 ) {
@@ -1052,7 +1052,7 @@ st70:
 	p += 1;
 case 70:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 80: goto st71;
 	}
 	if ( (*p) > 49 ) {
@@ -1064,7 +1064,7 @@ case 70:
 st71:
 	p += 1;
 case 71:
-	if ( (*p) == 37 )
+	if ( (*p) == 36 )
 		goto st72;
 	if ( (*p) > 49 ) {
 		if ( 65 <= (*p) && (*p) <= 90 )
@@ -1084,7 +1084,7 @@ st73:
 	p += 1;
 case 73:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 73: goto st74;
 	}
 	if ( (*p) > 49 ) {
@@ -1097,7 +1097,7 @@ st74:
 	p += 1;
 case 74:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 68: goto st75;
 	}
 	if ( (*p) > 49 ) {
@@ -1110,7 +1110,7 @@ st75:
 	p += 1;
 case 75:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 69: goto st76;
 	}
 	if ( (*p) > 49 ) {
@@ -1123,7 +1123,7 @@ st76:
 	p += 1;
 case 76:
 	switch( (*p) ) {
-		case 37: goto st4;
+		case 36: goto st4;
 		case 79: goto st58;
 	}
 	if ( (*p) > 49 ) {
@@ -1172,7 +1172,7 @@ st83:
 	p += 1;
 case 83:
 	switch( (*p) ) {
-		case 37: goto tr0;
+		case 36: goto tr0;
 		case 126: goto tr3;
 	}
 	goto st0;
