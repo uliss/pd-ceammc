@@ -395,8 +395,6 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
 
     SECTION("std paths")
     {
-        standard_dir_init();
-
         using namespace ceammc;
 
 #if defined(__APPLE__)
@@ -417,5 +415,18 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(standard_dir_get(StandardDir::PdDoc) == std::string());
         REQUIRE(standard_dir_get(StandardDir::CeammcDoc) == std::string());
 #endif
+
+        REQUIRE(standard_dir_get_varname(StandardDir::CeammcDoc) == std::string());
+        REQUIRE(standard_dir_get_varname(StandardDir::PdDoc) == std::string());
+
+        REQUIRE(standard_dir_get_varname(StandardDir::Audio) == std::string("%AUDIO%"));
+        REQUIRE(standard_dir_get_varname(StandardDir::Cwd) == std::string("%CWD%"));
+        REQUIRE(standard_dir_get_varname(StandardDir::Desktop) == std::string("%DESKTOP%"));
+        REQUIRE(standard_dir_get_varname(StandardDir::Documents) == std::string("%DOCUMENT%"));
+        REQUIRE(standard_dir_get_varname(StandardDir::Downloads) == std::string("%DOWNLOAD%"));
+        REQUIRE(standard_dir_get_varname(StandardDir::Home) == std::string("%HOME%"));
+        REQUIRE(standard_dir_get_varname(StandardDir::PdUser) == std::string("%PD_USER%"));
+        REQUIRE(standard_dir_get_varname(StandardDir::Tmp) == std::string("%TMP%"));
+        REQUIRE(standard_dir_get_varname(StandardDir::Video) == std::string("%VIDEO%"));
     }
 }

@@ -61,9 +61,16 @@ namespace platform {
      * @param dir
      * @return path or empty string if not found
      * @complexity O(1) - unordered hash_map
-     * @note standard_path_init() should be called before first usage
      */
     const char* standard_dir_get(StandardDir dir);
+
+    /**
+     * return standard dir varname
+     * @param dir
+     * @return pointer to varname or empty string if not found
+     * @complexity O(1) - unordered hash_map
+     */
+    const char* standard_dir_get_varname(StandardDir dir);
 
     size_t memory_size();
     size_t memory_current_rss();

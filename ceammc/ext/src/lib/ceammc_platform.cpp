@@ -401,6 +401,12 @@ namespace platform {
             return it == vars_.end() ? "" : it->second.second.c_str();
         }
 
+        const char* find_varname(StandardDir id) const
+        {
+            auto it = vars_.find(id);
+            return it == vars_.end() ? "" : it->second.first.c_str();
+        }
+
         void init()
         {
             append_var(StandardDir::Audio, "%AUDIO%", &ceammc_audio_dir);
@@ -452,6 +458,11 @@ namespace platform {
     const char* standard_dir_get(StandardDir dir)
     {
         return SingletonMeyers<StandardDirsDb>::instance().find(dir);
+    }
+
+    const char* standard_dir_get_varname(StandardDir dir)
+    {
+        return SingletonMeyers<StandardDirsDb>::instance().find_varname(dir);
     }
 
 } // namespace platform
