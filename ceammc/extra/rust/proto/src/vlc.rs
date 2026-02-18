@@ -393,11 +393,35 @@ fn process_prefix<'a>(
 fn process_uri(uri: &String) -> anyhow::Result<String> {
     process_prefix((&uri, None), vec!["~", "%HOME%"], &dirs::home_dir())
         .or_else(|uri| process_prefix(uri, vec!["%MUSIC%", "%AUDIO%"], &dirs::audio_dir()))
-        .or_else(|uri| process_prefix(uri, vec!["%VIDEO%", "%MOVIE%", "%MOVIES%"], &dirs::video_dir()))
-        .or_else(|uri| process_prefix(uri, vec!["%IMAGE%", "%PICTURE", "%PICTURES"], &dirs::picture_dir()))
-        .or_else(|uri| process_prefix(uri, vec!["%DOWNLOAD%", "%DOWNLOADS%"], &dirs::download_dir()))
+        .or_else(|uri| {
+            process_prefix(
+                uri,
+                vec!["%VIDEO%", "%MOVIE%", "%MOVIES%"],
+                &dirs::video_dir(),
+            )
+        })
+        .or_else(|uri| {
+            process_prefix(
+                uri,
+                vec!["%IMAGE%", "%PICTURE", "%PICTURES"],
+                &dirs::picture_dir(),
+            )
+        })
+        .or_else(|uri| {
+            process_prefix(
+                uri,
+                vec!["%DOWNLOAD%", "%DOWNLOADS%"],
+                &dirs::download_dir(),
+            )
+        })
         .or_else(|uri| process_prefix(uri, vec!["%DESKTOP%"], &dirs::desktop_dir()))
-        .or_else(|uri| process_prefix(uri, vec!["%DOC%", "%DOCS%", "%DOCUMENT%", "%DOCUMENTS%"], &dirs::document_dir()))
+        .or_else(|uri| {
+            process_prefix(
+                uri,
+                vec!["%DOC%", "%DOCS%", "%DOCUMENT%", "%DOCUMENTS%"],
+                &dirs::document_dir(),
+            )
+        })
         .or_else(|err| match err {
             (src_uri, None) => Ok(src_uri.to_string()),
             (src_uri, Some(err)) => bail!("error processing uric'{src_uri}': {err}"),
