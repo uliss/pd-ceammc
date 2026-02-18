@@ -13,10 +13,10 @@
  *****************************************************************************/
 #include "proto_inscore.h"
 #include "ceammc_crc32.h"
+#include "ceammc_datatypes.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "fmt/core.h"
-#include "ceammc_datatypes.h"
 
 #include <array>
 #include <boost/container/small_vector.hpp>
@@ -37,7 +37,7 @@ t_symbol* make_obj_msg(int i, const char* objName)
     BoostStaticString<64> res("/ITL/scene");
     if (i > 0) {
         char buf[32];
-        sprintf(buf, "%i", i);
+        snprintf(buf, sizeof(buf), "%i", i);
         res += buf;
     }
 
@@ -66,7 +66,7 @@ t_symbol* make_string(const AtomListView& lv)
                 res += a.asT<t_symbol*>()->s_name;
             } else if (a.isFloat()) {
                 char buf[32];
-                sprintf(buf, "%g", a.asT<t_float>());
+                snprintf(buf, sizeof(buf), "%g", a.asT<t_float>());
                 res += buf;
             }
 
@@ -91,7 +91,7 @@ t_symbol* make_chord(const AtomListView& lv)
                 res += a.asT<t_symbol*>()->s_name;
             } else if (a.isFloat()) {
                 char buf[32];
-                sprintf(buf, "%g", a.asT<t_float>());
+                snprintf(buf, sizeof(buf), "%g", a.asT<t_float>());
                 res += buf;
             }
 
@@ -118,7 +118,7 @@ t_symbol* make_cluster(const AtomListView& lv)
                 res += a.asT<t_symbol*>()->s_name;
             } else if (a.isFloat()) {
                 char buf[32];
-                sprintf(buf, "%g", a.asT<t_float>());
+                snprintf(buf, sizeof(buf), "%g", a.asT<t_float>());
                 res += buf;
             }
 
@@ -148,7 +148,7 @@ AtomListView toView(const AtomSmallArray& args)
     return AtomListView(&args.data()->atom(), args.size());
 }
 
-}
+}  // namespace
 
 ProtoInscore::ProtoInscore(const PdArgs& args)
     : BaseObject(args)
@@ -493,7 +493,7 @@ void ProtoInscore::m_ellipse(t_symbol* s, const AtomListView& lv)
     anyTo(0, gensym(SEND_TYPED), toView(args));
 }
 
-void ProtoInscore::m_file(t_symbol *s, const AtomListView &lv)
+void ProtoInscore::m_file(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArgs(lv, ARG_SYMBOL, ARG_SYMBOL)) {
         METHOD_ERR(s) << "usage: OBJ_NAME URL";
