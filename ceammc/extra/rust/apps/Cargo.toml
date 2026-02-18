@@ -9,14 +9,14 @@ edition = "2021"
 name = "rhvoice_download"
 path = "src/rhvoice_download/main.rs"
 
-[[bin]] 
+[[bin]]
 name = "dylibfix"
 path = "src/dylibfix/main.rs"
 
-[[bin]] 
-name = "ceam"
+[[bin]]
+name = "ceam-assistant"
 path = "src/ceam/main.rs"
- 
+
 [dependencies]
 clap = { version = "4.5.59", features = ["derive"] }
 colored = "3.1.1"
@@ -32,6 +32,9 @@ reqwest = "0.13.2"
 tempfile = "3.25.0"
 tokio = { version = "1.37.0", features = ["macros"] }
 zip = "1.1.4"
+os_info = "3.14.0"
+sysinfo = "0.38.2"
+humansize = "2.1.3"
 
 [profile.release]
 strip = true
