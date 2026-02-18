@@ -119,11 +119,6 @@ namespace platform {
     std::string home_directory();
 
     /**
-     * Returns standart Pd user directory:
-     */
-    std::string pd_user_directory();
-
-    /**
      * checks if path starts with ~/
      */
     bool is_tilde_path(const char* path);

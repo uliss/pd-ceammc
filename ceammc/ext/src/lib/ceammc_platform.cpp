@@ -18,6 +18,7 @@
 #include "config.h"
 #include "core_rust.hpp"
 
+#include "fmt/core.h"
 #include "g_canvas.h"
 extern "C" {
 #include "m_imp.h"
@@ -198,7 +199,7 @@ namespace platform {
 
     std::string home_directory()
     {
-        return NS(home_directory)();
+        return standard_path_get_by_id(StandardPath::Home);
     }
 
     std::string expand_tilde_path(const std::string& path)
@@ -332,12 +333,7 @@ namespace platform {
             }
         }
 
-        return pd_user_directory() + "/" + p;
-    }
-
-    std::string pd_user_directory()
-    {
-        return home_directory() + "/Documents/Pd";
+        return fmt::format("{}/{}", standard_path_get_by_id(StandardPath::PdUser), p);
     }
 
     Either<NetAddressList, PlatformError> hostnametoip(const char* name, NetAddressType type)
@@ -420,6 +416,11 @@ namespace platform {
             append_var(StandardPath::Video, "%VIDEO%", &ceammc_path_video);
         }
 
+        StandardPathsDb()
+        {
+            init();
+        }
+
     private:
         std::unordered_map<StandardPath, std::pair<std::string, std::string>> vars_;
 
@@ -445,7 +446,7 @@ namespace platform {
 
     void standard_path_init()
     {
-        SingletonMeyers<StandardPathsDb>::instance().init();
+        SingletonMeyers<StandardPathsDb>::instance();
     }
 
     const char* standard_path_get_by_id(StandardPath id)

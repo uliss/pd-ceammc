@@ -12,10 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_platform.h"
+#include "filesystem.hpp"
 #include "parser_bytes.h"
 #include "path_file.h"
 #include "test_path_base.h"
-#include "filesystem.hpp"
 
 #include <chrono>
 #include <fstream>
@@ -145,7 +145,7 @@ TEST_CASE("path.file", "[externals]")
         SECTION("quoted path")
         {
 #ifdef __APPLE__
-            platform::set_env("PD", ceammc::platform::pd_user_directory().c_str());
+            platform::set_env("PD", ceammc::platform::standard_path_get_by_id(platform::StandardPath::PdUser));
             const std::string rel_path = "\"%PD%/file2.tmp\"";
             const std::string full_path = platform::expand_tilde_path("~/Documents/Pd/file2.tmp");
             std::remove(full_path.c_str());

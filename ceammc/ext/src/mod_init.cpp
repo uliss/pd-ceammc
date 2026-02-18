@@ -99,12 +99,14 @@ static void setup_env_ceammc_doc_path()
 
 static void setup_env_user_path()
 {
+    using namespace ceammc::platform;
+
     if (!ceammc_class || !ceammc_class->c_externdir) {
         pd_error(nullptr, "[ceammc] library is not initialized");
         return;
     }
 
-    ceammc::platform::set_env("PD", ceammc::platform::pd_user_directory().c_str());
+    set_env("PD", standard_path_get_by_id(StandardPath::PdUser));
 }
 
 namespace {

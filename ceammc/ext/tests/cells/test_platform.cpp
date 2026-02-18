@@ -417,12 +417,5 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(standard_path_get_by_id(StandardPath::PdDoc) == std::string());
         REQUIRE(standard_path_get_by_id(StandardPath::CeammcDoc) == std::string());
 #endif
-
-        platform::set_env("PD_DOC", TEST_DATA_DIR);
-        platform::set_env("CEAMMC_DOC", TEST_DATA_DIR);
-
-        standard_path_init();
-        REQUIRE(standard_path_get_by_id(StandardPath::PdDoc) == std::string(TEST_DATA_DIR));
-        REQUIRE(standard_path_get_by_id(StandardPath::CeammcDoc) == std::string(TEST_DATA_DIR));
     }
 }
