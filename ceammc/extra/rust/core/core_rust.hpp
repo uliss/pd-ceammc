@@ -72,6 +72,19 @@ struct ceammc_net_ifaces;
 
 struct ceammc_regexp;
 
+struct ceammc_rust_str_cb {
+    /**
+     * nullable
+     */
+    void *user;
+    /**
+     * not NULL
+     * NOTE: param str is valid only inside of callback call
+     * to future usage do not save str pointer, copy(!) string to elsewhere
+     */
+    void (*cb)(void *user, const char *tmpstr);
+};
+
 struct ceammc_core_notify {
     /**
      * dispatcher ID
@@ -101,19 +114,6 @@ struct ceammc_core_bitmap_on_view {
 struct ceammc_core_on_msg {
     void *user;
     void (*cb)(void *user, ceammc_core_log_level level, const char *msg);
-};
-
-struct ceammc_rust_str_cb {
-    /**
-     * nullable
-     */
-    void *user;
-    /**
-     * not NULL
-     * NOTE: param str is valid only inside of callback call
-     * to future usage do not save str pointer, copy(!) string to elsewhere
-     */
-    void (*cb)(void *user, const char *tmpstr);
 };
 
 struct ceammc_mdns_cb_err {
@@ -225,6 +225,11 @@ struct ceammc_regexp_cb_err {
 };
 
 extern "C" {
+
+/**
+ * cross-platform audio directory path with '/' slashes
+ */
+bool ceammc_audio_dir(ceammc_rust_str_cb cb);
 
 bool ceammc_bitmap_clear(ceammc_core_async_bitmap *bitmap);
 
@@ -434,6 +439,39 @@ bool ceammc_bitmap_vshift(ceammc_core_async_bitmap *bitmap, int16_t dy);
  * cross-platform user name
  */
 bool ceammc_current_user(ceammc_rust_str_cb cb);
+
+/**
+ * cross-platform current working directory path with '/' slashes
+ */
+bool ceammc_cwd_dir(ceammc_rust_str_cb cb);
+
+/**
+ * cross-platform desktop directory path with '/' slashes
+ */
+bool ceammc_desktop_dir(ceammc_rust_str_cb cb);
+
+/**
+ * cross-platform documents directory path with '/' slashes
+ */
+bool ceammc_document_dir(ceammc_rust_str_cb cb);
+
+bool ceammc_download_dir(ceammc_rust_str_cb cb);
+
+/**
+ * cross-platform ceammc external doc directory path with '/' slashes
+ * using CEAMMC_DOC env variable
+ */
+bool ceammc_ext_doc_dir(ceammc_rust_str_cb cb);
+
+/**
+ * cross-platform home directory path with '/' slashes
+ */
+bool ceammc_home_dir(ceammc_rust_str_cb cb);
+
+/**
+ * cross-platform images directory path with '/' slashes
+ */
+bool ceammc_image_dir(ceammc_rust_str_cb cb);
 
 /**
  * create new MDNS service handler
@@ -679,63 +717,15 @@ __attribute__((warn_unused_result))
 ceammc_net_ifaces *ceammc_net_list_interfaces(ceammc_core_on_msg msg_cb);
 
 /**
- * cross-platform audio directory path with '/' slashes
- */
-bool ceammc_path_audio(ceammc_rust_str_cb cb);
-
-/**
- * cross-platform ceammc external doc directory path with '/' slashes
- * using CEAMMC_DOC env variable
- */
-bool ceammc_path_ceammc_doc(ceammc_rust_str_cb cb);
-
-/**
- * cross-platform current working directory path with '/' slashes
- */
-bool ceammc_path_cwd(ceammc_rust_str_cb cb);
-
-/**
- * cross-platform desktop directory path with '/' slashes
- */
-bool ceammc_path_desktop(ceammc_rust_str_cb cb);
-
-/**
- * cross-platform documents directory path with '/' slashes
- */
-bool ceammc_path_documents(ceammc_rust_str_cb cb);
-
-bool ceammc_path_downloads(ceammc_rust_str_cb cb);
-
-/**
- * cross-platform home directory path with '/' slashes
- */
-bool ceammc_path_home(ceammc_rust_str_cb cb);
-
-/**
- * cross-platform images directory path with '/' slashes
- */
-bool ceammc_path_image(ceammc_rust_str_cb cb);
-
-/**
  * cross-platform puredata doc directory path with '/' slashes
  * using PD_DOC env variable
  */
-bool ceammc_path_pd_doc(ceammc_rust_str_cb cb);
+bool ceammc_pd_doc_dir(ceammc_rust_str_cb cb);
 
 /**
  * cross-platform pd user directory path with '/' slashes
  */
-bool ceammc_path_pd_user(ceammc_rust_str_cb cb);
-
-/**
- * cross-platform tmp directory path with '/' slashes
- */
-bool ceammc_path_tmp(ceammc_rust_str_cb cb);
-
-/**
- * cross-platform video directory path with '/' slashes
- */
-bool ceammc_path_video(ceammc_rust_str_cb cb);
+bool ceammc_pd_user_dir(ceammc_rust_str_cb cb);
 
 /**
  * create new regexp
@@ -783,6 +773,16 @@ bool ceammc_regexp_set_str(ceammc_regexp *re, const char *str, ceammc_regexp_cb_
  * logger config is done with a RUST_LOG env variable
  */
 void ceammc_rust_log_init();
+
+/**
+ * cross-platform tmp directory path with '/' slashes
+ */
+bool ceammc_tmp_dir(ceammc_rust_str_cb cb);
+
+/**
+ * cross-platform video directory path with '/' slashes
+ */
+bool ceammc_video_dir(ceammc_rust_str_cb cb);
 
 }  // extern "C"
 

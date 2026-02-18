@@ -403,17 +403,17 @@ namespace platform {
 
         void init()
         {
-            append_var(StandardDir::Audio, "%AUDIO%", &ceammc_path_audio);
-            append_var(StandardDir::CeammcDoc, "%CEAMMC_DOC%", &ceammc_path_ceammc_doc);
-            append_var(StandardDir::Cwd, "%CWD%", &ceammc_path_cwd);
-            append_var(StandardDir::Desktop, "%DESKTOP%", &ceammc_path_desktop);
-            append_var(StandardDir::Documents, "%DOCUMENT%", &ceammc_path_documents);
-            append_var(StandardDir::Downloads, "%DOWNLOAD%", &ceammc_path_downloads);
-            append_var(StandardDir::Home, "%HOME%", &ceammc_path_home);
-            append_var(StandardDir::PdDoc, "%PD_DOC%", &ceammc_path_pd_doc);
-            append_var(StandardDir::PdUser, "%PD_USER%", &ceammc_path_pd_user);
-            append_var(StandardDir::Tmp, "%TMP%", &ceammc_path_tmp);
-            append_var(StandardDir::Video, "%VIDEO%", &ceammc_path_video);
+            append_var(StandardDir::Audio, "%AUDIO%", &ceammc_audio_dir);
+            append_var(StandardDir::CeammcDoc, "%CEAMMC_DOC%", &ceammc_ext_doc_dir);
+            append_var(StandardDir::Cwd, "%CWD%", &ceammc_cwd_dir);
+            append_var(StandardDir::Desktop, "%DESKTOP%", &ceammc_desktop_dir);
+            append_var(StandardDir::Documents, "%DOCUMENT%", &ceammc_document_dir);
+            append_var(StandardDir::Downloads, "%DOWNLOAD%", &ceammc_download_dir);
+            append_var(StandardDir::Home, "%HOME%", &ceammc_home_dir);
+            append_var(StandardDir::PdDoc, "%PD_DOC%", &ceammc_pd_doc_dir);
+            append_var(StandardDir::PdUser, "%PD_USER%", &ceammc_pd_user_dir);
+            append_var(StandardDir::Tmp, "%TMP%", &ceammc_tmp_dir);
+            append_var(StandardDir::Video, "%VIDEO%", &ceammc_video_dir);
         }
 
         StandardDirsDb()
