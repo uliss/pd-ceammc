@@ -128,28 +128,28 @@ void ceammc_vis_fn(t_gobj* z, t_glist* glist, int vis)
     if (vis) {
         auto ann_fn = ceammc::ceammc_get_annotation_fn(&z->g_pd);
         if (ann_fn) {
-            t_object* o = (t_object*)z;
-            const int NINS = obj_ninlets(o);
-            const int NOUTS = obj_noutlets(o);
+            auto obj = reinterpret_cast<t_object*>(z);
+            const int NINS = obj_ninlets(obj);
+            const int NOUTS = obj_noutlets(obj);
 
             // annotate inlets
             for (int i = 0; i < NINS; i++)
-                ceammc::ceammc_xlet_bind_tooltip(o, glist, t_object_get_xlet_id, ann_fn, ceammc::XLET_IN, i);
+                ceammc::ceammc_xlet_bind_tooltip(obj, glist, t_object_get_xlet_id, ann_fn, ceammc::XLET_IN, i);
 
             // annotate outlets
             for (int i = 0; i < NOUTS; i++)
-                ceammc::ceammc_xlet_bind_tooltip(o, glist, t_object_get_xlet_id, ann_fn, ceammc::XLET_OUT, i);
+                ceammc::ceammc_xlet_bind_tooltip(obj, glist, t_object_get_xlet_id, ann_fn, ceammc::XLET_OUT, i);
         }
     }
 }
-}
+} // namespace
 
 void ceammc_init()
 {
     using namespace std;
 
-    const auto is_ceammc = getenv("is_ceammc");
-    if (is_ceammc && strcmp(is_ceammc, "true") == 0) {
+    const auto is_ceammc = ceammc::platform::get_env("is_ceammc");
+    if (is_ceammc == "true") {
         if (text_widgetbehavior.w_visfn && text_widgetbehavior.w_visfn != ceammc_vis_fn) {
             ceammc_pd_vanilla_visfn = text_widgetbehavior.w_visfn;
             auto wb = &text_widgetbehavior;
