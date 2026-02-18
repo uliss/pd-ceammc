@@ -122,7 +122,8 @@ fn output_pd() {
     println!("pd_ver:       \t{}", crate::config::PD_TEXT_VERSION_FULL);
     println!("pd_git_branch:\t{}", crate::config::GIT_BRANCH);
     println!("pd_git_commit:\t{}", crate::config::GIT_COMMIT);
-    println!("pd_build_time:\t{}", crate::config::BUILD_DATETIME);
+    println!("pd_build_date:\t{}", compile_time::date_str!());
+    println!("pd_build_time:\t{}", compile_time::time_str!());
 }
 
 fn output_info(
