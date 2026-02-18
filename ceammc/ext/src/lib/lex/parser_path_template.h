@@ -42,7 +42,9 @@ namespace parser {
      */
     DirectoryTemplate path_get_dir_template(const char* path, const char** begin = nullptr, const char** end = nullptr);
 
-    std::string path_dir_template_subst(const char* path, const std::function<const char*(DirectoryTemplate t)>& fn)
+    using path_dir_template_subst_cb = std::function<const char*(DirectoryTemplate t, const char* begin, const char* end)>;
+
+    inline std::string path_dir_template_subst(const char* path, const path_dir_template_subst_cb& fn)
     {
         const char* begin = nullptr;
         const char* end = nullptr;
@@ -51,7 +53,7 @@ namespace parser {
             std::string res;
             res.reserve(strlen(path) + 64);
             res.assign(path, begin);
-            res.append(fn(type));
+            res.append(fn(type, begin, end));
             res.append(end);
             return res;
         } else {

@@ -78,10 +78,8 @@ TEST_CASE("parser_path_template", "[ceammc::parser]")
 
     SECTION("contains")
     {
-        auto fn = [](DirectoryTemplate t) {
+        auto fn = [](DirectoryTemplate t, const char* begin, const char* end) {
             switch (t) {
-            case None:
-                return "";
             case Home:
                 return "/MYHOME";
             case Audio:
@@ -100,11 +98,13 @@ TEST_CASE("parser_path_template", "[ceammc::parser]")
                 return "/tmp";
             case Cwd:
                 return "/?";
-            case Unknown:
+            case Unknown: {
+                // std::cerr << "unknown path found in: " << orig_path << "\n";
+                return begin;
+            }
+            default:
                 return "???";
             }
-
-            return "";
         };
 
         REQUIRE(path_dir_template_subst("~", fn) == "/MYHOME");
@@ -132,5 +132,7 @@ TEST_CASE("parser_path_template", "[ceammc::parser]")
         REQUIRE(path_dir_template_subst("%DOWNLOAD%/папка", fn) == "/trash/папка");
         REQUIRE(path_dir_template_subst("%TMP%/папка", fn) == "/tmp/папка");
         REQUIRE(path_dir_template_subst("%CWD%/папка", fn) == "/?/папка");
+        REQUIRE(path_dir_template_subst("%UNKNOWN%", fn) == "%UNKNOWN%");
+        REQUIRE(path_dir_template_subst("%UNKNOWN%/", fn) == "%UNKNOWN%/");
     }
 }

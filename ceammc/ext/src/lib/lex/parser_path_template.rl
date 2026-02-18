@@ -15,22 +15,24 @@ machine parser_path_template;
 action prefix_start  { if(begin) *begin = fpc; }
 action prefix_done   { if(end)   *end = fpc; }
 
-home      = ('%HOME%'          | '~')                          %{ res = DirectoryTemplate::Home; };
-audio     = ('%' ('AUDIO'|'MUSIC')                        '%') %{ res = DirectoryTemplate::Audio; };
-video     = ('%' ('VIDEO'|('MOVIE' 'S'?))                 '%') %{ res = DirectoryTemplate::Video; };
-picture   = ('%' ('IMAGE' | 'IMG' | ('PIC' 'TURE'? 'S'?)) '%') %{ res = DirectoryTemplate::Picture; };
-document  = ('%DOC' 'UMENT'? 'S'?                         '%') %{ res = DirectoryTemplate::Document; };
-download  = ('%DOWNLOAD' 'S'?                             '%') %{ res = DirectoryTemplate::Download; };
-desktop   = ('%DESKTOP%')                                      %{ res = DirectoryTemplate::Desktop; };
-tmp       = ('%TMP%')                                          %{ res = DirectoryTemplate::Tmp; };
-cwd       = ('%CWD%')                                          %{ res = DirectoryTemplate::Cwd; };
+s = 'S'?;
+G = '%';
+home      = ((G 'HOME' G)      | '~')                 %{ res = DirectoryTemplate::Home; };
+audio     = ( G ('AUDIO'|'MUSIC')                     G) %{ res = DirectoryTemplate::Audio; };
+video     = ( G ('VIDEO'|('MOVIE' s))                 G) %{ res = DirectoryTemplate::Video; };
+picture   = ( G ('IMAGE' | 'IMG' | ('PIC' 'TURE'? s)) G) %{ res = DirectoryTemplate::Picture; };
+document  = ( G 'DOC' 'UMENT'? s                      G) %{ res = DirectoryTemplate::Document; };
+download  = ( G 'DOWNLOAD' s                          G) %{ res = DirectoryTemplate::Download; };
+desktop   = ( G 'DESKTOP'                             G) %{ res = DirectoryTemplate::Desktop; };
+tmp       = ( G 'TMP'                                 G) %{ res = DirectoryTemplate::Tmp; };
+cwd       = ( G 'CWD'                                 G) %{ res = DirectoryTemplate::Cwd; };
 
 proto  = 'file://';
 prefix = (home | audio | video | picture | document | download | desktop | tmp | cwd)
             >prefix_start
             %prefix_done;
 
-unknown = (('%' [A-Z0-1]+ '%') - prefix) %{ res = DirectoryTemplate::Unknown; }
+unknown = ((G [A-Z0-1]+ G) - prefix) %{ res = DirectoryTemplate::Unknown; }
             >prefix_start
             %prefix_done;
 
