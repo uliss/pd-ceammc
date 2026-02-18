@@ -416,7 +416,7 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(standard_dir_get(StandardDir::CeammcDoc) == std::string());
 #elif defined(__linux__)
         auto user = platform::user_name();
-        REQUIRE(standard_dir_get(StandardDir::Home) == fmt::format("/Users/{}", user));
+        REQUIRE(standard_dir_get(StandardDir::Home) == fmt::format("/home/{}", user));
         REQUIRE(standard_dir_get(StandardDir::Home) == home_directory());
         REQUIRE(standard_dir_get(StandardDir::Audio) == (home_directory() + "/Music"));
         REQUIRE(standard_dir_get(StandardDir::Desktop) == (home_directory() + "/Desktop"));
