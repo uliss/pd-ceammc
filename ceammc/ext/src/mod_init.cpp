@@ -84,6 +84,7 @@ static void setup_env_doc_path()
     std::string path(sys_libdir->s_name);
     path += "/doc";
     ceammc::platform::set_env("DOC", path.c_str());
+    ceammc::platform::set_env("PD_DOC", path.c_str());
 }
 
 static void setup_env_ceammc_doc_path()
@@ -95,6 +96,7 @@ static void setup_env_ceammc_doc_path()
 
     std::string path(ceammc_class->c_externdir->s_name);
     ceammc::platform::set_env("CEAMMC", path.c_str());
+    ceammc::platform::set_env("CEAMMC_DOC", path.c_str());
 }
 
 static void setup_env_user_path()
@@ -173,6 +175,8 @@ void ceammc_init()
     setup_env_doc_path();
     setup_env_ceammc_doc_path();
     setup_env_user_path();
+
+    ceammc::platform::standard_dir_init();
 
 #ifndef __WIN32
     // save vanilla external list
