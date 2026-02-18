@@ -103,6 +103,19 @@ struct ceammc_core_on_msg {
     void (*cb)(void *user, ceammc_core_log_level level, const char *msg);
 };
 
+struct ceammc_rust_str_cb {
+    /**
+     * nullable
+     */
+    void *user;
+    /**
+     * not NULL
+     * NOTE: param str is valid only inside of callback call
+     * to future usage do not save str pointer, copy(!) string to elsewhere
+     */
+    void (*cb)(void *user, const char *tmpstr);
+};
+
 struct ceammc_mdns_cb_err {
     void *user;
     void (*cb)(void *user, const char *msg);
@@ -204,19 +217,6 @@ struct ceammc_mdns_service_info_register {
      * network interface to listen
      */
     ceammc_mdns_iface iface;
-};
-
-struct ceammc_rust_str_cb {
-    /**
-     * nullable
-     */
-    void *user;
-    /**
-     * not NULL
-     * NOTE: param str is valid only inside of callback call
-     * to future usage do not save str pointer, copy(!) string to elsewhere
-     */
-    void (*cb)(void *user, const char *tmpstr);
 };
 
 struct ceammc_regexp_cb_err {
@@ -429,6 +429,11 @@ bool ceammc_bitmap_set_text_color(ceammc_core_async_bitmap *bitmap, int8_t color
 bool ceammc_bitmap_view(ceammc_core_async_bitmap *bitmap);
 
 bool ceammc_bitmap_vshift(ceammc_core_async_bitmap *bitmap, int16_t dy);
+
+/**
+ * cross-platform user name
+ */
+bool ceammc_current_user(ceammc_rust_str_cb cb);
 
 /**
  * create new MDNS service handler

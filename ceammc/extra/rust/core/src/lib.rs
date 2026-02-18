@@ -1,8 +1,9 @@
 pub mod bitmap;
+pub mod lib_regex;
 pub mod mdns_sd;
 pub mod net_iface;
-pub mod lib_regex;
 pub mod stdpaths;
+pub mod whoami;
 
 use env_logger;
 use log::error;
@@ -62,7 +63,10 @@ impl core_on_msg {
     }
 
     fn error_str(&self, msg: &str) {
-        self.exec_raw(core_log_level::Error, &CString::new(msg).unwrap_or_default());
+        self.exec_raw(
+            core_log_level::Error,
+            &CString::new(msg).unwrap_or_default(),
+        );
     }
 }
 
@@ -113,4 +117,10 @@ pub struct rust_str_cb {
     /// NOTE: param str is valid only inside of callback call
     /// to future usage do not save str pointer, copy(!) string to elsewhere
     cb: extern "C" fn(user: *mut c_void, tmpstr: *const c_char),
+}
+
+impl rust_str_cb {
+    fn exec_str(self: &Self, str: &str) {
+        (self.cb)(self.user, CString::new(str).unwrap_or_default().as_ptr())
+    }
 }
