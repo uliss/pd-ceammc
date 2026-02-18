@@ -99,8 +99,7 @@ TEST_CASE("parser_path_template", "[ceammc::parser]")
             case Cwd:
                 return "/?";
             case Unknown: {
-                // std::cerr << "unknown path found in: " << orig_path << "\n";
-                return begin;
+                return "???";
             }
             default:
                 return "???";
