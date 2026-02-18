@@ -4,6 +4,7 @@ use colored::Colorize;
 use humansize::{format_size, BINARY};
 use std::{error::Error, time::SystemTime};
 use sysinfo::{Networks, System};
+use terminal_size::{terminal_size, Width};
 
 #[derive(Clone, Subcommand)]
 enum PdAutostart {}
@@ -49,19 +50,25 @@ fn data_size(size_bytes: u64, human: bool) -> String {
 }
 
 fn output_header(title: &str) {
-    let size = term_size::dimensions().unwrap_or((48, 32));
+    let width = terminal_size().map(|x| x.0 .0).unwrap_or(48);
     println!("{}", format!("[{title}]").bold().cyan());
-    println!("{}", "=".repeat(size.0));
+    println!("{}", "=".repeat(width.into()));
 }
 
 fn output_memory(sys: &System, use_bytes: bool) {
-    println!("mem_total:    \t{}", data_size(sys.total_memory(), !use_bytes));
-    println!("mem_used:     \t{}", data_size(sys.used_memory(), !use_bytes));
-    println!("mem_swap:     \t{}", data_size(sys.total_swap(), !use_bytes));
     println!(
-        "mem_swap_used:\t{}",
-        data_size(sys.used_swap(), !use_bytes)
+        "mem_total:    \t{}",
+        data_size(sys.total_memory(), !use_bytes)
     );
+    println!(
+        "mem_used:     \t{}",
+        data_size(sys.used_memory(), !use_bytes)
+    );
+    println!(
+        "mem_swap:     \t{}",
+        data_size(sys.total_swap(), !use_bytes)
+    );
+    println!("mem_swap_used:\t{}", data_size(sys.used_swap(), !use_bytes));
 }
 
 fn output_cpu(sys: &System) {
