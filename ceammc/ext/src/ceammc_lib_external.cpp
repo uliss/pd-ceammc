@@ -26,7 +26,13 @@
 #include <iostream>
 #include <iterator>
 
+// ceammc external class pointer
 t_class* ceammc_class = nullptr;
+
+// ceammc extern object struct
+struct ceammc_external {
+    t_object x_obj;
+};
 
 namespace {
 
@@ -73,13 +79,13 @@ void ceammc_info_message()
 
 void* ceammc_new()
 {
-    t_object* x = reinterpret_cast<t_object*>(pd_new(ceammc_class));
+    auto x = reinterpret_cast<ceammc_external*>(pd_new(ceammc_class));
     if (!x) {
         pd_error(0, "[ceammc] load error");
         return NULL;
     }
 
-    pd_bind(&x->te_g.g_pd, gensym("ceammc"));
+    pd_bind(&x->x_obj.te_g.g_pd, gensym("ceammc"));
 
     return x;
 }
@@ -161,12 +167,20 @@ void ceammc_doc_lang(t_object* x, t_symbol* s)
     }
 }
 
-void ceammc_quit(t_object* x, t_symbol* s)
+void ceammc_on_quit(t_object* x, t_symbol* s)
 {
-    using namespace ceammc;
+}
 
-    char buf[MAXPDSTRING] = { 0 };
-    auto cls = x->te_g.g_pd;
+void ceammc_on_any(t_object* x, t_symbol* s, int argc, t_atom* argv)
+{
+    auto ext = reinterpret_cast<ceammc_external*>(x);
+    if (!ext)
+        return;
+
+    pd_error(x, "message '%s' is not supported, supported messages are:", s->s_name);
+    for (auto m : { "doc", "load", "store" }) {
+        pd_error(nullptr, " - %s", m);
+    }
 }
 
 void ceammc_tcl_path_init()
@@ -192,7 +206,7 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
     ceammc_class = class_new(gensym("ceammc"),
         reinterpret_cast<t_newmethod>(ceammc_new),
         reinterpret_cast<t_method>(ceammc_free),
-        sizeof(t_object), CLASS_DEFAULT, A_NULL);
+        sizeof(ceammc_external), CLASS_DEFAULT, A_NULL);
 
     class_addbang(ceammc_class, reinterpret_cast<t_method>(ceammc_bang));
     class_addmethod(ceammc_class,
@@ -206,7 +220,9 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
     class_addmethod(ceammc_class,
         reinterpret_cast<t_method>(ceammc_doc_lang), gensym("doc"), A_DEFSYMBOL, 0);
     class_addmethod(ceammc_class,
-        reinterpret_cast<t_method>(ceammc_quit), gensym("verifyquit"), A_DEFSYMBOL, 0);
+        reinterpret_cast<t_method>(ceammc_on_quit), gensym("verifyquit"), A_DEFSYMBOL, 0);
+    class_addanything(ceammc_class,
+        reinterpret_cast<t_method>(ceammc_on_any));
 
     auto tcl = ceammc::platform::get_env("CEAMMC_TCL");
     if (!tcl.empty() && tcl[0] == '1') {
@@ -218,8 +234,6 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
         pd_error(0, "[ceammc] can't create library class");
         return;
     }
-
-
 
     ceammc_info_message();
     ceammc_tcl_path_init();
