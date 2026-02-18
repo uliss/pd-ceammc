@@ -79,7 +79,7 @@ void ceammc_info_message()
     }
 }
 
-void* ceammc_new()
+ceammc_external* ceammc_new()
 {
     auto ext = reinterpret_cast<ceammc_external*>(pd_new(ceammc_class));
     if (!ext) {
@@ -91,6 +91,8 @@ void* ceammc_new()
     ext->config = ceammc_config_load();
     if (!ext->config)
         pd_error(ext, "[ceammc] can't load external config");
+    else
+        ceammc_config_dump(ext->config);
 
     return ext;
 }
@@ -164,23 +166,51 @@ void ceammc_cords(t_object* x, t_symbol* s)
         sys_vgui("[tkcanvas_name $::focused_window] lower cord\n");
 }
 
-void ceammc_doc_lang(t_object* x, t_symbol* s)
+t_symbol* ceammc_gen_doc_path(ceammc_config_lang lang)
+{
+    switch (lang) {
+    case ceammc_config_lang::DEFAULT:
+    case ceammc_config_lang::ENGLISH: {
+        return gensym(class_getname(ceammc_class));
+    }
+    case ceammc_config_lang::RUSSIAN: {
+        char buf[MAXPDSTRING] = { 0 };
+        snprintf(buf, sizeof(buf), "help-ru/%s", class_getname(ceammc_class));
+        return gensym(buf);
+    }
+    }
+}
+
+void ceammc_set_doc_lang(ceammc_external* ext, ceammc_config_lang lang)
 {
     using namespace ceammc;
 
-    char buf[MAXPDSTRING] = { 0 };
-    auto cls = x->te_g.g_pd;
+    if (!ext)
+        return;
 
-    if (s == gensym("ru")) {
-        pdDebug(nullptr, "set documentation language to Russian");
-        ObjectInfoStorage::instance().setDocLanguage(ObjectInfoStorage::Russian);
-        snprintf(buf, sizeof(buf), "help-ru/%s", class_getname(cls));
-        class_sethelpsymbol(cls, gensym(buf));
-    } else {
-        pdDebug(nullptr, "set documentation language to English");
+    switch (lang) {
+    case ceammc_config_lang::DEFAULT:
+    case ceammc_config_lang::ENGLISH: {
+        pdDebug(ext, "set documentation language to English");
         ObjectInfoStorage::instance().setDocLanguage(ObjectInfoStorage::English);
-        class_sethelpsymbol(cls, gensym(class_getname(cls)));
+    } break;
+    case ceammc_config_lang::RUSSIAN: {
+        pdDebug(ext, "set documentation language to Russian");
+        ObjectInfoStorage::instance().setDocLanguage(ObjectInfoStorage::Russian);
+    } break;
     }
+
+    class_sethelpsymbol(ext->x_obj.te_g.g_pd, ceammc_gen_doc_path(lang));
+    ext->config->doc_lang = lang;
+}
+
+void ceammc_doc_lang(t_object* x, t_symbol* s)
+{
+    auto ext = reinterpret_cast<ceammc_external*>(x);
+
+    auto lang = ceammc_config_lang::DEFAULT;
+    ceammc_config_parse_lang(s->s_name, &lang);
+    ceammc_set_doc_lang(ext, lang);
 }
 
 void ceammc_on_quit(t_object* x, t_symbol* s)
@@ -214,6 +244,13 @@ void ceammc_tcl_path_init()
     if (extern_dir)
         sys_vgui("lappend ::auto_path {%s/tcl}\n", extern_dir);
 }
+
+void ceammc_sync_config(ceammc_external* ext)
+{
+    if (ext)
+        ceammc_set_doc_lang(ext, ext->config->doc_lang);
+}
+
 } // namespace
 
 extern "C" CEAMMC_EXTERN int ceammc_init_done()
@@ -260,10 +297,22 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
         return;
     }
 
+    // print load message
     ceammc_info_message();
+
+    // add ceammc external tcl paths
     ceammc_tcl_path_init();
-    ceammc_new();
+
+    // create ceammc external superobject and load config settings
+    auto ext = ceammc_new();
+
+    // other settings and init library objects
     ceammc_init();
+
+    // sync loaded config settings
+    // this should be done after all objects are loaded
+    // for example: help dir change should be done here
+    ceammc_sync_config(ext);
 }
 
 extern "C" CEAMMC_EXTERN void ceammc_list_externals(int vanilla)

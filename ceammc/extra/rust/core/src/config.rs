@@ -1,4 +1,6 @@
-use log::error;
+use std::ffi::{c_char, CStr};
+
+use log::{error, info, warn};
 use serde::{Deserialize, Serialize};
 
 const CONFIG_APP_NAME: &str = "org.ceam.puredata.external";
@@ -40,6 +42,7 @@ pub extern "C" fn ceammc_config_load() -> *mut config {
 pub extern "C" fn ceammc_config_free(config: Option<&mut config>) -> bool {
     match config {
         Some(config) => {
+            println!("load: {config:?}");
             drop(unsafe { Box::from_raw(config) });
             true
         }
@@ -56,9 +59,56 @@ pub extern "C" fn ceammc_config_free(config: Option<&mut config>) -> bool {
 /// @return true on success, false on error
 pub extern "C" fn ceammc_config_store(config: &mut config) -> bool {
     if let Err(err) = confy::store(CONFIG_APP_NAME, None, &config) {
-        error!("{err}");
+        info!("{err}");
         false
     } else {
+        info!("store: {config:?}");
         true
+    }
+}
+
+#[no_mangle]
+/// dump config std output
+/// @param config - not NULL
+pub extern "C" fn ceammc_config_dump(config: &config) -> bool {
+    println!("{:?}", config);
+    true
+}
+
+#[no_mangle]
+/// parse c-string and get language
+/// @param str_lang - c-string
+/// @param lang - not NULL
+/// @return true on success, false on error
+pub extern "C" fn ceammc_config_parse_lang(
+    str_lang: *const c_char,
+    lang: &mut config_lang,
+) -> bool {
+    if str_lang.is_null() {
+        error!("NULL c-string");
+        return false;
+    }
+
+    let str = unsafe { CStr::from_ptr(str_lang) }
+        .to_string_lossy()
+        .to_string();
+
+    match str.as_str() {
+        "ru" => {
+            *lang = config_lang::Russian;
+            true
+        }
+        "en" => {
+            *lang = config_lang::English;
+            true
+        }
+        "def" => {
+            *lang = config_lang::Default;
+            true
+        }
+        _ => {
+            warn!("unknown language code: {str}");
+            false
+        }
     }
 }

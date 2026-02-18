@@ -446,6 +446,12 @@ bool ceammc_bitmap_view(ceammc_core_async_bitmap *bitmap);
 bool ceammc_bitmap_vshift(ceammc_core_async_bitmap *bitmap, int16_t dy);
 
 /**
+ * dump config std output
+ * @param config - not NULL
+ */
+bool ceammc_config_dump(const ceammc_config *config);
+
+/**
  * free config
  * @return true on success, false on error
  */
@@ -456,6 +462,14 @@ bool ceammc_config_free(ceammc_config *config);
  * @return pointer to config or NULL on error
  */
 ceammc_config *ceammc_config_load();
+
+/**
+ * parse c-string and get language
+ * @param str_lang - c-string
+ * @param lang - not NULL
+ * @return true on success, false on error
+ */
+bool ceammc_config_parse_lang(const char *str_lang, ceammc_config_lang *lang);
 
 /**
  * store config
