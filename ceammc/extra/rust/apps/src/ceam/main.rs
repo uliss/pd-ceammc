@@ -4,7 +4,10 @@ use colored::Colorize;
 use humansize::{format_size, BINARY};
 use std::{error::Error, time::SystemTime};
 use sysinfo::{Networks, System};
-use terminal_size::{terminal_size, Width};
+use terminal_size::terminal_size;
+
+#[path = "../ceammc_config.rs"]
+mod config;
 
 #[derive(Clone, Subcommand)]
 enum PdAutostart {}
@@ -113,6 +116,15 @@ fn output_system() {
     );
 }
 
+fn output_pd() {
+    println!("pd_distrib:   \t{}", crate::config::CEAMMC_DISTRIB_VERSION);
+    println!("pd_ceam_ver:  \t{}", crate::config::CEAMMC_LIB_VERSION);
+    println!("pd_ver:       \t{}", crate::config::PD_TEXT_VERSION_FULL);
+    println!("pd_git_branch:\t{}", crate::config::GIT_BRANCH);
+    println!("pd_git_commit:\t{}", crate::config::GIT_COMMIT);
+    println!("pd_build_time:\t{}", crate::config::BUILD_DATETIME);
+}
+
 fn output_info(
     use_bytes: bool,
     output_all: bool,
@@ -120,6 +132,7 @@ fn output_info(
     cpu: bool,
     net: bool,
     system: bool,
+    pd: bool,
 ) {
     // let info = os_info::get();
     let mut sys = sysinfo::System::new_all();
@@ -146,6 +159,13 @@ fn output_info(
     if output_all || system {
         output_header("system");
         output_system();
+        println!();
+    }
+
+    if output_all || pd {
+        output_header("puredata");
+        output_pd();
+        println!();
     }
 }
 
@@ -161,7 +181,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             _ => {}
         },
         Commands::Info { use_bytes, all } => {
-            output_info(use_bytes, all, true, true, true, true);
+            output_info(use_bytes, all, true, true, true, true, true);
         }
     }
 
