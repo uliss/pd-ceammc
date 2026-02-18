@@ -23,7 +23,7 @@ enum class ceammc_core_log_level {
     ERROR,
 };
 
-enum class ceammc_ceammc_config_lang {
+enum class ceammc_config_lang {
     DEFAULT,
     ENGLISH,
     RUSSIAN,
@@ -122,8 +122,8 @@ struct ceammc_core_on_msg {
     void (*cb)(void *user, ceammc_core_log_level level, const char *msg);
 };
 
-struct ceammc_ceammc_config {
-    ceammc_ceammc_config_lang doc_lang;
+struct ceammc_config {
+    ceammc_config_lang doc_lang;
 };
 
 struct ceammc_mdns_cb_err {
@@ -449,20 +449,20 @@ bool ceammc_bitmap_vshift(ceammc_core_async_bitmap *bitmap, int16_t dy);
  * free config
  * @return true on success, false on error
  */
-bool ceammc_config_free(ceammc_ceammc_config *config);
+bool ceammc_config_free(ceammc_config *config);
 
 /**
  * load config from filesystem
  * @return pointer to config or NULL on error
  */
-ceammc_ceammc_config *ceammc_config_load();
+ceammc_config *ceammc_config_load();
 
 /**
  * store config
  * @param config - not NULL
  * @return true on success, false on error
  */
-bool ceammc_config_store(ceammc_ceammc_config *config);
+bool ceammc_config_store(ceammc_config *config);
 
 /**
  * cross-platform user name
