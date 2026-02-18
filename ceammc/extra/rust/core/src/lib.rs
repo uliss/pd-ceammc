@@ -2,7 +2,7 @@ pub mod bitmap;
 pub mod lib_regex;
 pub mod mdns_sd;
 pub mod net_iface;
-pub mod stdpaths;
+pub mod std_dirs;
 pub mod whoami;
 
 use env_logger;

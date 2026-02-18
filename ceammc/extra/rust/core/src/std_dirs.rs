@@ -15,24 +15,24 @@ fn output_path(path: PathBuf, cb: rust_str_cb) -> bool {
     }
 }
 
-fn path_to_string(path: Option<PathBuf>, cb: rust_str_cb) -> bool {
+fn dir_to_string(path: Option<PathBuf>, cb: rust_str_cb) -> bool {
     match path {
         Some(path) => {
             if !path.exists() {
-                error!("path not exists: '{}'", path.to_string_lossy());
+                error!("directory not exists: '{}'", path.to_string_lossy());
                 return false;
             }
 
             match path.canonicalize() {
                 Ok(new_path) => output_path(new_path, cb),
                 Err(err) => {
-                    warn!("can't canonicalize path: {err}");
+                    warn!("can't canonicalize directory path: {err}");
                     output_path(path, cb)
                 }
             }
         }
         None => {
-            error!("path not found");
+            error!("directory not found");
             false
         }
     }
@@ -41,7 +41,7 @@ fn path_to_string(path: Option<PathBuf>, cb: rust_str_cb) -> bool {
 #[no_mangle]
 /// cross-platform home directory path with '/' slashes
 pub extern "C" fn ceammc_path_home(cb: rust_str_cb) -> bool {
-    path_to_string(dirs::home_dir(), cb)
+    dir_to_string(dirs::home_dir(), cb)
 }
 
 #[no_mangle]
@@ -52,7 +52,7 @@ pub extern "C" fn ceammc_path_pd_user(cb: rust_str_cb) -> bool {
         path.push("Pd");
         path
     });
-    path_to_string(path, cb)
+    dir_to_string(path, cb)
 }
 
 #[no_mangle]
@@ -60,7 +60,7 @@ pub extern "C" fn ceammc_path_pd_user(cb: rust_str_cb) -> bool {
 /// using PD_DOC env variable
 pub extern "C" fn ceammc_path_pd_doc(cb: rust_str_cb) -> bool {
     match env::var("PD_DOC") {
-        Ok(var) => path_to_string(Some(PathBuf::from(var)), cb),
+        Ok(var) => dir_to_string(Some(PathBuf::from(var)), cb),
         Err(err) => {
             error!("{err}");
             false
@@ -73,52 +73,52 @@ pub extern "C" fn ceammc_path_pd_doc(cb: rust_str_cb) -> bool {
 /// using CEAMMC_DOC env variable
 pub extern "C" fn ceammc_path_ceammc_doc(cb: rust_str_cb) -> bool {
     let path = env::var("CEAMMC_DOC").ok().map(|var| PathBuf::from(var));
-    path_to_string(path, cb)
+    dir_to_string(path, cb)
 }
 
 #[no_mangle]
 /// cross-platform desktop directory path with '/' slashes
 pub extern "C" fn ceammc_path_desktop(cb: rust_str_cb) -> bool {
-    path_to_string(dirs::desktop_dir(), cb)
+    dir_to_string(dirs::desktop_dir(), cb)
 }
 
 #[no_mangle]
 /// cross-platform audio directory path with '/' slashes
 pub extern "C" fn ceammc_path_audio(cb: rust_str_cb) -> bool {
-    path_to_string(dirs::audio_dir(), cb)
+    dir_to_string(dirs::audio_dir(), cb)
 }
 
 #[no_mangle]
 /// cross-platform video directory path with '/' slashes
 pub extern "C" fn ceammc_path_video(cb: rust_str_cb) -> bool {
-    path_to_string(dirs::video_dir(), cb)
+    dir_to_string(dirs::video_dir(), cb)
 }
 
 #[no_mangle]
 /// cross-platform images directory path with '/' slashes
 pub extern "C" fn ceammc_path_image(cb: rust_str_cb) -> bool {
-    path_to_string(dirs::picture_dir(), cb)
+    dir_to_string(dirs::picture_dir(), cb)
 }
 
 #[no_mangle]
 /// cross-platform documents directory path with '/' slashes
 pub extern "C" fn ceammc_path_documents(cb: rust_str_cb) -> bool {
-    path_to_string(dirs::document_dir(), cb)
+    dir_to_string(dirs::document_dir(), cb)
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_path_downloads(cb: rust_str_cb) -> bool {
-    path_to_string(dirs::download_dir(), cb)
+    dir_to_string(dirs::download_dir(), cb)
 }
 
 #[no_mangle]
 /// cross-platform tmp directory path with '/' slashes
 pub extern "C" fn ceammc_path_tmp(cb: rust_str_cb) -> bool {
-    path_to_string(Some(std::env::temp_dir()), cb)
+    dir_to_string(Some(std::env::temp_dir()), cb)
 }
 
 #[no_mangle]
 /// cross-platform current working directory path with '/' slashes
 pub extern "C" fn ceammc_path_cwd(cb: rust_str_cb) -> bool {
-    path_to_string(std::env::current_dir().ok(), cb)
+    dir_to_string(std::env::current_dir().ok(), cb)
 }

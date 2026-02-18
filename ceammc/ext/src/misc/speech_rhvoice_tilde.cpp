@@ -397,7 +397,7 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
 
 void SpeechRhvoiceTilde::initEngineParams()
 {
-    data_dir_ = platform::standard_path_get_by_id(platform::StandardPath::PdUser);
+    data_dir_ = platform::standard_dir_get(platform::StandardDir::PdUser);
     data_dir_ += "/rhvoice";
     if (!platform::path_exists(data_dir_.c_str())) {
         bool found = false;
@@ -414,7 +414,7 @@ void SpeechRhvoiceTilde::initEngineParams()
             OBJ_DBG << fmt::format("RHVoice data directory not exists: '{}'", data_dir_);
     }
 
-    conf_path_ = platform::standard_path_get_by_id(platform::StandardPath::PdUser);
+    conf_path_ = platform::standard_dir_get(platform::StandardDir::PdUser);
     conf_path_ += "/rhvoice/RHVoice.conf";
     if (!platform::path_exists(conf_path_.c_str())) {
         bool found = false;
