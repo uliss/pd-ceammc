@@ -41,6 +41,7 @@ TEST_CASE("parser_path_template", "[ceammc::parser]")
         REQUIRE(path_get_dir_template("/some/%HOME%") == DirectoryTemplate::None);
         REQUIRE(path_get_dir_template("HOME%") == DirectoryTemplate::None);
         REQUIRE(path_get_dir_template("%HOME") == DirectoryTemplate::None);
+        REQUIRE(path_get_dir_template("%%") == DirectoryTemplate::None);
         CHECK_CONTAINS("%HOME%", Home, 0, 6);
         CHECK_CONTAINS("file://%HOME%", Home, 7, 6);
         CHECK_CONTAINS("file://%HOME%/path", Home, 7, 6);
@@ -62,5 +63,9 @@ TEST_CASE("parser_path_template", "[ceammc::parser]")
         CHECK_CONTAINS("file://%DESKTOP%", Desktop, 7, 9);
         CHECK_CONTAINS("file://%IMAGE%", Picture, 7, 7);
         CHECK_CONTAINS("file://%PICTURE%", Picture, 7, 9);
+
+        CHECK_CONTAINS("%ABC%", Unknown, 0, 5);
+        CHECK_CONTAINS("%AUDI%", Unknown, 0, 6);
+        CHECK_CONTAINS("%HOME1%", Unknown, 0, 7);
     }
 }

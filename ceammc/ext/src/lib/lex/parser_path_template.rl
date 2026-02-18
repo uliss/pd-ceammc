@@ -28,9 +28,13 @@ prefix = (home | audio | video | picture | document | download | desktop)
             >prefix_start
             %prefix_done;
 
+unknown = (('%' [A-Z0-1]+ '%') - prefix) %{ res = DirectoryTemplate::Unknown; }
+            >prefix_start
+            %prefix_done;
+
 other  = [^0];
 
-main := proto? prefix other* 0 @{ fbreak; };
+main := proto? (prefix | unknown) other* 0 @{ fbreak; };
 write data;
 
 }%%

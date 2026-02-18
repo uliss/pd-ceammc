@@ -25,6 +25,7 @@ namespace parser {
         Desktop,
         Document,
         Download,
+        Unknown,
     };
 
     /**
