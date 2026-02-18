@@ -159,6 +159,8 @@ proc ::pd_connect::nuke_pd {} {
 }
 
 proc ::pd_connect::menu_quit {} {
+    # ceammc quit message to save external settings
+    pdsend "ceammc verifyquit"
     pdsend "pd verifyquit"
     # schedule nuke_pd - but it gets cancelled if Pd responds to verifyquit.
     after 2000 ::pd_connect::nuke_pd

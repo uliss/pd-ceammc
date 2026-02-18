@@ -161,6 +161,14 @@ void ceammc_doc_lang(t_object* x, t_symbol* s)
     }
 }
 
+void ceammc_quit(t_object* x, t_symbol* s)
+{
+    using namespace ceammc;
+
+    char buf[MAXPDSTRING] = { 0 };
+    auto cls = x->te_g.g_pd;
+}
+
 void ceammc_tcl_path_init()
 {
     auto extern_dir = class_gethelpdir(ceammc_class);
@@ -197,6 +205,8 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
         reinterpret_cast<t_method>(ceammc_cords), gensym("cords"), A_DEFSYMBOL, 0);
     class_addmethod(ceammc_class,
         reinterpret_cast<t_method>(ceammc_doc_lang), gensym("doc"), A_DEFSYMBOL, 0);
+    class_addmethod(ceammc_class,
+        reinterpret_cast<t_method>(ceammc_quit), gensym("verifyquit"), A_DEFSYMBOL, 0);
 
     auto tcl = ceammc::platform::get_env("CEAMMC_TCL");
     if (!tcl.empty() && tcl[0] == '1') {
@@ -208,6 +218,8 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
         pd_error(0, "[ceammc] can't create library class");
         return;
     }
+
+
 
     ceammc_info_message();
     ceammc_tcl_path_init();
