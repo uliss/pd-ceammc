@@ -23,10 +23,10 @@ enum class ceammc_core_log_level {
     ERROR,
 };
 
-enum class ceammc_config_lang {
-    DEFAULT,
-    ENGLISH,
-    RUSSIAN,
+enum class ceammc_mdns_iface {
+    ANY,
+    V4,
+    V6,
 };
 
 enum class ceammc_mdns_rc {
@@ -40,12 +40,6 @@ enum class ceammc_mdns_rc {
     BROWSEFAILED,
     SETOPTIONERROR,
     SERVICENOTFOUND,
-};
-
-enum class ceammc_mdns_iface {
-    ANY,
-    V4,
-    V6,
 };
 
 enum class ceammc_regexp_mode {
@@ -120,10 +114,6 @@ struct ceammc_core_bitmap_on_view {
 struct ceammc_core_on_msg {
     void *user;
     void (*cb)(void *user, ceammc_core_log_level level, const char *msg);
-};
-
-struct ceammc_config {
-    ceammc_config_lang doc_lang;
 };
 
 struct ceammc_mdns_cb_err {
@@ -444,39 +434,6 @@ bool ceammc_bitmap_set_text_color(ceammc_core_async_bitmap *bitmap, int8_t color
 bool ceammc_bitmap_view(ceammc_core_async_bitmap *bitmap);
 
 bool ceammc_bitmap_vshift(ceammc_core_async_bitmap *bitmap, int16_t dy);
-
-/**
- * dump config std output
- * @param config - not NULL
- */
-bool ceammc_config_dump(const ceammc_config *config);
-
-/**
- * free config
- * @return true on success, false on error
- */
-bool ceammc_config_free(ceammc_config *config);
-
-/**
- * load config from filesystem
- * @return pointer to config or NULL on error
- */
-ceammc_config *ceammc_config_load();
-
-/**
- * parse c-string and get language
- * @param str_lang - c-string
- * @param lang - not NULL
- * @return true on success, false on error
- */
-bool ceammc_config_parse_lang(const char *str_lang, ceammc_config_lang *lang);
-
-/**
- * store config
- * @param config - not NULL
- * @return true on success, false on error
- */
-bool ceammc_config_store(ceammc_config *config);
 
 /**
  * cross-platform user name

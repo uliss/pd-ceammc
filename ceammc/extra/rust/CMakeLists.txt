@@ -29,6 +29,15 @@ if(Rust_FOUND)
         set(RUST_DYLIBFIX ${CMAKE_CURRENT_BINARY_DIR}/dylibfix CACHE STRING FORCE "set dylibfix app")
     endif()
 
+    if(WIN32)
+        corrosion_import_crate(MANIFEST_PATH shared/Cargo.toml CRATE_TYPES cdylib)
+        install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ceammc_shared_rs.dll DESTINATION bin)
+    else()
+        corrosion_import_crate(MANIFEST_PATH shared/Cargo.toml CRATE_TYPES staticlib)
+    endif()
+    # include cbindgen generated headers
+    target_include_directories(ceammc_shared_rs INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/shared>)
+
     if(WITH_RUST_CORE)
         if(WIN32)
             corrosion_import_crate(MANIFEST_PATH core/Cargo.toml CRATE_TYPES cdylib)

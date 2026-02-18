@@ -18,7 +18,7 @@
 #include "ceammc_object_info.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
-#include "core_rust.hpp"
+#include "ceammc_shared_rs.hpp"
 #include "mod_init.h"
 
 #include "m_pd.h"

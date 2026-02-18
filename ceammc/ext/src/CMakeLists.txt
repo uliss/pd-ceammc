@@ -154,5 +154,6 @@ add_custom_target(ceammc_lib_src SOURCES gen_lib.sh)
 
 if(WITH_RUST_CORE)
     target_compile_definitions(ceammc PRIVATE WITH_RUST_CORE)
+    target_link_libraries(ceammc PRIVATE ceammc_shared_rs)
     target_include_directories(ceammc PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/core)
 endif()

@@ -3,7 +3,7 @@ use std::ffi::{c_char, CStr};
 use log::{error, info, warn};
 use serde::{Deserialize, Serialize};
 
-const CONFIG_APP_NAME: &str = "org.ceam.puredata.external";
+pub const CONFIG_APP_NAME: &str = "org.ceam.puredata.external";
 
 #[derive(Debug, Default, Serialize, Deserialize)]
 #[repr(C)]
@@ -26,8 +26,7 @@ pub struct config {
 /// load config from filesystem
 /// @return pointer to config or NULL on error
 pub extern "C" fn ceammc_config_load() -> *mut config {
-    let config: Result<config, _> = confy::load(CONFIG_APP_NAME, None);
-    match config {
+    match config_load() {
         Ok(config) => Box::into_raw(Box::new(config)),
         Err(err) => {
             error!("{err}");
@@ -57,8 +56,8 @@ pub extern "C" fn ceammc_config_free(config: Option<&mut config>) -> bool {
 /// store config
 /// @param config - not NULL
 /// @return true on success, false on error
-pub extern "C" fn ceammc_config_store(config: &mut config) -> bool {
-    if let Err(err) = confy::store(CONFIG_APP_NAME, None, &config) {
+pub extern "C" fn ceammc_config_store(config: &config) -> bool {
+    if let Err(err) = config_store(config) {
         info!("{err}");
         false
     } else {
@@ -111,4 +110,16 @@ pub extern "C" fn ceammc_config_parse_lang(
             false
         }
     }
+}
+
+// for outer modules
+#[allow(unused)]
+pub fn config_load() -> Result<config, String> {
+    confy::load(CONFIG_APP_NAME, None).map_err(|err| err.to_string())
+}
+
+// for outer modules
+#[allow(unused)]
+pub fn config_store(conf: &config) -> Result<(), String> {
+    confy::store(CONFIG_APP_NAME, None, &conf).map_err(|err| err.to_string())
 }

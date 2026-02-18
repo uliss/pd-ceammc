@@ -312,6 +312,7 @@ if(LibMagic_FOUND AND NOT WIN32) # strange crash in windows
     target_compile_definitions(ceammc_core PRIVATE WITH_LIBMAGIC)
 endif()
 
+target_link_libraries(ceammc_core PRIVATE ceammc_shared_rs)
 target_link_libraries(ceammc_core PRIVATE core_rust)
 target_link_libraries(ceammc_core PRIVATE reflex)
 target_link_libraries(ceammc_core PRIVATE muparser)
