@@ -24,7 +24,7 @@ base64 = "0.22.1"
 regex = "1.12.3"
 dirs = "6.0.0"
 path-slash = "0.2.1"
-whoami = { version = "2.1.1", features = ["std"] }
+whoami = { version = "2.1.1", features = ["std"], default-features = false }
 
 [build-dependencies]
 cbindgen = "0.29.2"
