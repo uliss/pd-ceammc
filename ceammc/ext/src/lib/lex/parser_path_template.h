@@ -25,6 +25,8 @@ namespace parser {
         Desktop,
         Document,
         Download,
+        Tmp,
+        Cwd,
         Unknown,
     };
 

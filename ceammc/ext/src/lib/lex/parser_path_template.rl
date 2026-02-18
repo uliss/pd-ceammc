@@ -15,16 +15,18 @@ machine parser_path_template;
 action prefix_start  { if(begin) *begin = fpc; }
 action prefix_done   { if(end)   *end = fpc; }
 
-home      = ('%HOME%'   | '~')                      %{ res = DirectoryTemplate::Home; };
-audio     = ('%AUDIO%'   | '%MUSIC%')               %{ res = DirectoryTemplate::Audio; };
-video     = ('%VIDEO%'   | ('%MOVIE' 'S'? '%'))     %{ res = DirectoryTemplate::Video; };
-picture   = ('%IMAGE%'   | ('%PICTURE' 'S'? '%'))   %{ res = DirectoryTemplate::Picture; };
-document  = ('%DOC%'     | ('%DOCUMENT' 'S'? '%'))  %{ res = DirectoryTemplate::Document; };
-desktop   = ('%DESKTOP%')                           %{ res = DirectoryTemplate::Desktop; };
-download  = ('%DOWNLOAD' 'S'? '%')                  %{ res = DirectoryTemplate::Download; };
+home      = ('%HOME%'          | '~')                          %{ res = DirectoryTemplate::Home; };
+audio     = ('%' ('AUDIO'|'MUSIC')                        '%') %{ res = DirectoryTemplate::Audio; };
+video     = ('%' ('VIDEO'|('MOVIE' 'S'?))                 '%') %{ res = DirectoryTemplate::Video; };
+picture   = ('%' ('IMAGE' | 'IMG' | ('PIC' 'TURE'? 'S'?)) '%') %{ res = DirectoryTemplate::Picture; };
+document  = ('%DOC' 'UMENT'? 'S'? '%')                         %{ res = DirectoryTemplate::Document; };
+desktop   = ('%DESKTOP%')                                      %{ res = DirectoryTemplate::Desktop; };
+download  = ('%DOWNLOAD' 'S'? '%')                             %{ res = DirectoryTemplate::Download; };
+tmp       = ('%TMP%')                                          %{ res = DirectoryTemplate::Tmp; };
+cwd       = ('%CWD%')                                          %{ res = DirectoryTemplate::Cwd; };
 
 proto  = 'file://';
-prefix = (home | audio | video | picture | document | download | desktop)
+prefix = (home | audio | video | picture | document | download | desktop | tmp | cwd)
             >prefix_start
             %prefix_done;
 

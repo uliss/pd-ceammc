@@ -53,8 +53,15 @@ TEST_CASE("parser_path_template", "[ceammc::parser]")
         CHECK_CONTAINS("%MOVIE%", Video, 0, 7);
         CHECK_CONTAINS("%MOVIES%", Video, 0, 8);
         CHECK_CONTAINS("%DESKTOP%", Desktop, 0, 9);
+        CHECK_CONTAINS("%DOC%", Document, 0, 5);
+        CHECK_CONTAINS("%DOCS%", Document, 0, 6);
+        CHECK_CONTAINS("%DOCUMENT%", Document, 0, 10);
+        CHECK_CONTAINS("%DOCUMENTS%", Document, 0, 11);
         CHECK_CONTAINS("%IMAGE%", Picture, 0, 7);
         CHECK_CONTAINS("%PICTURE%", Picture, 0, 9);
+        CHECK_CONTAINS("%PICS%", Picture, 0, 6);
+        CHECK_CONTAINS("%IMG%", Picture, 0, 5);
+        CHECK_CONTAINS("%TMP%", Tmp, 0, 5);
 
         CHECK_CONTAINS("file://%MUSIC%", Audio, 7, 7);
         CHECK_CONTAINS("file://%VIDEO%", Video, 7, 7);
