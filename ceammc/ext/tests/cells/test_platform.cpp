@@ -414,6 +414,22 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
 
         REQUIRE(standard_dir_get(StandardDir::PdDoc) == std::string());
         REQUIRE(standard_dir_get(StandardDir::CeammcDoc) == std::string());
+#elif defined(__linux__)
+        auto user = platform::user_name();
+        REQUIRE(standard_dir_get(StandardDir::Home) == fmt::format("/Users/{}", user));
+        REQUIRE(standard_dir_get(StandardDir::Home) == home_directory());
+        REQUIRE(standard_dir_get(StandardDir::Audio) == (home_directory() + "/Music"));
+        REQUIRE(standard_dir_get(StandardDir::Desktop) == (home_directory() + "/Desktop"));
+        REQUIRE(standard_dir_get(StandardDir::Documents) == (home_directory() + "/Documents"));
+        REQUIRE(standard_dir_get(StandardDir::Downloads) == (home_directory() + "/Downloads"));
+        REQUIRE(standard_dir_get(StandardDir::PdUser) == (home_directory() + "/Documents/Pd"));
+
+        char buf[1024] = { 0 };
+        REQUIRE(getcwd(buf, sizeof(buf)));
+        REQUIRE(standard_dir_get(StandardDir::Cwd) == std::string(buf));
+
+        REQUIRE(standard_dir_get(StandardDir::PdDoc) == std::string());
+        REQUIRE(standard_dir_get(StandardDir::CeammcDoc) == std::string());
 #endif
 
         REQUIRE(standard_dir_get_varname(StandardDir::CeammcDoc) == std::string());
@@ -427,6 +443,9 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(standard_dir_get_varname(StandardDir::Home) == std::string("%HOME%"));
         REQUIRE(standard_dir_get_varname(StandardDir::PdUser) == std::string("%PD_USER%"));
         REQUIRE(standard_dir_get_varname(StandardDir::Tmp) == std::string("%TMP%"));
+
+#if defined(__APPLE__)
         REQUIRE(standard_dir_get_varname(StandardDir::Video) == std::string("%VIDEO%"));
+#endif
     }
 }
