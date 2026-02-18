@@ -19,7 +19,7 @@ static const int parser_path_template_error = 0;
 static const int parser_path_template_en_main = 1;
 
 
-#line 44 "lex/parser_path_template.rl"
+#line 45 "lex/parser_path_template.rl"
 
 
 DirectoryTemplate path_get_dir_template(const char* path, const char** begin, const char** end) {
@@ -39,7 +39,7 @@ DirectoryTemplate path_get_dir_template(const char* path, const char** begin, co
 	cs = parser_path_template_start;
 	}
 
-#line 58 "lex/parser_path_template.rl"
+#line 59 "lex/parser_path_template.rl"
     
 #line 45 "lex/parser_path_template.cpp"
 	{
@@ -100,61 +100,61 @@ case 4:
 	}
 	goto tr15;
 tr15:
-#line 35 "lex/parser_path_template.rl"
+#line 36 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Unknown; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
 	goto st5;
 tr24:
-#line 21 "lex/parser_path_template.rl"
+#line 22 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Audio; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
 	goto st5;
 tr29:
-#line 28 "lex/parser_path_template.rl"
+#line 29 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Cwd; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
 	goto st5;
 tr39:
-#line 26 "lex/parser_path_template.rl"
+#line 27 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Desktop; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
 	goto st5;
 tr46:
-#line 24 "lex/parser_path_template.rl"
+#line 25 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Document; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
 	goto st5;
 tr59:
-#line 25 "lex/parser_path_template.rl"
+#line 26 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Download; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
 	goto st5;
 tr65:
-#line 20 "lex/parser_path_template.rl"
+#line 21 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Home; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
 	goto st5;
 tr72:
-#line 23 "lex/parser_path_template.rl"
+#line 24 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Picture; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
 	goto st5;
 tr81:
-#line 22 "lex/parser_path_template.rl"
+#line 23 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Video; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
 	goto st5;
 tr94:
-#line 27 "lex/parser_path_template.rl"
+#line 28 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Tmp; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
@@ -169,87 +169,87 @@ case 5:
 	}
 	goto st5;
 tr16:
-#line 35 "lex/parser_path_template.rl"
+#line 36 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Unknown; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
-#line 41 "lex/parser_path_template.rl"
+#line 42 "lex/parser_path_template.rl"
 	{ {p++; cs = 84; goto _out;} }
 	goto st84;
 tr18:
-#line 41 "lex/parser_path_template.rl"
+#line 42 "lex/parser_path_template.rl"
 	{ {p++; cs = 84; goto _out;} }
 	goto st84;
 tr25:
-#line 21 "lex/parser_path_template.rl"
+#line 22 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Audio; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
-#line 41 "lex/parser_path_template.rl"
+#line 42 "lex/parser_path_template.rl"
 	{ {p++; cs = 84; goto _out;} }
 	goto st84;
 tr30:
-#line 28 "lex/parser_path_template.rl"
+#line 29 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Cwd; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
-#line 41 "lex/parser_path_template.rl"
+#line 42 "lex/parser_path_template.rl"
 	{ {p++; cs = 84; goto _out;} }
 	goto st84;
 tr40:
-#line 26 "lex/parser_path_template.rl"
+#line 27 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Desktop; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
-#line 41 "lex/parser_path_template.rl"
+#line 42 "lex/parser_path_template.rl"
 	{ {p++; cs = 84; goto _out;} }
 	goto st84;
 tr47:
-#line 24 "lex/parser_path_template.rl"
+#line 25 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Document; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
-#line 41 "lex/parser_path_template.rl"
+#line 42 "lex/parser_path_template.rl"
 	{ {p++; cs = 84; goto _out;} }
 	goto st84;
 tr60:
-#line 25 "lex/parser_path_template.rl"
+#line 26 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Download; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
-#line 41 "lex/parser_path_template.rl"
+#line 42 "lex/parser_path_template.rl"
 	{ {p++; cs = 84; goto _out;} }
 	goto st84;
 tr66:
-#line 20 "lex/parser_path_template.rl"
+#line 21 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Home; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
-#line 41 "lex/parser_path_template.rl"
+#line 42 "lex/parser_path_template.rl"
 	{ {p++; cs = 84; goto _out;} }
 	goto st84;
 tr73:
-#line 23 "lex/parser_path_template.rl"
+#line 24 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Picture; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
-#line 41 "lex/parser_path_template.rl"
+#line 42 "lex/parser_path_template.rl"
 	{ {p++; cs = 84; goto _out;} }
 	goto st84;
 tr82:
-#line 22 "lex/parser_path_template.rl"
+#line 23 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Video; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
-#line 41 "lex/parser_path_template.rl"
+#line 42 "lex/parser_path_template.rl"
 	{ {p++; cs = 84; goto _out;} }
 	goto st84;
 tr95:
-#line 27 "lex/parser_path_template.rl"
+#line 28 "lex/parser_path_template.rl"
 	{ res = DirectoryTemplate::Tmp; }
 #line 16 "lex/parser_path_template.rl"
 	{ if(end)   *end = p; }
-#line 41 "lex/parser_path_template.rl"
+#line 42 "lex/parser_path_template.rl"
 	{ {p++; cs = 84; goto _out;} }
 	goto st84;
 st84:
@@ -1181,7 +1181,7 @@ case 83:
 	_out: {}
 	}
 
-#line 59 "lex/parser_path_template.rl"
+#line 60 "lex/parser_path_template.rl"
 
     if (cs >= 84)
         return res;
