@@ -103,3 +103,14 @@ where
         unsafe { from_raw_parts(data, len) }.to_vec()
     }
 }
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct rust_str_cb {
+    /// nullable
+    user: *mut c_void,
+    /// not NULL
+    /// NOTE: param str is valid only inside of callback call
+    /// to future usage do not save str pointer, copy(!) string to elsewhere
+    cb: extern "C" fn(user: *mut c_void, tmpstr: *const c_char),
+}

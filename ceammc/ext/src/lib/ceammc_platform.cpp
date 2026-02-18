@@ -407,7 +407,7 @@ namespace platform {
         std::unordered_map<StandardPath, std::pair<std::string, std::string>> vars_;
 
     private:
-        void append_var(StandardPath id, const char* name, bool(fn)(ceammc_path_str_cb))
+        void append_var(StandardPath id, const char* name, bool(fn)(ceammc_rust_str_cb))
         {
             std::string str;
 
