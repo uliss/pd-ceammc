@@ -53,7 +53,7 @@ SystemCursor::SystemCursor(const PdArgs& args)
     createOutlet();
 
     char buf[MAXPDSTRING];
-    sprintf(buf, "#%" PRIxPTR, reinterpret_cast<uintptr_t>(this));
+    snprintf(buf, sizeof(buf), "#%" PRIxPTR, reinterpret_cast<uintptr_t>(this));
     bindReceive(gensym(buf));
 
     relative_ = new BoolProperty("@relative", false);

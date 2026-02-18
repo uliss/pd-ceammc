@@ -19,13 +19,13 @@ using namespace ceammc;
 
 class SystemScreenSize : public BaseObject {
 public:
-    SystemScreenSize(const PdArgs& a)
+    explicit SystemScreenSize(const PdArgs& a)
         : BaseObject(a)
     {
         createOutlet();
 
         char buf[MAXPDSTRING];
-        sprintf(buf, "#%p", static_cast<void*>(owner()));
+        snprintf(buf, sizeof(buf), "#%p", static_cast<void*>(owner()));
         bindReceive(gensym(buf));
     }
 
