@@ -8,8 +8,10 @@ install(FILES abstraction_objects.txt DESTINATION ${PD_COMPLETION_PATH})
 file(GLOB ABSTRACTION_FILES "*.pd")
 # install all abstractions files
 foreach(_abs_file ${ABSTRACTION_FILES})
-    install(FILES "${_abs_file}"
-        DESTINATION "${PD_DOC_INSTALL_PATH}/extra/ceammc"
+    cmake_path(SET _abs_file NORMALIZE "${_abs_file}")
+    cmake_path(SET _install_dir NORMALIZE "${PD_DOC_INSTALL_PATH}/extra/ceammc")
+    install(FILES ${_abs_file}
+        DESTINATION ${_install_dir}
         PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
 endforeach()
 
