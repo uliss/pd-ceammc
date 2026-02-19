@@ -31,7 +31,7 @@ enum Pd {
         /// add file to autostart
         #[arg(short, long)]
         add: Option<String>,
-        /// restore default autostart file
+        /// restore default autostart patch link
         #[arg(long)]
         default: bool,
         /// enable autostart
