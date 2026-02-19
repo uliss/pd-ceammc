@@ -74,6 +74,13 @@ fn copy(from: &PathBuf, dest: &PathBuf) -> Result<(), common::Error> {
     Ok(())
 }
 
+fn remove_file(path: &PathBuf) -> Result<(), common::Error> {
+    std::fs::remove_file(path)
+        .map_err(|err| Error::FileRemoveError(path.clone(), err.to_string()))?;
+    info!("remove {path:?}");
+    Ok(())
+}
+
 fn copy_run_script() -> Result<(), common::Error> {
     let from = check_orig_run_script()?;
     copy(&from, &run_script_path())?;
@@ -101,16 +108,16 @@ pub fn enable() -> Result<(), common::Error> {
 }
 
 fn remove_run_script() -> Result<(), common::Error> {
-    // this is required
+    // this check is required
     let _ = check_orig_run_script()?;
-    std::fs::remove_file(run_script_path()).map_err(|err| Error::Common(format!("{err}")))?;
+    remove_file(&run_script_path())?;
     Ok(())
 }
 
 fn remove_desktop() -> Result<(), common::Error> {
-    // this is required
+    // this check is required
     let _ = check_orig_desktop()?;
-    std::fs::remove_file(desktop_path()).map_err(|err| Error::Common(format!("{err}")))?;
+    remove_file(&desktop_path())?;
     Ok(())
 }
 

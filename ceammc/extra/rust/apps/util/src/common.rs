@@ -7,6 +7,7 @@ pub enum Error {
     Common(String),
     FileNotFound(PathBuf, Option<String>),
     FileCopyError(PathBuf, PathBuf, String),
+    FileRemoveError(PathBuf, String),
     NotImplented(String),
 }
 
@@ -42,6 +43,11 @@ pub fn output_error(err: &Error) {
                 dest.to_string_lossy().as_ref().cyan(),
             )
         }
+        Error::FileRemoveError(path, err) => println!(
+            "{} while removing {}: {err}",
+            "[error]".magenta(),
+            path.to_string_lossy().as_ref().cyan(),
+        ),
     }
 }
 
