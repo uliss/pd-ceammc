@@ -204,9 +204,8 @@ fn main() -> anyhow::Result<()> {
                         .unwrap_or("???".to_string())
                         .magenta()
                 );
-                Command::new("sudo")
-                    .arg(cmd[0])
-                    .arg(cmd[1])
+                let status = Command::new("sudo")
+                    .args(cmd)
                     .stdin(Stdio::inherit())
                     .stdout(Stdio::inherit())
                     .stderr(Stdio::inherit())
@@ -214,6 +213,21 @@ fn main() -> anyhow::Result<()> {
                     .expect("Failed to execute command")
                     .wait()
                     .expect("failed to wait on child");
+
+                if status.success() {
+                    let cmd = ["apt", "upgrade", "--only-upgrade", "pd-ceammc"];
+                    println!("running {} command\n\n", cmd.join(" ").cyan());
+
+                    let _status = Command::new("sudo")
+                        .args(cmd)
+                        .stdin(Stdio::inherit())
+                        .stdout(Stdio::inherit())
+                        .stderr(Stdio::inherit())
+                        .spawn()
+                        .expect("Failed to execute command")
+                        .wait()
+                        .expect("failed to wait on child");
+                }
             }
             Pd::Lang { set } => {
                 let mut cfg =
