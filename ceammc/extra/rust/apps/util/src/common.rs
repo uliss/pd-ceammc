@@ -28,6 +28,7 @@ pub fn init_logger() {
 pub enum Error {
     Common(String),
     FileNotFound(PathBuf, Option<String>),
+    DirNotFound(PathBuf, Option<String>),
     FileCopyError(PathBuf, PathBuf, String),
     FileRemoveError(PathBuf, String),
     SymlinkError(PathBuf, PathBuf, String),
@@ -66,6 +67,13 @@ pub fn output_error(err: &Error) {
                 link.to_string_lossy().as_ref().cyan(),
                 original.to_string_lossy().as_ref().cyan(),
             )
+        }
+        Error::DirNotFound(dir, descr) => {
+            let dir = dir.to_string_lossy().as_ref().cyan();
+            match descr {
+                Some(descr) => error!("{descr} directory not found: {dir}"),
+                None => error!("directory not found: {dir}"),
+            }
         }
     }
 }

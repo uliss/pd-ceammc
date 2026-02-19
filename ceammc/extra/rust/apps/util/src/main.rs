@@ -126,7 +126,9 @@ fn main() -> anyhow::Result<()> {
                 }
 
                 if all || examples {
-                    update::update_examples();
+                    if let Err(err) = update::update_examples() {
+                        output_error(&err);
+                    }
                 }
             }
             Pd::Lang { set } => {
