@@ -25,13 +25,14 @@ enum LangName {
 
 #[derive(Clone, Subcommand)]
 enum Pd {
-    /// autostart management
+    /// auto start control: enable, disable, set main patch symlink
     #[group(required = false, multiple = false)]
+    #[command(alias = "auto", long_about = "?")]
     Autostart {
-        /// add file to autostart
-        #[arg(short, long)]
+        /// create symlink to autostart patch
+        #[arg(short, long, name = "FILE")]
         add: Option<String>,
-        /// restore default autostart patch link
+        /// restore default autostart patch symlink
         #[arg(long)]
         default: bool,
         /// enable autostart
@@ -40,7 +41,7 @@ enum Pd {
         /// disable autostart
         #[arg(short, long)]
         disable: bool,
-        /// print verbose autostart information
+        /// print verbose info
         #[arg(short, long)]
         info: bool,
     },
@@ -54,13 +55,14 @@ enum Pd {
     Update,
 }
 
+/// CEAM utilities
 #[derive(Subcommand, Clone)]
 #[command(version, about, long_about = None)]
 enum Commands {
     #[command(subcommand)]
-    /// PureData management
+    /// PureData control
     Pd(Pd),
-    /// output system information
+    /// System information
     Info {
         #[arg(short, long)]
         use_bytes: bool,
