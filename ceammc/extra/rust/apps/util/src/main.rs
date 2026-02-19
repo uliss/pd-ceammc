@@ -22,7 +22,7 @@ enum LangName {
 #[derive(Clone, Subcommand)]
 enum Pd {
     /// autorun management
-    #[group(required = true, multiple = false)]
+    #[group(required = false, multiple = false)]
     Autorun {
         /// add file to the Pd autorun
         #[arg(long)]
@@ -241,7 +241,11 @@ fn main() -> anyhow::Result<()> {
                 } else if disable {
                     println!("disable autorun: {}", "not implemented yet".red());
                 } else {
-                    println!("{}", "not implemented yet".red());
+                    println!(
+                        "autostart path: {}",
+                        autostart_path().unwrap_or_default().blue()
+                    );
+                    output_rule();
                 }
             }
             Pd::Update => {
