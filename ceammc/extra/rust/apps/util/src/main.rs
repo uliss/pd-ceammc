@@ -289,7 +289,7 @@ fn main() -> anyhow::Result<()> {
                     );
                     println!(
                         "desktop:       \t{}",
-                        autostart_script().unwrap_or_default().cyan()
+                        autostart_desktop().unwrap_or_default().cyan()
                     );
                     println!()
                 }
