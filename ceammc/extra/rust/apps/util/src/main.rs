@@ -141,6 +141,16 @@ fn output_system() {
     );
 }
 
+fn autostart_path() -> Option<String> {
+    std::env::home_dir()
+        .and_then(|mut x| {
+            x.push("Documents/Pd/main.pd");
+            Some(x)
+        })
+        .filter(|x| x.is_file())
+        .map(|x| x.to_string_lossy().to_string())
+}
+
 fn output_pd() {
     println!("pd_distrib:   \t{}", crate::config::CEAMMC_DISTRIB_VERSION);
     println!("pd_ceam_ver:  \t{}", crate::config::CEAMMC_LIB_VERSION);
@@ -154,6 +164,10 @@ fn output_pd() {
         .map(|x| x.doc_lang.to_string())
         .unwrap_or_default();
     println!("pd_lang:      \t{lang}");
+    println!(
+        "pd_autostart:  \t{}",
+        autostart_path().unwrap_or("?".to_string()).blue()
+    );
 }
 
 fn output_info(
