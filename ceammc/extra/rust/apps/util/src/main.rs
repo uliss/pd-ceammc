@@ -241,9 +241,10 @@ fn main() -> anyhow::Result<()> {
                 } else if disable {
                     println!("disable autorun: {}", "not implemented yet".red());
                 } else {
+                    output_rule();
                     println!(
                         "autostart path: {}",
-                        autostart_path().unwrap_or_default().blue()
+                        autostart_path().unwrap_or_default().cyan()
                     );
                     output_rule();
                 }
