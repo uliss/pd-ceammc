@@ -222,7 +222,7 @@ fn main() -> anyhow::Result<()> {
                 if status.success() {
                     let cmd = ["apt", "upgrade", "--only-upgrade", "pd-ceammc"];
                     output_rule();
-                    println!("running command: {}\n", cmd.join(" ").cyan());
+                    println!("running command: {}", cmd.join(" ").cyan());
                     output_rule();
 
                     let _status = Command::new("sudo")
