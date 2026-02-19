@@ -13,6 +13,9 @@ if(UNIX AND NOT APPLE)
                  ${PROJECT_BINARY_DIR}/scripts/build_verovio.sh @ONLY)
 
   # Raspberry Pi run script, supposed to be installed into ${HOME}/bin
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/rpi/pd_start.sh
+                 ${PROJECT_BINARY_DIR}/scripts/pd_start.sh @ONLY)
+  # Autostart file to place into ${HOME}/.config/autostart
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/rpi/pd-ceammc.desktop
                  ${PROJECT_BINARY_DIR}/scripts/pd-ceammc.desktop @ONLY)
 
