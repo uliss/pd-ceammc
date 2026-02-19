@@ -9,15 +9,15 @@ const ORIG_SCRIPT: &str = "/usr/lib/pd_ceammc/share/rpi/pd_start.sh";
 const ORIG_DESKTOP: &str = "/usr/lib/pd_ceammc/share/rpi/some.desktop";
 const ORIG_MAIN_PATCH: &str = "/usr/lib/pd_ceammc/share/rpi/main.pd";
 
-pub fn orig_run_script_path() -> PathBuf {
+fn orig_run_script_path() -> PathBuf {
     PathBuf::from(ORIG_SCRIPT)
 }
 
-pub fn orig_desktop_path() -> PathBuf {
+fn orig_desktop_path() -> PathBuf {
     PathBuf::from(ORIG_SCRIPT)
 }
 
-pub fn orig_main_patch_path() -> PathBuf {
+fn orig_main_patch_path() -> PathBuf {
     PathBuf::from(ORIG_MAIN_PATCH)
 }
 
@@ -56,7 +56,10 @@ pub fn check_orig_run_script() -> Result<PathBuf, Error> {
     if path.is_file() {
         Ok(path)
     } else {
-        Err(Error::FileNotFound(path, Some("original run script".to_string())))
+        Err(Error::FileNotFound(
+            path,
+            Some("original run script".to_string()),
+        ))
     }
 }
 
@@ -130,6 +133,7 @@ pub enum ProcessOptions {
     Enable,
     Disable,
     Info,
+    VerboseInfo,
 }
 
 pub fn process(opts: ProcessOptions) -> Result<(), Error> {
@@ -149,6 +153,13 @@ pub fn process(opts: ProcessOptions) -> Result<(), Error> {
             } else {
                 println!("PureData autostart is {}", "disabled".magenta().underline());
             }
+            Ok(())
+        }
+        ProcessOptions::VerboseInfo => {
+            output_header("autostart");
+            println!("patch:    \t{}", main_patch().unwrap_or_default().cyan());
+            println!("script:   \t{}", run_script().unwrap_or_default().cyan());
+            println!("desktop:  \t{}", desktop().unwrap_or_default().cyan());
             Ok(())
         }
     }

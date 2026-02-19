@@ -26,13 +26,14 @@ pub fn output_error(err: &Error) {
             }
         }
         Error::NotImplented(name) => {
-            println!("{} {} is {} yet!", "[error]".magenta(), name.underline(), "not implemented".red())
+            println!(
+                "{} {} is {} yet!",
+                "[error]".magenta(),
+                name.underline(),
+                "not implemented".red()
+            )
         }
     }
-}
-
-pub fn output_ok(msg: &str) {
-    println!("{} {msg}", "[ ok ] ".cyan());
 }
 
 pub fn output_rule() {

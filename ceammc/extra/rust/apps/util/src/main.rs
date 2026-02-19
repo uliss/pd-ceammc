@@ -250,7 +250,7 @@ fn main() -> anyhow::Result<()> {
                 } else if disable {
                     ProcessOptions::Disable
                 } else if info {
-                    ProcessOptions::Info
+                    ProcessOptions::VerboseInfo
                 } else {
                     ProcessOptions::Info
                 };
