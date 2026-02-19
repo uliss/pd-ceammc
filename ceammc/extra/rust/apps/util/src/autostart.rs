@@ -108,6 +108,7 @@ pub fn enable() -> Result<(), common::Error> {
         copy(&path, &dest)?;
     }
 
+    info!("OK");
     Ok(())
 }
 
@@ -136,6 +137,7 @@ fn remove_desktop() -> Result<(), common::Error> {
 pub fn disable() -> Result<(), common::Error> {
     remove_run_script()?;
     remove_desktop()?;
+    info!("OK");
     Ok(())
 }
 
