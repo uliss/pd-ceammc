@@ -14,7 +14,7 @@ fn orig_run_script_path() -> PathBuf {
 }
 
 fn orig_desktop_path() -> PathBuf {
-    PathBuf::from(ORIG_SCRIPT)
+    PathBuf::from(ORIG_DESKTOP)
 }
 
 fn orig_main_patch_path() -> PathBuf {
