@@ -1,7 +1,7 @@
 use anyhow::anyhow;
 use ceammc_shared_rs::config::{config_lang, config_load, config_store};
 use chrono::{DateTime, Local};
-use clap::{ColorChoice, Parser, Subcommand, ValueEnum};
+use clap::{Parser, Subcommand, ValueEnum};
 use colored::Colorize;
 use humansize::{format_size, BINARY};
 use std::path::PathBuf;
