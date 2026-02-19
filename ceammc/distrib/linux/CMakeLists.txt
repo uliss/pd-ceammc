@@ -1,5 +1,6 @@
 file(GLOB _BUILD_SCRIPTS "*.sh")
-add_custom_target(ceammc_distrib_linux_sources SOURCES ${_BUILD_SCRIPTS})
+add_custom_target(ceammc_distrib_linux_sources SOURCES ${_BUILD_SCRIPTS}
+                                                       rpi/pd-ceammc.desktop)
 
 if(UNIX AND NOT APPLE)
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/snapcraft.yaml.in
@@ -10,8 +11,10 @@ if(UNIX AND NOT APPLE)
                  ${PROJECT_BINARY_DIR}/scripts/build_faust.sh @ONLY)
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_verovio.sh
                  ${PROJECT_BINARY_DIR}/scripts/build_verovio.sh @ONLY)
-  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/rpi/pd_start.sh
-                 ${PROJECT_BINARY_DIR}/scripts/pd_start.sh @ONLY)
+
+  # Raspberry Pi run script, supposed to be installed into ${HOME}/bin
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/rpi/pd-ceammc.desktop
+                 ${PROJECT_BINARY_DIR}/scripts/pd-ceammc.desktop @ONLY)
 
   if(LINUX_DEBIAN_PACKAGE_FILE_NAME)
     set(PDCORE_LIB_INSTALL_PATH lib)
