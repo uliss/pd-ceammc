@@ -228,7 +228,13 @@ fn output_info(
 }
 
 fn main() -> anyhow::Result<()> {
-    env_logger::init();
+    env_logger::Builder::new()
+        .format_line_number(false)
+        .format_timestamp(None)
+        .format_module_path(false)
+        .format_target(false)
+        .filter_level(log::LevelFilter::Info)
+        .init();
 
     let args = Cli::parse();
 
