@@ -63,10 +63,14 @@ fn data_size(size_bytes: u64, human: bool) -> String {
     }
 }
 
-fn output_header(title: &str) {
+fn output_rule() {
     let width = terminal_size().map(|x| x.0 .0).unwrap_or(48);
+    println!("{}", "=".repeat(width.into()).truecolor(100, 100, 100));
+}
+
+fn output_header(title: &str) {
     println!("{}", format!("[{title}]").bold().cyan());
-    println!("{}", "=".repeat(width.into()));
+    output_rule();
 }
 
 fn output_memory(sys: &System, use_bytes: bool) {
@@ -197,13 +201,14 @@ fn main() -> anyhow::Result<()> {
             Pd::Update => {
                 let cmd = ["apt", "update"];
                 println!(
-                    "running {} command\nthis will require {} password\n",
+                    "running command: {}\nthis can request {} password",
                     cmd.join(" ").cyan(),
                     users::get_current_username()
                         .map(|x| x.into_string().unwrap_or_default())
                         .unwrap_or("???".to_string())
                         .magenta()
                 );
+                output_rule();
                 let status = Command::new("sudo")
                     .args(cmd)
                     .stdin(Stdio::inherit())
@@ -216,7 +221,9 @@ fn main() -> anyhow::Result<()> {
 
                 if status.success() {
                     let cmd = ["apt", "upgrade", "--only-upgrade", "pd-ceammc"];
-                    println!("running {} command\n\n", cmd.join(" ").cyan());
+                    output_rule();
+                    println!("running command: {}\n", cmd.join(" ").cyan());
+                    output_rule();
 
                     let _status = Command::new("sudo")
                         .args(cmd)
