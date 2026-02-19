@@ -30,6 +30,7 @@ pub enum Error {
     FileNotFound(PathBuf, Option<String>),
     FileCopyError(PathBuf, PathBuf, String),
     FileRemoveError(PathBuf, String),
+    SymlinkError(PathBuf, PathBuf, String),
     NotImplented(String),
 }
 
@@ -59,6 +60,13 @@ pub fn output_error(err: &Error) {
             "while removing {}: {err}",
             path.to_string_lossy().as_ref().cyan(),
         ),
+        Error::SymlinkError(dest, from, err) => {
+            error!(
+                "create link from {} to {}: {err}",
+                from.to_string_lossy().as_ref().cyan(),
+                dest.to_string_lossy().as_ref().cyan(),
+            )
+        }
     }
 }
 

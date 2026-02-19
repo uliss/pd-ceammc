@@ -8,7 +8,7 @@ const DESKTOP: &str = ".config/autostart/pd-ceammc.desktop";
 const RUN_SCRIPT: &str = "bin/pd_start.sh";
 const ORIG_SCRIPT: &str = "/usr/lib/pd_ceammc/share/rpi/pd_start.sh";
 const ORIG_DESKTOP: &str = "/usr/lib/pd_ceammc/share/rpi/pd-ceammc-autostart.desktop";
-const ORIG_MAIN_PATCH: &str = "/usr/lib/pd_ceammc/share/rpi/main.pd";
+const ORIG_MAIN_PATCH: &str = "/usr/lib/pd_ceammc/share/rpi/examples/main.pd";
 
 fn orig_run_script_path() -> PathBuf {
     PathBuf::from(ORIG_SCRIPT)
@@ -39,7 +39,10 @@ pub fn check_orig_main_patch_path() -> Result<PathBuf, Error> {
     if path.is_file() {
         Ok(path)
     } else {
-        Err(Error::FileNotFound(path, None))
+        Err(Error::FileNotFound(
+            path,
+            Some("original main path".to_string()),
+        ))
     }
 }
 
@@ -137,7 +140,7 @@ fn remove_desktop() -> Result<(), common::Error> {
 pub fn disable() -> Result<(), common::Error> {
     remove_run_script()?;
     remove_desktop()?;
-    
+
     info!("disabled");
     Ok(())
 }
@@ -168,6 +171,23 @@ pub fn run_script() -> Option<String> {
     to_string_path(&run_script_path())
 }
 
+fn restore_default() -> Result<(), common::Error> {
+    let orig_patch = check_orig_main_patch_path()?;
+    let user_patch = main_patch_path();
+
+    // remove user main patch
+    if user_patch.exists() {
+        remove_file(&user_patch)?;
+    }
+
+    std::os::unix::fs::symlink(&orig_patch, &user_patch).map_err(|err| {
+        Error::SymlinkError(orig_patch.clone(), user_patch.clone(), err.to_string())
+    })?;
+
+    info!("create symlink from {user_patch:?} -> {orig_patch:?}",);
+    Ok(())
+}
+
 pub enum ProcessOptions {
     Add(String),
     RestoreDefault,
@@ -180,7 +200,7 @@ pub enum ProcessOptions {
 pub fn process(opts: ProcessOptions) -> Result<(), Error> {
     match opts {
         ProcessOptions::Add(_file) => Err(Error::NotImplented("add_file".to_string())),
-        ProcessOptions::RestoreDefault => Err(Error::NotImplented("restore default".to_string())),
+        ProcessOptions::RestoreDefault => restore_default(),
         ProcessOptions::Enable => enable(),
         ProcessOptions::Disable => disable(),
         ProcessOptions::Info => {
