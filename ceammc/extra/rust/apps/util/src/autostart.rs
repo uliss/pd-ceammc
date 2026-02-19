@@ -1,4 +1,4 @@
-use crate::common::{self, home_path, output_error, output_header, Error};
+use crate::common::{self, home_path, output_error, output_header, output_rule, Error};
 use colored::Colorize;
 use log::{info, warn};
 use std::{
@@ -204,6 +204,13 @@ fn restore_main_patch_link() -> Result<(), common::Error> {
 
     remove_symlink(&symlink, true)?;
     create_symlink(&original, &symlink)?;
+
+    output_rule();
+    info!(
+        "autostart file: {}",
+        original.as_os_str().to_string_lossy().cyan()
+    );
+
     Ok(())
 }
 
@@ -248,6 +255,12 @@ fn set_main_patch_link(file: &str) -> Result<(), common::Error> {
     let symlink = main_patch_symlink_path();
     remove_symlink(&symlink, false)?;
     create_symlink(&original, &symlink)?;
+
+    output_rule();
+    info!(
+        "new autostart file: {}",
+        original.as_os_str().to_string_lossy().cyan()
+    );
 
     Ok(())
 }
