@@ -1,22 +1,20 @@
+use crate::autostart::ProcessOptions;
+use crate::common::{output_error, output_header, output_rule};
 use anyhow::anyhow;
 use ceammc_shared_rs::config::{config_lang, config_load, config_store};
 use chrono::{DateTime, Local};
 use clap::{Parser, Subcommand, ValueEnum};
 use colored::Colorize;
 use humansize::{format_size, BINARY};
-use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::time::SystemTime;
 use sysinfo::{Networks, System};
-use terminal_size::terminal_size;
-
-const AUTOSTART_PATCH: &str = "Documents/Pd/main.pd";
-const AUTOSTART_DESKTOP: &str = ".config/autostart/pd-ceammc.desktop";
-const AUTOSTART_SCRIPT: &str = "bin/pd_start.sh";
-const AUTOSTART_ORIG_SCRIPT: &str = "/usr/lib/pd_ceammc/share/rpi/pd_start.sh";
 
 #[path = "../../src/ceammc_config.rs"]
 mod config;
+
+mod autostart;
+mod common;
 
 #[derive(Debug, Clone, Copy, ValueEnum)]
 enum LangName {
@@ -87,44 +85,6 @@ fn data_size(size_bytes: u64, human: bool) -> String {
     }
 }
 
-fn autostart_enable() {
-    let dest_path = format!(
-        "{}/{AUTOSTART_SCRIPT}",
-        std::env::var("HOME").unwrap_or_default()
-    );
-    let _ = std::process::Command::new("cp")
-        .args(["-v", AUTOSTART_ORIG_SCRIPT, dest_path.as_str()])
-        .output();
-}
-
-fn output_error(msg: &str) {
-    println!("{} {msg}", "[error]".red());
-}
-
-fn autostart_disable() {
-    if !Path::new(AUTOSTART_ORIG_SCRIPT).is_file() {
-        output_error(&format!(
-            "original auto start file not found: '{AUTOSTART_ORIG_SCRIPT}'. Will not remove user script."
-        ));
-        return;
-    }
-
-    let _ = std::process::Command::new("rm")
-        .args(["-f", AUTOSTART_SCRIPT])
-        .stderr(Stdio::inherit())
-        .output();
-}
-
-fn output_rule() {
-    let width = terminal_size().map(|x| x.0 .0).unwrap_or(48);
-    println!("{}", "=".repeat(width.into()).truecolor(100, 100, 100));
-}
-
-fn output_header(title: &str) {
-    println!("{}", format!("[{title}]").bold().cyan());
-    output_rule();
-}
-
 fn output_memory(sys: &System, use_bytes: bool) {
     println!(
         "mem_total:    \t{}",
@@ -168,12 +128,6 @@ fn output_net() {
     }
 }
 
-fn is_autostart_enabled() -> bool {
-    [autostart_desktop(), autostart_patch(), autostart_script()]
-        .iter()
-        .all(|x| x.as_ref().is_some_and(|x| !x.is_empty()))
-}
-
 fn output_system() {
     let system_time = SystemTime::now();
     let datetime: DateTime<Local> = system_time.into();
@@ -187,31 +141,6 @@ fn output_system() {
         "sys_kernel:\t{}",
         System::kernel_version().unwrap_or_default()
     );
-}
-
-fn home_path(relpath: &str) -> Option<PathBuf> {
-    std::env::home_dir().and_then(|mut x| {
-        x.push(relpath);
-        Some(x)
-    })
-}
-
-fn autostart_patch() -> Option<String> {
-    home_path(AUTOSTART_PATCH)
-        .filter(|x| x.is_file())
-        .map(|x| x.to_string_lossy().to_string())
-}
-
-fn autostart_desktop() -> Option<String> {
-    home_path(AUTOSTART_DESKTOP)
-        .filter(|x| x.is_file())
-        .map(|x| x.to_string_lossy().to_string())
-}
-
-fn autostart_script() -> Option<String> {
-    home_path(AUTOSTART_SCRIPT)
-        .filter(|x| x.is_file())
-        .map(|x| x.to_string_lossy().to_string())
 }
 
 fn dpkg_version() -> String {
@@ -240,15 +169,15 @@ fn output_pd() {
 
     println!(
         "auto_patch: \t{}",
-        autostart_patch().unwrap_or_default().cyan()
+        autostart::main_patch().unwrap_or_default().cyan()
     );
     println!(
         "auto_script: \t{}",
-        autostart_script().unwrap_or_default().cyan()
+        autostart::run_script().unwrap_or_default().cyan()
     );
     println!(
         "auto_start:  \t{}",
-        autostart_desktop()
+        autostart::desktop()
             .map(|_| "on".to_string())
             .unwrap_or("off".to_string())
             .cyan()
@@ -264,7 +193,6 @@ fn output_info(
     system: bool,
     pd: bool,
 ) {
-    // let info = os_info::get();
     let mut sys = sysinfo::System::new_all();
     sys.refresh_all();
 
@@ -313,45 +241,22 @@ fn main() -> anyhow::Result<()> {
                 disable,
                 info,
             } => {
-                if let Some(file) = add {
-                    println!("add to autorun: {}", "not implemented yet".red());
-                    let path = std::path::Path::new(&file);
-                    if !path.is_file() {
-                        println!("{} not a file: '{file}'", "[error]".red());
-                        return Ok(());
-                    }
+                let opts = if let Some(file) = add {
+                    ProcessOptions::Add(file)
                 } else if default {
-                    println!("restore default autorun: {}", "not implemented yet".red());
+                    ProcessOptions::RestoreDefault
                 } else if enable {
-                    autostart_enable();
+                    ProcessOptions::Enable
                 } else if disable {
-                    autostart_disable();
+                    ProcessOptions::Disable
                 } else if info {
-                    output_header("autostart");
-                    println!(
-                        "patch:        \t{}",
-                        autostart_patch().unwrap_or_default().cyan()
-                    );
-                    println!(
-                        "script:        \t{}",
-                        autostart_script().unwrap_or_default().cyan()
-                    );
-                    println!(
-                        "desktop:       \t{}",
-                        autostart_desktop().unwrap_or_default().cyan()
-                    );
-                    println!()
+                    ProcessOptions::Info
                 } else {
-                    output_header("autostart");
-                    if is_autostart_enabled() {
-                        println!("PureData autostart is {}", "enabled".cyan());
-                        println!(
-                            "patch:                {}",
-                            autostart_patch().unwrap_or_default().cyan()
-                        );
-                    } else {
-                        println!("PureData autostart is {}", "disabled".magenta().underline());
-                    }
+                    ProcessOptions::Info
+                };
+
+                if let Err(err) = autostart::process(opts) {
+                    output_error(&err);
                 }
             }
             Pd::Update => {
