@@ -185,9 +185,19 @@ fn autostart_script() -> Option<String> {
         .map(|x| x.to_string_lossy().to_string())
 }
 
+fn dpkg_version() -> String {
+    std::process::Command::new("dpkg")
+        .args(["-W", "-f", "'${Version}\n'", "pd-ceammc"])
+        .output()
+        .ok()
+        .map(|x| String::from_utf8(x.stdout).unwrap_or_default())
+        .unwrap_or("_".to_string())
+}
+
 fn output_pd() {
     println!("pd_distrib:   \t{}", crate::config::CEAMMC_DISTRIB_VERSION);
     println!("pd_ceam_ver:  \t{}", crate::config::CEAMMC_LIB_VERSION);
+    println!("pd_dpkg_ver:  \t{}", dpkg_version());
     println!("pd_ver:       \t{}", crate::config::PD_TEXT_VERSION_FULL);
     println!("pd_git_branch:\t{}", crate::config::GIT_BRANCH);
     println!("pd_git_commit:\t{}", crate::config::GIT_COMMIT);
@@ -306,7 +316,10 @@ fn main() -> anyhow::Result<()> {
                     output_header("autostart");
                     if is_autostart_enabled() {
                         println!("PureData autostart is {}", "enabled".cyan());
-                        println!("patch:                {}", autostart_patch().unwrap_or_default().cyan());
+                        println!(
+                            "patch:                {}",
+                            autostart_patch().unwrap_or_default().cyan()
+                        );
                     } else {
                         println!("PureData autostart is {}", "disabled".magenta().underline());
                     }
