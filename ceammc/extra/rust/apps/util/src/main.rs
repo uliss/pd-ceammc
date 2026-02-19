@@ -4,6 +4,7 @@ use chrono::{DateTime, Local};
 use clap::{Parser, Subcommand, ValueEnum};
 use colored::Colorize;
 use humansize::{format_size, BINARY};
+use std::process::{Command, Stdio};
 use std::time::SystemTime;
 use sysinfo::{Networks, System};
 use terminal_size::terminal_size;
@@ -13,9 +14,6 @@ mod config;
 
 #[derive(Clone, Subcommand)]
 enum PdAutostart {}
-
-#[derive(Clone, Subcommand)]
-enum PdUpdate {}
 
 #[derive(Debug, Clone, Copy, ValueEnum)]
 enum LangName {
@@ -28,8 +26,7 @@ enum LangName {
 enum Pd {
     #[command(subcommand)]
     Autostart(PdAutostart),
-    #[command(subcommand)]
-    Update(PdUpdate),
+    Update,
     #[group(multiple = false)]
     Lang {
         #[arg(long)]
@@ -197,7 +194,17 @@ fn main() -> anyhow::Result<()> {
     match args.command {
         Commands::Pd(pd) => match pd {
             Pd::Autostart(_pd_autostart) => {}
-            Pd::Update(_pd_update) => {}
+            Pd::Update => {
+                println!("running {} command\n\n", "apt upgrade".cyan());
+                Command::new("apt")
+                    .arg("upgrade")
+                    .stdout(Stdio::inherit())
+                    .stderr(Stdio::inherit())
+                    .spawn()
+                    .expect("Failed to execute command")
+                    .wait()
+                    .expect("failed to wait on child");
+            }
             Pd::Lang { set } => {
                 let mut cfg =
                     ceammc_shared_rs::config::config_load().map_err(|err| anyhow!(err))?;
