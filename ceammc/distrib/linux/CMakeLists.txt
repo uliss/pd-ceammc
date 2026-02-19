@@ -27,14 +27,26 @@ if(UNIX AND NOT APPLE)
     install(
       FILES ${PROJECT_BINARY_DIR}/scripts/pd_start.sh
       DESTINATION ${rpi_script_install_dir}
-      PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ
-                  WORLD_EXECUTE)
+      PERMISSIONS
+        OWNER_READ
+        OWNER_WRITE
+        OWNER_EXECUTE
+        GROUP_READ
+        GROUP_EXECUTE
+        WORLD_READ
+        WORLD_EXECUTE)
     # install RPi desktop file for autostart
     install(
       FILES ${CMAKE_CURRENT_SOURCE_DIR}/rpi/pd-ceammc-autostart.desktop
       DESTINATION ${rpi_script_install_dir}
-      PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ
-                  WORLD_EXECUTE)
+      PERMISSIONS
+        OWNER_READ
+        OWNER_WRITE
+        OWNER_EXECUTE
+        GROUP_READ
+        GROUP_EXECUTE
+        WORLD_READ
+        WORLD_EXECUTE)
 
     # Linux dev targets
     # ##########################################################################
