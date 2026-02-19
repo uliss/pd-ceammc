@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PD=@CMAKE_INSTALL_PREFIX@/pd-ceammc
+PD=@CMAKE_INSTALL_PREFIX@/bin/pd-ceammc
 FILE="${HOME}/Documents/Pd/main.pd"
 
 if [ -f $FILE ]; then
