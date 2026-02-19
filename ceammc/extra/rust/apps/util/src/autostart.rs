@@ -208,7 +208,7 @@ fn restore_main_patch_link() -> Result<(), common::Error> {
     output_rule();
     println!(
         "autostart file: {}",
-        original.as_os_str().to_string_lossy().cyan().underline()
+        original.as_os_str().to_string_lossy().bright_cyan()
     );
 
     Ok(())
@@ -259,7 +259,7 @@ fn set_main_patch_link(file: &str) -> Result<(), common::Error> {
     output_rule();
     println!(
         "new autostart file: {}",
-        original.as_os_str().to_string_lossy().cyan().underline()
+        original.as_os_str().to_string_lossy().bright_cyan()
     );
 
     Ok(())
