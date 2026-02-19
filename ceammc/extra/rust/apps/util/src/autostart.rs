@@ -130,6 +130,7 @@ pub fn enable() -> Result<(), common::Error> {
         copy(&path, &dest)?;
     }
 
+    output_rule();
     info!("enabled");
     Ok(())
 }
@@ -160,6 +161,7 @@ pub fn disable() -> Result<(), common::Error> {
     remove_run_script()?;
     remove_desktop()?;
 
+    output_rule();
     info!("disabled");
     Ok(())
 }
