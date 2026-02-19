@@ -1,5 +1,5 @@
 use colored::{ColoredString, Colorize};
-use log::{error, Level};
+use log::{error, info, Level};
 use std::io::Write;
 use std::path::PathBuf;
 use terminal_size::terminal_size;
@@ -92,4 +92,19 @@ pub fn home_path(relpath: &str) -> PathBuf {
     let mut path = std::env::home_dir().unwrap();
     path.push(relpath);
     path
+}
+
+pub fn copy(from: &PathBuf, dest: &PathBuf) -> Result<(), Error> {
+    std::fs::copy(from, dest)
+        .map_err(|err| Error::FileCopyError(from.clone(), dest.clone(), err.to_string()))?;
+    info!(
+        "copy {} -> {}",
+        format!("{from:?}").cyan(),
+        format!("{dest:?}").cyan()
+    );
+    Ok(())
+}
+
+pub fn create_full_path_dir(path: &PathBuf) -> Result<(), Error> {
+    fs_extra::dir::create_all(path, false).map_err(|err| Error::Common(err.to_string()))
 }

@@ -52,15 +52,18 @@ enum Pd {
     #[group(required = false)]
     /// update CEAMMC PureData
     Update {
-        /// update all (distrib first, then others)
+        /// update all (puredata first, then examples)
         #[arg(short, long)]
         all: bool,
-        /// update examples
+        /// update examples only
         #[arg(short, long)]
         examples: bool,
-        /// update distributive
+        /// update puredata
         #[arg(short, long)]
         pd: bool,
+        /// overwrite existing files (use together with --examples flag)
+        #[arg(short, long)]
+        force: bool,
     },
 }
 
@@ -119,14 +122,14 @@ fn main() -> anyhow::Result<()> {
                     output_error(&err);
                 }
             }
-            Pd::Update { all, examples, pd } => {
+            Pd::Update { all, examples, pd, force: overwrite } => {
                 // update on empty also
                 if all || pd || (!pd && !examples) {
                     update::update_pd_ceammc();
                 }
 
                 if all || examples {
-                    if let Err(err) = update::update_examples() {
+                    if let Err(err) = update::update_examples(overwrite) {
                         output_error(&err);
                     }
                 }

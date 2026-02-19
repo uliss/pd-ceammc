@@ -1,5 +1,6 @@
-use crate::common::{self, output_header, output_rule, Error};
+use crate::common::{self, home_path, output_header, output_rule, Error};
 use colored::Colorize;
+use log::warn;
 use std::{
     path::PathBuf,
     process::{Command, Stdio},
@@ -45,17 +46,27 @@ pub fn update_pd_ceammc() {
 }
 
 #[cfg(target_os = "linux")]
-const RPI_EXAMPLES_DIR: &str = "/usr/lib/pd_ceammc/share/rpi/examples";
+const SYS_EXAMPLE_DIR: &str = "/usr/lib/pd_ceammc/share/rpi/examples";
+#[cfg(target_os = "linux")]
+const USER_EXAMPLE_DIR: &str = "Documents/Pd";
+
 #[cfg(target_os = "macos")]
-const RPI_EXAMPLES_DIR: &str = "/Users/serge/Documents/Pd"; // for tests
+const SYS_EXAMPLE_DIR: &str = "/Users/serge/Documents/Pd/ceam"; // for tests
+#[cfg(target_os = "macos")]
+const USER_EXAMPLE_DIR: &str = "Documents/Pd/rust"; // for tests
 
 fn is_valid_example(path: &PathBuf) -> bool {
-    path.is_file() && path.extension().unwrap_or_default() == "pd"
+    path.is_file()
+        && path.extension().unwrap_or_default() == "pd"
+        && path
+            .file_name()
+            .map(|x| x.to_string_lossy().as_ref() != "main.pd")
+            .unwrap_or(false)
 }
 
-pub fn update_examples() -> Result<(), Error> {
-    // output_header("update examples");
-    let dir = PathBuf::from(RPI_EXAMPLES_DIR);
+pub fn update_examples(overwrite: bool) -> Result<(), Error> {
+    // read examples
+    let dir = PathBuf::from(SYS_EXAMPLE_DIR);
     if !(dir.exists() && dir.is_dir()) {
         return Err(common::Error::DirNotFound(
             dir,
@@ -79,16 +90,32 @@ pub fn update_examples() -> Result<(), Error> {
 
     files.sort();
 
-    log::info!("{files:?}");
+    // create user examples directory, if not exists
+    let user_example_dir = home_path(USER_EXAMPLE_DIR);
+    if !user_example_dir.exists() {
+        common::create_full_path_dir(&user_example_dir)?;
+        log::info!("mkdir: {}", user_example_dir.display().to_string().cyan());
+    }
+
+    // copy example files to user directory
+    for f in &files {
+        let from = PathBuf::from(f);
+        let mut dest = user_example_dir.clone();
+        if let Some(name) = from.file_name() {
+            dest.push(name);
+
+            if dest.exists() && !overwrite {
+                warn!(
+                    "overwrite attempt: {}, skipping ...\n\tuse {} flag to overwrite existing files",
+                    dest.display().to_string().cyan(),
+                    "--force".magenta()
+                );
+                continue;
+            }
+
+            common::copy(&from, &dest)?;
+        }
+    }
 
     Ok(())
-
-    // let files = std::fs::read_dir(dir)
-    //     .map_err(|err| Error::Common(err.to_string()))?
-    //     .into_iter()
-    //     .filter(|x| x.is_ok())
-    //     .map(|x| x.unwrap())
-    //     .collect::<Vec<_>>();
-
-    // todo!()
 }

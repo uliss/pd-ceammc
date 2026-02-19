@@ -15,4 +15,3 @@ pub const PD_TEXT_VERSION_SHORT: &str = "@PD_MAJOR_VERSION@.@PD_MINOR_VERSION@.@
 pub const PD_TEXT_VERSION_FULL: &str = "@PD_TEXT_VERSION_SHORT@_@PD_BUILD_SUFFIX@";
 
 pub const GIT_BRANCH: &str = "@GIT_BRANCH@";
-pub const GIT_COMMIT: &str = "@GIT_COMMIT@";
