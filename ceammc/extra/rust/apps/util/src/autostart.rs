@@ -1,5 +1,6 @@
 use crate::common::{self, home_path, output_header, Error};
 use colored::Colorize;
+use log::{debug, warn};
 use std::path::PathBuf;
 
 const MAIN_PATCH: &str = "Documents/Pd/main.pd";
@@ -66,21 +67,35 @@ pub fn check_orig_run_script() -> Result<PathBuf, Error> {
     }
 }
 
+fn copy(from: &PathBuf, dest: &PathBuf) -> Result<(), common::Error> {
+    debug!("copy {from:?} {dest:?}");
+    std::fs::copy(from, dest)
+        .map_err(|err| Error::FileCopyError(from.clone(), dest.clone(), err.to_string()))?;
+    Ok(())
+}
+
 fn copy_run_script() -> Result<(), common::Error> {
     let from = check_orig_run_script()?;
-    std::fs::copy(from, run_script_path()).map_err(|err| Error::Common(err.to_string()))?;
+    copy(&from, &run_script_path())?;
     Ok(())
 }
 
 fn copy_desktop() -> Result<(), common::Error> {
     let from = check_orig_desktop()?;
-    std::fs::copy(from, desktop_path()).map_err(|err| Error::Common(err.to_string()))?;
+    copy(&from, &desktop_path())?;
     Ok(())
 }
 
 pub fn enable() -> Result<(), common::Error> {
     copy_run_script()?;
     copy_desktop()?;
+
+    if !main_patch_path().exists() {
+        warn!("main patch not exists, copying default");
+        let path = check_orig_main_patch_path()?;
+        copy(&path, &main_patch_path())?;
+    }
+
     Ok(())
 }
 

@@ -6,6 +6,7 @@ use terminal_size::terminal_size;
 pub enum Error {
     Common(String),
     FileNotFound(PathBuf, Option<String>),
+    FileCopyError(PathBuf, PathBuf, String),
     NotImplented(String),
 }
 
@@ -31,6 +32,14 @@ pub fn output_error(err: &Error) {
                 "[error]".magenta(),
                 name.underline(),
                 "not implemented".red()
+            )
+        }
+        Error::FileCopyError(from, dest, err) => {
+            println!(
+                "{} while copying {} to {}: {err}",
+                "[error]".magenta(),
+                from.to_string_lossy().as_ref().cyan(),
+                dest.to_string_lossy().as_ref().cyan(),
             )
         }
     }
