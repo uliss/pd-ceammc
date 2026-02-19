@@ -243,7 +243,7 @@ fn main() -> anyhow::Result<()> {
                 let opts = if let Some(file) = add {
                     ProcessOptions::Add(file)
                 } else if default {
-                    ProcessOptions::RestoreDefault
+                    ProcessOptions::RestoreMainPatchLink
                 } else if enable {
                     ProcessOptions::Enable
                 } else if disable {

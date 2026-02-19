@@ -171,7 +171,7 @@ pub fn run_script() -> Option<String> {
     to_string_path(&run_script_path())
 }
 
-fn restore_default() -> Result<(), common::Error> {
+fn restore_main_patch_link() -> Result<(), common::Error> {
     let orig_patch = check_orig_main_patch_path()?;
     let user_patch = main_patch_path();
 
@@ -190,7 +190,7 @@ fn restore_default() -> Result<(), common::Error> {
 
 pub enum ProcessOptions {
     Add(String),
-    RestoreDefault,
+    RestoreMainPatchLink,
     Enable,
     Disable,
     Info,
@@ -200,7 +200,7 @@ pub enum ProcessOptions {
 pub fn process(opts: ProcessOptions) -> Result<(), Error> {
     match opts {
         ProcessOptions::Add(_file) => Err(Error::NotImplented("add_file".to_string())),
-        ProcessOptions::RestoreDefault => restore_default(),
+        ProcessOptions::RestoreMainPatchLink => restore_main_patch_link(),
         ProcessOptions::Enable => enable(),
         ProcessOptions::Disable => disable(),
         ProcessOptions::Info => {
