@@ -112,20 +112,24 @@ pub fn enable() -> Result<(), common::Error> {
 }
 
 fn remove_run_script() -> Result<(), common::Error> {
-    if check_orig_run_script().is_err() {
-        return Ok(());
+    // this check is required
+    let _ = check_orig_run_script()?;
+
+    if run_script_path().exists() {
+        remove_file(&run_script_path())?;
     }
-    
-    remove_file(&run_script_path())?;
+
     Ok(())
 }
 
 fn remove_desktop() -> Result<(), common::Error> {
-    if check_orig_desktop().is_err() {
-        return Ok(());
+    // this check is required
+    let _ = check_orig_desktop()?;
+
+    if desktop_path().exists() {
+        remove_file(&desktop_path())?;
     }
 
-    remove_file(&desktop_path())?;
     Ok(())
 }
 
