@@ -17,9 +17,7 @@ humansize = "2.1.3"
 log = "0.4.29"
 sysinfo = "0.38.2"
 terminal_size = "0.4.3"
-whoami = { version = "2.1.1", features = [
-    "objc2-system-configuration",
-], default-features = false }
+whoami = { version = "2.1.1", default-features = false }
 
 [profile.release]
 strip = true
