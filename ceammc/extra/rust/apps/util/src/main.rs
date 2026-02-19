@@ -169,7 +169,7 @@ fn output_pd() {
 
     println!(
         "auto_patch: \t{}",
-        autostart::main_patch().unwrap_or_default().cyan()
+        autostart::main_patch_symlink().unwrap_or_default().cyan()
     );
     println!(
         "auto_script: \t{}",
@@ -241,7 +241,7 @@ fn main() -> anyhow::Result<()> {
                 info,
             } => {
                 let opts = if let Some(file) = add {
-                    ProcessOptions::Add(file)
+                    ProcessOptions::SetMainPatchLink(file)
                 } else if default {
                     ProcessOptions::RestoreMainPatchLink
                 } else if enable {
@@ -251,7 +251,7 @@ fn main() -> anyhow::Result<()> {
                 } else if info {
                     ProcessOptions::VerboseInfo
                 } else {
-                    ProcessOptions::Info
+                    ProcessOptions::ShortInfo
                 };
 
                 if let Err(err) = autostart::process(opts) {

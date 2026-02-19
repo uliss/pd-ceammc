@@ -1,9 +1,13 @@
-use crate::common::{self, home_path, output_header, Error};
+use crate::common::{self, home_path, output_error, output_header, Error};
 use colored::Colorize;
 use log::{info, warn};
-use std::path::PathBuf;
+use std::{
+    fs::File,
+    io::{BufRead, BufReader},
+    path::PathBuf,
+};
 
-const MAIN_PATCH: &str = "Documents/Pd/main.pd";
+const MAIN_PATCH_SYMLINK: &str = "Documents/Pd/main.pd";
 const DESKTOP: &str = ".config/autostart/pd-ceammc.desktop";
 const RUN_SCRIPT: &str = "bin/pd_start.sh";
 const ORIG_SCRIPT: &str = "/usr/lib/pd_ceammc/share/rpi/pd_start.sh";
@@ -30,8 +34,8 @@ fn desktop_path() -> PathBuf {
     home_path(DESKTOP)
 }
 
-fn main_patch_path() -> PathBuf {
-    home_path(MAIN_PATCH)
+pub fn main_patch_symlink_path() -> PathBuf {
+    home_path(MAIN_PATCH_SYMLINK)
 }
 
 pub fn check_orig_main_patch_path() -> Result<PathBuf, Error> {
@@ -88,6 +92,21 @@ fn remove_file(path: &PathBuf) -> Result<(), common::Error> {
     Ok(())
 }
 
+fn remove_symlink(symlink: &PathBuf, force: bool) -> Result<(), common::Error> {
+    if symlink.exists() {
+        info!("removing symlink {}", format!("{symlink:?}").cyan());
+        if !symlink.is_symlink() && !force {
+            output_error(&Error::NotSymlink(symlink.clone()));
+            return Err(Error::Common(
+                "(re)move or rename this file manually, then try again".to_string(),
+            ));
+        }
+        remove_file(symlink)
+    } else {
+        Ok(())
+    }
+}
+
 fn copy_run_script() -> Result<(), common::Error> {
     let from = check_orig_run_script()?;
     copy(&from, &run_script_path())?;
@@ -104,10 +123,10 @@ pub fn enable() -> Result<(), common::Error> {
     copy_run_script()?;
     copy_desktop()?;
 
-    if !main_patch_path().exists() {
+    if !main_patch_symlink_path().exists() {
         warn!("main patch not exists, copying default");
         let path = check_orig_main_patch_path()?;
-        let dest = &main_patch_path();
+        let dest = &&main_patch_symlink_path();
         copy(&path, &dest)?;
     }
 
@@ -146,7 +165,7 @@ pub fn disable() -> Result<(), common::Error> {
 }
 
 pub fn is_enabled() -> bool {
-    [desktop(), main_patch(), run_script()]
+    [desktop(), main_patch_symlink(), run_script()]
         .iter()
         .all(|x| x.as_ref().is_some_and(|x| !x.is_empty()))
 }
@@ -159,8 +178,8 @@ fn to_string_path(path: &PathBuf) -> Option<String> {
     }
 }
 
-pub fn main_patch() -> Option<String> {
-    to_string_path(&main_patch_path())
+pub fn main_patch_symlink() -> Option<String> {
+    to_string_path(&main_patch_symlink_path())
 }
 
 pub fn desktop() -> Option<String> {
@@ -171,45 +190,90 @@ pub fn run_script() -> Option<String> {
     to_string_path(&run_script_path())
 }
 
-fn restore_main_patch_link() -> Result<(), common::Error> {
-    let orig_patch = check_orig_main_patch_path()?;
-    let user_patch = main_patch_path();
+fn create_symlink(original: &PathBuf, link: &PathBuf) -> Result<(), common::Error> {
+    std::os::unix::fs::symlink(&original, &link)
+        .map_err(|err| Error::SymlinkError(original.clone(), link.clone(), err.to_string()))?;
 
-    // remove user main patch
-    if user_patch.exists() {
-        remove_file(&user_patch)?;
+    info!("create symlink from {link:?} -> {original:?}");
+    Ok(())
+}
+
+fn restore_main_patch_link() -> Result<(), common::Error> {
+    let original = check_orig_main_patch_path()?;
+    let symlink = main_patch_symlink_path();
+
+    remove_symlink(&symlink, true)?;
+    create_symlink(&original, &symlink)?;
+    Ok(())
+}
+
+fn check_is_pd_patch(path: &PathBuf) -> Result<(), common::Error> {
+    let file = File::open(path).map_err(|err| Error::Common(err.to_string()))?;
+    let reader = BufReader::new(file);
+
+    if reader
+        .lines()
+        .next()
+        .ok_or(Error::Common("read error".to_string()))?
+        .map_err(|err| Error::Common(err.to_string()))?
+        .starts_with("#N canvas")
+    {
+        Ok(())
+    } else {
+        Err(Error::Common("not a Pd patch".to_string()))
+    }
+}
+
+fn set_main_patch_link(file: &str) -> Result<(), common::Error> {
+    let original = PathBuf::from(file);
+    if !original.is_file() {
+        return Err(common::Error::FileNotFound(
+            original,
+            Some("new patch".to_string()),
+        ));
     }
 
-    std::os::unix::fs::symlink(&orig_patch, &user_patch).map_err(|err| {
-        Error::SymlinkError(orig_patch.clone(), user_patch.clone(), err.to_string())
-    })?;
+    let original = original
+        .canonicalize()
+        .map_err(|_| Error::FileNotFound(original, Some("new patch".to_string())))?;
 
-    info!("create symlink from {user_patch:?} -> {orig_patch:?}",);
+    info!(
+        "adding patch to autostart: {}",
+        format!("{original:?}").cyan()
+    );
+
+    info!("checking if valid PureData patch ...");
+    check_is_pd_patch(&original)?;
+
+    let symlink = main_patch_symlink_path();
+    remove_symlink(&symlink, false)?;
+    create_symlink(&original, &symlink)?;
+
     Ok(())
 }
 
 pub enum ProcessOptions {
-    Add(String),
+    SetMainPatchLink(String),
     RestoreMainPatchLink,
     Enable,
     Disable,
-    Info,
+    ShortInfo,
     VerboseInfo,
 }
 
 pub fn process(opts: ProcessOptions) -> Result<(), Error> {
     match opts {
-        ProcessOptions::Add(_file) => Err(Error::NotImplented("add_file".to_string())),
+        ProcessOptions::SetMainPatchLink(file) => set_main_patch_link(&file),
         ProcessOptions::RestoreMainPatchLink => restore_main_patch_link(),
         ProcessOptions::Enable => enable(),
         ProcessOptions::Disable => disable(),
-        ProcessOptions::Info => {
+        ProcessOptions::ShortInfo => {
             output_header("autostart");
             if is_enabled() {
                 println!("PureData autostart is {}", "enabled".cyan());
                 println!(
                     "patch:                {}",
-                    main_patch().unwrap_or_default().cyan()
+                    main_patch_symlink().unwrap_or_default().cyan()
                 );
             } else {
                 println!("PureData autostart is {}", "disabled".magenta().underline());
@@ -218,7 +282,10 @@ pub fn process(opts: ProcessOptions) -> Result<(), Error> {
         }
         ProcessOptions::VerboseInfo => {
             output_header("autostart");
-            println!("patch:    \t{}", main_patch().unwrap_or_default().cyan());
+            println!(
+                "patch:    \t{}",
+                main_patch_symlink().unwrap_or_default().cyan()
+            );
             println!("script:   \t{}", run_script().unwrap_or_default().cyan());
             println!("desktop:  \t{}", desktop().unwrap_or_default().cyan());
             Ok(())

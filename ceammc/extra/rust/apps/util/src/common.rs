@@ -26,17 +26,17 @@ pub fn init_logger() {
 }
 
 pub enum Error {
-    _Common(String),
+    Common(String),
     FileNotFound(PathBuf, Option<String>),
     FileCopyError(PathBuf, PathBuf, String),
     FileRemoveError(PathBuf, String),
     SymlinkError(PathBuf, PathBuf, String),
-    NotImplented(String),
+    NotSymlink(PathBuf),
 }
 
 pub fn output_error(err: &Error) {
     match err {
-        Error::_Common(msg) => println!("{} {msg}", "[error]".magenta()),
+        Error::Common(msg) => println!("{} {msg}", "[error]".magenta()),
         Error::FileNotFound(file, desc) => {
             let file = file.to_string_lossy().to_string();
             match desc {
@@ -46,8 +46,8 @@ pub fn output_error(err: &Error) {
                 _ => error!("file not found: {}", file.cyan()),
             }
         }
-        Error::NotImplented(name) => {
-            error!("{} is {} yet!", name.underline(), "not implemented".red())
+        Error::NotSymlink(path) => {
+            error!("not a symlink: {}", path.to_string_lossy().as_ref().cyan())
         }
         Error::FileCopyError(from, dest, err) => {
             error!(
@@ -60,11 +60,11 @@ pub fn output_error(err: &Error) {
             "while removing {}: {err}",
             path.to_string_lossy().as_ref().cyan(),
         ),
-        Error::SymlinkError(dest, from, err) => {
+        Error::SymlinkError(original, link, err) => {
             error!(
                 "create link from {} to {}: {err}",
-                from.to_string_lossy().as_ref().cyan(),
-                dest.to_string_lossy().as_ref().cyan(),
+                link.to_string_lossy().as_ref().cyan(),
+                original.to_string_lossy().as_ref().cyan(),
             )
         }
     }
