@@ -47,6 +47,12 @@ if(UNIX AND NOT APPLE)
         GROUP_EXECUTE
         WORLD_READ
         WORLD_EXECUTE)
+    # copy examples
+    install(
+      DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/rpi/examples
+      DESTINATION ${rpi_script_install_dir}/
+      FILE_PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE
+                       WORLD_READ WORLD_EXECUTE)
 
     # Linux dev targets
     # ##########################################################################
