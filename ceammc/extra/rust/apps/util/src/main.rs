@@ -4,10 +4,15 @@ use chrono::{DateTime, Local};
 use clap::{Parser, Subcommand, ValueEnum};
 use colored::Colorize;
 use humansize::{format_size, BINARY};
+use std::path::PathBuf;
 use std::process::{Command, Stdio};
 use std::time::SystemTime;
 use sysinfo::{Networks, System};
 use terminal_size::terminal_size;
+
+const AUTOSTART_PATCH: &str = "Documents/Pd/main.pd";
+const AUTOSTART_DESKTOP: &str = ".config/autostart/pd-ceammc.desktop";
+const AUTOSTART_SCRIPT: &str = "bin/pd_start.sh";
 
 #[path = "../../src/ceammc_config.rs"]
 mod config;
@@ -141,12 +146,27 @@ fn output_system() {
     );
 }
 
-fn autostart_path() -> Option<String> {
-    std::env::home_dir()
-        .and_then(|mut x| {
-            x.push("Documents/Pd/main.pd");
-            Some(x)
-        })
+fn home_path(relpath: &str) -> Option<PathBuf> {
+    std::env::home_dir().and_then(|mut x| {
+        x.push(relpath);
+        Some(x)
+    })
+}
+
+fn autostart_patch() -> Option<String> {
+    home_path(AUTOSTART_PATCH)
+        .filter(|x| x.is_file())
+        .map(|x| x.to_string_lossy().to_string())
+}
+
+fn autostart_desktop() -> Option<String> {
+    home_path(AUTOSTART_DESKTOP)
+        .filter(|x| x.is_file())
+        .map(|x| x.to_string_lossy().to_string())
+}
+
+fn autostart_script() -> Option<String> {
+    home_path(AUTOSTART_SCRIPT)
         .filter(|x| x.is_file())
         .map(|x| x.to_string_lossy().to_string())
 }
@@ -164,9 +184,21 @@ fn output_pd() {
         .map(|x| x.doc_lang.to_string())
         .unwrap_or_default();
     println!("pd_lang:      \t{lang}");
+
     println!(
-        "pd_autostart:  \t{}",
-        autostart_path().unwrap_or("?".to_string()).blue()
+        "auto_patch: \t{}",
+        autostart_patch().unwrap_or_default().cyan()
+    );
+    println!(
+        "auto_script: \t{}",
+        autostart_script().unwrap_or_default().cyan()
+    );
+    println!(
+        "auto_start:  \t{}",
+        autostart_desktop()
+            .map(|_| "on".to_string())
+            .unwrap_or("off".to_string())
+            .cyan()
     );
 }
 
@@ -241,12 +273,20 @@ fn main() -> anyhow::Result<()> {
                 } else if disable {
                     println!("disable autorun: {}", "not implemented yet".red());
                 } else {
-                    output_rule();
+                    output_header("autostart");
                     println!(
-                        "autostart path: {}",
-                        autostart_path().unwrap_or_default().cyan()
+                        "patch:        \t{}",
+                        autostart_patch().unwrap_or_default().cyan()
                     );
-                    output_rule();
+                    println!(
+                        "script:        \t{}",
+                        autostart_script().unwrap_or_default().cyan()
+                    );
+                    println!(
+                        "desktop:       \t{}",
+                        autostart_script().unwrap_or_default().cyan()
+                    );
+                    println!()
                 }
             }
             Pd::Update => {
