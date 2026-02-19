@@ -14,6 +14,14 @@ if(UNIX AND NOT APPLE)
                  ${PROJECT_BINARY_DIR}/scripts/pd_start.sh @ONLY)
 
   if(LINUX_DEBIAN_PACKAGE_FILE_NAME)
+    set(PDCORE_LIB_INSTALL_PATH lib)
+    cmake_path(SET script_install_dir ${PD_DOC_INSTALL_PATH}/share/rpi)
+    install(
+      FILES ${PROJECT_BINARY_DIR}/scripts/pd_start.sh
+      DESTINATION ${script_install_dir}
+      PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ
+                  WORLD_EXECUTE)
+
     add_custom_target(
       dev_dpkg
       COMMAND sudo dpkg --remove ${LINUX_DEBIAN_PACKAGE_NAME}
