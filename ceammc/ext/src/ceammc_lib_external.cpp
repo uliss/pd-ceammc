@@ -88,11 +88,13 @@ ceammc_external* ceammc_new()
     }
 
     pd_bind(&ext->x_obj.te_g.g_pd, gensym("ceammc"));
+
+    // load config
     ext->config = ceammc_config_load();
     if (!ext->config)
-        pd_error(ext, "[ceammc] can't load external config");
+        ceammc::pdError(ext, "can't load external config");
     else
-        ceammc_config_dump(ext->config);
+        ceammc::pdDebug(ext, "config file loaded");
 
     return ext;
 }
@@ -169,14 +171,15 @@ void ceammc_cords(t_object* x, t_symbol* s)
 t_symbol* ceammc_gen_doc_path(ceammc_config_lang lang)
 {
     switch (lang) {
-    case ceammc_config_lang::DEFAULT:
-    case ceammc_config_lang::ENGLISH: {
-        return gensym(class_getname(ceammc_class));
-    }
     case ceammc_config_lang::RUSSIAN: {
         char buf[MAXPDSTRING] = { 0 };
         snprintf(buf, sizeof(buf), "help-ru/%s", class_getname(ceammc_class));
         return gensym(buf);
+    }
+    case ceammc_config_lang::DEFAULT:
+    case ceammc_config_lang::ENGLISH:
+    default: {
+        return gensym(class_getname(ceammc_class));
     }
     }
 }
@@ -189,14 +192,15 @@ void ceammc_set_doc_lang(ceammc_external* ext, ceammc_config_lang lang)
         return;
 
     switch (lang) {
-    case ceammc_config_lang::DEFAULT:
-    case ceammc_config_lang::ENGLISH: {
-        pdDebug(ext, "set documentation language to English");
-        ObjectInfoStorage::instance().setDocLanguage(ObjectInfoStorage::English);
-    } break;
     case ceammc_config_lang::RUSSIAN: {
         pdDebug(ext, "set documentation language to Russian");
         ObjectInfoStorage::instance().setDocLanguage(ObjectInfoStorage::Russian);
+    } break;
+    case ceammc_config_lang::DEFAULT:
+    case ceammc_config_lang::ENGLISH:
+    default: {
+        pdDebug(ext, "set documentation language to English");
+        ObjectInfoStorage::instance().setDocLanguage(ObjectInfoStorage::English);
     } break;
     }
 
@@ -209,7 +213,9 @@ void ceammc_doc_lang(t_object* x, t_symbol* s)
     auto ext = reinterpret_cast<ceammc_external*>(x);
 
     auto lang = ceammc_config_lang::DEFAULT;
-    ceammc_config_parse_lang(s->s_name, &lang);
+    if (!ceammc_config_parse_lang(s->s_name, &lang))
+        pd_error(ext, "[ceammc] unknown lang '%s', setting to default", s->s_name);
+
     ceammc_set_doc_lang(ext, lang);
 }
 
