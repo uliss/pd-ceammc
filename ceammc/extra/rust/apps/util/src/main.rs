@@ -26,19 +26,19 @@ enum LangName {
 
 #[derive(Clone, Subcommand)]
 enum Pd {
-    /// autorun management
+    /// autostart management
     #[group(required = false, multiple = false)]
-    Autorun {
-        /// add file to the Pd autorun
+    Autostart {
+        /// add file to autostart
         #[arg(long)]
         add: Option<String>,
-        /// clear Pd autorun
+        /// restore default autostart file
         #[arg(long)]
-        clear: bool,
-        /// enable Pd autorun
+        default: bool,
+        /// enable autostart
         #[arg(long)]
         enable: bool,
-        /// disable Pd autorun
+        /// disable autostart
         #[arg(long)]
         disable: bool,
     },
@@ -253,9 +253,9 @@ fn main() -> anyhow::Result<()> {
 
     match args.command {
         Commands::Pd(pd) => match pd {
-            Pd::Autorun {
+            Pd::Autostart {
                 add,
-                clear,
+                default,
                 enable,
                 disable,
             } => {
@@ -266,8 +266,8 @@ fn main() -> anyhow::Result<()> {
                         println!("{} not a file: '{file}'", "[error]".red());
                         return Ok(());
                     }
-                } else if clear {
-                    println!("clear autorun: {}", "not implemented yet".red());
+                } else if default {
+                    println!("restore default autorun: {}", "not implemented yet".red());
                 } else if enable {
                     println!("enable autorun: {}", "not implemented yet".red());
                 } else if disable {
