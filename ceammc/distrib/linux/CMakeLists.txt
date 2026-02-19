@@ -41,7 +41,7 @@ if(UNIX AND NOT APPLE)
     # (re)install with dpkg (slow!)
     add_custom_target(
       dev_dpkg
-      COMMAND sudo dpkg --remove ${LINUX_DEBIAN_PACKAGE_NAME}
+      COMMAND sudo dpkg --purge ${LINUX_DEBIAN_PACKAGE_NAME}
       COMMAND sudo dpkg --install
               ${PROJECT_BINARY_DIR}/${LINUX_DEBIAN_PACKAGE_FILE_NAME}.deb
       USES_TERMINAL)
@@ -55,7 +55,7 @@ if(UNIX AND NOT APPLE)
       DEPENDS ceammc
       USES_TERMINAL)
 
-    # slow run: (re)install with dpkg and run
+    # slow run: build app, (re)install with dpkg, then run
     add_custom_target(
       dev_open
       COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target package
