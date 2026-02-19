@@ -12,9 +12,6 @@ use terminal_size::terminal_size;
 #[path = "../../src/ceammc_config.rs"]
 mod config;
 
-#[derive(Clone, Subcommand)]
-enum PdAutostart {}
-
 #[derive(Debug, Clone, Copy, ValueEnum)]
 enum LangName {
     Ru,
@@ -24,14 +21,14 @@ enum LangName {
 
 #[derive(Clone, Subcommand)]
 enum Pd {
-    #[command(subcommand)]
-    Autostart(PdAutostart),
-    Update,
-    #[group(multiple = false)]
+    Autostart {
+        file: String,
+    },
     Lang {
         #[arg(long)]
         set: Option<LangName>,
     },
+    Update,
 }
 
 #[derive(Subcommand, Clone)]
@@ -197,7 +194,10 @@ fn main() -> anyhow::Result<()> {
 
     match args.command {
         Commands::Pd(pd) => match pd {
-            Pd::Autostart(_pd_autostart) => {}
+            Pd::Autostart { file } => {
+                let _ = file;
+                println!("{}", "not implemented yet".red());
+            }
             Pd::Update => {
                 let cmd = ["apt", "update"];
                 println!(
