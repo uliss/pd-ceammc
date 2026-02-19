@@ -190,7 +190,7 @@ fn dpkg_version() -> String {
         .args(["-W", "-f", "'${Version}\n'", "pd-ceammc"])
         .output()
         .ok()
-        .map(|x| String::from_utf8(x.stdout).unwrap_or_default())
+        .map(|x| String::from_utf8(x.stdout).unwrap_or("invalid output".to_string()))
         .unwrap_or("_".to_string())
 }
 
