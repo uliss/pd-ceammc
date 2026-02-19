@@ -49,7 +49,7 @@ pub fn output_error(err: &Error) {
             error!("{} is {} yet!", name.underline(), "not implemented".red())
         }
         Error::FileCopyError(from, dest, err) => {
-            println!(
+            error!(
                 "while copying {} to {}: {err}",
                 from.to_string_lossy().as_ref().cyan(),
                 dest.to_string_lossy().as_ref().cyan(),
