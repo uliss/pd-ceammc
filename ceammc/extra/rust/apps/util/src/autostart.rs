@@ -70,14 +70,18 @@ pub fn check_orig_run_script() -> Result<PathBuf, Error> {
 fn copy(from: &PathBuf, dest: &PathBuf) -> Result<(), common::Error> {
     std::fs::copy(from, dest)
         .map_err(|err| Error::FileCopyError(from.clone(), dest.clone(), err.to_string()))?;
-    info!("copy {from:?} -> {dest:?}");
+    info!(
+        "copy {} -> {}",
+        format!("{from:?}").cyan(),
+        format!("{dest:?}").cyan()
+    );
     Ok(())
 }
 
 fn remove_file(path: &PathBuf) -> Result<(), common::Error> {
     std::fs::remove_file(path)
         .map_err(|err| Error::FileRemoveError(path.clone(), err.to_string()))?;
-    info!("remove {path:?}");
+    info!("remove {}", format!("{path:?}").cyan());
     Ok(())
 }
 
