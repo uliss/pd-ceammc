@@ -42,6 +42,7 @@ enum Pd {
         #[arg(long)]
         disable: bool,
     },
+    /// set PureData doc language (for ceammc external)
     Lang {
         #[arg(long)]
         set: Option<LangName>,
@@ -53,7 +54,9 @@ enum Pd {
 #[command(version, about, long_about = None)]
 enum Commands {
     #[command(subcommand)]
+    /// PureData management
     Pd(Pd),
+    /// output system information
     Info {
         #[arg(long)]
         use_bytes: bool,
@@ -294,10 +297,7 @@ fn main() -> anyhow::Result<()> {
                 println!(
                     "running command: {}\nthis can request {} password",
                     cmd.join(" ").cyan(),
-                    users::get_current_username()
-                        .map(|x| x.into_string().unwrap_or_default())
-                        .unwrap_or("???".to_string())
-                        .magenta()
+                    std::env::var("USER").unwrap_or("???".to_string()).magenta()
                 );
                 output_rule();
                 let status = Command::new("sudo")
