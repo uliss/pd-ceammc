@@ -126,8 +126,8 @@ fn remove_desktop() -> Result<(), common::Error> {
 }
 
 pub fn disable() -> Result<(), common::Error> {
-    remove_run_script()?;
-    remove_desktop()?;
+    let _ = remove_run_script();
+    let _ = remove_desktop();
     Ok(())
 }
 
