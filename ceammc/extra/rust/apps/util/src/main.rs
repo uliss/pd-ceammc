@@ -197,9 +197,12 @@ fn main() -> anyhow::Result<()> {
             Pd::Update => {
                 let cmd = ["apt", "update"];
                 println!(
-                    "running {} command\nthis wille require {} password\n",
+                    "running {} command\nthis will require {} password\n",
                     cmd.join(" ").cyan(),
-                    whoami::account().unwrap_or_default().red()
+                    users::get_current_username()
+                        .map(|x| x.into_string().unwrap_or_default())
+                        .unwrap_or("???".to_string())
+                        .magenta()
                 );
                 Command::new("sudo")
                     .arg(cmd[0])
