@@ -1,12 +1,11 @@
 use crate::autostart::ProcessOptions;
-use crate::common::{output_error, output_header, output_rule};
+use crate::common::{output_error, output_header};
 use anyhow::anyhow;
 use ceammc_shared_rs::config::{config_lang, config_load, config_store};
 use chrono::{DateTime, Local};
 use clap::{Parser, Subcommand, ValueEnum};
 use colored::Colorize;
 use humansize::{format_size, BINARY};
-use std::process::{Command, Stdio};
 use std::time::SystemTime;
 use sysinfo::{Networks, System};
 
@@ -15,6 +14,8 @@ mod config;
 
 mod autostart;
 mod common;
+mod update;
+mod dpkg;
 
 #[derive(Debug, Clone, Copy, ValueEnum)]
 enum LangName {
@@ -27,7 +28,7 @@ enum LangName {
 enum Pd {
     /// auto start control: enable, disable, set main patch symlink
     #[group(required = false, multiple = false)]
-    #[command(alias = "auto", long_about = "?")]
+    #[command(alias = "auto")]
     Autostart {
         /// create symlink to autostart patch
         #[arg(short, long, name = "FILE")]
@@ -51,8 +52,19 @@ enum Pd {
         #[arg(short, long)]
         set: Option<LangName>,
     },
+    #[group(required = false)]
     /// update CEAMMC PureData
-    Update,
+    Update {
+        /// update all (distrib first, then others)
+        #[arg(short, long)]
+        all: bool,
+        /// update examples
+        #[arg(short, long)]
+        examples: bool,
+        /// update distributive
+        #[arg(short, long)]
+        pd: bool,
+    },
 }
 
 /// CEAM utilities
@@ -145,19 +157,10 @@ fn output_system() {
     );
 }
 
-fn dpkg_version() -> String {
-    std::process::Command::new("dpkg-query")
-        .args(["-W", "-f", "${Version}", "pd-ceammc"])
-        .output()
-        .ok()
-        .map(|x| String::from_utf8(x.stdout).unwrap_or("invalid output".to_string()))
-        .unwrap_or("_".to_string())
-}
-
 fn output_pd() {
     println!("pd_distrib:   \t{}", crate::config::CEAMMC_DISTRIB_VERSION);
     println!("pd_ceam_ver:  \t{}", crate::config::CEAMMC_LIB_VERSION);
-    println!("pd_dpkg_ver:  \t{}", dpkg_version());
+    println!("pd_dpkg_ver:  \t{}", dpkg::dpkg_version());
     println!("pd_ver:       \t{}", crate::config::PD_TEXT_VERSION_FULL);
     println!("pd_git_branch:\t{}", crate::config::GIT_BRANCH);
     println!("pd_git_commit:\t{}", crate::config::GIT_COMMIT);
@@ -260,39 +263,14 @@ fn main() -> anyhow::Result<()> {
                     output_error(&err);
                 }
             }
-            Pd::Update => {
-                let cmd = ["apt", "update"];
-                println!(
-                    "running command: {}\nthis can request {} password",
-                    cmd.join(" ").cyan(),
-                    std::env::var("USER").unwrap_or("???".to_string()).magenta()
-                );
-                output_rule();
-                let status = Command::new("sudo")
-                    .args(cmd)
-                    .stdin(Stdio::inherit())
-                    .stdout(Stdio::inherit())
-                    .stderr(Stdio::inherit())
-                    .spawn()
-                    .expect("Failed to execute command")
-                    .wait()
-                    .expect("failed to wait on child");
+            Pd::Update { all, examples, pd } => {
+                // update on empty also
+                if all || pd || (!pd && !examples) {
+                    update::update_pd_ceammc();
+                }
 
-                if status.success() {
-                    let cmd = ["apt", "upgrade", "--only-upgrade", "pd-ceammc"];
-                    output_rule();
-                    println!("running command: {}", cmd.join(" ").cyan());
-                    output_rule();
-
-                    let _status = Command::new("sudo")
-                        .args(cmd)
-                        .stdin(Stdio::inherit())
-                        .stdout(Stdio::inherit())
-                        .stderr(Stdio::inherit())
-                        .spawn()
-                        .expect("Failed to execute command")
-                        .wait()
-                        .expect("failed to wait on child");
+                if all || examples {
+                    update::update_examples();
                 }
             }
             Pd::Lang { set } => {
