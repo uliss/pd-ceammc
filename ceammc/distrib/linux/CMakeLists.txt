@@ -46,6 +46,15 @@ if(UNIX AND NOT APPLE)
               ${PROJECT_BINARY_DIR}/${LINUX_DEBIAN_PACKAGE_FILE_NAME}.deb
       USES_TERMINAL)
 
+    # rebuild all (re)install with dpkg (slow!)
+    add_custom_target(
+      dev_package
+      COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target package
+      COMMAND sudo dpkg --purge ${LINUX_DEBIAN_PACKAGE_NAME}
+      COMMAND sudo dpkg --install
+              ${PROJECT_BINARY_DIR}/${LINUX_DEBIAN_PACKAGE_FILE_NAME}.deb
+      USES_TERMINAL)
+
     # fast run: copy binary and run (be carefull!)
     add_custom_target(
       dev_run
