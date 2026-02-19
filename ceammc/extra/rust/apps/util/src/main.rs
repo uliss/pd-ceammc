@@ -8,8 +8,8 @@ use std::time::SystemTime;
 use sysinfo::{Networks, System};
 use terminal_size::terminal_size;
 
-// #[path = "../src/ceammc_config.rs"]
-// mod config;
+#[path = "../../src/ceammc_config.rs"]
+mod config;
 
 #[derive(Clone, Subcommand)]
 enum PdAutostart {}
@@ -131,11 +131,11 @@ fn output_system() {
 }
 
 fn output_pd() {
-    // println!("pd_distrib:   \t{}", crate::config::CEAMMC_DISTRIB_VERSION);
-    // println!("pd_ceam_ver:  \t{}", crate::config::CEAMMC_LIB_VERSION);
-    // println!("pd_ver:       \t{}", crate::config::PD_TEXT_VERSION_FULL);
-    // println!("pd_git_branch:\t{}", crate::config::GIT_BRANCH);
-    // println!("pd_git_commit:\t{}", crate::config::GIT_COMMIT);
+    println!("pd_distrib:   \t{}", crate::config::CEAMMC_DISTRIB_VERSION);
+    println!("pd_ceam_ver:  \t{}", crate::config::CEAMMC_LIB_VERSION);
+    println!("pd_ver:       \t{}", crate::config::PD_TEXT_VERSION_FULL);
+    println!("pd_git_branch:\t{}", crate::config::GIT_BRANCH);
+    println!("pd_git_commit:\t{}", crate::config::GIT_COMMIT);
     println!("pd_build_date:\t{}", compile_time::date_str!());
     println!("pd_build_time:\t{}", compile_time::time_str!());
 
