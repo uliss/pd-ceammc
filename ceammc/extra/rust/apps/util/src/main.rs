@@ -27,25 +27,28 @@ enum LangName {
 #[derive(Clone, Subcommand)]
 enum Pd {
     /// autostart management
-    #[group(required = false, multiple = false)]
+    #[group(required = true, multiple = false)]
     Autostart {
         /// add file to autostart
-        #[arg(long)]
+        #[arg(short, long)]
         add: Option<String>,
         /// restore default autostart file
         #[arg(long)]
         default: bool,
         /// enable autostart
-        #[arg(long)]
+        #[arg(short, long)]
         enable: bool,
         /// disable autostart
-        #[arg(long)]
+        #[arg(short, long)]
         disable: bool,
+        /// print verbose autostart information
+        #[arg(short, long)]
+        info: bool,
     },
     /// set PureData doc language (for ceammc external)
     Lang {
         /// language name code
-        #[arg(long)]
+        #[arg(short, long)]
         set: Option<LangName>,
     },
     /// update CEAMMC PureData
@@ -60,7 +63,7 @@ enum Commands {
     Pd(Pd),
     /// output system information
     Info {
-        #[arg(long)]
+        #[arg(short, long)]
         use_bytes: bool,
         // output all information
         #[arg(short, long)]
@@ -263,6 +266,7 @@ fn main() -> anyhow::Result<()> {
                 default,
                 enable,
                 disable,
+                info,
             } => {
                 if let Some(file) = add {
                     println!("add to autorun: {}", "not implemented yet".red());
@@ -277,7 +281,7 @@ fn main() -> anyhow::Result<()> {
                     println!("enable autorun: {}", "not implemented yet".red());
                 } else if disable {
                     println!("disable autorun: {}", "not implemented yet".red());
-                } else {
+                } else if info {
                     output_header("autostart");
                     println!(
                         "patch:        \t{}",
