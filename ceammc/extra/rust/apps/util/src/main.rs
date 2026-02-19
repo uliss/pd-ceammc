@@ -226,9 +226,9 @@ fn main() -> anyhow::Result<()> {
                     println!("enable autorun: {}", "not implemented yet".red());
                 } else if disable {
                     println!("disable autorun: {}", "not implemented yet".red());
+                } else {
+                    println!("{}", "not implemented yet".red());
                 }
-
-                println!("{}", "not implemented yet".red());
             }
             Pd::Update => {
                 let cmd = ["apt", "update"];
