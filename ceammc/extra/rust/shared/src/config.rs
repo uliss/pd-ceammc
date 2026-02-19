@@ -1,4 +1,7 @@
-use std::ffi::{c_char, CStr};
+use std::{
+    ffi::{c_char, CStr},
+    str::FromStr,
+};
 
 use log::{error, info, warn};
 use serde::{Deserialize, Serialize};
@@ -15,11 +18,40 @@ pub enum config_lang {
     Russian,
 }
 
+impl ToString for config_lang {
+    fn to_string(&self) -> String {
+        match self {
+            config_lang::Default => "default",
+            config_lang::English => "en",
+            config_lang::Russian => "ru",
+        }
+        .to_owned()
+    }
+}
+
+#[derive(Debug, PartialEq, Eq)]
+pub enum ConfigErr {
+    InvalidLang(String),
+}
+
+impl FromStr for config_lang {
+    type Err = ConfigErr;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "default" => Ok(config_lang::Default),
+            "ru" => Ok(config_lang::Russian),
+            "en" => Ok(config_lang::English),
+            _ => Err(ConfigErr::InvalidLang(format!("invalid lang code: '{s}'"))),
+        }
+    }
+}
+
 #[repr(C)]
 #[allow(non_camel_case_types)]
 #[derive(Default, Debug, Serialize, Deserialize)]
 pub struct config {
-    doc_lang: config_lang,
+    pub doc_lang: config_lang,
 }
 
 #[no_mangle]
@@ -88,25 +120,17 @@ pub extern "C" fn ceammc_config_parse_lang(
         return false;
     }
 
-    let str = unsafe { CStr::from_ptr(str_lang) }
-        .to_string_lossy()
-        .to_string();
-
-    match str.as_str() {
-        "ru" => {
-            *lang = config_lang::Russian;
+    match config_lang::from_str(
+        unsafe { CStr::from_ptr(str_lang) }
+            .to_string_lossy()
+            .as_ref(),
+    ) {
+        Ok(l) => {
+            *lang = l;
             true
         }
-        "en" => {
-            *lang = config_lang::English;
-            true
-        }
-        "def" => {
-            *lang = config_lang::Default;
-            true
-        }
-        _ => {
-            warn!("unknown language code: {str}");
+        Err(err) => {
+            warn!("{err:?}");
             false
         }
     }

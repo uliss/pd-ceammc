@@ -1,0 +1,22 @@
+[package]
+name = "ceam-util"
+version = "0.1.1"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.101"
+ceammc_shared_rs = { version = "0.1.0", path = "../../shared" }
+chrono = "0.4.43"
+clap = { version = "4.5.59", features = ["std", "derive"] }
+colored = { version = "3.1.1", default-features = false }
+compile-time = "0.2.0"
+confy = { version = "2.0.0" }
+datetime = { version = "0.5.2", default-features = false }
+env_logger = "0.11.9"
+humansize = "2.1.3"
+log = "0.4.29"
+sysinfo = "0.38.2"
+terminal_size = "0.4.3"
+
+[profile.release]
+strip = true

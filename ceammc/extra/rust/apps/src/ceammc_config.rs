@@ -15,4 +15,4 @@ pub const PD_TEXT_VERSION_SHORT: &str = "0.53.0";
 pub const PD_TEXT_VERSION_FULL: &str = "0.53.0_ceammc";
 
 pub const GIT_BRANCH: &str = "devel";
-pub const GIT_COMMIT: &str = "v2025.04-1764-gf56e9a6bab";
+pub const GIT_COMMIT: &str = "v2025.04-1768-g74cdfa30eb";

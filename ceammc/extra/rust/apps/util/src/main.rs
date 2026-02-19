@@ -1,13 +1,15 @@
+use anyhow::anyhow;
+use ceammc_shared_rs::config::{config_lang, config_load, config_store};
 use chrono::{DateTime, Local};
-use clap::{Parser, Subcommand};
+use clap::{Parser, Subcommand, ValueEnum};
 use colored::Colorize;
 use humansize::{format_size, BINARY};
-use std::{error::Error, time::SystemTime};
+use std::time::SystemTime;
 use sysinfo::{Networks, System};
 use terminal_size::terminal_size;
 
-#[path = "../ceammc_config.rs"]
-mod config;
+// #[path = "../src/ceammc_config.rs"]
+// mod config;
 
 #[derive(Clone, Subcommand)]
 enum PdAutostart {}
@@ -15,12 +17,24 @@ enum PdAutostart {}
 #[derive(Clone, Subcommand)]
 enum PdUpdate {}
 
+#[derive(Debug, Clone, Copy, ValueEnum)]
+enum LangName {
+    Ru,
+    En,
+    Default,
+}
+
 #[derive(Clone, Subcommand)]
 enum Pd {
     #[command(subcommand)]
     Autostart(PdAutostart),
     #[command(subcommand)]
     Update(PdUpdate),
+    #[group(multiple = false)]
+    Lang {
+        #[arg(long)]
+        set: Option<LangName>,
+    },
 }
 
 #[derive(Subcommand, Clone)]
@@ -117,13 +131,18 @@ fn output_system() {
 }
 
 fn output_pd() {
-    println!("pd_distrib:   \t{}", crate::config::CEAMMC_DISTRIB_VERSION);
-    println!("pd_ceam_ver:  \t{}", crate::config::CEAMMC_LIB_VERSION);
-    println!("pd_ver:       \t{}", crate::config::PD_TEXT_VERSION_FULL);
-    println!("pd_git_branch:\t{}", crate::config::GIT_BRANCH);
-    println!("pd_git_commit:\t{}", crate::config::GIT_COMMIT);
+    // println!("pd_distrib:   \t{}", crate::config::CEAMMC_DISTRIB_VERSION);
+    // println!("pd_ceam_ver:  \t{}", crate::config::CEAMMC_LIB_VERSION);
+    // println!("pd_ver:       \t{}", crate::config::PD_TEXT_VERSION_FULL);
+    // println!("pd_git_branch:\t{}", crate::config::GIT_BRANCH);
+    // println!("pd_git_commit:\t{}", crate::config::GIT_COMMIT);
     println!("pd_build_date:\t{}", compile_time::date_str!());
     println!("pd_build_time:\t{}", compile_time::time_str!());
+
+    let lang = config_load()
+        .map(|x| x.doc_lang.to_string())
+        .unwrap_or_default();
+    println!("pd_lang:      \t{lang}");
 }
 
 fn output_info(
@@ -170,16 +189,32 @@ fn output_info(
     }
 }
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn main() -> anyhow::Result<()> {
     env_logger::init();
 
     let args = Cli::parse();
 
     match args.command {
         Commands::Pd(pd) => match pd {
-            Pd::Autostart(pd_autostart) => {}
-            Pd::Update(pd_update) => {}
-            _ => {}
+            Pd::Autostart(_pd_autostart) => {}
+            Pd::Update(_pd_update) => {}
+            Pd::Lang { set } => {
+                let mut cfg =
+                    ceammc_shared_rs::config::config_load().map_err(|err| anyhow!(err))?;
+                match set {
+                    Some(lang) => {
+                        let lang = match lang {
+                            LangName::Ru => config_lang::Russian,
+                            LangName::En => config_lang::English,
+                            LangName::Default => config_lang::Default,
+                        };
+                        cfg.doc_lang = lang;
+                        config_store(&cfg).map_err(|err| anyhow!(err))?;
+                        println!("lang: {}", cfg.doc_lang.to_string().cyan())
+                    }
+                    None => println!("lang: {}", cfg.doc_lang.to_string().cyan()),
+                }
+            }
         },
         Commands::Info { use_bytes, all } => {
             output_info(use_bytes, all, true, true, true, true, true);
