@@ -195,9 +195,16 @@ fn main() -> anyhow::Result<()> {
         Commands::Pd(pd) => match pd {
             Pd::Autostart(_pd_autostart) => {}
             Pd::Update => {
-                println!("running {} command\n\n", "apt upgrade".cyan());
-                Command::new("apt")
-                    .arg("upgrade")
+                let cmd = ["apt", "update"];
+                println!(
+                    "running {} command\nthis wille require {} password\n",
+                    cmd.join(" ").cyan(),
+                    whoami::account().unwrap_or_default().red()
+                );
+                Command::new("sudo")
+                    .arg(cmd[0])
+                    .arg(cmd[1])
+                    .stdin(Stdio::inherit())
                     .stdout(Stdio::inherit())
                     .stderr(Stdio::inherit())
                     .spawn()
