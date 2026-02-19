@@ -305,10 +305,10 @@ fn main() -> anyhow::Result<()> {
                 } else {
                     output_header("autostart");
                     if is_autostart_enabled() {
-                        println!("PureData autostart is {}", "enabled".green());
+                        println!("PureData autostart is {}", "enabled".green().underline());
                         println!("patch: {}", autostart_patch().unwrap_or_default().cyan());
                     } else {
-                        println!("PureData autostart is {}", "disabled".magenta());
+                        println!("PureData autostart is {}", "disabled".magenta().underline());
                     }
                 }
             }
