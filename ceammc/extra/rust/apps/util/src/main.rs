@@ -4,7 +4,7 @@ use chrono::{DateTime, Local};
 use clap::{Parser, Subcommand, ValueEnum};
 use colored::Colorize;
 use humansize::{format_size, BINARY};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::time::SystemTime;
 use sysinfo::{Networks, System};
@@ -13,6 +13,7 @@ use terminal_size::terminal_size;
 const AUTOSTART_PATCH: &str = "Documents/Pd/main.pd";
 const AUTOSTART_DESKTOP: &str = ".config/autostart/pd-ceammc.desktop";
 const AUTOSTART_SCRIPT: &str = "bin/pd_start.sh";
+const AUTOSTART_ORIG_SCRIPT: &str = "/usr/lib/pd_ceammc/share/rpi/pd_start.sh";
 
 #[path = "../../src/ceammc_config.rs"]
 mod config;
@@ -84,6 +85,34 @@ fn data_size(size_bytes: u64, human: bool) -> String {
     } else {
         format!("{} bytes", size_bytes)
     }
+}
+
+fn autostart_enable() {
+    let dest_path = format!(
+        "{}/{AUTOSTART_SCRIPT}",
+        std::env::var("HOME").unwrap_or_default()
+    );
+    let _ = std::process::Command::new("cp")
+        .args(["-v", AUTOSTART_ORIG_SCRIPT, dest_path.as_str()])
+        .output();
+}
+
+fn output_error(msg: &str) {
+    println!("{} {msg}", "[error]".red());
+}
+
+fn autostart_disable() {
+    if !Path::new(AUTOSTART_ORIG_SCRIPT).is_file() {
+        output_error(&format!(
+            "original auto start file not found: '{AUTOSTART_ORIG_SCRIPT}'. Will not remove user script."
+        ));
+        return;
+    }
+
+    let _ = std::process::Command::new("rm")
+        .args(["-f", AUTOSTART_SCRIPT])
+        .stderr(Stdio::inherit())
+        .output();
 }
 
 fn output_rule() {
@@ -294,9 +323,9 @@ fn main() -> anyhow::Result<()> {
                 } else if default {
                     println!("restore default autorun: {}", "not implemented yet".red());
                 } else if enable {
-                    println!("enable autorun: {}", "not implemented yet".red());
+                    autostart_enable();
                 } else if disable {
-                    println!("disable autorun: {}", "not implemented yet".red());
+                    autostart_disable();
                 } else if info {
                     output_header("autostart");
                     println!(
