@@ -104,8 +104,9 @@ if(Rust_FOUND)
             install(FILES "${Verovio_ROOT}/bin/libverovio.dll" DESTINATION ${VEROVIO_INSTALL_DIR})
         endif()
 
+        cmake_path(SET _install_dir NORMALIZE ${PD_DOC_INSTALL_PATH}/extra/ceammc/music)
         install(DIRECTORY ${VEROVIO_DATA}
-            DESTINATION ${PD_DOC_INSTALL_PATH}/extra/ceammc/music
+            DESTINATION ${_install_dir}
             FILES_MATCHING PATTERN "*.xml" PATTERN "*.svg" PATTERN "*.css")
     endif()
 else()

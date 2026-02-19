@@ -132,7 +132,8 @@ foreach(_doc_file ${DOC_FILES})
 endforeach()
 
 # Documentation index install
-install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."
+cmake_path(SET _install_dir NORMALIZE "${DOC_INSTALL_PATH}/..")
+install(FILES "index-help.pd" DESTINATION ${_install_dir}
     PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
 
 # extra doc file: presets, sound examples etc.

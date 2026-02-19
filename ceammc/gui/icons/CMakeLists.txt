@@ -26,4 +26,6 @@ endif()
 
 add_custom_target(scripts SOURCES make_icons.sh)
 add_custom_target(win_app_icon SOURCES pd_ceammc.ico)
-install(FILES pd_ceammc.ico DESTINATION ${PD_TCL_INSTALL_PATH}/tcl)
+
+cmake_path(SET _install_path NORMALIZE ${PD_TCL_INSTALL_PATH}/tcl)
+install(FILES pd_ceammc.ico DESTINATION ${_install_path})
