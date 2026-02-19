@@ -21,13 +21,28 @@ if(UNIX AND NOT APPLE)
 
   if(LINUX_DEBIAN_PACKAGE_FILE_NAME)
     set(PDCORE_LIB_INSTALL_PATH lib)
-    cmake_path(SET script_install_dir ${PD_DOC_INSTALL_PATH}/share/rpi)
+
+    # RaspberryPi
+    # ##########################################################################
+    # extra stuff install directory
+    cmake_path(SET rpi_script_install_dir ${PD_DOC_INSTALL_PATH}/share/rpi)
+    # install run_script for autostart
     install(
       FILES ${PROJECT_BINARY_DIR}/scripts/pd_start.sh
-      DESTINATION ${script_install_dir}
+      DESTINATION ${rpi_script_install_dir}
+      PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ
+                  WORLD_EXECUTE)
+    # install RPi desktop file for autostart
+    cmake_path(SET rpi_script_install_dir ${PD_DOC_INSTALL_PATH}/share/rpi)
+    install(
+      FILES ${PROJECT_BINARY_DIR}/scripts/pd-ceammc.desktop
+      DESTINATION ${rpi_script_install_dir}
       PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ
                   WORLD_EXECUTE)
 
+    # Linux dev targets
+    # ##########################################################################
+    # (re)install with dpkg (slow!)
     add_custom_target(
       dev_dpkg
       COMMAND sudo dpkg --remove ${LINUX_DEBIAN_PACKAGE_NAME}
@@ -35,6 +50,7 @@ if(UNIX AND NOT APPLE)
               ${PROJECT_BINARY_DIR}/${LINUX_DEBIAN_PACKAGE_FILE_NAME}.deb
       USES_TERMINAL)
 
+    # fast run: copy binary and run (be carefull!)
     add_custom_target(
       dev_run
       COMMAND sudo cp $<TARGET_FILE:ceammc>
@@ -43,6 +59,7 @@ if(UNIX AND NOT APPLE)
       DEPENDS ceammc
       USES_TERMINAL)
 
+    # slow run: (re)install with dpkg and run
     add_custom_target(
       dev_open
       COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target package
@@ -52,6 +69,7 @@ if(UNIX AND NOT APPLE)
       COMMAND pd-ceammc
       USES_TERMINAL)
 
+    # update copyrights
     add_custom_target(
       dev_copyright
       COMMAND
