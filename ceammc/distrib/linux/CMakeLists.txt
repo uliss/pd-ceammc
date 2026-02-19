@@ -1,6 +1,6 @@
 file(GLOB _BUILD_SCRIPTS "*.sh")
 add_custom_target(ceammc_distrib_linux_sources SOURCES ${_BUILD_SCRIPTS}
-                                                       rpi/pd-ceammc.desktop)
+                                                       rpi/pd-ceammc-autostart.desktop)
 
 if(UNIX AND NOT APPLE)
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/snapcraft.yaml.in
@@ -16,8 +16,8 @@ if(UNIX AND NOT APPLE)
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/rpi/pd_start.sh
                  ${PROJECT_BINARY_DIR}/scripts/pd_start.sh @ONLY)
   # Autostart file to place into ${HOME}/.config/autostart
-  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/rpi/pd-ceammc.desktop
-                 ${PROJECT_BINARY_DIR}/scripts/pd-ceammc.desktop @ONLY)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/rpi/pd-ceammc-autostart.desktop
+                 ${PROJECT_BINARY_DIR}/scripts/pd-ceammc-autostart.desktop @ONLY)
 
   if(LINUX_DEBIAN_PACKAGE_FILE_NAME)
     set(PDCORE_LIB_INSTALL_PATH lib)
@@ -35,7 +35,7 @@ if(UNIX AND NOT APPLE)
     # install RPi desktop file for autostart
     cmake_path(SET rpi_script_install_dir ${PD_DOC_INSTALL_PATH}/share/rpi)
     install(
-      FILES ${PROJECT_BINARY_DIR}/scripts/pd-ceammc.desktop
+      FILES ${PROJECT_BINARY_DIR}/scripts/pd-ceammc-autostart.desktop
       DESTINATION ${rpi_script_install_dir}
       PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ
                   WORLD_EXECUTE)
