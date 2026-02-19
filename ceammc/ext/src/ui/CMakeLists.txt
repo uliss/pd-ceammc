@@ -83,13 +83,15 @@ if(Rust_FOUND)
         if(WIN32)
             # verovio expected to be installed with ./script/build_verovio.sh
             # into this directory
-            set(VEROVIO_ROOT $ENV{USERPROFILE}/.local/verovio)
+            set(Verovio_ROOT $ENV{USERPROFILE}/.local/verovio)
+            # normalize windows back slashes
+            cmake_path(SET Verovio_ROOT NORMALIZE ${Verovio_ROOT})
         else()
             # verovio expected to be installed with ./script/build_verovio.sh
             # into this directory
-            set(VEROVIO_ROOT $ENV{HOME}/.local/verovio)
+            set(Verovio_ROOT $ENV{HOME}/.local/verovio)
         endif()
-        message(STATUS "Verovio root is: ${VEROVIO_ROOT}")
+        message(STATUS "Verovio root is: ${Verovio_ROOT}")
         find_package(Verovio REQUIRED)
         target_compile_definitions(ceammc_ui PRIVATE WITH_VEROVIO)
         target_link_libraries(ceammc_ui PRIVATE ${VEROVIO_LIBRARIES})
@@ -99,7 +101,7 @@ if(Rust_FOUND)
             install(FILES "${VEROVIO_LIBRARY}" DESTINATION ${VEROVIO_INSTALL_DIR})
         elseif(WIN32) # install verovio dll
             set(VEROVIO_INSTALL_DIR ${PDCORE_LIB_INSTALL_PATH})
-            install(FILES "${VEROVIO_ROOT}/bin/libverovio.dll" DESTINATION ${VEROVIO_INSTALL_DIR})
+            install(FILES "${Verovio_ROOT}/bin/libverovio.dll" DESTINATION ${VEROVIO_INSTALL_DIR})
         endif()
 
         install(DIRECTORY ${VEROVIO_DATA}
