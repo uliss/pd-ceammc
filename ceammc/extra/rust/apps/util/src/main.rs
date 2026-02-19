@@ -144,7 +144,7 @@ fn output_system() {
 }
 
 fn dpkg_version() -> String {
-    std::process::Command::new("dpkg")
+    std::process::Command::new("dpkg-query")
         .args(["-W", "-f", "'${Version}\n'", "pd-ceammc"])
         .output()
         .ok()
