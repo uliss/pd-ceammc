@@ -27,7 +27,7 @@ enum LangName {
 #[derive(Clone, Subcommand)]
 enum Pd {
     /// autostart management
-    #[group(required = true, multiple = false)]
+    #[group(required = false, multiple = false)]
     Autostart {
         /// add file to autostart
         #[arg(short, long)]
@@ -137,6 +137,12 @@ fn output_net() {
             );
         }
     }
+}
+
+fn is_autostart_enabled() -> bool {
+    [autostart_desktop(), autostart_patch(), autostart_script()]
+        .iter()
+        .all(|x| x.as_ref().is_some_and(|x| !x.is_empty()))
 }
 
 fn output_system() {
@@ -296,6 +302,14 @@ fn main() -> anyhow::Result<()> {
                         autostart_desktop().unwrap_or_default().cyan()
                     );
                     println!()
+                } else {
+                    
+                    if is_autostart_enabled() {
+                        println!("PureData autostart is enabled");
+                        println!("autostart file is: {}", autostart_patch().unwrap_or_default().cyan());
+                    } else {
+                        println!("PureData autostart is disabled");
+                    }
                 }
             }
             Pd::Update => {
