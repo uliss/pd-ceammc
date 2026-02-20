@@ -39,6 +39,14 @@ if(UNIX AND NOT APPLE)
     install(
       FILES ${CMAKE_CURRENT_SOURCE_DIR}/rpi/pd-ceammc-autostart.desktop
       DESTINATION ${rpi_script_install_dir}
+      FILE_PERMISSIONS
+        OWNER_READ
+        OWNER_WRITE
+        OWNER_EXECUTE
+        GROUP_READ
+        GROUP_EXECUTE
+        WORLD_READ
+        WORLD_EXECUTE
       PERMISSIONS
         OWNER_READ
         OWNER_WRITE
