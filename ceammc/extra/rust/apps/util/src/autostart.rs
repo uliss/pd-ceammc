@@ -124,7 +124,7 @@ fn fix_desktop_vars(path: &PathBuf) -> Result<(), common::Error> {
             .unwrap_or_default(),
     );
 
-    std::fs::write(path, data).map_err(|err| Error::Common(format!("file write error: {err}")))?;
+    std::fs::write(path, data).map_err(|err| Error::Common(format!("file write error: {err}")))
 }
 
 fn copy_desktop() -> Result<(), common::Error> {
