@@ -11,6 +11,8 @@ if(Rust_FOUND)
   if(WITH_RUST_APPS)
     corrosion_import_crate(MANIFEST_PATH apps/Cargo.toml)
 
+    # rhvoice_download
+    # ##########################################################################
     install(
       FILES $<TARGET_FILE:rhvoice_download>
       DESTINATION ${CEAMMC_INSTALL_PATH}
@@ -18,25 +20,32 @@ if(Rust_FOUND)
                   WORLD_EXECUTE)
 
     corrosion_import_crate(MANIFEST_PATH apps/util/Cargo.toml)
+    # ##########################################################################
 
     # ceam-util executable
-    if(UNIX AND NOT APPLE)
-      cmake_path(SET ceam_util_install_dir "bin")
-    else()
-      cmake_path(SET ceam_util_install_dir ${CEAMMC_INSTALL_PATH})
-    endif()
+    # ##########################################################################
+    if(UNIX)
+      if(UNIX AND NOT APPLE)
+        cmake_path(SET ceam_util_install_dir "bin")
+      else()
+        cmake_path(SET ceam_util_install_dir ${CEAMMC_INSTALL_PATH})
+      endif()
 
-    install(
-      FILES $<TARGET_FILE:ceam-util>
-      DESTINATION ${ceam_util_install_dir}
-      PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ
-                  WORLD_EXECUTE)
+      install(
+        FILES $<TARGET_FILE:ceam-util>
+        DESTINATION ${ceam_util_install_dir}
+        PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE
+                    WORLD_READ WORLD_EXECUTE)
+    endif()
+    # ##########################################################################
 
     set(RUST_DYLIBFIX
         ${CMAKE_CURRENT_BINARY_DIR}/dylibfix
         CACHE STRING FORCE "set dylibfix app")
   endif()
 
+  # rust ceammc_shared
+  # ############################################################################
   if(WIN32)
     corrosion_import_crate(MANIFEST_PATH shared/Cargo.toml CRATE_TYPES cdylib)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ceammc_shared_rs.dll
@@ -45,11 +54,15 @@ if(Rust_FOUND)
     corrosion_import_crate(MANIFEST_PATH shared/Cargo.toml CRATE_TYPES
                            staticlib)
   endif()
+
   # include cbindgen generated headers
   target_include_directories(
     ceammc_shared_rs
     INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/shared>)
+  # ############################################################################
 
+  # rust core
+  # ############################################################################
   if(WITH_RUST_CORE)
     if(WIN32)
       corrosion_import_crate(MANIFEST_PATH core/Cargo.toml CRATE_TYPES cdylib)
@@ -62,6 +75,8 @@ if(Rust_FOUND)
       core_rust INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/core>)
   endif()
 
+  # rust hw
+  # ############################################################################
   if(WITH_RUST_HW)
     if(WIN32)
       corrosion_import_crate(MANIFEST_PATH hw/Cargo.toml CRATE_TYPES cdylib)
@@ -76,6 +91,8 @@ if(Rust_FOUND)
     endif()
   endif()
 
+  # rust proto
+  # ############################################################################
   if(WITH_RUST_PROTO)
     if(WIN32)
       corrosion_import_crate(MANIFEST_PATH proto/Cargo.toml CRATE_TYPES cdylib)
@@ -86,6 +103,8 @@ if(Rust_FOUND)
     endif()
   endif()
 
+  # rust net
+  # ############################################################################
   if(WITH_RUST_NET)
     set(RUST_NET_CRATE_TYPE staticlib)
     if(APPLE OR WIN32)
@@ -100,6 +119,8 @@ if(Rust_FOUND)
     endif()
   endif()
 
+  # rust system
+  # ############################################################################
   if(WITH_RUST_SYSTEM)
     if(WIN32)
       corrosion_import_crate(MANIFEST_PATH system/Cargo.toml CRATE_TYPES cdylib)
@@ -110,6 +131,8 @@ if(Rust_FOUND)
     endif()
   endif()
 
+  # rust synth
+  # ############################################################################
   if(WITH_RUST_SYNTH)
     if(WIN32)
       corrosion_import_crate(MANIFEST_PATH synth/Cargo.toml CRATE_TYPES cdylib)
