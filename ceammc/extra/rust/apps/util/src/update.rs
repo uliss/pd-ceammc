@@ -2,6 +2,7 @@ use crate::common::{self, home_path, output_header, output_rule, Error};
 use colored::Colorize;
 use log::warn;
 use std::{
+    os::unix::fs::PermissionsExt,
     path::PathBuf,
     process::{Command, Stdio},
     vec,
@@ -104,13 +105,26 @@ pub fn update_examples(overwrite: bool) -> Result<(), Error> {
         if let Some(name) = from.file_name() {
             dest.push(name);
 
-            if dest.exists() && !overwrite {
-                warn!(
+            if dest.exists() {
+                if !overwrite {
+                    warn!(
                     "overwrite attempt: {}, skipping ...\n\tuse {} flag to overwrite existing files",
                     dest.display().to_string().cyan(),
                     "--force".magenta()
                 );
-                continue;
+                    continue;
+                }
+                // fix permission
+                let metadata = std::fs::metadata(&dest)
+                    .map_err(|err| Error::from(&err, "get file permissions", &dest))?;
+
+                if metadata.permissions().readonly() {
+                    log::info!("fix permissions for {}", dest.display().to_string().cyan());
+                    // (rw-r--r--)
+                    let permissions = std::fs::Permissions::from_mode(0o644);
+                    std::fs::set_permissions(&dest, permissions)
+                        .map_err(|err| Error::from(&err, "set file permissions", &dest))?
+                }
             }
 
             common::copy(&from, &dest)?;

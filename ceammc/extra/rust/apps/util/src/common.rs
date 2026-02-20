@@ -33,6 +33,13 @@ pub enum Error {
     FileRemoveError(PathBuf, String),
     SymlinkError(PathBuf, PathBuf, String),
     NotSymlink(PathBuf),
+    IOError(String, String, PathBuf),
+}
+
+impl Error {
+    pub fn from(err: &std::io::Error, while_action: &str, path: &PathBuf) -> Self {
+        Self::IOError(err.to_string(), while_action.to_string(), path.clone())
+    }
 }
 
 pub fn output_error(err: &Error) {
@@ -74,6 +81,12 @@ pub fn output_error(err: &Error) {
                 Some(descr) => error!("{descr} directory not found: {dir}"),
                 None => error!("directory not found: {dir}"),
             }
+        }
+        Error::IOError(err, while_op, path) => {
+            error!(
+                "IO error while {while_op}: {err} ({})",
+                path.to_string_lossy().as_ref().cyan(),
+            )
         }
     }
 }
