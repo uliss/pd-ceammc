@@ -4,3 +4,4 @@ Name=PureData Autostart (ceammc)
 Icon=puredata-ceammc
 Exec=${HOME}/bin/pd_start.sh
 Terminal=false
+X-GNOME-Autostart-enabled=true
