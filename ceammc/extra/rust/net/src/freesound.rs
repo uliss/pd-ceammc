@@ -12,7 +12,7 @@ use crate::{
     service::{callback_msg, callback_notify, callback_progress, Error, Service, ServiceCallback},
     utils,
 };
-use derivative::Derivative;
+use debug_ignore::DebugIgnore;
 use itertools::Itertools;
 use log::{debug, error, info};
 use nucleo_matcher::{
@@ -431,18 +431,16 @@ enum FloatType {
     Float,
 }
 
-#[derive(Derivative)]
-#[derivative(Debug)]
+#[derive(Debug)]
 struct ArrayData {
     name: CString,
     channel: usize,
-    #[derivative(Debug = "ignore")]
-    data: &'static mut [t_pd_rust_word],
     size: usize,
-    alloc: freesound_alloc_fn,
+    // alloc: freesound_alloc_fn,
     free: freesound_free_fn,
     owner: bool,
     float_type: FloatType,
+    data: DebugIgnore<&'static mut [t_pd_rust_word]>,
 }
 
 impl ArrayData {
@@ -461,9 +459,9 @@ impl ArrayData {
             let data = unsafe { &mut *slice_from_raw_parts_mut(data, capacity) };
 
             Some(ArrayData {
-                data,
+                data: debug_ignore::DebugIgnore(data),
                 size: 0,
-                alloc,
+                // alloc,
                 free,
                 name,
                 channel,
@@ -811,7 +809,7 @@ async fn freesound_get(
                     params.sort.as_str(),
                     CaseMatching::Respect,
                     Normalization::Never,
-                    AtomKind::Fuzzy,    
+                    AtomKind::Fuzzy,
                     false,
                 )
                 .match_list(FIELD_VALUES, &mut matcher);
@@ -840,7 +838,7 @@ async fn freesound_get(
                             params.sort,
                             matches.iter().map(|x| format!("'{}'", x.0)).join(", ")
                         ));
-                    },
+                    }
                     #[allow(unreachable_patterns)]
                     _ => {
                         log::error!("unmatched pattern");

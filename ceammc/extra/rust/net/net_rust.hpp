@@ -139,7 +139,11 @@ struct ceammc_freesound_result_cb {
     void (*cb_search_tag)(void *data, const char *tag);
     void (*cb_search_num)(void *data, const char *key, double value);
     void (*cb_search_str)(void *data, const char *key, const char *value);
-    void (*cb_search_obj)(void *dict, const char *key1, const char *key2, const double *values, size_t num_values);
+    void (*cb_search_obj)(void *dict,
+                          const char *key1,
+                          const char *key2,
+                          const double *values,
+                          size_t num_values);
     void (*cb_search_result_append)(void *dict, void *data);
     void (*cb_search_results_done)(void *user, void *dict);
     void (*cb_download)(void *user, const char *filename);
@@ -213,7 +217,13 @@ struct ceammc_mqtt_client_result_cb {
     /// connected callback function (can be NULL)
     void (*conn_cb)(void *user, ceammc_mqtt_rc code);
     /// publish callback function (can be NULL)
-    void (*pub_cb)(void *user, const char *topic, const uint8_t *data, size_t data_len, ceammc_mqtt_qos qos, bool retain, uint16_t pkid);
+    void (*pub_cb)(void *user,
+                   const char *topic,
+                   const uint8_t *data,
+                   size_t data_len,
+                   ceammc_mqtt_qos qos,
+                   bool retain,
+                   uint16_t pkid);
 };
 
 struct ceammc_telegram_bot_init {
@@ -233,9 +243,23 @@ struct ceammc_telegram_bot_result_cb {
     /// sticker callback function (can be NULL)
     void (*sti_cb)(void *user, int64_t chat_id, const char *file_id, const char *emoji);
     /// voice callback function (can be NULL)
-    void (*voice_cb)(void *user, int64_t chat_id, const char *file_id, const char *file_unique_id, const char *mime, uint32_t file_duration, uint64_t file_size);
+    void (*voice_cb)(void *user,
+                     int64_t chat_id,
+                     const char *file_id,
+                     const char *file_unique_id,
+                     const char *mime,
+                     uint32_t file_duration,
+                     uint64_t file_size);
     /// voice callback function (can be NULL)
-    void (*audio_cb)(void *user, int64_t chat_id, const char *file_id, const char *file_unique_id, const char *mime, const char *file_name, uint32_t file_duration, uint64_t file_size, const char *title);
+    void (*audio_cb)(void *user,
+                     int64_t chat_id,
+                     const char *file_id,
+                     const char *file_unique_id,
+                     const char *mime,
+                     const char *file_name,
+                     uint32_t file_duration,
+                     uint64_t file_size,
+                     const char *title);
 };
 
 struct ceammc_ws_client_init {
@@ -283,9 +307,15 @@ struct ceammc_ws_server_result_cb {
     /// text data callback function (can be NULL)
     void (*cb_text)(void *user, const char *txt, const ceammc_ws_peer_info *peer);
     /// binary data callback function (can be NULL)
-    void (*cb_binary)(void *user, const uint8_t *data, size_t data_len, const ceammc_ws_peer_info *peer);
+    void (*cb_binary)(void *user,
+                      const uint8_t *data,
+                      size_t data_len,
+                      const ceammc_ws_peer_info *peer);
     /// ping callback function (can be NULL)
-    void (*cb_ping)(void *user, const uint8_t *data, size_t data_len, const ceammc_ws_peer_info *peer);
+    void (*cb_ping)(void *user,
+                    const uint8_t *data,
+                    size_t data_len,
+                    const ceammc_ws_peer_info *peer);
     /// connected/disconnected callback function (can be NULL)
     void (*cb_connected)(void *user, bool state, const ceammc_ws_peer_info *peer);
 };
@@ -723,7 +753,9 @@ bool ceammc_ws_server_close_clients(ceammc_ws_server *srv, ceammc_ws_client_targ
 /// @param cb - request callback
 bool ceammc_ws_server_connected_clients(ceammc_ws_server *srv,
                                         void *user,
-                                        void (*cb)(void *user, const ceammc_ws_peer_info *msg, size_t len));
+                                        void (*cb)(void *user,
+                                                   const ceammc_ws_peer_info *msg,
+                                                   size_t len));
 
 ceammc_ws_server *ceammc_ws_server_create(ceammc_ws_server_init params,
                                           ceammc_callback_msg cb_err,
@@ -775,6 +807,6 @@ bool ceammc_ws_server_send_text(ceammc_ws_server *srv,
 /// @param target - specify target clients
 bool ceammc_ws_server_shutdown_clients(ceammc_ws_server *srv, ceammc_ws_client_target target);
 
-} // extern "C"
+}  // extern "C"
 
-#endif // ceammc_rust_net_h
+#endif  // ceammc_rust_net_h
