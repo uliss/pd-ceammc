@@ -113,10 +113,27 @@ fn copy_run_script() -> Result<(), common::Error> {
     Ok(())
 }
 
+fn fix_desktop_vars(path: &PathBuf) -> Result<(), common::Error> {
+    let data = std::fs::read_to_string(path)
+        .map_err(|err| Error::Common(format!("file read error: {err}")))?;
+
+    let data = data.replace(
+        "${HOME}",
+        &std::env::home_dir()
+            .map(|p| p.display().to_string())
+            .unwrap_or_default(),
+    );
+
+    std::fs::write(path, data).map_err(|err| Error::Common(format!("file write error: {err}")))?;
+
+    todo!()
+}
+
 fn copy_desktop() -> Result<(), common::Error> {
     let from = check_orig_desktop()?;
-    copy(&from, &desktop_path())?;
-    Ok(())
+    let dest = desktop_path();
+    copy(&from, &dest)?;
+    fix_desktop_vars(&dest)
 }
 
 pub fn enable() -> Result<(), common::Error> {
