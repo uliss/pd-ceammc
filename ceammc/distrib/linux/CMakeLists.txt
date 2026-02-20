@@ -1,6 +1,8 @@
 file(GLOB _BUILD_SCRIPTS "*.sh")
-add_custom_target(ceammc_distrib_linux_sources
-                  SOURCES ${_BUILD_SCRIPTS} rpi/pd-ceammc-autostart.desktop)
+file(GLOB _RPI_EXAMPLES "rpi/examples/*.pd")
+add_custom_target(
+  ceammc_distrib_linux_sources SOURCES ${_BUILD_SCRIPTS} ${_RPI_EXAMPLES}
+                                       rpi/pd-ceammc-autostart.desktop)
 
 if(UNIX AND NOT APPLE)
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/snapcraft.yaml.in
