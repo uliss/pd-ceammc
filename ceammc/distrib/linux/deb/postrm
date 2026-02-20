@@ -4,10 +4,12 @@ if [ "$1" = "remove" ]; then
     rm -f /usr/bin/pd-ceammc
     rm -f /usr/bin/pdsend-ceammc
     rm -f /usr/bin/pdreceive-ceammc
+    rm -f /usr/bin/ceam
     ldconfig
 elif [ "$1" = "old-postrm" ]; then
     rm -f /usr/bin/pd-ceammc
     rm -f /usr/bin/pdsend-ceammc
     rm -f /usr/bin/pdreceive-ceammc
+    rm -f /usr/bin/ceam
     ldconfig
 fi

@@ -6,17 +6,21 @@ if [ "$1" = "configure" ]; then
     rm -f /usr/bin/pd-ceammc
     rm -f /usr/bin/pdsend-ceammc
     rm -f /usr/bin/pdreceive-ceammc
+    rm -f /usr/bin/ceam
     ln -s /usr/lib/pd_ceammc/bin/pd /usr/bin/pd-ceammc
     ln -s /usr/lib/pd_ceammc/bin/pdsend  /usr/bin/pdsend-ceammc
     ln -s /usr/lib/pd_ceammc/bin/pdreceive /usr/bin/pdreceive-ceammc
+    ln -s /usr/bin/ceam-util /usr/bin/ceam
     ldconfig
 elif [ "$1" = "old-postinst" ]; then
     rm -f /usr/bin/pd-ceammc
     rm -f /usr/bin/pdsend-ceammc
     rm -f /usr/bin/pdreceive-ceammc
+    rm -f /usr/bin/ceam
     ln -s /usr/lib/pd_ceammc/bin/pd /usr/bin/pd-ceammc
     ln -s /usr/lib/pd_ceammc/bin/pdsend  /usr/bin/pdsend-ceammc
     ln -s /usr/lib/pd_ceammc/bin/pdreceive /usr/bin/pdreceive-ceammc
+    ln -s /usr/bin/ceam-util /usr/bin/ceam
     ldconfig
 fi
 
