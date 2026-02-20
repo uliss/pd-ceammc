@@ -89,10 +89,12 @@ if(WITH_PRINTER)
         )
         target_link_libraries(ceammc_hw PRIVATE hw_rust ${CUPS_LIBRARIES})
     else()
-        install(
-            FILES ${PROJECT_BINARY_DIR}/cargo/build/pdfium.dll 
-            DESTINATION bin
-        )
+        file(GLOB PDFIUM_DLL "${PROJECT_BINARY_DIR}/cargo/hw*/pdfium.dll")
+        message(STATUS "pdfium DLL: ${PDFIUM_DLL}")
+
+        foreach(dll ${PDFIUM_DLL})
+            install(FILES ${dll} DESTINATION bin)
+        endforeach()
 
         target_sources(ceammc_hw PRIVATE hw_printer.cpp)
         target_include_directories(ceammc_hw
