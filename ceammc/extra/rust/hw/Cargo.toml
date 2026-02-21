@@ -36,6 +36,8 @@ lib_macro = { path = "lib_macro" }
 xml = "1.2.1"
 lazy_static = "1.5.0"
 
+# used in devel: linux
+arrayvec = "0.7.6"
 
 [target.'cfg(target_os="linux")'.dependencies]
 rppal = { version = "0.22.1", features = ["hal", "nb"] }

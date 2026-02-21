@@ -4,8 +4,10 @@
 #![allow(non_camel_case_types)]
 
 use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, HwThreadWorker, MakePdMessage};
+use arrayvec::ArrayVec;
 use lib_macro::PdMessage;
 use log::error;
+use std::slice::{self, from_raw_parts};
 use std::{
     ffi::{c_int, c_void, CString},
     ptr::null_mut,
@@ -18,6 +20,8 @@ pub const HW_GPIO_DEF_PIN: i8 = HW_GPIO_PIN_NONE;
 pub const HW_GPIO_MAX_PIN: i8 = 127;
 pub const HW_GPIO_IMPULSE_LENGTH_MIN_MSEC: f64 = 0.001;
 pub const HW_GPIO_IMPULSE_LENGTH_MAX_MSEC: f64 = 100.0;
+// max number of pins can be operated in one request
+pub const HW_GPIO_MAX_PIN_COUNT_REQUEST: usize = 16;
 
 #[derive(PdMessage)]
 pub enum Reply {
@@ -30,6 +34,7 @@ pub enum Request {
     SetOutput(u8),
     SetInput(u8),
     ResetPin(u8),
+    ResetPins(ArrayVec<u8, HW_GPIO_MAX_PIN_COUNT_REQUEST>),
     Read(u8),
     Write(u8, bool),
     Toggle(u8),
@@ -175,12 +180,7 @@ pub extern "C" fn ceammc_hw_gpio_toggle_pin(gp: *mut hw_gpio, pin: u8) -> bool {
 /// @param freq - freq in Hertz
 /// @param duty_cycle - duty cycle in % [0-100] range
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_set_pwm_freq(
-    gp: *mut hw_gpio,
-    pin: u8,
-    freq: f64,
-    duty_cycle: f64,
-) -> bool {
+pub extern "C" fn ceammc_hw_gpio_set_pwm_freq(gp: *mut hw_gpio, pin: u8, freq: f64, duty_cycle: f64) -> bool {
     rpi_check!({ hw_gpio::send_request_ptr(gp, Request::SetPwmFreq(pin, freq, duty_cycle)) });
 }
 
@@ -190,12 +190,7 @@ pub extern "C" fn ceammc_hw_gpio_set_pwm_freq(
 /// @param period - period in msec
 /// @param width - duty_cycle width in msec
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_set_pwm(
-    gp: *mut hw_gpio,
-    pin: u8,
-    period: f64,
-    width: f64,
-) -> bool {
+pub extern "C" fn ceammc_hw_gpio_set_pwm(gp: *mut hw_gpio, pin: u8, period: f64, width: f64) -> bool {
     rpi_check!({ hw_gpio::send_request_ptr(gp, Request::SetPwm(pin, period, width)) });
 }
 
@@ -213,6 +208,25 @@ pub extern "C" fn ceammc_hw_gpio_clear_pwm(gp: *mut hw_gpio, pin: u8) -> bool {
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_reset_pin(gp: *mut hw_gpio, pin: u8) -> bool {
     rpi_check!({ hw_gpio::send_request_ptr(gp, Request::ResetPin(pin)) });
+}
+
+/// reset pins to initial state
+/// @param gpio - pointer to gpio struct
+/// @param pins - pointer to pins, not null
+/// @param count - number of pins, should be < HW_GPIO_MAX_PIN_COUNT_REQUEST
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_reset_pins(gp: *mut hw_gpio, pins: *const u8, count: usize) -> bool {
+    if count == 0 || pins.is_null() {
+        return false;
+    }
+
+    let pins = unsafe { slice::from_raw_parts(pins, count) }
+        .iter()
+        .take(HW_GPIO_MAX_PIN_COUNT_REQUEST.into())
+        .map(|x| *x)
+        .collect::<ArrayVec<_, HW_GPIO_MAX_PIN_COUNT_REQUEST>>();
+
+    rpi_check!({ hw_gpio::send_request_ptr(gp, Request::ResetPins(pins)) });
 }
 
 /// set pin mode

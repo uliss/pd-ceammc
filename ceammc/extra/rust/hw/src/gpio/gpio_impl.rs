@@ -56,17 +56,12 @@ impl hw_gpio {
                 err.to_string()
             })?;
 
-            process_debug(
-                format!("RPi model: {}, soc: {}", dev.model(), dev.soc()),
-                &tx,
-                notify,
-            );
+            process_debug(format!("RPi model: {}, soc: {}", dev.model(), dev.soc()), &tx, notify);
 
             let mut pins: HashMap<u8, GpioPin> = HashMap::new();
 
             while let Ok(req) = rx.recv() {
-                if let Err(err) = process_request(req, &notify, on_pin_poll, &tx, &gpio, &mut pins)
-                {
+                if let Err(err) = process_request(req, &notify, on_pin_poll, &tx, &gpio, &mut pins) {
                     process_err(err, &tx, notify);
                 }
             }
@@ -119,10 +114,7 @@ enum GpioPin {
     Output(gpio::OutputPin),
 }
 
-fn get_output_pin(
-    pin: u8,
-    pins: &mut HashMap<u8, GpioPin>,
-) -> Result<&mut gpio::OutputPin, String> {
+fn get_output_pin(pin: u8, pins: &mut HashMap<u8, GpioPin>) -> Result<&mut gpio::OutputPin, String> {
     let x = pins
         .get_mut(&pin)
         .ok_or(format!("pin is not configured for I/O: [{pin}]"))?;
@@ -192,8 +184,7 @@ fn process_request(
             get_output_pin(pin, pins).and_then(|pin| Ok(pin.toggle()))?;
         }
         Request::SetPwmFreq(pin, freq, duty) => {
-            get_output_pin(pin, pins)
-                .and_then(|pin| pin.set_pwm_frequency(freq, duty).map_err(|e| e.to_string()))?;
+            get_output_pin(pin, pins).and_then(|pin| pin.set_pwm_frequency(freq, duty).map_err(|e| e.to_string()))?;
         }
         Request::SetPwm(pin, period_ms, width_ms) => {
             get_output_pin(pin, pins).and_then(|pin| {
@@ -234,8 +225,7 @@ fn process_request(
             })?;
         }
         Request::ClearInterrupt(pin) => {
-            get_input_pin(pin, pins)
-                .and_then(|pin| pin.clear_async_interrupt().map_err(|e| e.to_string()))?;
+            get_input_pin(pin, pins).and_then(|pin| pin.clear_async_interrupt().map_err(|e| e.to_string()))?;
         }
         Request::SetOutput(pin) => {
             if pins.contains_key(&pin) {
@@ -266,10 +256,7 @@ fn process_request(
                 }
             }
 
-            let in_pin = gpio
-                .get(pin)
-                .map_err(|e| e.to_string())?
-                .into_input_pulldown();
+            let in_pin = gpio.get(pin).map_err(|e| e.to_string())?.into_input_pulldown();
             pins.insert(pin, GpioPin::Input(in_pin));
         }
         Request::ResetPin(pin) => {
@@ -277,25 +264,27 @@ fn process_request(
                 pins.remove(&pin);
             }
         }
+        Request::ResetPins(reset_pins) => {
+            for pin in reset_pins {
+                if pins.contains_key(&pin) {
+                    pins.remove(&pin);
+                }
+            }
+        }
         Request::ListPins => {
             let keys = pins.keys().into_iter().map(|k| *k).collect::<Vec<_>>();
             send_reply(Reply::Pins(keys), reply_tx, *notify);
         }
         Request::Impulse(pin, length_ms) => {
-            if length_ms < HW_GPIO_IMPULSE_LENGTH_MIN_MSEC
-                || length_ms > HW_GPIO_IMPULSE_LENGTH_MAX_MSEC
-            {
+            if length_ms < HW_GPIO_IMPULSE_LENGTH_MIN_MSEC || length_ms > HW_GPIO_IMPULSE_LENGTH_MAX_MSEC {
                 return Err(format!("invalid impulse length: {length_ms}, should be in [{HW_GPIO_IMPULSE_LENGTH_MIN_MSEC} ... {HW_GPIO_IMPULSE_LENGTH_MAX_MSEC}] range"));
             }
 
             let pin = get_output_pin(pin, pins)?;
             pin.set_high();
             std::thread::sleep(Duration::from_micros(
-                (length_ms.clamp(
-                    HW_GPIO_IMPULSE_LENGTH_MIN_MSEC,
-                    HW_GPIO_IMPULSE_LENGTH_MAX_MSEC,
-                ) * 1000.0)
-                    .round() as u64,
+                (length_ms.clamp(HW_GPIO_IMPULSE_LENGTH_MIN_MSEC, HW_GPIO_IMPULSE_LENGTH_MAX_MSEC) * 1000.0).round()
+                    as u64,
             ));
             pin.set_low();
         }
