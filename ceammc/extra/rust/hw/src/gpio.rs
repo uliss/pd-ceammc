@@ -7,7 +7,6 @@ use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, HwThreadWorker, MakePdMessage
 use arrayvec::ArrayVec;
 use lib_macro::PdMessage;
 use log::error;
-use std::slice::{self, from_raw_parts};
 use std::{
     ffi::{c_int, c_void, CString},
     ptr::null_mut,
