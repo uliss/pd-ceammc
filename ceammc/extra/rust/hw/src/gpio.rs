@@ -219,7 +219,7 @@ pub extern "C" fn ceammc_hw_gpio_reset_pins(gp: *mut hw_gpio, pins: *const u8, c
         return false;
     }
 
-    let pins = unsafe { slice::from_raw_parts(pins, count) }
+    let pins = unsafe { std::slice::from_raw_parts(pins, count) }
         .iter()
         .take(HW_GPIO_MAX_PIN_COUNT_REQUEST.into())
         .map(|x| *x)
