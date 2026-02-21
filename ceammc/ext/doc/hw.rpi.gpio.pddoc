@@ -65,29 +65,27 @@
       <!-- poll -->
       <method name="poll">
         <info>
-          <tr lang="en">start/stop pin value polling</tr>
-          <tr lang="ru" finished="false">Start/Stop Pin Value</tr>
+          <tr lang="en">enable/disable GPIO pin value monitoring</tr>
+          <tr lang="ru">включить/выключить отслеживание значения GPIO контакта</tr>
         </info>
         <param name="PIN" type="int" required="true">
-          <tr lang="en">pin number</tr>
-          <tr lang="ru" finished="false">пин-код</tr>
+          <tr lang="en">GPIO pin number</tr>
+          <tr lang="ru">номер контакта GPIO</tr>
         </param>
         <param name="STATE" type="bool" required="true">
-          <tr lang="en">poll state</tr>
-          <tr lang="ru" finished="false">государство</tr>
+          <tr lang="en">poll state. 1: enable. 0: disable</tr>
+          <tr lang="ru">состояние мониторинга. 1: включить. 0: выключить</tr>
         </param>
         <param name="DEBOUNCE" type="float" minvalue="0" default="10" units="millisecond">
           <tr lang="en">debounce time</tr>
-          <tr lang="ru" finished="false">время дезавуирования</tr>
+          <tr lang="ru">время подавления дребезга</tr>
         </param>
       </method>
       <!-- pull_down -->
       <method name="pull_down">
         <info>
-          <tr lang="en">pull internal pin resistors to low level</tr>
-          <!-- old: тянуть внутренние резисторы штифта на низкий
-                    уровень -->
-          <tr lang="ru" finished="false">тянуть внутренние резисторы штифта на низкий уровень</tr>
+          <tr lang="en">pull the internal pin resistors to a low level</tr>
+          <tr lang="ru">подтянуть внутренние резисторы пина к низкому уровню</tr>
         </info>
         <param name="PIN" type="int" required="true">
           <tr lang="en">GPIO pin number</tr>
@@ -97,10 +95,8 @@
       <!-- pull_up -->
       <method name="pull_up">
         <info>
-          <tr lang="en">pull internal pin resistors to high level</tr>
-          <!-- old: тянуть внутренние резисторы штифта на высокий
-                    уровень -->
-          <tr lang="ru" finished="false">тянуть внутренние резисторы штифта на высокий уровень</tr>
+          <tr lang="en">pull the internal pin resistors to a high level</tr>
+          <tr lang="ru">подтянуть внутренние резисторы пина к высокому уровню</tr>
         </info>
         <param name="PIN" type="int" required="true">
           <tr lang="en">GPIO pin number</tr>
@@ -121,10 +117,10 @@
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset the GPIO pin to its initial state</tr>
-          <tr lang="ru">сбросить контакт GPIO в начальное состояние</tr>
+          <tr lang="en">reset the GPIO pin(s) to their initial state</tr>
+          <tr lang="ru">сбросить контакт(ы) GPIO в начальное состояние</tr>
         </info>
-        <param name="PIN" type="int" required="true">
+        <param name="PIN" type="list" minvalue="1" maxvalue="16" required="true">
           <tr lang="en">GPIO pin number</tr>
           <tr lang="ru">номер контакта GPIO</tr>
         </param>
