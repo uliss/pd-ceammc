@@ -27,6 +27,9 @@ constexpr static const double ceammc_HW_GPIO_IMPULSE_LENGTH_MIN_MSEC = 0.001;
 
 constexpr static const double ceammc_HW_GPIO_IMPULSE_LENGTH_MAX_MSEC = 100.0;
 
+/// max number of pins can be operated in single group request
+constexpr static const size_t ceammc_HW_GPIO_MAX_PIN_COUNT_REQUEST = 16;
+
 constexpr static const uint16_t ceammc_HW_SR04_MIN_POLL_INTERVAL = 10;
 
 constexpr static const uint16_t ceammc_HW_SR04_DEF_POLL_INTERVAL = 20;
@@ -635,6 +638,12 @@ bool ceammc_hw_gpio_read_pin(ceammc_hw_gpio *gp, uint8_t pin);
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number
 bool ceammc_hw_gpio_reset_pin(ceammc_hw_gpio *gp, uint8_t pin);
+
+/// reset pins to initial state
+/// @param gpio - pointer to gpio struct
+/// @param pins - pointer to pins, not null
+/// @param count - number of pins, should be < HW_GPIO_MAX_PIN_COUNT_REQUEST
+bool ceammc_hw_gpio_reset_pins(ceammc_hw_gpio *gp, const uint8_t *pins, size_t count);
 
 void ceammc_hw_gpio_rotenc_free(ceammc_hw_gpio_rotenc *enc);
 

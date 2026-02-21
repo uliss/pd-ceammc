@@ -16,6 +16,18 @@
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
+using ArrayPins = boost::container::small_vector<std::uint8_t, ceammc_HW_GPIO_MAX_PIN_COUNT_REQUEST>;
+
+namespace {
+
+void set_pins(ArrayPins& arr, const AtomListView& lv)
+{
+    for (auto& a : lv)
+        arr.push_back(lv.asInt());
+}
+
+} // namespace
+
 HwRpiGpio::HwRpiGpio(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
 {
@@ -190,11 +202,13 @@ void HwRpiGpio::m_output(t_symbol* s, const AtomListView& lv)
 
 void HwRpiGpio::m_reset(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("PIN:b");
+    static const args::ArgChecker chk("PIN:b{1,16}");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    ceammc_hw_gpio_reset_pin(gpio_, lv.intAt(0, 0));
+    ArrayPins pins;
+    set_pins(pins, lv);
+    ceammc_hw_gpio_reset_pins(gpio_, pins.data(), pins.size());
 }
 
 void HwRpiGpio::on_pin_value(void* data, std::uint8_t pin, bool value)

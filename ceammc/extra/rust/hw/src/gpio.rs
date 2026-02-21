@@ -19,7 +19,7 @@ pub const HW_GPIO_DEF_PIN: i8 = HW_GPIO_PIN_NONE;
 pub const HW_GPIO_MAX_PIN: i8 = 127;
 pub const HW_GPIO_IMPULSE_LENGTH_MIN_MSEC: f64 = 0.001;
 pub const HW_GPIO_IMPULSE_LENGTH_MAX_MSEC: f64 = 100.0;
-// max number of pins can be operated in one request
+/// max number of pins can be operated in single group request
 pub const HW_GPIO_MAX_PIN_COUNT_REQUEST: usize = 16;
 
 #[derive(PdMessage)]
