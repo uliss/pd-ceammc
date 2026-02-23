@@ -66,7 +66,7 @@ WVw0 zDBG zDSF.;
 #X obj 20 992 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 993 1\.;
-#X text 270 993 output key value.;
+#X text 270 993 output the value of the SMC key.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

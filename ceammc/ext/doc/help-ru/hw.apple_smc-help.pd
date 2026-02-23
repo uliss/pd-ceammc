@@ -54,9 +54,9 @@ VN0r VP0R VP0r WKEN WVr0 WVw0 zDBG zDSF.;
 #X obj 20 902 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 903 read;
-#X text 270 903 query specified SMC key. Аргументы:;
+#X text 270 903 запрос указанного ключа SMC. Аргументы:;
 #X obj 280 926 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 926 KEY: SMC key. Тип: symbol.;
+#X text 280 926 KEY: ключ SMC. Тип: symbol.;
 #X obj 20 961 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 966 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
@@ -66,7 +66,7 @@ VN0r VP0R VP0r WKEN WVr0 WVw0 zDBG zDSF.;
 #X obj 20 1007 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1008 1\.;
-#X text 270 1008 output key value.;
+#X text 270 1008 вывод значения SMC ключа.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -7,13 +7,13 @@ Pi;
 -104026 -4096 0;
 #X obj 610 11 hw.rpi.adc.ads1115;
 #X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 240 83 Full-scale range settings:;
-#X text 240 108 - @fsr 6144mv \, range +-6.144V \, 1-bit: 0.1875mV;
-#X text 240 133 - @fsr 4096mv \, range +-4.096V \, 1-bit: 0.125mV;
-#X text 240 158 - @fsr 2048mv \, range +-2.048V \, 1-bit: 0.0625mV;
-#X text 240 183 - @fsr 1024mv \, range +-1.024V \, 1-bit: 0.03125mV;
-#X text 240 208 - @fsr 512mv \, range +-0.512V \, 1-bit: 0.015625mV;
-#X text 240 233 - @fsr 256mv \, range +-0.256V \, 1-bit: 0.0078125mV;
+#X text 240 83 Настройки полного диапазона значений;
+#X text 240 108 - @fsr 6144mv \, диапазон +-6.144V \, 1-бит: 0.1875mV;
+#X text 240 133 - @fsr 4096mv \, диапазон +-4.096V \, 1-бит: 0.125mV;
+#X text 240 158 - @fsr 2048mv \, диапазон +-2.048V \, 1-бит: 0.0625mV;
+#X text 240 183 - @fsr 1024mv \, диапазон +-1.024V \, 1-бит: 0.03125mV;
+#X text 240 208 - @fsr 512mv \, диапазон +-0.512V \, 1-бит: 0.015625mV;
+#X text 240 233 - @fsr 256mv \, диапазон +-0.256V \, 1-бит: 0.0078125mV;
 #X obj 50 311 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 50 340 poll \$1;
 #X msg 69 369 measure 0;
@@ -94,15 +94,15 @@ float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...
 #X obj 20 1376 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1377 measure;
-#X text 270 1377 single measure request. Аргументы:;
+#X text 270 1377 запрос однкратного измерения. Аргументы:;
 #X obj 280 1400 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1400 [CHAN]: the channel to measure. If omitted: perform
-measure on all channels. Тип: int. Диапазон: 0…3\.;
+#X text 280 1400 [CHAN]: канал измерения. Если пропущено: выполнить
+измерения по всем каналам. Тип: int. Диапазон: 0…3\.;
 #X obj 250 1440 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1440 poll;
-#X text 270 1440 set polling turn on/off. Аргументы:;
+#X text 270 1440 включить/выключить режим автоматического опроса. Аргументы:;
 #X obj 280 1463 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1463 STATE: poll state. Тип: bool.;
+#X text 280 1463 STATE: режим опроса. Тип: bool.;
 #X obj 20 1498 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1503 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
@@ -113,7 +113,7 @@ measure on all channels. Тип: int. Диапазон: 0…3\.;
 #X obj 20 1544 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1545 1\.;
-#X text 270 1545 [ch CHANNEL VALUE( messages.;
+#X text 270 1545 сообщения: [ch КАНАЛ ЗНАЧЕНИЕ(.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

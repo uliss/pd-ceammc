@@ -34,12 +34,13 @@ us this information;
 0;
 #X text 130 492 1\.;
 #X text 170 492 bang:;
-#X text 270 492 outputs current motion sensor information.;
+#X text 270 492 выводит текущую информацию датчика движения.;
 #X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 532 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 533 1\.;
-#X text 270 533 list of three values: x-rotation \, y-rotation \, z-acceleration.;
+#X text 270 533 список из трех значений: x-вращение \, y-вращение \,
+z-ускорение.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

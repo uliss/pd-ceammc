@@ -19,24 +19,31 @@
     <info>
       <par>
         <tr lang="en">Full-scale range settings:</tr>
+        <tr lang="ru">Настройки полного диапазона значений</tr>
       </par>
       <par>
         <tr lang="en">- @fsr 6144mv, range +-6.144V, 1-bit: 0.1875mV</tr>
+        <tr lang="ru">- @fsr 6144mv, диапазон +-6.144V, 1-бит: 0.1875mV</tr>
       </par>
       <par>
         <tr lang="en">- @fsr 4096mv, range +-4.096V, 1-bit: 0.125mV</tr>
+        <tr lang="ru">- @fsr 4096mv, диапазон +-4.096V, 1-бит: 0.125mV</tr>
       </par>
       <par>
         <tr lang="en">- @fsr 2048mv, range +-2.048V, 1-bit: 0.0625mV</tr>
+        <tr lang="ru">- @fsr 2048mv, диапазон +-2.048V, 1-бит: 0.0625mV</tr>
       </par>
       <par>
         <tr lang="en">- @fsr 1024mv, range +-1.024V, 1-bit: 0.03125mV</tr>
+        <tr lang="ru">- @fsr 1024mv, диапазон +-1.024V, 1-бит: 0.03125mV</tr>
       </par>
       <par>
         <tr lang="en">- @fsr 512mv, range +-0.512V, 1-bit: 0.015625mV</tr>
+        <tr lang="ru">- @fsr 512mv, диапазон +-0.512V, 1-бит: 0.015625mV</tr>
       </par>
       <par>
         <tr lang="en">- @fsr 256mv, range +-0.256V, 1-bit: 0.0078125mV</tr>
+        <tr lang="ru">- @fsr 256mv, диапазон +-0.256V, 1-бит: 0.0078125mV</tr>
       </par>
     </info>
     <arguments>
@@ -47,34 +54,29 @@
     </arguments>
     <properties>
       <!-- @fsr -->
-      <property name="@fsr" type="symbol" default="6144mv" access="initonly"
-      enum="1024mv 2048mv 256mv 4096mv 512mv 6144mv">
+      <property name="@fsr" type="symbol" default="6144mv" access="initonly" enum="1024mv 2048mv 256mv 4096mv 512mv 6144mv">
         <tr lang="en">full-scale input range</tr>
         <tr lang="ru">полный входной диапазон</tr>
       </property>
       <!-- @i2c_addr -->
-      <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
-      maxvalue="119">
+      <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4" maxvalue="119">
         <tr lang="en">I²C address. Also 'default' value is accepted (for address 0x48) and 'alt'
         (for address 0x49)</tr>
         <tr lang="ru">Адрес I²C. Также принимается значение «default» (для адреса 0x48) и «alt»
         (для адреса 0x49)</tr>
       </property>
       <!-- @i2c_bus -->
-      <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
-      access="initonly">
+      <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none" access="initonly">
         <tr lang="en">I²C bus</tr>
         <tr lang="ru">шина I²C</tr>
       </property>
       <!-- @in_max -->
-      <property name="@in_max" type="float" minvalue="0.0" maxvalue="6144.0" default="5000.0"
-      access="readwrite">
+      <property name="@in_max" type="float" minvalue="0.0" maxvalue="6144.0" default="5000.0" access="readwrite">
         <tr lang="en">input maximum value in millivolts</tr>
         <tr lang="ru">максимальное входное значение в милливольтах</tr>
       </property>
       <!-- @in_min -->
-      <property name="@in_min" type="float" minvalue="0.0" maxvalue="6144.0" default="0.0"
-      access="readwrite">
+      <property name="@in_min" type="float" minvalue="0.0" maxvalue="6144.0" default="0.0" access="readwrite">
         <tr lang="en">input minimal value in millivolts</tr>
         <tr lang="ru">минимальное входное значение в милливольтах</tr>
       </property>
@@ -103,8 +105,7 @@
         <tr lang="ru">выходное минимальное значение</tr>
       </property>
       <!-- @poll_time -->
-      <property name="@poll_time" type="float" minvalue="5.0" maxvalue="250.0" default="20.0"
-      units="millisecond" access="initonly">
+      <property name="@poll_time" type="float" minvalue="5.0" maxvalue="250.0" default="20.0" units="millisecond" access="initonly">
         <tr lang="en">polling measure time</tr>
         <tr lang="ru">время между измерениями</tr>
       </property>
@@ -113,33 +114,38 @@
       <!-- measure -->
       <method name="measure">
         <info>
-          <tr lang="en">single measure request</tr>
+          <tr lang="en">single measurement request</tr>
+          <tr lang="ru">запрос однкратного измерения</tr>
         </info>
         <param name="CHAN" type="int" minvalue="0" maxvalue="3">
-          <tr lang="en">the channel to measure. If omitted: perform measure on all channels</tr>
+          <tr lang="en">the channel to measure. If omitted: perform measurements on all channels</tr>
+          <tr lang="ru">канал измерения. Если пропущено: выполнить измерения по всем каналам</tr>
         </param>
       </method>
       <!-- poll -->
       <method name="poll">
         <info>
-          <tr lang="en">set polling turn on/off</tr>
+          <tr lang="en">turn on/off automatic polling mode</tr>
+          <tr lang="ru">включить/выключить режим автоматического опроса</tr>
         </info>
         <param name="STATE" type="bool" required="true">
-          <tr lang="en">poll state</tr>
+          <tr lang="en">polling mode</tr>
+          <tr lang="ru">режим опроса</tr>
         </param>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en" />
+          <tr lang="en"/>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">[ch CHANNEL VALUE( messages</tr>
+          <tr lang="en">messages: [ch CHANNEL VALUE(</tr>
+          <tr lang="ru">сообщения: [ch КАНАЛ ЗНАЧЕНИЕ(</tr>
         </out>
       </outlet>
     </outlets>

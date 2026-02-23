@@ -34,11 +34,11 @@
       <method name="read">
         <info>
           <tr lang="en">query specified SMC key</tr>
-          <tr lang="ru" finished="false">Запрос указанного ключа SMC</tr>
+          <tr lang="ru">запрос указанного ключа SMC</tr>
         </info>
         <param name="KEY" type="symbol" required="true">
           <tr lang="en">SMC key</tr>
-          <tr lang="ru" finished="false">Ключ SMC</tr>
+          <tr lang="ru">ключ SMC</tr>
         </param>
       </method>
     </methods>
@@ -53,8 +53,8 @@
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">output key value</tr>
-          <tr lang="ru" finished="false">выходное ключевое значение</tr>
+          <tr lang="en">output the value of the SMC key</tr>
+          <tr lang="ru">вывод значения SMC ключа</tr>
         </out>
       </outlet>
     </outlets>
