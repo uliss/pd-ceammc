@@ -806,7 +806,7 @@ math.log~	natural logarithm for signals / натуральный логариф�
 math.mul	multiplication / умножение
 math.*	multiplication / умножение
 math.nan	Not a Number, unrepresentable value / Не число, непредставимое значение
-math.nan~	NaN signal / сигнал NaNN
+math.nan~	NaN signal / сигнал NaN
 math.neg	negate function / отрицательная функция
 ceammc/-x	negate function / отрицательная функция
 -x	negate function / отрицательная функция

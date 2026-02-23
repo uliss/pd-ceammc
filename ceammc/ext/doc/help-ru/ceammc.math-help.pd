@@ -128,7 +128,7 @@ e;
 #X obj 30 1745 math.nan;
 #X text 200 1745 Не число \, непредставимое значение;
 #X obj 30 1773 math.nan~;
-#X text 200 1773 сигнал NaNN;
+#X text 200 1773 сигнал NaN;
 #X obj 30 1801 math.neg;
 #X text 200 1801 отрицательная функция;
 #X obj 30 1829 math.or;

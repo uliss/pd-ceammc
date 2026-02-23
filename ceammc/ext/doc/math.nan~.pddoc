@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">NaN signal</tr>
-        <tr lang="ru">сигнал NaNN</tr>
+        <tr lang="ru">сигнал NaN</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
