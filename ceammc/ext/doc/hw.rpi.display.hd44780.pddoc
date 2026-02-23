@@ -35,12 +35,8 @@
       maxvalue="119">
         <tr lang="en">I²C address. Values 'default' (for addr 0x27), 'alt' (for addr 0x3f) are also
         accepted</tr>
-        <!-- old: Адрес I²C. Также принимаются значения «default» (для
-                адреса 0x27), «alt» (для адреса 0x3f). -->
-        <!-- old: Адрес I2C. Также принимаются значения «по умолчанию»
-                (для добавления 0x27), «альт» (для добавления 0x3f). -->
-        <tr lang="ru" finished="false">Адрес I2C. Также принимаются значения «по умолчанию» (для
-        добавления 0x27), «альт» (для добавления 0x3f).</tr>
+        <tr lang="ru">Адрес I²C. Также принимаются значения 'default' (для
+        адреса 0x27), 'alt' (для адреса 0x3f).</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -50,8 +46,8 @@
       </property>
       <!-- @rows -->
       <property name="@rows" type="int" default="1" enum="1 2 4" access="initonly">
-        <tr lang="en">number of display rows</tr>
-        <tr lang="ru" finished="false">Количество строк дисплея</tr>
+        <tr lang="en">number of display lines</tr>
+        <tr lang="ru">количество строк дисплея</tr>
       </property>
     </properties>
     <methods>
@@ -59,119 +55,110 @@
       <method name="backlight">
         <info>
           <tr lang="en">turn on/off the display backlight</tr>
-          <tr lang="ru" finished="false">включить/выключить подсветку дисплея</tr>
+          <tr lang="ru">включить/выключить подсветку дисплея</tr>
         </info>
         <param name="STATE" type="bool" required="true">
           <tr lang="en">new state</tr>
-          <tr lang="ru" finished="false">Новое государство</tr>
+          <tr lang="ru">новое состояние</tr>
         </param>
       </method>
       <!-- char -->
       <method name="char">
         <info>
           <tr lang="en">write character to the display and move cursor to the next position</tr>
-          <!-- old: Напишите символ на дисплей и переместите курсор
-                    в следующую позицию -->
-          <tr lang="ru" finished="false">Напишите символ на дисплей и переместите курсор в
+          <tr lang="ru">записать символ в дисплей и переместить курсор в
           следующую позицию</tr>
         </info>
         <param name="CHAR" type="int" required="true" minvalue="0" maxvalue="255">
-          <tr lang="en">char code</tr>
-          <tr lang="ru" finished="false">Код Шара</tr>
+          <tr lang="en">character code</tr>
+          <tr lang="ru">код символа</tr>
         </param>
       </method>
       <!-- clear -->
       <method name="clear">
         <info>
           <tr lang="en">clear all display data and set cursor position to 0, 0</tr>
-          <!-- old: очистить все данные отображения и установить
-                    положение курсора до 0, 0 -->
-          <tr lang="ru" finished="false">очистить все данные отображения и установить положение
-          курсора до 0, 0</tr>
+          <tr lang="ru">очистить дисплей и установить положение курсора в 0, 0</tr>
         </info>
       </method>
       <!-- clear_line -->
       <method name="clear_line">
         <info>
           <tr lang="en">clear only specified line</tr>
-          <tr lang="ru" finished="false">четкая только указанная линия</tr>
+          <tr lang="ru">очистить только указанную строку</tr>
         </info>
         <param name="LINE" type="int" required="true" minvalue="0" maxvalue="3">
           <tr lang="en">line index</tr>
-          <tr lang="ru" finished="false">линейный индекс</tr>
+          <tr lang="ru">индекс строки</tr>
         </param>
       </method>
       <!-- cursor_blink -->
       <method name="cursor_blink">
         <info>
           <tr lang="en">turn on/off cursor blinking</tr>
-          <tr lang="ru" finished="false">Включить/выключить мерцающий курсор</tr>
+          <tr lang="ru">включить/выключить мерцающий курсор</tr>
         </info>
         <param name="STATE" type="bool" required="true">
           <tr lang="en">new state</tr>
-          <tr lang="ru" finished="false">Новое государство</tr>
+          <tr lang="ru">новое состояние</tr>
         </param>
       </method>
       <!-- cursor_on -->
       <method name="cursor_on">
         <info>
           <tr lang="en">turn on/off display cursor</tr>
-          <tr lang="ru" finished="false">Включить/выключить курсор дисплея</tr>
+          <tr lang="ru">включить/выключить курсор дисплея</tr>
         </info>
         <param name="STATE" type="bool" required="true">
           <tr lang="en">new state</tr>
-          <tr lang="ru" finished="false">Новое государство</tr>
+          <tr lang="ru">новое состояние</tr>
         </param>
       </method>
       <!-- cursor_pos -->
       <method name="cursor_pos">
         <info>
-          <tr lang="en">set cursor potision</tr>
-          <tr lang="ru" finished="false">Обсуждение Cursor potision</tr>
+          <tr lang="en">set cursor position</tr>
+          <tr lang="ru">установить позицию курсора</tr>
         </info>
         <param name="LINE" type="int" required="true" minvalue="0">
           <tr lang="en">cursor line</tr>
-          <tr lang="ru" finished="false">линия курсора</tr>
+          <tr lang="ru">строка курсора</tr>
         </param>
         <param name="COL" type="int" required="true" minvalue="0" maxvalue="20">
-          <tr lang="en">cursor line character position</tr>
-          <tr lang="ru" finished="false">положение символа линии курсора</tr>
+          <tr lang="en">position of the character in the line</tr>
+          <tr lang="ru">положение символа в строке</tr>
         </param>
       </method>
       <!-- font -->
       <method name="font">
         <info>
           <tr lang="en">choose font</tr>
-          <tr lang="ru" finished="false">Выберите шрифт</tr>
+          <tr lang="ru">выбор шрифта</tr>
         </info>
       </method>
       <!-- move_cursor -->
       <method name="move_cursor">
         <info>
           <tr lang="en">move cursor horizontally</tr>
-          <tr lang="ru" finished="false">перемещать курсор горизонтально</tr>
+          <tr lang="ru">переместить курсор по-горизонтали</tr>
         </info>
         <param name="SHIFT" type="int" required="true">
           <tr lang="en">relative cursor shift. Negative values move the cursor leftwards, positive
           values - rightwards</tr>
-          <!-- old: относительный сдвиг курсора. Отрицательные
-                    значения перемещают курсор влево, положительные — вправо -->
-          <tr lang="ru" finished="false">относительный сдвиг курсора. Отрицательные значения
+          <tr lang="ru">относительный сдвиг курсора. Отрицательные значения
           перемещают курсор влево, положительные — вправо</tr>
         </param>
       </method>
       <!-- move_display -->
       <method name="move_display">
         <info>
-          <tr lang="en">move display content horizontally</tr>
-          <tr lang="ru" finished="false">перемещать контент дисплея горизонтально</tr>
+          <tr lang="en">move the display content horizontally (without changing its contents)</tr>
+          <tr lang="ru">переместить содержимое дисплея по-горизонтали (без именения его сожержимого)</tr>
         </info>
         <param name="SHIFT" type="int" required="true">
-          <tr lang="en">relative display move, not altering the display content</tr>
-          <!-- old: относительное движение дисплея, не изменяя
-                    содержимое дисплея -->
-          <tr lang="ru" finished="false">относительное движение дисплея, не изменяя содержимое
-          дисплея</tr>
+          <tr lang="en">relative shift. Negative values move the content to the left, positive values — to the right</tr>
+          <tr lang="ru">относительный сдвиг. Отрицательные значения
+          перемещают содержимое влево, положительные — вправо</tr>
         </param>
       </method>
       <!-- write -->
@@ -179,15 +166,12 @@
         <info>
           <tr lang="en">write the message at the current cursor position and then move the cursor
           to the next position after last written character</tr>
-          <!-- old: Запишите сообщение в текущей позиции курсора, а
-                    затем переместите курсор в следующую позицию после последнего написанного
-                    символа. -->
-          <tr lang="ru" finished="false">Запишите сообщение в текущей позиции курсора, а затем
-          переместите курсор в следующую позицию после последнего написанного символа.</tr>
+          <tr lang="ru">записывает сообщение в текущей позиции курсора, а затем
+          перемещает курсор в следующую позицию после последнего записанного символа.</tr>
         </info>
         <param name="MSG" type="list" required="true">
           <tr lang="en">value list</tr>
-          <tr lang="ru" finished="false">список ценностей</tr>
+          <tr lang="ru">список значений</tr>
         </param>
       </method>
     </methods>
@@ -195,15 +179,15 @@
       <inlet>
         <in>
           <tr lang="en">control input</tr>
-          <tr lang="ru" finished="false">контрольный вход</tr>
+          <tr lang="ru">контрольный вход</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">no output</tr>
-          <tr lang="ru" finished="false">нет выхода</tr>
+          <tr lang="en">outputs nothing</tr>
+          <tr lang="ru">не выводит ничего</tr>
         </out>
       </outlet>
     </outlets>
