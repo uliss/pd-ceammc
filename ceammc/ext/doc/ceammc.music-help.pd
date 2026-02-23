@@ -3,7 +3,7 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 117 rhythm.euclid;
-#X text 200 117 euclid pattern generator;
+#X text 200 117 Euclid pattern generator;
 #X obj 30 145 rhythm.hexbeat;
 #X text 200 145 hexbeat pattern generator;
 #X obj 30 173 rhythm.lsystem;

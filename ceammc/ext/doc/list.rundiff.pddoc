@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">сomputes the difference between the adjacent elements of the input list</tr>
+        <tr lang="en">Computes the difference between the adjacent elements of the input list</tr>
         <tr lang="ru">вычисляет разницу между соседними элементами входного списка</tr>
       </description>
       <license>GPL3 or later</license>

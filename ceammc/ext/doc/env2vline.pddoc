@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">сonverts the envelope into the sequence of messages for [vline~] object</tr>
+        <tr lang="en">Converts the envelope into the sequence of messages for [vline~] object</tr>
         <tr lang="ru">преобразует огибающую в последовательность сообщений для объекта
         [vline~]</tr>
       </description>

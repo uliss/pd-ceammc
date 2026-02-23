@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">substitude the $-values</tr>
+        <tr lang="en">Substitute the $-values</tr>
         <tr lang="ru">подставляет $-значения</tr>
       </description>
       <license>GPL3 or later</license>

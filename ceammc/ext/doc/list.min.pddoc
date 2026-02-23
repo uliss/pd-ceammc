@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">returns a smallest list element</tr>
+        <tr lang="en">returns the smallest list element</tr>
         <tr lang="ru">возвращает наименьший элемент в списке</tr>
       </description>
       <license>GPL3 or later</license>

@@ -21,7 +21,7 @@
 #X obj 30 313 flow.demultiplex~;
 #X text 200 313 audio stream demultiplexer;
 #X obj 30 341 flow.dollar;
-#X text 200 341 substitude the $-values;
+#X text 200 341 Substitute the $-values;
 #X obj 30 369 flow.dup;
 #X text 200 369 duplicate messages;
 #X obj 30 397 flow.float;

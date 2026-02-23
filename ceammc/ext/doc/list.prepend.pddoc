@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">insert elements into a list begining</tr>
+        <tr lang="en">insert elements into a list beginning</tr>
         <tr lang="ru">вставить элементы в начало списка</tr>
       </description>
       <license>GPL3 or later</license>

@@ -59,7 +59,7 @@
 #X obj 30 845 fx.ringmod~;
 #X text 200 845 ring modulator effect;
 #X obj 30 873 fx.room~;
-#X text 200 873 Gardners room emulation algorithm;
+#X text 200 873 Gardner's room emulation algorithm;
 #X obj 30 901 fx.satrev~;
 #X text 200 901 Schroeder reverberator from 1971;
 #X obj 30 929 fx.scramble~;

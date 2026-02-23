@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">outputs directory portion of pathname</tr>
+        <tr lang="en">outputs directory portion of path name</tr>
         <tr lang="ru">выводит имя каталога файла из пути к файлу</tr>
       </description>
       <license>GPL3 or later</license>

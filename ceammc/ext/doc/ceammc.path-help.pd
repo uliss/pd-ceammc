@@ -7,9 +7,9 @@
 #X obj 30 117 file.size;
 #X text 200 117 outputs the file size;
 #X obj 30 145 path.basename;
-#X text 200 145 outputs the filename portion of the pathname;
+#X text 200 145 outputs the filename portion of the path name;
 #X obj 30 173 path.dirname;
-#X text 200 173 outputs directory portion of pathname;
+#X text 200 173 outputs directory portion of path name;
 #X obj 30 201 path.exists;
 #X text 200 201 checks if the given path exists;
 #X obj 30 229 path.file;

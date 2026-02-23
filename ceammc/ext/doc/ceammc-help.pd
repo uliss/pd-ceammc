@@ -11,7 +11,7 @@ process in the Centre of ElectroAcoustic Music of Moscow Conservatory
 #X obj 30 214 an.pitchtrack~;
 #X text 200 214 the signal pitch tracker;
 #X obj 30 242 an.rms~;
-#X text 200 242 root mean square of the signal with moving-average
+#X text 200 242 root-mean-square of the signal with moving-average
 algorithm;
 #X obj 30 270 an.tempo~;
 #X text 200 270 the signal tempo detector;
@@ -61,7 +61,7 @@ function;
 #X obj 30 867 array.resample;
 #X text 200 867 resampling the array;
 #X obj 30 895 array.rms;
-#X text 200 895 calculates the root mean square value for the array;
+#X text 200 895 calculates the root-mean-square value for the array;
 #X obj 30 923 array.set;
 #X text 200 923 set the array content from the list data;
 #X obj 30 951 array.stddev;
@@ -141,7 +141,7 @@ beat from a specified list with weighted coefficients;
 #X text 200 1925 multichannel converter from the control signals to
 audio;
 #X obj 30 1953 obj.props;
-#X text 200 1953 exctract object properties from the connected object;
+#X text 200 1953 Extract object properties from the connected object;
 #X obj 30 1981 radio;
 #X text 200 1981 upon receiving the index \, the state of individual
 outputs is established as a radio switch;
@@ -158,9 +158,9 @@ stack loops;
 #X obj 30 2145 xdac~;
 #X text 200 2145 [dac~] with channel ranges;
 #X obj 30 2173 xfade2~;
-#X text 200 2173 multi-channel crossfade for stereo signals;
+#X text 200 2173 multichannel cross-fade for stereo signals;
 #X obj 30 2201 xfade~;
-#X text 200 2201 multichannel crossfade;
+#X text 200 2201 multichannel cross-fade;
 #X obj 30 2229 z~;
 #X text 200 2229 integer sample delay;
 #X obj 336 1361 cnv 1 404 23 empty empty empty 17 7 0 10 -245760 -1 0;
@@ -169,9 +169,9 @@ stack loops;
 0;
 #X obj 20 2299 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 30 2310 chaos.gbman0;
-#X text 200 2310 gingerbreadman map chaotic generator;
+#X text 200 2310 Gingerbread man map chaotic generator;
 #X obj 30 2338 chaos.gbman0~;
-#X text 200 2338 gingerbreadman map chaotic generator;
+#X text 200 2338 Gingerbread man map chaotic generator;
 #X obj 30 2366 chaos.jong;
 #X text 200 2366 Peter de Jong attractor;
 #X obj 30 2394 chaos.logistic;
@@ -312,7 +312,7 @@ of time periods;
 #X obj 30 4212 data.bimap;
 #X text 200 4212 bidirectional map container;
 #X obj 30 4240 data.color;
-#X text 200 4240 color datatype;
+#X text 200 4240 color data type;
 #X obj 30 4268 data.copy;
 #X text 200 4268 makes a copy for any data type: MList \, Set etc...;
 #X obj 30 4296 data.dict;
@@ -438,12 +438,12 @@ of segments;
 #X obj 30 5938 env2array;
 #X text 200 5938 renders the envelope into the array;
 #X obj 30 5966 env2vline;
-#X text 200 5966 сonverts the envelope into the sequence of messages
+#X text 200 5966 Converts the envelope into the sequence of messages
 for [vline~] object;
 #X obj 30 6006 envelope;
 #X text 200 6006 envelope data type;
 #X obj 30 6034 vline2env;
-#X text 200 6034 сonverts vline messages to Env;
+#X text 200 6034 Converts vline messages to Env;
 #X obj 519 5575 cnv 1 221 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 524 5575 working with sound envelopes;
 #X obj 20 6062 cnv 5 49 32 empty empty flow 4 16 0 17 -262144 -49933
@@ -466,7 +466,7 @@ for [vline~] object;
 #X obj 30 6311 flow.demultiplex~;
 #X text 200 6311 audio stream demultiplexer;
 #X obj 30 6339 flow.dollar;
-#X text 200 6339 substitude the $-values;
+#X text 200 6339 Substitute the $-values;
 #X obj 30 6367 flow.dup;
 #X text 200 6367 duplicate messages;
 #X obj 30 6395 flow.float;
@@ -618,7 +618,7 @@ object;
 #X obj 30 8392 flt.fb_comb~;
 #X text 200 8392 feedback comb filter;
 #X obj 30 8420 flt.fbank5x1~;
-#X text 200 8420 5 band one octave Butterworth filterbank;
+#X text 200 8420 5 band one octave Butterworth filter bank;
 #X obj 30 8448 flt.ff_comb~;
 #X text 200 8448 feed forward comb filter;
 #X obj 30 8476 flt.freqz;
@@ -710,7 +710,7 @@ object;
 #X obj 30 9677 fx.ringmod~;
 #X text 200 9677 ring modulator effect;
 #X obj 30 9705 fx.room~;
-#X text 200 9705 Gardners room emulation algorithm;
+#X text 200 9705 Gardner's room emulation algorithm;
 #X obj 30 9733 fx.satrev~;
 #X text 200 9733 Schroeder reverberator from 1971;
 #X obj 30 9761 fx.scramble~;
@@ -883,7 +883,7 @@ input list;
 #X text 200 11852 output the number of items that equal to specified
 value;
 #X obj 30 11880 list.count_if;
-#X text 200 11880 output the number of items that satisfy to an side-chain
+#X text 200 11880 output the number of items that satisfy to a side-chain
 predicate;
 #X obj 30 11920 list.delta;
 #X text 200 11920 outputs and saves the list of differences between
@@ -893,7 +893,7 @@ the current and the previously saved list;
 #X obj 30 11988 list.do;
 #X text 200 11988 iterate and modify the list contents via a side-chain;
 #X obj 30 12016 list.each;
-#X text 200 12016 maps an each list value via an external side-chain;
+#X text 200 12016 maps a list value via an external side-chain;
 #X obj 30 12044 list.enumerate;
 #X text 200 12044 enumerates list elements;
 #X obj 30 12072 list.equal;
@@ -921,7 +921,7 @@ stored list and the current one;
 #X obj 30 12376 list.mean;
 #X text 200 12376 calculates the average value in a list;
 #X obj 30 12404 list.min;
-#X text 200 12404 returns a smallest list element;
+#X text 200 12404 returns the smallest list element;
 #X obj 30 12432 list.none_of;
 #X text 200 12432 checks if none of list elements is accepted by the
 predicate side-chain;
@@ -933,7 +933,7 @@ to 1.0;
 #X obj 30 12528 list.pass_if;
 #X text 200 12528 leave only elements accepted by side-chain predicate;
 #X obj 30 12556 list.prepend;
-#X text 200 12556 insert elements into a list begining;
+#X text 200 12556 insert elements into a list beginning;
 #X obj 30 12584 list.product;
 #X text 200 12584 calculates the product of all numbers in a list;
 #X obj 30 12612 list.range;
@@ -970,7 +970,7 @@ length ratio;
 #X text 200 13012 routes the list by the first element \, like [route]
 object;
 #X obj 30 13040 list.rundiff;
-#X text 200 13040 сomputes the difference between the adjacent elements
+#X text 200 13040 Computes the difference between the adjacent elements
 of the input list;
 #X obj 30 13080 list.runsum;
 #X text 200 13080 outputs the list of positional sums which is updated
@@ -994,7 +994,7 @@ Interpolation;
 #X obj 30 13312 list.slice;
 #X text 200 13312 outputs a sublist;
 #X obj 30 13340 list.sort;
-#X text 200 13340 sorts the list in ascending orderr;
+#X text 200 13340 sorts the list in ascending order;
 #X obj 30 13368 list.sort_with;
 #X text 200 13368 sorts the list using a side processing chain;
 #X obj 30 13396 list.split;
@@ -1038,7 +1038,7 @@ recorded sound in loop;
 #X obj 30 13874 local.list;
 #X text 200 13874 a local named list object;
 #X obj 30 13902 local.mlist;
-#X text 200 13902 local named Mlist object;
+#X text 200 13902 local named List object;
 #X obj 30 13930 local.set;
 #X text 200 13930 local named set object;
 #X obj 314 13747 cnv 1 426 23 empty empty empty 17 7 0 10 -245760 -1
@@ -1352,7 +1352,7 @@ incoming message;
 0;
 #X obj 20 18128 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 30 18139 rhythm.euclid;
-#X text 200 18139 euclid pattern generator;
+#X text 200 18139 Euclid pattern generator;
 #X obj 30 18167 rhythm.hexbeat;
 #X text 200 18167 hexbeat pattern generator;
 #X obj 30 18195 rhythm.lsystem;
@@ -1395,7 +1395,7 @@ incoming message;
 #X obj 30 18693 noise.chua~;
 #X text 200 18693 Chua's diode circuit;
 #X obj 30 18721 noise.clifford;
-#X text 200 18721 clifford attractor;
+#X text 200 18721 Clifford attractor;
 #X obj 30 18749 noise.collatz;
 #X text 200 18749 collatz conjecture output;
 #X obj 30 18777 noise.colored~;
@@ -1480,7 +1480,7 @@ and nesting level;
 #X obj 30 19791 canvas.name;
 #X text 200 19791 output the current canvas name of the object;
 #X obj 30 19819 canvas.path;
-#X text 200 19819 output the current canvas filesystem fullpath of
+#X text 200 19819 output the current canvas file system full path of
 the object;
 #X obj 30 19847 canvas.top;
 #X text 200 19847 verbose information about top-level canvas of the
@@ -1500,9 +1500,9 @@ object;
 #X obj 30 20012 file.size;
 #X text 200 20012 outputs the file size;
 #X obj 30 20040 path.basename;
-#X text 200 20040 outputs the filename portion of the pathname;
+#X text 200 20040 outputs the filename portion of the path name;
 #X obj 30 20068 path.dirname;
-#X text 200 20068 outputs directory portion of pathname;
+#X text 200 20068 outputs directory portion of path name;
 #X obj 30 20096 path.exists;
 #X text 200 20096 checks if the given path exists;
 #X obj 30 20124 path.file;
@@ -1827,7 +1827,7 @@ separator;
 #X obj 30 24088 symbol.equal;
 #X text 200 24088 check symbols for equality;
 #X obj 30 24116 symbol.length;
-#X text 200 24116 outputs the number of characters in a symbol (unicode
+#X text 200 24116 outputs the number of characters in a symbol (Unicode
 supported);
 #X obj 30 24156 symbol.num_compare;
 #X text 200 24156 numeric symbol compare;
@@ -1857,13 +1857,13 @@ a resonant lowpass;
 #X obj 30 24473 synth.eguitar~;
 #X text 200 24473 simple electric guitar model with steel strings;
 #X obj 30 24501 synth.english_bell~;
-#X text 200 24501 english church bell modal model;
+#X text 200 24501 English church bell modal model;
 #X obj 30 24529 synth.fgrain~;
 #X text 200 24529 file granulator from STK libraries;
 #X obj 30 24557 synth.french_bell~;
 #X text 200 24557 french church bell modal model;
 #X obj 30 24585 synth.german_bell~;
-#X text 200 24585 german church bell modal model;
+#X text 200 24585 German church bell modal model;
 #X obj 30 24613 synth.glass_harm~;
 #X text 200 24613 nonlinear banded waveguide modeled glass harmonica;
 #X obj 30 24641 synth.glitch~;
@@ -1894,7 +1894,7 @@ tone bar connected to tube;
 #X obj 30 24989 synth.risset_tone~;
 #X text 200 24989 Jean-Claude Risset's endless glissando;
 #X obj 30 25017 synth.russian_bell~;
-#X text 200 25017 russian church bell modal model;
+#X text 200 25017 Russian church bell modal model;
 #X obj 30 25045 synth.shakers~;
 #X text 200 25045 various percussion sounds from STK library;
 #X obj 30 25073 synth.sitar~;
@@ -1902,7 +1902,7 @@ tone bar connected to tube;
 #X obj 30 25101 synth.snare~;
 #X text 200 25101 snare drum synth from Guitarix project;
 #X obj 30 25129 synth.standard_bell~;
-#X text 200 25129 standart bell modal model;
+#X text 200 25129 Standard bell modal model;
 #X obj 30 25157 synth.tube_bell~;
 #X text 200 25157 STK tubular bell (orchestral chime) FM synthesis
 instrument;
@@ -1924,7 +1924,7 @@ filterbank.;
 #X obj 30 25350 system.command;
 #X text 200 25350 run commands with pipes on Unix and Windows;
 #X obj 30 25378 system.cursor;
-#X text 200 25378 outputs the cursor motion \, mousewheel and button
+#X text 200 25378 outputs the cursor motion \, mouse wheel and button
 clicks;
 #X obj 30 25406 system.exec;
 #X text 200 25406 run the external command in a separate process;
@@ -1972,7 +1972,7 @@ and peak;
 #X text 200 25973 multichannel circular signal meter;
 #X obj 30 26001 ui.link @title [ui.colorpanel] @url
 ui.colorpanel-help.pd;
-#X text 200 25998 colorchooser widget;
+#X text 200 25998 Color chooser widget;
 #X obj 30 26026 ui.link @title [ui.display] @url ui.display-help.pd;
 #X text 200 26023 display widget;
 #X obj 30 26051 ui.link @title [ui.dsp~] @url ui.dsp~-help.pd;

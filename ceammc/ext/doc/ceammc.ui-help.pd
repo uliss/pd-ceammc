@@ -16,7 +16,7 @@
 #X text 200 217 multichannel circular signal meter;
 #X obj 30 245 ui.link @title [ui.colorpanel] @url
 ui.colorpanel-help.pd;
-#X text 200 242 colorchooser widget;
+#X text 200 242 Color chooser widget;
 #X obj 30 270 ui.link @title [ui.display] @url ui.display-help.pd;
 #X text 200 267 display widget;
 #X obj 30 295 ui.link @title [ui.dsp~] @url ui.dsp~-help.pd;

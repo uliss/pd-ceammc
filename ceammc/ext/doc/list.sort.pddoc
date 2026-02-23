@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">sorts the list in ascending orderr</tr>
+        <tr lang="en">sorts the list in ascending order</tr>
         <tr lang="ru">сортирует список в порядке возрастания</tr>
       </description>
       <license>GPL3 or later</license>

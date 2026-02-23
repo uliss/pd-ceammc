@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">euclid pattern generator</tr>
+        <tr lang="en">Euclid pattern generator</tr>
         <tr lang="ru">генератор эвклидовых паттернов</tr>
       </description>
       <license>GPL3 or later</license>

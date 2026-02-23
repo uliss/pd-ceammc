@@ -43,7 +43,7 @@ function;
 #X obj 30 605 array.resample;
 #X text 200 605 resampling the array;
 #X obj 30 633 array.rms;
-#X text 200 633 calculates the root mean square value for the array;
+#X text 200 633 calculates the root-mean-square value for the array;
 #X obj 30 661 array.set;
 #X text 200 661 set the array content from the list data;
 #X obj 30 689 array.stddev;

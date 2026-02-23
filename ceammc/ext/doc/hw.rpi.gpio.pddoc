@@ -177,10 +177,10 @@
       <!-- used_pins -->
       <method name="used_pins">
         <info>
-          <tr lang="en">display a list of used GPIO pins.
-          Sends a message in the format: [pins PIN...( to the first output.</tr>
-          <tr lang="ru">выводит список использованных контактов GPIO. Отправляет сообщение в формате:
-          [pins КОНТАКТ...( в первый выход.</tr>
+          <tr lang="en">display a list of used GPIO pins. Sends a message in the format: [pins
+          PIN...( to the first output.</tr>
+          <tr lang="ru">выводит список использованных контактов GPIO. Отправляет сообщение в
+          формате: [pins КОНТАКТ...( в первый выход.</tr>
         </info>
       </method>
       <!-- write -->

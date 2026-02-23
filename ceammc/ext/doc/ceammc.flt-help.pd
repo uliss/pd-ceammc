@@ -54,7 +54,7 @@ object;
 #X obj 30 773 flt.fb_comb~;
 #X text 200 773 feedback comb filter;
 #X obj 30 801 flt.fbank5x1~;
-#X text 200 801 5 band one octave Butterworth filterbank;
+#X text 200 801 5 band one octave Butterworth filter bank;
 #X obj 30 829 flt.ff_comb~;
 #X text 200 829 feed forward comb filter;
 #X obj 30 857 flt.freqz;

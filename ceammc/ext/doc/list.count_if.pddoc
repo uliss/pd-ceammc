@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">output the number of items that satisfy to an side-chain predicate</tr>
+        <tr lang="en">output the number of items that satisfy to a side-chain predicate</tr>
         <tr lang="ru">выводит число элементов, удовлетворяющих внешнему предикату боковой цепи
         обработки</tr>
       </description>

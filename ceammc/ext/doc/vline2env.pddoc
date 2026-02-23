@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">сonverts vline messages to Env</tr>
+        <tr lang="en">Converts vline messages to Env</tr>
         <tr lang="ru">преобразование сообщений vline для Env</tr>
       </description>
       <license>GPL3 or later</license>

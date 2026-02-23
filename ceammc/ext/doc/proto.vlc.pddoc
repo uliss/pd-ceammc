@@ -25,19 +25,21 @@
       </par>
       <a href="https://wiki.videolan.org/Documentation:Modules/http_intf/">See documentation</a>
       <par>
-        <tr lang="en">When adding playlist items, a URI (Uniform Resource Identifier) is used. Local files have the prefix 'file://', HTTP protocol files: 'http://', etc.</tr>
-        <tr lang="ru">При добавлении элементов плейлиста используется URI (универсальный идентификатор ресурсов). Локальные файлы имеют
-        префикс 'file://', файлы HTTP протокола: 'http://' и т.д.</tr>
+        <tr lang="en">When adding playlist items, a URI (Uniform Resource Identifier) is used.
+        Local files have the prefix 'file://', HTTP protocol files: 'http://', etc.</tr>
+        <tr lang="ru">При добавлении элементов плейлиста используется URI (универсальный
+        идентификатор ресурсов). Локальные файлы имеют префикс 'file://', файлы HTTP протокола:
+        'http://' и т.д.</tr>
       </par>
       <par>
         <tr lang="en">If local paths are used instead of an URI, template parameters can be used,
-        which are replaced with their corresponding directories.
-        For example, '%HOME%' or '~' at the beginning of a path is replaced with the path to the user's home folder.
-        %VIDEO% on MacOS is replaced with /Users/_user_/Movies, and so on.</tr>
-        <tr lang="ru">Если используются локальные пути вместо URI можно использовать шаблонные параметры,
-        которые заменяются на соответствующие им директории.
-        Например '%HOME%' или '~' в начале пути заменяется на путь к домашней папке пользователя. %VIDEO% на
-        MacOs - на /Users/_user_/Movies и т.д.</tr>
+        which are replaced with their corresponding directories. For example, '%HOME%' or '~' at
+        the beginning of a path is replaced with the path to the user's home folder. %VIDEO% on
+        MacOS is replaced with /Users/_user_/Movies, and so on.</tr>
+        <tr lang="ru">Если используются локальные пути вместо URI можно использовать шаблонные
+        параметры, которые заменяются на соответствующие им директории. Например '%HOME%' или '~' в
+        начале пути заменяется на путь к домашней папке пользователя. %VIDEO% на MacOs - на
+        /Users/_user_/Movies и т.д.</tr>
       </par>
     </info>
     <arguments>

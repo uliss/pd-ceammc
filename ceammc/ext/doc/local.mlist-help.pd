@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 576 50 cnv 1 189 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 581 50 local named Mlist object;
+#X obj 584 50 cnv 1 181 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 589 50 local named List object;
 #X obj 1 1 cnv 5 765 40 empty empty local.mlist 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 local.mlist;

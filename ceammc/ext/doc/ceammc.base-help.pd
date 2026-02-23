@@ -46,7 +46,7 @@ beat from a specified list with weighted coefficients;
 #X text 200 638 multichannel converter from the control signals to
 audio;
 #X obj 30 666 obj.props;
-#X text 200 666 exctract object properties from the connected object;
+#X text 200 666 Extract object properties from the connected object;
 #X obj 30 694 radio;
 #X text 200 694 upon receiving the index \, the state of individual
 outputs is established as a radio switch;
@@ -63,9 +63,9 @@ stack loops;
 #X obj 30 858 xdac~;
 #X text 200 858 [dac~] with channel ranges;
 #X obj 30 886 xfade2~;
-#X text 200 886 multi-channel crossfade for stereo signals;
+#X text 200 886 multichannel cross-fade for stereo signals;
 #X obj 30 914 xfade~;
-#X text 200 914 multichannel crossfade;
+#X text 200 914 multichannel cross-fade;
 #X obj 30 942 z~;
 #X text 200 942 integer sample delay;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::base 20 20 0 20 -104026

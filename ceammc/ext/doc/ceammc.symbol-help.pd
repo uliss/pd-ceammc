@@ -7,7 +7,7 @@
 #X obj 30 117 symbol.equal;
 #X text 200 117 check symbols for equality;
 #X obj 30 145 symbol.length;
-#X text 200 145 outputs the number of characters in a symbol (unicode
+#X text 200 145 outputs the number of characters in a symbol (Unicode
 supported);
 #X obj 30 185 symbol.num_compare;
 #X text 200 185 numeric symbol compare;

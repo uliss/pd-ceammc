@@ -11,7 +11,7 @@
 #X obj 30 173 data.bimap;
 #X text 200 173 bidirectional map container;
 #X obj 30 201 data.color;
-#X text 200 201 color datatype;
+#X text 200 201 color data type;
 #X obj 30 229 data.copy;
 #X text 200 229 makes a copy for any data type: MList \, Set etc...;
 #X obj 30 257 data.dict;

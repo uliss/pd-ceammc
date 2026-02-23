@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 368 50 cnv 1 397 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 373 50 calculates the root mean square value for the array;
+#X text 373 50 calculates the root-mean-square value for the array;
 #X obj 1 1 cnv 5 765 40 empty empty array.rms 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 array.rms;

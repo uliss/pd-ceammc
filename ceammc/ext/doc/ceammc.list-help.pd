@@ -38,7 +38,7 @@ list;
 #X text 200 501 output the number of items that equal to specified
 value;
 #X obj 30 529 list.count_if;
-#X text 200 529 output the number of items that satisfy to an side-chain
+#X text 200 529 output the number of items that satisfy to a side-chain
 predicate;
 #X obj 30 569 list.delta;
 #X text 200 569 outputs and saves the list of differences between the
@@ -48,7 +48,7 @@ current and the previously saved list;
 #X obj 30 637 list.do;
 #X text 200 637 iterate and modify the list contents via a side-chain;
 #X obj 30 665 list.each;
-#X text 200 665 maps an each list value via an external side-chain;
+#X text 200 665 maps a list value via an external side-chain;
 #X obj 30 693 list.enumerate;
 #X text 200 693 enumerates list elements;
 #X obj 30 721 list.equal;
@@ -76,7 +76,7 @@ stored list and the current one;
 #X obj 30 1025 list.mean;
 #X text 200 1025 calculates the average value in a list;
 #X obj 30 1053 list.min;
-#X text 200 1053 returns a smallest list element;
+#X text 200 1053 returns the smallest list element;
 #X obj 30 1081 list.none_of;
 #X text 200 1081 checks if none of list elements is accepted by the
 predicate side-chain;
@@ -88,7 +88,7 @@ to 1.0;
 #X obj 30 1177 list.pass_if;
 #X text 200 1177 leave only elements accepted by side-chain predicate;
 #X obj 30 1205 list.prepend;
-#X text 200 1205 insert elements into a list begining;
+#X text 200 1205 insert elements into a list beginning;
 #X obj 30 1233 list.product;
 #X text 200 1233 calculates the product of all numbers in a list;
 #X obj 30 1261 list.range;
@@ -125,7 +125,7 @@ length ratio;
 #X text 200 1661 routes the list by the first element \, like [route]
 object;
 #X obj 30 1689 list.rundiff;
-#X text 200 1689 сomputes the difference between the adjacent elements
+#X text 200 1689 Computes the difference between the adjacent elements
 of the input list;
 #X obj 30 1729 list.runsum;
 #X text 200 1729 outputs the list of positional sums which is updated
@@ -147,7 +147,7 @@ Interpolation;
 #X obj 30 1961 list.slice;
 #X text 200 1961 outputs a sublist;
 #X obj 30 1989 list.sort;
-#X text 200 1989 sorts the list in ascending orderr;
+#X text 200 1989 sorts the list in ascending order;
 #X obj 30 2017 list.sort_with;
 #X text 200 2017 sorts the list using a side processing chain;
 #X obj 30 2045 list.split;

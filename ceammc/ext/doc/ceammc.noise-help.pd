@@ -9,7 +9,7 @@
 #X obj 30 145 noise.chua~;
 #X text 200 145 Chua's diode circuit;
 #X obj 30 173 noise.clifford;
-#X text 200 173 clifford attractor;
+#X text 200 173 Clifford attractor;
 #X obj 30 201 noise.collatz;
 #X text 200 201 collatz conjecture output;
 #X obj 30 229 noise.colored~;

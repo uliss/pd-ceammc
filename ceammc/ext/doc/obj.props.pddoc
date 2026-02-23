@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">exctract object properties from the connected object</tr>
+        <tr lang="en">Extract object properties from the connected object</tr>
         <tr lang="ru">извлекает свойства из подключенного объекта</tr>
       </description>
       <license>GPL3 or later</license>

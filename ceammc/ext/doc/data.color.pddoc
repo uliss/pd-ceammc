@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">color datatype</tr>
+        <tr lang="en">color data type</tr>
         <tr lang="ru">цветовой тип данных</tr>
       </description>
       <license>GPL3 or later</license>

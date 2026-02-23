@@ -8,7 +8,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">colorchooser widget</tr>
+        <tr lang="en">Color chooser widget</tr>
         <tr lang="ru">виджет выбора цвета</tr>
       </description>
       <license>GPL3 or later</license>

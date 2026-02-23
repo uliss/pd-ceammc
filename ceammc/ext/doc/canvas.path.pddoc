@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">output the current canvas filesystem fullpath of the object</tr>
+        <tr lang="en">output the current canvas file system full path of the object</tr>
         <tr lang="ru">выводит полный путь холста в файловой системе у объекта</tr>
       </description>
       <license>GPL3 or later</license>

@@ -13,7 +13,7 @@
 #X obj 30 201 local.list;
 #X text 200 201 a local named list object;
 #X obj 30 229 local.mlist;
-#X text 200 229 local named Mlist object;
+#X text 200 229 local named List object;
 #X obj 30 257 local.set;
 #X text 200 257 local named set object;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::local 20 20 0 20 -104026

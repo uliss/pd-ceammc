@@ -3,7 +3,7 @@ an.onset~	the signal onset detector / детектор атаки сигнала
 an.pitchtrack~	the signal pitch tracker / отслеживает высоту сигнала
 ceammc/helmholtz~	the signal pitch tracker / отслеживает высоту сигнала
 helmholtz~	the signal pitch tracker / отслеживает высоту сигнала
-an.rms~	root mean square of the signal with moving-average algorithm / среднее квадратичное сигнала с алгоритмом скользящего среднего
+an.rms~	root-mean-square of the signal with moving-average algorithm / среднее квадратичное сигнала с алгоритмом скользящего среднего
 an.tempo~	the signal tempo detector / детектор темпа сигнала
 an.zero~	calculate the signal zero crossing count/rate/freq / вычисление частоты/скорости/числа пересечения сигналом нулевого значения
 array.bpm	BPM calculator / вычисление BPM
@@ -28,7 +28,7 @@ array.readwrite~	simultaneous read/write signals to the array / одноврем
 array.rw~	simultaneous read/write signals to the array / одновременное чтение/запись сигналов в массив
 array.resample	resampling the array / пересемплирование массива
 array.r	resampling the array / пересемплирование массива
-array.rms	calculates the root mean square value for the array / вычисляет среднее квадратичное значение для массива
+array.rms	calculates the root-mean-square value for the array / вычисляет среднее квадратичное значение для массива
 array.set	set the array content from the list data / устанавливает содержание массива данными из списка
 ceammc/list->array	set the array content from the list data / устанавливает содержание массива данными из списка
 list->array	set the array content from the list data / устанавливает содержание массива данными из списка
@@ -86,7 +86,7 @@ mix~	multichannel signal mixer / многоканальный микшер си�
 ceammc/mix~	multichannel signal mixer / многоканальный микшер сигналов
 nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
 ceammc/nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
-obj.props	exctract object properties from the connected object / извлекает свойства из подключенного объекта
+obj.props	Extract object properties from the connected object / извлекает свойства из подключенного объекта
 radio	upon receiving the index, the state of individual outputs is established as a radio switch / при поступлении индекса устанавлиет состояние отдельных выходов как радиопереключатель
 ceammc/radio	upon receiving the index, the state of individual outputs is established as a radio switch / при поступлении индекса устанавлиет состояние отдельных выходов как радиопереключатель
 split~	parametrized multichannel signal splitter / параметризованный многоканальный сплиттер сигналов
@@ -101,14 +101,14 @@ ceammc/win	returns the value of the window function / возвращает зн�
 win	returns the value of the window function / возвращает значение оконной функции
 xdac~	[dac~] with channel ranges / [dac~] с диапазонами каналов
 ceammc/xdac~	[dac~] with channel ranges / [dac~] с диапазонами каналов
-xfade2~	multi-channel crossfade for stereo signals / многоканальный кроссфейд для стерео сигналов
-ceammc/xfade2~	multi-channel crossfade for stereo signals / многоканальный кроссфейд для стерео сигналов
-xfade~	multichannel crossfade / многоканальный кроссфейд
-ceammc/xfade~	multichannel crossfade / многоканальный кроссфейд
+xfade2~	multichannel cross-fade for stereo signals / многоканальный кроссфейд для стерео сигналов
+ceammc/xfade2~	multichannel cross-fade for stereo signals / многоканальный кроссфейд для стерео сигналов
+xfade~	multichannel cross-fade / многоканальный кроссфейд
+ceammc/xfade~	multichannel cross-fade / многоканальный кроссфейд
 z~	integer sample delay / целочисленная задержка сэмплов
 ceammc/z~	integer sample delay / целочисленная задержка сэмплов
-chaos.gbman0	gingerbreadman map chaotic generator / хаотический генератор на основе отображения Пряничного человечка
-chaos.gbman0~	gingerbreadman map chaotic generator / хаотический генератор на основе отображения Пряничного человечка
+chaos.gbman0	Gingerbread man map chaotic generator / хаотический генератор на основе отображения Пряничного человечка
+chaos.gbman0~	Gingerbread man map chaotic generator / хаотический генератор на основе отображения Пряничного человечка
 chaos.jong	Peter de Jong attractor / аттрактор Питера де Йонга
 noise.jong	Peter de Jong attractor / аттрактор Питера де Йонга
 chaos.logistic	logistic map chaotic generator / хаотический генератор на основе логистического отображения
@@ -290,9 +290,9 @@ color.scale	creation of the color scale / создание цветовой шк
 data.bimap	bidirectional map container / двунаправленное отображение
 ceammc/bimap	bidirectional map container / двунаправленное отображение
 bimap	bidirectional map container / двунаправленное отображение
-data.color	color datatype / цветовой тип данных
-color	color datatype / цветовой тип данных
-ceammc/color	color datatype / цветовой тип данных
+data.color	color data type / цветовой тип данных
+color	color data type / цветовой тип данных
+ceammc/color	color data type / цветовой тип данных
 data.copy	makes a copy for any data type: MList, Set etc... / делает копии любых типов данных: MList, Set и т.д.
 data.dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
 ceammc/dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
@@ -374,18 +374,18 @@ env2array	renders the envelope into the array / рендеринг огибаю�
 ceammc/env2array	renders the envelope into the array / рендеринг огибающей в массив
 ceammc/env->array	renders the envelope into the array / рендеринг огибающей в массив
 env->array	renders the envelope into the array / рендеринг огибающей в массив
-env2vline	сonverts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
-ceammc/env2vline	сonverts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
-ceammc/env->vline	сonverts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
-env->vline	сonverts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
+env2vline	Converts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
+ceammc/env2vline	Converts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
+ceammc/env->vline	Converts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
+env->vline	Converts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
 envelope	envelope data type / тип данных огибающей
 ceammc/envelope	envelope data type / тип данных огибающей
 ceammc/env	envelope data type / тип данных огибающей
 env	envelope data type / тип данных огибающей
-vline2env	сonverts vline messages to Env / преобразование сообщений vline для Env
-ceammc/vline2env	сonverts vline messages to Env / преобразование сообщений vline для Env
-ceammc/vline->env	сonverts vline messages to Env / преобразование сообщений vline для Env
-vline->env	сonverts vline messages to Env / преобразование сообщений vline для Env
+vline2env	Converts vline messages to Env / преобразование сообщений vline для Env
+ceammc/vline2env	Converts vline messages to Env / преобразование сообщений vline для Env
+ceammc/vline->env	Converts vline messages to Env / преобразование сообщений vline для Env
+vline->env	Converts vline messages to Env / преобразование сообщений vline для Env
 expand_env	substitutes environment variables in a data stream / подставляет значения переменных среды в поток данных
 ceammc/expand_env	substitutes environment variables in a data stream / подставляет значения переменных среды в поток данных
 flow.append	append message to flow stream / добавляет сообщение в поток
@@ -403,8 +403,8 @@ flow.demultiplex~	audio stream demultiplexer / демультиплексор а
 flow.demux~	audio stream demultiplexer / демультиплексор аудиопотока
 ceammc/demux~	audio stream demultiplexer / демультиплексор аудиопотока
 demux~	audio stream demultiplexer / демультиплексор аудиопотока
-flow.dollar	substitude the $-values / подставляет $-значения
-flow.$$	substitude the $-values / подставляет $-значения
+flow.dollar	Substitute the $-values / подставляет $-значения
+flow.$$	Substitute the $-values / подставляет $-значения
 flow.dup	duplicate messages / дупликатор сообщений
 flow.float	pass floats
 flow.f	pass floats
@@ -537,7 +537,7 @@ flt.eq10~	graphic 10 band equalizer / графический 10-полосный
 flt.eq_peak_cq~	constant-Q second order peaking equalizer section / секция эквалайзера: пиковый фильтр второго порядка c constant-Q
 flt.eq_peak~	second order peaking equalizer section / секция эквалайзера: пиковый фильтр второго порядка
 flt.fb_comb~	feedback comb filter / гребенчатый фильтр с обратной связью (БИХ)
-flt.fbank5x1~	5 band one octave Butterworth filterbank / 5-полосный банк однооктавных фильтров Баттерворта
+flt.fbank5x1~	5 band one octave Butterworth filter bank / 5-полосный банк однооктавных фильтров Баттерворта
 flt.ff_comb~	feed forward comb filter / гребенчатый фильтр (КИХ)
 flt.freqz	compute the frequency response of a digital filter / вычисляет частотный отклик цифрового фильтра
 flt.freqz~	compute the frequency response of a digital filter / вычисляет частотный отклик цифрового фильтра
@@ -583,7 +583,7 @@ fx.pitchshift~	simple pitch shifter based on 2 delay lines / простой пи
 fx.rb_pitchshift~	pitchshift from the rubberband library / питчшифтер из библиотеки rubberband
 fx.recho~	reversed echo effect / обратный эффект эха
 fx.ringmod~	ring modulator effect / кольцевой модулятор
-fx.room~	Gardners room emulation algorithm / алгоритм Гарднера для эмуляции комнаты
+fx.room~	Gardner's room emulation algorithm / алгоритм Гарднера для эмуляции комнаты
 fx.satrev~	Schroeder reverberator from 1971 / ревербератор Шрёдера 1971 года
 fx.scramble~	scramble delayed sound fragments / скремблер задержанных звуковых фрагментов
 fx.shimmer~	shimmer reverb effect / шиммер-эффект реверберации
@@ -653,11 +653,11 @@ list.convolve	convolution for lists / операция свертки для с�
 list.conv	convolution for lists / операция свертки для списков
 list.correlate	lists cross-correlation / взаимная корреляция между списками
 list.count	output the number of items that equal to specified value / выводить количество элементов, равных заданному значению
-list.count_if	output the number of items that satisfy to an side-chain predicate / выводит число элементов, удовлетворяющих внешнему предикату боковой цепи обработки
+list.count_if	output the number of items that satisfy to a side-chain predicate / выводит число элементов, удовлетворяющих внешнему предикату боковой цепи обработки
 list.delta	outputs and saves the list of differences between the current and the previously saved list / выводит и сохраняет список разностей между текущим и предыдущим сохраненным списком
 list.distribution	output list value distribution / выводит список распределения значений в списке
 list.do	iterate and modify the list contents via a side-chain / итерирование и изменение содержимого списка через боковую цепь обработки
-list.each	maps an each list value via an external side-chain / отображает каждое значение списка через внешнюю боковую цепь обработки
+list.each	maps a list value via an external side-chain / отображает каждое значение списка через внешнюю боковую цепь обработки
 list.enumerate	enumerates list elements / нумерует элементы списка
 list.equal	list equal check / проверка списков на равенство
 list.first	output the first list element / выводит первый элемент списка
@@ -673,13 +673,13 @@ list.map	map list values by specified dictionary
 list.max	output the largest list element / выводит самый большой элемент в списке
 list.mean	calculates the average value in a list / вычисляет среднее значение в списке
 list.average	calculates the average value in a list / вычисляет среднее значение в списке
-list.min	returns a smallest list element / возвращает наименьший элемент в списке
+list.min	returns the smallest list element / возвращает наименьший элемент в списке
 list.none_of	checks if none of list elements is accepted by the predicate side-chain / проверяет, что ни один из элементов не принимается предикатом боковой цепи обработки
 list.normalize	normalizes numeric list values to get their sum equal to 1.0 / нормализует числовые значения списка, чтобы их сумма была равна единице
 list.pass	leave in list only specified elements / оставлять в списке только указанные элементы
 list.pass_if	leave only elements accepted by side-chain predicate / оставляет в списке только элементы, принятые предикатом боковой цепи обработки
 list.filter	leave only elements accepted by side-chain predicate / оставляет в списке только элементы, принятые предикатом боковой цепи обработки
-list.prepend	insert elements into a list begining / вставить элементы в начало списка
+list.prepend	insert elements into a list beginning / вставить элементы в начало списка
 list.product	calculates the product of all numbers in a list / вычисляет произведение всех чисел в списке
 list.range	outputs list smallest and largest elements / выводит минимальный и максимальный элемент в списке
 list.minmax	outputs list smallest and largest elements / выводит минимальный и максимальный элемент в списке
@@ -702,7 +702,7 @@ list.rotate	a cyclic list rotation by an integer number of steps / циклич�
 list.<<	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
 list.>>	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
 list.route	routes the list by the first element, like [route] object / маршрутизирует список по первому элементу, как объект [route]
-list.rundiff	сomputes the difference between the adjacent elements of the input list / вычисляет разницу между соседними элементами входного списка
+list.rundiff	Computes the difference between the adjacent elements of the input list / вычисляет разницу между соседними элементами входного списка
 list.runsum	outputs the list of positional sums which is updated upon each incoming list / выводит список позиционных сумм, который обновляется при каждом входящем списке
 list.search	outputs the positions of pre-defined elements in the input list / выводит позиции предварительно заданных элементов во входном списке
 list.separate	outputs each list item in turn as a separate message / поочередно выводит каждый элемент списка в виде отдельного сообщения
@@ -712,7 +712,7 @@ list.set	sets the value of the list item at the specified position / устан�
 list.shift	cyclic shift of a list by a real number with a linear Interpolation / циклический сдвиг списка на вещественное число с линейной интерполяцией
 list.shuffle	rearranges the elements of the list in a random order / переставляет элементы списка в случайном порядке
 list.slice	outputs a sublist / выводит подсписок
-list.sort	sorts the list in ascending orderr / сортирует список в порядке возрастания
+list.sort	sorts the list in ascending order / сортирует список в порядке возрастания
 list.sort_with	sorts the list using a side processing chain / сортирует список при помощи боковой цепи обработки
 list.split	divides the list into two parts at the specified index position / разделяет список на две части по указанному индексу
 list.stretch	changes the length of the list by adjusting its values using linear interpolation / изменяет длину списка, изменяя его значения с помощью линейной интерполяции
@@ -730,7 +730,7 @@ local.json	local named dict object / локальный для патча сло
 local.float	canvas-scoped named float variable / локальное для патча именованное число с плавающей точкой
 local.int	canvas-scoped named integer variable / локальное для патча именованное целое число
 local.list	a local named list object / локальный для патча именованный список
-local.mlist	local named Mlist object / локальный для патча именованный многоуровневый список
+local.mlist	local named List object / локальный для патча именованный многоуровневый список
 local.set	local named set object / локальное для патча именованное множество
 math.abs	absolute value function / абсолютное значение
 math.abs~	absolute value function for signals / функция абсолютного значения для сигналов
@@ -977,7 +977,7 @@ loadmsg	send the specified message upon patch loading / отправить ук�
 msg.pack	message pack / упаковка сообщений
 msg.sched	message dispatch scheduler / планировщик отправки сообщений
 msg.unpack	message unpack to selector and arguments / распаковка сообщения на селектор и аргументы
-rhythm.euclid	euclid pattern generator / генератор эвклидовых паттернов
+rhythm.euclid	Euclid pattern generator / генератор эвклидовых паттернов
 rhythm.hexbeat	hexbeat pattern generator / генератор ритмического паттерна по шестнадцатиричным значениям
 rhythm.lsystem	L-system pattern generator / генератор ритмического рисунка на основе L-систем
 net.artnet.send	ArtNet DMX message sender / отправление сообщений ArtNet DMX
@@ -1002,7 +1002,7 @@ net.ws.client	WebSocket client / WebSocket клиент
 net.ws.server	WebSocket server / WebSocket сервер
 noise.baker	Baker map chaos generator / хаотический генератор на основе преобразования Пекаря
 noise.chua~	Chua's diode circuit / диодная схема цепи Чуа
-noise.clifford	clifford attractor / аттрактор Клиффорда
+noise.clifford	Clifford attractor / аттрактор Клиффорда
 noise.collatz	collatz conjecture output / выводит число последовательности Коллаца
 noise.colored~	colored noise generator with an arbitrary spectral roll / генератор цветного шума с произвольным наклоном спектра
 noise.crackle~	sparse noise generator / генератор разреженного шума
@@ -1038,14 +1038,14 @@ ceammc/canvas.active	checks if the canvas of the object is on the top and active
 canvas.current	get the information about the current canvas of the object / получение информации о текущем холста объекта
 canvas.dir	outputs the current canvas directory of the object and nesting level / выводит директорию холста у объекта и его уровень вложенности
 canvas.name	output the current canvas name of the object / выводит имя текущего холста у объекта
-canvas.path	output the current canvas filesystem fullpath of the object / выводит полный путь холста в файловой системе у объекта
+canvas.path	output the current canvas file system full path of the object / выводит полный путь холста в файловой системе у объекта
 canvas.top	verbose information about top-level canvas of the object / подробная информация о холсте верхнего уровня у объекта
 patch.args	get patch or subpatch initial arguments / получить начальные аргументы для патча или субпатча
 patch.deps	output the patch dependencies: used objects and abstractions / выводит зависимости патча: используемые объекты и абстракции
 patch.tree	output the object tree of the patch / выводит дерево объектов патча
 file.size	outputs the file size / выводит размер файла
-path.basename	outputs the filename portion of the pathname / выводит имя файла из пути к файлу
-path.dirname	outputs directory portion of pathname / выводит имя каталога файла из пути к файлу
+path.basename	outputs the filename portion of the path name / выводит имя файла из пути к файлу
+path.dirname	outputs directory portion of path name / выводит имя каталога файла из пути к файлу
 path.exists	checks if the given path exists / проверка существования пути
 path.file	file input/output / файловый ввод/вывод
 path.is_dir	checks if the path is a directory / проверяет, является ли путь каталогом
@@ -1240,7 +1240,7 @@ ceammc/string2symbol	converts the string into the symbol / преобразуе�
 ceammc/str->sym	converts the string into the symbol / преобразует строку в символ
 str->sym	converts the string into the symbol / преобразует строку в символ
 symbol.equal	check symbols for equality / проверка символов на равенство
-symbol.length	outputs the number of characters in a symbol (unicode supported) / выводит число символов в символьном типе (с поддержкой Unicode)
+symbol.length	outputs the number of characters in a symbol (Unicode supported) / выводит число символов в символьном типе (с поддержкой Unicode)
 symbol.num_compare	numeric symbol compare / цифровое сравнение символов
 symbol2any	converts symbol or string into a message / преобразует символ или строку в сообщение
 ceammc/symbol2any	converts symbol or string into a message / преобразует символ или строку в сообщение
@@ -1261,10 +1261,10 @@ synth.clap~	clap synth from Faust libraries / синтезатор хлопка 
 synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpass / простой синтезатор на основе пилообразной волны, фильтруемой резонансным фильтром нижних частот
 synth.dx7~	dx7 implementation from Faust libraries / реализация синтезатора DX7 из библиотеки Faust
 synth.eguitar~	simple electric guitar model with steel strings / простая модель электрогитары со стальными струнами
-synth.english_bell~	english church bell modal model / модовый синтез модели английского церковного колокола
+synth.english_bell~	English church bell modal model / модовый синтез модели английского церковного колокола
 synth.fgrain~	file granulator from STK libraries / файловый гранулятор из библиотеки STK
 synth.french_bell~	french church bell modal model / модовый синтез модели французского церковного колокола
-synth.german_bell~	german church bell modal model / модовый синтез немецкой модели колокола
+synth.german_bell~	German church bell modal model / модовый синтез немецкой модели колокола
 synth.glass_harm~	nonlinear banded waveguide modeled glass harmonica / нелинейная волноводная модель стеклянной гармоники
 synth.glitch~	glitch synthesizer by naivesound / глитч-синтезатор от naivesound
 synth.harpsichord~	waveguide commuted harpsichord / синтезатор клавесина на основе техники волноводного синтеза
@@ -1279,11 +1279,11 @@ synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument / FM-си
 synth.risset_arp~	Jean-Claude Risset's harmonic arpeggio effect / эффект арпеджио Жан-Клода Риссе
 synth.risset_bell~	Jean-Claude Risset's bell synth / колокол Жан-Клода Риссе
 synth.risset_tone~	Jean-Claude Risset's endless glissando / бесконечное глиссандо Жан-Клода Риссе
-synth.russian_bell~	russian church bell modal model / модовый синтез модели русского церковного колокола
+synth.russian_bell~	Russian church bell modal model / модовый синтез модели русского церковного колокола
 synth.shakers~	various percussion sounds from STK library / различные перкуссионные звуки из библиотеки STK
 synth.sitar~	STK sitar / синтезатор ситара из библиотеки STK
 synth.snare~	snare drum synth from Guitarix project / синтезатор малого барабана из проекта Guitarix
-synth.standard_bell~	standart bell modal model / модовый синтез стандартной модели колокола
+synth.standard_bell~	Standard bell modal model / модовый синтез стандартной модели колокола
 synth.tube_bell~	STK tubular bell (orchestral chime) FM synthesis instrument / FM-синтезатор оркестрового колокола из библиотеки STK
 synth.voice_fofc~	simple formant/vocal synthesizer with FOF-cycle filterbank. / простой формантный/вокальный синтезатор с банком фильтров FOF-цикла.
 synth.voice_fofs~	simple formant/vocal synthesizer with FOF-smooth filterbank. / простой формантный/вокальный синтезатор со сглаженным банком фильтров FOF
@@ -1291,7 +1291,7 @@ synth.wurley~	Wurlitzer electric piano FM synthesis instrument / FM-синтез
 system.colorpanel	system color panel dialog popup / системный диалог выбора цвета
 system.command	run commands with pipes on Unix and Windows / запуск цепочек команд с перенаправлением вывода в Unix и Windows
 system.cmd	run commands with pipes on Unix and Windows / запуск цепочек команд с перенаправлением вывода в Unix и Windows
-system.cursor	outputs the cursor motion, mousewheel and button clicks / выводит положение курсора, нажатия кнопок мыши и колеса прокрутки
+system.cursor	outputs the cursor motion, mouse wheel and button clicks / выводит положение курсора, нажатия кнопок мыши и колеса прокрутки
 system.exec	run the external command in a separate process / запуск внешней команды в отдельном процессе
 system.exit	quit PureData / завершает PureData
 system.getenv	output system environment variables / выводит системные переменные окружения
@@ -1319,7 +1319,7 @@ ui.cnv	canvas for drawing / холст для рисования
 ui.cmeter~	multichannel circular signal meter / многоканальный круговой измеритель уровня сигнала
 ui.cm~	multichannel circular signal meter / многоканальный круговой измеритель уровня сигнала
 hoa.2d.meter~	multichannel circular signal meter / многоканальный круговой измеритель уровня сигнала
-ui.colorpanel	colorchooser widget / виджет выбора цвета
+ui.colorpanel	Color chooser widget / виджет выбора цвета
 ui.display	display widget / виджет дисплей
 ui.d	display widget / виджет дисплей
 ui.dt	display widget / виджет дисплей

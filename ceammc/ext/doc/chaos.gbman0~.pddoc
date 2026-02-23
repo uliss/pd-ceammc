@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">gingerbreadman map chaotic generator</tr>
+        <tr lang="en">Gingerbread man map chaotic generator</tr>
         <tr lang="ru">хаотический генератор на основе отображения Пряничного человечка</tr>
       </description>
       <license>GPL3 or later</license>

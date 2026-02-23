@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">root mean square of the signal with moving-average algorithm</tr>
+        <tr lang="en">root-mean-square of the signal with moving-average algorithm</tr>
         <tr lang="ru">среднее квадратичное сигнала с алгоритмом скользящего среднего</tr>
       </description>
       <license>GPL3 or later</license>

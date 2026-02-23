@@ -8,7 +8,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">outputs the number of characters in a symbol (unicode supported)</tr>
+        <tr lang="en">outputs the number of characters in a symbol (Unicode supported)</tr>
         <tr lang="ru">выводит число символов в символьном типе (с поддержкой Unicode)</tr>
       </description>
       <license>GPL3 or later</license>

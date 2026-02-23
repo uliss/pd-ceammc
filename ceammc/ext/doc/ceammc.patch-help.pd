@@ -16,8 +16,8 @@ and nesting level;
 #X obj 30 213 canvas.name;
 #X text 200 213 output the current canvas name of the object;
 #X obj 30 241 canvas.path;
-#X text 200 241 output the current canvas filesystem fullpath of the
-object;
+#X text 200 241 output the current canvas file system full path of
+the object;
 #X obj 30 269 canvas.top;
 #X text 200 269 verbose information about top-level canvas of the object;
 #X obj 30 297 patch.args;

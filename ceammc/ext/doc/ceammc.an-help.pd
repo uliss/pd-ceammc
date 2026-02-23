@@ -11,7 +11,7 @@
 #X obj 30 173 an.pitchtrack~;
 #X text 200 173 the signal pitch tracker;
 #X obj 30 201 an.rms~;
-#X text 200 201 root mean square of the signal with moving-average
+#X text 200 201 root-mean-square of the signal with moving-average
 algorithm;
 #X obj 30 229 an.tempo~;
 #X text 200 229 the signal tempo detector;
