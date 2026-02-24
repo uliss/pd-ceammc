@@ -24,108 +24,106 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Match syntax:</tr>
-        <tr lang="ru" finished="false">Синтаксис матча:</tr>
+        <tr lang="en">Outputs either the bang or original message or the value of the
+        @msg property to the appropriate output when it matches the pattern.</tr>
+        <tr lang="ru">Выводит bang, оригинальное сообщение или значение свойства @msg
+        в соответствующий вывод при совпадении с шаблоном.</tr>
       </par>
       <par>
-        <tr lang="en">common: symbols or floats</tr>
-        <tr lang="ru" finished="false">Общие: символы или поплавки</tr>
+        <tr lang="en">Pattern matching syntax:</tr>
+        <tr lang="ru">Синтаксис совпадений с шаблоном:</tr>
       </par>
       <par>
-        <tr lang="en">compare: &gt;NUM, &gt;=NUM, &lt;NUM, &lt;=NUM</tr>
-        <tr lang="ru" finished="false">сравните: &gt;NUM, &gt;=NUM, &lt;NUM, &lt;=NUM</tr>
+        <tr lang="en">simple values: symbols or numbers</tr>
+        <tr lang="ru">простые значения: символы или числа</tr>
+      </par>
+      <par>
+        <tr lang="en">numerical comparisons: &gt;NUM, &gt;=NUM, &lt;NUM, &lt;=NUM</tr>
+        <tr lang="ru">числовые сравнения: &gt;ЧИСЛО, &gt;=ЧИСЛО, &lt;ЧИСЛО, &lt;=ЧИСЛО</tr>
       </par>
       <par>
         <tr lang="en">intervals: FROM..TO, or [FROM..TO] - closed interval, [FROM..TO) or
         (FROM..TO] semi-open interval, (FROM..TO) open interval, NUM~EPSILON - value in
-        NUM+-EPSILON range</tr>
-        <!-- old: интервалы: FROM..TO, или [FROM..TO] - закрытый
-                интервал, [FROM..TO] или (FROM..TO) полуоткрытый интервал, (FROM..TO) открытый
-                интервал, NUM~EPSILON - значение в диапазоне NUM+-EPSILON -->
-        <tr lang="ru" finished="false">интервалы: FROM..TO, или [FROM..TO] - закрытый интервал,
-        [FROM..TO] или (FROM..TO) полуоткрытый интервал, (FROM..TO) открытый интервал, NUM~EPSILON
-        - значение в диапазоне NUM+-EPSILON</tr>
+        NUM±EPSILON range</tr>
+        <tr lang="ru">интервалы: FROM..TO, или [FROM..TO] - закрытый интервал,
+        [FROM..TO) или (FROM..TO] полуоткрытый интервал, (FROM..TO) – открытый интервал, ЧИСЛО~EPSILON
+        - значение в диапазоне ЧИСЛО±EPSILON</tr>
       </par>
       <par>
-        <tr lang="en">set: A|B|C - match to A or B or C</tr>
-        <tr lang="ru" finished="false">сет: A | B | C - соответствие A или B или C</tr>
+        <tr lang="en">set: A|B|C - match to A or B or C.</tr>
+        <tr lang="ru">множества: A|B|C - соответствие A или B или C.</tr>
       </par>
     </info>
     <arguments>
       <argument name="ARGS" type="list">
-        <tr lang="en">flow match expressions</tr>
-        <tr lang="ru" finished="false">выражения соответствия потока</tr>
+        <tr lang="en">list of matching templates for the input flow</tr>
+        <tr lang="ru">список шаблонов соответствия для входного потока</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @keep_value -->
       <property name="@keep_value" type="bool" default="0">
-        <tr lang="en">value output mode. If false (by default) acts like vanilla select: output
-        bang on match or full unmatched message to last outlet. If true always outputs full matched
-        message to corresponding outlet.</tr>
-        <!-- old: Режим вывода стоимости. Если ложное (по умолчанию)
-                действует как ваниль, выберите: выходной удар по совпадению или полное
-                непревзойденное сообщение для последней розетки. Если истинное всегда выводит
-                полностью совпадающее сообщение в соответствующую розетку. -->
-        <tr lang="ru" finished="false">Режим вывода стоимости. Если ложное (по умолчанию) действует
-        как ваниль, выберите: выходной удар по совпадению или полное непревзойденное сообщение для
-        последней розетки. Если истинное всегда выводит полностью совпадающее сообщение в
-        соответствующую розетку.</tr>
+        <tr lang="en">output mode when matching the pattern.
+        If false (default): behaves like a [select] object - bang on match and a message with no matches on the last output.
+        If true: always outputs the entire original message to the corresponding output.</tr>
+        <tr lang="ru">режим вывода при совпадении с шаблоном. Если false: (по умолчанию) действует
+        как объект [select] - bang при совпадении и сообщение для которого не найдено соответствий в последний выход.
+        Если true: всегда выводит полностью исходное сообщение в соответствующий выход</tr>
       </property>
       <!-- @msg -->
       <property name="@msg" type="list" default="">
-        <tr lang="en">output this message on match, instead of bang</tr>
-        <tr lang="ru" finished="false">Отправьте это сообщение на матч, а не на взрыв</tr>
+        <tr lang="en">if defined - sends this message if it matches the pattern instead of the (standard) bang</tr>
+        <tr lang="ru">если установлено - отправляет данное сообщение в случае совпадения с шаблоном вместо (стандартного) bang</tr>
       </property>
       <!-- @v -->
       <property name="@v" type="alias">
         <tr lang="en">alias to @keep_value 1</tr>
-        <tr lang="ru" finished="false">Источник: @keep_value 1 1</tr>
+        <tr lang="ru">сокращение для @keep_value 1 1</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">check float for matches</tr>
-          <tr lang="ru" finished="false">Проверить поплавок для матчей</tr>
+          <tr lang="en">checks if the input number matches the patterns</tr>
+          <tr lang="ru">проверяет соответствует ли входное число шаблонам</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">check symbol for matches</tr>
-          <tr lang="ru" finished="false">Проверьте символ для матчей</tr>
+          <tr lang="en">checks if the input symbol matches the patterns</tr>
+          <tr lang="ru">проверяет соответствие входного символа шаблонам</tr>
         </in>
         <in on="list">
-          <tr lang="en">check first list element for matches</tr>
-          <tr lang="ru" finished="false">Проверьте первый элемент списка для матчей</tr>
+          <tr lang="en">checks if the first element in the list matches the specified patterns</tr>
+          <tr lang="ru">проверяет соответствие первого элемента в списке указанным шаблонам</tr>
         </in>
         <in on="any">
-          <tr lang="en">check message selector for matches</tr>
-          <tr lang="ru" finished="false">Проверить селектор сообщений для матчей</tr>
+          <tr lang="en">verifies that the message selector matches the specified patterns</tr>
+          <tr lang="ru">проверяет соответствие селектора сообщения указанным шаблонам</tr>
         </in>
       </inlet>
     </inlets>
     <outlets dynamic="true">
       <outlet number="1">
         <out type="any">
-          <tr lang="en">first matched output: bang or full message</tr>
-          <tr lang="ru" finished="false">Первый совпадающий вывод: взрыв или полное сообщение</tr>
+          <tr lang="en">when matching the first pattern: outputs bang, @msg, or the original message</tr>
+          <tr lang="ru">при совпадении с первым шаблоном: bang, @msg или исходное сообщение</tr>
         </out>
       </outlet>
       <outlet number="...">
         <out type="any">
-          <tr lang="en">... matched output: bang or full message</tr>
-          <tr lang="ru" finished="false">...соответствующий выход: взрыв или полное сообщение</tr>
+          <tr lang="en">when matching the ... pattern: outputs bang, @msg, or the original message</tr>
+          <tr lang="ru">при совпадении с ... шаблоном: bang, @msg или исходное сообщение</tr>
         </out>
       </outlet>
       <outlet number="n">
         <out type="any">
-          <tr lang="en">nth matched output: bang or full message</tr>
-          <tr lang="ru" finished="false">nth matched output: bang или полное сообщение</tr>
+          <tr lang="en">when matching the n-th pattern: outputs bang, @msg, or the original message</tr>
+          <tr lang="ru">при совпадении с N-м шаблоном: bang, @msg или исходное сообщение</tr>
         </out>
       </outlet>
       <outlet number="n+1">
         <out type="any">
-          <tr lang="en">unmatched message</tr>
-          <tr lang="ru" finished="false">Непревзойденное сообщение</tr>
+          <tr lang="en">original message for which no matches were found</tr>
+          <tr lang="ru">оригинальное сообщение, для которого не было найдено совпадений</tr>
         </out>
       </outlet>
     </outlets>
