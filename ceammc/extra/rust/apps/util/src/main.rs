@@ -8,6 +8,7 @@ use colored::Colorize;
 #[path = "../../src/ceammc_config.rs"]
 mod config;
 
+mod apt;
 mod autostart;
 mod common;
 mod dpkg;
@@ -122,7 +123,12 @@ fn main() -> anyhow::Result<()> {
                     output_error(&err);
                 }
             }
-            Pd::Update { all, examples, pd, force: overwrite } => {
+            Pd::Update {
+                all,
+                examples,
+                pd,
+                force: overwrite,
+            } => {
                 // update on empty also
                 if all || pd || (!pd && !examples) {
                     update::update_pd_ceammc();
