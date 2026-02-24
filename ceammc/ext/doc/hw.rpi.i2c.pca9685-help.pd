@@ -109,7 +109,7 @@ Units: 'Hz'.;
 #X msg 130 1481 period;
 #X text 270 1481 set PWM period. Arguments are:;
 #X obj 280 1504 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1504 PERIOD: new frequency. Type: float. Range: 0.5\...40\.
+#X text 280 1504 PERIOD: new period. Type: float. Range: 0.5\...40\.
 Units: 'ms'.;
 #X obj 250 1544 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1544 polarity;
@@ -135,7 +135,7 @@ Units: 'ms'.;
 enabled so that previously active PWM channels are restarted.;
 #X obj 250 1801 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1801 set_raw;
-#X text 270 1801 set channel raw PWM frequency. Arguments are:;
+#X text 270 1801 set channel raw PWM value. Arguments are:;
 #X obj 280 1824 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 280 1824 CHAN: device PWM channel. If equals to 16 means all
 channels. Type: int. Range: 0\...16\.;

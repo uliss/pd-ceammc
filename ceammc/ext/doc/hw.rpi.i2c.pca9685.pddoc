@@ -23,44 +23,33 @@
     <info>
       <par>
         <tr lang="en">Note: default PWM freq is 50Hz</tr>
-        <tr lang="ru" finished="false">Примечание: PWM freq по умолчанию 50 Гц</tr>
+        <tr lang="ru">Примечание: частота ШИМ по умолчанию 50 Гц</tr>
       </par>
       <par>
         <tr lang="en">*Servo Control*</tr>
-        <tr lang="ru" finished="false">*Servo Control*</tr>
+        <tr lang="ru">*Управление сервоприводами*</tr>
       </par>
       <par>
         <tr lang="en">Many digital servos run on a 20ms pulse width (50Hz update frequency) based
         duty cycle, and do not utilize the entire pulse width for their control</tr>
-        <!-- old: Многие цифровые сервоприводы работают на основе
-                рабочего цикла шириной импульса 20 мс (частота обновления 50 Гц) и не используют
-                всю ширину импульса для своего управления. -->
-        <tr lang="ru" finished="false">Многие цифровые сервоприводы работают на основе рабочего
-        цикла шириной импульса 20 мс (частота обновления 50 Гц) и не используют всю ширину импульса
+        <tr lang="ru">Многие цифровые сервоприводы работают на основе рабочего
+        цикла с шириной импульса 20 мс (частота обновления 50 Гц) и не используют всю ширину импульса
         для своего управления.</tr>
       </par>
       <par>
         <tr lang="en">Typically, 2.5% of the 20ms pulse width (0.5ms) represents -90° offset, and
         12.5% of the 20ms pulse width (2.5ms) represents +90° offset</tr>
-        <!-- old: Как правило, 2,5% ширины импульса 20 мс (0,5 мс)
-                представляет собой смещение -90°, а 12,5% ширины импульса 20 мс (2,5 мс)
-                представляет собой смещение +90°. -->
-        <tr lang="ru" finished="false">Как правило, 2,5% ширины импульса 20 мс (0,5 мс)
-        представляет собой смещение -90°, а 12,5% ширины импульса 20 мс (2,5 мс) представляет собой
-        смещение +90°.</tr>
+        <tr lang="ru">Как правило, 2.5% ширины импульса 20 мс (0.5 мс)
+        представляет собой поворот -90°, а 12,5% ширины импульса 20 мс (2,5 мс) представляет собой
+        поворот +90°.</tr>
       </par>
       <par>
         <tr lang="en">Be aware that driving some 180° servos too far past their -90°/+90°
         operational range can cause a little plastic limiter pin to break off and get stuck inside
         of the servo's gearing, which could potentially cause the servo to become jammed and no
         longer function</tr>
-        <!-- old: Имейте в виду, что вождение около 180° сервоприводов
-                слишком далеко за пределы их рабочего диапазона -90° / + 90° может привести к тому,
-                что небольшой пластиковый штифт ограничителя отломится и застрянет внутри зубчатой
-                передачи сервопривода, что потенциально может привести к тому, что сервопривод
-                застрянет и больше не будет функционировать. -->
-        <tr lang="ru" finished="false">Имейте в виду, что вождение около 180° сервоприводов слишком
-        далеко за пределы их рабочего диапазона -90° / + 90° может привести к тому, что небольшой
+        <tr lang="ru">Имейте в виду, что установка некоторых 180-градусных сервоприводов слишком
+        далеко за пределы их рабочего диапазона -90°/+90° может привести к тому, что небольшой
         пластиковый штифт ограничителя отломится и застрянет внутри зубчатой передачи сервопривода,
         что потенциально может привести к тому, что сервопривод застрянет и больше не будет
         функционировать.</tr>
@@ -70,14 +59,9 @@
         instead of the 2.5%/12.5% pulse width controlling a -90°/+90° offset it controls a -1x/+1x
         speed multiplier, with 0x being parked/no-movement and -1x/+1x being maximum speed in
         either direction.</tr>
-        <!-- old: Непрерывные сервоприводы работают во многом так же,
-                как сервоприводы 180°, но вместо 2,5%/12,5% ширины импульса, контролирующего
-                смещение -90°/+90°, он управляет множителем скорости -1x/+1x, при этом 0x
-                припаркован/не движется и -1x/+1x является максимальной скоростью в любом
-                направлении. -->
-        <tr lang="ru" finished="false">Непрерывные сервоприводы работают во многом так же, как
-        сервоприводы 180°, но вместо 2,5%/12,5% ширины импульса, контролирующего смещение
-        -90°/+90°, он управляет множителем скорости -1x/+1x, при этом 0x припаркован/не движется и
+        <tr lang="ru">Непрерывные сервоприводы работают во многом так же, как
+        сервоприводы 180°, но вместо 2.5%/12.5% ширины импульса, контролирующего смещение
+        -90°/+90°, они управляются множителем скорости -1x/+1x, при 0x – сервопривод не движется, а
         -1x/+1x является максимальной скоростью в любом направлении.</tr>
       </par>
     </info>
@@ -92,19 +76,14 @@
       <property name="@i2c_addr" type="int" default="-1" minvalue="-4" maxvalue="119"
       access="initonly">
         <tr lang="en">I²C address. Also 'default' value is accepted (for addr 0x40)</tr>
-        <!-- old: Адрес I²C. Также принимается значение «default» (для
-                адреса 0x40) -->
-        <!-- old: Адрес I2C. Также принимается значение «по умолчанию»
-                (для добавления 0x40) -->
-        <tr lang="ru" finished="false">Адрес I2C. Также принимается значение «по умолчанию» (для
-        добавления 0x40)</tr>
+        <tr lang="ru">Адрес I²C. Также принимается значение «default» (для
+        адреса 0x40)</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
       access="initonly">
         <tr lang="en">I²C bus</tr>
-        <!-- old: шина I²C -->
-        <tr lang="ru" finished="false">I2C автобус</tr>
+        <tr lang="ru">шина I²C</tr>
       </property>
     </properties>
     <methods>
@@ -112,57 +91,49 @@
       <method name="const">
         <info>
           <tr lang="en">set channel constant value</tr>
-          <tr lang="ru" finished="false">постоянное значение канала</tr>
+          <tr lang="ru">установить постоянное значение канала</tr>
         </info>
         <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">
           <tr lang="en">device PWM channel. If equals to 16 means all channels</tr>
-          <!-- old: Устройство PWM-канала. 16 означает все
-                    каналы -->
-          <tr lang="ru" finished="false">Устройство PWM-канала. 16 означает все каналы</tr>
+          <tr lang="ru">ШИМ-канал. 16 означает все каналы</tr>
         </param>
         <param name="VALUE" type="bool" required="true">
           <tr lang="en">value</tr>
-          <tr lang="ru" finished="false">ценность</tr>
+          <tr lang="ru">значение</tr>
         </param>
         <param name="DELAY" type="float" required="false" minvalue="0" maxvalue="1">
           <tr lang="en">the setting is delayed by the given phase value.</tr>
-          <!-- old: Установка задерживается заданным значением
-                    фазы. -->
-          <tr lang="ru" finished="false">Установка задерживается заданным значением фазы.</tr>
+          <tr lang="ru">задержка установки на заданное значение фазы.</tr>
         </param>
       </method>
       <!-- disable_prog_addr -->
       <method name="disable_prog_addr">
         <info>
           <tr lang="en">disable of using programmable address</tr>
-          <!-- old: Отключение использования программируемого
-                    адреса -->
-          <tr lang="ru" finished="false">Отключение использования программируемого адреса</tr>
+          <tr lang="ru">отключить использования программируемого адреса</tr>
         </info>
         <param name="TYPE" type="atom" enum="1 2 3 all" required="true">
           <tr lang="en">prog address type</tr>
-          <tr lang="ru" finished="false">тип адреса gg</tr>
+          <tr lang="ru">тип программируемого адреса</tr>
         </param>
       </method>
       <!-- duty -->
       <method name="duty">
         <info>
           <tr lang="en">set channel PWM duty cycle</tr>
-          <tr lang="ru" finished="false">установленный канал PWM рабочего цикла</tr>
+          <tr lang="ru">установить рабочее значение ШИМ цикла</tr>
         </info>
         <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">
           <tr lang="en">device PWM channel. If equals to 16 means all channels</tr>
-          <!-- old: Устройство PWM-канала. 16 означает все
-                    каналы -->
-          <tr lang="ru" finished="false">Устройство PWM-канала. 16 означает все каналы</tr>
+          <tr lang="ru">ШИМ-канал. 16 означает все каналы</tr>
         </param>
         <param name="DUTY" type="float" required="true" minvalue="-1" maxvalue="1">
           <tr lang="en">duty cycle value</tr>
-          <tr lang="ru" finished="false">Стоимость рабочего цикла</tr>
+          <tr lang="ru">значение рабочего цикла</tr>
         </param>
         <param name="PHASE" type="float" required="false" minvalue="-1" maxvalue="1">
           <tr lang="en">phase offset</tr>
-          <tr lang="ru" finished="false">фазовое смещение</tr>
+          <tr lang="ru">фазовое смещение</tr>
         </param>
       </method>
       <!-- enable -->
@@ -170,16 +141,13 @@
         <info>
           <tr lang="en">enable/disable the device. The disabled state is equal to sleep, the device
           is keeping all current PWM setting, but just not responds to the new settings.</tr>
-          <!-- old: Включить/отключить устройство. Отключенное
-                    состояние равно сну, устройство поддерживает все текущие настройки PWM, но
-                    просто не реагирует на новые настройки. -->
-          <tr lang="ru" finished="false">Включить/отключить устройство. Отключенное состояние равно
-          сну, устройство поддерживает все текущие настройки PWM, но просто не реагирует на новые
+          <tr lang="ru">Включить/отключить устройство. Отключенное состояние эквивалентно
+          сну, в нем устройство поддерживает все текущие настройки ШИМ, но просто не реагирует на новые
           настройки.</tr>
         </info>
         <param name="STATE" type="bool" default="1">
           <tr lang="en">new state</tr>
-          <tr lang="ru" finished="false">Новое государство</tr>
+          <tr lang="ru">Новое состояние</tr>
         </param>
       </method>
       <!-- enable_restart_and_disable -->
@@ -187,71 +155,63 @@
         <info>
           <tr lang="en">put the controller to sleep while keeping the PWM register contents in
           preparation for a future restart</tr>
-          <!-- old: Поставьте контроллер спать, сохраняя содержимое
-                    регистра PWM в процессе подготовки к будущему перезапуску. -->
-          <tr lang="ru" finished="false">Поставьте контроллер спать, сохраняя содержимое регистра
-          PWM в процессе подготовки к будущему перезапуску.</tr>
+          <tr lang="ru">перевести контроллер в состояние сна, сохраняя содержимое регистра
+          ШИМ для подготовки к будущему перезапуску.</tr>
         </info>
       </method>
       <!-- freq -->
       <method name="freq">
         <info>
           <tr lang="en">set PWM frequency</tr>
-          <tr lang="ru" finished="false">Установка частоты PWM</tr>
+          <tr lang="ru">установить частоту ШИМ</tr>
         </info>
         <param name="FREQ" type="float" units="hertz" required="true" minvalue="24"
         maxvalue="2048">
           <tr lang="en">new frequency</tr>
-          <tr lang="ru" finished="false">Новая частота</tr>
+          <tr lang="ru">новая частота</tr>
         </param>
       </method>
       <!-- period -->
       <method name="period">
         <info>
           <tr lang="en">set PWM period</tr>
-          <tr lang="ru" finished="false">установленный период PWM</tr>
+          <tr lang="ru">установить период ШИМ</tr>
         </info>
         <param name="PERIOD" type="float" units="millisecond" required="true" minvalue="0.5"
         maxvalue="40">
-          <tr lang="en">new frequency</tr>
-          <tr lang="ru" finished="false">Новая частота</tr>
+          <tr lang="en">new period</tr>
+          <tr lang="ru">новый период</tr>
         </param>
       </method>
       <!-- polarity -->
       <method name="polarity">
         <info>
           <tr lang="en">set PWM inversed polarity. Applicable when OE = 0.</tr>
-          <!-- old: PWM перевернутая полярность. Применяется при OE
-                    = 0. -->
-          <tr lang="ru" finished="false">PWM перевернутая полярность. Применяется при OE = 0.</tr>
+          <tr lang="ru">инвертировать полярность ШИМ. Применяется при OE = 0.</tr>
         </info>
         <param name="POLARITY" type="bool" required="true">
           <tr lang="en">polarity value: 0 - direct, 1 - inversed</tr>
-          <!-- old: Значение полярности: 0 - прямое, 1 -
-                    обратное -->
-          <tr lang="ru" finished="false">Значение полярности: 0 - прямое, 1 - обратное</tr>
+          <tr lang="ru">значение полярности: 0 - прямое, 1 - обратное</tr>
         </param>
       </method>
       <!-- pwidth -->
       <method name="pwidth">
         <info>
           <tr lang="en">set channel PWM pulse width</tr>
-          <tr lang="ru" finished="false">ширина импульса канала PWM</tr>
+          <tr lang="ru">установить ширину импульса канала ШИМ</tr>
         </info>
         <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">
           <tr lang="en">device PWM channel. If equals to 16 means all channels</tr>
-          <!-- old: Устройство PWM-канала. 16 означает все
-                    каналы -->
-          <tr lang="ru" finished="false">Устройство PWM-канала. 16 означает все каналы</tr>
+          <tr lang="ru">ШИМ-канал. 16 означает все каналы</tr>
         </param>
         <param name="WIDTH" type="float" required="true" minvalue="0.5" maxvalue="40"
         units="millisecond">
           <tr lang="en">pulse width</tr>
-          <tr lang="ru" finished="false">ширина импульса</tr>
+          <tr lang="ru">ширина импульса</tr>
         </param>
         <param name="PHASE" type="float" required="false" minvalue="0" maxvalue="1">
           <tr lang="en">phase offset</tr>
-          <tr lang="ru" finished="false">фазовое смещение</tr>
+          <tr lang="ru">фазовое смещение</tr>
         </param>
       </method>
       <!-- restart -->
@@ -259,49 +219,42 @@
         <info>
           <tr lang="en">re-enable the controller after a sleep with restart enabled so that
           previously active PWM channels are restarted</tr>
-          <!-- old: повторно включить контроллер после сна с
-                    включенным перезапуском таким образом, чтобы были перезапущены ранее активные
-                    каналы PWM -->
-          <tr lang="ru" finished="false">повторно включить контроллер после сна с включенным
-          перезапуском таким образом, чтобы были перезапущены ранее активные каналы PWM</tr>
+          <tr lang="ru">повторно включить контроллер после сна с включенным
+          перезапуском с перезапуском ранее активных каналов ШИМ</tr>
         </info>
       </method>
       <!-- set_raw -->
       <method name="set_raw">
         <info>
-          <tr lang="en">set channel raw PWM frequency</tr>
-          <tr lang="ru" finished="false">заданный канал необработанной частоты PWM</tr>
+          <tr lang="en">set channel raw PWM value</tr>
+          <tr lang="ru">установить низкоуровневое значение ШИМ</tr>
         </info>
         <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">
           <tr lang="en">device PWM channel. If equals to 16 means all channels</tr>
-          <!-- old: Устройство PWM-канала. 16 означает все
-                    каналы -->
-          <tr lang="ru" finished="false">Устройство PWM-канала. 16 означает все каналы</tr>
+          <tr lang="ru">ШИМ-канал. 16 означает все каналы</tr>
         </param>
         <param name="ON" type="int" minvalue="0" maxvalue="4095" required="true">
           <tr lang="en">ON counter time value</tr>
-          <tr lang="ru" finished="false">Счетное значение времени</tr>
+          <tr lang="ru">время, в которое импульс переходит в высокое состояние</tr>
         </param>
         <param name="OFF" type="int" minvalue="0" maxvalue="4095" required="true">
           <tr lang="en">OFF counter time value</tr>
-          <tr lang="ru" finished="false">Счетная временная стоимость</tr>
+          <tr lang="ru">время, в которое импульс переходит в низкое состояние</tr>
         </param>
       </method>
       <!-- use_prog_addr -->
       <method name="use_prog_addr">
         <info>
           <tr lang="en">set and use programmable address</tr>
-          <!-- old: установить и использовать программируемый
-                    адрес -->
-          <tr lang="ru" finished="false">установить и использовать программируемый адрес</tr>
+          <tr lang="ru">установить и использовать программируемый адрес</tr>
         </info>
         <param name="TYPE" type="atom" enum="1 2 3 all" required="true">
           <tr lang="en">prog address type</tr>
-          <tr lang="ru" finished="false">тип адреса gg</tr>
+          <tr lang="ru">тип программируемого адреса</tr>
         </param>
         <param name="I2C_ADDR" type="int" required="true" minvalue="7" maxvalue="119">
           <tr lang="en">new I²C address</tr>
-          <tr lang="ru" finished="false">Новый адрес I2C</tr>
+          <tr lang="ru">новый I²C адрес</tr>
         </param>
       </method>
     </methods>
@@ -309,7 +262,7 @@
       <inlet>
         <in>
           <tr lang="en">control input</tr>
-          <tr lang="ru" finished="false">контрольный вход</tr>
+          <tr lang="ru">управляющий вход</tr>
         </in>
       </inlet>
     </inlets>
@@ -317,7 +270,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">control output</tr>
-          <tr lang="ru" finished="false">контрольный выход</tr>
+          <tr lang="ru">управляющий выход</tr>
         </out>
       </outlet>
     </outlets>
