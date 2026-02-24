@@ -211,7 +211,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">messages: [pin PIN STATE(, [pins PIN PIN...(</tr>
-          <tr lang="ru">сообщения: [pin PIN STATE(, [pins PIN PIN...(</tr>
+          <tr lang="ru">сообщения: [pin КОНТАКТ СОСТОЯНИЕ(, [pins КОНТАКТ КОНТАКТ...(</tr>
         </out>
       </outlet>
     </outlets>
