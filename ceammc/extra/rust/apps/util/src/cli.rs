@@ -41,7 +41,7 @@ pub enum Pd {
         /// update all (puredata first, then examples)
         #[arg(short, long)]
         all: bool,
-        /// update examples only
+        /// update examples
         #[arg(short, long)]
         examples: bool,
         /// update puredata

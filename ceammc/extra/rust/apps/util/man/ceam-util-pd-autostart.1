@@ -1,0 +1,28 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH ceam-util-pd-autostart 1  "autostart " 
+.SH NAME
+ceam\-util\-pd\-autostart \- auto start control: enable, disable, set main patch symlink
+.SH SYNOPSIS
+\fBceam\-util pd autostart\fR [\fB\-a\fR|\fB\-\-add\fR] [\fB\-\-default\fR] [\fB\-e\fR|\fB\-\-enable\fR] [\fB\-d\fR|\fB\-\-disable\fR] [\fB\-i\fR|\fB\-\-info\fR] [\fB\-h\fR|\fB\-\-help\fR] 
+.SH DESCRIPTION
+auto start control: enable, disable, set main patch symlink
+.SH OPTIONS
+.TP
+\fB\-a\fR, \fB\-\-add\fR \fI<FILE>\fR
+create symlink to autostart patch
+.TP
+\fB\-\-default\fR
+restore default autostart patch symlink
+.TP
+\fB\-e\fR, \fB\-\-enable\fR
+enable autostart
+.TP
+\fB\-d\fR, \fB\-\-disable\fR
+disable autostart
+.TP
+\fB\-i\fR, \fB\-\-info\fR
+print verbose info
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help

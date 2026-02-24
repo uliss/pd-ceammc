@@ -1,0 +1,25 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH ceam-util-pd-update 1  "update " 
+.SH NAME
+ceam\-util\-pd\-update \- update CEAMMC PureData
+.SH SYNOPSIS
+\fBceam\-util pd update\fR [\fB\-a\fR|\fB\-\-all\fR] [\fB\-e\fR|\fB\-\-examples\fR] [\fB\-p\fR|\fB\-\-pd\fR] [\fB\-f\fR|\fB\-\-force\fR] [\fB\-h\fR|\fB\-\-help\fR] 
+.SH DESCRIPTION
+update CEAMMC PureData
+.SH OPTIONS
+.TP
+\fB\-a\fR, \fB\-\-all\fR
+update all (puredata first, then examples)
+.TP
+\fB\-e\fR, \fB\-\-examples\fR
+update examples only
+.TP
+\fB\-p\fR, \fB\-\-pd\fR
+update puredata
+.TP
+\fB\-f\fR, \fB\-\-force\fR
+overwrite existing files (use together with \-\-examples flag)
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
