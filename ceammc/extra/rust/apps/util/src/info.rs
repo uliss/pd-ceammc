@@ -80,7 +80,7 @@ fn output_pd() {
         crate::apt::apt_version().unwrap_or("not installed".to_string())
     );
     println!(
-        "pd_update?:  \t{}",
+        "pd_update:   \t{}",
         crate::apt::has_update().unwrap_or("no".to_string())
     );
     println!("pd_ver:       \t{}", crate::config::PD_TEXT_VERSION_FULL);
