@@ -77,11 +77,27 @@ enum Commands {
     Pd(Pd),
     /// System information
     Info {
+        /// use bytes in output
         #[arg(short, long)]
         use_bytes: bool,
-        // output all information
+        /// output all information
         #[arg(short, long)]
         all: bool,
+        /// output memory information
+        #[arg(long)]
+        mem: bool,
+        /// output cpu information
+        #[arg(long)]
+        cpu: bool,
+        /// output system information
+        #[arg(long)]
+        system: bool,
+        /// output PureData information (default)
+        #[arg(long)]
+        pd: bool,
+        /// output network information
+        #[arg(long)]
+        net: bool,
     },
 }
 
@@ -158,8 +174,16 @@ fn main() -> anyhow::Result<()> {
                 }
             }
         },
-        Commands::Info { use_bytes, all } => {
-            output_info(use_bytes, all, true, true, true, true, true);
+        Commands::Info {
+            use_bytes,
+            all,
+            mem,
+            cpu,
+            system,
+            pd: _,
+            net,
+        } => {
+            output_info(use_bytes, all, mem, cpu, net, system, true);
         }
     }
 

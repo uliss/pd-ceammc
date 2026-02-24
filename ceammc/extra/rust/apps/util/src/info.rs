@@ -113,8 +113,8 @@ fn output_pd() {
 
 pub fn output_info(
     use_bytes: bool,
-    output_all: bool,
-    output_mem: bool,
+    all: bool,
+    mem: bool,
     cpu: bool,
     net: bool,
     system: bool,
@@ -123,31 +123,31 @@ pub fn output_info(
     let mut sys = sysinfo::System::new_all();
     sys.refresh_all();
 
-    if output_all || output_mem {
+    if all || mem {
         output_header("memory");
         output_memory(&sys, use_bytes);
         println!();
     }
 
-    if output_all || cpu {
+    if all || cpu {
         output_header("cpu");
         output_cpu(&sys);
         println!();
     }
 
-    if output_all || net {
+    if all || net {
         output_header("network");
         output_net();
         println!();
     }
 
-    if output_all || system {
+    if all || system {
         output_header("system");
         output_system();
         println!();
     }
 
-    if output_all || pd {
+    if all || pd {
         output_header("puredata");
         output_pd();
         println!();
