@@ -62,7 +62,7 @@ value: 17\. Range: 0\...255\.;
 0;
 #X text 130 754 1\.;
 #X text 170 754 bang:;
-#X text 270 754 single distance measure.;
+#X text 270 754 single distance measurement.;
 #X obj 20 789 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 794 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
