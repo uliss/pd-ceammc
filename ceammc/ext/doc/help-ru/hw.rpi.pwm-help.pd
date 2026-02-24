@@ -5,129 +5,132 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.pwm 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 hw.rpi.pwm;
-#X obj 230 78 cnv 1 535 545 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 240 83 || Versions <5.0;
-#X text 240 108 The BCM283x SoC supports 2 hardware PWM channels. By
-default \, the channels are mapped as follows:;
+#X obj 230 78 cnv 1 535 560 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 || Версии платы <5.0;
+#X text 240 108 BCM283x SoC поддерживает 2 аппаратных канала ШИМ. По
+умолчанию каналы отображаются следующим образом:;
 #X text 240 148 • PWM0 = GPIO12/GPIO18;
 #X text 240 173 • PWM1 = GPIO13/GPIO19;
-#X text 240 198 Consult the official documentation on how to enable
-and configure these.;
-#X text 240 238 Note: the Raspberry Pi?s analog audio output uses both
-PWM channels. Playing audio and simultaneously accessing a PWM channel
-may cause issues.;
+#X text 240 198 Проконсультируйтесь с официальной документацией о том
+\, как включить и настроить их.;
+#X text 240 238 Аналоговый аудиовыход Raspberry Pi использует оба канала
+ШИМ. Воспроизведение звука и одновременное обращение к каналу ШИМ может
+вызвать проблемы.;
 #X text 240 293 ~;
-#X text 240 318 || Raspberry Pi 5 and later;
-#X text 240 343 The Raspberry Pi 5 support 4 hardware PWM channels.
-By default \, the channels are mapped as follows:;
+#X text 240 318 Raspberry Pi 5 и выше;
+#X text 240 343 Raspberry Pi 5 поддерживает 4 аппаратных канала ШИМ.
+По умолчанию каналы отображаются следующим образом:;
 #X text 240 383 • PWM0 = GPIO12;
 #X text 240 408 • PWM1 = GPIO13;
 #X text 240 433 • PWM2 = GPIO18;
 #X text 240 458 • PWM3 = GPIO19;
-#X text 240 483 Consult the official documentation on how to enable
-and configure these.;
+#X text 240 483 Проконсультируйтесь с официальной документацией о том
+\, как включить и настроить их.;
 #X text 240 523 ~;
-#X text 240 548 Some of the GPIO pins capable of supporting hardware
-PWM can also be configured for use with other peripherals. Be careful
-not to enable two peripherals on the same pin at the same time.;
-#X obj 50 671 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 700 enable \$1;
-#X obj 69 743 ui.hsl @show_value 1 @min 50 @max 500;
-#X obj 251 743 ui.hsl @show_value 1 @min 0 @max 20;
-#X msg 69 772 freq \$1 0.5;
-#X msg 251 772 pwm 20 \$1;
-#X obj 50 815 hw.rpi.pwm @pwm_ch 0;
-#X obj 50 858 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 251 858 ui.hsl @show_value 1 @min 1 @max 2;
-#X msg 50 887 enable \$1;
-#X msg 251 887 pwm 20 \$1;
-#X obj 50 931 hw.rpi.pwm @pwm_ch 1;
-#X obj 50 959 ui.link @title 'Connection_scheme' @url
+#X text 240 548 Некоторые из контактов GPIO \, способных поддерживать
+аппаратную ШИМ \, также могут быть настроены для использования с другими
+периферийными устройствами. Будьте осторожны \, чтобы не включить два
+периферийных устройства на одном и том же контакте одновременно.;
+#X obj 50 686 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 715 enable \$1;
+#X obj 69 758 ui.hsl @show_value 1 @min 50 @max 500;
+#X obj 251 758 ui.hsl @show_value 1 @min 0 @max 20;
+#X msg 69 787 freq \$1 0.5;
+#X msg 251 787 pwm 20 \$1;
+#X obj 50 830 hw.rpi.pwm @pwm_ch 0;
+#X obj 50 873 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 251 873 ui.hsl @show_value 1 @min 1 @max 2;
+#X msg 50 902 enable \$1;
+#X msg 251 902 pwm 20 \$1;
+#X obj 50 946 hw.rpi.pwm @pwm_ch 1;
+#X obj 50 974 ui.link @title 'Connection_scheme' @url
 ceammc://img/conn_pwm.png;
-#X obj 20 1016 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1021 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 1031 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1036 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 1024 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 1039 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 130 1022 1\.;
-#X text 170 1022 int;
-#X obj 268 1023 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1022 PWM_CH: канал PWM. См. @ch. Тип: int. Диапазон: -1…3;
-#X obj 20 1057 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1062 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 1037 1\.;
+#X text 170 1037 int;
+#X obj 268 1038 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1037 PWM_CH: канал ШИМ. См. @ch. Тип: int. Диапазон: -1…3;
+#X obj 20 1072 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1077 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 1065 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 1080 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 1063 @pwm_ch;
-#X text 270 1063 (при инициализации) Канал PWM. Действительные значения:
-0-3\. Если равно -1: канал PWM не выбран. Тип: int. Значение по умолчанию:
+#X msg 130 1078 @pwm_ch;
+#X text 270 1078 (при инициализации) Канал ШИМ. Действительные значения:
+0-3\. Если равно -1: канал ШИМ не выбран. Тип: int. Значение по умолчанию:
 -1\. Диапазон: -1\...3\.;
-#X obj 20 1130 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1135 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1145 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1150 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1136 duty;
-#X text 270 1136 set duty cycle. Аргументы:;
-#X obj 280 1159 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1159 DUTY: duty cycle. Тип: float. Диапазон: 0…1\.;
-#X obj 250 1184 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1184 enable;
-#X text 270 1184 enable PWM. By default it is disabled. Аргументы:;
-#X obj 280 1207 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1207 ENABLE: value. Тип: bool.;
-#X obj 250 1232 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1232 freq;
-#X text 270 1232 set frequency. Аргументы:;
-#X obj 280 1255 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1255 FREQ: frequency. Тип: float. Минимальное значение:
-0\. Единицы: 'Hz'.;
-#X obj 280 1293 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1293 DUTY: duty cycle. Тип: float. Диапазон: 0…1\.;
-#X obj 250 1318 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1318 period;
-#X text 270 1318 set period. Expected width<=pulse. Аргументы:;
-#X obj 280 1341 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1341 PERIOD: the whole cycle period. Тип: float. Минимальное
+#X msg 130 1151 duty;
+#X text 270 1151 установить рабочий цикл. Аргументы:;
+#X obj 280 1174 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1174 DUTY: рабочий цикл. Тип: float. Диапазон: 0…1\.;
+#X obj 250 1199 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1199 enable;
+#X text 270 1199 Включить ШИМ. По умолчанию он отключен. Аргументы:;
+#X obj 280 1222 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1222 ENABLE: значение. Тип: bool.;
+#X obj 250 1247 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1247 freq;
+#X text 270 1247 установить частоту. Аргументы:;
+#X obj 280 1270 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1270 FREQ: частота. Тип: float. Минимальное значение: 0\.
+Единицы: 'Hz'.;
+#X obj 280 1308 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1308 DUTY: рабочий цикл. Тип: float. Диапазон: 0…1\.;
+#X obj 250 1333 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1333 period;
+#X text 270 1333 установить период цикла ШИМ. Ожидаемая ширина ШИМ
+<=период. Аргументы:;
+#X obj 280 1371 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1371 PERIOD: полный период цикла. Тип: float. Минимальное
 значение: 0\. Единицы: 'ms'.;
-#X obj 250 1381 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1381 polarity;
-#X text 270 1381 set output polarity. Аргументы:;
-#X obj 280 1404 cnv 1 67 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1404 INVERTED: new value. If true: polarity is inverted.
+#X obj 250 1411 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1411 polarity;
+#X text 270 1411 установить выходную полярность. Аргументы:;
+#X obj 280 1434 cnv 1 67 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1434 INVERTED: новое значение. Если true: полярность перевернута.
 Тип: bool.;
-#X obj 250 1444 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1444 pwm;
-#X text 270 1444 set period and pulse width. Expected width<=pulse.
-Аргументы:;
-#X obj 280 1467 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1467 PERIOD: the whole cycle period. Тип: float. Минимальное
+#X obj 250 1474 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1474 pwm;
+#X text 270 1474 установить период и ширину импульса. Ожидаемая ширина
+<=период. Аргументы:;
+#X obj 280 1512 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1512 PERIOD: полный период цикла. Тип: float. Минимальное
 значение: 0\. Единицы: 'ms'.;
-#X obj 280 1505 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1505 WIDTH: pulse width. Тип: float. Минимальное значение:
+#X obj 280 1550 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1550 WIDTH: ширина импульса. Тип: float. Минимальное значение:
 0\. Единицы: 'ms'.;
-#X obj 250 1545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1545 width;
-#X text 270 1545 set pulse width. Expected width<=pulse. Аргументы:;
-#X obj 280 1568 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1568 WIDTH: pulse width. Тип: float. Минимальное значение:
+#X obj 250 1590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1590 width;
+#X text 270 1590 установить ширину импульса. Ожидаемая ширина <= период.
+Аргументы:;
+#X obj 280 1628 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1628 WIDTH: ширина импульса. Тип: float. Минимальное значение:
 0\. Единицы: 'ms'.;
-#X obj 20 1618 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1623 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1678 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1683 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1624 1\.;
-#X text 270 1624 input messages.;
-#X obj 20 1659 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1664 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1684 1\.;
+#X text 270 1684 входные сообщения.;
+#X obj 20 1719 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1724 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1665 1\.;
-#X text 270 1665 no output.;
+#X text 130 1725 1\.;
+#X text 270 1725 ничего не выводит.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1715 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1718 библиотека: ceammc v0.9.8;
-#N canvas 10 1737 400 290 info 0;
+#X obj 1 1775 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1778 библиотека: ceammc v0.9.8;
+#N canvas 10 1797 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -151,7 +154,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1737 pd info;
+#X restore 10 1797 pd info;
 #X connect 21 0 22 0;
 #X connect 23 0 25 0;
 #X connect 24 0 26 0;

@@ -19,102 +19,87 @@
     <info>
       <par>
         <tr lang="en">|| Versions &lt;5.0</tr>
-        <tr lang="ru" finished="false">| | Версии &lt;5.0</tr>
+        <tr lang="ru">|| Версии платы &lt;5.0</tr>
       </par>
       <par>
         <tr lang="en">The BCM283x SoC supports 2 hardware PWM channels. By default, the channels
         are mapped as follows:</tr>
-        <!-- old: BCM283x SoC поддерживает 2 аппаратных канала PWM. По
-                умолчанию каналы отображаются следующим образом: -->
-        <tr lang="ru" finished="false">BCM283x SoC поддерживает 2 аппаратных канала PWM. По
+        <tr lang="ru">BCM283x SoC поддерживает 2 аппаратных канала ШИМ. По
         умолчанию каналы отображаются следующим образом:</tr>
       </par>
       <par>
         <tr lang="en">• PWM0 = GPIO12/GPIO18</tr>
-        <tr lang="ru" finished="false">PWM0 = GPIO12/GPIO18</tr>
+        <tr lang="ru">• PWM0 = GPIO12/GPIO18</tr>
       </par>
       <par>
         <tr lang="en">• PWM1 = GPIO13/GPIO19</tr>
-        <tr lang="ru" finished="false">PWM1 = GPIO13/GPIO19</tr>
+        <tr lang="ru">• PWM1 = GPIO13/GPIO19</tr>
       </par>
       <par>
         <tr lang="en">Consult the official documentation on how to enable and configure these.</tr>
-        <!-- old: Проконсультируйтесь с официальной документацией о
-                том, как включить и настроить их. -->
-        <tr lang="ru" finished="false">Проконсультируйтесь с официальной документацией о том, как
+        <tr lang="ru">Проконсультируйтесь с официальной документацией о том, как
         включить и настроить их.</tr>
       </par>
       <par>
         <tr lang="en">Note: the Raspberry Pi?s analog audio output uses both PWM channels. Playing
         audio and simultaneously accessing a PWM channel may cause issues.</tr>
-        <!-- old: Аналоговый аудиовыход Raspberry Pi использует оба
-                канала PWM. Воспроизведение звука и одновременное обращение к каналу PWM может
-                вызвать проблемы. -->
-        <tr lang="ru" finished="false">Аналоговый аудиовыход Raspberry Pi использует оба канала
-        PWM. Воспроизведение звука и одновременное обращение к каналу PWM может вызвать
+        <tr lang="ru">Аналоговый аудиовыход Raspberry Pi использует оба канала
+        ШИМ. Воспроизведение звука и одновременное обращение к каналу ШИМ может вызвать
         проблемы.</tr>
       </par>
       <par>
         <tr lang="en">~</tr>
-        <tr lang="ru" finished="false">~</tr>
+        <tr lang="ru">~</tr>
       </par>
       <par>
         <tr lang="en">|| Raspberry Pi 5 and later</tr>
-        <tr lang="ru" finished="false">Raspberry Pi 5 и выше</tr>
+        <tr lang="ru">Raspberry Pi 5 и выше</tr>
       </par>
       <par>
         <tr lang="en">The Raspberry Pi 5 support 4 hardware PWM channels. By default, the channels
         are mapped as follows:</tr>
-        <!-- old: Raspberry Pi 5 поддерживает 4 аппаратных канала PWM.
-                По умолчанию каналы отображаются следующим образом: -->
-        <tr lang="ru" finished="false">Raspberry Pi 5 поддерживает 4 аппаратных канала PWM. По
+        <tr lang="ru">Raspberry Pi 5 поддерживает 4 аппаратных канала ШИМ. По
         умолчанию каналы отображаются следующим образом:</tr>
       </par>
       <par>
         <tr lang="en">• PWM0 = GPIO12</tr>
-        <tr lang="ru" finished="false">PWM0 = GPIO12</tr>
+        <tr lang="ru">• PWM0 = GPIO12</tr>
       </par>
       <par>
         <tr lang="en">• PWM1 = GPIO13</tr>
-        <tr lang="ru" finished="false">PWM1 = GPIO13</tr>
+        <tr lang="ru">• PWM1 = GPIO13</tr>
       </par>
       <par>
         <tr lang="en">• PWM2 = GPIO18</tr>
-        <tr lang="ru" finished="false">PWM2 = GPIO18</tr>
+        <tr lang="ru">• PWM2 = GPIO18</tr>
       </par>
       <par>
         <tr lang="en">• PWM3 = GPIO19</tr>
-        <tr lang="ru" finished="false">PWM3 = GPIO19</tr>
+        <tr lang="ru">• PWM3 = GPIO19</tr>
       </par>
       <par>
         <tr lang="en">Consult the official documentation on how to enable and configure these.</tr>
-        <!-- old: Проконсультируйтесь с официальной документацией о
-                том, как включить и настроить их. -->
-        <tr lang="ru" finished="false">Проконсультируйтесь с официальной документацией о том, как
+        <tr lang="ru">Проконсультируйтесь с официальной документацией о том, как
         включить и настроить их.</tr>
       </par>
       <par>
         <tr lang="en">~</tr>
-        <tr lang="ru" finished="false">~</tr>
+        <tr lang="ru">~</tr>
       </par>
       <par>
         <tr lang="en">Some of the GPIO pins capable of supporting hardware PWM can also be
         configured for use with other peripherals. Be careful not to enable two peripherals on the
         same pin at the same time.</tr>
-        <!-- old: Некоторые из штифтов GPIO, способных поддерживать
-                аппаратную PWM, также могут быть настроены для использования с другими
-                периферийными устройствами. Будьте осторожны, чтобы не включить два периферийных
-                устройства на одном и том же штифте одновременно. -->
-        <tr lang="ru" finished="false">Некоторые из штифтов GPIO, способных поддерживать аппаратную
-        PWM, также могут быть настроены для использования с другими периферийными устройствами.
-        Будьте осторожны, чтобы не включить два периферийных устройства на одном и том же штифте
+        <tr lang="ru">Некоторые из контактов GPIO, способных поддерживать аппаратную
+        ШИМ, также могут быть настроены для использования с другими периферийными устройствами.
+        Будьте осторожны, чтобы не включить два периферийных устройства на одном и том же контакте
         одновременно.</tr>
       </par>
     </info>
     <arguments>
       <argument name="PWM_CH" type="int" minvalue="-1" maxvalue="3">
         <tr lang="en">PWM channel. See @ch</tr>
-        <tr lang="ru">канал PWM. См. @ch</tr>
+        <tr lang="ru">канал ШИМ. См. @ch</tr>
       </argument>
     </arguments>
     <properties>
@@ -123,7 +108,7 @@
       access="initonly">
         <tr lang="en">PWM channel. Valid values are: 0-3. If equals -1: no PWM channel
         selected.</tr>
-        <tr lang="ru">канал PWM. Действительные значения: 0-3. Если равно -1: канал PWM не
+        <tr lang="ru">канал ШИМ. Действительные значения: 0-3. Если равно -1: канал ШИМ не
         выбран.</tr>
       </property>
     </properties>
@@ -132,95 +117,87 @@
       <method name="duty">
         <info>
           <tr lang="en">set duty cycle</tr>
-          <tr lang="ru" finished="false">установленный рабочий цикл</tr>
+          <tr lang="ru">установить рабочий цикл</tr>
         </info>
         <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">
           <tr lang="en">duty cycle</tr>
-          <tr lang="ru" finished="false">дежурный цикл</tr>
+          <tr lang="ru">рабочий цикл</tr>
         </param>
       </method>
       <!-- enable -->
       <method name="enable">
         <info>
           <tr lang="en">enable PWM. By default it is disabled.</tr>
-          <tr lang="ru" finished="false">Включить PWM. По умолчанию он отключен.</tr>
+          <tr lang="ru">Включить ШИМ. По умолчанию он отключен.</tr>
         </info>
         <param name="ENABLE" type="bool" required="true">
           <tr lang="en">value</tr>
-          <tr lang="ru" finished="false">ценность</tr>
+          <tr lang="ru">значение</tr>
         </param>
       </method>
       <!-- freq -->
       <method name="freq">
         <info>
           <tr lang="en">set frequency</tr>
-          <tr lang="ru" finished="false">установленная частота</tr>
+          <tr lang="ru">установить частоту</tr>
         </info>
         <param name="FREQ" type="float" minvalue="0" units="hertz" required="true">
           <tr lang="en">frequency</tr>
-          <tr lang="ru" finished="false">частота</tr>
+          <tr lang="ru">частота</tr>
         </param>
         <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">
           <tr lang="en">duty cycle</tr>
-          <tr lang="ru" finished="false">дежурный цикл</tr>
+          <tr lang="ru">рабочий цикл</tr>
         </param>
       </method>
       <!-- period -->
       <method name="period">
         <info>
-          <tr lang="en">set period. Expected width&lt;=pulse.</tr>
-          <!-- old: установленный срок. Ожидаемая ширина <=
-                    импульс. -->
-          <tr lang="ru" finished="false">установленный срок. Ожидаемая ширина &lt;= импульс.</tr>
+          <tr lang="en">set period. Expected width&lt;=period.</tr>
+          <tr lang="ru">установить период цикла ШИМ. Ожидаемая ширина ШИМ &lt;=период.</tr>
         </info>
         <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">
           <tr lang="en">the whole cycle period</tr>
-          <tr lang="ru" finished="false">Весь период цикла</tr>
+          <tr lang="ru">полный период цикла</tr>
         </param>
       </method>
       <!-- polarity -->
       <method name="polarity">
         <info>
           <tr lang="en">set output polarity</tr>
-          <tr lang="ru" finished="false">установленная полярность выхода</tr>
+          <tr lang="ru">установить выходную полярность</tr>
         </info>
         <param name="INVERTED" type="bool" required="true">
           <tr lang="en">new value. If true: polarity is inverted</tr>
-          <!-- old: Новая ценность. Если верно: полярность
-                    перевернута -->
-          <tr lang="ru" finished="false">Новая ценность. Если верно: полярность перевернута</tr>
+          <tr lang="ru">новое значение. Если true: полярность перевернута</tr>
         </param>
       </method>
       <!-- pwm -->
       <method name="pwm">
         <info>
-          <tr lang="en">set period and pulse width. Expected width&lt;=pulse.</tr>
-          <!-- old: Установить период и ширину импульса. Ожидаемая
-                    ширина <= импульс. -->
-          <tr lang="ru" finished="false">Установить период и ширину импульса. Ожидаемая ширина
-          &lt;= импульс.</tr>
+          <tr lang="en">set period and pulse width. Expected width&lt;=period.</tr>
+          <tr lang="ru">установить период и ширину импульса. Ожидаемая ширина
+          &lt;=период.</tr>
         </info>
         <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">
           <tr lang="en">the whole cycle period</tr>
-          <tr lang="ru" finished="false">Весь период цикла</tr>
+          <tr lang="ru">полный период цикла</tr>
         </param>
         <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">
           <tr lang="en">pulse width</tr>
-          <tr lang="ru" finished="false">ширина импульса</tr>
+          <tr lang="ru">ширина импульса</tr>
         </param>
       </method>
       <!-- width -->
       <method name="width">
         <info>
-          <tr lang="en">set pulse width. Expected width&lt;=pulse.</tr>
-          <!-- old: Установить ширину импульса. Ожидаемая ширина
-                    <= импульс. -->
-          <tr lang="ru" finished="false">Установить ширину импульса. Ожидаемая ширина &lt;=
-          импульс.</tr>
+          <tr lang="en">set pulse width. Expected width&lt;=period.</tr>
+          <tr lang="ru">установить ширину импульса. Ожидаемая ширина &lt;=
+          период.</tr>
         </info>
         <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">
           <tr lang="en">pulse width</tr>
-          <tr lang="ru" finished="false">ширина импульса</tr>
+          <tr lang="ru">ширина импульса</tr>
         </param>
       </method>
     </methods>
@@ -228,7 +205,7 @@
       <inlet>
         <in>
           <tr lang="en">input messages</tr>
-          <tr lang="ru" finished="false">входные сообщения</tr>
+          <tr lang="ru">входные сообщения</tr>
         </in>
       </inlet>
     </inlets>
@@ -236,7 +213,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">no output</tr>
-          <tr lang="ru" finished="false">нет выхода</tr>
+          <tr lang="ru">ничего не выводит</tr>
         </out>
       </outlet>
     </outlets>
