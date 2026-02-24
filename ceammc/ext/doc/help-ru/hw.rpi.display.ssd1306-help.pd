@@ -7,10 +7,10 @@ Pi;
 -104026 -4096 0;
 #X obj 580 11 hw.rpi.display.ssd1306;
 #X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 240 83 Both I²C and SPI connections are supported. I²C connection
-is not fast.;
-#X text 240 123 Note: you should send [flush( message to transfer internal
-pixel buffer to the device;
+#X text 240 83 Поддерживаются соединения I²C и SPI. Подключение через
+I²C не является быстрым.;
+#X text 240 123 Примечание: вы должны отправить сообщение [flush( для
+передачи внутреннего буфера пикселей на устройство;
 #X text 50 216 I²C connection example:;
 #X obj 50 245 ui.hrd @nitems 4;
 #X text 203 245 click several times!;
@@ -91,94 +91,95 @@ int. Значение по умолчанию: -1\. Диапазон: -1\...127\
 #X msg 130 1135 brightness;
 #X text 270 1135 set display brightness. Аргументы:;
 #X obj 280 1158 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1158 LEVEL: brightness level from 0 (lowest) to 4 (brightest).
-Normal level is 2\. Тип: int. Разрешённые значения: 0 \, 1 \, 2 \,
-3 \, 4\.;
+#X text 280 1158 LEVEL: Уровень яркости от 0 (самый низкий) до 4 (самый
+яркий). Нормальный уровень – 2\. Тип: int. Разрешённые значения: 0
+\, 1 \, 2 \, 3 \, 4\.;
 #X obj 250 1213 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1213 clear;
-#X text 270 1213 clear display and optionally flush internal buffer.
-Аргументы:;
+#X text 270 1213 очистить содержимое дисплея и опционально отправить
+внутренний буфер на устройство. Аргументы:;
 #X obj 280 1251 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1251 [FLUSH=0]: flush internal buffer to the device. Тип:
-bool.;
-#X obj 250 1276 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1276 flush;
-#X text 270 1276 flush internal buffer to the device.;
-#X obj 250 1304 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1304 font;
-#X text 270 1304 set current font. Аргументы:;
-#X obj 280 1327 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1327 FONT: font name. Тип: symbol.;
-#X obj 250 1352 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1352 invert;
-#X text 270 1352 invert display. Аргументы:;
-#X obj 280 1375 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1375 VALUE: value. Тип: bool.;
-#X obj 250 1400 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1400 mirror;
-#X text 270 1400 mirror display. Аргументы:;
-#X obj 280 1423 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1423 VALUE: value. Тип: bool.;
-#X obj 250 1448 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1448 pixel;
-#X text 270 1448 draw pixel. Аргументы:;
-#X obj 280 1471 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1471 X: X coord (from the left). Тип: int. Минимальное
-значение: 0\.;
-#X obj 280 1509 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1509 Y: Y coord (from the top). Тип: int. Минимальное значение:
+#X text 280 1251 [FLUSH=0]: если 1: отправить внутренний буфер на устройство.
+Тип: bool.;
+#X obj 250 1291 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1291 flush;
+#X text 270 1291 отправить внутренний буфер на устройство.;
+#X obj 250 1319 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1319 font;
+#X text 270 1319 настройка текущего шрифта. Аргументы:;
+#X obj 280 1342 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1342 FONT: название шрифта. Тип: symbol.;
+#X obj 250 1367 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1367 invert;
+#X text 270 1367 инвертировать дисплей. Аргументы:;
+#X obj 280 1390 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1390 VALUE: значение. Тип: bool.;
+#X obj 250 1415 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1415 mirror;
+#X text 270 1415 зеркально отразить дисплей. Аргументы:;
+#X obj 280 1438 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1438 VALUE: значение. Тип: bool.;
+#X obj 250 1463 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1463 pixel;
+#X text 270 1463 рисовать пиксель. Аргументы:;
+#X obj 280 1486 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1486 X: X координата (слева). Тип: int. Минимальное значение:
 0\.;
-#X obj 280 1547 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1547 VALUE: pixel value. Тип: bool.;
-#X obj 250 1572 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1572 rotation;
-#X text 270 1572 set display rotation. Аргументы:;
-#X obj 280 1595 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1595 [ANGLE]: rotation angle. Тип: int. Разрешённые значения:
+#X obj 280 1509 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1509 Y: Y координата (сверху). Тип: int. Минимальное значение:
+0\.;
+#X obj 280 1532 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1532 VALUE: значение пикселя. Тип: bool.;
+#X obj 250 1557 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1557 rotation;
+#X text 270 1557 настроить поворот дисплея. Аргументы:;
+#X obj 280 1580 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1580 [ANGLE]: угол поворота. Тип: int. Разрешённые значения:
 0 \, 90 \, 180 \, 270\.;
-#X obj 250 1635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1635 switch_on;
-#X text 270 1635 switch on display (needed for SPI connection). Аргументы:;
+#X obj 250 1620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1620 switch_on;
+#X text 270 1620 включить дисплей (необходимо при подключении по SPI).
+Аргументы:;
 #X obj 280 1658 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1658 VALUE: value. Тип: bool.;
+#X text 280 1658 VALUE: значение. Тип: bool.;
 #X obj 250 1683 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1683 text;
-#X text 270 1683 draw text on the display. Аргументы:;
+#X text 270 1683 рисовать текст на дисплее. Аргументы:;
 #X obj 280 1706 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1706 TXT: text. Тип: symbol.;
+#X text 280 1706 TXT: текст. Тип: symbol.;
 #X obj 280 1729 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1729 X: left text X coordinate. Тип: int.;
+#X text 280 1729 X: левая X-координата текста. Тип: int.;
 #X obj 280 1752 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1752 Y: top text Y coordinate. Тип: int.;
+#X text 280 1752 Y: верхняя Y-координата текста. Тип: int.;
 #X obj 250 1777 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1777 write bitmap;
-#X text 270 1777 write bitmap to the display buffer. Аргументы:;
+#X text 270 1777 записать растровое изображение в буфер дисплея. Аргументы:;
 #X obj 280 1800 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1800 X: bitmap X coordinate. Тип: int.;
+#X text 280 1800 X: X-координата растрового изображения. Тип: int.;
 #X obj 280 1823 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1823 Y: bitmap Y coordinate. Тип: int.;
+#X text 280 1823 Y: Y-координата растрового изображения. Тип: int.;
 #X obj 280 1846 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1846 WIDTH: bitmap width in pixels. Тип: int. Минимальное
-значение: 1\.;
+#X text 280 1846 WIDTH: ширина растрового изображения в пикселях. Тип:
+int. Минимальное значение: 1\.;
 #X obj 280 1884 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1884 PIXELS: list of pixels (0 or 1). Тип: list.;
+#X text 280 1884 PIXELS: cписок пикселей (из 0 или 1). Тип: list.;
 #X obj 250 1909 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1909 write bytes;
-#X text 270 1909 write raw byte list to the display buffer and move
-internal cursor position. Аргументы:;
+#X text 270 1909 записать список байтов в буфер дисплея и переместить
+внутреннюю позицию курсора. Аргументы:;
 #X obj 280 1947 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1947 BYTES: list of bytes (integers in 0\..255 range).
-Each byte describes a single column of 8 pixels in height. Тип: list.;
+#X text 280 1947 BYTES: список байтов (целые числа в диапазоне 0\..255).
+Каждый байт описывает один столбец высотой 8 пикселей. Тип: list.;
 #X obj 20 2012 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2017 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 2018 1\.;
-#X text 270 2018 control input.;
+#X text 270 2018 управляющий вход.;
 #X obj 20 2053 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2058 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 2059 1\.;
-#X text 270 2059 no output.;
+#X text 270 2059 ничего не выводит.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
