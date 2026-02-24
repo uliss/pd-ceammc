@@ -17,7 +17,7 @@ pub fn has_update() -> Option<String> {
     let cand = pkg.candidate()?;
 
     if inst != cand {
-        Some(format!("-> {}", cand.version().unwrap_or_default()))
+        Some(format!("-> {}", cand.version()))
     } else {
         Some("latest version".to_string())
     }
