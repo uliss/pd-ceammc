@@ -35,6 +35,11 @@ if(Rust_FOUND)
         DESTINATION ${ceam_util_install_dir}
         PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE
                     WORLD_READ WORLD_EXECUTE)
+
+      file(GLOB _man_files "apps/util/man/*.1")
+      add_custom_target(ceam_util_man_files SOURCES ${_man_files})
+      include(GNUInstallDirs)
+      install(FILES ${_man_files} DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
     endif()
     # ##########################################################################
 

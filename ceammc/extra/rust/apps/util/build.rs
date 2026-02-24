@@ -1,4 +1,4 @@
-use clap::{self, CommandFactory};
+use clap::{self};
 use std::process::Command;
 
 fn main() -> std::io::Result<()> {
@@ -30,7 +30,7 @@ fn main() -> std::io::Result<()> {
 
     let manifest_dir = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     let out_dir = manifest_dir.join("man");
-    std::fs::create_dir(&out_dir)?;
+    std::fs::create_dir_all(&out_dir)?;
     clap_mangen::generate_to(cmd, &out_dir)?;
 
     Ok(())
