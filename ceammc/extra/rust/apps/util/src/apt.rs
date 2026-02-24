@@ -19,7 +19,7 @@ pub fn has_update() -> Option<String> {
     if inst != cand {
         Some(format!("-> {}", cand.version().unwrap_or_default()))
     } else {
-        None
+        Some("latest version".to_string())
     }
 }
 
