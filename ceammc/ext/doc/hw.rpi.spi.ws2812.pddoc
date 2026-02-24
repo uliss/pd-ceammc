@@ -20,10 +20,8 @@
       <par>
         <tr lang="en">Note: you should **flush** (with bang or [flush( message) after almost all
         pixel/color operations</tr>
-        <!-- old: Примечание: вы должны **flush** (с челкой или
-                [flush(сообщение) после почти всех операций с пикселями/цветом) -->
-        <tr lang="ru" finished="false">Примечание: вы должны **flush** (с челкой или
-        [flush(сообщение) после почти всех операций с пикселями/цветом)</tr>
+        <tr lang="ru">Примечание: необходимо отправлять внутренний буфер на устройство с помощью bang или
+        сообщением [flush( практически после всех операций с пикселями/цветом</tr>
       </par>
     </info>
     <properties>
@@ -57,161 +55,155 @@
       <method name="brightness">
         <info>
           <tr lang="en">set pixel brightness</tr>
-          <tr lang="ru" finished="false">установленная пиксельная яркость</tr>
+          <tr lang="ru">установить якрость пикселей</tr>
         </info>
         <param name="LEVEL" type="int" minvalue="0" maxvalue="255" required="true">
           <tr lang="en">brightness level</tr>
-          <tr lang="ru" finished="false">уровень яркости</tr>
+          <tr lang="ru">уровень яркости</tr>
         </param>
       </method>
       <!-- clear -->
       <method name="clear">
         <info>
           <tr lang="en">turn off all pixels</tr>
-          <tr lang="ru" finished="false">Выключите все пиксели</tr>
+          <tr lang="ru">выключить все пиксели</tr>
         </info>
       </method>
       <!-- fill -->
       <method name="fill">
         <info>
           <tr lang="en">fill all pixels with the RGB color</tr>
-          <tr lang="ru" finished="false">Заполните все пиксели цветом RGB</tr>
+          <tr lang="ru">заполнить все пиксели цветом RGB</tr>
         </info>
         <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
           <tr lang="en">red color component</tr>
-          <tr lang="ru" finished="false">Красный цвет компонент</tr>
+          <tr lang="ru">красная компонента цвета</tr>
         </param>
         <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">greed color component</tr>
-          <tr lang="ru" finished="false">Цветовой компонент жадности</tr>
+          <tr lang="en">green color component</tr>
+          <tr lang="ru">зеленая компонента цвета</tr>
         </param>
         <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
           <tr lang="en">blue color component</tr>
-          <tr lang="ru" finished="false">Синий цвет компонент</tr>
+          <tr lang="ru">синяя компонента цвета</tr>
         </param>
       </method>
       <!-- flush -->
       <method name="flush">
         <info>
           <tr lang="en">flush all pixels to the strip</tr>
-          <tr lang="ru" finished="false">смывать все пиксели в полосу</tr>
+          <tr lang="ru">вывести и очистить внутренний буфер на ленту</tr>
         </info>
       </method>
       <!-- fx -->
       <method name="fx">
         <info>
           <tr lang="en">apply color generator function</tr>
-          <tr lang="ru" finished="false">Функция цветового генератора</tr>
+          <tr lang="ru">применить функцию цветового генератора</tr>
         </info>
         <param name="NAME" type="symbol" enum="rainbow" required="true">
           <tr lang="en">function name</tr>
-          <tr lang="ru" finished="false">название функции</tr>
+          <tr lang="ru">название функции</tr>
         </param>
         <param name="ARG" type="float" minvalue="0" maxvalue="1">
           <tr lang="en">function param</tr>
-          <tr lang="ru" finished="false">функция пара</tr>
+          <tr lang="ru">переметры функции</tr>
         </param>
         <param name="BEGIN" type="int">
           <tr lang="en">range start</tr>
-          <tr lang="ru" finished="false">начало диапазона</tr>
+          <tr lang="ru">начало диапазона</tr>
         </param>
         <param name="LENGTH" type="int" minvalue="0">
           <tr lang="en">range length</tr>
-          <tr lang="ru" finished="false">длина диапазона</tr>
+          <tr lang="ru">длина диапазона</tr>
         </param>
       </method>
       <!-- rotate -->
       <method name="rotate">
         <info>
-          <tr lang="en">shift all pixel by specified amount</tr>
-          <!-- old: смещение всех пикселей по заданному
-                    количеству -->
-          <tr lang="ru" finished="false">смещение всех пикселей по заданному количеству</tr>
+          <tr lang="en">shift all pixel by specified step</tr>
+          <tr lang="ru">сдвинуть все пиксели на указанный шаг</tr>
         </info>
         <param name="SHIFT" type="int" required="true">
           <tr lang="en">shift amount</tr>
-          <tr lang="ru" finished="false">сменная сумма</tr>
+          <tr lang="ru">значение шага</tr>
         </param>
       </method>
       <!-- set -->
       <method name="set">
         <info>
           <tr lang="en">set single pixel color</tr>
-          <tr lang="ru" finished="false">Один пиксель цвет</tr>
+          <tr lang="ru">установить цвет отдельного пикселя</tr>
         </info>
         <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
           <tr lang="en">red color component</tr>
-          <tr lang="ru" finished="false">Красный цвет компонент</tr>
+          <tr lang="ru">красная компонента цвета</tr>
         </param>
         <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">greed color component</tr>
-          <tr lang="ru" finished="false">Цветовой компонент жадности</tr>
+          <tr lang="en">green color component</tr>
+          <tr lang="ru">зеленая компонента цвета</tr>
         </param>
         <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
           <tr lang="en">blue color component</tr>
-          <tr lang="ru" finished="false">Синий цвет компонент</tr>
+          <tr lang="ru">синяя компонента цвета</tr>
         </param>
       </method>
       <!-- set_range -->
       <method name="set_range">
         <info>
           <tr lang="en">set pixel range to the specified color</tr>
-          <!-- old: установленный диапазон пикселей до указанного
-                    цвета -->
-          <tr lang="ru" finished="false">установленный диапазон пикселей до указанного цвета</tr>
+          <tr lang="ru">установить диапазон пикселей в указанный цвет</tr>
         </info>
         <param name="BEGIN" type="int" minvalue="0" required="true">
           <tr lang="en">range start</tr>
-          <tr lang="ru" finished="false">начало диапазона</tr>
+          <tr lang="ru">начало диапазона</tr>
         </param>
         <param name="LENGTH" type="int" minvalue="1" required="true">
           <tr lang="en">range length</tr>
-          <tr lang="ru" finished="false">длина диапазона</tr>
+          <tr lang="ru">длина диапазона</tr>
         </param>
         <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
           <tr lang="en">red color component</tr>
-          <tr lang="ru" finished="false">Красный цвет компонент</tr>
+          <tr lang="ru">красная компонента цвета</tr>
         </param>
         <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">greed color component</tr>
-          <tr lang="ru" finished="false">Цветовой компонент жадности</tr>
+          <tr lang="en">green color component</tr>
+          <tr lang="ru">зеленая компонента цвета</tr>
         </param>
         <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
           <tr lang="en">blue color component</tr>
-          <tr lang="ru" finished="false">Синий цвет компонент</tr>
+          <tr lang="ru">синяя компонента цвета</tr>
         </param>
       </method>
       <!-- set_slice -->
       <method name="set_slice">
         <info>
           <tr lang="en">set pixel slice to the specified color</tr>
-          <!-- old: установленный пиксель среза на указанный
-                    цвет -->
-          <tr lang="ru" finished="false">установленный пиксель среза на указанный цвет</tr>
+          <tr lang="ru">установить срез пикселей в указанный цвет</tr>
         </info>
         <param name="BEGIN" type="int" minvalue="0" required="true">
           <tr lang="en">range start</tr>
-          <tr lang="ru" finished="false">начало диапазона</tr>
+          <tr lang="ru">начало диапазона</tr>
         </param>
         <param name="END" type="int" minvalue="0" required="true">
           <tr lang="en">range end</tr>
-          <tr lang="ru" finished="false">конец диапазона</tr>
+          <tr lang="ru">конец диапазона</tr>
         </param>
         <param name="STEP" type="int" minvalue="1" required="true">
           <tr lang="en">slice step</tr>
-          <tr lang="ru" finished="false">шаг</tr>
+          <tr lang="ru">шаг среза</tr>
         </param>
         <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
           <tr lang="en">red color component</tr>
-          <tr lang="ru" finished="false">Красный цвет компонент</tr>
+          <tr lang="ru">красная компонента цвета</tr>
         </param>
         <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">greed color component</tr>
-          <tr lang="ru" finished="false">Цветовой компонент жадности</tr>
+          <tr lang="en">green color component</tr>
+          <tr lang="ru">зеленая компонента цвета</tr>
         </param>
         <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
           <tr lang="en">blue color component</tr>
-          <tr lang="ru" finished="false">Синий цвет компонент</tr>
+          <tr lang="ru">синяя компонента цвета</tr>
         </param>
       </method>
     </methods>
@@ -219,7 +211,7 @@
       <inlet>
         <in on="bang">
           <tr lang="en">flush pixels to the strip</tr>
-          <tr lang="ru" finished="false">Pixels to the Strip скачать</tr>
+          <tr lang="ru">сбросить значения пикселей на ленту</tr>
         </in>
       </inlet>
     </inlets>
@@ -227,7 +219,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">no output</tr>
-          <tr lang="ru" finished="false">нет выхода</tr>
+          <tr lang="ru">ничего не выводит</tr>
         </out>
       </outlet>
     </outlets>
