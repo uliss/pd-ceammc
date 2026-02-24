@@ -11,54 +11,54 @@ catch {package require base64}
 package require pd_guiprefs
 
 namespace eval ::btnbar:: {
-    variable show;   # if show button bar
-    variable hide_in_runmode;
-    variable states;  # current button bar show states
+    variable show ;# if show button bar
+    variable hide_in_runmode
+    variable states ;# current button bar show states
 }
 
 set ::btnbar::show true
 set ::btnbar::hide_in_runmode true
 set ::btnbar::states [dict create]
 
-namespace eval ::btnbar::utils { }
+namespace eval ::btnbar::utils {}
 
 # tooltips
-if { [catch {package require tooltip} ] } {
+if {[catch {package require tooltip}]} {
     proc ::btnbar::tooltip {id msg} {}
 } {
-    proc ::btnbar::tooltip {id msg} { tooltip::tooltip $id $msg }
+    proc ::btnbar::tooltip {id msg} {tooltip::tooltip $id $msg}
 }
 
 # helper utils
 proc ::btnbar::utils::bool {value {fallback 0}} {
-    catch {set fallback [expr bool($value) ] } stdout
+    catch {set fallback [expr bool($value)]} stdout
     return $fallback
 }
 
-proc ::btnbar::addTopLevel { id } {
-    if {! [dict exists $::btnbar::states $id] } {
+proc ::btnbar::addTopLevel {id} {
+    if {![dict exists $::btnbar::states $id]} {
         dict append ::btnbar::states $id $::btnbar::show
         ::btnbar::showhide $id
     }
 }
 
-proc ::btnbar::removeTopLevel { id } {
-    if { [dict exists $::btnbar::states $id] } { dict unset ::btnbar::states $id }
+proc ::btnbar::removeTopLevel {id} {
+    if {[dict exists $::btnbar::states $id]} {dict unset ::btnbar::states $id}
 }
 
-proc ::btnbar::getState { id } {
-    if { [dict exists $::btnbar::states $id] } {
+proc ::btnbar::getState {id} {
+    if {[dict exists $::btnbar::states $id]} {
         return [dict get $::btnbar::states $id]
     } {
         return 0
     }
 }
 
-proc ::btnbar::setState { id val } {
-    if { [dict exists $::btnbar::states $id] } { dict set ::btnbar::states $id $val }
+proc ::btnbar::setState {id val} {
+    if {[dict exists $::btnbar::states $id]} {dict set ::btnbar::states $id $val}
 }
 
-if { [ catch { set ::btnbar::hide_in_runmode [::pd_guiprefs::read btnbar] } stdout ] } {
+if {[catch {set ::btnbar::hide_in_runmode [::pd_guiprefs::read btnbar]} stdout]} {
     set ::btnbar::hide_in_runmode true
     set ::btnbar::show true
 } {
@@ -74,9 +74,11 @@ proc ::btnbar::init_options_menu {} {
         set mymenu .menubar.file.preferences
     }
 
-    if { [catch {
-        $mymenu entryconfigure [_ "Button Bar"] -command {::btnbar::show_options_gui}
-    } _ ] } {
+    if {
+        [catch {
+            $mymenu entryconfigure [_ "Button Bar"] -command {::btnbar::show_options_gui}
+        } _]
+    } {
         $mymenu add separator
         $mymenu add command -label [_ "Button Bar"] -command {::btnbar::show_options_gui}
     }
@@ -105,13 +107,13 @@ proc ::btnbar::show_options_gui {} {
             .options.f.hide_in_runmode configure -state disable
         }
     }
-    ttk::label .options.f.show_label -text [_ "Show" ]
+    ttk::label .options.f.show_label -text [_ "Show"]
 
     ttk::checkbutton .options.f.hide_in_runmode -variable ::btnbar::hide_in_runmode -onvalue 1 -offvalue 0
-    ttk::label .options.f.hide_in_runmode_label -text [_ "Hide in runmode" ]
+    ttk::label .options.f.hide_in_runmode_label -text [_ "Hide in runmode"]
 
     # buttons
-    ttk::button .options.f.save_btn -text [_ "Save settings" ] -command ::btnbar::write_config
+    ttk::button .options.f.save_btn -text [_ "Save settings"] -command ::btnbar::write_config
 
     set padding 2
 
@@ -197,30 +199,30 @@ proc make_ceammc_button_tilde {mytoplevel name tooltip} {
 
 proc ::btnbar::init {mytoplevel} {
     frame $mytoplevel.buttonbar -cursor arrow -background $::pd_colors::window_background
-    make_pd_button $mytoplevel obj                      [_ "Object"]
-    make_pd_button $mytoplevel msg                      [_ "Message"]
-    make_pd_button $mytoplevel floatatom                [_ "Number box"]
-    make_pd_button $mytoplevel symbolatom               [_ "Symbol box"]
-    make_pd_button $mytoplevel listbox                  [_ "List box"]
-    make_pd_button $mytoplevel text                     [_ "Comment"]
-    make_ceammc_button $mytoplevel bang                 [_ "Button"]
-    make_ceammc_button $mytoplevel toggle               [_ "Toggle"]
-    make_ceammc_button $mytoplevel number               [_ "Number box2"]
-    make_ceammc_button $mytoplevel hsl                  [_ "Horizontal slider"]
-    make_ceammc_button $mytoplevel vsl                  [_ "Vertial slider"]
-    make_ceammc_button $mytoplevel hrd                  [_ "Horizontal radio"]
-    make_ceammc_button $mytoplevel vrd                  [_ "Vertical radio"]
-    make_iemgui_button $mytoplevel mycnv                [_ "Canvas"]
-    make_iemgui_button $mytoplevel menuarray            [_ "Array"]
-    make_ceammc_button $mytoplevel knob                 [_ "Knob"]
-    make_ceammc_button $mytoplevel sliders              [_ "Sliders"]
-    make_ceammc_button $mytoplevel slider2d             [_ "Slider 2D"]
-    make_ceammc_button $mytoplevel keyboard             [_ "Keyboard"]
-    make_ceammc_button $mytoplevel env                  [_ "Envelope"]
-    make_ceammc_button $mytoplevel display              [_ "Display"]
-    make_ceammc_button_tilde $mytoplevel scope          [_ "Scope"]
-    make_ceammc_button_tilde $mytoplevel spectroscope   [_ "Spectroscope"]
-    make_ceammc_button $mytoplevel preset               [_ "Presets"]
+    make_pd_button $mytoplevel obj [_ "Object"]
+    make_pd_button $mytoplevel msg [_ "Message"]
+    make_pd_button $mytoplevel floatatom [_ "Number box"]
+    make_pd_button $mytoplevel symbolatom [_ "Symbol box"]
+    make_pd_button $mytoplevel listbox [_ "List box"]
+    make_pd_button $mytoplevel text [_ "Comment"]
+    make_ceammc_button $mytoplevel bang [_ "Button"]
+    make_ceammc_button $mytoplevel toggle [_ "Toggle"]
+    make_ceammc_button $mytoplevel number [_ "Number box2"]
+    make_ceammc_button $mytoplevel hsl [_ "Horizontal slider"]
+    make_ceammc_button $mytoplevel vsl [_ "Vertial slider"]
+    make_ceammc_button $mytoplevel hrd [_ "Horizontal radio"]
+    make_ceammc_button $mytoplevel vrd [_ "Vertical radio"]
+    make_iemgui_button $mytoplevel mycnv [_ "Canvas"]
+    make_iemgui_button $mytoplevel menuarray [_ "Array"]
+    make_ceammc_button $mytoplevel knob [_ "Knob"]
+    make_ceammc_button $mytoplevel sliders [_ "Sliders"]
+    make_ceammc_button $mytoplevel slider2d [_ "Slider 2D"]
+    make_ceammc_button $mytoplevel keyboard [_ "Keyboard"]
+    make_ceammc_button $mytoplevel env [_ "Envelope"]
+    make_ceammc_button $mytoplevel display [_ "Display"]
+    make_ceammc_button_tilde $mytoplevel scope [_ "Scope"]
+    make_ceammc_button_tilde $mytoplevel spectroscope [_ "Spectroscope"]
+    make_ceammc_button $mytoplevel preset [_ "Presets"]
 }
 
 proc ::btnbar::show {mytoplevel} {
@@ -248,25 +250,25 @@ proc ::btnbar::enable {mytoplevel} {
     ::btnbar::show $mytoplevel
 
     foreach child [winfo children $mytoplevel.buttonbar] {
-        catch { $child configure -state normal }
+        catch {$child configure -state normal}
     }
 }
 
 proc ::btnbar::disable {mytoplevel} {
     foreach child [winfo children $mytoplevel.buttonbar] {
-        catch { $child configure -state disabled }
+        catch {$child configure -state disabled}
     }
 }
 
 proc ::btnbar::showhide {mytoplevel} {
     # populate button bar with entries
-    if { ! [winfo exists $mytoplevel.buttonbar]} {
+    if {![winfo exists $mytoplevel.buttonbar]} {
         ::btnbar::init $mytoplevel
     }
 
     if {!$::btnbar::show} {
-        catch { ::btnbar::hide $mytoplevel }
-        return;
+        catch {::btnbar::hide $mytoplevel}
+        return
     }
 
     if {$::editmode($mytoplevel)} {
@@ -285,7 +287,7 @@ proc ::btnbar::showhide {mytoplevel} {
     }
 }
 
-bind PatchWindow <Expose>  {+::btnbar::addTopLevel %W}
+bind PatchWindow <Expose> {+::btnbar::addTopLevel %W}
 bind PatchWindow <Destroy> {+::btnbar::removeTopLevel %W}
 bind PatchWindow <<EditMode>> {+::btnbar::showhide %W}
 
