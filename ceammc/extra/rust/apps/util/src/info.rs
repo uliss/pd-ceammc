@@ -79,6 +79,10 @@ fn output_pd() {
         "pd_dpkg_ver:  \t{}",
         crate::apt::apt_version().unwrap_or("not installed".to_string())
     );
+    println!(
+        "pd_update?:  \t{}",
+        crate::apt::has_update().unwrap_or("no".to_string())
+    );
     println!("pd_ver:       \t{}", crate::config::PD_TEXT_VERSION_FULL);
     println!("pd_git_branch:\t{}", crate::config::GIT_BRANCH);
     println!("pd_git_commit:\t{}", env!("GIT_COMMIT"));
