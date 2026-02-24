@@ -5,10 +5,14 @@ namespace eval ::ceammc_prefs:: {
     variable lang ;# current language
 }
 
+# keep in sync with: enum class ceammc_config_lang
+# 0 - Default
+# 1 - English
+# 2 - Russian
 set ::ceammc_prefs::lang 0
 
+# note: this name is used in ceammc external!
 proc ::ceammc_prefs::set_doc_lang {lang_idx} {
-    ::pdwindow::debug "set lang ${lang_idx}\n"
     set ::ceammc_prefs::lang $lang_idx
 }
 
@@ -51,11 +55,12 @@ proc ::ceammc_prefs::show_dialog {} {
 
     bind .options.f.lang <<ComboboxSelected>> {
         switch [%W current] {
-            0 { pdsend "; ceammc doc default\n"; ::ceammc_prefs::set_doc_lang 0; }
-            1 { pdsend "; ceammc doc en\n";      ::ceammc_prefs::set_doc_lang 1; }
-            2 { pdsend "; ceammc doc ru\n";      ::ceammc_prefs::set_doc_lang 2; }
+            0 { pdsend "; ceammc doc default\n" }
+            1 { pdsend "; ceammc doc en\n"      }
+            2 { pdsend "; ceammc doc ru\n"      }
         }
     }
+    .options.f.lang current $::ceammc_prefs::lang
 
     # setup main frame stuff
     grid .options.f -column 0 -row 0
@@ -64,11 +69,7 @@ proc ::ceammc_prefs::show_dialog {} {
     set padding 5
     grid .options.f.lang_label -column 0 -row 0 -padx $padding -pady $padding -sticky "w"
     grid .options.f.lang -column 1 -row 0 -padx $padding -pady $padding -sticky "w"
-
-    ::pdwindow::debug "\[ceammc\]: ceammc_settings-plugin loaded\n"
 }
 
 ::ceammc_prefs::init_options_menu
-
-# request lang from loaded ceammc
-after 5000 {::ceammc_prefs::request_doc_lang}
+::pdwindow::debug "\[ceammc\] ceammc_settings-plugin loaded\n"
