@@ -40,7 +40,7 @@
       <par>
         <tr lang="en">Note: if the device address argument is -1 or omitted, requested action is
         applied for all devices in a chain.</tr>
-        <tr lang="ru">Примечание: если адреса устройства равен -1 или не указан,
+        <tr lang="ru">Примечание: если адрес устройства равен -1 или не указан,
         запрашиваемое действие применяется для всех устройств в цепи.</tr>
       </par>
     </info>
