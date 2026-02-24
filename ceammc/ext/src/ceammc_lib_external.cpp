@@ -204,6 +204,11 @@ void ceammc_set_doc_lang(ceammc_external* ext, ceammc_config_lang lang)
     } break;
     }
 
+    /// function name in ceammc_settings-plugin.tcl
+    constexpr const char* TCL_SETTING_PLUGIN_SET_DOC_LANG = "::ceammc_prefs::set_doc_lang";
+
+    pdgui_vmess(TCL_SETTING_PLUGIN_SET_DOC_LANG, "i", static_cast<int>(lang));
+
     class_sethelpsymbol(ext->x_obj.te_g.g_pd, ceammc_gen_doc_path(lang));
     ext->config->doc_lang = lang;
 }
