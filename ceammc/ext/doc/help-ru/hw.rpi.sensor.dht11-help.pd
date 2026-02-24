@@ -7,11 +7,12 @@ Raspberry Pi;
 -104026 -4096 0;
 #X obj 602 11 hw.rpi.sensor.dht11;
 #X obj 230 93 cnv 1 535 130 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 240 98 Temperature range: 0\..+50°C ±2°C;
-#X text 240 123 Humidity range: 20-90%RH ±5%RH;
-#X text 240 148 When using a 3.5V voltage supply cable length shall
-not be greater than 20cm. Otherwise \, the line voltage drop will cause
-the sensor power supply shortage \, caused by measurement error;
+#X text 240 98 Диапазон температур: 0\..+50°C ±2°C;
+#X text 240 123 Диапазон влажности: 20-90%RH ±5%RH;
+#X text 240 148 При использовании кабеля питания напряжением 3.5В его
+длина не должна превышать 20см. В противном случае падение напряжения
+на линии приведет к недостаточному питанию датчика и вызовет ошибки
+измерения.;
 #X obj 50 271 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 50 300 poll \$1;
 #X obj 78 329 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -42,20 +43,20 @@ ceammc://img/conn_dht11.png;
 #X obj 20 606 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 607 poll;
-#X text 270 607 turn the sensor polling on/off. Аргументы:;
+#X text 270 607 включить/выключить автоматический опрос сенсора. Аргументы:;
 #X obj 280 630 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 630 STATE: poll state. Тип: bool.;
+#X text 280 630 STATE: состояние опроса. Тип: bool.;
 #X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 670 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 671 1\.;
 #X text 170 671 bang:;
-#X text 270 671 single distance measure.;
+#X text 270 671 произвести однократное измерение.;
 #X obj 20 706 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 711 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 712 1\.;
-#X text 270 712 list: TEMPERATURE(in Celsius) HUMIDITY.;
+#X text 270 712 список: ТЕМПЕРАТУРА (в Цельсиях) ВЛАЖНОСТЬ.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

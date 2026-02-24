@@ -58,25 +58,25 @@
       <method name="get">
         <info>
           <tr lang="en">request current value output</tr>
-          <tr lang="ru" finished="false">запросить текущую стоимость</tr>
+          <tr lang="ru">запросить текущее значение</tr>
         </info>
       </method>
       <!-- reset -->
       <method name="reset">
         <info>
           <tr lang="en">reset current value to @init</tr>
-          <tr lang="ru" finished="false">Сброс текущей стоимости на @init</tr>
+          <tr lang="ru">сброс текущего значения на @init</tr>
         </info>
       </method>
       <!-- set -->
       <method name="set">
         <info>
           <tr lang="en">set current value without output</tr>
-          <tr lang="ru" finished="false">Установить текущее значение без выхода</tr>
+          <tr lang="ru">установить новое текущее значение без его вывода</tr>
         </info>
         <param name="VAL" type="float" required="true">
           <tr lang="en">new value</tr>
-          <tr lang="ru" finished="false">Новая стоимость</tr>
+          <tr lang="ru">новое значение</tr>
         </param>
       </method>
     </methods>
@@ -84,21 +84,21 @@
       <inlet>
         <in on="bang">
           <tr lang="en">output current value</tr>
-          <tr lang="ru" finished="false">текущая стоимость выпуска</tr>
+          <tr lang="ru">вывести текущее значение</tr>
         </in>
         <in on="float">
           <tr lang="en">set current value and output</tr>
-          <tr lang="ru" finished="false">установить текущую стоимость и выход</tr>
+          <tr lang="ru">установить новое текущее значение и вывести его</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
           <tr lang="en">reset value to @init</tr>
-          <tr lang="ru" finished="false">Перезагрузить значение @init</tr>
+          <tr lang="ru">сбросить текущее значение на @init</tr>
         </in>
         <in on="float">
           <tr lang="en">set current value without output</tr>
-          <tr lang="ru" finished="false">Установить текущее значение без выхода</tr>
+          <tr lang="ru">установить новое текущее значение без его вывода</tr>
         </in>
       </inlet>
     </inlets>
@@ -106,13 +106,13 @@
       <outlet>
         <out type="any">
           <tr lang="en">float: current encoder value</tr>
-          <tr lang="ru" finished="false">Float: текущее значение кодера</tr>
+          <tr lang="ru">float: текущее значение энкодера</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">[dir -1|1( or [btn 1|0( messages</tr>
-          <tr lang="ru" finished="false">[dir -1 | 1 (или [btn 1 | 0) сообщения]</tr>
+          <tr lang="ru">сообщения: [dir -1|1( или [btn 1|0(</tr>
         </out>
       </outlet>
     </outlets>
