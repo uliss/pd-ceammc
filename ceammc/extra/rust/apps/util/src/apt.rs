@@ -1,8 +1,8 @@
 #[cfg(target_os = "linux")]
 pub fn apt_version() -> Option<String> {
-    use rust_apt::cache::Cache;
+    use rust_apt::new_cache;
 
-    let cache = Cache::new()?;
+    let cache = new_cache!()?;
     let pkg = cache.get("pd-ceammc")?;
     Some(pkg.installed()?.version().to_string())
 }
