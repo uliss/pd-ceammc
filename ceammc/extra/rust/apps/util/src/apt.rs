@@ -1,6 +1,6 @@
-#[cfg(target_os = "linux")]
+#[cfg(target_os = "macosx")]
 pub fn apt_version() -> Option<String> {
-    use apt::cache::Cache;
+    use rust_apt::cache::Cache;
 
     let cache = Cache::new()?;
     let pkg = cache.get("pd-ceammc")?;
