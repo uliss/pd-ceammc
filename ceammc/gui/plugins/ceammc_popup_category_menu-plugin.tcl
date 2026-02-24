@@ -5,6 +5,7 @@
 package require pd_menus
 
 namespace eval category_menu {
+
 }
 
 proc category_menu::load_menutree {} {
@@ -12,9 +13,9 @@ proc category_menu::load_menutree {} {
     set testfile [file join $::ceammc_libdir ceammc_popup_menu_tree.tcl]
     set f [open $testfile]
     set menutree [read $f]
-#    set menutree [regsub -all {([\{\s])\-([\s\}])} [read $f] {\1\\\\-\2}]
+    #    set menutree [regsub -all {([\{\s])\-([\s\}])} [read $f] {\1\\\\-\2}]
     close $f
-    unset f        
+    unset f
     return $menutree
 }
 
