@@ -48,11 +48,13 @@ pub enum Request {
     Flush,
     Clear,
     Rotate(i32),
+    Quit(bool),
 }
 
 #[derive(Debug, PdMessage)]
 pub enum Reply {
     Message(hw_msg_level, CString),
+    Done,
 }
 
 pub struct hw_spi_ws2812 {
