@@ -116,7 +116,7 @@ void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
 
 void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("FX:s=rainbow ARG:f[0,1]? START:i? LEN:i>=0?");
+    static const args::ArgChecker chk("FX:s=rainbow|breathe ARG:f[0,1]? START:i? LEN:i>=0?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
