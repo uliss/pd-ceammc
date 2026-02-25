@@ -3,7 +3,7 @@ use std::ffi::CString;
 use log::{debug, error};
 use rgb::RGB8;
 use smart_leds_trait::SmartLedsWrite;
-use ws2812_spi::Ws2812;
+use ws2812_spi::prerendered::Ws2812;
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
@@ -63,7 +63,7 @@ impl hw_spi_ws2812 {
                     hw_spi_cs::CS2 => rppal::spi::SlaveSelect::Ss2,
                     hw_spi_cs::CS3 => rppal::spi::SlaveSelect::Ss3,
                 },
-                3_700_000,
+                3_840_000,
                 rppal::spi::Mode::Mode0,
             )
             .map_err(|err| {
