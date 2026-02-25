@@ -35,6 +35,7 @@ pub struct Range {
 #[repr(C)]
 pub enum hw_led_fx {
     Rainbow,
+    Breathe,
 }
 
 #[derive(Debug)]
@@ -188,8 +189,6 @@ pub extern "C" fn ceammc_hw_spi_ws2812_apply_fx(
 
 /// calc next fx
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_fx_next(
-    ws: *mut hw_spi_ws2812,
-) -> bool {
+pub extern "C" fn ceammc_hw_spi_ws2812_fx_next(ws: *mut hw_spi_ws2812) -> bool {
     rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::EffectNext) });
 }

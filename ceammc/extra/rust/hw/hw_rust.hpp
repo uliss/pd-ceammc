@@ -200,6 +200,7 @@ enum class ceammc_hw_i2c_ads1115_range {
 
 enum class ceammc_hw_led_fx {
     Rainbow,
+    Breathe,
 };
 
 enum class ceammc_hw_max7219_string_align {

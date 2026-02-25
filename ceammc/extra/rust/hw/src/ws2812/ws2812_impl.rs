@@ -2,7 +2,7 @@ use std::ffi::CString;
 
 use log::{debug, error};
 use rgb::{Rgb, RGB8};
-use smart_led_effects::strip::Rainbow;
+use smart_led_effects::strip::{Breathe, Rainbow};
 use smart_leds_trait::SmartLedsWrite;
 use ws2812_spi::prerendered::Ws2812;
 
@@ -164,6 +164,10 @@ impl hw_spi_ws2812 {
                                 //         Self::send_error(&rep_tx, notify, format!("{err:?}").as_str()).await;
                                 //     }
                                 // }
+                            }
+                            crate::ws2812::hw_led_fx::Breathe => {
+                                let breathe = Breathe::new(leds.len(), None, None);
+                                effect = Some(Box::new(breathe));
                             }
                         },
                         Request::Quit(clear) => {
