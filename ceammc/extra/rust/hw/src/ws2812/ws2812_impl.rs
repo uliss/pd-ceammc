@@ -101,9 +101,9 @@ impl hw_spi_ws2812 {
                     }
                     Request::Rotate(delta) => {
                         if delta > 0 {
-                            leds.rotate_right(delta as usize);
+                            leds.rotate_right((delta as usize).max(leds.size()));
                         } else {
-                            leds.rotate_left(delta.abs() as usize);
+                            leds.rotate_left((delta.abs() as usize).max(leds.size()));
                         }
                     }
                     Request::Clear => {
