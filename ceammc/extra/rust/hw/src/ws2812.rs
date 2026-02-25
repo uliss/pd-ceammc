@@ -34,8 +34,15 @@ pub struct Range {
 #[derive(Debug)]
 #[repr(C)]
 pub enum hw_led_fx {
-    Rainbow,
+    /// The bounce effect will generate a number of balls that bounce up and down the strip
+    Bounce,
+    /// The breathe effect will generate a single color that fades in and out
     Breathe,
+    /// Generates two particles that can collide and bounce or shatter
+    Collision,
+    /// Rotates around the HSV color space
+    Cycle,
+    Rainbow,
 }
 
 #[derive(Debug)]

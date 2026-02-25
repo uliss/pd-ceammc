@@ -4,6 +4,9 @@
 #include "ceammc_factory.h"
 
 CEAMMC_DEFINE_HASH(breathe)
+CEAMMC_DEFINE_HASH(bounce)
+CEAMMC_DEFINE_HASH(collision)
+CEAMMC_DEFINE_HASH(cycle)
 CEAMMC_DEFINE_HASH(rainbow)
 
 HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
@@ -128,6 +131,15 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
         break;
     case hash_breathe:
         fx = ceammc_hw_led_fx::Breathe;
+        break;
+    case hash_bounce:
+        fx = ceammc_hw_led_fx::Bounce;
+        break;
+    case hash_collision:
+        fx = ceammc_hw_led_fx::Collision;
+        break;
+    case hash_cycle:
+        fx = ceammc_hw_led_fx::Cycle;
         break;
     default:
         break;
