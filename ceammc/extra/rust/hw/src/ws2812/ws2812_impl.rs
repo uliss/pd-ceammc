@@ -2,7 +2,7 @@ use std::ffi::CString;
 
 use log::{debug, error};
 use rgb::{Rgb, RGB8};
-use smart_led_effects::strip::{Bounce, Breathe, Collision, Cycle, Rainbow};
+use smart_led_effects::strip::{Bounce, Breathe, Collision, Cycle, Cylon, Fire, Meteor, Rainbow};
 use smart_leds_trait::SmartLedsWrite;
 use ws2812_spi::prerendered::Ws2812;
 
@@ -180,6 +180,18 @@ impl hw_spi_ws2812 {
                             crate::ws2812::hw_led_fx::Cycle => {
                                 let cycle = Cycle::new(leds.len(), None);
                                 effect = Some(Box::new(cycle));
+                            }
+                            crate::ws2812::hw_led_fx::Cyclone => {
+                            //     let cylone = Cylon::new(leds.len(), Srgb::new(12, 12, 12), None, None, None);
+                            //     effect = Some(Box::new(cylone));
+                            }
+                            crate::ws2812::hw_led_fx::Fire => {
+                                let fire = Fire::new(leds.len(), None, None);
+                                effect = Some(Box::new(fire));
+                            }
+                            crate::ws2812::hw_led_fx::Meteor => {
+                                let meteor = Meteor::new(leds.len(), None, None, None);
+                                effect = Some(Box::new(meteor));
                             }
                         },
                         Request::Quit(clear) => {

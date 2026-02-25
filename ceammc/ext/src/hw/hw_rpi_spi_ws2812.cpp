@@ -8,6 +8,9 @@ CEAMMC_DEFINE_HASH(bounce)
 CEAMMC_DEFINE_HASH(collision)
 CEAMMC_DEFINE_HASH(cycle)
 CEAMMC_DEFINE_HASH(rainbow)
+CEAMMC_DEFINE_HASH(cylon)
+CEAMMC_DEFINE_HASH(fire)
+CEAMMC_DEFINE_HASH(meteor)
 
 HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
@@ -119,7 +122,7 @@ void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
 
 void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("FX:s=rainbow|breathe|cycle|collision|bounce "
+    static const args::ArgChecker chk("FX:s=rainbow|breathe|cycle|collision|bounce|cylon|fire|meteor "
                                       "ARG:f[0,1]? START:i? LEN:i>=0?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
@@ -141,6 +144,15 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
         break;
     case hash_cycle:
         fx = ceammc_hw_led_fx::Cycle;
+        break;
+    case hash_cylon:
+        fx = ceammc_hw_led_fx::Cylon;
+        break;
+    case hash_fire:
+        fx = ceammc_hw_led_fx::Fire;
+        break;
+    case hash_meteor:
+        fx = ceammc_hw_led_fx::Meteor;
         break;
     default:
         break;

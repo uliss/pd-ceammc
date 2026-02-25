@@ -207,6 +207,13 @@ enum class ceammc_hw_led_fx {
     Collision,
     /// Rotates around the HSV color space
     Cycle,
+    /// Generates the cylon eye effect
+    Cylon,
+    /// Generates an effect like a flickering flame
+    Fire,
+    /// Generates a meteor that goes down the strip trailing bits of fading debris
+    Meteor,
+    /// Static rainbow
     Rainbow,
 };
 
