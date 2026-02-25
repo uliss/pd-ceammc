@@ -96,7 +96,7 @@ impl hw_spi_ws2812 {
                     }
                     Request::Flush => {
                         if let Err(err) = ws.write(smart_leds::brightness(leds.iter().cloned(), brightness)) {
-                            Self::send_error(&rep_tx, notify, err.to_string().as_str());
+                            Self::send_error(&rep_tx, notify, format!("{err:?}").as_str());
                         }
                     }
                     Request::Rotate(delta) => {
@@ -145,7 +145,7 @@ impl hw_spi_ws2812 {
                                 if let Err(err) =
                                     ws.write(smart_leds::brightness(leds[a..b].iter().cloned(), brightness))
                                 {
-                                    Self::send_error(&rep_tx, notify, err.to_string().as_str());
+                                    Self::send_error(&rep_tx, notify, format!("{err:?}").as_str());
                                 }
                             }
                         }
