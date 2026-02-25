@@ -5,60 +5,64 @@
 #X obj 1 1 cnv 5 765 40 empty empty flow.append 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 flow.append;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 240 83 Note: if you want to specify property message in the
-init argument \, you have to quote it with double-quotes;
-#X floatatom 50 176 5 0 0 0 - - -;
-#X floatatom 107 205 5 0 0 0 - - -;
-#X obj 107 234 prop.set @delay;
-#X msg 338 234 other append message;
-#X obj 50 263 flow.append "@message" 1 2 3 @delay 100;
-#X obj 50 292 print;
-#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 347 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 120 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Пропускает входное сообщение без изменений и выводит
+после него добавляемое сообщение (возможно через задержку);
+#X text 240 138 Примечание: если вы хотите указать сообщение свойства
+в начальном аргументе \, вы должны заключить его в двойные кавычки.;
+#X floatatom 50 246 5 0 0 0 - - -;
+#X floatatom 107 275 5 0 0 0 - - -;
+#X obj 107 304 prop.set @delay;
+#X msg 338 304 other append message;
+#X obj 50 333 flow.append "@message" 1 2 3 @delay 100;
+#X obj 50 362 print;
+#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 417 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 350 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 420 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 130 348 1\.;
-#X text 170 348 list;
-#X obj 268 349 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 348 MSG: init value for appended message. Тип: list.;
-#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 388 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 418 1\.;
+#X text 170 418 list;
+#X obj 268 419 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 418 MSG: добавляемое сообщение. Тип: list.;
+#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 458 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 391 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 461 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 389 @delay;
-#X text 270 389 Append delay. If <0 append immediately at the same
-logical time \, if equal zero - output after next DSP block. Тип: float.
-Единицы: 'ms'. Значение по умолчанию: -1\. Минимальное значение: -1\.;
-#X obj 250 461 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 461 @msg;
-#X text 270 461 Appended message. Тип: list.;
-#X obj 20 501 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 506 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 459 @delay;
+#X text 270 459 Задержка вывода добавляемого сообщения. Если <0: выводит
+немедленно \, в одно и то же логическое время. Если: 0 - выводит после
+следующего блока DSP. Если >0: выводит спустя указанное время. Тип:
+float. Единицы: 'ms'. Значение по умолчанию: -1\. Минимальное значение:
+-1\.;
+#X obj 250 546 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 546 @msg;
+#X text 270 546 Добавляемое сообщение. Тип: list.;
+#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 591 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 507 1\.;
-#X text 170 507 any:;
-#X text 270 507 input message.;
-#X text 130 532 2\.;
-#X text 170 532 any:;
-#X text 270 532 set append value.;
-#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 572 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 592 1\.;
+#X text 170 592 any:;
+#X text 270 592 входное сообщение.;
+#X text 130 617 2\.;
+#X text 170 617 any:;
+#X text 270 617 установить добавляемое сообщение.;
+#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 657 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 573 1\.;
-#X text 270 573 output message.;
+#X text 130 658 1\.;
+#X text 270 658 выходные сообщения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 623 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 626 библиотека: ceammc v0.9.8;
-#X text 532 638 смотрите также:;
-#X obj 653 638 flow.prepend;
-#N canvas 10 645 400 290 info 0;
+#X obj 1 708 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 711 библиотека: ceammc v0.9.8;
+#X text 532 723 смотрите также:;
+#X obj 653 723 flow.prepend;
+#N canvas 10 730 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -82,9 +86,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 645 pd info;
-#X connect 7 0 8 0;
-#X connect 6 0 10 0;
-#X connect 8 0 10 0;
-#X connect 9 0 10 1;
-#X connect 10 0 11 0;
+#X restore 10 730 pd info;
+#X connect 8 0 9 0;
+#X connect 7 0 11 0;
+#X connect 9 0 11 0;
+#X connect 10 0 11 1;
+#X connect 11 0 12 0;

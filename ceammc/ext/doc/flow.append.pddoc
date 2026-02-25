@@ -21,55 +21,61 @@
     </meta>
     <info>
       <par>
+        <tr lang="en">Passes the incoming message unchanged and appends the specified message afterward
+        (possibly with a delay)</tr>
+        <tr lang="ru">Пропускает входное сообщение без изменений и выводит после него добавляемое сообщение
+        (возможно через задержку)</tr>
+      </par>
+      <par>
         <tr lang="en">Note: if you want to specify property message in the init argument, you have
         to quote it with double-quotes</tr>
-        <!-- old: Примечание: если вы хотите указать сообщение свойств
-                в аргументе init, вы должны процитировать его двойными цитатами -->
-        <tr lang="ru" finished="false">Примечание: если вы хотите указать сообщение свойств в
-        аргументе init, вы должны процитировать его двойными цитатами</tr>
+        <tr lang="ru">Примечание: если вы хотите указать сообщение свойства в начальном
+        аргументе, вы должны заключить его в двойные кавычки.</tr>
       </par>
     </info>
     <arguments>
       <argument name="MSG" type="list">
-        <tr lang="en">init value for appended message</tr>
-        <tr lang="ru" finished="false">значение init для добавленного сообщения</tr>
+        <tr lang="en">the appended message</tr>
+        <tr lang="ru">добавляемое сообщение</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @delay -->
       <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">
-        <tr lang="en">append delay. If &lt;0 append immediately at the same logical time, if equal
-        zero - output after next DSP block.</tr>
-        <!-- old: Добавить задержку. Если <0 приложить сразу в одно
-                и то же логическое время, если равно нулю - вывод после следующего блока DSP. -->
-        <tr lang="ru" finished="false">Добавить задержку. Если &lt;0 приложить сразу в одно и то же
-        логическое время, если равно нулю - вывод после следующего блока DSP.</tr>
+        <tr lang="en">delay of the output of the added message.
+        If &lt;0: outputs immediately, at the same logical time.
+        If 0 - outputs after the next DSP block.
+        If &gt;0: outputs after the specified time.</tr>
+        <tr lang="ru">задержка вывода добавляемого сообщения.
+        Если &lt;0: выводит немедленно, в одно и то же логическое время.
+        Если: 0 - выводит после следующего блока DSP.
+        Если &gt;0: выводит спустя указанное время.</tr>
       </property>
       <!-- @msg -->
       <property name="@msg" type="list" default="">
-        <tr lang="en">appended message</tr>
-        <tr lang="ru" finished="false">прилагаемое сообщение</tr>
+        <tr lang="en">message appended after incoming one</tr>
+        <tr lang="ru">добавляемое сообщение</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="any">
           <tr lang="en">input message</tr>
-          <tr lang="ru" finished="false">вводное сообщение</tr>
+          <tr lang="ru">входное сообщение</tr>
         </in>
       </inlet>
       <inlet>
         <in on="any">
-          <tr lang="en">set append value</tr>
-          <tr lang="ru" finished="false">установленная добавленная стоимость</tr>
+          <tr lang="en">set the message to append</tr>
+          <tr lang="ru">установить добавляемое сообщение</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">output message</tr>
-          <tr lang="ru" finished="false">выходное сообщение</tr>
+          <tr lang="en">output messages</tr>
+          <tr lang="ru">выходные сообщения</tr>
         </out>
       </outlet>
     </outlets>
