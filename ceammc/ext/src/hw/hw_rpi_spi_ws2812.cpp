@@ -3,6 +3,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
+CEAMMC_DEFINE_HASH(breathe)
 CEAMMC_DEFINE_HASH(rainbow)
 
 HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
@@ -124,6 +125,9 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
     switch (crc32_hash(lv.symbolAt(0, &s_))) {
     case hash_rainbow:
         fx = ceammc_hw_led_fx::Rainbow;
+        break;
+    case hash_breathe:
+        fx = ceammc_hw_led_fx::Breathe;
         break;
     default:
         break;
