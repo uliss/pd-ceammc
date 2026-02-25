@@ -100,10 +100,11 @@ impl hw_spi_ws2812 {
                         }
                     }
                     Request::Rotate(delta) => {
+                        let len = leds.len();
                         if delta > 0 {
-                            leds.rotate_right((delta as usize).max(leds.len()));
+                            leds.rotate_right((delta as usize).max(len));
                         } else {
-                            leds.rotate_left((delta.abs() as usize).max(leds.len()));
+                            leds.rotate_left((delta.abs() as usize).max(len));
                         }
                     }
                     Request::Clear => {
