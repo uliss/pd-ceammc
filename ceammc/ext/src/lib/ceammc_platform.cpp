@@ -442,7 +442,9 @@ namespace platform {
                         str = tmpstr;
                     },
                 })) {
-                pd_error(nullptr, "[platform] can't find '%s' standard directory", name);
+                char buf[MAXPDSTRING] = { 0 };
+                snprintf(buf, sizeof(buf), "[platform] can't find '%s' standard directory", name),
+                pdDebug(nullptr, buf);
                 return;
             }
 
