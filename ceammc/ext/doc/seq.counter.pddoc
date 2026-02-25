@@ -19,124 +19,131 @@
     <arguments>
       <argument name="FROM" type="int">
         <tr lang="en">start value</tr>
-        <tr lang="ru" finished="false">стартовая стоимость</tr>
+        <tr lang="ru">начальное значение</tr>
       </argument>
       <argument name="TO" type="int">
         <tr lang="en">end value</tr>
-        <tr lang="ru" finished="false">конечная стоимость</tr>
+        <tr lang="ru">конечное значение</tr>
       </argument>
       <argument name="R" type="int" minvalue="-1">
         <tr lang="en">number of repeats</tr>
-        <tr lang="ru" finished="false">Количество повторений</tr>
+        <tr lang="ru">количество повторений</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @fold -->
       <property name="@fold" type="alias">
-        <tr lang="en">alias to @mode fold</tr>
-        <tr lang="ru" finished="false">Исполнитель: @mode fold</tr>
+        <tr lang="en">the alias to @mode fold</tr>
+        <tr lang="ru">сокращение: @mode fold</tr>
       </property>
       <!-- @from -->
       <property name="@from" type="int" default="0">
-        <tr lang="en">start value. Setting this property resets @i to 0</tr>
-        <tr lang="ru" finished="false">Начните ценить. Установка этого свойства сбрасывает @i до
+        <tr lang="en">the start value. Setting this property resets @i to 0</tr>
+        <tr lang="ru">начальное значение. Установка этого свойства сбрасывает @i до
         0</tr>
       </property>
       <!-- @i -->
       <property name="@i" type="int" default="0">
-        <tr lang="en">current iteration</tr>
-        <tr lang="ru" finished="false">текущая итерация</tr>
+        <tr lang="en">current iteration index within the cycle</tr>
+        <tr lang="ru">индекс текущей итерации внутри цикла</tr>
       </property>
       <!-- @inf -->
       <property name="@inf" type="alias">
         <tr lang="en">alias to @r -1, repeats infinitely</tr>
-        <tr lang="ru" finished="false">alias to @r-1, повторяется бесконечно</tr>
+        <tr lang="ru">сокращение: @r -1, повторять бесконечно</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="wrap fold" default="wrap">
-        <tr lang="en">repeat counter mode</tr>
-        <tr lang="ru" finished="false">Повторный встречный режим</tr>
+        <tr lang="en">counter repeat mode.
+        If 'wrap': after reaching the final value, it starts a new count from the initial value.
+        If 'fold': after reaching the final value, it starts counting in the opposite direction.</tr>
+        <tr lang="ru">режим повтора счетчика. Если 'wrap': после достижения финального значения,
+        начинает новый счет с начального значения. Если 'fold': после достижения финального значения,
+        начинает счет в обратном направлении.</tr>
       </property>
       <!-- @once -->
       <property name="@once" type="alias">
-        <tr lang="en">alias to @r 1, play once</tr>
-        <tr lang="ru" finished="false">alias to @r 1, играть один раз</tr>
+        <tr lang="en">alias to @r 1, one pass with no repeats</tr>
+        <tr lang="ru">сокращение: @r 1, один проход без повторов</tr>
       </property>
       <!-- @r -->
       <property name="@r" type="int" default="-1" minvalue="-1">
-        <tr lang="en">number of repeats. If -1: repeat infinitely.</tr>
-        <tr lang="ru" finished="false">количество повторений. Если -1, повторяйте бесконечно.</tr>
+        <tr lang="en">the number of repeats. If -1: to repeat infinitely.</tr>
+        <tr lang="ru">количество повторений. Если -1: повторять бесконечно.</tr>
       </property>
       <!-- @ri -->
       <property name="@ri" type="int" access="readonly" default="0">
-        <tr lang="en">current repeat iteration</tr>
-        <tr lang="ru" finished="false">Текущая повторная итерация</tr>
+        <tr lang="en">cycle repetition number</tr>
+        <tr lang="ru">номер повтора всего цикла</tr>
       </property>
       <!-- @to -->
       <property name="@to" type="int" default="0">
         <tr lang="en">end value (inclusive)</tr>
-        <tr lang="ru" finished="false">конечное значение (включительно)</tr>
+        <tr lang="ru">конечное значение (включительно)</tr>
       </property>
       <!-- @value -->
       <property name="@value" type="int" default="0" access="readonly">
-        <tr lang="en">current value</tr>
-        <tr lang="ru" finished="false">Текущая стоимость</tr>
+        <tr lang="en">current counter value</tr>
+        <tr lang="ru">текущее значение счетчика</tr>
       </property>
       <!-- @wrap -->
       <property name="@wrap" type="alias">
         <tr lang="en">alias to @mode wrap</tr>
-        <tr lang="ru" finished="false">Оригинальное название: @mode wrap</tr>
+        <tr lang="ru">сокращение: @mode wrap</tr>
       </property>
     </properties>
     <methods>
       <!-- next -->
       <method name="next">
         <info>
-          <tr lang="en">increment counter then output</tr>
-          <tr lang="ru" finished="false">Счетчик приращения затем вывод</tr>
+          <tr lang="en">first increments the counter, then outputs the resulting next value</tr>
+          <tr lang="ru">сначала увеличивает счетчик, потом выводит полученное новое значение</tr>
         </info>
       </method>
       <!-- prev -->
       <method name="prev">
         <info>
-          <tr lang="en">decrement counter then output</tr>
-          <tr lang="ru" finished="false">Счетчик декрементов затем вывод</tr>
+          <tr lang="en">first decrements the counter, then outputs the resulting value</tr>
+          <tr lang="ru">сначала уменьшает счётчик, затем выводит полученное новое значение</tr>
         </info>
       </method>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset counter to start value and repeat counter to 0</tr>
-          <tr lang="ru" finished="false">Сбросить счетчик, чтобы начать значение и повторить
-          счетчик 0</tr>
+          <tr lang="en">reset the counter to the start value and reset a repeat counter to 0</tr>
+          <tr lang="ru">сбросить счётчик до начального значения и сбросить счётчик повторов на 0</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output current value then increment counter</tr>
-          <tr lang="ru" finished="false">значение выходного тока, затем счетчик прироста</tr>
+          <tr lang="en">first outputs the current value, then increments the counter</tr>
+          <tr lang="ru">сначала выводит текущее значение, затем увеличивает счетчик</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
-          <tr lang="en">reset counter to start value</tr>
-          <tr lang="ru" finished="false">Reset Counter - стартовая стоимость</tr>
+          <tr lang="en">reset the counter to the start value</tr>
+          <tr lang="ru">сбросить счетчик на начальное значение</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">int: counter value</tr>
-          <tr lang="ru" finished="false">Int: встречное значение</tr>
+        <out type="int">
+          <tr lang="en">the counter value</tr>
+          <tr lang="ru">значение счетчика</tr>
         </out>
       </outlet>
       <outlet>
+        <out type="int">
+          <tr lang="en">number of full counter cycles</tr>
+          <tr lang="ru">число повторов полного цикла счетчика</tr>
+        </out>
         <out type="any">
-          <tr lang="en">int: repeat counter, done: when done</tr>
-          <tr lang="ru" finished="false">Int: повторный счетчик, сделанный: когда сделано</tr>
+          <tr lang="en">[done (after the last repetition (if there is a limited number of them)</tr>
+          <tr lang="ru">[done( после последнего повтора (если их ограниченное количество)</tr>
         </out>
       </outlet>
     </outlets>

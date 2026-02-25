@@ -1141,8 +1141,8 @@ seq.b	bang event sequencer / секвенсер пустых событий
 seq.counter	cyclic counter / циклический счётчик
 seq.life	Conway game of life sequencer / секвенсер для игры Life Джона Конвея
 seq.matrix	sequencer control for [ui.matrix] object / секвенсер для объекта [ui.matrix]
-seq.nbangs	outputs the specified number of bangs with a time intervals / выводит заданное число пустых сообщений через интервалы времени
-seq.nb	outputs the specified number of bangs with a time intervals / выводит заданное число пустых сообщений через интервалы времени
+seq.nbangs	outputs the specified number of bangs with a time intervals / выводит заданное число bang-ов через интервалы времени
+seq.nb	outputs the specified number of bangs with a time intervals / выводит заданное число bang-ов через интервалы времени
 seq.phasor	control rate phasor generator / генератор фазора (пилы) для контрольных сигналов
 seq.toggles	toggle sequencer / секвенсор переключающих событий
 seq.t	toggle sequencer / секвенсор переключающих событий
