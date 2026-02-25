@@ -39,7 +39,7 @@ impl hw_spi_ws2812 {
         let (tx, mut rx) = tokio::sync::mpsc::channel(10);
         let (rep_tx, rep_rx) = tokio::sync::mpsc::channel(10);
 
-        std::thread::spawn( async move || -> Result<(), CString> {
+        std::thread::spawn(move || -> Result<(), CString> {
             debug!("thread start");
 
             // const MOSI_PIN: u8 = 10; // [DATA] BCM GPIO 10 (physical pin 19)
@@ -82,6 +82,10 @@ impl hw_spi_ws2812 {
             leds.resize(size, RGB8::default());
 
             let mut brightness = 127;
+
+            let rt = tokio::runtime::Builder::new_current_thread().build().map_err(|err| err.to_string()).unwrap();
+
+            rt.block_on(async {
 
             while let Some(req) = rx.recv().await {
                 debug!("{req:?}");
@@ -153,6 +157,7 @@ impl hw_spi_ws2812 {
                     },
                 }
             }
+        });
 
             Ok(())
         });
