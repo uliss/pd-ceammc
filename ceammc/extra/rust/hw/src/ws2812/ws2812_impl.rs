@@ -83,7 +83,7 @@ impl hw_spi_ws2812 {
 
             let mut brightness = 127;
 
-            let rt = tokio::runtime::Builder::new_current_thread().build().map_err(|err| err.to_string()).unwrap();
+            let rt = tokio::runtime::Builder::new_multi_thread().build().map_err(|err| err.to_string()).unwrap();
 
             rt.block_on(async {
 
