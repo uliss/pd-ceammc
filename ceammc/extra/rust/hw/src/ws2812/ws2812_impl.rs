@@ -1,7 +1,8 @@
 use std::ffi::CString;
 
 use log::{debug, error};
-use rgb::RGB8;
+use rgb::{Rgb, RGB8};
+use smart_led_effects::strip::Rainbow;
 use smart_leds_trait::SmartLedsWrite;
 use ws2812_spi::prerendered::Ws2812;
 
@@ -83,6 +84,8 @@ impl hw_spi_ws2812 {
 
             let mut brightness = 127;
 
+            let mut effect: Option<Box<dyn smart_led_effects::strip::EffectIterator>> = None;
+
             let rt = tokio::runtime::Builder::new_multi_thread()
                 .build()
                 .map_err(|err| CString::new(err.to_string()).unwrap_or_default())?;
@@ -94,9 +97,11 @@ impl hw_spi_ws2812 {
                     debug!("{req:?}");
 
                     match req {
-                        crate::ws2812::Request::SetPixelColor(idx, rgb) => match leds.get_mut(idx) {
+                        Request::SetPixelColor(idx, rgb) => match leds.get_mut(idx) {
                             Some(c) => *c = rgb,
-                            None => Self::send_error(&rep_tx, notify, format!("invalid pixel index: {idx}").as_str()).await,
+                            None => {
+                                Self::send_error(&rep_tx, notify, format!("invalid pixel index: {idx}").as_str()).await
+                            }
                         },
                         Request::SetBrightness(b) => {
                             brightness = b;
@@ -142,38 +147,58 @@ impl hw_spi_ws2812 {
                         }
                         Request::ApplyEffect(range, fx, arg, flush) => match fx {
                             crate::ws2812::hw_led_fx::Rainbow => {
-                                let a = pos2index(range.first, leds.len());
-                                let b = (a + range.length).min(leds.len());
+                                let rainbow = Rainbow::new(leds.len(), None);
+                                effect = Some(Box::new(rainbow));
 
-                                for (idx, c) in &mut leds[a..b].iter_mut().enumerate() {
-                                    *c = led_fx::rainbow(idx, b, arg);
-                                }
+                                // let a = pos2index(range.first, leds.len());
+                                // let b = (a + range.length).min(leds.len());
 
-                                if flush {
-                                    if let Err(err) =
-                                        ws.write(smart_leds::brightness(leds[a..b].iter().cloned(), brightness))
-                                    {
-                                        Self::send_error(&rep_tx, notify, format!("{err:?}").as_str()).await;
-                                    }
-                                }
+                                // for (idx, c) in &mut leds[a..b].iter_mut().enumerate() {
+                                //     *c = led_fx::rainbow(idx, b, arg);
+                                // }
+
+                                // if flush {
+                                //     if let Err(err) =
+                                //         ws.write(smart_leds::brightness(leds[a..b].iter().cloned(), brightness))
+                                //     {
+                                //         Self::send_error(&rep_tx, notify, format!("{err:?}").as_str()).await;
+                                //     }
+                                // }
                             }
-                        }
+                        },
                         Request::Quit(clear) => {
                             if clear {
                                 leds.fill(RGB8::default());
-                                let _ =  ws.write(smart_leds::brightness(leds.iter().cloned(), brightness));
+                                let _ = ws.write(smart_leds::brightness(leds.iter().cloned(), brightness));
                             }
                             break;
                         }
+                        Request::EffectNext => match effect {
+                            Some(ref mut fx) => {
+                                if let Some(data) = fx.next() {
+                                    let _ = ws.write(smart_leds::brightness(
+                                        data.iter().map(|c| Rgb {
+                                            r: c.red,
+                                            g: c.green,
+                                            b: c.blue,
+                                        }),
+                                        brightness,
+                                    ));
+                                }
+                            }
+                            None => {
+                                Self::send_error(&rep_tx, notify, format!("effect is not set").as_str()).await;
+                            }
+                        },
                     }
                 }
-                                        
-                rep_tx.try_send(Reply::Done);
+
+                let _ = rep_tx.try_send(Reply::Done);
                 // no notify
                 debug!("tokio done");
             });
 
-            debug!("thread done");            
+            debug!("thread done");
             Ok(())
         });
 
@@ -209,7 +234,8 @@ impl hw_spi_ws2812 {
     async fn send_error(tx: &tokio::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, err: &str) {
         error!("ws2812 write error: {err}");
 
-        tx.send(Reply::pd_error(CString::new(err).unwrap_or_default())).await
+        tx.send(Reply::pd_error(CString::new(err).unwrap_or_default()))
+            .await
             .map(|_| {
                 notify.notify();
             })
@@ -230,9 +256,7 @@ impl hw_spi_ws2812 {
                 Reply::Message(level, str) => {
                     ws.on_msg.exec(level, str.to_str().unwrap());
                 }
-                Reply::Done => {
-
-                },
+                Reply::Done => {}
             }
         }
     }
@@ -243,7 +267,7 @@ impl Drop for hw_spi_ws2812 {
         self.send(Request::Quit(self.clear_on_exit));
         loop {
             match self.rx.try_recv() {
-                Ok(_) => {},
+                Ok(_) => {}
                 Err(err) => match err {
                     tokio::sync::mpsc::error::TryRecvError::Empty => continue,
                     tokio::sync::mpsc::error::TryRecvError::Disconnected => break,

@@ -1068,7 +1068,7 @@ bool ceammc_hw_sensor_vl53l0x_read_mm(const ceammc_hw_sensor_vl53l0x *display);
 bool ceammc_hw_sensor_vl53l0x_set_address(const ceammc_hw_sensor_vl53l0x *display, uint8_t addr);
 
 /// apply fx
-bool ceammc_hw_spi_ws2812_apply_rx(ceammc_hw_spi_ws2812 *ws,
+bool ceammc_hw_spi_ws2812_apply_fx(ceammc_hw_spi_ws2812 *ws,
                                    int32_t first,
                                    size_t length,
                                    ceammc_hw_led_fx fx,
@@ -1081,6 +1081,9 @@ bool ceammc_hw_spi_ws2812_fill(const ceammc_hw_spi_ws2812 *ws, uint8_t r, uint8_
 bool ceammc_hw_spi_ws2812_flush(const ceammc_hw_spi_ws2812 *ws);
 
 void ceammc_hw_spi_ws2812_free(ceammc_hw_spi_ws2812 *ws);
+
+/// calc next fx
+bool ceammc_hw_spi_ws2812_fx_next(ceammc_hw_spi_ws2812 *ws);
 
 ceammc_hw_spi_ws2812 *ceammc_hw_spi_ws2812_new(ceammc_hw_spi_bus bus,
                                                ceammc_hw_spi_cs cs,

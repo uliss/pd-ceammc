@@ -133,7 +133,12 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
     auto start = lv.intAt(2, 0);
     auto len = lv.intAt(3, size_->value());
 
-    ceammc_hw_spi_ws2812_apply_rx(ws_, start, len, fx, arg);
+    ceammc_hw_spi_ws2812_apply_fx(ws_, start, len, fx, arg);
+}
+
+void HwSpiWs2812::m_fx_next(t_symbol *s, const AtomListView &lv)
+{
+    ceammc_hw_spi_ws2812_fx_next(ws_);
 }
 
 void HwSpiWs2812::m_rotate(t_symbol* s, const AtomListView& lv)
@@ -153,6 +158,7 @@ void setup_hw_rpi_spi_ws2812()
     obj.addMethod("fill", &HwSpiWs2812::m_fill);
     obj.addMethod("flush", &HwSpiWs2812::m_flush);
     obj.addMethod("fx", &HwSpiWs2812::m_fx);
+    obj.addMethod("fx_next", &HwSpiWs2812::m_fx_next);
     obj.addMethod("rotate", &HwSpiWs2812::m_rotate);
     obj.addMethod("set", &HwSpiWs2812::m_set);
     obj.addMethod("set_range", &HwSpiWs2812::m_set_range);

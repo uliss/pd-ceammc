@@ -43,6 +43,7 @@ pub enum Request {
     SetSliceColor(Slice, RGB8),
     SetRangeColor(Range, RGB8),
     ApplyEffect(Range, hw_led_fx, f32, bool),
+    EffectNext,
     Fill(RGB8),
     SetBrightness(u8),
     Flush,
@@ -175,7 +176,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_process_reply(ws: *mut hw_spi_ws2812) {
 
 /// apply fx
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_apply_rx(
+pub extern "C" fn ceammc_hw_spi_ws2812_apply_fx(
     ws: *mut hw_spi_ws2812,
     first: i32,
     length: usize,
@@ -183,4 +184,12 @@ pub extern "C" fn ceammc_hw_spi_ws2812_apply_rx(
     arg: f32,
 ) -> bool {
     rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::ApplyEffect(Range { first, length }, fx, arg, true),) });
+}
+
+/// calc next fx
+#[no_mangle]
+pub extern "C" fn ceammc_hw_spi_ws2812_fx_next(
+    ws: *mut hw_spi_ws2812,
+) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::EffectNext) });
 }
