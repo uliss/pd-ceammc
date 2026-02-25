@@ -36,10 +36,10 @@ impl hw_spi_ws2812 {
         on_msg: hw_msg_cb,
         clear_on_exit: bool,
     ) -> Result<Self, CString> {
-        let (tx, rx) = std::sync::mpsc::channel();
-        let (rep_tx, rep_rx) = std::sync::mpsc::channel();
+        let (tx, mut rx) = tokio::sync::mpsc::channel(10);
+        let (rep_tx, rep_rx) = tokio::sync::mpsc::channel(10);
 
-        std::thread::spawn(move || -> Result<(), CString> {
+        std::thread::spawn( async move || -> Result<(), CString> {
             debug!("thread start");
 
             // const MOSI_PIN: u8 = 10; // [DATA] BCM GPIO 10 (physical pin 19)
@@ -83,20 +83,20 @@ impl hw_spi_ws2812 {
 
             let mut brightness = 127;
 
-            while let Ok(req) = rx.recv() {
+            while let Some(req) = rx.recv().await {
                 debug!("{req:?}");
 
                 match req {
                     crate::ws2812::Request::SetPixelColor(idx, rgb) => match leds.get_mut(idx) {
                         Some(c) => *c = rgb,
-                        None => Self::send_error(&rep_tx, notify, format!("invalid pixel index: {idx}").as_str()),
+                        None => Self::send_error(&rep_tx, notify, format!("invalid pixel index: {idx}").as_str()).await,
                     },
                     Request::SetBrightness(b) => {
                         brightness = b;
                     }
                     Request::Flush => {
                         if let Err(err) = ws.write(smart_leds::brightness(leds.iter().cloned(), brightness)) {
-                            Self::send_error(&rep_tx, notify, format!("{err:?}").as_str());
+                            Self::send_error(&rep_tx, notify, format!("{err:?}").as_str()).await;
                         }
                     }
                     Request::Rotate(delta) => {
@@ -146,7 +146,7 @@ impl hw_spi_ws2812 {
                                 if let Err(err) =
                                     ws.write(smart_leds::brightness(leds[a..b].iter().cloned(), brightness))
                                 {
-                                    Self::send_error(&rep_tx, notify, format!("{err:?}").as_str());
+                                    Self::send_error(&rep_tx, notify, format!("{err:?}").as_str()).await;
                                 }
                             }
                         }
@@ -167,7 +167,7 @@ impl hw_spi_ws2812 {
     }
 
     fn send(&self, req: Request) -> bool {
-        if let Err(err) = self.tx.send(req) {
+        if let Err(err) = self.tx.try_send(req) {
             error!("send error: {err}");
             return false;
         }
@@ -186,10 +186,10 @@ impl hw_spi_ws2812 {
         ws.send(req)
     }
 
-    fn send_error(tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, err: &str) {
+    async fn send_error(tx: &tokio::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, err: &str) {
         error!("ws2812 write error: {err}");
 
-        tx.send(Reply::pd_error(CString::new(err).unwrap_or_default()))
+        tx.send(Reply::pd_error(CString::new(err).unwrap_or_default())).await
             .map(|_| {
                 notify.notify();
             })
@@ -204,7 +204,7 @@ impl hw_spi_ws2812 {
             return;
         }
 
-        let ws = unsafe { &*ws };
+        let ws = unsafe { &mut *ws };
         while let Ok(rep) = ws.rx.try_recv() {
             match rep {
                 Reply::Message(level, str) => {
