@@ -74,7 +74,7 @@ impl hw_spi_ws2812 {
             debug!("SPI init: {spi:?}");
 
             let mut prerendered_buf = [0; 1024];
-            let mut ws = Ws2812::new(spi, &prerendered_buf);
+            let mut ws = Ws2812::new(spi, &mut prerendered_buf);
 
             debug!("ws2182 init with size: {size}");
 
