@@ -181,9 +181,9 @@ impl hw_spi_ws2812 {
                                 let cycle = Cycle::new(leds.len(), None);
                                 effect = Some(Box::new(cycle));
                             }
-                            crate::ws2812::hw_led_fx::Cyclone => {
-                            //     let cylone = Cylon::new(leds.len(), Srgb::new(12, 12, 12), None, None, None);
-                            //     effect = Some(Box::new(cylone));
+                            crate::ws2812::hw_led_fx::Cylon => {
+                                let cylon = Cylon::new(leds.len(), palette::Srgb::new(12, 12, 12), None, None);
+                                effect = Some(Box::new(cylon));
                             }
                             crate::ws2812::hw_led_fx::Fire => {
                                 let fire = Fire::new(leds.len(), None, None);
