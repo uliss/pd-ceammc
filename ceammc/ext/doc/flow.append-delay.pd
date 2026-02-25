@@ -1,0 +1,21 @@
+#N canvas 0 0 545 444 12;
+#X text 20 48 output after delay:;
+#X msg 20 77 1 2 3;
+#X obj 20 106 flow.append 4 5 6 @delay 500;
+#X obj 20 135 print;
+#X text 20 164 if the input messages arrive at the same logical time
+\, it outputs the appended message after the last one when delay is
+specified:;
+#X msg 20 221 1 \, 2 \, 3;
+#X obj 20 250 flow.append 4 5 6 @delay 100;
+#X obj 20 279 print;
+#X text 20 308 no delay:;
+#X msg 20 336 1 \, 2 \, 3;
+#X obj 20 365 flow.append 4 5 6;
+#X obj 20 394 print;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;

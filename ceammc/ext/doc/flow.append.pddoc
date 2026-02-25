@@ -82,13 +82,86 @@
     <example>
       <pdascii>
 <![CDATA[
-[F]
+[10(
 |
-|     [F]
-|     |
-|     [prop.set @delay]       [other append message(
-|     |                       |.
-[flow.append "@message" 1 2 3 @delay 100]
+[flow.append APPEND]
+|
+[print]
+
+
+[flow.append-more]
+
+[flow.append-delay]
+]]>
+      </pdascii>
+      <pdascii id="delay">
+<![CDATA[
+/*output after delay:*/
+
+[1 2 3(
+|
+[flow.append 4 5 6 @delay 500]
+|
+[print]
+
+/*if the input messages arrive at the same logical time, it outputs the appended message after the last one when delay is specified:*/
+
+
+
+[1, 2, 3(
+|
+[flow.append 4 5 6 @delay 100]
+|
+[print]
+
+/*no delay:*/
+
+[1, 2, 3(
+|
+[flow.append 4 5 6]
+|
+[print]
+]]>
+      </pdascii>
+      <pdascii id="more">
+<![CDATA[
+/*append the bang (empty message):*/
+
+[symbol A(
+|
+[flow.append]
+|
+[print]
+
+/*append the float:*/
+
+[symbol A(
+|
+[flow.append 10]
+|
+[print]
+
+/*append the list:*/
+
+[symbol A(
+|
+[flow.append list B C D]
+|
+[print]
+
+/*append the message:*/
+
+[symbol A(
+|
+[flow.append message 1 2 3]
+|
+[print]
+
+/*append the property message:*/
+
+[symbol A(
+|
+[flow.append "@property" 1]
 |
 [print]
 ]]>
