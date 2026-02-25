@@ -157,6 +157,8 @@ impl hw_spi_ws2812 {
                     },
                 }
             }
+
+            debug!("thread done");
         });
 
             Ok(())
