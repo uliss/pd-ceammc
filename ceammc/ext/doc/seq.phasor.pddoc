@@ -18,58 +18,58 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Outputs saw signal in [0..1] or [0..1) range.</tr>
-        <tr lang="ru" finished="false">Выходы видели сигнал в [0,1] или [0,1] диапазоне.</tr>
+        <tr lang="en">Outputs a sawtooth control signal in the [0..1] or [0..1) range.</tr>
+        <tr lang="ru">Выводит пилообразный управляющий сигнал в [0..1] или [0..1) диапазоне.</tr>
       </par>
       <par>
         <tr lang="en">Note: control rate in PureData depends on block size and samplerate. Do not
         rely on strict timing for this object, especially at high frequencies!</tr>
-        <tr lang="ru" finished="false">Примечание: скорость управления в PureData зависит от
-        размера блока и выборки. Не полагайтесь на строгое время для этого объекта, особенно на
+        <tr lang="ru">Примечание: частота обновления управляющего сигнала в PureData зависит от
+        размера блока и частоты семплирования. Не полагайтесь на строгий тайминг для этого объекта, особенно на
         высоких частотах!</tr>
       </par>
     </info>
     <arguments>
       <argument name="FREQ" type="float" minvalue="0" maxvalue="100" units="hertz">
         <tr lang="en">frequency</tr>
-        <tr lang="ru" finished="false">частота</tr>
+        <tr lang="ru">частота</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @freq -->
       <property name="@freq" type="float" minvalue="0" default="0" maxvalue="100" units="hertz">
         <tr lang="en">frequency</tr>
-        <tr lang="ru" finished="false">частота</tr>
+        <tr lang="ru">частота</tr>
       </property>
       <!-- @invert -->
       <property name="@invert" type="bool" default="0">
-        <tr lang="en">saw inversion mode. If true, outputs descreasing waveform</tr>
-        <tr lang="ru" finished="false">Видел режим инверсии. Если это правда, выходы уменьшают
+        <tr lang="en">inversion sawtooth mode. If true: outputs descreasing waveform</tr>
+        <tr lang="ru">режим инверсии пилообразного сигнала. Если true: выводит убывающую
         форму волны</tr>
       </property>
       <!-- @on -->
       <property name="@on" type="bool" default="0">
-        <tr lang="en">on/off state</tr>
-        <tr lang="ru" finished="false">в/вне состояния</tr>
+        <tr lang="en">turning the signal output on/off</tr>
+        <tr lang="ru">включение/выключение вывода сигнала</tr>
       </property>
       <!-- @open -->
       <property name="@open" type="bool" default="0">
-        <tr lang="en">output in open [0..1) range, otherwise output range is [0..1]</tr>
-        <tr lang="ru" finished="false">выход в открытом диапазоне [0..1), в противном случае
-        выходной диапазон составляет [0..1]</tr>
+        <tr lang="en">output signal values in open [0..1) range, otherwise the output range is [0..1] (by default)</tr>
+        <tr lang="ru">выходить значения сигнала в полуоткрытом диапазоне [0..1), в противном случае
+        выходной диапазон составляет [0..1] (по умолчанию)</tr>
       </property>
       <!-- @steps -->
       <property name="@steps" type="int" default="128" minvalue="3">
         <tr lang="en">numbers of steps</tr>
-        <tr lang="ru" finished="false">Количество шагов</tr>
+        <tr lang="ru">количество шагов</tr>
       </property>
     </properties>
     <methods>
       <!-- phase -->
       <method name="phase">
         <info>
-          <tr lang="en">set current phase</tr>
-          <tr lang="ru" finished="false">Установить текущий этап</tr>
+          <tr lang="en">set the current phase</tr>
+          <tr lang="ru">установить текущую фазу</tr>
         </info>
         <param name="VALUE" type="float">
           <tr lang="en">new phase value</tr>
@@ -79,15 +79,15 @@
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset phase and stop</tr>
-          <tr lang="ru" finished="false">Фаза сброса и остановка</tr>
+          <tr lang="en">reset the phase and stop the output</tr>
+          <tr lang="ru">сбросить фазу и остановить вывод</tr>
         </info>
       </method>
       <!-- rewind -->
       <method name="rewind">
         <info>
-          <tr lang="en">reset phase without stopping</tr>
-          <tr lang="ru" finished="false">Фаза сброса без остановки</tr>
+          <tr lang="en">reset the phase without stopping the output</tr>
+          <tr lang="ru">сброс фазы без остановки вывода</tr>
         </info>
       </method>
       <!-- start -->
@@ -100,15 +100,15 @@
       <!-- stop -->
       <method name="stop">
         <info>
-          <tr lang="en">stop</tr>
-          <tr lang="ru" finished="false">останавливаться</tr>
+          <tr lang="en">stop the output</tr>
+          <tr lang="ru">остановить вывод</tr>
         </info>
       </method>
       <!-- tick -->
       <method name="tick">
         <info>
-          <tr lang="en">output current value and move to next</tr>
-          <tr lang="ru" finished="false">вывести текущее значение и перейти к следующему</tr>
+          <tr lang="en">output the current value and move to the next</tr>
+          <tr lang="ru">вывести текущее значение и перейти к следующему</tr>
         </info>
       </method>
     </methods>
@@ -116,13 +116,13 @@
       <inlet>
         <in on="float">
           <tr lang="en">1: starts output, 0: stop</tr>
-          <tr lang="ru" finished="false">1: начало вывода, 0: остановка</tr>
+          <tr lang="ru">1: начало вывода, 0: остановка</tr>
         </in>
       </inlet>
       <inlet>
         <in on="any">
-          <tr lang="en">reset phase to 0</tr>
-          <tr lang="ru" finished="false">Фаза сброса до 0</tr>
+          <tr lang="en">reset the phase to 0</tr>
+          <tr lang="ru">сбросить фазу на 0</tr>
         </in>
       </inlet>
     </inlets>
@@ -130,13 +130,13 @@
       <outlet>
         <out type="any">
           <tr lang="en">float value in 0..1 range</tr>
-          <tr lang="ru" finished="false">значение поплавка в диапазоне 0,1</tr>
+          <tr lang="ru">числовое значение в диапазоне 0..1</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">bang after full cycle</tr>
-          <tr lang="ru" finished="false">Взрыв после полного цикла</tr>
+          <tr lang="en">bang: after completing a full cycle</tr>
+          <tr lang="ru">bang: после завершения полного цикла</tr>
         </out>
       </outlet>
     </outlets>

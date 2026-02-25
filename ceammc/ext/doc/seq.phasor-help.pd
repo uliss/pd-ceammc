@@ -5,104 +5,107 @@
 #X obj 1 1 cnv 5 765 40 empty empty seq.phasor 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 seq.phasor;
-#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 240 83 Outputs saw signal in [0\..1] or [0\..1) range.;
-#X text 240 108 Note: control rate in PureData depends on block size
+#X obj 230 78 cnv 1 535 105 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 Outputs a sawtooth control signal in the [0\..1] or
+[0\..1) range.;
+#X text 240 123 Note: control rate in PureData depends on block size
 and samplerate. Do not rely on strict timing for this object \, especially
 at high frequencies!;
-#X obj 50 216 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 146 216 ui.dsp~;
-#X obj 270 216 ui.knob @min 0.2 @max 2;
-#X obj 50 260 metro 250;
-#X msg 270 260 @freq \$1;
-#X msg 376 260 @invert !;
-#X obj 491 260 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 288 click~;
-#X obj 270 288 seq.phasor 0.2 @on 1;
-#X obj 50 317 flt.resonbp~ 1000 40;
-#X obj 270 317 l->l 0 1 -1 1;
-#X obj 50 346 pan.cos~, f 20;
-#X obj 270 346 ui.knob @min -1 @max 1;
-#X obj 50 375 ui.hgain2~ @size 16 143;
-#X obj 50 403 dac~;
-#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 458 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 231 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 146 231 ui.dsp~;
+#X obj 270 231 ui.knob @min 0.2 @max 2;
+#X obj 50 275 metro 250;
+#X msg 270 275 @freq \$1;
+#X msg 376 275 @invert !;
+#X obj 491 275 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 303 click~;
+#X obj 270 303 seq.phasor 0.2 @on 1;
+#X obj 50 332 flt.resonbp~ 1000 40;
+#X obj 270 332 l->l 0 1 -1 1;
+#X obj 50 361 pan.cos~, f 20;
+#X obj 270 361 ui.knob @min -1 @max 1;
+#X obj 50 390 ui.hgain2~ @size 16 143;
+#X obj 50 418 dac~;
+#X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 473 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 461 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 476 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 130 459 1\.;
-#X text 170 459 float;
-#X obj 268 460 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 459 FREQ(Hz): frequency. Type: float. Range: 0\...100;
-#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 499 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 474 1\.;
+#X text 170 474 float;
+#X obj 268 475 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 474 FREQ(Hz): frequency. Type: float. Range: 0\...100;
+#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 514 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 502 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 517 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 500 @freq;
-#X text 270 500 Frequency. Type: float. Units: 'Hz'. Default value:
+#X msg 130 515 @freq;
+#X text 270 515 Frequency. Type: float. Units: 'Hz'. Default value:
 0\. Range: 0\...100\.;
-#X obj 250 542 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 542 @invert;
-#X text 270 542 Saw inversion mode. If true \, outputs descreasing
+#X obj 250 557 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 557 @invert;
+#X text 270 557 Inversion sawtooth mode. If true: outputs descreasing
 waveform. Type: bool. Default value: 0\.;
-#X obj 250 584 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 584 @on;
-#X text 270 584 On/off state. Type: bool. Default value: 0\.;
-#X obj 250 614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 614 @open;
-#X text 270 614 Output in open [0\..1) range \, otherwise output range
-is [0\..1]. Type: bool. Default value: 0\.;
-#X obj 250 656 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 656 @steps;
-#X text 270 656 Numbers of steps. Type: int. Default value: 128\. Min
+#X obj 250 599 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 599 @on;
+#X text 270 599 Turning the signal output on/off. Type: bool. Default
+value: 0\.;
+#X obj 250 641 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 641 @open;
+#X text 270 641 Output signal values in open [0\..1) range \, otherwise
+the output range is [0\..1] (by default). Type: bool. Default value:
+0\.;
+#X obj 250 698 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 698 @steps;
+#X text 270 698 Numbers of steps. Type: int. Default value: 128\. Min
 value: 3\.;
-#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 713 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 750 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 755 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 714 phase;
-#X text 270 714 set current phase. Arguments are:;
-#X obj 280 737 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 737 [VALUE]: new phase value. Type: float.;
-#X obj 250 762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 762 reset;
-#X text 270 762 reset phase and stop.;
-#X obj 250 790 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 790 rewind;
-#X text 270 790 reset phase without stopping.;
-#X obj 250 818 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 818 start;
-#X text 270 818 start from current position.;
-#X obj 250 846 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 846 stop;
-#X text 270 846 stop.;
-#X obj 250 874 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 874 tick;
-#X text 270 874 output current value and move to next.;
-#X obj 20 912 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 917 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 756 phase;
+#X text 270 756 set the current phase. Arguments are:;
+#X obj 280 779 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 779 [VALUE]: new phase value. Type: float.;
+#X obj 250 804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 804 reset;
+#X text 270 804 reset the phase and stop the output.;
+#X obj 250 832 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 832 rewind;
+#X text 270 832 reset the phase without stopping the output.;
+#X obj 250 860 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 860 start;
+#X text 270 860 start from current position.;
+#X obj 250 888 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 888 stop;
+#X text 270 888 stop the output.;
+#X obj 250 916 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 916 tick;
+#X text 270 916 output the current value and move to the next.;
+#X obj 20 954 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 959 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 918 1\.;
-#X text 170 918 float:;
-#X text 270 918 1: starts output \, 0: stop.;
-#X text 130 943 2\.;
-#X text 170 943 any:;
-#X text 270 943 reset phase to 0\.;
-#X obj 20 978 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 983 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 960 1\.;
+#X text 170 960 float:;
+#X text 270 960 1: starts output \, 0: stop.;
+#X text 130 985 2\.;
+#X text 170 985 any:;
+#X text 270 985 reset the phase to 0\.;
+#X obj 20 1020 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1025 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 984 1\.;
-#X text 270 984 float value in 0\..1 range.;
-#X text 130 1004 2\.;
-#X text 270 1004 bang after full cycle.;
+#X text 130 1026 1\.;
+#X text 270 1026 float value in 0\..1 range.;
+#X text 130 1046 2\.;
+#X text 270 1046 bang: after completing a full cycle.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1054 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1057 library: ceammc v0.9.8;
-#N canvas 10 1076 400 290 info 0;
+#X obj 1 1096 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1099 library: ceammc v0.9.8;
+#N canvas 10 1118 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -126,7 +129,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1076 pd info;
+#X restore 10 1118 pd info;
 #X connect 7 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 14 0;
