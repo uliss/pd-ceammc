@@ -215,6 +215,12 @@ enum class ceammc_hw_led_fx {
     Meteor,
     /// Static rainbow
     Rainbow,
+    /// Strobe light/blinder effect
+    Strobe,
+    /// Generates random twinkles
+    Twinkle,
+    /// Generates random sparkles
+    SnowSparkle,
 };
 
 enum class ceammc_hw_max7219_string_align {

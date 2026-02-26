@@ -50,6 +50,12 @@ pub enum hw_led_fx {
     Meteor,
     /// Static rainbow
     Rainbow,
+    /// Strobe light/blinder effect
+    Strobe,
+    /// Generates random twinkles
+    Twinkle,
+    /// Generates random sparkles
+    SnowSparkle,
 }
 
 #[derive(Debug)]
