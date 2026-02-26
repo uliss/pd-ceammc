@@ -839,7 +839,7 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
     {
         CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch_cnv_current", LF(100, 200, 300));
         char buf[32];
-        sprintf(buf, "%d", cnv->dollarZero());
+        snprintf(buf, sizeof(buf), "%d", cnv->dollarZero());
 
         REQUIRE(L().expandDollarArgs(cnv->pd_canvas()) == L());
         REQUIRE(LF(1, 2, 3).expandDollarArgs(cnv->pd_canvas()) == LF(1, 2, 3));

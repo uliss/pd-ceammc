@@ -604,16 +604,16 @@ TEST_CASE("Atom2", "[core]")
 
         auto dz = canvas_info_dollarzero(canvas_getcurrent());
         char buf[32];
-        sprintf(buf, "%d", dz);
+        snprintf(buf, sizeof(buf), "%d", dz);
         REQUIRE(Atom::dollar(0).expandDollarArgs(LF(10, 20, 30), false).value() == A(buf));
-        sprintf(buf, "%d-test", dz);
+        snprintf(buf, sizeof(buf), "%d-test", dz);
         REQUIRE(DOLL_SYM("$0-test").expandDollarArgs(LF(10, 20, 30), false).value() == A(buf));
-        sprintf(buf, "%d-test", dz);
+        snprintf(buf, sizeof(buf), "%d-test", dz);
         REQUIRE(DOLL_SYM("$1-$2-$3-$4").expandDollarArgs(LF(10, 20, 30), false).value() == A("10-20-30-$4"));
         REQUIRE_FALSE(DOLL_SYM("$1-$2-$3-$4").expandDollarArgs(LF(10, 20, 30), true));
         REQUIRE(DOLL_SYM("$1-$2-$3").expandDollarArgs(LF(10, 20, 30), true).value() == A("10-20-30"));
 
-        sprintf(buf, "%d-$1", dz);
+        snprintf(buf, sizeof(buf), "%d-$1", dz);
         REQUIRE(DOLL_SYM("$0-$1").expandDollarArgs(canvas_getcurrent(), false).value() == A(buf));
         REQUIRE(DOLL_SYM("$0-$1").expandDollarArgs(canvas_getcurrent(), true).isNull());
         REQUIRE_FALSE(DOLL_SYM("$0-$1").expandDollarArgs(canvas_getcurrent(), true));
