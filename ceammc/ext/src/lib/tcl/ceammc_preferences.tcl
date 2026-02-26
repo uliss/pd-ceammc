@@ -35,37 +35,45 @@ proc ::ceammc_prefs::init_options_menu {} {
 }
 
 proc ::ceammc_prefs::show_dialog {} {
-    if {[winfo exists .options]} {
-        focus .options
+    if {[winfo exists .ceammc_prefs]} {
+        focus .ceammc_prefs
         return
     }
 
-    toplevel .options -background $::pd_colors::window_background
-    wm title .options [_ "ceammc external settings"]
+    toplevel .ceammc_prefs -background $::pd_colors::window_background
+    wm title .ceammc_prefs [_ "ceammc external settings"]
+    wm minsize .ceammc_prefs 250 50
 
-    ttk::frame .options.f -padding 10
-    ttk::label .options.f.lang_label -text [_ "Language:"]
+    # close on escape press
+    bind .ceammc_prefs <Escape> {destroy .ceammc_prefs}
+    # close by ⌘+w (only for macOS)
+    if {$::tcl_platform(os) eq "Darwin"} {
+        bind .ceammc_prefs <Command-w> {destroy .ceammc_prefs}
+    }
 
-    ttk::combobox .options.f.lang \
+    ttk::frame .ceammc_prefs.f -padding 10
+    ttk::label .ceammc_prefs.f.lang_label -text [_ "Language:"]
+
+    ttk::combobox .ceammc_prefs.f.lang \
         -values [list [_ "Default"] [_ "English"] [_ "Russian"]] \
         -state readonly
 
-    bind .options.f.lang <<ComboboxSelected>> {
+    bind .ceammc_prefs.f.lang <<ComboboxSelected>> {
         switch [%W current] {
             0 { pdsend "; ceammc doc default\n" }
             1 { pdsend "; ceammc doc en\n"      }
             2 { pdsend "; ceammc doc ru\n"      }
         }
     }
-    .options.f.lang current $::ceammc_prefs::lang
+    .ceammc_prefs.f.lang current $::ceammc_prefs::lang
 
     # setup main frame stuff
-    grid .options.f -column 0 -row 0
+    grid .ceammc_prefs.f -column 0 -row 0
 
     # show
     set padding 5
-    grid .options.f.lang_label -column 0 -row 0 -padx $padding -pady $padding -sticky "w"
-    grid .options.f.lang -column 1 -row 0 -padx $padding -pady $padding -sticky "w"
+    grid .ceammc_prefs.f.lang_label -column 0 -row 0 -padx $padding -pady $padding -sticky "w"
+    grid .ceammc_prefs.f.lang -column 1 -row 0 -padx $padding -pady $padding -sticky "w"
 }
 
 ::ceammc_prefs::init_options_menu
