@@ -3,8 +3,7 @@ use std::{ffi::CString, time::Duration};
 use log::{debug, error};
 use rgb::{Rgb, RGB8};
 use smart_led_effects::strip::{
-    Bounce, Breathe, Collision, Cycle, Cylon, Fire, Meteor, Rainbow,
-    SnowSparkle, Strobe, Twinkle,
+    Bounce, Breathe, Collision, Cycle, Cylon, Fire, Meteor, Rainbow, SnowSparkle, Strobe, Twinkle,
 };
 use smart_leds_trait::SmartLedsWrite;
 use ws2812_spi::prerendered::Ws2812;
@@ -52,11 +51,7 @@ impl hw_spi_ws2812 {
 
             let spi = rppal::spi::Spi::new(
                 match bus {
-                    hw_spi_bus::NONE => {
-                        return Err(
-                            CString::from_vec_with_nul(b"\0".to_vec()).unwrap()
-                        )
-                    }
+                    hw_spi_bus::NONE => return Err(CString::from_vec_with_nul(b"\0".to_vec()).unwrap()),
                     hw_spi_bus::SPI0 => rppal::spi::Bus::Spi0,
                     hw_spi_bus::SPI1 => rppal::spi::Bus::Spi1,
                     hw_spi_bus::SPI2 => rppal::spi::Bus::Spi2,
@@ -91,15 +86,11 @@ impl hw_spi_ws2812 {
 
             let mut brightness = 127;
 
-            let mut effect: Option<
-                Box<dyn smart_led_effects::strip::EffectIterator>,
-            > = None;
+            let mut effect: Option<Box<dyn smart_led_effects::strip::EffectIterator>> = None;
 
             let rt = tokio::runtime::Builder::new_multi_thread()
                 .build()
-                .map_err(|err| {
-                    CString::new(err.to_string()).unwrap_or_default()
-                })?;
+                .map_err(|err| CString::new(err.to_string()).unwrap_or_default())?;
 
             rt.block_on(async {
                 debug!("tokio start");
@@ -108,34 +99,18 @@ impl hw_spi_ws2812 {
                     debug!("{req:?}");
 
                     match req {
-                        Request::SetPixelColor(idx, rgb) => {
-                            match leds.get_mut(idx) {
-                                Some(c) => *c = rgb,
-                                None => {
-                                    Self::send_error(
-                                        &rep_tx,
-                                        notify,
-                                        format!("invalid pixel index: {idx}")
-                                            .as_str(),
-                                    )
-                                    .await
-                                }
+                        Request::SetPixelColor(idx, rgb) => match leds.get_mut(idx) {
+                            Some(c) => *c = rgb,
+                            None => {
+                                Self::send_error(&rep_tx, notify, format!("invalid pixel index: {idx}").as_str()).await
                             }
-                        }
+                        },
                         Request::SetBrightness(b) => {
                             brightness = b;
                         }
                         Request::Flush => {
-                            if let Err(err) = ws.write(smart_leds::brightness(
-                                leds.iter().cloned(),
-                                brightness,
-                            )) {
-                                Self::send_error(
-                                    &rep_tx,
-                                    notify,
-                                    format!("{err:?}").as_str(),
-                                )
-                                .await;
+                            if let Err(err) = ws.write(smart_leds::brightness(leds.iter().cloned(), brightness)) {
+                                Self::send_error(&rep_tx, notify, format!("{err:?}").as_str()).await;
                             }
                         }
                         Request::Rotate(delta) => {
@@ -143,9 +118,7 @@ impl hw_spi_ws2812 {
                             if delta > 0 {
                                 leds.rotate_right((delta as usize).min(len));
                             } else {
-                                leds.rotate_left(
-                                    (delta.abs() as usize).min(len),
-                                );
+                                leds.rotate_left((delta.abs() as usize).min(len));
                             }
                         }
                         Request::Clear => {
@@ -174,8 +147,7 @@ impl hw_spi_ws2812 {
                                 });
                             }
                         }
-                        Request::ApplyEffect(range, fx, arg, flush) => match fx
-                        {
+                        Request::ApplyEffect(range, fx, arg, flush) => match fx {
                             crate::ws2812::hw_led_fx::Rainbow => {
                                 let rainbow = Rainbow::new(leds.len(), None);
                                 effect = Some(Box::new(rainbow));
@@ -196,24 +168,15 @@ impl hw_spi_ws2812 {
                                 // }
                             }
                             crate::ws2812::hw_led_fx::Breathe => {
-                                let breathe =
-                                    Breathe::new(leds.len(), None, None);
+                                let breathe = Breathe::new(leds.len(), None, None);
                                 effect = Some(Box::new(breathe));
                             }
                             crate::ws2812::hw_led_fx::Bounce => {
-                                let bounce = Bounce::new(
-                                    leds.len(),
-                                    None,
-                                    None,
-                                    None,
-                                    None,
-                                    None,
-                                );
+                                let bounce = Bounce::new(leds.len(), None, None, None, None, None);
                                 effect = Some(Box::new(bounce));
                             }
                             crate::ws2812::hw_led_fx::Collision => {
-                                let collision =
-                                    Collision::new(leds.len(), None);
+                                let collision = Collision::new(leds.len(), None);
                                 effect = Some(Box::new(collision));
                             }
                             crate::ws2812::hw_led_fx::Cycle => {
@@ -221,12 +184,7 @@ impl hw_spi_ws2812 {
                                 effect = Some(Box::new(cycle));
                             }
                             crate::ws2812::hw_led_fx::Cylon => {
-                                let cylon = Cylon::new(
-                                    leds.len(),
-                                    palette::Srgb::new(12, 12, 12),
-                                    None,
-                                    None,
-                                );
+                                let cylon = Cylon::new(leds.len(), palette::Srgb::new(12, 12, 12), None, None);
                                 effect = Some(Box::new(cylon));
                             }
                             crate::ws2812::hw_led_fx::Fire => {
@@ -234,47 +192,27 @@ impl hw_spi_ws2812 {
                                 effect = Some(Box::new(fire));
                             }
                             crate::ws2812::hw_led_fx::Meteor => {
-                                let meteor =
-                                    Meteor::new(leds.len(), None, None, None);
+                                let meteor = Meteor::new(leds.len(), None, None, None);
                                 effect = Some(Box::new(meteor));
                             }
                             crate::ws2812::hw_led_fx::Strobe => {
-                                let strobe = Strobe::new(
-                                    leds.len(),
-                                    None,
-                                    Duration::from_millis(arg.round() as u64),
-                                    None,
-                                );
+                                let strobe =
+                                    Strobe::new(leds.len(), None, Duration::from_millis(arg.round() as u64), None);
                                 effect = Some(Box::new(strobe));
                             }
                             crate::ws2812::hw_led_fx::Twinkle => {
-                                let twinkle = Twinkle::new(
-                                    leds.len(),
-                                    None,
-                                    None,
-                                    None,
-                                    None,
-                                );
+                                let twinkle = Twinkle::new(leds.len(), None, None, None, None);
                                 effect = Some(Box::new(twinkle));
                             }
                             crate::ws2812::hw_led_fx::SnowSparkle => {
-                                let sparkle = SnowSparkle::new(
-                                    leds.len(),
-                                    None,
-                                    None,
-                                    None,
-                                    None,
-                                );
+                                let sparkle = SnowSparkle::new(leds.len(), None, None, None, None);
                                 effect = Some(Box::new(sparkle));
                             }
                         },
                         Request::Quit(clear) => {
                             if clear {
                                 leds.fill(RGB8::default());
-                                let _ = ws.write(smart_leds::brightness(
-                                    leds.iter().cloned(),
-                                    brightness,
-                                ));
+                                let _ = ws.write(smart_leds::brightness(leds.iter().cloned(), brightness));
                             }
                             break;
                         }
@@ -292,12 +230,7 @@ impl hw_spi_ws2812 {
                                 }
                             }
                             None => {
-                                Self::send_error(
-                                    &rep_tx,
-                                    notify,
-                                    format!("effect is not set").as_str(),
-                                )
-                                .await;
+                                Self::send_error(&rep_tx, notify, format!("effect is not set").as_str()).await;
                             }
                         },
                     }
@@ -341,11 +274,7 @@ impl hw_spi_ws2812 {
         ws.send(req)
     }
 
-    async fn send_error(
-        tx: &tokio::sync::mpsc::Sender<Reply>,
-        notify: hw_notify_cb,
-        err: &str,
-    ) {
+    async fn send_error(tx: &tokio::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, err: &str) {
         error!("ws2812 write error: {err}");
 
         tx.send(Reply::pd_error(CString::new(err).unwrap_or_default()))
@@ -384,9 +313,7 @@ impl Drop for hw_spi_ws2812 {
                 Ok(_) => {}
                 Err(err) => match err {
                     tokio::sync::mpsc::error::TryRecvError::Empty => continue,
-                    tokio::sync::mpsc::error::TryRecvError::Disconnected => {
-                        break
-                    }
+                    tokio::sync::mpsc::error::TryRecvError::Disconnected => break,
                 },
             }
         }
