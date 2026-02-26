@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.53.0_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2026-02-27 02:07+0300\n"
+"POT-Creation-Date: 2026-02-27 02:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -148,6 +148,55 @@ msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp ../tcl/pdwindow.tcl
 msgid "normal"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_patheditor.tcl ../tcl/dialog_array.tcl
+#: ../tcl/dialog_audio.tcl ../tcl/dialog_canvas.tcl ../tcl/dialog_find.tcl
+#: ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl ../tcl/dialog_midi.tcl
+#: ../tcl/pd_deken.tcl ../tcl/scrollboxwindow.tcl
+msgid "Cancel"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_patheditor.tcl
+msgid "Choose"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_patheditor.tcl ../tcl/pd_menus.tcl
+msgid "Save"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Default"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
+msgid "English"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
+msgid "Language:"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
+msgid "Russian"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
+msgid "ceammc"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
+msgid "ceammc external settings"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_tableeditor.tcl ../tcl/dialog_find.tcl
+#: ../tcl/dialog_font.tcl ../tcl/pd_menus.tcl
+msgid "Close"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_tableeditor.tcl ../tcl/pd_deken.tcl
+msgid "Create"
 msgstr ""
 
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
@@ -1270,12 +1319,6 @@ msgstr ""
 msgid "Bezier curve"
 msgstr ""
 
-#: ../tcl/dialog_array.tcl ../tcl/dialog_audio.tcl ../tcl/dialog_canvas.tcl
-#: ../tcl/dialog_find.tcl ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
-#: ../tcl/dialog_midi.tcl ../tcl/pd_deken.tcl ../tcl/scrollboxwindow.tcl
-msgid "Cancel"
-msgstr ""
-
 #: ../tcl/dialog_array.tcl ../tcl/pd_menus.tcl
 msgid "Copy"
 msgstr ""
@@ -1452,10 +1495,6 @@ msgstr ""
 
 #: ../tcl/dialog_data.tcl
 msgid "Send"
-msgstr ""
-
-#: ../tcl/dialog_find.tcl ../tcl/dialog_font.tcl ../tcl/pd_menus.tcl
-msgid "Close"
 msgstr ""
 
 #: ../tcl/dialog_find.tcl
@@ -1955,10 +1994,6 @@ msgstr ""
 
 #: ../tcl/pd_deken.tcl
 msgid "Copy package URL"
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
-msgid "Create"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -2687,10 +2722,6 @@ msgid "Report a bug"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
-msgid "Save"
-msgstr ""
-
-#: ../tcl/pd_menus.tcl
 msgid "Save All Preferences"
 msgstr ""
 
@@ -2851,10 +2882,6 @@ msgstr ""
 
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
 msgid "Auto Complete settings"
-msgstr ""
-
-#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
-msgid "Default"
 msgstr ""
 
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl

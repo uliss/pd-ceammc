@@ -99,7 +99,7 @@ if(XGETTEXT)
     set(XGETTEXT_COPYRIGHT "This file is put in the public domain")
     add_custom_target(ceammc_messages
         COMMAND ${XGETTEXT} --join-existing --from-code=UTF-8
-            --language=C --keyword=_
+            --language=C++ --keyword=_
             --sort-by-file --output=${POT_TEMPLATE}
             --add-location=file
             --package-name="Pure Data" --package-version=${PD_TEXT_VERSION_FULL}
