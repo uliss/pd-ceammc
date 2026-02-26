@@ -1,9 +1,6 @@
 # include "lex/parser_path_template.h"
-# include "lex/ragel_common.h"
 
 # include <cstring>
-# include <limits>
-# include <cstdint>
 
 namespace ceammc {
 namespace parser {
@@ -43,6 +40,23 @@ main := proto? (prefix | unknown) other* 0 @{ fbreak; };
 write data;
 
 }%%
+
+std::string path_dir_template_subst(const char* path, const path_dir_template_subst_cb& fn)
+{
+    const char* begin = nullptr;
+    const char* end = nullptr;
+    auto type = path_get_dir_template(path, &begin, &end);
+    if (type != DirectoryTemplate::None) {
+        std::string res;
+        res.reserve(std::strlen(path) + 64);
+        res.assign(path, begin);
+        res.append(fn(type, begin, end));
+        res.append(end);
+        return res;
+    } else {
+        return path;
+    }
+}
 
 DirectoryTemplate path_get_dir_template(const char* path, const char** begin, const char** end) {
     int cs = 0;

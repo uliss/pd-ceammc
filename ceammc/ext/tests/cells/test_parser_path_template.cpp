@@ -99,10 +99,10 @@ TEST_CASE("parser_path_template", "[ceammc::parser]")
             case Cwd:
                 return "/?";
             case Unknown: {
-                return "???";
+                return "?_?";
             }
             default:
-                return "???";
+                return "";
             }
         };
 
@@ -131,7 +131,7 @@ TEST_CASE("parser_path_template", "[ceammc::parser]")
         REQUIRE(path_dir_template_subst("$DOWNLOAD$/папка", fn) == "/trash/папка");
         REQUIRE(path_dir_template_subst("$TMP$/папка", fn) == "/tmp/папка");
         REQUIRE(path_dir_template_subst("$CWD$/папка", fn) == "/?/папка");
-        REQUIRE(path_dir_template_subst("$UNKNOWN$", fn) == "$UNKNOWN$");
-        REQUIRE(path_dir_template_subst("$UNKNOWN$/", fn) == "$UNKNOWN$/");
+        REQUIRE(path_dir_template_subst("$UNKNOWN$", fn) == "?_?");
+        REQUIRE(path_dir_template_subst("$UNKNOWN$/", fn) == "?_?/");
     }
 }

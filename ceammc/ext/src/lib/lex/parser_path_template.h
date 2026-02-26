@@ -14,7 +14,6 @@
 #ifndef PARSER_PATH_TEMPLATE_H
 #define PARSER_PATH_TEMPLATE_H
 
-#include <cstring>
 #include <functional>
 #include <string>
 
@@ -45,22 +44,13 @@ namespace parser {
 
     using path_dir_template_subst_cb = std::function<const char*(DirectoryTemplate t, const char* begin, const char* end)>;
 
-    inline std::string path_dir_template_subst(const char* path, const path_dir_template_subst_cb& fn)
-    {
-        const char* begin = nullptr;
-        const char* end = nullptr;
-        auto type = path_get_dir_template(path, &begin, &end);
-        if (type != DirectoryTemplate::None) {
-            std::string res;
-            res.reserve(std::strlen(path) + 64);
-            res.assign(path, begin);
-            res.append(fn(type, begin, end));
-            res.append(end);
-            return res;
-        } else {
-            return path;
-        }
-    }
+    /**
+     * @brief returns a string in which directory name templates in file paths are replaced with their values on a specific OS
+     * @param path - source filepath
+     * @param fn - a function that decides what to replace the directory template with
+     * @return
+     */
+    std::string path_dir_template_subst(const char* path, const path_dir_template_subst_cb& fn);
 } // namespace parser
 } // namespace ceammc
 
