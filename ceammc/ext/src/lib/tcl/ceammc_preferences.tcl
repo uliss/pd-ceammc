@@ -26,11 +26,11 @@ proc ::ceammc_prefs::init_options_menu {} {
 
     if {
         [catch {
-            $mymenu entryconfigure [_ "ceammc"] -command {::ceammc_prefs::show_dialog}
+            $mymenu entryconfigure [_ "CEAM"] -command {::ceammc_prefs::show_dialog}
         } _]
     } {
         $mymenu add separator
-        $mymenu add command -label [_ "ceammc"] -command {::ceammc_prefs::show_dialog}
+        $mymenu add command -label [_ "CEAM"] -command {::ceammc_prefs::show_dialog}
     }
 }
 

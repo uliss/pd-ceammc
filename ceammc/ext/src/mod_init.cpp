@@ -166,8 +166,6 @@ void ceammc_init()
         post("[ceammc] distribution: external deken");
     }
 
-    ceammc::ceammc_tcl_init();
-
     if (!ceammc::pd::addPdPrintDataSupport())
         pd_error(nullptr, "can't add datatype printing support to vanilla [print] object");
     else

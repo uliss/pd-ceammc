@@ -20,6 +20,7 @@
 #include "ceammc_platform.h"
 #include "ceammc_shared_rs.hpp"
 #include "mod_init.h"
+#include "tcl/ceammc_tcl.h"
 
 #include "m_pd.h"
 
@@ -313,6 +314,8 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
 
     // add ceammc external tcl paths
     ceammc_tcl_path_init();
+    // init core tcl functions
+    ceammc::ceammc_tcl_init();
 
     // create ceammc external superobject and load config settings
     auto ext = ceammc_new();

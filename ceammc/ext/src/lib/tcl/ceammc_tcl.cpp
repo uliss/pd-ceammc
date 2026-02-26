@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_tcl.h"
 #include "ceammc_patheditor.tcl.h"
+#include "ceammc_preferences.tcl.h"
 #include "ceammc_tableeditor.tcl.h"
 #include "ceammc_texteditor.tcl.h"
 #include "ceammc_tooltips.tcl.h"
@@ -24,6 +25,7 @@ void ceammc_tcl_init()
     ceammc_texteditor_tcl_output();
     ceammc_tableeditor_tcl_output();
     ceammc_patheditor_tcl_output();
+    ceammc_preferences_tcl_output();
 }
 
 void ceammc_tcl_init_tooltips()
