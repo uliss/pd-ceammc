@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
-"Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2023-10-20 14:40+0300\n"
+"Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
+"POT-Creation-Date: 2026-02-27 02:07+0300\n"
 "PO-Revision-Date: 2023-10-20 14:45+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
@@ -2796,6 +2796,15 @@ msgid ""
 msgstr ""
 "кликните для\n"
 "выбора цвета"
+
+#: ../ceammc/ext/src/ui/ui_display.cpp
+#, fuzzy
+msgid "copy value"
+msgstr "Верхнее Y-значение"
+
+#: ../ceammc/ext/src/ui/ui_display.cpp
+msgid "copy with selector"
+msgstr ""
 
 #: ../tcl/pd_docsdir.tcl
 #, tcl-format

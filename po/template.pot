@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.53.0_ceammc\n"
-"Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2026-02-27 02:06+0300\n"
+"Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
+"POT-Creation-Date: 2026-02-27 02:07+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -464,6 +464,14 @@ msgstr ""
 #: ../ceammc/ext/src/ui/ui_preset.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 #: ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Text Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_display.cpp
+msgid "copy value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_display.cpp
+msgid "copy with selector"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_dsp.cpp ../tcl/dialog_audio.tcl
