@@ -214,7 +214,7 @@ bool Canvas::connect(t_object* src, size_t nout, t_object* dest, size_t ninl)
     if (!src || !dest)
         return false;
 
-    t_outconnect* c = obj_connect(src, int(nout), dest, int(ninl));
+    t_outconnect* c = obj_connect(src, static_cast<int>(nout), dest, static_cast<int>(ninl));
     return c != 0;
 }
 
@@ -257,7 +257,7 @@ std::vector<const t_object*> Canvas::findObjectByClassName(t_symbol* name)
     return res;
 }
 
-t_gobj* Canvas::findIf(std::function<bool(t_gobj*)> pred)
+t_gobj* Canvas::findIf(const std::function<bool(t_gobj*)>& pred)
 {
     if (!canvas_)
         return nullptr;
@@ -270,7 +270,7 @@ t_gobj* Canvas::findIf(std::function<bool(t_gobj*)> pred)
     return nullptr;
 }
 
-t_object* Canvas::findIf(std::function<bool(t_object*)> pred)
+t_object* Canvas::findIf(const std::function<bool(t_object*)>& pred)
 {
     if (!canvas_)
         return nullptr;
@@ -308,7 +308,7 @@ void Canvas::createPdObject(int x, int y, t_symbol* name, const AtomListView& ar
 
     SmallAtomList xargs;
     xargs.reserve(args.size() + 3);
-    xargs.assign({ t_float(x), t_float(y), name });
+    xargs.assign({ static_cast<t_float>(x), static_cast<t_float>(y), name });
     xargs.insert(xargs.end(), args.begin(), args.end());
 
     pd::message_to(pd(), gensym("obj"), xargs.view());
@@ -445,7 +445,7 @@ namespace {
         else
             return canvas_find_root(x->gl_owner, ++level, breakOnAbs);
     };
-}
+} // namespace
 
 const t_canvas* canvas_root(const t_canvas* c, int& level, bool breakOnAbs)
 {
@@ -457,7 +457,7 @@ const t_canvas* canvas_root(const t_canvas* c, int& level, bool breakOnAbs)
     return canvas_find_root(c, level, breakOnAbs);
 }
 
-std::unique_ptr<pd::CanvasTree> canvas_info_tree(const t_canvas* c, CanvasClassPredicate pred)
+std::unique_ptr<pd::CanvasTree> canvas_info_tree(const t_canvas* c, const CanvasClassPredicate& pred)
 {
     std::unique_ptr<pd::CanvasTree> tree;
 
@@ -498,7 +498,7 @@ std::unique_ptr<pd::CanvasTree> canvas_info_tree(const t_canvas* c, CanvasClassP
     return tree;
 }
 
-std::vector<t_object*> canvas_find(const _glist* c, CanvasClassPredicate pred)
+std::vector<t_object*> canvas_find(const _glist* c, const CanvasClassPredicate& pred)
 {
     std::vector<t_object*> res;
 
@@ -584,7 +584,7 @@ int canvas_info_dollarzero(const _glist* c)
     return env->ce_dollarzero;
 }
 
-void canvas_foreach(const _glist* c, std::function<void(t_gobj*, const t_class*)> fn)
+void canvas_foreach(const _glist* c, const std::function<void(t_gobj*, const t_class*)>& fn)
 {
     if (!c)
         return;
@@ -750,4 +750,4 @@ struct t_canvas
     return os;
 }
 
-}
+} // namespace ceammc

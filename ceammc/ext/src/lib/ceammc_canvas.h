@@ -158,19 +158,19 @@ using CanvasClassPredicate = std::function<bool(const _glist*, const t_object*)>
  * @param c - pointer to canvas
  * @return tree
  */
-std::unique_ptr<pd::CanvasTree> canvas_info_tree(const _glist* c, CanvasClassPredicate pred = {});
+std::unique_ptr<pd::CanvasTree> canvas_info_tree(const _glist* c, const CanvasClassPredicate& pred = {});
 
 /**
  * Returns canvas object satisfied to predicate
  * @param c - pointer to canvas
  * @return vector of pointers
  */
-std::vector<t_object*> canvas_find(const _glist* c, CanvasClassPredicate pred);
+std::vector<t_object*> canvas_find(const _glist* c, const CanvasClassPredicate& pred);
 
 /**
  * iterate over all canvas items
  */
-void canvas_foreach(const _glist* c, std::function<void(t_gobj*, const t_class*)> fn);
+void canvas_foreach(const _glist* c, const std::function<void(t_gobj*, const t_class*)>& fn);
 
 /**
  * find canvas last object
@@ -196,8 +196,8 @@ public:
 
     std::vector<const t_object*> objectList() const;
     std::vector<const t_object*> findObjectByClassName(t_symbol* name);
-    t_gobj* findIf(std::function<bool(t_gobj*)> pred);
-    t_object* findIf(std::function<bool(t_object*)> pred);
+    t_gobj* findIf(const std::function<bool(t_gobj*)>& pred);
+    t_object* findIf(const std::function<bool(t_object*)>& pred);
 
     void addExternal(pd::External& ext);
     std::shared_ptr<pd::External> createObject(const char* name, const AtomList& args);
