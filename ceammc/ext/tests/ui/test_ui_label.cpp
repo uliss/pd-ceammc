@@ -113,7 +113,7 @@ TEST_CASE("ui.label", "[ui.label]")
     SECTION("$0")
     {
         char buf[64];
-        sprintf(buf, "text: %d", canvas_info_dollarzero(canvas_getcurrent()));
+        snprintf(buf, sizeof(buf), "text: %d", canvas_info_dollarzero(canvas_getcurrent()));
         TestExtLabel t("ui.label", LA("text: #0"));
         REQUIRE(t->text() == buf);
         REQUIRE_UI_LIST_PROPERTY(t, "text", LA("text: #0"));
