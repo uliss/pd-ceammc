@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2026-02-27 02:07+0300\n"
-"PO-Revision-Date: 2023-10-20 14:45+0300\n"
+"POT-Creation-Date: 2026-02-27 02:42+0300\n"
+"PO-Revision-Date: 2026-02-27 02:47+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
 "X-Loco-Parser: loco_parse_po\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.6\n"
 
 #: ../tcl/dialog_font.tcl
 #, tcl-format
@@ -352,13 +352,18 @@ msgstr "Панель кнопок"
 msgid "Button Bar Settings"
 msgstr "Настройки панели кнопок"
 
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
+msgid "CEAM"
+msgstr "ЦЭАМ"
+
 #: ../tcl/pd_menus.tcl
 msgid "CEAMMC objects"
 msgstr "CEAMMC объекты"
 
-#: ../tcl/dialog_array.tcl ../tcl/dialog_audio.tcl ../tcl/dialog_canvas.tcl
-#: ../tcl/dialog_find.tcl ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
-#: ../tcl/dialog_midi.tcl ../tcl/pd_deken.tcl ../tcl/scrollboxwindow.tcl
+#: ../ceammc/ext/src/lib/tcl/ceammc_patheditor.tcl ../tcl/dialog_array.tcl
+#: ../tcl/dialog_audio.tcl ../tcl/dialog_canvas.tcl ../tcl/dialog_find.tcl
+#: ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl ../tcl/dialog_midi.tcl
+#: ../tcl/pd_deken.tcl ../tcl/scrollboxwindow.tcl
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -404,7 +409,11 @@ msgstr "Проверить обновления"
 #: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "Checksum mismatch for '%s'"
-msgstr "Чексумма не совпадает для ‘%s’"
+msgstr "Контрольная сумма не совпадает для ‘%s’"
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_patheditor.tcl
+msgid "Choose"
+msgstr "Выбрать"
 
 #: ../tcl/dialog_path.tcl ../tcl/pd_docsdir.tcl
 msgid "Choose Pd documents directory:"
@@ -431,7 +440,8 @@ msgstr "Очистить все"
 msgid "Clockwise"
 msgstr "По часовой стрелке"
 
-#: ../tcl/dialog_find.tcl ../tcl/dialog_font.tcl ../tcl/pd_menus.tcl
+#: ../ceammc/ext/src/lib/tcl/ceammc_tableeditor.tcl ../tcl/dialog_find.tcl
+#: ../tcl/dialog_font.tcl ../tcl/pd_menus.tcl
 msgid "Close"
 msgstr "Закрыть"
 
@@ -495,7 +505,7 @@ msgstr "Невозможно создать настройки \"%1$s\" in %2$s"
 msgid "Couldn't find '%1$s' in %2$s"
 msgstr "Не удалось найти '%s' в %s"
 
-#: ../tcl/pd_deken.tcl
+#: ../ceammc/ext/src/lib/tcl/ceammc_tableeditor.tcl ../tcl/pd_deken.tcl
 msgid "Create"
 msgstr "Создать"
 
@@ -535,6 +545,7 @@ msgstr "Дата"
 msgid "Decimal precision"
 msgstr "Десятичная точность"
 
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
 msgid "Default"
 msgstr "По умолчанию"
@@ -736,6 +747,10 @@ msgstr "Цвет пустой ячейки"
 msgid "Energy Vector Color"
 msgstr "Цвет вектора энергии"
 
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
+msgid "English"
+msgstr "Английский"
+
 #: ../tcl/pd_deken.tcl
 msgid "Enter an exact library or object name."
 msgstr "Введите точное название библиотеки или объекта."
@@ -892,7 +907,7 @@ msgstr "Чувствительность"
 
 #: ../tcl/pd_menus.tcl
 msgid "Graph"
-msgstr ""
+msgstr "Граф"
 
 #: ../tcl/dialog_canvas.tcl
 msgid "Graph-On-Parent"
@@ -1119,6 +1134,10 @@ msgstr "Лейблы по оси х"
 #: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
 msgid "Labels on y-axis"
 msgstr "Лейблы по оси y"
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
+msgid "Language:"
+msgstr "Язык:"
 
 #: ../tcl/dialog_array.tcl
 msgid "Last graph"
@@ -1940,6 +1959,10 @@ msgstr "Поворот"
 msgid "Rows"
 msgstr "Ряды"
 
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
+msgid "Russian"
+msgstr "Русский"
+
 #: ../tcl/pd_deken.tcl
 msgid "SHA256 verification failed"
 msgstr "Проверка SHA256 не удалась"
@@ -1962,7 +1985,7 @@ msgstr "Частота сэмплирования:"
 msgid "Saturation"
 msgstr "Насыщенность"
 
-#: ../tcl/pd_menus.tcl
+#: ../ceammc/ext/src/lib/tcl/ceammc_patheditor.tcl ../tcl/pd_menus.tcl
 msgid "Save"
 msgstr "Сохранить"
 
@@ -2784,6 +2807,14 @@ msgstr "одновременно"
 msgid "bottom center"
 msgstr "внизу по центру"
 
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
+msgid "ceammc"
+msgstr "цэам"
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
+msgid "ceammc external settings"
+msgstr "настройки расширения ceammc"
+
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_polar.cpp
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "center"
@@ -2798,13 +2829,12 @@ msgstr ""
 "выбора цвета"
 
 #: ../ceammc/ext/src/ui/ui_display.cpp
-#, fuzzy
 msgid "copy value"
-msgstr "Верхнее Y-значение"
+msgstr "копировать значение"
 
 #: ../ceammc/ext/src/ui/ui_display.cpp
 msgid "copy with selector"
-msgstr ""
+msgstr "копировать с селектором"
 
 #: ../tcl/pd_docsdir.tcl
 #, tcl-format
