@@ -39,7 +39,7 @@ TEST_CASE("canvas.active", "[externals]")
 
         auto uip = CanvasActive::ptr_to_uint(&id);
         char buf[40];
-        sprintf(buf, ".x%lx.c", uip);
+        snprintf(buf, sizeof(buf), ".x%lx.c", uip);
         REQUIRE(try_parse_canvas_id(buf, id));
         REQUIRE(id == CanvasActive::ptr_to_uint(&id));
     }
