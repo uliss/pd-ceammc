@@ -10,5 +10,5 @@ if [ -z "$REV" ]; then
 fi
 echo "trying to set deb revision: r$REV ..."
 
-gsed -E -i 's/LINUX_DEBIAN_PACKAGE_REVISION[[:space:]]+"\.r2002"/LINUX_DEBIAN_PACKAGE_REVISION ".r'$REV'"/' "$FILE" &&
-  echo "updated to: r$REV"
+gsed -E -i 's/LINUX_DEBIAN_PACKAGE_REVISION[[:space:]]+"\.r[0-9]+"/LINUX_DEBIAN_PACKAGE_REVISION ".r'$REV'"/' "$FILE"
+echo "updated to: r$REV"
