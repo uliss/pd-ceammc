@@ -2,8 +2,8 @@ use crate::{autostart::ORIG_MAIN_PATCH, common::output_header};
 
 pub fn info() {
     output_header("XDG");
-    println!("xdg_mime: \t{}", get_mime_type().trim_end());
-    println!("xdg_app:  \t{}", get_default_app().trim_end());
+    println!("xdg_mime: \t{}", get_mime_type());
+    println!("xdg_app:  \t{}", get_default_app());
 }
 
 pub fn get_mime_type() -> String {
@@ -20,6 +20,11 @@ pub fn get_default_app() -> String {
         .args(["query", "default", "text/x-puredata"])
         .output()
         .ok()
-        .map(|x| String::from_utf8(x.stdout).unwrap_or("invalid output".to_string()))
+        .map(|x| {
+            String::from_utf8(x.stdout)
+                .unwrap_or("invalid output".to_string())
+                .trim() // trim trailing \n and spaces
+                .to_owned()
+        })
         .unwrap_or_default()
 }
