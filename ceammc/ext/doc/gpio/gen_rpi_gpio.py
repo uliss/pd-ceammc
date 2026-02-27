@@ -1,9 +1,9 @@
+#!/usr/bin/env python3
 BGCOLORS = {
     1: 0xFF0000,
     2: 0xFF0000,
     4: 0xFF0000,
     6: 0x000000,
-    7: 0xFF6666,
    17: 0xFF0000,
     9: 0,
     14: 0,
@@ -24,28 +24,7 @@ BGCOLORS = {
 }
 
 NOMENU = set([
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    14,
-    17,
-    19,
-    20,
-    21,
-    23,
-    25,
-    27,
-    28,
-    30,
-    34,
-    39,
+    1, 2, 4, 6, 17, 9, 14, 20, 25, 30, 34, 39, 27, 28
 ])
 
 GPIO = {
@@ -58,22 +37,12 @@ GND = "Ground"
 PIN_LABEL = {
     1: "3.3V",
     2: "5V",
-    3: "SDA1",
     4: "5V",
-    5: "SCL1",
     6: GND,
-    7: "GPCLK0",
-    8: "TX",
     9: GND,
-    10: "RX",
     14: GND,
     20: GND,
-    19: "SPI0_MOSI",
-    21: "SPI0_MISO",
-    23: "SPI0_CLK",
     25: GND,
-    27: "ID_SD",
-    28: "ID_SC",
     30: GND,
     34: GND,
     39: GND
@@ -88,17 +57,20 @@ def gpio(idx):
 def pin_label(idx): 
     if idx in PIN_LABEL:
         txt = PIN_LABEL[idx]
-        return f"@label {txt} @label_margins 2 0"
+        return f"@label {txt}"
     else:
-        x = gpio(idx)
-        if x < 0:
-            return f"@label \"Pin\\[{idx:02}\\]\" @label_margins 2 0"
+        return f"@label Pin\\[{idx:02}\\]"
 
-        if idx & 1 == 0:
-            return f"@label \"Pin\\[{idx:02}\\]\\ GPIO{x:02}\" @label_margins 10 0 @label_side right @label_valign center @label_align left @fontweight normal"
+
+def gpio_label(idx):
+    x = gpio(idx)
+    if x >= 0:
+        if idx & 1 == 1:
+            return f"@label \"GPIO{x:02}\" @label_margins 5 0 @label_side right @label_valign center @label_align left @fontsize 12 @fontweight normal"
         else:
-            return f"@label \"GPIO{x:02}\\ Pin\\[{idx:02}\\]\" @label_margins 10 0 @label_side left @label_valign center @label_align right @fontweight normal"
-
+            return f"@label \"GPIO{x:02}\" @label_margins 5 0 @label_side left @label_valign center @label_align right @fontsize 12 @fontweight normal"
+    else:
+        return ""
 
 def bgcolor(idx):
     if idx not in BGCOLORS:
@@ -109,10 +81,10 @@ def bgcolor(idx):
         g = ((h >> 8) & 0xFF) / 255.0
         b = (h & 0xFF) / 255.0
         color = f"@background_color {r} {g} {b}"
-        if idx in NOMENU:
-            color += f" @active_color {r} {g} {b}" 
-        else:
-            color += f" @active_color 0 0 0"
+        # if idx in NOMENU:
+        color += f" @active_color {r} {g} {b}" 
+        # else:
+        # color += f" @active_color 0 0 0"
         
         return color
 
@@ -121,7 +93,7 @@ def make_menu(idx, h, x, y):
     if idx in NOMENU:
         return
 
-    w = 140
+    w = 140 - h
     if idx & 1 == 1:
         x -= w + 100
     else:
@@ -130,7 +102,8 @@ def make_menu(idx, h, x, y):
     gp = gpio(idx)
     send = obj_send(f"mode{gp}")
     recv = "@receive \"#0-all-menu\""
-    print(f"[ui.tab @items None In Out PWM {send} {recv} @size {w} {h} {{ax={x},ay={y}}}]")
+    lb = gpio_label(idx)
+    print(f"[ui.tab @items None In Out PWM {send} {lb} {recv} @size {w} {h} {{ax={x},ay={y}}}]")
 
     recv = "@receive \"#0-all-pwm\""
     send = obj_send(f"gpio{gp}")
@@ -140,7 +113,14 @@ def make_menu(idx, h, x, y):
     else:
         x += w
 
-    print(f"[ui.slider @show_value 1 {send} {recv} @size 100 {h} @label_inner 1 @label_valign center @label duty: @fontsize 8 {{ax={x},ay={y}}}]")
+    print(f"[ui.slider @show_value 1 {send} {recv} @size 100 {h} @active_scale 1 @label_inner 1 @label_valign center @label duty: {{ax={x},ay={y}}}]")
+
+    if idx & 1 == 1:
+        x -= h
+    else:
+        x += 100
+
+    make_tgl(idx, h, x, y, colored=False)
 
 
 def obj_send(name):
@@ -151,9 +131,9 @@ def obj_recv(name):
 
 def label_props(idx):
     if idx & 1 == 0:
-        return f"@label_side right @label_align left @label_valign center"
+        return "@label_side right @label_align left @label_valign center"
     else:
-        return f"@label_side left @label_align right @label_valign center"
+        return "@label_side left @label_align right @label_valign center"
 
 
 def tgl_values(idx):
@@ -165,7 +145,7 @@ def tgl_values(idx):
         return ""
 
 
-def make_tgl(idx, w, x, y):
+def make_tgl(idx, w, x, y, colored: bool = True):
     lp = label_props(idx)
     bg = bgcolor(idx)
     gp = gpio(idx)
@@ -174,11 +154,14 @@ def make_tgl(idx, w, x, y):
 
     if idx in NOMENU:
         send = '@send "#0_send"'
-        recv = '@receive "#0_recv"'
+        recv = '@receive "#0_send"'
 
     lbl = pin_label(idx)
     # vals = tgl_values(idx)
-    print(f"[ui.t @size {w} {w} {bg} @fontsize 9 {send} {recv} {lbl} {lp} {{ax={x},ay={y}}}]")
+    if colored:
+        print(f"[ui.t @size {w} {w} {lp} {lbl} {bg} @send \"#0_\" @receive \"#0__\" {{ax={x},ay={y}}}]")
+    else:
+        print(f"[ui.t @size {w} {w} {send} {recv} {{ax={x},ay={y}}}]")
 
 
 def make_act():
@@ -199,14 +182,14 @@ def make_act():
     print(f"[output $1, soft_pwm_freq $1 100 0 #pwm {{i=2,o=1,ax={x3},ay={y+75}}}(")
     y += 100
     print(f"[s \\$0-gpio #gpio {{ax={x},ay={y}}}]")
-    print(f"[X rt:0->rs]")
-    print(f"[X rt:1->in]")
-    print(f"[X rt:2->out]")
-    print(f"[X rt:3->pwm]")
-    print(f"[X rs->gpio]")
-    print(f"[X in->gpio]")
-    print(f"[X out->gpio]")
-    print(f"[X pwm->gpio]")
+    print("[X rt:0->rs]")
+    print("[X rt:1->in]")
+    print("[X rt:2->out]")
+    print("[X rt:3->pwm]")
+    print("[X rs->gpio]")
+    print("[X in->gpio]")
+    print("[X out->gpio]")
+    print("[X pwm->gpio]")
        
 XOFF = 260
 YOFF = 60
