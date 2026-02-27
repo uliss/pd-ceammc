@@ -150,10 +150,7 @@ void ceammc_vis_fn(t_gobj* z, t_glist* glist, int vis)
 
 void ceammc_init()
 {
-    using namespace std;
-
-    const auto is_ceammc = ceammc::platform::get_env("is_ceammc");
-    if (is_ceammc == "true") {
+    if (ceammc::platform::get_env("is_ceammc") == "true") {
         if (text_widgetbehavior.w_visfn && text_widgetbehavior.w_visfn != ceammc_vis_fn) {
             ceammc_pd_vanilla_visfn = text_widgetbehavior.w_visfn;
             auto wb = &text_widgetbehavior;
@@ -161,9 +158,9 @@ void ceammc_init()
         }
 
         ceammc::ceammc_tcl_init_tooltips();
-        post("[ceammc] distribution: internal ceammc");
+        logpost(nullptr, PD_DEBUG, "[ceammc] distribution: internal ceammc");
     } else {
-        post("[ceammc] distribution: external deken");
+        logpost(nullptr, PD_DEBUG, "[ceammc] distribution: external deken");
     }
 
     if (!ceammc::pd::addPdPrintDataSupport())
@@ -180,8 +177,8 @@ void ceammc_init()
 
 #ifndef __WIN32
     // save vanilla external list
-    vector<string> l = ceammc::pd::currentListOfExternals();
-    set<string> vanilla_set(l.begin(), l.end());
+    std::vector<std::string> l = ceammc::pd::currentListOfExternals();
+    std::set<std::string> vanilla_set(l.begin(), l.end());
 #endif
 
     ceammc::BaseObject::initInletDispatchNames();
@@ -228,7 +225,7 @@ void ceammc_init()
 #ifndef __WIN32
     // get ceammc extension list
     l = ceammc::pd::currentListOfExternals();
-    set<string> current_set(l.begin(), l.end());
+    std::set<std::string> current_set(l.begin(), l.end());
 
     set_difference(current_set.begin(), current_set.end(),
         vanilla_set.begin(), vanilla_set.end(),
