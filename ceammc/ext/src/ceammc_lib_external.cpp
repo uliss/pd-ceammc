@@ -331,8 +331,6 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
 
 extern "C" CEAMMC_EXTERN void ceammc_list_externals(int vanilla)
 {
-    using namespace std;
-
     if (vanilla) {
         std::set<std::string> all_ext;
 
@@ -377,7 +375,6 @@ static void print_alias(t_class* c)
 
 extern "C" CEAMMC_EXTERN void ceammc_list_aliases()
 {
-    using namespace std;
     using Os = ceammc::ObjectInfoStorage;
 
     for (auto* c : Os::instance().baseSet())
