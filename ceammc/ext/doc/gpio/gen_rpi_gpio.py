@@ -66,9 +66,9 @@ def gpio_label(idx):
     x = gpio(idx)
     if x >= 0:
         if idx & 1 == 1:
-            return f"@label \"GPIO{x:02}\" @label_margins 5 0 @label_side right @label_valign center @label_align left @fontsize 12 @fontweight normal"
+            return f"@label \"G{x:02}\" @label_margins 5 0 @label_side right @label_valign center @label_align left @fontsize 12 @fontweight normal"
         else:
-            return f"@label \"GPIO{x:02}\" @label_margins 5 0 @label_side left @label_valign center @label_align right @fontsize 12 @fontweight normal"
+            return f"@label \"G{x:02}\" @label_margins 5 0 @label_side left @label_valign center @label_align right @fontsize 12 @fontweight normal"
     else:
         return ""
 
