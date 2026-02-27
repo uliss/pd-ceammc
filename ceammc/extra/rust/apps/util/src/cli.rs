@@ -53,6 +53,12 @@ pub enum Pd {
     },
 }
 
+#[derive(Clone, Subcommand)]
+pub enum Xdg {
+    /// xdg MIME type and default application info
+    Info,
+}
+
 /// CEAM utilities
 #[derive(Subcommand, Clone)]
 #[command(version, about, long_about = None)]
@@ -84,6 +90,9 @@ pub enum Commands {
         #[arg(long)]
         net: bool,
     },
+    /// XDG (X Desktop Group)
+    #[command(subcommand)]
+    Xdg(Xdg),
 }
 
 #[derive(Parser)]

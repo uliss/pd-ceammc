@@ -16,6 +16,7 @@ mod common;
 mod dpkg;
 mod info;
 mod update;
+mod xdg;
 
 fn main() -> anyhow::Result<()> {
     common::init_logger();
@@ -94,6 +95,9 @@ fn main() -> anyhow::Result<()> {
         } => {
             output_info(use_bytes, all, mem, cpu, net, system, true);
         }
+        Commands::Xdg(xdg) => match xdg {
+            cli::Xdg::Info {} => xdg::info(),
+        },
     }
 
     Ok(())

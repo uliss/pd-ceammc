@@ -12,7 +12,7 @@ const DESKTOP: &str = ".config/autostart/pd-ceammc.desktop";
 const RUN_SCRIPT: &str = "bin/pd_start.sh";
 const ORIG_SCRIPT: &str = "/usr/lib/pd_ceammc/share/rpi/pd_start.sh";
 const ORIG_DESKTOP: &str = "/usr/lib/pd_ceammc/share/rpi/pd-ceammc-autostart.desktop";
-const ORIG_MAIN_PATCH: &str = "/usr/lib/pd_ceammc/share/rpi/examples/main.pd";
+pub const ORIG_MAIN_PATCH: &str = "/usr/lib/pd_ceammc/share/rpi/examples/main.pd";
 
 fn orig_run_script_path() -> PathBuf {
     PathBuf::from(ORIG_SCRIPT)
