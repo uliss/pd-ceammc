@@ -22,7 +22,7 @@ Pi;
 #X msg 59 307 brightness 8 \, bang;
 #X msg 270 307 set \$1 0 0 255 \, bang;
 #X msg 59 350 clear;
-#X obj 50 378 hw.rpi.spi.ws2812 @size 16;
+#X obj 50 378 hw.rpi.spi.ws2812 @size 16 @spi_bus 0;
 #X obj 50 422 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_ws2812.png;
 #X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
