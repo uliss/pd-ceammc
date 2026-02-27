@@ -8,5 +8,6 @@ dev targets:
   * dev_copyright     - update debian copyright file with decopy utility
   * dev_run           - (fast) build ceammc external, copy it to the install directory, then run pd-ceammc
   * dev_open          - (slow) build ceammc package, install it, then run pd-ceammc
+  * dev_pkg_version   - update deb package version according to git describe
 
 
