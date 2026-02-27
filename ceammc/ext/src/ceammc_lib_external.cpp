@@ -47,24 +47,24 @@ inline int int_version(int maj, int min, int fix)
 void ceammc_info_message()
 {
     post("\nCEAMMC library\n"
-         "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2025\n"
-         "       authors: Serge Poltavsky and Alex Nadzharov\n"
-         "       arch: %d-bit\n"
-         "       precision: %s\n"
-         "       path: %s\n"
-         "       version: %s\n"
-         "       url: %s\n"
-#ifdef PD_INSTANCE
-         "       pd instance: true\n"
-#else
-         "       pd instance: false\n"
-#endif
-         "       license: GPL-3\n"
-         "       build date: '%s'\n",
+         "Centre for Electroacoustic Music Moscow Conservatory, © 2016-2026\n"
+         "    authors:    Serge Poltavsky and Alex Nadzharov\n"
+         "    arch:       %d-bit\n"
+         "    precision:  %s\n"
+         "    version:    %s\n"
+         "    url:        %s\n"
+         "    license:    GPL-3\n"
+         "    build date: '%s'\n",
         sizeof(void*) * 8,
         std::is_same<t_float, float>::value ? "float" : "double",
-        ceammc_class ? class_gethelpdir(ceammc_class) : "?",
         CEAMMC_LIB_VERSION, CEAMMC_LIB_HOME, __DATE__);
+
+    logpost(nullptr, PD_DEBUG, "[ceammc] path: %s", ceammc_class ? class_gethelpdir(ceammc_class) : "?");
+#ifdef PD_INSTANCE
+    logpost(nullptr, PD_DEBUG, "[ceammc] pd instance: true");
+#else
+    logpost(nullptr, PD_DEBUG, "[ceammc] pd instance: false");
+#endif
 
     int major, minor, fix;
     sys_getversion(&major, &minor, &fix);
