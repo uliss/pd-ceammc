@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.53.0_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2026-02-27 02:42+0300\n"
+"POT-Creation-Date: 2026-02-27 03:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -166,6 +166,10 @@ msgid "Save"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
+msgid "CEAM"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
 msgid "Default"
 msgstr ""
@@ -191,7 +195,7 @@ msgid "ceammc external settings"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/tcl/ceammc_preferences.tcl
-msgid "CEAM"
+msgid "Help files language:"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/tcl/ceammc_tableeditor.tcl ../tcl/dialog_find.tcl

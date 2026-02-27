@@ -52,7 +52,7 @@ proc ::ceammc_prefs::show_dialog {} {
     }
 
     ttk::frame .ceammc_prefs.f -padding 10
-    ttk::label .ceammc_prefs.f.lang_label -text [_ "Language:"]
+    ttk::label .ceammc_prefs.f.lang_label -text [_ "Help files language:"]
 
     ttk::combobox .ceammc_prefs.f.lang \
         -values [list [_ "Default"] [_ "English"] [_ "Russian"]] \
