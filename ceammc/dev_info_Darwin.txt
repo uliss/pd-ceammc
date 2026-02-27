@@ -20,6 +20,7 @@ dev targets:
   * dev_edit_about    - edit about patch
   * dev_edit_about_ru - edit about patch (Russian)
   * dev_graph         - generate dependencies graph
+  * dev_pkg_version   - update deb package version according to git describe
 
 deploy target:
   * deploy_github_appzip - upload PureData zipped app to github release

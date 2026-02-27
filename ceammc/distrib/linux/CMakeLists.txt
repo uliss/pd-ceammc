@@ -4,6 +4,14 @@ add_custom_target(
   ceammc_distrib_linux_sources SOURCES ${_BUILD_SCRIPTS} ${_RPI_EXAMPLES}
                                        rpi/pd-ceammc-autostart.desktop)
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/update_deb_pkg_version.sh
+               ${PROJECT_BINARY_DIR}/scripts/update_deb_pkg_version.sh @ONLY)
+
+add_custom_target(
+  dev_pkg_version
+  COMMAND ${PROJECT_BINARY_DIR}/scripts/update_deb_pkg_version.sh
+  USES_TERMINAL)
+
 if(UNIX AND NOT APPLE)
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/snapcraft.yaml.in
                  ${PROJECT_BINARY_DIR}/snap/snapcraft.yaml @ONLY)
@@ -53,11 +61,7 @@ if(UNIX AND NOT APPLE)
     install(
       DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/rpi/examples
       DESTINATION ${rpi_script_install_dir}/
-      FILE_PERMISSIONS
-        OWNER_READ
-        OWNER_WRITE
-        GROUP_READ
-        WORLD_READ)
+      FILE_PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
 
     # Linux dev targets
     # ##########################################################################
