@@ -29,7 +29,7 @@ pub fn update_pd_ceammc() {
         .expect("failed to wait on child");
 
     if status.success() {
-        let args = ["apt", "install", "-y", "pd-ceammc"];
+        let args = ["apt", "install", "-f", "-y", "pd-ceammc"];
         output_rule();
         println!("running command: {}", args.join(" ").cyan());
         output_rule();
