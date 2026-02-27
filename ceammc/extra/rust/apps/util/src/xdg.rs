@@ -2,11 +2,11 @@ use crate::{autostart::ORIG_MAIN_PATCH, common::output_header};
 
 pub fn info() {
     output_header("XDG");
-    println!("xdg_mime:  	{}", get_mime());
+    println!("xdg_mime:  	{}", get_mime_type());
     println!("xdg_app:      {}", get_default_app());
 }
 
-fn get_mime() -> String {
+pub fn get_mime_type() -> String {
     std::process::Command::new("xdg-mime")
         .args(["query", "filetype", ORIG_MAIN_PATCH])
         .output()
@@ -15,7 +15,7 @@ fn get_mime() -> String {
         .unwrap_or_default()
 }
 
-fn get_default_app() -> String {
+pub fn get_default_app() -> String {
     std::process::Command::new("xdg-mime")
         .args(["query", "default", "text/x-puredata"])
         .output()

@@ -1,4 +1,4 @@
-use crate::{autostart, common::output_header};
+use crate::{autostart, common::output_header, xdg};
 use ceammc_shared_rs::config::config_load;
 use chrono::{DateTime, Local};
 use colored::Colorize;
@@ -109,6 +109,8 @@ fn output_pd() {
             .unwrap_or("off".to_string())
             .cyan()
     );
+    println!("pd_mime:      \t{}", xdg::get_mime_type());
+    println!("pd_app:       \t{}", xdg::get_default_app());
 }
 
 pub fn output_info(
