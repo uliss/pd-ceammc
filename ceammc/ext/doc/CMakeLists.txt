@@ -218,12 +218,6 @@ add_custom_target(pddoc_files SOURCES
     ceammc.db
     ls_missing_doc.py
 )
-add_custom_target(dev_gen_rpi_doc
-    SOURCES gen_rpi_gpio.py gen_rpi_gpio.sh
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/gen_rpi_gpio.sh
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    USES_TERMINAL
-)
 file(GLOB _PDDOC_PD_FILES "*.pd")
 add_custom_target(pddoc_pd_files SOURCES ${_PDDOC_PD_FILES})
 file(GLOB _PDDOC_FAUST_FILES "faust/*")
@@ -243,6 +237,7 @@ add_subdirectory(music)
 add_subdirectory(sf2)
 add_subdirectory(sfz)
 add_subdirectory(sound)
+add_subdirectory(gpio)
 
 if(APPLE)
     find_program(RSYNC_EXEC rsync)
