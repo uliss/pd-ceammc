@@ -2,8 +2,8 @@ use crate::{autostart::ORIG_MAIN_PATCH, common::output_header};
 
 pub fn info() {
     output_header("XDG");
-    println!("xdg_mime:  	{}", get_mime_type());
-    println!("xdg_app:      {}", get_default_app());
+    println!("xdg_mime: \t{}", get_mime_type().trim_end());
+    println!("xdg_app:  \t{}", get_default_app().trim_end());
 }
 
 pub fn get_mime_type() -> String {
