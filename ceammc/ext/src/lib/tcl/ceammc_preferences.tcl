@@ -77,4 +77,3 @@ proc ::ceammc_prefs::show_dialog {} {
 }
 
 ::ceammc_prefs::init_options_menu
-::pdwindow::debug "\[ceammc\] ceammc_settings-plugin loaded\n"
