@@ -131,9 +131,9 @@ def obj_recv(name):
 
 def label_props(idx):
     if idx & 1 == 0:
-        return f"@label_side right @label_align left @label_valign center"
+        return "@label_side right @label_align left @label_valign center"
     else:
-        return f"@label_side left @label_align right @label_valign center"
+        return "@label_side left @label_align right @label_valign center"
 
 
 def tgl_values(idx):
@@ -182,14 +182,14 @@ def make_act():
     print(f"[output $1, soft_pwm_freq $1 100 0 #pwm {{i=2,o=1,ax={x3},ay={y+75}}}(")
     y += 100
     print(f"[s \\$0-gpio #gpio {{ax={x},ay={y}}}]")
-    print(f"[X rt:0->rs]")
-    print(f"[X rt:1->in]")
-    print(f"[X rt:2->out]")
-    print(f"[X rt:3->pwm]")
-    print(f"[X rs->gpio]")
-    print(f"[X in->gpio]")
-    print(f"[X out->gpio]")
-    print(f"[X pwm->gpio]")
+    print("[X rt:0->rs]")
+    print("[X rt:1->in]")
+    print("[X rt:2->out]")
+    print("[X rt:3->pwm]")
+    print("[X rs->gpio]")
+    print("[X in->gpio]")
+    print("[X out->gpio]")
+    print("[X pwm->gpio]")
        
 XOFF = 260
 YOFF = 60
