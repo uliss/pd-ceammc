@@ -24,10 +24,9 @@
         питания 5В, но входы GPIO Raspberry Pi работают при 3.3В.</tr>
       </par>
       <par>
-        <tr lang="en">Therefore, you **must** use a level converter from 5V to 3.3V, otherwise, you
-        could damage your Raspberry Pi!</tr>
-        <tr lang="ru">Поэтому вы должны использовать преобразователь уровней c 5В на
-        3.3В, иначе вы можете повредить свой Raspberry Pi!</tr>
+        <tr lang="en">Therefore, you need to use a level converter from 5V to 3.3V, otherwise you can damage the Raspberry Pi!</tr>
+        <tr lang="ru">Поэтому нужно использовать преобразователь уровней c 5В на
+        3.3В, иначе можно повредить Raspberry Pi!</tr>
       </par>
       <par>
         <tr lang="ru">При создании объект забирает в эксклюзивное владение GPIO контакты @trig_pin и @echo_pin:
@@ -37,21 +36,21 @@
       </par>
     </info>
     <arguments>
-      <argument name="TRIG_PIN" type="int" minvalue="0" maxvalue="255">
-        <tr lang="en">a trigger pin GPIO number</tr>
-        <tr lang="ru">триггерный пин GPIO</tr>
+      <argument name="TRIG_PIN" type="int" minvalue="-1" maxvalue="255">
+        <tr lang="en">a trigger pin GPIO number. A value of -1 means not to use the GPIO pin</tr>
+        <tr lang="ru">триггерный пин GPIO. Значение -1 означает не использовать GPIO контакт</tr>
       </argument>
-      <argument name="ECHO_PIN" type="int" minvalue="0" maxvalue="255">
-        <tr lang="en">an echo pin GPIO number</tr>
-        <tr lang="ru">эхо пин GPIO</tr>
+      <argument name="ECHO_PIN" type="int" minvalue="-1" maxvalue="255">
+        <tr lang="en">an echo pin GPIO number. A value of -1 means not to use the GPIO pin</tr>
+        <tr lang="ru">эхо пин GPIO. Значение -1 означает не использовать GPIO контакт</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @echo_pin -->
-      <property name="@echo_pin" type="int" default="27" minvalue="0" maxvalue="255"
+      <property name="@echo_pin" type="int" default="-1" minvalue="-1" maxvalue="255"
       access="initonly">
-        <tr lang="en">an echo pin GPIO number</tr>
-        <tr lang="ru">эхо пин GPIO</tr>
+        <tr lang="en">an echo pin GPIO number. A value of -1 means not to use the GPIO pin</tr>
+        <tr lang="ru">эхо пин GPIO. Значение -1 означает не использовать GPIO контакт</tr>
       </property>
       <!-- @poll_interval -->
       <property name="@poll_interval" type="int" default="20" minvalue="10" maxvalue="1000"
@@ -60,10 +59,10 @@
         <tr lang="ru">интервал между измерениями</tr>
       </property>
       <!-- @trig_pin -->
-      <property name="@trig_pin" type="int" default="17" minvalue="0" maxvalue="255"
+      <property name="@trig_pin" type="int" default="-1" minvalue="-1" maxvalue="255"
       access="initonly">
-        <tr lang="en">a trigger pin GPIO number</tr>
-        <tr lang="ru">триггерный пин GPIO</tr>
+        <tr lang="en">a trigger pin GPIO number. A value of -1 means not to use the GPIO pin</tr>
+        <tr lang="ru">триггерный пин GPIO. Значение -1 означает не использовать GPIO контакт</tr>
       </property>
     </properties>
     <methods>
@@ -82,22 +81,22 @@
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">single distance measurement</tr>
-          <tr lang="ru">однократное измерение расстояния</tr>
+          <tr lang="en">make single distance measurement</tr>
+          <tr lang="ru">произвести однократное измерение расстояния</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">float: distance in cm</tr>
-          <tr lang="ru">float: расстояние в см</tr>
+        <out type="float">
+          <tr lang="en">distance in cm</tr>
+          <tr lang="ru">расстояние в см</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
-          <tr lang="en">bang: if distance can not be measured</tr>
-          <tr lang="ru">bang: если расстояние невозможно измерить</tr>
+        <out type="bang">
+          <tr lang="en">if distance can not be measured</tr>
+          <tr lang="ru"> если расстояние невозможно измерить</tr>
         </out>
       </outlet>
     </outlets>
@@ -111,9 +110,9 @@
 |
 |
 |
-[hw.rpi.sensor.sr04 23 24 #x]
-|         ^|
-[F]       [B]
+[hw.rpi.sensor.sr04 @trig_pin 23 @echo_pin 24 #x]
+|                              ^|
+[F]                            [B]
 
 
 [ui.link @url=ceammc://img/hc_sr04.png @title='Connection_scheme']

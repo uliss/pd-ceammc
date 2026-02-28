@@ -8,17 +8,17 @@
 #X obj 230 78 cnv 1 535 175 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 240 83 **Note:** The HC-SR04 ultrasonic sensor requires a 5V
 power supply \, but the Raspberry Pi's GPIO inputs operate at 3.3V.;
-#X text 240 138 Therefore \, you **must** use a level converter from
-5V to 3.3V \, otherwise \, you could damage your Raspberry Pi!;
+#X text 240 138 Therefore \, you need to use a level converter from
+5V to 3.3V \, otherwise you can damage the Raspberry Pi!;
 #X text 240 178 When created \, the object takes exclusive ownership
 of the GPIO pins @trig_pin and @echo_pin - it is *impossible* to use
 them in other objects simultaneously with this one.;
 #X obj 50 301 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 50 330 poll \$1;
 #X msg 155 330 bang;
-#X obj 50 402 hw.rpi.sensor.sr04 23 24;
+#X obj 50 402 hw.rpi.sensor.sr04 @trig_pin 23 @echo_pin 24;
 #X floatatom 50 431 5 0 0 0 - - -;
-#X obj 146 431 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 347 431 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 474 ui.link @title 'Connection_scheme' @url
 ceammc://img/hc_sr04.png;
@@ -30,57 +30,60 @@ ceammc://img/hc_sr04.png;
 #X text 130 537 1\.;
 #X text 170 537 int;
 #X obj 268 538 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 537 TRIG_PIN: a trigger pin GPIO number. Type: int. Range:
-0\...255;
+#X text 270 537 TRIG_PIN: a trigger pin GPIO number. A value of -1
+means not to use the GPIO pin. Type: int. Range: -1\...255;
 #X text 130 577 2\.;
 #X text 170 577 int;
 #X obj 268 578 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 577 ECHO_PIN: an echo pin GPIO number. Type: int. Range:
-0\...255;
-#X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 617 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 270 577 ECHO_PIN: an echo pin GPIO number. A value of -1 means
+not to use the GPIO pin. Type: int. Range: -1\...255;
+#X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 632 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 620 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 635 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 618 @echo_pin;
-#X text 270 618 (initonly) An echo pin GPIO number. Type: int. Default
-value: 27\. Range: 0\...255\.;
-#X obj 250 660 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 660 @trig_pin;
-#X text 270 660 (initonly) A trigger pin GPIO number. Type: int. Default
-value: 17\. Range: 0\...255\.;
-#X obj 250 702 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 702 @poll_interval;
-#X text 270 702 Poll interval. Type: int. Units: 'ms'. Default value:
+#X msg 130 633 @echo_pin;
+#X text 270 633 (initonly) An echo pin GPIO number. A value of -1 means
+not to use the GPIO pin. Type: int. Default value: -1\. Range: -1\...255\.;
+#X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 690 @trig_pin;
+#X text 270 690 (initonly) A trigger pin GPIO number. A value of -1
+means not to use the GPIO pin. Type: int. Default value: -1\. Range:
+-1\...255\.;
+#X obj 250 747 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 747 @poll_interval;
+#X text 270 747 Poll interval. Type: int. Units: 'ms'. Default value:
 20\. Range: 10\...1000\.;
-#X obj 20 754 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 759 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 799 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 804 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 760 poll;
-#X text 270 760 turn the sensor polling on/off. Arguments are:;
-#X obj 280 783 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 783 STATE: poll state. Type: bool.;
-#X obj 20 818 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 823 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 805 poll;
+#X text 270 805 turn the sensor polling on/off. Arguments are:;
+#X obj 280 828 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 828 STATE: poll state. Type: bool.;
+#X obj 20 863 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 868 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 824 1\.;
-#X text 170 824 bang:;
-#X text 270 824 single distance measurement.;
-#X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 864 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 869 1\.;
+#X text 170 869 bang:;
+#X text 270 869 make single distance measurement.;
+#X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 909 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 865 1\.;
-#X text 270 865 float: distance in cm.;
-#X text 130 885 2\.;
-#X text 270 885 bang: if distance can not be measured.;
+#X text 130 910 1\.;
+#X text 170 910 float:;
+#X text 270 910 distance in cm.;
+#X text 130 930 2\.;
+#X text 170 930 bang:;
+#X text 270 930 if distance can not be measured.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 935 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 938 library: ceammc v0.9.8;
-#N canvas 10 957 400 290 info 0;
+#X obj 1 980 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 983 library: ceammc v0.9.8;
+#N canvas 10 1002 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -104,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 957 pd info;
+#X restore 10 1002 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 11 0 12 0;
