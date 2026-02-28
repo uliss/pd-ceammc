@@ -29,6 +29,12 @@
         <tr lang="ru">Поэтому вы должны использовать преобразователь уровней c 5В на
         3.3В, иначе вы можете повредить свой Raspberry Pi!</tr>
       </par>
+      <par>
+        <tr lang="ru">При создании объект забирает в эксклюзивное владение GPIO контакты @trig_pin и @echo_pin:
+        использовать их в других объектах одновременно с этим *невозможно*.</tr>
+        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pins @trig_pin and @echo_pin
+        - it is *impossible* to use them in other objects simultaneously with this one.</tr>
+      </par>
     </info>
     <arguments>
       <argument name="TRIG_PIN" type="int" minvalue="0" maxvalue="255">
