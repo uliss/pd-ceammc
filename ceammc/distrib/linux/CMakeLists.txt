@@ -13,6 +13,12 @@ add_custom_target(
   COMMAND ${PROJECT_BINARY_DIR}/scripts/update_deb_pkg_version.sh
   USES_TERMINAL)
 
+# RPi check pd examples: close opened subpatches
+add_custom_target(
+  rpi_fix_subpatches
+  COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/rpi/examples/close_all_subpatches.sh ${_RPI_EXAMPLES}
+  USES_TERMINAL)
+
 if(UNIX AND NOT APPLE)
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/snapcraft.yaml.in
                  ${PROJECT_BINARY_DIR}/snap/snapcraft.yaml @ONLY)
