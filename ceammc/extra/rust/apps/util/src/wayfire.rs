@@ -2,7 +2,7 @@ use std::fs;
 
 use crate::common::{home_path, Error};
 
-const WAYFIRE_CONFIG_PATH: &'static str = "/.config/wayfire.ini";
+const WAYFIRE_CONFIG_PATH: &'static str = ".config/wayfire.ini";
 const WAYFIRE_CONFIG_XCB_SECTION: &'static str = "input";
 const WAYFIRE_CONFIG_XCB_LAYOUT: &'static str = "xkb_layout";
 const WAYFIRE_CONFIG_XCB_OPTIONS: &'static str = "xkb_options";
@@ -16,6 +16,19 @@ pub enum LayoutIndicator {
     Caps,
     Scroll,
     Num,
+}
+
+impl TryFrom<String> for LayoutIndicator {
+    type Error = String;
+
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        match value.as_str() {
+            "caps" => Ok(Self::Caps),
+            "scroll" => Ok(Self::Scroll),
+            "num" => Ok(Self::Num),
+            _ => Err(format!("unknown indicator: {value}")),
+        }
+    }
 }
 
 pub struct KeyboardLayout {
