@@ -16,6 +16,7 @@ humansize = "2.1.3"
 log = "0.4.29"
 sysinfo = "0.38.2"
 terminal_size = "0.4.3"
+rust-ini = "0.21.3"
 
 [target.'cfg(target_os = "linux")'.dependencies]
 rust-apt = "0.9.0"

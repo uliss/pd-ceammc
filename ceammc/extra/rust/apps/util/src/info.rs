@@ -1,4 +1,4 @@
-use crate::{autostart, common::output_header, xdg};
+use crate::{autostart, common::output_header, wayfire, xdg};
 use ceammc_shared_rs::config::config_load;
 use chrono::{DateTime, Local};
 use colored::Colorize;
@@ -157,6 +157,7 @@ pub fn output_info(
     system: bool,
     pd: bool,
     disk: bool,
+    keyboard: bool,
 ) {
     let mut sys = sysinfo::System::new_all();
     sys.refresh_all();
@@ -188,6 +189,12 @@ pub fn output_info(
     if all || system {
         output_header("system");
         output_system();
+        println!();
+    }
+
+    if all || keyboard {
+        output_header("keyboard");
+        wayfire::output_keyboard_info();
         println!();
     }
 

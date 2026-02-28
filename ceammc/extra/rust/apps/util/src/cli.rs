@@ -59,6 +59,14 @@ pub enum Xdg {
     Info,
 }
 
+#[derive(Clone, Subcommand)]
+pub enum Keyboard {
+    /// fix keyboard layout change
+    Fix,
+    /// print keyboard layout information
+    Info,
+}
+
 /// CEAM utilities
 #[derive(Subcommand, Clone)]
 #[command(version, about, long_about = None)]
@@ -92,10 +100,16 @@ pub enum Commands {
         /// output disks information
         #[arg(long)]
         disk: bool,
+        /// output keyboard information
+        #[arg(long)]
+        keyboard: bool,
     },
     /// XDG (X Desktop Group)
     #[command(subcommand)]
     Xdg(Xdg),
+    /// keyboard layout
+    #[command(subcommand)]
+    Keyboard(Keyboard),
 }
 
 #[derive(Parser)]

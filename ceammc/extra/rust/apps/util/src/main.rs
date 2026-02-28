@@ -16,6 +16,7 @@ mod common;
 mod dpkg;
 mod info;
 mod update;
+mod wayfire;
 mod xdg;
 
 fn main() -> anyhow::Result<()> {
@@ -93,12 +94,28 @@ fn main() -> anyhow::Result<()> {
             pd: _,
             net,
             disk,
+            keyboard,
         } => {
-            output_info(use_bytes, all, mem, cpu, net, system, true, disk);
+            output_info(use_bytes, all, mem, cpu, net, system, true, disk, keyboard);
         }
         Commands::Xdg(xdg) => match xdg {
             cli::Xdg::Info {} => xdg::info(),
         },
+        Commands::Keyboard(keyboard) => {
+            //
+            if let Err(err) = match keyboard {
+                cli::Keyboard::Fix => {
+                    wayfire::fix_keyboard_layout(Some(wayfire::LayoutIndicator::Scroll))
+                }
+                cli::Keyboard::Info => {
+                    common::output_header("keyboard");
+                    wayfire::output_keyboard_info();
+                    Ok(())
+                }
+            } {
+                output_error(&err);
+            }
+        }
     }
 
     Ok(())
