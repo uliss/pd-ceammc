@@ -13,6 +13,8 @@ pub fn get_mime_type() -> String {
         .ok()
         .map(|x| String::from_utf8(x.stdout).unwrap_or("invalid output".to_string()))
         .unwrap_or_default()
+        .trim()
+        .to_string()
 }
 
 pub fn get_default_app() -> String {
@@ -20,11 +22,8 @@ pub fn get_default_app() -> String {
         .args(["query", "default", "text/x-puredata"])
         .output()
         .ok()
-        .map(|x| {
-            String::from_utf8(x.stdout)
-                .unwrap_or("invalid output".to_string())
-                .trim() // trim trailing \n and spaces
-                .to_owned()
-        })
+        .map(|x| String::from_utf8(x.stdout).unwrap_or("invalid output".to_string()))
         .unwrap_or_default()
+        .trim()
+        .to_string()
 }
