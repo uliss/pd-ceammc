@@ -18,10 +18,17 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Note: you should **flush** (with bang or [flush( message) after almost all
-        pixel/color operations</tr>
-        <tr lang="ru">Примечание: необходимо отправлять внутренний буфер на устройство с помощью bang или
-        сообщением [flush( практически после всех операций с пикселями/цветом</tr>
+        <tr lang="en">When using the object, you need to specify the number of the SPI bus being used, which this object takes into exclusive ownership.
+        This bus becomes unavailable to other objects.</tr>
+        <tr lang="ru">При использовании объекта нужно указать номер используемой шину SPI,
+        которую этот объект забирает в эксклюзивное владение.
+        Другим объектам эта шина становится недоступна.</tr>
+      </par>
+      <par>
+        <tr lang="en">The object uses an internal pixel buffer, with the colors of which it works by sending messages to the object.
+        After finishing work with the pixel buffer, it needs to be sent to the LED strip using a bang or the [flush( command.</tr>
+        <tr lang="ru">Объект использует внутренний буфер пикселей, с цветами которых работают при помощи отправки сообщений объекту.
+        После окончания работы с пискельным буфером его нужно передать на светодиодную ленту при помощи bang или команды [flush(</tr>
       </par>
     </info>
     <properties>
@@ -230,7 +237,7 @@
 |
 [system.colorpanel @i] [set_slice 1 15 3 0 127 255, bang #c(
 |
-[msg fill]             [fx rainbow 0.5, bang #d(
+[msg fill]             [fx rainbow 0.5, fx_next #d(
 |
 [msg.after 0 bang #a]  [F]
                        |

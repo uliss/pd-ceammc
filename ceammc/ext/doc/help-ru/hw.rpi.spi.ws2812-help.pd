@@ -6,147 +6,151 @@ Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.spi.ws2812 20 20 0 20
 -104026 -4096 0;
 #X obj 617 11 hw.rpi.spi.ws2812;
-#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 240 83 Примечание: необходимо отправлять внутренний буфер на
-устройство с помощью bang или сообщением [flush( практически после
-всех операций с пикселями/цветом;
-#X obj 50 191 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 165 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 240 83 При использовании объекта нужно указать номер используемой
+шину SPI \, которую этот объект забирает в эксклюзивное владение. Другим
+объектам эта шина становится недоступна.;
+#X text 240 153 Объект использует внутренний буфер пикселей \, с цветами
+которых работают при помощи отправки сообщений объекту. После окончания
+работы с пискельным буфером его нужно передать на светодиодную ленту
+при помощи bang или команды [flush(;
+#X obj 50 291 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 270 191 set_range 4 4 255 0 0 \, bang;
-#X obj 50 220 system.colorpanel @i;
-#X msg 270 220 set_slice 1 15 3 0 127 255 \, bang;
-#X obj 50 249 msg fill;
-#X msg 270 249 fx rainbow 0.5 \, bang;
-#X obj 50 278 msg.after 0 bang;
-#X floatatom 270 278 5 0 0 0 - - -;
-#X msg 59 307 brightness 8 \, bang;
-#X msg 270 307 set \$1 0 0 255 \, bang;
-#X msg 59 350 clear;
-#X obj 50 378 hw.rpi.spi.ws2812 @size 16 @spi_bus 0;
-#X obj 50 422 ui.link @title 'Connection_Scheme' @url
+#X msg 270 291 set_range 4 4 255 0 0 \, bang;
+#X obj 50 320 system.colorpanel @i;
+#X msg 270 320 set_slice 1 15 3 0 127 255 \, bang;
+#X obj 50 349 msg fill;
+#X msg 270 349 fx rainbow 0.5 \, fx_next;
+#X obj 50 378 msg.after 0 bang;
+#X floatatom 270 378 5 0 0 0 - - -;
+#X msg 59 407 brightness 8 \, bang;
+#X msg 270 407 set \$1 0 0 255 \, bang;
+#X msg 59 450 clear;
+#X obj 50 478 hw.rpi.spi.ws2812 @size 16 @spi_bus 0;
+#X obj 50 522 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_ws2812.png;
-#X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 484 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 584 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 487 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 587 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 485 @spi_bus;
-#X text 270 485 (при инициализации) Номер шины SPI. Тип: int. Значение
+#X msg 130 585 @spi_bus;
+#X text 270 585 (при инициализации) Номер шины SPI. Тип: int. Значение
 по умолчанию: -1\. Диапазон: -1\...6\.;
-#X obj 250 527 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 527 @spi_cs;
-#X text 270 527 (при инициализации) SPI CS (chip select/enable) индекс.
+#X obj 250 627 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 627 @spi_cs;
+#X text 270 627 (при инициализации) SPI CS (chip select/enable) индекс.
 В большинстве случаев вам не нужно устанавливать это свойство \, потому
 что светодиодные ленты не используют пин CS. Тип: int. Значение по
 умолчанию: 0\. Диапазон: 0\...3\.;
-#X obj 250 614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 614 @size;
-#X text 270 614 (при инициализации) Количество светодиодов в ленте.
+#X obj 250 714 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 714 @size;
+#X text 270 714 (при инициализации) Количество светодиодов в ленте.
 Тип: int. Значение по умолчанию: 16\. Диапазон: 1\...4096\.;
-#X obj 250 671 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 671 @clear;
-#X text 270 671 Выключать все пиксели при удалении объекта. Тип: bool.
+#X obj 250 771 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 771 @clear;
+#X text 270 771 Выключать все пиксели при удалении объекта. Тип: bool.
 Значение по умолчанию: 1\.;
-#X obj 20 723 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 728 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 828 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 729 brightness;
-#X text 270 729 установить якрость пикселей. Аргументы:;
-#X obj 280 752 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 752 LEVEL: уровень яркости. Тип: int. Диапазон: 0…255\.;
-#X obj 250 777 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 777 clear;
-#X text 270 777 выключить все пиксели.;
-#X obj 250 805 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 805 fill;
-#X text 270 805 заполнить все пиксели цветом RGB. Аргументы:;
-#X obj 280 828 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 828 R: красная компонента цвета. Тип: int. Диапазон: 0…255\.;
-#X obj 280 851 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 851 G: зеленая компонента цвета. Тип: int. Диапазон: 0…255\.;
-#X obj 280 874 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 874 B: синяя компонента цвета. Тип: int. Диапазон: 0…255\.;
-#X obj 250 899 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 899 flush;
-#X text 270 899 вывести и очистить внутренний буфер на ленту.;
-#X obj 250 927 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 927 fx;
-#X text 270 927 применить функцию цветового генератора. Аргументы:;
-#X obj 280 950 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 950 NAME: название функции. Тип: symbol. Разрешённые значения:
+#X msg 130 829 brightness;
+#X text 270 829 установить якрость пикселей. Аргументы:;
+#X obj 280 852 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 852 LEVEL: уровень яркости. Тип: int. Диапазон: 0…255\.;
+#X obj 250 877 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 877 clear;
+#X text 270 877 выключить все пиксели.;
+#X obj 250 905 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 905 fill;
+#X text 270 905 заполнить все пиксели цветом RGB. Аргументы:;
+#X obj 280 928 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 928 R: красная компонента цвета. Тип: int. Диапазон: 0…255\.;
+#X obj 280 951 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 951 G: зеленая компонента цвета. Тип: int. Диапазон: 0…255\.;
+#X obj 280 974 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 974 B: синяя компонента цвета. Тип: int. Диапазон: 0…255\.;
+#X obj 250 999 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 999 flush;
+#X text 270 999 вывести и очистить внутренний буфер на ленту.;
+#X obj 250 1027 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1027 fx;
+#X text 270 1027 применить функцию цветового генератора. Аргументы:;
+#X obj 280 1050 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1050 NAME: название функции. Тип: symbol. Разрешённые значения:
 rainbow.;
-#X obj 280 988 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 988 [ARG]: переметры функции. Тип: float. Диапазон: 0…1\.;
-#X obj 280 1011 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1011 [BEGIN]: начало диапазона. Тип: int.;
-#X obj 280 1034 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1034 [LENGTH]: длина диапазона. Тип: int. Минимальное значение:
+#X obj 280 1088 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1088 [ARG]: переметры функции. Тип: float. Диапазон: 0…1\.;
+#X obj 280 1111 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1111 [BEGIN]: начало диапазона. Тип: int.;
+#X obj 280 1134 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1134 [LENGTH]: длина диапазона. Тип: int. Минимальное значение:
 0\.;
-#X obj 250 1074 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1074 rotate;
-#X text 270 1074 сдвинуть все пиксели на указанный шаг. Аргументы:;
-#X obj 280 1097 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1097 SHIFT: значение шага. Тип: int.;
-#X obj 250 1122 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1122 set;
-#X text 270 1122 установить цвет отдельного пикселя. Аргументы:;
-#X obj 280 1145 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1145 R: красная компонента цвета. Тип: int. Диапазон: 0…255\.;
-#X obj 280 1168 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1168 G: зеленая компонента цвета. Тип: int. Диапазон: 0…255\.;
-#X obj 280 1191 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1191 B: синяя компонента цвета. Тип: int. Диапазон: 0…255\.;
-#X obj 250 1216 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1216 set_range;
-#X text 270 1216 установить диапазон пикселей в указанный цвет. Аргументы:;
-#X obj 280 1239 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1239 BEGIN: начало диапазона. Тип: int. Минимальное значение:
+#X obj 250 1174 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1174 rotate;
+#X text 270 1174 сдвинуть все пиксели на указанный шаг. Аргументы:;
+#X obj 280 1197 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1197 SHIFT: значение шага. Тип: int.;
+#X obj 250 1222 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1222 set;
+#X text 270 1222 установить цвет отдельного пикселя. Аргументы:;
+#X obj 280 1245 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1245 R: красная компонента цвета. Тип: int. Диапазон: 0…255\.;
+#X obj 280 1268 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1268 G: зеленая компонента цвета. Тип: int. Диапазон: 0…255\.;
+#X obj 280 1291 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1291 B: синяя компонента цвета. Тип: int. Диапазон: 0…255\.;
+#X obj 250 1316 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1316 set_range;
+#X text 270 1316 установить диапазон пикселей в указанный цвет. Аргументы:;
+#X obj 280 1339 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1339 BEGIN: начало диапазона. Тип: int. Минимальное значение:
 0\.;
-#X obj 280 1262 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1262 LENGTH: длина диапазона. Тип: int. Минимальное значение:
+#X obj 280 1362 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1362 LENGTH: длина диапазона. Тип: int. Минимальное значение:
 1\.;
-#X obj 280 1285 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1285 R: красная компонента цвета. Тип: int. Диапазон: 0…255\.;
-#X obj 280 1308 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1308 G: зеленая компонента цвета. Тип: int. Диапазон: 0…255\.;
-#X obj 280 1331 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1331 B: синяя компонента цвета. Тип: int. Диапазон: 0…255\.;
-#X obj 250 1356 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1356 set_slice;
-#X text 270 1356 установить срез пикселей в указанный цвет. Аргументы:;
-#X obj 280 1379 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1379 BEGIN: начало диапазона. Тип: int. Минимальное значение:
+#X obj 280 1385 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1385 R: красная компонента цвета. Тип: int. Диапазон: 0…255\.;
+#X obj 280 1408 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1408 G: зеленая компонента цвета. Тип: int. Диапазон: 0…255\.;
+#X obj 280 1431 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1431 B: синяя компонента цвета. Тип: int. Диапазон: 0…255\.;
+#X obj 250 1456 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1456 set_slice;
+#X text 270 1456 установить срез пикселей в указанный цвет. Аргументы:;
+#X obj 280 1479 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1479 BEGIN: начало диапазона. Тип: int. Минимальное значение:
 0\.;
-#X obj 280 1402 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1402 END: конец диапазона. Тип: int. Минимальное значение:
+#X obj 280 1502 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1502 END: конец диапазона. Тип: int. Минимальное значение:
 0\.;
-#X obj 280 1425 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1425 STEP: шаг среза. Тип: int. Минимальное значение: 1\.;
-#X obj 280 1448 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1448 R: красная компонента цвета. Тип: int. Диапазон: 0…255\.;
-#X obj 280 1471 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1471 G: зеленая компонента цвета. Тип: int. Диапазон: 0…255\.;
-#X obj 280 1494 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1494 B: синяя компонента цвета. Тип: int. Диапазон: 0…255\.;
-#X obj 20 1529 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1534 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 280 1525 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1525 STEP: шаг среза. Тип: int. Минимальное значение: 1\.;
+#X obj 280 1548 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1548 R: красная компонента цвета. Тип: int. Диапазон: 0…255\.;
+#X obj 280 1571 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1571 G: зеленая компонента цвета. Тип: int. Диапазон: 0…255\.;
+#X obj 280 1594 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1594 B: синяя компонента цвета. Тип: int. Диапазон: 0…255\.;
+#X obj 20 1629 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1634 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1535 1\.;
-#X text 170 1535 bang:;
-#X text 270 1535 сбросить значения пикселей на ленту.;
-#X obj 20 1570 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1575 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1635 1\.;
+#X text 170 1635 bang:;
+#X text 270 1635 сбросить значения пикселей на ленту.;
+#X obj 20 1670 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1675 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1576 1\.;
-#X text 270 1576 ничего не выводит.;
+#X text 130 1676 1\.;
+#X text 270 1676 ничего не выводит.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1626 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1629 библиотека: ceammc v0.9.8;
-#N canvas 10 1648 400 290 info 0;
+#X obj 1 1726 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1729 библиотека: ceammc v0.9.8;
+#N canvas 10 1748 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -170,15 +174,15 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1648 pd info;
-#X connect 6 0 8 0;
-#X connect 8 0 10 0;
-#X connect 10 0 12 0;
-#X connect 13 0 15 0;
-#X connect 16 0 17 0;
-#X connect 12 0 17 0;
-#X connect 7 0 17 0;
-#X connect 9 0 17 0;
-#X connect 11 0 17 0;
-#X connect 14 0 17 0;
-#X connect 15 0 17 0;
+#X restore 10 1748 pd info;
+#X connect 7 0 9 0;
+#X connect 9 0 11 0;
+#X connect 11 0 13 0;
+#X connect 14 0 16 0;
+#X connect 17 0 18 0;
+#X connect 13 0 18 0;
+#X connect 8 0 18 0;
+#X connect 10 0 18 0;
+#X connect 12 0 18 0;
+#X connect 15 0 18 0;
+#X connect 16 0 18 0;
