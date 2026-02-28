@@ -38,11 +38,11 @@
     <arguments>
       <argument name="TRIG_PIN" type="int" minvalue="-1" maxvalue="255">
         <tr lang="en">a trigger pin GPIO number. A value of -1 means not to use the GPIO pin</tr>
-        <tr lang="ru">триггерный пин GPIO. Значение -1 означает не использовать GPIO контакт</tr>
+        <tr lang="ru">триггерный контакт GPIO. Значение -1 означает не использовать GPIO контакт</tr>
       </argument>
       <argument name="ECHO_PIN" type="int" minvalue="-1" maxvalue="255">
         <tr lang="en">an echo pin GPIO number. A value of -1 means not to use the GPIO pin</tr>
-        <tr lang="ru">эхо пин GPIO. Значение -1 означает не использовать GPIO контакт</tr>
+        <tr lang="ru">эхо контакт GPIO. Значение -1 означает не использовать GPIO контакт</tr>
       </argument>
     </arguments>
     <properties>
@@ -50,7 +50,7 @@
       <property name="@echo_pin" type="int" default="-1" minvalue="-1" maxvalue="255"
       access="initonly">
         <tr lang="en">an echo pin GPIO number. A value of -1 means not to use the GPIO pin</tr>
-        <tr lang="ru">эхо пин GPIO. Значение -1 означает не использовать GPIO контакт</tr>
+        <tr lang="ru">эхо контакт GPIO. Значение -1 означает не использовать GPIO контакт</tr>
       </property>
       <!-- @poll_interval -->
       <property name="@poll_interval" type="int" default="20" minvalue="10" maxvalue="1000"
@@ -62,7 +62,7 @@
       <property name="@trig_pin" type="int" default="-1" minvalue="-1" maxvalue="255"
       access="initonly">
         <tr lang="en">a trigger pin GPIO number. A value of -1 means not to use the GPIO pin</tr>
-        <tr lang="ru">триггерный пин GPIO. Значение -1 означает не использовать GPIO контакт</tr>
+        <tr lang="ru">триггерный контакт GPIO. Значение -1 означает не использовать GPIO контакт</tr>
       </property>
     </properties>
     <methods>

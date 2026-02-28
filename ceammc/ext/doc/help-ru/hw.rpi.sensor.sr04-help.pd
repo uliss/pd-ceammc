@@ -31,61 +31,61 @@ ceammc://img/hc_sr04.png;
 #X text 130 522 1\.;
 #X text 170 522 int;
 #X obj 268 523 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 522 TRIG_PIN: триггерный пин GPIO. Значение -1 означает
+#X text 270 522 TRIG_PIN: триггерный контакт GPIO. Значение -1 означает
 не использовать GPIO контакт. Тип: int. Диапазон: -1…255;
-#X text 130 562 2\.;
-#X text 170 562 int;
-#X obj 268 563 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 562 ECHO_PIN: эхо пин GPIO. Значение -1 означает не использовать
-GPIO контакт. Тип: int. Диапазон: -1…255;
-#X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 617 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 577 2\.;
+#X text 170 577 int;
+#X obj 268 578 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 577 ECHO_PIN: эхо контакт GPIO. Значение -1 означает не
+использовать GPIO контакт. Тип: int. Диапазон: -1…255;
+#X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 632 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 620 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 635 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 618 @echo_pin;
-#X text 270 618 (при инициализации) Эхо пин GPIO. Значение -1 означает
+#X msg 130 633 @echo_pin;
+#X text 270 633 (при инициализации) Эхо контакт GPIO. Значение -1 означает
 не использовать GPIO контакт. Тип: int. Значение по умолчанию: -1\.
 Диапазон: -1\...255\.;
-#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 675 @trig_pin;
-#X text 270 675 (при инициализации) Триггерный пин GPIO. Значение -1
-означает не использовать GPIO контакт. Тип: int. Значение по умолчанию:
+#X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 690 @trig_pin;
+#X text 270 690 (при инициализации) Триггерный контакт GPIO. Значение
+-1 означает не использовать GPIO контакт. Тип: int. Значение по умолчанию:
 -1\. Диапазон: -1\...255\.;
-#X obj 250 732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 732 @poll_interval;
-#X text 270 732 Интервал между измерениями. Тип: int. Единицы: 'ms'.
+#X obj 250 747 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 747 @poll_interval;
+#X text 270 747 Интервал между измерениями. Тип: int. Единицы: 'ms'.
 Значение по умолчанию: 20\. Диапазон: 10\...1000\.;
-#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 789 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 799 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 804 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 790 poll;
-#X text 270 790 включить/выключить автоматический опрос сенсора. Аргументы:;
-#X obj 280 813 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 813 STATE: состояние опроса. Тип: bool.;
-#X obj 20 848 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 853 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 805 poll;
+#X text 270 805 включить/выключить автоматический опрос сенсора. Аргументы:;
+#X obj 280 828 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 828 STATE: состояние опроса. Тип: bool.;
+#X obj 20 863 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 868 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 854 1\.;
-#X text 170 854 bang:;
-#X text 270 854 произвести однократное измерение расстояния.;
-#X obj 20 889 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 894 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 869 1\.;
+#X text 170 869 bang:;
+#X text 270 869 произвести однократное измерение расстояния.;
+#X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 909 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 895 1\.;
-#X text 170 895 float:;
-#X text 270 895 расстояние в см.;
-#X text 130 915 2\.;
-#X text 170 915 bang:;
-#X text 270 915 если расстояние невозможно измерить.;
+#X text 130 910 1\.;
+#X text 170 910 float:;
+#X text 270 910 расстояние в см.;
+#X text 130 930 2\.;
+#X text 170 930 bang:;
+#X text 270 930 если расстояние невозможно измерить.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 965 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 968 библиотека: ceammc v0.9.8;
-#N canvas 10 987 400 290 info 0;
+#X obj 1 980 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 983 библиотека: ceammc v0.9.8;
+#N canvas 10 1002 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -109,7 +109,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 987 pd info;
+#X restore 10 1002 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 11 0 12 0;

@@ -48,7 +48,7 @@ if(APPLE)
 elseif(UNIX)
   # update manually on each deb release should be reset to r1 on every
   # distribution release
-  set(LINUX_DEBIAN_PACKAGE_REVISION ".r2004")
+  set(LINUX_DEBIAN_PACKAGE_REVISION ".r2016")
   set(LINUX_DEBIAN_PACKAGE_NAME "pd-ceammc")
   # Note: without .deb extension
   set(LINUX_DEBIAN_PACKAGE_FILE_NAME
