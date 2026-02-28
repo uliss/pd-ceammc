@@ -21,6 +21,9 @@ public:
 
     void onBang() final;
     void m_poll(t_symbol* s, const AtomListView& lv);
+
+private:
+    bool check_no_pins(bool output_warning = true) const;
 };
 
 void setup_hw_rpi_sensor_sr04();

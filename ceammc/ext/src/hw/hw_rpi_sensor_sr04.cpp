@@ -1,9 +1,10 @@
 #include "hw_rpi_sensor_sr04.h"
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 
-constexpr int DEFAULT_TRIG_GPIO_PIN = 17;
-constexpr int DEFAULT_ECHO_GPIO_PIN = 27;
+constexpr int NULL_TRIG_GPIO_PIN = -1;
+constexpr int NULL_ECHO_GPIO_PIN = -1;
 
 HwRpiSensorSr04::HwRpiSensorSr04(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
@@ -11,13 +12,13 @@ HwRpiSensorSr04::HwRpiSensorSr04(const PdArgs& args)
     createOutlet();
     createOutlet();
 
-    trigger_pin_ = new IntProperty("@trig_pin", DEFAULT_TRIG_GPIO_PIN, PropValueAccess::INITONLY);
-    trigger_pin_->checkClosedRange(0, 255);
+    trigger_pin_ = new IntProperty("@trig_pin", NULL_TRIG_GPIO_PIN, PropValueAccess::INITONLY);
+    trigger_pin_->checkClosedRange(-1, 255);
     trigger_pin_->setArgIndex(0);
     addProperty(trigger_pin_);
 
-    echo_pin_ = new IntProperty("@echo_pin", DEFAULT_ECHO_GPIO_PIN, PropValueAccess::INITONLY);
-    echo_pin_->checkClosedRange(0, 255);
+    echo_pin_ = new IntProperty("@echo_pin", NULL_ECHO_GPIO_PIN, PropValueAccess::INITONLY);
+    echo_pin_->checkClosedRange(-1, 255);
     echo_pin_->setArgIndex(1);
     addProperty(echo_pin_);
 
@@ -37,6 +38,9 @@ HwRpiSensorSr04::~HwRpiSensorSr04()
 
 void HwRpiSensorSr04::initDone()
 {
+    if (check_no_pins(false))
+        return;
+
     sr04_ = ceammc_hw_gpio_sr04_new(trigger_pin_->value(),
         echo_pin_->value(),
         on_notify(), //
@@ -55,21 +59,46 @@ void HwRpiSensorSr04::initDone()
 
 bool HwRpiSensorSr04::notify(int code)
 {
+    if (!check_no_pins())
+        return false;
+
     return ceammc_hw_gpio_sr04_process(sr04_);
 }
 
 void HwRpiSensorSr04::onBang()
 {
+    if (!check_no_pins())
+        return;
+
     ceammc_hw_gpio_sr04_measure(sr04_);
 }
 
 void HwRpiSensorSr04::m_poll(t_symbol* s, const AtomListView& lv)
 {
+    if (!check_no_pins())
+        return;
+
     static const args::ArgChecker args("STATE:b");
     if (!args.check(lv, this))
         return args.usage(this, s);
 
     ceammc_hw_gpio_sr04_poll(sr04_, lv.boolAt(0, false));
+}
+
+bool HwRpiSensorSr04::check_no_pins(bool output_warning) const
+{
+    bool no_pins = false;
+    if (trigger_pin_->value() == NULL_TRIG_GPIO_PIN && output_warning) {
+        OBJ_ERR << fmt::format("@trig_pin is not set");
+        no_pins = true;
+    }
+
+    if (echo_pin_->value() == NULL_ECHO_GPIO_PIN && output_warning) {
+        OBJ_ERR << fmt::format("@echo_pin is not set");
+        no_pins = true;
+    }
+
+    return no_pins;
 }
 
 void setup_hw_rpi_sensor_sr04()
