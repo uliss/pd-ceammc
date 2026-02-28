@@ -74,8 +74,8 @@ fn output_system() {
 
 fn output_disk(use_bytes: bool) {
     for disk in Disks::new_with_refreshed_list().iter() {
-        // macos skip
-        if disk.mount_point().starts_with("/Volumes") {
+        // macos and linux skip
+        if disk.mount_point().starts_with("/Volumes") || disk.mount_point().starts_with("/boot") {
             continue;
         }
 
