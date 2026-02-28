@@ -4,7 +4,7 @@ use chrono::{DateTime, Local};
 use colored::Colorize;
 use humansize::{format_size, BINARY};
 use std::time::SystemTime;
-use sysinfo::{Networks, System};
+use sysinfo::{Disks, Networks, System};
 
 fn data_size(size_bytes: u64, human: bool) -> String {
     if human {
@@ -72,6 +72,41 @@ fn output_system() {
     );
 }
 
+fn output_disk(use_bytes: bool) {
+    for disk in Disks::new_with_refreshed_list().iter() {
+        // macos skip
+        if disk.mount_point().starts_with("/Volumes") {
+            continue;
+        }
+
+        println!("disk_name:   \t{}", disk.name().display().to_string());
+        println!(
+            "disk_mount:  \t{}",
+            disk.mount_point().display().to_string()
+        );
+        println!(
+            "disk_free:   \t{}",
+            data_size(disk.available_space(), !use_bytes)
+        );
+        println!(
+            "disk_total:   \t{}",
+            data_size(disk.total_space(), !use_bytes)
+        );
+        println!(
+            "disk_usage:   \t{}%",
+            100 - (100 * disk.available_space()) / disk.total_space()
+        );
+        println!(
+            "disk_read:   \t{}",
+            data_size(disk.usage().total_read_bytes, !use_bytes)
+        );
+        println!(
+            "disk_write:   \t{}",
+            data_size(disk.usage().total_written_bytes, !use_bytes)
+        );
+    }
+}
+
 fn output_pd() {
     println!("pd_distrib:   \t{}", crate::config::CEAMMC_DISTRIB_VERSION);
     println!("pd_ceam_ver:  \t{}", crate::config::CEAMMC_LIB_VERSION);
@@ -121,6 +156,7 @@ pub fn output_info(
     net: bool,
     system: bool,
     pd: bool,
+    disk: bool,
 ) {
     let mut sys = sysinfo::System::new_all();
     sys.refresh_all();
@@ -128,6 +164,12 @@ pub fn output_info(
     if all || mem {
         output_header("memory");
         output_memory(&sys, use_bytes);
+        println!();
+    }
+
+    if all || disk {
+        output_header("disks");
+        output_disk(use_bytes);
         println!();
     }
 

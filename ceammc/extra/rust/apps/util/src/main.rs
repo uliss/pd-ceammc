@@ -92,8 +92,9 @@ fn main() -> anyhow::Result<()> {
             system,
             pd: _,
             net,
+            disk,
         } => {
-            output_info(use_bytes, all, mem, cpu, net, system, true);
+            output_info(use_bytes, all, mem, cpu, net, system, true, disk);
         }
         Commands::Xdg(xdg) => match xdg {
             cli::Xdg::Info {} => xdg::info(),

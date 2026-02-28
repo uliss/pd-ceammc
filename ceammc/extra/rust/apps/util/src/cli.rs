@@ -89,6 +89,9 @@ pub enum Commands {
         /// output network information
         #[arg(long)]
         net: bool,
+        /// output disks information
+        #[arg(long)]
+        disk: bool,
     },
     /// XDG (X Desktop Group)
     #[command(subcommand)]
