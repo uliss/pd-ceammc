@@ -1,8 +1,9 @@
 file(GLOB _BUILD_SCRIPTS "*.sh")
 file(GLOB _RPI_EXAMPLES "rpi/examples/*.pd")
 add_custom_target(
-  ceammc_distrib_linux_sources SOURCES ${_BUILD_SCRIPTS} ${_RPI_EXAMPLES}
-                                       rpi/pd-ceammc-autostart.desktop)
+  ceammc_distrib_linux_sources
+  SOURCES ${_BUILD_SCRIPTS} ${_RPI_EXAMPLES} rpi/pd-ceammc-autostart.desktop
+          rpi/examples/close_all_subpatches.sh)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/update_deb_pkg_version.sh
                ${PROJECT_BINARY_DIR}/scripts/update_deb_pkg_version.sh @ONLY)
