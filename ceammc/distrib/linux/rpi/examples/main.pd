@@ -1,11 +1,10 @@
 #N canvas 243 46 477 664 12;
-#X obj 26 23 ui.label @size 362 47 @receive "(null)" @send "(null)" @nosave 0 @pinned 1 @background_color 0.806275 0.806275 0.806275 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @align "left" @text "AUTOSTART" "FILE" @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 32 @margin_top 5 @margin_left 5 @margin_bottom 5 @margin_right 5;
+#X obj 26 23 ui.label @size 362 47 @receive "(null)" @send "(null)" @nosave 0 @pinned 1 @background_color 0.806275 0.806275 0.806275 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @align "left" @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 32 @margin_top 5 @margin_left 5 @margin_bottom 5 @margin_right 5 @text "AUTOSTART" "FILE";
 #X text 32 493 Обзор объектов для работы c различными устройствами в Raspberry Pi:;
 #X obj 92 537 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "/home/ceam/Documents/Pd/rpi_support_overview.pd" @title "Обзор\ объектов\ RPi";
 #X text 32 563 Полезные патчи:;
 #X obj 92 589 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "/home/ceam/Documents/Pd/audio_channel_test.pd" @title "Проверка\ многоканального\ звука";
 #X text 32 139 Если вы хотите \, чтобы при старте запускался другой патч – создайте символическую ссылку на него в каталоге /home/ceam/Documents/Pd под именем "main.pd".;
-#X text 32 202 Символическую ссылка на файл автозапуска можно создать при помощи команды:;
 #X text 32 277 Для обновления Pure Data наберите в командной строке:;
 #X obj 56 308 cnv 20 360 22 empty empty empty 20 12 0 12 #e0e0e0 #404040 0;
 #X obj 56 243 cnv 20 360 22 empty empty empty 20 12 0 12 #e0e0e0 #404040 0;
@@ -27,7 +26,7 @@
 #X text 31 345 Подробнее об утилите ceam ->;
 #N canvas 633 163 474 473 ceam 0;
 #X obj 96 113 cnv 20 360 22 empty empty empty 20 12 0 12 #e0e0e0 #404040 0;
-#X obj 25 23 ui.label @size 430 47 @receive "(null)" @send "(null)" @nosave 0 @pinned 1 @background_color 0.806275 0.806275 0.806275 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @align "left" @text "ceam-util" @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 30 @margin_top 5 @margin_left 5 @margin_bottom 5 @margin_right 5;
+#X obj 25 23 ui.label @size 430 47 @receive "(null)" @send "(null)" @nosave 0 @pinned 1 @background_color 0.806275 0.806275 0.806275 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @align "left" @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 30 @margin_top 5 @margin_left 5 @margin_bottom 5 @margin_right 5 @text "ceam-util";
 #X text 27 90 Обновить PureData:;
 #X obj 96 163 cnv 20 360 22 empty empty empty 20 12 0 12 #e0e0e0 #404040 0;
 #X text 27 140 Обновить файлы примеров:;
@@ -46,3 +45,4 @@
 #X text 105 313 ceam info;
 #X text 105 403 ceam pd --help;
 #X restore 273 345 pd ceam;
+#X text 32 202 Символическую ссылку на файл автозапуска можно создать при помощи команды:;
